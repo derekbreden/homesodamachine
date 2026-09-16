@@ -48,9 +48,11 @@ Run:
 
 import math
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import cadquery as cq
+from fontTools.svgLib.path import parse_path
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -225,9 +227,8 @@ TITLE_GAP = 2.8
 LINK_MID = -6.4
 DETAIL_TOP = -13.4
 DETAIL_GAP = 1.2
-# The glass mark standing beside the name, the air between them, and its stroke.
+# The faucet mark standing beside the name, and the air between them.
 LOGO_H = 28.0
-LOGO_STROKE = 1.2
 LOGO_GAP = 5.5
 # The flame joins the final centred detail line at the shared cap height.
 FLAME_GAP = 1.2
@@ -250,7 +251,7 @@ def cap_height(em: float) -> float:
 
 
 def lockup_width() -> float:
-    """The brand lockup across: the glass mark, the air beside it, and the name."""
+    """The brand lockup across: the faucet mark, the air beside it, and the name."""
     return logo_width() + LOGO_GAP + max(text_width(s, TITLE_EM) for s in lines(1)["name"])
 
 
@@ -282,14 +283,10 @@ def line(s: str, em: float, x_start: float, z_mid: float):
 
 # --- the brand mark --------------------------------------------------------
 #
-# The soda glass the main board silkscreens (`/hardware/pcb/pcba/logo.ts`) and the app icon draws
-# (`/ios/AppIcon.svg`), as stroked outline: the glass, the liquid's surface, and four bubbles.
-# Coordinates are the icon's own 1024 viewBox, Y down.
-_GLASS_SVG_H = 530.0
+# The On tap faucet and separate drop come from the same master as the app and web artwork.
+# Both silhouettes are filled white inlay. The SVG's circular arcs stay analytic in the STEP.
+_BRAND_MARK = _hw.parent / "brand" / "mark.svg"
 _SVG_C = 512.0
-_GLASS = [(310, 247), (340, 747)]
-_WAVE = [(300, 347), (400, 327), (512, 352), (624, 377), (724, 342)]
-_BUBBLES = ((440, 740, 42), (572, 610, 36), (500, 489, 33), (628, 408, 29))
 
 
 def _qbez(p0, c, p1, n=10):
@@ -302,62 +299,69 @@ def _qbez(p0, c, p1, n=10):
     return out
 
 
-def _glass_outline():
-    g = list(_GLASS)
-    g += _qbez((340, 747), (345, 777), (380, 777))
-    g += [(644, 777)]
-    g += _qbez((644, 777), (679, 777), (684, 747))
-    g += [(714, 247)]
-    return g
-
-
-def _wave_points():
-    w = [_WAVE[0]]
-    w += _qbez(_WAVE[0], _WAVE[1], _WAVE[2])
-    w += _qbez(_WAVE[2], _WAVE[3], _WAVE[4])
-    return w
-
-
 def _icon_xy(p, scale):
     """One icon point in the plate's flat XY frame, centred on the mark's own centre."""
     return ((p[0] - _SVG_C) * scale, -(p[1] - _SVG_C) * scale)
 
 
-def build_logo(height: float = LOGO_H, stroke: float = LOGO_STROKE):
-    """The mark as a flat XY solid `INK_DEPTH` thick: the glass's outline, and inside it the
-    liquid's surface and four bubbles, each clipped to the glass the way the icon clips them."""
-    s = height / _GLASS_SVG_H
-    half = stroke / 2.0
-    outline = [_icon_xy(p, s) for p in _glass_outline()]
+class _FaucetPen:
+    """Read the master path's lines and semicircles into one explicitly closed CAD wire."""
 
-    def loop(points):
-        return cq.Workplane("XY").polyline(points + points[:1]).wire()
+    def moveTo(self, point):
+        self.point = point
+        self.path = cq.Workplane("XY").moveTo(*_icon_xy(point, 1.0))
 
-    glass = (loop(outline).offset2D(half, "arc").extrude(INK_DEPTH).val()
-             .cut(loop(outline).offset2D(-half, "arc").extrude(INK_DEPTH).val()))
-    inside = loop(outline).offset2D(-half, "arc").extrude(INK_DEPTH).val()
+    def lineTo(self, point):
+        self.path = self.path.lineTo(*_icon_xy(point, 1.0))
+        self.point = point
 
-    wave = (cq.Workplane("XY").polyline([_icon_xy(p, s) for p in _wave_points()])
-            .offset2D(half, "arc").extrude(INK_DEPTH).val())
-    mark = glass.fuse(wave.intersect(inside))
-    for bx, by, br in _BUBBLES:
-        cx, cy = _icon_xy((bx, by), s)
-        r = br * s
-        ring = (cq.Workplane("XY").center(cx, cy)
-                .circle(r).circle(max(r - stroke, 0.25)).extrude(INK_DEPTH).val())
-        mark = mark.fuse(ring.intersect(inside))
-    return mark
+    def arcTo(self, rx, ry, rotation, large, sweep, point):
+        dx, dy = point[0] - self.point[0], point[1] - self.point[1]
+        if not (math.isclose(rx, ry) and math.isclose(rotation, 0.0)
+                and math.isclose(math.hypot(dx, dy), 2.0 * rx)):
+            raise ValueError("The faucet master must use unrotated circular semicircles")
+        direction = 1.0 if sweep else -1.0
+        midpoint = ((self.point[0] + point[0] + direction * dy) / 2.0,
+                    (self.point[1] + point[1] - direction * dx) / 2.0)
+        self.path = self.path.threePointArc(_icon_xy(midpoint, 1.0),
+                                           _icon_xy(point, 1.0))
+        self.point = point
+
+    def closePath(self):
+        # parse_path supplies the explicit final line back to the start before this call.
+        self.wire = self.path.wire().val()
+
+    def endPath(self):
+        raise ValueError("The faucet master must be a closed silhouette")
 
 
-def logo_width(height: float = LOGO_H, stroke: float = LOGO_STROKE) -> float:
-    return build_logo(height, stroke).BoundingBox().xlen
+def build_logo(height: float = LOGO_H):
+    """The master faucet and drop at their visible height, filled `INK_DEPTH` thick."""
+    root = ET.parse(_BRAND_MARK).getroot()
+    faucet = root.find(".//*[@id='faucet']")
+    drop = root.find(".//*[@id='drop']")
+    if faucet is None or drop is None:
+        raise ValueError("The brand master must contain the faucet path and drop circle")
+    pen = _FaucetPen()
+    parse_path(faucet.attrib["d"], pen)
+    center = _icon_xy((float(drop.attrib["cx"]), float(drop.attrib["cy"])), 1.0)
+    circle = cq.Workplane("XY").center(*center).circle(float(drop.attrib["r"])).val()
+    wires = (pen.wire, circle)
+    scale = height / cq.Compound.makeCompound(wires).BoundingBox().ylen
+    return cq.Compound.makeCompound([
+        cq.Workplane("XY").add(wire.scale(scale)).toPending().extrude(INK_DEPTH).val()
+        for wire in wires
+    ])
+
+
+def logo_width(height: float = LOGO_H) -> float:
+    return build_logo(height).BoundingBox().xlen
 
 
 # --- the flame -------------------------------------------------------------
 #
 # A flame silhouette, drawn in the icon frame `_icon_xy` reads — the same
-# 1024 viewBox, Y down, that the glass is drawn in. The mark is filled where the glass is stroked,
-# so it takes a closed polyline rather than an `offset2D` outline.
+# 1024 viewBox, Y down. Its filled silhouette takes a closed polyline.
 _FLAME_SVG_H = 800.0
 
 

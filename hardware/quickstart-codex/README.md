@@ -33,7 +33,7 @@ the connection checks on page 23.
 The power-connection illustration uses the white On tap mark on the black nameplate.
 `tools/quickstart-codex/brand_scenes.py` renders that mark in the frozen scene, preserving
 the physical lettering and ratings. The manufacturing CAD in
-`hardware/printed-parts/enclosure/nameplate/nameplate.py` still carries the glass mark.
+`hardware/printed-parts/enclosure/nameplate/nameplate.py` reads the same `brand/mark.svg` master.
 
 The PDF, cover, fonts and artwork are committed snapshots. The manual authoring scripts
 are in `tools/quickstart-codex/`, outside the hardware build. The quick start, install guide

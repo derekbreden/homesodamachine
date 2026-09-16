@@ -116,6 +116,7 @@
   },
   "hardware/assembly/_electronics_bay_sync.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/_electronics_bay_sync.py",
       "hardware/assembly/electronics-bay.figures.json",
       "hardware/assembly/electronics-bay.md",
@@ -238,6 +239,7 @@
   },
   "hardware/assembly/_enclosure_mechanical_sync.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/_enclosure_mechanical_sync.py",
       "hardware/assembly/enclosure-mechanical.figures.json",
       "hardware/assembly/enclosure-mechanical.md",
@@ -513,6 +515,7 @@
   },
   "hardware/assembly/_internal_plumbing_sync.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/_internal_plumbing_sync.py",
       "hardware/assembly/internal-plumbing.figures.json",
       "hardware/assembly/internal-plumbing.md",
@@ -749,6 +752,7 @@
   },
   "hardware/assembly/cards/_build.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/_acceptance_and_burn_in_sync.py",
       "hardware/assembly/_cable_assemblies_sync.py",
       "hardware/assembly/_finish_pack_ship_sync.py",
@@ -1650,6 +1654,7 @@
   },
   "hardware/assembly/cards/_cards_sync.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/_acceptance_and_burn_in_sync.py",
       "hardware/assembly/_cable_assemblies_sync.py",
       "hardware/assembly/_finish_pack_ship_sync.py",
@@ -2489,6 +2494,7 @@
   },
   "hardware/assembly/scenes/render_scene_cards.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/cards/img/asse1022-chain.png",
       "hardware/assembly/cards/img/asse1022-chain.png.scene.json",
       "hardware/assembly/cards/img/coil-mandrel.png",
@@ -2945,6 +2951,7 @@
   },
   "hardware/assembly/scenes/render_scenes.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/cards/img/asse1022-chain.png",
       "hardware/assembly/cards/img/asse1022-chain.png.scene.json",
       "hardware/assembly/cards/img/coil-mandrel.png",
@@ -3764,6 +3771,7 @@
   },
   "hardware/manifold-layout/enclosure_assembly.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/scenes/_scenes.py",
       "hardware/assembly/scenes/render_scenes.py",
       "hardware/cold-core-layout/_bom.py",
@@ -4034,6 +4042,7 @@
   },
   "hardware/manifold-layout/enclosure_box.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -4736,6 +4745,7 @@
   },
   "hardware/printed-parts/enclosure/_enclosure_dimensions.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -4988,6 +4998,7 @@
   },
   "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5148,6 +5159,7 @@
   },
   "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5313,6 +5325,7 @@
   },
   "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5566,6 +5579,7 @@
   },
   "hardware/printed-parts/enclosure/nameplate/nameplate.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
@@ -5613,6 +5627,7 @@
   },
   "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5796,6 +5811,7 @@
   },
   "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5918,6 +5934,7 @@
   },
   "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -7650,6 +7667,7 @@
   },
   "hardware/scripts/_bom_sync.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -8188,6 +8206,7 @@
   },
   "hardware/scripts/tube_routes.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/assembly/scenes/_scenes.py",
       "hardware/assembly/scenes/render_scenes.py",
       "hardware/cold-core-layout/_bom.py",
@@ -8510,6 +8529,7 @@
   },
   "hardware/topology/_fluid_topology_sync.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",

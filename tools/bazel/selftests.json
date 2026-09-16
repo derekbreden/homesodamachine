@@ -19,6 +19,7 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/manifold-layout/_scorecard.py": [
+    "brand/mark.svg",
     "hardware/cold-core-layout/_bom.py",
     "hardware/cold-core-layout/_carbonator.py",
     "hardware/cold-core-layout/_coil.py",
@@ -123,6 +124,7 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/manifold-layout/enclosure_assembly.py": [
+    "brand/mark.svg",
     "hardware/cold-core-layout/_bom.py",
     "hardware/cold-core-layout/_carbonator.py",
     "hardware/cold-core-layout/_coil.py",
@@ -298,6 +300,7 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/printed-parts/enclosure/nameplate/nameplate.py": [
+    "brand/mark.svg",
     "hardware/printed-parts/cadlib/snap.py",
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -550,6 +553,7 @@
     "hardware/scripts/_realized.py"
   ],
   "hardware/scripts/_facts.py": [
+    "brand/mark.svg",
     "hardware/assembly/scenes/_scenes.py",
     "hardware/assembly/scenes/render_scenes.py",
     "hardware/cold-core-layout/_bom.py",
@@ -750,6 +754,7 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/scripts/fit.py": [
+    "brand/mark.svg",
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
     "hardware/manifold-layout/enclosure_assembly.py",
@@ -922,6 +927,7 @@
     "hardware/scripts/flute_payload.py"
   ],
   "hardware/scripts/lanes.py": [
+    "brand/mark.svg",
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
     "hardware/manifold-layout/enclosure_assembly.py",
@@ -1042,6 +1048,7 @@
     "hardware/scripts/pick_read.py"
   ],
   "hardware/scripts/probe.py": [
+    "brand/mark.svg",
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
     "hardware/manifold-layout/enclosure_assembly.py",
