@@ -1733,7 +1733,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             )
         for name in sorted(ml.CARRIER_TEES):
             shape = tee_pose(name, dy)
-            read(f"{state} {name}", shape, (("enclosure-front-top", wall),))
+            read(f"{state} {name}", shape, (("enclosure-front-top", wall), *fixed))
             gap = shape.BoundingBox().ymin - plate['aft_y']
             if abs(gap - row['plate_gap']) > ml.tee.MEASURE_TOL:
                 failures.append(f'{state} {name}: actual collet-to-plate gap {gap:.6f} mm')

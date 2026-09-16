@@ -573,7 +573,7 @@ def interface(spec=DEFAULT_SPEC):
         'joint_work_fore_y': spec.joint_fore_y + spec.release_offset_y - spec.slide_air,
         'release_fore_stop_y': slot_y[0],
         'squeeze_reference_aft_y': spec.web_aft_y,
-        'park_aft_stop_y': spec.rim_y[1] + spec.park_offset_y,
+        'nominal_tongue_aft_y': spec.rim_y[1] + spec.connected_offset_y,
         'guide_body_y': spec.grip_y,
         'guide_body_z': spec.grip_z,
         'printed_guide_body_z': spec.printed_grip_z,
