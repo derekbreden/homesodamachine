@@ -136,6 +136,7 @@ TOOLS = [
     ("Slip Roll", "T_SLIP_ROLL", A("B0DZP1VBZY")),
     ("Hydraulic Shop Press", "T_SHOP_PRESS", A("B0BZ7YY3CP")),
     ("WEN 4208T", "T_DRILL_PRESS", A("B08ZVT5JKC")),
+    ("Drill America 1/16", "T_JET_DRILLS", A("B00FX9PNYQ")),
     ("DWT adjustable tap wrench", "T_TAP_WRENCH", A("B00DMEYTLW")),
     ("M35 cobalt pipe tap", "T_M35_TAP", A("B0D7HM5R3C")),
     ("tap guide", "T_TAP_GUIDE", A("B005317ZMC")),
@@ -158,6 +159,10 @@ TOOLS = [
     ])),
     ("argon size-80 cylinder + RHP400", "T_ARGON_CYL", L(contains="argon size-80 cylinder", section="1")),
     ("RX Weld argon regulator", "T_RXWELD", A("B08P5BNHBX")),
+    ("Argon purge branch", "T_JET_PURGE", SUM([
+        A("B0F1FDG9SC"), lambda: A("B01ABDD8FY")() / 5,
+        A("B0DXZZBK7D"), A("B0F6SYFK48"), A("B0CLXHZZCW"),
+    ])),
     ("Welding Cart", "T_WELD_CART", A("B08G5CW3DY")),
     ("magnetic V-pads", "T_MAGNETS", A("B00JXDSVA6")),
     ("wire brush set", "T_BRUSH", A("B08L7RXVG5")),

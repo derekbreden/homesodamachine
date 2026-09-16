@@ -1,0 +1,11 @@
+{
+  "/hardware/assembly/_water_inlet_jet_sync.py": {
+    "CAP_OD": "9.5 mm",
+    "CAP_THICKNESS": "2 mm",
+    "DRILL_RPM": "1100 rpm",
+    "DRILL_SFM": "18.0 surface feet/minute",
+    "JET_AREA": "1.979 mm\u00b2",
+    "JET_BORE": "1/16 inch / 1.5875 mm",
+    "JET_LD": "1.26"
+  }
+}

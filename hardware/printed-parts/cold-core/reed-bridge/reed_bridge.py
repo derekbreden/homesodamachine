@@ -113,7 +113,7 @@ carbonated_water_per_serving = (
 serving_level_rise = carbonated_water_per_serving / volume_per_mm
 
 # Pump-off level, as a fraction of the wetted height. The complement is
-# the CO2 headspace the sparge column and the level surge live in.
+# the CO2 headspace the inlet jet discharges into.
 high_fill_fraction = 0.65
 # [95.25 mm](HIGH_LEVEL) — CHI, pump off. [67.12 mm](LOW_LEVEL) — CLO,
 # pump on, one serving below.

@@ -57,7 +57,7 @@ of level.
 **CHI — pump off** at 65 % of the wetted height: level
 [95.25 mm](HIGH_LEVEL). [992 mL](STORED_ML) = [2.93](STORED_SERVINGS)
 servings stored above the floor, [534.2 mL](HEADSPACE_ML) of CO2 headspace
-(35 %) above it for the sparge column and the level surge.
+(35 %) above it for the inlet jet and the level surge.
 
 **CLO — pump on** one serving below: level [67.12 mm](LOW_LEVEL). The
 refill increment is one drink. Below CLO, [654 mL](RESERVE_ML) =

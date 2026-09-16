@@ -30,10 +30,9 @@ WHAT THESE CARDS STAND ON, and is therefore asserted rather than measured:
   draws it. `PORT_COL_PITCH` / `CARB_END` are the enclosure's own facts and are
   reused rather than re-derived, so a card here cannot state the row's shape and
   disagree with the card that seats it.
-- EVERY LEVEL ROD IS CUT TO A SEAT-TO-SEAT SPAN MINUS ONE MILLIMETRE. That is
-  the whole clearance budget, and it is the same rule in the carbonator (welded
-  base, registered tip) and in both reservoirs (boss-captured both ends), so
-  PV-05 states one clearance for three rods and `_rod_clearances` holds it.
+- EACH LEVEL ROD IS CUT UNDER ITS OWN SEAT-TO-SEAT SPAN. The carbonator has a
+  welded base and registered tip; each reservoir captures both ends in bosses.
+  PV-05 reads their clearances separately from the sources that set the cuts.
 """
 
 import os
@@ -169,15 +168,9 @@ def _figures():
     # inside-face chamfer is a lead-in for and what PV-07's deburr is to protect.
     plate_slip = (_cap.tube_id - _cap.disc_diameter) / 2.0
 
-    # ── one clearance, three rods (PV-05, PV-06, PV-09) ───────────────────
-    # Each rod is cut under its own seat-to-seat span by the same millimetre, in
-    # the carbonator and in both reservoirs. PV-05 cuts all three at one bench
-    # and states ONE clearance for them; two clearances would make that sentence
-    # a table instead.
-    assert _pv.rod_clearance == _rsv.reservoir_rod_clearance, (
-        f"the carbonator's rod is cut {_pv.rod_clearance} mm under its span and a reservoir's "
-        f"{_rsv.reservoir_rod_clearance} mm under its — PV-05 states one clearance for all three")
-    rod_clearance = _pv.rod_clearance
+    # ── the carbonator and reservoir rods (PV-05, PV-06, PV-09) ────────────
+    # PV-05 cuts all three at one bench, with each clearance read from the
+    # source that sets that rod's finished length.
     # ONE carbonator, and therefore one carbonator rod. Typed, because the carbonator is
     # not a population the CAD counts — `_pressure_vessel_sync` carries a single
     # `carbonator_rod_len`, so there is no census to read and nothing that would move
@@ -259,8 +252,9 @@ def _figures():
                         f"({_rsv.reservoir_rod_len / MM_PER_IN:.3g} in)",
         "RSVR_ROD_MM": f"{_rsv.reservoir_rod_len:.4g} mm",
         # The span the cut backs off from. CC-08 draws it beside the cut length.
-        "RSVR_SEAT_TO_SEAT": f"{_rsv.reservoir_rod_len + rod_clearance:.4g}",
-        "ROD_CLEARANCE": f"{rod_clearance:.4g} mm",
+        "RSVR_SEAT_TO_SEAT": f"{_rsv.reservoir_rod_len + _rsv.reservoir_rod_clearance:.4g}",
+        "ROD_CLEARANCE": f"{_pv.rod_clearance:.4g} mm",
+        "RSVR_ROD_CLEARANCE": f"{_rsv.reservoir_rod_clearance:.4g} mm",
         "ROD_PAIR_SUM": f"{rod_pair:.4g}",
         "ROD_STICK": f"{stick_len:.4g}",
         # ── PV — closure (PV-06, PV-09) ──────────────────────────────────
@@ -330,7 +324,7 @@ def _figures():
         "pv-05-cut-level-rods": {
             "LEVEL_RODS", "CARB_ROD_LEN", "RSVR_ROD_LEN", "CARB_ROD_QTY",
             "RSVR_ROD_QTY", "CARB_ROD_MM", "RSVR_ROD_MM", "ROD_CLEARANCE",
-            "ROD_PAIR_SUM", "ROD_STICK"},
+            "RSVR_ROD_CLEARANCE", "ROD_PAIR_SUM", "ROD_STICK"},
         "pv-06-tack-float-rod": {
             "REGISTER_D", "CARB_ROD_LEN", "CARB_ROD_MM", "ROD_CLEARANCE",
             "TANK_H", "PLATE_RECESS", "PLATE_THK", "REGISTER_DEPTH"},

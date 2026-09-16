@@ -89,15 +89,13 @@ HELD_BY = {
     "evap-coil": "the carbonator it clamps",
     "evap-tail-inlet": "wall slot",
     "evap-tail-outlet": "wall slot",
+    "water-inlet-jet-cap-nominal": "water elbow tip weld (unqualified)",
 }
 for _n in _V.PORTS:
     HELD_BY[f"carbonator-elbow-{_n}"] = "plate thread"
 
 # What holds the bodies that come in families, by the name each family shares.
 HELD_BY_PREFIX = (
-    ("sparge-barb", "plate thread"),
-    ("sparge-silicone-stub", "the barb and the stone"),
-    ("sparge-stone", "its own stub"),
     ("bulkhead-reservoir", "trough floor"),
     ("bulkhead-seal-", "the bulkhead's own nut"),
     ("collet-", "elbow socket"),
@@ -677,6 +675,16 @@ def build_card(a) -> Scorecard:
         _arcs_hold(fitted),
         _prv_vent_lands(a.points),
         _floats_couple(placed),
+        Check("inlet-jet-qualified", "The inlet jet's actual joint and fit are qualified",
+              "goal", "warn", "nominal layout only", "measured fit and qualified weld",
+              ["The cap is drawn at nominal 9.5 mm diameter, 2 mm thickness and a 1/16-inch passage.",
+               "The elbow bore and installed tip projection are unmeasured layout assumptions; "
+               "the model does not establish the weld land, penetration or pressure integrity.",
+               "Qualify the coupon, passage and made-up port using assembly/water-inlet-jet.md."]),
+        Check("gas-adapter-envelope", "The gas collet matches its acquired PI010822S",
+              "goal", "warn", "shared nominal envelope", "measured gas-adapter envelope",
+              ["The gas port carries the PI010822S identity and gray acetal material; "
+               "its envelope is represented by the existing PP010822E layout reference until measured."]),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),
         _goal("located", "Every port a placed body declares is positioned",

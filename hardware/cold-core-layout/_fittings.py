@@ -52,7 +52,7 @@ def _orient(solid, axis):
 #
 # `bom.md` §2 — all four carbonator-port elbows. Male on one leg, female on the other: the male
 # threads into the plate's own tapped 1/4"-18 NPT and the female socket turns the line 90° onto
-# its lateral axis, where a PP010822E collet, the SV-125 or the sparge barb makes up on it.
+# its lateral axis, where a push-connect adapter or the SV-125 makes up on it.
 #
 # The hex is sized by the ⌀19 mm bore of `prv-shroud`, which the README there
 # states the elbow seat enters: across corners has to clear it, so across flats stops at 5/8".
@@ -60,12 +60,12 @@ def _orient(solid, axis):
 # `_carbonator` passes it in rather than taking the catalog reach below.
 ELBOW_HEX_AF = 0.625 * IN                 # 5/8" across flats — 18.33 across corners in a ⌀19 bore
 ELBOW_LEG = 0.81 * IN                     # centre of the body to either face
-ELBOW_BORE = 0.25 * IN                    # the 1/4" run through it
+ELBOW_BORE = 0.25 * IN                    # layout placeholder, NOT a measured purchased bore
 # The male stub is drawn as the HOLE IT OCCUPIES — the 7/16" tap drill — through the plate it
 # threads into. A 1/4" NPT major Ø is 0.540", wider than the drill, because the thread is cut
 # into the plate rather than displacing it.
 ELBOW_MALE_R = 0.5 * 0.4375 * IN
-ELBOW_MALE_LEN = 0.26 * IN                # L1 hand-tight engagement, one plate thick
+ELBOW_MALE_LEN = 0.26 * IN                # nominal L1 engagement; installed projection unmeasured
 # The female socket is tapped, so what it receives is a male at its MAJOR Ø — the 0.540" the
 # `jg-pp010822e` reference draws its shank at — for as deep as a stub goes, and the 1/4" run
 # past that.
@@ -128,55 +128,6 @@ def sv125(*, at, axis):
 def sv125_reach() -> float:
     """How far the valve stands off the mouth it makes up on."""
     return PRV_HEX_H + PRV_CAP_H
-
-
-# --- LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS ---------------------------
-#
-# `bom.md` §2, port 1. Threads into the bottom plate's lane-side elbow with the barb facing
-# INWARD, into the carbonator: the silicone stub hangs off it and the sparge stone hangs off that.
-# The barb and the port's own elbow are two male fittings in ONE through-tapped hole, one from
-# each face, so each reaches half the plate.
-BARB_STUB_LEN = 0.125 * IN
-BARB_HEX_AF = 0.5625 * IN
-BARB_HEX_H = 0.31 * IN
-BARB_LEN = 0.75 * IN
-BARB_R = 0.5 * 0.25 * IN
-
-
-def hose_barb(*, at, axis):
-    """The barb adapter, male stub at `at`, barb reaching along `axis`."""
-    axis = cq.Vector(*axis).normalized()
-    base = cq.Vector(*at)
-    stub = _orient(_cyl(ELBOW_MALE_R, BARB_STUB_LEN), -axis).translate(base)
-    hexb = _orient(_hex(BARB_HEX_AF, BARB_HEX_H), axis).translate(base)
-    barb = _orient(_cyl(BARB_R * 1.15, BARB_LEN), axis).translate(base + axis.multiply(BARB_HEX_H))
-    tip = base + axis.multiply(BARB_HEX_H + BARB_LEN)
-    return stub.fuse(hexb).fuse(barb), Mouth(tuple(tip), tuple(axis), 0.25 * IN)
-
-
-# --- FERRODAY 0.5 µm sintered SS sparge stone, 1/4" barb ---------------------
-#
-# `bom.md` §2. Hangs in the water column on the silicone stub off port 1.
-# A BATON: ⌀[0.5"](STONE_D) of sintered barrel, 1" of it, with the 1/4" barb pressed into its
-# crown and standing 0.87" proud — 1.87" over all, off the listing's own dimensioned photo.
-# The barrel is the envelope that has to clear a bore; the barb is what the silicone pulls on.
-# `sparge_reach` is their sum.
-STONE_R = 0.5 * 0.5 * IN
-STONE_H = 1.0 * IN
-STONE_STEM_LEN = 0.87 * IN
-
-
-def sparge_stone(*, at, axis):
-    """The stone, its barb stem at `at` and its body along `axis`."""
-    axis = cq.Vector(*axis).normalized()
-    base = cq.Vector(*at)
-    stem = _orient(_cyl(BARB_R * 1.15, STONE_STEM_LEN), axis).translate(base)
-    body = _orient(_cyl(STONE_R, STONE_H), axis).translate(base + axis.multiply(STONE_STEM_LEN))
-    return stem.fuse(body)
-
-
-def sparge_reach() -> float:
-    return STONE_STEM_LEN + STONE_H
 
 
 # --- YXQ float capsule (harvested) -------------------------------------------

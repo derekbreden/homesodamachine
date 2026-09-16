@@ -252,7 +252,7 @@ NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1]
 # carbonator. An edge to one of these carries a route id only if the segment it names has just one
 # end the machine knows, which is what a mouth with nothing on it yet is.
 UNPLACED = {"Faucet", "Gooseneck", "Tap", "CO2", "Vent", "PRVOut", "LevelSense",
-            "P1", "P2", "P3", "P4", "SpargeStone", "Headspace", "Water", "Float"}
+            "P1", "P2", "P3", "P4", "WaterJet", "Headspace", "Water", "Float"}
 
 # Which limb box in fluid-topology-limbs.mmd is which of the manifold's four lanes.
 LIMB_BOXES = {"LA1": "A1", "LA2": "A2", "LB1": "B1", "LB2": "B2"}

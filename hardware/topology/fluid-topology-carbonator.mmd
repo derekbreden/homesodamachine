@@ -47,11 +47,11 @@ flowchart LR
   %% =========================
   %% The ABU44 is clamped through the +Y wall of back-top by its own nut, a collet on each face. The
   %% customer's red tether lands on the outboard one; co2-0 leaves the inboard one for the
-  %% check, whose arrow points away from the bulkhead.
+  %% regulator, followed by the downstream check whose arrow points toward the carbonator.
   subgraph CO2Supply["CO2 Supply"]
     direction LR
     CO2In["co2-inlet<br/>(neoFit ABU44 1/4&quot; bulkhead, +Y wall of back-top)"]
-    GasherCO2["gasher-co2<br/>(1/4&quot; NPT check)"]
+    GasherCO2["gasher-co2<br/>(check + PI adapters + 316 coupling)"]
     WR["wr1110<br/>(secondary regulator, fixed 90 PSI)"]
   end
 
@@ -72,19 +72,19 @@ flowchart LR
     direction TB
 
     P4["Port 4: PRV<br/>(top plate, &minus;Y)"]
-    P2["Port 2: Water inlet<br/>(top plate, +Y, free-fall)"]
-    P1["Port 1: CO2 inlet<br/>(bottom plate, to sparge stone)"]
+    P2["Port 2: Water inlet<br/>(top plate, +Y)"]
+    P1["Port 1: CO2 inlet<br/>(plain bottom opening)"]
     P3["Port 3: Water outlet<br/>(bottom plate)"]
 
-    SpargeStone["Sparge Stone<br/>(0.5 µm sintered SS)"]
+    WaterJet["Water-inlet jet<br/>(drilled 316 cap on elbow tip)"]
     Headspace(("CO2 Headspace"))
     Water(("Carbonated<br/>Water"))
     Float(("Magnetic Float"))
 
-    P1 --> SpargeStone
-    SpargeStone --> Water
+    P1 --> Water
+    P2 --> WaterJet
     Water --> Headspace
-    P2 --> Water
+    WaterJet --> Water
     Headspace ==> P4
     Water --> P3
     Float --> Water
@@ -103,8 +103,8 @@ flowchart LR
   VA["V-A<br/>— the flavor manifold's tap"]
 
   %% The carbonator is filled HIGH and drawn LOW: tap water arrives at the top plate above the
-  %% liquid and falls into the headspace against the CO2 back-pressure, the gas enters below the
-  %% liquid and dissolves on the way up, and the carbonated draw leaves at the bottom plate. Both
+  %% liquid and jets through the CO2 headspace into the water. Gas enters the plain bottom port
+  %% while forward pressure permits; the carbonated draw leaves at the other bottom port. Both
   %% reservoirs are filled and drawn the same way.
   Tap --> BhW
   BhW --> BFP
@@ -121,9 +121,9 @@ flowchart LR
   DischChain -->|"water-5"| CapWater
   CapWater --> P2
   CO2 --> CO2In
-  CO2In -->|"co2-0"| GasherCO2
-  GasherCO2 -->|"co2-1"| WR
-  WR -->|"co2-2"| CapCO2
+  CO2In -->|"co2-0"| WR
+  WR -->|"co2-1"| GasherCO2
+  GasherCO2 -->|"co2-2"| CapCO2
   CapCO2 --> P1
   P3 --> CapCarb
   CapCarb -->|"carb-1"| FlowMeter

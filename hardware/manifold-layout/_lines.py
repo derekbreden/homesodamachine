@@ -83,6 +83,7 @@ import condenser_block as _cond                        # noqa: E402
 import copper_plugs as _plugs                          # noqa: E402
 import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
+import _gas_chain                                      # noqa: E402
 import digiten_flow_sensor as _digiten                  # noqa: E402
 
 BLOCKED = R.BLOCKED
@@ -157,10 +158,10 @@ STATIONS = {
     # red tether lands on the outboard collet and the gas chain leaves by the inboard one.
     "co2-inlet": {"inboard": (lambda: _neofit.port(-1.0), _neofit.TUBE_OD),
                   "outboard": (lambda: _neofit.port(1.0), _neofit.TUBE_OD)},
-    "gasher-co2": {"inlet": (_gasher.inlet, _split.TUBE_D),
-                   "outlet": (_gasher.outlet, _split.TUBE_D)},
-    "wr1110": {"inlet": (_wr1110.inlet, _split.TUBE_D),
-               "outlet": (_wr1110.outlet, _split.TUBE_D)},
+    "gasher-co2": {"inlet": (_gas_chain.check_inlet, _split.TUBE_D),
+                   "outlet": (_gas_chain.check_outlet, _split.TUBE_D)},
+    "wr1110": {"inlet": (_gas_chain.regulator_inlet, _split.TUBE_D),
+               "outlet": (_gas_chain.regulator_outlet, _split.TUBE_D)},
     "water-split": {"supply": (_split.supply, _split.TUBE_D),
                     "to-vk": (_split.to_vk, _split.TUBE_D),
                     "to-flavor": (_split.to_flavor, _split.TUBE_D)},
@@ -262,11 +263,11 @@ def build_runs(placed, carries):
         runs.append(_fluid_1(F))
     if {"water-split", "vk-solenoid"} <= set(F):
         runs.append(_water_3(F))
-    if {"co2-inlet", "gasher-co2"} <= set(F):
+    if {"co2-inlet", "wr1110"} <= set(F):
         runs.append(_co2_0(F))
     if {"gasher-co2", "wr1110"} <= set(F):
         runs.append(_co2_1(F))
-    if {"wr1110", "foam-assembly"} <= set(F):
+    if {"gasher-co2", "foam-assembly"} <= set(F):
         runs.append(_co2_2(F))
     if ({"flow-regulator", "valve-v-a", "bulkhead-flavor-a"} <= set(F)
             and "coil-v-a" in placed):
@@ -306,26 +307,24 @@ def build_seated_runs(placed, carries):
 
 
 def _co2_0(F):
-    """co2-0 — the wall bulkhead's inboard collet to the check's inlet socket, one straight hop.
-
-    The two mouths face each other down the chain's own axis with
-    `enclosure_assembly.CO2_INLET_HOP` between them, so this is a PI010822S in the check's female
-    inlet and the length of tube the bulkhead's collet and the adapter's collet both grip."""
+    """co2-0 — wall bulkhead to the fixed regulator's PI010822S inlet collet."""
     return R.bent(
-        "co2-0", "co2-inlet.inboard", "gasher-co2.inlet",
-        kind="co2", note="CO2: rear-wall bulkhead → check inlet, one straight hop on the "
-                         "chain's axis")
+        "co2-0", "co2-inlet.inboard", "wr1110.inlet",
+        kind="co2", note="CO2: rear-wall bulkhead → WR1110 inlet collet")
 
 
 def _co2_1(F):
-    """co2-1 — the check's stub tip to the regulator's inlet socket, one straight hop.
-
-    The two mouths face each other down the chain's own axis with `enclosure_assembly.CO2_HOP`
-    between them, so this is a PP450822E on the check's male stub, a PP010822E in the regulator's
-    female one, and the length of tube the two collets both take hold of."""
+    """co2-1 — a forward U-turn between regulator and downstream check inlet collets."""
+    src = F["wr1110"].at("outlet")
+    dst = F["gasher-co2"].at("inlet")
+    # The soda-water crossing's ceiling cradle is immediately forward of this run.
+    # Bring the U-turn 1 mm back toward its collets to clear that existing cradle;
+    # both corners retain the stock's full bend radius.
+    turn_y = min(src[1], dst[1]) - 2.0 * TUBE_BEND + 1.0
     return R.bent(
-        "co2-1", "gasher-co2.outlet", "wr1110.inlet",
-        kind="co2", note="CO2: check outlet → WR1110 inlet, one straight hop on the chain's axis")
+        "co2-1", "wr1110.outlet", (src[0], turn_y, src[2]),
+        (dst[0], turn_y, dst[2]), "gasher-co2.inlet",
+        kind="co2", note="CO2: WR1110 outlet → downstream check inlet, U-turn above the pump")
 
 
 # The rear bulkhead's inboard collet and the ASSE 1022's inlet collet meet face to face, so the
@@ -638,31 +637,18 @@ def _water_5(F):
 
 
 def _co2_2(F):
-    """co2-2 — the regulator's outlet to the cold core's CO2 conduit, and the whole gas path
-    inside the machine.
-
-    IT NEVER CHANGES HEIGHT UNTIL IT DROPS. The regulator lies on the panel deck, so the run
-    leaves its outlet on the CO2 axis below that storey, comes forward onto the bore's own Y, crosses east onto the
-    bore's own column and falls the whole way down the port lane in one leg. Three legs, two
-    corners, and the only descent is the last of them.
-
-    IT IS `carb-1` ONE CAP CONDUIT AFT, ON THE CO2 AXIS. That run climbs this same lane off the
-    lid's other bore and crosses the deck the other way, to the meter. The two conduits stand
-    side by side on the lid and their two runs stand side by side over it.
-
-    The lane is the one window the +X flank leaves: the power block's column stands on the lid
-    from the cap to the ceiling aft of it, and V-K's plate forward of it. Both ends of this run
-    follow their fittings, so the crossing follows the regulator's axis."""
-    out = F["wr1110"].at("outlet")
+    """co2-2 — check outlet collet, aft then east onto the existing cap-conduit column."""
+    out = F["gasher-co2"].at("outlet")
     bore = F["foam-assembly"].at("co2-in")
+    turn_y = out[1] + 2.0 * TUBE_BEND
     return R.bent(
-        "co2-2", "wr1110.outlet",
-        (out[0], bore[1], out[2]),           # forward down the chain's own column onto the bore's Y
-        (bore[0], bore[1], out[2]),          # east along the deck onto the bore's column
-        "foam-assembly.co2-in",              # and straight down the port lane into it
+        "co2-2", "gasher-co2.outlet",
+        (out[0], turn_y, out[2]),
+        (bore[0], turn_y, out[2]),
+        (bore[0], bore[1], out[2]),
+        "foam-assembly.co2-in",
         kind="co2", lead=(TUBE_BEND, TUBE_BEND), skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="CO2: WR1110 outlet → the core's CO2 cap conduit, forward along the panel deck, "
-             "east onto the port lane's column and down it")
+        note="CO2: downstream check outlet → east lane → the core's CO2 cap conduit")
 
 
 # The straight `fluid-2` runs aft off the regulator's outlet before it turns. It is longer than

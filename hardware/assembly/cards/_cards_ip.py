@@ -62,17 +62,17 @@ def internal_plumbing(m):
     # assertion checking the wall against a rule it no longer follows.
     co2_bore = a.wall_ports["co2"][3]
     assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
-        f"no {co2_bore:.4g} mm bore stands in the +Y wall of back-top — IP-01 threads the GASHER onto a "
+        f"no {co2_bore:.4g} mm bore stands in the +Y wall of back-top — IP-01 starts at the ABU44 "
         f"bulkhead clamped through it, and the +Y wall is where the card sends the bench")
-    # NOTHING ON THIS CHAIN THREADS ONTO ITS NEIGHBOUR: the bulkhead reaches the check by tube
-    # and the check reaches the regulator by tube, which is the fitting count bom.md §4 buys and
-    # the reason IP-01 draws all three standing apart.
-    assert (runs["co2-0"].frm, runs["co2-0"].to) == ("co2-inlet.inboard", "gasher-co2.inlet"), (
-        f"`co2-0` runs {runs['co2-0'].frm} → {runs['co2-0'].to} — IP-01 hops bulkhead to check")
-    assert (runs["co2-1"].frm, runs["co2-1"].to) == ("gasher-co2.outlet", "wr1110.inlet"), (
-        f"`co2-1` runs {runs['co2-1'].frm} → {runs['co2-1'].to} — IP-01 hops check to regulator")
-    assert runs["co2-2"].frm == "wr1110.outlet" and runs["co2-2"].to == "foam-assembly.co2-in", (
-        f"`co2-2` runs {runs['co2-2'].frm} → {runs['co2-2'].to} — IP-01 takes the regulator's "
+    # The three red runs connect the bulkhead, regulator, downstream check and core.
+    # Body inlet/outlet stations include the installed adapters and outlet coupling;
+    # these are outer collet faces, not bare NPT mouths.
+    assert (runs["co2-0"].frm, runs["co2-0"].to) == ("co2-inlet.inboard", "wr1110.inlet"), (
+        f"`co2-0` runs {runs['co2-0'].frm} → {runs['co2-0'].to} — IP-01 connects bulkhead to regulator")
+    assert (runs["co2-1"].frm, runs["co2-1"].to) == ("wr1110.outlet", "gasher-co2.inlet"), (
+        f"`co2-1` runs {runs['co2-1'].frm} → {runs['co2-1'].to} — IP-01 connects regulator to downstream check")
+    assert runs["co2-2"].frm == "gasher-co2.outlet" and runs["co2-2"].to == "foam-assembly.co2-in", (
+        f"`co2-2` runs {runs['co2-2'].frm} → {runs['co2-2'].to} — IP-01 takes the check's "
         f"outlet down onto the cold core's own `co2-in` cap conduit")
     # Every warm-side termination on the core opens UPWARD on the lid, so a line
     # arrives at the deck and leans into a countersunk lip. IP-01 and IP-07 both
@@ -103,10 +103,9 @@ def internal_plumbing(m):
     assert split_branch == DOWN, (
         f"the water split's branch points {split_branch} — IP-02 drops `water-3` out of the west "
         f"lane and IP-05's caption is about that branch")
-    # A run with no corner is a butt-length cut to two grips; a run with corners
-    # is a route. Three of this procedure's lines are the first kind and the cards
-    # say so in those words.
-    for rid in ("co2-0", "co2-1", "carb-2"):
+    # The meter-to-bulkhead riser is a straight. Gas-line corner counts come
+    # from the actual adapter-to-adapter routes, without a straight-hop assumption.
+    for rid in ("carb-2",):
         assert corners(rid) == 0, (
             f"`{rid}` now turns {corners(rid)} time(s) — the cards cut it as a straight length "
             f"between two mouths facing each other")

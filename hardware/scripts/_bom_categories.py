@@ -43,7 +43,7 @@ CATEGORIES = {
     "consumables":    "Fab consumables",
     "funnel-casting": "Flavor-funnel casting",
     "ac-mains":       "AC-mains hardware",
-    "carbonation":    "Carbonation (sparge stone)",
+    "carbonation":    "Carbonation (water-inlet jet)",
     "cable-mgmt":     "Cable management",
     "vent-filter":    "Vent filter",
     "welding":        "Welding filler",

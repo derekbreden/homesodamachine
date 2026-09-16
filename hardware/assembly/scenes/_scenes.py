@@ -499,8 +499,6 @@ BEARS_ON = {
     # are fitted after the carrier halves are joined and stay with the front-top bench unit.
     "tee-carrier-spring-west": "enclosure-front-top",
     "tee-carrier-spring-east": "enclosure-front-top",
-    # A hop inboard of the CO2 inlet and a hop short of the regulator, on that same wall.
-    "gasher-co2": "enclosure-back-top",
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
@@ -518,20 +516,13 @@ def holders():
     import _cold_core_interface as _cci
     import manifold_layout as _ml
 
-    out, orphans = {}, []
-    for name, by, joint in _sc.mounts():
+    rows = _sc.mounts()
+    out = {}
+    for name, by, joint in rows:
         # TWO PIECES CLOSING ON ONE BODY PUT IT IN NEITHER'S UNIT. `_scorecard.MOUNTS` gives such
         # a body a tuple, and where it stands is `BEARS_ON` — the cold core is fastened by the
         # front-bottom's blocks and the back-top's brackets and sits on the back-bottom's slab.
         out[name] = (by if isinstance(by, str) else None) or BEARS_ON.get(name)
-        if out[name] is None and joint != "pack" and name not in BEARS_ON:
-            orphans.append(f"{name} ({joint})")
-    if orphans:
-        raise ValueError(
-            "these bodies have no parent, so no scene can know whether to show them: "
-            + ", ".join(sorted(orphans))
-            + ". `_scorecard.MOUNTS` fastens them to nothing; name the piece each bears on in "
-              "`_scenes.BEARS_ON`, or None for one that comes with the flavour pack.")
     # Printed enclosure parts sit outside the purchased-pack fastening census. Both carrier
     # halves stay in front-top's guides, bringing their four tied tees into its bench scene.
     for name in _ea._carrier.interface()["printed_parts"]:
@@ -560,6 +551,16 @@ def holders():
     for rider, host in _sc.RIDES.items():
         if rider in out and host in out:
             out[rider] = out[host]
+    # A threaded fitting may name its host only in RIDES. Resolve that ownership before
+    # declaring a body parentless; the host's printed joint carries both of them.
+    orphans = [f"{name} ({joint})" for name, _by, joint in rows
+               if out[name] is None and joint != "pack" and name not in BEARS_ON]
+    if orphans:
+        raise ValueError(
+            "these bodies have no parent, so no scene can know whether to show them: "
+            + ", ".join(sorted(orphans))
+            + ". `_scorecard.MOUNTS` and `RIDES` leave them unheld; name the piece each bears "
+              "on in `_scenes.BEARS_ON`, or None for one that comes with the flavour pack.")
     return out
 
 

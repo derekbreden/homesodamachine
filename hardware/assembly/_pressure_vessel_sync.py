@@ -31,33 +31,14 @@ from _cold_core_interface import (
     carbonator_height,
 )
 from endcap_circular_dxf import disc_thickness, hole_diameter, register_depth
-from docgen import load_module, substitute_md
+from docgen import substitute_md
 
 MM_PER_IN = 25.4
 
-_hw = next(p for p in _here.parents if p.name == "hardware")
-
-
-def _fittings():
-    """The sparge stone, for one figure: the diameter of its sintered barrel.
-
-    Step 4 stands that figure against the port bore beside it — the barrel does not pass a
-    finished port, so the stack goes in through the open tube or it does not go in. Read off
-    the part, so a procedure that says so cannot go on saying so once the part moves.
-
-    LOADED IN `main` AND NOT AT IMPORT, because this module is imported for one constant:
-    `_acceptance_and_burn_in_sync` wants the working pressure and nothing else, and a fitting
-    on its import surface is a fitting in its build graph.
-    """
-    return load_module("pressure_vessel_fittings", _hw / "cold-core-layout" / "_fittings.py")
-
-# The carbonator's working pressure, and the only thing that sets it: the in-appliance
-# Interstate Pneumatics WR1110 fixed secondary regulator standing between the
-# customer's CGA-320 primary and the carbonator's CO2 port (bom.md §4). Every pressure
-# figure this procedure is sized against — the PRV margin, the hoop stress, the
-# hydro hold — is measured off this one number, and the benches downstream read it
-# from here: `_acceptance_and_burn_in_sync` centres its CO2 rig on it and
-# `cards/_cards_fs` holds that rig's primary range around it.
+# Nominal gas-feed setpoint and pressure-design reference for the in-appliance WR1110.
+# Refill can compress the trapped headspace above this setpoint: the downstream check
+# isolates it from the regulator's relief, so this is not a maximum vessel pressure.
+# The procedure's nominal figures and the downstream bench documents read this value.
 secondary_regulator_pressure_psi = 90.0
 
 # Carbonator float-rod cut length. Each 1/4" end plate is an ID-fit plug
@@ -87,8 +68,6 @@ def main():
         "split ELBOW_ENV into ABOVE / BELOW variables."
     )
 
-    stone_d = 2 * _fittings().STONE_R
-
     variables = {
         # Tube cut length / carbonator-as-assembled height.
         "TANK_H": f"{carbonator_height:.4g} mm",
@@ -101,14 +80,11 @@ def main():
         # so the sentence explaining the cut cannot describe a different cut.
         "ROD_LEN": f"{carbonator_rod_len:.4g} mm ({carbonator_rod_len / MM_PER_IN:.3g} in)",
         "ROD_CLEARANCE": f"{rod_clearance:.4g} mm",
-        # The working pressure the whole procedure is sized against, and the
-        # regulator that holds it there — one number, read everywhere it is stated.
+        # Nominal gas-feed setpoint / design reference, not an upper pressure bound.
         "WORKING_PSI": f"{secondary_regulator_pressure_psi:.4g} PSI",
         "REG_FIXED": f"fixed-{secondary_regulator_pressure_psi:.4g} PSI",
-        # The two figures step 4 turns on — a finished port's bore, and the widest thing that
-        # has to get past it.
+        # The endplate's laser-cut tap-drill opening; not the purchased elbow's flow bore.
         "PORT_BORE": f'⌀{hole_diameter * MM_PER_IN:.4g} mm ({hole_diameter:.3f}")',
-        "STONE_BARREL": f'⌀{stone_d:.4g} mm ({stone_d / MM_PER_IN:.3g}")',
     }
 
     substitute_md(

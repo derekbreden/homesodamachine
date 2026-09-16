@@ -32,18 +32,17 @@ PARTS = (
     ("316 tube", "OnlineMetals #12498", ("carbonator-tube",)),
     ("endcap plates", "SendCutSend 1/4\"-thick 316 SS circular endcap plate",
      ("endcap-bottom", "endcap-top")),
-    ("sparge barb", "LTWFITTING 1/4\" hose barb", ("sparge-barb",)),
     ("carbonator elbows", "TAISHER 2PCS 316L SS 90° Barstock Street Elbow",
      ("carbonator-elbow-co2-in", "carbonator-elbow-carb-water-out",
       "carbonator-elbow-water-in", "carbonator-elbow-prv")),
-    ("sparge stone", "FERRODAY 0.5 µm sintered", ("sparge-stone",)),
-    ("silicone stub", "Food-grade silicone tube stub", ("sparge-silicone-stub",)),
+    ("water inlet jet", "Water-inlet jet cap", ("water-inlet-jet-cap-nominal",)),
     ("PRV", "Control Devices SV-125", ("prv-sv125",)),
     ("PTFE thread tape", "Millrose 70894 Nickel Guard", ()),
 
     # §3 / §4 / §9 — the collets that land on carbonator elbows
-    ("PTC collets", "John Guest PP010822E",
-     ("collet-co2-in", "collet-carb-water-out", "collet-water-in")),
+    ("water PTC collets", "John Guest PP010822E",
+     ("collet-carb-water-out", "collet-water-in")),
+    ("gas PTC collet", "PI010822S", ("collet-co2-in",)),
 
     # §5 — refrigeration
     ("evaporator coil", "GOORY 1/4\" OD × 50 ft ACR copper coil",

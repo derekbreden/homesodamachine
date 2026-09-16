@@ -145,7 +145,7 @@ NOT_A_BRAND = {
     # Names that are not a part anyone stocks: cable/thread spec designators,
     # shipping carriers, phone OSes, and ledger status words.
     "UL2464", "FNPT", "FedEx", "Android", "International", "Generic",
-    "Status", "Zero", "SPDT",
+    "Status", "Zero", "SPDT", "Institute",
 }
 
 brands: set[str] = set()

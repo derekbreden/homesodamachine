@@ -31,10 +31,10 @@ planes the appliance reads off the stack.
 | wall | the three copper plugs, in their own slots |
 | lines | the seven `_internal_routes` centrelines, each drawn at the arc its corridor leaves |
 | coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
-| sparge | the barb on the bottom plate, the silicone stub, and the stone low in the column |
+| inlet jet | nominal 316 cap, Ø9.5 × 2 mm with a 1/16-inch passage, on the top water elbow's male tip |
 | pockets | both floor bulkheads with their wet-side seals, both rods, both floats, both cap vent membranes |
 | sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
-| collets | the three PP010822E that land on carbonator elbows |
+| collets | two PP010822E water adapters and one PI010822S gas adapter on the carbonator elbows |
 
 ## The card
 
@@ -54,6 +54,8 @@ writes. `bom-covered` is the axis the work is on.
 | `stations-met` | every station the wall's slot leaves carries a run |
 | `prv-vent-lands` | the PRV shroud's own vent bore opens on the lane its line falls |
 | `floats-couple` | every float's magnet held against the wall its reed reads through |
+| `inlet-jet-qualified` | the cap is a nominal layout; its actual weld land, joint and installed projection await the fabrication trial |
+| `gas-adapter-envelope` | the PI010822S gas adapter uses the existing nominal collet envelope until the acquired fitting is measured |
 
 ```
 tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py
@@ -61,8 +63,16 @@ tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py
 
 ## Where a fitting's figures come from
 
-[`_fittings.py`](_fittings.py) builds each purchased body to its catalog envelope; each figure
-carries its source. Two of them are struck off parts this repo owns rather than off a catalog:
+[`_fittings.py`](_fittings.py) builds simplified purchased-body envelopes. The elbow's flow
+bore and threaded engagement are layout assumptions, not measurements of the acquired fitting.
+Two figures are struck off parts this repo owns rather than off a catalog:
 the elbow hex is sized by the ⌀19 bore `prv-shroud` presents to it, and the male leg's standoff
 is `hole_shift_from_edge + plate_recess`, which is where the shell's own storeys put the band
 each line crosses on.
+
+The inlet cap touches that elbow model's male tip and points down into the headspace. Its
+nominal dimensions come from the [inlet-jet fabrication procedure](/hardware/assembly/water-inlet-jet.md).
+The drawing neither changes the two identical plate holes nor establishes that the purchased
+elbow has enough weld land, clears the plate after welding, or seals at the drawn engagement.
+The cap carries no modeled weld bead. Those readings and the weld/pressure qualification belong
+to the coupon and assembled fitting before vessel closure.

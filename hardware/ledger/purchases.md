@@ -93,6 +93,10 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | M5 × 20 mm 90° countersunk socket screws, 50 pc, 10.9 carbon steel, black, 9.8 mm head — two rise through the printed motor-carriage arms and the 23HS30-2804S's Ø5.2 flange holes into nuts in the motor's open corner channels: 8 mm arm, 5 mm flange ear, 4 mm nut, 3 mm proud. DIN 7991, 3 mm hex; Amazon estimates 2026-09-05 | [B0DX1G3Y6W](https://www.amazon.com/dp/B0DX1G3Y6W) | 1 pk (50) | $8.57 | 112-7484636-2926665 | 2026-09-03 | 2026-09-05 | ACQUIRED |
 | M5 × 0.8 square nuts, 100 pc, 304 stainless, 8 mm across × 4 mm thick — the motor-carriage nut if it drops into the 23HS30-2804S's 9 mm corner channel, where its flats on the channel's two walls hold it against the screw | [B0F6B5X6CX](https://www.amazon.com/dp/B0F6B5X6CX) | 1 pk (100) | $7.50 | 112-9248875-1573807 | 2026-09-03 | 2026-09-05 | ACQUIRED |
 | Juvielich M5 × 0.8 hex nuts, 100 pc, 304 stainless, DIN 934, 8 mm across flats × 4 mm high — the motor-carriage nut if the corner channel takes its 9.2 mm corners; Amazon estimates 2026-09-05 | [B0D1X2YBLJ](https://www.amazon.com/dp/B0D1X2YBLJ) | 1 pk (100) | $6.10 | 112-8159134-3631449 | 2026-09-03 | 2026-09-05 | ACQUIRED |
+| Drill America D/ASTCO1/16P12 1/16" cobalt split-point stub drill, 12-pack — water-inlet jet drilling | [B00FX9PNYQ](https://www.amazon.com/dp/B00FX9PNYQ) | 1 pk (12) | $14.79 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-17, verified Sep 16) |
+| Hosifiy 316 SS round rod, nominal 3/8" / 9.5 mm × 400 mm — water-inlet jet-cap stock; fitting compatibility requires measurement | [B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS) | 1 | $10.71 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-18, verified Sep 16) |
+| HARFINGTON PT4-U pneumatic branch tee, 6 mm tube OD × 1/4" male NPT, 5-pack — regulated argon purge branch | [B0F1FDG9SC](https://www.amazon.com/dp/B0F1FDG9SC) | 1 pk (5) | $8.68 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-17, verified Sep 16) |
+| LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; stock also supplies the CO2 check outlet adapter | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-18, verified Sep 16) |
 
 ## 2. CO2 subsystem
 
@@ -145,7 +149,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 
 ## 4. Carbonator plumbing (pressurized side)
 
-Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, compression fittings on the water/CO2 pressure side.
+Check valves, water-inlet jet fittings, diagnostic pumps and carbonation parts, and compression fittings on the water/CO2 pressure side.
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -163,6 +167,9 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | 112-6216768-3197856 | 2026-04-12 | — | ACQUIRED |
 | TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $22.51 | 112-4838242-5164262 | 2026-03-14 | — | ACQUIRED |
 | YKEBVPW 1/4" push-connect needle valve flow control | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | 112-4375086-9926652 | 2026-05-30 | 2026-06-01 | ACQUIRED |
+| TAISHER forged 316L SS 90° street elbow, 1/4" female NPT × 1/4" male NPT, 2-pack — water-inlet jet qualification coupon and spare | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-18, verified Sep 16) |
+| G Ganen 12 V diaphragm pump, advertised 110 psi / 4.5 L/min — measurement-only purchase | [B07F35PTFR](https://www.amazon.com/dp/B07F35PTFR) | 1 | $19.29 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-17, verified Sep 16; diagnostic stock, no production allocation) |
+| IEIK 12 V 60 W diaphragm pump, advertised 116 psi / 5 L/min — measurement-only purchase | [B07YXTHNRQ](https://www.amazon.com/dp/B07YXTHNRQ) | 1 | $20.37 | 112-0884852-3444230 | 2026-09-15 | — | ON-ORDER (Amazon estimate 2026-09-18, verified Sep 16; diagnostic stock, no production allocation) |
 
 ## 5. Flavor subsystem
 
@@ -346,6 +353,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | EC Buying XKC-Y25-V non-contact capacitive liquid-level sensor | [B0C73F96MF](https://www.amazon.com/dp/B0C73F96MF) | 1 | $10.29 | 112-5459082-8422662 | 2026-05-08 | 2026-05-09 | ACQUIRED |
 | Shutao 6-pc water-sensor module, LM393 comparator, 3.3–5 V — backflow wet telltale for the ASSE drip pan: conductivity plate sits in it, VCC at 3.3 V keeps DO ESP-safe (active-low when wet) → ESP32 GPIO 13 | [B0B2W76MB1](https://www.amazon.com/dp/B0B2W76MB1) | 1 pk (6) | $7.50 | 112-2621523-2281840 | 2026-06-25 | 2026-06-26 | ACQUIRED |
 | HiLetgo MPR121 12-channel I2C capacitive touch breakout (2 pk) | [B06XXYZPPX](https://www.amazon.com/dp/B06XXYZPPX) | 1 pk | $6.85 | 112-5503072-4357859 | 2026-05-08 | 2026-05-10 | ACQUIRED |
+| HiLetgo MPR121-Breakout-V12 capacitive touch breakout, 2-pack — repeat bench stock | [B06XXYZPPX](https://www.amazon.com/dp/B06XXYZPPX) | 1 pk (2) | $8.25 | 112-0866672-6740231 | 2026-09-13 | — | ON-ORDER (Amazon estimate 2026-09-16, verified Sep 16) |
 | Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | 112-5656837-1597066 | 2026-05-08 | 2026-05-09 | ACQUIRED |
 | ~~Tynulox 1/8" × 6" 304 SS round rod (10 pk)~~ | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | 112-8251187-7721036 | 2026-04-24 | 2026-04-25 | ACQUIRED (superseded) |
 | Tandefio 1/8" × 12" 316 SS round rod (5 pk) | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | 112-7391312-2980226 | 2026-04-24 | 2026-04-26 | ACQUIRED |
@@ -503,8 +511,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | ENOMAKER high-flow hotends for Bambu Lab H2D / X2D / P2S, hardened-steel nozzle — 0.8 mm + 0.4 mm (one each; $111.98 item subtotal, −$5.60 promotion, $7.72 NE tax) | [0.8 mm B0FQPGLRQJ](https://www.amazon.com/dp/B0FQPGLRQJ) + [0.4 mm B0FQPGDD49](https://www.amazon.com/dp/B0FQPGDD49) | 1 bundle (2) | $114.10 | 112-7312343-0359412 | 2026-08-19 | 2026-08-20 | ACQUIRED |
 | DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $42.79 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks. The first of the two 0.8 PCD tips | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $48.16 | 114-8935189-9054653 | 2026-07-03 | 2026-07-06 | ACQUIRED |
-| DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks. The first of three 0.4 PCD tips, bought for the left extruder — Derek: *"one to arrive tomorrow to start using"*; $59.90 + $4.34 NE tax; Amazon estimates 2026-09-12 | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 1 | $64.24 | 112-7339165-9617019 | 2026-09-11 | — | ON-ORDER |
-| DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks each. The other two 0.4 PCD tips, spare stock — *"a couple more to have on hand"*; $59.90 × 2 + $8.68 NE tax; Amazon estimates 2026-09-16 | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 2 | $128.48 | 112-4775870-3223436 | 2026-09-11 | — | ON-ORDER |
+| DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks. The first of three 0.4 PCD tips, bought for the left extruder — Derek: *"one to arrive tomorrow to start using"*; $59.90 + $4.34 NE tax | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 1 | $64.24 | 112-7339165-9617019 | 2026-09-11 | 2026-09-12 | ACQUIRED |
+| DUROZZLE 0.4mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/X2D/P2S/A1 series; H2C Left). Ships with 2 silicone socks each. The other two 0.4 PCD tips, spare stock — *"a couple more to have on hand"*; $59.90 × 2 + $8.68 NE tax | [B0H3KBD2DG](https://www.amazon.com/dp/B0H3KBD2DG) | 2 | $128.48 | 112-4775870-3223436 | 2026-09-11 | 2026-09-15 | ACQUIRED |
 | Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg, Gray | [B0BTLNK74C](https://www.amazon.com/dp/B0BTLNK74C) | 2 | $75.06 | 112-3739807-8848229 | 2026-05-09 | 2026-05-09 | ACQUIRED |
 | Bambu Lab Induction Heating Assembly - Right (H2C and H2C Laser, Bambu SKU 3DPP431) | [innoaddi.com](https://www.innoaddi.com/products/induction-heating-assembly-right) | 1 | $68.98 | — | — | 2026-05-26 | ACQUIRED |
 | Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000) | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | 112-0610257-0936212 | 2026-05-11 | 2026-05-12 | ACQUIRED |
@@ -697,13 +705,13 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,901.65](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$34,094.37](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$39,339.19](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$765.52](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$39,531.91](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$688.10](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$40,157.78](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$40,273.08](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -721,7 +729,7 @@ ACQUIRED hardware by section:
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$1,372.31](LEDGER_SEC12) |
-| 13 | Printing consumables | [$2,001.82](LEDGER_SEC13) |
+| 13 | Printing consumables | [$2,194.54](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,130.67](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |

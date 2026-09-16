@@ -355,7 +355,7 @@ nothing else.
 | 5 | PRV vent | west-lane slot | 1/4" OD LLDPE from the prv-shroud's barrel into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 | 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the carbonator's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 225° slot and up beside the coil |
-| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the WR1110 regulator — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which feeds the **sparge stone below the liquid** |
+| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the check downstream of WR1110 — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which opens **directly below the liquid** |
 | 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | off A's floor bulkhead at the **bottom of its wet V**, out the pocket's −Y wall, forward along the port lane's own floor, up the forward strip |
 | 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | the same off B's floor bulkhead, out the pocket's +Y wall and forward along the west lane |
 | 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | straight down onto the fill bore in reservoir A's own cap, **above its liquid** |
@@ -570,8 +570,9 @@ Every internal component is installed first:
   on the `carbonator_support_ring`. Its four port elbows are already made up and clocked
   to the lines they feed — the bottom-plate CO2 elbow onto the leaning bore, the
   bottom-plate outlet elbow toward −X, the top-plate inlet elbow toward +Y — with
-  the PP010822E collets on them hanging inboard of the ring, and the sparge stone
-  and its silicone stub already inside.
+  the water-side PP010822E and gas-side gray PI010822S collets hanging inboard
+  of the ring. The top water-inlet elbow carries its qualified jet cap; the bottom
+  gas opening is plain.
 - Copper evaporator coil hand-wound around the carbonator exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.

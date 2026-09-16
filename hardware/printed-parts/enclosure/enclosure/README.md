@@ -1065,9 +1065,9 @@ stands off the rib's room over its tie band, the channel's own height and no mor
 
 One pattern wherever a wall comes near enough to reach something round
 (`_tube_anchors`): a **bore concentric with the body**, half a cylinder at
-`seat_r`, and the zip tie's channel behind it. Three of these hold a length of tube
-(`enclosure_assembly.TUBE_ANCHOR_SITES`) and three hold a fitting
-(`enclosure_assembly.BODY_ANCHOR_SITES`) — the same rib either way, since what the
+`seat_r`, and the zip tie's channel behind it. The stations in
+`enclosure_assembly.TUBE_ANCHOR_SITES` hold lengths of tube and those in
+`enclosure_assembly.BODY_ANCHOR_SITES` hold fittings — the same rib either way, since what the
 builder is handed is an axis, a direction along it and a radius.
 
 **The arc stops on the body's own axis plane and the rib carries one `wall` past
@@ -1108,7 +1108,7 @@ back-top's 9 mm flank occupies the room their zip-tie cavities use, so those two
 reliefs return only the ribs' footprints to `interior_x` while the nominal flank stays whole
 around them.
 
-**The regulator's rib** is the one bored for a fitting. The WR1110 lies fore and aft
+**The regulator's rib** closes on its round barrel. The WR1110 lies fore and aft
 on the panel deck one column east of the carb union, and the section under the rib is
 the **⌀19 barrel between its two wrench hexes** — the two hexes stand on made-up NPT
 threads, so where their flats come to rest is wherever the thread stopped, while the
@@ -1117,7 +1117,7 @@ barrel is the same circle whatever the makeup did. The rib is 9.500 long inside 
 
 The cylindrical seat keeps 0.15 mm radial clearance around the WR1110 barrel. Its
 three-millimetre web separates the bore from the tie channel, which has at least 3.25 mm
-of room under the full three-millimetre exterior ceiling cap. The inlet, Gasher and WR1110
+of room under the full three-millimetre exterior ceiling cap. The CO₂ inlet and WR1110
 share one axis 0.25 mm below the other rear ports. The CO₂ chip reaches the common top edge.
 
 **The zip tie is the load path here**, the same bargain the flow-meter anchors make: a
@@ -1125,6 +1125,18 @@ seat that opens downward carries nothing. Barrel and rib make an [83.7 mm](LOOP_
 loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
 itself, and `check_tube_seated` reads the three run anchors the same way.
+
+**The downstream gas check has a separate ceiling cradle**, east and forward of the
+regulator, with its flow arrow pointing aft. The seat closes on the check's round metal
+inlet boss; its adapters and outlet coupling remain clear of the tie. Thread one **6-inch
+18 lb zip tie** through the empty cradle before seating the made-up check, then close and
+flush-cut the tie. The [calculated loop and tie allocation](/hardware/ledger/bom.md)
+come from the named body seat, and
+[`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1
+owns the assembly sequence. The fitting envelopes and received-part cradle fit remain
+physical qualification items. The nominal routes run from the inlet to WR1110, turn
+forward from its outlet into the check inlet, then return from the check through the
+east lane to the cold core.
 
 ## The pump cartridge and its bay
 

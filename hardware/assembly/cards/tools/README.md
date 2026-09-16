@@ -62,6 +62,11 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 | PC | Pour + cure bench | CC-06 · CC-14 |
 | PR | 3D printers | CC-08 · CC-13 · EN-06 · EN-07 |
 
+DP, BS and LW also point to the separate
+[water-inlet jet procedure](/hardware/assembly/water-inlet-jet.md): drill the
+handling blank in its own printed fixture, slice the cap, then qualify the
+small weld and internal purge before fitting the elbow at PV-14.
+
 A sequence card belongs to every station it draws on, and the ones that belong
 to none are hand assembly, inspection, packing, and the edge work that travels
 with a tool rather than waiting at a machine.

@@ -12,17 +12,17 @@ WHERE EACH LINE GOES, and what it does at the end of it:
 
   water-in         down the forward strip, along the +Y band and across the carbonator's own
                    top on one diagonal to the carbonator's TOP plate — above the water
-                   line, where the pump pushes filtered tap water in against the CO2
-                   back-pressure and it falls into the headspace.
+                   line, where the pump pushes filtered tap water through the inlet jet
+                   against the CO2 back-pressure and into the headspace.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the carbonator's own
                    drain. Out flat on its own storey and through a slot in the support
                    ring, up beside the coil, and onto the port lane only once the carbonator's
                    top plate is under it.
   co2-in           the one line that runs DOWN. The port lane's own column the shell's
                    whole height, a leg along its floor, and straight in along the
-                   leaning reach that bores the support ring — then inside the carbonator to
-                   the sparge stone hanging in the water column, so the gas enters BELOW
-                   the liquid and dissolves on the way up.
+                   leaning reach that bores the support ring — then the plain bottom
+                   gas opening. Gas bubbles through the water to the headspace;
+                   the top water-inlet jet mixes during refill.
   reservoir-a      each reservoir's floor bulkhead, at the bottom of the wet V and the
   reservoir-b      lowest drainable point in it. Out of the pocket at the bulkhead band,
                    about into its own ±Y band, and up the forward strip.

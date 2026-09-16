@@ -33,13 +33,14 @@ LEDGER = HARDWARE / "ledger" / "tools.md"
 # use it.
 STATIONS = [
     ("DP", "Drill press", ["WEN 4208T", "countersink set", "9/64", "M35 cobalt pipe tap",
-                           "tap guide", "DWT adjustable tap wrench", "hole saw", "spade bit"],
+                           "tap guide", "DWT adjustable tap wrench", "hole saw", "spade bit",
+                           "cobalt stub drills"],
      [r"WEN 4208T", r"countersink", r"M35 cobalt", r"NPT tap", r"tap wrench",
       r"spring guide", r"Tap Magic", r"depth stop"]),
     ("BS", "Band saw + cut-off", ["BA4555"], [r"BA4555", r"band ?saw"]),
     ("LW", "Laser welder", ["XLaserlab X1 Pro", "argon size-80", "RX Weld", "magnetic V-pads",
                             "Scotch-Brite 7447", "wire brush set", "C110 copper bar",
-                            "goat-grain TIG gloves", "Welding Cart"],
+                            "goat-grain TIG gloves", "Welding Cart", "Argon purge branch"],
      [r"X1 Pro", r"XLaserlab", r"Scotch-Brite 7447", r"X1 cleaning"]),
     ("HY", "Hydro + pressure test", ["hydrostatic test pump", "glycerin-filled gauge",
                                      "outer-hex plug", "MNPT air plug", "NPT hex nipple"],

@@ -24,6 +24,15 @@ Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube en
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) steps 2-5 for the production-procedure framing.
 
+## Drill and weld the water-inlet jet
+
+The existing Port 2 elbow carries a small 316 jet cap at its carbonator-facing tip.
+The WEN 4208T drills the passage in clamped rod stock; the WEN BA4555 cuts the cap;
+the X1 Pro welds it with shielding and a separate regulated argon purge branch.
+The [water-inlet jet procedure](/hardware/assembly/water-inlet-jet.md) owns the fitting
+measurements, drilling trial, sectioned weld coupon and final flow check. The two
+SendCutSend plates retain their common geometry.
+
 ## Cut + seat the reservoir float rods
 
 Cut two 1/8" 316L SS rods — one per flavor reservoir — to [176.5 mm (6.95 in)](RESERVOIR_ROD_LEN) from the same Tandefio B0CY4DWJFQ stock as the carbonator float rod. Same square-cut-and-deburr discipline. Unlike the carbonator rod these are **not welded**: each is captured by printed PETG bosses at both ends. Seat the bottom end in the standing body-boss blind bore on the reservoir BODY wet slope, slip the harvested YXQ float (B08HWRMRQR) over the rod, and let the cap-side register boss capture the top end as the reservoir cap is installed. The cut length already backs off the body-boss-floor-to-cap-boss seat-to-seat span for clearance (per `reservoir.py`), so the rod locates without ever holding the cap off its gasket.
@@ -32,7 +41,7 @@ See [reservoir/level-sensing.md](/hardware/printed-parts/cold-core/reservoir/lev
 
 ## Pressure-test 316L carbonators
 
-Hydro-test each fully welded + tapped carbonator to 180 PSI for 30 minutes (~2× the 90 PSI working pressure). Done after tapping and welding are both complete on a given carbonator. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](/hardware/ledger/purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
+Hydro-test each fully welded + tapped carbonator to 180 PSI for 30 minutes (~2× the nominal 90 PSI CO2 feed setting). This fabrication proof test does not establish the completed carbonator's pressure rating. Done after tapping and welding are both complete on a given carbonator. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](/hardware/ledger/purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 6 for the production-procedure framing, including the rig + criteria + failure-handling gaps still open.
 
