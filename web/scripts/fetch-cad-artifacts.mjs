@@ -19,11 +19,10 @@
 // A tree that already holds every solid at its pointed-at hash downloads nothing, so a dev machine
 // that cut the solids itself runs this to completion without reaching the network.
 //
-// ONLY A SOLID THAT IS ABSENT IS WRITTEN, AND `--adopt` IS WHAT SAYS OTHERWISE. A solid present
-// and carrying other bytes is a generator's fresh cut waiting to be packed, and this is
-// `prestart` — it runs on `npm start` on the machine doing that cutting. So drift is reported and
-// left standing, and `pack.py --write` is what settles it. A deploy clone has no solids at all,
-// which is the case this fills.
+// LOCAL STARTUP PRESERVES UNPUBLISHED CUTS. A solid present and carrying other bytes can be a
+// generator's fresh cut waiting for `pack.py --write`, so local `prestart` reports drift and
+// leaves it standing unless `--adopt` is passed. Render always adopts the pointer file,
+// replacing any older published members inherited from its build cache.
 //
 // A SERVER CUTS NOTHING, so drift there is a pointer file that moved on rather than work in progress, and
 // `--adopt` takes the pointer file's bytes over the ones on disk. `web/lib/artifacts-live.js` runs this
@@ -45,7 +44,10 @@ import { isCommittedDocumentFile } from "../contracts/documents.js";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 const CHECK = process.argv.includes("--check");
-const ADOPT = process.argv.includes("--adopt");
+// A Render build or container holds published artifacts, so cached older bytes need
+// replacement even when buildCommand/prestart did not pass --adopt. A local build
+// still preserves the machine's unpublished cuts unless adoption was requested.
+const ADOPT = process.argv.includes("--adopt") || Boolean(process.env.RENDER_GIT_COMMIT);
 // THE STORE IS THE SERVICE'S OWN DISK (web/lib/objects.js), when this runs on it. It is read
 // before the network and filled from what the tree already holds, so a boot after the first
 // reaches nothing outside the box. At build time the disk is not mounted and this is unset or
@@ -110,9 +112,8 @@ const solids = Object.fromEntries(Object.entries(pointers.solids ?? {})
 const { missing: absent, drifted } = await wanted(solids);
 const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
 
-// THE STORE THIS CONTAINER READS FROM FIRST, when it is a disk beside this process. The site
-// fills the store after it is listening (web/lib/store.js `fillStore`), so nothing here waits
-// on it.
+// The configured store supplies authenticated R2 reads or the service's own disk.
+// The site also fills it after listening (web/lib/store.js `fillStore`).
 const STORE = OBJECTS ? await storeFromEnv().catch(() => null) : null;
 
 // `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
@@ -155,8 +156,9 @@ if (CHECK) {
 // the whole of the answer for a pointer file written before `objects`, and the fallthrough below keeps
 // it as the answer for any member that does not arrive by name.
 const { url, asset } = pointers.release ?? {};
-// WHERE AN OBJECT COMES FROM, IN ORDER: this service's own disk; the site's store, which any
-// machine that cut the member put it on; the release, the archive the store falls back to.
+// WHERE AN OBJECT COMES FROM, IN ORDER: this service's own disk or authenticated R2 read;
+// the site's store route; the release, the archive the store falls back to. Direct R2 reads
+// let a replacement deployment hydrate even when the running site's public redirect is down.
 const STORE_URL = pointers.store?.url ?? null;
 const RELEASE_BASE = url ? url.slice(0, url.lastIndexOf("/") + 1) : null;
 
@@ -169,6 +171,7 @@ const OBJECT_LANES = 8;
 async function fetchObject(rel) {
   const dest = path.join(ROOT, rel);
   const gz = dest + ".gz.part";
+  const part = `${dest}.${process.pid}.part`;
   const name = `${OBJECTS}${solids[rel]}.gz`;
   const onDisk = STORE_DIR ? path.join(STORE_DIR, name) : null;
   await mkdir(path.dirname(dest), { recursive: true });
@@ -178,24 +181,36 @@ async function fetchObject(rel) {
     } else {
       let last = new Error("nowhere to fetch from");
       let got = false;
-      for (const base of [STORE_URL, RELEASE_BASE].filter(Boolean)) {
+      if (STORE?.kind === "r2") {
         try {
-          await download(`${base}${name}`, gz);
+          await pipeline(await STORE.readStream(name), createWriteStream(gz));
           got = true;
-          break;
         } catch (err) {
           last = err;
         }
       }
+      if (!got) {
+        for (const base of [STORE_URL, RELEASE_BASE].filter(Boolean)) {
+          try {
+            await download(`${base}${name}`, gz);
+            got = true;
+            break;
+          } catch (err) {
+            last = err;
+          }
+        }
+      }
       if (!got) throw last;
     }
-    await pipeline(createReadStream(gz), createGunzip(), createWriteStream(dest));
-    if ((await sha256(dest)) !== solids[rel]) throw new Error("not the pointed-at bytes");
+    await pipeline(createReadStream(gz), createGunzip(), createWriteStream(part));
+    if ((await sha256(part)) !== solids[rel]) throw new Error("not the pointed-at bytes");
+    await rename(part, dest);
     if (STORE && STORE.kind === "disk" && onDisk && !(await present_abs(onDisk)) && await isDir(STORE_DIR)) {
       await STORE.put(name, gz);
     }
   } finally {
     await rm(gz, { force: true });
+    await rm(part, { force: true });
   }
 }
 
@@ -215,7 +230,7 @@ async function fetchObjects(rels) {
   return failed;
 }
 
-if (OBJECTS && (STORE_DIR || STORE_URL || RELEASE_BASE)) {
+if (OBJECTS && (STORE || STORE_DIR || STORE_URL || RELEASE_BASE)) {
   console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
   const failed = await fetchObjects(missing);
   if (!failed.length) {
@@ -252,17 +267,33 @@ try {
     console.warn("    members are held to the pointer file individually below");
   }
 
-  // The missing ones by name, so a drifted solid beside them keeps its bytes. Members are
-  // repo-relative, so the tree is where they land, and they land at the epoch: the bundle carries
-  // no mtime. Nothing downstream reads one — what asks whether a solid's mesh payload still
-  // answers to it is `_cadq_export._payload_current`, and it settles that on the digest the
-  // payload records and never on either file's mtime.
-  execFileSync("tar", ["-xzf", bundle, "-C", ROOT, "--", ...missing], { stdio: "inherit" });
+  // Extract away from the served tree. An incomplete archive or a member with another hash
+  // leaves the existing model in place; only verified bytes cross the final atomic rename.
+  const extracted = path.join(work, "members");
+  await mkdir(extracted);
+  execFileSync("tar", ["-xzf", bundle, "-C", extracted, "--", ...missing], { stdio: "inherit" });
 
   const bad = [];
   for (const rel of missing) {
-    if (!(await present(rel))) bad.push(`${rel} — not in the bundle`);
-    else if ((await sha256(path.join(ROOT, rel))) !== solids[rel]) bad.push(`${rel} — not the pointed-at bytes`);
+    const staged = path.join(extracted, rel);
+    if (!(await present_abs(staged))) {
+      bad.push(`${rel} — not in the bundle`);
+      continue;
+    }
+    const dest = path.join(ROOT, rel);
+    const part = `${dest}.${process.pid}.part`;
+    await mkdir(path.dirname(dest), { recursive: true });
+    try {
+      // A sibling temporary file keeps the rename on the destination's filesystem.
+      await copyFile(staged, part);
+      if ((await sha256(part)) !== solids[rel]) {
+        bad.push(`${rel} — not the pointed-at bytes`);
+        continue;
+      }
+      await rename(part, dest);
+    } finally {
+      await rm(part, { force: true });
+    }
   }
   // A SOLID THAT DID NOT ARRIVE IS ONE SOLID. Failing here failed the Render build, and a
   // failed build leaves the PREVIOUS deploy serving — so a bundle this could not settle held
