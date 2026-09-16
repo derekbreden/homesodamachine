@@ -1099,8 +1099,7 @@ drawn inside the wall's own stock and the rib arrives buried to its crown.
 **Where the piece's face leaves no channel, the wall gives the rib its lane back.**
 The box's interior is one `wall` inside the exterior, and a piece carrying stock
 inboard of it carries stock the rib was drawn to use — so it gives that up over
-the rib's footprint and the rib roots on the box's plane, which is
-`front_top_flank_relief`'s bargain read off the station rather than stated. The
+the rib's footprint and the rib roots on the box's plane. The
 relief is **wider than the rib, and by the zip tie**: what the loop runs down is the
 rib's two flanks, from the channel's floor to the body's axis plane, so it is
 carried `tie_t + tie_cav_buffer` past each flank and those two lobes are

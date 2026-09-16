@@ -1391,12 +1391,6 @@ relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this
 # Wago wells bore through it to bottom on `interior_x`, so a lever nut sits where the box's own
 # interior puts it and simply has more wall behind it.
 front_top_flank_t = 9.0
-# And its one relief. `tube-water-3` runs down the −X flank inside the section this adds, so the
-# wall gives that run its lane back over a stated band and keeps the rest. Floored on
-# `lip_face_x` — the plane this box already states one `wall` inboard of `interior_x` — which
-# leaves 6 mm of wall standing there and clears the tube by better than a millimetre. Stated as
-# (y0, y1, z0, z1); the roof rises at `relief_chamfer` to the mouth, like every pocket here.
-front_top_flank_relief = (180.0, 215.0, 248.0, 266.0)
 
 # Where the box splits front from back, and where both columns split bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
@@ -4934,24 +4928,7 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
         band = band.cut(cutter)
     for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0):
         band = band.cut(cutter)
-    return band.cut(_front_top_flank_relief_cut())
-
-
-def _front_top_flank_relief_cut():
-    """The −X flank's one relief, floored on `lip_face_x` with its roof rising at
-    `relief_chamfer` to the mouth.
-
-    THE ROOF IS THE ONLY FACE THAT NEEDS THE ANGLE. front-top prints mouth-down on its seam
-    rim, so it builds in +Z: the pocket's floor is printed on, its two ends are vertical, and
-    what would otherwise be laid over air is the run at `z1`. The ramp takes that back to the
-    mouth over its own depth, so nothing in it is flat over a hole."""
-    y0, y1, z0, z1 = front_top_flank_relief
-    face = front_top_flank_face()[0]
-    floor = lip_face_x()[0]
-    depth = abs(face - floor)
-    box_ = _ybox(min(face, floor), max(face, floor), y0, y1, z0, z1 - depth)
-    ramp = _xz_prism(y0, y1, [(face, z1 - depth), (floor, z1 - depth), (face, z1)])
-    return box_.fuse(ramp)
+    return band
 
 
 def _back_top_wall(inner, outer, box, zj, up=1.0):
@@ -8358,9 +8335,9 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
     AND WHERE THAT FACE LEAVES NO CHANNEL, THE WALL GIVES THE RIB ITS LANE BACK. `lane` is the
     box's own interior — one `wall` inside the exterior, the plane every station was struck
     against — and a piece carrying stock inboard of it carries stock the rib was drawn to use. So
-    that piece gives it up and the rib roots on `lane` instead, which is `front_top_flank_relief`'s
-    bargain read off the station rather than stated: the wall keeps its full section everywhere the
-    rib does not need it, and one `wall` stands behind the relief because `lane` is one `wall` in.
+    that piece gives it up over the rib's footprint and the rib roots on `lane` instead. The wall
+    keeps its full section everywhere the rib does not need it, and one `wall` stands behind
+    the relief because `lane` is one `wall` in.
 
     THE RELIEF IS WIDER THAN THE RIB OVER THE TIE BAND ALONE, and there by the zip tie. What the
     loop runs down is the rib's two FLANKS, from the channel's floor to the tube's own axis plane
