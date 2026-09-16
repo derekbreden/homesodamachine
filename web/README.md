@@ -122,6 +122,8 @@ and separates its coil, carbonator and reservoirs. Labels identify the four subj
 while the camera moves between them. Reassembly reverses those motions before the
 rest of the machine returns. `public/js/tour/reveal-plan.js` holds component motions
 and screw stations; per-channel timings live alongside the captions.
+The tour's modules, shared viewer imports, contracts and styles share a content-versioned
+asset namespace. Its import map is declared before the page's module scripts.
 
 The caption file is `/tour/captions.vtt`; the narration text is `/tour/script.txt`.
 `?paused=1` opens a still frame, and `#10` opens scene ten. The browser's `window.__tour`

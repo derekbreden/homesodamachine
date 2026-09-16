@@ -419,11 +419,14 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")===
 <meta name="apple-mobile-web-app-title" content="Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`;
 
-export function renderHead({ title, pageStyles = "", pageHead = "" }) {
+export function renderHead({ title, pageStyles = "", pageHead = "", importMap = null }) {
+  // A page's module map must be installed before the shared boot module resolves imports.
+  const moduleMap = importMap
+    ? `<script type="importmap">${JSON.stringify(importMap).replaceAll("<", "\\u003c")}</script>\n` : "";
   return `<!doctype html>
 <html lang="en">
 <head>
-${HEAD_TAGS}
+${moduleMap}${HEAD_TAGS}
 <title>${escape(title)}</title>
 <style>${BASE_CSS}${pageStyles ? "\n" + pageStyles : ""}</style>
 ${pageHead}
