@@ -115,6 +115,6 @@ click: x=97.375 y=337.000 z=258.900
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=335.500 z=327.200
 
-[sliver] This diagnostic is one zero-area STL triangle on X-107.5/Z325, with all three vertices collinear along Y207.495758..208.295883. Its zero normal produces NaN strip dimensions; it does not represent a physical face or thin section. Removing only that collapsed triangle in an analysis copy changes computed volume by 4.66e-10 mm³ and leaves 42 finite lint findings. The canonical STL remains unchanged; the witness is `.cache/support-clearance/lint/back-top-cleaned-final/evidence.json`.
+[sliver] This diagnostic is one zero-area STL triangle on X-107.5/Z325, with all three vertices collinear along Y207.495758..208.295883. Its zero normal produces NaN strip dimensions; it does not represent a physical face or thin section. Removing only that collapsed triangle in an analysis copy changes computed volume by 2.33e-10 mm³ and leaves 42 finite lint findings. The canonical STL remains unchanged; the witness is `.cache/support-clearance/lint/back-top-filled-pocket/evidence.json`.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-107.500 y=207.896 z=325.000
