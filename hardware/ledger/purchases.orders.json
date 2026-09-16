@@ -1,14 +1,74 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-15; latest invoice and shipment-banner verification 2026-09-16",
-    "orders": 351,
-    "ordered/total": "ordered present for all 351; total present for 351 — the three cancelled orders were never charged",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-16; latest invoice and shipment-banner verification 2026-09-16",
+    "orders": 356,
+    "ordered/total": "ordered present for all 356; total present for 356 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-3782386-8113829": {
+      "ordered": "2026-09-16",
+      "subtotal": 10.38,
+      "shipping": 0.0,
+      "tax": 0.76,
+      "total": 11.14,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-20",
+      "tax_estimated": true
+    },
+    "112-5383652-4465062": {
+      "ordered": "2026-09-16",
+      "subtotal": 8.89,
+      "shipping": 0.0,
+      "tax": 0.64,
+      "total": 9.53,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-18",
+      "tax_estimated": true
+    },
+    "112-9028685-5492269": {
+      "ordered": "2026-09-16",
+      "subtotal": 29.99,
+      "shipping": 0.0,
+      "tax": 2.17,
+      "total": 32.16,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-17",
+      "tax_estimated": true
+    },
+    "112-4443137-8148205": {
+      "ordered": "2026-09-16",
+      "subtotal": 29.99,
+      "shipping": 0.0,
+      "tax": 2.17,
+      "total": 32.16,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-18",
+      "tax_estimated": true
+    },
+    "112-5158473-3421830": {
+      "ordered": "2026-09-16",
+      "subtotal": 29.99,
+      "shipping": 0.0,
+      "tax": 2.17,
+      "total": 32.16,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-17",
+      "tax_estimated": true
+    },
     "112-0884852-3444230": {
       "ordered": "2026-09-15",
       "subtotal": 99.82,

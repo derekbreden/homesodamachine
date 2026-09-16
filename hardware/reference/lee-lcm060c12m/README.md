@@ -1,8 +1,10 @@
 # Lee Spring LCM060C12M compression spring
 
-The carrier uses two **Lee Spring LCM060C12M** stock compression springs.
-Each spring pushes between a fixed wall bearing plane and the
-moving carrier; the pair acts in parallel.
+This is the catalog part the carrier's spring seat, ⌀6.57 bore and loading
+well are cut to. The springs fitted are the uxcell 304 stainless equivalent of
+that envelope — same 6 mm OD and 30 mm free length, heavier 0.8 mm wire
+([bom.md §8](/hardware/ledger/bom.md)). Each spring pushes between a fixed wall
+bearing plane and the moving carrier; the pair acts in parallel.
 
 Source: [Lee Spring, LCM060C 12 M product page](https://www.leespring.com/product/compression-spring-lcm060c12m-music-wire),
 accessed 2026-09-05. The product page is the authority for the values below.
@@ -96,5 +98,8 @@ enclosure facts. Those values use the actual bearing-plane separation, including
 The assembly check exercises full travel, equal grip motion and empty return; recorded physical
 loads belong to that assembly's log. No measured force for this printed mechanism is recorded.
 
-The zinc-plated music-wire springs occupy the dry enclosure cavity. Their 5.99 mm OD tolerance,
-4.78 mm nominal ID and printed seat/guide clearances remain the installation dimensions.
+The springs occupy the dry enclosure cavity. This part's 5.99 mm OD tolerance, 4.78 mm nominal ID
+and the printed seat/guide clearances are the dimensions the bores were cut to. A spring is threaded
+in compressed, so its solid height is bounded by the room between the fixed body face and the parked
+carrier: 11.90 mm, or 14.40 mm with the carrier held at its aft limit. The fitted spring's solid
+height is not measured.
