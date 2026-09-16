@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { ENCLOSURE_FASTENERS, ease, fastenerMotion, revealMotion } from "./reveal-plan.js";
-export { REVEAL_STATES } from "./reveal-plan.js";
+import { ENCLOSURE_FASTENERS, REVEAL_DEFAULTS, clamp, corePartGroup, ease, fastenerMotion, revealMotion, revealOpacity } from "./reveal-plan.js";
+export { REVEAL_STATES, REVEAL_DEFAULTS } from "./reveal-plan.js";
 
 function fasteners(group) {
   if (!group.children.some((c) => c.name === "enclosure-front-top")) return null;
@@ -75,30 +75,67 @@ function fasteners(group) {
 export function createReveal(group, modelFile = "") {
   const bodies = new Map();
   const edgeBases = new Map();
+  const fadedMaterials = new Map();
   const translation = new THREE.Vector3();
   const screwSet = group ? fasteners(group) : null;
+  const remember = (object) => ({
+    position: object.position.clone(), quaternion: object.quaternion.clone(),
+    scale: object.scale.clone(), matrix: object.matrix.clone(),
+    matrixAutoUpdate: object.matrixAutoUpdate, visible: object.visible,
+    material: object.material, fadedMaterial: null,
+    tourOpacity: object.userData.tourOpacity,
+  });
   if (group) {
     for (const object of group.children) {
       if (!object.isMesh || object.userData.isXrayEdge) continue;
-      bodies.set(object, {
-        position: object.position.clone(), quaternion: object.quaternion.clone(),
-        scale: object.scale.clone(),
-      });
+      bodies.set(object, remember(object));
     }
   }
-  let current = { enclosure: 0, coldCore: 0, carbonator: 0, park: 0 };
+  let current = { ...REVEAL_DEFAULTS };
   let disposed = false;
+
+  function faded(material, opacity, lane) {
+    let lanes = fadedMaterials.get(material);
+    if (!lanes) fadedMaterials.set(material, lanes = new Map());
+    let clone = lanes.get(lane);
+    if (!clone) {
+      clone = material.clone();
+      clone.transparent = true;
+      clone.depthWrite = false;
+      lanes.set(lane, clone);
+    }
+    clone.opacity = material.opacity * opacity;
+    if (clone.resolution && material.resolution) clone.resolution.copy(material.resolution);
+    return clone;
+  }
+
+  function opacityFor(object, base, opacity, name = object.name) {
+    // The reader can toggle x-ray between frames, replacing the source material.
+    if (object.material !== base.fadedMaterial) base.material = object.material;
+    if (opacity < 1) {
+      const part = corePartGroup(name);
+      const lane = part === "caps" || part === "shell" ? "covers" : "surroundings";
+      base.fadedMaterial = Array.isArray(base.material)
+        ? base.material.map((material) => faded(material, opacity, lane)) : faded(base.material, opacity, lane);
+      object.material = base.fadedMaterial;
+    } else {
+      object.material = base.material;
+      base.fadedMaterial = null;
+    }
+    object.visible = base.visible && opacity > 0.001;
+    object.userData.tourOpacity = opacity;
+  }
 
   function apply(next = {}) {
     if (!group || disposed) return;
-    current = { enclosure: next.enclosure || 0, coldCore: next.coldCore || 0,
-      carbonator: next.carbonator || 0, park: next.park || 0 };
+    current = Object.fromEntries(Object.keys(REVEAL_DEFAULTS).map((key) => [key, clamp(next[key] || 0)]));
     for (const [object, base] of bodies) {
       const delta = revealMotion(object.name, current);
       object.position.copy(base.position).add(translation.set(...delta));
       object.quaternion.copy(base.quaternion);
       object.scale.copy(base.scale);
       object.updateMatrix();
+      opacityFor(object, base, revealOpacity(object.name, current));
     }
     // X-ray toggles replace their edge objects. Each fresh edge inherits the solid's pose.
     const byName = new Map();
@@ -108,21 +145,28 @@ export function createReveal(group, modelFile = "") {
       const source = byName.get(edge.userData.xrayComponent);
       if (!source) continue;
       if (!edgeBases.has(edge)) {
-        edgeBases.set(edge, {
+        edgeBases.set(edge, { ...remember(edge),
           position: source.base.position.clone(), quaternion: source.base.quaternion.clone(),
-          scale: source.base.scale.clone(),
+          scale: source.base.scale.clone(), matrix: source.base.matrix.clone(),
         });
       }
       edge.position.copy(source.object.position);
       edge.quaternion.copy(source.object.quaternion);
       edge.scale.copy(source.object.scale);
       edge.updateMatrix();
+      opacityFor(edge, edgeBases.get(edge), revealOpacity(source.object.name, current), source.object.name);
     }
     if (screwSet) {
+      const opacity = 1 - ease(current.coreIsolation);
+      screwSet.root.visible = opacity > 0.001;
+      for (const material of screwSet.materials.slice(0, 2)) {
+        material.opacity = opacity;
+        material.transparent = opacity < 1;
+      }
       const emphasis = ease((current.enclosure - 0.005) / 0.025)
         * (1 - ease((current.enclosure - 0.36) / 0.02));
-      screwSet.markerMaterial.opacity = 0.86 * emphasis;
-      screwSet.axisMaterial.opacity = 0.40 * emphasis;
+      screwSet.markerMaterial.opacity = 0.86 * emphasis * opacity;
+      screwSet.axisMaterial.opacity = 0.40 * emphasis * opacity;
       for (const marker of screwSet.markers) marker.visible = emphasis > 0.001;
       for (const [index, screw] of screwSet.screws.entries()) {
         const motion = fastenerMotion(current.enclosure, index);
@@ -142,7 +186,11 @@ export function createReveal(group, modelFile = "") {
       object.position.copy(base.position);
       object.quaternion.copy(base.quaternion);
       object.scale.copy(base.scale);
-      object.updateMatrix();
+      object.matrix.copy(base.matrix);
+      object.matrixAutoUpdate = base.matrixAutoUpdate;
+      object.visible = base.visible;
+      if (base.tourOpacity === undefined) delete object.userData.tourOpacity;
+      else object.userData.tourOpacity = base.tourOpacity;
     }
     group.updateMatrixWorld(true);
   }
@@ -157,6 +205,10 @@ export function createReveal(group, modelFile = "") {
     }
     bodies.clear();
     edgeBases.clear();
+    for (const lanes of fadedMaterials.values()) {
+      for (const material of lanes.values()) material.dispose();
+    }
+    fadedMaterials.clear();
     disposed = true;
   }
 

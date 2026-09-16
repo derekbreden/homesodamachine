@@ -1,13 +1,13 @@
 import * as THREE from "three";
 import { TOUR } from "/contracts/tour-water.js";
-import { timelineFor, locateTime } from "/contracts/tour-timeline.js";
+import { timelineFor, locateTime, stageAt, motionEnd } from "/contracts/tour-timeline.js";
 import { state } from "../viewer/state.js";
 import { renderer, gizmoCanvas, scene, camera, controls, resizeRenderer,
-  startAnimate, setExtraDepthBounds } from "../viewer/scene.js";
+  startAnimate, setExtraDepthBounds, fitGroundShadow, updateDepthRange } from "../viewer/scene.js";
 import { loadStepFile } from "../viewer/step.js";
 import { isXrayEnabled, setXrayEnabled } from "../viewer/xray.js";
 import { applyHiddenComponents } from "../viewer/component-picker.js";
-import { boxOfParts, poseFor } from "./frame.js";
+import { boxOfParts, boxesOfParts, contextPose } from "./frame.js";
 import { tween, driftAt } from "./flight.js";
 import * as spotlight from "./spotlight.js";
 import { createReveal } from "./reveal.js";
@@ -50,9 +50,9 @@ let machineBox;
 let poses = [];
 let missing = [];
 let pictureRect = { width: 1, height: 1 };
+let shadowHidden = false;
 const clamp = THREE.MathUtils.clamp;
 const smooth = (p) => { p = clamp(p, 0, 1); return p * p * (3 - 2 * p); };
-const closed = { enclosure: 0, coldCore: 0, carbonator: 0 };
 
 function focusBox(step) {
   const names = step.focus || step.parts || [];
@@ -61,12 +61,20 @@ function focusBox(step) {
   return box.isEmpty() ? machineBox.clone() : box;
 }
 
+function shotFor(step) {
+  const subject = focusBox(step);
+  const context = boxOfParts(state.currentGroup, step.context || []);
+  const fitBoxes = step.context ? boxesOfParts(state.currentGroup,
+    [...(step.focus || step.parts), ...step.context]) : [];
+  return contextPose(subject, context, step.dir || [1, -1, 0.5],
+    step.pad || 1.4, camera, step.contextWeight ?? 0.75, fitBoxes);
+}
+
 function composeShots() {
   if (!ready) return;
-  reveal.restore();
-  poses = steps.map((step, index) => {
-    if (step.hold && index) return poses[index - 1];
-    return poseFor(focusBox(step), step.dir || [1, -1, 0.5], step.pad || 1.4, camera);
+  poses = steps.map((step) => {
+    reveal.apply(step.frameReveal || step.reveal);
+    return shotFor(step);
   });
 }
 
@@ -78,40 +86,27 @@ function applyPose(pose) {
   camera.updateMatrixWorld();
 }
 
-function revealAt(index, local) {
-  const from = index ? steps[index - 1].reveal : closed;
-  const to = steps[index].reveal || closed;
-  const duration = steps[index].motion || steps[index].dwell * 0.7;
-  const p = smooth(local / duration);
-  const result = {};
-  for (const key of Object.keys(closed)) {
-    let amount = p;
-    // The inner covers seat before the enclosure closes around them.
-    if (to.enclosure === 0 && from.enclosure > 0) {
-      amount = key === "enclosure" ? smooth((local / duration - 0.45) / 0.55)
-        : smooth(local / (duration * 0.4));
-    }
-    result[key] = THREE.MathUtils.lerp(from?.[key] || 0, to[key] || 0, amount);
-  }
-  result.park = index < 3 ? 0 : index === 3 ? smooth(local / 1200)
-    : to.enclosure === 0 ? 1 - smooth((local - 1200) / 1400) : 1;
-  return result;
-}
-
 function paint() {
   if (!ready) return;
   const at = locateTime(timeline, time);
   const step = steps[at.index];
   const previous = steps[Math.max(0, at.index - 1)];
-  reveal.apply(revealAt(at.index, at.local));
+  const staging = stageAt(steps, at.index, at.local);
+  reveal.apply(staging);
+  const hideShadow = staging.coreIsolation > 0.01;
+  if (hideShadow !== shadowHidden) {
+    shadowHidden = hideShadow;
+    fitGroundShadow(hideShadow ? null : machineBox);
+  }
   if (!grabbed) {
     const enter = at.index ? (step.enter ?? 1400) : 0;
     const drift = reducedMotion ? null : step.drift;
+    const destination = step.frameReveal ? poses[at.index] : shotFor(step);
     if (at.local < enter && !reducedMotion) {
       const from = driftAt(poses[at.index - 1], previous.drift, 1);
-      applyPose(tween(from, poses[at.index], at.local / enter));
+      applyPose(tween(from, destination, at.local / enter));
     } else {
-      applyPose(driftAt(poses[at.index], drift,
+      applyPose(driftAt(destination, drift,
         clamp((at.local - enter) / Math.max(1, at.duration - enter), 0, 1)));
     }
   }
@@ -125,12 +120,18 @@ function paint() {
   const mix = smooth(at.local / 700);
   const parts = step.parts || [];
   const crest = step.flow && parts.length ? [parts[Math.floor(at.local / step.flow) % parts.length]] : [];
-  spotlight.paint({ active: parts, hue: step.hue || "soda", mix,
+  spotlight.paint({ active: parts, hue: step.hue || "soda", mix: mix * (step.emphasis ?? 1),
     out: [], trail: [], paths: [], crest, pulse: time / 1000,
     quiet: step.quiet || 0, haloWidth: 0.65 });
   spotlight.fitScrim(camera);
-  tags.update({ camera, rect: pictureRect, box: boxOfParts(state.currentGroup, parts),
-    text: step.label || "", active: !!step.label && !!parts.length, alpha: mix });
+  const subjects = (step.subjects || []).map((subject) => ({
+    ...subject,
+    box: boxOfParts(state.currentGroup, subject.parts),
+    active: subject.parts.some((name) => parts.includes(name)),
+  }));
+  tags.update({ camera, rect: pictureRect, box: boxOfParts(state.currentGroup, parts), subjects,
+    text: step.label || "", active: !!step.label && !!parts.length,
+    alpha: subjects.length ? smooth((staging.coreSpread || 0) * 2) : mix });
   hud.setProgress(at.index, at.progress);
   hud.setTime(time, timeline.duration);
   hud.setEnded(time >= timeline.duration);
@@ -151,7 +152,7 @@ function seek(index) {
   index = clamp(Math.round(Number(index) || 0), 0, steps.length - 1);
   const step = steps[index];
   const settled = !playing && index > 0
-    ? Math.min(step.dwell - 1, Math.max(step.enter ?? 1400, step.motion || step.dwell * 0.7))
+    ? Math.min(step.dwell - 1, Math.max(step.enter ?? 1400, motionEnd(step)))
     : 0;
   seekTime(timeline.beats[index].start + settled);
 }
@@ -171,6 +172,7 @@ const actions = {
     hud.setSpeed(speed);
   },
   toggleGhost() {
+    reveal?.restore();
     setXrayEnabled(!isXrayEnabled(), { persist: false });
     hud.setGhost(isXrayEnabled());
     spotlight.invalidate();
@@ -244,6 +246,7 @@ window.__tour = {
     const at = locateTime(timeline, time);
     return { idx: at.index, clock: at.local, span: at.duration, time,
       duration: timeline.duration, playing, grabbed, speed,
+      staging: ready ? reveal.state : null,
       phase: ready ? "dwell" : "loading", loadedModel: ready ? TOUR.model : null };
   },
   seek, seekTime, advance,
@@ -266,6 +269,7 @@ async function boot() {
   spotlight.attach(state.currentGroup);
   // Floating panels and fasteners remain inside the camera's depth range.
   setExtraDepthBounds("tour", machineBox.clone().expandByScalar(2200));
+  updateDepthRange();
   ready = true;
   composeShots();
   loading.remove();
