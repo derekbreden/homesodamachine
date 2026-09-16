@@ -39,7 +39,11 @@ export function mountTourRoutes(app) {
     res.send(
       renderHead({ title: "Walkthrough · Home Soda Machine", importMap,
         pageHead: `<meta name="tour-assets-version" content="${assets.version}">` }) +
-      renderNav({ surface: "dev", active: "tour" }) +
+      // The civilian surface: the walkthrough is in every visitor's nav, and the
+      // bar they arrive with is the bar they keep. A reader in dev mode sees the
+      // engineering icons here the same as anywhere else — html.dev-mode reveals
+      // them on this surface too.
+      renderNav({ surface: "public", active: "tour" }) +
       fs.readFileSync(FRAGMENT, "utf-8")
         .replaceAll("{{TOUR_ASSET_ROOT}}", assets.prefix)
         .replaceAll("{{TOUR_ASSET_VERSION}}", assets.version) +
