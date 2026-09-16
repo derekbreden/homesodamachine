@@ -20,7 +20,14 @@ const _sphere = new THREE.Sphere();
 export function boxOfParts(group, names) {
   const out = new THREE.Box3();
   out.makeEmpty();
-  if (!group || !names || !names.length) return out;
+  for (const box of boxesOfParts(group, names)) out.union(box);
+  return out;
+}
+
+/** Individual bounds avoid fitting empty corners between separated bodies. */
+export function boxesOfParts(group, names) {
+  const boxes = [];
+  if (!group || !names || !names.length) return boxes;
   const want = names instanceof Set ? names : new Set(names);
   group.updateMatrixWorld(true);
   for (const child of group.children) {
@@ -29,9 +36,9 @@ export function boxOfParts(group, names) {
     // box twice. Bodies only.
     if (!child.isMesh || child.userData.isXrayEdge) continue;
     if (!child.name || !want.has(child.name)) continue;
-    out.expandByObject(child);
+    boxes.push(new THREE.Box3().setFromObject(child));
   }
-  return out;
+  return boxes;
 }
 
 /** The union of several boxes, skipping the empty ones. */
@@ -71,6 +78,33 @@ export function poseFor(box, dir, pad, camera) {
     up,
     radius,
   };
+}
+
+/** Fit every context corner while favouring the subject in the composition. */
+export function contextPose(subject, context, dir, pad, camera, weight = 0.75, fitBoxes = []) {
+  if (!context || context.isEmpty()) return poseFor(subject, dir, pad, camera);
+  const bounds = unionBoxes(subject, context);
+  const target = subject.getCenter(new THREE.Vector3())
+    .lerp(context.getCenter(new THREE.Vector3()), weight);
+  const direction = new THREE.Vector3(...dir).normalize();
+  const up = Math.abs(direction.z) > 0.985 ? new THREE.Vector3(0, -1, 0) : new THREE.Vector3(0, 0, 1);
+  const right = new THREE.Vector3().crossVectors(up, direction).normalize();
+  const vertical = new THREE.Vector3().crossVectors(direction, right).normalize();
+  const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+  const tanH = tanV * camera.aspect;
+  let distance = 30;
+  for (const box of fitBoxes.length ? fitBoxes : [bounds]) {
+    for (const x of [box.min.x, box.max.x]) {
+      for (const y of [box.min.y, box.max.y]) {
+        for (const z of [box.min.z, box.max.z]) {
+          const v = new THREE.Vector3(x, y, z).sub(target);
+          distance = Math.max(distance, v.dot(direction) + pad * Math.max(
+            Math.abs(v.dot(right)) / tanH, Math.abs(v.dot(vertical)) / tanV));
+        }
+      }
+    }
+  }
+  return { target, position: target.clone().addScaledVector(direction, distance), up };
 }
 
 /** The whole model's box, for the establishing frames and the depth fit. */
