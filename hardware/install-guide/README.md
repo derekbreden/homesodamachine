@@ -60,22 +60,25 @@ local renders and layout measurements. Review every rendered page at reading siz
 `install-guide.pdf` is the reading copy: 24 pages at 5.5 x 8.5 inches, in reading order, no bleed.
 It is what the site publishes.
 
-`press/` is what the printer is sent, and the composer writes it on every run:
+`press/` is what a printer is sent, and the composer writes it on every run:
 
 | File | Size | Holds |
 | --- | --- | --- |
-| `press/cover.pdf` | 11.25 x 8.75 in, 2 pages | Page 1: back cover left of the centre line, front cover right. Page 2: inside front cover left, inside back cover right |
-| `press/interior.pdf` | 5.75 x 8.75 in, 20 pages | Reading pages 3-22 |
+| `press/cover.pdf` | 11.25 x 8.75 in, 1 page | Back cover left of the centre line, front cover right |
+| `press/interior.pdf` | 5.75 x 8.75 in, 24 pages | Reading pages 2-23, then two blanks |
 
-The cover carries four of the booklet's pages — 24 and 1 on its outside, 2 and 23 on its inside —
-so the twenty that remain are the interior, and a saddle-stitched signature takes them without a
-blank. Every reading page keeps the folio it carries in the reading copy, and the page references
-in the text are folios, so they still land where they say.
+Both carry Lulu's 0.125 in bleed on every outside edge; the cobalt ground and the band at each
+page's head run out into it. The cover has no spine: saddle stitch folds the cover around the
+interior. Ordered as Print Book, Digest, paperback saddle stitch, premium colour, 80# coated
+white, matte cover.
 
-Both files carry a 0.125 in bleed on every outside edge; the cobalt ground, the band at each
-page's head and the cover's flood all run out into it. The cover has no spine — saddle stitch
-folds it around the interior. Ordered as Digest, paperback saddle stitch, premium colour,
-80# coated white, matte cover.
+The two blanks carry 22 reading pages up to the multiple of four a saddle-stitched signature
+takes. They land at the back, with the unprinted inside back cover after them. Printed folios
+and the page references in the text agree with each other; the blank inside front cover carries
+no number, so the reader's "page 9" is the page whose footer says 9.
+
+The whole booklet cannot be printed on the ET-8550: its driver offers no borderless pass with
+two-sided printing, and offers two-sided printing for plain paper only.
 
 ## Installation coverage
 
