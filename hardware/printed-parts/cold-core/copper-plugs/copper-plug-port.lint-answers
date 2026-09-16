@@ -1,0 +1,19 @@
+[sliver] The continuous 1 mm interior flange overlaps each shell slot edge by 1 mm and is backed centrally by the full sliding web. This flange prints directly on the bed; foam pressure seats it against the shell's inner recess. Its thickness is the specified foam-retaining flange section.
+click: x=-4.325 y=-137.550 z=120.912
+click: x=4.325 y=-137.550 z=120.912
+
+[sliver] End faces of the short connectors joining the exterior retaining tabs to the flush middle web. Their 1.5 mm Y span combines the 1 mm tab with the 0.5 mm stand-off from the shell face; each connector occupies the complete 8 mm end band rather than forming a long free lip.
+click: x=0.000 y=-142.250 z=205.400
+click: x=0.000 y=-142.250 z=39.023
+
+[sliver] Outer side edges of the two 1 mm thick, 8 mm high retaining tabs. The tabs are the temporary inward stops for the copper-slot cover before the foam pour, joined across their full end bands to the sliding web. Their accessible supported undersides have 0.50 mm clearance to the wall, including the 0.25 mm supported-face allowance.
+click: x=-4.325 y=-142.500 z=209.400
+click: x=4.325 y=-142.500 z=209.400
+click: x=-4.325 y=-142.500 z=35.023
+click: x=4.325 y=-142.500 z=35.023
+
+[sliver] The 1.25 mm lateral overhangs on the retaining tabs are the flange width beyond the clearance-inset sliding web. They are 1 mm thick, extend only over the two 8 mm end bands, and remain accessible for support removal before installation. The 0.50 mm wall-facing clearance includes 0.25 mm for their supported undersides.
+click: x=-3.700 y=-142.000 z=209.400
+click: x=3.700 y=-142.000 z=209.400
+click: x=3.700 y=-142.000 z=35.023
+click: x=-3.700 y=-142.000 z=35.023
