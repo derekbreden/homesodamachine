@@ -12,7 +12,7 @@ thickens to behind it, the two screw bosses and their heat-set bores are cut by
 ## What it says
 
 ```
-      [glass]  HOME                 ← large mark and three lines of large type
+     [faucet]  HOME                 ← large mark and three lines of large type
                SODA
                MACHINE
 
@@ -48,9 +48,9 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 
 One face, `bulkhead_ring.WORD_FONT`, in three levels:
 
-- The brand: a [28 mm](LOGO_H) glass mark beside `HOME`, `SODA` and `MACHINE` on three lines,
+- The brand: a [28 mm](LOGO_H) On tap faucet and drop beside `HOME`, `SODA` and `MACHINE` on three lines,
   set at [10.2](TITLE_EM), with caps [7.77 mm](TITLE_CAP) high and [2.8 mm](TITLE_GAP) between lines.
-  The complete lockup is [74.47 mm](LOCKUP_W) wide.
+  The complete lockup is [78.63 mm](LOCKUP_W) wide.
 - The unit link: [5.5](LINK_EM), caps [4.19 mm](LINK_CAP) high, centred below the screw line.
   Its width is [79.97 mm](LINK_W). Every serial is four digits on one advance, so its width
   holds from unit 0001 to 9999.
@@ -64,6 +64,9 @@ profile's 0.22 mm bead.
 
 The lettering lies in a recess [1 mm](INK_DEPTH) into the plate's face and fills it flush — the
 bulkhead ring's construction at another size, printed in a second filament.
+
+The faucet and drop are read directly from [`brand/mark.svg`](/brand/mark.svg), with the
+master's proportions and circular arcs. Both print in the white inlay.
 
 ## The two screws
 
