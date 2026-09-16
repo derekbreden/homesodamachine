@@ -105,7 +105,8 @@ Z guide faces carry an additional [0.25 mm](SUPPORT_AIR) across each mating gap.
 The two spring axes lie between coils at X ±49.945, Z [186.245 mm](SPRING_AXIS_Z). Each spring bears in a
 [6.57 mm](SPRING_SEAT_D) teardrop seat, 2 mm deep. Its fore end sits in a round bore within the fixed body's
 full section. Compressed springs enter through the inner tee wells and cross below the
-uninterrupted upper land. The return pair is Lee LCM060C12M.
+uninterrupted upper land. The return pair is uxcell 6 mm OD × 0.8 mm wire × 30 mm free length, on the
+[Lee LCM060C12M](/hardware/reference/lee-lcm060c12m/) envelope the seat is cut to.
 
 ## Assembly
 
