@@ -33,9 +33,9 @@ enum MachineModel: UInt8, Codable {
 
     var label: String {
         switch self {
-        case .appliance: return "Appliance"
+        case .appliance: return "Soda machine"
         case .prototype: return "Prototype"
-        case .unknown: return "Soda Machine"
+        case .unknown: return "Soda machine"
         }
     }
 }
@@ -56,7 +56,7 @@ struct DiscoveredMachine: Identifiable, Equatable {
     /// What a person calls this machine. Whoever owns it can set one — the main
     /// board holds it and the radio advertises it — and a machine nobody has
     /// named is just what it is.
-    var displayName: String { name.isEmpty ? "Home Soda Machine" : name }
+    var displayName: String { name.isEmpty ? "Soda machine" : name }
 
     /// Only what tells one machine from another in a room with two of them.
     var subtitle: String { signal }
@@ -217,7 +217,7 @@ final class KnownMachine: Identifiable {
 
     var displayName: String {
         if !name.isEmpty { return name }
-        return isDemo ? "Demo" : "Home Soda Machine"
+        return isDemo ? "Demo" : "Soda machine"
     }
 
     /// What kind of machine, for a list with more than one kind on it.

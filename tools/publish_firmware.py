@@ -58,7 +58,7 @@ TARGETS = {
         "env": "esp32s3_front",
         "src": "src_front",
         "machine": "appliance",
-        "what": "the 4.3\" enclosure display",
+        "what": "the 4.3\" machine display",
     },
     "faucet": {
         "env": "esp32s3_faucet",
@@ -70,7 +70,7 @@ TARGETS = {
         "env": "esp32s3_front",
         "src": "src_front",
         "machine": "appliance",
-        "what": "the enclosure display's loading animation",
+        "what": "the machine display's loading animation",
         # Not a firmware image and not built by pio — laid out from the same headers the
         # firmware used to compile in, so it carries no version of its own.
         "kind": "art",

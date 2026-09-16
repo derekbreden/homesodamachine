@@ -33,7 +33,7 @@ const PUMPS = ["pump-a-head", "pump-a-motor", "pump-b-head", "pump-b-motor"];
 
 export const TOUR = {
   id: "machine",
-  title: "Inside the home soda machine",
+  title: "Inside the soda machine",
   subtitle: "Water, cold, carbonation and flavor — a guided look inside",
   model: "manifold-layout/enclosure-assembly.step",
   paths: [],
@@ -41,8 +41,8 @@ export const TOUR = {
   steps: [
     {
       id: "soda-on-tap", chapter: "Open the machine", title: "Soda, on tap",
-      body: "One under-counter appliance chills water, adds carbonation, and keeps two flavors ready at the faucet.",
-      label: "Home soda machine",
+      body: "The soda machine chills water, adds carbonation, and keeps two flavors ready at the faucet.",
+      label: "Soda machine",
       parts: [], focus: ["*"], reveal: CLOSED,
       dir: [0.9, -1, 0.48], pad: 1.2, dwell: 6000,
       drift: { az: 3, el: 0.5, dolly: -0.025 },

@@ -1,6 +1,6 @@
 # Target market
 
-Who the appliance is for, what they are sold, and at what price. The machine itself is
+Who the soda machine is for, what they are sold, and at what price. The machine itself is
 [`/hardware/README.md`](/hardware/README.md). Where it is going and what done looks like is
 [`/future/README.md`](/future/README.md). The cabinet it goes into is
 [`/marketing/install-envelope.md`](/marketing/install-envelope.md), and what the buyer does on
@@ -8,11 +8,11 @@ install day is drawn in [`/hardware/quickstart/`](/hardware/quickstart/README.md
 
 ## What the buyer is sold
 
-An under-counter appliance that carbonates and refrigerates its own water off the cold line and
+An under-counter soda machine that carbonates and refrigerates its own water off the cold line and
 dispenses real brand-name diet soda — Diet Mountain Dew, Diet Pepsi, Pepsi Zero Sugar — from a
 kitchen faucet, cold and fully carbonated, on demand. Turn the handle, soda comes out. Two
-flavors, each primed and valve-locked between pours, selected by touch at the faucet or at the
-enclosure's display. Refilled by pouring a bottle into a funnel in the top wall. Cleaned by a
+flavors, each primed and valve-locked between pours, selected by touch at the faucet display or the
+machine display. Refilled by pouring a bottle into a funnel in the top wall. Cleaned by a
 cycle the machine runs itself.
 
 Pepsi sells its own formulations as SodaStream-compatible concentrate to anyone, no business
@@ -50,7 +50,7 @@ tubes into its lettered, colour-matched port on the rear wall and click one RJ11
 beside them. Nothing on that path is cut, and no water fitting is opened with a wrench.
 
 The install guide carries the rest of the afternoon: plug in the cord, hang the filter in the white
-run, and stand the CO2 cylinder in the cabinet under the regulator that ships with the appliance —
+run, and stand the CO2 cylinder in the cabinet under the regulator that ships with the machine —
 the one place on the buyer's path where a thread is made up rather than a collet pushed. A kitchen
 on the older water path makes one more, at its angle stop, and that is the wrench in this install.
 
@@ -62,7 +62,7 @@ What the buyer brings, beyond the hole:
 
 - **A kitchen the guide fits.** The shipped path is drawn for an existing 1/4" plastic cold line
   on a push fitting under the sink.
-- **A CO2 cylinder.** 5 lb, customer-supplied, standing in the cabinet beside the appliance on a
+- **A CO2 cylinder.** 5 lb, customer-supplied, standing in the cabinet beside the machine on a
   short tether; the CGA-320 regulator ships on our side. Refills run about $25 at a welding or
   homebrew supplier ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External").
 - **Concentrate.** Ordered like anything else.
@@ -401,7 +401,7 @@ does.
 
 ### The CO2 pain point needs honesty
 
-The cylinder lives beside the appliance in the cabinet on a short tether to the inlet in the +Y
+The cylinder lives beside the machine in the cabinet on a short tether to the inlet in the +Y
 wall of back-top, where the customer can see the connection and reach the valve without
 crawling. It is customer-supplied, and refilling means a trip to a local welding or homebrew
 supplier — or a delivered swap
