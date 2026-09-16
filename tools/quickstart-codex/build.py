@@ -230,7 +230,7 @@ para('<b>1/4 in plastic tube?</b> Use the black tee below.<br/><b>Braided hose?<
 c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=9',(x,H-263,x+416,H-214),relative=0)
 p=pic('modern-water-off.png',x+3,279,116,51,crop=(170,190,1100,635))
 text('Closed',x+49,330,8.5,'Semibold',MUTED)
-para('<b>Close the cold-water shutoff.</b> Run the cold tap until it stops. Put a cup and towel under the fitting.',x+136,275,280,12.1,15,limit=60)
+para('<b>Close the cold-water shutoff.</b> Run the tap or dispenser on that line until flow stops. Put a cup and towel under the fitting.',x+136,275,280,12.1,15,limit=60)
 p=pic('release-with-press.png',x+3,341,116,53,crop=(0,0,1840,1040))
 arrow(*p(1316.97,779.94),*p(1042.29,700.52),head=5)
 arrow(*p(1510,554),*p(1780,632),head=5)
@@ -294,7 +294,8 @@ p=pic('insertion-actions/power-ready.png',x+5,558,258,78,crop=(0,160,1800,1140))
 arrow(*p(490.44,603.57),*p(1061.06,477.95),head=7)
 para('Seat the cord in the <b>top-left rear socket.</b> Plug into grounded 120 V. <b>It chimes.</b>',x,646,268,12.4,16,limit=48)
 rect(36,688,416,26,'#FFF0E6',r=5)
-text('Leak or continuing hiss? Close water and cylinder; get help.',46,697,11.3,'Semibold','#8B381B')
+text('Leak or hiss? Close water and cylinder. See guide, p. 23.',46,697,11.3,'Semibold','#8B381B')
+c.linkURL('https://homesodamachine.com/docs/install-guide/install-guide.pdf#page=23',(36,H-714,452,H-688),relative=0)
 
 # The display, bottle and faucet show the controls and the first glass.
 phase('YOUR FIRST GLASS',734)

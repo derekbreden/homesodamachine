@@ -27,7 +27,8 @@ supply the interface texture; `art/fill-screen-framed.png` is the framed close-u
 The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
 exposure, and the complete frame has an uninterrupted outline.
 The same seven step numbers appear in both documents, and the braided-hose link opens
-install guide pages 9-11.
+install guide pages 9-11. The leak band closes the water and cylinder supplies and links to
+the connection checks on page 23.
 
 The power-connection illustration uses the white On tap mark on the black nameplate.
 `tools/quickstart-codex/brand_scenes.py` renders that mark in the frozen scene, preserving
