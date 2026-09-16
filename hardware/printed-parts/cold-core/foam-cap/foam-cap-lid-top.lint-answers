@@ -6,6 +6,6 @@ click: x=35.120 y=65.050 z=8.400
 click: x=61.000 y=-60.500 z=8.400
 click: x=68.500 y=43.500 z=8.400
 
-[ceiling] Zip-tie windows through the fluid-18 and water-3 side anchors. Each roof bridges 2.8 mm along Y between complete 3 mm flanks. The 28.8 mm and 7.6 mm transverse lengths are the posts' depths. The accessible windows provide 3.25 mm and 1.475 mm of height respectively, including 0.25 mm for the roof strands; the roofs and seated tube datums remain fixed.
+[ceiling] Zip-tie windows through the fluid-18 and water-3 side anchors. Each roof bridges 2.8 mm along Y between complete 3 mm flanks. The 28.8 mm and 7.6 mm transverse lengths are the posts' depths. The accessible windows provide 3.25 mm and 1.525 mm of height respectively, including 0.25 mm for the roof strands; the roofs and seated tube datums remain fixed.
 click: x=37.275 y=34.000 z=44.875
 click: x=134.200 y=-13.000 z=6.675

@@ -189,6 +189,7 @@ def main():
         "HIGH_LEVEL": f"{_reed_bridge_gen.high_level_z:.4g} mm",
         "INTER_WRAP_CLEAR": f"{_reed_bridge_gen.inter_wrap_clear:.4g} mm",
         "BRIDGE_Z_BOTTOM": f"{_reed_bridge_gen.bridge_z_bottom:.4g} mm",
+        "POCKET_DEPTH": f"{_reed_bridge_gen.pocket_depth:.4g} mm",
     }
 
     substitute_md(

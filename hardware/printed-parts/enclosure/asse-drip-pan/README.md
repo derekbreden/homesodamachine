@@ -93,9 +93,11 @@ the top. Between the floor and the flange the wall's outside is a single vertica
 face — the pan is a plain box and the berth is a plain slot.
 
 The flange underside and its opposing rebate floor are both supported faces in their
-print orientations. Their gap is 0.75 mm: 0.25 mm running clearance plus 0.25 mm
-for each supported face. Both finish allowances are allocated to the rebate floor;
-the flange thickness, upper retention face and pan-floor bearing remain fixed.
+print orientations. With the pan seated on the modeled sleeve floor, their gap is
+0.75 mm: 0.25 mm running clearance plus 0.25 mm for each supported face. The
+nominal assembly pose is 0.50 mm above that floor, giving a 1.25 mm flange gap
+in that pose. Both finish allowances are allocated to the rebate floor; the
+flange thickness, upper retention face and pan-floor bearing retain their datums.
 
 **The floor carries it.** The pan lies on the block's floor across its whole
 footprint, so nothing bears on the rim and nothing hangs off the wall. What the

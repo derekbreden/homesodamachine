@@ -1,15 +1,15 @@
-[ceiling] The back Z-slide heads' square catches — each bottom rail overlaps the top's full-section foot by 5.00 mm and keeps 0.15 mm of running air, so its flat underside stands at z=160.00 + 8.70 + 0.15 = 168.85. Lifting the seated top lands its flat foot on this face along the whole rail, holding the screwless bottom-to-top seam against lift with full-face bearing. The west catch is interrupted only by the required 12.00 mm PRV passage; the east catch remains continuous. The arm already returns to the wall on its 45-degree under-flare; pitching this bearing face would turn the catch into a cam and give up the joint's square-catch contract.
+[ceiling] The rear Z-slide heads' square catches stand at Z160.00 + 8.70 + 0.25 running fit + two 0.25 supported-face allowances = 169.45. Both this head underside and the mating back-top foot print down, so the complete 0.75 mm gap is allocated here while the foot remains on its nominal plane. The head retains 5.35 mm of stock up to Z174.8. Its flat bearing resists lift without camming the seam open; the arm returns to the wall on its 45-degree under-flare. The west run is interrupted by the PRV passage, and support is removed through the open slide channels.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=100.925 y=335.525 z=168.850
-click: x=-100.925 y=266.275 z=168.850
-click: x=-100.925 y=388.750 z=168.850
+click: x=100.875 y=335.275 z=169.450
+click: x=-100.875 y=266.025 z=169.450
+click: x=-100.875 y=388.750 z=169.450
 
-[ceiling] The bottom handholds' flat lifting ceilings stand 35 mm above the standing underside, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom.
+[ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-99.000 y=224.500 z=29.000
-click: x=99.000 y=224.500 z=29.000
+click: x=-99.000 y=224.500 z=29.250
+click: x=99.000 y=224.500 z=29.250
 
-[sliver] The floor recess's 0.15 mm running-clearance returns end beside the handhold inner walls at Y213.2. Each 0.15 × 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor scarf and inner-wall scarf telescope together.
+[sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-90.425 y=213.200 z=-3.000
-click: x=90.425 y=213.200 z=-3.000
+click: x=-90.375 y=212.800 z=-3.000
+click: x=90.375 y=212.800 z=-3.000

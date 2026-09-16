@@ -25,7 +25,7 @@ standing vertical spans at least one wrap and at most two.
 
 Each reed lies in a pocket cut clear through the bridge to the wall — the
 pocket floor is the carbonator's steel. The plateau around it stands
-[3 mm](POCKET_DEPTH) proud, clearing a ⌀[2.5 mm](REED_GLASS_D) glass
+[3.25 mm](POCKET_DEPTH) proud, clearing a ⌀[2.5 mm](REED_GLASS_D) glass
 envelope by copper_clearance_over_glass. Nothing sits between the reed and
 the wall.
 
@@ -35,7 +35,7 @@ the wall.
 |---|---|
 | Bench handling, foil skinning | A 3M 425 capture patch over each pocket, then the continuous 3M 425 skin over the whole bridge |
 | Coil transfer | Ramps on all four sides — [10 mm](AXIAL_RAMP) axial, [16 mm](ARC_RAMP) circumferential — that each wrap rides up and over |
-| Drop into the foam-shell cavity | The coil's hoop tension, clamping the bridge to the wall; the coil envelope stands ~3.4 mm outboard of the plateau |
+| Drop into the foam-shell cavity | The coil's hoop tension clamps the bridge to the wall |
 | Foam pour | Cured closed-cell PU |
 
 ## The two heights
@@ -75,16 +75,16 @@ goes within ±5 mm of arc of the register line.
 
 ## The part
 
-Cylindrical shell segment on a 127 mm OD, [3 mm](POCKET_DEPTH) proud at the
+Cylindrical shell segment on a 127 mm OD, [3.25 mm](POCKET_DEPTH) proud at the
 plateau, [0.8 mm](SKIRT_T) at the skirt.
 
 - **Extent** — Z [46.97 mm](BRIDGE_Z_BOTTOM) … [115.4 mm](BRIDGE_Z_TOP),
   [68.43 mm](BRIDGE_H) tall × [51.4 mm](BRIDGE_ARC) of arc,
-  [6.35 cm³](BRIDGE_VOL) of PETG.
+  [6.79 cm³](BRIDGE_VOL) of PETG.
 - **Reed pockets** — two, [14.3 mm](POCKET_L) × [2.8 mm](POCKET_W), through to
   the wall, centred on the two reed heights. The part is symmetric end for
   end. Lower reed is `CLO`, upper is `CHI`.
-- **Lead groove** — [5.6 mm](LEAD_GROOVE_W) × [2.05 mm](LEAD_GROOVE_D),
+- **Lead groove** — [5.6 mm](LEAD_GROOVE_W) × [2.3 mm](LEAD_GROOVE_D),
   offset off the pocket column, carrying `CLO`, `CHI` and the shared common
   out the top edge. A cross-notch at each pocket end brings that reed's
   leads into it.
@@ -93,7 +93,11 @@ plateau, [0.8 mm](SKIRT_T) at the skirt.
   [35.4 mm](EFFECTIVE_ARC) of arc each, [197 mm](CARRIED_COPPER) of the
   3.877 m wrap — [4.8 %](CARRIED_FRACTION).
 
-**Print** — PETG, outer (convex) face down on the plate, no supports.
+**Print** — PETG, outer (convex) face down on the plate. The lead-groove floor
+bridges above the bed; its retained strands have a 0.25 mm allowance in the
+groove depth. The outer plateau supplies that room, preserving the full
+0.8 mm skirt backing, tube seat, and reed-glass bearing plane. The glass
+pockets pass completely through the bridge.
 
 ## Setting gauge
 

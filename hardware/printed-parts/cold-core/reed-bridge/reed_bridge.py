@@ -163,8 +163,11 @@ reed_glass_diameter = 2.5
 seat_clearance = _fits.slip
 inner_radius = carbonator_outer_radius + seat_clearance
 skirt_thickness = 0.8
-copper_clearance_over_glass = 0.5
-# [3 mm](POCKET_DEPTH) — plateau face to the carbonator wall; a wrap crossing the
+# The groove's floor faces the bed when the convex face is down. Its retained
+# bridge strands consume 0.25 mm of wire room. Put that allowance on the outer
+# plateau: the tube seat, glass bearing plane and full skirt backing stay fixed.
+copper_clearance_over_glass = 0.5 + _fits.supported_surface
+# [3.25 mm](POCKET_DEPTH) — plateau face to the carbonator wall; a wrap crossing the
 # plateau clears the glass by copper_clearance_over_glass.
 pocket_depth = reed_glass_diameter + copper_clearance_over_glass
 plateau_radius = carbonator_outer_radius + pocket_depth
@@ -193,8 +196,11 @@ lead_notch_length = 2.0
 plateau_half_width = lead_groove_y + lead_groove_width / 2 + 1.5
 bridge_half_width = plateau_half_width + arc_ramp_width
 
-plateau_half_angle = math.asin(plateau_half_width / plateau_radius)
-bridge_half_angle = math.asin(bridge_half_width / plateau_radius)
+# Keep the angular footprint on the nominal plateau. The support allowance
+# adds radial stock without narrowing the skirt or shortening either ramp.
+nominal_plateau_radius = plateau_radius - _fits.supported_surface
+plateau_half_angle = math.asin(plateau_half_width / nominal_plateau_radius)
+bridge_half_angle = math.asin(bridge_half_width / nominal_plateau_radius)
 
 # Copper the bridge carries instead of the wall: every wrap whose
 # centreline lands in bridge_height, over the plateau at full

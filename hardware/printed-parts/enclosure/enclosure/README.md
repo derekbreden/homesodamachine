@@ -858,9 +858,11 @@ square lid — rooted on the −X wall. Printed ceiling-down its floor and the r
 print-up and carry themselves; its lid and the berth's floor look print-down over the tray's own
 room, which no material may fill, and the ASSE chain stands over the lid, so both are supported
 faces, reached from the slab through the open mouth. The pan lies on a flat floor.
-The flange underside and rebate floor have 0.75 mm between their model faces: 0.25 mm
-running clearance and two 0.25 mm supported-face allowances, both allocated to the
-rebate floor. The pan floor and retention roof retain their datums.
+The flange underside and rebate floor have 0.75 mm between their model faces with
+the pan seated on the sleeve floor: 0.25 mm running clearance and two 0.25 mm
+supported-face allowances, both allocated to the rebate floor. The nominal assembly
+pose stands 0.50 mm above the floor and has a 1.25 mm flange gap. The bearing floor
+and retention roof retain their datums.
 
 The moisture plate's **cable clip** is immediately aft of the sleeve on the dry inner face of
 the −X flank. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
