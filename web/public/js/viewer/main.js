@@ -51,14 +51,22 @@ function setupNav() {
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp, objResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
     fetch("/api/pcb"),
     fetch("/api/glbs"),
     fetch("/api/documents"),
+    fetch("/api/objects"),
   ]);
+  // Where each model's bytes are on the store, when the store has a public address; empty
+  // otherwise, and every loader reads this site's own routes.
+  state.memberUrls.clear();
+  try {
+    const { objects } = await objResp.json();
+    for (const [file, url] of Object.entries(objects ?? {})) state.memberUrls.set(file, url);
+  } catch { /* the site's own routes answer for every model */ }
   state.allFiles = (await stepResp.json()).sort();
   state.glbFiles = (await glbResp.json()).sort();
   state.mmdFiles = (await mmdResp.json()).sort();

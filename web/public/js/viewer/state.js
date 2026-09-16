@@ -45,6 +45,8 @@ export const state = {
   thumbnailCache: new Map(),  // "<STEP file>@<square px>" -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
+  memberUrls: new Map(),      // file -> the store's URL for its bytes (/api/objects), when there is one
+  memberLoaded: new Map(),    // file -> the store URL last loaded, which is the hash of what is on screen
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag
   glbEtags: new Map(),        // GLB file -> last loaded ETag

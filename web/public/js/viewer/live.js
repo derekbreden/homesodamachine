@@ -176,11 +176,12 @@ function forceDetailRerender() {
   state.stepEtags.clear();
   state.dxfEtags.clear();
   state.glbEtags.clear();
+  state.memberLoaded.clear();
   state.currentMmdContent = null;
   state.currentPcbViews = null;
 }
 
-window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
+window.addEventListener(HSM_EVENTS.DEPLOY, async (e) => {
   // commitChanged === false means a same-commit reconnect blip (nothing
   // actually shipped): just re-list to catch any add/remove, cheaply.
   // Anything else is a real new build — wipe the caches so every
@@ -198,7 +199,14 @@ window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
     // drops the ETags the pre-code-version deploy path already cleared).
     forceDetailRerender();
   }
-  fetchFiles();
+  // AWAITED, BECAUSE THE RE-RENDER READS WHAT THIS FETCHES. `fetchFiles` re-reads
+  // `/api/objects`, and that is where the moved pointer file's hashes arrive. Re-rendering
+  // ahead of it would rebuild the open model from the URLs this tab loaded with, and those
+  // still answer — an object is named by its own bytes and is never rewritten — so the page
+  // would quietly show the previous cut of the very part the publish moved, with nothing to
+  // correct it until a reload. This is the whole of what a publish is supposed to look like
+  // from an open page, so it waits for the list.
+  await fetchFiles();
   if (newBuild) reloadOpenDetail();
 });
 

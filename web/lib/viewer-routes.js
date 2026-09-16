@@ -43,8 +43,36 @@ function readSidecar(rootDir, rel) {
 // The viewer serves hardware/, and every path below resolves against it.
 //
 // Endpoints + response shapes: web/contracts/api-shapes.js.
-export function mountViewerRoutes(app, { hardwareDir }) {
+export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   mountTubeRoutes(app, { hardwareDir });
+
+  // WHERE THE PAGE FETCHES A MODEL'S BYTES, when the store has a public address. Every member
+  // the pointer file names is on the store under the hash of its own bytes, so a URL built
+  // from that hash names those bytes and no others: the browser caches it forever, and the
+  // edge serves it without this container in the path. `base` is null where the store carries
+  // no such address — a laptop, a test, a signed-URL store — and the page reads `/steps`,
+  // `/meshes` and `/models` off this disk as it always does.
+  //
+  // The map is keyed the way the page names a file, which is a path under hardware/.
+  app.get("/api/objects", (_req, res) => {
+    const base = store?.publicUrl || null;
+    if (!base || !pointersPath) return res.json({ base: null, objects: {} });
+    let pointers;
+    try {
+      pointers = JSON.parse(fs.readFileSync(pointersPath, "utf-8"));
+    } catch {
+      return res.json({ base: null, objects: {} });
+    }
+    const prefix = pointers.store?.objects ?? pointers.release?.objects;
+    if (!prefix) return res.json({ base: null, objects: {} });
+    const objects = {};
+    for (const [rel, hash] of Object.entries(pointers.solids ?? {})) {
+      if (!rel.startsWith("hardware/")) continue;
+      if (!/\.(step|step\.mesh|glb)$/.test(rel)) continue;
+      objects[rel.slice("hardware/".length)] = `${base}/${prefix}${hash}.gz`;
+    }
+    res.json({ base, objects });
+  });
 
   app.get("/api/steps", (req, res) => {
     res.json(walkFiles(hardwareDir, ".step"));

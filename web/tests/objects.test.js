@@ -15,6 +15,7 @@ import express from "express";
 
 import { mountObjectRoutes, namedBy, pruneObjects, receiveObject } from "../lib/objects.js";
 import { DiskStore, R2Store, fillStore, storeFromEnv } from "../lib/store.js";
+import { mountViewerRoutes } from "../lib/viewer-routes.js";
 
 const sha = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
@@ -217,4 +218,57 @@ test("the fill puts what the store lacks, skips what it has and what this tree c
   assert.equal(await fillStore({ store, root, pointers, log: () => {} }), 0, "a second pass sends nothing new");
   assert.equal(await fillStore({ store: null, root, pointers }), 0);
   assert.equal(await fillStore({ store, root, pointers: { solids: {} } }), 0, "no prefix, no fill");
+});
+
+// WHERE THE PAGE IS TOLD TO FETCH A MODEL FROM. `/api/objects` is the whole of it: a URL per
+// model member, built from the hash the pointer file names, so the URL moves exactly when the
+// bytes do and never otherwise. A store without a public address answers `base: null`, and
+// every loader in the viewer then reads this site's own routes.
+test("/api/objects names each model's bytes on the store, and nothing when the store has no address", async (t) => {
+  const hardwareDir = await mkdtemp(path.join(tmpdir(), "hardware-"));
+  const pointersPath = path.join(await mkdtemp(path.join(tmpdir(), "pointers-")), "cad-artifacts.json");
+  const digest = { step: sha(Buffer.from("a")), mesh: sha(Buffer.from("b")), glb: sha(Buffer.from("c")) };
+  await writeFile(pointersPath, JSON.stringify({
+    store: { objects: "s-" },
+    solids: {
+      "hardware/faucet-layout/faucet-assembly.step": digest.step,
+      "hardware/faucet-layout/faucet-assembly.step.mesh": digest.mesh,
+      "hardware/assembly/scenes/glb/back-half.glb": digest.glb,
+      // Named by the pointer file, and not a model the viewer opens.
+      "hardware/assembly/cards/deck.pdf": sha(Buffer.from("d")),
+      "hardware/assembly/cards/img/chain.png": sha(Buffer.from("e")),
+      "hardware/printed-parts/grip.stl": sha(Buffer.from("f")),
+      // Not under hardware/, so no root-relative name exists for it.
+      "firmware/src_front/app.step": sha(Buffer.from("g")),
+    },
+  }));
+
+  const ask = async (store, pointers = pointersPath) => {
+    const app = express();
+    mountViewerRoutes(app, { hardwareDir, store, pointersPath: pointers });
+    const server = await new Promise((resolve) => { const s = app.listen(0, "127.0.0.1", () => resolve(s)); });
+    t.after(() => new Promise((resolve) => server.close(resolve)));
+    const resp = await fetch(`http://127.0.0.1:${server.address().port}/api/objects`);
+    assert.equal(resp.status, 200);
+    return resp.json();
+  };
+
+  const domain = new R2Store({ client: null, bucket: "b", publicUrl: "https://objects.homesodamachine.com/" });
+  assert.deepEqual(await ask(domain), {
+    base: "https://objects.homesodamachine.com",
+    objects: {
+      "faucet-layout/faucet-assembly.step": `https://objects.homesodamachine.com/s-${digest.step}.gz`,
+      "faucet-layout/faucet-assembly.step.mesh": `https://objects.homesodamachine.com/s-${digest.mesh}.gz`,
+      "assembly/scenes/glb/back-half.glb": `https://objects.homesodamachine.com/s-${digest.glb}.gz`,
+    },
+  });
+
+  // An `r2.dev` address is not a public address (web/lib/store.js), a disk is read through
+  // this service, and with no store at all there is nothing to name.
+  const rdev = new R2Store({ client: null, bucket: "b", publicUrl: "https://pub-abc.r2.dev" });
+  const empty = { base: null, objects: {} };
+  assert.deepEqual(await ask(rdev), empty, "r2.dev is rate-limited, so the site serves instead");
+  assert.deepEqual(await ask(new DiskStore(hardwareDir)), empty, "a disk has no address of its own");
+  assert.deepEqual(await ask(null), empty, "no store, nothing to name");
+  assert.deepEqual(await ask(domain, path.join(hardwareDir, "absent.json")), empty, "no pointer file, no URLs");
 });

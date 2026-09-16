@@ -249,6 +249,17 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     ? "dev"
     : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
   const server = http.createServer(app);
+  // THE OBJECT STORE (web/lib/store.js): Cloudflare R2 when render.yaml names the account and
+  // key pair, the disk when it names a directory. Every member the pointer file names is held
+  // there by hash; a machine that cut one puts it here (web/lib/objects.js).
+  const store = await storeFromEnv();
+  const pointersPath = path.join(REPO_ROOT, "hardware", "cad-artifacts.json");
+  if (store) {
+    console.log(`[objects] store: ${store.kind}`);
+    mountObjectRoutes(app, { store });
+    mountObjectPrune({ store, pointersPath });
+  }
+
   const { broadcast, setRecent } = mountEvents(server, { commit });
 
   initPush({
@@ -266,7 +277,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // and doesn't change any routes. The only behavioral differences in dev:
   //   - commit signal is "dev" instead of the deploy SHA
   //   - the boot-time push diff is skipped (no real deploy, no FCM)
-  mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
+  mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR, store, pointersPath });
   mountPushRoutes(app);
   mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);
@@ -278,16 +289,6 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
   mountFirmwareRoutes(app, { commit });
-  // THE OBJECT STORE (web/lib/store.js): Cloudflare R2 when render.yaml names the account and
-  // key pair, the disk when it names a directory. Every member the pointer file names is held
-  // there by hash; a machine that cut one puts it here (web/lib/objects.js).
-  const store = await storeFromEnv();
-  const pointersPath = path.join(REPO_ROOT, "hardware", "cad-artifacts.json");
-  if (store) {
-    console.log(`[objects] store: ${store.kind}`);
-    mountObjectRoutes(app, { store });
-    mountObjectPrune({ store, pointersPath });
-  }
   attachSubscribe(app, pool);
 
   // Live build commit, for boot.js's activation check: boot.js records it
