@@ -59,7 +59,7 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "29/36",
+   "value": "28/35",
    "target": "a body per billed part",
    "detail": [
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
@@ -161,11 +161,37 @@
    "active": true
   },
   {
+   "id": "inlet-jet-qualified",
+   "label": "The inlet jet's actual joint and fit are qualified",
+   "kind": "goal",
+   "status": "warn",
+   "value": "nominal layout only",
+   "target": "measured fit and qualified weld",
+   "detail": [
+    "The cap is drawn at nominal 9.5 mm diameter, 2 mm thickness and a 1/16-inch passage.",
+    "The elbow bore and installed tip projection are unmeasured layout assumptions; the model does not establish the weld land, penetration or pressure integrity.",
+    "Qualify the coupon, passage and made-up port using assembly/water-inlet-jet.md."
+   ],
+   "active": true
+  },
+  {
+   "id": "gas-adapter-envelope",
+   "label": "The gas collet matches its acquired PI010822S",
+   "kind": "goal",
+   "status": "warn",
+   "value": "shared nominal envelope",
+   "target": "measured gas-adapter envelope",
+   "detail": [
+    "The gas port carries the PI010822S identity and gray acetal material; its envelope is represented by the existing PP010822E layout reference until measured."
+   ],
+   "active": true
+  },
+  {
    "id": "placed",
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "54/54",
+   "value": "52/52",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -195,7 +221,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "52/54",
+   "value": "50/52",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
@@ -254,11 +280,9 @@
   "reservoir-a-cap",
   "reservoir-b",
   "reservoir-b-cap",
-  "sparge-barb",
-  "sparge-silicone-stub",
-  "sparge-stone",
   "vent-membrane-a",
-  "vent-membrane-b"
+  "vent-membrane-b",
+  "water-inlet-jet-cap-nominal"
  ],
  "bends": [
   {
