@@ -6,133 +6,85 @@
 </head>
 <body class="ip">
 <div class="card">
-
 <header>
   <div class="code">IP-01</div>
-  <h1>CO2 path — +Y wall<br>to cold core</h1>
+  <h1>CO2 path — regulator<br>then check, then cold core</h1>
   <div class="deckpos"><b>Internal plumbing · 01/8</b>The appliance</div>
 </header>
-
 <main>
   <div class="col" style="flex:1">
-    <p class="lede"><strong>Four NPT joints, three tube hops.</strong> Nothing
-    threads onto the bulkhead; check and WR1110 stand apart.</p>
-
+    <p class="lede"><strong>Five gray-acetal PI010822S adapters.</strong>
+    Four on the warm chain, one on the bottom gas elbow.</p>
     <ol class="steps">
-      <li><b>ABU44 bulkhead already clamped</b> — through the +Y wall's
-        <span class="dim" data-gen="CO2_HOLE_D">&#8960;17.86</span> bore from
-        EN-02. A collet on each face.</li>
-      <li><b>PI010822S into the GASHER's inlet</b> — tape:
-        <span class="dim">2&ndash;3 wraps</span> clockwise, first thread bare.
-        <b>Arrow away from the wall.</b>
-        <span class="dim">Snug + 1</span>.</li>
-      <li><b>PP450822E onto the check's outlet stub</b> — taped, snug + 1.
-        The regulator does <i>not</i> thread on here.</li>
-      <li><b>PP010822E into the WR1110's IN and OUT</b> — female both
-        ends.</li>
-      <li><b>Three LLDPE hops, cut square</b> — the first two straight;
-        regulator&rarr;<b>co2-in</b>,
-        <span class="dim" data-gen="CO2_2_CORNERS">2</span> corners.</li>
+      <li><b>Check ABU44 in the +Y wall’s
+        <span class="dim" data-gen="CO2_HOLE_D">&#8960;17.3</span> bore.</b>
+        Keep the WR1110 bracket.</li>
+      <li><b>Fit PI010822S to WR1110 IN/OUT and check inlet.</b>
+        Check arrow points toward the carbonator.</li>
+      <li><b>Coupling on the check’s male outlet, then PI010822S.</b>
+        Seal the NPT joints with supported wrench flats.</li>
+      <li><b>Thread a 6-inch tie through the empty check cradle.</b> Seat the
+        metal inlet boss and close the tie. Fit hoses, seat and tug-test ends.
+        Record fit and check qualification per the procedure.</li>
     </ol>
-
-    <div class="tools">
-      <span class="lbl">Tools</span>
-      chassis from EN-10 · PTFE tape (GT-01) · 2× crescent · cutter
+    <div class="tools"><span class="lbl">Tools</span>
+      PTFE tape · 2× crescent · tubing cutter · made-up fit record
     </div>
   </div>
-
   <div class="col" style="flex:none; width:760px">
     <div class="panel light">
-      <svg viewBox="0 0 760 700" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 760 650" xmlns="http://www.w3.org/2000/svg">
         <style>
-          .body  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
-          .band  { fill: #dfe3e9; stroke: #1d1d26; stroke-width: 3; }
-          .tube  { stroke: #1d1d26; stroke-width: 5; fill: none; }
-          .flow  { stroke: #2268c2; stroke-width: 3; fill: none; }
-          .dimtx { font: 700 25px 'IBM Plex Mono',Menlo,monospace; fill: #2268c2; }
-          .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
-          .sub   { font: 400 22px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
-          .tape  { stroke: #f0b429; stroke-width: 6; }
-          .cradle{ fill: none; stroke: #1d1d26; stroke-width: 3; stroke-dasharray: 7 6; }
+          .box { fill:#eef0f3; stroke:#1d1d26; stroke-width:3; }
+          .ln { fill:none; stroke:#b53535; stroke-width:5; }
+          .lbl { font:600 24px 'IBM Plex Sans',sans-serif; fill:#1d1d26; }
+          .sub { font:400 22px 'IBM Plex Sans',sans-serif; fill:#70707c; }
+          .dimtx { font:700 24px 'IBM Plex Mono',monospace; fill:#2268c2; }
         </style>
-        <text class="lbl" x="24" y="40">CO2 CHAIN &#183; +Y wall &#8594; cold-core top lid</text>
-
-        <!-- wall-side spine -->
-        <line class="flow" x1="170" y1="96" x2="170" y2="330"/>
-
-        <!-- +Y wall band -->
-        <rect class="band" x="48" y="72" width="300" height="32"/>
-        <text class="lbl" x="360" y="96">+Y WALL</text>
-
-        <!-- ABU44 -->
-        <rect class="body" x="124" y="104" width="92" height="56" rx="6"/>
-        <text class="lbl" x="232" y="126">ABU44 bulkhead</text>
-        <text class="sub" x="232" y="152">1/4&Prime; collet out &#183; 1/4&Prime; collet in</text>
-
-        <!-- tape joint 1 -->
-        <line class="tape" x1="152" y1="172" x2="188" y2="172"/>
-        <text class="sub" x="232" y="178">PTFE &#183; snug + 1</text>
-
-        <!-- GASHER -->
-        <rect class="body" x="116" y="188" width="108" height="60" rx="8"/>
-        <path fill="#2268c2" d="M 170 240 L 159 218 L 181 218 Z"/>
-        <text class="lbl" x="240" y="212">GASHER check</text>
-        <text class="sub" x="240" y="238">1/4&Prime; NPT SS &#183; arrow away from the wall</text>
-
-        <!-- tape joint 2 -->
-        <line class="tape" x1="152" y1="260" x2="188" y2="260"/>
-        <text class="sub" x="232" y="266">PTFE on the outlet stub</text>
-
-        <!-- PP450822E -->
-        <rect class="body" x="124" y="276" width="92" height="52" rx="6"/>
-        <text class="lbl" x="232" y="298">PP450822E</text>
-        <text class="sub" x="232" y="322">1/4&Prime; NPT F &#215; 1/4&Prime; PTC &#183; faces the male stub</text>
-
-        <!-- hop 1: check -> regulator -->
-        <path class="tube" d="M 170 328 L 170 400 Q 170 424 194 424 L 286 424"/>
-        <text class="sub" x="52" y="462">co2-1 &#183; no corner</text>
-        <text class="dimtx" x="52" y="492" data-gen="CO2_1_LEN">10 mm</text>
-
-        <!-- regulator, standing apart on its cradle -->
-        <text class="lbl" x="286" y="352">WR1110 &#183; stands apart</text>
-        <text class="sub" x="286" y="376">PP010822E in each of its two female ends</text>
-        <path class="cradle" d="M 336 460 L 336 476 L 574 476 L 574 460"/>
-        <rect class="body" x="286" y="404" width="64" height="40" rx="5"/>
-        <rect class="body" x="350" y="392" width="210" height="64" rx="10"/>
-        <rect class="body" x="560" y="404" width="64" height="40" rx="5"/>
-        <line class="tape" x1="350" y1="400" x2="350" y2="448"/>
-        <line class="tape" x1="560" y1="400" x2="560" y2="448"/>
-        <text class="dimtx" x="455" y="432" text-anchor="middle">90 PSI</text>
-        <text class="sub" x="286" y="506">never on the check</text>
-        <text class="sub" x="286" y="530">cradle + station are EN open items</text>
-
-        <!-- hop 2: regulator -> cold core -->
-        <path class="tube" d="M 624 424 L 668 424 Q 690 424 690 446 L 690 556 Q 690 580 666 580 L 330 580 Q 300 580 300 620"/>
-        <path fill="#1d1d26" d="M 300 632 L 291 612 L 309 612 Z"/>
-        <text class="lbl" x="52" y="530">co2-2 &#183; 1/4&Prime; LLDPE</text>
-        <text class="dimtx" x="52" y="560" data-gen="CO2_2_LEN">163 mm</text>
-        <text class="sub" x="52" y="590">square both ends</text>
-
-        <!-- cold core band -->
-        <rect class="band" x="48" y="628" width="632" height="48"/>
-        <circle cx="300" cy="652" r="9" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
-        <text class="lbl" x="336" y="650">COLD CORE &#183; top lid</text>
-        <text class="sub" x="336" y="670">co2-in conduit, east port lane</text>
-        <line class="flow" x1="308" y1="646" x2="374" y2="616"/>
-        <text class="dimtx" x="380" y="612" data-gen="CAP_CONDUIT_D">&#8960;6.65 mm</text>
+        <text class="lbl" x="24" y="35">FLOW ORDER · schematic, not a cut template</text>
+        <path class="ln" d="M 132 95 V 576"/>
+        <path fill="#b53535" d="M 132 592 L 122 573 L 142 573 Z"/>
+        <rect class="box" x="48" y="60" width="168" height="54" rx="6"/>
+        <text class="lbl" x="132" y="94" text-anchor="middle">ABU44</text>
+        <text class="sub" x="242" y="94">+Y wall · inboard collet</text>
+        <text class="sub" x="242" y="138">co2-0 → WR1110 IN</text>
+        <rect class="box" x="48" y="163" width="168" height="66" rx="6"/>
+        <text class="lbl" x="132" y="191" text-anchor="middle">WR1110</text>
+        <text class="sub" x="132" y="215" text-anchor="middle">IN → OUT</text>
+        <text class="sub" x="242" y="184">PI010822S at both ends</text>
+        <text class="sub" x="242" y="215">existing bracket retained</text>
+        <text class="sub" x="242" y="259">co2-1 · regulator → check</text>
+        <text class="dimtx" x="590" y="259" data-gen="CO2_1_LEN">89 mm</text>
+        <rect class="box" x="48" y="285" width="168" height="66" rx="6"/>
+        <text class="lbl" x="132" y="314" text-anchor="middle">GASHER</text>
+        <text class="sub" x="132" y="338" text-anchor="middle">female → male</text>
+        <text class="sub" x="242" y="307">PI010822S on inlet</text>
+        <text class="sub" x="242" y="338">downstream of regulator</text>
+        <rect class="box" x="48" y="376" width="168" height="70" rx="6"/>
+        <text class="lbl" x="132" y="405" text-anchor="middle">316 coupling</text>
+        <text class="sub" x="132" y="431" text-anchor="middle">+ PI010822S</text>
+        <text class="sub" x="242" y="403">female × female, 1/4″ NPT</text>
+        <text class="sub" x="242" y="434">include in measured envelope</text>
+        <text class="sub" x="242" y="478">co2-2 · check → cold core</text>
+        <text class="dimtx" x="590" y="478" data-gen="CO2_2_LEN">238 mm</text>
+        <text class="sub" x="242" y="510">modeled corners:</text>
+        <text class="dimtx" x="454" y="510" data-gen="CO2_2_CORNERS">3</text>
+        <rect class="box" x="48" y="543" width="168" height="49"/>
+        <text class="lbl" x="132" y="575" text-anchor="middle">co2-in</text>
+        <text class="sub" x="242" y="571">cap conduit</text>
+        <text class="dimtx" x="425" y="571" data-gen="CAP_CONDUIT_D">&#8960;6.8 mm</text>
+        <text class="sub" x="48" y="627">Below lid: continuous tube → PI adapter → elbow → plain Port 1</text>
       </svg>
-      <div class="cap"><b>Closed dry</b> — charging is AB-02. The last end meets
-      no fitting: it lays into the conduit's countersunk lip. Everything below
-      that mouth went in at CC-12 and is not opened again.</div>
+      <div class="cap"><b>Gas-rated adapters throughout.</b> PP010822E and
+      PP450822E stay on water paths. Generated tube lengths require the actual
+      coupling, adapter and hose fit check.</div>
     </div>
   </div>
 </main>
-
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Closed dry, ABU44 to cold core — all four NPT joints past hand-tight, both PTC collets clicked home, both tube ends tug-tested.</div>
-  <div class="src">internal-plumbing.md &#167;1 &#183; y-wall-of-back-top/README.md<br>_cards_sync.py &#183; rev 2026-09-08</div>
+  <div class="done"><span class="lbl">Done when</span>Flow order correct, made-up placement recorded, every joint seated and tug-tested; closed dry for acceptance.</div>
+  <div class="src">internal-plumbing.md §1<br>_cards_sync.py · rev 2026-09-16</div>
 </footer>
-
 </div>
 </body>
 </html>

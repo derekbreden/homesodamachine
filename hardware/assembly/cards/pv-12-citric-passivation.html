@@ -10,35 +10,31 @@
 <header>
   <div class="code">PV-12</div>
   <h1>Citric-acid passivation</h1>
-  <div class="deckpos"><b>Pressure vessel · 12/14</b>The appliance</div>
+  <div class="deckpos"><b>Pressure vessel · 12/14</b>The soda machine</div>
 </header>
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">One soak restores the chromium-oxide layer at the
-    weld zones — what lets 316L <strong>shrug off carbonic acid</strong>
-    for the life of the carbonator. Same treatment commercial bright tanks
-    get.</p>
+    <p class="lede">Citric treatment removes free-iron contamination and
+    supports passivation. Start with <strong>clean, oxide-free surfaces</strong>;
+    cleaning and passivation acceptance still require qualification.</p>
 
     <ol class="steps">
-      <li><b>Mix ~1 qt of <span class="dim">~4 %</span> solution</b> —
-        Viva Doria food-grade citric, about 1/20 of the 2 lb bag per
-        carbonator.</li>
+      <li><b>Clean before the bath.</b> Remove cutting fluid, penetrant
+        residues, scale and unacceptable heat tint by the qualified method.
+        Citric is not the weld-oxide removal step.</li>
+      <li><b>Mix <span class="dim">~4 %</span> solution</b> with Viva Doria
+        food-grade citric; use enough to contact every surface.</li>
       <li><b>Soak <span class="dim">30-60 min</span></b> in the Cambro
-        tub. A mild citric soak doesn't consume it — same tub, build
-        after build.</li>
-      <li><b>Rinse thoroughly with water,</b> then dry.</li>
-      <li><b>Purge the stone.</b> It soaked too — in since PV-09,
-        never coming out. Milton air plug into Port 1, low shop air,
-        out through the stone until it bubbles evenly:
-        <span class="dim">0.5 &micro;m</span> pores hold rinse water and
-        only flow clears them.</li>
+        tub. Establish bath condition and reuse limits in qualification.</li>
+      <li><b>Rinse through all four open ports,</b> drain and dry.
+        Treat the clean, qualified jet elbow separately; rinse through its
+        female port and drilled passage.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Materials</span>
-      Viva Doria citric acid · Cambro 6 QT polycarbonate tub · water ·
-      Milton 727 air plug (from PV-11)
+      Viva Doria citric acid · Cambro 6 QT polycarbonate tub · water
     </div>
   </div>
 
@@ -49,7 +45,6 @@
           .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
           .tub   { fill: none; stroke: #1d1d26; stroke-width: 3.5; }
           .liq   { fill: #dfe8f2; }
-          .oxide { fill: #e8c77a; stroke: #1d1d26; stroke-width: 1.5; }
           .dimln { stroke: #46628a; stroke-width: 2.5; }
           .dimtx { font: 700 25px 'IBM Plex Mono',Menlo,monospace; fill: #46628a; }
           .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
@@ -64,33 +59,33 @@
         <line x1="154" y1="170" x2="646" y2="170" stroke="#46628a" stroke-width="2.5"/>
         <path class="tub" d="M 140 120 L 180 420 L 620 420 L 660 120"/>
 
-        <!-- carbonator, submerged, weld-zone tint at both rims -->
+        <!-- clean carbonator, submerged; four ports open for wetting and rinsing -->
         <rect class="steel" x="310" y="190" width="180" height="200"/>
-        <rect class="oxide" x="310" y="190" width="180" height="12"/>
-        <rect class="oxide" x="310" y="378" width="180" height="12"/>
+        <path d="M 355 187 V 202 M 445 187 V 202 M 355 378 V 393 M 445 378 V 393"
+          stroke="#46628a" stroke-width="7"/>
 
         <!-- labels -->
         <text class="dimtx" x="232" y="270" text-anchor="middle">~4 %</text>
         <text class="dimtx" x="232" y="298" text-anchor="middle">citric</text>
 
-        <text class="sub" x="380" y="452" text-anchor="middle">yellow/brown weld color dissolves out — oxide layer restored</text>
+        <text class="sub" x="380" y="452" text-anchor="middle">weld oxide addressed before immersion</text>
       </svg>
       <div class="cap"><b>Order: after hydro, before the fittings.</b>
-      Re-welds put oxide back. The stone soaks too — citric is what
-      unclogs it — then gets purged dry.</div>
+      Re-welds require renewed cleaning. The jet elbow is treated
+      separately while its bore remains accessible.</div>
     </div>
 
     <table class="spec" style="margin-top:22px">
       <tr><td>Solution</td><td class="v">~4 % citric, food-grade</td></tr>
       <tr><td>Soak &#183; rinse</td><td class="v">30-60 min &#183; water</td></tr>
-      <tr><td>Tub</td><td class="v">Cambro 6 QT &#183; reused</td></tr>
+      <tr><td>Tub</td><td class="v">Cambro 6 QT</td></tr>
     </table>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Soaked 30-60 min, rinsed, dry — weld zones uniform, yellow/brown gone.</div>
-  <div class="src">pressure-vessel.md &#167;8<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>Cleaned before the bath, treated, rinsed and dry; process acceptance recorded for carbonator and jet.</div>
+  <div class="src">pressure-vessel.md &#167;8 &#183; water-inlet-jet.md<br>rev 2026-09-16</div>
 </footer>
 
 </div>

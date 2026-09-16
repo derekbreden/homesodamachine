@@ -1,12 +1,12 @@
 """GASHER 1/4" NPT inline check valve — a hex-barrel body with a female NPT
 socket on the inlet end and a male NPT stub on the outlet end. Two sit in the
 enclosure pack: the water-pump outlet check (gasher-water, on the SeaFlo
-discharge) and the CO2 inlet check (gasher-co2, on the ABU44 → WR1110 chain).
+discharge) and the downstream CO2 check (gasher-co2, after WR1110).
 
 The casting's flow arrow runs from the female socket toward the male stub, so
 the female end is what a male NPT upstream threads INTO and the male stub is
-what threads into the female downstream. Nickel-plated copper body, soft seat,
-150 psi.
+what threads into the female downstream. Exact body/seat construction and
+pressure rating for the owned SKU remain unverified; see the companion README.
 
 External envelope only — the internal spring + poppet is not modeled. A hex
 barrel (Ø17 across the corners) with a socket boss one end and a male stub the
@@ -28,7 +28,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_assembly, import_step
-from _materials import M_NICKEL_PLATE, one_body
+from _materials import M_NICKEL_PLATE, one_body  # visual finish only; construction unverified
 
 STEP = _here.parent / "gasher-check-valve.step"
 

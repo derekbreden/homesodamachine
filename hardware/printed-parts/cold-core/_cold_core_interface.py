@@ -289,14 +289,12 @@ foam_cap_lid_hole_inset = 30.0
 # the shell's own axis on it, two under the carbonator and two over it.
 carbonator_port_offset = 0.750 * 25.4
 
-# CO2 inlet — the bottom plate's LANE-SIDE port. Inside the carbonator it feeds the
-# barb adapter, the silicone stub and the 0.5 µm sintered sparge stone hanging in
-# the water column (`assembly/pressure-vessel.md`): the gas enters BELOW the
-# liquid and dissolves on the way up, which is what makes the carbonation the
-# CO2 supply pressure sets.
+# CO2 inlet — the bottom plate's LANE-SIDE port, open into the vessel. Gas enters below
+# the liquid and rises to replenish the headspace; the top water-inlet jet provides the
+# intended gas/water contact during refill (`assembly/water-inlet-jet.md`).
 #   Outside the carbonator it is one bore on the shell's own centreline, level with the
 # bottom-plate elbows, run from the port out through the carbonator support ring to the
-# port lane. The port, its TAISHER elbow, the PP010822E collet made up on it and
+# port lane. The port, its TAISHER elbow, the PI010822S collet made up on it and
 # the ring bore all stand on that one line, so the tube is the only thing that
 # crosses shell material and no bend is taken in-cavity. The line reaches the
 # bore's lane end from ABOVE — down the port lane from the cap's `co2-in`
@@ -1017,9 +1015,8 @@ state(
 #   co2-in stands over the PORT LANE and its line runs DOWN it, the one conduit here that feeds
 # rather than drains. It falls the shell's whole height, turns along the lane's floor and leans
 # in to `_port_cuts.co2_inlet_xyz` — the one bore through the support ring — to land on the
-# collet made up under the bottom plate's lane-side port. Inside the carbonator that port feeds the
-# barb, the silicone stub and the sparge stone hanging in the water column, so the gas enters
-# BELOW the liquid and dissolves on the way up. Because the line arrives from above, it is laid
+# collet made up under the bottom plate's lane-side port. That port opens directly into the
+# water column; gas rises to the headspace. Because the line arrives from above, it is laid
 # down the lane before the top cap goes on.
 #   ITS FALL IS THE ONLY RISER THE LANE CARRIES. A lane is one bore wide, so a riser in it is a
 # wall to everything crossing that column, and the lane's other traffic all runs WEST at one

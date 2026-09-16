@@ -102,7 +102,7 @@ carrier_prints_per_build = len(_ea._carrier.interface()["printed_parts"])
 carrier_joint_screws_per_build = len(_ea._carrier.joint_sites())
 general_four_inch_ties_per_build = 24
 four_inch_ties_per_build = general_four_inch_ties_per_build + carrier_ties_per_build
-six_inch_ties_per_build = 4
+six_inch_ties_per_build = 5
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -478,6 +478,7 @@ def main():
         "FLOWREG_LOOP": f"{body_tie_loops['flow-regulator']:.3g} mm",
         "ANCHOR_LOOP": f"{chain_tie_loop:.3g} mm",
         "WR1110_LOOP": f"{body_tie_loops['wr1110']:.3g} mm",
+        "GAS_CHECK_LOOP": f"{body_tie_loops['gasher-co2']:.3g} mm",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
         "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",

@@ -191,12 +191,17 @@ def build_elbows() -> dict:
 
 
 def male_len(name: str) -> float:
-    """How far one port's elbow threads into its plate.
+    """The nominal male engagement drawn on each identical purchased elbow.
 
-    The CO2 port is tapped THROUGH and carries a fitting on each face — the elbow outside, the
-    sparge barb inside — so the two share the plate and each reaches half of it. The other
-    three have the whole thickness to themselves."""
-    return PLATE_T / 2.0 if name == "co2-in" else F.ELBOW_MALE_LEN
+    This layout does not establish the installed NPT engagement or the tip's projection
+    through a tapped plate; both are measured during the inlet-jet fit trial."""
+    return F.ELBOW_MALE_LEN
+
+
+def port_male_tip(name: str) -> tuple:
+    """The nominal tip of the male leg, in the direction it enters the carbonator."""
+    return tuple(cq.Vector(*port_corner(name))
+                 + cq.Vector(*port_up(name)).multiply(ELBOW_AXIS_OFFSET + male_len(name)))
 
 
 def bodies() -> dict:

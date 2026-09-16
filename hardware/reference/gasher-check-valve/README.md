@@ -1,16 +1,24 @@
 # GASHER 1/4" NPT inline check valve
 
-Nickel-plated copper hex-barrel check valve, soft seat, 150 psi: a **female**
-1/4" NPT socket on the inlet end and a **male** 1/4" NPT stub on the outlet
-end. The casting's flow arrow runs female → male, so an upstream male threads
-into the socket and the stub threads into a downstream female. Two are packed
-in the enclosure:
+Owned SKU B0FV2D2FFX has a female 1/4-inch NPT inlet and male 1/4-inch NPT
+outlet in the nominal dimensional drawing. Verify the supplied body's arrow
+runs female → male. The two roles are:
 
-- **gasher-water** — the SeaFlo pump's discharge check, riding the pump top on
-  the carb-water riser path.
-- **gasher-co2** — the CO2 inlet check on the ABU44 → WR1110 chain.
+- **gasher-water** — the SeaFlo discharge check in the MAACFLOW → GASHER →
+  PP450822E chain.
+- **gasher-co2** — the check downstream of WR1110, before the cold core's
+  plain bottom gas port. Its female inlet takes PI010822S; its male outlet
+  takes a 316 FNPT coupling and a second PI010822S.
 
-Fluid roles are in `hardware/topology/fluid-topology.md`.
+The owned valve's exact body and seat materials are not established by the
+source drawing. Stainless/PTFE and nickel-plated-copper/soft-seat descriptions
+in the source record conflict. Confirm the supplier specification, pressure
+rating, CO2/carbonated-water suitability, cracking pressure and reverse sealing
+before qualifying the part for either duty. The gas-check placement must
+include the adapters and coupling, as specified in
+[internal plumbing](/hardware/assembly/internal-plumbing.md).
+
+Fluid roles are in [fluid topology](/hardware/topology/fluid-topology.md).
 
 ## Model
 

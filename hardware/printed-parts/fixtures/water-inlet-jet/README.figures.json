@@ -1,0 +1,12 @@
+{
+  "/hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": {
+    "JET_FIXTURE_BASE": "120 \u00d7 90 \u00d7 8 mm",
+    "JET_FIXTURE_BASE_CLAMP_X": "\u00b146 mm",
+    "JET_FIXTURE_BLANK": "50 mm",
+    "JET_FIXTURE_GAP": "1 mm",
+    "JET_FIXTURE_GRIP": "30 mm",
+    "JET_FIXTURE_GROOVE": "9.8 mm",
+    "JET_FIXTURE_JAW_CLAMP_X": "\u00b120 mm",
+    "JET_FIXTURE_MIN_BLANK": "40 mm"
+  }
+}

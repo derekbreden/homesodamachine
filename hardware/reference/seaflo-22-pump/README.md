@@ -6,6 +6,11 @@ appliance's `seaflo-pump` — transfers tap water against CO2 back-pressure into
 the carbonator. 3/8" hose-barb inlet + outlet on the head (plumbing in
 `hardware/assembly/internal-plumbing.md`).
 
+The SeaFlo and Mean Well IRM-90-12ST remain the production and enclosure
+baseline. The [G Ganen and IEIK samples](/hardware/reference/pump-comparison/README.md)
+are measurement-only stock. Changes to pump pressure/flow capability are
+conditional on the [refill measurements](/future/carbonation-plan-b.md).
+
 ## Ports
 
 Both ports are **3/8" hose barbs molded into the pump head** — fixed, not

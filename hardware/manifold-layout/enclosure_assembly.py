@@ -198,6 +198,7 @@ import water_split as _split                          # noqa: E402
 import neofit_bulkhead as _neofit                      # noqa: E402
 import gasher_check_valve as _gasher                   # noqa: E402
 import wr1110_regulator as _wr1110                     # noqa: E402
+import _gas_chain                                     # noqa: E402
 import digiten_flow_sensor as _digiten                 # noqa: E402
 import meanwell_irm90 as _psu                          # noqa: E402
 import teyleten_relay as _relay                        # noqa: E402
@@ -310,7 +311,7 @@ FUNNEL_ROT = 0.0
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
                         C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY, C_SEAFLO,
-                        M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
+                        M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK,
                         M_ZINC_PLATED_STEEL)
@@ -354,7 +355,7 @@ C_FLOWREG = M_NEOFIT_ACETAL
 C_VK = ml.C_VALVE
 # The four PP1208E unions the +Y wall of back-top clamps — the fittings the customer meets.
 C_BULKHEAD = M_JG_BLACK_PP
-# The ABU44-E the customer's CO2 tether pushes into, and the SS check one hop inboard of it.
+# The ABU44-E the customer's CO2 tether pushes into; the check follows the regulator.
 C_CO2_INLET = M_NEOFIT_ACETAL
 C_GASHER = M_STAINLESS
 C_WR1110 = M_ALUMINIUM
@@ -2958,7 +2959,7 @@ TUBE_ANCHOR_SITES = (
     # wall there is back-top's ceiling slab, the face that piece prints on, so the rib stands up
     # from the bed and the slab stands off its zip tie's room (`enclosure._ceiling_tie_reliefs`).
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
-    # And the gas line's, on that same deck and under that same wall, one cap conduit aft of it.
+    # The downstream gas line's aft crossing, under the same back-top ceiling slab.
     ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # Flavor B's cruise aft, off the −X wall it runs 26.4 mm inboard of. That leg is the run's
     # longest and it is dead straight, so the wall lies one distance down the whole of it — and
@@ -3041,6 +3042,8 @@ BODY_ANCHOR_SLIP = fits.slip
 BODY_ANCHOR_SITES = (
     # The regulator's barrel, between its two wrench hexes — off back-top's ceiling slab.
     ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # The downstream check's inlet boss; the bowed connecting tubes do not locate its body.
+    ("gasher-co2", _gas_chain.check_socket, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # THE FLAVOUR TAP'S OWN TWO, one over the other on one column off the −X wall. The split and
     # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
     # run between its hub and the collet the tap arrives by — the one round section on either body
@@ -3059,6 +3062,7 @@ BODY_ANCHOR_SITES = (
 # webs keep their corbels — `tube-water-2` crosses the air a column would take.
 BODY_ANCHOR_END_FORMS = {
     "wr1110": ("corbel", "corbel"),
+    "gasher-co2": ("corbel", "corbel"),
     "water-split": ("corbel", "corbel"),
     "flow-regulator": ("column", "column"),
 }
@@ -3450,10 +3454,10 @@ _stated.state(
 
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
 #
-# The customer's cylinder stands beside the machine and its red tether lands here. Three bodies
-# on one axis, inline off the wall: the ABU44 bulkhead clamps through it with a collet on each
-# face, the GASHER check stands one hop of tube ahead of the inboard collet, and the WR1110
-# stands one more hop ahead of the check, holding the appliance side at 90 PSI.
+# The customer's red tether lands on the ABU44 bulkhead. The WR1110 lies on that wall-normal
+# axis in its fixed ceiling cradle. The downstream GASHER check lies beside it, with gas
+# running back toward the wall through the check before the outlet hose turns onto the east
+# lane. Each NPT-to-tube transition is drawn explicitly by `_gas_chain`.
 #
 # The axis is the WALL'S OWN NORMAL, so the chain takes a half turn about Z and nothing else:
 # each fitting's frame already runs its flow down +Y with the upstream mouth on −Y, and the half
@@ -3578,14 +3582,14 @@ def _keystone_clearances(station: tuple, flavor: float, placed: dict) -> tuple:
     return show, tuple(hardware)
 
 
-# The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
-# socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
-# bulkhead's collet and the adapter's collet both take hold of.
-CO2_INLET_HOP = 8.0
-# The hop `co2-1` closes, mouth to mouth: the check's stub tip to the regulator's inlet socket.
-# It holds a PP450822E on the check's male stub, a PP010822E in the regulator's female one, and
-# the stretch of 1/4" tube between the two collets.
-CO2_HOP = 10.0
+# The bulkhead's inboard collet to the WR1110's female inlet face. This station fixes the
+# regulator's ceiling cradle; the external PI adapter occupies part of that interval.
+CO2_REGULATOR_SETBACK = 58.0
+# The check's parallel column, east of the regulator, over the existing pump envelope.
+# Its flow points toward the rear wall. The forward offset leaves the C14's insertion body
+# clear of the check-outlet U-turn while keeping the inlet turn behind the soda-water crossing.
+CO2_CHECK_SIDE_OFFSET = 36.0
+CO2_CHECK_FORWARD_OFFSET = 20.0
 
 
 def co2_inlet_mouth_y():
@@ -3606,23 +3610,19 @@ def build_co2_inlet(deck: float):
                               (CO2_COLUMN, co2_inlet_mouth_y(), deck - _enc.co2_axis_drop)))
 
 
-def build_gasher_co2(inlet_carry):
-    """The check standing one `CO2_INLET_HOP` ahead of the bulkhead on the chain's own axis,
-    seated on its INLET socket. Its arrow points away from the bulkhead: the carbonator's
-    pressure never reaches the customer's regulator."""
-    pos, axis = inlet_carry(_neofit.port(-1.0))
-    target = tuple(pos[i] + axis[i] * CO2_INLET_HOP for i in range(3))
+def build_gasher_co2(regulator_carry):
+    """The downstream check beside the fixed regulator, with its local +Y flow facing aft."""
+    pos, _axis = regulator_carry(_wr1110.barrel()[0])
+    target = (pos[0] + CO2_CHECK_SIDE_OFFSET, pos[1] - CO2_CHECK_FORWARD_OFFSET, pos[2])
     body = import_step(str(GASHER_STEP)).val()
-    return seat_body(body, CO2_CHAIN_TURN, seat="gasher-co2",
-                     station=(_gasher.inlet(), target))
+    return seat_body(body, (), seat="gasher-co2",
+                     station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), target))
 
 
-def build_wr1110(gasher_carry):
-    """The secondary regulator standing one `CO2_HOP` ahead of the check on the chain's own
-    axis, seated on its INLET socket. Nothing threads onto it and nothing holds it — the cradle
-    is an open item; this is where it hangs."""
-    pos, axis = gasher_carry(_gasher.outlet())
-    target = tuple(pos[i] + axis[i] * CO2_HOP for i in range(3))
+def build_wr1110(inlet_carry):
+    """The fixed regulator station, measured from the wall bulkhead's inboard collet."""
+    pos, axis = inlet_carry(_neofit.port(-1.0))
+    target = tuple(pos[i] + axis[i] * CO2_REGULATOR_SETBACK for i in range(3))
     body = import_step(str(WR1110_STEP)).val()
     return seat_body(body, CO2_CHAIN_TURN, seat="wr1110",
                      station=(_wr1110.inlet(), target))
@@ -3650,6 +3650,7 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
+              *_gas_chain.BODY_NAMES,
               "nameplate", "nameplate-ink",
               "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
 
@@ -5322,10 +5323,21 @@ def build_pack() -> cq.Assembly:
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     co2in, co2in_carry = build_co2_inlet(a.deck_z)
     a.add(co2in, name="co2-inlet", color=C_CO2_INLET)
-    gasher, gasher_carry = build_gasher_co2(co2in_carry)
-    a.add(gasher, name="gasher-co2", color=C_GASHER)
-    wr1110, wr1110_carry = build_wr1110(gasher_carry)
+    wr1110, wr1110_carry = build_wr1110(co2in_carry)
     a.add(wr1110, name="wr1110", color=C_WR1110)
+    gasher, gasher_carry = build_gasher_co2(wr1110_carry)
+    a.add(gasher, name="gasher-co2", color=C_GASHER)
+    gas_adapters = _gas_chain.bodies(wr1110_carry, gasher_carry)
+    # Each fitting's pose is the threaded parent's same transform; include the children in
+    # that placement rule rather than recording an unrelated world-space box.
+    for parent, members in (("wr1110", _gas_chain.ADAPTER_NAMES[:2]),
+                            ("gasher-co2", _gas_chain.ADAPTER_NAMES[2:] +
+                             (_gas_chain.CHECK_COUPLING,))):
+        row = SEATS[parent]
+        SEATS[parent] = row._replace(members=row.members + members)
+    for name, solid in gas_adapters.items():
+        a.add(solid, name=name,
+              color=M_STAINLESS if name == _gas_chain.CHECK_COUPLING else M_JG_GREY_ACETAL)
     a.co2_inlet_carry = co2in_carry
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
@@ -5402,7 +5414,7 @@ def build_pack() -> cq.Assembly:
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead, "co2-inlet": co2in, "gasher-co2": gasher,
-              "wr1110": wr1110, "digiten-flow": meter, **trays}
+              "wr1110": wr1110, "digiten-flow": meter, **gas_adapters, **trays}
     # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
     # in `manifold_layout`'s world and ride the pose this module stood them in.
     for name, solid, _colour in stood:
@@ -5540,6 +5552,7 @@ CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
     "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
     "wr1110", "gasher-co2", "tube-water-2", "flow-regulator",
+    *_gas_chain.BODY_NAMES,
     "wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd",
 )
 CEILING_RELIEF_PLAN_SLIP = 2.0
@@ -5556,6 +5569,11 @@ CEILING_RELIEF_LEVEL_GROUPS = (
     ("asse1022-assembly",),
     ("digiten-flow",),
     ("relay-1", "ground-stack"),
+    # Made-up gas fittings take one pocket roof per assembly. This preserves each member's
+    # own plan while avoiding sub-wall steps over its adjacent adapter hexes.
+    ("wr1110", _gas_chain.REG_IN_ADAPTER, _gas_chain.REG_OUT_ADAPTER),
+    ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER, _gas_chain.CHECK_OUT_ADAPTER,
+     _gas_chain.CHECK_COUPLING),
 )
 # Gasher's long, shallow crown genuinely enters the slab, but only 1.961 mm. Its exact plan stays
 # its own; the floor takes one complete printable wall rather than leaving a sub-wall step.

@@ -61,6 +61,8 @@ def colour_for(name: str):
         return _mat.M_STAINLESS
     if name.startswith("carbonator-elbow"):
         return _mat.M_STAINLESS
+    if name == "collet-co2-in":
+        return _mat.M_JG_GREY_ACETAL
     if name.startswith("collet-"):
         return _mat.M_JG_BLACK_PP
     if name.endswith("-cap"):
@@ -71,12 +73,6 @@ def colour_for(name: str):
         return _mat.C_PLUG
     if name.startswith("evap-"):
         return _mat.M_COPPER
-    if name.startswith("sparge-silicone"):
-        return _mat.C_SILICONE
-    if name.startswith("sparge-stone"):
-        return _mat.M_SINTERED_SS
-    if name.startswith("sparge-"):
-        return _mat.M_STAINLESS
     if name.startswith("bulkhead-seal"):
         return _mat.C_SILICONE
     if name.startswith("bulkhead-"):

@@ -6,110 +6,84 @@
 </head>
 <body class="ab">
 <div class="card">
-
 <header>
   <div class="code">AB-02</div>
-  <h1>First water fill<br>+ CO2 at 90 PSI</h1>
+  <h1>Fill, restart<br>and measured pressure</h1>
   <div class="deckpos"><b>Acceptance · 02/7</b>The appliance</div>
 </header>
-
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">First water in service, first CO2 against a wet
-    carbonator — <strong>the reeds run the fill; your job is joints.</strong></p>
-
+    <p class="lede"><strong>SeaFlo + IRM-90 baseline.</strong> Require jet
+    fit/weld qualification and commissioned acceptance controls first.</p>
     <ol class="steps">
-      <li><b>Open the water side.</b> Empty reed + closed faucet arms the
-        refill; command &ldquo;fill carbonator&rdquo; — the SeaFlo
-        energizes (relay #2, GPIO 2).</li>
-      <li><b>Watch the fill</b> — tens of seconds to the high reed, not
-        minutes; the pump stops itself. Overrun = reed fault, stuck
-        float, or a pump-pull short-circuit.</li>
-      <li><b>Walk the joints wet</b> — inlet, slot transitions, top-plate
-        elbow, vent pan: all dry.</li>
-      <li><b>Hold <span class="dim" data-gen="REG_PSI">90 PSI</span> for
-        <span class="dim" data-gen="PRV_HOLD">2 min</span></b> — in-rush
-        hiss dies to silence as the stone bubbles. No PRV weep, no vent
-        telltale. PRV open = WR1110 fault; a wet vent =
-        cross-contamination.</li>
+      <li><b>Fill with the faucet closed.</b> Run the commissioned V-K and
+        relay #2 control. Log pump inlet, pump outlet and carbonator pressure.</li>
+      <li><b>Record volume, time, volts and amps.</b> CHI must stop the fill.
+        Dispense, then prove refill and restart. No fill-time limit is
+        qualified from free-flow specifications.</li>
+      <li><b>Walk the joints wet.</b> No leaks; ASSE pan dry. Record reverse
+        sealing of the downstream gas check in the bench fixture.</li>
+      <li><b>Hold for <span class="dim" data-gen="PRV_HOLD">2 min</span>.</b>
+        Read a gauge. No PRV weep. If relief opens, identify the pressure
+        source; refill can raise vessel pressure above the gas setting.</li>
     </ol>
-
-    <div class="tools">
-      <span class="lbl">Bench</span>
-      rig from AB-01 · stopwatch · your ears at every joint
+    <div class="tools"><span class="lbl">Bench</span>
+      rated pressure fixture · volume/time · volts/amps · leak check
     </div>
   </div>
-
   <div class="col" style="flex:none; width:780px">
     <div class="settings">
       <div class="s"><div class="k">Fill stop</div><div class="v">high reed</div></div>
-      <div class="s"><div class="k">Fill time</div><div class="v">tens of s</div></div>
-      <div class="s"><div class="k">CO2 side</div><div class="v" data-gen="REG_PSI">90 PSI</div></div>
-      <div class="s"><div class="k">PRV set</div><div class="v">125 PSI</div></div>
+      <div class="s"><div class="k">Fill time</div><div class="v">measure</div></div>
+      <div class="s"><div class="k">Gas ceiling</div><div class="v" data-gen="REG_PSI">90 PSI</div></div>
+      <div class="s"><div class="k">Vessel PSI</div><div class="v">measure</div></div>
       <div class="s"><div class="k">Hold</div><div class="v" data-gen="PRV_HOLD">2 min</div></div>
       <div class="s"><div class="k">Vent pan</div><div class="v">dry</div></div>
     </div>
-
     <div class="panel light" style="margin-top:24px">
-      <svg viewBox="0 0 780 372" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 780 398" xmlns="http://www.w3.org/2000/svg">
         <style>
-          .box   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
-          .btx   { font: 700 23px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
-          .dimtx { font: 700 24px 'IBM Plex Mono',Menlo,monospace; fill: #2e8540; }
-          .sub   { font: 400 22px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
-          .lbl   { font: 600 24px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
-          .wln   { stroke: #2268c2; stroke-width: 5; fill: none; }
-          .gln   { stroke: #2e8540; stroke-width: 5; fill: none; }
+          .box { fill:#eef0f3; stroke:#1d1d26; stroke-width:3; }
+          .btx { font:700 22px 'IBM Plex Sans',sans-serif; fill:#1d1d26; }
+          .sub { font:400 21px 'IBM Plex Sans',sans-serif; fill:#70707c; }
+          .lbl { font:600 24px 'IBM Plex Sans',sans-serif; fill:#1d1d26; }
+          .wln { stroke:#2268c2; stroke-width:5; fill:none; }
+          .gln { stroke:#b53535; stroke-width:5; fill:none; }
         </style>
-        <text class="lbl" x="24" y="40">TWO PATHS INTO THE CARBONATOR</text>
-
-        <!-- carbonator -->
-        <rect class="box" x="610" y="70" width="140" height="270"/>
-        <text style="font:700 19px 'IBM Plex Sans','Helvetica Neue',sans-serif" fill="#1d1d26" x="680" y="140" text-anchor="middle">CARBONATOR</text>
-        <text class="sub" x="680" y="322" text-anchor="middle">sparge stone</text>
-
-        <!-- water lane -->
-        <polyline class="wln" points="30,110 598,110"/>
-        <path fill="#2268c2" d="M 596 102 L 596 118 L 610 110 Z"/>
-        <circle cx="80" cy="110" r="8" fill="#2268c2"/>
-        <circle cx="190" cy="110" r="8" fill="#2268c2"/>
-        <circle cx="300" cy="110" r="8" fill="#2268c2"/>
-        <circle cx="410" cy="110" r="8" fill="#2268c2"/>
-        <circle cx="520" cy="110" r="8" fill="#2268c2"/>
-        <text class="sub" x="80" y="84" text-anchor="middle">19-0897</text>
-        <text class="sub" x="190" y="144" text-anchor="middle">V-K</text>
-        <text class="sub" x="300" y="84" text-anchor="middle">SeaFlo</text>
-        <text class="sub" x="410" y="144" text-anchor="middle">GASHER chk</text>
-        <text class="sub" x="503" y="84" text-anchor="middle">top cap &#183; TAISHER</text>
-        <text class="dimtx" x="30" y="180">WATER &rarr; Port 2 (top plate)</text>
-        <text class="sub" x="30" y="208">backflow &rarr; split &rarr; V-K &rarr; pump &rarr; check &rarr; PP450822E</text>
-
-        <!-- CO2 lane -->
-        <polyline class="gln" points="30,280 598,280"/>
-        <path fill="#2e8540" d="M 596 272 L 596 288 L 610 280 Z"/>
-        <rect class="box" x="200" y="252" width="180" height="56"/>
-        <text class="btx" x="290" y="278" text-anchor="middle">WR1110</text>
-        <text class="dimtx" x="290" y="302" text-anchor="middle" data-gen="REG_PSI">90 PSI</text>
-        <text class="dimtx" x="30" y="250">CO2 &rarr; Port 1 (bottom)</text>
-        <text class="sub" x="200" y="344">bubbles once the stone wets</text>
-
-        <!-- PRV -->
-        <line class="gln" x1="700" y1="70" x2="700" y2="46"/>
-        <text class="sub" x="676" y="34" text-anchor="end">SV-125 PRV &#8212; no weep</text>
+        <text class="lbl" x="24" y="35">WATER JET + PLAIN GAS INLET</text>
+        <rect class="box" x="612" y="72" width="140" height="280"/>
+        <path class="wln" d="M 28 103 H 670 V 180"/>
+        <path fill="#2268c2" d="M 670 195 L 661 176 L 679 176 Z"/>
+        <line class="wln" x1="625" y1="205" x2="738" y2="205"/>
+        <text class="sub" x="680" y="246" text-anchor="middle">water</text>
+        <text class="sub" x="690" y="148">jet</text>
+        <text class="sub" x="88" y="82" text-anchor="middle">backflow</text>
+        <text class="sub" x="213" y="133" text-anchor="middle">V-K</text>
+        <text class="sub" x="327" y="82" text-anchor="middle">SeaFlo</text>
+        <text class="sub" x="458" y="133" text-anchor="middle">water check</text>
+        <text class="sub" x="28" y="186">Water reaches Port 2 after the final elbow turn.</text>
+        <path class="gln" d="M 28 297 H 635"/>
+        <path fill="#b53535" d="M 648 297 L 628 287 L 628 307 Z"/>
+        <rect class="box" x="153" y="268" width="174" height="58"/>
+        <text class="btx" x="240" y="304" text-anchor="middle">WR1110</text>
+        <rect class="box" x="374" y="268" width="174" height="58"/>
+        <text class="btx" x="461" y="304" text-anchor="middle">gas check</text>
+        <text class="sub" x="28" y="250">CO2 → regulator → check → bottom Port 1</text>
+        <text class="sub" x="28" y="373">Gas flow pauses when its forward pressure difference disappears.</text>
+        <line class="gln" x1="718" y1="72" x2="718" y2="48"/>
+        <text class="sub" x="693" y="60" text-anchor="end">PRV remains connected</text>
       </svg>
-      <div class="cap"><b>Both paths reach the carbonator through the core's
-      lid</b> — <span data-gen="CAP_CONDUITS">9</span> conduits stand on it
-      and each line takes one. Fill runs until the high reed asserts; the
-      proxy is silence after the in-rush.</div>
+      <div class="cap"><b>The regulator limits incoming gas.</b> It does not
+      clamp carbonator pressure during refill. The lid’s
+      <span data-gen="CAP_CONDUITS">9</span> conduits guide fluid lines and reed cables;
+      pressure comes from a gauge, not silence.</div>
     </div>
   </div>
 </main>
-
 <footer>
-  <div class="done"><span class="lbl">Done when</span>High reed stopped the fill, every joint dry, steady pressure held through the hold, PRV silent, pan dry.</div>
-  <div class="src">acceptance-and-burn-in.md &#167;3&ndash;4<br>_cards_sync.py &#183; rev 2026-08-07</div>
+  <div class="done"><span class="lbl">Done when</span>Fill and restart complete, pressures and electrical load logged, joints and reverse check tight, PRV quiet and pan dry.</div>
+  <div class="src">acceptance-and-burn-in.md §3–4<br>_cards_sync.py · rev 2026-09-16</div>
 </footer>
-
 </div>
 </body>
 </html>

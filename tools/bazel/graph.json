@@ -116,7 +116,6 @@
   },
   "hardware/assembly/_electronics_bay_sync.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/_electronics_bay_sync.py",
       "hardware/assembly/electronics-bay.figures.json",
       "hardware/assembly/electronics-bay.md",
@@ -127,8 +126,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -239,7 +240,6 @@
   },
   "hardware/assembly/_enclosure_mechanical_sync.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/_enclosure_mechanical_sync.py",
       "hardware/assembly/enclosure-mechanical.figures.json",
       "hardware/assembly/enclosure-mechanical.md",
@@ -250,8 +250,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -515,7 +517,6 @@
   },
   "hardware/assembly/_internal_plumbing_sync.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/_internal_plumbing_sync.py",
       "hardware/assembly/internal-plumbing.figures.json",
       "hardware/assembly/internal-plumbing.md",
@@ -526,8 +527,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -640,7 +643,6 @@
       "hardware/assembly/_pressure_vessel_sync.py",
       "hardware/assembly/pressure-vessel.figures.json",
       "hardware/assembly/pressure-vessel.md",
-      "hardware/cold-core-layout/_fittings.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/reeding.py",
@@ -689,6 +691,24 @@
     "writes": [
       "hardware/assembly/refrigerant-loop.figures.json",
       "hardware/assembly/refrigerant-loop.md"
+    ]
+  },
+  "hardware/assembly/_water_inlet_jet_sync.py": {
+    "reads": [
+      "hardware/assembly/_water_inlet_jet_sync.py",
+      "hardware/assembly/water-inlet-jet.figures.json",
+      "hardware/assembly/water-inlet-jet.md",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
+      "hardware/scripts/_realized.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/assembly/water-inlet-jet.figures.json",
+      "hardware/assembly/water-inlet-jet.md"
+    ],
+    "writes": [
+      "hardware/assembly/water-inlet-jet.figures.json",
+      "hardware/assembly/water-inlet-jet.md"
     ]
   },
   "hardware/assembly/_weld_rotation_rig_sync.py": {
@@ -752,7 +772,6 @@
   },
   "hardware/assembly/cards/_build.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/_acceptance_and_burn_in_sync.py",
       "hardware/assembly/_cable_assemblies_sync.py",
       "hardware/assembly/_finish_pack_ship_sync.py",
@@ -1654,7 +1673,6 @@
   },
   "hardware/assembly/cards/_cards_sync.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/_acceptance_and_burn_in_sync.py",
       "hardware/assembly/_cable_assemblies_sync.py",
       "hardware/assembly/_finish_pack_ship_sync.py",
@@ -2494,7 +2512,6 @@
   },
   "hardware/assembly/scenes/render_scene_cards.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/cards/img/asse1022-chain.png",
       "hardware/assembly/cards/img/asse1022-chain.png.scene.json",
       "hardware/assembly/cards/img/coil-mandrel.png",
@@ -2951,7 +2968,6 @@
   },
   "hardware/assembly/scenes/render_scenes.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/cards/img/asse1022-chain.png",
       "hardware/assembly/cards/img/asse1022-chain.png.scene.json",
       "hardware/assembly/cards/img/coil-mandrel.png",
@@ -3027,11 +3043,13 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
       "hardware/faucet-layout/faucet-assembly.step",
       "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.step",
@@ -3426,6 +3444,7 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold-core-assembly.step",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh",
       "hardware/cold-core-layout/cold_core_assembly.py",
@@ -3465,6 +3484,7 @@
       "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
       "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
       "hardware/printed-parts/cold-core/foam-shell/README.md",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.lint-answers",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
@@ -3781,10 +3801,12 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
@@ -3832,6 +3854,7 @@
       "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
       "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
       "hardware/printed-parts/cold-core/foam-shell/README.md",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.lint-answers",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
@@ -3895,6 +3918,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
       "hardware/printed-parts/enclosure/enclosure/print-log.md",
       "hardware/printed-parts/enclosure/enclosure/support-audit.json",
       "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
@@ -4042,7 +4066,6 @@
   },
   "hardware/manifold-layout/enclosure_box.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -4050,8 +4073,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure_assembly.py",
@@ -4745,7 +4770,6 @@
   },
   "hardware/printed-parts/enclosure/_enclosure_dimensions.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -4753,8 +4777,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -4998,7 +5024,6 @@
   },
   "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5006,8 +5031,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure_assembly.py",
@@ -5159,7 +5186,6 @@
   },
   "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5167,8 +5193,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure_assembly.py",
@@ -5325,7 +5353,6 @@
   },
   "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5333,8 +5360,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure_assembly.py",
@@ -5579,7 +5608,6 @@
   },
   "hardware/printed-parts/enclosure/nameplate/nameplate.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
@@ -5627,7 +5655,6 @@
   },
   "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5635,8 +5662,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -5811,7 +5840,6 @@
   },
   "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5819,8 +5847,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -5934,7 +5964,6 @@
   },
   "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -5942,8 +5971,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -6290,6 +6321,31 @@
       "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step",
       "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step",
       "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step"
+    ]
+  },
+  "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": {
+    "reads": [
+      "hardware/cold-core-layout/_water_inlet_jet.py",
+      "hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json",
+      "hardware/printed-parts/fixtures/water-inlet-jet/README.md",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json",
+      "hardware/printed-parts/fixtures/water-inlet-jet/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/fixtures/water-inlet-jet/README.figures.json",
+      "hardware/printed-parts/fixtures/water-inlet-jet/README.md",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl"
     ]
   },
   "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": {
@@ -7667,7 +7723,6 @@
   },
   "hardware/scripts/_bom_sync.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -7675,12 +7730,14 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
       "hardware/ledger/bom.figures.json",
       "hardware/ledger/bom.md",
       "hardware/ledger/labor.figures.json",
       "hardware/ledger/labor.md",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -8206,7 +8263,6 @@
   },
   "hardware/scripts/tube_routes.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/assembly/scenes/_scenes.py",
       "hardware/assembly/scenes/render_scenes.py",
       "hardware/cold-core-layout/_bom.py",
@@ -8216,10 +8272,12 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
@@ -8467,6 +8525,7 @@
   },
   "hardware/service/_pump_replacement_sync.py": {
     "reads": [
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
@@ -8488,7 +8547,9 @@
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/funnel/funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+      "hardware/reference/gasher-check-valve/gasher_check_valve.py",
       "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "hardware/reference/jg-pp010822e/jg_pp010822e.py",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
@@ -8498,6 +8559,7 @@
       "hardware/reference/tee-connector/tee_connector.py",
       "hardware/reference/wago-221/wago_221.py",
       "hardware/reference/worm-clamp/worm_clamp.py",
+      "hardware/reference/wr1110-regulator/wr1110_regulator.py",
       "hardware/reference/y-divider/y_divider.py",
       "hardware/scripts/_boxes.py",
       "hardware/scripts/_cadq_export.py",
@@ -8529,7 +8591,6 @@
   },
   "hardware/topology/_fluid_topology_sync.py": {
     "reads": [
-      "brand/mark.svg",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_carbonator.py",
       "hardware/cold-core-layout/_coil.py",
@@ -8537,8 +8598,10 @@
       "hardware/cold-core-layout/_cold_scorecard.py",
       "hardware/cold-core-layout/_fittings.py",
       "hardware/cold-core-layout/_internals.py",
+      "hardware/cold-core-layout/_water_inlet_jet.py",
       "hardware/cold-core-layout/cold_core_assembly.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_gas_chain.py",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",

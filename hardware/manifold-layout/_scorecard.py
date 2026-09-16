@@ -47,6 +47,7 @@ from _card import Check, GRADE_BANDS, grade_of, verdict  # noqa: E402
 import _clearing                                       # noqa: E402
 import _overlap                                        # noqa: E402
 import _routing as R                                   # noqa: E402
+import _gas_chain                                      # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 
@@ -176,13 +177,12 @@ WATER_SEGMENTS = (
     ("water-7", "seaflo-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
 )
 
-# The gas, from the +Y wall's ABU44 bulkhead through the GASHER check and the WR1110 secondary
-# regulator to the carbonator's bottom-plate CO2 port — `assembly/internal-plumbing.md` §1. Three
-# hops of 1/4" LLDPE, each fitting standing apart from its neighbour.
+# Gas passes from the wall bulkhead through WR1110, then the downstream check, to the
+# carbonator. The framed mouths include the external PI adapters and outlet coupling.
 CO2_SEGMENTS = (
-    ("co2-0", "co2-inlet inboard", "gasher-co2 inlet"),
-    ("co2-1", "gasher-co2 outlet", "wr1110 inlet"),
-    ("co2-2", "wr1110 outlet", "foam-assembly co2-in"),
+    ("co2-0", "co2-inlet inboard", "wr1110 inlet"),
+    ("co2-1", "wr1110 outlet", "gasher-co2 inlet"),
+    ("co2-2", "gasher-co2 outlet", "foam-assembly co2-in"),
 )
 
 # The dispense leg — `P3 --> Faucet` in `fluid-topology-carbonator.mmd`, built in
@@ -349,10 +349,10 @@ MOUNTS = (
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("keystone-jack", "enclosure-back-top", "snap-capture"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
-    # THE CHECK STANDS BETWEEN THE TWO OF THEM, one `CO2_INLET_HOP` inboard of the bulkhead and
-    # one `CO2_HOP` short of the regulator, fed and drained by tube. Each hop is a stretch of
-    # 1/4" LLDPE in its own pair of collets, off a body the box holds.
-    ("gasher-co2", None, "tube-hung"),
+    # The check's round inlet boss takes its own tied ceiling cradle. Its connecting tubes
+    # bend between the fixed regulator and the cold core and do not locate the valve.
+    ("gasher-co2", "enclosure-back-top", "cradle"),
+    *((name, None, "thread") for name in _gas_chain.BODY_NAMES),
     # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
     # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a zip tie
     # through the rib's own cavity closes round the barrel and the rib's back together. The seat
@@ -439,7 +439,8 @@ MOUNTS = (
 
 # A BODY THAT IS PART OF ANOTHER BODY, as `rider -> host`. What holds a rider is whatever holds
 # its host: the fastening it answers to is one its host's own hardware makes, shipped with the
-# part and closed on the part.
+# part and closed on the part. The warm gas adapters also ride their threaded host: their
+# threads are the load path, with made-up reach retained as a physical qualification gate.
 #   These are one purchased thing apiece drawn as several. `manifold_layout.flat_bodies` gives a
 # Beduan two solids so the coil takes its own colour, and `build_pump` gives a Kamoer the three
 # its STEP carries — head, rear boss and motor can. `hardware/ledger/bom.md` bills one row for
@@ -452,6 +453,9 @@ RIDES = {
     **{f"bulkhead-ring-{w}-word": f"bulkhead-ring-{w}"
        for w in ("water", "carb", "co2", "flavor-a", "flavor-b")},
     "nameplate-ink": "nameplate",
+    **{name: "wr1110" for name in _gas_chain.ADAPTER_NAMES[:2]},
+    **{name: "gasher-co2" for name in _gas_chain.ADAPTER_NAMES[2:]},
+    _gas_chain.CHECK_COUPLING: "gasher-co2",
 }
 
 
@@ -525,17 +529,6 @@ NEVER = {
         "+Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap — so the elbow "
         "hangs between two seats with nothing printed closing on it. It is the joint the customer "
         "opens, and a thumb on that collet is the whole of the motion.",
-    # THE CHECK IN THE GAS CHAIN, the middle body of three standing on one axis at one height.
-    # The bulkhead ahead of it is clamped through the +Y wall of back-top and the regulator behind it lies
-    # in a rib off the top one, so both ends of the chain are the box's and the check is the span
-    # between them.
-    "gasher-co2":
-        "Both its hops land on held bodies — `co2-0` back to the ABU44 clamped through the +Y "
-        "wall of back-top, `co2-1` on to the WR1110 zip-tied into its rib off the top one — and "
-        "each is ten "
-        "millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's "
-        "own axis with nothing printed closing on it. A seat under the middle body of three "
-        "made-up ones would fight the two either side of it for where the chain stands.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -565,15 +558,10 @@ TEE_LANDS = {
 }
 
 
-# Every exemption a LENGTH OF TUBE rests on, as `(body, port, run, what the run lands on)` — the
-# disconnect's lower end, and both of the gas check's. Each reason names a run and the body it
-# reaches the same way a tee's names the valve it butts, and `chains_land` reads all three back
-# off the machine. A body hung at both ends states a row per end: what makes it held is that
-# NEITHER of them lands on nothing.
+# Every exemption a length of tube rests on, as `(body, port, run, what the run lands on)`.
+# The gas check has its own cradle; only the removable funnel disconnect uses this proof.
 CHAIN_LANDS = (
     ("funnel-drain-union", "outlet", "fluid-4", "valve-v-b"),
-    ("gasher-co2", "inlet", "co2-0", "co2-inlet"),
-    ("gasher-co2", "outlet", "co2-1", "wr1110"),
 )
 
 
@@ -683,6 +671,12 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # SEATS against each other, each named against the construction that seats it — a contact by
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
+    # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
+    ("wr1110", _gas_chain.REG_IN_ADAPTER),
+    ("wr1110", _gas_chain.REG_OUT_ADAPTER),
+    ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER),
+    ("gasher-co2", _gas_chain.CHECK_COUPLING),
+    (_gas_chain.CHECK_COUPLING, _gas_chain.CHECK_OUT_ADAPTER),
     # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "seaflo-pump"),
     ("foam-assembly", "psu"),
@@ -1118,6 +1112,10 @@ def run_world(a, runs) -> tuple:
     bodies, drawn, pieces = _split_placed(a)
     tubes = {r.id: drawn[f"tube-{r.id}"] for r in runs if f"tube-{r.id}" in drawn}
     ends = {r.id: {r.frm.partition(".")[0], r.to.partition(".")[0]} for r in runs}
+    for r in runs:
+        for anchor in (r.frm, r.to):
+            if adapter := _gas_chain.PORT_ADAPTERS.get(anchor):
+                ends[r.id].add(adapter)
     rest = {**bodies, **pieces,
             **{n: s for n, s in drawn.items() if n not in {f"tube-{i}" for i in tubes}}}
     return tubes, ends, rest
@@ -1201,6 +1199,8 @@ def port_leads(a, runs) -> list[dict]:
     import manifold_layout as ml
     for mouth, bodies_ in ml.MOUTH_MATES.items():
         mates.setdefault(mouth, set()).update(bodies_)
+    for mouth, adapter in _gas_chain.PORT_ADAPTERS.items():
+        mates.setdefault(mouth, set()).add(adapter)
     rows = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -1831,7 +1831,17 @@ def _build(a) -> Scorecard:
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(runs), _placed(a), _routed(conns), _located(a),
-              _tube_anchored(a, runs)]
+              _tube_anchored(a, runs),
+              Check("gas-chain-qualified", "Warm gas fitting dimensions and made-up fit qualified",
+                    "goal", "warn", "physical measurements pending",
+                    "measure actual adapter reach, coupling and check before assembly",
+                    ["PI010822S uses the shared nominal 1/4-inch PTC envelope.",
+                     f"Coupling Ø{_gas_chain.COUPLING_OD:g} × "
+                     f"{_gas_chain.COUPLING_LENGTH:g} mm and "
+                     f"{_gas_chain.COUPLING_ENGAGEMENT:g} mm engagement are provisional "
+                     "layout allowances, not verified purchased-part dimensions.",
+                     "Model clearance does not qualify NPT engagement, the check's pressure "
+                     "rating, or the printed cradle's physical fit."])]
     return Scorecard(checks, bends, conns, size_rows(a))
 
 

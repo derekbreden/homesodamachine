@@ -49,21 +49,27 @@ fiftieth is committed.
 
 ## What stands between here and the first mark
 
-Every subsystem is specified, costed, and drawn. What is owed is the doing of it, once
-each, in the order [`/hardware/README.md`](/hardware/README.md) "Build order" gives.
+The build follows the order in [`/hardware/README.md`](/hardware/README.md) "Build
+order". First-unit fabrication and performance qualification are part of that work.
 
 | Owed | Where the procedure is |
 |---|---|
+| The water-inlet jet cap fitted, welded and physically qualified on the existing elbow | [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md) |
 | The first production closure weld, PT-checked, hydro-tested, passivated | [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) |
 | The first refrigerant loop brazed to a carbonator and charged | [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) |
 | The first cold core foamed in place around a welded carbonator | [`cold-core.md`](/hardware/assembly/cold-core.md) |
 | The whole enclosure printed as one set of quadrants that close on each other | [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) |
 | One appliance plumbed, wired, commissioned, and burned in for eight hours | [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md), [`wiring.md`](/hardware/assembly/wiring.md), [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) |
+| Measured refill and restart, strong carbonation in the first and successive cold glasses, and recorded recovery | [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md), [`carbonation-plan-b.md`](/future/carbonation-plan-b.md) |
 | One faucet installed through a real countertop by the customer's own path | [`quickstart/`](/hardware/quickstart/) |
 
-None of these are open design questions. They are the hours in
-[`labor.md`](/hardware/ledger/labor.md) — ten attended hours per unit — and the machine
-hours in [`machine-time.md`](/hardware/ledger/machine-time.md), spent for the first time.
+The procedures identify the remaining physical qualifications, including jet-cap fit
+and weld fusion, gas-check placement, and carbonation under actual refill conditions.
+The first unit retains its SeaFlo pump, IRM-90 supply and enclosure. The conditional
+responses in [Carbonation Plan B](/future/carbonation-plan-b.md) apply only if the
+measurements identify a shortfall. The work and machine time are tracked in
+[`labor.md`](/hardware/ledger/labor.md) and
+[`machine-time.md`](/hardware/ledger/machine-time.md).
 
 ## What the tree is for
 

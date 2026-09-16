@@ -14,7 +14,7 @@ scorecard's rows select a body by name. A colour spent on any of that is a colou
 about the material, and the lie survives into every render the tree ships.
 
 TRANSLUCENCY IS A MATERIAL PROPERTY TOO. The alpha on a constant here is carried because the
-stock is see-through — the reservoirs' PETG Translucent Clear, the sparge stub's silicone, the
+stock is see-through — the reservoirs' PETG Translucent Clear, their silicone washers, the
 vent telltale's clear PVC, the reed's glass ampoule — and for no other reason.
 
 A COLOUR IS THREE COMPONENTS by the time it is drawn: `_mesh_payload` hands over the RGB a STEP
@@ -62,8 +62,8 @@ M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 M_PETG_TRANSLUCENT = cq.Color(0.88, 0.88, 0.85, 0.35)
 # Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
 M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
-# Unpigmented food-grade silicone, which is milky rather than clear — the sparge stub inside the
-# vessel and the uxcell flat washer under each reservoir bulkhead (`ledger/bom.md` §2, §8).
+# Unpigmented food-grade silicone — the uxcell flat washer under each reservoir
+# bulkhead (`ledger/bom.md` §8).
 M_SILICONE_CLEAR = cq.Color(0.92, 0.92, 0.90, 0.60)
 # Sealproof clear PVC, the vent telltale stub over the ASSE 1022's barb.
 M_PVC_CLEAR = cq.Color(0.85, 0.90, 0.92, 0.45)
@@ -83,15 +83,12 @@ M_NITRILE_BLACK = cq.Color(0.11, 0.11, 0.11)
 M_PET_BRAID = cq.Color(0.10, 0.10, 0.11, 0.55)
 
 # --- the metals --------------------------------------------------------------
-# Sintered 304 SS — the FERRODAY sparge stone, which its listing states as 304 throughout. A
-# powder-formed surface, so it reads matte where the bar stock it hangs off reads bright.
-M_SINTERED_SS = cq.Color(0.58, 0.59, 0.61)
 # The Multiplex 19-0897's hex barrel (`reference/multiplex-asse1022`).
 M_BRASS = cq.Color(0.71, 0.56, 0.33)
 # The SF76E's tin-plated case, which its listing states as metal.
 M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
-# The GASHER check valve's nickel-plated copper body — a plated white metal, warmer than steel
-# and a shade down from it.
+# Provisional plated-white-metal appearance for the GASHER envelope. Its exact
+# body/seat construction is unresolved in reference/gasher-check-valve/README.md.
 M_NICKEL_PLATE = cq.Color(0.76, 0.75, 0.71)
 # Bright chrome over brass — the shipped Wellbom CGA-320 regulator's body, its cylinder nut and
 # every stem off it (`ledger/bom.md` §4, `reference/wellbom-regulator`). Polished where the
@@ -218,9 +215,8 @@ M_DONOR_BLACK = cq.Color(0.13, 0.13, 0.14)
 #
 # ROUGHNESS IS A MATERIAL PROPERTY EXACTLY AS COLOUR IS: 0 is a mirror, 1 is fully diffuse, and
 # `metalness` says whether the specular takes the surface's own colour (metal) or the light's
-# (everything else). A glass-filled print scatters where an unfilled one reflects; a sintered
-# stone reads matte where the bar stock it hangs off reads bright; a lacquered coil pack is
-# glossy where the moulded body under it is not. Those are the same kind of fact as "the reservoir
+# (everything else). A glass-filled print scatters where an unfilled one reflects; a lacquered
+# coil pack is glossy where the moulded body under it is not. Those are the same kind of fact as "the reservoir
 # is see-through", and they are stated here for the same reason.
 #
 # THE FIGURES ARE ESTIMATES, and unlike the colours none of them is a measurement. They are read
@@ -253,7 +249,6 @@ FINISHES = [
     (M_PET_BRAID,        0.80, _DIELECTRIC),   # "an OPEN weave"
     # the metals, whose specular takes their own colour
     (M_STAINLESS,        0.35, _METAL),
-    (M_SINTERED_SS,      0.85, _METAL),        # "powder-formed ... matte where the bar stock reads bright"
     (M_ALUMINIUM,        0.30, _METAL),
     (M_BRASS,            0.30, _METAL),
     (M_TINNED_STEEL,     0.40, _METAL),        # "the SF76E's tin-plated case"
