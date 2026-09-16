@@ -1,6 +1,6 @@
 # Home Soda Machine install guide
 
-A 24-page, half-letter booklet following the owner quick start's seven steps. Published on
+A 24-page, 6.625 x 10.25 inch booklet following the owner quick start's seven steps. Published on
 [Drawings](https://homesodamachine.com/drawings) and at
 [install-guide.pdf](https://homesodamachine.com/docs/install-guide/install-guide.pdf).
 
@@ -24,7 +24,7 @@ The Fill spread shows the Big Blue screen inside the enclosure display's frame, 
 ## Artwork
 
 The [On tap identity](../../brand/README.md) supplies cobalt, navy, ice and orange. Instructional
-scenes use white paper, 0.6 pt slate contours (`#46515b`) and coral arrows with white outlines.
+scenes use white paper, 0.72 pt slate contours (`#46515b`) and coral arrows with white outlines.
 Tube and connector colors match the hardware. The power scene carries the white faucet mark on
 its black nameplate. The glass contains dark cola and rounded ice cubes packed from the base to
 just above the liquid, with a visible rim and no falling streams. The first-pour instructions
@@ -38,7 +38,9 @@ The cover shares the enclosure's matte black PET-GF appearance. Both Fill views 
 exposure, and the complete frame has an uninterrupted outline.
 
 The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
-booklet's artwork, including its Fill-screen illustration and hose-removal scene. Manual page
+booklet's artwork, including its Fill-screen illustration and hose-removal scene.
+`assets/print-resolution.json` registers crop and arrow coordinates against the native artwork
+dimensions. Manual page
 composition lives in [`tools/install-guide/`](../../tools/install-guide/). `_install_art.py`
 supplies shared CAD scene builders used by illustration tools; its output is in `art/`.
 
@@ -48,34 +50,46 @@ From the repository root:
 
 ```sh
 tools/cad-venv/bin/python tools/install-guide/build.py
+tools/cad-venv/bin/python tools/install-guide/preflight.py
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/page
 ```
 
-The composer writes the PDF, cover, document metadata and a copy in `output/pdf/`. It checks text
-boxes against the footer and generates page-space contours from the saved artwork. `out/` holds
-local renders and layout measurements. Review every rendered page at reading size before publishing.
+The composer writes the reading PDF, print PDFs, thumbnail and document metadata. Copies for
+ordering are in `output/pdf/`. It checks text boxes against the footer and generates page-space
+contours from the saved artwork. Native illustration resolution must be at least 300 PPI at
+the placed size. The preflight checks the finished PDFs' dimensions, page order,
+fonts, images and reading links. `out/` holds local renders and layout measurements. Review every
+rendered page at reading size before publishing.
+
+The composer and preflight use the CAD Python environment with ReportLab, Pillow, pypdf and
+pdfplumber, plus Poppler's `pdftoppm` and `pdfimages` commands.
 
 ## Print
 
-`install-guide.pdf` is the reading copy: 24 pages at 5.5 x 8.5 inches, in reading order, no bleed.
-It is what the site publishes.
+`install-guide.pdf` is the reading copy: 24 pages at 6.625 x 10.25 inches, in reading order,
+trimmed without bleed. It is what the site publishes. Its page numbers and links match the print
+edition.
 
 `press/` is what a printer is sent, and the composer writes it on every run:
 
 | File | Size | Holds |
 | --- | --- | --- |
-| `press/cover.pdf` | 11.25 x 8.75 in, 1 page | Back cover left of the centre line, front cover right |
-| `press/interior.pdf` | 5.75 x 8.75 in, 24 pages | Reading pages 2-23, then two blanks |
+| `press/cover.pdf` | 13.5 x 10.5 in, 2 spreads | Outside: back cover left, front cover right. Inside: page 2 left, page 23 right |
+| `press/interior.pdf` | 6.875 x 10.5 in, 20 pages | Reading pages 3-22 |
 
 Both carry Lulu's 0.125 in bleed on every outside edge; the cobalt ground and the band at each
 page's head run out into it. The cover has no spine: saddle stitch folds the cover around the
-interior. Ordered as Print Book, Digest, paperback saddle stitch, premium colour, 80# coated
-white, matte cover.
+interior. Lulu settings are **Comic Book, Paperback Saddle Stitch, Premium Color, 70# White -
+Coated, Matte**, with printed inside covers. The 20 interior pages and four cover faces make the
+complete 24-page guide.
 
-The two blanks carry 22 reading pages up to the multiple of four a saddle-stitched signature
-takes. They land at the back, with the unprinted inside back cover after them. Printed folios
-and the page references in the text agree with each other; the blank inside front cover carries
-no number, so the reader's "page 9" is the page whose footer says 9.
+The interior retains embedded vector text and flattened RGB illustrations. The two cover
+spreads are flattened at 600 PPI. An embedded sRGB profile calibrates both PDFs. Critical text
+is at least 0.5 in from the trim; print files contain no links or printer marks.
+
+[Order instructions](press/ORDER.md) identify the two upload files, the configured Lulu project
+link, the page arrangement and the proof-copy check. The order bundle in `output/pdf/` includes
+those instructions, both upload PDFs, the reading copy and SHA-256 checksums.
 
 The whole booklet cannot be printed on the ET-8550: its driver offers no borderless pass with
 two-sided printing, and offers two-sided printing for plain paper only.

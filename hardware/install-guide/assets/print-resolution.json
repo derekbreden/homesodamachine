@@ -1,0 +1,181 @@
+{
+  "coordinate_system": "Crops and illustration anchors use reference pixels. Scale each axis to the native render before placement.",
+  "assets": {
+    "steps/mount-under-slide-clean.png": {
+      "reference_size": [
+        1564,
+        650
+      ],
+      "render_size": [
+        3910,
+        1625
+      ],
+      "scale": [
+        2.5,
+        2.5
+      ],
+      "coordinate_reference_sha256": "47a50827c71e0ed16493e8056206be8190ccbdb84ca010989dbe826da1795641",
+      "render_sha256": "6dc79ab51a59a02e240a862b1c9035ccfa2454a81006a170648c89d2feadf075"
+    },
+    "steps/mount-under-tighten-clean.png": {
+      "reference_size": [
+        1564,
+        650
+      ],
+      "render_size": [
+        3910,
+        1625
+      ],
+      "scale": [
+        2.5,
+        2.5
+      ],
+      "coordinate_reference_sha256": "e16737bd61d35aa654a3bd1a05c612462128fa702e6a9770cfa31c3751ccd59b",
+      "render_sha256": "dfebd41abdbdcf1b5d4dca10ee8caeced2b1dee9a3ecf9e50c822b12bb74cd4d"
+    },
+    "steps/mount-drop.png": {
+      "reference_size": [
+        772,
+        1404
+      ],
+      "render_size": [
+        1930,
+        3510
+      ],
+      "scale": [
+        2.5,
+        2.5
+      ],
+      "coordinate_reference_sha256": "5dfb636036eac0188e360eacfaeb816cc0890c929ed248a2cbb1808fc8a80c43",
+      "render_sha256": "22a888923d095acc4b26da2db89d2246a576cff18c8623958e4e3c836e265da8"
+    },
+    "steps/co2-connected.png": {
+      "reference_size": [
+        1600,
+        1500
+      ],
+      "render_size": [
+        3200,
+        3000
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "336050cf61fea16a374fb896a1eb1220fd0ea4f0ede1ce31391e51b5a5d168a4",
+      "render_sha256": "f0a7e41b2a5035c91b3f9af6868287d2b27f355afb9376b2ccea0f7c1dbab8ed"
+    },
+    "steps/modern-water-on.png": {
+      "reference_size": [
+        2000,
+        1100
+      ],
+      "render_size": [
+        4000,
+        2200
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "422c052163c46edcf78cc18226657a2ec887283ba5befb132a6f5b1ebda79fc2",
+      "render_sha256": "d184bcd969de645e67420467ea36695e699f3f18de04de7586f5335c9ed48562"
+    },
+    "steps/the-back-face.png": {
+      "reference_size": [
+        1600,
+        1120
+      ],
+      "render_size": [
+        3200,
+        2240
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "2e85e21096892db0c61f5187eb3ebbddac724622312ed979fa4a46a123a80fad",
+      "render_sha256": "762970110eab10401c34ba8edf60b13b105537e395ca2e8a4ffbe7a3d242d39f"
+    },
+    "hose-attached.png": {
+      "reference_size": [
+        1250,
+        1150
+      ],
+      "render_size": [
+        2500,
+        2300
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "76b341fa08f7b709b84171b350c42650121caaac1e7a18e48c73d495adf915ba",
+      "render_sha256": "9f39157bef26fff5a6c6419515b397dc64903a8ac4a84103f2d8ab9961a5af3f"
+    },
+    "hose-removed.png": {
+      "reference_size": [
+        1250,
+        1150
+      ],
+      "render_size": [
+        2500,
+        2300
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "0e818bfcf307ef9948a865be42017a77d39dd4c5eaafcc95a5f753e857e301ef",
+      "render_sha256": "854a8ffc88279b3b1be6ccc13658471f18b5fb016d315bf07dcc3477c46286e0"
+    },
+    "steps/connect-rear-open.png": {
+      "reference_size": [
+        1350,
+        1150
+      ],
+      "render_size": [
+        2700,
+        2300
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "d5ec60850fbb0ad19b1f6d9bc52084595822bcb53851bdf64ae8d38489479322",
+      "render_sha256": "0028fc67851b90f921e9b4bd41394bb697804ff8ad651ab9ce2f42aef1b15793"
+    },
+    "steps/startup-gas.png": {
+      "reference_size": [
+        1800,
+        1500
+      ],
+      "render_size": [
+        3600,
+        3000
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "coordinate_reference_sha256": "15d88eac4adcdd5671c3b8ed7a58fc6db47bdf31f40aff376b7ca7e5efa725fe",
+      "render_sha256": "9fb51b63ef55b6bae5be809d590c6a7dec66ed619db5254be4b4e8cf71008ad0"
+    },
+    "fill-screen-framed.png": {
+      "reference_size": [
+        1600,
+        864
+      ],
+      "render_size": [
+        3398,
+        1834
+      ],
+      "scale": [
+        2.12375,
+        2.122685185185185
+      ],
+      "coordinate_reference_sha256": "e7eeb43c725309f2a454f4635a29e2ed55e20780b8c7a4b7639e15201828fdfa",
+      "render_sha256": "e7544c7b55a0d53f34d9c827baccda600a61ccfd122c08a53a81c08f59c44ca4"
+    }
+  }
+}
