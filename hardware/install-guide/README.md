@@ -14,7 +14,7 @@ A 24-page, half-letter booklet following the owner quick start's seven steps. Pu
 | 16-18 | 5. Water, then gas, then power |
 | 19-20 | 6. Fill both flavors |
 | 21 | 7. Chill. Choose. Pour. |
-| 22-24 | Care, first checks, machine information and help |
+| 22-24 | Care, connection checks, flow and power checks, machine information |
 
 The booklet is complete on its own. Its step numbers match the
 [quick start](../quickstart-codex/README.md), whose braided-hose link opens pages 9-11.
@@ -68,6 +68,17 @@ The guide describes the physical installation and the current Fill controls. Fir
 priming remains unresolved in appliance firmware: the Prime hold drives a pump without applying
 a dispensing valve plan. The guide makes no automatic-priming claim. The controller path is
 `firmware/src_appliance/machine.cpp` (`beginPrimePump`, `claimPump`, `pumpDrive`).
+
+No owner support phone number, email address or dedicated support URL is configured.
+
+The owner gas checks cover locating a leak and closing the supply. The gas disconnection
+procedure is not published. External CO2 pressure release needs verification on the supplied Wellbom
+B0G13P5PMY. The cylinder nut, gray flare connector and red tether/bulkhead joint all sit
+upstream of the appliance's GASHER check valve. A verified procedure must establish the
+cylinder-valve, outlet-shutoff and pressure-adjustment positions for manual relief, and
+confirm zero pressure in the red tether as well as at both gauges before disconnection.
+The exterior CAD does not show the regulator's internal gas paths or any outlet check valve.
+Closing the cylinder alone is not a pressure-release procedure.
 
 The refrigerant figure is the project's documented bound, under 40 g. A per-unit charge comes
 from factory run-up. The manufacturing nameplate CAD still contains the glass mark; this guide's
