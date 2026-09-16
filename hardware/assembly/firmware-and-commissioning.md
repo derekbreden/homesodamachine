@@ -147,17 +147,22 @@ This is **not** a refrigeration commissioning step. Full thermal cycling under w
 
 ### 9. Verify setpoints loaded
 
-Query the firmware over serial for its loaded setpoints. Expected:
+`status` on the main board's console prints the loaded setpoints as the loop
+is standing in them. Expected:
 
 - Carbonator target: **[2 °C](TANK_TARGET)**
 - Hysteresis: **[±2 °C](HYSTERESIS)** (compressor on at [4 °C](COMP_ON_TEMP), off at [2 °C](COMP_OFF_TEMP))
-- Freeze-protect cutoff: **[−8 °C](FREEZE_CUTOFF)** on the suction-line probe
-- Compressor minimum off-time: **[3 min](MIN_OFF_TIME_BARE)**
+- Freeze-protect cutoff: **[−8 °C](FREEZE_CUTOFF)** on the suction-line probe, clearing at **[−5 °C](FREEZE_RECOVER)**
+- Compressor minimum off-time: **[3 min](MIN_OFF_TIME_BARE)**; minimum on-time **[60 s](MIN_ON_TIME)**
+- A probe silent for **[30 s](READING_STALE)** is no reading, and parks the compressor
 - Carbonator refill threshold: low-level reed (MCP23017 [0x21 PB4](REED_LOW))
 - Backflow alarm: armed on the ASSE drip pan's moisture sensor
 - Sound volume: **70%**, quiet hours **off** (`volume` / `quiet` on the main board's console)
 
-These are baked into the firmware on `main` as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
+Every figure above is read out of [`cold_policy.h`](/firmware/lib/machine_policy/cold_policy.h)
+when this page is generated, so the number the factory confirms and the number
+the compressor obeys are one number. They are baked into the firmware on `main`
+as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
 
 Then query the three limits the hardware imposes. Each one is a part's rating, and the firmware is the only thing holding the machine inside it:
 
@@ -210,7 +215,7 @@ The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/ac
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **`src_appliance/` runs one flavor pump and nothing else.** It boots to step 3's banner and idle state, brings up J9, and turns a pump — held from the enclosure display's glass, or bounded from its own console ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). Steps 6, 7 and 9 are the specification the rest gets written against, and every figure in them is settled. Until it walks the valves, reads the reeds and answers the setpoint query, a unit reaching those steps gets `pio run -e pcba_bench -t upload` and a console session against [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md)'s command table — on a bare board, before the manifold is plugged in.
+1. **No probe or relay has answered this procedure on real hardware.** The cold loop, the refill and the 1-wire driver are written and the state machines are checked off-board by `pio test -e native`; both relays, the condenser fan and the readout on the glass have been exercised on a bench board against readings injected with `sim` ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). What no one has done is hang a DS18B20 and a DS18S20 on J4 and read them, or watch relay #1 close an AC leg. Steps 6 and 8 are the first time either happens.
 2. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
 3. **What the step-7 and step-9 commands are allowed to touch.** They run as serial commands against the one shipping image — there is no separate factory build. A command here asks the state machine to do a thing (`selftest valves` walks the census; `selftest pumps` turns both heads) and never writes a pin, because a command that writes a pin is outside the [3](MAX_VALVES)-valve ceiling and the refill interlock by construction, and step 9 is where those are confirmed held. `src_pcba_bench` is the surface that does write pins, and it runs on a bare board with the manifold unplugged.
 4. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.

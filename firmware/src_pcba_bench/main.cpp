@@ -1392,6 +1392,9 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.flags        = (analogReadMilliVolts(PIN_GAS_DOUT) > 1500 ? STATUS_F_GAS_TRIP : 0)
                        | (primeActive ? STATUS_F_PRIMING : 0);
         s.primeChannel = primeChannel;
+        // No cold loop on a bare board: a zero here would draw as 0.0 C.
+        s.tankCx10 = TEMP_UNREAD;
+        s.coilCx10 = TEMP_UNREAD;
         link->send(MSG_RESP_STATUS, &s, sizeof(s));
         return;
     }

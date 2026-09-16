@@ -45,6 +45,15 @@ static j9_query_policy::PrimeQueryReplies primeQueryReplies;
 static uint8_t j9TurnReplyHighWater = 0;
 static uint32_t j9TurnReplyOverruns = 0;
 
+// A probe reading as StatusPayload carries it: tenths of a degree, rounded away
+// from zero, kept off TEMP_UNREAD so a reading never reads as the absence of one.
+static int16_t tenthsC(float c) {
+    long t = lroundf(c * 10.0f);
+    if (t <= (long)TEMP_UNREAD) t = (long)TEMP_UNREAD + 1;
+    if (t > (long)INT16_MAX)    t = (long)INT16_MAX;
+    return (int16_t)t;
+}
+
 static uint8_t flavorStateFlags() {
     return (flavorEstablished()       ? FLAVOR_STATE_F_ESTABLISHED    : 0)
          | (flavorPersisted()         ? FLAVOR_STATE_F_PERSISTED      : 0)
@@ -604,6 +613,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.primeChannel = machinePumpChannel();
         s.j9ReplyHighWater = j9TurnReplyHighWater;
         s.j9ReplyOverruns = j9TurnReplyOverruns;
+        MachineThermal th;
+        machineThermal(th);
         MachineLevels lv;
         machineLevels(lv);
         s.reeds[0] = lv.reeds[0];
@@ -612,9 +623,17 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.level[1] = lv.level[1];
         s.levelFlags = (lv.valid    ? LEVEL_F_VALID     : 0)
                      | (lv.carbLow  ? LEVEL_F_CARB_LOW  : 0)
-                     | (lv.carbHigh ? LEVEL_F_CARB_HIGH : 0);
+                     | (lv.carbHigh ? LEVEL_F_CARB_HIGH : 0)
+                     | (th.simulated ? LEVEL_F_SIMULATED  : 0);
         s.ratio[0] = flavorRatio(0);
         s.ratio[1] = flavorRatio(1);
+        s.tankCx10    = th.tankValid ? tenthsC(th.tankC) : TEMP_UNREAD;
+        s.coilCx10    = th.coilValid ? tenthsC(th.coilC) : TEMP_UNREAD;
+        s.coldState   = th.coldState;
+        s.refillState = th.refillState;
+        s.probeCount  = th.probeCount;
+        s.flags |= (th.compressorRelay ? STATUS_F_COMPRESSOR : 0)
+                 | (th.refillRelay     ? STATUS_F_REFILL     : 0);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));
         return;
     }

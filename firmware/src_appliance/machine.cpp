@@ -2,10 +2,13 @@
 
 #include "flavor.h"
 #include "machine.h"
+#include "cold_policy.h"
 #include "machine_policy.h"
+#include "onewire.h"
 #include "pcba_expanders.h"
 #include "pins.h"
 #include "pour_policy.h"
+#include "refill_policy.h"
 #include "proto_msg.h"
 #include "sound.h"
 
@@ -69,6 +72,27 @@ static bool primeEventUsesSession = false;
 static const int kActuators[] = {
     PIN_RELAY_COMPRESSOR, PIN_RELAY_REFILL, PIN_PUMP_A, PIN_PUMP_B,
 };
+
+// ── One write to the expanders, carrying the fan ──────────────────────────
+// MANIFOLD B's condenser-fan bit shares its write with every valve, and
+// `apply` is absolute: a plan that leaves the fan out turns it off. The cold
+// loop owns the fan and every other operation writes its valves through here,
+// so a valve change during a compressor run does not stop the condenser.
+static bool condenserFanOn = false;
+
+static bool applyOutputs(machine_policy::ValveMask valves) {
+    return pcba::expanders().apply(pcba::ExpanderOutputs(valves, condenserFanOn));
+}
+
+// Readings injected from the console. The loops below run for real against
+// them; only the reading at the top is invented.
+static bool  simThermalOn = false;
+static float simTankC = 0.0f, simCoilC = 0.0f;
+static bool  simTankValid = false, simCoilValid = false;
+static bool  simReedsOn = false;
+static bool  simCarbLow = false, simCarbHigh = false;
+
+static void refillStop(const char *why, uint32_t now);
 
 // ── Indicators ────────────────────────────────────────────────────────────
 // ERR hangs off 3V3, so LOW lights it; RUN and ACT run to GND and light HIGH.
@@ -251,7 +275,7 @@ static uint8_t reedMaskFor(uint8_t channel) {
 }
 
 static void reedIdleService(uint32_t now) {
-    if (state != ST_IDLE || !pcba::expanders().initialized()) return;
+    if ((state != ST_IDLE && state != ST_POURING) || !pcba::expanders().initialized()) return;
     if (now - reedIdleMs < kIdleReedPeriodMs) return;
     reedIdleMs = now;
     readReeds();
@@ -259,12 +283,13 @@ static void reedIdleService(uint32_t now) {
 
 void machineLevels(MachineLevels &l) {
     l.valid    = reedCacheValid && (uint32_t)(millis() - reedCacheMs) < kReedFreshMs;
+    if (simReedsOn) l.valid = true;
     l.reeds[0] = reedCache.reservoirAClosedMask;
     l.reeds[1] = reedCache.reservoirBClosedMask;
     l.level[0] = reservoirLevel[0].segments();
     l.level[1] = reservoirLevel[1].segments();
-    l.carbLow  = reedCache.carbonatorLowClosed;
-    l.carbHigh = reedCache.carbonatorHighClosed;
+    l.carbLow  = simReedsOn ? simCarbLow  : reedCache.carbonatorLowClosed;
+    l.carbHigh = simReedsOn ? simCarbHigh : reedCache.carbonatorHighClosed;
 }
 
 // ── The pump, driven from nowhere but here ────────────────────────────────
@@ -430,7 +455,7 @@ static void fillEnd(uint8_t outcome, uint32_t now) {
 static void fillParked() {
     // A fault has already parked the expanders and invalidated them; asking
     // again is harmless and keeps the one exit.
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    if (!applyOutputs(0)) pcba::expanders().parkAll();
     fillParkAtMs = 0;
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
@@ -493,7 +518,7 @@ bool machineFillBegin(uint8_t channel, uint32_t plannedMs) {
     const machine_policy::ActuatorPlan plan =
         machine_policy::canonicalPlan(machine_policy::fillOperation(fillChannel));
     if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
-        !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false))) {
+        !applyOutputs(plan.valves)) {
         fillOutcome = FILL_OUTCOME_FAULT;
         Serial.printf("\n[machine] fill %s: the valves could not be opened — parked\n",
                       kPump[fillChannel].who);
@@ -502,7 +527,7 @@ bool machineFillBegin(uint8_t channel, uint32_t plannedMs) {
         return false;
     }
     if (!pumpDrive(fillChannel)) {
-        pcba::expanders().apply(pcba::ExpanderOutputs());
+        applyOutputs(0);
         fillOutcome = FILL_OUTCOME_BUSY;   // no LEDC channel free
         soundPlay(SND_REFUSE);
         fillAnnounce(now);
@@ -643,7 +668,7 @@ static void cleanStepEnd(uint8_t cycleOutcome, uint32_t now) {
 
 // Everything off. The ending is announced from here, once nothing is energised.
 static void cleanParked(uint8_t outcome) {
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    if (!applyOutputs(0)) pcba::expanders().parkAll();
     cleanSettleAtMs = 0;
     cleanOutcome    = outcome;
     led(PIN_LED_ACT, false);
@@ -667,7 +692,7 @@ static bool cleanStepBegin(uint32_t now) {
     const machine_policy::ActuatorPlan plan =
         machine_policy::canonicalPlan(machine_policy::cleanOperation(cleanChannel, step));
     if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
-        !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false))) {
+        !applyOutputs(plan.valves)) {
         Serial.printf("\n[machine] clean %s: the %s valves could not be opened — parked\n",
                       kPump[cleanChannel].who, cleanStepName(cleanStepIndex));
         cleanParked(CLEAN_OUTCOME_FAULT);
@@ -703,7 +728,7 @@ static bool cleanStepBegin(uint32_t now) {
 // begins.
 static void cleanSettled(uint32_t now) {
     cleanSettleAtMs = 0;
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) {
+    if (!applyOutputs(0)) {
         pcba::expanders().parkAll();
         cleanParked(CLEAN_OUTCOME_FAULT);
         return;
@@ -912,7 +937,7 @@ static void airStepEnd(uint8_t cycleOutcome, uint32_t now) {
 }
 
 static void airParked(uint8_t outcome) {
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    if (!applyOutputs(0)) pcba::expanders().parkAll();
     airSettleAtMs = 0;
     airOutcome    = outcome;
     led(PIN_LED_ACT, false);
@@ -936,7 +961,7 @@ static bool airStepBegin(uint32_t now) {
     const machine_policy::ActuatorPlan plan =
         machine_policy::canonicalPlan(machine_policy::airOperation(m, airChannel, airStepIndex));
     if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
-        !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false))) {
+        !applyOutputs(plan.valves)) {
         Serial.printf("\n[machine] %s: the valves could not be opened — parked\n",
                       airMode == AIR_MODE_PURGE ? "purge" : "dry");
         airParked(AIR_OUTCOME_FAULT);
@@ -968,7 +993,7 @@ static bool airStepBegin(uint32_t now) {
 
 static void airSettled(uint32_t now) {
     airSettleAtMs = 0;
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) {
+    if (!applyOutputs(0)) {
         pcba::expanders().parkAll();
         airParked(AIR_OUTCOME_FAULT);
         return;
@@ -1084,7 +1109,7 @@ static void IRAM_ATTR flowIsr() { flowEdges = flowEdges + 1; }
 
 static void pourClose(const char *how) {
     if (pour.pumpOn() || state == ST_POURING) pumpPark(pourChannel);
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    if (!applyOutputs(0)) pcba::expanders().parkAll();
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
     Serial.printf("\n[machine] pour %s: %s after %lu ms, %lu bursts — valves closed\n",
@@ -1106,7 +1131,7 @@ static void pourService(uint32_t now) {
         }
         pour.sample(n);
     }
-    if (state != ST_IDLE && state != ST_POURING) { pour.reset(); return; }
+    if (state != ST_IDLE && state != ST_POURING && state != ST_REFILLING) { pour.reset(); return; }
     if (state == ST_IDLE && (machineGasTripped() || !pcba::expanders().initialized())) {
         pour.reset();
         return;
@@ -1120,14 +1145,16 @@ static void pourService(uint32_t now) {
     const machine_policy::PourAction action = pour.service(now, ratio);
     switch (action) {
         case machine_policy::PourAction::Start: {
+            // The 5 A comes off the rail before the dispense path opens.
+            if (state == ST_REFILLING) refillStop("a pour began", now);
             pourChannel = flavorSelected() & 1;
             const machine_policy::ActuatorPlan plan = machine_policy::canonicalPlan(
                 pourChannel == 0 ? machine_policy::Operation::DispenseA
                                  : machine_policy::Operation::DispenseB);
             if (!machine_policy::isPlanSafe(plan, machine_policy::SafetyContext{false}) ||
-                !pcba::expanders().apply(pcba::ExpanderOutputs(plan.valves, false)) ||
+                !applyOutputs(plan.valves) ||
                 !pumpDrive(pourChannel)) {
-                pcba::expanders().apply(pcba::ExpanderOutputs());
+                applyOutputs(0);
                 pour.reset();
                 Serial.printf("\n[machine] pour %s: the path could not be opened — parked\n",
                               kPump[pourChannel].who);
@@ -1167,6 +1194,205 @@ bool machineIsPouring()          { return state == ST_POURING; }
 bool machineDispenseWindowOpen() { return state == ST_POURING; }
 uint32_t machinePourCycles()     { return pourCycles; }
 uint32_t machineFlowPulsesTotal() { return flowTotal; }
+
+// ── The cold loop, beside the state machine ───────────────────────────────
+// The compressor runs through a pour, a fill and a clean cycle: being cold is
+// not an operation the machine is doing. So the cold loop stands beside
+// `state` the way the gas watch does, and relay #1 is the one load here that
+// MachineState does not gate. The condenser fan follows it through
+// applyOutputs(), which every other operation's valve write goes through too.
+//
+// The refill does take a state. Its plan opens V-K and closes relay #2, and
+// every Begin refuses while ST_REFILLING stands — which is what keeps a
+// fill's three valves from joining V-K over the 3-valve ceiling. A pour
+// outranks it: flow at the faucet stops the draw where it is and the ask
+// returns to Queued.
+static machine_policy::Cold   cold;
+static machine_policy::Refill refill;
+static bool     compressorRelay = false;
+static bool     refillRelay     = false;
+static uint32_t refillReedMs    = 0;
+
+// A relay coil is a level, not a sequence. Parked as an input, which is dark:
+// a Teyleten opto with no drive holds its relay open.
+static void relayDrive(int pin, bool on) {
+    if (on) {
+        pinMode(pin, OUTPUT);
+        digitalWrite(pin, HIGH);
+    } else {
+        pinMode(pin, INPUT);
+    }
+}
+
+static void compressorRelaySet(bool on) {
+    compressorRelay = on;
+    relayDrive(PIN_RELAY_COMPRESSOR, on);
+    condenserFanOn = on;
+    // The self-test walks the fan bit itself and re-applies on its next step.
+    if (state != ST_SELFTEST) applyOutputs(machineValvesOpen());
+    Serial.printf("\n[machine] compressor %s — %s, tank %.1f C, coil %.1f C\n",
+                  on ? "ON" : "off", cold.stateName(), cold.tankC(), cold.coilC());
+}
+
+static const uint32_t kColdPeriodMs = 1000;
+
+static void coldService(uint32_t now) {
+    static uint32_t lastMs = 0;
+    if (now - lastMs < kColdPeriodMs) return;
+    lastMs = now;
+
+    // U15 holds relay #1 open on a gas trip with no firmware in the path.
+    // Firmware stands down as well, and the minimum off-time runs from here.
+    if (machineGasTripped()) {
+        if (compressorRelay) compressorRelaySet(false);
+        cold.reset(now);
+        return;
+    }
+
+    machine_policy::ColdReading r;
+    if (simThermalOn) {
+        r.tankC = simTankC;  r.tankValid = simTankValid;
+        r.coilC = simCoilC;  r.coilValid = simCoilValid;
+    } else {
+        oneWireRead(r.tankC, r.tankValid, r.coilC, r.coilValid);
+    }
+    cold.reading(r, now);
+
+    switch (cold.service(now)) {
+        case machine_policy::ColdAction::CompressorOn:  compressorRelaySet(true);  break;
+        case machine_policy::ColdAction::CompressorOff: compressorRelaySet(false); break;
+        case machine_policy::ColdAction::None: break;
+    }
+}
+
+// ── The refill ────────────────────────────────────────────────────────────
+static const uint32_t kRefillReedPeriodMs = 250;
+
+static void refillStart(uint32_t now) {
+    const machine_policy::ActuatorPlan plan =
+        machine_policy::canonicalPlan(machine_policy::Operation::CarbonatorRefill);
+    if (!machine_policy::isPlanSafe(plan,
+            machine_policy::SafetyContext{machineDispenseWindowOpen()}) ||
+        !applyOutputs(plan.valves)) {
+        applyOutputs(0);
+        refill.reset(now);
+        Serial.println("\n[machine] refill: the path could not be opened — parked");
+        soundPlay(SND_FAULT);
+        return;
+    }
+    // Relay after the valves: V-K stands open before the SeaFlo pushes at it.
+    refillRelay = true;
+    relayDrive(PIN_RELAY_REFILL, true);
+    state        = ST_REFILLING;
+    refillReedMs = now;
+    led(PIN_LED_ACT, true);
+    char names[24];
+    Serial.printf("\n[machine] refill: %s open, relay #2 closed on the SeaFlo\n",
+                  valveNames(plan.valves, names, sizeof(names)));
+}
+
+static void refillStop(const char *why, uint32_t now) {
+    (void)now;
+    // The relay first: the 5 A comes off the rail before anything else moves.
+    if (refillRelay) {
+        relayDrive(PIN_RELAY_REFILL, false);
+        refillRelay = false;
+    }
+    if (state == ST_REFILLING) {
+        if (!applyOutputs(0)) pcba::expanders().parkAll();
+        state = ST_IDLE;
+        led(PIN_LED_ACT, false);
+    }
+    Serial.printf("\n[machine] refill stopped — %s (%s)\n", why, refill.stateName());
+}
+
+static void refillService(uint32_t now) {
+    // Nothing else reads the reeds while ST_REFILLING stands.
+    if (state == ST_REFILLING && now - refillReedMs >= kRefillReedPeriodMs) {
+        refillReedMs = now;
+        readReeds();
+    }
+
+    machine_policy::RefillReading rd;
+    if (simReedsOn) {
+        rd.lowClosed  = simCarbLow;
+        rd.highClosed = simCarbHigh;
+        rd.valid      = true;
+    } else {
+        rd.valid      = reedCacheValid && (uint32_t)(now - reedCacheMs) < kReedFreshMs;
+        rd.lowClosed  = reedCache.carbonatorLowClosed;
+        rd.highClosed = reedCache.carbonatorHighClosed;
+    }
+    refill.reading(rd, now);
+
+    machine_policy::RefillContext ctx;
+    ctx.dispenseOpen = machineDispenseWindowOpen();
+    ctx.machineIdle  = (state == ST_IDLE || state == ST_REFILLING) &&
+                       !machineGasTripped() && pcba::expanders().initialized();
+
+    switch (refill.service(now, ctx)) {
+        case machine_policy::RefillAction::Start: refillStart(now); break;
+        case machine_policy::RefillAction::Stop:  refillStop("the policy stood it down", now); break;
+        case machine_policy::RefillAction::None:  break;
+    }
+}
+
+void machineThermal(MachineThermal &t) {
+    t = {};
+    t.tankC            = cold.tankC();
+    t.tankValid        = cold.tankValid();
+    t.coilC            = cold.coilC();
+    t.coilValid        = cold.coilValid();
+    t.coldState        = static_cast<uint8_t>(cold.state());
+    t.refillState      = static_cast<uint8_t>(refill.state());
+    t.compressorRelay  = compressorRelay;
+    t.refillRelay      = refillRelay;
+    t.probeCount       = oneWireDeviceCount();
+    t.holdRemainingMs  = cold.holdRemainingMs(millis());
+    t.refillPumpedMs   = refill.pumpedMs(millis());
+    t.simulated        = simThermalOn || simReedsOn;
+}
+
+const char *machineColdStateName(uint8_t coldState) {
+    switch (static_cast<machine_policy::ColdState>(coldState)) {
+        case machine_policy::ColdState::Fault:   return "fault";
+        case machine_policy::ColdState::Off:     return "off";
+        case machine_policy::ColdState::Holding: return "holding";
+        case machine_policy::ColdState::On:      return "cooling";
+        case machine_policy::ColdState::Freeze:  return "freeze lockout";
+    }
+    return "?";
+}
+
+const char *machineRefillStateName(uint8_t refillState) {
+    switch (static_cast<machine_policy::RefillState>(refillState)) {
+        case machine_policy::RefillState::Idle:    return "idle";
+        case machine_policy::RefillState::Queued:  return "queued";
+        case machine_policy::RefillState::Filling: return "filling";
+        case machine_policy::RefillState::Timeout: return "TIMEOUT";
+        case machine_policy::RefillState::Fault:   return "FAULT";
+    }
+    return "?";
+}
+
+void machineSimThermal(float tankC, bool tankValid, float coilC, bool coilValid) {
+    simThermalOn = true;
+    simTankC = tankC;  simTankValid = tankValid;
+    simCoilC = coilC;  simCoilValid = coilValid;
+}
+
+void machineSimReeds(bool carbLow, bool carbHigh) {
+    simReedsOn = true;
+    simCarbLow = carbLow;
+    simCarbHigh = carbHigh;
+}
+
+void machineSimClear() {
+    simThermalOn = false;
+    simReedsOn   = false;
+}
+
+void machineRefillClear() { refill.clear(millis()); }
 
 void machineFlowSimulate(uint32_t pulses, uint32_t ms) {
     flowSimPulses  = pulses;
@@ -1230,7 +1456,7 @@ static uint32_t selfTestOnMs(uint8_t step) {
 static bool selfTestDrive(uint8_t step) {
     if (step < machine_policy::kValveCount) {
         const machine_policy::ValveMask v = machine_policy::valveBit(static_cast<machine_policy::Valve>(step));
-        return pcba::expanders().apply(pcba::ExpanderOutputs(v, false));
+        return applyOutputs(v);
     }
     if (step == machine_policy::kValveCount)
         return pcba::expanders().apply(pcba::ExpanderOutputs(0, true));
@@ -1239,11 +1465,11 @@ static bool selfTestDrive(uint8_t step) {
 
 static void selfTestParkStep(uint8_t step) {
     if (step > machine_policy::kValveCount) pumpPark((step - machine_policy::kValveCount - 1) & 1);
-    else if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    else if (!applyOutputs(0)) pcba::expanders().parkAll();
 }
 
 static void selfTestEnd(const char *how) {
-    if (!pcba::expanders().apply(pcba::ExpanderOutputs())) pcba::expanders().parkAll();
+    if (!applyOutputs(0)) pcba::expanders().parkAll();
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
     Serial.printf("\n[machine] self-test %s: %u of %u steps took, %u did not — everything parked\n",
@@ -1324,6 +1550,15 @@ void machineBegin() {
     pinMode(PIN_LED_ACT, OUTPUT);
     led(PIN_LED_ACT, false);
     pumpTimer.stop();
+    // Both relays are parked above. The cold loop starts its minimum off-time
+    // from here: a board that restarted cannot know how long the compressor it
+    // inherited has been stopped.
+    cold.reset(millis());
+    refill.reset(millis());
+    compressorRelay = false;
+    refillRelay     = false;
+    condenserFanOn  = false;
+    oneWireBegin();
     primeSession = machine_policy::PrimeSession();
     primeRunUsesSession = false;
     primeEventUsesSession = false;
@@ -1389,6 +1624,9 @@ void machineService() {
     airService(now);
     selfTestService(now);
     pourService(now);
+    oneWireService(now);
+    coldService(now);
+    refillService(now);
     reedIdleService(now);
     if (state != ST_PUMPING) return;
 
@@ -1593,6 +1831,7 @@ void machineStop() {
     else if (state == ST_AIRING)   machineAirStop();
     else if (state == ST_SELFTEST) machineSelfTestStop();
     else if (state == ST_POURING)  { pour.reset(); flowSimUntilMs = 0; pourClose("stopped on request"); }
+    else if (state == ST_REFILLING) refillStop("stopped on request", millis());
     else                           endPumping(PRIME_STOPPED);
 }
 
@@ -1604,6 +1843,7 @@ const char  *machineStateName() {
         case ST_CLEANING: return "cleaning";
         case ST_AIRING:   return airMode == AIR_MODE_PURGE ? "purging" : "drying";
         case ST_SELFTEST: return "self-test";
+        case ST_REFILLING: return "refilling";
         case ST_POURING:  return "pouring";
         default:          return "idle";
     }

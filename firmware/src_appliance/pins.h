@@ -47,6 +47,11 @@ static const int PIN_SCL = 22;
 // board's own two 0402s stack in the SENSORS pocket to keep it that way.
 static const int PIN_FLOW = 25;
 
+// ── The 1-wire temperature bus — J4 pin 5, R9's 4.7k pull-up to 3V3 ───────
+// Two probes share it and are told apart by family code: the DS18B20 (0x28)
+// on the carbonator wall, and the DS18S20 (0x10) at the coil's suction end.
+static const int PIN_ONEWIRE = 26;
+
 // ── Gas dividers — MQ-6 through R1/R2 and R3/R4, ADC1 input-only pins ─────
 static const int PIN_GAS_AOUT = 39;  // analog level
 static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip

@@ -568,9 +568,32 @@ static lv_obj_t *settingsBtn;      // bottom of the persistent flavor rail
 // reed, 4..7 reservoir B's, 8 the carbonator's low reed and 9 its high one.
 static lv_obj_t *statusReed[STATUS_REEDS];
 static lv_obj_t *statusNote = NULL;    // under the card: that nothing is being read, else empty
+static bool statusSimShown = false;
 static uint16_t  statusShown = 0;      // the closed set the diagram is drawn with
 static bool      statusFreshShown = false;
 #define STATUS_ANSWER_MS 1500          // a status poll unanswered this long is a main board not reading
+
+// The bytes of StatusPayload every main board sends, whatever else it appends.
+#define STATUS_CORE_BYTES 32
+
+// ── The cold loop and the refill, in the column beside the profile ──
+// Two probes on the 1-wire bus — the carbonator wall and the coil's suction end
+// — the state each of the two loops stands in, and how many devices answered
+// the bus. Five lines, label and value, filling the card's right-hand column.
+#define STATUS_THERMAL_ROWS 5
+static lv_obj_t *statusThermalValue[STATUS_THERMAL_ROWS] = {NULL};
+
+// The reading the column is drawn with. `drawn` is false until the first pass,
+// so the placeholders the builder leaves are replaced on the first answer.
+static struct {
+  int16_t tank;
+  int16_t coil;
+  uint8_t cold;
+  uint8_t refill;
+  uint8_t probes;
+  bool    fresh;
+  bool    drawn;
+} statusThermalShown = {};
 
 // Both ratios are mirrored from the main board's persistent configuration.
 static uint8_t flavorRatio[2] = {20, 20};
@@ -1664,6 +1687,10 @@ static void sendSound(uint8_t id) {
 static StatusPayload ctrlStatus = {};
 static unsigned long ctrlStatusMs = 0;
 static unsigned long statusAskedMs = 0;
+// Whether the last frame carried the thermal tail. A main board sending the
+// 32-byte core alone reports no cold loop, which is not the same as a cold loop
+// reading Off with no probes.
+static bool ctrlStatusThermal = false;
 
 static uint32_t linkReinits = 0;
 static uint32_t padMux[2] = {0, 0}, padOut[2] = {0, 0};
@@ -1719,6 +1746,7 @@ static void applyAirState(const AirStatePayload &state);
 static void setSettingsMsg(const char *s);
 static void refreshHomeLevel();
 static void refreshStatusReeds();
+static void refreshStatusThermal();
 static void refreshFlavorText();
 static bool uiShow(const UiShowPayload &req);
 
@@ -1953,8 +1981,21 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
-  if (type == MSG_RESP_STATUS && plen >= sizeof(StatusPayload)) {
-    memcpy(&ctrlStatus, payload, sizeof(ctrlStatus));
+  // The frame carries the 32-byte core every main board has always sent, and
+  // whatever a newer one appends after it. A frame at or above that core is
+  // read: the bytes that arrived are taken, the fields behind them stand at
+  // zero, and the two temperatures stand at TEMP_UNREAD rather than at 0 C. The
+  // gauges, the reed diagram, the ratio mirror and the pouring caption are all
+  // in the core, so a main board that has not grown the tail still draws them.
+  if (type == MSG_RESP_STATUS && plen >= STATUS_CORE_BYTES) {
+    ctrlStatus = StatusPayload{};
+    const size_t taken = plen < sizeof(ctrlStatus) ? (size_t)plen : sizeof(ctrlStatus);
+    memcpy(&ctrlStatus, payload, taken);
+    if (taken < offsetof(StatusPayload, coldState)) {
+      ctrlStatus.tankCx10 = TEMP_UNREAD;
+      ctrlStatus.coilCx10 = TEMP_UNREAD;
+    }
+    ctrlStatusThermal = taken >= sizeof(ctrlStatus);
     ctrlStatusMs = millis();
     // The gauges, and — unless a step of this glass's is still unanswered —
     // what each channel pours at.
@@ -1967,6 +2008,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       refreshHomeLevel();
     }
     refreshStatusReeds();
+    refreshStatusThermal();
     if (!ratioSentMs) {
       bool moved = false;
       for (uint8_t i = 0; i < 2; i++) {
@@ -3204,9 +3246,76 @@ static void refreshStatusReeds() {
     lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_ACCENT : COL_BLUE), 0);
     lv_obj_set_style_border_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_DIM), 0);
   }
-  if (fresh != statusFreshShown) lv_label_set_text(statusNote, fresh ? "" : "Not reading the sensors");
+  const bool simulated = (ctrlStatus.levelFlags & LEVEL_F_SIMULATED) != 0;
+  if (fresh != statusFreshShown || simulated != statusSimShown)
+    lv_label_set_text(statusNote, !fresh      ? "Not reading the sensors"
+                                 : simulated  ? "Simulated readings, injected from the console"
+                                              : "");
+  statusSimShown = simulated;
   statusShown = closed;
   statusFreshShown = fresh;
+}
+
+// Tenths of a degree as the column says it: one decimal, and a sign that
+// survives a reading between 0 and -1 C. A probe that did not read, and a bus
+// with no devices on it, both give "--".
+static void statusTempText(char *out, size_t n, int16_t cx10, bool read) {
+  if (!read || cx10 == TEMP_UNREAD) { snprintf(out, n, "--"); return; }
+  const int tenths = cx10 < 0 ? -(int)cx10 : (int)cx10;
+  snprintf(out, n, "%s%d.%d C", cx10 < 0 ? "-" : "", tenths / 10, tenths % 10);
+}
+
+// The column beside the profile: the carbonator wall and the coil's suction end,
+// the state each of the two loops stands in, and how many devices answered the
+// 1-wire bus. A main board that has not answered for STATUS_ANSWER_MS, and one
+// that sends the core with no thermal tail, leave every line at "--".
+static void refreshStatusThermal() {
+  if (!statusThermalValue[0]) return;
+  const bool answered = ctrlStatusMs != 0 &&
+                        ((long)(ctrlStatusMs - statusAskedMs) >= 0 ||
+                         millis() - statusAskedMs < STATUS_ANSWER_MS);
+  const bool fresh = answered && ctrlStatusThermal &&
+                     front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
+  if (statusThermalShown.drawn && fresh == statusThermalShown.fresh &&
+      ctrlStatus.tankCx10 == statusThermalShown.tank &&
+      ctrlStatus.coilCx10 == statusThermalShown.coil &&
+      ctrlStatus.coldState == statusThermalShown.cold &&
+      ctrlStatus.refillState == statusThermalShown.refill &&
+      ctrlStatus.probeCount == statusThermalShown.probes) return;
+  statusThermalShown.drawn  = true;
+  statusThermalShown.fresh  = fresh;
+  statusThermalShown.tank   = ctrlStatus.tankCx10;
+  statusThermalShown.coil   = ctrlStatus.coilCx10;
+  statusThermalShown.cold   = ctrlStatus.coldState;
+  statusThermalShown.refill = ctrlStatus.refillState;
+  statusThermalShown.probes = ctrlStatus.probeCount;
+
+  // machine_policy::ColdState and ::RefillState, low value first. Cooling is
+  // ColdState::On, Hold is ColdState::Holding, and the loop running and the
+  // pump drawing are the two states that carry the accent.
+  static const char *const coldWord[5]      = {"Fault", "Off", "Hold", "Cooling", "Freeze"};
+  static const uint32_t     coldColour[5]   = {COL_WARN, COL_TEXT, COL_TEXT, COL_ACCENT, COL_WARN};
+  static const char *const refillWord[5]    = {"Idle", "Queued", "Filling", "Timeout", "Fault"};
+  static const uint32_t     refillColour[5] = {COL_TEXT, COL_TEXT, COL_ACCENT, COL_WARN, COL_WARN};
+  const uint8_t cold   = ctrlStatus.coldState;
+  const uint8_t refill = ctrlStatus.refillState;
+  // TEMP_UNREAD is what the main board sends for a probe that did not read.
+  const bool probed = fresh;
+
+  char v[12];
+  statusTempText(v, sizeof(v), ctrlStatus.tankCx10, probed);
+  lv_label_set_text(statusThermalValue[0], v);
+  statusTempText(v, sizeof(v), ctrlStatus.coilCx10, probed);
+  lv_label_set_text(statusThermalValue[1], v);
+  lv_label_set_text(statusThermalValue[2], fresh && cold < 5 ? coldWord[cold] : "--");
+  lv_obj_set_style_text_color(statusThermalValue[2],
+                              lv_color_hex(fresh && cold < 5 ? coldColour[cold] : COL_TEXT), 0);
+  lv_label_set_text(statusThermalValue[3], fresh && refill < 5 ? refillWord[refill] : "--");
+  lv_obj_set_style_text_color(statusThermalValue[3],
+                              lv_color_hex(fresh && refill < 5 ? refillColour[refill] : COL_TEXT), 0);
+  if (fresh) snprintf(v, sizeof(v), "%u", ctrlStatus.probeCount);
+  else       snprintf(v, sizeof(v), "--");
+  lv_label_set_text(statusThermalValue[4], v);
 }
 
 // ── Page builders ──
@@ -4450,6 +4559,15 @@ static void buildSettings(lv_obj_t *page) {
   lv_obj_set_style_border_color(service, lv_color_hex(0x8eacef), 0);
   lv_obj_add_event_cb(service, settingsAreaCb, ACT_EVENT, (void *)(intptr_t)SET_PUMP);
   lv_obj_center(mkText(service, "Pump service " LV_SYMBOL_RIGHT, &lv_font_montserrat_20, COL_TEXT));
+  // The cold loop and the refill, in the column under the pump service button:
+  // a dim label at the column's left edge and its value beside it, five rows.
+  static const char *const thermalLabel[STATUS_THERMAL_ROWS] = {"Tank", "Coil", "Cold", "Refill", "Probes"};
+  for (uint8_t i = 0; i < STATUS_THERMAL_ROWS; i++) {
+    const lv_coord_t y = 80 + i * 34;
+    lv_obj_set_pos(mkText(status, thermalLabel[i], &lv_font_montserrat_20, COL_DIM), 460, y);
+    statusThermalValue[i] = mkText(status, "--", &lv_font_montserrat_20, COL_TEXT);
+    lv_obj_set_pos(statusThermalValue[i], 548, y);
+  }
   setView[SET_STATUS] = status;
 
   lv_obj_t *pump = mkView(page);
@@ -4506,7 +4624,7 @@ static void showFlavor(FlavorView v) {
 static void showSettings(SettingsView v) {
   activeSet = v;
   showOnly(setView, SET_COUNT, v);
-  if (v == SET_STATUS) refreshStatusReeds();
+  if (v == SET_STATUS) { refreshStatusReeds(); refreshStatusThermal(); }
   if (v == SET_PUMP)   setSettingsMsg("");
   refreshShell();
 }
@@ -5351,7 +5469,7 @@ void loop() {
       lastSlow = millis();
       padWatch();
       if (activePage == PAGE_HOME)   refreshHomeSelection();
-      if (activePage == PAGE_SETUP)  refreshStatusReeds();
+      if (activePage == PAGE_SETUP)  { refreshStatusReeds(); refreshStatusThermal(); }
   refreshHomeLevel();
     }
   }
