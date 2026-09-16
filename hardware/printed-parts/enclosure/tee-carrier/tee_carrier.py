@@ -465,16 +465,19 @@ def build(spec=DEFAULT_SPEC):
     return build_carrier(spec)
 
 
-def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
+def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0, *, opening_aft_y=None):
     """Finger room beside the actual printed grip, including its supported-face relief."""
     probes = []
     inner = spec.grip_back_x + spec.grip_back_t + spec.finger_air
     outer = spec.tab_outer_x + 1.0
     z0, z1 = spec.printed_grip_z
+    aft = spec.finger_y[1] + offset_y
+    if opening_aft_y is not None:
+        aft = min(aft, opening_aft_y)
     for side in (-1, 1):
         xa, xb = (inner, outer) if side > 0 else (-outer, -inner)
         probes.append(_box(xa, xb, spec.finger_y[0] + offset_y + spec.finger_air,
-                           spec.finger_y[1] + offset_y - spec.finger_air,
+                           aft - spec.finger_air,
                            z0 + spec.finger_air,
                            z1 - spec.finger_air).val())
     return tuple(probes)
@@ -787,7 +790,11 @@ def sync_readme(spec=DEFAULT_SPEC):
         'SPRING_AXIS_Z': spec.spring_axis_z,
         'CAPTURE_PROBE_SHIFT': spec.slide_air + 0.001,
         'CAPTURE_PROBE_SHIFT_Z': spec.slide_air + fits.supported_surface + 0.001,
-        'GUIDE_TRAVEL': spec.park_offset_y - spec.release_offset_y,
+        'GUIDE_TRAVEL': (spec.park_offset_y - spec.release_offset_y
+                         + enclosure_interface.tee_carrier_aft_overtravel),
+        'AFT_OVERTRAVEL': enclosure_interface.tee_carrier_aft_overtravel,
+        'FINGER_RUN_AT_LIMIT': spec.finger_run - enclosure_interface.tee_carrier_aft_overtravel,
+        'FORE_OVERLAP_AT_LIMIT': spec.grip_overlap - enclosure_interface.tee_carrier_aft_overtravel,
         'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,
         'RIM_BED_GAP': spec.printed_rim_z[0] - spec.web_z[0],
     }

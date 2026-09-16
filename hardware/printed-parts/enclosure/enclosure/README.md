@@ -1227,7 +1227,7 @@ the complete flavour pack's common station.
 
 Nothing latches the cartridge in the enclosure. The four barb tubes gripped in the anchor
 tees' branch collets retain it, and the **collet plate** releases them: a 3.175 mm section
-printed into front-top, standing [0.5 mm](PLATE_REST_GAP) fore of the fully extended collet noses at the aft stop. Pull the cradle and
+printed into front-top, standing [0.5 mm](PLATE_REST_GAP) fore of the fully extended collet noses at nominal rest. Pull the cradle and
 the tubes draw the tees forward until their collet noses land on the printed release face;
 the collets open and the tubes pass back through the four plate passages. The fixed plate
 carries that reaction into the whole enclosure, which can be braced by a hand, foot, cupboard
@@ -1263,8 +1263,10 @@ the bulkhead's outline and the cartridge's pull pockets.
 the fully depressed sleeves bear directly on the fixed plate and all four tubes bottom
 10 mm beyond that face with the cartridge 2.15 mm short of seating. Release the grips and
 push the cartridge through the remaining 2.15 mm; its tips then bottom at the aft body stops,
-11.65 mm beyond the extended sleeves. Squeeze and release share the fore stop. Connected and empty park
-share the aft stop, which is the position shown in the complete assembly. The modeled
+11.65 mm beyond the extended sleeves. Squeeze and release share the fore stop. The complete
+assembly shows nominal connected rest. The internal aft stop allows an additional 2.5 mm
+of movement for bending, giving 4.65 mm total travel; the empty carrier can return to that stop.
+The modeled
 branch sleeves move inside their bodies; the spring loads remain catalog estimates.
 
 The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
@@ -1287,7 +1289,7 @@ faces to the cartridge body. The top clamp has no separate grip.
 
 A filled body extends aft from the fixed tee wall to the moving carrier and joins both
 flanks. Its flat lower and upper lands carry the carrier web; the outboard guide openings
-carry the solid service tabs and their release/park stops. Four continuous aft-opening
+carry the solid service tabs and their release/aft-limit stops. Four continuous aft-opening
 wells each carry a tee, both ties, the lower hairpin and the upper bowed tube and valve port.
 Their constant sections continue through the finished valve-tray junction. The upper land
 forms a continuous bridge into the fore valve tray, up to its valve-body clearance plane.
@@ -1298,13 +1300,13 @@ that row's valves from underneath and carry the moving hairpins. Branch journals
 continue forward to the fixed collet plate. One common full-width face clears the tie heads,
 ends the spring bores and clears the upper lap's lateral entry.
 
-Each flank opening follows its bar through the complete Y stroke, with 16 mm minimum
-finger clearance behind a 16 mm solid bar. The current opening dimensions are in
+Each flank opening leaves 16 mm finger clearance behind its 16 mm solid bar at nominal
+rest, and 13.5 mm at the additional 2.5 mm aft flex limit. The current opening dimensions are in
 [the tee carrier drawing](/hardware/printed-parts/enclosure/tee-carrier/README.md). The 3 mm inboard backing and aft walls close the finger
 space through the full stroke. The aft wall sits 3.25 mm behind the enclosure's outer face.
 The bar's root overlaps the moving web's full thickness. Its flat underside runs 0.50 mm
 above the opening's lower edge and clears the seam rail across its full depth.
-A fore shoulder retains the bar behind the wall, and an upper tongue meets the park stop
+A fore shoulder retains the bar behind the wall, and an upper tongue meets the aft limit
 above the finger space. The internal recess continues from the outer tee well to the aft
 tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
 insertion and working sweeps include 0.25 mm clearance in X and 0.50 mm at supported Z faces.

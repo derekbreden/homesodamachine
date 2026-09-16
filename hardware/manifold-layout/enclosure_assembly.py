@@ -1210,7 +1210,8 @@ PLATE_HOLE_D = 8.5
 COLLET_NOSE_R = 5.715
 TEE_WALL_BORE_SLIP = fits.running
 TEE_WALL_BODY_AIR = 1.454
-CARRIER_ASSEMBLY_STATE = "connected"  # the fully aft stop, with the cartridge present
+CARRIER_ASSEMBLY_STATE = "connected"  # nominal seated cartridge; aft flex travel remains free
+CARRIER_AFT_OVERTRAVEL = _enc._interface.tee_carrier_aft_overtravel
 CARRIER_TUBE_AIR = 0.3
 CARRIER_SPRING_LOAD_ABOVE_SOLID = 1.0
 CARRIER_SPRING_LOAD_END_AIR = 1.0
@@ -1260,6 +1261,14 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     if abs(states["park"]["offset_y"] - states["release"]["offset_y"] - stroke) > 1e-9:
         raise ValueError(
             f"carrier stops do not span the measured sleeve stroke plus {PLATE_REST_GAP:g} mm")
+    aft_limit = states["connected"]["offset_y"] + CARRIER_AFT_OVERTRAVEL
+    states["aft_limit"] = {
+        "offset_y": round(aft_limit, 6), "tube_depth": None,
+        "cartridge_offset_y": None,
+        "tube_bottom_y": round(aft + tee.INSERTION + aft_limit, 6),
+        "collet_depression": round(tee.carrier_collet_depression(aft_limit), 6),
+        "plate_gap": round(max(0.0, aft_limit - tee.COLLET_TRAVEL), 6),
+    }
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": round(2.0 * nominal_hole_z - z0, 6),
@@ -1272,12 +1281,13 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "tube_bottom_y": round(aft + tee.INSERTION, 6),
             "seated_tube_bottom_y": round(aft + tee.INSERTION + stroke, 6),
             "carrier_states": states,
+            "aft_overtravel": CARRIER_AFT_OVERTRAVEL,
             "guide_travel": round(
-                states["park"]["offset_y"] - states["release"]["offset_y"], 6),
+                aft_limit - states["release"]["offset_y"], 6),
             "connected_release_travel": round(
                 states["connected"]["offset_y"] - states["release"]["offset_y"], 6),
             "stop_offsets": (
-                states["release"]["offset_y"], states["park"]["offset_y"]),
+                states["release"]["offset_y"], round(aft_limit, 6)),
             "assembly_state": CARRIER_ASSEMBLY_STATE}
 
 
@@ -1453,6 +1463,10 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "assembly_state": plate["assembly_state"],
         "stop_offsets": plate["stop_offsets"],
         "guide_travel": plate["guide_travel"],
+        "aft_overtravel": plate["aft_overtravel"],
+        "aft_limit_offset_y": plate["stop_offsets"][1],
+        "finger_run_at_aft_limit": spec.finger_run - plate["aft_overtravel"],
+        "fore_overlap_at_aft_limit": spec.grip_overlap - plate["aft_overtravel"],
         "connected_release_travel": plate["connected_release_travel"],
         "fixed_spring_bearing_y": fixed_y,
         "spring_bearing_lengths": bearing,
@@ -1485,7 +1499,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "service_recess_z": (min(spec.grip_z[0], spec.backing_z[0]) - spec.slide_air,
                              spec.rim_z[1] + spec.slide_air),
         "stop_channel_inner_x": spec.rim_x[1] - spec.entry_shoulder_inset_x + spec.slide_air,
-        "stop_channel_aft_y": spec.rim_y[1] + spec.park_offset_y,
+        "stop_channel_aft_y": spec.rim_y[1] + plate["stop_offsets"][1],
         "tee_xs": spec.tee_xs,
         "tee_run_y": tee_run_y,
         "tee_z": (min(b.zmin for b in tee_boxes), max(b.zmax for b in tee_boxes)),
@@ -1565,7 +1579,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     Wago well, stop, spring guide and service opening which can enter the moving envelope.
     Complete rectangular sweeps enclose each half's rear entry, lowering and outward seating;
     the remaining seating
-    motions use at most 0.7 mm between samples. Exact release and park allow tangent contact; a 0.001 mm
+    motions use at most 0.7 mm between samples. Exact release and aft limit allow tangent contact; a 0.001 mm
     overshoot at each end must produce positive intersection and thereby prove both stops exist.
     """
     if not getattr(a, "tee_carrier", None):
@@ -1664,7 +1678,12 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     if abs(plate['tube_bottom_y'] - plate['aft_y'] - ml.tee.INSERTION) > 1e-6:
         failures.append('the fore tube-bottom station does not match the measured insertion')
     if abs(spec.park_offset_y - spec.release_offset_y - ml.tee.CARRIER_STROKE) > 1e-6:
-        failures.append('the physical guide stroke differs from the measured sleeve travel plus aft gap')
+        failures.append('the nominal rest differs from the measured sleeve travel plus aft gap')
+    if abs(interface['aft_limit_offset_y'] - spec.connected_offset_y
+           - CARRIER_AFT_OVERTRAVEL) > 1e-6:
+        failures.append('the aft stop does not preserve the full additional travel beyond connected')
+    if interface['fore_overlap_at_aft_limit'] <= spec.slide_air:
+        failures.append('the fore shoulder loses retention before the aft stop')
     carrier_installation = (("enclosure-front-top", wall), *seated_tees)
     installation = (*carrier_installation,
                     *((name, solid) for name, solid in fixed if name in installed_names))
@@ -1695,7 +1714,10 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             bb = shape.BoundingBox()
             if max(abs(bb.xmin), abs(bb.xmax)) > spec.exterior_x + 1e-6:
                 failures.append(f"{state}: half {side:+d} exceeds the enclosure width")
-        for side, finger in zip((-1, 1), _carrier.finger_probes(spec, dy)):
+        # The visible opening and nominal 16 mm finger room stay fixed. At the flex
+        # limit the bar uses part of that room; prove the remaining open passage.
+        for side, finger in zip((-1, 1), _carrier.finger_probes(
+                spec, dy, opening_aft_y=interface["service_slot_y"][1])):
             read(f"{state} finger {side:+d}", finger, wall_and_fixed)
         for index, strap in enumerate(_carrier.tie_back_envelopes(spec), 1):
             read(f"{state} tie {index} aft strap", strap.translate((0, dy, 0)),
@@ -1784,7 +1806,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     # The left half seats at release first. The right seats at park, then comes forward
     # onto the left half's fore lap. Both valve rows are absent during this route.
     release = interface["states"]["release"]["offset_y"]
-    park = interface["states"]["park"]["offset_y"]
+    park = interface["states"]["park"]["offset_y"]  # unchanged half-assembly station
+    aft_limit = interface["aft_limit_offset_y"]
     left_release = halves[-1].translate((0.0, release, 0.0))
     for side, entry_y in zip(interface["half_install_order"], interface["half_entry_offsets_y"]):
         blockers = carrier_installation + ((("left half at release", left_release),) if side > 0 else ())
@@ -1799,15 +1822,16 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                  sweep, blockers)
         for name, envelope in _carrier.insertion_envelopes(spec, side, xz_air=spec.slide_air):
             bb = envelope.BoundingBox()
-            sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin + release, bb.ymax + park,
+            sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin + release, bb.ymax + aft_limit,
                                   bb.zmin, bb.zmax).val()
             read(f"half {side:+d} full working {name} sweep with {spec.slide_air:g} mm X/Z air",
                  sweep, wall_and_fixed)
-    count = sample_count(park - release)
+    count = sample_count(aft_limit - release)
     for i in range(count):
-        dy = park + (release - park) * i / (count - 1)
+        dy = aft_limit + (release - aft_limit) * i / (count - 1)
+        lap_dy = park + (release - park) * i / (count - 1)
         read(f"right half lap closure {i + 1}/{count}",
-             halves[1].translate((0.0, dy, 0.0)),
+             halves[1].translate((0.0, lap_dy, 0.0)),
              (*carrier_installation, ("left half at release", left_release)))
         for side, shape in halves.items():
             read(f"half {side:+d} working travel {i + 1}/{count}",
@@ -1854,11 +1878,11 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
 
     # A real stop is air at its datum and material immediately beyond it.
     release_hit = carrier.translate(cq.Vector(0.0, release - 0.001, 0.0)).intersect(wall).Volume()
-    park_hit = carrier.translate(cq.Vector(0.0, park + 0.001, 0.0)).intersect(wall).Volume()
+    park_hit = carrier.translate(cq.Vector(0.0, aft_limit + 0.001, 0.0)).intersect(wall).Volume()
     if release_hit <= CARRIER_MOTION_OVERLAP_TOL:
         failures.append("release stop does not engage after a 0.001 mm overshoot")
     if park_hit <= CARRIER_MOTION_OVERLAP_TOL:
-        failures.append("park stop does not engage after a 0.001 mm overshoot")
+        failures.append("aft stop does not engage after a 0.001 mm overshoot")
 
     # Read capture on the two flank guides alone, independently of tees, ties and valves.
     # Four translations exceed the running air by 0.001 mm; pitch, yaw and roll each exceed
@@ -1867,7 +1891,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     for side in (-1, 1):
         xa, xb = sorted((side * spec.guide_inner_x, side * spec.exterior_x))
         region = _carrier._box(xa, xb, spec.rim_y[0] + release - 1.0,
-                               spec.rim_y[1] + park + 1.0,
+                               spec.rim_y[1] + aft_limit + 1.0,
                                min(spec.rim_z[0], spec.grip_z[0]) - 1.0,
                                spec.rim_z[1] + 1.0).val()
         guide_walls.append(wall.intersect(region))
@@ -1898,14 +1922,16 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
 
     return record_bound(Bound(
         "tee-carrier-motion",
-        "Tee carrier clears front-top through installation and all four working states, and "
+        "Tee carrier clears front-top through installation, nominal states and aft overtravel, and "
         "both end stops and all five transverse constraints engage",
         not failures,
         f"{readings} solid/envelope checks including {spec.slide_air:g} mm X/Z air through "
         f"every carrier insertion and working sweep; maximum unintended overlap {max_overlap:.6f} mm³; "
-        f"release/park overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
-        f"40 independent flank-capture readings at {spec.capture_probe_angle:.3g}° rotation, "
+        f"release/aft overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
+        f"{10 * len(interface['states'])} independent flank-capture readings at {spec.capture_probe_angle:.3g}° rotation, "
         f"minimum contact {contact_min:.6f} mm³; "
+        f"{interface['guide_travel']:g} mm total travel, nominal rest {spec.connected_offset_y:g} mm, "
+        f"{interface['aft_overtravel']:g} mm additional aft room; "
         f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²; "
         f"minimum depressed-collet bearing {min(nose_contacts):.3f} mm²; "
         f"fore tube bottom {plate['tube_bottom_y']:.3f} mm Y, "
