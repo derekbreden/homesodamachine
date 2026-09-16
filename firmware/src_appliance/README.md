@@ -89,8 +89,30 @@ foundation the next connected bench uses.
 At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
 safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
 on. Every operation that opens a valve opens one topology state at a time, at most three
-valves, and parks them the instant a write or a reed read fails. The condenser fan turns under
-the self-test and nowhere else, and neither relay is ever driven.
+valves, and parks them the instant a write or a reed read fails. The condenser fan turns with
+the compressor, and under the self-test; both relays are driven, relay #1 by the cold loop and
+relay #2 by the refill.
+
+## The cold loop and the refill
+
+Two probes share the 1-wire bus on IO26 and are told apart by family code: the DS18B20 (0x28)
+on the carbonator wall carries the setpoint band, the DS18S20 (0x10) at the coil's suction end
+carries the freeze cutout. `onewire.cpp` enumerates the bus by SEARCH ROM, CRC-checks every
+ROM and every scratchpad, and never waits out a 750 ms conversion inside a call. The decision
+is [`cold_policy.h`](/firmware/lib/machine_policy/cold_policy.h), which reaches no Arduino:
+the band, the cutout and its recovery, the compressor's minimum off- and on-times, and the
+parking of relay #1 on any reading that is missing, stale or fails its CRC. `millis()` restarts
+at 0 on a boot, so a board that restarted holds the full minimum off-time before its first start.
+
+The refill is [`refill_policy.h`](/firmware/lib/machine_policy/refill_policy.h). CLO closing is
+debounced, then held in `Queued` for as long as a dispense window is open or another operation
+owns the manifold; a draw runs `ST_REFILLING` with V-K open and relay #2 closed until CHI, a
+ceiling on pumping time, or a pour — which stops the draw before it opens its own path. Two
+reeds closed at once is a latched fault, and `refill clear` is what leaves it.
+
+`status` prints both loops with their relays; `thermal` walks the bus; `sim` puts a reading at
+the top of either so the policy, the relays and the fan can be exercised with no probe on the
+bench, and says `SIMULATED` on every `status` while one stands.
 
 ## The files
 
@@ -300,8 +322,9 @@ the part that pays for each. At most 3 solenoid valves energized at once; relay 
 a dispense is open; `GPPU` written on both MCP23017s.
 
 `machine_policy::kRefillDuringDispense` refuses a `CarbonatorRefill` plan whose `SafetyContext`
-carries an open dispense window, and `machineDispenseWindowOpen()` is the accessor that asks;
-neither relay is driven yet, so nothing has cause to.
+carries an open dispense window, and `machineDispenseWindowOpen()` is the accessor that asks.
+`refillService` passes that context on every pass, so an ask arriving mid-pour waits, and a
+pour arriving mid-draw takes the 5 A off the rail before the dispense path opens.
 
 The canonical operation plans and timing policy live in
 [`/firmware/lib/machine_policy`](/firmware/lib/machine_policy/machine_policy.h). They have no

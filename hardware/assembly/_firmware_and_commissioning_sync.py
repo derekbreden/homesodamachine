@@ -73,13 +73,39 @@ ds18b20_count = 2           # Carbonator-wall + suction-line probes on the bus
 ambient_tol_c = 2           # ±, room-ambient sensor-health check
 
 # ─── Firmware factory-default setpoints (refrigeration control) ───────
+# The setpoints are the firmware's own. `cold_policy.h` is what the compressor
+# obeys, so the procedure reads its constants rather than restating them: a
+# setpoint the factory confirms per unit and a setpoint the machine holds
+# cannot be two different numbers.
 
-carbonator_target_c = 2           # Carbonator-wall DS18B20 target
-hysteresis_c = 2            # ±, around the carbonator target
-comp_on_temp_c = carbonator_target_c + hysteresis_c   # = 4 — compressor turns on
-comp_off_temp_c = carbonator_target_c                  # = 2 — compressor turns off
-freeze_cutoff_c = -8        # Suction-line freeze-protect cutoff
-min_off_time_min = 3        # Compressor start-capacitor minimum off-time
+_cold_policy = (
+    next(p for p in _here.parents if (p / "firmware").is_dir())
+    / "firmware" / "lib" / "machine_policy" / "cold_policy.h"
+)
+
+
+def _constexpr(name):
+    """The value of `constexpr <type> <name> = <value>;` in cold_policy.h."""
+    import re
+
+    text = _cold_policy.read_text()
+    m = re.search(
+        r"constexpr\s+\w+\s+" + re.escape(name) + r"\s*=\s*(-?[\d.]+)f?\s*;", text
+    )
+    if not m:
+        raise SystemExit(f"{_cold_policy.name}: no constexpr {name}")
+    return float(m.group(1))
+
+
+carbonator_target_c = _constexpr("kTankTargetC")
+hysteresis_c = _constexpr("kHysteresisC")
+comp_on_temp_c = carbonator_target_c + hysteresis_c    # compressor turns on
+comp_off_temp_c = carbonator_target_c                  # compressor turns off
+freeze_cutoff_c = _constexpr("kFreezeCutoffC")         # suction-line cutout
+freeze_recover_c = _constexpr("kFreezeRecoverC")       # clears the cutout
+min_off_time_min = _constexpr("kMinOffMs") / 60000.0   # start-capacitor rest
+min_on_time_s = _constexpr("kMinOnMs") / 1000.0
+reading_stale_s = _constexpr("kReadingStaleMs") / 1000.0
 
 # ─── Firmware invariants the hardware imposes ─────────────────────────
 # The ceiling and both currents are `_ac_wiring_schedule_sync`'s, which
@@ -126,6 +152,9 @@ def main():
         "COMP_ON_TEMP": f"{comp_on_temp_c:.4g} °C",
         "COMP_OFF_TEMP": f"{comp_off_temp_c:.4g} °C",
         "FREEZE_CUTOFF": f"−{abs(freeze_cutoff_c):.4g} °C",
+        "FREEZE_RECOVER": f"−{abs(freeze_recover_c):.4g} °C",
+        "MIN_ON_TIME": f"{min_on_time_s:.4g} s",
+        "READING_STALE": f"{reading_stale_s:.4g} s",
         # Three surface forms: "3-minute", "3-min", "3 min".
         "MIN_OFF_TIME": f"{min_off_time_min:.4g}-minute",
         "MIN_OFF_TIME_HYPHEN": f"{min_off_time_min:.4g}-min",

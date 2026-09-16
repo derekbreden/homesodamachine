@@ -15,7 +15,9 @@
 // cycles, the pour the flow meter opens, and the commissioning self-test that
 // walks every solenoid, the condenser fan and both pumps one load at a time.
 // The two MCP23017s are initialized fail-closed: every output is parked low and
-// the reed inputs have internal pull-ups. Neither relay is ever driven.
+// the reed inputs have internal pull-ups. Both relays are driven from here:
+// relay #1 by the cold loop against the two 1-wire probes, relay #2 by the
+// refill against the carbonator's two reeds and the dispense window.
 
 enum MachineState : uint8_t {
     ST_IDLE,      // nothing driven
@@ -25,6 +27,7 @@ enum MachineState : uint8_t {
     ST_AIRING,    // an air cycle: the funnel open to air, a pump carrying it along the path
     ST_SELFTEST,  // the commissioning walk: one load at a time, briefly
     ST_POURING,   // carbonated water is flowing: the selected channel's dispense path open, its pump on a duty cycle
+    ST_REFILLING, // the carbonator is drawing: V-K open, relay #2 closed on the SeaFlo
 };
 
 // Why the pump is turning, which is the same as what will stop it.
@@ -226,8 +229,43 @@ struct MachineLevels {
 void machineLevels(MachineLevels &levels);
 
 // The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
-// with no firmware in the path; what the firmware adds is the alarm.
+// with no firmware in the path; what the firmware adds is the alarm, and
+// relay #1 dropped as well.
 bool machineGasTripped();
+
+// ── The cold loop and the refill, as they read from outside ───────────────
+// `coldState` and `refillState` are machine_policy::ColdState and
+// ::RefillState; the two relay fields are the pins themselves, so a state
+// that disagrees with its relay is visible rather than inferred.
+struct MachineThermal {
+    float   tankC;            // carbonator wall, DS18B20 family 0x28
+    bool    tankValid;
+    float   coilC;            // suction line, DS18S20 family 0x10
+    bool    coilValid;
+    uint8_t coldState;
+    uint8_t refillState;
+    bool    compressorRelay;
+    bool    refillRelay;
+    uint8_t probeCount;       // devices answering on the 1-wire bus
+    uint32_t holdRemainingMs; // 0 unless the cold loop is inside its minimum off-time
+    uint32_t refillPumpedMs;
+    bool    simulated;        // a reading injected from the console, not a probe
+};
+void machineThermal(MachineThermal &thermal);
+
+// The two state enums as words, for the console and the glass.
+const char *machineColdStateName(uint8_t coldState);
+const char *machineRefillStateName(uint8_t refillState);
+
+// ── Injected readings ─────────────────────────────────────────────────────
+// Development control from the USB console. The loops run for real against
+// these — the policy, the relays and the fan all move — and only the reading
+// at the top is invented. Nothing production-facing calls them, a reboot
+// clears them, and `simulated` stays true in MachineThermal while one stands.
+void machineSimThermal(float tankC, bool tankValid, float coilC, bool coilValid);
+void machineSimReeds(bool carbLow, bool carbHigh);
+void machineSimClear();
+void machineRefillClear();   // leave a latched refill Timeout or Fault
 
 // Read-only commissioning snapshot of the two MCP23017s and all ten reeds.
 // This is populated only when explicitly requested from the USB console; it is
