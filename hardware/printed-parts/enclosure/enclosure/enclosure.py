@@ -1216,19 +1216,9 @@ def c14_mount_half(bore_w, bore_h, screw_reach):
 # WHAT STANDS ON A FLANK READS THE FACE THAT IS ACTUALLY THERE. Wago wells and the drip-pan
 # sleeve cut their own berths through the whole section; the two fitting anchors give their zip
 # tie lanes back to `interior_x`; and the +X electronics bay keeps its full insert-length boss datum
-# clear of this face. The one routed tube that crosses the new stock gets the named support-free
-# relief below.
+# clear of this face.
 back_top_flank_t = 9.0
 
-# The `water-3` run crosses the front/back joint in the west strip. Its front-top share already
-# has the same relief; this is the aft continuation, on back-top from the first plane past the Y
-# telescope until the route has turned inboard: the tube's own room there is y 215..232 and
-# z 250..260, and the relief is that with one `wall` round it. The floor is `lip_face_x`, leaving
-# six millimetres of wall, and the roof rises at `relief_chamfer` to the nominal nine-millimetre
-# face. Stated as (placed-body name, side, y0, y1, z0, z1).
-back_top_flank_reliefs = (
-    ("tube-water-3", -1.0, 215.0, 235.0, 247.0, 263.0),
-)
 # --- back-bottom's own ±X section ---------------------------------------------
 #
 # AND THE STOREY UNDER IT CARRIES MORE, because down there nothing is in the way. The only
@@ -2536,10 +2526,8 @@ def _dims(pack):
     # the appliance's width can still be standing in its wall — and `box-width` cannot see it,
     # because the width it reads is the box's own. What this section may stand in is what the
     # wall gives a LANE to and nothing else: a Wago in its own well, bored back to `interior_x`,
-    # whatever lies in the ASSE drip pan's sleeve, and the named run in
-    # `back_top_flank_reliefs`. A body is matched to a geometric well by its CENTRE; the named
-    # route relief is verified against the exact finished piece by `pack-closes`, so this
-    # pre-piece ledger recognizes its intent without pretending the nominal face remains there.
+    # and whatever lies in the ASSE drip pan's sleeve. A body is matched to a geometric well
+    # by its CENTRE.
     bt0, bt1 = back_top_flank_face()
     bt_y0 = y_joint + lip_len + z_lip_y_margin
     bt_z0 = splits[1] + z_rise
@@ -2547,13 +2535,9 @@ def _dims(pack):
               for _sd, sy, sz, size, *_rest in pack.side_wells
               for hy, hz in (wago_half(size),)]
              + [(by0, by1, bz0, bz1) for _bx0, _bx1, by0, by1, bz0, bz1 in pack.pan_sleeve[0]])
-    relieved_names = {who for who, _side, _y0, _y1, _z0, _z1
-                      in back_top_flank_reliefs}
     flank_rows = []
     for name, b in zip(placed.keys(), bbs):
         if b.ymax <= bt_y0 or b.zmax <= bt_z0:
-            continue
-        if name in relieved_names:
             continue
         cy, cz = (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0
         if any(ly0 <= cy <= ly1 and lz0 <= cz <= lz1 for ly0, ly1, lz0, lz1 in lanes):
@@ -5061,52 +5045,28 @@ def _back_top_wall_relief_cut(field, up=1.0):
     return out
 
 
-def _back_top_flank_relief_cut(box, up=1.0):
-    """The named pockets in back-top's nominal ±X section.
-
-    Each floor is the corresponding `lip_face_x` plane, so six millimetres of wall remain at
-    the relieved station. The pocket's two ends stand vertical to the bed, and the one face of
-    it laid over air is the one on its print-up side (`up`, the piece's print up along the
-    box's Z, ±1): with `up` positive the roof, rising 45 degrees from the six-millimetre floor
-    plane to the nine-millimetre nominal face instead of bridging the pocket's depth, the floor
-    flat at `z0`; with `up` negative the floor, falling the same 45 degrees from the floor
-    plane to the face, the roof flat at `z1`.
-
-    The ASSE anchor's shared zip-tie cavity opens upward into the service air under the ceiling.
+def _back_top_flank_tie_cut(box):
+    """The ASSE anchor's shared zip-tie cavity opens upward into the air under the ceiling.
     Its span comes from the placed cradle's two tie bands, so the added flank stock gives up the
     one continuous mouth from the cavity's own west edge to the nominal face. It runs to the
     ceiling and needs no roof: the slab is open to the lane over the same span
     (`_ceiling_tie_channel_relief`)."""
-    faces, floors = back_top_flank_face(), lip_face_x()
-    out = None
-    for _who, side, y0, y1, z0, z1 in back_top_flank_reliefs:
-        i = 1 if side > 0 else 0
-        face, floor = faces[i], floors[i]
-        depth = abs(face - floor)
-        lid, flat = (z1, z0) if up > 0 else (z0, z1)   # the print-up face walks; the other lies flat
-        za, zb = sorted((flat, lid - up * depth))
-        cut = _ybox(min(face, floor), max(face, floor), y0, y1, za, zb)
-        cut = cut.fuse(_xz_prism(
-            y0, y1, [(face, lid - up * depth), (floor, lid - up * depth), (face, lid)]))
-        out = cut if out is None else out.fuse(cut)
-    if box.pack.asse_cradle:
-        z_axis, _sections, ties, _dn = box.pack.asse_cradle
-        face, floor = faces[0], floors[0]
-        mouth_z = z_axis + asse_cradle_up + 1.0
-        tie_y0, tie_y1 = _asse_tie_channel_span(ties)
-        cut = _ybox(min(face, floor), max(face, floor), tie_y0, tie_y1,
-                    mouth_z, box.inner[5] + 1.0)
-        out = cut if out is None else out.fuse(cut)
-    return out
+    if not box.pack.asse_cradle:
+        return None
+    z_axis, _sections, ties, _dn = box.pack.asse_cradle
+    face, floor = back_top_flank_face()[0], lip_face_x()[0]
+    mouth_z = z_axis + asse_cradle_up + 1.0
+    tie_y0, tie_y1 = _asse_tie_channel_span(ties)
+    return _ybox(min(face, floor), max(face, floor), tie_y0, tie_y1,
+                 mouth_z, box.inner[5] + 1.0)
 
 
 def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     """THE SECTION BACK-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`back_top_flank_t`). Fused before any of this piece's flank furniture, so the Wago wells,
     the +X mounting bosses and every bore below are cut out of the whole of it. `up` is the
-    piece's print up along the box's Z, ±1; the section's underside at the rim, its resume
-    over the pan sleeve's lid and its named reliefs (`_back_top_flank_relief_cut`) answer
-    to it.
+    piece's print up along the box's Z, ±1; the section's underside at the rim and its resume
+    over the pan sleeve's lid answer to it.
 
     IT BEGINS PAST THE Y TELESCOPE. The front half's lip runs to `y_joint + lip_len` on this
     wall surface (`_front_lip`), and in Y the band starts where `_lip_underwall` starts one
@@ -5161,7 +5121,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     # slot, cut in `build_back_half` before this stood here.
     for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0, up=up):
         band = band.cut(cutter)
-    relief = _back_top_flank_relief_cut(box, up=up)
+    relief = _back_top_flank_tie_cut(box)
     return band.cut(relief) if relief is not None else band
 
 
@@ -5203,7 +5163,7 @@ def _ceiling_tie_channel_relief(box, lane):
     take (`_asse_tie_channel_span`), from back-top's -X flank face east to the far edge of the
     chain's own pocket, the lane is open. A loop comes west over the chain's crown through the
     lane and drops into the anchor's cavity through the mouth the flank leaves it
-    (`_back_top_flank_relief_cut`)."""
+    (`_back_top_flank_tie_cut`)."""
     if not box.pack.asse_cradle:
         return None
     _z_axis, _sections, ties, _dn = box.pack.asse_cradle
