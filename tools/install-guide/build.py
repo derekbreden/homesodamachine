@@ -226,7 +226,9 @@ header('Have everything ready',sub='Tick off each item as you unpack. Have your 
 def check_item(s,x,y,detail=None):
     rect(x,y+.4,10.5,10.5,'#FFFFFF',stroke=BLUE,r=1)
     text(s,x+18,y,10.6,'Regular',INK)
-    if detail:para(detail,x+18,y+14,128,9,11.5,MUTED,limit=34.5)
+    height=10.6
+    if detail:height=14+para(detail,x+18,y+14,128,9,11.5,MUTED,limit=34.5)
+    return y+max(30,height+10)
 
 label('IN THE BOX',M,146)
 packed=[
@@ -243,22 +245,29 @@ packed=[
     ('Quick start',None),
     ('Install guide','This booklet.'),
 ]
-for index,(name,detail) in enumerate(packed):check_item(name,M,169+index*30,detail)
+y=169
+for name,detail in packed:y=check_item(name,M,y,detail)
 
 right=218
 line(198,146,198,544)
 label('YOU SUPPLY',right,146)
-check_item('Filled CO2 cylinder',right,169,'CGA-320 connection')
-check_item('Flavor concentrate',right,204,'SodaStream-compatible.<br/>Enough for both flavors.')
-check_item('Adjustable wrench',right,250)
-check_item('Second wrench',right,278,'For a braided hose only.')
-check_item('Cup',right,315)
-check_item('Towel',right,343)
+y=169
+for name,detail in [
+    ('Filled CO2 cylinder','CGA-320 connection'),
+    ('Flavor concentrate','SodaStream-compatible.<br/>Enough for both flavors.'),
+    ('Adjustable wrench',None),
+    ('Second wrench','For a braided hose only.'),
+    ('Cup',None),
+    ('Towel',None),
+]:y=check_item(name,right,y,detail)
 
-label('AT THE INSTALL LOCATION',right,389,size=7)
-check_item('Counter opening',right,412,'See page 4 for the opening<br/>and cabinet space.')
-check_item('Cold-water supply',right,458)
-check_item('Grounded outlet',right,493,'120 V')
+label('AT THE INSTALL LOCATION',right,y+12,size=7)
+y+=35
+for name,detail in [
+    ('Counter opening','See page 4 for the opening<br/>and cabinet space.'),
+    ('Cold-water supply',None),
+    ('Grounded outlet','120 V'),
+]:y=check_item(name,right,y,detail)
 end()
 
 # 4
