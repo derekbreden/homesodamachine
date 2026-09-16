@@ -9,3 +9,9 @@ click: x=-52.265 y=3.750 z=0.000
 
 [sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
 click: x=52.265 y=3.750 z=0.000
+
+[sliver] The round corner meets the 3 mm back chamfer at an apex. The STEP tessellator emits zero-area triangles there (eight triangles totaling 2.3e-15 mm² across the four corners), whose zero normals give the lint undefined strip dimensions. The analytic STEP is valid; these triangles carry no physical strip.
+click: x=-49.417 y=0.429 z=-30.462
+click: x=49.417 y=0.429 z=30.462
+click: x=-49.417 y=0.429 z=30.462
+click: x=49.417 y=0.429 z=-30.462
