@@ -1,7 +1,9 @@
 {
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "BULKHEAD_DRY_FLANGE_OD": "18.7 mm",
-    "BULKHEAD_PANEL_HOLE_D": "16 mm",
+    "BULKHEAD_DRY_SEAL_CB_DEPTH": "1.65 mm",
+    "BULKHEAD_DRY_SEAL_ID": "15.8 mm",
+    "BULKHEAD_PANEL_HOLE_D": "15.8 mm",
     "BULKHEAD_SEAL_CB_DEPTH": "1.4 mm",
     "BULKHEAD_SEAL_COMPRESSION": "30%",
     "BULKHEAD_SEAL_DRY_CB_D": "18.5 mm",

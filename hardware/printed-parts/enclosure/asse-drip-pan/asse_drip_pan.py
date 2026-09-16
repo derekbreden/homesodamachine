@@ -26,7 +26,7 @@ its travel. Nothing pierces a wet wall and nothing electrical is built into this
 THE SLEEVE CARRIES IT, THE RIM KEEPS IT DOWN. `enclosure_assembly.pan_sleeve` stands a
 solid block off the −X wall's inner face and cuts those same two rectangles out of it, one
 `PAN_SLIP` larger all round. The pan lies on that block's floor the way a drawer lies in
-its carcase, and the lid over the berth laps the flange, [3.70](PAN_LAP) mm of it a side
+its carcase, and the lid over the berth laps the flange, [3.75](PAN_LAP) mm of it a side
 (`lap_w()`). West through the wall's slot is the one way the berth opens.
 
 Frame: +X long axis (the withdrawal direction — the pan draws WEST through
@@ -47,6 +47,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
+sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "reference" / "shutao-moisture-plate"))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
@@ -54,6 +55,7 @@ from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 import shutao_moisture_plate as plate
+import fits
 
 # The pan is narrow across the strip and deep down it. X is the loft's
 # contested axis — east of the pan the west column's crossing ladder climbs
@@ -100,7 +102,7 @@ FLANGE_W = 4.0
 FLANGE_T = WALL
 # Per side, pan to whatever holds it: the berth's flanks and its rebate's ceiling, and the
 # pan's silhouette to the wall slot it draws through.
-PAN_SLIP = 0.3
+PAN_SLIP = fits.running
 
 # THE PART THE HAND SEES IS A FACE, not the open pan's raw end section. From the flange's
 # outermost west plane, this face runs back through the west wall and stops one `PAN_SLIP`

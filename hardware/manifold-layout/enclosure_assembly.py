@@ -1207,7 +1207,7 @@ PLATE_T = 3.175
 PLATE_REST_GAP = ml.tee.CARRIER_AFT_COLLET_GAP
 PLATE_HOLE_D = 8.5
 COLLET_NOSE_R = 5.715
-TEE_WALL_BORE_SLIP = 0.25
+TEE_WALL_BORE_SLIP = fits.running
 TEE_WALL_BODY_AIR = 1.454
 CARRIER_ASSEMBLY_STATE = "connected"  # the fully aft stop, with the cartridge present
 CARRIER_TUBE_AIR = 0.3
@@ -1627,7 +1627,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     for state, row in interface["states"].items():
         y0, y1 = spec.web_fore_y + row["offset_y"], spec.web_aft_y + row["offset_y"]
         for name, z, sense in (("lower", spec.web_z[0] - spec.slide_air, -1),
-                               ("upper", spec.web_z[1] + spec.slide_air, 1)):
+                               ("upper", spec.web_z[1] + spec.slide_air
+                                + fits.supported_surface, 1)):
             z0, z1 = sorted((z, z + sense * 0.001))
             area = wall.intersect(_carrier._box(*spec.web_x, y0, y1, z0, z1).val()).Volume() / 0.001
             web_bearings.append(area)
@@ -1879,7 +1880,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         for axis in (0, 2):
             for sign in (-1, 1):
                 delta = [0.0, 0.0, 0.0]
-                delta[axis] = sign * (spec.slide_air + 0.001)
+                air = spec.slide_air + (fits.supported_surface if axis == 2 else 0.0)
+                delta[axis] = sign * (air + 0.001)
                 hit = posed.translate(tuple(delta)).intersect(guides).Volume()
                 contact_min = min(contact_min, hit)
                 if hit <= CARRIER_MOTION_OVERLAP_TOL:
@@ -1999,7 +2001,7 @@ def core_holds(foam) -> tuple:
 # How far off contact a face of the core may read from the grip that takes it — the same figure
 # every seat on this card is held to, the ASSE anchor's, the flow-meter anchors' and both
 # valve trays'.
-CORE_GRIP_SLIP = TRAY_SEAT_SLIP
+CORE_GRIP_SLIP = fits.slip
 
 
 def _boxed(x0, x1, y0, y1, z0, z1):
@@ -2314,7 +2316,7 @@ DISCH_CHAIN_TURN = SUCT_CHAIN_TURN
 # this gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
 DISCH_CORNER_ROOM = 24.0
 # What a printed rib holds its chain off itself, radially. `chains-seated` reads it back.
-CHAIN_SEAT_SLIP = 0.2
+CHAIN_SEAT_SLIP = fits.slip
 def build_discharge_chain(foam_carry, seaflo_carry):
     """The chain lying in its printed seat on the cold core's cap, west of the pump.
 
@@ -2354,7 +2356,7 @@ def build_discharge_chain(foam_carry, seaflo_carry):
 # was holding open.
 BULKHEAD_STEP = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 # A printed hole to the moulded barrel it passes, on the diameter.
-PORT_HOLE_SLIP = 0.86
+PORT_HOLE_SLIP = 2.0 * fits.slip
 # THE FIRST JOINT IS FLUSH, so there is no `water-1` to draw. The union's inboard collet and the
 # ASSE chain's inlet collet face each other down one axis with nothing between them to turn
 # around, and a push-to-connect grips whatever reaches its grab ring — so the tube is cut to the
@@ -2473,11 +2475,11 @@ def port_pocket_d(ring: str = "union") -> float:
     return _ring.od(ring) + 2.0 * BULKHEAD_RING_SLIP
 
 
-def port_pocket_rise() -> float:
+def port_pocket_rise(which=None) -> float:
     """How far a pocket stands ABOVE the bore's axis — the chip's own rise and its slip. The top
     row runs out past the box's top face and is cut off by it, which is what leaves those three
     chips open at the top."""
-    return _ring.RISE + BULKHEAD_RING_SLIP
+    return (_ring.RISE if which is None else _ring.rise(which)) + BULKHEAD_RING_SLIP
 
 
 def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
@@ -2501,8 +2503,8 @@ def y_wall_field(stations):
     for its nut keeps the land under it as retained wall stock, and `BULKHEAD_RING_RIM` is the
     wall the field keeps round every chip (`port-field-web` reads the pitch against it)."""
     return _enc.PortField(PORT_BOSS_PROUD, BULKHEAD_RING_RIM,
-                          tuple((x, z, port_pocket_d(ring), port_pocket_rise())
-                                for x, z, _fitting, ring, _which, _fluid in stations.values()))
+                          tuple((x, z, port_pocket_d(ring), port_pocket_rise(which))
+                                for x, z, _fitting, ring, which, _fluid in stations.values()))
 
 
 # TWO OF THE FIVE CROSSINGS TAKE A TUBE OF THE CUSTOMER'S OWN PLUMBING: the tap-water run up to
@@ -2901,7 +2903,7 @@ def build_digiten(carb_carry, seat: bool = True):
 # WHAT THE ZIP TIE CARRIES HERE IS THE METER. A V that opens downward holds nothing on its own, so
 # unlike the anchor's two ties these are the load path, and what they carry is a purchased part of
 # a few tens of grams on two nylon zip ties.
-DIGITEN_SEAT_SLIP = 0.2
+DIGITEN_SEAT_SLIP = fits.slip
 # Off the body's own rim. The rim is a circle in plan, so it stands closest to a anchor at the
 # arm's own column and falls away either side of it; this is struck on the closest.
 DIGITEN_BODY_CLEAR = 1.0
@@ -2944,7 +2946,7 @@ def digiten_anchors(carry) -> tuple:
 # collet gripping ten millimetres of straight is stiffer than pinned.
 TUBE_ANCHOR_SPAN = 200.0
 # The V stands off the tube by this on its own normal, the same slip the meter's anchors take.
-TUBE_ANCHOR_SLIP = 0.2
+TUBE_ANCHOR_SLIP = fits.slip
 # A run over the span needs an anchor; a run with a printed face within reach of a straight length
 # of it can have one. Most of this machine's long runs cruise through the pack with no piece near
 # enough to reach them.
@@ -3035,7 +3037,7 @@ def tube_anchors(runs) -> tuple:
 #
 # A ROW NAMES the body, the section of it the seat closes on, the face the rib roots on, and the
 # piece that owns that face.
-BODY_ANCHOR_SLIP = 0.2
+BODY_ANCHOR_SLIP = fits.slip
 BODY_ANCHOR_SITES = (
     # The regulator's barrel, between its two wrench hexes — off back-top's ceiling slab.
     ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
@@ -3466,20 +3468,20 @@ WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # column costs on this wall — a fitting's panel footprint, the gap two nuts leave a socket, and
 # the room the bodies hanging off each column ask for over it — and the gas inlet is a fitting on
 # that same wall with a body hanging off it. So it stands one pitch EAST of the carb union, on
-# `deck_storey`: the meter's own axis, one column over, parallel and level with it.
+# a supported-surface allowance below `deck_storey`, parallel to the meter's own axis.
 CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
 # THE WALL'S RELIEF FOR THIS STATION IS TYPED in `enclosure.back_top_wall_reliefs` and cannot
 # read this column back — the enclosure is what this module imports. So the bound reads it
-# here: the relief stands on the derived column and on `deck_storey`, or the check is open.
+# here: the relief stands on the derived column and the lowered CO2 axis.
 _co2_relief = next((x, z) for who, x, z, _w, _h in _enc.back_top_wall_reliefs
                    if who == "co2-inlet")
 _stated.state(
     "co2-relief", "The CO2 station's wall relief stands on the neoFit's own column and storey",
-    f"x {CO2_COLUMN:.2f}, z {deck_storey():.2f}",
+    f"x {CO2_COLUMN:.2f}, z {deck_storey() - _enc.co2_axis_drop:.2f}",
     (abs(_co2_relief[0] - CO2_COLUMN) < 1e-6
-     and abs(_co2_relief[1] - deck_storey()) < 1e-3),
+     and abs(_co2_relief[1] - (deck_storey() - _enc.co2_axis_drop)) < 1e-3),
     f"relief at x {_co2_relief[0]:g}, z {_co2_relief[1]:g}; the port is bored at "
-    f"x {CO2_COLUMN:.4f}, z {deck_storey():.4f}")
+    f"x {CO2_COLUMN:.4f}, z {deck_storey() - _enc.co2_axis_drop:.4f}")
 
 # --- the umbilical's signal station, through the +Y wall of back-top -----------------
 #
@@ -3510,7 +3512,9 @@ KEYSTONE_NEIGHBOUR_CLEAR = _enc.wall
 
 def keystone_cutout(station: tuple):
     """The opening the jack snaps into, in `back_ports` shape."""
-    wx, wz, r = _keystone.panel_cutout()
+    wx = _keystone.FACE_W + 2.0 * fits.slip
+    wz = _keystone.FACE_H + 2.0 * fits.slip
+    r = _keystone.panel_cutout()[2]
     x, z = station
     return ("rect", x, z, wx, wz, r)
 
@@ -3594,12 +3598,12 @@ def co2_inlet_mouth_y():
 
 def build_co2_inlet(deck: float):
     """The 1/4" bulkhead union the customer's CO2 tether goes into, clamped through the +Y wall of back-top
-    one `PORT_PITCH` east of the carb union and on the deck's own storey, seated on its INBOARD
+    one `PORT_PITCH` east of the carb union and `co2_axis_drop` below the deck, seated on its INBOARD
     COLLET — the same seating the four PP1208E unions take, on the same plane."""
     body = import_step(str(NEOFIT_STEP)).val()
     return seat_body(body, (), seat="co2-inlet",
                      station=(_neofit.port(-1.0),
-                              (CO2_COLUMN, co2_inlet_mouth_y(), deck)))
+                              (CO2_COLUMN, co2_inlet_mouth_y(), deck - _enc.co2_axis_drop)))
 
 
 def build_gasher_co2(inlet_carry):
@@ -4484,7 +4488,7 @@ def build_asse(deck):
 # the build that landed 30° off. Those sections are seated on their CIRCUMSCRIBED circle, which
 # takes any clock. The Multiplex's hex does not spin — its vent is machined into it — so its V is
 # read off the corner, and keying that one hex is what holds the vent over the pan.
-ASSE_SEAT_SLIP = 0.2
+ASSE_SEAT_SLIP = fits.slip
 # And what the STEPS give it along the axis. The same hand makes up five joints to "snug + 1
 # turn", so the run's own length is not a number this wall knows either — a step struck on the
 # barrel's drawn face is a step the next build's barrel does not reach or does not clear. The
@@ -4738,11 +4742,8 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
 #
-# `water-3`'s OWN CORNER IS THE FLOOR, and this figure moves with `_lines.CROSS_RISE`. The tee
-# stands one tangent over the corner its branch falls into, so a deeper step wants a deeper fall
-# under the crossing's lane, and a deeper fall turns through a wider angle on a longer tangent.
-# What bounds the pair is the cap lid's outer face, which that corner's belly runs over —
-# `_lines.CROSS_RISE` carries the reading.
+# The tee stands at this fixed step. `_lines.CROSS_RISE` sets the tube's falling corner
+# beneath the crossing lane; the corner's belly clears the cap lid below it.
 #
 # The flavor-B gate line stands clear of this tee in plan: it runs its own union's column aft at
 # x[−81.2, −74.9] and this tee's collet cap reaches x −85.1, so what that pair reads is a solid
@@ -5834,10 +5835,28 @@ KEPT_WEDGES = (
     ("the Y-seam screws' head counterbores", (-108.0, 200.0, 329.0, 108.0, 210.0, 333.0),
      "a screw head passes and bears in the counterbore; its roof is the bore's own teardrop "
      "(`enclosure._teardrop_x`)"),
-    ("the SIG-9 cable clip's section", (-105.0, 442.5, 275.0, -95.0, 456.5, 300.0),
-     "the clip is the stated profile, laid for the print by `cable_clip.apply`; its arms' faces "
-     "and its channel are the profile's own"),
 )
+
+
+def pan_cable_clip_room(box) -> tuple:
+    """The SIG-9 clip's profile room, on the sleeve and wall that place the clip."""
+    sleeve = box.pack.pan_sleeve
+    if not sleeve or not sleeve[0]:
+        return ()
+    blocks = sleeve[0]
+    if len(blocks) != 1:
+        raise ValueError(f"the pan cable clip needs one sleeve block; got {len(blocks)}")
+    clip = _enc._cable_clip
+    face = _enc.back_top_flank_face()[0]
+    y1 = box.inner[3] - _enc.pan_cable_clip_rear_land
+    z0 = blocks[0][4] - clip.DEPTH
+    bounds = (face - _enc.pan_cable_clip_embed, y1 - clip.RUN, z0,
+              face + clip.projection(_enc.pan_cable_clip_embed), y1, z0 + clip.HEIGHT)
+    return ((
+        "the SIG-9 cable clip's section", bounds,
+        "the clip is the stated profile, laid for the print by `cable_clip.apply`; its arms' "
+        "faces and its channel are the profile's own",
+    ),)
 
 
 def _touching(probe, bodies, skip=()):
@@ -5985,18 +6004,18 @@ def authored_anchor_corbels(stations) -> tuple:
     return tuple(rooms)
 
 
-def wedge_fills(placed, authored_corbels=()) -> Bound:
+def wedge_fills(placed, authored_rooms=()) -> Bound:
     """`wedge-fills`: every print-down slope on a piece printed ceiling-down, and what carries it.
 
     For each such face the column it could be is struck — the face's own plan, from the face
     to the piece's material over it, the piece's own solid taken out — and read against the
     pack: a body the column would overlap says the wedge stands under it; a body it would come
-    within `WEDGE_CLEAR` of says the same; a face in a `KEPT_WEDGES` room or an anchor site's
-    authored-corbel room is carried by that room's own reason. What is left is a wedge where a
+    within `WEDGE_CLEAR` of says the same; a face in a `KEPT_WEDGES` room or an authored
+    anchor/clip room is carried by that room's own reason. What is left is a wedge where a
     column fits without either cause, and the bound names each with the viewer's pick text. A
     named room that matches no face is named too: it describes geometry that is no longer there."""
     bodies = _bodies(placed)
-    kept_wedges = KEPT_WEDGES + tuple(authored_corbels)
+    kept_wedges = KEPT_WEDGES + tuple(authored_rooms)
     counts = {"under": 0, "near": 0, "kept": 0, "fill": 0}
     detail, matched = [], set()
     for name, up in _enc.PIECE_PRINT_UP.items():
@@ -6487,7 +6506,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _carrier_front_top_motion_bound(a, pieces["front-top"], box)
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
-    wedge_fills(placed_solids, authored_anchor_corbels(a.tube_anchors))
+    wedge_fills(placed_solids,
+                authored_anchor_corbels(a.tube_anchors) + pan_cable_clip_room(box))
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
@@ -6812,8 +6832,8 @@ def selftest():
     # THE PRODUCTION C14 TUNNEL IS ONE CEILING-BEDDED RECTANGULAR BLOCK. Read the back-top
     # branch itself: one fore plane at the mouth with the flange pocket in it, one seating plane
     # at the pocket's floor, one flank each side from mouth to wall, and horizontal bed/crown
-    # planes at the stated section. Its only internal voids are the canonical flange pocket,
-    # slipped shroud bore and two insert bores.
+    # planes at the stated section. Stock and voids extend only on the print-up side by the
+    # supported-surface allowance, retaining the flange seat and insert axes.
     inner = (-1000.0, 1000.0, -1000.0, 1000.0, -1000.0, 1000.0)
     outer = (0.0, 0.0, 0.0, _enc.rear_plane_y + _enc.wall, 0.0, 0.0)
     feature, bore, inserts = _enc._c14_tunnel_geometry(
@@ -6823,9 +6843,10 @@ def selftest():
     fore = c14_seat_y()
     mouth = fore - _c14.FLANGE_T - _enc.c14_pocket_lip
     aft = _enc.rear_plane_y
-    block_bottom = C14_STATION[1] - hz
+    bridge = _enc.fits.supported_surface
+    block_bottom = C14_STATION[1] - hz - bridge
     block_top = C14_STATION[1] + hz
-    expected_block_volume = 2.0 * hx * (aft - mouth) * 2.0 * hz
+    expected_block_volume = 2.0 * hx * (aft - mouth) * (2.0 * hz + bridge)
     if abs(feature.Volume() - expected_block_volume) > 1e-3:
         raise AssertionError(
             "the production C14 surround contains geometry beyond its one rectangular block: "
@@ -6838,16 +6859,24 @@ def selftest():
         C14_STATION[0] - hx - 1.0, C14_STATION[0] + hx + 1.0,
         fore + 0.25, fore + 0.25 + sample_depth,
         block_bottom - 1.0, block_top + 1.0)).Volume() / sample_depth
-    expected_shroud_section = wx * wz - (4.0 - math.pi) * r * r
+    expected_shroud_section = wx * (wz + bridge) - (4.0 - math.pi) * r * r
     if abs(shroud_section - expected_shroud_section) > 1e-3:
         raise AssertionError(
             f"the C14 wall bore is {shroud_section:.3f} mm², not the slipped shroud's "
-            f"{expected_shroud_section:.3f} mm² rounded rectangle")
+            f"{expected_shroud_section:.3f} mm² rounded rectangle with its supported crown")
     if len(inserts) != 2:
         raise AssertionError(f"the C14 block carries {len(inserts)} insert bores, not two")
     feature = feature.cut(bore)
-    for cutter in inserts:
+    insert_r = _enc.heatset_dia / 2.0
+    for cutter, (sx, sz) in zip(inserts, c14_stations()):
+        bounds = cutter.BoundingBox()
+        if max(abs(a - b) for a, b in zip(
+                (bounds.xmin, bounds.xmax, bounds.zmin, bounds.zmax),
+                (sx - insert_r, sx + insert_r,
+                 sz - insert_r - bridge, sz + insert_r))) > 1e-5:
+            raise AssertionError("a C14 insert bore changed its axis-side extents or crown relief")
         feature = feature.cut(cutter)
+    feature = feature.clean()
     if abs(feature.BoundingBox().zmax - block_top) > 1e-5:
         raise AssertionError(
             "the C14 block's crown does not match its stated rectangular section: "
@@ -6881,14 +6910,21 @@ def selftest():
     # The seat is the pocket's floor less what the aperture takes of it and the two insert bores
     # — read as area because its square corners reach past the flange's tapered shoulders.
     pocket = _c14.flange_prism(_enc.c14_pocket_slip, 0.0, 1.0).val()
-    taken = pocket.intersect(_enc._rect_cut_y(0.0, 0.0, wx, wz, r, 0.0, 1.0)).Volume()
-    expected = pocket.Volume() - taken - 2.0 * math.pi * (_enc.heatset_dia / 2.0) ** 2
+    pocket = pocket.fuse(pocket.translate((0.0, 0.0, -bridge)))
+    taken = pocket.intersect(_enc._rect_cut_y(
+        0.0, -bridge / 2.0, wx, wz + bridge, r, 0.0, 1.0)).Volume()
+    # Exact area of two radius-r disks whose centres are `bridge` apart: the nominal core
+    # plus its one-sided crown relief, not a larger-diameter manufacturer bore.
+    insert_area = (math.pi * insert_r ** 2
+                   + 2.0 * insert_r ** 2 * math.asin(bridge / (2.0 * insert_r))
+                   + bridge * math.sqrt(insert_r ** 2 - bridge ** 2 / 4.0))
+    expected = pocket.Volume() - taken - 2.0 * insert_area
     if abs(seat - expected) > 1e-3:
         raise AssertionError(
             f"the C14 seat is {seat:.3f} mm² of -Y plane at y={fore:.2f} where the pocket floor "
             f"less the aperture and both insert bores is {expected:.3f}")
-    yield ("the production C14 tunnel is one ceiling-bedded rectangular block with the exact "
-           "flange seat, slipped shroud bore and two insert bores")
+    yield ("the production C14 tunnel keeps its flange seat and insert axes with one-sided "
+           "supported clearance and full backing section")
 
 
 def main():

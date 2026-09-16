@@ -2,7 +2,7 @@
   "/hardware/printed-parts/enclosure/pump-tray/pump_tray.py": {
     "BOSS_DEPTH": "21",
     "BRACKET_W": "68.6",
-    "CAN_BORE": "37",
+    "CAN_BORE": "36.23",
     "CASE_W": "70",
     "HEAD_D": "47.88",
     "HEAD_W": "62.61",
@@ -13,7 +13,7 @@
     "SOCKET_SPAN": "53",
     "TRAY_COUNT": "2",
     "TRAY_D": "24",
-    "TRAY_L": "69.405",
+    "TRAY_L": "70.909",
     "TRAY_W": "70"
   }
 }

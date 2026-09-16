@@ -157,6 +157,12 @@ def main():
     bulkhead_panel_hole_diameter, co2_panel_hole_diameter = panel_hole_diameters(
         facts.wall_ports)
     keystone_face_clear, keystone_pocket_clear = facts.constants.KEYSTONE_CLEARANCES
+    keystone_aperture = _ea.keystone_cutout((0.0, 0.0))
+    # Read the printed pocket, not the purchased reference's illustrative receptacle.
+    # The slice is behind the lip/ease and before the back, so it measures only the body fit.
+    pocket_cut, (lip_y, back_y) = _ea._enc._keystone_pocket_cut(0.0, 0.0, 0.0)
+    pocket_section = pocket_cut.intersect(_ea._enc._ybox(
+        -100.0, 100.0, back_y + 0.1, lip_y - 0.1, -100.0, 100.0)).BoundingBox()
     variables = {
         "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm",
         "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
@@ -184,12 +190,13 @@ def main():
         "C14_POCKET_WALL": f"{_ea._enc.c14_pocket_wall:g} mm",
         "C14_POCKET_LIP": f"{_ea._enc.c14_pocket_lip:g} mm",
         "C14_BLOCK": (f"{2.0 * _ea.c14_mount_half()[0]:.4g} × "
-                      f"{2.0 * _ea.c14_mount_half()[1]:.4g} mm"),
+                      f"{2.0 * _ea.c14_mount_half()[1] + _ea._enc.fits.supported_surface:.4g} mm"),
         "C14_RUN": (f"{_ea._enc.rear_plane_y - (_ea.c14_seat_y() - _ea._c14.FLANGE_T - _ea._enc.c14_pocket_lip):.4g} mm"),
-        "KEYSTONE_W": f"{_ea._keystone.APERTURE_W:.4g}",
-        "KEYSTONE_H": f"{_ea._keystone.APERTURE_H:.4g}",
+        "KEYSTONE_W": f"{keystone_aperture[3]:.4g}",
+        "KEYSTONE_H": f"{keystone_aperture[4]:.4g}",
         "KEYSTONE_LIP": f"{_ea._keystone.LIP_D:.4g} mm",
-        "KEYSTONE_POCKET": f"{_ea._keystone.POCKET_W:.4g} × {_ea._keystone.POCKET_H:.4g} mm",
+        "KEYSTONE_POCKET": f"{pocket_section.xlen:.4g} × {pocket_section.zlen:.4g} mm",
+        "SUPPORTED_CLEARANCE": f"{_ea._enc.fits.supported_surface:g} mm",
         "KEYSTONE_RECESS": f"{_ea._keystone.DEPTH:.4g} mm",
         "KEYSTONE_EASE": f"{_ea._keystone.EASE_DEG:.4g}°",
         "KEYSTONE_BOSS": f"{_ea._keystone.DEPTH - _ea._enc.back_top_wall_t:.2f} mm",

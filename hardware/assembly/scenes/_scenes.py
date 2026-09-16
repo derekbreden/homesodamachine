@@ -540,9 +540,10 @@ def holders():
         out[f"tube-{rid}"] = piece
     for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:
         out[name] = piece
-    for name, station in _cci.cap_anchors.items():
-        # A run's rib holds the tube; a chain's holds the chain itself.
-        out[f"tube-{name}" if station.over_face is not None else name] = "foam-assembly"
+    for name in _cci.cap_anchors:
+        # A mounted body keeps its name; a run's rib holds its tube. Both may state an
+        # explicit seat height, so that geometric value does not identify the occupant.
+        out[name if name in out else f"tube-{name}"] = "foam-assembly"
     # A TUBE PUSHED OVER A BARB GOES ON WITH THE PUMP AND COMES OFF WITH IT, and no table above
     # holds one: `manifold_layout` draws these four inside the pack, one per anchor tee, from the
     # barb's own collet plane to the tee's branch. `BARB_OF` names the pump each stands on. A

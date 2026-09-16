@@ -378,6 +378,8 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # what `_report_facet` prints beside the measured face.
 display_bezel_x = _interface.display_bezel_x           # bezel glass, lateral (X)
 display_bezel_slope = _interface.display_bezel_slope   # bezel glass, up the slope
+display_bezel_cut_x = display_bezel_x + 2.0 * fits.slip
+display_bezel_cut_slope = display_bezel_slope + 2.0 * fits.slip
 # The glass is the datum (centered on the facet); the PCB body sits offset behind
 # it because the glass overhangs the body unevenly (up-and-left). This is the
 # body's own offset from the centered glass.
@@ -432,8 +434,8 @@ display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # `display-housing-seats` keeps a wall of slab behind the deeper of the two.
 display_housing_back = 71.38
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
-display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
-display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
+display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
+display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a socket collar
                                  # clean through (it overhangs the hole otherwise)
 # THAT HOLE LEAVES A RIDGE, AND THE RIDGE IS CARRIED. Where the hole's up-slope end wall breaks
@@ -515,7 +517,7 @@ funnel_chain_gap = 1.0
 # Running air on every collar face. The funnel is a removable printed part, so its throat is
 # cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
 # with the roof rib and ceiling corbels.
-funnel_collar_air = fits.slip
+funnel_collar_air = fits.running
 # The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE FUNNEL IS WHERE THE
 # USER POURS, so it stands as far forward as the top wall lets it — and what stops it is the
 # BRIM rather than the throat: the flange overhangs the collar by `funnel.brim_overhang`
@@ -536,10 +538,10 @@ funnel_front_ledge = 0.0
 # insert seat and the back half's own corner web along its whole +Y
 # side. The pin's inboard face is the full-thickness back flank's own face; the
 # M3x10 span left inboard of that plane is the front heat-set's pilot.
-split_slip = 2.0 * fits.slip # diametral slide fit, plug into socket bore
+split_slip = 2.0 * fits.running # diametral slide fit, plug into socket bore
 # What a 45 degree lap gives up along the axis it is driven home on, so the two raked faces
-# stand one `fits.slip` apart where they pass.
-scarf_axial = fits.slip * math.sqrt(2.0)
+# stand one `fits.running` apart where they pass.
+scarf_axial = fits.running * math.sqrt(2.0)
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
@@ -640,7 +642,7 @@ floor_heatset_depth = 9.5
 # size — including the 221-420, whose two lever rows hinge off the faces a well would
 # otherwise wrap.
 wago_well_wall = 3.0        # well wall thickness
-wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
+wago_well_press = fits.slip      # per-side press-fit clearance, validated on the valve trays
 # A supportless well keeps this much roof at each end of its pocket. The centre opens into one
 # 45° wall-rooted ramp, so each tab is a short bridge instead of the pocket's whole span.
 wago_roof_tab = 2.0
@@ -711,7 +713,7 @@ wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear
 # is what settles the rest: only the ENDS of the long run have material clear of the can, so the
 # grooves take those, and what a groove may swallow there is what the can leaves and no more.
 mq6_rail_wall = 3.0         # post section around the groove, and the shoulder under the card
-mq6_slot_press = 0.15       # per-side slip in the groove, the wells' own figure
+mq6_slot_press = fits.running       # per-side slip in the groove, the wells' own figure
 mq6_grip = 5.0              # how much of the card's long run each groove swallows at its end
 # The pins face EAST off the card and the loom lands on them out of the bay, so the cheek on
 # that side is cut away across the header — this is what the cut leaves either side of the pin
@@ -756,19 +758,13 @@ mq6_can_yz = _mq6.CAN_D     # 19 — the can's diameter, in the plane the well i
 cond_rail_wall = 3.0        # rail and finger section around a groove or a bore
 cond_slot_grip = 3.0        # how much of a fore flange's own depth each groove swallows
 cond_mount_clear = 1.0      # air off the block: the fin's own lane, and each end of the band
-# A GROOVE IS STRUCK ON THE SHEET THAT STANDS IN IT. Two figures meet in `cond_slot_half`: the
-# SLIP, which is what the gas sensor's [1.6 mm](MQ6_CARD_T) card gets either side of it in its
-# own [1.9 mm](MQ6_SLOT_OPEN) slot, and the OPENING, which is what a groove stands at least,
-# however thin the sheet it takes. The block keeps its own sheet thickness and the box keeps
-# what it will open for one.
-cond_slot_press = 0.15      # per-side slip in a groove, the wells' own figure
-cond_slot_open = 1.0        # [1 mm](COND_SLOT_OPEN) — the least a groove may stand open
+# Per-face running clearance at the seated end of each flange groove.
+cond_slot_press = fits.running
 
 
 def cond_slot_half(sheet: float) -> float:
-    """The air a groove keeps on EACH side of the sheet standing in it: the slip, or what the
-    opening leaves over that sheet, whichever is the wider."""
-    return max(cond_slot_press, (cond_slot_open - sheet) / 2.0)
+    """The running clearance on each face of the flange sliding into the groove."""
+    return cond_slot_press
 
 
 def cond_slot_mouth(face: float) -> float:
@@ -1123,7 +1119,8 @@ back_top_wall_t = 6.0
 # read this one station.
 c14_station_x = 66.9
 back_top_port_row_z = 336.2105808375568
-c14_cutout_slip = 0.5
+co2_axis_drop = _interface.co2_axis_drop
+c14_cutout_slip = fits.slip
 c14_wall_relief_w = 2.0 * (
     max(abs(dx) for dx, _dz in _c14.panel_screws()) + heatset_dia / 2.0 + boss_ligament)
 c14_wall_relief_h = _c14.SHROUD_H + 2.0 * c14_cutout_slip + 2.0 * back_top_wall_t
@@ -1133,7 +1130,7 @@ c14_wall_relief_h = _c14.SHROUD_H + 2.0 * c14_cutout_slip + 2.0 * back_top_wall_
 # wall beyond them. The aperture and both insert stations lie inside the relieved field and
 # their cutters still run after the tunnel is fused.
 back_top_wall_reliefs = (
-    ("co2-inlet", 2.45, back_top_port_row_z, 30.0, 30.0),  # the neoFit's nut across its
+    ("co2-inlet", 2.45, back_top_port_row_z - co2_axis_drop, 30.0, 30.0),  # the neoFit's nut across its
                                                   # corners, on
                                                   # enclosure_assembly.CO2_COLUMN (`co2-relief`)
     ("c14-inlet", c14_station_x, back_top_port_row_z,
@@ -1185,7 +1182,7 @@ c14_tunnel_wall = back_top_wall_t
 # side, and horizontal bed and crown planes. Its crown enters back-top's ceiling slab, which is
 # the bed this piece prints on. None of this moves the part or its screws: the seating plane and
 # the wall behind it are their fixed datums.
-c14_pocket_slip = 0.5
+c14_pocket_slip = fits.slip
 c14_pocket_wall = 3.0
 c14_pocket_lip = 3.0
 # THE FLANGE ENTERS THROUGH THE FIXED +X STRIP before it reaches that pocket. Carry its exact
@@ -1474,7 +1471,7 @@ def back_flank_start(y_joint):
 # a 45° roof where its mouth-down print has no bed beneath the channel. The arm's base falls
 # back to the lip's underwall at 45°; every sliding and bearing face remains vertical or
 # horizontal.
-slide_slip = fits.slip       # per-face running clearance on every sliding face of a Z seam
+slide_slip = fits.running       # per-face running clearance on every sliding face of a Z seam
 hook_foot = 8.7              # the foot: the top's full section, mouth face to caught face
 hook_lap = 2.0               # the catch overlap before a thick flank spends its added section
 # Both columns spend the same three millimetres they gain past the six-millimetre lip wall on
@@ -1519,7 +1516,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # corner column — and the large lower cradle come out of front-top as one piece, the PUMP
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
 # brackets. The cradle's filled bearing block rides the bay floor while the fixed shell perimeter
-# stays 0.5 mm below its exterior face for Z clearance. Nothing latches it: four
+# stays one running clearance below its exterior face. Nothing latches it: four
 # barb tubes gripped in the anchor tees' branch collets are the retention, and the collet plate
 # (`_tee_wall`) is the release — pull the pump cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
@@ -1547,15 +1544,15 @@ bay_crown_air = 1.7          # neutral pump datum to the nominal bay roof
 pump_bay_floor_relief = 1.0  # sill top below its neutral pump-derived datum
 pump_bay_roof_relief = 2.5   # lintel underside above its neutral pump-derived datum
 pump_relief_z_air = 1.0      # pump pocket past each head/collar end
-pump_cartridge_z_clearance = 0.5  # Z air at the fixed sill and on the pump clamp; this
+pump_cartridge_z_clearance = fits.running  # Z air at the fixed sill and on the pump clamp; this
                                   # is not an X/Y inset or a cosmetic surface offset
-pump_cartridge_top_clearance = 1.0  # the removable face's crown below the fixed lintel
-pump_bay_side_air = 0.5      # pump-body air inside each cavity throat plane
+pump_cartridge_top_clearance = fits.running  # the removable face's crown below the fixed lintel
+pump_bay_side_air = fits.running      # pump-body air inside each cavity throat plane
 # THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
 # complete plan silhouette and its filled body reaches both cavity planes without a side taper.
 # The monolithic clamp remains inside the cradle's two vertical wells throughout insertion and
 # withdrawal.
-cap_kiss = 0.1               # the cartridge's flat back off the bay bulkhead at full seat,
+cap_kiss = fits.running               # the cartridge's flat back off the bay bulkhead at full seat,
                              # cradle and clamp alike
 # Front-bottom's two bearing lands under the pump-bay bulkhead.
 plate_foot_reach = 10.0
@@ -1586,7 +1583,7 @@ plate_foot_corbel_angle = 45.0
 # follows the same path over the cans. Its plate footprint
 # is therefore the well above the bracket plane; below that plane the smaller head room leaves
 # the bracket's three closed sides standing on material.
-cap_pump_air = 0.4           # running air round the head in the cradle's lower well
+cap_pump_air = fits.running           # running air round the head in the cradle's lower well
 cap_boss_air = fits.running  # per-face insertion air around each octagonal pump boss
 cap_slot_half = _tray.outlet_open_half
 cap_fitting_half = _tray.shaft_w / 2.0
@@ -1601,7 +1598,8 @@ clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
-# Each pull is a rounded pocket in an exposed ±X flank, with equal stock above and below.
+# Each pull is a rounded pocket in an exposed ±X flank, with mirrored edge margins
+# and an additional supported-roof allowance.
 # Both pockets are centred on the cradle's Y run. Their aft faces carry insertion and their
 # fore faces carry extraction.
 pull_depth = 18.0            # fingertip reach inboard from each exposed flank
@@ -1825,6 +1823,11 @@ def _ybox(x0, x1, y0, y1, z0, z1):
         .translate((x0, y0, z0))
         .val()
     )
+
+
+def _supported_cut(cutter, up=1.0):
+    """A cavity with extra room at its supported face, along the piece's build direction."""
+    return cutter.fuse(cutter.translate((0.0, 0.0, up * fits.supported_surface)))
 
 
 def _xcyl(r, y, z, x0, x1):
@@ -2742,7 +2745,7 @@ def _dims(pack):
     # under it. The PCB hole is not one of them: `display_pcb_cut_through` drives it past the
     # back on purpose, to take a socket collar clean through.
     seats = max(_seat_back(display_inset_depth, display_inset_slope / 2.0),
-                _seat_back(display_bezel_depth, display_bezel_slope / 2.0))
+                _seat_back(display_bezel_depth, display_bezel_cut_slope / 2.0))
     record_bound(Bound(
         "display-housing-seats", "The housing's back cut keeps a wall behind the display's seats",
         display_housing_back >= seats + wall,
@@ -3247,9 +3250,9 @@ def _display_cuts(outer):
     )
     bezel = (
         cq.Workplane(plane).workplane(offset=1.0)
-        .rect(display_bezel_x, display_bezel_slope)
+        .rect(display_bezel_cut_x, display_bezel_cut_slope)
         .extrude(-(display_bezel_depth + 1.0))
-        .edges(along_normal).fillet(display_corner_r).val()
+        .edges(along_normal).fillet(display_corner_r + fits.slip).val()
     )
     pcb = (
         cq.Workplane(plane).workplane(offset=1.0)
@@ -3269,6 +3272,9 @@ def _display_cuts(outer):
              .extrude(-(display_cover_seat - display_inset_depth + 2.0))
              .edges(along_normal).fillet(display_corner_r).val())
     )
+    # The pocket walls and insert axes follow the 45-degree facet. Their hanging faces
+    # are support-free, and the PCB opening's lowest ridge is carried by `_ridge_wall`.
+    # The lateral fit therefore keeps the glass seat depth and hardware axes unchanged.
     cut = inset.fuse(bezel).fuse(pcb).fuse(land)
     for sx in (-1.0, +1.0):
         # And the insert the screw pulls against, struck from the land's own floor. The long
@@ -3304,14 +3310,16 @@ def _port_cuts(ports, y0, y1, up=1.0):
     A ROUND port is round through its working section and closes on the same tangent teardrop
     roof as every other Y-axis bore in these standing prints, struck on the side of the axis
     that looks print-up — `up` is the piece's print-up in the machine's frame (`_teardrop_y`).
-    Rectangular connectors keep the aperture their own housings require."""
+    Rectangular connectors keep the aperture their own housings require, plus the supported
+    surface allowance at the print-down roof. The opposite locating edge stays nominal."""
     out = []
     for kind, hx, hz, *size in ports:
         if kind == "round":
             out.append(_teardrop_y(size[0] / 2.0, hx, hz, y0, y1, up))
         else:
             wx, wz, *radius = size
-            out.append(_rect_cut_y(hx, hz, wx, wz, radius[0] if radius else 0.0, y0, y1))
+            out.append(_supported_cut(
+                _rect_cut_y(hx, hz, wx, wz, radius[0] if radius else 0.0, y0, y1), up))
     return out
 
 
@@ -3388,7 +3396,7 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
     xhalf = pw / 2.0 + wall
     pad = pad.cut(_yz_prism(plate.x - xhalf - 1.0, plate.x + xhalf + 1.0,
                             [(y_pad, zedge), (y_pad, zedge + up * rise), (y_inner, zedge)]))
-    solid = solid.fuse(pad)
+    solid = solid.fuse(_supported_cut(pad, up))
     # ONE BAR FROM SCREW TO SCREW: the stems' own section run between the two stations, flat
     # top and bottom. Printed mouth-down (`up > 0`) one full-length 45° wedge carries its
     # underside back to the plateau. Printed ceiling-down its top looks print-down and stays a
@@ -3398,21 +3406,28 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
     y_tip = y_pad - plate.reach
     xs = [plate.x + dx for dx, _dz in plate.screws]
     zs = [plate.z + dz for _dx, dz in plate.screws]
-    bar = _ybox(min(xs) - r, max(xs) + r, y_tip, y_pad, min(zs) - r, max(zs) + r)
+    # The ceiling-bedded bar presents its top to support. Keep its complete
+    # section below the compensated surface; the pump and screw axes stay fixed.
+    bar_drop = fits.supported_surface if up < 0.0 else 0.0
+    bar = _ybox(min(xs) - r, max(xs) + r, y_tip, y_pad,
+                min(zs) - r - bar_drop, max(zs) + r - bar_drop)
     if up > 0:
         zsoffit = min(zs) - r
         bar = bar.fuse(_yz_prism(
             min(xs) - r, max(xs) + r,
             [(y_tip, zsoffit), (y_pad, zsoffit), (y_pad, zsoffit - plate.reach)]))
     solid = solid.fuse(bar)
+    # The 45° bevel stands one slip from the plate along its face normal.
+    pocket_bevel = plate.bevel - (math.sqrt(2.0) - 1.0) * plate.slip
     mouth = (cq.Workplane("XY").rect(pw, ph).extrude(plate.thick + 1.0)
-             .edges("|Z").fillet(pr).faces("<Z").chamfer(plate.bevel).val()
+             .edges("|Z").fillet(pr).faces("<Z").chamfer(pocket_bevel).val()
              .rotate((0, 0, 0), (1, 0, 0), -90.0)
              .translate(cq.Vector(plate.x, floor, plate.z)))
-    solid = solid.cut(mouth)
+    solid = solid.cut(_supported_cut(mouth, up))
     for dx, dz in plate.screws:
         sx, sz = plate.x + dx, plate.z + dz
-        solid = solid.cut(_ycyl(plate.bore_d / 2.0, sx, sz, floor - plate.bore_depth, floor))
+        solid = solid.cut(_supported_cut(
+            _ycyl(plate.bore_d / 2.0, sx, sz, floor - plate.bore_depth, floor), up))
     return solid
 
 
@@ -3457,24 +3472,26 @@ def _port_field(solid, field, ports, y_outer, wall_at=None, up=1.0):
         proud = max(0.0, field.proud - (t - wall))
         deep = min(deep, (y_outer - t) - proud)
     for px, pz, width, rise in field.pockets:
-        solid = solid.cut(_port_chip(px, pz, width, rise,
-                                     y_outer - field.proud, y_outer + 1.0))
+        solid = solid.cut(_supported_cut(
+            _port_chip(px, pz, width, rise, y_outer - field.proud, y_outer + 1.0), up))
     for cutter in _port_cuts(ports, deep - 1.0, y_outer + 1.0, up):
         solid = solid.cut(cutter)
     return solid
 
 
-def _x_port_cuts(ports, x0, x1):
+def _x_port_cuts(ports, x0, x1, up=1.0):
     """`_port_cuts` read on a ±X side wall: each hole is (kind, y, z, *size) on the
-    wall's own plane, and the cutter spans x0..x1 through it."""
+    wall's own plane, and the cutter spans x0..x1 through it. Its supported crown is opened
+    toward this piece's print-up; the nominal axis and opposite edge remain fixed."""
     out = []
     for kind, hy, hz, *size in ports:
         if kind == "round":
-            out.append(cq.Solid.makeCylinder(size[0] / 2.0, x1 - x0,
-                                             cq.Vector(x0, hy, hz), cq.Vector(1, 0, 0)))
+            out.append(_supported_cut(cq.Solid.makeCylinder(
+                size[0] / 2.0, x1 - x0, cq.Vector(x0, hy, hz), cq.Vector(1, 0, 0)), up))
         else:
             wy, wz, *radius = size
-            out.append(_rect_cut_x(hy, hz, wy, wz, radius[0] if radius else 0.0, x0, x1))
+            out.append(_supported_cut(
+                _rect_cut_x(hy, hz, wy, wz, radius[0] if radius else 0.0, x0, x1), up))
     return out
 
 
@@ -3663,7 +3680,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
                                      [(hole_x, iz1), (wall_x, iz1),
                                       (wall_x, iz1 - deep)]))
         chain = wall_x - (boss_in if wall_x > 0 else -boss_in)
-        tz = iz1 - wall
+        tz = iz1 - wall - fits.running
         solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
                                      [(hole_x, tz), (chain, tz),
                                       (chain, tz - abs(chain - hole_x))]))
@@ -3735,13 +3752,13 @@ def _seam_middle_z():
 def _handhold_levels(inner):
     """Standing floor, lifting ceiling and the full section above it."""
     bed = inner[4] - floor_t
-    roof = bed + handhold_height
+    roof = bed + handhold_height + fits.supported_surface
     return bed, roof, roof + handhold_roof
 
 
 def _seam_lower_z(inner):
     """The lower insert's complete collar stands above the handhold ceiling."""
-    return _handhold_levels(inner)[2] + socket_r
+    return inner[4] - floor_t + handhold_height + handhold_roof + socket_r
 
 
 def _bosses(inner, y_joint):
@@ -3880,7 +3897,7 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint, ceiling=None, floor=No
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
     slot = _front_pin_slot(x_in, x_tip, z_boss, y_boss, y_joint, ceiling, floor)
-    return slot.fuse(heat)
+    return slot.fuse(_supported_cut(heat))
 
 
 def _screw_cut(x_ext, sx, z_boss, y_boss, up=1.0):
@@ -3893,7 +3910,7 @@ def _screw_cut(x_ext, sx, z_boss, y_boss, up=1.0):
     shank = _xcyl(screw_clear_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_tip)
     cbore = _teardrop_x(head_cbore_dia / 2.0, y_boss, z_boss,
                         x_ext - sx * 1.0, x_ext + sx * head_cbore_depth, up=up)
-    return shank.fuse(cbore)
+    return _supported_cut(shank, up).fuse(cbore)
 
 
 def _front_lip(inner, y_joint):
@@ -3905,7 +3922,7 @@ def _front_lip(inner, y_joint):
     THE SHOULDER IS FLUSH AND THE TONGUE IS NOT, and the step between them is at
     the mouth. Fore of `y_joint` the band's outer face is the body's own inner
     wall — one solid with the body, nothing shaved. Aft of it the band stands in
-    the other piece, so its three outer faces come in one `fits.slip`, and the
+    the other piece, so its three outer faces come in one `fits.running`, and the
     step they come in on is the plane the back half's mouth is struck on: it
     passes the mouth in the first millimetre of travel and leads the rest of the
     lip in behind it. Printed Z-down the side segments are
@@ -3931,9 +3948,10 @@ def _front_lip(inner, y_joint):
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
     shoulder = _ybox(ix0, ix1, y0, y_joint, iz0, iz1)
-    tongue = _ybox(ix0 + fits.slip, ix1 - fits.slip, y_joint, y1,
-                   iz0, iz1 - fits.slip)
-    inner_box = _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 - 1.0, iz1 - wall)
+    tongue = _ybox(ix0 + fits.running, ix1 - fits.running, y_joint, y1,
+                   iz0, iz1 - fits.running)
+    inner_box = _ybox(ix0 + wall + fits.running, ix1 - wall - fits.running,
+                      y0 - 1.0, y1 + 1.0, iz0 - 1.0, iz1 - wall - fits.running)
     return shoulder.fuse(tongue).cut(inner_box)
 
 
@@ -3957,12 +3975,12 @@ def _y_lip_channel(inner, y_joint, bosses):
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
     zlo, zhi = iz0 - floor_t - 1.0, iz1 + wall + 1.0
-    flanks = _ybox(ix0 - 1.0, ix0 + fits.slip, y0, y1, zlo, zhi).fuse(
-        _ybox(ix1 - fits.slip, ix1 + 1.0, y0, y1, zlo, zhi))
+    flanks = _ybox(ix0 - 1.0, ix0 + fits.running, y0, y1, zlo, zhi).fuse(
+        _ybox(ix1 - fits.running, ix1 + 1.0, y0, y1, zlo, zhi))
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss in bosses:
         _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
-        tongue_face = x_in + sx * fits.slip
+        tongue_face = x_in + sx * fits.running
         xa, xb = sorted((tongue_face, x_cap))
         flanks = flanks.cut(_ybox(xa, xb, yb - socket_r, yb + socket_r,
                                   z_boss - socket_r, z_boss + socket_r))
@@ -3971,7 +3989,7 @@ def _y_lip_channel(inner, y_joint, bosses):
             x_in, x_tip, z_boss, yb, y_joint,
             ceiling=iz1 if z_boss > z_seam else None,
             floor=iz0 - floor_t if z_boss < z_seam else None))
-    return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1, iz1 - fits.slip, zhi))
+    return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1, iz1 - fits.running, zhi))
 
 
 def _floor_scarf(inner, y_joint):
@@ -3988,9 +4006,9 @@ def _floor_scarf(inner, y_joint):
     and the only rising face is 45°, so neither half asks support for the core's
     bearing surface. Assembled, the top remains one plane at z=iz0.
 
-    Each flank is a plumb face standing one `fits.slip` off the side wall beside
+    Each flank is a plumb face standing one `fits.running` off the side wall beside
     it. The nose is raked, and the tongue's is struck `scarf_axial` short of the
-    relief's, which stands the two rakes one `fits.slip` apart where they pass.
+    relief's, which stands the two rakes one `fits.running` apart where they pass.
 
     Returns (tongue, relief): the solid the FRONT half fuses and the matching
     envelope the BACK half cuts."""
@@ -4002,7 +4020,7 @@ def _floor_scarf(inner, y_joint):
     relief_tip = y_joint + lip_len
     relief_flat = relief_tip - floor_t
     tongue = _yz_prism(
-        ix0 + fits.slip, ix1 - fits.slip,
+        ix0 + fits.running, ix1 - fits.running,
         [(root, zbed), (tongue_flat, zbed), (tongue_tip, iz0), (root, iz0)])
     relief = _yz_prism(
         ix0, ix1,
@@ -4017,8 +4035,8 @@ def _socket_floor_relief(x_ext, sx, inner, y_joint):
     The scarf continues between these two feet. Each foot closes on a rectangular
     recess with one running clearance at its inboard and aft faces."""
     _seat, x_tip, _heat, x_cap = _boss_x(x_ext, sx)
-    xa, xb = sorted((x_tip, x_cap + sx * fits.slip))
-    return _ybox(xa, xb, y_joint, _y_boss(y_joint) + socket_r + fits.slip,
+    xa, xb = sorted((x_tip, x_cap + sx * fits.running))
+    return _ybox(xa, xb, y_joint, _y_boss(y_joint) + socket_r + fits.running,
                  inner[4] - floor_t - 1.0, inner[4])
 
 
@@ -4083,9 +4101,9 @@ def _handhold_frame(inner, y_joint, x_ext, sx, y_side):
     frame = _ybox(xa, xb, start, end, bed, crown)
     if y_side == "back":
         # The front socket carries the roof's inboard part through the overlap.
-        xa, xb = sorted((tip, cap + sx * fits.slip))
+        xa, xb = sorted((tip, cap + sx * fits.running))
         frame = frame.cut(_ybox(xa, xb, y_joint,
-                                _y_boss(y_joint) + socket_r + fits.slip, bed - 1.0, crown))
+                                _y_boss(y_joint) + socket_r + fits.running, bed - 1.0, crown))
         frame = frame.fuse(_handhold_backing_lap(inner, y_joint, x_ext, sx, y_side))
     return frame
 
@@ -4236,6 +4254,12 @@ def _rail_channel_span(x_in, sx, col):
     return x_open, x_f, x_d
 
 
+def rail_catch_air(col):
+    """Running play plus one strand allowance for each print-down mating face."""
+    supported_faces = 2 if col == "back" else 1
+    return slide_slip + supported_faces * fits.supported_surface
+
+
 def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     """The BOTTOM piece's whole share of its Z seam above the mouth: the hooked
     rails — an ARM standing on the mouth down each straight run, its HEAD stepping
@@ -4257,12 +4281,15 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     it is the slide's home: the one nominal contact in the joint, a flat printed
     face on a flat printed face, once per rail."""
     z_foot, rim = zj + hook_foot, zj + z_rise
+    catch_z = z_foot + rail_catch_air(col)
+    if rim - catch_z < wall:
+        raise ValueError("supported Z-rail catch leaves less than one wall of head stock")
     out = None
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
         sy = 1.0 if y1 > y0 else -1.0        # open end to closed: the way this column goes
         x_hk, x_f, x_a, x_h1 = _rail_x(x_in, sx, col)
-        arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, z_foot + slide_slip),
-                                 (x_hk, z_foot + slide_slip), (x_hk, rim),
+        arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, catch_z),
+                                 (x_hk, catch_z), (x_hk, rim),
                                  (x_h1, rim), (x_h1, zj)])
         # The arm's base falls back to the lip's underwall on a 45° under-flare, its
         # hanging face at the one angle a floor-down piece hangs anything at.
@@ -4846,8 +4873,8 @@ def _pump_cartridge_side_flute_rail(outer):
 
 def _bay_cut(inner, outer, bay, pump_trays, plate):
     """The full-width opening between the sill, lintel and flat rear bulkhead."""
-    return _pump_full_width_band(
-        inner, outer, bay, pump_trays, bay_back_y(plate), lower_inset=0.0)
+    return _supported_cut(_pump_full_width_band(
+        inner, outer, bay, pump_trays, bay_back_y(plate), lower_inset=0.0))
 
 
 def bay_back_y(plate):
@@ -5132,7 +5159,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     # carries the height of the rib it owns, so neither crosses into the other's travel.
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
     # slot, cut in `build_back_half` before this stood here.
-    for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0):
+    for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0, up=up):
         band = band.cut(cutter)
     relief = _back_top_flank_relief_cut(box, up=up)
     return band.cut(relief) if relief is not None else band
@@ -5151,7 +5178,8 @@ def _ceiling_tie_reliefs(box, lane):
     if meter:
         x_axis, z_axis, seat_r, bands = meter
         reach = seat_r + flow_meter_anchor_wall + tie_t + tie_cav_buffer
-        roof = z_axis + seat_r + wall + tube_anchor_cavity_depth
+        roof = min(lane, z_axis + seat_r + wall + tube_anchor_cavity_depth
+                   + fits.supported_surface)
         for by0, by1 in bands:
             mid = (by0 + by1) / 2.0
             pockets.append(_ybox(x_axis - reach, x_axis + reach,
@@ -5165,7 +5193,8 @@ def _ceiling_tie_reliefs(box, lane):
         crown = seat_r + wall
         pockets.append(_anchor_rib(band, u, n, tie_cav_w,
                                    crown + tie_t + tie_cav_buffer, 0.0,
-                                   crown + tube_anchor_cavity_depth))
+                                   min(lane - mid[2], crown + tube_anchor_cavity_depth
+                                       + fits.supported_surface)))
     return pockets
 
 
@@ -5269,8 +5298,10 @@ def cap_crown_z(box):
 
 def cap_head_seat_z(box):
     """Each clamp screw's head seat, struck from the screw itself: the M3×60's tip lands at the
-    blind end of the cradle's long insert, so the seat stands that screw's length above it."""
-    return cap_split_z(box.pack.pump_trays) - cap_heatset_len + cap_screw_len
+    blind end of the cradle's long insert. The crown-down print retreats that bridged annulus
+    by the supported-surface allowance; the pilot gives the screw tip the same extra depth."""
+    return (cap_split_z(box.pack.pump_trays) - cap_heatset_len + cap_screw_len
+            + PIECE_PRINT_UP["pump-cap"] * fits.supported_surface)
 
 
 def pump_skirt_support_z(pump_trays):
@@ -5440,11 +5471,11 @@ def _pull_center_z(plate):
 
 
 def pull_z_span(box):
-    """The pull floor and roof, with equal stock to the cartridge's bottom and crown."""
+    """The pull floor and supported roof, with a quarter-millimetre allowance above the pocket."""
     bottom = bay_floor_z(box.pack.pump_trays)[1]
     crown = box.pump_bay[2] - pump_cartridge_top_clearance
     floor = _pull_center_z(box.pack.collet_plate) - pull_floor_below_tubes
-    return floor, crown - (floor - bottom)
+    return floor, crown - (floor - bottom) + fits.supported_surface
 
 
 def pull_y_span(pump_trays, plate):
@@ -5522,9 +5553,10 @@ def pump_cartridge_figures(box):
         "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
         "PUMP_BAY_ROOF_RELIEF": f"{pump_bay_roof_relief:.4g} mm",
         "PUMP_BAY_FLOOR_Z": f"{floor_top:.6g} mm",
-        "PUMP_BAY_LINTEL_Z": f"{bay[2]:.6g} mm",
+        "PUMP_BAY_LINTEL_Z": f"{bay[2] + fits.supported_surface:.6g} mm",
+        "PUMP_CARTRIDGE_TOP_AIR": f"{pump_cartridge_top_clearance + fits.supported_surface:.4g} mm",
         "PUMP_HEAD_FLOOR_AIR": f"{(head_floor - floor_top):.4g} mm",
-        "PUMP_MOTOR_LINTEL_AIR": f"{(bay[2] - motor_crown):.4g} mm",
+        "PUMP_MOTOR_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - motor_crown):.4g} mm",
         "PUMP_CARTRIDGE_BOTTOM_Z": f"{floor_top:.6g} mm",
         "PUMP_CARTRIDGE_TOP_Z": f"{cartridge_top:.6g} mm",
         "PUMP_CARTRIDGE_RISE": f"{(cartridge_top - floor_top):.6g} mm",
@@ -5549,7 +5581,7 @@ def pump_cartridge_figures(box):
         "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
         "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
         "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
-        "CLAMP_LINTEL_AIR": f"{(bay[2] - clamp_crown):.4g} mm",
+        "CLAMP_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - clamp_crown):.4g} mm",
         "CLAMP_PUMP_Y_SHIFT": f"{abs(clamp_pump_y_shift):.4g} mm",
         "CLAMP_SCREW_LEN": f"{cap_screw_len:.4g} mm",
         "CLAMP_SCREW_PITCH": f"{2.0 * cap_screw_off:.4g} mm",
@@ -5734,17 +5766,17 @@ def _tee_carrier_clearances(inner, plate, carrier):
     backing_room = _ybox(
         inner[0], inner[1],
         carrier["body_face_y"], aft + 1.0,
-        web_z0 - air, web_z1 + air)
+        web_z0 - air, web_z1 + air + fits.supported_surface)
     fore_guide = _tee_carrier_fore_guide(carrier)
     cuts = [backing_room.cut(fore_guide, fore_guide.mirror("YZ"))]
     for x, z in plate["holes"]:
         cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
     for x, z in carrier["spring_guide_xz"]:
         radius = carrier["spring_guide_d"] / 2.0
-        cuts.append(_ycyl(radius, x, z, fixed_y, aft + 1.0))
+        cuts.append(_supported_cut(_ycyl(radius, x, z, fixed_y, aft + 1.0)))
     for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"],
                        *carrier["floor_cavities"]):
-        cuts.append(_ybox(*xs, *ys, *zs))
+        cuts.append(_supported_cut(_ybox(*xs, *ys, *zs)))
     return tuple(cuts)
 
 
@@ -5786,6 +5818,8 @@ def _tee_carrier_service_slots(carrier):
         x0, x1 = carrier[name + "_x"]
         y0, y1 = carrier[name + "_y"]
         z0, z1 = carrier[name + "_z"]
+        if name == "service_slot":
+            z1 += fits.supported_surface
         opening = _ybox(x0, x1, y0, y1, z0, z1)
         if name == "service_recess":
             opening = opening.cut(_ybox(
@@ -5816,17 +5850,23 @@ def _ridge_keystone(slab, station, t):
     the catches, which a cut running after them would take off."""
     x, y_face, z = station
     block, catches = _keystone.receptacle_boss(0.0, 0.0, 0.0, -t)
-    cutter, _bands = _keystone.receptacle_cut(0.0, 0.0, 0.0)
+    cutter, _bands = _keystone_pocket_cut(0.0, 0.0, 0.0)
 
     def turned(shape):
         return (shape.rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), 180.0)
                 .translate((x, y_face, z)))
 
     if block is not None:
-        slab = slab.fuse(turned(block))
-    slab = slab.cut(turned(cutter))
+        bb = block.BoundingBox()
+        pw = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
+        ph = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
+        hx, hz = pw / 2.0 + _keystone.RECEPTACLE_WALL, ph / 2.0 + _keystone.RECEPTACLE_WALL
+        block = _ybox(-hx, hx, bb.ymin, bb.ymax,
+                       _keystone.POCKET_RISE - hz, _keystone.POCKET_RISE + hz)
+        slab = slab.fuse(turned(_supported_cut(block)))
+    slab = slab.cut(turned(_supported_cut(cutter)))
     if catches is not None:
-        slab = slab.fuse(turned(catches))
+        slab = slab.fuse(turned(_keystone_catches(catches, up=1.0)))
     return slab
 
 
@@ -6057,7 +6097,7 @@ def build_pump_cartridge(box, halves_cache=None):
     clearance, leaving the stamped brackets on three cradle lands; four fitting-sized passages
     stay open through the whole drop path while the aft pull wall remains between them.
 
-    Both tall side pulls have equal stock above and below. The clamp has no pull feature.
+    Both tall side pulls have mirrored edge margins plus supported-roof allowance. The clamp has no pull feature.
     Two heat-set bores open upward from the centre spine for the clamp screws."""
     solid = _pump_cartridge_gross(box, halves_cache)
     for void in _pump_drop_voids(box):
@@ -6286,8 +6326,11 @@ def build_back_half(box):
     # The ASSE drip pan's withdrawal slot through the −X wall, and the sleeve it lies in. The
     # sleeve's own cuts reach back through this wall, so the slot is opened here and reopened
     # there at the one shape.
-    for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, inner[0] + 5.0):
-        back = back.cut(cutter)
+    for side in ("top", "bottom"):
+        ports = [p for p in box.pack.west_ports if (p[2] > z_seam) == (side == "top")]
+        for cutter in _x_port_cuts(ports, outer[0] - 5.0, inner[0] + 5.0,
+                                   up=print_up("back", side)):
+            back = back.cut(cutter)
     back = _pan_sleeve(back, box.pack.pan_sleeve, outer[4] - 1.0, outer[5] + 1.0,
                        up=print_up("back", "top"))
     return cq.Workplane(obj=back)
@@ -6340,13 +6383,15 @@ def _pan_sleeve(solid, sleeve, z0, z1, up=1.0):
     adds, cuts = sleeve
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:
-        solid = solid.fuse(_ybox(x0, x1, y0, y1, bz0, bz1))
+        # Carry the original floor section behind the recessed, supported berth.
+        floor_stock = fits.supported_surface if up < 0.0 else 0.0
+        solid = solid.fuse(_ybox(x0, x1, y0, y1, bz0 - floor_stock, bz1))
         if up > 0.0:
             solid = solid.fuse(_xz_prism(y0, y1,
                                          [(x0 + pan_sleeve_corbel, bz0), (x0, bz0),
                                           (x0, bz0 - pan_sleeve_corbel)]))
     for x0, x1, y0, y1, cz0, cz1 in (cuts if blocks else ()):
-        solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
+        solid = solid.cut(_supported_cut(_ybox(x0, x1, y0, y1, cz0, cz1), up))
     # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
     # that relationship in the pack rather than naming either cut by position: the well overlaps
     # the rebate in Z, while only the mouth is contained face-to-face above it.
@@ -6745,6 +6790,10 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
         solid = solid.fuse(_ybox(fx0, fx1, fy0, fy1, fz0, fz1))
     for station in mine:
         sy, sz, tip = station[:3]
+        if roots[1] - tip >= east_boss_min_stand - stated_bound_tol:
+            # Keep the manufacturer's complete radial ligament behind the relieved insert
+            # crown. Only this local boss grows; the component's seating plane is unchanged.
+            solid = solid.fuse(_supported_cut(_east_boss_stem(roots[1], station, up), up))
         # THE BORE STILL STARTS AT THE BODY'S OWN FACE, stem or no stem. `roots` is one plane and
         # the piece is not: a station standing where the flank has already turned into its rear
         # corner meets a face inboard of that plane, and a bore struck on the plane leaves that
@@ -6756,8 +6805,9 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
         # standing on the turn would put a groove over an insert with too little between them.
         # It gives up relief before it gives up `flute_backing`; `boss-bore-seats` reads what
         # is left against the insert's own depth.
-        solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, tip,
-                                east_boss_bore_end(sy, tip, outer)))
+        solid = solid.cut(_supported_cut(
+            _xcyl(heatset_dia / 2.0, sy, sz, tip,
+                   east_boss_bore_end(sy, tip, outer)), up))
     return solid
 
 
@@ -6836,7 +6886,12 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
         tower = sorted((face, face - side * engage))
         ya = min(st[1] - wago_half(st[3])[0] for st in row)
         yb = max(st[1] + wago_half(st[3])[0] for st in row)
-        solid = solid.fuse(_ybox(tower[0], tower[1], ya, yb, sz - half_z, sz + half_z))
+        # Pocket tabs are short bridges even where the centre is opened by a ramp.
+        # Grow the backing along with the pocket so the lid keeps its full section.
+        solid = solid.fuse(_ybox(
+            tower[0], tower[1], ya, yb,
+            sz - half_z - (fits.supported_surface if up < 0.0 else 0.0),
+            sz + half_z + (fits.supported_surface if up > 0.0 else 0.0)))
         # the wedge is folded on the tower's print-down face and runs away from the tower,
         # toward `clear_z`, as far as it may — or, where every well in the row has read that air
         # clear, the tower's own section goes straight on to `clear_z` and stands on it
@@ -6860,6 +6915,8 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1, up=1.0):
             pk_y = stand_y / 2.0 + wago_well_press
             floor_z = sz - (stand_z / 2.0 + wago_well_press)
             roof_z = sz + stand_z / 2.0 + wago_well_press
+            floor_z -= fits.supported_surface if up < 0.0 else 0.0
+            roof_z += fits.supported_surface if up > 0.0 else 0.0
             solid = solid.cut(_ybox(pocket[0], pocket[1],
                                     sy - pk_y, sy + pk_y, floor_z, roof_z))
             if supportless_roof:
@@ -6967,7 +7024,10 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
             continue
         owns = z0 <= vent <= z1
         mouth_top = sz + vent_channel_w / 2.0
-        mouth_bot = sz - vent_channel_w / 2.0
+        # On the ceiling-bedded quadrant the mouth's lower edge is a supported
+        # bridge. Its tube axis and the support-free roof keep their datums.
+        mouth_bot = (sz - vent_channel_w / 2.0
+                     - (fits.supported_surface if up < 0.0 else 0.0))
         groove_top = sz - vent_duct_drop            # where the skin opens
         ramp_top = groove_top - vent_groove_drop
         ramp_bot = ramp_top - ramp_rise              # where the floor has met the outer face
@@ -7173,7 +7233,7 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
     THE GROOVE IS STRUCK OFF THE FLANGE IT TAKES and not off a figure typed here: `cond_slot_half`
     reads the station's own sheet. At the seated wall stop its roof keeps that exact opening;
     from there it rises toward the bay at 45° until it runs through the rail's crown. The flange
-    therefore keeps its datum and fit while the one-millimetre opening is never closed by a flat
+    therefore keeps its datum and fit while the opening is never closed by a flat
     roof printed over material below it."""
     for face, cx0, cx1, fz0, fz1, root in stations:
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
@@ -7662,9 +7722,9 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
-#     carb-1 tube in its rib      [40.1 mm](LOOP_CARB_1)
-#     DIGITEN arm in its anchor   [59.6 mm](LOOP_DIGITEN)
-#     WR1110 barrel in its rib    [84.1 mm](LOOP_WR1110)
+#     carb-1 tube in its rib      [39.7 mm](LOOP_CARB_1)
+#     DIGITEN arm in its anchor   [59.2 mm](LOOP_DIGITEN)
+#     WR1110 barrel in its rib    [83.7 mm](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
 #
 # A 4" tie closes about 69 mm of loop, which takes the first two; the regulator's takes the 6",
@@ -7776,8 +7836,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
         # wedge rather than along a tangent — which is what a feather is, and what a lip is not.
         # Below the axis the block runs past the circle entirely and the arc closes on the block's
         # east face at a right angle.
-        solid = solid.fuse(_ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, top))
-        solid = solid.cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1))
+        solid = solid.fuse(_supported_cut(
+            _ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, top), up))
+        # The round fitting stays on its stated axis; only the supported arc opens.
+        solid = solid.cut(_supported_cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1), up))
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
@@ -7830,8 +7892,8 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     # IT IS THE WIDE ZIP TIE'S CAVITY. The barrel and this anchor make a 105 mm loop, past what a 4"
     # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
     # 18 lb zip tie the flow-meter anchors and the runs' ribs take.
-    solid = solid.cut(_asse_tie_cavity(
-        apex, inner[0], z_axis, tie_y0, tie_y1, rise, dn + corbel))
+    solid = solid.cut(_supported_cut(_asse_tie_cavity(
+        apex, inner[0], z_axis, tie_y0, tie_y1, rise, dn + corbel), up))
     return solid
 
 
@@ -8396,6 +8458,9 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
         b_lane = (lane[face] - mid[face // 2]) * sign       # and the box's own, at or outboard of it
         reach = seat_r + wall              # the lip's outer edge
         b_crown = seat_r + wall            # one `wall` over the bore's own crown
+        # Add the supported tie-passage allowance at the backing side of its gap.
+        # The tube-bearing web keeps its complete wall section and the tube's axis.
+        cavity_depth = tube_anchor_cavity_depth + fits.supported_surface
         b_root, relief = b_face, b_face < b_lane - 1e-9 and b_face - b_crown < tie_t
         if relief:
             b_root = b_lane                # the wall gives this rib its lane back
@@ -8441,7 +8506,7 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
             # wall keeps its full section at the rib's two ends.
             solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
                                           reach, b_face, b_lane))
-            roof = b_crown + tube_anchor_cavity_depth
+            roof = b_crown + cavity_depth
             if roof > b_face + 1e-9:
                 solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
                                               reach + tie_t + tie_cav_buffer, b_face, roof))
@@ -8467,10 +8532,18 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
         # THE CROWN OVER THE TIE BAND IS ONE FLAT `tie_cav_w` STRIP between the two end webs,
         # whichever way the piece prints: where it looks print-down it is a bridge that span
         # long, web to web, laid over the channel's air.
-        if b_root - b_crown >= tube_anchor_cavity_depth + tube_anchor_backing_min:
+        if b_root - b_crown >= cavity_depth + tube_anchor_backing_min:
             rib = rib.fuse(_anchor_rib(band, u, n, tie_cav_w, reach,
-                                       b_crown + tube_anchor_cavity_depth, b_root))
-        rib = rib.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
+                                       b_crown + cavity_depth, b_root))
+        seat = _anchor_bore(origin, u, seat_r, tube_anchor_len)
+        supported_seat = abs(u[2]) < 1.0 - 1e-6 and n[2] * up >= -1e-6
+        if supported_seat:
+            # Side-rooted circular seats have a print-down arc. Extend the exterior stock
+            # along with that arc so the complete nominal wall remains behind the added
+            # room. Ceiling-bedded open cradles and vertical bores need no such allowance.
+            rib = _supported_cut(rib, up)
+            seat = _supported_cut(seat, up)
+        rib = rib.cut(seat)
         solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
     return solid
 
@@ -8559,7 +8632,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     # The block keeps the one section `c14_mount_half` states. Its crown enters the grown
     # ceiling slab by more than one wall, joining the two as one continuous volume.
     block = _ybox(cx - hx, cx + hx, mouth, aft, cz - hz, cz + hz)
-    feature = block.intersect(
+    feature = _supported_cut(block, up).intersect(
         _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
     # The cord bore continues through the wall and tunnel. The exact flange pocket opens through
     # the block's fore face and continues inboard through the +X strip for assembly access; its
@@ -8567,10 +8640,51 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     flange_pocket = (_c14.flange_prism(
         c14_pocket_slip, mouth - c14_pocket_overcut - c14_insertion_relief, fore)
         .translate((cx, 0.0, cz)).val())
-    bore = _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(flange_pocket)
-    inserts = tuple(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth)
+    bore = _supported_cut(
+        _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(flange_pocket), up)
+    inserts = tuple(_supported_cut(
+        _ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth), up)
                     for sx, sz in stations)
     return feature, bore, inserts
+
+
+def _keystone_pocket_cut(x, z, y_face):
+    """The unchanged jack's face and body with the enclosure's static mating clearance.
+
+    The purchased reference supplies the body envelope, lip depth, catch stations and swing
+    ease. Its illustrative receptacle dimensions do not set this printed part's fit.
+    """
+    aperture_w = _keystone.FACE_W + 2.0 * fits.slip
+    aperture_h = _keystone.FACE_H + 2.0 * fits.slip
+    pocket_w = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
+    pocket_h = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
+    y_lip, y_back = y_face - _keystone.LIP_D, y_face - _keystone.DEPTH
+    aperture = _rect_cut_y(x, z, aperture_w, aperture_h, 0.0,
+                           y_lip - 0.01, y_face + 0.01)
+    pocket = _rect_cut_y(x, z + _keystone.POCKET_RISE, pocket_w, pocket_h, 0.0,
+                        y_back - 0.01, y_lip + 0.01)
+    top = z + aperture_h / 2.0
+    ease = _yz_prism(x - aperture_w / 2.0, x + aperture_w / 2.0,
+                     [(y_face, top), (y_lip, top),
+                      (y_lip, top + _keystone.ease_rise())])
+    return aperture.fuse(pocket).fuse(ease), (y_lip, y_back)
+
+
+def _keystone_catches(catches, up):
+    """Retain each catch's complete section at its pocket root and relieve its bridge face."""
+    loose = catches.Solids()
+    lower = min(loose, key=lambda s: s.BoundingBox().zmin)
+    pocket_growth = max(0.0, fits.slip - _keystone.FIT_SLIP / 2.0)
+    out = None
+    for part in loose:
+        sign = -1.0 if part.isSame(lower) else 1.0
+        rooted = part.fuse(part.translate((0, 0, sign * pocket_growth)))
+        # Lower catch's top faces print-down in a ceiling-bedded print, upper catch's
+        # underside in a floor-bedded print. Moving its complete section preserves retention.
+        if sign * up > 0.0:
+            rooted = rooted.translate((0, 0, up * fits.supported_surface))
+        out = rooted if out is None else out.fuse(rooted)
+    return out
 
 
 def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
@@ -8597,7 +8711,16 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         return None
     y_face = outer[3]
     block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
-    feature = block
+    if block is not None:
+        # Preserve the receptacle's three-millimetre surrounding section after applying
+        # the shared base fit to the purchased body's nominal dimensions.
+        bb = block.BoundingBox()
+        pw = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
+        ph = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
+        hx, hz = pw / 2.0 + _keystone.RECEPTACLE_WALL, ph / 2.0 + _keystone.RECEPTACLE_WALL
+        block = _ybox(x - hx, x + hx, bb.ymin, bb.ymax,
+                       z + _keystone.POCKET_RISE - hz, z + _keystone.POCKET_RISE + hz)
+    feature = _supported_cut(block, up) if block is not None else None
     if block is not None:
         b = block.BoundingBox()
         edge = b.zmin if up > 0 else b.zmax      # the block's print-down edge
@@ -8612,8 +8735,10 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         feature = feature.intersect(below_ceiling)
         if catches is not None:
             catches = catches.intersect(below_ceiling)
-    cutter, _bands = _keystone.receptacle_cut(x, z, y_face)
-    return feature, cutter, catches
+    cutter, _bands = _keystone_pocket_cut(x, z, y_face)
+    if catches is not None:
+        catches = _keystone_catches(catches, up)
+    return feature, _supported_cut(cutter, up), catches
 
 
 def _keystone_receptacle(solid, inner, outer, station, z0, z1, up=1.0):
@@ -9260,7 +9385,8 @@ def _report_slide(pieces, box):
                 return area
 
             z_foot = box.splits[1] + hook_foot
-            bottom_flat = flat_bearing_area(bot, z_foot + slide_slip, -1.0, False)
+            bottom_flat = flat_bearing_area(
+                bot, z_foot + rail_catch_air(col), -1.0, False)
             top_flat = flat_bearing_area(top, z_foot, +1.0, True)
             nominal_flat = sum(
                 (abs(y1 - y0) - rail_stop_len) * (_rail_hook_lap(col) + slide_slip)
@@ -9387,7 +9513,7 @@ def _lower_y_seam_bound(pieces, box):
         for z in levels:
             column = column.cut(_screw_cut(x_ext, sx, z, yb))
             heat = _xcyl(heatset_dia / 2.0, yb, z, x_tip, x_heat)
-            socket = socket.cut(heat)
+            socket = socket.cut(_supported_cut(heat))
             shank = _xcyl(screw_clear_dia / 2.0, yb, z, x_ext, x_tip)
             blocked += shank.intersect(back).Volume() + heat.intersect(front).Volume()
         missing = column.cut(back).Volume() + socket.cut(front).Volume()
@@ -9398,7 +9524,7 @@ def _lower_y_seam_bound(pieces, box):
     floor_lane = _ybox(box.inner[0], box.inner[1], y0, box.y_joint + lip_len,
                        box.outer[4], box.inner[4])
     floor_register = front.intersect(floor_lane).intersect(
-        back.intersect(floor_lane).translate((0, 0, 2.0 * fits.slip))).Volume()
+        back.intersect(floor_lane).translate((0, 0, 2.0 * fits.running))).Volume()
     ok = floor_register > stated_bound_tol and all(
              levels_ok and max(missing, overlap, blocked) <= stated_bound_tol
              for _side, levels_ok, missing, overlap, blocked in readings)
@@ -9411,7 +9537,7 @@ def _lower_y_seam_bound(pieces, box):
         [f"{side}: levels {'correct' if levels_ok else 'incorrect'}; missing jamb {missing:.4f} mm³; "
          f"entry overlap {overlap:.4f} mm³; blocked bores {blocked:.4f} mm³"
          for side, levels_ok, missing, overlap, blocked in readings] + [
-            f"floor lap blocks a {2.0 * fits.slip:g} mm upward shift: {floor_register:.4f} mm³ overlap"]))
+            f"floor lap blocks a {2.0 * fits.running:g} mm upward shift: {floor_register:.4f} mm³ overlap"]))
 
 
 def _handhold_bound(pieces, box):
@@ -9443,8 +9569,8 @@ def _handhold_bound(pieces, box):
 
         xa, xb = sorted((face, tangent))
         bearing = _ybox(xa, xb, y0 + handhold_corner_r, y1 - handhold_corner_r, roof, crown)
-        xa, xb = sorted((tip, cap + sx * fits.slip))
-        socket_air = _ybox(xa, xb, joint + lip_len, joint + lip_len + fits.slip, roof, crown)
+        xa, xb = sorted((tip, cap + sx * fits.running))
+        socket_air = _ybox(xa, xb, joint + lip_len, joint + lip_len + fits.running, roof, crown)
         roof_missing = missing(bearing).cut(socket_air).Volume()
         xa, xb = sorted((cap, tangent))
         posts = _ybox(xa, xb, y0 - handhold_wall, y0, bed, crown).fuse(
@@ -9801,7 +9927,10 @@ def main():
         "BACK_HOOK_LAP": f"{back_hook_lap:g} mm",
         "HOOK_FOOT": f"{hook_foot:g} mm",
         "Z_RISE": f"{z_rise:g} mm",
-        "HOOK_NECK": f"{hook_foot + slide_slip:g} mm",
+        "HOOK_NECK": f"{hook_foot + rail_catch_air('front'):g} mm",
+        "BACK_HOOK_NECK": f"{hook_foot + rail_catch_air('back'):g} mm",
+        "HOOK_HEAD": f"{z_rise - hook_foot - rail_catch_air('front'):g} mm",
+        "BACK_HOOK_HEAD": f"{z_rise - hook_foot - rail_catch_air('back'):g} mm",
         "RAIL_REACH": f"{rail_reach_in:.1f} mm",
         "FRONT_RAIL_FOOT": f"{front_rail_foot:.4g} mm",
         "FRONT_RAIL_INBOARD": f"{front_rail_inboard:.4g} mm",
@@ -9827,7 +9956,7 @@ def main():
         "DISPLAY_SCREW_X": f"{display_screw_x:.4g} mm",
         "MQ6_CARD_T": f"{mq6_card_x:.4g} mm",
         "MQ6_SLOT_OPEN": f"{mq6_card_x + 2 * mq6_slot_press:.4g} mm",
-        "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
+        "COND_SLOT_OPEN": f"{box.pack.cond_cradle[0][4] - box.pack.cond_cradle[0][3] + 2 * cond_slot_press:.4g} mm",
         "COND_SLOT_GRIP": f"{cond_slot_grip:.4g} mm",
         "CORE_STOP_BORE": (f"{2.0 * (box.pack.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
                            if box.pack.core_stops else "no station"),
@@ -9951,7 +10080,7 @@ def main():
         "SEAM_SCREW_LOWER_Z": f"{_seam_lower_z(box.inner):g} mm",
         "HANDHOLD_Y": f"{handhold_y:g} mm",
         "HANDHOLD_LENGTH": f"{handhold_length:g} mm",
-        "HANDHOLD_HEIGHT": f"{handhold_height:g} mm",
+        "HANDHOLD_HEIGHT": f"{handhold_height + fits.supported_surface:g} mm",
         "HANDHOLD_ROOF": f"{handhold_roof:g} mm",
         "HANDHOLD_WALL": f"{handhold_wall:g} mm",
         "HANDHOLD_CORNER_R": f"{handhold_corner_r:g} mm",
@@ -9982,7 +10111,7 @@ def main():
         "DISPLAY_LOOM_X": f"{display_loom_x_offset:+.4g} mm",
         "PUMP_JACK_Z": (f"{_ridge_stations(bo, plate, box.pump_bay)[0][2]:.5g} mm"
                         if plate else "no bay on this pack"),
-        "PUMP_JACK_APERTURE": f"{_keystone.APERTURE_W:.4g} × {_keystone.APERTURE_H:.4g} mm",
+        "PUMP_JACK_APERTURE": f"{_keystone.FACE_W + 2 * fits.slip:.4g} × {_keystone.FACE_H + 2 * fits.slip:.4g} mm",
         "PUMP_JACK_BOSS_REACH": f"{_keystone.DEPTH - ridge_wall_t:.4g} mm",
         "PUMP_JACK_BODY": f"{_keystone.BODY_DEPTH:.4g} mm",
         "PUMP_JACK_CLIP_LAND": f"{pump_jack_clip_edge_land:.4g} mm",

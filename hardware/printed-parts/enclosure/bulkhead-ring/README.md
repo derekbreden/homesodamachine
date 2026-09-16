@@ -13,23 +13,23 @@ other.
 |---|---|---|
 | fitting | John Guest PP1208E | neoFit ABU44 |
 | width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
-| bore | Ø[18](RING_BORE) | Ø[17.86](CO2_RING_BORE) |
-| height | [37.27](RING_TALL) mm | [36.81](CO2_RING_TALL) mm |
-| volume | [1.90](RING_VOL) cm³ | [1.84](CO2_RING_VOL) cm³ |
+| bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
+| height | [37.27](RING_TALL) mm | [37.06](CO2_RING_TALL) mm |
+| volume | [1.93](RING_VOL) cm³ | [1.89](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|
 | thickness | [2](RING_THICK) mm — the depth the pocket is cut to, so the two faces come out one plane, and how far the fitting's flange bears outboard of the wall's stock |
 | colour showing past the flange | [7.05](RING_W) mm |
-| rectangle above the axis | [18.789](RING_RISE) mm at every station |
+| rectangle above the axis | [18.789](RING_RISE) mm on water/flavour stations; [19.039](CO2_RING_RISE) mm on CO2 |
 
 The top row stands close enough to the ceiling that a rectangle stopped on its own radius would
 leave a strip of wall over the colour too thin for a nozzle to lay. Those three run out on the top
 face instead: fenced left, right and below, open above.
-`enclosure_assembly.check_top_row` is the reading that holds them there. The bottom row rises the
-same, so a chip on one family is one height wherever it stands, and every word is lettered in the
-same band over its own bore. A chip's height is that rise plus its own half circle, which is why
-the CO2 station's is the shorter of the two.
+The CO2 inlet axis stands [0.25](CO2_AXIS_DROP) mm below the water row. Its chip and pocket
+carry that same extra height above the bore, keeping their tops on the enclosure's top face.
+Each word is centered between its fitting's flange and the chip's top. A chip's height is
+its rise plus its own half circle.
 
 The same outline bored for the tube instead of the fitting, and run along it, is [`../../faucet/tube-collar/`](../../faucet/tube-collar/README.md) — one collar per chip, carrying that station's word out to the end of the tube.
 

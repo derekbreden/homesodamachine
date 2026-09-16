@@ -78,20 +78,20 @@ goes within ±5 mm of arc of the register line.
 Cylindrical shell segment on a 127 mm OD, [3 mm](POCKET_DEPTH) proud at the
 plateau, [0.8 mm](SKIRT_T) at the skirt.
 
-- **Extent** — Z [46.12 mm](BRIDGE_Z_BOTTOM) … [116.3 mm](BRIDGE_Z_TOP),
-  [70.13 mm](BRIDGE_H) tall × [51.4 mm](BRIDGE_ARC) of arc,
-  [6.65 cm³](BRIDGE_VOL) of PETG.
-- **Reed pockets** — two, [16 mm](POCKET_L) × [3 mm](POCKET_W), through to
+- **Extent** — Z [46.97 mm](BRIDGE_Z_BOTTOM) … [115.4 mm](BRIDGE_Z_TOP),
+  [68.43 mm](BRIDGE_H) tall × [51.4 mm](BRIDGE_ARC) of arc,
+  [6.35 cm³](BRIDGE_VOL) of PETG.
+- **Reed pockets** — two, [14.3 mm](POCKET_L) × [2.8 mm](POCKET_W), through to
   the wall, centred on the two reed heights. The part is symmetric end for
   end. Lower reed is `CLO`, upper is `CHI`.
-- **Lead groove** — [5.6 mm](LEAD_GROOVE_W) × [2.15 mm](LEAD_GROOVE_D),
+- **Lead groove** — [5.6 mm](LEAD_GROOVE_W) × [2.05 mm](LEAD_GROOVE_D),
   offset off the pocket column, carrying `CLO`, `CHI` and the shared common
   out the top edge. A cross-notch at each pocket end brings that reed's
   leads into it.
-- **Copper it carries** — [5.69](WRAPS_CARRIED) wraps cross the bridge; at
+- **Copper it carries** — [5.55](WRAPS_CARRIED) wraps cross the bridge; at
   full standoff over the plateau and half over the ramps, that is
-  [35.4 mm](EFFECTIVE_ARC) of arc each, [201 mm](CARRIED_COPPER) of the
-  3.877 m wrap — [5 %](CARRIED_FRACTION).
+  [35.4 mm](EFFECTIVE_ARC) of arc each, [197 mm](CARRIED_COPPER) of the
+  3.877 m wrap — [4.8 %](CARRIED_FRACTION).
 
 **Print** — PETG, outer (convex) face down on the plate, no supports.
 
@@ -99,8 +99,8 @@ plateau, [0.8 mm](SKIRT_T) at the skirt.
 
 `reed-bridge-setting-gauge.step` — a [60°](GAUGE_ARC_DEG) band that hangs
 on the tube's bottom rim by an inward hook. Its top face is at
-[46.12 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
-[7.68 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
+[46.97 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
+[7.81 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
 carbonators like the coil mandrel.
 
 ## Bench procedure

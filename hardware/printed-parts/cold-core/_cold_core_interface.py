@@ -25,6 +25,7 @@ sys.path.insert(0, str(_here.parent / "enclosure" / "enclosure"))
 import cadquery as cq
 
 import reeding
+import fits
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
 from _enclosure_interface import manifold_rise
@@ -111,13 +112,13 @@ foam_shell_outer_height = (
 carbonator_support_ring_height = 30.0
 support_ring_radial_width = 9.0
 
-# ⌀[6.65](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
+# ⌀[6.8](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
 # (water outlet, reservoir bulkheads, reed cable holes, CO2 tube clearance).
 #   IT IS SIZED OFF THE TUBE ON THE BENCH AND NOT THE NOMINAL. 1/4" LLDPE calipers ⌀6.5 at the
 # top of its spool band (`tube-collar/tube_collar.py`), so a bore cut to the ⌀6.35 nominal is
 # an interference fit on the line it is for, and the printer takes more off it again. This is
 # that measured tube plus the slip a hand needs to push it through.
-port_hole_radius = 3.325
+port_hole_radius = 6.5 / 2.0 + fits.slip
 
 # Reed-channel cavity depth (radial, out from the bag-pocket far wall). The reed
 # column drops into this cavity; the outer_shell X width is sized so the cavity +
@@ -138,7 +139,7 @@ reed_y_half_w = 4.0
 # walls anywhere along that half.
 #   What pins it HERE is the FORWARD BAND overhead: the reed channel's envelope and
 # reservoir B's draw conduit both stand in that band's 8 mm, on the same face of the shell,
-# and a ⌀[6.5](PORT_HOLE_DIAMETER) bore and a reed cavity cannot share one lane. The conduit takes the lane its
+# and a ⌀[6.8](PORT_HOLE_DIAMETER) bore and a reed cavity cannot share one lane. The conduit takes the lane its
 # own deck wants and the reed column steps off it.
 level_rod_y = 32.5
 
@@ -159,9 +160,8 @@ bag_pocket_walls_top_z = foam_shell_outer_height
 # Matches the reservoir's outer +X × ±Y fillet (R=6) with reservoir_clearance
 # on top, so the reservoir's outer arc slides into a snugly-mated arc on
 # the pocket's inner corner with uniform clearance.
-bag_pocket_corner_inner_radius = 6.5
-
-reservoir_clearance = 0.5
+reservoir_clearance = fits.running
+bag_pocket_corner_inner_radius = 6.0 + reservoir_clearance
 reservoir_floor_thickness = 3.0
 # Bulkhead vertical scheme. The PureSec mounts elbow-DOWN: the integral 90°
 # elbow + its dry-side flange + the below-side printed-TPU washer hang below
@@ -325,25 +325,28 @@ prv_port_y = +carbonator_port_offset
 # `attachment_stations`, per face × 2 faces, each screw passing lid + cap into an
 # insert pressed from the shell face it mates. TPU gasket per cap
 # (foam-cap-gasket.step). See bom.md for hardware SKUs.
-screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
+screw_clearance_radius = 3.0 / 2.0 + fits.slip
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER), ruthex's own recommended hole
 insert_pocket_depth = 8.0  # 5.7 mm insert engagement + 2.3 mm relief
 screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
 
-# The head sits in the lid, and a lid is [5.2 mm](FOAM_CAP_LID_H) thick where it takes one —
+# The head sits in the lid, and a lid is [5.4 mm](FOAM_CAP_LID_H) thick where it takes one —
 # one wall of PET-GF under the head, the boss section under that, and the lid's outer face a
 # plane. EACH END OF THE STACK BUYS THAT HEIGHT ITS OWN WAY. The bottom cup's boss columns stop
-# [3.2 mm](HEAD_PAD_H) short of its mouth and the lid's pad, of the boss's own cross-section,
+# [3.4 mm](HEAD_PAD_H) short of its mouth and the lid's pad, of the boss's own cross-section,
 # fills that relief. The TOP lid is solid to the same height over its whole footprint — it is
 # the plate the service bay stands on, so its underside is one plane and the band is the cup's
 # to give up (`_foam_cap.top_cap_height`).
 screw_head_height = 3.0  # DIN 912 M3 nominal
-head_seat_recess = 0.2  # how far under the lid's outer face the head lands
-head_cbore_radius = 3.075  # ⌀[6.15 mm](HEAD_CBORE_D) over the ⌀5.5 head
+head_seat_recess = fits.slip
+head_cbore_radius = 5.5 / 2.0 + fits.slip
 head_cbore_depth = screw_head_height + head_seat_recess
 # A pad as tall as the counterbore is deep leaves the land at one wall exactly.
-head_pad_height = head_cbore_depth
-head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
+# The bottom lid prints outer-face-down. Its supported screw-seat roofs need
+# the bridge allowance, backed by the same full plate thickness. The matching
+# cup relief follows this pad; top cup/lid share the band at fixed stack height.
+head_pad_height = head_cbore_depth + fits.supported_surface
+head_pad_slip = fits.slip  # pad to the boss relief that receives it
 # A lid, plate and pad in one. `_foam_cap.lid_total_height` builds on this name.
 foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
 
@@ -672,7 +675,7 @@ state(
 # and whoever seats the stack carries them from there into the world.
 deck_mount_boss_radius = 3.5     # column radius
 deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 heat-set
-deck_mount_lid_slip = 0.4        # per side, a standing column to the lid's clearance hole
+deck_mount_lid_slip = fits.slip  # a standing column to the lid's clearance hole
 deck_mount_insert_length = 5.7   # ruthex RX-M3x5.7, set flush with the column top
 deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
 
@@ -817,7 +820,7 @@ cap_cradles = {
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
 cap_cradle_corner_inset = 12.2       # `beduan_solenoid.corner_inset`
-cap_cradle_socket_radius = 3.6       # `valve_seat.socket_radius`
+cap_cradle_socket_radius = 3.4 + fits.slip  # `valve_seat.socket_radius`
 cap_cradle_wall = 3.0                # `valve_seat.wall`
 cap_cradle_boss_radius = cap_cradle_socket_radius + cap_cradle_wall
 cap_cradle_half = cap_cradle_corner_inset + cap_cradle_boss_radius
@@ -903,7 +906,7 @@ state("forward-band-takes-a-tube", "A tube on the forward band's centre clears b
       forward_band_width >= lldpe_tube_od,
       f"a ⌀{lldpe_tube_od:g} tube centred in a {forward_band_width:g} mm band stands "
       f"{(forward_band_width - lldpe_tube_od) / 2.0:g} mm off each face")
-cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.65](PORT_HOLE_DIAMETER) every shell penetration takes
+cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.8](PORT_HOLE_DIAMETER) every shell penetration takes
 cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
@@ -915,7 +918,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # `_lines.CAP_BORE_SKEW` is bound to this name.
 cap_conduit_entry_skew = 38.0
 # The countersink's mouth on the lid's outer face — the bore opened at that angle through the
-# one wall of plate the cone is sunk into: ⌀[9.775](ENTRY_RELIEF_D).
+# one wall of plate the cone is sunk into: ⌀[9.925](ENTRY_RELIEF_D).
 cap_conduit_entry_relief_radius = (
     cap_conduit_bore_radius
     + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
@@ -979,7 +982,7 @@ state(
 # behind it, comes about, and climbs the forward strip potted to this bore. B takes the +Y band
 # and A the −Y one, because that is the wall each one's elbow points at, and A's climb is the
 # longer for it — its pocket is the far one from this strip.
-#   A ⌀[6.65](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
+#   A ⌀[6.8](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
 # pins the two stations in Y is that and the reed channels, whose envelopes stand in this same
 # strip and which both bores clear (`_reed_channels` measures it).
 #   THE FORWARD STRIP'S COLUMNS ARE MERGED and not standing. The strip is forward of everything
@@ -1048,6 +1051,10 @@ co2_cap_x = 1.5
 # no such tie: the run is already on the lane by then, and a jog ALONG a lane costs it nothing.
 # So the ring reads this column and the appliance reads the bore's, and neither is the other's.
 water_outlet_climb_x = -48.5
+# The lower climb clears the inlet copper tail; above it the tube leans gently toward the
+# centre to clear reservoir B's upper corner, keeping the stock bend radius at each turn.
+water_outlet_upper_climb_x = -47.0
+water_outlet_drift_z = (80.0, 140.0)
 # THE TWO REED CABLES LEAVE BY THE LID, each up the channel its own column stands in. A reed
 # channel is a cavity open from the shell's floor to its top face (`_reed_channels`), so the
 # cable's way out is the slot it is already lying in and a bore in the cap over the mouth of it.
@@ -1321,8 +1328,8 @@ CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face")
 CapAnchor.__new__.__defaults__ = (None,)
 cap_anchors = {
     #                             centre         seat_r  over_face
-    "discharge-chain": CapAnchor((61.000, -60.500), 8.700),
-    "suction-chain":   CapAnchor((35.120,  65.050), 8.700),
+    "discharge-chain": CapAnchor((61.000, -60.500), 8.5 + fits.slip, 14.700),
+    "suction-chain":   CapAnchor((35.120,  65.050), 8.5 + fits.slip, 14.700),
     # Reservoir A's own fill, which comes down onto this face at V-A's forward end and runs the
     # rest of the way aft on it. The station is the one that splits that run's two unheld spans
     # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading.
@@ -1333,18 +1340,18 @@ cap_anchors = {
     # rather than setting it, and `enclosure_assembly.check_run_seated` is what holds the two
     # together — it reads the placed solids and wants the rib within `TUBE_ANCHOR_SLIP` of the
     # tube.
-    "fluid-14":        CapAnchor(( 68.500,  43.500), 3.375, 21.894),
+    "fluid-14":        CapAnchor(( 68.500,  43.500), 6.35 / 2.0 + fits.slip, 21.894),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
 # fastener stated for the other box; `enclosure_assembly.check_tie_vocabulary` holds the two
 # against each other.
-#   WHAT PICKS THE TIE IS THE LOOP, not the width: `cap_anchor_tie_loop` is [77 mm](ANCHOR_LOOP)
+#   WHAT PICKS THE TIE IS THE LOOP, not the width: `cap_anchor_tie_loop` is [76.7 mm](ANCHOR_LOOP)
 # round the chain and its rib, past the ~69 mm a 4" closes, so this one takes the 6" 18 lb the
 # ledger already carries. An 18 lb zip tie is 0.1" across at every length it is sold in, so the
 # longer tie goes through the same cavity.
 cap_anchor_tie_w = 2.5              # the 18 lb zip tie, across its width — 0.1"
-cap_anchor_cav_buffer = 1.0           # the room a cavity carries over the zip tie
+cap_anchor_cav_buffer = 2.0 * fits.slip
 cap_anchor_cav_w = cap_anchor_tie_w + cap_anchor_cav_buffer
 # Solid either side of the channel, ALONG the run: what the rib keeps of itself at each end.
 cap_anchor_cav_wall = 3.0
@@ -1488,7 +1495,7 @@ cap_side_cav_h = cap_side_wall
 # And a post whose pipe runs low keeps all the air it has. Capping a window that is already
 # compact buys a fraction of channel back as a floor thinner than the room the cavity is cut
 # with — `enclosure.tube_anchor_backing_min` again, and the same figure.
-cap_side_cav_backing_min = cap_anchor_cav_buffer
+cap_side_cav_backing_min = 1.0  # printable stock, independent of tie clearance
 # The tie's own channel down the post's back face, so the buckle seats and the zip tie cannot walk
 # along the run.
 cap_side_back_relief = 1.2
@@ -1511,7 +1518,7 @@ cap_side_anchors = {
     # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
     # through, so the pair cannot drift apart quietly.
     # The post is one length deep, with the V-B plinth aft of it.
-    "water-3": SideAnchor((138.000, -13.000), 7.600, 3.375, 1.500, cap_side_len),
+    "water-3": SideAnchor((138.000, -13.000), 7.600, 6.35 / 2.0 + fits.slip, 1.500, cap_side_len),
     # `fluid-18`'s gate-side hold: its crossing runs the crown storey fore of the pump, and
     # this post stands the whole of that storey off the lid to grip it — the blade's front
     # face one air fore of the pump's own, the pipe proud of it by less than its wrap. The
@@ -1519,7 +1526,7 @@ cap_side_anchors = {
     # (`enclosure_assembly.TUBE_ANCHOR_SITES`).
     # The block runs aft alongside the pump, leaving room before its head block to thread
     # the 6-inch tie this post's loop takes.
-    "fluid-18": SideAnchor((51.675, 34.000), 45.800, 3.375, 1.000, 30.000),
+    "fluid-18": SideAnchor((51.675, 34.000), 45.800, 6.35 / 2.0 + fits.slip, 1.000, 30.000),
 }
 
 
@@ -1562,7 +1569,7 @@ def cap_side_anchor_height(name) -> float:
     """How tall the post stands over the lid's outer face — the axis, the pipe's own radius over
     it, and one wall over that."""
     a = cap_side_anchors[name]
-    return a.over_face + a.seat_r + cap_side_wall
+    return a.over_face + a.seat_r + fits.supported_surface + cap_side_wall
 
 
 def cap_side_anchor_holds(name) -> None:

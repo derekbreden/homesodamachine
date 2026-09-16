@@ -11,9 +11,9 @@ four to a plane. Each plane gets a tray: [2](TRAY_COUNT) per machine.
 
 | | |
 |---|---|
-| plate | [209](TRAY_W) wide × [43.6](TRAY_H) × [10](TRAY_T) mm |
+| plate | [209](TRAY_W) wide × [43.5](TRAY_H) × [10](TRAY_T) mm |
 | seats | [4](TRAY_SEATS), on the plate's own centreline |
-| socket | Ø[7.2](SOCKET_DIA) × [7](SOCKET_DEPTH) deep — a corner post presses in |
+| socket | Ø[7.1](SOCKET_DIA) × [7](SOCKET_DEPTH) deep — a corner post presses in |
 | behind a socket | [3](SOCKET_FLOOR) mm of plate, one wall |
 | port channel | Ø[17](CHANNEL_DIA), [3.20](CHANNEL_DEPTH) deep, out both ends of the plate |
 | under a channel | [6.80](CHANNEL_FLOOR) mm of plate |
@@ -22,8 +22,8 @@ four to a plane. Each plane gets a tray: [2](TRAY_COUNT) per machine.
 | post over the mounting plane | [6](TRAY_POST) mm — the whole of what a socket can hold |
 | post in the plate | [6.000](TRAY_GRIP) mm, all of it |
 | air round the port | [1](TRAY_PORT_SLIP) mm, the box's own figure for air round a body |
-| socket to port channel | [1.115](TRAY_WEB) mm — **measured**, [265](TRAY_WEB_PCT)% of a [0.42](TRAY_EXTRUSION) mm bead |
-| material, both trays | [162.79](TRAY_VOL) cm³ of `enclosure-front-top` |
+| socket to port channel | [1.160](TRAY_WEB) mm — **measured**, [276](TRAY_WEB_PCT)% of a [0.42](TRAY_EXTRUSION) mm bead |
+| material, both trays | [162.65](TRAY_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
 
@@ -35,7 +35,7 @@ plate seats the same way.
 
 **A boss is material round a socket, and this plate is that material.** It is one socket and one
 wall thick, so the seat is sunk into it rather than stood on it: the same
-[7.2](SOCKET_DIA) × [7](SOCKET_DEPTH) hole, opening on the face the valve lands on, with
+[7.1](SOCKET_DIA) × [7](SOCKET_DEPTH) hole, opening on the face the valve lands on, with
 [3](SOCKET_FLOOR) mm of plate behind. The cold core's cap lid, whose lid is thinner than a
 socket is deep, stands the bosses instead — one seat, two ways to carry it.
 
@@ -45,21 +45,21 @@ The one thing the face opens for is the valve's own **port**, which hangs
 [1](PORT_SLIP) mm slip, [3.20](CHANNEL_DEPTH) deep on [6.80](CHANNEL_FLOOR) mm of floor. The
 barrel is longer than the plate is high, so the channel runs clean out of both ends.
 
-The plate's height is the seats' own reach off their valves' centres, [18.8](TRAY_REACH) mm,
+The plate's height is the seats' own reach off their valves' centres, [18.75](TRAY_REACH) mm,
 and one [3](TRAY_MARGIN) mm margin past that. Each valve's two quick-connect collets and the
 tube butted into them hang past it in air.
 
 ## The wall between a socket and the port channel
 
 The sockets run down the valve's own axis and the port channel across the plate on its Y, and
-where they pass each other is the thinnest material in the plate: [1.115](TRAY_WEB) mm.
+where they pass each other is the thinnest material in the plate: [1.160](TRAY_WEB) mm.
 `web()` measures it rather than striking it off the radii — the two features' axes come closest
 above the socket's own top, so arithmetic answers for a cylinder that is not there.
 
 **Read that against the nozzle, not against zero.** These plates are `enclosure-front-top`'s
 material, so they come off the enclosure exterior's own bead of [0.42](TRAY_EXTRUSION) mm
 ([`enclosure/print-log.md`](/hardware/printed-parts/enclosure/enclosure/print-log.md)), and the
-web is [265](TRAY_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is
+web is [276](TRAY_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is
 absent, and a solid states material at any width.
 
 ## Where the two go

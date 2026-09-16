@@ -3377,6 +3377,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
@@ -5050,6 +5051,7 @@ cp hardware/printed-parts/enclosure/README.md $$O1
 genrule(
     name = "asse-drip-pan",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -5106,9 +5108,11 @@ cp hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py $$O3
 genrule(
     name = "bulkhead-ring",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -6427,8 +6431,10 @@ cp hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py $$O3
 genrule(
     name = "tube-collar",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -6495,6 +6501,7 @@ cp hardware/printed-parts/faucet/tube-collar/README.md $$O6
 genrule(
     name = "tee-valve-bow-trial",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py",
@@ -6640,6 +6647,7 @@ cp hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py $$O17
 genrule(
     name = "fuse-clamp",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
         "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
@@ -6880,6 +6888,7 @@ cp hardware/printed-parts/shop-storage/README.md $$O44
 genrule(
     name = "valve-seat",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/valve-seat/README.md",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",

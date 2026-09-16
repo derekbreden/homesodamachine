@@ -5,6 +5,7 @@ exterior wall arc, two short webs filling to the flanking flat walls — the
 cylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
+import fits
 from _cold_core_interface import (
     attachment_stations,
     outer_shell_wall,
@@ -139,14 +140,17 @@ def cut_insert_pockets(foam_shell):
     """Heat-set insert pockets in every boss on both faces — each
     cap's M3 SHCS threads into an insert pressed from its own face, so every
     boss carries a pocket at z=0 and another at z=foam_shell_outer_height."""
-    def insert_pockets_at(z_floor):
+    def insert_pockets_at(z_floor, depth=insert_pocket_depth):
         return (
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=z_floor)
             .pushPoints(attachment_xy_positions)
             .circle(insert_pocket_radius)
-            .extrude(insert_pocket_depth)
+            .extrude(depth)
         )
-    bottom_pockets = insert_pockets_at(0).unwrap()
+    # The shell prints floor-down: only the bottom blind ends bridge over an
+    # opening. Their extra depth budgets the retained bridge skin without moving
+    # the insert mouths or the upper, upward-opening pockets.
+    bottom_pockets = insert_pockets_at(0, insert_pocket_depth + fits.supported_surface).unwrap()
     top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth).unwrap()
     return foam_shell.cut(bottom_pockets).cut(top_pockets)

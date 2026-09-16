@@ -35,6 +35,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
+sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
@@ -44,6 +45,7 @@ from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
 # The bound this file states about its own show face, recorded at import for the machine's card.
 import _stated_bounds as _bounds
+import fits
 from docgen import substitute_md, substitute_py_comments
 from _enclosure_interface import (
     display_bezel_depth,
@@ -113,7 +115,7 @@ seat_band_x = (cover_x - seat_inner_x) / 2.0
 seat_band_slope = (cover_slope - seat_inner_slope) / 2.0
 lap_band = (seat_inner_x - window_x) / 2.0
 # What the deeper section is worth in stiffness, which is the reason to want it: a plate's
-# bending stiffness goes as the cube of its section, so this is [17.6×](SEAT_STIFFNESS) times.
+# bending stiffness goes as the cube of its section, so this is [20.2×](SEAT_STIFFNESS) times.
 seat_stiffness = (display_cover_seat / display_cover_thickness) ** 3
 
 # THE PLATE IS A REVEAL IN THE FACET AND NOT A FLUTED FACE, and three separate things say so.
@@ -152,7 +154,7 @@ glass_lap_seat = glass_face_depth - display_inset_depth
 
 # THE HEAD LANDS UNDER THE 45° FACE AND THE PLANE CLOSES OVER IT. Same flat-bottomed
 # ⌀`head_cbore_dia` seat the foam cap's lids take, sunk `display_cover_seat_recess` under the
-# face — [3.2 mm](COVER_CBORE_DEPTH) of the seat's [5.2 mm](COVER_SEAT), which leaves the land under
+# face — [3.45 mm](COVER_CBORE_DEPTH) of the seat's [5.45 mm](COVER_SEAT), which leaves the land under
 # the head at the lap's own [2 mm](COVER_LAND) section. That is what sets the seat: a screw seat is
 # its counterbore and the lap under it, and the plate carries exactly that.
 cbore_dia = head_cbore_dia
@@ -160,7 +162,7 @@ cbore_depth = display_cover_cbore_depth
 land_under_head = display_cover_seat - cbore_depth             # [2 mm](COVER_LAND)
 # The ledge the counterbore's floor leaves round the shank. Printed face down it is the one thing
 # on the plate that hangs, and it hangs this far.
-cbore_ledge = (cbore_dia - screw_clear_dia) / 2.0              # [1.125 mm](CBORE_LEDGE)
+cbore_ledge = (cbore_dia - screw_clear_dia) / 2.0              # [1.25 mm](CBORE_LEDGE)
 
 # WHAT THE SCREW HAS TO STAND IN, under the head: the land, then the bore the box cuts past it —
 # the ruthex M3's own thread and the relief under it, so a tip that runs past the insert finds
@@ -355,6 +357,7 @@ def main():
         "CBORE_D": f"{cbore_dia:.4g} mm",
         "COVER_CBORE_DEPTH": f"{cbore_depth:.4g} mm",
         "SEAT_RECESS": f"{display_cover_seat_recess:.4g} mm",
+        "SUPPORT_AIR": f"{fits.supported_surface:.4g} mm",
         "COVER_LAND": f"{land_under_head:.4g} mm",
         "COVER_SCREW_LEN": f"{screw_len:.4g} mm",
         "COVER_SCREW_REACH": f"{screw_reach:.4g} mm",

@@ -14,7 +14,7 @@ SS 90° street elbow (B0CZ38MYL1) that threads into Port 4. The
 open shroud end-to-elbow joint is sealed with a bead of 100% RTV
 silicone caulk, tooled to a fillet — foam-tight, not airtight.
 
-A ⌀[6.65 mm](PRV_VENT_D) hole through the BARREL accepts a length of 1/4" OD
+A ⌀[6.8 mm](PRV_VENT_D) hole through the BARREL accepts a length of 1/4" OD
 LLDPE tubing — the unpressurized vent line. The LLDPE runs down the
 foam shell's WEST LANE and out its slot in the −X wall, one station
 below the evaporator outlet copper that shares it, into the appliance
@@ -38,14 +38,14 @@ Geometry
     Z = [44 mm](CAVITY_L)  ├──────────────────────┤  ← cap inside surface
                │                      │
                │   (cavity around     │
-               │    PRV body, hex,    │  ← [19 mm](PRV_INNER_D) ID
-               │    upper smooth cyl, │     [23 mm](PRV_OUTER_D) OD ([2 mm](PRV_WALL_T) wall)
+               │    PRV body, hex,    │  ← [19.1 mm](PRV_INNER_D) ID
+               │    upper smooth cyl, │     [23.1 mm](PRV_OUTER_D) OD ([2 mm](PRV_WALL_T) wall)
                │    bonnet windows,   │
                │    pull-ring)        │
                │                      │
     Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
 
-               ⌀[6.65 mm](PRV_VENT_D) vent bored radially through the −Y wall at
+               ⌀[6.8 mm](PRV_VENT_D) vent bored radially through the −Y wall at
                Z = [37.88 mm](VENT_STATION); the cup is rolled about its own axis at
                install so that wall faces the shell's −Z, and the tube leaves
                DOWNWARD onto the west lane (`cold_core_assembly._prv_roll`).
@@ -74,24 +74,26 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 sys.path.insert(0, str(_here.parents[1]))
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 
 from _cadq_export import export_assembly
 from _cold_core_interface import port_hole_radius
+import fits
 from _materials import C_SHROUD, one_body
 from docgen import substitute_md, substitute_py_comments
 
 
 # Physical dimensions
 
-# [19 mm](PRV_INNER_D) — [0.1 mm](OVERCUT) radial slip-fit over the ⌀18.8 elbow seat cylinder.
-inner_diameter = 19.0
+# [19.1 mm](PRV_INNER_D) — 0.15 mm radial static clearance over the ⌀18.8 elbow seat cylinder.
+inner_diameter = 18.8 + 2.0 * fits.slip
 # [2 mm](PRV_WALL_T) — radial wall around the PRV body.
 wall_thickness = 2.0
 # [2 mm](PRV_CAP_T) — closed (far) end carrying the vent hole.
 cap_thickness = 2.0
 # [44 mm](CAVITY_L) — elbow seat bottom to PRV pull-ring tip.
 cavity_length = 44.0
-# [6.65 mm](PRV_VENT_D) — the vent line's own hole, on the `port_hole_radius` every bore this
+# [6.8 mm](PRV_VENT_D) — the vent line's own hole, on the `port_hole_radius` every bore this
 # machine threads a line through is cut to. IT IS THE TUBE ON THE BENCH PLUS A SLIP AND NOT THE
 # 6.35 NOMINAL: 1/4" LLDPE calipers ⌀6.5 at the top of its band, so a hole cut to the nominal is
 # an interference fit on the line it is for, and this one is bored in a barrel a hand pushes a
@@ -107,17 +109,17 @@ vent_hole_diameter = 2.0 * port_hole_radius
 # this reading against the placed shroud's.
 vent_station_z = 37.88
 
-outer_diameter = inner_diameter + 2 * wall_thickness  # [23 mm](PRV_OUTER_D)
+outer_diameter = inner_diameter + 2 * wall_thickness  # [23.1 mm](PRV_OUTER_D)
 total_length = cavity_length + cap_thickness  # [46 mm](TOTAL_L)
 
 overcut = 0.1
 
 
 def build_prv_shroud():
-    """One-piece cup on axis +Z: a full ⌀[23 mm](PRV_OUTER_D) cylinder spanning Z=0 to
-    the cap top at Z=[46 mm](TOTAL_L), an open-end bore (⌀[19 mm](PRV_INNER_D), Z=0 inward) that the
+    """One-piece cup on axis +Z: a full ⌀[23.1 mm](PRV_OUTER_D) cylinder spanning Z=0 to
+    the cap top at Z=[46 mm](TOTAL_L), an open-end bore (⌀[19.1 mm](PRV_INNER_D), Z=0 inward) that the
     elbow seat enters and that stops at the cap inner face Z=[44 mm](CAVITY_L), and a
-    ⌀[6.65 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
+    ⌀[6.8 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
     Z=[37.88 mm](VENT_STATION)."""
     outer = (
         cq.Workplane("XY")
@@ -136,6 +138,10 @@ def build_prv_shroud():
         .circle(vent_hole_diameter / 2)
         .extrude(wall_thickness + 2 * overcut)
     )
+    # Print cap-down (-Z), with the open elbow seat upward. Only the radial
+    # vent has a bridge crown: extend that side toward print-up, keeping the
+    # tube station and opposite edge fixed.
+    vent_hole = vent_hole.union(vent_hole.translate((0, 0, -fits.supported_surface)))
     return outer.cut(cavity).cut(vent_hole)
 
 

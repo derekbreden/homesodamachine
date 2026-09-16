@@ -69,9 +69,9 @@ bulkhead ring's construction at another size, printed in a second filament.
 
 | | |
 |---|---|
-| Head | M3×[8 mm](NAMEPLATE_SCREW_LEN) DIN 912, in a Ø[6.15 mm](CBORE_D) flat counterbore [3 mm](NAMEPLATE_CBORE_DEPTH) deep |
+| Head | M3×[8 mm](NAMEPLATE_SCREW_LEN) DIN 912, in a Ø[5.8 mm](CBORE_D) flat counterbore [3 mm](NAMEPLATE_CBORE_DEPTH) deep |
 | Land under it | [1.5 mm](NAMEPLATE_LAND), and it is the plate's own section — head plus land is what sets [4.5 mm](NAMEPLATE_T) |
-| Seat | Ø[9.15 mm](NAMEPLATE_SEAT_D) of plate round the counterbore, one ligament, and no pad standing off the back |
+| Seat | Ø[8.8 mm](NAMEPLATE_SEAT_D) of plate round the counterbore, one ligament, and no pad standing off the back |
 | Reach | [8 mm](NAMEPLATE_SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
 | Boss | [7 mm](BOSS_STEM_D) wide, [5 mm](BOSS_REACH) off the plateau: round above the insert, square below its tangents, and carried to the wall on a full-width 45° corbel. No collar — a collar closes a pad pocket, and there is none |
 
@@ -84,15 +84,12 @@ cold core and stops there, taking nothing the pack was using. Under the pocket i
 this wall vertical on the bed, and a plateau's underside is the plate's whole width of ceiling
 otherwise.
 
-**And the pocket is cut to the plate's whole silhouette, chamfer included** — its floor
-[3 mm](PLATE_BEVEL) in from the outline all round, opening out to full size at 45°. This is the
-same wall standing vertical on the bed, so the pocket's own head is a down-facing ceiling: cut
-square it hangs the pocket's whole [4.5 mm](NAMEPLATE_T) depth, which measures
-[443.4 mm²](POCKET_SOFFIT_SQUARE) of flat. Ramped it hangs [1.5 mm](POCKET_RIM), or
-[147.8 mm²](POCKET_SOFFIT) — less than the [2 mm](RING_T) pocket hung before the plate ever
-thickened. The last [1.5 mm](POCKET_RIM) stays square deliberately: 45° carried out to the face
-would read as a V-groove round the plate instead of a flush inlay. The angle is
-`enclosure.relief_chamfer`, what every relief ceiling on this box rises at.
+**The pocket follows the plate's silhouette with 0.15 mm normal clearance.** Its outline
+and corner radii expand by [0.15 mm](PLATE_SLIP); its 45° bevel is
+[2.938 mm](POCKET_BEVEL), preserving that same clearance along the bevel faces.
+The pocket remains [4.5 mm](NAMEPLATE_T) deep, with a flat rim
+[1.562 mm](POCKET_RIM) deep and [153.9 mm²](POCKET_SOFFIT) of flat ceiling.
+The supported edge receives the enclosure's additional 0.25 mm relief toward print-up.
 
 **Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the
 SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall. The
@@ -111,7 +108,7 @@ A separate print from the enclosure, with its own settings.
 - **Lettering up, on a solid plane.** The type is 0.2 mm work and wants laying last, on the face
   looking at the nozzle — which puts the plate's inboard face on the bed. Everything the plate
   carries is sunk into the face that looks up, so that bed face is one plane of
-  [5895 mm²](BED_AREA) broken only by the two screw shanks: no support, no bridge, no pad to
+  [5902 mm²](BED_AREA) broken only by the two screw shanks: no support, no bridge, no pad to
   stand on. It is what the [4.5 mm](NAMEPLATE_T) section buys.
 - **The back edge is chamfered** [3 mm](PLATE_BEVEL) at 45°, so the first layer is inset all
   round and the outline grows out to full size over three millimetres. No elephant's foot on the

@@ -4,13 +4,13 @@ Hydrophobic PTFE membrane filter inside the printed reservoir cap, plus a slotte
 
 ## Architecture
 
-A ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) hydrophobic PTFE membrane filter (LVDALAB B0D41KT345) sits in a ø[13.2 mm](VENT_POCKET_D) × [2.5 mm](VENT_POCKET_DEPTH) cylindrical pocket at the top of the cap. A press-fit TPU 90A retaining ring holds the filter down. Below the pocket, a slotted splash-baffle cylinder hangs into the cap interior — any syrup that splashes up against the cap ceiling has to take a 90°-turn through one of the cylinder's side slots before it could reach the membrane.
+A ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) hydrophobic PTFE membrane filter (LVDALAB B0D41KT345) sits in a ø[13.3 mm](VENT_POCKET_D) × [2.75 mm](VENT_POCKET_DEPTH) cylindrical pocket at the top of the cap. A press-fit TPU 90A retaining ring holds the filter down. Below the pocket, a slotted splash-baffle cylinder hangs into the cap interior — any syrup that splashes up against the cap ceiling has to take a 90°-turn through one of the cylinder's side slots before it could reach the membrane.
 
 Geometry constants in `reservoir.py` in this directory lines 192–270 (`vent_pocket_*`, `vent_cylinder_*`, `vent_slot_*`, `vent_brim_*`). Headline values:
 
 - Filter: ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T), hydrophobic PTFE on PET backing
-- Pocket: ø[13.2 mm](VENT_POCKET_D) × [2.5 mm](VENT_POCKET_DEPTH) (filter thickness + retaining ring thickness)
-- Vent boss outer: ø[17.2 mm](VENT_BOSS_OD) ([2 mm](VENT_BOSS_WALL) wall around pocket)
+- Pocket: ø[13.3 mm](VENT_POCKET_D) × [2.75 mm](VENT_POCKET_DEPTH) (filter thickness + retaining ring thickness)
+- Vent boss outer: ø[17.3 mm](VENT_BOSS_OD) ([2 mm](VENT_BOSS_WALL) wall around pocket)
 - Vent hole through cap: ø[5 mm](VENT_HOLE_D)
 - Splash-baffle cylinder: ø[10 mm](VENT_CYL_OD) OD × ø[5 mm](VENT_CYL_ID) ID, ~3 mm long, hanging below the cap ceiling
 - Splash-baffle slots: [4](VENT_SLOT_COUNT) slots, [3 mm](VENT_SLOT_W) wide × [2 mm](VENT_SLOT_H) tall, cut into the cylinder wall

@@ -5,16 +5,16 @@
     "TUBE_ID_MM": "123.7 mm"
   },
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
-    "CAVITY_FAR_WALL_X": "126",
-    "CONDUIT_BORE_D": "6.65 mm",
+    "CAVITY_FAR_WALL_X": "126.2",
+    "CONDUIT_BORE_D": "6.8 mm",
     "FLAVOR_HOLE_X": "\u00b197",
     "MAGNET_WALL_BIAS": "2.5 mm",
     "REEDS_PER_RES": "4",
     "REED_CONDUIT_XY": "reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)",
-    "RESERVOIR_CLEARANCE": "0.5 mm",
-    "RESERVOIR_ROD_LEN": "175.4 mm (6.91 in)",
+    "RESERVOIR_CLEARANCE": "0.25 mm",
+    "RESERVOIR_ROD_LEN": "176.5 mm (6.95 in)",
     "ROD_DIAMETER": "3.175 mm",
-    "ROD_POSITION_X": "114.5",
+    "ROD_POSITION_X": "114.8",
     "ROD_POSITION_Y": "32.5"
   }
 }

@@ -21,6 +21,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 
 from world_workplane import (WorldWorkplane, xy_plane_z_up, xz_plane_y_up,
                              yz_plane_x_up)
+import fits
 from _cadq_export import export_assembly
 from _show_skin import write_bed_file
 import _materials as _mat
@@ -275,6 +276,11 @@ def add_chain_anchors(lid, face_z):
             .extrude(cap_anchor_len)
         )
         lid = lid.union(rib.cut(bore).clean().val())
+        # Clearance belongs to the opposite floor of this supported tunnel.
+        # Recess the thick lid locally, preserving the rib and body's seat.
+        floor_relief = block(x0 + cap_anchor_cav_wall, cap_anchor_cav_w,
+                             face_z - fits.supported_surface, face_z)
+        lid = lid.cut(floor_relief.val())
     return lid
 
 
@@ -300,7 +306,7 @@ def add_side_anchors(lid, face_z):
         depth = station.depth
         axis_z = face_z + station.over_face
         roof_z = face_z + cap_side_tunnel_roof(name)  # the window's roof, one wall under the pipe
-        sill_z = roof_z - cap_side_tunnel_h(name)     # and its floor, hung off that roof
+        sill_z = roof_z - cap_side_tunnel_h(name) - fits.supported_surface
         top_z = face_z + cap_side_anchor_height(name)
         y0 = cy - cap_side_len / 2.0                 # the post's ends, along the run
 
@@ -336,8 +342,8 @@ def add_side_anchors(lid, face_z):
         bore = (
             WorldWorkplane(xz_plane_y_up)
             .workplane(offset=y0)
-            .pushPoints([(cap_side_axis_y(name), axis_z)])
-            .circle(seat_r)
+            .center(cap_side_axis_y(name), axis_z + fits.supported_surface / 2.0)
+            .slot2D(2.0 * seat_r + fits.supported_surface, 2.0 * seat_r, angle=90)
             .extrude(cap_side_len)
         )
         # THE TIE'S OWN CHANNEL DOWN THE BACK, on the window's own width and over its mouth, so
@@ -356,6 +362,9 @@ def add_side_anchors(lid, face_z):
             .extrude(top_z - sill_z)
         )
         lid = lid.union(post.cut(bore).cut(tunnel).cut(relief).clean().val())
+        # Low anchors use the lid as the tunnel floor; the cutter reaches its
+        # surface only after the post joins it. Tall anchors keep their plinth.
+        lid = lid.cut(tunnel.val())
     return lid
 
 
@@ -457,6 +466,8 @@ def main():
         + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_wall
         for n, s in cap_anchors.items()
     )
+    anchor_volume -= sum(cap_anchor_cav_w * 2.0 * (s.seat_r + cap_anchor_wall)
+                         * fits.supported_surface for s in cap_anchors.values())
     # A SIDEWAYS anchor is priced the way it is laid down: one block the post's whole footprint,
     # standing the lid's face to its own crown, carrying a HALF bore because the pipe's axis is
     # that block's forward face; then the tie's window taken out under the pipe, and the tie's
@@ -468,7 +479,8 @@ def main():
     side_anchor_volume = sum(
         s.depth * cap_side_len * cap_side_anchor_height(n)
         - _circle_beyond(s.axis_off, s.seat_r) * cap_side_len
-        - s.depth * cap_side_cav_w * cap_side_tunnel_h(n)
+        - fits.supported_surface * (s.seat_r - s.axis_off) * cap_side_len
+        - s.depth * cap_side_cav_w * (cap_side_tunnel_h(n) + fits.supported_surface)
         - cap_side_back_relief * cap_side_cav_w
         * (cap_side_anchor_height(n) - cap_side_tunnel_roof(n))
         for n, s in cap_side_anchors.items()
@@ -495,6 +507,9 @@ def main():
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
                   + conduit_lid_relief_volume - cradle_volume - anchor_volume
                   - side_anchor_volume - plate_gain)
+    lid_expect -= (len(attachment_xy_positions) * math.pi
+                   * (head_cbore_radius ** 2 - screw_clearance_radius ** 2)
+                   * fits.supported_surface)
     cap_diff = cap_top.val().Volume() - cap_bottom.cut(
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=-1.0)
@@ -541,7 +556,7 @@ def main():
     # What is under a head is still one wall of PET-GF — the same land the head
     # clamps on when it sits on a flat lid, which is what makes the recess a
     # relocation of the clamp rather than a thinning of it.
-    land = lid_total_height - head_cbore_depth
+    land = lid_total_height - head_cbore_depth - fits.supported_surface
     assert math.isclose(land, wall_and_floor_thickness), (
         f"the land under a head is {land:g} mm, not the "
         f"{wall_and_floor_thickness:g} mm it bears on today")
@@ -565,7 +580,8 @@ def main():
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \
             f"{name} stands {zlen:.4f} mm tall, not {lid_total_height + proud:g}"
         for x, y in attachment_xy_positions:
-            cbore_floor = outer_z + inward * head_cbore_depth
+            depth = head_cbore_depth + (fits.supported_surface if inward > 0 else 0.0)
+            cbore_floor = outer_z + inward * depth
             head = build_z_axis_hole_punch(
                 origin=(x, y, min(cbore_floor, cbore_floor - inward * screw_head_height)),
                 hole_punch_radius=head_radius,
@@ -596,7 +612,7 @@ def main():
     # neither piece has to be told about the other (`flute-even`).
     #   THE TWO LIDS TAKE NONE OF IT, so each one's edge is a smooth band of the silhouette —
     # one `wall_and_floor_thickness` where the bottom lid closes the stack, and the whole
-    # [5.2 mm](LID_Z_H) of its plate where the top lid meets the crown. Neither is tall enough
+    # [5.4 mm](LID_Z_H) of its plate where the top lid meets the crown. Neither is tall enough
     # to carry the field: the fade runs over `flute_rise` off each of a band's own two faces, so
     # a band reaches full depth only at twice that, and cut on the core's own run these two come
     # back at 0.604 mm and 0.121 mm against the shell's [1.2 mm](FLUTE_D). `flute-reveal` is that

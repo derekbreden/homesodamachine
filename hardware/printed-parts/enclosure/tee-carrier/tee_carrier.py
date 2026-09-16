@@ -115,7 +115,31 @@ class CarrierSpec:
 
     @property
     def grip_z(self):
-        return self.tab_z
+        # The upper retention rim also retreats from the supported recess roof.
+        # Shorten the bar/opening together to retain the full overlap below it.
+        return self.tab_z[0], self.tab_z[1] - 2 * fits.supported_surface
+
+    @property
+    def printed_grip_z(self):
+        """Supported bar and aft-wall underside; the opening retains its nominal lower datum."""
+        return self.grip_z[0] + fits.supported_surface, self.grip_z[1]
+
+    @property
+    def printed_rim_z(self):
+        return (self.rim_z[0] + fits.supported_surface,
+                self.rim_z[1] - fits.supported_surface)
+
+    @property
+    def printed_backing_z(self):
+        return self.backing_z[0], self.backing_z[1] - fits.supported_surface
+
+    @property
+    def printed_joint_z(self):
+        return self.joint_z[0] + fits.supported_surface, self.joint_z[1]
+
+    @property
+    def printed_root_bottom_z(self):
+        return self.grip_rail_top_z + fits.supported_surface
 
     @property
     def aft_x(self):
@@ -143,7 +167,7 @@ class CarrierSpec:
     @property
     def rim_z(self):
         margin = self.grip_top_overlap + self.slide_air
-        return self.grip_rail_top_z + self.grip_shoulder_rise, self.grip_z[1] + margin
+        return self.grip_rail_top_z + self.grip_shoulder_rise, self.tab_z[1] + margin
 
     @property
     def rim_x(self):
@@ -199,10 +223,11 @@ class CarrierSpec:
     def capture_probe_angle(self):
         """Rotation just beyond the bar's clearance between its opposed flat guides."""
         run = self.grip_bar_t / 2.0 - self.grip_edge_r
-        height = (self.grip_z[1] - self.grip_z[0]) / 2.0
+        height = (self.printed_grip_z[1] - self.printed_grip_z[0]) / 2.0
+        air = self.slide_air + fits.supported_surface
         reach = math.hypot(run, height)
         return math.degrees(math.atan2(run, height)
-                            - math.acos((height + self.slide_air) / reach)) + 0.1
+                            - math.acos((height + air) / reach)) + 0.1
 
 
 DEFAULT_SPEC = CarrierSpec(
@@ -340,7 +365,7 @@ def _tie_cutters(spec: CarrierSpec):
                     spec.web_fore_y - proud,
                     spec.web_aft_y + proud,
                     site.band_z - spec.tie_slot_z / 2.0,
-                    site.band_z + spec.tie_slot_z / 2.0,
+                    site.band_z + spec.tie_slot_z / 2.0 + fits.supported_surface,
                 )
             )
     return tuple(slots)
@@ -358,18 +383,18 @@ def tie_back_envelopes(spec=DEFAULT_SPEC):
 
 def _service_tabs(spec):
     """Solid pull bars and backed finger spaces with fore shoulders and upper stop tongues."""
-    body = _box(spec.grip_back_x, spec.tab_outer_x, *spec.grip_y, *spec.grip_z)
+    body = _box(spec.grip_back_x, spec.tab_outer_x, *spec.grip_y, *spec.printed_grip_z)
     outer_edges = [edge for edge in body.val().Edges()
                    if abs(edge.Center().x - spec.tab_outer_x) < 1e-6
-                   and edge.BoundingBox().zlen > spec.tab_z[1] - spec.tab_z[0] - 1e-6]
+                   and edge.BoundingBox().zlen > spec.printed_grip_z[1] - spec.printed_grip_z[0] - 1e-6]
     body = cq.Workplane(obj=body.val().fillet(spec.grip_edge_r, outer_edges))
-    body = body.union(_box(*spec.rim_x, *spec.rim_y, *spec.rim_z))
+    body = body.union(_box(*spec.rim_x, *spec.rim_y, *spec.printed_rim_z))
     root = _box(*spec.grip_root_x, *spec.tab_y,
-                spec.grip_rail_top_z, spec.web_z[1])
+                spec.printed_root_bottom_z, spec.web_z[1])
     body = body.union(root)
     body = body.union(_box(spec.grip_back_x, spec.grip_back_x + spec.grip_back_t,
-                           *spec.backing_y, *spec.backing_z))
-    body = body.union(_box(*spec.aft_x, *spec.aft_y, *spec.grip_z))
+                           *spec.backing_y, *spec.printed_backing_z))
+    body = body.union(_box(*spec.aft_x, *spec.aft_y, *spec.printed_grip_z))
     return body.mirror('YZ'), body
 
 
@@ -379,8 +404,10 @@ def joint_sites(spec=DEFAULT_SPEC):
 
 
 def _cylinder_y(diameter, y0, y1, x, z):
-    return cq.Solid.makeCylinder(diameter / 2.0, y1 - y0,
-                                cq.Vector(x, y0, z), cq.Vector(0.0, 1.0, 0.0))
+    """Horizontal passage with its supported crown raised by the bridge allowance."""
+    passage = cq.Solid.makeCylinder(diameter / 2.0, y1 - y0,
+                                    cq.Vector(x, y0, z), cq.Vector(0.0, 1.0, 0.0))
+    return passage.fuse(passage.translate((0.0, 0.0, fits.supported_surface)))
 
 
 def _carrier_blank(spec):
@@ -410,12 +437,12 @@ def build_half(spec=DEFAULT_SPEC, side=1):
                             bounds.zmin - 1.0, bounds.zmax + 1.0))
     if side < 0:
         root = split - spec.joint_root_x
-        body = body.union(_box(root, split, spec.joint_fore_y, spec.web_aft_y, *spec.joint_z))
+        body = body.union(_box(root, split, spec.joint_fore_y, spec.web_aft_y, *spec.printed_joint_z))
         body = body.union(_box(root, spec.joint_receiver_x[1], spec.joint_fore_y,
-                               spec.joint_face_y, *spec.joint_z))
+                               spec.joint_face_y, *spec.printed_joint_z))
     else:
         body = body.union(_box(*spec.joint_receiver_x, spec.joint_face_y,
-                               spec.web_aft_y, *spec.joint_z))
+                               spec.web_aft_y, *spec.printed_joint_z))
     for x, seat_y, z in joint_sites(spec):
         body = body.cut(_cylinder_y(enclosure_interface.screw_clear_dia,
                                     spec.joint_fore_y - 1.0, spec.web_aft_y + 1.0, x, z))
@@ -439,15 +466,17 @@ def build(spec=DEFAULT_SPEC):
 
 
 def finger_probes(spec=DEFAULT_SPEC, offset_y=0.0):
+    """Finger room beside the actual printed grip, including its supported-face relief."""
     probes = []
     inner = spec.grip_back_x + spec.grip_back_t + spec.finger_air
     outer = spec.tab_outer_x + 1.0
+    z0, z1 = spec.printed_grip_z
     for side in (-1, 1):
         xa, xb = (inner, outer) if side > 0 else (-outer, -inner)
         probes.append(_box(xa, xb, spec.finger_y[0] + offset_y + spec.finger_air,
                            spec.finger_y[1] + offset_y - spec.finger_air,
-                           spec.tab_z[0] + spec.finger_air,
-                           spec.tab_z[1] - spec.finger_air).val())
+                           z0 + spec.finger_air,
+                           z1 - spec.finger_air).val())
     return tuple(probes)
 
 
@@ -544,6 +573,11 @@ def interface(spec=DEFAULT_SPEC):
         'park_aft_stop_y': spec.rim_y[1] + spec.park_offset_y,
         'guide_body_y': spec.grip_y,
         'guide_body_z': spec.grip_z,
+        'printed_guide_body_z': spec.printed_grip_z,
+        'printed_grip_rim_z': spec.printed_rim_z,
+        'printed_grip_back_z': spec.printed_backing_z,
+        'printed_joint_z': spec.printed_joint_z,
+        'supported_surface_air': fits.supported_surface,
         'guide_bearing_length': spec.grip_y[1] - spec.grip_y[0],
         'guide_slide_air': spec.slide_air,
         'grip_bar_t': spec.grip_bar_t,
@@ -611,12 +645,12 @@ def selftest(spec=DEFAULT_SPEC):
                 and face.normalAt().x * side > 0.999]
         if len(show) != 1 or show[0].innerWires():
             errors.append(f'half {side:+d} has no continuous flush bar face')
-        elif abs(show[0].BoundingBox().zmin - spec.tab_z[0]) > 1e-6:
+        elif abs(show[0].BoundingBox().zmin - spec.printed_grip_z[0]) > 1e-6:
             errors.append(f'half {side:+d} has material below the flat bar underside')
         xa, xb = sorted((side * (spec.grip_back_x + 0.1),
                          side * (spec.web_x[1] - 0.1)))
         root = _box(xa, xb, spec.web_fore_y + 0.1, spec.web_aft_y - 0.1,
-                    spec.grip_rail_top_z + 0.1, spec.web_z[1] - 0.1).val()
+                    spec.printed_root_bottom_z + 0.1, spec.web_z[1] - 0.1).val()
         if root.cut(solid).Volume() > 1e-5:
             errors.append(f'half {side:+d} lacks a solid bar root across the full web thickness')
         shifted = solid.translate((-side * spec.entry_shift_x, 0.0, 0.0)).BoundingBox()
@@ -662,7 +696,8 @@ def selftest(spec=DEFAULT_SPEC):
             if finger.intersect(complete.translate((0, dy, 0))).Volume() > 1e-5:
                 errors.append(f'carrier obstructs finger contact at y={dy:g}')
         fore_overlap = data['service_slot_y'][0] - spec.rim_y[0] - dy
-        top_overlap = spec.rim_z[1] - data['service_slot_z'][1]
+        top_overlap = (spec.printed_rim_z[1]
+                       - (data['service_slot_z'][1] + fits.supported_surface))
         if fore_overlap < spec.grip_overlap - 1e-6 or top_overlap < spec.grip_top_overlap - 1e-6:
             errors.append(f'grip retention overlap is only {fore_overlap:g}/{top_overlap:g} mm')
     for side, shape in halves.items():
@@ -674,11 +709,11 @@ def selftest(spec=DEFAULT_SPEC):
             errors.append(f'half {side:+d} obstructs its open vertical finger passage')
         xa, xb = sorted((side * spec.grip_back_x,
                          side * (spec.grip_back_x + spec.grip_back_t)))
-        backing = _box(xa, xb, *spec.backing_y, *spec.backing_z).val()
+        backing = _box(xa, xb, *spec.backing_y, *spec.printed_backing_z).val()
         if backing.cut(shape).Volume() > 1e-5:
             errors.append(f'half {side:+d} lacks its full finger-pocket backing')
         xa, xb = sorted((side * spec.aft_x[0], side * spec.aft_x[1]))
-        aft = _box(xa, xb, *spec.aft_y, *spec.grip_z).val()
+        aft = _box(xa, xb, *spec.aft_y, *spec.printed_grip_z).val()
         if spec.grip_aft_t < 3.0 or aft.cut(shape).Volume() > 1e-5:
             errors.append(f'half {side:+d} lacks a continuous 3 mm aft wall')
         for dy in spec.state_offsets_y:
@@ -728,25 +763,33 @@ def sync_readme(spec=DEFAULT_SPEC):
     values = {
         'WEB_T': spec.web_t,
         'GRIP_BAR_T': spec.grip_bar_t, 'FINGER_RUN': spec.finger_run,
-        'FINGER_HEIGHT': spec.tab_z[1] - spec.tab_z[0],
+        'FINGER_HEIGHT': spec.printed_grip_z[1] - spec.printed_grip_z[0],
         'FINGER_DEPTH': spec.tab_outer_x - spec.grip_back_x - spec.grip_back_t,
         'GRIP_BACK_T': spec.grip_back_t,
         'GRIP_AFT_T': spec.grip_aft_t,
         'GRIP_AFT_INSET': spec.exterior_x - spec.aft_x[1],
-        'OPENING_HEIGHT': spec.grip_z[1] - spec.grip_z[0] + 2.0 * spec.slide_air,
+        'OPENING_HEIGHT': (spec.grip_z[1] - spec.grip_z[0] + 2.0 * spec.slide_air
+                           + fits.supported_surface),
         'GRIP_EDGE_R': spec.grip_edge_r,
         'GRIP_PROJECTION': spec.tab_outer_x - spec.exterior_x,
         'GRIP_WIDTH': 2 * spec.tab_outer_x, 'GRIP_OVERLAP': spec.grip_overlap,
-        'GRIP_HEIGHT': spec.grip_z[1] - spec.grip_z[0],
+        'GRIP_TOP_OVERLAP': (spec.printed_rim_z[1]
+                             - interface(spec)['service_slot_z'][1]
+                             - fits.supported_surface),
+        'GRIP_HEIGHT': spec.printed_grip_z[1] - spec.printed_grip_z[0],
         'GUIDE_LENGTH': spec.grip_y[1] - spec.grip_y[0],
         'OPENING_RUN': spec.grip_bar_t + spec.finger_run + spec.park_offset_y - spec.release_offset_y,
         'GUIDE_AIR': spec.slide_air,
+        'SUPPORTED_GUIDE_AIR': spec.slide_air + fits.supported_surface,
+        'SUPPORT_AIR': fits.supported_surface,
+        'TIE_SLOT_HEIGHT': spec.tie_slot_z + fits.supported_surface,
         'SPRING_SEAT_D': spec.spring_seat_d,
         'SPRING_AXIS_Z': spec.spring_axis_z,
         'CAPTURE_PROBE_SHIFT': spec.slide_air + 0.001,
+        'CAPTURE_PROBE_SHIFT_Z': spec.slide_air + fits.supported_surface + 0.001,
         'GUIDE_TRAVEL': spec.park_offset_y - spec.release_offset_y,
         'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,
-        'RIM_BED_GAP': spec.rim_z[0] - spec.web_z[0],
+        'RIM_BED_GAP': spec.printed_rim_z[0] - spec.web_z[0],
     }
     figures = {key: f'{value:.6g} mm' for key, value in values.items()}
     figures['CAPTURE_PROBE_ANGLE'] = f'{spec.capture_probe_angle:.3g}°'

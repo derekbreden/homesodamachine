@@ -238,7 +238,8 @@ def to92(*, centre, axis=(0, 0, 1)):
 #
 # `bom.md` §8 — the reservoir floor/trough outlet. Threaded barrel up through the ⌀16 floor
 # bore, hex nut under it, integral 90° elbow turning the syrup line laterally.
-PURESEC_BARREL_R = 8.0
+# Measured thread major diameter in the purchased PureSec geometry description.
+PURESEC_BARREL_R = 15.5 / 2.0
 PURESEC_NUT_AF = 22.0
 PURESEC_NUT_H = 6.0
 PURESEC_COLLET_R = 6.0

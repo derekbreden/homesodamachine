@@ -381,8 +381,8 @@ CROSS_DROP = 7.1
 # is floored by the cabinet rather than by the cap lid the shell's own x-band stands over.
 #   TWO THINGS STAND IN IT. The Y SEAM, where the front piece laps the back one, puts a second
 # wall's thickness proud of the inner face on that plane, and this run crosses the seam on its way
-# forward — so the lap is what fences it across, and the run stands midway between the lap and the
-# shell. And `fluid-28`'s anchor rib crosses the band bodily at tube height, on the slice of Y its
+# forward — so the lap fences its west edge, and the raised first bend clears the core to its
+# east. And `fluid-28`'s anchor rib crosses the band bodily at tube height, on the slice of Y its
 # own `GATE_B_STEP_Y` places it in. This run is forward of that rib and does not meet it; a run
 # taken up the band aft of it would. Re-measure across at the seam's own plane, and along it for
 # the rib —
@@ -390,7 +390,7 @@ CROSS_DROP = 7.1
 #     w.cast((-90.0, 213.1, z), (-1, 0, 0), dia=6.35)
 #     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -101.5,-90.5 --y 265,290 --z 260,280
 #
-CHANNEL_X = -97.2
+CHANNEL_X = -94.0
 # HOW FAR UNDER THE CROSSING'S LANE THE FALL BOTTOMS OUT. The branch's corner turns through more
 # than a right angle: the leg leaving it leans west into the channel and rises onto the lane over
 # the run forward, so the fall ends beneath the storey it hands the water to.
@@ -399,15 +399,15 @@ CHANNEL_X = -97.2
 # own belly is the deepest the run gets, one `port_lead` under the branch collet, and it holds its
 # lane over the lid's outer face.
 #
-# THE BELLY IS ARITHMETIC OFF THE ROUTE AND NOT A SOLID DISTANCE. This run is SEATED on the cap —
-# the side post grips it on the crossing — so `clearance-floor` holds the pair exempt, and the
-# distance between tube and shell reads the post's own grip whatever this figure is. What the
-# belly keeps over the lid is `_water_3`'s vertex plus corner 0's tangent, less one `port_lead`.
-# Re-read it by standing a box under the arc —
+# THE CROSSING IS SEATED ON THE CAP, so its intentional anchor contact cannot measure the free
+# first bend's clearance. Read that bend separately, aft of Y=190: its swept tube clears the core
+# by more than 1 mm, and the full run clears both enclosure halves by more than 1 mm. The height
+# and west channel position are paired dimensions; lowering the bend would spend the core gap.
+# Re-read the bend where it turns off the split's column —
 #
-#     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -96.1,-89.7 --y 223,229 --z 250,256
+#     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -99,-87 --y 220,242 --z 250,274
 #
-CROSS_RISE = 8.0
+CROSS_RISE = 4.5
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
 # funnel union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
@@ -642,17 +642,17 @@ def _co2_2(F):
     inside the machine.
 
     IT NEVER CHANGES HEIGHT UNTIL IT DROPS. The regulator lies on the panel deck, so the run
-    leaves its outlet on that storey, comes forward onto the bore's own Y, crosses east onto the
+    leaves its outlet on the CO2 axis below that storey, comes forward onto the bore's own Y, crosses east onto the
     bore's own column and falls the whole way down the port lane in one leg. Three legs, two
     corners, and the only descent is the last of them.
 
-    IT IS `carb-1` ON THE SAME DECK, ONE CAP CONDUIT AFT. That run climbs this same lane off the
+    IT IS `carb-1` ONE CAP CONDUIT AFT, ON THE CO2 AXIS. That run climbs this same lane off the
     lid's other bore and crosses the deck the other way, to the meter. The two conduits stand
     side by side on the lid and their two runs stand side by side over it.
 
     The lane is the one window the +X flank leaves: the power block's column stands on the lid
     from the cap to the ceiling aft of it, and V-K's plate forward of it. Both ends of this run
-    are on the deck, so a move of the deck carries the whole of it."""
+    follow their fittings, so the crossing follows the regulator's axis."""
     out = F["wr1110"].at("outlet")
     bore = F["foam-assembly"].at("co2-in")
     return R.bent(

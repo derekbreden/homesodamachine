@@ -21,6 +21,8 @@ _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "reference" / "beduan-solenoid"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
+sys.path.insert(0, str(_hardware / "printed-parts" / "cadlib"))
+import fits
 import beduan_solenoid as valve
 from docgen import substitute_md
 
@@ -32,7 +34,7 @@ corner_post_radius = valve.corner_boss_radius
 seat_top_z = valve.boss_z_range[0]
 
 # --- what the seat adds ------------------------------------------------------
-socket_clearance = 0.2   # radial, post to socket — the press fit
+socket_clearance = fits.slip  # radial, post to its static socket
 wall = 3.0               # minimum material outside a socket
 socket_floor_z = -1.0    # the socket floor, under the post tips at z = 0, so a post bottoms out
                          # on nothing and the round boss alone sets the valve's height

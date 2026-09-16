@@ -22,6 +22,7 @@ base, and what the slots carry is made up on that base's own picks.
 """
 
 import math
+import fits
 
 from _cold_core_interface import (
     wall_and_floor_thickness,
@@ -244,14 +245,20 @@ def cut_line_corridors(foam_shell, gives_way):
 
     for name in sorted(internal_routes):
         corridor = route_corridor(name)
-        box = corridor.BoundingBox()
-        for body in gives_way:
-            solid = body.val() if hasattr(body, "val") else body
-            b = solid.BoundingBox()
-            if (box.xmax < b.xmin or box.xmin > b.xmax or box.ymax < b.ymin
-                    or box.ymin > b.ymax or box.zmax < b.zmin or box.zmin > b.zmax):
-                continue                      # a box is enough to prove it never gets there
-            foam_shell = foam_shell.cut(corridor.intersect(solid))
+        # Floor-down shell: keep the tube's nominal floor and axis, with the
+        # bridge allowance at the crossing's crown. The enlarged tool only cuts
+        # the explicitly permitted pocket walls and corner posts below.
+        # Sequential subtraction is the same union of cutters, without fusing
+        # two nearly coincident swept pipes along their entire route first.
+        for tool in (corridor, corridor.translate((0, 0, fits.supported_surface))):
+            box = tool.BoundingBox()
+            for body in gives_way:
+                solid = body.val() if hasattr(body, "val") else body
+                b = solid.BoundingBox()
+                if (box.xmax < b.xmin or box.xmin > b.xmax or box.ymax < b.ymin
+                        or box.ymin > b.ymax or box.zmax < b.zmin or box.zmin > b.zmax):
+                    continue                  # a box is enough to prove it never gets there
+                foam_shell = foam_shell.cut(tool.intersect(solid))
     return foam_shell
 
 
@@ -276,7 +283,9 @@ def cut_prv_vent_port(foam_shell):
     wall holds across the band."""
     from _internal_routes import route_corridor
 
-    return foam_shell.cut(route_corridor("prv-vent"))
+    corridor = route_corridor("prv-vent")
+    return (foam_shell.cut(corridor)
+            .cut(corridor.translate((0, 0, fits.supported_surface))))
 
 
 def cut_lane_slots(foam_shell):
@@ -308,7 +317,7 @@ def cut_lane_slots(foam_shell):
     edge buries itself in that thickening. So the cut carries the flange's own footprint
     inboard of the wall with it, which is the seat the plug drops onto."""
     from copper_plugs import (columns, slot_width_x, outer_wall_inner_y,
-                              plug_half_x_outer, flange_y_thickness)
+                              plug_half_x_outer, plug_y_inner)
 
     slot_z_top = foam_shell_outer_height + slot_width_x / 2
     overshoot = 1.0                                    # a through-cut, both faces cleared
@@ -323,8 +332,8 @@ def cut_lane_slots(foam_shell):
         )
         foam_shell = foam_shell.cut(port_to_shell(slot_punch.val(), column.lane_y))
         seat = make_box(
-            (-plug_half_x_outer, plug_half_x_outer),
-            (outer_wall_inner_y, outer_wall_inner_y + flange_y_thickness),
+            (-plug_half_x_outer - fits.running, plug_half_x_outer + fits.running),
+            (outer_wall_inner_y, plug_y_inner + fits.running),
             (column.slot_z_bottom, foam_shell_outer_height + overshoot),
         ).val()
         foam_shell = foam_shell.cut(port_to_shell(seat, column.lane_y))

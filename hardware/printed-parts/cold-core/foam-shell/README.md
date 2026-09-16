@@ -29,13 +29,13 @@ The CadQuery script uses an explicit XY plane with +Z normal
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core. **Two mouths, and they never share one.** The FILL is a
-  ⌀[6.65 mm](TUBE_HOLE_D) bore in the cap, opening into the headspace above the
+  ⌀[6.8 mm](TUBE_HOLE_D) bore in the cap, opening into the headspace above the
   liquid; the DRAW is a PureSec bulkhead clamped through the floor's central
   trough, at the bottom of the wet V and the lowest drainable point in the
   cavity. Everything that enters has to cross the cavity to leave. The floor is
   a wet slope to that trough and carries a printed boss for the internal SS float
-  rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Y)
-  × [48 mm](RESERVOIR_D) deep (along X, radially outward) × [199.4 mm](RESERVOIR_H)
+  rod. Body envelope: **[140.5 mm](RESERVOIR_W) wide (along Y)
+  × [48.5 mm](RESERVOIR_D) deep (along X, radially outward) × [199.9 mm](RESERVOIR_H)
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
   and internal features live at [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
@@ -101,10 +101,10 @@ arc segments along its length:
    smaller radius derived from geometry.
 
 The two **far-side corners** (where the far +X wall meets the ±Y
-walls) are filleted: **[6.5 mm](POCKET_CORNER_R) inner radius**,
+walls) are filleted: **[6.25 mm](POCKET_CORNER_R) inner radius**,
 outer radius one wall-thickness larger (so the wall thickness stays
 uniform through the bend). The inner radius matches the rigid PETG
-reservoir's outer fillet plus the [0.5 mm](RESERVOIR_GAP) clearance, so
+reservoir's outer fillet plus the [0.25 mm](RESERVOIR_GAP) clearance, so
 the reservoir slides into a snugly-mated pocket with uniform clearance
 around the corner.
 
@@ -141,7 +141,7 @@ the cardinal axes. The slots let pour foam reach the under-carbonator
 floor regardless of which cavity it enters from.
 
 **Both bottom-plate lines cross the ring at the 225° slot, and the ring is bored
-nowhere.** The **CO2 inlet** takes a ⌀[6.65 mm](TUBE_HOLE_D) reach in from the
+nowhere.** The **CO2 inlet** takes a ⌀[6.8 mm](TUBE_HOLE_D) reach in from the
 bottom plate's lane-side port at y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z),
 **leaning** across the shell's floor to land on the port lane under the top cap's
 `co2-in` conduit. The line falls the shell's whole height down that lane, and an
@@ -214,7 +214,7 @@ half a pitch otherwise, which would land every groove of the cap on a land of th
 untouched — [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y), the same figures the cabinet was
 measured against — and the foam gives up the difference: the ±Y pour band is
 [14.8 mm](FSHELL_POUR_BAND) and the ±X forward band is [6.8 mm](FSHELL_FORWARD_BAND), which
-still passes the ⌀[6.65 mm](TUBE_HOLE_D) line that climbs it. The floor takes none of it and
+still passes the ⌀[6.8 mm](TUBE_HOLE_D) line that climbs it. The floor takes none of it and
 stays [2 mm](FSHELL_WALL_T): it lies flat, so it carries no flutes, and every height in the
 core is measured off its top face.
 
@@ -258,7 +258,7 @@ cables, each up the channel its own column stands in. See Penetrations.
 
 The `foam_cap` is a cup matching the outer shell's footprint,
 printed twice — [16 mm](CAP_H) of pour at the bottom end and
-[12.8 mm](CAP_H_TOP) at the top, whose lid takes the band its wall
+[12.6 mm](CAP_H_TOP) at the top, whose lid takes the band its wall
 would have stood in. The top cap opens +Z (mouth up); the bottom cap
 is the same cup built mouth-down so its open ceiling faces −Z. Each seats with its floor against the shell's end face and
 its open mouth + lid pointing outward — the lid is the outermost
@@ -319,24 +319,24 @@ engagement + tip-relief), drilled in from each face.
 
 ### The head sits in the lid
 
-At each station the cap's boss column stops [3.2 mm](HEAD_PAD_H) short of the
+At each station the cap's boss column stops [3.4 mm](HEAD_PAD_H) short of the
 cup's mouth, and the lid carries a pad of that same boss cross-section into the
 relief — both trimmed to the one footprint, the relief a slip larger. The pad is
-counterbored Ø[6.15 mm](HEAD_CBORE_D) from the lid's outer face and the
+counterbored Ø[5.8 mm](HEAD_CBORE_D) from the lid's outer face and the
 [3 mm](SCREW_HEAD_H) head drops into it, leaving one wall of PET-GF between the
 head and the boss section it bears on. The outer face is a plane: the bottom
 cap's is what the whole core stands on.
 
 From under the head an M3 × [25](CAP_SCREW_LEN) crosses the land, the continuous
-pad-and-column section, and the gasket, reaching [6.2 mm](CAP_SCREW_REACH) past the
+pad-and-column section, and the gasket, reaching [6.4 mm](CAP_SCREW_REACH) past the
 shell's face — the whole [5.7 mm](INSERT_LEN) of the insert, with
-[1.8 mm](TIP_CLEAR) of pocket under the tip. `_cold_core_interface.py` asserts
+[1.6 mm](TIP_CLEAR) of pocket under the tip. `_cold_core_interface.py` asserts
 both ends of that.
 
 ## Penetrations
 
 Twelve pass-throughs total — ten tube lines and two reed cables. Every tube is **1/4" OD
-(6.35 mm)**, and where one crosses printed material the hole is ⌀[6.65 mm](TUBE_HOLE_D) for
+(6.35 mm)**, and where one crosses printed material the hole is ⌀[6.8 mm](TUBE_HOLE_D) for
 a tight fit.
 
 **THE CORE IS REACHED THROUGH ITS LID.** All seven fluid lines leave by the TOP, each up a
@@ -348,8 +348,8 @@ nothing else.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Reed cable (+X) | own ⌀[6.65 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
-| 2 | Reed cable (−X) | own ⌀[6.65 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
+| 1 | Reed cable (+X) | own ⌀[6.8 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
+| 2 | Reed cable (−X) | own ⌀[6.8 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
 | 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | west-lane slot | 1/4" OD LLDPE from the prv-shroud's barrel into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
@@ -423,7 +423,7 @@ grid.
 
 ### What holds the slot up
 
-A lane's floor is the pocket floor's own band — [6.825 mm](SLOT_FLOOR_Z), one wall of PET-GF
+A lane's floor is the pocket floor's own band — [6.9 mm](SLOT_FLOOR_Z), one wall of PET-GF
 over the floor, one bore of lane, one wall again. The slot does not sit there: it stands
 one lane pitch above it, on `_cold_core_interface.front_slot_standoff`.
 
@@ -473,7 +473,7 @@ threaded after the pour has cured, and are potted nowhere.
 The −X outer_shell wall carries a **Z-elongated slot** on each of its two lanes, and
 between them they take three pass-throughs, one lane pitch up off each lane's floor: the
 two copper evaporator lines and the PRV vent. Each slot is
-⌀[6.65 mm](TUBE_HOLE_D) wide (rounded ends along Z) and both are cut by
+⌀[6.8 mm](TUBE_HOLE_D) wide (rounded ends along Z) and both are cut by
 `cut_lane_slots` in `_port_cuts.py`. A slot's
 top extends past the wall top so no sliver of wall material remains
 above it — the plugs slide down into the slot from
@@ -502,7 +502,7 @@ Pass-through Z heights (centers, absolute in the model — the floor occupies
 z = 0 to z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the
 cavity floor):
 
-[port-lane evap-inlet 28.05; west-lane evap-outlet 28.05](SLOT_Z)
+[port-lane evap-inlet 28.43; west-lane evap-outlet 28.43](SLOT_Z)
 
 The three stand at their lane's own pitch rather than each crossing
 where its own fitting sits: each line leaves its fitting, turns onto its lane and climbs
@@ -511,7 +511,7 @@ and one coil's two tails reach either the same way. The PRV vent crosses UNDER t
 it shares the west lane with, because that copper falls IN the lane from its wrap to its
 station and closes the column at every storey above it. So the whole
 of the shell's front face — field and slots together — is one band in the bottom
-[28.05 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
+[28.43 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
 packed against this face reach every port in one reach. `copper_plugs.py` derives
 them.
 
@@ -520,8 +520,8 @@ from above:
 
 | Plug | Lane | Z span (mm) | Z end arches |
 |---|---|---|---|
-| `copper-plug-west` | west | [28.05 → 213.4](PLUG_SPAN_WEST) | bottom end only (top flat) |
-| `copper-plug-port` | port | [28.05 → 213.4](PLUG_SPAN_PORT) | bottom end only (top flat) |
+| `copper-plug-west` | west | [28.43 → 213.4](PLUG_SPAN_WEST) | bottom end only (top flat) |
+| `copper-plug-port` | port | [28.43 → 213.4](PLUG_SPAN_PORT) | bottom end only (top flat) |
 
 Each plug runs from its own tube's center to the wall top, and the arch cutout at
 its bottom end holds exactly half of that tube — the tube is the gap. **The two come
@@ -543,7 +543,7 @@ copper's centre to leave printable stock beside the arch. Print with the
 continuous interior flange flat on the bed. See `copper-plugs/copper_plugs.py`
 for the middle and end-tab cross-sections.
 
-Each plug end that abuts a tube has a **⌀[6.5 mm](PLUG_ARCH_D) half-circle
+Each plug end that abuts a tube has a **⌀[6.65 mm](PLUG_ARCH_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
 without crushing it. Both plugs arch at the bottom only and end flat at the shell
 rim beneath the cap and gasket. Small gaps around the copper and the rounded slot
@@ -632,7 +632,7 @@ walls stop and the centerward walls' transition arcs swing in to join
 them.
 
 The **two reservoir pockets take no foam.** Each is occupied by its
-reservoir, which fills the pocket to [0.5 mm](RESERVOIR_GAP) on all
+reservoir, which fills the pocket to [0.25 mm](RESERVOIR_GAP) on all
 four sides and leaves the same clearance at the top under the pocket
 wall top — the pour has no way in. The pocket interior stays an air
 cavity, which is what lets the reed cable be threaded through it to
@@ -745,11 +745,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1266282.359 mm³](FSHELL_VOLUME) |
+| volume | [1264096.127 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
-| bbox z | [-0.008 to 213.454 mm](FSHELL_BBOX_Z) |
-| bbox y | [-90.508 to 90.511 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.907388, 0.203224, 91.105546) mm](CENTROID) |
+| bbox z | [-0.008 to 213.455 mm](FSHELL_BBOX_Z) |
+| bbox y | [-90.508 to 90.508 mm](FSHELL_BBOX_Y) |
+| centroid | [(0.932826, 0.199508, 91.240772) mm](CENTROID) |
 
 Quick reproduction:
 
@@ -795,3 +795,5 @@ on system Python).
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/cold-core/foam-shell/foam_shell.py`
 - `/hardware/printed-parts/cold-core/reservoir/reservoir.py`
+
+Printed mating gaps and support allowances are listed in [Cold-core printed fits](../fit-clearances.md).

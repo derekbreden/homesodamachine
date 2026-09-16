@@ -74,6 +74,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
+           _hw / "printed-parts" / "cadlib",
            _hw / "reference" / "compressor",
            _hw / "reference" / "sf76e-thermal-fuse"):
     sys.path.insert(0, str(_p))
@@ -85,6 +86,7 @@ import _overlap  # noqa: E402
 import _stated_bounds as _bounds  # noqa: E402
 import compressor as _comp  # noqa: E402
 import sf76e_thermal_fuse as _fuse  # noqa: E402
+import fits  # noqa: E402
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 # --- the donor, read off its own module -----------------------------------
@@ -110,7 +112,7 @@ TF_C = _fuse.TF_C                             # [77](CLAMP_TF) °C — what the 
 # The channel is the case's whole seat. Its depth is the case's OWN DIAMETER, so the crown lands
 # on the outboard generatrix and the pinch is cover — case — crown with nothing in between; its
 # height is one slip over the case, so the walls fence the case without ever taking the load.
-SLIP = 0.2
+SLIP = fits.slip
 CHANNEL_H = CASE_D + 2.0 * SLIP
 CHANNEL_Z = CASE_D
 CROWN = 2.5                                   # the section over the case
