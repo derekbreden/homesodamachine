@@ -100,8 +100,14 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=2.450 y=363.203 z=348.611
 click: x=-37.810 y=371.210 z=345.361
 click: x=-37.810 y=409.210 z=345.361
-click: x=39.975 y=318.000 z=342.286
+click: x=38.450 y=328.703 z=346.861
+click: x=57.975 y=424.103 z=342.286
 click: x=19.845 y=266.300 z=342.536
+
+[sliver] These shoulders join the narrower inlet-adapter pocket to the wider gas-check body pocket. The 1.184 mm width is their plan step, not a remaining wall thickness. Their common pocket roof at Z347.961 leaves 7.039 mm of continuous ceiling stock to Z355; the material beside each shoulder also joins the surrounding slab.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=32.029 y=321.203 z=345.480
+click: x=44.871 y=321.203 z=345.480
 
 [sliver] The aft end wall of the ASSE ceiling pocket has a 1 mm run beyond the anchor, not a 1 mm material thickness. The purchased body ends at Y406.21 and the pocket at Y408.21, keeping its 2 mm routing clearance. The complete shell lies west of this face, with 14.273 mm continuous stock at the anchor point.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step

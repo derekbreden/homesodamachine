@@ -401,6 +401,14 @@
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": [
+    "hardware/cold-core-layout/_water_inlet_jet.py",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_material_base.py",
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": [
     "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
     "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py",
