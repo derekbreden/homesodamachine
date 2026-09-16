@@ -23,6 +23,9 @@ OUT = DIR / 'out'
 PDF = DIR / 'install-guide.pdf'
 W, H = 396, 612
 M, CW = 32, 332
+PRESS = '--press' in sys.argv
+B = 9 if PRESS else 0
+PRESS_DIR = DIR / 'press'
 BLUE, NAVY, ICE, ORANGE = '#1749D1', '#10319C', '#DCE6FF', '#FF9152'
 INK, MUTED, RULE, CORAL = '#202337', '#606A78', '#DCE2EB', '#D64050'
 for name in ['Regular','Semibold','Bold']:
@@ -30,7 +33,7 @@ for name in ['Regular','Semibold','Bold']:
 pdfmetrics.registerFontFamily('Regular',normal='Regular',bold='Bold',italic='Regular',boldItalic='Bold')
 contours = Contours('#46515b')
 buffer = io.BytesIO()
-c = canvas.Canvas(buffer,pagesize=(W,H),pageCompression=1,invariant=1)
+c = canvas.Canvas(buffer,pagesize=(W+2*B,H+2*B),pageCompression=1,invariant=1)
 c.setTitle('Home Soda Machine - Install guide')
 c.setAuthor('Derek Bredensteiner')
 c.setSubject('Seven steps from installation through the first glass. 24 half-letter pages.')
@@ -68,8 +71,9 @@ def badge(n,x,y,r=12):
 def header(title,phase='BEFORE YOU START',step=None,sub=None):
     global page_no
     page_no+=1
-    rect(0,0,W,H,'#FFFFFF')
-    rect(0,0,W,7,BLUE)
+    c.translate(B,B)
+    rect(-B,-B,W+2*B,H+2*B,'#FFFFFF')
+    rect(-B,-B,W+2*B,7+B,BLUE)
     label(phase,M,30)
     if step is not None:
         badge(step,340,25,12)
@@ -163,16 +167,19 @@ def projected(mapper,point,cam,target,span,size=(1600,1500)):
     return mapper(size[0]/2+sum(a*b for a,b in zip(delta,right))*scale,size[1]/2-sum(a*b for a,b in zip(delta,up))*scale)
 
 # 1
+def front_cover(ground=True):
+    if ground:rect(-B,-B,W+2*B,H+2*B,BLUE)
+    c.drawImage(str(ART/'brand/mark-1024.png'),M-17,H-175,width=160,height=160,mask='auto')
+    label('HOME SODA MACHINE',M,191,'#FFFFFF',10)
+    text('Install',M,236,54,'Bold','#FFFFFF');text('guide',M,293,54,'Bold','#FFFFFF')
+    rect(M,365,56,5,ORANGE)
+    para('From the box<br/>to your first glass.',M,395,CW,22,28,'#FFFFFF',limit=70)
+    text('SEVEN STEPS. EVERY CONNECTION.',M,519,9,'Semibold',ICE)
+    text('homesodamachine.com',M,558,10,'Regular','#FFFFFF')
 page_no=1
-rect(0,0,W,H,BLUE)
-c.drawImage(str(ART/'brand/mark-1024.png'),M-17,H-175,width=160,height=160,mask='auto')
-label('HOME SODA MACHINE',M,191,'#FFFFFF',10)
-text('Install',M,236,54,'Bold','#FFFFFF');text('guide',M,293,54,'Bold','#FFFFFF')
-rect(M,365,56,5,ORANGE)
-para('From the box<br/>to your first glass.',M,395,CW,22,28,'#FFFFFF',limit=70)
-text('SEVEN STEPS. EVERY CONNECTION.',M,519,9,'Semibold',ICE)
-text('homesodamachine.com',M,558,10,'Regular','#FFFFFF')
-c.bookmarkPage('page-1');c.addOutlineEntry('1. Install guide','page-1',0,False);c.showPage()
+if not PRESS:
+    front_cover()
+    c.bookmarkPage('page-1');c.addOutlineEntry('1. Install guide','page-1',0,False);c.showPage()
 
 # 2
 header('Your route to soda',sub='Use this booklet on its own, or beside the quick start. The same seven steps appear in both.')
@@ -453,25 +460,47 @@ para('<b>After repair:</b> repeat the water and gas checks on pages 16-17. Conne
 end()
 
 # 24
+def back_cover(ground=True,links=True):
+    if ground:rect(-B,-B,W+2*B,H+2*B,BLUE)
+    c.drawImage(str(ART/'brand/mark-1024.png'),M-10,H-139,width=120,height=120,mask='auto')
+    label('HOME SODA MACHINE',M,164,'#FFFFFF',9)
+    text('On tap.',M,212,45,'Bold','#FFFFFF')
+    rect(M,282,49,4,ORANGE)
+    para('Keep this guide<br/>with your install kit.',M,315,CW,21,27,'#FFFFFF',limit=60)
+    para('<b>No pour:</b> check the water shutoff and the tee lever. <b>No power:</b> check the cord and outlet, then read any display message. <b>Warm pour:</b> allow about an hour for the first chill.',M,408,CW,10.5,14,ICE,limit=56)
+    para('<b>Sealed cooling circuit</b><br/>R-600a (isobutane), flammable refrigerant.<br/>Under 1.5 oz (40 g). Do not open, puncture or heat.',M,472,CW,9,12,ICE,limit=48)
+    text('homesodamachine.com',M,533,16,'Semibold','#FFFFFF')
+    text('Guides: homesodamachine.com/drawings',M,563,9,'Regular',ICE)
+    if links:
+        c.linkURL('https://homesodamachine.com',(M,H-550,W-M,H-530),relative=0)
+        c.linkURL('https://homesodamachine.com/drawings',(M,H-577,W-M,H-560),relative=0)
 page_no+=1
-rect(0,0,W,H,BLUE)
-c.drawImage(str(ART/'brand/mark-1024.png'),M-10,H-139,width=120,height=120,mask='auto')
-label('HOME SODA MACHINE',M,164,'#FFFFFF',9)
-text('On tap.',M,212,45,'Bold','#FFFFFF')
-rect(M,282,49,4,ORANGE)
-para('Keep this guide<br/>with your install kit.',M,315,CW,21,27,'#FFFFFF',limit=60)
-para('<b>No pour:</b> check the water shutoff and the tee lever. <b>No power:</b> check the cord and outlet, then read any display message. <b>Warm pour:</b> allow about an hour for the first chill.',M,408,CW,10.5,14,ICE,limit=56)
-para('<b>Sealed cooling circuit</b><br/>R-600a (isobutane), flammable refrigerant.<br/>Under 1.5 oz (40 g). Do not open, puncture or heat.',M,472,CW,9,12,ICE,limit=48)
-text('homesodamachine.com',M,533,16,'Semibold','#FFFFFF')
-c.linkURL('https://homesodamachine.com',(M,H-550,W-M,H-530),relative=0)
-text('Guides: homesodamachine.com/drawings',M,563,9,'Regular',ICE)
-c.linkURL('https://homesodamachine.com/drawings',(M,H-577,W-M,H-560),relative=0)
-c.bookmarkPage('page-24');c.addOutlineEntry('24. Keep your guide','page-24',0,False)
-c.showPage();c.save()
+if PRESS:
+    c.showPage();c.showPage()
+else:
+    back_cover()
+    c.bookmarkPage('page-24');c.addOutlineEntry('24. Keep your guide','page-24',0,False)
+    c.showPage()
+c.save()
 assert page_no==24
 if contours.pending:
     contours.render()
-    subprocess.run([sys.executable,str(Path(__file__).resolve())],cwd=ROOT,check=True)
+    subprocess.run([sys.executable,str(Path(__file__).resolve())]+sys.argv[1:],cwd=ROOT,check=True)
+    sys.exit(0)
+if PRESS:
+    PRESS_DIR.mkdir(parents=True,exist_ok=True)
+    interior=PRESS_DIR/'interior.pdf';interior.write_bytes(buffer.getvalue())
+    spread=PRESS_DIR/'cover.pdf'
+    c=canvas.Canvas(str(spread),pagesize=(2*W+2*B,H+2*B),pageCompression=1,invariant=1)
+    c.setTitle('Home Soda Machine - Install guide cover')
+    c.setAuthor('Derek Bredensteiner')
+    c.translate(B,B)
+    rect(-B,-B,2*W+2*B,H+2*B,BLUE)
+    back_cover(ground=False,links=False)
+    c.saveState();c.translate(W,0);front_cover(ground=False);c.restoreState()
+    c.showPage();c.save()
+    print(f'{interior}: 24 pages at {(W+2*B)/72:g} x {(H+2*B)/72:g} in')
+    print(f'{spread}: 1 page at {(2*W+2*B)/72:g} x {(H+2*B)/72:g} in')
     sys.exit(0)
 PDF.write_bytes(buffer.getvalue())
 output=ROOT/'output/pdf/install-guide.pdf';output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
@@ -480,3 +509,4 @@ im=Image.open(OUT/'cover.png');im.thumbnail((800,1200));im.save(DIR/'install-gui
 (DIR/'install-guide.pdf.json').write_text(json.dumps({'title':'Home Soda Machine install guide','subtitle':'Owner install guide - seven steps in detail - 24 pages, 5.5 x 8.5 in','pages':24,'cover':'install-guide.cover.png','cover_size':list(im.size)},indent=2)+'\n')
 (OUT/'layout-checks.json').write_text(json.dumps(checks,indent=2)+'\n')
 print(f'{PDF}: {page_no} pages, {PDF.stat().st_size//1024} KB')
+subprocess.run([sys.executable,str(Path(__file__).resolve()),'--press'],cwd=ROOT,check=True)

@@ -57,10 +57,28 @@ local renders and layout measurements. Review every rendered page at reading siz
 
 ## Print
 
-The PDF contains 24 pages at 5.5 x 8.5 inches, in reading order. Print on US Letter at 100%,
-two-sided, using the printer driver's booklet layout. This makes six folded sheets. Fold the
-stack once and staple through the fold. Keep the print-production instructions with this source;
-the owner pages carry the installation.
+`install-guide.pdf` is the reading copy: 24 pages at 5.5 x 8.5 inches, in reading order, no bleed.
+It is what the site publishes.
+
+`press/` is what a printer is sent, and the composer writes it on every run:
+
+| File | Size | Holds |
+| --- | --- | --- |
+| `press/cover.pdf` | 11.25 x 8.75 in, 1 page | Back cover left of the centre line, front cover right |
+| `press/interior.pdf` | 5.75 x 8.75 in, 24 pages | Reading pages 2-23, then two blanks |
+
+Both carry Lulu's 0.125 in bleed on every outside edge; the cobalt ground and the band at each
+page's head run out into it. The cover has no spine: saddle stitch folds the cover around the
+interior. Ordered as Print Book, Digest, paperback saddle stitch, premium colour, 80# coated
+white, matte cover.
+
+The two blanks carry 22 reading pages up to the multiple of four a saddle-stitched signature
+takes. They land at the back, with the unprinted inside back cover after them. Printed folios
+and the page references in the text agree with each other; the blank inside front cover carries
+no number, so the reader's "page 9" is the page whose footer says 9.
+
+The whole booklet cannot be printed on the ET-8550: its driver offers no borderless pass with
+two-sided printing, and offers two-sided printing for plain paper only.
 
 ## Installation coverage
 
