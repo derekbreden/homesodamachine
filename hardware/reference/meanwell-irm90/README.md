@@ -12,6 +12,10 @@ feet stand on the top foam cap's lid.
 module. Geometry is from the official Mean Well IRM-90-SPEC mechanical drawing
 (screw-terminal style), cross-checked against distributor drawings.
 
+The production baseline retains this supply and its existing mounting geometry.
+The [conditional electrical Plan B](/future/carbonation-plan-b.md) depends on
+measured current and voltage under the intended load schedule.
+
 ## Geometry
 
 | | mm |

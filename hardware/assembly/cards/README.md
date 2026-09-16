@@ -151,10 +151,10 @@ counts and the order off the card files. Per-subsystem accent colors are the
 | PV-03 | Drill the rod register — both plates |
 | PV-04 | Break the plate edges — asymmetric |
 | PV-05 | Cut the level rods — three per appliance |
-| PV-06 | Dress the bottom plate — rod tacked, sparge barb in |
+| PV-06 | Tack the float rod to the bottom plate |
 | PV-07 | Deburr the tube + prep the weld surfaces |
 | PV-08 | Weld the bottom plate to the tube |
-| PV-09 | Close the carbonator — float, sparge, top plate |
+| PV-09 | Close the carbonator — float, top plate |
 | PV-10 | Dye-penetrant inspection of the closure welds |
 | PV-11 | Hydro test — 180 PSI, 30 minutes |
 | PV-12 | Citric-acid passivation |
@@ -244,7 +244,7 @@ cards; every other step takes one.
 
 | Card | Operation |
 |---|---|
-| IP-01 | CO2 path — +Y wall to cold core |
+| IP-01 | CO2 path — regulator then check, then cold core |
 | IP-02 | Water path — +Y wall to cold core |
 | IP-03 | Flavor manifold — valves and tees |
 | IP-04 | Flavor manifold — the moving carrier |
@@ -279,7 +279,7 @@ cards; every other step takes one.
 | Card | Operation |
 |---|---|
 | AB-01 | Inspect, connect, power on |
-| AB-02 | First water fill + CO2 at 90 PSI |
+| AB-02 | Fill, restart and measured pressure |
 | AB-03 | First dispenses — water, flavor A, flavor B |
 | AB-04 | Clean cycle + air purge |
 | AB-05 | Level-sensing transitions |

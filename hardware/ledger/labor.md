@@ -20,42 +20,45 @@ Cards cite [`assembly/cards/`](/hardware/assembly/cards/README.md); each card's 
 
 ## 1. Machining
 
-Drilling, tapping, chamfering, cutting and deburring — all of it on the carbonator, all of it before a single weld. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole that is part of the 90 PSI pressure boundary and must not break through.
+Drilling, tapping, chamfering, cutting and deburring for the carbonator and its water-inlet jet. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole in the carbonator's pressure boundary that must not break through.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Chamfer the four port holes; break both plate edges | PV-01, PV-04 | Countersink inside faces, burr-break only on the outside — that edge is the fillet root | 5 |
 | Tap four 1/4"-18 NPT ports in 1/4" 316L | PV-02 | Hand tap + spring guide + cutting fluid | 20 |
 | Drill the blind rod register, both plates | PV-03 | Drill press at ~740 RPM, depth stop at 0.10", proved on a scrap disc first | 5 |
-| Cut three level rods to length, deburr | PV-05 | 1/8" 316L to 131.1 mm | 5 |
+| Cut three level rods to length, deburr | PV-05 / [reservoir rods](/hardware/assembly/handwork.md#cut--seat-the-reservoir-float-rods) | 1/8" 316L: one at 131.1 mm and two at 176.5 mm | 5 |
 | Deburr the tube; Scotch-Brite the two fillet bands | PV-07 | ~30 s per joint of prep is what the weld needs; the rest is handling | 10 |
-| **Machining** | | | **[45](LAB_SEC1)** |
+| Drill the jet handling blank, cut the cap, deburr and clean | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured attended-time estimate; batch setup amortized, drilling fixture already made | 5 |
+| **Machining** | | | **[50](LAB_SEC1)** |
 
 ## 2. Welding & brazing
 
-Three laser welds on the carbonator and one brazed tie-in on the refrigerant loop. Both are argon-shielded, both are pressure joints.
+Four laser operations serve the carbonator: the float-rod tack, two closure welds and the water-inlet jet cap weld. The refrigerant loop has one brazed tie-in. Argon shielding and the jet's internal purge are included in their attended setup allowances.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Tack the float rod into the bottom-plate register | PV-06 | Same welding session as the plate fillets — heat the welder once | 5 |
 | Weld the bottom-plate corner fillet under argon | PV-08 | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | 10 |
 | Close the carbonator — top-plate fillet, float captive | PV-09 | Same joint, one shot, nothing comes back out after this | 10 |
+| Fixture, purge and weld the water-inlet jet cap | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate for a qualified, repeatable process; destructive development coupons are excluded | 10 |
 | Cut the loop, tie in the suction line, pinch-swage the capillary | RL-03, RL-04, RL-05 | Brazing the harvested compressor path with argon flowing through the tube | 25 |
-| **Welding & brazing** | | | **[50](LAB_SEC2)** |
+| **Welding & brazing** | | | **[60](LAB_SEC2)** |
 
-## 3. Pressure testing & leak checks
+## 3. Pressure, leak & flow checks
 
-Every pressure boundary in the unit gets proved before it is buried: the carbonator by dye penetrant and hydro before it is foamed in, the refrigerant loop by vacuum decay before charge, the CO2 path by a witnessed hold at working pressure. The holds themselves are unattended — plugging, filling, pumping, reading and draining are not.
+The carbonator receives dye penetrant and hydro before foaming, the refrigerant loop a vacuum-decay check before charge, and the CO2 path a witnessed hold at measured operating pressure. The jet elbow receives its own production inspection and timed flow check. The holds themselves are unattended — plugging, filling, pumping, reading and draining are not. These checks do not replace the weld-process qualification.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Dye-penetrant both closure welds — clean, dwell, develop, read | PV-10 | Solvent-removable visible dye on bare, dry welds | 10 |
 | Hydro test to 180 PSI — plug, fill, pump, drain | PV-11 | 2× working pressure; the 30-minute hold is not counted | 15 |
-| Citric passivation — load the tub, rinse, dry | PV-12 | Batch soak in the shared tub; the 30–60 minute soak is not counted | 5 |
+| Citric passivation — load the tub, rinse, dry | PV-12 | Clean carbonator and jet elbow; batch soak in the shared tub, 30–60 minute soak not counted | 5 |
+| Inspect the jet elbow, flow-check and record the result | [Jet procedure](/hardware/assembly/water-inlet-jet.md) | Provisional, unmeasured estimate; accepted geometry and flow band must be established by qualification | 5 |
 | Pull vacuum to 500 µm, valve off, read the rise | RL-06 | Two 15-minute holds, neither counted | 10 |
 | Mass-metered recharge, run-up and leak check | RL-07, RL-08 | Scale-metered charge, then find the weep if there is one | 10 |
-| First CO2 fill to 90 PSI; witness every joint dry | AB-02 | The first time the assembled unit holds gas | 5 |
-| **Pressure testing** | | | **[55](LAB_SEC3)** |
+| First CO2 fill at the selected setting; measure pressure and witness every joint dry | AB-02 | Record actual carbonator pressure; the nominal regulator setting is not a reading | 5 |
+| **Pressure, leak & flow checks** | | | **[60](LAB_SEC3)** |
 
 ## 4. Silicone casting
 
@@ -104,7 +107,7 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Install the four elbow stacks, sparge stone, PRV shroud subassembly | PV-13, PV-14 | Nickel-guard tape, SS into SS, every port taped twice across the build | 15 |
+| Install four elbow stacks, qualified jet elbow and PRV shroud | PV-13, PV-14 | One outside elbow per port; recurring jet work is counted in §§1–3 | 15 |
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
 | CO2 path — +Y wall of back-top to cold core | IP-01 | | 10 |
 | Water path — +Y wall of back-top to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
@@ -166,9 +169,9 @@ The unit passed. Empty it, clean it up, name it, box it.
 
 | Section | Time | At [$100](LABOR_RATE)/h |
 |---|---:|---:|
-| 1. Machining | [45 m](LAB_HM1) | [$75.00](LAB_USD1) |
-| 2. Welding & brazing | [50 m](LAB_HM2) | [$83.33](LAB_USD2) |
-| 3. Pressure testing & leak checks | [55 m](LAB_HM3) | [$91.67](LAB_USD3) |
+| 1. Machining | [50 m](LAB_HM1) | [$83.33](LAB_USD1) |
+| 2. Welding & brazing | [1 h](LAB_HM2) | [$100.00](LAB_USD2) |
+| 3. Pressure, leak & flow checks | [1 h](LAB_HM3) | [$100.00](LAB_USD3) |
 | 4. Silicone casting | [35 m](LAB_HM4) | [$58.33](LAB_USD4) |
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
 | 6. Wiring | [1 h 35 m](LAB_HM6) | [$158.33](LAB_USD6) |
@@ -176,9 +179,9 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[9 h 55 m](LAB_HM)** | **[$991.67](LAB_USD)** |
+| **Per-unit total** | **[10 h 15 m](LAB_HM)** | **[$1,025.00](LAB_USD)** |
 
-The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM). Where the remaining time sits:
+The target is 10 hours attended per unit. The current estimate is [10 h 15 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
 - **Assembly** ([2 h](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
 - **Wiring** ([1 h 35 m](LAB_HM6)) — three quarters of it is the twelve harnesses. A crimp jig and a batch cut list against the harness schedule move that number; nothing else in the section will.
@@ -189,6 +192,7 @@ The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM)
 - **Unattended process time** — every hour a machine is busy and nobody is on it. That is its own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which holds the print, the cures and bakes, the hydro and vacuum holds, the passivation soak, the chill-down and the burn-in, and derives turnaround and throughput from them. Nothing there is costed.
 - **Shipping and receiving** — unpacking orders, kitting, inventory.
 - **Design, CAD, firmware and documentation** — this file costs building a unit, not developing one.
+- **Initial jet-process qualification** — destructive weld coupons, fixture development, purge qualification and setting the production flow band are development work. Recurring drilling, welding, cleaning and inspection remain in the per-unit rows above.
 - **Contract labor already capitalized in dollars** — JLCPCB assembly of the main board, SendCutSend's cutting. Those arrive as parts and are priced in [bom.md](/hardware/ledger/bom.md).
 
 ## Sources

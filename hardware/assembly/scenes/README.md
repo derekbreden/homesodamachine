@@ -12,7 +12,7 @@ digest; its subject is a file rather than a set of bodies, and it costs no appli
 
 | scene | what it shows |
 |---|---|
-| `back-top` | The back top piece and the 38 bodies it carries, seen in through its own open faces |
+| `back-top` | The back top piece and the bodies it carries, including the regulator, downstream gas check and their fittings, seen through its open faces |
 | `front-top` | The front top piece and its flavor manifold — eight valves, both pumps, two lever nuts, the display |
 | `cap-lid-fill` | The top cap and its lid alone, poured, that face bare |
 | `cap-lid` | The same pair with the pump, three valves, both chains and one run on that face |
@@ -26,12 +26,13 @@ digest; its subject is a file rather than a set of bodies, and it costs no appli
 Derived. [`_scorecard.MOUNTS`](/hardware/manifold-layout/_scorecard.py) is
 `(body, the part that holds it, the joint)` and is gated at every build, so a scene names only
 its **roots** — the printed pieces the unit is built on — and takes everything those roots hold,
-transitively. The three anchor tables say the same for what a printed rib holds. A body that
-moves to another parent moves scenes with it and no list goes stale.
+transitively. `_scorecard.RIDES` gives a body's threaded fittings and other attached pieces
+the same holder as their host. The three anchor tables say the same for what a printed rib
+holds. A body that moves to another parent moves scenes with it and no list goes stale.
 
 Three things that table cannot say are stated in [`_scenes.py`](_scenes.py): **which piece a body
 bears on** when nothing fastens it (`BEARS_ON` — a slab it lands on, a line it hangs off), **where
-the camera goes**, and the five below. A body the fastening table leaves parentless and `BEARS_ON`
+the camera goes**, and the five below. A body the fastening and rider tables leave parentless and `BEARS_ON`
 does not name is reported, not dropped.
 
 **`inner` draws a root at the depth its own model has.** Two models draw the cold core, and each

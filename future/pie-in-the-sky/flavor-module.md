@@ -95,7 +95,7 @@ Pre-margin module cost around $560. A Founder Edition module price of **~$2,500*
 
 ## What makes this work cleanly
 
-**The pressure-service half of the main unit doesn't get duplicated.** Carbonator, 90 PSI pressure service, hydro-test, sparge stone, level reeds, PRV, WR1110 regulator, ASSE 1022 backflow preventer, and diaphragm pump — none of that lives in the module. If the donor-compressor path is chosen, the module does carry its own smaller R-600a refrigeration loop; that compressor keeps its donor moulded terminal cover and carries the same outstanding enclosure qualification as the main unit.
+**The pressure-service half of the main unit doesn't get duplicated.** Carbonator, 90 PSI pressure service, hydro-test, water-inlet jet, level reeds, PRV, WR1110 regulator, ASSE 1022 backflow preventer, and diaphragm pump — none of that lives in the module. If the donor-compressor path is chosen, the module does carry its own smaller R-600a refrigeration loop; that compressor keeps its donor moulded terminal cover and carries the same outstanding enclosure qualification as the main unit.
 
 **The household keeps one CO2 tank, one water tap, one wall outlet.** The customer's install action is "plug umbilical from main into module, run module's faucet bundle up through the counter, mount the second faucet." No second CO2 regulator. No second water tee. No second AC outlet. The plumbing-and-electrical footprint of adding the module is the umbilical and the one new countertop penetration.
 

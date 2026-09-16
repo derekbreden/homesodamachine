@@ -1,10 +1,10 @@
-"""What stands inside the carbonator and inside each pocket: the sparge stack, both floor
+"""What stands inside the carbonator and inside each pocket: the inlet jet, both floor
 bulkheads, the level-sensing columns, and the two 1-wire probes.
 
 Every station here is read off the part that owns it. The reservoir rod is at `reservoir.py`'s
 own `rod_position_x` / `rod_position_y`; the reed column stands in the channel
 `_reed_channels` carves; the carbonator's two reeds sit at the heights `reed_bridge` cuts its
-pockets at; the sparge hangs off the bottom plate's lane-side port.
+pockets at; the inlet jet is at the top water elbow's male tip.
 
 THE ONE SET OF STATIONS THIS FILE STRIKES ITSELF is where each reservoir's four reeds sit
 along its column. `level-sensing.md` states the float's useful travel and the pitch that
@@ -32,6 +32,7 @@ import _coil as _C                                       # noqa: E402
 import reservoir as _res                                 # noqa: E402
 import reed_bridge as _bridge                            # noqa: E402
 import _internal_routes as _R                            # noqa: E402
+from _water_inlet_jet import JET_CAP_D, JET_CAP_T, JET_PASSAGE_D  # noqa: E402
 from _cold_core_interface import (                       # noqa: E402
     bag_pocket_outermost_x,
     bulkhead_elbow_bottom_z,
@@ -50,15 +51,17 @@ from _cadq_export import import_step
 
 # --- the three collets made up on carbonator elbows --------------------------
 #
-# `bom.md` §3, §4 and §9 each carry a PP010822E that lands on one of the carbonator's own elbows.
+# `bom.md` §3 and §9 carry PP010822E water adapters; §4 carries PI010822S for the gas port.
 # The shank threads the elbow's socket and the collet stands outside it, so a line that used to
 # start at the elbow's mouth starts at the collet's.
+# The gas adapter shares this nominal layout envelope; its acquired part has not been measured
+# against the PP reference. Part identity and material are separate from that assumption.
 PTC_STANDOFF = _ptc.COLLET_LENGTH + _ptc.HEX_LENGTH
 PTC_PORTS = ("co2-in", "carb-water-out", "water-in")
 
 
 def collet_on(mouth):
-    """One PP010822E made up on a mouth: `(solid, the mouth it now presents)`."""
+    """One nominal 1/4-inch adapter envelope: `(solid, the mouth it now presents)`."""
     out = cq.Vector(*mouth.axis).normalized()
     origin = cq.Vector(*mouth.pos) + out.multiply(PTC_STANDOFF)
     solid = F.stand_x_along(import_step(str(_ref / "jg-pp010822e.step")).val(),
@@ -71,52 +74,19 @@ def carbonator_collets() -> dict:
     vm = _V.mouths()
     return {name: collet_on(vm[name]) for name in PTC_PORTS}
 
-# --- the sparge stack, inside the carbonator over the bottom plate -----------
+# --- nominal water-inlet jet cap -------------------------------------------
 #
-# The barb threads the bottom plate's lane-side port from the INSIDE and faces up the column.
-# The stone sits on the carbonator's own axis a `STONE_STANDOFF` off the plate, and the silicone
-# stub arcs over from the barb to its stem — so the gas enters under the whole column and rises
-# the length of it, at every level the float reads.
-SILICONE_R = 0.5 * 6.35        # 1/4" ID silicone, drawn at the bore it carries
-SILICONE_BEND = 3.0 * SILICONE_R
-STONE_STANDOFF = 2.0
-# The stone stands on the carbonator's own axis. The port it feeds is `carbonator_port_offset`
-# off that axis and the barb's hex is the widest thing standing on it, so a ⌀12.7 barrel on the
-# axis clears the hex by the offset less both circumradii.
-STONE_Y = 0.0
-
-
-def _sparge_stem_top() -> float:
-    return _V.interior_z[0] + STONE_STANDOFF + F.STONE_H + F.STONE_STEM_LEN
-
-
-def sparge_stub_points() -> list:
-    """The silicone's centreline: up out of the barb, over the plate, down onto the stem."""
-    y = _V.PORTS["co2-in"]["y"]
-    barb_tip_z = _V.interior_z[0] + F.BARB_HEX_H + F.BARB_LEN
-    crest = max(barb_tip_z, _sparge_stem_top()) + SILICONE_BEND
-    return [(0.0, y, barb_tip_z),
-            (0.0, y, crest),
-            (0.0, STONE_Y, crest),
-            (0.0, STONE_Y, _sparge_stem_top())]
-
-
-def sparge_stack() -> dict:
-    """Barb, silicone stub and stone, standing on the bottom plate's inner face."""
-    y = _V.PORTS["co2-in"]["y"]
-    barb, _mouth = F.hose_barb(at=(0.0, y, _V.interior_z[0]), axis=(0.0, 0.0, 1.0))
-    stub = _R.build_route(sparge_stub_points(), SILICONE_BEND, SILICONE_R)
-    stone = F.sparge_stone(at=(0.0, STONE_Y, _sparge_stem_top()), axis=(0.0, 0.0, -1.0))
-    return {"sparge-barb": barb, "sparge-silicone-stub": stub, "sparge-stone": stone}
-
-
-def sparge_top_z() -> float:
-    """The stone's own crown — what the liquid line has to stand over."""
-    return _V.interior_z[0] + STONE_STANDOFF + F.STONE_H
-
-
-def sparge_stub_length() -> float:
-    return _R.route_wire(sparge_stub_points(), SILICONE_BEND).Length()
+# The coupon specified in `assembly/water-inlet-jet.md`: a slice of the purchased 9.5 mm
+# 316 rod, drilled before welding to the existing elbow's male tip. These are design targets,
+# not measurements of a finished joint. No weld bead, counterbore, fit clearance or altered
+# plate hole is invented here. The assembly card keeps that qualification visible.
+def water_inlet_jet() -> cq.Solid:
+    """Nominal drilled disc touching the existing model's top elbow tip, pointing down."""
+    tip = cq.Vector(*_V.port_male_tip("water-in"))
+    axis = cq.Vector(*_V.port_up("water-in"))
+    cap = cq.Solid.makeCylinder(JET_CAP_D / 2.0, JET_CAP_T, tip, axis)
+    passage = cq.Solid.makeCylinder(JET_PASSAGE_D / 2.0, JET_CAP_T, tip, axis)
+    return cap.cut(passage)
 
 
 # --- both reservoirs' floor bulkheads ----------------------------------------
@@ -363,8 +333,7 @@ def probes() -> dict:
 
 
 def bodies(reservoirs: dict = None) -> dict:
-    out = {}
-    out.update(sparge_stack())
+    out = {"water-inlet-jet-cap-nominal": water_inlet_jet()}
     for name, (solid, _m) in carbonator_collets().items():
         out[f"collet-{name}"] = solid
     for name, (solid, _m) in reservoir_bulkheads(reservoirs).items():
@@ -380,14 +349,9 @@ def mouths() -> dict:
 
 
 def report(reservoirs: dict = None) -> None:
-    hi = _bridge.high_level_z + _V.carbonator_bottom_z
-    lo = _bridge.low_level_z + _V.carbonator_bottom_z
     print("  internals")
-    print(f"    sparge          barb on the bottom plate at y {_V.PORTS['co2-in']['y']:+.2f}; "
-          f"stone crown z {sparge_top_z():.1f}, under the low line {lo:.1f} "
-          f"and the high {hi:.1f}")
-    print(f"    silicone stub   {sparge_stub_length():.1f} mm drawn against the "
-          f"~{3 * 25.4:.0f} mm bom.md §2 bills")
+    print(f"    inlet jet       nominal ⌀{JET_CAP_D:g} × {JET_CAP_T:g} cap, "
+          f"⌀{JET_PASSAGE_D:g} passage; fit, weld and installed projection unqualified")
     for name, m in sorted(mouths().items()):
         print(f"    {name:15} mouth ({m.pos[0]:+.1f}, {m.pos[1]:+.1f}, {m.pos[2]:.1f})")
     print(f"    carb reeds      z {', '.join(f'{z:.1f}' for z in carbonator_reed_z())} "
