@@ -8,14 +8,16 @@
 //   - Dev-mode flag: html.dev-mode reveals Parts / Charts / Drawings /
 //     Boards / Cost in the public nav; flag is persisted in localStorage and
 //     applied by an inline head script before first paint to avoid a flash.
+//     Walkthrough is outside that flag — every visitor gets it.
 //   - The .ios-toggle pill primitive (shared between /settings rows and
 //     anywhere else that wants the same delightful slide).
 //
 // All primary links are icon-only (Home included). Two surfaces:
-//   "public" — civilian: Home [+ Parts, Charts, Drawings, Boards,
-//              Cost when dev mode], Settings
-//   "dev"    — engineering: Home, Parts, Charts, Drawings, Boards,
-//              Cost, Settings (always)
+//   "public" — civilian: Home, Updates, Walkthrough [+ Parts, Charts,
+//              Drawings, Boards, Cost when dev mode, and Updates gives up
+//              its place to them], Settings
+//   "dev"    — engineering: Home, Walkthrough, Parts, Charts, Drawings,
+//              Boards, Cost, Settings (always)
 //
 // Render flow:
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
@@ -232,8 +234,8 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 
 /* Public nav hides Parts / Charts / Drawings / Boards / Cost unless
    html.dev-mode is set. The dev surface (.site-nav-dev) always shows them.
-   Home is never gated. */
-.site-nav-public a[data-nav="tour"],
+   Home and Walkthrough are never gated — the walkthrough is what the machine
+   is, shown; it belongs to the visitor, not to the engineering set. */
 .site-nav-public a[data-nav="parts"],
 .site-nav-public a[data-nav="charts"],
 .site-nav-public a[data-nav="drawings"],
@@ -241,7 +243,6 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 .site-nav-public a[data-nav="cost"] {
   display: none;
 }
-html.dev-mode .site-nav-public a[data-nav="tour"],
 html.dev-mode .site-nav-public a[data-nav="parts"],
 html.dev-mode .site-nav-public a[data-nav="charts"],
 html.dev-mode .site-nav-public a[data-nav="drawings"],
@@ -250,9 +251,9 @@ html.dev-mode .site-nav-public a[data-nav="cost"] {
   display: inline-flex;
 }
 
-/* Updates rides with the ungated set. The engineering icons plus the right
-   cluster come to 364px of the 375px bar, so the row carries that set or
-   Updates, never both. */
+/* Updates rides with the rest of the ungated set. Walkthrough, the engineering
+   icons and the right cluster come to 364px of the 375px bar, so the row
+   carries that set or Updates, never both. */
 .site-nav-dev a[data-nav="updates"],
 html.dev-mode .site-nav-public a[data-nav="updates"] {
   display: none;
@@ -447,10 +448,11 @@ ${pageHead}
 // edge as a unit (two siblings each with margin-left: auto would split the
 // available space and leave a big gap between them).
 //
-// Home is always visible. Parts / Charts / Drawings / Boards / Cost are
-// present in the markup but, on the public surface, hidden by CSS unless
-// html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
-// visible. Updates is the complement: visible wherever that set is hidden.
+// Home and Walkthrough are always visible. Parts / Charts / Drawings /
+// Boards / Cost are present in the markup but, on the public surface, hidden
+// by CSS unless html.dev-mode is set (see BASE_CSS). On the dev surface, all
+// are always visible. Updates is the complement: visible wherever that set is
+// hidden.
 
 // The class the gear wears for this deploy's verdict: `checks-ok`, `checks-red`, or nothing
 // when no verdict shipped. `tools/checks_now.py` writes it after every commit, so the dot turns
