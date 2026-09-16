@@ -91,9 +91,9 @@ click: x=-37.810 y=465.505 z=295.550
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-92.000 y=319.500 z=185.600
 
-[ceiling] The pan's flange passes over these flat rim-rebate shoulders. Their Z296.711 plane leaves 0.75 mm to the seated pan flange: 0.25 mm running fit plus two 0.25 mm allowances because both the flange underside and this sleeve face print down. The sleeve stock grows behind the relieved face to retain its section. Support is removed through the open pan berth.
+[ceiling] The pan's flange passes over these flat rim-rebate shoulders at Z296.211. With the pan fully seated on the clean bearing floor, the gap is 0.75 mm: 0.25 mm running fit plus two 0.25 mm allowances for the supported flange underside and sleeve shoulder. The gap is 1.25 mm in the nominal assembly pose, whose pan bottom stands 0.50 mm above the clean floor. The sleeve retains its complete 3 mm bearing floor and 3 mm retention roof. Support leaves through the open pan berth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-80.850 y=391.350 z=296.711
+click: x=-80.850 y=391.350 z=296.211
 
 [ceiling] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -115,6 +115,6 @@ click: x=97.375 y=337.000 z=258.900
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=335.500 z=327.200
 
-[sliver] This diagnostic is one zero-area STL triangle on X-107.5/Z325, with all three vertices collinear along Y207.495758..208.295883. Its zero normal produces NaN strip dimensions; it does not represent a physical face or thin section. Removing only that collapsed triangle in an analysis copy changes computed volume by 2.33e-10 mm³ and leaves 42 finite lint findings. The canonical STL remains unchanged; the witness is `.cache/support-clearance/lint/back-top-cleaned/evidence.json`.
+[sliver] This diagnostic is one zero-area STL triangle on X-107.5/Z325, with all three vertices collinear along Y207.495758..208.295883. Its zero normal produces NaN strip dimensions; it does not represent a physical face or thin section. Removing only that collapsed triangle in an analysis copy changes computed volume by 4.66e-10 mm³ and leaves 42 finite lint findings. The canonical STL remains unchanged; the witness is `.cache/support-clearance/lint/back-top-cleaned-final/evidence.json`.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-107.500 y=207.896 z=325.000
