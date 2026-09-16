@@ -28,12 +28,14 @@ A [3 mm](GRIP_BACK_T) inboard wall joins a [3 mm](GRIP_AFT_T) aft wall,
 recessed [3.25 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
 behind the opening's aft edge throughout the stroke. The fixed opening is
 [34.15 mm](OPENING_RUN) long in Y and [51.39 mm](OPENING_HEIGHT) tall, leaving at least
-[16 mm](FINGER_RUN) behind the bar throughout its travel. Its upper and lower edges
+[16 mm](FINGER_RUN) behind the bar through nominal operation and
+[13.5 mm](FINGER_RUN_AT_LIMIT) at the aft flex limit. Its upper and lower edges
 leave [0.5 mm](SUPPORTED_GUIDE_AIR) above and below the bar's [50.39 mm](GRIP_HEIGHT) height.
 
 Both outer faces finish flush with the enclosure; total width across the grips is
 [215 mm](GRIP_WIDTH). Each bar carries a retaining shoulder behind the opening's fore
-edge, with at least [4 mm](GRIP_OVERLAP) overlap throughout the stroke. A 3 mm thick
+edge, with [4 mm](GRIP_OVERLAP) overlap at nominal rest and
+[1.5 mm](FORE_OVERLAP_AT_LIMIT) at the aft flex limit. A 3 mm thick
 upper tongue runs above the bar. Both features sit outside the finger space; their
 inboard undersides clear the enclosure seam rail.
 The printed tongue overlaps the top of the support-cleared opening by
@@ -56,14 +58,14 @@ valves from underneath and carry the moving hairpins. Both guide sections join t
 The bar and its fore shoulder run between flat guide surfaces with
 [0.25 mm](GUIDE_AIR) clearance on each side in X and
 [0.5 mm](SUPPORTED_GUIDE_AIR) in Z. The bar's fore face meets the
-opening at release. The upper tongue's aft face meets its channel's end at park.
+opening at release. The upper tongue's aft face meets its channel's end at the aft flex limit.
 The finger space continues aft of that stop below the tongue. The bar's flat underside
 runs above the opening's continuous lower edge and clears the seam-rail head across its
 full depth. The upper lap passes above the tees.
 
 One broad recess in each flank runs from the outer tee well to the aft valve tray's fore
 plane. Its flat ceiling guides the tongue and its outer wall retains the fore shoulder.
-Above the bar, the entry passage runs inboard of the park stop with [0.25 mm](GUIDE_AIR) clearance.
+Above the bar, the entry passage runs inboard of the aft stop with [0.25 mm](GUIDE_AIR) clearance.
 Each tab lowers inside the enclosure, moves fore behind the wall, then seats outward.
 
 The two internal shoulders face opposite wall lands. Once the center lap is screwed
@@ -75,21 +77,24 @@ complete with the tees, ties and springs absent.
 ## Frame and motion
 
 The source returns installed geometry: +Y aft, +Z up. There are two physical stops, separated
-by [2.15 mm](GUIDE_TRAVEL). The fore stop holds all four branch sleeves fully depressed against
-the fixed plate. The aft stop leaves [0.5 mm](AFT_COLLET_GAP) between the fully extended noses
-and the plate. The complete appliance is rendered at the aft stop.
+by [4.65 mm](GUIDE_TRAVEL). The fore stop holds all four branch sleeves fully depressed against
+the fixed plate. Nominal connected rest leaves [0.5 mm](AFT_COLLET_GAP) between the fully extended
+noses and the plate, 2.15 mm aft of release. The complete appliance is rendered at this nominal
+rest. The aft stop leaves [2.5 mm](AFT_OVERTRAVEL) of additional movement beyond it for elastic bending.
 
 | Operation | Physical position | Contact |
 |---|---|---|
 | Release | Fore stop | Fixed plate continuously holds the sleeves while tubes withdraw |
 | Squeeze | Fore stop | Opposed cartridge/tab grasp bottoms tubes 10 mm beyond the depressed sleeves, cartridge 2.15 mm short of seating |
-| Connected | Aft stop | Cartridge fully seated; tubes bottom 11.65 mm beyond the extended sleeves; springs hold the carrier aft |
-| Park | Aft stop | Empty carrier held against the same stop |
+| Connected | Nominal rest, 2.15 mm aft of release | Cartridge fully seated; tubes bottom 11.65 mm beyond the extended sleeves |
+| Park datum | Nominal rest | Half-assembly and spring-loading station |
+| Aft limit | Aft stop | Additional flex room; empty carrier can return here under spring force |
 
-The stroke is the measured PP0208E sleeve travel plus the aft gap. The return first extends
+The nominal seating stroke is the measured PP0208E sleeve travel plus the nose gap. The return first extends
 the sleeves while their noses remain against the plate, then opens the small nose gap.
 Release the grips and push the cartridge through its final 2.15 mm to seat it with the tubes
-bottomed at the aft stop. The spring loads are catalog estimates; the assembled dry cycle checks return
+bottomed at nominal rest. The extra aft guide room accommodates bending without changing the
+modeled tube projection or pump position. The spring loads are catalog estimates; the assembled dry cycle checks return
 with the four actual tubes and flexible links installed.
 
 The opening's fore face and the upper tongue's aft channel end are travel stops. Their
@@ -114,7 +119,7 @@ Work with `enclosure-front-top` loose and its pump bay empty.
    Move it outward until the bar is behind the wall shoulder, then fore to the opening's
    release end. Push it outward into the opening until its face is flush with the enclosure.
 3. Bring the right half through the same route on the right. While its bar is behind the
-   wall shoulder, align it with the opening's aft/park end, then seat it outward. The left
+   wall shoulder, align it with the nominal park datum, then seat it outward. The left
    half stays at release while the right enters.
 4. Move the right half forward to release to close the central lap. Feed both M3 × 8 screws
    through the two access bores in the empty cartridge bay and tighten them into the right
@@ -177,13 +182,13 @@ bodies. Both end stops must engage on a
 a [0.501 mm](CAPTURE_PROBE_SHIFT_Z) displacement in Z and a [6.29°](CAPTURE_PROBE_ANGLE)
 rotation in either sense about every axis must encounter the flank guides alone. These are
 rigid-body contact readings. Spring clearance uses the maximum catalog outside diameter
-through loading, seating and all four working states. The reading also checks the complete
+through loading, seating, nominal states and the aft flex limit. The reading also checks the complete
 hardware wells for internal shelves and measures upper and lower web bearing at every state.
 
 The [observed collet action](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
 establishes release under continuous restraint, locking after a short separating tug and
 insertion against spring-level collet tension. The printed assembly's checks are equal tab
-motion, positive capture, empty return to park and leak-free release/reconnection with all
+motion, positive capture, empty return to the aft stop and leak-free release/reconnection with all
 eight flexible tube ends present. The spring loads in the enclosure facts are catalog
 estimates; the assembly record holds any measured loads.
 

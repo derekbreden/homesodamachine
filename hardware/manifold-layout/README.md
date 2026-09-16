@@ -189,7 +189,8 @@ final 2.15 mm to seat it with the tubes bottomed 11.65 mm beyond the extended no
 cartridge service.
 
 `enclosure_assembly.collet_plate_spec` places the release face on the actual fully depressed
-branch noses. The complete enclosure assembly is displayed at the aft stop with the cartridge fully seated.
+branch noses. The complete enclosure assembly is displayed at nominal connected rest with the cartridge fully seated.
+Its guides allow another 2.5 mm aft for elastic bending; the physical stop-to-stop range is 4.65 mm.
 The standalone manifold study shows the fore stop and the pumps 2.15 mm short of seating.
 `enclosure` joins the plate's rectangular section to the tee wall while forming front-top.
 The floor joins, outer cheeks, upper cap and front-bottom feet are part of the
