@@ -199,13 +199,10 @@ window.addEventListener(HSM_EVENTS.DEPLOY, async (e) => {
     // drops the ETags the pre-code-version deploy path already cleared).
     forceDetailRerender();
   }
-  // AWAITED, BECAUSE THE RE-RENDER READS WHAT THIS FETCHES. `fetchFiles` re-reads
-  // `/api/objects`, and that is where the moved pointer file's hashes arrive. Re-rendering
-  // ahead of it would rebuild the open model from the URLs this tab loaded with, and those
-  // still answer — an object is named by its own bytes and is never rewritten — so the page
-  // would quietly show the previous cut of the very part the publish moved, with nothing to
-  // correct it until a reload. This is the whole of what a publish is supposed to look like
-  // from an open page, so it waits for the list.
+  // AWAITED, BECAUSE THE RE-RENDER BELOW READS WHAT THIS FETCHES. `fetchFiles` re-reads
+  // `/api/objects`, which is where the moved pointer file's hashes arrive. The URLs this tab
+  // loaded with go on answering — an object is named by its own bytes and is never rewritten —
+  // so a re-render ahead of the list rebuilds the open model from the previous cut.
   await fetchFiles();
   if (newBuild) reloadOpenDetail();
 });
