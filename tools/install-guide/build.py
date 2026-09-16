@@ -24,7 +24,6 @@ PDF = DIR / 'install-guide.pdf'
 W, H = 396, 612
 M, CW = 32, 332
 PRESS = '--press' in sys.argv
-PANEL = False
 B = 9 if PRESS else 0
 PRESS_DIR = DIR / 'press'
 BLUE, NAVY, ICE, ORANGE = '#1749D1', '#10319C', '#DCE6FF', '#FF9152'
@@ -72,10 +71,9 @@ def badge(n,x,y,r=12):
 def header(title,phase='BEFORE YOU START',step=None,sub=None):
     global page_no
     page_no+=1
-    if not PANEL:
-        c.translate(B,B)
-        rect(-B,-B,W+2*B,H+2*B,'#FFFFFF')
-        rect(-B,-B,W+2*B,7+B,BLUE)
+    c.translate(B,B)
+    rect(-B,-B,W+2*B,H+2*B,'#FFFFFF')
+    rect(-B,-B,W+2*B,7+B,BLUE)
     label(phase,M,30)
     if step is not None:
         badge(step,340,25,12)
@@ -92,7 +90,7 @@ def end():
     text('HOME SODA MACHINE',M,584,7.4,'Bold',NAVY)
     text('Install guide',173,584,7.4,'Regular',MUTED)
     text(str(page_no),W-M-pdfmetrics.stringWidth(str(page_no),'Semibold',8),583,8,'Semibold',NAVY)
-    if not PANEL:c.showPage()
+    c.showPage()
 
 def pic(name,x,y,w,h,crop=None,outline=True,fade_crops=True):
     source=ART/name
@@ -184,22 +182,18 @@ if not PRESS:
     c.bookmarkPage('page-1');c.addOutlineEntry('1. Install guide','page-1',0,False);c.showPage()
 
 # 2
-def inside_front():
-    header('Your route to soda',sub='Use this booklet on its own, or beside the quick start. The same seven steps appear in both.')
-    route=[('INSTALL',[(1,'Mount the faucet','5-6',5),(2,'Add the cold-water tee','7-11',7),(3,'Match the rear connections','12-13',12)]),('TURN IT ON',[(4,'Prepare the cylinder','14-15',14),(5,'Water, then gas, then power','16-18',16)]),('YOUR FIRST GLASS',[(6,'Fill both flavors','19-20',19),(7,'Chill. Choose. Pour.','21',21)])]
-    y=150
-    for phase,rows in route:
-        label(phase,M,y);y+=24
-        for n,title,pages,target in rows:
-            badge(n,M,y-2,9);text(title,M+27,y+1,10.7,'Semibold',NAVY)
-            text(pages,335-pdfmetrics.stringWidth(pages,'Regular',10),y+1,10,'Regular',MUTED)
-            if not PANEL:c.linkAbsolute('',f'page-{target}',(M,H-y-23,W-M,H-y+5))
-            y+=31
-        y+=13
-    note('BEFORE THE FIRST CONNECTION','Check the kit and the space on pages 3-4. Keep the cylinder valve closed and the power cord unplugged while you install.',451)
-    end()
-if PRESS:page_no=2
-else:inside_front()
+header('Your route to soda',sub='Use this booklet on its own, or beside the quick start. The same seven steps appear in both.')
+route=[('INSTALL',[(1,'Mount the faucet','5-6',5),(2,'Add the cold-water tee','7-11',7),(3,'Match the rear connections','12-13',12)]),('TURN IT ON',[(4,'Prepare the cylinder','14-15',14),(5,'Water, then gas, then power','16-18',16)]),('YOUR FIRST GLASS',[(6,'Fill both flavors','19-20',19),(7,'Chill. Choose. Pour.','21',21)])]
+y=150
+for phase,rows in route:
+    label(phase,M,y);y+=24
+    for n,title,pages,target in rows:
+        badge(n,M,y-2,9);text(title,M+27,y+1,10.7,'Semibold',NAVY)
+        text(pages,335-pdfmetrics.stringWidth(pages,'Regular',10),y+1,10,'Regular',MUTED)
+        c.linkAbsolute('',f'page-{target}',(M,H-y-23,W-M,H-y+5));y+=31
+    y+=13
+note('BEFORE THE FIRST CONNECTION','Check the kit and the space on pages 3-4. Keep the cylinder valve closed and the power cord unplugged while you install.',451)
+end()
 
 # 3
 header('Have everything ready',sub='Unpack the appliance, faucet bag and install kit before opening a water connection.')
@@ -446,27 +440,25 @@ caption('Keep the collet press. The bagged cold kit is for shortening and insula
 end()
 
 # 23
-def inside_back():
-    header('Check the leaking connection', 'FIRST CHECKS')
-    para('<b>Close the water shutoff and cylinder valve.</b> Unplug the appliance. Leave pressurized connections assembled.',M,105,CW,10.8,14.5,limit=43.5)
-    line(M,158,W-M,158)
-    text('Water at a push fitting',M,175,13,'Bold',NAVY)
-    y=para('<b>Tee, filter or white TAP tube:</b> run the tap or dispenser fed by that same cold-water line until flow stops. Keep the white tee\'s side lever open, if used.<br/><b>Blue SODA tube:</b> put a jug under the soda faucet and press its lever until water and hissing stop.',M,199,CW,10.8,14.5,limit=101.5)
-    y=199+y+10
-    y+=para('After pressure is released, hold the fitting\'s release ring in with the collet press and pull the tube out. Check for dirt or damage. Push an undamaged tube fully to the internal stop, then tug gently.',M,y,CW,10.8,14.5,limit=72.5)
-    line(M,y+12,W-M,y+12)
-    y+=29
-    text('Gas at a connection',M,y,13,'Bold',NAVY)
-    y+=24
-    y+=para('Growing bubbles in soapy water show the leaking joint. The cylinder nut seals on one flat nylon washer; the gray connector seals on rubber. A crooked washer needs reseating; replace a damaged seal. See page 14.',M,y,CW,10.8,14.5,limit=72.5)
-    y+=10
-    y+=para('<b>Keep gas fittings assembled until the regulator and red tether are depressurized.</b> Do not loosen a fitting to let pressure out.',M,y,CW,10.8,14.5,limit=43.5)
-    line(M,y+12,W-M,y+12)
-    y+=29
-    para('<b>After repair:</b> repeat the water and gas checks on pages 16-17. Connect power only when water joints stay dry and gas joints show no growing bubbles.',M,y,CW,10.8,14.5,limit=58)
-    end()
-if PRESS:page_no=23
-else:inside_back()
+header('Check the leaking connection', 'FIRST CHECKS')
+para('<b>Close the water shutoff and cylinder valve.</b> Unplug the appliance. Leave pressurized connections assembled.',M,105,CW,10.8,14.5,limit=43.5)
+line(M,158,W-M,158)
+text('Water at a push fitting',M,175,13,'Bold',NAVY)
+y=para('<b>Tee, filter or white TAP tube:</b> run the tap or dispenser fed by that same cold-water line until flow stops. Keep the white tee\'s side lever open, if used.<br/><b>Blue SODA tube:</b> put a jug under the soda faucet and press its lever until water and hissing stop.',M,199,CW,10.8,14.5,limit=101.5)
+y=199+y+10
+y+=para('After pressure is released, hold the fitting\'s release ring in with the collet press and pull the tube out. Check for dirt or damage. Push an undamaged tube fully to the internal stop, then tug gently.',M,y,CW,10.8,14.5,limit=72.5)
+line(M,y+12,W-M,y+12)
+y+=29
+text('Gas at a connection',M,y,13,'Bold',NAVY)
+y+=24
+y+=para('Growing bubbles in soapy water show the leaking joint. The cylinder nut seals on one flat nylon washer; the gray connector seals on rubber. A crooked washer needs reseating; replace a damaged seal. See page 14.',M,y,CW,10.8,14.5,limit=72.5)
+y+=10
+y+=para('<b>Keep gas fittings assembled until the regulator and red tether are depressurized.</b> Do not loosen a fitting to let pressure out.',M,y,CW,10.8,14.5,limit=43.5)
+line(M,y+12,W-M,y+12)
+y+=29
+para('<b>After repair:</b> repeat the water and gas checks on pages 16-17. Connect power only when water joints stay dry and gas joints show no growing bubbles.',M,y,CW,10.8,14.5,limit=58)
+end()
+
 # 24
 def back_cover(ground=True,links=True):
     if ground:rect(-B,-B,W+2*B,H+2*B,BLUE)
@@ -484,7 +476,7 @@ def back_cover(ground=True,links=True):
         c.linkURL('https://homesodamachine.com/drawings',(M,H-577,W-M,H-560),relative=0)
 page_no+=1
 if PRESS:
-    pass
+    c.showPage();c.showPage()
 else:
     back_cover()
     c.bookmarkPage('page-24');c.addOutlineEntry('24. Keep your guide','page-24',0,False)
@@ -502,20 +494,13 @@ if PRESS:
     c=canvas.Canvas(str(spread),pagesize=(2*W+2*B,H+2*B),pageCompression=1,invariant=1)
     c.setTitle('Home Soda Machine - Install guide cover')
     c.setAuthor('Derek Bredensteiner')
-    PANEL=True
     c.translate(B,B)
     rect(-B,-B,2*W+2*B,H+2*B,BLUE)
     back_cover(ground=False,links=False)
     c.saveState();c.translate(W,0);front_cover(ground=False);c.restoreState()
-    c.showPage()
-    c.translate(B,B)
-    rect(-B,-B,2*W+2*B,H+2*B,'#FFFFFF')
-    rect(-B,-B,2*W+2*B,7+B,BLUE)
-    page_no=1;inside_front()
-    c.saveState();c.translate(W,0);page_no=22;inside_back();c.restoreState()
     c.showPage();c.save()
-    print(f'{interior}: 20 pages at {(W+2*B)/72:g} x {(H+2*B)/72:g} in')
-    print(f'{spread}: 2 pages at {(2*W+2*B)/72:g} x {(H+2*B)/72:g} in')
+    print(f'{interior}: 24 pages at {(W+2*B)/72:g} x {(H+2*B)/72:g} in')
+    print(f'{spread}: 1 page at {(2*W+2*B)/72:g} x {(H+2*B)/72:g} in')
     sys.exit(0)
 PDF.write_bytes(buffer.getvalue())
 output=ROOT/'output/pdf/install-guide.pdf';output.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(PDF,output)
