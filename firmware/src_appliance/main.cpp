@@ -9,6 +9,8 @@
 #include "idle.h"
 #include "link.h"
 #include "machine.h"
+#include "onewire.h"
+#include "refill_policy.h"
 #include "pins.h"
 #include "rtc.h"
 #include "sound.h"
@@ -34,8 +36,8 @@
 //      peaks at 3.33 A and the SeaFlo at 5 A on one 6.7 A supply. The
 //      carbonator's low reed asserts mid-pour, so the refill it queues
 //      waits for the dispense window to close. machine_policy holds this as
-//      kRefillDuringDispense and machineDispenseWindowOpen() is what asks;
-//      neither relay is driven yet, so nothing has cause to.
+//      kRefillDuringDispense and machineDispenseWindowOpen() is what asks.
+//      A pour that begins mid-draw stops the draw before it opens its path.
 //   3. GPPU written on both MCP23017s. No loom carries a resistor and
 //      the main board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.
@@ -61,7 +63,9 @@
 // self-test walks every solenoid, the condenser fan and both pumps, one load at
 // a time. Both MCP23017s boot with every output verified low and every reed
 // input on its internal pull-up; status reads those inputs on explicit request.
-// Neither relay is ever driven.
+// Relay #1 follows the cold loop against the two 1-wire probes on IO26, with
+// the condenser fan, and relay #2 follows the refill against the carbonator's
+// two reeds and the dispense window.
 
 #include "ota.h"
 
@@ -225,6 +229,13 @@ static void help() {
     Serial.println("  flow <n> [s]      pretend the meter reads n pulses per 50 ms for s seconds (default 5):");
     Serial.println("                    the selected channel pours as if carbonated water were flowing");
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
+    Serial.println("  thermal           the 1-wire bus: every ROM found, its family and its last reading");
+    Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT");
+    Serial.println("  sim tank <C> coil <C>   put a reading at the top of the cold loop; -- for a probe");
+    Serial.println("                    that does not answer. The policy, the relays and the fan then run");
+    Serial.println("                    for real on it");
+    Serial.println("  sim reeds <low|high|both|none>   the same for the carbonator's two reeds");
+    Serial.println("  sim off           back to the probes and the expanders");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
@@ -342,7 +353,27 @@ static void status() {
             Serial.println();
         }
     }
-    Serial.println("  relays   unimplemented — IO2 and IO19 parked as inputs");
+    {
+        MachineThermal t;
+        machineThermal(t);
+        Serial.printf("  relays   compressor %s (IO19), refill %s (IO2)\n",
+                      t.compressorRelay ? "CLOSED" : "open",
+                      t.refillRelay ? "CLOSED" : "open");
+        Serial.print("  cold     ");
+        if (t.tankValid) Serial.printf("tank %.2f C", t.tankC); else Serial.print("tank --");
+        if (t.coilValid) Serial.printf(", coil %.2f C", t.coilC); else Serial.print(", coil --");
+        Serial.printf(", %s", machineColdStateName(t.coldState));
+        if (t.holdRemainingMs) Serial.printf(" (%lu s left)", (unsigned long)(t.holdRemainingMs / 1000));
+        Serial.printf(", %u probe%s on IO26\n", t.probeCount, t.probeCount == 1 ? "" : "s");
+        Serial.printf("  refill   %s", machineRefillStateName(t.refillState));
+        if (t.refillPumpedMs)
+            Serial.printf(", %lu s on the pump%s", (unsigned long)(t.refillPumpedMs / 1000),
+                          t.refillState == (uint8_t)machine_policy::RefillState::Filling
+                              ? " so far" : " in the last draw");
+        Serial.println();
+        if (t.simulated)
+            Serial.println("  SIMULATED — readings injected from this console, not read off a probe");
+    }
 
     char when[48];
     rtcStamp(when, sizeof(when));
@@ -795,6 +826,62 @@ static void console(const String &line) {
     if (line == "help")        { help(); return; }
     if (line == "status")      { status(); return; }
     if (line == "link")        { linkReport(); faucetLinkReport(); return; }
+    if (line == "thermal")     { oneWireDump(); return; }
+    if (line == "refill clear") {
+        machineRefillClear();
+        Serial.println("\n[machine] refill latch cleared");
+        return;
+    }
+    // ── Injected readings ─────────────────────────────────────────────────
+    // `sim tank <C> [coil <C>]` puts a reading at the top of the cold loop and
+    // `sim reeds <low|high|none>` at the top of the refill. Everything below
+    // runs for real: the policy decides, the relays move, the fan follows.
+    //
+    //   sim tank 8 coil 5     the tank is warm and the coil is not near freezing
+    //   sim tank 1 coil -2    at the setpoint
+    //   sim coil -9           the suction line at the freeze cutout
+    //   sim reeds low         CLO closed — the carbonator is asking for water
+    //   sim reeds high        CHI closed — the draw is done
+    //   sim off               back to the probes and the expanders
+    if (line == "sim off" || line == "sim clear") {
+        machineSimClear();
+        Serial.println("\n[machine] simulation off — the probes and the reeds are the reading again");
+        return;
+    }
+    if (line.startsWith("sim ")) {
+        String rest = line.substring(4); rest.trim();
+        if (rest.startsWith("reeds")) {
+            String which = rest.substring(5); which.trim();
+            const bool low  = which == "low";
+            const bool high = which == "high";
+            const bool both = which == "both";
+            machineSimReeds(low || both, high || both);
+            Serial.printf("\n[machine] simulated carbonator reeds: low %s, high %s\n",
+                          (low || both) ? "CLOSED" : "open", (high || both) ? "CLOSED" : "open");
+            return;
+        }
+        // Whatever this line does not name keeps the value it already had.
+        MachineThermal t;
+        machineThermal(t);
+        float tankC = t.tankValid ? t.tankC : 20.0f;
+        float coilC = t.coilValid ? t.coilC : 20.0f;
+        bool  tankValid = true, coilValid = true;
+        int   at;
+        if ((at = rest.indexOf("tank")) >= 0) {
+            String v = rest.substring(at + 4); v.trim();
+            if (v.startsWith("--")) tankValid = false; else tankC = v.toFloat();
+        }
+        if ((at = rest.indexOf("coil")) >= 0) {
+            String v = rest.substring(at + 4); v.trim();
+            if (v.startsWith("--")) coilValid = false; else coilC = v.toFloat();
+        }
+        machineSimThermal(tankC, tankValid, coilC, coilValid);
+        Serial.printf("\n[machine] simulated probes: tank %s, coil %s — "
+                      "the cold loop is deciding on these, not on IO26\n",
+                      tankValid ? String(tankC, 2).c_str() : "--",
+                      coilValid ? String(coilC, 2).c_str() : "--");
+        return;
+    }
     if (line == "ping")        { linkPing(); return; }
     if (line == "display usb") { linkDisplayUsbReattach(); return; }
     if (line == "wake") {

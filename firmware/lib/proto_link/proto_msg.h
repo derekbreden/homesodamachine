@@ -411,6 +411,8 @@ constexpr uint8_t LEVEL_UNKNOWN  = 0xFF;
 constexpr uint8_t LEVEL_F_VALID     = 1 << 0;  // the reeds were read within the last few seconds
 constexpr uint8_t LEVEL_F_CARB_LOW  = 1 << 1;  // the carbonator's low reed is closed
 constexpr uint8_t LEVEL_F_CARB_HIGH = 1 << 2;  // its high reed is closed
+constexpr uint8_t LEVEL_F_SIMULATED = 1 << 3;  // a reading injected from the main board's
+                                               // console, not read off a probe or an expander
 
 // ── A page asked for by the console ──────────────────────────────────────
 constexpr uint8_t UI_RAIL_CHOOSE   = 0;
@@ -659,7 +661,9 @@ struct __attribute__((packed)) PrimeStatePayload {
   uint32_t ms;       // how long the pump has been, or was, turning
 };
 
-// What a main board reads about itself without touching a bus or anything it drives.
+// What a main board reads about itself without touching a bus or anything it
+// drives. The thermal fields are the cold loop's last pass of the 1-wire bus
+// and the two relay pins as they stand, read out of what machine.cpp holds.
 struct __attribute__((packed)) StatusPayload {
   uint32_t uptimeS;
   uint32_t freeHeap;
@@ -674,9 +678,19 @@ struct __attribute__((packed)) StatusPayload {
   uint8_t  level[2];      // each reservoir's gauge, 0..LEVEL_SEGMENTS, or LEVEL_UNKNOWN
   uint8_t  levelFlags;    // LEVEL_F_*
   uint8_t  ratio[2];      // what each channel pours at
+  int16_t  tankCx10;      // carbonator wall, tenths of a degree C; TEMP_UNREAD when not read
+  int16_t  coilCx10;      // suction line, tenths of a degree C; TEMP_UNREAD when not read
+  uint8_t  coldState;     // machine_policy::ColdState
+  uint8_t  refillState;   // machine_policy::RefillState
+  uint8_t  probeCount;    // devices found on the 1-wire bus
+  uint8_t  thermalPad;    // keeps the struct even
 };
 
-static_assert(sizeof(StatusPayload) == 32, "main board status wire layout drift");
+static_assert(sizeof(StatusPayload) == 40, "main board status wire layout drift");
+
+// A probe whose reading failed its CRC, whose family code is not the one that
+// station carries, or that is not on the bus at all.
+constexpr int16_t TEMP_UNREAD = INT16_MIN;
 
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
@@ -684,6 +698,10 @@ constexpr uint8_t STATUS_F_FILLING  = 1 << 2;  // a funnel fill is drawing
 constexpr uint8_t STATUS_F_CLEANING = 1 << 3;  // a clean cycle is running
 constexpr uint8_t STATUS_F_AIRING   = 1 << 4;  // an air cycle is running
 constexpr uint8_t STATUS_F_POURING  = 1 << 5;  // carbonated water is flowing and primeChannel's pump injects
+// The pins themselves, not what the two states above want: a state and its
+// relay that disagree are two readings a console can hold side by side.
+constexpr uint8_t STATUS_F_COMPRESSOR = 1 << 6;  // relay #1 is energised
+constexpr uint8_t STATUS_F_REFILL     = 1 << 7;  // relay #2 is energised
 
 // ── Sound ─────────────────────────────────────────────────────────────────
 // Wire-level sound ids. These mirror SoundId in lib/sound/sound.h, which is the
