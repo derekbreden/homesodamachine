@@ -1,0 +1,11 @@
+[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
+click: x=0.000 y=3.750 z=33.035
+
+[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
+click: x=0.000 y=3.750 z=-33.035
+
+[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
+click: x=-52.265 y=3.750 z=0.000
+
+[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
+click: x=52.265 y=3.750 z=0.000

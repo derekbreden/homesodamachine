@@ -178,6 +178,77 @@
           ]
         ]
       }
+    },
+    {
+      "date": "2026-09-15",
+      "printer": "Mark2",
+      "printer_serial": "31B8AP612801351",
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "project": ".cache/prints/enclosure-front-bottom-mark2-current/enclosure-front-bottom-mark2-input.3mf",
+      "project_sha256": "8926d84b1f1bf35a77ccb574c9fe9eeada8b8014d2f0f4c205df906d1e1c9bca",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d9068b52c4d06c85507421ecfcd8d3e19e5812153583715b0fdc7662f2bee379"
+      },
+      "geometry_commit": "23b6861cd6c5b04f2c7ef59d8e95dd38612ddfaa",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Polymaker PET-GF; PET-CF mapping on left external spool",
+      "sliced_file": ".cache/prints/enclosure-front-bottom-mark2-current/enclosure-front-bottom-mark2.gcode.3mf",
+      "sliced_file_sha256": "ac064c58263bc3ddf5bea374b4ec427dce1ac66fd537f1a760df9208c75acd99",
+      "gcode_sha256": "5bbf7a1d3bbe27f4594add14001ebbe087c1e477f6b4d868f2d644539ae6a16a",
+      "layers": 754,
+      "estimated_seconds": 63417.0,
+      "filament_grams": 561.04,
+      "support_settings": {
+        "enable_support": "1",
+        "support_top_z_distance": "0.45",
+        "support_interface_top_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_pattern": "auto",
+        "support_interface_loop_pattern": "0",
+        "support_expansion": "0",
+        "support_object_xy_distance": "0.4",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "support_filament": "0",
+        "support_interface_filament": "0",
+        "layer_height": "0.24",
+        "curr_bed_type": "Textured PEI Plate"
+      },
+      "settings_overrides": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ]
+      },
+      "nozzle_temperature_c": [
+        265,
+        280
+      ],
+      "bed_temperature_c": [
+        80,
+        80
+      ],
+      "print_options": {
+        "timelapse": "Off",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "sent_via": "Bambu Connect",
+      "started_by": "agent",
+      "status": "started",
+      "job_name": "enclosure-front-bottom-mark2.gcode.3mf",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-16T01:11:48.730399+00:00",
+      "observed_print_error": 0,
+      "observed_layer": 0,
+      "slicer_warnings": []
     }
   ]
 }

@@ -1,18 +1,16 @@
-[step] The groove roof and the pocket ceiling walk — two stated 45° datums 0.495 mm apart on the normal: the roof rises one-for-one off the seated stop at fz1 + half (z=9.7 and z=146.3), and the column pocket's ceiling walk rises one-for-one off the room top one insertion slip over the flange (z=10.4 and z=147.0). The 0.7 mm between the two figures is the slip over the groove's own opening, read across parallel planes as 0.7/√2.
+[step] The condenser groove roof and corner-column pocket ceiling are independent 45-degree clearance faces. The groove keeps 0.25 mm of running clearance at the seated flange; the pocket follows its own room envelope. Their 0.75 mm Z/Y offset reads as 0.530 mm between parallel planes. Both faces rise toward the open insertion mouth and retain the full rail and column backing; the apparent step is the overlap of two open voids, not a thin load-bearing web.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=93.500 y=15.825 z=12.225
-click: x=93.500 y=15.825 z=148.825
-click: x=96.733 y=16.900 z=12.600
-click: x=96.733 y=16.900 z=149.200
+click: x=96.750 y=16.917 z=149.167
+click: x=96.750 y=16.917 z=12.567
 
-[ceiling] The front Z-slide heads' square catches — each bottom rail overlaps the top's full-section foot by 5.00 mm and keeps 0.15 mm of running air, so its flat underside stands at z=160.00 + 8.70 + 0.15 = 168.85. Lifting the seated top lands its flat foot on this face along the whole rail, holding the screwless bottom-to-top seam against lift with full-face bearing. The arm already returns to the wall on its 45-degree under-flare; pitching this bearing face would turn the catch into a cam and give up the joint's square-catch contract.
+[ceiling] The front Z-slide heads' square catches stand at z=160.00 + 8.70 + 0.25 running clearance + 0.25 supported-face allowance = 169.20. Each overlaps the top's full-section foot and retains at least 3 mm of head stock. Lifting the seated top lands the flat foot on this face along the rail; its flat bearing resists lift without camming the seam open. The arm returns to the wall on its 45-degree under-flare, and slicer support carries the catch underside.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-100.925 y=141.900 z=168.850
-click: x=100.925 y=141.900 z=168.850
+click: x=-100.875 y=141.900 z=169.200
+click: x=100.875 y=141.900 z=169.200
 
 [slope] The Y-seam floor tongue's full-width 45-degree scarf nose — this is the bed-side face of the six-millimetre floor overlap, not a corbel hanging from either X wall. The tongue's broad underside is on the print bed and this face rises one millimetre per millimetre from it, leaving the cold-core bearing surface flat while lapping the front and back floor slabs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=0.000 y=209.838 z=-3.000
+click: x=0.000 y=209.196 z=-3.000
 
 [slope] The condenser flank vents' 45-degree closing hips — each is a 1.55-millimetre run-out inside its groove's shadow, made by the void cutter rather than an added wall ledge. At the sill material recedes as the standing print climbs, and at the ceiling each opening closes at the enclosure's supported 45-degree relief angle; the lint pairs these YZ hip faces with a remote X wall even though they do not hang from that wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
@@ -23,7 +21,7 @@ click: x=0.000 y=98.307 z=140.225
 click: x=0.000 y=76.243 z=140.225
 click: x=0.000 y=132.655 z=54.726
 
-[ceiling] The bottom handholds' flat lifting ceilings stand 35 mm above the standing underside, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom.
+[ceiling] The bottom handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-97.500 y=196.025 z=29.000
-click: x=97.500 y=196.025 z=29.000
+click: x=-97.500 y=195.775 z=29.250
+click: x=97.500 y=195.775 z=29.250

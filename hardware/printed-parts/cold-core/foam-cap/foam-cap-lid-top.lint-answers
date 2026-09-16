@@ -1,10 +1,11 @@
-[ceiling] These are the zip-tie channels under the suction-chain, discharge-chain and fluid-14 anchor ribs. Each roof bridges the 3.5 mm channel along X between two complete 3 mm feet; the 23.4 mm or 12.75 mm transverse extent is the rib's width, not its unsupported span. The 3 mm-high channel admits the tie beneath the seated body and remains open at both mouths.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=35.120 y=65.050 z=8.200
-click: x=61.000 y=-60.500 z=8.200
-click: x=68.500 y=43.500 z=8.200
+[step] The 0.25 mm recess is the floor allowance beneath the discharge-chain zip-tie tunnel. It supplies the supported-face clearance while keeping the seated body's axis, tunnel roof, and full anchor feet fixed; the surrounding lid face remains the locating datum.
+click: x=61.000 y=-60.500 z=5.150
 
-[ceiling] These are the zip-tie windows through the fluid-18 and water-3 side anchors. Each roof bridges 3.5 mm along Y between complete 3 mm flanks. After the back-channel relief, the roofs extend 28.8 mm along X at fluid-18 and 8.3 mm at water-3. The short space below the roof is the tie's required passage (3 mm for fluid-18 and 1.225 mm for water-3), not a cavity intended to receive a support body.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=37.275 y=34.000 z=44.625
-click: x=133.850 y=-13.000 z=6.425
+[ceiling] Zip-tie tunnels beneath the suction-chain, discharge-chain and fluid-14 anchor ribs. Each roof bridges the 2.8 mm channel along X between complete 3 mm feet; the 23.3 mm or 12.7 mm transverse extent is the rib's width, not its unsupported span. The floor is recessed 0.25 mm to provide 3.25 mm of clear height beneath the retained roof strands. Both tunnel mouths remain open.
+click: x=35.120 y=65.050 z=8.400
+click: x=61.000 y=-60.500 z=8.400
+click: x=68.500 y=43.500 z=8.400
+
+[ceiling] Zip-tie windows through the fluid-18 and water-3 side anchors. Each roof bridges 2.8 mm along Y between complete 3 mm flanks. The 28.8 mm and 7.6 mm transverse lengths are the posts' depths. The accessible windows provide 3.25 mm and 1.475 mm of height respectively, including 0.25 mm for the roof strands; the roofs and seated tube datums remain fixed.
+click: x=37.275 y=34.000 z=44.875
+click: x=134.200 y=-13.000 z=6.675
