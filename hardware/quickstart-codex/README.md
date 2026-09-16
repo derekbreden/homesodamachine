@@ -24,6 +24,8 @@ Select a flavor in the left rail, open **Fill**, put the bottle in the funnel, t
 ribbed neck, dark liquid and a wrapped COLA concentrate label. `tools/quickstart-codex/fill_scene.py` renders
 the bottle and both display views from the frozen scene. `art/fill-screen.svg` and its PNG
 supply the interface texture; `art/fill-screen-framed.png` is the framed close-up.
+The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
+exposure, and the complete frame has an uninterrupted outline.
 The same seven step numbers appear in both documents, and the braided-hose link opens
 install guide pages 9-11.
 

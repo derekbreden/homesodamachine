@@ -1,4 +1,6 @@
 {
+  // Exposure for the Fill illustrations on a white page.
+  renderer.toneMappingExposure = .6;
   const textureLoader = new THREE.TextureLoader();
   const fillScreenTexture = await textureLoader.loadAsync(o.fillScreen);
   fillScreenTexture.colorSpace = THREE.SRGBColorSpace;
@@ -10,6 +12,12 @@
   fillScreen.position.set(0, (254.55844-200.76738)/Math.SQRT2,
                             (254.55844+200.76738)/Math.SQRT2);
   currentGroup.add(fillScreen);
+
+  const enclosure = currentGroup.children.find(part => part.name === "enclosure-back-top");
+  const cover = currentGroup.children.find(part => part.name === "display-cover");
+  if (!enclosure?.isMesh || !cover?.isMesh)
+    throw new Error("The frozen Fill scene must contain the enclosure and display cover");
+  cover.material = enclosure.material;
 
   for (const part of currentGroup.children) {
     if (!part.isMesh) continue;
