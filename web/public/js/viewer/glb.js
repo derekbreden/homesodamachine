@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { state } from "./state.js";
 import { scene, resetCamera } from "./scene.js";
+import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 
 const loader = new GLTFLoader();
 const texLoader = new THREE.TextureLoader();
@@ -78,16 +79,32 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
   try {
     const headers = {};
     const prevEtag = state.glbEtags.get(file);
-    if (state.mountedDetail?.type === "glb" && state.mountedDetail.file === file && prevEtag) {
+    // Returning without mounting anything is only truthful about the file already on the
+    // canvas; for any other file it would leave the last model standing under this one's name.
+    // The ETag round trip and the store's URL comparison both hang off that.
+    const mounted = state.mountedDetail?.type === "glb" && state.mountedDetail.file === file;
+    if (mounted && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
-    const resp = await fetch(`/models/${file}`, { headers });
-    if (resp.status === 304) return;
-    if (!resp.ok) return;
-    const etag = resp.headers.get("etag");
-    if (etag) state.glbEtags.set(file, etag);
+    const url = memberUrl(file);
+    let bytes = null;
+    if (url) {
+      if (mounted && memberLoaded(file, url)) return;
+      try {
+        bytes = await fetchMember(url);
+        rememberMember(file, url);
+      } catch { /* the site's route has the same member */ }
+    }
+    if (!bytes) {
+      const resp = await fetch(`/models/${file}`, { headers });
+      if (resp.status === 304) return;
+      if (!resp.ok) return;
+      const etag = resp.headers.get("etag");
+      if (etag) state.glbEtags.set(file, etag);
+      bytes = new Uint8Array(await resp.arrayBuffer());
+    }
 
-    const gltf = await parseGlb(await resp.arrayBuffer());
+    const gltf = await parseGlb(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
