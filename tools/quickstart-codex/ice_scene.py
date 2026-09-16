@@ -36,6 +36,21 @@ def scene():
         (15, -10, 79, (21, 21, 22), (-9, 12, -19)),
         (0, 15, 76, (22, 21, 24), (8, -9, 34)),
     ]
+    layers = [
+        (14.8, 10.3, -12, (18.8, 19.0, 16.8)),
+        (33.4, 10.8, 14, (20.0, 19.7, 17.2)),
+        (51.9, 11.1, -5, (20.4, 20.1, 17.0)),
+    ]
+    turns = [(-2, 2, -2), (2, -1, 2), (-1, -2, -3), (1, 2, 3)]
+    alignment = math.degrees(math.atan2(right[1], right[0]))
+    for z, spread, yaw, size in layers:
+        angle = math.radians(yaw)
+        for (u, v), (rx, ry, rz) in zip(
+                [(-spread, -spread), (spread, -spread),
+                 (spread, spread), (-spread, spread)], turns):
+            u, v = (u*math.cos(angle)-v*math.sin(angle),
+                    u*math.sin(angle)+v*math.cos(angle))
+            cubes.append((u, v, z, size, (rx, ry, alignment-yaw+rz)))
     for i, (u, v, z, size, angles) in enumerate(cubes, 1):
         cube = cq.Workplane('XY').box(*size).edges().fillet(2.1)
         for axis, angle in zip(((1, 0, 0), (0, 1, 0), (0, 0, 1)), angles):
@@ -148,7 +163,7 @@ def renderer():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--style', choices=['frosted', 'clear'], default='clear')
-    parser.add_argument('--cola-opacity', type=float, default=.70)
+    parser.add_argument('--cola-opacity', type=float, default=.82)
     parser.add_argument('--compare', action='store_true')
     args = parser.parse_args()
     if not 0 < args.cola_opacity <= 1:
@@ -156,7 +171,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     step = scene()
     entries = []
-    for opacity in ([1, .92, .82, .70] if args.compare else [args.cola_opacity]):
+    for opacity in ([.70, .82] if args.compare else [args.cola_opacity]):
         directory = OUT / f'cola-{round(opacity*100)}'
         directory.mkdir(exist_ok=True)
         job = dict(step=str(step.relative_to(HARDWARE)), out=str(directory / 'pour-base.png'),
