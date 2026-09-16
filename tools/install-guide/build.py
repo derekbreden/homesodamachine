@@ -262,7 +262,7 @@ end()
 # 8
 header('Connect the plastic tube', 'INSTALL / ADD THE COLD-WATER TEE',2)
 pic('steps/modern-water-off.png',M,116,110,61,crop=(170,190,1100,635))
-para('<b>Close the cold-water shutoff.</b> Run the cold tap until it stops. Put a cup and towel beneath the fitting.',162,111,202,10.5,14,limit=70)
+para('<b>Close the cold-water shutoff.</b> Run the tap or dispenser on that line until flow stops. Put a cup and towel beneath the fitting.',162,111,202,10.5,14,limit=70)
 p=pic('steps/release-with-press.png',M,204,134,88,crop=(0,0,1840,1040))
 arrow(*p(1316.97,779.94),*p(1042.29,700.52),head=6)
 arrow(*p(1510,554),*p(1780,632),head=6)
@@ -280,8 +280,8 @@ header('The braided-hose path', 'INSTALL / ADD THE COLD-WATER TEE',2, 'These thr
 pic('two-tees.png',M,159,CW,91)
 caption('Black tee: plastic tube. White tee with lever: braided hose.',266)
 item('1','Find the cold-water shutoff','Trace the kitchen faucet\'s cold hose down to its valve. The supplied white tee fits a 3/8 in outlet.',315)
-item('2','Close it and relieve the pressure','Close the valve, then open the kitchen faucet on cold. Wait for the flow to stop. Set a cup and towel under the connection.',402)
-note('CHECK BEFORE LOOSENING','If the water keeps flowing, or the fitting is a different size, stop and get installation help before opening the joint.',489,'orange')
+item('2','Close it and relieve the pressure','Close the valve, then open the kitchen faucet on cold. Wait for the flow to stop. Set a cup and towel under the connection.',391)
+note('CHECK BEFORE LOOSENING','If water keeps flowing, leave the hose connected; the shutoff needs repair. This tee fits a 3/8 in outlet. Do not force it onto another size.',473,'orange')
 end()
 
 # 10
@@ -332,8 +332,8 @@ end()
 header('Attach the regulator', 'TURN IT ON / PREPARE THE CYLINDER',4, 'Stand the filled 5 lb cylinder upright beside the appliance. Keep its valve closed.')
 p=pic('steps/co2-ready.png',M,150,CW,230,crop=(80,0,1600,1500))
 caption('The regulator\'s large nut meets the cylinder outlet.',389)
-item('1','Washer in the big nut','Place the regulator\'s supplied washer inside the large nut. Start the nut squarely on the cylinder outlet by hand.',429)
-para('<b>Nip it up with the adjustable wrench.</b> Keep the cylinder upright with its valve easy to reach.',M+24,510,CW-24,11,15,limit=45)
+item('1','One washer, lying flat','Place one supplied nylon washer flat inside the large nut. Start the nut squarely on the cylinder outlet by hand. Keep the spare washer in your kit.',429)
+para('<b>Nip it up with the adjustable wrench.</b> Extra force can damage the washer. Keep the cylinder valve easy to reach.',M+24,510,CW-24,11,15,limit=45)
 end()
 
 # 15
@@ -368,7 +368,7 @@ leader('Small knob',245,264,projected(p,(0,27,-47),*gas_pose),side='left')
 pic('steps/startup-gas.png',278,320,71,71,crop=(533,48,873,388))
 para('Open the <b>cylinder valve</b>, then the regulator\'s <b>small knob</b>. Turn the <b>big knob</b> until the <b>upper gauge needle sits in the green band.</b>',M,325,221,11,15,limit=75)
 para('Listen at the large nut, gray connector and red CO2 port. A continuing hiss means a leak. Soapy water at a joint can reveal it as growing bubbles.',M,421,CW,11,15,limit=60)
-note('CHECK BEFORE POWER','If gas continues to escape, close the cylinder valve and stop. Get help with a joint that will not seal.',489,'orange')
+note('CHECK BEFORE POWER','If gas continues to escape, close the cylinder valve. Page 23 has the connection checks. Retest before connecting power.',489,'orange')
 end()
 
 # 18
@@ -428,21 +428,28 @@ para('Rinse it weekly and after a flavor change. The silicone funnel is dishwash
 para('When empty, release the funnel\'s drain connection with the collet press. Lift the funnel with its short drain stub and clamp attached. Refit it and push the connection fully home.',M,328,CW,11,15,limit=75)
 line(M,406,W-M,406)
 text('Filter and cylinder',M,423,13,'Bold',NAVY)
-para('Replace the water filter once a year. Close the water before opening its connections. Arrange a cylinder refill when needed and close the cylinder before disconnecting its regulator.',M,449,CW,11,15,limit=75)
+para('Replace the water filter once a year. Release pressure in the white water line as described on page 23 before opening its connections. Keep the spare nylon cylinder washer with the install kit for the next cylinder refill.',M,449,CW,11,15,limit=75)
 caption('Keep the collet press. The bagged cold kit is for shortening and insulating the faucet run after installation is complete.',532)
 end()
 
 # 23
-header('If something is not right', 'FIRST CHECKS')
-text('Water at a push fitting',M,112,13,'Bold',NAVY)
-para('Close the water shutoff. For the household tee, run the kitchen cold tap until it stops before releasing a tube. Hold the ring in with the collet press, reseat the tube fully and tug gently. Get help relieving pressure at an appliance connection before opening it.',M,136,CW,10.8,14.5,limit=87)
-line(M,227,W-M,227)
-text('A continuing gas hiss',M,244,13,'Bold',NAVY)
-para('Close the cylinder valve. Check the large nut, gray connector and red CO2 connection. A joint that still leaks needs help before you continue.',M,268,CW,10.8,14.5,limit=58)
-line(M,335,W-M,335)
-text('Flow, power or temperature',M,352,13,'Bold',NAVY)
-para('<b>No pour:</b> check the water shutoff and the white tee\'s lever, if used. <b>No power:</b> check the cord and outlet. Read any message on the display. <b>Warm pour:</b> allow about an hour for the first chill.',M,376,CW,10.8,14.5,limit=87)
-note('STOP WITH AN UNRESOLVED LEAK','Close the water and cylinder valves. Keep power disconnected until the leak is resolved. Have the appliance serial number and a photo of the connection ready.',473,'orange')
+header('Check the leaking connection', 'FIRST CHECKS')
+para('<b>Close the water shutoff and cylinder valve.</b> Unplug the appliance. Leave pressurized connections assembled.',M,105,CW,10.8,14.5,limit=43.5)
+line(M,158,W-M,158)
+text('Water at a push fitting',M,175,13,'Bold',NAVY)
+y=para('<b>Tee, filter or white TAP tube:</b> run the tap or dispenser fed by that same cold-water line until flow stops. Keep the white tee\'s side lever open, if used.<br/><b>Blue SODA tube:</b> put a jug under the soda faucet and press its lever until water and hissing stop.',M,199,CW,10.8,14.5,limit=101.5)
+y=199+y+10
+y+=para('After pressure is released, hold the fitting\'s release ring in with the collet press and pull the tube out. Check for dirt or damage. Push an undamaged tube fully to the internal stop, then tug gently.',M,y,CW,10.8,14.5,limit=72.5)
+line(M,y+12,W-M,y+12)
+y+=29
+text('Gas at a connection',M,y,13,'Bold',NAVY)
+y+=24
+y+=para('Growing bubbles in soapy water show the leaking joint. The cylinder nut seals on one flat nylon washer; the gray connector seals on rubber. A crooked washer needs reseating; replace a damaged seal. See page 14.',M,y,CW,10.8,14.5,limit=72.5)
+y+=10
+y+=para('<b>Keep gas fittings assembled until the regulator and red tether are depressurized.</b> Do not loosen a fitting to let pressure out.',M,y,CW,10.8,14.5,limit=43.5)
+line(M,y+12,W-M,y+12)
+y+=29
+para('<b>After repair:</b> repeat the water and gas checks on pages 16-17. Connect power only when water joints stay dry and gas joints show no growing bubbles.',M,y,CW,10.8,14.5,limit=58)
 end()
 
 # 24
@@ -453,7 +460,7 @@ label('HOME SODA MACHINE',M,164,'#FFFFFF',9)
 text('On tap.',M,212,45,'Bold','#FFFFFF')
 rect(M,282,49,4,ORANGE)
 para('Keep this guide<br/>with your install kit.',M,315,CW,21,27,'#FFFFFF',limit=60)
-para('For installation help, have the serial number from the nameplate on the back of the appliance ready.',M,411,CW,11.5,16,ICE,limit=64)
+para('<b>No pour:</b> check the water shutoff and the tee lever. <b>No power:</b> check the cord and outlet, then read any display message. <b>Warm pour:</b> allow about an hour for the first chill.',M,408,CW,10.5,14,ICE,limit=56)
 para('<b>Sealed cooling circuit</b><br/>R-600a (isobutane), flammable refrigerant.<br/>Under 1.5 oz (40 g). Do not open, puncture or heat.',M,472,CW,9,12,ICE,limit=48)
 text('homesodamachine.com',M,533,16,'Semibold','#FFFFFF')
 c.linkURL('https://homesodamachine.com',(M,H-550,W-M,H-530),relative=0)
