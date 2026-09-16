@@ -40,8 +40,19 @@
  * @property {number} bytes     the PDF's size on this disk
  */
 
+/**
+ * @typedef {Object} ObjectMap  /api/objects — where the page fetches a model's bytes
+ * @property {string|null} base   the store's public address, or null when it has none, in which
+ *                                case `objects` is empty and every loader reads this site's routes
+ * @property {Object<string,string>} objects  root-relative model path -> the store's URL for its
+ *                                bytes, which carries the hash the pointer file names, so the URL
+ *                                changes exactly when the bytes do
+ */
+
 // Endpoints:
 //   GET /api/steps      -> PathList
+//   GET /api/glbs       -> PathList
+//   GET /api/objects    -> ObjectMap
 //   GET /api/mermaid    -> PathList
 //   GET /api/dxf        -> DxfItem[]
 //   GET /api/pcb        -> Board[]

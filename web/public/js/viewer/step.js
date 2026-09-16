@@ -16,6 +16,7 @@ import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "
 import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
 import { onTubeModelLoaded } from "./tube-overlay-host.js";
+import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -279,12 +280,29 @@ function buildMesh(result) {
 // be parsed into these, and the parse is the whole cost of opening an assembly — several
 // seconds against a fraction of one, over twenty megabytes the page then throws away. A model
 // without one reads the STEP and shows the same thing.
-async function fetchMeshes(file, headers) {
+// `mounted` says this file is the one already in the scene, which is the only state in which
+// "nothing changed" may answer with nothing: it is what lets the caller send If-None-Match,
+// and it gates the store's own unchanged answer for the same reason.
+async function fetchMeshes(file, headers, { mounted = false } = {}) {
   try {
-    const resp = await fetch(`/meshes/${file}.mesh`, { headers });
-    if (resp.status === 304) return { unchanged: true };
-    if (!resp.ok) return null;
-    const bytes = new Uint8Array(await resp.arrayBuffer());
+    // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
+    // that has not moved is a model that has not moved, and a repeat open never leaves the
+    // browser. A store that does not answer falls through to this site's own route below.
+    const url = memberUrl(`${file}.mesh`);
+    let bytes = null;
+    if (url) {
+      if (mounted && memberLoaded(`${file}.mesh`, url)) return { unchanged: true };
+      try {
+        bytes = await fetchMember(url);
+      } catch { /* the site's route has the same member */ }
+    }
+    let resp = null;
+    if (!bytes) {
+      resp = await fetch(`/meshes/${file}.mesh`, { headers });
+      if (resp.status === 304) return { unchanged: true };
+      if (!resp.ok) return null;
+      bytes = new Uint8Array(await resp.arrayBuffer());
+    }
     let payloadSha256 = null;
     // The tube audit must match the surface actually displayed. A grafted
     // payload can retain its STEP source digest while its own bytes change.
@@ -296,7 +314,9 @@ async function fetchMeshes(file, headers) {
     }
     const result = decodeMeshPayload(bytes);
     if (!result) return null; // a payload this code doesn't read is no payload
-    return { etag: resp.headers.get("etag"), result, payloadSha256 };
+    // `url` only when the store is where these bytes came from. Whoever mounts them records it
+    // as what is on screen; a thumbnail asks through here too and mounts nothing.
+    return { etag: resp?.headers.get("etag") ?? null, result, payloadSha256, url: resp ? null : url };
   } catch {
     return null;
   }
@@ -341,7 +361,14 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     const headers = {};
     const prevEtag = state.stepEtags.get(file);
     const needsAuditDigest = file === "manifold-layout/enclosure-assembly.step" && !state.mountedDetail?.payloadSha256;
-    if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file && prevEtag && !needsAuditDigest) {
+    // THE ONE STATE IN WHICH "NOTHING CHANGED" MAY SHOW NOTHING: this file is what the canvas
+    // already holds. Answering it for any other file leaves the previous model on screen under
+    // the new one's name, which is what going back to a file just visited would do. The ETag
+    // round trip and the store's URL comparison both hang off this.
+    const mounted = state.mountedDetail?.type === "step"
+      && state.mountedDetail.file === file
+      && !needsAuditDigest;
+    if (mounted && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
 
@@ -350,19 +377,32 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // `pack.BUNDLED_PAYLOAD_DIRS` the payload carries flutes the solid does not, so a reader
     // told only the STEP's name is told the wrong file. The edge picker states this.
     let surface = "step";
-    const meshed = await fetchMeshes(file, headers);
+    const meshed = await fetchMeshes(file, headers, { mounted });
     if (meshed?.unchanged) { landed = true; onTubeModelLoaded(file); return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
+      if (meshed.url) rememberMember(`${file}.mesh`, meshed.url);
       result = meshed.result;
       surface = "mesh";
     } else {
-      const resp = await fetch(`/steps/${file}`, { headers });
-      if (resp.status === 304) { landed = true; onTubeModelLoaded(file); return; }
-      if (!resp.ok) { failed(`Couldn't load ${file} — ${resp.status}`); return; }
-      const etag = resp.headers.get("etag");
-      if (etag) state.stepEtags.set(file, etag);
-      result = await parseStep(new Uint8Array(await resp.arrayBuffer()));
+      const url = memberUrl(file);
+      let text = null;
+      if (url) {
+        if (mounted && memberLoaded(file, url)) { landed = true; onTubeModelLoaded(file); return; }
+        try {
+          text = await fetchMember(url);
+          rememberMember(file, url);
+        } catch { /* the site's route has the same member */ }
+      }
+      if (!text) {
+        const resp = await fetch(`/steps/${file}`, { headers });
+        if (resp.status === 304) { landed = true; onTubeModelLoaded(file); return; }
+        if (!resp.ok) { failed(`Couldn't load ${file} — ${resp.status}`); return; }
+        const etag = resp.headers.get("etag");
+        if (etag) state.stepEtags.set(file, etag);
+        text = new Uint8Array(await resp.arrayBuffer());
+      }
+      result = await parseStep(text);
     }
 
     if (state.currentGroup) {
