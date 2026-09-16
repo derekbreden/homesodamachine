@@ -3,7 +3,7 @@
 Two PETG shells follow the [funnel](../funnel/README.md), with
 [5 mm](SKIN) forming walls and [5 mm](FLANGE) clamping flanges. The cavity
 stands on three small feet. The core has a [136.4 mm](DRY_MOUTH) square opening
-in its dry back. Both halves print with automatic breakaway tree supports.
+in its dry back. Both halves print with automatic normal supports in Snug style.
 
 ![Cavity and core in their print orientations](overview.png)
 
@@ -121,16 +121,17 @@ porosity, flange sealing and the first casting remain physical checks.
 [Saved Bambu Studio project](funnel-mold.3mf)
 
 The saved project contains two plates: the cavity upright and the core inverted.
-It selects these presets:
+It uses these preset bases:
 
 - Process: **0.24mm Balanced Quality @BBL H2C 0.8 nozzle**
 - Filament: **Bambu PETG Translucent @BBL H2C 0.8 nozzle**
 - Printer: **Bambu Lab H2C 0.8 High Flow +0.18 Z trim**
 
 The project uses 0.24 mm layers, a 0.40 mm first layer, Textured PEI,
-two wall loops, 15% infill and automatic tree supports. Open and slice this
-project in Bambu Studio for the current toolpaths, print time and material
-estimate; the saved project contains no G-code.
+two wall loops, 15% infill and automatic normal supports in Snug style.
+Support top and bottom Z distances, first-layer gap and object XY distance
+are each 0.48 mm. Open and slice this project in Bambu Studio for the current
+toolpaths, print time and material estimate; the saved project contains no G-code.
 
 The core's envelope is [205 × 205 × 45.2 mm](CORE_DIMS); the cavity is
 [205 × 205 × 84.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
