@@ -6,6 +6,11 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_copper_plug_clearance.py",
+      "note": "PASS: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_facts_current.py",
       "note": "and the 126 sources behind them stand where they stood when it was written",
       "status": "ok"
@@ -52,12 +57,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2049 tracked, 407 fetched solids, 55 tags, 38 site routes",
+      "note": "paths: every reference lands — 2076 tracked, 407 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 447 of 1000 free, the next cut wants 77, and the whole pointer file reads by name in 116.4 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 447 of 1000 free, the next cut wants 137, and the whole pointer file reads by name in 69.6 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -82,7 +87,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 407 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 407 member(s) keep their provenance",
       "status": "ok"
     }
   ],
