@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap, Render), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap, Render, Lulu), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
@@ -674,6 +674,16 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 ---
 
+## 22. Printed documentation
+
+Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu order details verified in Chrome on 2026-09-16: three copies at $8.98 each ($26.94), $43.24 Express Shipping, and $5.08 sales tax; payment total $75.26. The project is Comic Book 6.625 × 10.25 in, 20 interior pages plus the printed cover, Premium Color, 70# white coated paper, saddle stitch, glossy cover.
+
+| Order date | Vendor / order # | Item | Qty | $ | Status |
+|---|---|---|---|---|---|
+| 2026-09-16 | [Lulu USD-C4432578](https://www.lulu.com/account/orders/22409450) | Install Guide — Comic Book, project 84q5zeq-1 | 3 | $75.26 | ON-ORDER (Processing Order; verified 2026-09-16) |
+
+---
+
 ## Still needed — LIKELY-TO-BUY
 
 | Part | Notes |
@@ -690,10 +700,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$33,901.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$39,339.19](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$690.26](LEDGER_ON_ORDER) |
+| ON-ORDER | [$765.52](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$40,082.52](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$40,157.78](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
