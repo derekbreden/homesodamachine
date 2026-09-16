@@ -473,6 +473,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | MewuDecor M5 × 10 mm Socket Head Cap Screws, 100 pc, 12.9 alloy steel, black oxide, fully threaded — compressor floor screws. Black oxide 12.9, the same family as the §13 shelf and touch-flo screws; head Ø8.5, 4 mm hex | [B0BHZVXNJX](https://www.amazon.com/dp/B0BHZVXNJX) | 1 pk (100) | $10.18 | 112-6038990-5011450 | 2026-08-11 | 2026-08-14 | ACQUIRED |
 | M5 × 25 mm OD fender washers, 60 pc, 304 stainless steel — one under each compressor floor screw, spanning the grommet's Ø14 bore onto its top flange and bottoming on the post's crown | [B0GSMDY5GL](https://www.amazon.com/dp/B0GSMDY5GL) | 1 pk (60) | $8.57 | 112-6038990-5011450 | 2026-08-11 | 2026-08-14 | ACQUIRED |
 | Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black) | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | 112-8598924-2300214 | 2026-05-17 | 2026-05-18 | ACQUIRED |
+| uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — **the tee-carrier return pair** ([bom.md §8](/hardware/ledger/bom.md)), two per build. Two packs, $5.19 ea + $0.76 NE tax. Amazon estimates 2026-09-20 | [B0C33FQDB6](https://www.amazon.com/dp/B0C33FQDB6) | 2 pk (5) | $11.14 | 112-3782386-8113829 | 2026-09-16 | — | ON-ORDER |
+| uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — the softer rate on the same carrier seat, and the dimensional match to the Lee LCM060C12M the seats are cut to ([inventory.md](/hardware/ledger/inventory.md), Diagnostic). $8.89 + $0.64 NE tax. Amazon estimates 2026-09-18 | [B076LRZHP5](https://www.amazon.com/dp/B076LRZHP5) | 1 pk (20) | $9.53 | 112-5383652-4465062 | 2026-09-16 | — | ON-ORDER |
 
 ## 12. Shop / bench infrastructure
 
@@ -521,6 +523,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black. 15 % glass-fiber PET, $26.81/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 1 | $80.43 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — **the exterior's production stock** ([bom.md §7](/hardware/ledger/bom.md)). 9 kg on one invoice: $69.99 ea × 3 + $15.21 NE tax, shipping waived, = **$25.02/kg**, the figure §7 prices every exterior row at | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $225.18 | 112-3920877-6075462 | 2026-08-23 | 2026-08-24 | ACQUIRED |
 | Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Black — three 1 kg spools; $89.97 item subtotal − $9.00 promotion + $5.88 tax | [B0FBWGCBB3](https://www.amazon.com/dp/B0FBWGCBB3) | 3 | $86.85 | 114-1933808-1548244 | 2026-09-01 | 2026-09-02 | ACQUIRED |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Red — $29.99 + $2.17 NE tax. Amazon estimates 2026-09-17 | [B0FBWQNJZQ](https://www.amazon.com/dp/B0FBWQNJZQ) | 1 | $32.16 | 112-9028685-5492269 | 2026-09-16 | — | ON-ORDER |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, Blue — $29.99 + $2.17 NE tax. Amazon estimates 2026-09-18 | [B0FBWGFGR6](https://www.amazon.com/dp/B0FBWGFGR6) | 1 | $32.16 | 112-4443137-8148205 | 2026-09-16 | — | ON-ORDER |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 1 kg, White — $29.99 + $2.17 NE tax. Amazon estimates 2026-09-17 | [B0FBW9JLFR](https://www.amazon.com/dp/B0FBW9JLFR) | 1 | $32.16 | 112-5158473-3421830 | 2026-09-16 | — | ON-ORDER |
 | Polymaker order #188663 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black. Bought direct from polymaker.com rather than Amazon: $74.99 ea × 2 + $7.99 USPS Ground Advantage, no tax, = **$26.33/kg** | polymaker.com | 2 | $157.97 | — | 2026-08-29 | — | ON-ORDER |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
@@ -708,10 +713,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$34,094.37](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$39,531.91](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$688.10](LEDGER_ON_ORDER) |
+| ON-ORDER | [$805.25](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$40,273.08](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$40,390.23](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
