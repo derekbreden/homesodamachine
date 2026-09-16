@@ -70,6 +70,12 @@ const POLL_MS = 120_000;
 // resting state rather than a burst.
 const MIN_GAP_MS = 10_000;
 
+// A publication whose bytes are unavailable remains eligible for recovery, but a
+// persistent failure must not hash the whole tree on every poll. A new pointer
+// gets its own first attempt; retries of the same pointer wait up to 30 minutes.
+const MAX_RETRY_MS = 30 * 60_000;
+let failedAdoption = null;
+
 let running = null;
 let lastLook = 0;
 // THE LOOK THE FLOOR TURNS AWAY IS HELD, NOT DROPPED. A cut whose post lands inside the gap of
@@ -263,15 +269,38 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
     console.error(`[artifacts-live] ${line} — the bar is the one already here`);
   }
 
-  if (!pointersMoved(have, pointers)) return { moved: false, scorecards: sidecars.carried.length };
+  if (!pointersMoved(have, pointers)) {
+    failedAdoption = null;
+    return { moved: false, scorecards: sidecars.carried.length };
+  }
+
+  const key = createHash("sha256").update(JSON.stringify(pointers)).digest("hex");
+  if (failedAdoption?.key !== key) failedAdoption = null;
+  if (failedAdoption && Date.now() < failedAdoption.retryAt) {
+    return { moved: false, scorecards: sidecars.carried.length, retryAt: failedAdoption.retryAt };
+  }
 
   await writeFile(POINTERS, JSON.stringify(pointers, null, 2) + "\n");
   // The fetcher is the authority on bytes — it holds the bundle to the pointer file's sha256 and every
   // member to its own — so this runs it rather than reimplementing that. `cwd` is `web/`, the
   // directory both of its other callers run it from.
-  const { stdout } = await run(process.execPath,
-    [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt"],
-    { cwd: WEB, maxBuffer: 8 << 20 });
+  let stdout;
+  try {
+    ({ stdout } = await run(process.execPath,
+      [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt"],
+      { cwd: WEB, maxBuffer: 8 << 20 }));
+    await run(process.execPath,
+      [path.join(WEB, "scripts", "fetch-cad-artifacts.mjs"), "--adopt", "--check"],
+      { cwd: WEB, maxBuffer: 8 << 20 });
+  } catch (err) {
+    const delay = Math.min((failedAdoption?.delay ?? POLL_MS / 2) * 2, MAX_RETRY_MS);
+    failedAdoption = { key, delay, retryAt: Date.now() + delay };
+    if (have) await writeFile(POINTERS, JSON.stringify(have, null, 2) + "\n");
+    else await rm(POINTERS, { force: true });
+    console.warn(`[artifacts-live] retrying this publication in ${delay / 60_000} minute(s)`);
+    throw err;
+  }
+  failedAdoption = null;
   for (const line of stdout.trim().split("\n")) if (line.trim()) console.log(line);
   await retireSolids(ROOT, have, pointers);
 
