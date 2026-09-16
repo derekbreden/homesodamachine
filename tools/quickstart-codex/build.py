@@ -77,7 +77,7 @@ def label(s,x,y,color=BLUE,size=9):
     t.setFont('Bold',size);t.setCharSpace(1.5);t.textOut(s.upper());c.drawText(t)
     c.restoreState()
 
-def pic(name,x,y,w,h,crop=None,outline=True):
+def pic(name,x,y,w,h,crop=None,outline=True,fade_crops=True):
     source = ART/name
     im=Image.open(source)
     bounds=crop or (im.getchannel('A').getbbox() if im.mode=='RGBA' else None) or (0,0,im.width,im.height)
@@ -86,7 +86,7 @@ def pic(name,x,y,w,h,crop=None,outline=True):
     iw,ih=bw*scale,bh*scale
     ox,oy=x+(w-iw)/2,y+(h-ih)/2
     if outline:
-        contoured, (pw,ph) = contours.picture(source,bounds,iw,ih)
+        contoured, (pw,ph) = contours.picture(source,bounds,iw,ih,fade_crops=fade_crops)
         if contoured.exists():
             c.drawImage(str(contoured),ox-PAD,H-oy-ih-PAD,width=pw,height=ph,mask='auto')
     else:
@@ -303,7 +303,7 @@ step(6,'Fill both flavors',x,y)
 para('On the enclosure display, <b>tap a flavor on the left</b>, then open <b>Fill.</b>',x,793,270,12,15,limit=30)
 para('Invert one whole <b>14.8 fl oz bottle</b> into the funnel. Tap <b>Start filling.</b>',x,831,270,12,15,limit=30)
 para('<b>Wait for Filled.</b> Repeat for the other flavor.',x,870,270,12,15,limit=30)
-pic('fill-screen-framed.png',309,773,240,130)
+pic('fill-screen-framed.png',309,773,240,130,fade_crops=False)
 p=pic('insertion-actions/fill-ready.png',555,787,131,117,crop=(295,330,1555,1450))
 arrow(*p(947.15,473.85),*p(947.15,943.67),head=6)
 

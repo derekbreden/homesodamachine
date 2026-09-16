@@ -29,14 +29,14 @@ def text(value, x, y, size=11, font='Regular', color='#202337'):
     c.drawString(x, H-y-size*.8, value)
 
 
-def picture(source, x, y, w, h, bounds=None):
+def picture(source, x, y, w, h, bounds=None, fade_crops=True):
     if bounds is None:
         with Image.open(source) as im:
             bounds = (0, 0, im.width, im.height)
     a, b, cc, d = bounds
     scale = min(w/(cc-a), h/(d-b))
     iw, ih = (cc-a)*scale, (d-b)*scale
-    target, (pw,ph) = contours.picture(source, bounds, iw, ih)
+    target, (pw,ph) = contours.picture(source, bounds, iw, ih, fade_crops=fade_crops)
     if target.exists():
         c.drawImage(str(target), x+(w-iw)/2-PAD, H-y-(h+ih)/2-PAD,
                     width=pw, height=ph, mask='auto')
@@ -48,7 +48,7 @@ for x, kind, title in [(90, 'neutral', 'Simple concentrate label'), (460, 'pepsi
     text(title, x, 104, 15, 'Bold', '#1749D1')
     picture(OUT/f'bottle-{kind}.png', x+38, 134, 142, 225)
 text('FRAMED ENCLOSURE DISPLAY', 30, 404, 9, 'Bold', '#606A78')
-picture(OUT/'fill-screen-framed.png', 30, 432, 240, 130)
+picture(OUT/'fill-screen-framed.png', 30, 432, 240, 130, fade_crops=False)
 for x, kind, title in [(352, 'neutral', 'SIMPLE LABEL'), (577, 'pepsi', 'PEPSI-STYLE LABEL')]:
     text(title, x, 404, 9, 'Bold', '#606A78')
     picture(OUT/f'fill-{kind}.png', x, 432, 131, 117, (295,330,1555,1450))

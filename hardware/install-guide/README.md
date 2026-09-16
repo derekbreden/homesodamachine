@@ -34,6 +34,8 @@ call for a glass filled with ice. The illustration is a snapshot of the quick st
 The concentrate bottle has a rounded PET body, tapered shoulders, an open ribbed neck, dark
 liquid and a wrapped COLA concentrate label. The bottle and framed display are snapshots from
 `tools/quickstart-codex/fill_scene.py`; `assets/fill-screen.svg` and its PNG supply the interface.
+The cover shares the enclosure's matte black PET-GF appearance. Both Fill views use the same
+exposure, and the complete frame has an uninterrupted outline.
 
 The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
 booklet's artwork, including its Fill-screen illustration and hose-removal scene. Manual page
