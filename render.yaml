@@ -103,14 +103,12 @@ services:
         value: e74c6ab34db572feede34d4b76bc3256
       - key: R2_BUCKET
         value: homesodamachine-objects
-      # THE BUCKET'S ADDRESS ON THE INTERNET, and the reason the geometry does not come off this
-      # instance. A custom domain makes every object a stable public URL named by the hash of
-      # its own bytes, so `immutable` is the truth about it: the browser keeps a repeat open out
-      # of the network entirely, and Cloudflare's edge serves a first open from wherever the
-      # reader is. A half-CPU box in Oregon is then out of the path for the 586 MB of solids,
-      # which is both the slowest thing a visitor waits on and the likeliest way this instance
-      # falls over. `/api/objects` hands the page these URLs; web/lib/store.js refuses an
-      # `r2.dev` value here, because that address is rate-limited past what a deploy asks of it.
+      # THE BUCKET'S ADDRESS ON THE INTERNET, and where the viewer's geometry comes from. A
+      # custom domain gives every object a stable public URL named by the hash of its own
+      # bytes: the browser keeps a repeat open out of the network entirely, Cloudflare's edge
+      # serves a first open from wherever the reader is, and the 586 MB of solids do not pass
+      # through this instance. `/api/objects` hands the page these URLs. web/lib/store.js
+      # refuses an `r2.dev` value here — that address is rate-limited past what a deploy asks.
       - key: R2_PUBLIC_URL
         value: https://objects.homesodamachine.com
       - key: R2_ACCESS_KEY_ID
