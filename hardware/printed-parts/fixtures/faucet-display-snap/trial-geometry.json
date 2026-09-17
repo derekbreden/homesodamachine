@@ -9,7 +9,7 @@
     "missing_head_material_mm3": 0.0
   },
   "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c3e97f08bcdb0b4ce7789260b872f230f0328fe2d32d0ef0d8df0b19afd4b097",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c435b1883f82f6e2c4fb5f6a0c98b80d88e1f8df937bde29e0d3efdc3d252c65",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "69df20440344b9b8499a7bf8a12f29b3cb26153d42879b0f5d55bf10baa34ab9",
     "hardware/printed-parts/faucet/_display_snap.py": "4014df42a2de3b01ea0640a2a2ea6ca03353002f2ffb7a0cfb24fa517d111b67",
     "hardware/faucet-layout/faucet_assembly.py": "deab4e16a6fec98c97e94b1bb43032202cda44dc11bdb6d048533ed60c74c8a0",

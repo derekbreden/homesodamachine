@@ -310,15 +310,70 @@ def lower_section_reading(reading, f, base):
                 method="exact minimum separation between the swept lever clearance and flavor-passage cutters",
                 minimum_distance_mm=clean_number(distance), required_mm=f.wall_thickness_min,
                 scope="the rear lever web; intersections with the donor outlet cavity are intentional")
-    arch_faces = [face for face in shape(f.build_lower_access_cut()).Faces() if face.geomType() == "CYLINDER"]
-    if not arch_faces:
-        reading.add("wall:lever-cheek", False, reason="the access cut has no analytic arch surface")
-    else:
-        arch = cq.Compound.makeCompound(arch_faces)
-        distance = arch.distance(shape(f.build_zone3_inner_cut()))
-        reading.add("wall:lever-cheek", distance >= f.wall_thickness_min - DISTANCE_TOLERANCE,
-                    method="exact distance from the lever-access arch surface to the donor-arch cavity",
-                    minimum_distance_mm=clean_number(distance), required_mm=f.wall_thickness_min)
+
+
+def lower_access_reading(reading, f, base):
+    """Actual cheek stock and the continuous bridge above the lever opening."""
+    import cadquery as cq
+    base = shape(base)
+    wall = f.wall_thickness_min
+    cheek_rows = []
+    for face in shape(f.build_zone3_inner_cut()).Faces():
+        if face.geomType() != "PLANE" or abs(face.normalAt().x) < 0.999999:
+            continue
+        x = face.Center().x
+        if abs(abs(x) - f.shell_arch_bore_outer_x) > DISTANCE_TOLERANCE:
+            continue
+        direction = cq.Vector(math.copysign(wall, x), 0.0, 0.0)
+        witness = cq.Solid.extrudeLinear(face.outerWire(), face.innerWires(), direction)
+        missing = volume(witness.cut(base))
+        cheek_rows.append({"cavity_face_x_mm": clean_number(x),
+                           "witness_volume_mm3": clean_number(volume(witness)),
+                           "missing_witness_mm3": clean_number(missing)})
+    reading.add("wall:lever-cheek",
+                len(cheek_rows) == 2 and all(row["missing_witness_mm3"] <= VOLUME_TOLERANCE
+                                           for row in cheek_rows),
+                method="complete outward extrusion of each donor-arch cavity outer face into the finished base",
+                required_outward_stock_mm=wall, samples=cheek_rows,
+                scope="the two outer cheeks over the complete donor-arch footprint")
+
+    ceiling_faces = [face for face in shape(f.build_lever_clearance()).Faces()
+                     if face.geomType() == "PLANE" and face.normalAt().z > 0.999999]
+    if not ceiling_faces:
+        reading.add("wall:lever-roof-bridge", False, reason="the lever clearance has no horizontal ceiling")
+        reading.add("section:lever-roof-continuity", False, reason="no lever ceiling datum")
+        return
+    ceiling = max(ceiling_faces, key=lambda face: face.Area())
+    roof_z = ceiling.Center().z
+    rear_y = ceiling.BoundingBox().ymax - DISTANCE_TOLERANCE
+    front_y = rear_y - 2.0 * wall
+    half_width = f.lever_x_half
+    witness = (cq.Workplane("XY").workplane(offset=roof_z)
+               .center(0.0, (front_y + rear_y) / 2.0)
+               .rect(2.0 * half_width, rear_y - front_y).extrude(wall).val())
+    missing = volume(witness.cut(base))
+    reading.add("wall:lever-roof-bridge", missing <= VOLUME_TOLERANCE,
+                method="complete vertical wall witness above the rear two wall-widths of the actual flat lever ceiling",
+                bounds_mm=[-half_width, half_width, clean_number(front_y), clean_number(rear_y),
+                           clean_number(roof_z), clean_number(roof_z + wall)],
+                required_vertical_stock_mm=wall, missing_witness_mm3=clean_number(missing),
+                scope="the bridge from the lever roof into the neck; not every exterior opening edge")
+    samples = []
+    for x in (-half_width, 0.0, half_width):
+        for y in (front_y, rear_y - wall, rear_y):
+            spans = line_intervals(base, (x, y, roof_z + DISTANCE_TOLERANCE),
+                                   (0.0, 0.0, 1.0), 2.0 * wall)
+            continuous = (len(spans) == 1 and spans[0][0] <= DISTANCE_TOLERANCE
+                          and spans[0][1] - spans[0][0] >= wall - DISTANCE_TOLERANCE)
+            samples.append({"x_mm": clean_number(x), "y_mm": clean_number(y),
+                            "material_intervals_above_roof_mm":
+                                [[clean_number(a), clean_number(b)] for a, b in spans],
+                            "continuous": continuous})
+    reading.add("section:lever-roof-continuity", all(row["continuous"] for row in samples),
+                method="nine exact vertical B-rep chords from the lever ceiling through two wall-widths of roof and neck",
+                roof_z_mm=clean_number(roof_z), probe_height_mm=2.0 * wall,
+                minimum_continuous_stock_mm=wall, samples=samples,
+                scope="no separated upper slit in the roof-to-neck bridge; exterior rays may end at the show surface")
 
 
 def display_reading(reading, f, assembly, parts, body):
@@ -626,6 +681,7 @@ def main() -> int:
     neck_reading(reading, f, full, base, tip)
     base_fastener_reading(reading, f, base, plate)
     lower_section_reading(reading, f, base)
+    lower_access_reading(reading, f, base)
     display_reading(reading, f, assembly, parts, assembly.build_display_body())
     display_trial_reading(reading, f, parts)
     lever_reading(reading, assembly, parts)
