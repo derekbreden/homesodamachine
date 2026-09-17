@@ -292,6 +292,9 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+      "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step",
+      "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step.mesh",
+      "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.stl",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -973,7 +976,10 @@
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "8ca41ab6f048089bef2dcdc039969c9753c402b052800c9b1d21e2c12d1dcf4d",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "bc4fd1bb3c21475b4a490ae4ae676e43cf86739c845086e88fd87284156c2fba",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "203b1c47bec82720466baf3b18c3b2108579529ba8c1a2468d1eb61e8ee069fa",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f3075e3b7175887c85f8ecc821bb1e028c73ac75477a08f21b675237e51b6d37"
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "f3075e3b7175887c85f8ecc821bb1e028c73ac75477a08f21b675237e51b6d37",
+    "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step": "b89fbcd8b8ea0e8e5e44202e75dc6c9bebb3bbd4a67ed809251bff50b2b15a82",
+    "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step.mesh": "c7f74141ef3135eeb651caa27f8d9dd2ec0c8fefc6ee664b1506dacd65f99b27",
+    "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.stl": "2576f3ab59f3adebb4c70c5a6c9ed2b04f1269266e089faee57395cf81e27a1a"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1224,6 +1230,9 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": 1789607858,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": 1789607858,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": 1789607858,
+    "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step": 1789607883,
+    "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step.mesh": 1789607883,
+    "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.stl": 1789607883,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": 1787578592,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": 1789013075,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": 1789013075,
