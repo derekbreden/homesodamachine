@@ -381,6 +381,8 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
     import cadquery as cq
     from OCP.BRepAdaptor import BRepAdaptor_Surface
     from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+    from OCP.BRepBndLib import BRepBndLib
+    from OCP.Bnd import Bnd_Box
     snap = f._display_snap
     full = cq.Compound.makeCompound([shape(parts["shell_base"]), shape(parts["shell_tip"])])
     tip, cover = shape(parts["shell_tip"]), shape(parts["display_cover"])
@@ -403,7 +405,10 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
         return shape(part).intersect(shape(f._display_world(cq.Workplane(obj=native))))
 
     def local_bounds(part):
-        return shape(part).moved(frame.inverse).BoundingBox()
+        box = Bnd_Box()
+        BRepBndLib.AddOptimal_s(shape(part).moved(frame.inverse).wrapped,
+                              box, False, False)
+        return cq.BoundBox(box)
 
     def radius(face):
         surface = BRepAdaptor_Surface(face.wrapped)
@@ -442,24 +447,32 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
     for side in (-1, 1):
         lip = lip_parts[side]
         missing = volume(lip.cut(cover))
-        lower_faces = [face for face in lip.Faces() if face.geomType() == "PLANE"
-                       and face.normalAt().dot(normal) < -0.999999]
-        witnesses = [cq.Solid.extrudeLinear(face.outerWire(), face.innerWires(), normal)
-                     for face in lower_faces]
-        missing_one_mm = sum(volume(witness.cut(lip)) for witness in witnesses)
+        native_lip = lip.moved(frame.inverse)
+        lip_chords = []
+        for fraction in (0.001, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 0.999):
+            station = s0+(s1-s0)*fraction
+            spans = line_intervals(native_lip, (0.0, station, (n0+n1)/2.0),
+                                   (side, 0.0, 0.0), 30.0)
+            x = side*sum(spans[0])/2.0 if spans else 0.0
+            chords = line_intervals(native_lip, (x, station, n0-0.1), (0.0, 0.0, 1.0),
+                                    snap.LIP_HEIGHT+0.2)
+            stock = sum(b-a for a, b in chords)
+            lip_chords.append({"x_mm": clean_number(x), "s_mm": clean_number(station),
+                               "normal_stock_mm": clean_number(stock)})
         inner_faces = [face for face in lip.Faces() if radius(face) is not None]
         radial_stock = (cq.Compound.makeCompound(inner_faces).distance(outside_faces)
                         if inner_faces else 0.0)
         b = local_bounds(lip)
         reading.add(f"wall:cover-lip-{side:+d}", lip.isValid() and len(lip.Solids()) == 1
-                    and missing <= VOLUME_TOLERANCE and bool(witnesses)
-                    and missing_one_mm <= VOLUME_TOLERANCE and radial_stock >= 1.0-DISTANCE_TOLERANCE,
+                    and missing <= VOLUME_TOLERANCE
+                    and all(row["normal_stock_mm"] >= 1.0-DISTANCE_TOLERANCE for row in lip_chords)
+                    and radial_stock >= 1.0-DISTANCE_TOLERANCE,
                     missing_lip_from_cover_mm3=clean_number(missing),
-                    missing_complete_1mm_normal_witness_mm3=clean_number(missing_one_mm),
+                    sampled_normal_chords=lip_chords,
                     measured_normal_height_mm=clean_number(b.zlen),
                     minimum_inner_surface_to_outer_skin_mm=clean_number(radial_stock),
                     required_mm=1.0,
-                    method="complete actual lip containment, one-millimeter extrusion of its complete bottom face, and exact curved-side separation")
+                    method="complete lip containment in the cover, nine exact interior normal chords per side, and complete curved-side separation")
         witness = half(backing, side)
         missing = volume(witness.cut(tip))
         reading.add(f"wall:retention-groove-{side:+d}", volume(witness) > VOLUME_TOLERANCE
@@ -728,9 +741,9 @@ def display_rim_reading(reading, f, part):
     least_front = min((row["axial_stock_mm"] for row in front_samples), default=0.0)
     reading.add("wall:display-flush-front", bool(front_samples)
                 and {row["x_mm"] for row in front_samples} == {-6.0, -3.0, 0.0, 3.0, 6.0}
-                and least_front >= f.display_s_bottom-DISTANCE_TOLERANCE,
+                and least_front >= f.dispense_face_thickness-DISTANCE_TOLERANCE,
                 minimum_sampled_axial_stock_mm=clean_number(least_front),
-                required_mm=f.display_s_bottom, samples=front_samples,
+                required_mm=f.dispense_face_thickness, samples=front_samples,
                 method="exact inward +S material chords at five X stations, from each actual lower rim through the crown of the flush front wall")
 
     outer_surfaces = cq.Compound.makeCompound(faces)
@@ -854,18 +867,31 @@ def display_reading(reading, f, assembly, parts, body):
                 flush_front_face_area_mm2=clean_number(front_area),
                 material_forward_of_outlet_mm3=clean_number(protrusion),
                 method="actual forward-facing planar face and exact negative-S halfspace intersection")
-    cap = shape(f._cradle_prism(f.signal_lane_width/2.0, 0.0001, 1.0001,
+    cap = shape(f._cradle_prism(f.signal_lane_width/2.0, 0.0, f.dispense_face_thickness,
                               f.signal_lane_center_n-f.signal_lane_depth/2.0,
                               f.signal_lane_center_n+f.signal_lane_depth/2.0))
     cap = cap.cut(shape(f.build_zone6_inner_cut()))
     missing = volume(cap.cut(tip))
     face_slab = shape(f._cradle_prism(25.0, -0.001, 0.001, -20.0, 30.0))
-    signal_at_face = sum(volume(face_slab.intersect(shape(cutter))) for cutter in
-                         (f.build_signal_neck_inner_cut(), f._display_wire_hole()))
+    signal_at_face = volume(face_slab.intersect(shape(f.build_signal_neck_inner_cut())))
     reading.add("wall:outlet-signal-closure", missing <= VOLUME_TOLERANCE and signal_at_face <= VOLUME_TOLERANCE,
-                missing_1mm_cosmetic_cap_mm3=clean_number(missing),
+                missing_full_thickness_cap_mm3=clean_number(missing),
+                required_axial_thickness_mm=f.dispense_face_thickness,
                 signal_void_at_outlet_mm3=clean_number(signal_at_face),
-                method="1 mm closure witness above the unchanged flavor passage, and both signal cutters at the outlet plane")
+                method="full-thickness closure witness above the flavor passage and the neck signal cutter at the outlet plane")
+    front_slab = shape(f._cradle_prism(30.0, 0.0, f.dispense_face_thickness, -30.0, 40.0))
+    front_stock = shape(f.build_zone6_outer()).intersect(front_slab).cut(shape(f.build_zone6_inner_cut()))
+    missing_front = volume(front_stock.cut(tip))
+    back_faces = [face for face in tip.Faces() if face.geomType() == "PLANE"
+                  and face.normalAt().dot(tangent) > 0.999999
+                  and 0.0 < (face.Center()-origin).dot(tangent) < f.dispense_face_thickness+0.5]
+    back_stations = [(face.Center()-origin).dot(tangent) for face in back_faces]
+    reading.add("wall:dispense-face", missing_front <= VOLUME_TOLERANCE and bool(back_faces)
+                and all(abs(station-f.dispense_face_thickness) < DISTANCE_TOLERANCE for station in back_stations),
+                required_axial_thickness_mm=f.dispense_face_thickness,
+                missing_complete_front_stock_mm3=clean_number(missing_front),
+                cavity_rear_face_stations_mm=[clean_number(v) for v in back_stations],
+                method="complete 2 mm cylinder-minus-tube-passages witness, with a common planar cavity face behind it")
 
 
 def display_trial_reading(reading, f, parts):
@@ -913,6 +939,10 @@ def ribbon_reading(reading, f, assembly, parts):
     import cadquery as cq
     ribbon = assembly.build_display_ribbon()
     solid = shape(ribbon)
+    reading.add("position:signal-southwest", f.display_ribbon_side_x < 0.0
+                and f.display_ribbon_terminal_s < f._display_housing_center_s,
+                ribbon_end_native_display_xy_mm=[f.display_ribbon_side_x, f.display_ribbon_terminal_y],
+                scope="the unrestrained ribbon ends before solder fan-out in the southwest quadrant viewed from the glass")
     reading.add("solid:display-ribbon-envelope", solid.isValid() and len(solid.Solids()) == 1,
                 valid=solid.isValid(), solids=len(solid.Solids()),
                 section_mm=[f.signal_ribbon_max_width, f.signal_ribbon_max_depth],

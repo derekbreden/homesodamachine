@@ -1021,52 +1021,8 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # the display face, and x is world X. The headerless vendor components,
 # corrected to the caliper PCB height, clear the real tubes by 0.30064 mm.
 # Four small feet pads support the display; the space over the tubes is open.
-display_feet_n = 10.10
-display_floor_n = display_feet_n
-display_pocket_inset = tube_shell_center_y + tube_shell_outer_r - display_feet_n
-display_cradle_clearance = 0.25
-display_wire_bend_radius = 3.0
-display_ribbon_join_s = 46.0
-display_ribbon_reference_start_s = display_ribbon_join_s + 0.5
-display_ribbon_side_x = 8.2
-display_ribbon_side_radius = 8.0
-display_ribbon_side_drop = 0.70
-display_ribbon_side_lift = 0.40
-display_ribbon_side_run_n = 10.60
-display_ribbon_pcb_gap = 0.30
-display_s_bottom = 1.25
-display_s_top = display_s_bottom + display_housing_length + 2.0 * display_cradle_clearance
-_display_housing_center_s = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0
-display_face_n = display_feet_n + display_total_depth
-display_cosmetic_wall = 1.30
-display_cover_top_n = display_face_n + display_cover_over_face + display_cosmetic_wall
-display_cover_bottom_n = display_feet_n - 6.8
-display_cover_shoulder_n = display_feet_n + 0.5
-display_cover_face_width = 27.5
-display_cover_face_length = 47.5
-display_cover_skirt_width = 33.0
-display_cover_skirt_length = 52.6
-display_cover_face_r = 7.25
-display_cover_skirt_r = 10.0
-display_head_s_min = 0.0
-display_head_s_max = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0 + display_cover_skirt_length / 2.0 + 0.2
-display_clip_s_bottom = (_display_housing_center_s - display_cover_skirt_length / 2.0
-                         + display_cover_skirt_r + _display_snap.END_MARGIN)
-display_clip_s_top = (_display_housing_center_s + display_cover_skirt_length / 2.0
-                      - display_cover_skirt_r - _display_snap.END_MARGIN)
-display_clip_bottom_n = display_cover_bottom_n
-display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
-display_clip_lip_radius = tube_shell_outer_r - _display_snap.ENGAGEMENT
-display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
-display_foot_pad_width = 3.0
-display_foot_pad_depth = 3.0
-display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
-display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
-                                  + display_housing_length / 2.0 + y)
-                           for x in (-8.5, 8.5) for y in (-19.5, 19.5))
 # The vendor USB-C shell extends beyond the PCB and housing's lower end.
-# Raw bounds use the device's centred XY / feet-Z frame; pocket dimensions
-# round them outward before adding the fit clearance.
+# Bounds use the device's centred XY / feet-Z frame.
 display_usb_reference_file = "ESP32-S3-Touch-LCD-1_47_20250411.stp"
 display_usb_reference_url = "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip"
 display_usb_reference_sha256 = "15fddd5d2b699d0b7c5160f2e11f176a672e7b305604f43a6dbaa30b8cc0059e"
@@ -1078,7 +1034,56 @@ display_usb_half_width = math.ceil(max(abs(row[0]) for row in display_usb_refere
 display_usb_y_range = (math.floor(display_usb_reference_bounds[0][1] * 100.0) / 100.0,
                        math.ceil(display_usb_reference_bounds[1][1] * 100.0) / 100.0)
 display_usb_top_z = math.ceil(display_usb_reference_bounds[1][2] * 100.0) / 100.0
-display_wire_hole_s = _display_housing_center_s - 5.35
+dispense_face_thickness = 2.0  # [2 mm](DISPENSE_FACE_T)
+display_feet_n = 10.10
+display_floor_n = display_feet_n
+display_pocket_inset = tube_shell_center_y + tube_shell_outer_r - display_feet_n
+display_cradle_clearance = 0.25
+display_wire_bend_radius = 2.5
+display_ribbon_join_s = 46.0
+display_ribbon_reference_start_s = display_ribbon_join_s + 0.5
+display_ribbon_side_x = -8.2
+display_ribbon_side_radius = 8.0
+display_ribbon_side_drop = 0.0
+display_ribbon_side_lift = 0.40
+display_ribbon_side_run_n = 11.10
+display_ribbon_pcb_gap = 0.30
+display_s_bottom = (dispense_face_thickness - display_usb_y_range[0]
+                    - display_housing_length / 2.0)
+display_s_top = display_s_bottom + display_housing_length + 2.0 * display_cradle_clearance
+_display_housing_center_s = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0
+display_face_n = display_feet_n + display_total_depth
+display_cosmetic_wall = 1.30
+display_cover_top_n = display_face_n + display_cover_over_face + display_cosmetic_wall
+display_cover_bottom_n = display_feet_n - 6.8
+display_cover_shoulder_n = display_feet_n + 0.5
+display_cover_face_width = 27.5
+display_cover_end_margin = 1.25
+display_cover_face_length = display_s_top + display_cover_end_margin
+_display_cover_center_s = display_cover_face_length / 2.0
+display_cover_skirt_width = 33.0
+display_cover_skirt_length = display_cover_face_length + 5.1
+display_cover_face_r = 7.25
+display_cover_skirt_r = 10.0
+display_head_s_min = 0.0
+display_head_s_max = _display_cover_center_s + display_cover_skirt_length / 2.0 + 0.2
+display_clip_s_bottom = (_display_cover_center_s - display_cover_skirt_length / 2.0
+                         + display_cover_skirt_r + _display_snap.END_MARGIN)
+display_clip_s_top = (_display_cover_center_s + display_cover_skirt_length / 2.0
+                      - display_cover_skirt_r - _display_snap.END_MARGIN)
+display_clip_bottom_n = display_cover_bottom_n
+display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
+display_clip_lip_radius = tube_shell_outer_r - _display_snap.ENGAGEMENT
+display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
+display_foot_pad_width = 3.0
+display_foot_pad_depth = 3.0
+display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
+display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
+                                  + display_housing_length / 2.0 + y)
+                           for x in (-8.5, 8.5) for y in (-19.5, 19.5))
+# Viewed from the glass, the cable termination is in the southwest corner.
+display_ribbon_terminal_y = -11.0
+display_ribbon_terminal_s = _display_housing_center_s + display_ribbon_terminal_y
 
 def _tip_frame():
     """(tube exit, up-gooseneck tangent, outward display normal)."""
@@ -1105,11 +1110,11 @@ def _display_world(native: cq.Workplane) -> cq.Workplane:
 
 
 def _display_outline_wire(width: float, length: float, radius: float,
-                          n: float) -> cq.Wire:
+                          n: float, *, center_s: float = _display_cover_center_s) -> cq.Wire:
     """Matched eight-edge rounded outline for the shallow display shroud."""
     h, r = width / 2.0, radius
-    a = _display_housing_center_s - length / 2.0
-    b = _display_housing_center_s + length / 2.0
+    a = center_s - length / 2.0
+    b = center_s + length / 2.0
     q = r / math.sqrt(2.0)
     return (cq.Workplane("XY").workplane(offset=n)
             .moveTo(-h + r, a).lineTo(h - r, a)
@@ -1150,7 +1155,7 @@ def build_display_cover_inner_envelope() -> cq.Workplane:
          display_face_n + display_cover_over_face),
     )
     return _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
-        [_display_outline_wire(*row) for row in rows], ruled=False)))
+        [_display_outline_wire(*row, center_s=_display_housing_center_s) for row in rows], ruled=False)))
 
 
 def build_display_neck_clearance() -> cq.Workplane:
@@ -1193,22 +1198,12 @@ def build_display_retention_grooves() -> cq.Workplane:
 
 def _display_cavity() -> cq.Workplane:
     device_opening = _cradle_prism(
-        tube_shell_outer_r + wall_thickness_min, display_s_bottom, display_s_top,
+        tube_shell_outer_r + wall_thickness_min, dispense_face_thickness, display_s_top,
         display_feet_n, display_cover_top_n + 1.0,
     )
     open_channel = _cradle_prism(
-        6.75, display_s_bottom, display_s_top, 0.0, display_feet_n + 0.1)
-    return device_opening.union(_display_usb_relief()).union(open_channel)
-
-
-def _display_usb_relief() -> cq.Workplane:
-    """USB-C clearance stays open through the display's normal insertion path."""
-    return _cradle_prism(
-        display_usb_half_width + display_cradle_clearance,
-        _display_housing_center_s + display_usb_y_range[0] - display_cradle_clearance,
-        _display_housing_center_s + display_usb_y_range[1] + display_cradle_clearance,
-        display_feet_n, display_cover_top_n + 1.0,
-    )
+        6.75, dispense_face_thickness, display_s_top, 0.0, display_feet_n + 0.1)
+    return device_opening.union(open_channel)
 
 
 def build_display_usb_keepout() -> cq.Workplane:
@@ -1221,13 +1216,12 @@ def build_display_usb_keepout() -> cq.Workplane:
     ).translate(((low[0] + high[0]) / 2.0, 0.0, 0.0))
 
 
-def _display_wire_sweep(width: float, depth: float, top_n: float,
-                        *, capsule: bool) -> cq.Workplane:
-    """A continuous flat ribbon leaves the neck and rises beside the PCB.
+def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workplane:
+    """The flat ribbon leaves the neck into the open volume below the PCB.
 
     Sections follow explicit frames: width stays perpendicular to the lateral
     turn, without the sudden ribbon twist of a Frenet frame at an inflection.
-    The S bend passes inside the rear foot before reaching the empty PCB side.
+    The S bend passes inside the rear foot and reaches the southwest termination.
     """
     origin, along, outward = _tip_frame()
     frames = []
@@ -1247,7 +1241,8 @@ def _display_wire_sweep(width: float, depth: float, top_n: float,
               display_ribbon_join_s):
         n, slope = natural(s)
         add(0.0, s, n, 0.0, -1.0, -slope)
-    side_x, radius = display_ribbon_side_x, display_ribbon_side_radius
+    side = math.copysign(1.0, display_ribbon_side_x)
+    side_x, radius = abs(display_ribbon_side_x), display_ribbon_side_radius
     angle = math.acos(1.0 - side_x / (2.0 * radius))
     for phase in (0, 1):
         for step in range(13):
@@ -1266,7 +1261,7 @@ def _display_wire_sweep(width: float, depth: float, top_n: float,
                   + display_ribbon_side_lift * 4.0 * fraction * (1.0 - fraction))
             dn = (slope * ds - 4.0 * display_ribbon_side_drop * fraction ** 3 * dx / side_x
                   + 4.0 * display_ribbon_side_lift * (1.0 - 2.0 * fraction) * dx / side_x)
-            add(x, s, n, dx, ds, dn)
+            add(side*x, s, n, side*dx, ds, dn)
     x, s0, n0 = frames[-1][0]
     _, ds, dn = frames[-1][1]
     run_in = 3.0
@@ -1279,7 +1274,7 @@ def _display_wire_sweep(width: float, depth: float, top_n: float,
               + (-6*t*t + 6*t)*display_ribbon_side_run_n)
         add(x, s0 - run_in*t, n, 0.0, -run_in, dn)
     side_start = s0 - run_in
-    pre_rise_s = display_wire_hole_s + display_wire_bend_radius
+    pre_rise_s = display_ribbon_terminal_s + display_wire_bend_radius
     for step in range(1, 9):
         add(x, side_start + (pre_rise_s-side_start)*step/8,
             display_ribbon_side_run_n, 0.0, -1.0, 0.0)
@@ -1300,23 +1295,15 @@ def _display_wire_sweep(width: float, depth: float, top_n: float,
         if cross.Length < 1e-8:
             cross = cq.Vector(1, 0, 0)
         section = cq.Workplane(cq.Plane(origin=centre, xDir=cross, normal=tangent))
-        wires.append((section.slot2D(width, depth) if capsule
-                      else section.rect(width, depth)).val())
+        wires.append(section.rect(width, depth).val())
     return cq.Workplane(obj=cq.Solid.makeLoft(wires))
-
-
-def _display_wire_hole() -> cq.Workplane:
-    """The 5 × 1.8 mm signal passage turns internally toward the PCB side."""
-    return _display_wire_sweep(signal_lane_width, signal_lane_depth,
-                               display_feet_n + _faucet_interface.display_pcb_bottom_z + 0.2,
-                               capsule=True)
 
 
 def build_display_ribbon_transition() -> cq.Workplane:
     """Maximum SIG-6 envelope up to the factory wire fan-out beside the PCB."""
-    return _display_wire_sweep(signal_ribbon_max_width, signal_ribbon_max_depth,
-                               display_feet_n + _faucet_interface.display_pcb_bottom_z
-                               - display_ribbon_pcb_gap, capsule=False)
+    return _display_ribbon_sweep(signal_ribbon_max_width, signal_ribbon_max_depth,
+                                 display_feet_n + _faucet_interface.display_pcb_bottom_z
+                                 - display_ribbon_pcb_gap)
 
 
 def build_lever_clearance() -> cq.Workplane:
@@ -1407,7 +1394,6 @@ def build_shell() -> cq.Workplane:
         build_lever_clearance().val(),
         _display_cavity().val(),
         build_display_retention_grooves().val(),
-        _display_wire_hole().val(),
         build_lower_signal_lane().val(),
         build_lower_soda_inner_cut().val(),
         build_flavor_transition_inner_cut().val(),
@@ -1525,6 +1511,7 @@ def main():
     write_bed_file(tip, out_dir / "faucet-shell-tip.stl")
 
     variables = {
+        "DISPENSE_FACE_T": f"{dispense_face_thickness:g} mm",
         "FOOT_WIDTH": f"{foot_width:g} mm",
         "FOOT_DEPTH": f"{foot_depth:g} mm",
         "PLATE_T": f"{above_counter_plate_thickness:g} mm",
