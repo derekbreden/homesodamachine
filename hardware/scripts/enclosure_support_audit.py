@@ -363,7 +363,14 @@ def _merge_bbox(a: list[float], b: list[float]) -> list[float]:
 def audit(gcode: Path, piece: str, model: Path | None = None,
           profile: Path | None = None, coordinate_profile: Path | None = None,
           bed_reseat_mm: float | None = None,
-          profile_label: str | None = None) -> dict:
+          profile_label: str | None = None,
+          include_unlabelled_support: bool = False) -> dict:
+    """Read support topology; optionally retain bodies without interface feature labels.
+
+    A slicer may emit a tree entirely as ``Support``. Retaining that body does
+    not establish where it contacts the model, so interface build-up remains
+    unknown until an explicit interface feature or a physical reading exists.
+    """
     tree_set, island_set = DisjointSet(), DisjointSet()
     tree_nodes: list[LayerNode] = []
     island_nodes: list[LayerNode] = []
@@ -538,7 +545,8 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
 
     for row in island_groups.values():
         row["tree_roots"] = {tree_set.find(node) for node in row.pop("tree_nodes")}
-    reaching = sorted({root for row in island_groups.values() for root in row["tree_roots"]})
+    reaching = sorted(tree_groups if include_unlabelled_support else
+                      {root for row in island_groups.values() for root in row["tree_roots"]})
     tree_number = {root: i + 1 for i, root in enumerate(
         sorted(reaching, key=lambda root: (tree_groups[root]["bbox_xy_mm"],
                                            tree_groups[root]["base_z_mm"]))) }
@@ -587,19 +595,21 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
         number = tree_number[root]
         row = tree_groups[root]
         contacts = by_tree[number]
-        first = min(contact["first_z_mm"] for contact in contacts)
-        build = first - row["base_z_mm"]
+        first = min((contact["first_z_mm"] for contact in contacts), default=None)
+        build = first - row["base_z_mm"] if first is not None else None
         bed = first_layer_z is not None and row["base_z_mm"] <= first_layer_z + 1e-6
         trees.append({
             "id": f"tree-{number}",
             "root": "bed" if bed else "model",
             "base_z_mm": round(row["base_z_mm"], 3),
-            "first_interface_z_mm": round(first, 3),
-            "shortest_build_up_mm": round(build, 3),
+            "first_interface_z_mm": round(first, 3) if first is not None else None,
+            "shortest_build_up_mm": round(build, 3) if build is not None else None,
             "top_z_mm": round(row["top_z_mm"], 3),
             "bbox_xy_mm": row["bbox_xy_mm"],
             "interfaces": [contact["id"] for contact in contacts],
         })
+        if include_unlabelled_support:
+            trees[-1]["interface_reading"] = "explicit_feature" if contacts else "unlabelled"
         if cad_transform:
             trees[-1]["bbox_cad_xyz_mm"] = _transform_bbox([
                 row["bbox_xy_mm"][0], row["bbox_xy_mm"][1], row["base_z_mm"],
@@ -638,12 +648,22 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             "interface_islands": len(interfaces),
             "bed_rooted_bodies": sum(tree["root"] == "bed" for tree in trees),
             "model_rooted_bodies": sum(tree["root"] == "model" for tree in trees),
-            "shortest_build_up_mm": (min((tree["shortest_build_up_mm"] for tree in trees),
+            "shortest_build_up_mm": (min((tree["shortest_build_up_mm"] for tree in trees
+                                          if tree["shortest_build_up_mm"] is not None),
                                          default=None)),
         },
         "trees": trees,
         "interfaces": interfaces,
     }
+    if include_unlabelled_support:
+        result["interface_feature_policy"] = "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+        missing = sum(not tree["interfaces"] for tree in trees)
+        result["summary"]["bodies_without_interface_labels"] = missing
+        result["summary"]["explicit_interface_islands"] = len(interfaces)
+        result["summary"]["shortest_labelled_build_up_mm"] = result["summary"]["shortest_build_up_mm"]
+        if missing:
+            result["summary"]["interface_islands"] = None
+            result["summary"]["shortest_build_up_mm"] = None
     return result
 
 
@@ -677,10 +697,17 @@ G1 X11 Y0 E1
         path = Path(directory) / "fixture.gcode"
         path.write_text(fixture)
         result = audit(path, "fixture")
+        path.write_text(fixture.replace("; FEATURE: Support interface", "; FEATURE: Support"))
+        unlabelled = audit(path, "unlabelled", include_unlabelled_support=True)
     assert result["summary"]["support_bodies"] == 2, result
     assert result["summary"]["bed_rooted_bodies"] == 1, result
     assert result["summary"]["model_rooted_bodies"] == 1, result
     assert sorted(tree["shortest_build_up_mm"] for tree in result["trees"]) == [0.2, 6.0], result
+    assert unlabelled["summary"]["support_bodies"] == 2, unlabelled
+    assert unlabelled["summary"]["bodies_without_interface_labels"] == 2, unlabelled
+    assert unlabelled["summary"]["explicit_interface_islands"] == 0, unlabelled
+    assert unlabelled["summary"]["interface_islands"] is None, unlabelled
+    assert unlabelled["summary"]["shortest_build_up_mm"] is None, unlabelled
 
     model_rooted_fixture = """G90
 M83
@@ -808,6 +835,8 @@ def main() -> None:
                              "git:<hash>:<path> for a history-only production project")
     parser.add_argument("--slicer", type=Path, default=_DEFAULT_SLICER)
     parser.add_argument("--json-out", type=Path)
+    parser.add_argument("--include-unlabelled-support", action="store_true",
+                        help="retain support bodies without explicit interface feature labels")
     parser.add_argument("--selftest", action="store_true")
     args = parser.parse_args()
     if args.selftest:
@@ -832,12 +861,14 @@ def main() -> None:
             gcode, coordinate_profile, bed_reseat = _current_profile_slice(
                 args.model, args.profile, args.slicer, Path(directory))
             result = audit(gcode, args.piece, args.model, args.profile,
-                           coordinate_profile, bed_reseat, profile_label=args.profile_label)
+                           coordinate_profile, bed_reseat, profile_label=args.profile_label,
+                           include_unlabelled_support=args.include_unlabelled_support)
             if args.refreshed_profile_out:
                 shutil.copyfile(coordinate_profile, args.refreshed_profile_out)
     else:
         result = audit(args.gcode, args.piece, args.model, args.profile,
-                       profile_label=args.profile_label)
+                       profile_label=args.profile_label,
+                       include_unlabelled_support=args.include_unlabelled_support)
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.json_out:
         args.json_out.write_text(encoded)

@@ -1,20 +1,9 @@
-"""Flute the faucet's base — the one printed piece that stands in the open on a counter.
+"""Publish the faucet's checked print meshes as viewer payloads.
 
-A THIRD TREE, FOR THE SAME REASON THE OTHER TWO ARE APART. The box's six pieces and the cold
-core's three are two rules because one rule over both comes back around on itself
-(`flute_payload_enclosure.py`). This tree comes back around on nothing — no assembly under
-`printed-parts/faucet/` reads a payload the box or the core writes — but the partition is the
-same one either way: `inventory.py` writes all three entries out of one traced run of
-`flute_payload.py`, on the directories `ENCLOSURE_DIRS`, `COLD_CORE_DIRS` and `FAUCET_DIRS`
-name. A run over this tree opens `faucet-shell-base.step` beside its printed mesh, cuts the
-payload the viewer draws, and grafts that surface into `faucet-shell.step.mesh` — the two
-pieces as assembled, which is what `faucet-assembly` and `/3d` open.
-
-THE ASSEMBLED PAYLOAD IS THIS ACTION'S OUTPUT, so a clean sandbox cannot also receive the old
-copy as an input. Its STEP is the host: `import_assembly` reads the names, placements and
-colours that the viewer would read, and `_seed_host` tessellates those bodies before the flute
-surface replaces the base. A hand run normally finds the current payload already beside the
-STEP and leaves its bytes alone until `graft` decides they differ.
+The shell, display cover, above-counter plate and gasket use their actual
+STLs. The assembled shell payload receives both printed shell surfaces.
+The shared pipeline also handles the appliance's fluted parts; the faucet
+itself has smooth CAD-native surfaces.
 """
 
 import sys

@@ -1,0 +1,167 @@
+{
+  "project": "faucet-display-fit-trial.3mf",
+  "settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
+  "printer": "Bambu Lab H2C 0.4 nozzle",
+  "process": "0.24mm Standard @BBL H2C",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "display-trial-housing",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
+      "stl_sha256": "6f4c41a3ad8e2c141f2b15eaf70ce61a8e8adb98b776b2c83484e6cc73596b37",
+      "triangles": 12618,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -0.0010442733764648438,
+        43.180497296038084
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        110.0,
+        160.0,
+        43.17834364634473
+      ],
+      "plate_translation_mm": [
+        110.0,
+        160.0,
+        43.17834364634473
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          94.98754501342773,
+          132.5209665298462,
+          0.0
+        ],
+        [
+          125.01245498657227,
+          187.4790334701538,
+          86.35668729268946
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999982650133461e-10
+    },
+    {
+      "name": "display-trial-cover",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
+      "stl_sha256": "6666bf5826e0e61c65a6de8477801ba3a297b6eb43e1c46c2c31667b0163d5cc",
+      "triangles": 2582,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        6.67572021484375e-06,
+        9.274999668530313
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        240.0,
+        160.0,
+        9.274999568530234
+      ],
+      "plate_translation_mm": [
+        240.0,
+        160.0,
+        9.274999568530234
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          223.3405475616455,
+          135.17163562774658,
+          0.0
+        ],
+        [
+          256.6594524383545,
+          184.82836437225342,
+          18.549999137060468
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "797e37505fad052eb11b8c248249761454bbfb96a22052590efeb10b5345113d",
+  "settings_preserved_byte_for_byte": true,
+  "project_title": "Faucet display fit trial",
+  "geometry_report_sha256": "f16da30acd2548c56d2fa8a86d8c98a30c9e729d066030c69ca4fca067360896",
+  "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "all_profile_members_preserved_byte_for_byte": true,
+  "placement": {
+    "left_to_right": [
+      "display-trial-housing",
+      "display-trial-cover"
+    ],
+    "source_stls_already_in_print_pose": true
+  }
+}

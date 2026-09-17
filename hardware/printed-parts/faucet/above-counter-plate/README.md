@@ -1,55 +1,51 @@
 # Above-counter plate
 
-Printed PET-GF15 plate that supports the harvested Westbrass and
-the two flavor tubes beside it, and carries the three screw bosses that
-bolt up into the shell. Mates against the countertop top surface via the
-above-counter gasket below it.
+Printed PET-GF15 plate supporting the Westbrass above the countertop.
+Three recessed M3 screws clamp it to the faucet shell. The three pedestals
+align the parts before the screws are tightened. The above-counter gasket
+covers the underside and the fasteners when the faucet ships.
 
-## Footprint
+## Footprint and bearing
 
-Matches the shell foot exactly — the foot circle plus the two lateral
-teardrop pods and the front D-pod — so the plate edge runs flush under the
-shell with no ledge. Built by reusing the shell's own outline geometry.
+The oval measures [65 mm](FOOT_WIDTH) across X and [66 mm](FOOT_DEPTH)
+along Y, centered at world (0, [0 mm](PLATE_Y)). The shell and gasket share
+this exact perimeter.
 
-- [4 mm](PLATE_T) thick; spans Z from [-4](PLATE_Z_BOTTOM) to 0, top face
-  flush with the deck plane (= the Westbrass's bottom in the faucet-assembly).
-- Centered at world (0, +[3.175 mm](PLATE_Y)); the Westbrass's axis at world (0, 0).
+The plate is [4 mm](PLATE_T) thick, from Z=[-4](PLATE_Z_BOTTOM) to 0.
+The Westbrass's bottom face lands on the top face around the central
+Ø[12.6 mm](SHANK_HOLE_D) shank hole. The captive donor nut clamps the
+Westbrass, plate, gasket, countertop and existing stainless under-counter
+plate together at installation.
 
-## Screw bosses
+## Factory joint
 
-One at each pod center (both laterals + the front), so the plate clamps to
-the shell through all three pods. Each boss is a [12.15 mm](PLATE_BOSS_D) ⌀
-cylinder rising [7 mm](BOSS_H) from the plate top into the shell's boss
-hole — shy of the hole floor (the gap absorbs the hole ceiling's bridge
-sag, insert squeeze-out, and layer-1 lips) so the plate seats on the foot,
-not the boss. A [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer rings each top
-rim, easing all three pins into their holes at once. Each is bored for an
-M3×12 black-oxide SHCS:
+Three M3×[8 mm](SCREW_LENGTH) socket-head screws enter from below. Each
+Ø[6.15 mm](CBORE_D) counterbore is [3.2 mm](CBORE_DEPTH) deep. Its
+Ø[9.9 mm](PEDESTAL_D) pedestal stands [2.2 mm](PEDESTAL_H) above the plate,
+giving a [3 mm](SEAT_T) bearing section above the head. The screw passes
+through a Ø[3.9 mm](SHANK_D) clearance hole and into a ruthex M3 short
+insert above the shell socket. All heads sit below the gasket-contact face.
 
-- [6.15 mm](CBORE_D) ⌀ counterbore through the full plate. The head bears on
-  the boss base and stays recessed clear of the gasket.
-- [3.9 mm](SHANK_D) ⌀ shank clearance up through the boss to the shell's
-  ruthex heat-set insert.
+The pedestals' [0.4 mm](PEDESTAL_CHAMFER) lead chamfers guide them into
+the shell's blind sockets. The plate seats on the shell's full bottom
+face; each pedestal has clearance above its tip.
 
-## Holes
+## Tube openings
 
-1. **Shank hole** — Ø [12.6 mm](SHANK_HOLE_D) at world (0, 0). Clears the
-   [11 mm](SHANK_OD) threaded shank.
-2. **Flavor-tube pill slot** — at world (0, +[18.93 mm](PLATE_FLAVOR_Y)),
-   oriented along X. Two 1/4" tubes [6.35 mm](TUBE_CENTER_X) apart
-   center-to-center (lateral), combined into a single rounded-rectangle:
-   - Length (X, lateral): [13.6 mm](PLATE_PILL_L)
-   - Width (Y, depth): [7.25 mm](PLATE_PILL_W)
+The flavor pair passes through a [13.6 mm](PLATE_PILL_L) ×
+[7.25 mm](PLATE_PILL_W) pill slot centered at
+(0,+[18.93 mm](PLATE_FLAVOR_Y)), with its long axis along X.
+The connected signal-cable branch is a 5.0 × 1.8 mm capsule centered at
+(9.3,17.0). This places the ribbon inside the existing stainless plate's
+open flavor channel and the drilled countertop hole. The passage has a
+broad connection to the flavor opening so no thin printed fin separates them.
 
-The three pod screws close the plate and shell around the fitted Westbrass.
-At field install, the retained donor washer and shank nut clamp the
-final Westbrass → above-counter plate → above-counter gasket → countertop
-→ under-counter-plate stack.
+Route both flavor tubes and the signal ribbon before closing this factory joint.
 
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python above_counter_plate.py
+tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py
 ```
 
 ## Sources

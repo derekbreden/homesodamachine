@@ -35,6 +35,7 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 # `cad-artifacts.json` the shipped bundle. Each slicer record joins by being named here.
 BUILD_INERT_BASENAMES = frozenset({
     "print-profile.json",
+    "faucet-petgf.print.json",
     "corner-trial-profile.json",
     "layer-review.json",
     "toolpath-review.json",
@@ -77,6 +78,14 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    # These STL exports are written by OCCT below Python's filesystem audit.
+    # Their generators still own them in a clean action.
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": (
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+    ),
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": (
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+    ),
     "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": tuple(
         f"hardware/printed-parts/cold-core/magnetic-float/{name}.step.mesh"
         for name in ("body-petg", "body-aero", "insert-aero",
@@ -113,13 +122,13 @@ IMPLICIT_SOLIDS = {
     "hardware/faucet-layout/faucet_assembly.py": (
         "hardware/faucet-layout/faucet-assembly.step.mesh",
     ),
-    # THE UNFLUTED FAUCET SHELL SURFACES. Its directory is bundled because the BASE in it carries
-    # a show skin the solid does not (`faucet_shell.write_bed_file`), and bundling is by directory
-    # — so the tip and assembled shell payloads ship beside it. These are the same writes no trace
-    # catches as the cap stack's three above.
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": (
+        "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
+    ),
+    # The assembled shell starts as a CAD payload; the faucet payload action
+    # replaces both piece surfaces with their checked printable meshes.
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": (
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
-        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
     ),
 }
 
@@ -155,7 +164,10 @@ _FLUTE_ROOTS = {
         "hardware/printed-parts/cold-core/foam-cap/",
         "hardware/printed-parts/cold-core/foam-shell/"),
     "hardware/scripts/flute_payload_faucet.py": (
-        "hardware/printed-parts/faucet/faucet-shell/",),
+        "hardware/printed-parts/faucet/faucet-shell/",
+        "hardware/printed-parts/faucet/faucet-display-cover/",
+        "hardware/printed-parts/faucet/above-counter-plate/",
+        "hardware/printed-parts/faucet/above-counter-gasket/"),
 }
 _FLUTE_TREES = tuple(sorted(r for roots in _FLUTE_ROOTS.values() for r in roots))
 

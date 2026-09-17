@@ -10,7 +10,8 @@ Why a script rather than typed numbers: the print estimate is a function of the
 that changes shape moves its mass, its print hours, the bottleneck's wall clock
 and the units-per-year ceiling — all of it, without anyone remembering to.
 
-  * Print hours = each §7 row's mass × its GROUP's hours-per-kg. THE KG IS
+  * Print hours = each §7 row's mass × its GROUP's hours-per-kg, except the
+    faucet batch, whose duration is read directly from its committed slice. THE KG IS
     FILAMENT, not geometry — §7 bills what a slice of the part lays, shell and
     infill (_bom_masses.PROFILES), and the rates below are measured against that
     same figure. Groups are the six print configurations the build uses;
@@ -27,6 +28,7 @@ Run:  python3 hardware/scripts/_machine_time.py           # recompute + write ma
       python3 hardware/scripts/_machine_time.py --check    # exit 1 on an unassigned
                                                            # §7 row or a stale marker
 """
+import json
 import os
 import re
 import sys
@@ -34,6 +36,8 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 BOM = os.path.join(HERE, "..", "ledger", "bom.md")
 MT = os.path.join(HERE, "..", "ledger", "machine-time.md")
+FAUCET_SLICE = os.path.join(HERE, "..", "printed-parts", "faucet",
+                           "faucet-petgf.support-audit.json")
 
 from pathlib import Path  # noqa: E402
 sys.path.insert(
@@ -79,10 +83,11 @@ _CAP_PETGF, _RHO_PETGF = 18.0, 1.43      # enclosure/print-log.md, bom.md §7
 PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 
 # Hours per kg of filament, by print configuration. `ext` is measured; `bulk` is that
-# measurement carried across the stock; the other four are the MEASURED PLATE's own
+# measurement carried across the stock; three are the MEASURED PLATE's own
 # rate scaled for a slower configuration, which is a scaling of the setup and not of
 # the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
-# five are labelled est. in the ledger. See machine-time.md "Open items".
+# four are labelled est. in the ledger. The faucet reads its own slice duration.
+# See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
     "bulk":  round(_BULK_PETG * PETGF_CARRY, 1),                # 13.3 — carried, est.
@@ -90,7 +95,7 @@ RATES = {
     "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
     "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
     "tool":  round(_BULK_PETG * 2.8),  # small supportless 0.4-nozzle part, six walls + dense core
-    "petgf": round(_BULK_PETG * 5.5),  # the faucet: 0.4 TC, fine layers, 50 °C chamber, supported
+    "petgf": None,  # Exact batch duration from the committed production-profile slice.
 }
 
 GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
@@ -197,7 +202,15 @@ def read_turnaround(wall):
 
 def main():
     kg, orphans = group_masses()
-    hours = {g: kg[g] * RATES[g] for g in kg}
+    with open(FAUCET_SLICE, encoding="utf-8") as fh:
+        faucet_slice = json.load(fh)
+    faucet_hours = sum(plate["estimated_total_seconds"]
+                       for plate in faucet_slice["plates"]) / 3600
+    if faucet_hours <= 0 or kg["petgf"] <= 0:
+        raise ValueError("Faucet slice duration and filament mass must be positive")
+    rates = dict(RATES, petgf=round(faucet_hours / kg["petgf"], 1))
+    hours = {g: kg[g] * rates[g] for g in kg}
+    hours["petgf"] = faucet_hours
     h_print = sum(hours.values())
     wall = h_print / PRINTERS
     secs, rows = read_sections()
@@ -251,7 +264,7 @@ def main():
         "MT_DAYS_TURN": f"{turn / 24:.1f}",
     }
     for g, tag in GROUP_MARKER.items():
-        variables[f"MT_RATE_{tag}"] = f"{RATES[g]:g}"
+        variables[f"MT_RATE_{tag}"] = f"{rates[g]:g}"
         variables[f"MT_KG_{tag}"] = f"{kg[g]:.3f}"
         variables[f"MT_H_{tag}"] = f"{hours[g]:.1f}"
 
@@ -274,7 +287,7 @@ def main():
 
     substitute_md(MT, variables)
     for g in GROUP_MARKER:
-        print(f"  {g:<6} {kg[g]:6.3f} kg × {RATES[g]:>4} h/kg = {hours[g]:6.1f} h")
+        print(f"  {g:<6} {kg[g]:6.3f} kg × {rates[g]:>4} h/kg = {hours[g]:6.1f} h")
     print(f"  {'PRINT':<6} {sum(kg.values()):6.3f} kg{'':14} {h_print:6.1f} h"
           f"   → {wall:.1f} h on {PRINTERS} printers")
     print(f"  cure {secs.get(2, 0):.1f} h · soak {secs.get(3, 0):.1f} h · run {secs.get(4, 0):.1f} h")
