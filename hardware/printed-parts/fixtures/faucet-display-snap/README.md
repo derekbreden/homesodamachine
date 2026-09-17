@@ -32,8 +32,9 @@ tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/pr
 
 After removing supports, feed the three real tubes and ribbon through the
 stub. Seat the display on all four supports and check the underside
-components clear the tubes and ribbon. Lower the cover squarely until both
-snaps engage. Check the seam closes, the glass remains clear of the bezel,
+components clear the tubes and ribbon. Lower the cover squarely, letting
+its side walls spread over the rigid cylinder until both broad lips enter
+the shallow side grooves. Check the seam closes, the glass remains clear of the bezel,
 and pressing the touchscreen does not rock the module or move the tubes.
 Check that the real bonded ribbon takes the sideways S turn and stays
 seated in its passage without lifting toward the PCB. The CAD envelope
@@ -41,11 +42,13 @@ does not establish how the cable's bonded web bends.
 Record any tight spot before trimming it, together with material/color,
 drying and print orientation.
 
-The two long snap arms have 3 × 3 mm sections, 0.30 mm engagement and a
-0.50 mm travel stop. The seated arms are unloaded. Their ideal rectangular
-beam strain is about 0.239%; that estimate does not include local stress,
-print anisotropy or the stiffness of the full housing. Insertion, retention,
-repeatability and permanent set are observations from this physical trial.
+The cover itself supplies the flex. Its two broad retaining lips are
+1.30 mm high and follow the neck profile with 0.30 mm nominal radial
+engagement. The grooves leave 0.15 mm radial clearance and 0.15 mm above
+the lip tops; their floors support the seated lips before the bezel can
+reach the glass. All four metal-foot pads keep their 3 mm sections.
+The complete cover's insertion force, retention, repeatability, whitening,
+cracking and permanent spread are observations from this physical trial.
 
 Polymaker's [PET-GF15 technical data sheet](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf)
 reports 4.0 ± 0.5% elongation at break in X–Y and 2.6 ± 0.1% in Z, with
@@ -63,21 +66,24 @@ settings and embedded-mesh hashes. Both source STLs are already oriented
 and seated for printing; the project adds no further rotation.
 
 The offline Bambu Studio 02.08.02.61 slice completed without a warning.
-Its estimate is 2 h 16 min and 25.63 g using the saved 1.29 g/cm³ filament
-density. Actual extrusion paths retain 66.87 mm to the shared bed boundary
-and 94.79 mm between the two parts.
+Its estimate is 2 h 20 min 13 s and 30.09 g using the saved 1.29 g/cm³
+filament density. These grams are a profile estimate, not a measured PET-GF
+part mass. Actual extrusion paths retain 63.02 mm to the shared bed boundary
+and 91.10 mm between the two parts.
 
 | Part / support body | Root | Contact reading | Build-up |
 |---|---|---|---|
 | Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–84.92 mm | Not measured without interface labels |
-| Cover | No supports | None | — |
+| Cover / trees 1–2 | Print bed, Z0.20 mm | Undersides of the two broad retaining lips; exact contacts are unlabelled. The supports reach Z16.76 mm | Not measured without interface labels |
 
 [The retained support audit](faucet-display-fit-trial.support-audit.json)
-records the support bounds and toolpaths. The housing support remains to
-print the actual fit features in the production orientation. An unlabelled
-interface count is unknown, not zero. Check removal access and the finish
-of the tube passages, display supports, snap arms and retaining faces on
-the physical print before testing the fit.
+records the support bounds and toolpaths. The supports print the actual
+fit features in their production orientations. The cover's open underside
+provides the intended removal route to its two lip supports before fitting
+the display. An unlabelled interface count is unknown, not zero. Check
+removal access and the finish of the tube passages, display supports,
+broad lips and groove bearing faces on the physical print before testing
+the fit.
 
 To repeat the offline slice, add `--slice-output /path/to/local/slice` to
 `prepare_print_project.py`. This writes local G-code and its audit; it

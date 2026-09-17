@@ -46,8 +46,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
-      "stl_sha256": "6f4c41a3ad8e2c141f2b15eaf70ce61a8e8adb98b776b2c83484e6cc73596b37",
-      "triangles": 12618,
+      "stl_sha256": "05fe66665b93b7462989c5d2a39d552237228289fd1ac9e2d3b652283c5e0303",
+      "triangles": 11786,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -92,7 +92,7 @@
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.999982650133461e-10
+      "embedded_vertex_error_mm": 5.000000413701855e-10
     },
     {
       "name": "display-trial-cover",
@@ -102,12 +102,12 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
-      "stl_sha256": "6666bf5826e0e61c65a6de8477801ba3a297b6eb43e1c46c2c31667b0163d5cc",
-      "triangles": 2582,
+      "stl_sha256": "457df0ef877b4982627f26aafc18ad61e912a42b713022ae596659f156f84267",
+      "triangles": 2366,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
-        6.67572021484375e-06,
+        0.6295938491821289,
         9.274999668530313
       ],
       "build_transform": [
@@ -137,12 +137,12 @@
       "plate_bounds_mm": [
         [
           223.3405475616455,
-          135.17163562774658,
+          135.52673244476318,
           0.0
         ],
         [
           256.6594524383545,
-          184.82836437225342,
+          184.47326755523682,
           18.549999137060468
         ]
       ],
@@ -151,10 +151,10 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "797e37505fad052eb11b8c248249761454bbfb96a22052590efeb10b5345113d",
+  "project_sha256": "62514a664e675b41bcc26de4eeb80bd585c040a70663a622d64af67348b31f43",
   "settings_preserved_byte_for_byte": true,
   "project_title": "Faucet display fit trial",
-  "geometry_report_sha256": "5e1b099cb612d21902a3f97a7cf44f90abc6c528c44a968cf02aa6e8cdee90e2",
+  "geometry_report_sha256": "60241ee0555da1d6210d49195556c8fb4803231cda22f32210fbea06c47336c9",
   "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
   "all_profile_members_preserved_byte_for_byte": true,
   "placement": {
