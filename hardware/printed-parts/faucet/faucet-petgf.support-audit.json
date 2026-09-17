@@ -1,6 +1,6 @@
 {
   "project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "project_sha256": "0e4b7b28b5a472282457d4c7e9c812db1f9274116ba608c8545bdee293e02e4e",
+  "project_sha256": "70d070ce9461b984b9071e65f14ee3fcfeb28ecac687a0b779cdbe2beaaa469c",
   "settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
   "slicer": "BambuStudio 02.08.02.61",
   "layer_height_mm": 0.23999999463558197,
@@ -13,8 +13,8 @@
   "plates": [
     {
       "plate": 1,
-      "estimated_total_seconds": 29255.10546875,
-      "saved_profile_filament_estimate_g": 150.30853271484375,
+      "estimated_total_seconds": 29081.3359375,
+      "saved_profile_filament_estimate_g": 149.60675048828125,
       "slicer_warning": ""
     }
   ],
@@ -24,12 +24,12 @@
       "piece": "faucet-shell-base",
       "inputs": {
         "gcode": "support-labels-faucet-shell-base.gcode",
-        "gcode_sha256": "cfe4862df01891e6081bd4e4f204552c47e38a7c6458340221c17abe5668b92c",
+        "gcode_sha256": "054b1222f0bd59a8d0d2e37b7840636bf84f41d851ecd2e7cdf7c503e4c344a3",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-        "model_sha256": "ac39f8febdc3d18f0faf4bcf28a1a589515c9e55bf0ee94af777480d7ecaf906",
+        "model_sha256": "223a31b452ae0f24626182a6359ab90a8f0c810a65ce1fcd5dc5138d5b4f39bc",
         "profile": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-        "profile_sha256": "0e4b7b28b5a472282457d4c7e9c812db1f9274116ba608c8545bdee293e02e4e",
-        "plate_gcode_sha256": "c576a7cddee3b3497bf5d4e0939faaae73eea1d861a6f4c7c1a454b3306fa6e7",
+        "profile_sha256": "70d070ce9461b984b9071e65f14ee3fcfeb28ecac687a0b779cdbe2beaaa469c",
+        "plate_gcode_sha256": "185b72af052f566981185994993436cd5fb834fd213d040c235525afbc847250",
         "object_label": 1901,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -83,9 +83,9 @@
           "shortest_build_up_mm": 20.64,
           "top_z_mm": 65.96,
           "bbox_xy_mm": [
-            60.8,
+            60.0,
             82.8,
-            129.2,
+            128.8,
             148.8
           ],
           "interfaces": [
@@ -93,10 +93,10 @@
           ],
           "interface_reading": "explicit_feature",
           "bbox_cad_xyz_mm": [
-            -34.196,
+            -34.996,
             -49.296,
             -30.969,
-            34.204,
+            33.804,
             42.487,
             60.754
           ]
@@ -155,16 +155,16 @@
       "toolpaths": {
         "extrusion_bounds_xy_mm": [
           [
-            60.1924645,
-            82.2814645
+            59.405207,
+            82.29820699999999
           ],
           [
-            129.72953550000003,
-            237.29953550000002
+            129.712793,
+            237.282793
           ]
         ],
-        "maximum_line_width_mm": 0.849071,
-        "bounds_padding_mm": 0.5245355
+        "maximum_line_width_mm": 0.815586,
+        "bounds_padding_mm": 0.507793
       }
     },
     {
@@ -172,12 +172,12 @@
       "piece": "faucet-shell-tip",
       "inputs": {
         "gcode": "support-labels-faucet-shell-tip.gcode",
-        "gcode_sha256": "dda1fe7c386384cfa8ffde5e5709446f7fd01647f9f8966d5734295d72a3548a",
+        "gcode_sha256": "302c16d4f7d91462f2099a2acfca90e4123915161769a43bfefad43c61253bc9",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "model_sha256": "b02284dfd2810aec9d05c0f358cf5e6c56d8648f43c9492b8f39eb95a0c75981",
         "profile": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-        "profile_sha256": "0e4b7b28b5a472282457d4c7e9c812db1f9274116ba608c8545bdee293e02e4e",
-        "plate_gcode_sha256": "c576a7cddee3b3497bf5d4e0939faaae73eea1d861a6f4c7c1a454b3306fa6e7",
+        "profile_sha256": "70d070ce9461b984b9071e65f14ee3fcfeb28ecac687a0b779cdbe2beaaa469c",
+        "plate_gcode_sha256": "185b72af052f566981185994993436cd5fb834fd213d040c235525afbc847250",
         "object_label": 1902,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -272,12 +272,12 @@
       "piece": "faucet-display-cover",
       "inputs": {
         "gcode": "support-labels-faucet-display-cover.gcode",
-        "gcode_sha256": "de21273a9e01971a7fcad52abd3167968c344e499fe1aacf2bf14dfd5efc45e9",
+        "gcode_sha256": "35b0d6f5a3df2fb73cf93fb8f54e26c53996fedc40d2f00a3de874c892cd04fd",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "model_sha256": "f8a8e08a4195bc28018e997d0fc2f598045b576c78173b1df212083f6465bb9b",
         "profile": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-        "profile_sha256": "0e4b7b28b5a472282457d4c7e9c812db1f9274116ba608c8545bdee293e02e4e",
-        "plate_gcode_sha256": "c576a7cddee3b3497bf5d4e0939faaae73eea1d861a6f4c7c1a454b3306fa6e7",
+        "profile_sha256": "70d070ce9461b984b9071e65f14ee3fcfeb28ecac687a0b779cdbe2beaaa469c",
+        "plate_gcode_sha256": "185b72af052f566981185994993436cd5fb834fd213d040c235525afbc847250",
         "object_label": 1903,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -347,12 +347,12 @@
       "piece": "above-counter-plate",
       "inputs": {
         "gcode": "support-labels-above-counter-plate.gcode",
-        "gcode_sha256": "9ef4f5cec66c387c47ee96e3ae45cdfeee313bbb697d6f7dae1718591a3b32cb",
+        "gcode_sha256": "c7ebc91c3ae0bed88d35e85391469710951226b027963dd7e60bd71102355f7d",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
         "model_sha256": "2a3c6bad4685062f7c2eab7778195ee56a4d0b08d06ffc73e5655cf6ce98e780",
         "profile": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-        "profile_sha256": "0e4b7b28b5a472282457d4c7e9c812db1f9274116ba608c8545bdee293e02e4e",
-        "plate_gcode_sha256": "c576a7cddee3b3497bf5d4e0939faaae73eea1d861a6f4c7c1a454b3306fa6e7",
+        "profile_sha256": "70d070ce9461b984b9071e65f14ee3fcfeb28ecac687a0b779cdbe2beaaa469c",
+        "plate_gcode_sha256": "185b72af052f566981185994993436cd5fb834fd213d040c235525afbc847250",
         "object_label": 1904,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -505,14 +505,14 @@
           "faucet-shell-base",
           "faucet-shell-tip"
         ],
-        "separation_mm": 46.99845749999997
+        "separation_mm": 47.01519999999999
       },
       {
         "parts": [
           "faucet-shell-base",
           "faucet-display-cover"
         ],
-        "separation_mm": 117.63813813248814
+        "separation_mm": 117.65594050412048
       },
       {
         "parts": [
@@ -526,7 +526,7 @@
           "faucet-shell-base",
           "above-counter-plate"
         ],
-        "separation_mm": 55.574464499999976
+        "separation_mm": 55.591207
       },
       {
         "parts": [

@@ -1,0 +1,16 @@
+[step] The 3 mm snap receiver's underside is at local n=3.45; the cosmetic skirt ends at n=3.30. The 0.15 mm offset is between those two underside faces. Receiver thickness remains 3 mm.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=-15.155 y=-129.826 z=190.726
+
+[slope] This is the inside of the 1.30 mm cosmetic bezel at local n=20.55, with 0.10 mm clearance over the display face. The cover's +130 degree print rotation puts its outer bezel on the bed and this inner face upward.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=0.000 y=-134.472 z=211.791
+
+[slope] This is the open cosmetic skirt rim at local n=3.30. It points upward with the cover's +130 degree print rotation.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=0.000 y=-121.172 z=200.806
+
+[sliver] These are the two long side faces of the screen aperture. Their 1.30 mm depth is the cosmetic bezel thickness. The aperture is 20.50 mm wide and the outer bezel is the cover's bed face.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=10.250 y=-134.971 z=212.209
+click: x=-10.250 y=-134.971 z=212.209
