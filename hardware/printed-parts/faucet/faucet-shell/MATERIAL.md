@@ -1,8 +1,8 @@
 # Faucet shell material and printing
 
 The shell base, shell tip, display cover and above-counter plate use PET-GF.
-The recorded production material is black Polymaker Fiberon PET-GF15 on the
-Bambu H2C with its 0.4 mm tungsten-carbide hotend. The print project preserves
+The production material is black Polymaker Fiberon PET-GF15 on Mark2, a
+Bambu H2C with its left 0.4 mm diamond PCD hotend. The print project preserves
 the saved PET-GF profile and 0.24 mm process settings.
 
 White Fiberon PET-GF15 is a listed color in
@@ -19,10 +19,10 @@ sections. The complete cover's insertion force, retention and resistance
 to permanent spreading must be read from the PET-GF fit trial. The 2 mm
 TPU countertop gasket is a compressible sealing component.
 
-The base and tip use build rotations of −35° and −105° about their shared
-arc frame. Their CAD print heights are [232.6 mm](BASE_PRINT_HEIGHT) and
+The base and tip use build rotations of −15° and −105° about their shared
+arc frame. Their CAD print heights are [247.2 mm](BASE_PRINT_HEIGHT) and
 [138.8 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
-[35°](MAX_PRINT_OVERHANG) of overhang; the hidden curved plug reaches 49.36°.
+[55°](MAX_PRINT_OVERHANG) of overhang; the hidden curved plug reaches 49.36°.
 Those angles do not describe every face of the lower body or display head.
 
 The separate cover prints with its planar bezel face on the bed.
