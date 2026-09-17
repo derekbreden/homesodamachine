@@ -1,0 +1,285 @@
+{
+  "status": "prepared; not submitted",
+  "printer": "Mark2",
+  "nozzle": "left 0.4 mm Standard",
+  "material": "Polymaker PET-GF; PET-CF printer metadata",
+  "validation": {
+    "status": "pass",
+    "printer": "Mark2",
+    "sent": false,
+    "source_profile": "hardware/printed-parts/petgf.3mf",
+    "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "project_sha256": "86f2652a35b9196dd83ecd5f16f9964c6a0b6eb6d1e073d206959e68cb903526",
+    "input_sha256": "e69e1f78d49e07d3eed282e77eacb8050732a58269a6f91194d57e2c30f0b454",
+    "sliced_archive": ".cache/prints/2026-09-17-faucet-mark2/ready/faucet-mark2.gcode.3mf",
+    "sliced_archive_sha256": "24ec04bb18b495fa9831c75eb3c940ee86d7effd03e98e182f40705666aa48e9",
+    "gcode_sha256": "36e604edb385be42ae566cf1810f32c7edc9f0a1555fdfc99de37a93c6c60400",
+    "source_stls": {
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "0a8168c6201a018ba158af617ec535c716e0f62f1ee464a1508472a410a4d2c0",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "bc062cd00e8dd5bb8f64da5a9df6bb0986f2e691e1a1a8b64bfaf65fa16756bf",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "7b966dd384c22265ddcae49e56f9149e3fea69c9884bf449ba2ece02969d2c86",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "2a3c6bad4685062f7c2eab7778195ee56a4d0b08d06ffc73e5655cf6ce98e780"
+    },
+    "requested_z_trim_mm": 0.04,
+    "actual_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "estimated_seconds": 21127.0,
+    "grams": 161.4,
+    "layers": 969,
+    "objects": 4,
+    "slicer_warning_message": "",
+    "critical_settings_match_source_profile": true,
+    "geometry_unchanged_in_staged_input": true,
+    "settings_overrides": {
+      "extruder_ams_count": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    }
+  },
+  "cooling": {
+    "profile_min_percent": 0,
+    "profile_max_percent": 70,
+    "off_first_layers": 3,
+    "parts": [
+      {
+        "part": "faucet-shell-base",
+        "last_layer": 969,
+        "final_10mm_outer_wall_fan_percent": [
+          68.0,
+          70.0
+        ],
+        "last_layer_fan_percent": [
+          70.0
+        ]
+      },
+      {
+        "part": "faucet-shell-tip",
+        "last_layer": 578,
+        "final_10mm_outer_wall_fan_percent": [
+          61.0,
+          66.0
+        ],
+        "last_layer_fan_percent": [
+          66.0
+        ]
+      },
+      {
+        "part": "faucet-display-cover",
+        "last_layer": 77,
+        "final_10mm_outer_wall_fan_percent": [
+          31.0,
+          48.0
+        ],
+        "last_layer_fan_percent": [
+          39.0
+        ]
+      },
+      {
+        "part": "above-counter-plate",
+        "last_layer": 26,
+        "final_10mm_outer_wall_fan_percent": [
+          0.0,
+          47.0
+        ],
+        "last_layer_fan_percent": [
+          45.0
+        ]
+      }
+    ],
+    "historical_reference": "hardware/printed-parts/faucet/faucet-shell/print-log.md: PET-CF print attempt 21",
+    "historical_setting": "M106 P1 S180 (~70%); current slice uses profile-driven cooling rather than the old layer-333 trigger"
+  },
+  "arrangement": [
+    {
+      "part": "faucet-shell-base",
+      "rotation_x_degrees": -35.0,
+      "height_mm": 232.612,
+      "plate_bounds_mm": [
+        [
+          60.58106803894043,
+          83.0149654495475,
+          0.0
+        ],
+        [
+          129.41893196105957,
+          236.9850345504525,
+          232.6116736755775
+        ]
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "rotation_x_degrees": -105.0,
+      "height_mm": 138.757,
+      "plate_bounds_mm": [
+        [
+          179.98754501342773,
+          179.35159294142474,
+          0.0
+        ],
+        [
+          210.01245498657227,
+          234.64840705857523,
+          138.75712253919463
+        ]
+      ]
+    },
+    {
+      "part": "faucet-display-cover",
+      "rotation_x_degrees": 130.0,
+      "height_mm": 18.55,
+      "plate_bounds_mm": [
+        [
+          247.3405475616455,
+          245.03173194772356,
+          0.0
+        ],
+        [
+          280.6594524383545,
+          294.96826805227647,
+          18.55001750782573
+        ]
+      ]
+    },
+    {
+      "part": "above-counter-plate",
+      "rotation_x_degrees": 0.0,
+      "height_mm": 6.2,
+      "plate_bounds_mm": [
+        [
+          185.503511428833,
+          75.00142669677734,
+          0.0
+        ],
+        [
+          250.496488571167,
+          140.99857330322266,
+          6.200000047683716
+        ]
+      ]
+    }
+  ],
+  "support_review": {
+    "bed_rooted_bodies": 9,
+    "model_rooted_bodies": 0,
+    "by_part": {
+      "faucet-shell-base": {
+        "support_bodies": 1,
+        "interface_islands": 1,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 20.64,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 1,
+        "shortest_labelled_build_up_mm": 20.64
+      },
+      "faucet-shell-tip": {
+        "support_bodies": 1,
+        "interface_islands": null,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "faucet-display-cover": {
+        "support_bodies": 4,
+        "interface_islands": null,
+        "bed_rooted_bodies": 4,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 4,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "above-counter-plate": {
+        "support_bodies": 3,
+        "interface_islands": null,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 3,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      }
+    },
+    "fit": {
+      "minimum_shared_bed_margin_mm": 24.80607100000003,
+      "minimum_toolpath_separation_mm": 15.736098219210579,
+      "pairwise_toolpath_separations": [
+        {
+          "parts": [
+            "faucet-shell-base",
+            "faucet-shell-tip"
+          ],
+          "separation_mm": 43.514025000000004
+        },
+        {
+          "parts": [
+            "faucet-shell-base",
+            "faucet-display-cover"
+          ],
+          "separation_mm": 117.64365725128818
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "faucet-display-cover"
+          ],
+          "separation_mm": 15.736098219210579
+        },
+        {
+          "parts": [
+            "faucet-shell-base",
+            "above-counter-plate"
+          ],
+          "separation_mm": 55.591207
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "above-counter-plate"
+          ],
+          "separation_mm": 37.88381800000002
+        },
+        {
+          "parts": [
+            "faucet-display-cover",
+            "above-counter-plate"
+          ],
+          "separation_mm": 103.61607100000003
+        }
+      ]
+    },
+    "reviewed_clean_surfaces": [
+      "exposed shell base and tip neck skins",
+      "display bezel face and cover exterior",
+      "above-counter plate outer edge"
+    ],
+    "retained_contacts": {
+      "faucet-shell-base": "Concealed counter-end mating face, mounting/donor pockets, internal lever roof, cable/flavor passage.",
+      "faucet-shell-tip": "Concealed joint shoulder and plug passages; display chassis interior.",
+      "faucet-display-cover": "Internal retaining lip undersides, two bed-rooted support bodies per lip.",
+      "above-counter-plate": "Three underside screw counterbores."
+    },
+    "method": "STL down-facing triangle review, sampled support-to-model vertical proximity, rendered contact-face review, and per-object connected-body audit from the slice. Actual removal finish remains a physical print observation.",
+    "detailed_contact_review": ".cache/prints/2026-09-17-faucet-mark2/contact-review.json",
+    "staged_support_audit": ".cache/prints/2026-09-17-faucet-mark2/faucet-mark2-input.support-audit.json"
+  },
+  "preview": ".cache/prints/2026-09-17-faucet-mark2/prepared-plate.png",
+  "next_launch_options": {
+    "printer": "Mark2",
+    "filament_mapping": "left external spool, PET-CF metadata",
+    "bed": "Textured PEI",
+    "requested_z_offset_mm": 0.04,
+    "auto_bed_leveling": "On",
+    "timelapse": "Off",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "source_profile_recheck": "Before launch, compare hardware/printed-parts/petgf.3mf and source STL hashes to this record; refresh and slice if they differ."
+}
