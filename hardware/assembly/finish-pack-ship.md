@@ -63,7 +63,7 @@ Confirm dry at this bench by: (a) listening at the gooseneck while gently tiltin
 
 ### 3. Apply the per-unit nameplate plate with signature
 
-Confirm the plate pulled for this unit matches the serial assigned to the order. The plate was pre-printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with the unit's serial in the contrast inlay — `SERIAL NNNN`, the input rating `120V 60Hz 5A 600W`, the 120 V 60 Hz ONLY warning, and the unit's own link `homesodamachine.com/u/NNNN`. The serial on the plate must match the serial in the per-unit log archive at `logs/<serial>/` and the one in the link beneath it; a plate whose two numbers disagree is scrap, and a plate whose number is not this unit's does not go on.
+Confirm the plate pulled for this unit matches the serial assigned to the order. The plate was pre-printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with the unit's serial in the contrast inlay — `SERIAL NNNN`, the input rating `120V 60Hz 5A 600W`, the 120 V 60 Hz ONLY warning, and the unit's own link `homesodamachine.com/NNNN`. The serial on the plate must match the serial in the per-unit log archive at `logs/<serial>/` and the one in the link beneath it; a plate whose two numbers disagree is scrap, and a plate whose number is not this unit's does not go on.
 
 The signature is not printed — it lands here, at the final-stage bench, on the actual plate about to ship with the actual machine. The plate carries no signature field of its own yet; the path is the open item [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) states, and the bench works whichever of these is in service:
 
@@ -96,7 +96,7 @@ Two photos minimum:
 
 Both go into the unit's archive at `logs/<serial>/finish/` — the burn-in bench's archive directory already has the test logs under `logs/<serial>/burn-in/`, and the finish photos sit alongside as the visual confirmation of the unit's ship-state. The photos exist for two reasons: customer-support reference if the unit arrives with damage and a "what it looked like leaving the shop" comparison shot is needed for the claim, and a record of the as-shipped state for the run that the founder can look back on.
 
-Whether the per-serial archive ships with the machine (USB stick in the box, cloud archive at the link the plate carries, `homesodamachine.com/u/NNNN`, both), stays at the factory only, or some split is an Open item.
+Whether the per-serial archive ships with the machine (USB stick in the box, cloud archive at the link the plate carries, `homesodamachine.com/NNNN`, both), stays at the factory only, or some split is an Open item.
 
 ### 6. Pack the install kit
 
