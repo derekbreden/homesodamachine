@@ -1,5 +1,41 @@
 # Funnel mold print log
 
+## Reduced-flow 0.4 mm Standard trial — 2026-09-17
+
+Derek authorized a 0.94 filament flow ratio and requested the cavity print on
+H2C with a +0.18 mm Z trim. The active Standard variant is 0.94, a 3.09%
+reduction from the failed trial's 0.97. This reduces extrusion throughout the
+solid layers beneath the rough surface as well as the exposed surfaces. It is
+a physical trial, not a calibrated final flow value or a confirmed diagnosis.
+
+The project uses **Funnel mold PETG Translucent - 0.4 Standard - flow 0.94**
+and **Bambu Lab H2C 0.4 Standard +0.18 Z trim**. Layers remain 0.24 mm with
+a 0.20 mm first layer, 100% zig-zag infill, two walls, 15% infill/wall overlap,
+6 mm³/s maximum volumetric speed, 250/245 °C nozzle temperatures and Snug
+normal supports. The meshes, placements and support settings are unchanged.
+The global filament variant map is Standard, matching both plate assignments.
+The other stored filament variants retain 0.97.
+
+Fresh Bambu Studio 2.8.2.61 slices of the failed project in commit `9ccc619e7`
+and this project each contain 642 layers. Layer 374 is Z47.24 mm in these
+reconstructed slices; support and model layers interleave, so multiplying 374
+by the nominal 0.24 mm layer height does not give its height. The original
+failed print's submitted G-code is unavailable.
+
+The new cavity slice reports a 0.94 flow ratio, the left 0.4 mm Standard
+nozzle, and `G29.1 Z0.16` after the Textured PEI plate correction. Its estimate
+is 32 h 54 min 35 s and 719.38 g. The editable project contains no G-code;
+the sliced submission file is kept outside this folder.
+[flow-review.json](flow-review.json) records identical model extrusion paths
+and the 3.09% reduction in model extrusion, including internal solid infill.
+
+Editable project SHA-256:
+`04216c993c00e70c7b35e552c4fdb228cbd110bc17804051c8ebeddc4f738f8f`.
+Sliced file SHA-256:
+`324efc0cbd3e15e58c83cf49f25847c347954165b7f240c359aea4c1731c0734`.
+Plate 1 G-code SHA-256:
+`e6b1c00ed8592b7616f95c793aae4fb4a1c96358b2a0953f851e6ecf87d9f110`.
+
 ## 0.4 mm Standard nozzle, stopped at layer 374 — 2026-09-17
 
 Derek reports that the 0.4 mm regular-flow print developed the same raised,
