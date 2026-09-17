@@ -37,6 +37,10 @@ window_s_north = shell.display_s_top - shell.display_cradle_clearance - display_
 window_corner_r = display_corner_r - display_cover_lap
 window_x = 2.0 * window_half_x
 window_s = window_s_north - window_s_south
+front_rim_n = 14.0
+front_rim_slope = 1.8
+rear_rim_s = 42.0
+rear_rim_slope = 1.5
 
 
 def build_plate_outer() -> cq.Workplane:
@@ -48,12 +52,32 @@ def build_plate_inner_cut() -> cq.Workplane:
         window_half_x, window_s_south, window_s_north,
         bezel_n_bottom - 0.1, plate_n_top + 1.0, corner_r=window_corner_r,
     )
-    return shell.build_display_cover_inner_envelope().union(window)
+    cavity = shell.build_display_cover_inner_envelope().intersect(
+        shell._cradle_prism(50.0, shell.display_s_bottom,
+                            shell.display_head_s_max + 1.0, -30.0, 40.0))
+    return cavity.union(window)
+
+
+def build_corner_rim_relief() -> cq.Workplane:
+    """Blunt transverse rims keep the end skirts clear of the neck's tangent."""
+    bottom = shell.display_cover_bottom_n
+    front_s = (front_rim_n - bottom) / front_rim_slope
+    front = (cq.Workplane("YZ")
+             .polyline([(-10.0, -30.0), (front_s, -30.0), (front_s, bottom),
+                        (-10.0, front_rim_n + 10.0 * front_rim_slope)])
+             .close().extrude(30.0, both=True))
+    rear = (cq.Workplane("YZ")
+            .polyline([(rear_rim_s, -30.0), (60.0, -30.0),
+                       (60.0, bottom + (60.0 - rear_rim_s) * rear_rim_slope),
+                       (rear_rim_s, bottom)])
+            .close().extrude(30.0, both=True))
+    return shell._display_world(front.union(rear))
 
 
 def build_display_cover() -> cq.Workplane:
     skin = (build_plate_outer().cut(build_plate_inner_cut())
-            .cut(shell.build_display_neck_clearance()))
+            .cut(shell.build_display_neck_clearance())
+            .cut(build_corner_rim_relief()))
     return skin.union(shell.build_display_cover_lips())
 
 
