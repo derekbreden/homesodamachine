@@ -1,0 +1,30 @@
+{
+  "front-bottom": {
+    "sha256": "652791d6aadf139abd1dab998ad44a40cee7e669759bf5b717882f03f7a22544",
+    "vertices": 6340,
+    "triangles": 11790
+  },
+  "front-top": {
+    "sha256": "13313b3553ae8e5793622f3214be2590d174392201d3b1979b73a1139b5b3f96",
+    "vertices": 1197,
+    "triangles": 1665
+  },
+  "back-bottom": {
+    "sha256": "505e215e8b6abf7476045ae7e910233f22eb811850df246666f6349fa74b5e1c",
+    "vertices": 6746,
+    "triangles": 12630
+  },
+  "back-top": {
+    "sha256": "da80877c413f44a41c940a8d3f82a94e8d8dd2a7b9d0e5780afb468109467ad5",
+    "vertices": 8359,
+    "triangles": 12645
+  },
+  "pump-cartridge": {
+    "sha256": "f44a406dcdc6283095ec0ee228b2608a1ac4f4c58230ea15c8682deda9b3558d",
+    "vertices": 15443,
+    "triangles": 30413
+  },
+  "fixed-hardware": {
+    "sha256": "5abcbf834292ef3d040a86d9c6de5424fdb8235ac9a610bb1671a3bc73812bed"
+  }
+}
