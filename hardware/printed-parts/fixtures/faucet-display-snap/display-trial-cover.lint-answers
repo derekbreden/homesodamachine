@@ -1,8 +1,9 @@
-[step] The 3 mm receiver's underside and the cosmetic skirt rim are offset by 0.15 mm. Receiver thickness remains 3 mm. The trial cover is the complete production cover in its +130 degree print pose.
+[sliver] These are the long side faces of the screen aperture through the 1.30 mm cosmetic bezel. The outer bezel lies on the bed in this already posed STL.
 file: hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step
-click: x=-15.155 y=14.228 z=18.400
+click: x=10.250 y=0.858 z=0.650
+click: x=-10.250 y=0.858 z=0.650
 
-[sliver] These are the long side faces of the screen aperture through the 1.30 mm cosmetic bezel. The outer bezel is on the bed in this already posed STL.
+[sliver] These are the exposed retaining-lip bearing faces. Their 0.811 mm in-plane width is the inward overhang projection; the lips have 1.30 mm normal height and join the full cover side walls. The geometry audit measures nine interior normal material chords per lip and the separation of the complete curved inner face from the outer skin. The two bed-rooted supports reach these lips through the open underside. Support removal and PET-GF retention are measured with the physical trial.
 file: hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step
-click: x=10.250 y=1.078 z=0.650
-click: x=-10.250 y=1.078 z=0.650
+click: x=-14.988 y=1.353 z=17.250
+click: x=14.988 y=1.353 z=17.250
