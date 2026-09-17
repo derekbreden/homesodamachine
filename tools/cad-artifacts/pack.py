@@ -205,6 +205,12 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/faucet-layout",
 )
 
+# The fit-trial assembly has a viewer payload. Its two separately printable
+# pieces are served from their STEP and STL without requiring duplicate payloads.
+BUNDLED_PAYLOAD_FILES = (
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
+)
+
 #: Generated sheets, assembly cards and the shared installation scene renders. The owner
 #: quick start and install guide are committed documents; their PDF, cover and sidecar
 #: reach the site in its checkout. `_install_art.py` still supplies scenes used by manual
@@ -263,6 +269,7 @@ def solids(root: Path) -> list:
         walk += list((root / d).rglob("*.stl"))
     for d in BUNDLED_PAYLOAD_DIRS:
         walk += list((root / d).rglob("*.step.mesh"))
+    walk += [root / rel for rel in BUNDLED_PAYLOAD_FILES if (root / rel).is_file()]
     for d in BUNDLED_GLB_DIRS:
         walk += list((root / d).rglob("*.glb"))
     for d in BUNDLED_ART_DIRS:
@@ -289,7 +296,7 @@ def solids(root: Path) -> list:
             continue
         if p.suffix == ".glb" and not rel.startswith(scenes):
             continue
-        if p.suffix == ".mesh" and not rel.startswith(payloads):
+        if p.suffix == ".mesh" and not (rel.startswith(payloads) or rel in BUNDLED_PAYLOAD_FILES):
             continue
         if p.name.endswith(BUNDLED_ART_SUFFIXES) and not rel.startswith(art):
             continue
