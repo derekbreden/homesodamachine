@@ -1,0 +1,227 @@
+{
+  "rows": [
+    {
+      "key": "current",
+      "fixedGeometryShared": true,
+      "aboveFootMaxMove": 0,
+      "topOutwardDistance": 0,
+      "topOutsideNominal": 0.0006723142083249201,
+      "topMaxDrop": 0,
+      "finite": true,
+      "landingMaxMove": 0
+    },
+    {
+      "key": "A",
+      "fixedGeometryShared": true,
+      "aboveFootMaxMove": 0,
+      "topOutwardDistance": 0,
+      "topOutsideNominal": 0.0006723142083249201,
+      "topMaxDrop": 0,
+      "finite": true,
+      "landingMaxMove": 0
+    },
+    {
+      "key": "B",
+      "fixedGeometryShared": true,
+      "aboveFootMaxMove": 3.0437480765012053,
+      "topOutwardDistance": 0,
+      "topOutsideNominal": 0.000612158090753212,
+      "topMaxDrop": 2.485198974609375,
+      "finite": true,
+      "landingMaxMove": 0
+    },
+    {
+      "key": "C",
+      "fixedGeometryShared": true,
+      "aboveFootMaxMove": 10.095174387423508,
+      "topOutwardDistance": 0,
+      "topOutsideNominal": 0.0005189068568736133,
+      "topMaxDrop": 9.9410400390625,
+      "finite": true,
+      "landingMaxMove": 0
+    }
+  ],
+  "footSamples": [
+    {
+      "key": "A",
+      "points": [
+        {
+          "source": [
+            107.5,
+            236,
+            0
+          ],
+          "result": [
+            125.5,
+            236,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            -107.5,
+            236,
+            0
+          ],
+          "result": [
+            -125.5,
+            236,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            0,
+            5,
+            0
+          ],
+          "result": [
+            0,
+            -13,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            0,
+            467,
+            0
+          ],
+          "result": [
+            0,
+            485,
+            0
+          ],
+          "flare": 18
+        }
+      ]
+    },
+    {
+      "key": "B",
+      "points": [
+        {
+          "source": [
+            107.5,
+            236,
+            0
+          ],
+          "result": [
+            125.5,
+            236,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            -107.5,
+            236,
+            0
+          ],
+          "result": [
+            -125.5,
+            236,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            0,
+            5,
+            0
+          ],
+          "result": [
+            0,
+            -13,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            0,
+            467,
+            0
+          ],
+          "result": [
+            0,
+            485,
+            0
+          ],
+          "flare": 18
+        }
+      ]
+    },
+    {
+      "key": "C",
+      "points": [
+        {
+          "source": [
+            107.5,
+            236,
+            0
+          ],
+          "result": [
+            125.5,
+            236,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            -107.5,
+            236,
+            0
+          ],
+          "result": [
+            -125.5,
+            236,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            0,
+            5,
+            0
+          ],
+          "result": [
+            0,
+            -13,
+            0
+          ],
+          "flare": 18
+        },
+        {
+          "source": [
+            0,
+            467,
+            0
+          ],
+          "result": [
+            0,
+            485,
+            0
+          ],
+          "flare": 18
+        }
+      ]
+    }
+  ],
+  "displayCoverBounds": [
+    -76.5999984741211,
+    6.697000026702881,
+    290.97100830078125,
+    76.5999984741211,
+    69.02899932861328,
+    353.3030090332031
+  ],
+  "ridgeTangencyY": 69.35712472803856,
+  "funnelBrimFrontY": 70
+}
