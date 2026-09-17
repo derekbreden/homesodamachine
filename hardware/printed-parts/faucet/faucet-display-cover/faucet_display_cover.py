@@ -1,7 +1,7 @@
-"""Shallow faucet display shroud with two internal snap-trial receivers.
+"""Shallow faucet display cover with broad lips around the rigid neck.
 
 The cover moves normal to the display. Its stable cosmetic skin follows the
-glass closely, while the two concealed receiver ledges have 3 mm sections.
+glass closely. Its side walls spread over the cylinder and relax into grooves.
 The PET-GF snap's force and durability require the representative print trial.
 """
 from pathlib import Path
@@ -54,7 +54,7 @@ def build_plate_inner_cut() -> cq.Workplane:
 def build_display_cover() -> cq.Workplane:
     skin = (build_plate_outer().cut(build_plate_inner_cut())
             .cut(shell.build_display_neck_clearance()))
-    return skin.union(shell.build_display_snap_receivers())
+    return skin.union(shell.build_display_cover_lips())
 
 
 def _plane_faces(cover: cq.Workplane, axis: cq.Vector, station: float, sign: float) -> tuple:
@@ -85,14 +85,14 @@ def selftest() -> int:
         failures.append("cover must be one valid solid")
     if bezel_thickness < 1.0 - 1e-8:
         failures.append("cosmetic bezel is thinner than 1 mm")
-    if _display_snap.RECEIVER_WALL < 3.0 - 1e-8:
-        failures.append("receiver stock is thinner than 3 mm")
+    if _display_snap.LIP_HEIGHT < 1.0 - 1e-8:
+        failures.append("cover lip is thinner than 1 mm")
     if show_face(cover)[0] != 1:
         failures.append("bezel must have one planar show face")
     for failure in failures:
         print("FAIL", failure)
     if not failures:
-        print("ok faucet-display-cover: one solid; 1.3 mm cosmetic bezel; 3 mm receivers; PET-GF snap requires print trial")
+        print("ok faucet-display-cover: one solid; 1.3 mm bezel and retaining lips; PET-GF cover flex requires print trial")
     return int(bool(failures))
 
 
