@@ -1,5 +1,31 @@
 # Funnel mold print log
 
+## 0.4 mm Standard nozzle, stopped at layer 374 — 2026-09-17
+
+Derek reports that the 0.4 mm regular-flow print developed the same raised,
+rough solid-surface defect as the earlier 0.8 mm High Flow print. He stopped it
+at layer 374, within an estimated few layers of the defects first becoming
+easy to notice and measure. Photos `IMG_7798.jpeg` through `IMG_7801.jpeg` show
+raised ridges and loose material in the broad funnel-forming region, with
+regular, separated support walls outside it. The first defective layer is
+not known exactly.
+
+The saved project for this trial has 0.4 mm Standard nozzles selected, with
+Standard assigned to both plates. Its flow ratio is 0.97 for all three stored
+filament variants. The maximum volumetric speed is 6 mm³/s. It uses 0.24 mm
+layers, a 0.20 mm first layer, 100% zig-zag infill, two walls, 15% infill/wall
+overlap, 250 °C initially and 245 °C afterward. Snug normal supports have
+0.20 mm top/bottom Z separation and 0.48 mm first-layer/XY gaps. The printer
+profile is **Bambu Lab H2C 0.4 nozzle**, with its stock startup code and
+Textured PEI. The process is **0.24mm Standard @BBL H2C funnel mold** and the
+filament is **Bambu PETG Translucent @BBL H2C 0.4 nozzle**.
+
+The saved archive contains no G-code. The stopped layer and physical behavior
+are Derek's observations; the submitted toolpaths were not captured.
+
+Failed-trial project SHA-256:
+`1b5c186184b9ce714235dc059d6a66cff8e2295d3c3406e6402a560c009a7661`.
+
 ## 100% infill retry — 2026-09-16
 
 Derek reports saving the project and starting a new print. The inspected
@@ -30,8 +56,8 @@ preset's name alone does not establish that this print uses 0.94.
 
 The embedded cavity/core meshes and their placements match commit `6eff076c1`.
 The saved project contains no G-code. Print start is Derek's report; the
-submitted toolpaths and printer state were not independently read. The trial's
-outcome is pending.
+submitted toolpaths and printer state were not independently read. Derek
+subsequently reported cancelling this retry.
 
 Saved project SHA-256:
 `b8e09b0084eab97e7857299f0ac688e0f10d383b48be03fbd691ed8cfef961f3`.
