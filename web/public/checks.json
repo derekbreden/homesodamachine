@@ -12,13 +12,13 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 129 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "FAIL faucet geometry: 139 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
-      "status": "red"
+      "note": "PASS faucet geometry: 141 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2136 tracked, 422 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2142 tracked, 422 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -92,37 +92,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 422 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 422 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_faucet_geometry.py": [
-      "PASS wall:outlet-signal-closure",
-      "PASS fixture:complete-display-fit-trial",
-      "PASS fixture:production-print-orientations",
-      "PASS solid:display_trial_housing",
-      "PASS mesh:display_trial_housing",
-      "PASS motion:lever",
-      "PASS solid:display-ribbon-envelope",
-      "PASS clearance:signal-shell_base",
-      "PASS clearance:signal-shell_tip",
-      "PASS clearance:signal-above_counter_plate",
-      "PASS clearance:signal-above_counter_gasket",
-      "PASS clearance:signal-display_cover",
-      "PASS clearance:signal-tpu_thimble",
-      "PASS clearance:signal-donor",
-      "PASS clearance:signal-soda-tube",
-      "PASS clearance:signal-flavor-a",
-      "PASS clearance:signal-flavor-b",
-      "PASS clearance:signal-countertop",
-      "PASS clearance:signal-under-counter-plate",
-      "PASS clearance:signal-display-body",
-      "PASS clearance:signal-display-usb",
-      "PASS fit:signal-lane-section",
-      "PASS wall:neck-signal-lane",
-      "PASS seat:plate-gasket",
-      "FAIL faucet geometry: 139 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 129 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a9bb5b6857dfa5650cf983e0efd9256a here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ]
   },
   "green": false
