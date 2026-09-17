@@ -317,3 +317,25 @@ Mark2 reported `RUNNING`, layer 0 of 813, with no print error at
 
 The source mesh, profile, sliced archive and G-code hashes are recorded in
 [print-jobs.json](print-jobs.json).
+
+## 2026-09-17 — tee-carrier pair on Mark2
+
+The current left and right tee-carrier halves, including their service tabs, were
+submitted together through Bambu Connect.
+Mark2 reported `RUNNING`, layer 0 of 258, with no print error at
+2026-09-17T16:05:37.595754+00:00.
+
+- Profile: `hardware/printed-parts/petgf.3mf`; support settings from specimen 10:
+  tree(auto), default style, 0.45 mm requested top gap, two interface layers,
+  0.5 mm interface spacing, automatic pattern, interface loops off, 0.4 mm XY gap,
+  zero support expansion.
+- Left 0.4 mm Standard nozzle; PET-GF on the external spool, mapped as PET-CF.
+- Textured PEI; 0.24 mm layers, 0.20 mm first layer; 265 °C first nozzle temperature,
+  280 °C thereafter; 80 °C bed.
+- Requested Z trim +0.04 mm. Stock textured-plate compensation −0.02 mm gives
+  the emitted `G29.1 Z0.02`.
+- Bed leveling on, timelapse off, flow and nozzle-offset calibration Auto.
+- Slicer estimate: 1 h 42 min, 53.72 g, 258 layers.
+
+The source mesh, profile, sliced archive and G-code hashes are recorded in
+[print-jobs.json](print-jobs.json).
