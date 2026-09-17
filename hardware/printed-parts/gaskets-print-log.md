@@ -40,8 +40,12 @@ loaded TPU 85A spool.
 
 ## Print attempt 1 (2026-06-06, settings per [`gaskets.3mf`](gaskets.3mf))
 
-First consolidated gaskets plate. All 11 instances on extruder 1 (left),
-single TPU 85A spool. `first_layer_time` ≈ 2215 s; plate bbox ≈ 283 × 285 mm.
+First consolidated gaskets plate. All 11 instances on extruder 1, single TPU 85A
+spool — `filament_map` `['1']` under `filament_map_mode` `Auto For Flush`.
+The 3mf records no physical hotend, and no side is stated anywhere in it.
+Bambu's [H2-series TPU guide](https://wiki.bambulab.com/en/h2/h2d-tpu-printing-guide)
+has TPU 85A feeding from the **right hotend only** on H2D / H2C; TPU 90A
+carries no such restriction. `first_layer_time` ≈ 2215 s; plate bbox ≈ 283 × 285 mm.
 `slice_info.config` header-only (saved + printed-from, no full slice estimate
 embedded). Sliced in Bambu Studio 02.07.01.57.
 
