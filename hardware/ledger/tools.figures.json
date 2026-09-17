@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$16,964.57",
+    "TOOLS_TOTAL": "$17,014.56",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -77,6 +77,7 @@
     "T_TAP_GUIDE": "$27.45",
     "T_TAP_WRENCH": "$33.02",
     "T_TORCH": "$117.96",
+    "T_TPU_FEED": "$49.99",
     "T_TUBE_BENDER": "$23.57",
     "T_TUBE_CUTTER": "$34.31",
     "T_TWEEZERS": "$12.82",
