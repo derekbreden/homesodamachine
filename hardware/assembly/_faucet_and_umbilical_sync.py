@@ -100,6 +100,14 @@ def main():
         # The §1 stack-up's CAD terms, bare numbers in an mm column.
         "TURN_IN": f"{envelope.TURN_IN_LEAD_BEND + collet:g}",
         "PLATE_GASKET": f"{plate_gasket:g}",
+        "FLAVOR_CUT": f"{faucet.flavor_cut_length:g}",
+        "BLUE_CUT": f"{faucet.blue_cut_length:g}",
+        "FAUCET_FLAVOR_RUN": f"{faucet.flavor_path_above_foot():.1f}",
+        "CUT_DIFFERENCE": f"{faucet.flavor_cut_length - faucet.blue_cut_length:g}",
+        "TAIL_OFFSET": f"{faucet.tails_apart:.2f}",
+        "FAUCET_PLATE_T": f"{faucet.above_counter_plate.plate_thickness:g}",
+        "FLAVOR_NOMINAL": f"{1200 + faucet.countertop_thickness + plate_gasket + faucet.flavor_path_above_foot():.0f}",
+        "BLUE_NOMINAL": f"{1200 + faucet.soda_umbilical_tube_z_top - faucet.countertop_bottom_z:.0f}",
     }
 
     substitute_md(

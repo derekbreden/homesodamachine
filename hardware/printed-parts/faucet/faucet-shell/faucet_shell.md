@@ -16,16 +16,16 @@ fix this doc.
   _pill_farthest_from_shell_center) + wall_thickness_min` — not a pre-computed
   number with its origin lost.
 - Named anchors carry the joints. Where solids meet, the meeting place has a
-  name: `split_junction_y/z`, `back_arch_center_z`, `lever_ramp_y_start`, the
+  name: `split_junction_y/z`, `display_floor_n`, `base_insert_bottom_z`, the
   gooseneck path's `_path_p2 … _path_p5`. The coupling is then visible at every
   site that reads it.
 - Named profiles and sketches. A 2D outline that is extruded or swept is a
   named shape — `_tube_shell_outer_sketch`, the `build_lever_clearance`
-  polyline, the `_arch_extrude` profile — not an anonymous vertex list buried
+  polyline, the `_tube_shell_inner_sketch` section — not an anonymous vertex list buried
   in a chain.
-- Envelope and cavity are one materialized pair. Each zone is a
-  `build_zoneN_outer` (the solid) and a `build_zoneN_inner_cut` (the void it
-  removes); `build_shell` fuses the outers, fuses the inners, and cuts. The
+- Envelope and cavity are one materialized pair. `build_lower_outer` and
+  `build_zone6_outer` carry the body; named inner cuts carry the donor,
+  lever, tubes and display. `build_shell` fuses the outers and applies those cuts. The
   return composition tells the whole story.
 
 ## Frame discipline

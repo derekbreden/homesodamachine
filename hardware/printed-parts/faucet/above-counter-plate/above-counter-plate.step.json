@@ -1,6 +1,6 @@
 {
   "thickness_mm": 4.0,
-  "material": "PET-CF",
+  "material": "PET-GF15",
   "process": "3D-print",
-  "notes": "Above-counter plate Ø54.35 mm; substrate for the Westbrass + shell"
+  "notes": "65 × 66 mm oval; three recessed M3 × 8 screws with 3 mm bearing seats and three locating pedestals."
 }

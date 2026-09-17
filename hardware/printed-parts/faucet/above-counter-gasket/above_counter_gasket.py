@@ -6,16 +6,16 @@ under-counter nut as the cabinet wood moves seasonally.
 
 Material: Bambu TPU 90A (black).
 
-Footprint and hole pattern match the above-counter plate exactly (the shell
-foot — foot circle + two lateral teardrops + front D-pod), reusing the
-shell's own geometry; the rigid plate locates the parts, the gasket seals
-around them.
+Footprint and hole pattern match the oval above-counter plate, including
+the signal-ribbon branch beside the flavor passage. The rigid plate
+locates the parts; the gasket seals around them.
 """
 
 import sys
 from pathlib import Path
 
 import cadquery as cq
+import trimesh
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -40,9 +40,9 @@ from _faucet_interface import (
     shank_hole_diameter,
 )
 from faucet_shell import (
-    shell_outer_cyl,
-    _base_pod_teardrops,
-    _base_pod_front,
+    build_foot_outline,
+    foot_center_y,
+    build_lower_signal_lane,
 )
 from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
@@ -51,9 +51,8 @@ from world_workplane import WorldWorkplane, xy_plane_z_up
 # Footprint matches the above-counter plate; [2 mm](GASKET_T) thick, compresses
 # under clamp load.
 gasket_thickness = above_counter_gasket_thickness
-# Center offset [3.175 mm](GASKET_Y) +Y (toward the appliance back); no
-# lateral offset.
-gasket_center = (0.0, +3.175)
+# Center offset [0 mm](GASKET_Y) +Y, shared with the shell foot.
+gasket_center = (0.0, foot_center_y)
 
 # Top face flush with the above-counter plate's bottom face; bottom face on
 # the countertop surface plane.
@@ -82,14 +81,9 @@ def gasket_workplane(center):
 
 
 def build_above_counter_gasket():
-    """Shell-foot footprint (foot circle + two teardrops + front D-pod) as a
-    gasket_thickness pad, with the shank hole and flavor-tube pill slot. Sharp
-    edges, no fillets."""
+    """Continuous oval sealing pad with the shank hole and flavor pill."""
     z0 = gasket_z_range[0]
-    foot = shell_outer_cyl(z0, gasket_thickness).val()
-    teardrops = _base_pod_teardrops(z0, gasket_thickness).val()
-    front = _base_pod_front(z0, gasket_thickness).val()
-    gasket = cq.Workplane(obj=foot.fuse(teardrops, front))
+    gasket = build_foot_outline(z0, gasket_thickness)
 
     shank_hole = (
         gasket_workplane(shank_hole_center)
@@ -104,7 +98,7 @@ def build_above_counter_gasket():
         .extrude(gasket_thickness)
         .unwrap()
     )
-    return gasket.cut(shank_hole).cut(pill_slot)
+    return gasket.cut(shank_hole).cut(pill_slot).cut(build_lower_signal_lane())
 
 
 def main():
@@ -112,6 +106,12 @@ def main():
     out = Path(__file__).resolve().parent / "above-counter-gasket.step"
     export_assembly(one_body(gasket, out.stem, M_TPU_BLACK), str(out))
     print(f"-> {out.name}")
+    stl = out.with_suffix(".stl")
+    cq.exporters.export(gasket, str(stl), tolerance=0.08, angularTolerance=0.1)
+    mesh = trimesh.load(str(stl), force="mesh")
+    if not mesh.is_watertight or not mesh.is_winding_consistent:
+        raise RuntimeError(f"{stl.name} is not a closed, consistently oriented print mesh")
+    print(f"-> {stl.name}")
 
     variables = {
         "GASKET_T": f"{gasket_thickness:.4g} mm",

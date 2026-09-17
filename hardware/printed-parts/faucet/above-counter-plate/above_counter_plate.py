@@ -1,25 +1,16 @@
-"""Above-counter plate — printed PET-GF15 plate that supports the
-harvested Westbrass and the two flavor tubes beside it, and
-carries the three screw bosses that bolt up into the shell. Its footprint
-matches the shell foot exactly (foot circle + two lateral teardrop pods +
-front D-pod), reusing the shell's own geometry. See README.md."""
+"""PET-GF15 above-counter plate with three recessed M3 seats and locating pedestals."""
 
 import sys
 from pathlib import Path
 
 import cadquery as cq
+import trimesh
 
 _here = Path(__file__).resolve().parent
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-sys.path.insert(0, str(_here.parent))  # for _faucet_interface
-sys.path.insert(0, str(_here.parent / "faucet-shell"))  # for the shared footprint
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+sys.path.insert(0, str(_here.parent))
+sys.path.insert(0, str(_here.parent / "faucet-shell"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
 from _materials import C_FAUCET_BLACK, one_body
@@ -31,142 +22,96 @@ from _faucet_interface import (
     shank_hole_diameter,
 )
 from faucet_shell import (
-    shell_outer_cyl,
-    _base_pod_teardrops,
-    _base_pod_front,
+    build_foot_outline,
+    foot_width,
+    foot_depth,
+    foot_center_y,
     base_pod_centers,
-    base_pod_boss_dia,
     base_pod_counterbore_dia,
     base_pod_shank_dia,
-    base_pod_hole_depth,
+    base_screw_counterbore_depth,
+    base_screw_length,
+    base_plate_seat_thickness,
+    base_pedestal_dia,
+    base_pedestal_height,
+    base_pedestal_chamfer,
+    build_lower_signal_lane,
 )
-from docgen import substitute_md, substitute_py_comments
+from docgen import substitute_md
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
-
-# [4 mm](PLATE_T) thick.
 plate_thickness = above_counter_plate_thickness
-# Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
-# Footprint center at world (0, +[3.175 mm](PLATE_Y)); the Westbrass's axis at (0, 0).
-plate_center = (0.0, +3.175)
-
-
-# [11 mm](SHANK_OD) threaded shank clearance.
+plate_center = (0.0, foot_center_y)
 shank_diameter_nominal = 11.0
-shank_hole_radius = shank_hole_diameter / 2
+shank_hole_radius = shank_hole_diameter / 2.0
 shank_hole_center = (0.0, 0.0)
-
-
-# Flavor-tube pill slot — two 1/4" tubes [6.35 mm](TUBE_CENTER_X) apart,
-# combined into one X-oriented pill at world (0, +[18.93 mm](PLATE_FLAVOR_Y)):
-# [13.6 mm](PLATE_PILL_L) long (X) × [7.25 mm](PLATE_PILL_W) wide (Y).
-pill_slot_center = (0.0, +flavor_tube_depth)
-
-
-# Screw bosses — one per pod center, rising from the plate top into the
-# shell's boss holes. [12.15 mm](PLATE_BOSS_D) OD, [7 mm](BOSS_H) tall (tops out
-# shy of the hole floor — the gap absorbs the hole ceiling's bridge sag,
-# insert squeeze-out, and layer-1 lips, so the plate seats on the foot, not
-# the boss), with a [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer on the top
-# rim easing all three pins into their holes at once. Each bored for an
-# M3x12 SHCS: a [6.15 mm](CBORE_D) counterbore through the full plate (head
-# recess — the head bears on the boss base and stays clear of the gasket)
-# and a [3.9 mm](SHANK_D) shank clearance up to the shell's heat-set insert.
-boss_seat_clearance = 1.0
-boss_height = base_pod_hole_depth - boss_seat_clearance
-boss_chamfer = 0.6
+pill_slot_center = (0.0, flavor_tube_depth)
 
 
 def vertical_cylinder(center, radius, z_range):
-    """+Z-axis cylinder: world (x, y) center tuple, radius, and Z extent."""
+    """Cylinder parallel to world Z, with a named XY center and bottom/top."""
     z_min, z_max = z_range
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=z_min)
-        .moveTo(center)
-        .circle(radius)
-        .extrude(z_max - z_min)
-        .unwrap()
-    )
+    return (WorldWorkplane(xy_plane_z_up).workplane(offset=z_min)
+            .moveTo(center).circle(radius).extrude(z_max - z_min).unwrap())
 
 
 def vertical_x_slot(center, length_x, width_y, z_range):
-    """+Z-axis pill (rounded-rectangle) prism with long axis along world X."""
+    """The flavor pair's X-oriented pill through a world-Z interval."""
     z_min, z_max = z_range
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=z_min)
-        .moveTo(center)
-        .slot2D(length_x, width_y, angle=0)
-        .extrude(z_max - z_min)
-        .unwrap()
-    )
+    return (WorldWorkplane(xy_plane_z_up).workplane(offset=z_min)
+            .moveTo(center).slot2D(length_x, width_y, angle=0)
+            .extrude(z_max - z_min).unwrap())
 
 
 def build_above_counter_plate() -> cq.Workplane:
-    """Shell-foot footprint (foot circle + two teardrops + front D-pod) as a
-    plate_thickness slab, three screw bosses rising from the top, each
-    counterbored (full plate) and shank-bored, plus the shank hole and the
-    flavor-tube pill."""
-    z0 = plate_z_range[0]
-    foot = shell_outer_cyl(z0, plate_thickness).val()
-    teardrops = _base_pod_teardrops(z0, plate_thickness).val()
-    front = _base_pod_front(z0, plate_thickness).val()
-    plate = cq.Workplane(obj=foot.fuse(teardrops, front))
-
+    """Oval plate with three locating pedestals over recessed screw seats."""
+    z0, z1 = plate_z_range
+    plate = build_foot_outline(z0, plate_thickness)
     for center in base_pod_centers:
-        boss = vertical_cylinder(center, base_pod_boss_dia / 2, (0.0, boss_height))
-        plate = plate.union(boss.edges(">Z").chamfer(boss_chamfer))
-
-    for center in base_pod_centers:
-        plate = plate.cut(
-            vertical_cylinder(center, base_pod_counterbore_dia / 2, (z0, 0.0))
-        )
-        plate = plate.cut(
-            vertical_cylinder(center, base_pod_shank_dia / 2, (0.0, boss_height))
-        )
-
+        pedestal = vertical_cylinder(center, base_pedestal_dia / 2.0, (0.0, base_pedestal_height))
+        plate = plate.union(pedestal.edges(">Z").chamfer(base_pedestal_chamfer))
+        plate = plate.cut(vertical_cylinder(center, base_pod_shank_dia / 2.0, (z0, base_pedestal_height)))
+        plate = plate.cut(vertical_cylinder(
+            center, base_pod_counterbore_dia / 2.0,
+            (z0, z0 + base_screw_counterbore_depth)))
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
-    plate = plate.cut(vertical_x_slot(pill_slot_center, pill_length_x, pill_width_y, plate_z_range))
-    return plate
+    return (plate.cut(vertical_x_slot(pill_slot_center, pill_length_x, pill_width_y, plate_z_range))
+            .cut(build_lower_signal_lane()))
 
 
 def main():
     plate = build_above_counter_plate()
-
     out = _here / "above-counter-plate.step"
     export_assembly(one_body(plate, out.stem, C_FAUCET_BLACK), str(out))
     print(f"-> {out.name}")
-
+    stl = out.with_suffix(".stl")
+    cq.exporters.export(plate, str(stl), tolerance=0.08, angularTolerance=0.1)
+    mesh = trimesh.load(str(stl), force="mesh")
+    if not mesh.is_watertight or not mesh.is_winding_consistent:
+        raise RuntimeError(f"{stl.name} is not a closed, consistently oriented print mesh")
+    print(f"-> {stl.name}")
     variables = {
         "PLATE_T": f"{plate_thickness:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
-        "PLATE_Y": f"{plate_center[1]:.4g} mm",
-        "PLATE_BOSS_D": f"{base_pod_boss_dia:.4g} mm",
-        "BOSS_H": f"{boss_height:.4g} mm",
-        "BOSS_CHAMFER": f"{boss_chamfer:.4g} mm",
+        "PLATE_Y": f"{foot_center_y:.4g} mm",
+        "FOOT_WIDTH": f"{foot_width:.4g} mm",
+        "FOOT_DEPTH": f"{foot_depth:.4g} mm",
+        "PEDESTAL_CHAMFER": f"{base_pedestal_chamfer:.4g} mm",
         "CBORE_D": f"{base_pod_counterbore_dia:.4g} mm",
+        "CBORE_DEPTH": f"{base_screw_counterbore_depth:.4g} mm",
+        "SEAT_T": f"{base_plate_seat_thickness:.4g} mm",
+        "PEDESTAL_D": f"{base_pedestal_dia:.4g} mm",
+        "PEDESTAL_H": f"{base_pedestal_height:.4g} mm",
+        "SCREW_LENGTH": f"{base_screw_length:.4g} mm",
         "SHANK_D": f"{base_pod_shank_dia:.4g} mm",
-        "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
-        "SHANK_OD": f"{shank_diameter_nominal:.4g} mm",
-        "TUBE_CENTER_X": f"{pill_length_x - pill_width_y:.4g} mm",
-        "PLATE_FLAVOR_Y": f"{pill_slot_center[1]:.4g} mm",
+        "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
+        "PLATE_FLAVOR_Y": f"{flavor_tube_depth:.4g} mm",
         "PLATE_PILL_L": f"{pill_length_x:.4g} mm",
         "PLATE_PILL_W": f"{pill_width_y:.4g} mm",
     }
-
-    substitute_md(
-        _here / "README.md",
-        variables=variables,
-    )
+    substitute_md(_here / "README.md", variables=variables)
     print("-> README.md")
-
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    print(f"-> {Path(__file__).name}")
 
 
 if __name__ == "__main__":

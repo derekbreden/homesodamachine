@@ -7,15 +7,15 @@
         650
       ],
       "render_size": [
-        3910,
-        1625
+        3660,
+        1518
       ],
       "scale": [
-        2.5,
-        2.5
+        2.340153452685422,
+        2.335384615384615
       ],
-      "coordinate_reference_sha256": "47a50827c71e0ed16493e8056206be8190ccbdb84ca010989dbe826da1795641",
-      "render_sha256": "6dc79ab51a59a02e240a862b1c9035ccfa2454a81006a170648c89d2feadf075"
+      "coordinate_reference_sha256": "5e48dabccd31baca01b286805d2417ee3709310410c3f8bb32147b0a4fc6d4f9",
+      "render_sha256": "268cbf67b0b6f8bf5beaee0bc00115dba7f33d939c08a30b76bb94855d6e1d92"
     },
     "steps/mount-under-tighten-clean.png": {
       "reference_size": [
@@ -23,15 +23,15 @@
         650
       ],
       "render_size": [
-        3910,
-        1625
+        3660,
+        1518
       ],
       "scale": [
-        2.5,
-        2.5
+        2.340153452685422,
+        2.335384615384615
       ],
-      "coordinate_reference_sha256": "e16737bd61d35aa654a3bd1a05c612462128fa702e6a9770cfa31c3751ccd59b",
-      "render_sha256": "dfebd41abdbdcf1b5d4dca10ee8caeced2b1dee9a3ecf9e50c822b12bb74cd4d"
+      "coordinate_reference_sha256": "747f2ce009675b6bc94554fdf99adf8b284b4527922912f07789612725f8e6a9",
+      "render_sha256": "20e9eb9c4a17453283db141b4a43dc4cbc9ddcaa5dd0cf2f768657067aaaf3f5"
     },
     "steps/mount-drop.png": {
       "reference_size": [
@@ -39,15 +39,15 @@
         1404
       ],
       "render_size": [
-        1930,
-        3510
+        1838,
+        3345
       ],
       "scale": [
-        2.5,
-        2.5
+        2.3808290155440415,
+        2.3824786324786325
       ],
-      "coordinate_reference_sha256": "5dfb636036eac0188e360eacfaeb816cc0890c929ed248a2cbb1808fc8a80c43",
-      "render_sha256": "22a888923d095acc4b26da2db89d2246a576cff18c8623958e4e3c836e265da8"
+      "coordinate_reference_sha256": "bee99bde7b27a45e2f916a96011b38ebc7815e15b62b72dc86429783f7a5ee00",
+      "render_sha256": "ed0c8fac141584be506c8aa9cd6aa9fd98c80e6ba11cff07bdfeed1aef7ff566"
     },
     "steps/co2-connected.png": {
       "reference_size": [

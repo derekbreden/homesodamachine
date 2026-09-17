@@ -13,11 +13,9 @@ and inflates the multi-solid assembly STEP to ~68 MB.
 Structure, front to back: a plastic housing (screen glass flush in its
 front face) overhangs the PCB by ~0.275 mm per side. Below the PCB
 underside, components protrude — the metal feet are the extreme point
-and set the device's bounding depth. The stand-in models that under-PCB
-zone as a full-footprint bounding block down to the feet plane; it
-shares the PCB's outline, so the PCB underside has no edge in the
-solid. The complete visible module is black: housing, board edge, and
-inactive glass.
+and set the device's bounding depth. The stand-in uses separate conservative
+envelopes for those components, preserving the open spaces between them.
+The complete visible module is black: housing, board edge, and inactive glass.
 
 | Feature | Value |
 |---|---|
@@ -34,6 +32,24 @@ glass panel, active area, and corner radius come from the vendor 2D
 drawing (R5.75 corroborated by a rocked-max caliper diagonal across
 opposite housing corners: 46.96 mm measured, 46.97 mm predicted). The
 PCB is centered under the housing.
+
+[`component-envelopes.json`](component-envelopes.json) holds the bounding
+envelopes of all 242 underside components in the native display frame: X across
+the screen, Y along it, Z from the metal feet toward the glass. Bounds come
+from `ESP32-S3-Touch-LCD-1_47_20250411.stp` (SHA-256
+`15fddd5d2b699d0b7c5160f2e11f176a672e7b305604f43a6dbaa30b8cc0059e`),
+translated +7.35 mm in Z to put the metal feet at zero. Optional header rows
+(STEP solid indices 245 and 246, zero based) are omitted.
+
+The vendor PCB underside is Z 4.000 mm; the caliper measurement is Z 3.900 mm.
+PCB-attached component bounds are shifted down by that 0.100 mm difference.
+The four metal feet (indices 241–244) retain their zero datum and use cylinders
+enclosing their hexagonal sections. Other components use bounding boxes extended
+upward to the PCB, enclosing any small solder gap. These are
+clearance envelopes; they do not reproduce the components' visible details.
+The model's tube and ribbon clearances need confirmation on the assembled
+device because the vendor STEP is not a dimensional inspection of the part
+in hand.
 
 Vendor 2D/3D files (schematic, DXF, STEP):
 `https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip`

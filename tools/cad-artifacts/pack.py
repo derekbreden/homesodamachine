@@ -155,6 +155,10 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
     "hardware/printed-parts/faucet/faucet-shell",
+    "hardware/printed-parts/faucet/faucet-display-cover",
+    "hardware/printed-parts/faucet/above-counter-plate",
+    "hardware/printed-parts/faucet/above-counter-gasket",
+    "hardware/printed-parts/fixtures/faucet-display-snap",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -194,6 +198,9 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
     "hardware/printed-parts/faucet/faucet-shell",
+    "hardware/printed-parts/faucet/faucet-display-cover",
+    "hardware/printed-parts/faucet/above-counter-plate",
+    "hardware/printed-parts/faucet/above-counter-gasket",
     "hardware/manifold-layout",
     "hardware/faucet-layout",
 )

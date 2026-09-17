@@ -2,7 +2,6 @@
   "/hardware/scripts/_bom_sync.py": {
     "COND_SCREWS": "2",
     "DISPLAY_COVER_SCREWS": "2",
-    "FAUCET_DISPLAY_SCREWS": "1",
     "FLOOR_SCREWS": "4",
     "FOAM_CLAMP_INSERTS": "20",
     "FOAM_SCREWS": "20",
@@ -14,9 +13,9 @@
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "79",
-    "TOTAL_M3_INSERTS": "75",
-    "TOTAL_SCREWS": "79",
+    "TOTAL_INSERTS": "78",
+    "TOTAL_M3_INSERTS": "74",
+    "TOTAL_SCREWS": "78",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {

@@ -1,0 +1,1504 @@
+{
+  "schema_version": 1,
+  "scope": "Live production B-rep builders and serialized STL surfaces, fixed donor, dimensional display and tube models; named wall witnesses and sampled sections. No global minimum-wall certification.",
+  "nominal_cad_only": true,
+  "distance_tolerance_mm": 0.0001,
+  "overlap_tolerance_mm3": 1e-05,
+  "geometry_source_sha256": {
+    "hardware/scripts/check_faucet_geometry.py": "8ef5161d9b83e8773709fb8a6008cf885b62be6f5d3c4e89762c61add3cb1029",
+    "hardware/faucet-layout/faucet_assembly.py": "deab4e16a6fec98c97e94b1bb43032202cda44dc11bdb6d048533ed60c74c8a0",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+    "hardware/printed-parts/faucet/_display_snap.py": "4014df42a2de3b01ea0640a2a2ea6ca03353002f2ffb7a0cfb24fa517d111b67",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "53c05220ff8490358bf52d8aa291b8efb905e38eb143993645595eb5dfa09158",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "984fdf16afc2ad762d311e986509173af83304bcddddaad1e9dbf9a5bb2cd09f",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "89e9328d4574e1a6a58441141c13441b7a3cd1b160058b6b10b73bd21af45ec8",
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "09ba9b404156346badd62e581c9d1d095244f190740ba6a6b3ebc37c1f6fa5c5",
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "59dab0531a338b83764f72cd26e00427c9a12ae81b59e255e017f027ff4dbf10",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "69df20440344b9b8499a7bf8a12f29b3cb26153d42879b0f5d55bf10baa34ab9",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "86b31b6b3c7fe31a98de21bb7d16538a02a9fed8f6ab51ed19a96ce1fdcabb1f",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2"
+  },
+  "display_usb_reference": {
+    "file": "ESP32-S3-Touch-LCD-1_47_20250411.stp",
+    "url": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip",
+    "sha256": "15fddd5d2b699d0b7c5160f2e11f176a672e7b305604f43a6dbaa30b8cc0059e",
+    "native_bounds_mm": [
+      [
+        -4.799962,
+        -22.484226,
+        0.750479
+      ],
+      [
+        4.780038,
+        -14.954223,
+        4.910479
+      ]
+    ]
+  },
+  "display_under_pcb_reference": {
+    "source_file": "ESP32-S3-Touch-LCD-1_47_20250411.stp",
+    "source_sha256": "15fddd5d2b699d0b7c5160f2e11f176a672e7b305604f43a6dbaa30b8cc0059e",
+    "source_url": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip",
+    "component_count": 242,
+    "excluded_optional_header_indices": [
+      245,
+      246
+    ],
+    "vendor_feet_z_mm": -7.35,
+    "vendor_pcb_underside_above_feet_mm": 4.0,
+    "measured_pcb_underside_above_feet_mm": 3.8999999999999995,
+    "scope": "Conservative component envelopes from the vendor STEP, with PCB-mounted components lowered by the caliper PCB-height correction; feet preserve their measured datum. Actual component and tube tolerances remain a bench check."
+  },
+  "checks": {
+    "solid:shell_base": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 180188.0814113,
+      "bounds_mm": [
+        -34.422831,
+        34.422831,
+        -42.2199709,
+        33.574777,
+        -1e-07,
+        238.4885402
+      ],
+      "passed": true
+    },
+    "solid:shell_tip": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 60513.54526,
+      "bounds_mm": [
+        -15.0124555,
+        15.0124555,
+        -148.3695626,
+        -13.5854112,
+        173.1493478,
+        243.9501232
+      ],
+      "passed": true
+    },
+    "solid:above_counter_plate": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 12677.1468847,
+      "bounds_mm": [
+        -32.5,
+        32.5,
+        -33.0,
+        33.0,
+        -4.0,
+        2.2
+      ],
+      "passed": true
+    },
+    "solid:above_counter_gasket": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 6284.5254824,
+      "bounds_mm": [
+        -32.5,
+        32.5,
+        -33.0,
+        33.0,
+        -6.0,
+        -4.0
+      ],
+      "passed": true
+    },
+    "solid:display_cover": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 3174.610906,
+      "bounds_mm": [
+        -16.6679347,
+        16.6679347,
+        -150.7347932,
+        -107.3889518,
+        184.3808179,
+        230.8207638
+      ],
+      "passed": true
+    },
+    "solid:tpu_thimble": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 368.3008134,
+      "bounds_mm": [
+        -5.22,
+        5.22,
+        3.655,
+        14.095,
+        21.9,
+        37.5
+      ],
+      "passed": true
+    },
+    "mesh:shell_base": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 31662,
+      "volume_mm3": 179637.7501388,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "mesh:shell_tip": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 19080,
+      "volume_mm3": 60433.8418389,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "mesh:above_counter_plate": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 4760,
+      "volume_mm3": 12666.4451285,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "mesh:above_counter_gasket": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 1220,
+      "volume_mm3": 6279.2249938,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "mesh:display_cover": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 2566,
+      "volume_mm3": 3134.9455139,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "mesh:tpu_thimble": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 1008,
+      "volume_mm3": 367.9574768,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "route:flavor-tube-radius": {
+      "method": "actual circular edges of the assembled flavor and tail-splay centerline paths",
+      "centerline_radii_mm": [
+        30.0,
+        40.0,
+        79.074862
+      ],
+      "supplier_minimum_mm": 25.4,
+      "supplier_source": "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf",
+      "passed": true
+    },
+    "route:flavor-passage-radius": {
+      "method": "toroidal B-rep surfaces' major radii",
+      "centerline_radii_mm": [
+        40.0
+      ],
+      "supplier_minimum_mm": 25.4,
+      "supplier_source": "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf",
+      "passed": true
+    },
+    "route:soda-tube-radius": {
+      "method": "toroidal B-rep surfaces' major radii",
+      "centerline_radii_mm": [
+        71.8000231
+      ],
+      "supplier_minimum_mm": 31.75,
+      "supplier_source": "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf",
+      "passed": true
+    },
+    "clearance:donor-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:donor-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 162.030529,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:donor-above_counter_plate": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:donor-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 186.873969,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:soda-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.3499999,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:soda-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.3499999,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:soda-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 9.122924,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:flavor-a-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.45,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:flavor-a-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.4499999,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:flavor-a-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 7.1330543,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:flavor-b-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.45,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:flavor-b-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.45,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:flavor-b-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 7.1330543,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:display-body-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 71.7028024,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:display-body-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:display-body-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:display-screen-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 82.4508,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:display-screen-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 6.4057405,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:display-screen-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3786316,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "section:neck": {
+      "method": "72 radial B-rep material chords in one section; last material interval",
+      "center_mm": [
+        0.0,
+        12.6249553925456,
+        110.44384463176559
+      ],
+      "probe_count": 72,
+      "minimum_sampled_wall_mm": 6.15,
+      "minimum_at_section_angle_deg": 270.0,
+      "required_mm": 6.15,
+      "passed": true
+    },
+    "section:socket": {
+      "method": "72 radial B-rep material chords in one section; last material interval",
+      "center_mm": [
+        0.0,
+        -28.412490221236595,
+        220.5939711294457
+      ],
+      "probe_count": 72,
+      "minimum_sampled_wall_mm": 2.9999998,
+      "minimum_at_section_angle_deg": 160.0,
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "section:plug": {
+      "method": "72 radial B-rep material chords in one section; last material interval",
+      "center_mm": [
+        0.0,
+        -28.412490221236595,
+        220.5939711294457
+      ],
+      "probe_count": 72,
+      "minimum_sampled_wall_mm": 3.0,
+      "minimum_at_section_angle_deg": 270.0,
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "motion:neck-joint": {
+      "samples": [
+        {
+          "rotation_deg": 0.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 1.79548,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 3.59096,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 5.3864399,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 7.1819199,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 8.9773999,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 10.7728799,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 12.5683599,
+          "overlap_mm3": 0.0
+        },
+        {
+          "rotation_deg": 14.3638398,
+          "overlap_mm3": 0.0
+        }
+      ],
+      "method": "tip rotated about the arc axis from closed to plug-clear",
+      "passed": true
+    },
+    "position:outlet": {
+      "actual_mm": [
+        0.0,
+        -133.99672200476698,
+        180.38874339162197
+      ],
+      "required_mm": [
+        0.0,
+        -133.99672200476698,
+        180.38874339162197
+      ],
+      "passed": true
+    },
+    "wall:base-insert-1": {
+      "method": "complete 3 mm radial witness around the real brass OD over its installed length",
+      "center_mm": [
+        22.0,
+        10.0
+      ],
+      "insert_od_mm": 4.6,
+      "required_wall_mm": 3.0,
+      "missing_witness_mm3": 0.0,
+      "passed": true
+    },
+    "wall:base-screw-seat-1": {
+      "method": "eight vertical B-rep chords through the bearing annulus",
+      "minimum_sampled_wall_mm": 3.0,
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "fit:base-screw-1": {
+      "thread_engagement_mm": 4.0,
+      "blind_tip_clearance_mm": 1.25,
+      "head_recess_mm": 0.2,
+      "passed": true
+    },
+    "wall:base-insert-2": {
+      "method": "complete 3 mm radial witness around the real brass OD over its installed length",
+      "center_mm": [
+        -22.0,
+        10.0
+      ],
+      "insert_od_mm": 4.6,
+      "required_wall_mm": 3.0,
+      "missing_witness_mm3": 0.0,
+      "passed": true
+    },
+    "wall:base-screw-seat-2": {
+      "method": "eight vertical B-rep chords through the bearing annulus",
+      "minimum_sampled_wall_mm": 3.0,
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "fit:base-screw-2": {
+      "thread_engagement_mm": 4.0,
+      "blind_tip_clearance_mm": 1.25,
+      "head_recess_mm": 0.2,
+      "passed": true
+    },
+    "wall:base-insert-3": {
+      "method": "complete 3 mm radial witness around the real brass OD over its installed length",
+      "center_mm": [
+        0.0,
+        -24.2
+      ],
+      "insert_od_mm": 4.6,
+      "required_wall_mm": 3.0,
+      "missing_witness_mm3": 0.0,
+      "passed": true
+    },
+    "wall:base-screw-seat-3": {
+      "method": "eight vertical B-rep chords through the bearing annulus",
+      "minimum_sampled_wall_mm": 3.0,
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "fit:base-screw-3": {
+      "thread_engagement_mm": 4.0,
+      "blind_tip_clearance_mm": 1.25,
+      "head_recess_mm": 0.2,
+      "passed": true
+    },
+    "seat:plate-shell": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "fit:base-pedestal-1": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.15,
+      "required_gap_mm": 0.15,
+      "passed": true
+    },
+    "wall:base-pedestal-socket-1": {
+      "method": "complete radial witness around the socket throughout the pedestal engagement",
+      "missing_witness_mm3": 0.0,
+      "required_wall_mm": 3.0,
+      "passed": true
+    },
+    "fit:base-pedestal-2": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.15,
+      "required_gap_mm": 0.15,
+      "passed": true
+    },
+    "wall:base-pedestal-socket-2": {
+      "method": "complete radial witness around the socket throughout the pedestal engagement",
+      "missing_witness_mm3": 0.0,
+      "required_wall_mm": 3.0,
+      "passed": true
+    },
+    "fit:base-pedestal-3": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.15,
+      "required_gap_mm": 0.15,
+      "passed": true
+    },
+    "wall:base-pedestal-socket-3": {
+      "method": "complete radial witness around the socket throughout the pedestal engagement",
+      "missing_witness_mm3": 0.0,
+      "required_wall_mm": 3.0,
+      "passed": true
+    },
+    "section:lower-closed-body": {
+      "method": "72 exact radial B-rep chords from the shank axis at each of eight heights",
+      "scope": "closed body below the lever opening; radial chords are not global normal thickness",
+      "samples": [
+        {
+          "z_mm": 12.0,
+          "minimum_sampled_radial_wall_mm": 9.2689183
+        },
+        {
+          "z_mm": 16.0,
+          "minimum_sampled_radial_wall_mm": 8.0057608
+        },
+        {
+          "z_mm": 20.0,
+          "minimum_sampled_radial_wall_mm": 4.7983426
+        },
+        {
+          "z_mm": 24.0,
+          "minimum_sampled_radial_wall_mm": 3.8930414
+        },
+        {
+          "z_mm": 28.0,
+          "minimum_sampled_radial_wall_mm": 6.0276034
+        },
+        {
+          "z_mm": 32.0,
+          "minimum_sampled_radial_wall_mm": 6.1183371
+        },
+        {
+          "z_mm": 36.0,
+          "minimum_sampled_radial_wall_mm": 6.2052065
+        },
+        {
+          "z_mm": 38.0,
+          "minimum_sampled_radial_wall_mm": 6.1257498
+        }
+      ],
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "wall:loft-to-donor-rectangle": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 5.7742188,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-donor-arches": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 4.3613474,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-soda-passage": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 5.9783818,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-flavor-transition": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 6.6434667,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-signal-transition": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 6.1437989,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-lower-signal-lane": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 3.5904762,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:loft-to-vertical-neck": {
+      "method": "exact minimum distance from the loft's curved side faces to the complete cavity solid",
+      "minimum_distance_mm": 5.9783818,
+      "required_mm": 3.0,
+      "scope": "outer loft only; access-cut and fastener boundaries are checked separately",
+      "passed": true
+    },
+    "wall:lever-to-flavor-transition": {
+      "method": "exact minimum separation between the swept lever clearance and flavor-passage cutters",
+      "minimum_distance_mm": 4.3914543,
+      "required_mm": 3.0,
+      "scope": "the rear lever web; intersections with the donor outlet cavity are intentional",
+      "passed": true
+    },
+    "wall:lever-cheek": {
+      "method": "exact distance from the lever-access arch surface to the donor-arch cavity",
+      "minimum_distance_mm": 3.2236742,
+      "required_mm": 3.0,
+      "passed": true
+    },
+    "clearance:display-soda": {
+      "gap_mm": 5.9879786,
+      "overlap_mm3": 0.0,
+      "required_minimum_mm": 0.0,
+      "nominal_target_mm": null,
+      "scope": "fixed nominal tube and corrected vendor-component envelopes; no printed central floor",
+      "passed": true
+    },
+    "clearance:display-flavor-a": {
+      "gap_mm": 0.3006397,
+      "overlap_mm3": 0.0,
+      "required_minimum_mm": 0.15,
+      "nominal_target_mm": 0.3,
+      "scope": "fixed nominal tube and corrected vendor-component envelopes; no printed central floor",
+      "passed": true
+    },
+    "clearance:display-flavor-b": {
+      "gap_mm": 0.3006397,
+      "overlap_mm3": 0.0,
+      "required_minimum_mm": 0.15,
+      "nominal_target_mm": 0.3,
+      "scope": "fixed nominal tube and corrected vendor-component envelopes; no printed central floor",
+      "passed": true
+    },
+    "placement:display-tube-budget": {
+      "nominal_minimum_gap_mm": 0.3006397,
+      "flavor_bore_radial_allowance_mm": 0.45,
+      "scope": "nominal placement only; the tube fit trial checks actual tube motion, component tolerances and contact",
+      "passed": true
+    },
+    "snap:free-arm--1": {
+      "excess_body_in_free_space_mm3": 0.0,
+      "missing_arm_material_mm3": 0.0,
+      "free_length_from_tooth_end_mm": 23.75,
+      "method": "actual body inside the complete motion-clearance box minus the arm, and complete arm containment",
+      "passed": true
+    },
+    "wall:snap-receiver--1": {
+      "missing_complete_3mm_ledge_mm3": 0.0,
+      "method": "complete three-dimensional receiver witness inside the final cover",
+      "passed": true
+    },
+    "snap:engagement--1": {
+      "measured_radial_engagement_mm": 0.3000002,
+      "measured_normal_bearing_gap_mm": 0.1499998,
+      "method": "actual tooth and actual cover-ledge extents in the head frame",
+      "passed": true
+    },
+    "section:snap-arm--1": {
+      "missing_3_by_3_sections_mm3": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "method": "complete 3 by 3 mm witnesses at three actual free-arm stations",
+      "passed": true
+    },
+    "snap:travel-stop--1": {
+      "measured_inward_stop_gaps_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "nominal_stop_travel_mm": 0.5,
+      "method": "B-rep line from the inner arm face to fixed body at three stations",
+      "passed": true
+    },
+    "snap:free-arm-+1": {
+      "excess_body_in_free_space_mm3": 0.0,
+      "missing_arm_material_mm3": 0.0,
+      "free_length_from_tooth_end_mm": 23.75,
+      "method": "actual body inside the complete motion-clearance box minus the arm, and complete arm containment",
+      "passed": true
+    },
+    "wall:snap-receiver-+1": {
+      "missing_complete_3mm_ledge_mm3": 0.0,
+      "method": "complete three-dimensional receiver witness inside the final cover",
+      "passed": true
+    },
+    "snap:engagement-+1": {
+      "measured_radial_engagement_mm": 0.3000002,
+      "measured_normal_bearing_gap_mm": 0.1499998,
+      "method": "actual tooth and actual cover-ledge extents in the head frame",
+      "passed": true
+    },
+    "section:snap-arm-+1": {
+      "missing_3_by_3_sections_mm3": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "method": "complete 3 by 3 mm witnesses at three actual free-arm stations",
+      "passed": true
+    },
+    "snap:travel-stop-+1": {
+      "measured_inward_stop_gaps_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "nominal_stop_travel_mm": 0.5,
+      "method": "B-rep line from the inner arm face to fixed body at three stations",
+      "passed": true
+    },
+    "motion:display-cover-normal": {
+      "samples": [
+        {
+          "lift_mm": 0.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.18
+        },
+        {
+          "lift_mm": 0.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.63
+        },
+        {
+          "lift_mm": 0.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 1.08
+        },
+        {
+          "lift_mm": 1.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 1.53
+        },
+        {
+          "lift_mm": 1.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 1.98
+        },
+        {
+          "lift_mm": 1.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 2.43
+        },
+        {
+          "lift_mm": 1.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 2.88
+        },
+        {
+          "lift_mm": 2.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 3.33
+        },
+        {
+          "lift_mm": 2.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 3.78
+        },
+        {
+          "lift_mm": 2.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 4.23
+        },
+        {
+          "lift_mm": 2.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 4.6725
+        },
+        {
+          "lift_mm": 3.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 4.86
+        },
+        {
+          "lift_mm": 3.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 4.68
+        },
+        {
+          "lift_mm": 3.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 4.23
+        },
+        {
+          "lift_mm": 3.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 3.78
+        },
+        {
+          "lift_mm": 4.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 3.33
+        },
+        {
+          "lift_mm": 4.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 2.88
+        },
+        {
+          "lift_mm": 4.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 2.43
+        },
+        {
+          "lift_mm": 4.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 1.98
+        },
+        {
+          "lift_mm": 5.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 1.53
+        },
+        {
+          "lift_mm": 5.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 1.08
+        },
+        {
+          "lift_mm": 5.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.63
+        },
+        {
+          "lift_mm": 5.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.1875
+        },
+        {
+          "lift_mm": 6.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 6.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 6.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 6.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 7.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 7.25,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 7.5,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 7.75,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 8.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 10.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 15.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        },
+        {
+          "lift_mm": 20.0,
+          "non_tooth_shell_overlap_mm3": 0.0,
+          "device_overlap_mm3": 0.0,
+          "ribbon_overlap_mm3": 0.0,
+          "tooth_contact_mm3": 0.0
+        }
+      ],
+      "scope": "unflexed cover; only the actual tooth projections are exempted from fixed-body interference",
+      "passed": true
+    },
+    "seat:display-cover-stop": {
+      "fixed_body_interference_after_0_01mm_inward_motion_mm3": 0.1029176,
+      "device_interference_mm3": 0.0,
+      "method": "the final cover's inward seating stop contacts the body before the display",
+      "passed": true
+    },
+    "retention:display-snaps": {
+      "nominal_engagement_mm": 0.3,
+      "radial_slip_mm": 0.15,
+      "normal_bearing_slip_mm": 0.15,
+      "interference_on_0_5mm_outward_lift_mm3": 0.63,
+      "ideal_rectangular_beam_strain_percent": 0.2393352,
+      "scope": "geometric capture and ideal strain only; PET-GF force, strength and cycling are physical trial results",
+      "passed": true
+    },
+    "clearance:snap-travel-display": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.1000004,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:snap-travel-ribbon": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.2366236,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:snap-travel-soda": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 7.0527444,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:snap-travel-flavor-a": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 3.45,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:snap-travel-flavor-b": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 3.45,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "motion:display-insertion-0": {
+      "normal_lift_mm": 0.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-0.25": {
+      "normal_lift_mm": 0.25,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-0.5": {
+      "normal_lift_mm": 0.5,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-0.75": {
+      "normal_lift_mm": 0.75,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-1": {
+      "normal_lift_mm": 1.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-1.25": {
+      "normal_lift_mm": 1.25,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-1.5": {
+      "normal_lift_mm": 1.5,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-1.75": {
+      "normal_lift_mm": 1.75,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-2": {
+      "normal_lift_mm": 2.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-2.25": {
+      "normal_lift_mm": 2.25,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-2.5": {
+      "normal_lift_mm": 2.5,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-2.75": {
+      "normal_lift_mm": 2.75,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-3": {
+      "normal_lift_mm": 3.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-3.25": {
+      "normal_lift_mm": 3.25,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-3.5": {
+      "normal_lift_mm": 3.5,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-3.75": {
+      "normal_lift_mm": 3.75,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-4": {
+      "normal_lift_mm": 4.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-6": {
+      "normal_lift_mm": 6.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-10": {
+      "normal_lift_mm": 10.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "motion:display-insertion-20": {
+      "normal_lift_mm": 20.0,
+      "overlap_mm3": 0.0,
+      "method": "actual device translated normally into the complete fixed shell",
+      "passed": true
+    },
+    "wall:display-foot-pads": {
+      "missing_3_by_3_by_3_pad_material_mm3": 0.0,
+      "method": "complete four support-pad witnesses inside the final tip",
+      "passed": true
+    },
+    "wall:display-cosmetic-shroud": {
+      "minimum_loft_side_separation_mm": 1.1936353,
+      "required_mm": 1.0,
+      "method": "exact separation of the complete outer loft's curved side faces and inner cover cavity",
+      "passed": true
+    },
+    "section:display-cosmetic-bezel": {
+      "measured_bezel_mm": 1.3,
+      "required_mm": 1.0,
+      "method": "normal material chord through the flat bezel next to the screen opening",
+      "passed": true
+    },
+    "position:display-flush-front": {
+      "foremost_cover_s_mm": -0.2484738,
+      "outlet_plane_s_mm": 0.0,
+      "passed": false
+    },
+    "wall:outlet-signal-closure": {
+      "missing_1mm_cosmetic_cap_mm3": 0.0,
+      "signal_void_at_outlet_mm3": 0.0,
+      "method": "1 mm closure witness above the unchanged flavor passage, and both signal cutters at the outlet plane",
+      "passed": true
+    },
+    "fixture:complete-display-fit-trial": {
+      "missing_head_or_anchor_material_mm3": 0.0,
+      "added_housing_material_mm3": 0.0,
+      "cover_symmetric_difference_mm3": 0.0,
+      "clipped_side_entry_ribbon_mm3": 0.0,
+      "retained_geometry": {
+        "complete_head_end_s_mm": 50.20572128830402,
+        "neck_cut_s_mm": 70.20572128830402,
+        "minimum_neck_stub_mm": 20.0,
+        "missing_head_material_mm3": 0.0
+      },
+      "method": "complete production head region through the cable branch, and exact complete cover",
+      "passed": true
+    },
+    "fixture:production-print-orientations": {
+      "housing_rotation_x_deg": -105.0,
+      "cover_rotation_x_deg": 130.0,
+      "method": "trial print transforms are read from the same production-print part table",
+      "passed": true
+    },
+    "solid:display_trial_housing": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 31936.6001399,
+      "bounds_mm": [
+        -15.0124555,
+        15.0124555,
+        -148.3695626,
+        -64.7117847,
+        173.1493478,
+        238.4586935
+      ],
+      "passed": true
+    },
+    "mesh:display_trial_housing": {
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "triangle_count": 12704,
+      "volume_mm3": 31894.770298,
+      "tolerance_mm": 0.02,
+      "angular_tolerance_rad": 0.15,
+      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "passed": true
+    },
+    "motion:lever": {
+      "samples": [
+        {
+          "angle_deg": 0.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 1.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 2.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 3.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 4.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 5.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 6.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 7.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 8.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 9.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 10.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 11.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 12.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 13.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 14.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 15.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 16.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 17.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        },
+        {
+          "angle_deg": 18.0,
+          "overlap_mm3": 0.0,
+          "gap_mm": 0.35
+        }
+      ],
+      "scope": "the repo's dimensional lever envelope, not a measured scan of the donor lever",
+      "passed": true
+    },
+    "solid:display-ribbon-envelope": {
+      "valid": true,
+      "solids": 1,
+      "section_mm": [
+        4.1,
+        1.3
+      ],
+      "scope": "maximum vendor-stated ribbon section; the modeled end stops beside the PCB before factory solder fan-out",
+      "passed": true
+    },
+    "clearance:signal-shell_base": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1092026,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:signal-shell_tip": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1094224,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:signal-above_counter_plate": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1094306,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:signal-above_counter_gasket": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1094306,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:signal-display_cover": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 4.3277273,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:signal-tpu_thimble": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 8.3255957,
+      "required_gap_mm": 0.1,
+      "passed": true
+    },
+    "clearance:signal-donor": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.1353292,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-soda-tube": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 6.1354903,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-flavor-a": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.30572,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-flavor-b": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.6008648,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-countertop": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.463738,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-under-counter-plate": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.05,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-display-body": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.3,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "clearance:signal-display-usb": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 9.0582236,
+      "required_gap_mm": 0.0,
+      "passed": true
+    },
+    "fit:signal-lane-section": {
+      "method": "complete maximum rectangular cable section inside the actual capsule lane",
+      "outside_volume_mm3": 0.0,
+      "lane_section_mm": [
+        5.0,
+        1.8
+      ],
+      "passed": true
+    },
+    "wall:neck-signal-lane": {
+      "method": "exact separation of the plug's circular exterior and full signal-lane profile",
+      "minimum_distance_mm": 3.0,
+      "required_mm": 3.0,
+      "scope": "the uniform profile; the curved neck, lap and port have separate readings",
+      "passed": true
+    },
+    "seat:plate-gasket": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "passed": true
+    }
+  },
+  "printing": {
+    "shell_base": {
+      "build_rotation_deg": 35.0,
+      "conservative_bounding_box_mm": [
+        68.8456621,
+        154.0298308,
+        232.6126504
+      ]
+    },
+    "shell_tip": {
+      "build_rotation_deg": 105.0,
+      "conservative_bounding_box_mm": [
+        30.024911,
+        55.3124092,
+        138.7571177
+      ]
+    },
+    "visible_swept_neck_maximum_overhang_deg": 35.0,
+    "hidden_plug_maximum_flank_overhang_deg": 49.3638398,
+    "scope": "Geometric orientations only; no slice or physical support-removal result."
+  },
+  "physical_checks_remaining": [
+    "Actual harvested lever dimensions, hand approach and full motion in printed parts.",
+    "PET-GF print strength, curved-joint fit and retention, and heat-set insert installation.",
+    "Support access and contact finish from a production-profile slice and physical print.",
+    "Tube feeding, flow, actual tube/display separation, cable routing and splash drainage.",
+    "PET-GF snap seating and pull-off force, root strength, repeated closure and release in the complete display fit trial."
+  ],
+  "passed": false
+}
