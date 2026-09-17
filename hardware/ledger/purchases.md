@@ -637,7 +637,7 @@ Internet infrastructure purchases: the product domains, and the Render hosting t
 | 2026-06-05 | Render — receipt #2249-4172, invoice EV3NKLCU-0002 | Web service + Postgres + builds — May usage (744 h, 1 instance each) | $22.50 | ACQUIRED |
 | 2026-07-04 | Render — receipt #2027-7320, invoice EV3NKLCU-0003 | Web service + Postgres + builds — June usage (1,288 h, 2 instances each) | $50.48 | ACQUIRED |
 | 2026-08-05 | Render — receipt #2366-0573, invoice EV3NKLCU-0004 | Web service + Postgres + builds + 7.4 GB bandwidth — July usage (1,488 h, 2 instances each) | $59.20 | ACQUIRED |
-| 2026-09-17 | Namecheap | hosm.us — short domain, the host the nameplate QR encodes, 1-year term | $5.98 | ACQUIRED |
+| 2026-09-17 | Namecheap — order #214324078 | hosm.us — short domain, the host the nameplate QR encodes, 1-year term | $5.98 | ACQUIRED |
 
 ## 18. Capitalized contract labor — AI-assisted engineering
 
