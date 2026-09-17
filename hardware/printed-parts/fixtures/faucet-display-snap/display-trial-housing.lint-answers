@@ -1,0 +1,4 @@
+[step] These are the production snap teeth on the complete display fit trial. Each projects 0.45 mm beyond its 3 mm arm: 0.15 mm running clearance and 0.30 mm receiver engagement. The trial STL already has the production -105 degree print rotation.
+file: hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step
+click: x=-13.750 y=-5.724 z=71.431
+click: x=13.750 y=-5.724 z=71.431

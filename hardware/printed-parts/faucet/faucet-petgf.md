@@ -48,7 +48,7 @@ profile's 1.29 g/cm³ density; they are not a measured PET-GF part mass.
 The material ledger uses PET-GF15's 1.43 g/cm³ and the actual purchase price.
 Object labels in the G-code identify each part's supports.
 The current offline slice completes successfully with no slice warnings. It
-estimates 8 h 7 min 35 s and 150.31 g under the saved profile. The four parts'
+estimates 8 h 4 min 41 s and 149.61 g under the saved profile. The four parts'
 actual extruded toolpaths, including supports and brims, have at least
 24.95 mm of shared-bed border and 34.03 mm separation. The refresh checks
 require at least 15 mm and 10 mm respectively. Removal effort and contact
