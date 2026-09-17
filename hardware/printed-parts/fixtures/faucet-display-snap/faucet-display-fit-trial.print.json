@@ -46,13 +46,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
-      "stl_sha256": "05fe66665b93b7462989c5d2a39d552237228289fd1ac9e2d3b652283c5e0303",
-      "triangles": 11786,
+      "stl_sha256": "28c346a040baaf5484cfdc95bc0793184e1a2c9036bb792063fdcac95818d3f4",
+      "triangles": 11072,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
-        -0.0010442733764648438,
-        43.180497296038084
+        -0.00046825408935546875,
+        43.91323950095102
       ],
       "build_transform": [
         1.0,
@@ -66,12 +66,12 @@
         1.0,
         110.0,
         160.0,
-        43.17834364634473
+        43.91031549172476
       ],
       "plate_translation_mm": [
         110.0,
         160.0,
-        43.17834364634473
+        43.91031549172476
       ],
       "plate_origin_mm": [
         0.0,
@@ -81,13 +81,13 @@
       "plate_bounds_mm": [
         [
           94.98754501342773,
-          132.5209665298462,
+          132.4734869003296,
           0.0
         ],
         [
           125.01245498657227,
-          187.4790334701538,
-          86.35668729268946
+          187.5265130996704,
+          87.82063098344952
         ]
       ],
       "watertight": true,
@@ -102,13 +102,13 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
-      "stl_sha256": "457df0ef877b4982627f26aafc18ad61e912a42b713022ae596659f156f84267",
-      "triangles": 2366,
+      "stl_sha256": "5d7eb28d6a5b9a130b8ceda23a20cafa9de038ca3c007b380a5582f04d86f6fc",
+      "triangles": 2310,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
-        0.6295938491821289,
-        9.274999668530313
+        0.6295928955078125,
+        9.274999668530342
       ],
       "build_transform": [
         1.0,
@@ -122,12 +122,12 @@
         1.0,
         240.0,
         160.0,
-        9.274999568530234
+        9.274999568530205
       ],
       "plate_translation_mm": [
         240.0,
         160.0,
-        9.274999568530234
+        9.274999568530205
       ],
       "plate_origin_mm": [
         0.0,
@@ -137,13 +137,13 @@
       "plate_bounds_mm": [
         [
           223.3405475616455,
-          135.52673244476318,
+          135.0317325592041,
           0.0
         ],
         [
           256.6594524383545,
-          184.47326755523682,
-          18.549999137060468
+          184.9682674407959,
+          18.54999913706041
         ]
       ],
       "watertight": true,
@@ -151,10 +151,10 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "62514a664e675b41bcc26de4eeb80bd585c040a70663a622d64af67348b31f43",
+  "project_sha256": "e326ffdaec588c8467de5033b827b25d558ae7280ebcdcf0ca3a17ee19d5e1a7",
   "settings_preserved_byte_for_byte": true,
   "project_title": "Faucet display fit trial",
-  "geometry_report_sha256": "60241ee0555da1d6210d49195556c8fb4803231cda22f32210fbea06c47336c9",
+  "geometry_report_sha256": "930133abd259d39d7a05c7edf67d917bb0f9c6c541655b3d122cfb917136ad12",
   "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
   "all_profile_members_preserved_byte_for_byte": true,
   "placement": {

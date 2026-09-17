@@ -11,11 +11,10 @@ reading before this joint is treated as validated.
 
 ## Geometry
 
-The planar face is [27.5 mm](PLATE_X) wide and [47.5 mm](PLATE_S) long. Its
+The planar face is [27.5 mm](PLATE_X) wide and [48.49 mm](PLATE_S) long. Its
 rounded skin tapers to the skirt around the neck. The bezel is
-[1.3 mm](COSMETIC_WALL) thick. The wall audit samples 384 surface-normal
-sections and reads a minimum of 1.194 mm. Separate front and rear rim
-sections read 1.250 mm and 1.471 mm. Two broad 1.3 mm-high retaining lips
+[1.3 mm](COSMETIC_WALL) thick. The finished rim has a 1 mm minimum cosmetic
+section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad 1.3 mm-high retaining lips
 continue inward from the side walls. The four metal-foot bearing pads have
 3 mm working sections.
 
@@ -33,7 +32,7 @@ pads support the metal feet.
 
 The frame is the shell's `_tip_frame`: x is lateral, s runs up the final
 neck tangent from the tube exit, and n points toward the display face. The
-front bezel edge is at s = 0. The cover's lower opening follows the circular
+lower enclosure rim is at s = 0. The cover's lower opening follows the circular
 neck, so the parting line stays below the display face.
 
 ## Assembly trial
@@ -41,7 +40,8 @@ neck, so the parting line stays below the display face.
 1. Remove supports and stringing from the open cover, its two broad lips
    and the neck's shallow grooves. Preserve the lip bearing faces and
    groove floors.
-2. Route the display ribbon through its side corridor and place the exact
+2. Lay the display ribbon in the open space below the PCB, toward its southwest
+   corner as viewed from the glass, and place the exact
    module on the four metal-foot pads. Keep the ribbon clear of the USB socket
    and underside components.
 3. Press the cover squarely toward the display. Its side walls flex outward

@@ -39,7 +39,7 @@ window_x = 2.0 * window_half_x
 window_s = window_s_north - window_s_south
 front_rim_n = 14.0
 front_rim_slope = 1.8
-rear_rim_s = 42.0
+rear_rim_s = shell._display_housing_center_s + 18.25
 rear_rim_slope = 2.0
 
 
@@ -53,7 +53,7 @@ def build_plate_inner_cut() -> cq.Workplane:
         bezel_n_bottom - 0.1, plate_n_top + 1.0, corner_r=window_corner_r,
     )
     cavity = shell.build_display_cover_inner_envelope().intersect(
-        shell._cradle_prism(50.0, shell.display_s_bottom,
+        shell._cradle_prism(50.0, shell.dispense_face_thickness,
                             shell.display_head_s_max + 1.0, -30.0, 40.0))
     return cavity.union(window)
 
@@ -132,6 +132,7 @@ def main():
         "WINDOW_S": f"{window_s:g} mm",
         "COVER_OVER_FACE": f"{display_cover_over_face:g} mm",
         "COSMETIC_WALL": f"{bezel_thickness:g} mm",
+        "DISPENSE_FACE_T": f"{shell.dispense_face_thickness:g} mm",
         "SNAP_ENGAGEMENT": f"{_display_snap.ENGAGEMENT:g} mm",
         "DISPLAY_FEET_N": f"{shell.display_feet_n:g} mm",
     })

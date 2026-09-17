@@ -292,7 +292,7 @@ def load_above_counter_gasket():
 
 
 def load_display_cover():
-    """Display cover with its rigid captures seated, in the shell's tip frame."""
+    """Display cover with its broad lips seated, in the shell's tip frame."""
     return faucet_display_cover.build_display_cover()
 
 
@@ -491,7 +491,10 @@ def build_display_ribbon():
         faucet_shell.build_signal_neck_ribbon().val(),
         faucet_shell.build_display_ribbon_transition().val(),
     ]
-    return cq.Workplane(obj=parts[0].fuse(*parts[1:]))
+    joined = parts[0].fuse(*parts[1:], tol=1e-5)
+    if not joined.isValid() or len(joined.Solids()) != 1:
+        raise ValueError("the display ribbon must form one continuous valid envelope")
+    return cq.Workplane(obj=joined)
 
 
 def bundle_hull(grow: float = 0.0) -> cq.Sketch:
@@ -748,7 +751,7 @@ def build_base_insert(x, y):
 # plane at z = 0, screen faces +Z. The long axis follows the tip and
 # the screen faces the user. Four printed pads carry the feet; the
 # component spaces remain open to the tube passages. The bezel's
-# lower edge lies in the dispense plane.
+# lower enclosure rim lies in the dispense plane.
 display_pocket_inset = faucet_shell.display_pocket_inset
 # Active (lit) display area, on the front face.
 display_screen_width = 17.75
@@ -801,7 +804,7 @@ def _seat_on_tip(part):
     gooseneck and turns its screen (+Z) up toward the user. It is then
     offset out along the tip's top normal to the four feet pads. The
     feet datum and display center come from the shell's shared display
-    constants, which place the bezel's lower edge in the dispense plane.
+    constants, which leave 2 mm stock behind the dispense plane.
     """
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
     tip_end, up_gooseneck, top_normal = faucet_shell._tip_frame()

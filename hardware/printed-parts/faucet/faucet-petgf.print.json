@@ -46,8 +46,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "stl_sha256": "d26ed9665b5db0b63b9347924159fe763b3198808bd35cd55d29ca5570c28c25",
-      "triangles": 30626,
+      "stl_sha256": "0a8168c6201a018ba158af617ec535c716e0f62f1ee464a1508472a410a4d2c0",
+      "triangles": 30550,
       "rotation_x_degrees": -35.0,
       "source_center_mm": [
         0.0039005279541015625,
@@ -102,8 +102,8 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "6ef6d28e406eda90d4d25cd96e9e5d5bf449943f75969981fd8c4321e0823bae",
-      "triangles": 17850,
+      "stl_sha256": "bc062cd00e8dd5bb8f64da5a9df6bb0986f2e691e1a1a8b64bfaf65fa16756bf",
+      "triangles": 17164,
       "rotation_x_degrees": -105.0,
       "source_center_mm": [
         0.0,
@@ -158,13 +158,13 @@
       "member": "3D/Objects/object_3.model",
       "identify_id": 1903,
       "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
-      "stl_sha256": "5017ef999119f4166df946aa68f5c2df613be5a3bb09f4ace4c57feb9ef6235a",
-      "triangles": 2392,
+      "stl_sha256": "7b966dd384c22265ddcae49e56f9149e3fea69c9884bf449ba2ece02969d2c86",
+      "triangles": 2320,
       "rotation_x_degrees": 130.0,
       "source_center_mm": [
         0.0,
-        -130.13118743896484,
-        208.94220733642578
+        -129.81300735473633,
+        209.32139587402344
       ],
       "build_transform": [
         1.0,
@@ -178,12 +178,12 @@
         -0.6427876096865394,
         264.0,
         270.1153212372855,
-        6.457368115506965
+        6.457370507238417
       ],
       "plate_translation_mm": [
         264.0,
         270.1153212372855,
-        6.457368115506965
+        6.457370507238417
       ],
       "plate_origin_mm": [
         0.0,
@@ -193,12 +193,12 @@
       "plate_bounds_mm": [
         [
           247.3405475616455,
-          245.52672943563576,
+          245.03173194772356,
           0.0
         ],
         [
           280.6594524383545,
-          294.47327056436427,
+          294.96826805227647,
           18.55001750782573
         ]
       ],
@@ -263,6 +263,6 @@
       "embedded_vertex_error_mm": 4.995115432393504e-10
     }
   ],
-  "project_sha256": "79eb25ad5dcf52a981991a3febee1f02950ba8096fff3e650edad5efbb4df3ed",
+  "project_sha256": "61ea84f45b994e1e87b3bb0bc8fe44b03eca790b5b45b4833e7dc77b1a666722",
   "settings_preserved_byte_for_byte": true
 }

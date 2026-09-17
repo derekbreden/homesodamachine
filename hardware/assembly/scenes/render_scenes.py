@@ -194,8 +194,9 @@ def carried_payload(step) -> Path | None:
     if not payload.is_file():
         return None
     pieces = set(fluted_pieces())
+    owner = flute_payload.payload_owner(payload)
     held = [n for n in flute_payload.payload_names(payload)
-            if flute_payload.fluted_key(n, pieces)]
+            if flute_payload.fluted_key(n, pieces, owner=owner)]
     return payload if held else None
 
 

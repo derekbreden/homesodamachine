@@ -77,8 +77,9 @@ Use the exact Waveshare ESP32-S3-Touch-LCD-1.47 housing and PCB envelope.
 Keep the original donor lever; the assembly model is a dimensioned clearance
 stand-in, not a scan suitable for manufacturing a replacement lever.
 
-1. Route SIG-6 through its internal side entry beside the PCB. The ribbon
-   remains inside the shell; it has no opening on the dispense face.
+1. Route SIG-6 from the neck into the open space below the PCB, toward its
+   southwest corner as viewed from the glass. The cable lies freely between
+   the components and supports.
 2. Seat the display's four metal feet on their printed supports. Confirm
    the underside components clear the three tubes and the ribbon. The
    central space above the tubes is open.
@@ -88,7 +89,7 @@ stand-in, not a scan suitable for manufacturing a replacement lever.
    engagement; their bottoms seat on the groove floors before the bezel
    reaches the glass. No display screw or insert is fitted.
 4. Check that the seam closes, the glass clears the bezel, and the display
-   remains seated when its touch surface is pressed. The bezel's lower edge
+   remains seated when its touch surface is pressed. The enclosure's lower edge
    and the three tube outlets end at the same plane.
 
 The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
@@ -97,6 +98,9 @@ some tube movement, so the seated real bundle is part of the
 That trial prints the actual housing, supports, snaps and cover with a short
 gooseneck stub. Physical snap performance and assembled clearance are
 unmeasured.
+
+The dispense face has [2 mm](DISPENSE_FACE_T) axial stock. The display pocket and USB clearance
+share one flat plane behind it.
 
 The [display cover instructions](../faucet-display-cover/README.md) give the
 mating dimensions and print orientation.

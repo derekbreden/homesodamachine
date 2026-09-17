@@ -48,16 +48,16 @@ profile's 1.29 g/cm³ density; they are not a measured PET-GF part mass.
 The material ledger uses PET-GF15's 1.43 g/cm³ and the actual purchase price.
 Object labels in the G-code identify each part's supports.
 The current offline slice completes successfully with no slice warnings. It
-estimates 8 h 14 min 22 s and 158.94 g under the saved profile. The four parts'
+estimates 8 h 15 min 29 s and 158.94 g under the saved profile. The four parts'
 actual extruded toolpaths, including supports and brims, have at least
-25.29 mm of shared-bed border and 20.61 mm separation. The refresh checks
+24.81 mm of shared-bed border and 20.79 mm separation. The refresh checks
 require at least 15 mm and 10 mm respectively. Removal effort and contact
 finish are read from the physical print.
 
 ## Support reading
 
 The slice generates one bed-rooted support body for the base, one for the
-tip, three for the cover and three for the plate. There are no model-rooted
+tip, two for the cover and three for the plate. There are no model-rooted
 support bodies.
 One base interface island is explicitly labelled, with 20.64 mm of build-up
 to that labelled contact. Other support contacts have no explicit
@@ -74,7 +74,7 @@ print reading.
 |---|---|---|
 | Base / tree-1 | Bed | Counter-end face, lower body and underside of the continuous neck roof. The plate seats, donor opening and lever clearance keep their full working shapes. Its labelled interface 1 supports the first turn of the lower signal lane, at CAD X6.60–10.60 / Y16.28–18.53 / Z13.93–15.70 mm. Cleanup uses the bottom cable/flavor passage and actual donor/lever openings before fitting the metal body or plate. Removal at the roof and small cable branch needs a physical reading. |
 | Tip / tree-1 | Bed | Curved neck and open display-chassis underside region. The annular neck engagement, tube and ribbon passages, retaining grooves and 3 mm metal-foot supports retain their working sections. Support removal precedes tubes and display installation. Its exact unlabelled contact boundaries need the physical print. |
-| Cover / trees 1–3 | Bed | Undersides of the broad retaining lips: tree 1 reaches the left lip; trees 2–3 reach the right. The supports rise from Z0.20 to Z16.76 mm in the print pose. Remove through the open underside before installing the display, preserving the lip bearing faces. Exact contact boundaries and removal effort need the physical print. |
+| Cover / trees 1–2 | Bed | Undersides of the broad retaining lips: tree 1 reaches the left lip; tree 2 reaches the right. The supports rise from Z0.20 to Z16.76 mm in the print pose. Remove through the open underside before installing the display, preserving the lip bearing faces. Exact contact boundaries and removal effort need the physical print. |
 | Plate / trees 1–3 | Bed | The three underside screw counterbores. Their flat seats carry the factory base screws; the supports are removed through the counterbore openings. |
 
 The support reader's `--include-unlabelled-support` option produces this

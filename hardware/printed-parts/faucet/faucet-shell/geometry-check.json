@@ -5,17 +5,17 @@
   "distance_tolerance_mm": 0.0001,
   "overlap_tolerance_mm3": 1e-05,
   "geometry_source_sha256": {
-    "hardware/scripts/check_faucet_geometry.py": "5e6bd35c54cd3c20d08e1a1587a11458ebef12e97247528af3dcb780ab1b15c9",
-    "hardware/faucet-layout/faucet_assembly.py": "deab4e16a6fec98c97e94b1bb43032202cda44dc11bdb6d048533ed60c74c8a0",
+    "hardware/scripts/check_faucet_geometry.py": "0ea2bb6984948accdbc4818a590e83a560ee0847c1fea55c402b508f7d0fef71",
+    "hardware/faucet-layout/faucet_assembly.py": "fd6464040e1162a02949fb71507071387a8eef8b35b2ebd0fe5425129922afc5",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
-    "hardware/printed-parts/faucet/_display_snap.py": "4014df42a2de3b01ea0640a2a2ea6ca03353002f2ffb7a0cfb24fa517d111b67",
+    "hardware/printed-parts/faucet/_display_snap.py": "e9f4954e21969500691db7fbb5cdbb3b7942f34120aad42b0f167255fd35eadf",
     "hardware/printed-parts/faucet/refresh_print_project.py": "53c05220ff8490358bf52d8aa291b8efb905e38eb143993645595eb5dfa09158",
-    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "984fdf16afc2ad762d311e986509173af83304bcddddaad1e9dbf9a5bb2cd09f",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "c56951365f469cdb2ca17e455510647f6c10359a27b167d9d9dedfab6ce9bafc",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c435b1883f82f6e2c4fb5f6a0c98b80d88e1f8df937bde29e0d3efdc3d252c65",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c788010a193f45f879b258010559c7e908a4e825668b5192f1b3db7ff62861ac",
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "09ba9b404156346badd62e581c9d1d095244f190740ba6a6b3ebc37c1f6fa5c5",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "59dab0531a338b83764f72cd26e00427c9a12ae81b59e255e017f027ff4dbf10",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "69df20440344b9b8499a7bf8a12f29b3cb26153d42879b0f5d55bf10baa34ab9",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "13faa9c2e4e5fa2166a93778d606bbd1ec3cb9211b27ccb591dcb794f63cc051",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
     "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
     "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
@@ -57,7 +57,7 @@
     "solid:shell_base": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 180989.259382,
+      "volume_mm3": 180989.2593891,
       "bounds_mm": [
         -34.422831,
         34.422831,
@@ -71,13 +71,13 @@
     "solid:shell_tip": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 60513.54526,
+      "volume_mm3": 60548.6726979,
       "bounds_mm": [
         -15.0124555,
         15.0124555,
-        -148.3695626,
+        -148.3695625,
         -13.5854112,
-        173.1493478,
+        173.1493479,
         243.9501232
       ],
       "passed": true
@@ -113,14 +113,14 @@
     "solid:display_cover": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 3174.610906,
+      "volume_mm3": 3255.1804019,
       "bounds_mm": [
         -16.6679347,
         16.6679347,
         -150.7347932,
-        -107.3889518,
-        184.3808179,
-        230.8207638
+        -103.716789,
+        187.063651,
+        231.5791478
       ],
       "passed": true
     },
@@ -142,8 +142,8 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 30626,
-      "volume_mm3": 180434.8160508,
+      "triangle_count": 30550,
+      "volume_mm3": 180434.8243197,
       "tolerance_mm": 0.02,
       "angular_tolerance_rad": 0.15,
       "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
@@ -153,8 +153,8 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 19080,
-      "volume_mm3": 60433.8418389,
+      "triangle_count": 17164,
+      "volume_mm3": 60464.7900193,
       "tolerance_mm": 0.02,
       "angular_tolerance_rad": 0.15,
       "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
@@ -186,8 +186,8 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 2566,
-      "volume_mm3": 3134.9455139,
+      "triangle_count": 2320,
+      "volume_mm3": 3228.7422366,
       "tolerance_mm": 0.02,
       "angular_tolerance_rad": 0.15,
       "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
@@ -256,7 +256,7 @@
     },
     "clearance:donor-display_cover": {
       "overlap_mm3": 0.0,
-      "gap_mm": 186.873969,
+      "gap_mm": 187.4930304,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -277,7 +277,7 @@
     },
     "clearance:soda-display_cover": {
       "overlap_mm3": 0.0,
-      "gap_mm": 9.122924,
+      "gap_mm": 10.3087934,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -291,14 +291,14 @@
     },
     "clearance:flavor-a-shell_tip": {
       "overlap_mm3": 0.0,
-      "gap_mm": 0.4499999,
+      "gap_mm": 0.45,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-a-display_cover": {
       "overlap_mm3": 0.0,
-      "gap_mm": 7.1330543,
+      "gap_mm": 7.2434667,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -319,14 +319,14 @@
     },
     "clearance:flavor-b-display_cover": {
       "overlap_mm3": 0.0,
-      "gap_mm": 7.1330543,
+      "gap_mm": 7.2434667,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:display-body-shell_base": {
       "overlap_mm3": 0.0,
-      "gap_mm": 71.7028024,
+      "gap_mm": 71.1902296,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -347,7 +347,7 @@
     },
     "clearance:display-screen-shell_base": {
       "overlap_mm3": 0.0,
-      "gap_mm": 82.4508,
+      "gap_mm": 81.9548939,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -843,386 +843,1035 @@
       "scope": "nominal placement only; the tube fit trial checks actual tube motion, component tolerances and contact",
       "passed": true
     },
-    "snap:free-arm--1": {
-      "excess_body_in_free_space_mm3": 0.0,
-      "missing_arm_material_mm3": 0.0,
-      "free_length_from_tooth_end_mm": 23.75,
-      "method": "actual body inside the complete motion-clearance box minus the arm, and complete arm containment",
+    "wall:cover-lip--1": {
+      "missing_lip_from_cover_mm3": 0.0,
+      "sampled_normal_chords": [
+        {
+          "x_mm": -15.632557,
+          "s_mm": 10.47759,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.632557,
+          "s_mm": 13.89875,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.632557,
+          "s_mm": 17.3475,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.632557,
+          "s_mm": 20.79625,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.632557,
+          "s_mm": 24.245,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.6321925,
+          "s_mm": 27.69375,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.6298154,
+          "s_mm": 31.1425,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.6222217,
+          "s_mm": 34.59125,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": -15.604038,
+          "s_mm": 38.01241,
+          "normal_stock_mm": 1.3
+        }
+      ],
+      "measured_normal_height_mm": 1.3000002,
+      "minimum_inner_surface_to_outer_skin_mm": 1.7875446,
+      "required_mm": 1.0,
+      "method": "complete lip containment in the cover, nine exact interior normal chords per side, and complete curved-side separation",
       "passed": true
     },
-    "wall:snap-receiver--1": {
-      "missing_complete_3mm_ledge_mm3": 0.0,
-      "method": "complete three-dimensional receiver witness inside the final cover",
+    "wall:retention-groove--1": {
+      "missing_complete_radial_backing_mm3": 0.0,
+      "required_radial_backing_mm": 3.0,
+      "method": "complete three-millimeter annular witness behind the actual swept groove, including its rear torus section",
       "passed": true
     },
     "snap:engagement--1": {
-      "measured_radial_engagement_mm": 0.3000002,
-      "measured_normal_bearing_gap_mm": 0.1499998,
-      "method": "actual tooth and actual cover-ledge extents in the head frame",
-      "passed": true
-    },
-    "section:snap-arm--1": {
-      "missing_3_by_3_sections_mm3": [
-        0.0,
-        0.0,
-        0.0
+      "measured_radial_engagement_mm": 0.3,
+      "measured_radial_clearance_mm": 0.15,
+      "measured_normal_bearing_gap_mm": 0.15,
+      "measured_floor_gap_mm": -0.0,
+      "measured_end_gaps_mm": [
+        0.1499999,
+        0.15
       ],
-      "method": "complete 3 by 3 mm witnesses at three actual free-arm stations",
+      "method": "actual lip and groove cylinder/torus radii and clipped face extents in the display frame",
       "passed": true
     },
-    "snap:travel-stop--1": {
-      "measured_inward_stop_gaps_mm": [
-        0.5,
-        0.5,
-        0.5
+    "wall:cover-lip-+1": {
+      "missing_lip_from_cover_mm3": 0.0,
+      "sampled_normal_chords": [
+        {
+          "x_mm": 15.632557,
+          "s_mm": 10.47759,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.632557,
+          "s_mm": 13.89875,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.632557,
+          "s_mm": 17.3475,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.632557,
+          "s_mm": 20.79625,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.632557,
+          "s_mm": 24.245,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.6321925,
+          "s_mm": 27.69375,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.6298154,
+          "s_mm": 31.1425,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.6222217,
+          "s_mm": 34.59125,
+          "normal_stock_mm": 1.3
+        },
+        {
+          "x_mm": 15.604038,
+          "s_mm": 38.01241,
+          "normal_stock_mm": 1.3
+        }
       ],
-      "nominal_stop_travel_mm": 0.5,
-      "method": "B-rep line from the inner arm face to fixed body at three stations",
+      "measured_normal_height_mm": 1.3000002,
+      "minimum_inner_surface_to_outer_skin_mm": 1.7875446,
+      "required_mm": 1.0,
+      "method": "complete lip containment in the cover, nine exact interior normal chords per side, and complete curved-side separation",
       "passed": true
     },
-    "snap:free-arm-+1": {
-      "excess_body_in_free_space_mm3": 0.0,
-      "missing_arm_material_mm3": 0.0,
-      "free_length_from_tooth_end_mm": 23.75,
-      "method": "actual body inside the complete motion-clearance box minus the arm, and complete arm containment",
-      "passed": true
-    },
-    "wall:snap-receiver-+1": {
-      "missing_complete_3mm_ledge_mm3": 0.0,
-      "method": "complete three-dimensional receiver witness inside the final cover",
+    "wall:retention-groove-+1": {
+      "missing_complete_radial_backing_mm3": 0.0,
+      "required_radial_backing_mm": 3.0,
+      "method": "complete three-millimeter annular witness behind the actual swept groove, including its rear torus section",
       "passed": true
     },
     "snap:engagement-+1": {
-      "measured_radial_engagement_mm": 0.3000002,
-      "measured_normal_bearing_gap_mm": 0.1499998,
-      "method": "actual tooth and actual cover-ledge extents in the head frame",
+      "measured_radial_engagement_mm": 0.3,
+      "measured_radial_clearance_mm": 0.15,
+      "measured_normal_bearing_gap_mm": 0.15,
+      "measured_floor_gap_mm": -0.0,
+      "measured_end_gaps_mm": [
+        0.1499999,
+        0.15
+      ],
+      "method": "actual lip and groove cylinder/torus radii and clipped face extents in the display frame",
       "passed": true
     },
-    "section:snap-arm-+1": {
-      "missing_3_by_3_sections_mm3": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "method": "complete 3 by 3 mm witnesses at three actual free-arm stations",
+    "seat:display-cover": {
+      "overlap_mm3": 0.0,
+      "method": "exact common volume at the designed lip-floor contact pose",
       "passed": true
     },
-    "snap:travel-stop-+1": {
-      "measured_inward_stop_gaps_mm": [
-        0.5,
-        0.5,
-        0.5
-      ],
-      "nominal_stop_travel_mm": 0.5,
-      "method": "B-rep line from the inner arm face to fixed body at three stations",
+    "seat:display-cover-stop": {
+      "fixed_body_interference_after_0_01mm_inward_motion_mm3": 0.1654996,
+      "contact_outside_actual_lips_mm3": 0.0,
+      "contact_outside_groove_floor_mm3": 0.0,
+      "device_interference_mm3": 0.0,
+      "glass_interference_mm3": 0.0,
+      "method": "actual lip bottoms contact only the shallow groove floors before the display or glass",
+      "passed": true
+    },
+    "retention:display-snaps": {
+      "interference_on_0_5mm_outward_lift_mm3": 5.0972906,
+      "contact_outside_actual_lips_mm3": 0.0,
+      "contact_outside_retaining_shoulders_mm3": 0.0,
+      "scope": "geometric cover-lip capture only; PET-GF force, flex distribution and cycling require the complete print trial",
       "passed": true
     },
     "motion:display-cover-normal": {
       "samples": [
         {
-          "lift_mm": 0.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
+          "normal_lift_mm": 0.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 0.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.18
+          "normal_lift_mm": 0.1,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 0.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.63
+          "normal_lift_mm": 0.15,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 0.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 1.08
+          "normal_lift_mm": 0.151,
+          "unflexed_body_interference_mm3": 0.0159865,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2905884,
+              "remaining_body_interference_mm3": 9.7e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2905884,
+              "remaining_body_interference_mm3": 9.7e-06
+            }
+          ]
         },
         {
-          "lift_mm": 1.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 1.53
+          "normal_lift_mm": 0.16,
+          "unflexed_body_interference_mm3": 0.1594976,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2905884,
+              "remaining_body_interference_mm3": 3.6e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2905884,
+              "remaining_body_interference_mm3": 3.6e-06
+            }
+          ]
         },
         {
-          "lift_mm": 1.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 1.98
+          "normal_lift_mm": 0.2,
+          "unflexed_body_interference_mm3": 0.7893289,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2883362,
+              "remaining_body_interference_mm3": 4.6e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2883362,
+              "remaining_body_interference_mm3": 4.6e-06
+            }
+          ]
         },
         {
-          "lift_mm": 1.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 2.43
+          "normal_lift_mm": 0.35,
+          "unflexed_body_interference_mm3": 3.0349882,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2808655,
+              "remaining_body_interference_mm3": 8.2e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2808655,
+              "remaining_body_interference_mm3": 8.2e-06
+            }
+          ]
         },
         {
-          "lift_mm": 1.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 2.88
+          "normal_lift_mm": 0.5,
+          "unflexed_body_interference_mm3": 5.0972906,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2749878,
+              "remaining_body_interference_mm3": 6.4e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2749878,
+              "remaining_body_interference_mm3": 6.4e-06
+            }
+          ]
         },
         {
-          "lift_mm": 2.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 3.33
+          "normal_lift_mm": 0.75,
+          "unflexed_body_interference_mm3": 8.1273168,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2685608,
+              "remaining_body_interference_mm3": 7.2e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2685608,
+              "remaining_body_interference_mm3": 7.2e-06
+            }
+          ]
         },
         {
-          "lift_mm": 2.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 3.78
+          "normal_lift_mm": 1.0,
+          "unflexed_body_interference_mm3": 10.6485735,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2663635,
+              "remaining_body_interference_mm3": 9.5e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2663635,
+              "remaining_body_interference_mm3": 9.5e-06
+            }
+          ]
         },
         {
-          "lift_mm": 2.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 4.23
+          "normal_lift_mm": 1.5,
+          "unflexed_body_interference_mm3": 13.4594818,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2697693,
+              "remaining_body_interference_mm3": 8.8e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2697693,
+              "remaining_body_interference_mm3": 8.8e-06
+            }
+          ]
         },
         {
-          "lift_mm": 2.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 4.6725
+          "normal_lift_mm": 2.0,
+          "unflexed_body_interference_mm3": 8.4407598,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.2262634,
+              "remaining_body_interference_mm3": 8.1e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.2262634,
+              "remaining_body_interference_mm3": 8.1e-06
+            }
+          ]
         },
         {
-          "lift_mm": 3.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 4.86
+          "normal_lift_mm": 3.0,
+          "unflexed_body_interference_mm3": 0.7341362,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0882202,
+              "remaining_body_interference_mm3": 9.1e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0882202,
+              "remaining_body_interference_mm3": 9.1e-06
+            }
+          ]
         },
         {
-          "lift_mm": 3.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 4.68
+          "normal_lift_mm": 4.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 3.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 4.23
+          "normal_lift_mm": 5.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 3.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 3.78
+          "normal_lift_mm": 6.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 4.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 3.33
+          "normal_lift_mm": 8.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 4.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 2.88
+          "normal_lift_mm": 10.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 4.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 2.43
+          "normal_lift_mm": 12.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 4.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 1.98
+          "normal_lift_mm": 15.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         },
         {
-          "lift_mm": 5.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 1.53
-        },
-        {
-          "lift_mm": 5.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 1.08
-        },
-        {
-          "lift_mm": 5.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.63
-        },
-        {
-          "lift_mm": 5.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.1875
-        },
-        {
-          "lift_mm": 6.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 6.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 6.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 6.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 7.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 7.25,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 7.5,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 7.75,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 8.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 10.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 15.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
-        },
-        {
-          "lift_mm": 20.0,
-          "non_tooth_shell_overlap_mm3": 0.0,
-          "device_overlap_mm3": 0.0,
-          "ribbon_overlap_mm3": 0.0,
-          "tooth_contact_mm3": 0.0
+          "normal_lift_mm": 20.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0
+            }
+          ]
         }
       ],
-      "scope": "unflexed cover; only the actual tooth projections are exempted from fixed-body interference",
-      "passed": true
-    },
-    "seat:display-cover-stop": {
-      "fixed_body_interference_after_0_01mm_inward_motion_mm3": 0.1029176,
-      "device_interference_mm3": 0.0,
-      "method": "the final cover's inward seating stop contacts the body before the display",
-      "passed": true
-    },
-    "retention:display-snaps": {
-      "nominal_engagement_mm": 0.3,
-      "radial_slip_mm": 0.15,
-      "normal_bearing_slip_mm": 0.15,
-      "interference_on_0_5mm_outward_lift_mm3": 0.63,
-      "ideal_rectangular_beam_strain_percent": 0.2393352,
-      "scope": "geometric capture and ideal strain only; PET-GF force, strength and cycling are physical trial results",
+      "peak_required_outward_clearance_per_side_mm": 0.2905884,
+      "outward_search_budget_mm": 0.45,
+      "clearance_search_resolution_mm": 0.0001,
+      "scope": "sampled normal insertion; all unflexed contact must be in actual lips on actual lower skirts; outward translation measures the skirts' geometric clearance demand, not deformation, strain or insertion force",
       "passed": true
     },
     "clearance:snap-travel-display": {
-      "overlap_mm3": 0.0,
-      "gap_mm": 1.1000004,
+      "maximum_sampled_overlap_mm3": 0.0,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
       "required_gap_mm": 0.0,
-      "overlap_method": "B-rep common volume",
+      "method": "complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "clearance:snap-travel-glass": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "method": "complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available",
       "passed": true
     },
     "clearance:snap-travel-ribbon": {
-      "overlap_mm3": 0.0,
-      "gap_mm": 0.2366236,
+      "maximum_sampled_overlap_mm3": 0.0,
+      "minimum_sampled_gap_lower_bound_mm": 1.3452225,
       "required_gap_mm": 0.1,
-      "overlap_method": "B-rep common volume",
+      "method": "complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available",
       "passed": true
     },
     "clearance:snap-travel-soda": {
-      "overlap_mm3": 0.0,
-      "gap_mm": 7.0527444,
+      "maximum_sampled_overlap_mm3": 0.0,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
       "required_gap_mm": 0.0,
-      "overlap_method": "B-rep common volume",
+      "method": "complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available",
       "passed": true
     },
     "clearance:snap-travel-flavor-a": {
-      "overlap_mm3": 0.0,
-      "gap_mm": 3.45,
+      "maximum_sampled_overlap_mm3": 0.0,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
       "required_gap_mm": 0.0,
-      "overlap_method": "B-rep common volume",
+      "method": "complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available",
       "passed": true
     },
     "clearance:snap-travel-flavor-b": {
-      "overlap_mm3": 0.0,
-      "gap_mm": 3.45,
+      "maximum_sampled_overlap_mm3": 0.0,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
       "required_gap_mm": 0.0,
-      "overlap_method": "B-rep common volume",
+      "method": "complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "shape:display-rigid-neck": {
+      "missing_complete_subsurface_witness_mm3": 0.0,
+      "radial_witness_range_below_exterior_mm": [
+        0.01,
+        1.0
+      ],
+      "witness_open_boundary_inset_mm": 0.02,
+      "exterior_sections": [
+        {
+          "s_mm": 2.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.962958
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.962958
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.7013519
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.7013519
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.210321
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8668668
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3145245
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.2097756
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.2097756
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8649815
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8649815
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3122131
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.3122131
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.1958451
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.1958451
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8222597
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.8222597
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.2558602
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.2558602
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.1570821
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.1570821
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.7411481
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.7411481
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.1177447
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.1177447
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.0174457
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 8.0174457
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.5192516
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.5192516
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 6.7188256
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 6.7188256
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 5.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.7831521
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 5.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.7831521
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 7.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.2154039
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 7.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 7.2154039
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 9.0,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 6.2812395
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 9.0,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 6.2812395
+        }
+      ],
+      "required_continuous_chord_stock_mm": 1.0,
+      "material_beyond_swept_cylinder_mm3": 0.0,
+      "upper_device_opening_material_mm3": 0.0,
+      "method": "complete swept subsurface witness above the grooves, exact exterior endpoints and continuous material on 60 chords, no material beyond the original cylinder, and the complete full-width opening above the feet",
       "passed": true
     },
     "motion:display-insertion-0": {
@@ -1356,6 +2005,2231 @@
       "method": "exact separation of the complete outer loft's curved side faces and inner cover cavity",
       "passed": true
     },
+    "wall:display-finished-neck-rim": {
+      "minimum_sampled_normal_stock_mm": 1.1958837,
+      "required_mm": 1.0,
+      "sections": [
+        {
+          "s_mm": 0.5,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 1.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 2.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 4.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 6.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 42.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 44.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 46.0,
+          "present": true,
+          "probe_count": 10
+        },
+        {
+          "s_mm": 48.0,
+          "present": true,
+          "probe_count": 10
+        }
+      ],
+      "samples": [
+        {
+          "point_x_s_n_mm": [
+            -13.2143576,
+            0.5,
+            13.3499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.6877417,
+            0.709234,
+            -0.1549142
+          ],
+          "normal_stock_mm": 1.8216734
+        },
+        {
+          "point_x_s_n_mm": [
+            13.2143576,
+            0.5,
+            13.3499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.6877417,
+            0.709234,
+            -0.1549142
+          ],
+          "normal_stock_mm": 1.8216734
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.1567946,
+            0.5,
+            13.5999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.6841701,
+            0.7113365,
+            -0.1609711
+          ],
+          "normal_stock_mm": 1.99231
+        },
+        {
+          "point_x_s_n_mm": [
+            13.1567946,
+            0.5,
+            13.5999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.6841701,
+            0.7113365,
+            -0.1609711
+          ],
+          "normal_stock_mm": 1.99231
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.0340463,
+            0.5,
+            14.0999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.6764593,
+            0.7158589,
+            -0.1730575
+          ],
+          "normal_stock_mm": 2.1101418
+        },
+        {
+          "point_x_s_n_mm": [
+            13.0340463,
+            0.5,
+            14.0999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.6764593,
+            0.7158589,
+            -0.1730575
+          ],
+          "normal_stock_mm": 2.1101418
+        },
+        {
+          "point_x_s_n_mm": [
+            -12.7567796,
+            0.5,
+            15.0999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.6585508,
+            0.7262674,
+            -0.1970953
+          ],
+          "normal_stock_mm": 2.1478896
+        },
+        {
+          "point_x_s_n_mm": [
+            12.7567796,
+            0.5,
+            15.0999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.6585508,
+            0.7262674,
+            -0.1970953
+          ],
+          "normal_stock_mm": 2.1478896
+        },
+        {
+          "point_x_s_n_mm": [
+            -12.434096,
+            0.5,
+            16.0999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.636801,
+            0.7387053,
+            -0.2209049
+          ],
+          "normal_stock_mm": 2.1893724
+        },
+        {
+          "point_x_s_n_mm": [
+            12.434096,
+            0.5,
+            16.0999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.0999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.636801,
+            0.7387053,
+            -0.2209049
+          ],
+          "normal_stock_mm": 2.1893724
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.8696136,
+            1.0,
+            12.4499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.7465454,
+            0.6517907,
+            -0.1335618
+          ],
+          "normal_stock_mm": 1.7315189
+        },
+        {
+          "point_x_s_n_mm": [
+            13.8696136,
+            1.0,
+            12.4499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.7465454,
+            0.6517907,
+            -0.1335618
+          ],
+          "normal_stock_mm": 1.7315189
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.8237872,
+            1.0,
+            12.6999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.7440268,
+            0.6533888,
+            -0.1396679
+          ],
+          "normal_stock_mm": 1.8777581
+        },
+        {
+          "point_x_s_n_mm": [
+            13.8237872,
+            1.0,
+            12.6999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.7440268,
+            0.6533888,
+            -0.1396679
+          ],
+          "normal_stock_mm": 1.8777581
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.7254692,
+            1.0,
+            13.1999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.7385716,
+            0.6568484,
+            -0.1518625
+          ],
+          "normal_stock_mm": 2.0330169
+        },
+        {
+          "point_x_s_n_mm": [
+            13.7254692,
+            1.0,
+            13.1999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.7385716,
+            0.6568484,
+            -0.1518625
+          ],
+          "normal_stock_mm": 2.0330169
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.501473,
+            1.0,
+            14.1999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.7258724,
+            0.6648893,
+            -0.1761575
+          ],
+          "normal_stock_mm": 2.0671314
+        },
+        {
+          "point_x_s_n_mm": [
+            13.501473,
+            1.0,
+            14.1999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.7258724,
+            0.6648893,
+            -0.1761575
+          ],
+          "normal_stock_mm": 2.0671314
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.239394,
+            1.0,
+            15.1999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.710512,
+            0.6745819,
+            -0.2002796
+          ],
+          "normal_stock_mm": 2.1047627
+        },
+        {
+          "point_x_s_n_mm": [
+            13.239394,
+            1.0,
+            15.1999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 12.1999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.710512,
+            0.6745819,
+            -0.2002796
+          ],
+          "normal_stock_mm": 2.1047627
+        },
+        {
+          "point_x_s_n_mm": [
+            -14.8789967,
+            2.0,
+            10.6499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.8348757,
+            0.5429992,
+            -0.0901911
+          ],
+          "normal_stock_mm": 1.5647108
+        },
+        {
+          "point_x_s_n_mm": [
+            14.8789967,
+            2.0,
+            10.6499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.8348757,
+            0.5429992,
+            -0.0901911
+          ],
+          "normal_stock_mm": 1.5647108
+        },
+        {
+          "point_x_s_n_mm": [
+            -14.8510452,
+            2.0,
+            10.8999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.833642,
+            0.5438345,
+            -0.0963589
+          ],
+          "normal_stock_mm": 1.6737341
+        },
+        {
+          "point_x_s_n_mm": [
+            14.8510452,
+            2.0,
+            10.8999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.833642,
+            0.5438345,
+            -0.0963589
+          ],
+          "normal_stock_mm": 1.6737341
+        },
+        {
+          "point_x_s_n_mm": [
+            -14.7894506,
+            2.0,
+            11.3999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.830909,
+            0.545688,
+            -0.1086962
+          ],
+          "normal_stock_mm": 1.887877
+        },
+        {
+          "point_x_s_n_mm": [
+            14.7894506,
+            2.0,
+            11.3999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.830909,
+            0.545688,
+            -0.1086962
+          ],
+          "normal_stock_mm": 1.887877
+        },
+        {
+          "point_x_s_n_mm": [
+            -14.6432163,
+            2.0,
+            12.3999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.8243415,
+            0.5501615,
+            -0.1333542
+          ],
+          "normal_stock_mm": 1.9153914
+        },
+        {
+          "point_x_s_n_mm": [
+            14.6432163,
+            2.0,
+            12.3999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.8243415,
+            0.5501615,
+            -0.1333542
+          ],
+          "normal_stock_mm": 1.9153914
+        },
+        {
+          "point_x_s_n_mm": [
+            -14.4656487,
+            2.0,
+            13.3999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.8162161,
+            0.5557381,
+            -0.1579448
+          ],
+          "normal_stock_mm": 1.9460762
+        },
+        {
+          "point_x_s_n_mm": [
+            14.4656487,
+            2.0,
+            13.3999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 10.3999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.8162161,
+            0.5557381,
+            -0.1579448
+          ],
+          "normal_stock_mm": 1.9460762
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.0602479,
+            4.0,
+            7.0499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.9402407,
+            0.3405046,
+            -0.001987
+          ],
+          "normal_stock_mm": 1.340801
+        },
+        {
+          "point_x_s_n_mm": [
+            16.0602479,
+            4.0,
+            7.0499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.9402407,
+            0.3405046,
+            -0.001987
+          ],
+          "normal_stock_mm": 1.340801
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.0589013,
+            4.0,
+            7.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.940199,
+            0.3405282,
+            -0.0081442
+          ],
+          "normal_stock_mm": 1.3988071
+        },
+        {
+          "point_x_s_n_mm": [
+            16.0589013,
+            4.0,
+            7.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.940199,
+            0.3405282,
+            -0.0081442
+          ],
+          "normal_stock_mm": 1.3988071
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.0512872,
+            4.0,
+            7.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.9399626,
+            0.3406614,
+            -0.0204951
+          ],
+          "normal_stock_mm": 1.5225398
+        },
+        {
+          "point_x_s_n_mm": [
+            16.0512872,
+            4.0,
+            7.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.9399626,
+            0.3406614,
+            -0.0204951
+          ],
+          "normal_stock_mm": 1.5225398
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.0162699,
+            4.0,
+            8.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.9388701,
+            0.3412754,
+            -0.0453217
+          ],
+          "normal_stock_mm": 1.644503
+        },
+        {
+          "point_x_s_n_mm": [
+            16.0162699,
+            4.0,
+            8.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.9388701,
+            0.3412754,
+            -0.0453217
+          ],
+          "normal_stock_mm": 1.644503
+        },
+        {
+          "point_x_s_n_mm": [
+            -15.9546542,
+            4.0,
+            9.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.9369357,
+            0.3423638,
+            -0.0702745
+          ],
+          "normal_stock_mm": 1.6636659
+        },
+        {
+          "point_x_s_n_mm": [
+            15.9546542,
+            4.0,
+            9.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 6.7999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.9369357,
+            0.3423638,
+            -0.0702745
+          ],
+          "normal_stock_mm": 1.6636659
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.416318,
+            6.0,
+            3.5499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.9859782,
+            0.1443324,
+            0.083756
+          ],
+          "normal_stock_mm": 1.2719859
+        },
+        {
+          "point_x_s_n_mm": [
+            16.416318,
+            6.0,
+            3.5499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.9859782,
+            0.1443324,
+            0.083756
+          ],
+          "normal_stock_mm": 1.2719859
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.436789,
+            6.0,
+            3.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.9864809,
+            0.1442563,
+            0.0777534
+          ],
+          "normal_stock_mm": 1.2925552
+        },
+        {
+          "point_x_s_n_mm": [
+            16.436789,
+            6.0,
+            3.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.9864809,
+            0.1442563,
+            0.0777534
+          ],
+          "normal_stock_mm": 1.2925552
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.473127,
+            6.0,
+            4.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.9873774,
+            0.1441229,
+            0.0656845
+          ],
+          "normal_stock_mm": 1.3410331
+        },
+        {
+          "point_x_s_n_mm": [
+            16.473127,
+            6.0,
+            4.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.9873774,
+            0.1441229,
+            0.0656845
+          ],
+          "normal_stock_mm": 1.3410331
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.5272957,
+            6.0,
+            5.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.9887256,
+            0.1439286,
+            0.0413075
+          ],
+          "normal_stock_mm": 1.4071754
+        },
+        {
+          "point_x_s_n_mm": [
+            16.5272957,
+            6.0,
+            5.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.9887256,
+            0.1439286,
+            0.0413075
+          ],
+          "normal_stock_mm": 1.4071754
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.5566136,
+            6.0,
+            6.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.989463,
+            0.1438258,
+            0.0166443
+          ],
+          "normal_stock_mm": 1.4176019
+        },
+        {
+          "point_x_s_n_mm": [
+            16.5566136,
+            6.0,
+            6.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.989463,
+            0.1438258,
+            0.0166443
+          ],
+          "normal_stock_mm": 1.4176019
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.4757622,
+            42.0,
+            3.5499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.9918637,
+            -0.0956094,
+            0.0840549
+          ],
+          "normal_stock_mm": 1.1958837
+        },
+        {
+          "point_x_s_n_mm": [
+            16.4757622,
+            42.0,
+            3.5499999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.9918637,
+            -0.0956094,
+            0.0840549
+          ],
+          "normal_stock_mm": 1.1958837
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.4961844,
+            42.0,
+            3.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.9923558,
+            -0.0956092,
+            0.0780306
+          ],
+          "normal_stock_mm": 1.1974543
+        },
+        {
+          "point_x_s_n_mm": [
+            16.4961844,
+            42.0,
+            3.7999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.9923558,
+            -0.0956092,
+            0.0780306
+          ],
+          "normal_stock_mm": 1.1974543
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.5324363,
+            42.0,
+            4.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.9932339,
+            -0.0956096,
+            0.0659181
+          ],
+          "normal_stock_mm": 1.200984
+        },
+        {
+          "point_x_s_n_mm": [
+            16.5324363,
+            42.0,
+            4.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.9932339,
+            -0.0956096,
+            0.0659181
+          ],
+          "normal_stock_mm": 1.200984
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.586478,
+            42.0,
+            5.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.9945551,
+            -0.0956123,
+            0.0414541
+          ],
+          "normal_stock_mm": 1.209618
+        },
+        {
+          "point_x_s_n_mm": [
+            16.586478,
+            42.0,
+            5.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.9945551,
+            -0.0956123,
+            0.0414541
+          ],
+          "normal_stock_mm": 1.209618
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.6157275,
+            42.0,
+            6.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.9952782,
+            -0.095615,
+            0.0167033
+          ],
+          "normal_stock_mm": 1.2203847
+        },
+        {
+          "point_x_s_n_mm": [
+            16.6157275,
+            42.0,
+            6.2999999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 3.2999999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.9952782,
+            -0.095615,
+            0.0167033
+          ],
+          "normal_stock_mm": 1.2203847
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.1986712,
+            44.0,
+            5.5699999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.9555976,
+            -0.2926722,
+            0.034296
+          ],
+          "normal_stock_mm": 1.2136452
+        },
+        {
+          "point_x_s_n_mm": [
+            16.1986712,
+            44.0,
+            5.5699999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.9555976,
+            -0.2926722,
+            0.034296
+          ],
+          "normal_stock_mm": 1.2136452
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.2068461,
+            44.0,
+            5.8199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.9558327,
+            -0.2925549,
+            0.0282043
+          ],
+          "normal_stock_mm": 1.2162401
+        },
+        {
+          "point_x_s_n_mm": [
+            16.2068461,
+            44.0,
+            5.8199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.9558327,
+            -0.2925549,
+            0.0282043
+          ],
+          "normal_stock_mm": 1.2162401
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.2184012,
+            44.0,
+            6.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.9561659,
+            -0.2923897,
+            0.0159721
+          ],
+          "normal_stock_mm": 1.2218296
+        },
+        {
+          "point_x_s_n_mm": [
+            16.2184012,
+            44.0,
+            6.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.9561659,
+            -0.2923897,
+            0.0159721
+          ],
+          "normal_stock_mm": 1.2218296
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.2222395,
+            44.0,
+            7.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.9562767,
+            -0.2923349,
+            -0.0086684
+          ],
+          "normal_stock_mm": 1.234621
+        },
+        {
+          "point_x_s_n_mm": [
+            16.2222395,
+            44.0,
+            7.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.9562767,
+            -0.2923349,
+            -0.0086684
+          ],
+          "normal_stock_mm": 1.234621
+        },
+        {
+          "point_x_s_n_mm": [
+            -16.2001957,
+            44.0,
+            8.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.9556331,
+            -0.2926478,
+            -0.0335063
+          ],
+          "normal_stock_mm": 1.2495833
+        },
+        {
+          "point_x_s_n_mm": [
+            16.2001957,
+            44.0,
+            8.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 5.3199999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.9556331,
+            -0.2926478,
+            -0.0335063
+          ],
+          "normal_stock_mm": 1.2495833
+        },
+        {
+          "point_x_s_n_mm": [
+            -15.2741906,
+            46.0,
+            9.5699999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.868507,
+            -0.4915526,
+            -0.0638089
+          ],
+          "normal_stock_mm": 1.27188
+        },
+        {
+          "point_x_s_n_mm": [
+            15.2741906,
+            46.0,
+            9.5699999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.868507,
+            -0.4915526,
+            -0.0638089
+          ],
+          "normal_stock_mm": 1.27188
+        },
+        {
+          "point_x_s_n_mm": [
+            -15.2549256,
+            46.0,
+            9.8199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.8677367,
+            -0.492072,
+            -0.0699864
+          ],
+          "normal_stock_mm": 1.2765847
+        },
+        {
+          "point_x_s_n_mm": [
+            15.2549256,
+            46.0,
+            9.8199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.8677367,
+            -0.492072,
+            -0.0699864
+          ],
+          "normal_stock_mm": 1.2765847
+        },
+        {
+          "point_x_s_n_mm": [
+            -15.2109916,
+            46.0,
+            10.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.8659735,
+            -0.4932624,
+            -0.082354
+          ],
+          "normal_stock_mm": 1.2864023
+        },
+        {
+          "point_x_s_n_mm": [
+            15.2109916,
+            46.0,
+            10.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.8659735,
+            -0.4932624,
+            -0.082354
+          ],
+          "normal_stock_mm": 1.2864023
+        },
+        {
+          "point_x_s_n_mm": [
+            -15.1013153,
+            46.0,
+            11.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.8615338,
+            -0.4962716,
+            -0.1071168
+          ],
+          "normal_stock_mm": 1.3076688
+        },
+        {
+          "point_x_s_n_mm": [
+            15.1013153,
+            46.0,
+            11.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.8615338,
+            -0.4962716,
+            -0.1071168
+          ],
+          "normal_stock_mm": 1.3076688
+        },
+        {
+          "point_x_s_n_mm": [
+            -14.9621522,
+            46.0,
+            12.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.8558257,
+            -0.500172,
+            -0.1318725
+          ],
+          "normal_stock_mm": 1.3311039
+        },
+        {
+          "point_x_s_n_mm": [
+            14.9621522,
+            46.0,
+            12.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 9.3199999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.8558257,
+            -0.500172,
+            -0.1318725
+          ],
+          "normal_stock_mm": 1.3311039
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.1534325,
+            48.0,
+            13.5699999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            0.6835411,
+            -0.7121075,
+            -0.1602323
+          ],
+          "normal_stock_mm": 1.3626871
+        },
+        {
+          "point_x_s_n_mm": [
+            13.1534325,
+            48.0,
+            13.5699999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 0.25,
+          "normal_inward": [
+            -0.6835411,
+            -0.7121075,
+            -0.1602323
+          ],
+          "normal_stock_mm": 1.3626871
+        },
+        {
+          "point_x_s_n_mm": [
+            -13.0935584,
+            48.0,
+            13.8199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            0.6797925,
+            -0.7143058,
+            -0.1662809
+          ],
+          "normal_stock_mm": 1.3694563
+        },
+        {
+          "point_x_s_n_mm": [
+            13.0935584,
+            48.0,
+            13.8199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 0.5,
+          "normal_inward": [
+            -0.6797925,
+            -0.7143058,
+            -0.1662809
+          ],
+          "normal_stock_mm": 1.3694563
+        },
+        {
+          "point_x_s_n_mm": [
+            -12.9660591,
+            48.0,
+            14.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            0.6717064,
+            -0.7190287,
+            -0.1783484
+          ],
+          "normal_stock_mm": 1.3833841
+        },
+        {
+          "point_x_s_n_mm": [
+            12.9660591,
+            48.0,
+            14.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 1.0,
+          "normal_inward": [
+            -0.6717064,
+            -0.7190287,
+            -0.1783484
+          ],
+          "normal_stock_mm": 1.3833841
+        },
+        {
+          "point_x_s_n_mm": [
+            -12.6786728,
+            48.0,
+            15.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            0.6529438,
+            -0.729879,
+            -0.2023389
+          ],
+          "normal_stock_mm": 1.4127805
+        },
+        {
+          "point_x_s_n_mm": [
+            12.6786728,
+            48.0,
+            15.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 2.0,
+          "normal_inward": [
+            -0.6529438,
+            -0.729879,
+            -0.2023389
+          ],
+          "normal_stock_mm": 1.4127805
+        },
+        {
+          "point_x_s_n_mm": [
+            -12.344785,
+            48.0,
+            16.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            0.6301549,
+            -0.742825,
+            -0.2260883
+          ],
+          "normal_stock_mm": 1.4441934
+        },
+        {
+          "point_x_s_n_mm": [
+            12.344785,
+            48.0,
+            16.3199999
+          ],
+          "outer_face_distance_mm": 0.0,
+          "section_rim_n_mm": 13.3199999,
+          "rise_above_section_rim_mm": 3.0,
+          "normal_inward": [
+            -0.6301549,
+            -0.742825,
+            -0.2260883
+          ],
+          "normal_stock_mm": 1.4441934
+        }
+      ],
+      "method": "exact finished-cover sections at nine fore/aft stations; inward normal material chords on both sides at five heights above each actual lower edge",
+      "scope": "sampled neck-rim and corner stock after all cuts, separate from untrimmed loft separation; not a global minimum-wall certificate",
+      "passed": true
+    },
+    "wall:display-flush-front": {
+      "minimum_sampled_axial_stock_mm": 2.0,
+      "required_mm": 2.0,
+      "samples": [
+        {
+          "x_mm": -6.0,
+          "n_mm": 17.7247553,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 17.9247553,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 18.1747553,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 19.7623777,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 21.8,
+          "axial_stock_mm": 4.49
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 18.6626622,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 18.8626622,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 19.1126622,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 20.2313311,
+          "axial_stock_mm": 2.1147561
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 21.8,
+          "axial_stock_mm": 4.49
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 18.9624108,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 19.1624108,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 19.4124108,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 20.3812054,
+          "axial_stock_mm": 2.1732733
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 21.8,
+          "axial_stock_mm": 4.49
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 18.6626622,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 18.8626622,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 19.1126622,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 20.2313311,
+          "axial_stock_mm": 2.1147561
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 21.8,
+          "axial_stock_mm": 4.49
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 17.7247553,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 17.9247553,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 18.1747553,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 19.7623777,
+          "axial_stock_mm": 2.0
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 21.8,
+          "axial_stock_mm": 4.49
+        }
+      ],
+      "method": "exact inward +S material chords at five X stations, from each actual lower rim through the crown of the flush front wall",
+      "passed": true
+    },
+    "wall:display-rear-rim": {
+      "minimum_sampled_normal_stock_mm": 1.4712693,
+      "required_mm": 1.0,
+      "sections": [
+        {
+          "x_mm": -6.0,
+          "present": true,
+          "probe_count": 7
+        },
+        {
+          "x_mm": -3.0,
+          "present": true,
+          "probe_count": 7
+        },
+        {
+          "x_mm": 0.0,
+          "present": true,
+          "probe_count": 7
+        },
+        {
+          "x_mm": 3.0,
+          "present": true,
+          "probe_count": 7
+        },
+        {
+          "x_mm": 6.0,
+          "present": true,
+          "probe_count": 7
+        }
+      ],
+      "samples": [
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.9340317,
+            17.2030683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.01,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9700557,
+            -0.2428825
+          ],
+          "normal_stock_mm": 1.4712693
+        },
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.9113938,
+            17.2930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.1,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9695267,
+            -0.2449857
+          ],
+          "normal_stock_mm": 1.4743286
+        },
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.8732024,
+            17.4430683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.25,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9686352,
+            -0.2484873
+          ],
+          "normal_stock_mm": 1.4794637
+        },
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.8082663,
+            17.6930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.5,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9671222,
+            -0.2543123
+          ],
+          "normal_stock_mm": 1.4881229
+        },
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.6735666,
+            18.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 1.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9639954,
+            -0.2659191
+          ],
+          "normal_stock_mm": 1.5058163
+        },
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.3847526,
+            19.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 2.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9573461,
+            -0.2889435
+          ],
+          "normal_stock_mm": 1.5426865
+        },
+        {
+          "point_x_s_n_mm": [
+            -6.0,
+            49.0698513,
+            20.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 3.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9501852,
+            -0.3116857
+          ],
+          "normal_stock_mm": 1.5814999
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.9340317,
+            17.2030683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.01,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9700557,
+            -0.2428825
+          ],
+          "normal_stock_mm": 1.4712693
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.9113938,
+            17.2930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.1,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9695267,
+            -0.2449857
+          ],
+          "normal_stock_mm": 1.4743286
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.8732024,
+            17.4430683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.25,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9686352,
+            -0.2484873
+          ],
+          "normal_stock_mm": 1.4794637
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.8082663,
+            17.6930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.5,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9671222,
+            -0.2543123
+          ],
+          "normal_stock_mm": 1.4881229
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.6735666,
+            18.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 1.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9639954,
+            -0.2659191
+          ],
+          "normal_stock_mm": 1.5058163
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.3847526,
+            19.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 2.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9573461,
+            -0.2889435
+          ],
+          "normal_stock_mm": 1.5426865
+        },
+        {
+          "point_x_s_n_mm": [
+            -3.0,
+            49.0698513,
+            20.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 3.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9501852,
+            -0.3116857
+          ],
+          "normal_stock_mm": 1.5814999
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.9340317,
+            17.2030683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.01,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9700557,
+            -0.2428825
+          ],
+          "normal_stock_mm": 1.4712693
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.9113938,
+            17.2930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.1,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9695267,
+            -0.2449857
+          ],
+          "normal_stock_mm": 1.4743286
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.8732024,
+            17.4430683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.25,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9686352,
+            -0.2484873
+          ],
+          "normal_stock_mm": 1.4794637
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.8082663,
+            17.6930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.5,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9671222,
+            -0.2543123
+          ],
+          "normal_stock_mm": 1.4881229
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.6735666,
+            18.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 1.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9639954,
+            -0.2659191
+          ],
+          "normal_stock_mm": 1.5058163
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.3847526,
+            19.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 2.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9573461,
+            -0.2889435
+          ],
+          "normal_stock_mm": 1.5426865
+        },
+        {
+          "point_x_s_n_mm": [
+            0.0,
+            49.0698513,
+            20.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 3.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9501852,
+            -0.3116857
+          ],
+          "normal_stock_mm": 1.5814999
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.9340317,
+            17.2030683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.01,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9700557,
+            -0.2428825
+          ],
+          "normal_stock_mm": 1.4712693
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.9113938,
+            17.2930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.1,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9695267,
+            -0.2449857
+          ],
+          "normal_stock_mm": 1.4743286
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.8732024,
+            17.4430683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.25,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9686352,
+            -0.2484873
+          ],
+          "normal_stock_mm": 1.4794637
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.8082663,
+            17.6930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.5,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9671222,
+            -0.2543123
+          ],
+          "normal_stock_mm": 1.4881229
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.6735666,
+            18.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 1.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9639954,
+            -0.2659191
+          ],
+          "normal_stock_mm": 1.5058163
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.3847526,
+            19.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 2.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9573461,
+            -0.2889435
+          ],
+          "normal_stock_mm": 1.5426865
+        },
+        {
+          "point_x_s_n_mm": [
+            3.0,
+            49.0698513,
+            20.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 3.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9501852,
+            -0.3116857
+          ],
+          "normal_stock_mm": 1.5814999
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.9340317,
+            17.2030683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.01,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9700557,
+            -0.2428825
+          ],
+          "normal_stock_mm": 1.4712693
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.9113938,
+            17.2930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.1,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9695267,
+            -0.2449857
+          ],
+          "normal_stock_mm": 1.4743286
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.8732024,
+            17.4430683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.25,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9686352,
+            -0.2484873
+          ],
+          "normal_stock_mm": 1.4794637
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.8082663,
+            17.6930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 0.5,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9671222,
+            -0.2543123
+          ],
+          "normal_stock_mm": 1.4881229
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.6735666,
+            18.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 1.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9639954,
+            -0.2659191
+          ],
+          "normal_stock_mm": 1.5058163
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.3847526,
+            19.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 2.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9573461,
+            -0.2889435
+          ],
+          "normal_stock_mm": 1.5426865
+        },
+        {
+          "point_x_s_n_mm": [
+            6.0,
+            49.0698513,
+            20.1930683
+          ],
+          "actual_outer_rim_n_mm": 17.1930683,
+          "rise_above_outer_rim_mm": 3.0,
+          "outer_face_distance_mm": 0.0,
+          "normal_inward": [
+            0.0,
+            -0.9501852,
+            -0.3116857
+          ],
+          "normal_stock_mm": 1.5814999
+        }
+      ],
+      "method": "exact retained outer-skin sections at X0/±3/±6, then inward surface-normal chords 0.01 to 3 mm above the actual rear rim through the crown",
+      "scope": "the rear central cover bridge; axial chords alone do not certify a tilted wall",
+      "passed": true
+    },
     "section:display-cosmetic-bezel": {
       "measured_bezel_mm": 1.3,
       "required_mm": 1.0,
@@ -1363,17 +4237,29 @@
       "passed": true
     },
     "position:display-flush-front": {
-      "foremost_front_plane_s_mm": -0.0,
+      "foremost_front_plane_s_mm": 0.0,
       "outlet_plane_s_mm": 0.0,
-      "flush_front_face_area_mm2": 94.6407309,
+      "flush_front_face_area_mm2": 91.5637298,
       "material_forward_of_outlet_mm3": 0.0,
       "method": "actual forward-facing planar face and exact negative-S halfspace intersection",
       "passed": true
     },
     "wall:outlet-signal-closure": {
-      "missing_1mm_cosmetic_cap_mm3": 0.0,
+      "missing_full_thickness_cap_mm3": 0.0,
+      "required_axial_thickness_mm": 2.0,
       "signal_void_at_outlet_mm3": 0.0,
-      "method": "1 mm closure witness above the unchanged flavor passage, and both signal cutters at the outlet plane",
+      "method": "full-thickness closure witness above the flavor passage and the neck signal cutter at the outlet plane",
+      "passed": true
+    },
+    "wall:dispense-face": {
+      "required_axial_thickness_mm": 2.0,
+      "missing_complete_front_stock_mm3": 0.0,
+      "cavity_rear_face_stations_mm": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "method": "complete 2 mm cylinder-minus-tube-passages witness, with a common planar cavity face behind it",
       "passed": true
     },
     "fixture:complete-display-fit-trial": {
@@ -1382,8 +4268,8 @@
       "cover_symmetric_difference_mm3": 0.0,
       "clipped_side_entry_ribbon_mm3": 0.0,
       "retained_geometry": {
-        "complete_head_end_s_mm": 50.20572128830402,
-        "neck_cut_s_mm": 70.20572128830402,
+        "complete_head_end_s_mm": 51.19572128830402,
+        "neck_cut_s_mm": 71.19572128830401,
         "minimum_neck_stub_mm": 20.0,
         "missing_head_material_mm3": 0.0
       },
@@ -1399,14 +4285,14 @@
     "solid:display_trial_housing": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 31936.6001399,
+      "volume_mm3": 32653.7786765,
       "bounds_mm": [
         -15.0124555,
         15.0124555,
-        -148.3695626,
-        -64.7117847,
-        173.1493478,
-        238.4586935
+        -148.3695625,
+        -63.2022925,
+        173.1493479,
+        238.8451055
       ],
       "passed": true
     },
@@ -1414,8 +4300,8 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 12704,
-      "volume_mm3": 31894.770298,
+      "triangle_count": 11158,
+      "volume_mm3": 32613.2287227,
       "tolerance_mm": 0.02,
       "angular_tolerance_rad": 0.15,
       "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
@@ -1522,6 +4408,14 @@
       "scope": "the repo's dimensional lever envelope, not a measured scan of the donor lever",
       "passed": true
     },
+    "position:signal-southwest": {
+      "ribbon_end_native_display_xy_mm": [
+        -8.2,
+        -11.0
+      ],
+      "scope": "the unrestrained ribbon ends before solder fan-out in the southwest quadrant viewed from the glass",
+      "passed": true
+    },
     "solid:display-ribbon-envelope": {
       "valid": true,
       "solids": 1,
@@ -1541,7 +4435,7 @@
     },
     "clearance:signal-shell_tip": {
       "overlap_mm3": 0.0,
-      "gap_mm": 0.1094224,
+      "gap_mm": 0.1094306,
       "required_gap_mm": 0.1,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -1583,7 +4477,7 @@
     },
     "clearance:signal-soda-tube": {
       "overlap_mm3": 0.0,
-      "gap_mm": 6.1354903,
+      "gap_mm": 6.13567,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -1597,7 +4491,7 @@
     },
     "clearance:signal-flavor-b": {
       "overlap_mm3": 0.0,
-      "gap_mm": 0.6008648,
+      "gap_mm": 0.5690843,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -1618,14 +4512,14 @@
     },
     "clearance:signal-display-body": {
       "overlap_mm3": 0.0,
-      "gap_mm": 0.3,
+      "gap_mm": 0.209973,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-display-usb": {
       "overlap_mm3": 0.0,
-      "gap_mm": 9.0582236,
+      "gap_mm": 3.5692025,
       "required_gap_mm": 0.0,
       "overlap_method": "positive exact solid distance",
       "passed": true
@@ -1667,8 +4561,8 @@
       "build_rotation_deg": 105.0,
       "conservative_bounding_box_mm": [
         30.024911,
-        55.3124092,
-        138.7571177
+        55.3124091,
+        138.7571176
       ]
     },
     "visible_swept_neck_maximum_overhang_deg": 35.0,
@@ -1680,7 +4574,7 @@
     "PET-GF print strength, curved-joint fit and retention, and heat-set insert installation.",
     "Support access and contact finish from a production-profile slice and physical print.",
     "Tube feeding, flow, actual tube/display separation, cable routing and splash drainage.",
-    "PET-GF snap seating and pull-off force, root strength, repeated closure and release in the complete display fit trial."
+    "PET-GF cover-wall spreading, seating and pull-off force, lip strength, repeated closure and release in the complete display fit trial."
   ],
   "passed": true
 }

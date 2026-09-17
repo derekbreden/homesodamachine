@@ -36,8 +36,9 @@ components clear the tubes and ribbon. Lower the cover squarely, letting
 its side walls spread over the rigid cylinder until both broad lips enter
 the shallow side grooves. Check the seam closes, the glass remains clear of the bezel,
 and pressing the touchscreen does not rock the module or move the tubes.
-Check that the real bonded ribbon takes the sideways S turn and stays
-seated in its passage without lifting toward the PCB. The CAD envelope
+Check that the real ribbon lies in the open space below the PCB and reaches
+the southwest corner as viewed from the glass, clear of the deeper components.
+The 2 mm dispense face has one flat rear plane. The CAD envelope
 does not establish how the cable's bonded web bends.
 Record any tight spot before trimming it, together with material/color,
 drying and print orientation.
@@ -66,14 +67,14 @@ settings and embedded-mesh hashes. Both source STLs are already oriented
 and seated for printing; the project adds no further rotation.
 
 The offline Bambu Studio 02.08.02.61 slice completed without a warning.
-Its estimate is 2 h 20 min 13 s and 30.09 g using the saved 1.29 g/cm³
+Its estimate is 2 h 24 min 55 s and 31.08 g using the saved 1.29 g/cm³
 filament density. These grams are a profile estimate, not a measured PET-GF
-part mass. Actual extrusion paths retain 63.02 mm to the shared bed boundary
-and 91.10 mm between the two parts.
+part mass. Actual extrusion paths retain 64.99 mm to the shared bed boundary
+and 90.87 mm between the two parts.
 
 | Part / support body | Root | Contact reading | Build-up |
 |---|---|---|---|
-| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–84.92 mm | Not measured without interface labels |
+| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–85.40 mm | Not measured without interface labels |
 | Cover / trees 1–2 | Print bed, Z0.20 mm | Undersides of the two broad retaining lips; exact contacts are unlabelled. The supports reach Z16.76 mm | Not measured without interface labels |
 
 [The retained support audit](faucet-display-fit-trial.support-audit.json)
