@@ -57,6 +57,17 @@ Settings observed in the 3mf:
 - Printer: Bambu Lab H2C, `nozzle_diameter` `[0.6, 0.6]`, `nozzle_volume_type`
   Standard; `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`.
   Textured PEI plate.
+
+**`nozzle_diameter` here is the profile, not the metal.** It mirrors
+`printer_settings_id` (`Bambu Lab H2C 0.6 nozzle`) into both slots: across all
+38 committed `.3mf` projects in this repo the two entries are never once
+different, although the H2C's two sides take different hotend types and the
+ledger buys different sizes for each. The field names the machine profile that
+was selected, not the nozzle that was installed. Derek, 2026-09-17: *"we printed
+TPU with the right hotend"*, and he puts the nozzle at 0.2 mm or possibly
+0.4 mm — every 0.6 hotend on [purchases.md](/hardware/ledger/purchases.md) is an
+L-side part. **The nozzle these runs used is not established.**
+
 - Filament: single slot `Bambu TPU 85A @BBL H2C` (black, GFU04), `filament_type`
   TPU. `nozzle_temperature` 225 °C (initial 225), `hot_plate_temp` /
   `textured_plate_temp` 35 °C, `chamber_temperatures` 0, `filament_flow_ratio`
