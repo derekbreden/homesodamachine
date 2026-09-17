@@ -5,14 +5,14 @@
   "distance_tolerance_mm": 0.0001,
   "overlap_tolerance_mm3": 1e-05,
   "geometry_source_sha256": {
-    "hardware/scripts/check_faucet_geometry.py": "8ef5161d9b83e8773709fb8a6008cf885b62be6f5d3c4e89762c61add3cb1029",
+    "hardware/scripts/check_faucet_geometry.py": "5e6bd35c54cd3c20d08e1a1587a11458ebef12e97247528af3dcb780ab1b15c9",
     "hardware/faucet-layout/faucet_assembly.py": "deab4e16a6fec98c97e94b1bb43032202cda44dc11bdb6d048533ed60c74c8a0",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/printed-parts/faucet/_display_snap.py": "4014df42a2de3b01ea0640a2a2ea6ca03353002f2ffb7a0cfb24fa517d111b67",
     "hardware/printed-parts/faucet/refresh_print_project.py": "53c05220ff8490358bf52d8aa291b8efb905e38eb143993645595eb5dfa09158",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "984fdf16afc2ad762d311e986509173af83304bcddddaad1e9dbf9a5bb2cd09f",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "89e9328d4574e1a6a58441141c13441b7a3cd1b160058b6b10b73bd21af45ec8",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c435b1883f82f6e2c4fb5f6a0c98b80d88e1f8df937bde29e0d3efdc3d252c65",
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "09ba9b404156346badd62e581c9d1d095244f190740ba6a6b3ebc37c1f6fa5c5",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "59dab0531a338b83764f72cd26e00427c9a12ae81b59e255e017f027ff4dbf10",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "69df20440344b9b8499a7bf8a12f29b3cb26153d42879b0f5d55bf10baa34ab9",
@@ -57,7 +57,7 @@
     "solid:shell_base": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 180188.0814113,
+      "volume_mm3": 180989.259382,
       "bounds_mm": [
         -34.422831,
         34.422831,
@@ -142,8 +142,8 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 31662,
-      "volume_mm3": 179637.7501388,
+      "triangle_count": 30626,
+      "volume_mm3": 180434.8160508,
       "tolerance_mm": 0.02,
       "angular_tolerance_rad": 0.15,
       "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
@@ -237,114 +237,133 @@
       "overlap_mm3": 0.0,
       "gap_mm": 0.0,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:donor-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 162.030529,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:donor-above_counter_plate": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.0,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:donor-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 186.873969,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:soda-shell_base": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.3499999,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:soda-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.3499999,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:soda-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 9.122924,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-a-shell_base": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.45,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-a-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.4499999,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-a-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 7.1330543,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-b-shell_base": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.45,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-b-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.45,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:flavor-b-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 7.1330543,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:display-body-shell_base": {
       "overlap_mm3": 0.0,
       "gap_mm": 71.7028024,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:display-body-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.0,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:display-body-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.1,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:display-screen-shell_base": {
       "overlap_mm3": 0.0,
       "gap_mm": 82.4508,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:display-screen-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 6.4057405,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:display-screen-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 1.3786316,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "section:neck": {
@@ -514,12 +533,14 @@
       "overlap_mm3": 0.0,
       "gap_mm": 0.0,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "fit:base-pedestal-1": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.15,
       "required_gap_mm": 0.15,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "wall:base-pedestal-socket-1": {
@@ -532,6 +553,7 @@
       "overlap_mm3": 0.0,
       "gap_mm": 0.15,
       "required_gap_mm": 0.15,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "wall:base-pedestal-socket-2": {
@@ -544,6 +566,7 @@
       "overlap_mm3": 0.0,
       "gap_mm": 0.15,
       "required_gap_mm": 0.15,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "wall:base-pedestal-socket-3": {
@@ -649,9 +672,145 @@
       "passed": true
     },
     "wall:lever-cheek": {
-      "method": "exact distance from the lever-access arch surface to the donor-arch cavity",
-      "minimum_distance_mm": 3.2236742,
-      "required_mm": 3.0,
+      "method": "complete outward extrusion of each donor-arch cavity outer face into the finished base",
+      "required_outward_stock_mm": 3.0,
+      "samples": [
+        {
+          "cavity_face_x_mm": 8.75,
+          "witness_volume_mm3": 512.2205773,
+          "missing_witness_mm3": 0.0
+        },
+        {
+          "cavity_face_x_mm": -8.75,
+          "witness_volume_mm3": 512.2205773,
+          "missing_witness_mm3": 0.0
+        }
+      ],
+      "scope": "the two outer cheeks over the complete donor-arch footprint",
+      "passed": true
+    },
+    "wall:lever-roof-bridge": {
+      "method": "complete vertical wall witness above the rear two wall-widths of the actual flat lever ceiling",
+      "bounds_mm": [
+        -6.5,
+        6.5,
+        -5.5066331,
+        0.4933669,
+        52.355,
+        55.355
+      ],
+      "required_vertical_stock_mm": 3.0,
+      "missing_witness_mm3": 0.0,
+      "scope": "the bridge from the lever roof into the neck; not every exterior opening edge",
+      "passed": true
+    },
+    "section:lever-roof-continuity": {
+      "method": "nine exact vertical B-rep chords from the lever ceiling through two wall-widths of roof and neck",
+      "roof_z_mm": 52.355,
+      "probe_height_mm": 6.0,
+      "minimum_continuous_stock_mm": 3.0,
+      "samples": [
+        {
+          "x_mm": -6.5,
+          "y_mm": -5.5066331,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.9477782
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": -6.5,
+          "y_mm": -2.5066331,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": -6.5,
+          "y_mm": 0.4933669,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": -5.5066331,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": -2.5066331,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": 0.4933669,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 6.5,
+          "y_mm": -5.5066331,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              4.9477782
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 6.5,
+          "y_mm": -2.5066331,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        },
+        {
+          "x_mm": 6.5,
+          "y_mm": 0.4933669,
+          "material_intervals_above_roof_mm": [
+            [
+              0.0,
+              6.0
+            ]
+          ],
+          "continuous": true
+        }
+      ],
+      "scope": "no separated upper slit in the roof-to-neck bridge; exterior rays may end at the show surface",
       "passed": true
     },
     "clearance:display-soda": {
@@ -1035,30 +1194,35 @@
       "overlap_mm3": 0.0,
       "gap_mm": 1.1000004,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:snap-travel-ribbon": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.2366236,
       "required_gap_mm": 0.1,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:snap-travel-soda": {
       "overlap_mm3": 0.0,
       "gap_mm": 7.0527444,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:snap-travel-flavor-a": {
       "overlap_mm3": 0.0,
       "gap_mm": 3.45,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "clearance:snap-travel-flavor-b": {
       "overlap_mm3": 0.0,
       "gap_mm": 3.45,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     },
     "motion:display-insertion-0": {
@@ -1199,9 +1363,12 @@
       "passed": true
     },
     "position:display-flush-front": {
-      "foremost_cover_s_mm": -0.2484738,
+      "foremost_front_plane_s_mm": -0.0,
       "outlet_plane_s_mm": 0.0,
-      "passed": false
+      "flush_front_face_area_mm2": 94.6407309,
+      "material_forward_of_outlet_mm3": 0.0,
+      "method": "actual forward-facing planar face and exact negative-S halfspace intersection",
+      "passed": true
     },
     "wall:outlet-signal-closure": {
       "missing_1mm_cosmetic_cap_mm3": 0.0,
@@ -1369,84 +1536,98 @@
       "overlap_mm3": 0.0,
       "gap_mm": 0.1092026,
       "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-shell_tip": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.1094224,
       "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-above_counter_plate": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.1094306,
       "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-above_counter_gasket": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.1094306,
       "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-display_cover": {
       "overlap_mm3": 0.0,
       "gap_mm": 4.3277273,
       "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-tpu_thimble": {
       "overlap_mm3": 0.0,
       "gap_mm": 8.3255957,
       "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-donor": {
       "overlap_mm3": 0.0,
       "gap_mm": 2.1353292,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-soda-tube": {
       "overlap_mm3": 0.0,
       "gap_mm": 6.1354903,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-flavor-a": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.30572,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-flavor-b": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.6008648,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-countertop": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.463738,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-under-counter-plate": {
       "overlap_mm3": 0.0,
       "gap_mm": 1.05,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-display-body": {
       "overlap_mm3": 0.0,
       "gap_mm": 0.3,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "clearance:signal-display-usb": {
       "overlap_mm3": 0.0,
       "gap_mm": 9.0582236,
       "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
       "passed": true
     },
     "fit:signal-lane-section": {
@@ -1469,6 +1650,7 @@
       "overlap_mm3": 0.0,
       "gap_mm": 0.0,
       "required_gap_mm": 0.0,
+      "overlap_method": "B-rep common volume",
       "passed": true
     }
   },
@@ -1500,5 +1682,5 @@
     "Tube feeding, flow, actual tube/display separation, cable routing and splash drainage.",
     "PET-GF snap seating and pull-off force, root strength, repeated closure and release in the complete display fit trial."
   ],
-  "passed": false
+  "passed": true
 }
