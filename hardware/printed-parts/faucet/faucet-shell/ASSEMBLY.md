@@ -14,11 +14,12 @@ meets at [70°](SPLIT_JUNCTION_ROT) around the arc, with an
 seam around the display pocket. The above-counter plate meets the shell at
 its foot; the matching TPU gasket sits under that plate.
 
-Functional walls, snap arms, display supports, screw seats and insert backing
+Rigid structural walls, display supports, screw seats and insert backing
 are at least 3 mm at the checked sections. The gooseneck lap has a
 [3 mm](SPLIT_SOCKET_WALL) socket wall and a 3 mm plug wall, separated by
-[0.3 mm](SPLIT_SLIP) diametral clearance. The display cover's cosmetic wall
-is nominally 1.30 mm, with a 1 mm minimum for cosmetic sections.
+[0.3 mm](SPLIT_SLIP) diametral clearance. The display cover's side walls flex
+around the rigid neck; the nominal wall and broad retaining lips are
+1.30 mm thick, with a 1 mm minimum for the cover's thin sections.
 The compressible above-counter gasket remains 2 mm TPU.
 
 ## Base joint
@@ -81,9 +82,11 @@ stand-in, not a scan suitable for manufacturing a replacement lever.
 2. Seat the display's four metal feet on their printed supports. Confirm
    the underside components clear the three tubes and the ribbon. The
    central space above the tubes is open.
-3. Lower the cover normal to the display until both long cantilevers return
-   behind its retaining ledges. Their 0.30 mm engagement holds the cover;
-   no display screw or insert is fitted.
+3. Lower the cover normal to the display. Its side walls spread outward
+   around the rigid cylinder until both broad lips seat in the side grooves,
+   under their retaining shoulders. The lips have 0.30 mm nominal radial
+   engagement; their bottoms seat on the groove floors before the bezel
+   reaches the glass. No display screw or insert is fitted.
 4. Check that the seam closes, the glass clears the bezel, and the display
    remains seated when its touch surface is pressed. The bezel's lower edge
    and the three tube outlets end at the same plane.

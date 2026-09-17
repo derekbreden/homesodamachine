@@ -1,21 +1,28 @@
 # Faucet display cover
 
 The PET-GF shroud follows the Waveshare display and meets the three tube
-outlets at one flush front plane. Two concealed snap receivers engage the
-shell's long cantilevers. The cover seats straight toward the display;
-there are no display fasteners or sliding assembly step.
+outlets at one flush front plane. The cover's side walls spread over the
+rigid round neck, then its two broad lips seat in shallow side grooves.
+The cover seats straight toward the display; no display fasteners are fitted.
 
 The complete enclosure is a fit-and-snap print trial. Assembly force,
-retention, repeated operation and the as-printed PET-GF roots need the physical
+retention, repeated operation and the as-printed PET-GF walls need the physical
 reading before this joint is treated as validated.
 
 ## Geometry
 
 The planar face is [27.5 mm](PLATE_X) wide and [47.5 mm](PLATE_S) long. Its
 rounded skin tapers to the skirt around the neck. The bezel is
-[1.3 mm](COSMETIC_WALL) thick; the checked curved cosmetic wall is at least
-1.19 mm. The snap arms, their anchors, the receiver seats and the four
-metal-foot bearing pads have 3 mm working sections.
+[1.3 mm](COSMETIC_WALL) thick. The wall audit samples 384 surface-normal
+sections and reads a minimum of 1.194 mm. Separate front and rear rim
+sections read 1.250 mm and 1.471 mm. Two broad 1.3 mm-high retaining lips
+continue inward from the side walls. The four metal-foot bearing pads have
+3 mm working sections.
+
+The lips follow the neck profile with [0.3 mm](SNAP_ENGAGEMENT) nominal
+radial engagement. Their grooves provide 0.15 mm radial clearance and
+0.15 mm clearance above the lip tops. The lip bottoms seat on the groove
+floors, stopping the cover before its bezel reaches the glass.
 
 The window is [20.5 mm](WINDOW_X) × [40.5 mm](WINDOW_S). Its lip overlaps the
 module housing and leaves [0.1 mm](COVER_OVER_FACE) above the glass. The display
@@ -31,18 +38,17 @@ neck, so the parting line stays below the display face.
 
 ## Assembly trial
 
-1. Remove supports and check that each cantilever is free along its full
-   compliant length. Leave the rounded roots and the inward travel stops intact.
+1. Remove supports and stringing from the open cover, its two broad lips
+   and the neck's shallow grooves. Preserve the lip bearing faces and
+   groove floors.
 2. Route the display ribbon through its side corridor and place the exact
    module on the four metal-foot pads. Keep the ribbon clear of the USB socket
    and underside components.
-3. Press the cover straight toward the display. Its two receiver ledges pass
-   the lead-ins and engage by [0.3 mm](SNAP_ENGAGEMENT). The arms are unloaded
-   in the seated position, with 0.15 mm normal clearance at the retaining faces.
-   The receiver bottoms stop on the chassis seats before the bezel can load
-   the glass.
-4. Read complete seating, display fit, touch response, retention and any root
-   whitening or cracks on the printed enclosure. Record the trial result
+3. Press the cover squarely toward the display. Its side walls flex outward
+   around the cylinder until both lips enter their grooves below the rigid
+   retaining shoulders. Confirm both lip bottoms reach their seating floors.
+4. Read complete seating, display fit, touch response, retention, permanent
+   spreading and any whitening or cracks on the cover. Record the trial result
    before using the snap in a customer assembly.
 
 Customer installation uses the assembled faucet.
@@ -54,7 +60,7 @@ rounded walls expand gradually toward the open underside. Support access is
 through that underside before the display is installed.
 
 `faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
-the cosmetic minimum and the receiver stock. The faucet geometry audit checks
+the cosmetic minimum and the lip thickness. The faucet geometry audit checks
 actual hardware and tube clearance, normal assembly motion and snap geometry.
 Those geometric readings do not measure the printed snap's force or durability.
 

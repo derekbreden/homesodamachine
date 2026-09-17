@@ -60,9 +60,11 @@ destroyed is a part that comes out by being destroyed.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the final seam screws prevent the reverse motion.
-- **The faucet display uses two long PET-GF cantilevers.** Their 3 × 3 mm arms have
-  0.30 mm engagement, rounded roots and 0.50 mm travel stops. The cover pushes them inward
-  during seating; they relax behind its flat retaining ledges. The
+- **The faucet display cover flexes around the rigid cylindrical neck.** Its side walls
+  spread during seating, then two broad 1.30 mm-high lips enter shallow grooves below
+  rigid retaining shoulders. The lips have 0.30 mm nominal radial engagement, with
+  0.15 mm radial and upper bearing clearance. The groove floors stop the cover before
+  its bezel reaches the glass. The
   [complete display fit trial](printed-parts/fixtures/faucet-display-snap/README.md)
   carries the actual enclosure, device supports, tubes and ribbon route. Its physical snap
   performance is unmeasured. The linked PET-GF15 data are annealed specimen results, not an
