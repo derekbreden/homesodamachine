@@ -1,0 +1,240 @@
+<div id="fascia-studies" aria-label="Four enclosure fascia studies">
+  <div class="viz-controls">
+    <label class="form-label">Form<select class="form-select" data-control="focus"><option value="all">Four new options</option><option value="A">A · Bell</option><option value="B">B · Cushion</option><option value="C">C · Arch</option><option value="D">D · Plinth</option><option value="current">Current outline</option></select></label>
+    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="base">Base detail</option><option value="top">Above</option></select></label>
+    <label class="form-label">Finish<select class="form-select" data-control="finish"><option value="white">White PET-GF</option><option value="black">Black PET-GF</option></select></label>
+  </div>
+  <div class="fs-grid">
+    <section data-model="A"><h3>A · Bell</h3><div class="fs-stage" role="img" aria-label="Bell: continuous outward flare at the base, a smooth cove, and fluted wall fields. Drag to rotate."></div><div class="text-small">Flared foot · continuous cove</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="B"><h3>B · Cushion</h3><div class="fs-stage" role="img" aria-label="Cushion: a full softly swelling body, rounded shoulders, and inset fluted fields. Drag to rotate."></div><div class="text-small">Full body · rounded fluted fields</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="C"><h3>C · Arch</h3><div class="fs-stage" role="img" aria-label="Arch: smooth sweeping shoulders over arched fluted fields and an outward foot. Drag to rotate."></div><div class="text-small">Sweeping shoulders · arched fluted fields</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="D"><h3>D · Plinth</h3><div class="fs-stage" role="img" aria-label="Plinth: a low projecting base, a recessed waist, and broad fluted panels. Drag to rotate."></div><div class="text-small">Low projecting base · recessed waist</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="current" hidden><h3>Current outline</h3><div class="fs-stage" role="img" aria-label="Current enclosure outline with continuous fluting. Drag to rotate."></div><div class="text-small">Current component positions and shell silhouette</div><div class="text-small text-muted fs-size"></div></section>
+  </div>
+  <div class="text-small text-muted fs-note">Same scale · drag to rotate · scroll to zoom · exterior form studies</div>
+  <div class="sr-only">The display, funnel, rear fittings and cartridge station use the current machine's geometry. The smooth fascia shapes extend outward from the exterior. Fluting is represented by surface shading. These are appearance studies, with joinery and print qualification unresolved.</div>
+  <div class="fs-error text-destructive" role="alert" hidden></div>
+</div>
+<style>
+#fascia-studies .fs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px;margin-top:16px}
+#fascia-studies h3{margin:0;font-weight:500}
+#fascia-studies .fs-stage{width:100%;height:360px;touch-action:none}
+#fascia-studies canvas{display:block;width:100%;height:100%}
+#fascia-studies .fs-size{margin-top:3px}
+#fascia-studies .fs-note{margin-top:20px}
+#fascia-studies[data-focus]:not([data-focus="all"]) .fs-grid{grid-template-columns:minmax(0,1fr)}
+#fascia-studies[data-focus]:not([data-focus="all"]) .fs-stage{height:580px}
+#fascia-studies section[hidden]{display:none}
+@media(max-width:550px){#fascia-studies .fs-grid{grid-template-columns:minmax(0,1fr)}#fascia-studies .fs-stage{height:360px}#fascia-studies[data-focus]:not([data-focus="all"]) .fs-stage{height:450px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const root=document.getElementById('fascia-studies');
+try {
+const compressed=Uint8Array.from(atob('__MODEL_DATA__'),c=>c.charCodeAt(0));
+const raw=await new Response(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+const hlen=new DataView(raw).getUint32(0,true), data=JSON.parse(new TextDecoder().decode(new Uint8Array(raw,4,hlen))), offset=(hlen+7)&~3;
+const state={focus:'all',view:'three',finish:'white'};
+const scenes=[], baseMeshes=new Map();
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+function smooth(a,b,x){const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t)}
+function profile(z,points){
+ if(z<=points[0][0])return points[0][1];
+ const slope=i=>{if(i===0||i===points.length-1)return 0;const a=(points[i][1]-points[i-1][1])/(points[i][0]-points[i-1][0]),b=(points[i+1][1]-points[i][1])/(points[i+1][0]-points[i][0]);return a*b<=0?0:2*a*b/(a+b)};
+ for(let i=1;i<points.length;i++){if(z<=points[i][0]){const [a,u]=points[i-1],[b,v]=points[i],h=b-a,t=(z-a)/h,t2=t*t,t3=t2*t;return (2*t3-3*t2+1)*u+(t3-2*t2+t)*h*slope(i-1)+(-2*t3+3*t2)*v+(t3-t2)*h*slope(i)}}
+ return points.at(-1)[1];
+}
+function plan(p){
+ const ax=Math.abs(p[0]), dy=p[1]-236, ay=Math.abs(dy), qx=ax-95.5, qy=ay-219;
+ let nx=0,ny=0;
+ if(qx>0&&qy>0){const l=Math.hypot(qx,qy);nx=qx/l*Math.sign(p[0]);ny=qy/l*Math.sign(dy)}
+ else if(qx>qy)nx=Math.sign(p[0]);else ny=Math.sign(dy);
+ return [Math.hypot(Math.max(qx,0),Math.max(qy,0))+Math.min(Math.max(qx,qy),0)-12,nx,ny];
+}
+const profiles={
+ A:[[-6,20],[0,23],[8,22],[18,18],[34,8],[60,1.5],[265,1.5],[310,7],[337,4],[355,0]],
+ B:[[-6,7],[3,12],[16,13],[42,8],[100,13],[192,17],[267,16],[306,16],[333,9],[355,0]],
+ C:[[-6,18],[1,21],[12,18],[32,9],[64,2],[235,2],[286,14],[322,19],[342,8],[355,0]],
+ D:[[-6,23],[0,26],[8,25],[15,17],[23,0],[29,0],[41,5],[265,5],[310,9],[335,6],[355,0]]
+};
+function displaced(p,key){
+ if(key==='current')return p.slice();
+ const [dist,nx,ny]=plan(p), weight=smooth(-2.6,-.06,dist), z=p[2];
+ let amount=profile(z,profiles[key]);
+ const rear=1-.82*smooth(410,462,p[1]);
+ if(key==='C')amount+=8*(1-smooth(55,135,p[1]))*smooth(50,100,z)*(1-smooth(255,310,z));
+ if(key==='B')amount+=3*Math.sin(clamp((p[1]-5)/462,0,1)*Math.PI)*smooth(30,100,z)*(1-smooth(285,350,z));
+ amount*=rear;
+ const out=[p[0]+nx*amount*weight,p[1]+ny*amount*weight,p[2]];
+ return out;
+}
+function normalAt(p,n,key){
+ if(key==='current')return n;
+ const nv=new THREE.Vector3(...n), axis=Math.abs(n[2])<.8?new THREE.Vector3(0,0,1):new THREE.Vector3(0,1,0);
+ const u=new THREE.Vector3().crossVectors(nv,axis).normalize(),v=new THREE.Vector3().crossVectors(nv,u).normalize();
+ const eps=.035, pos=new THREE.Vector3(...displaced(p,key));
+ const pu=displaced([p[0]+u.x*eps,p[1]+u.y*eps,p[2]+u.z*eps],key);
+ const pv=displaced([p[0]+v.x*eps,p[1]+v.y*eps,p[2]+v.z*eps],key);
+ return new THREE.Vector3(...pu).sub(pos).cross(new THREE.Vector3(...pv).sub(pos)).normalize().toArray();
+}
+function refined(source,maxEdge=4.5){
+ const p=Array.from(source.attributes.position.array),n=Array.from(source.attributes.normal.array);
+ let faces=Array.from(source.index.array);
+ for(let pass=0;pass<14;pass++){
+  let count=0;const midpoint=new Map(),next=[];
+  const mid=(a,b)=>{
+   const key=Math.min(a,b)+','+Math.max(a,b);if(midpoint.has(key))return midpoint.get(key);
+   const ax=a*3,bx=b*3,dx=p[ax]-p[bx],dy=p[ax+1]-p[bx+1],dz=p[ax+2]-p[bx+2];
+   if(dx*dx+dy*dy+dz*dz<=maxEdge*maxEdge)return -1;
+   const m=p.length/3;p.push((p[ax]+p[bx])/2,(p[ax+1]+p[bx+1])/2,(p[ax+2]+p[bx+2])/2);
+   const nx=n[ax]+n[bx],ny=n[ax+1]+n[bx+1],nz=n[ax+2]+n[bx+2],len=Math.hypot(nx,ny,nz)||1;n.push(nx/len,ny/len,nz/len);
+   midpoint.set(key,m);count++;return m;
+  };
+  for(let i=0;i<faces.length;i+=3){
+   const a=faces[i],b=faces[i+1],c=faces[i+2],ab=mid(a,b),bc=mid(b,c),ca=mid(c,a),mask=(ab>=0?1:0)+(bc>=0?2:0)+(ca>=0?4:0);
+   if(mask===0)next.push(a,b,c);
+   else if(mask===1)next.push(a,ab,c,ab,b,c);
+   else if(mask===2)next.push(b,bc,a,bc,c,a);
+   else if(mask===4)next.push(c,ca,b,ca,a,b);
+   else if(mask===3)next.push(b,bc,ab,a,ab,c,ab,bc,c);
+   else if(mask===6)next.push(c,ca,bc,b,bc,a,bc,ca,a);
+   else if(mask===5)next.push(a,ab,ca,c,ca,b,ca,ab,b);
+   else next.push(a,ab,ca,ab,b,bc,ca,bc,c,ab,bc,ca);
+  }
+  faces=next;if(count===0)break;
+ }
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(n,3));g.setIndex(faces);return g;
+}
+for(const [name,m] of Object.entries(data.meshes)){
+ const g=new THREE.BufferGeometry();
+ for(const [f,s] of [['p',1000],['n',10000]]){const arr=Float32Array.from(new Int32Array(raw,offset+m[f][0],m[f][1]));for(let i=3;i<arr.length;i++)arr[i]+=arr[i-3];for(let i=0;i<arr.length;i++)arr[i]/=s;g.setAttribute(f==='p'?'position':'normal',new THREE.BufferAttribute(arr,3))}
+ const diffs=new Int32Array(raw,offset+m.i[0],m.i[1]),idx=new Uint32Array(diffs.length);let sum=0;for(let i=0;i<diffs.length;i++){sum+=diffs[i];idx[i]=sum}g.setIndex(new THREE.BufferAttribute(idx,1));
+ const mesh=m.role==='shell'?refined(g):g;
+ baseMeshes.set(name,{geometry:mesh,role:m.role});
+}
+function surfaceGeometry(source,key){
+ if(key==='current'){
+  const g=source.clone();g.setAttribute('nominal',source.attributes.position.clone());g.setAttribute('originalNormal',source.attributes.normal.clone());return g;
+ }
+ const g=source.clone(),pos=g.attributes.position,norm=g.attributes.normal;
+ g.setAttribute('nominal',pos.clone());g.setAttribute('originalNormal',norm.clone());
+ for(let i=0;i<pos.count;i++){
+  const p=[pos.getX(i),pos.getY(i),pos.getZ(i)],n=[norm.getX(i),norm.getY(i),norm.getZ(i)],q=displaced(p,key),nn=normalAt(p,n,key);
+  pos.setXYZ(i,...q);norm.setXYZ(i,...nn);
+ }
+ g.computeBoundingSphere();g.computeBoundingBox();return g;
+}
+const surfaceShader=String.raw`
+ varying vec3 vNominal;
+ varying vec3 vOriginalNormal;
+ uniform float variant;
+ float sm(float a,float b,float x){return smoothstep(a,b,x);}
+ float roundedField(vec2 p,vec2 center,vec2 halfSize,float radius){vec2 q=abs(p-center)-(halfSize-vec2(radius));float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;return 1.-sm(-7.,0.,d);}
+ float fluteMask(vec3 p,vec3 norm){
+  float nz=1.-sm(.08,.2,abs(norm.z));
+  float side=sm(.8,.99,abs(norm.x))*sm(103.,107.,abs(p.x));
+  float front=sm(.8,.99,-norm.y)*(1.-sm(5.1,7.,p.y));
+  float rear=sm(.8,.99,norm.y)*sm(466.,467.,p.y);
+  float s=0.,f=0.;
+  if(variant<.5){return nz*max(max(side,front),rear);}
+  if(variant<1.5){
+   s=roundedField(p.yz,vec2(258.,186.),vec2(181.,117.),14.);
+   f=roundedField(p.xz,vec2(0.,175.),vec2(80.,101.),12.);
+  }else if(variant<2.5){
+   s=roundedField(p.yz,vec2(256.,184.),vec2(163.,126.),38.);
+   f=roundedField(p.xz,vec2(0.,177.),vec2(78.,101.),28.);
+  }else if(variant<3.5){
+   float top=292.-72.*exp(-pow((p.y-94.)/110.,2.));
+   s=roundedField(p.yz,vec2(254.,180.),vec2(176.,126.),26.)*(1.-sm(top-9.,top,p.z));
+   float crown=278.-.0028*p.x*p.x;
+   f=roundedField(p.xz,vec2(0.,175.),vec2(79.,108.),16.)*(1.-sm(crown-9.,crown,p.z));
+  }else{
+   s=roundedField(p.yz,vec2(254.,183.),vec2(182.,126.),12.);
+   f=roundedField(p.xz,vec2(0.,169.),vec2(83.,111.),10.);
+  }
+  float seam=(.75+.25*sm(.0,3.,abs(p.z-160.)));
+  float holes=1.-roundedField(p.yz,vec2(57.,204.),vec2(17.,38.),3.);
+  return nz*max(side*s*holes,front*f)*seam;
+ }
+ vec3 flutedNormal(vec3 pos,vec3 normal,vec3 p,vec3 norm){
+  float s=abs(norm.x)>.75?p.y:p.x;
+  float k=6.28318530718/5.39, wave=cos(s*k), a=max(.001,(wave+.75)/1.75);
+  float mask=fluteMask(p,norm), height=-.76*pow(a,.66), dhds=.76*.66*pow(a,-.34)*sin(s*k)*k/1.75;
+  if(wave<-.75)dhds=0.;
+  float visible=1.-smoothstep(2.5,5.,fwidth(s)*k);
+  vec2 grad=visible*(dhds*mask*vec2(dFdx(s),dFdy(s))+height*vec2(dFdx(mask),dFdy(mask)));
+  vec3 q0=dFdx(pos),q1=dFdy(pos),r0=cross(q1,normal),r1=cross(normal,q0);
+  float det=dot(q0,r0);
+  return normalize(abs(det)*normal-sign(det)*(grad.x*r0+grad.y*r1));
+ }
+`;
+function shellMaterial(key,role){
+ const mat=new THREE.MeshStandardMaterial({color:0xdfdfd9,roughness:.67,metalness:0,side:THREE.DoubleSide});
+ if(role!=='shell')return mat;
+ mat.onBeforeCompile=shader=>{
+  shader.uniforms.variant={value:key==='current'?0:1+'ABCD'.indexOf(key)};
+  shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec3 nominal; attribute vec3 originalNormal; varying vec3 vNominal; varying vec3 vOriginalNormal;');
+  shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvNominal=nominal; vOriginalNormal=originalNormal;');
+  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+surfaceShader);
+  shader.fragmentShader=shader.fragmentShader.replace('#include <normal_fragment_maps>','#include <normal_fragment_maps>\nnormal=flutedNormal(-vViewPosition,normal,vNominal,normalize(vOriginalNormal));');
+  shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\nfloat inset=fluteMask(vNominal,normalize(vOriginalNormal)); diffuseColor.rgb*=1.-.035*inset; if(variant>3.5&&variant<4.5){float reveal=smoothstep(17.,21.,vNominal.z)*(1.-smoothstep(29.,33.,vNominal.z));diffuseColor.rgb*=1.-.23*reveal;}');
+ };
+ mat.customProgramCacheKey=()=>key;
+ return mat;
+}
+function token(name){const span=document.createElement('span');span.style.color='var('+name+')';span.hidden=true;root.append(span);const color=getComputedStyle(span).color;span.remove();return new THREE.Color(color)}
+let syncing=false;
+for(const key of ['A','B','C','D','current']){
+ const panel=root.querySelector('[data-model="'+key+'"]'),stage=panel.querySelector('.fs-stage');
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.92;
+ renderer.shadowMap.enabled=false;renderer.shadowMap.type=THREE.PCFSoftShadowMap;stage.append(renderer.domElement);
+ const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-300,300,280,-280,.1,3000);camera.up.set(0,0,1);
+ const pmrem=new THREE.PMREMGenerator(renderer), room=new RoomEnvironment();scene.environment=pmrem.fromScene(room,.07).texture;room.dispose();pmrem.dispose();scene.environmentIntensity=.35;
+ scene.add(new THREE.HemisphereLight(0xffffff,0x959ba3,.48));
+ const keyLight=new THREE.DirectionalLight(0xfffaf2,2.4);keyLight.position.set(-300,-300,780);keyLight.target.position.set(0,210,150);keyLight.castShadow=true;keyLight.shadow.mapSize.set(2048,2048);Object.assign(keyLight.shadow.camera,{left:-450,right:450,top:450,bottom:-450,near:1,far:1600});keyLight.shadow.bias=-.0002;keyLight.shadow.normalBias=.3;keyLight.shadow.radius=3;scene.add(keyLight,keyLight.target);
+ for(const [p,intensity] of [[[400,100,400],.65],[[-80,650,600],1.1]]){const light=new THREE.DirectionalLight(0xffffff,intensity);light.position.set(...p);scene.add(light)}
+ const parts=[],bounds=new THREE.Box3();
+ for(const [name,item] of baseMeshes){
+  const shell=item.role==='shell';const geometry=shell?surfaceGeometry(item.geometry,key):item.geometry;
+  const material=shell||item.role==='cover'?shellMaterial(key,item.role):new THREE.MeshStandardMaterial({color:item.role==='glass'?0x16252b:item.role==='funnel'?0xb8bbb3:0x44484b,roughness:item.role==='glass'?.42:.74,envMapIntensity:item.role==='glass'?.08:1,side:THREE.DoubleSide});
+  const mesh=new THREE.Mesh(geometry,material);mesh.castShadow=false;mesh.receiveShadow=false;scene.add(mesh);parts.push({mesh,role:item.role,name});if(shell)bounds.expandByObject(mesh);
+ }
+ const shade=document.createElement('canvas');shade.width=128;shade.height=128;const ctx=shade.getContext('2d'),gradient=ctx.createRadialGradient(64,64,15,64,64,64);gradient.addColorStop(0,'rgba(0,0,0,.34)');gradient.addColorStop(.62,'rgba(0,0,0,.14)');gradient.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=gradient;ctx.fillRect(0,0,128,128);
+ const ground=new THREE.Mesh(new THREE.PlaneGeometry(340,620),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(shade),color:0x000000,transparent:true,opacity:.5,depthWrite:false}));ground.position.set(0,235,-6.25);scene.add(ground);
+ const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=false;controls.enablePan=true;controls.minZoom=.65;controls.maxZoom=9;
+ const item={key,panel,stage,renderer,scene,camera,controls,parts,ground,bounds};scenes.push(item);
+ const size=bounds.getSize(new THREE.Vector3());panel.querySelector('.fs-size').textContent=Math.round(size.x)+' × '+Math.round(size.y)+' × '+Math.round(size.z)+' mm';
+ controls.addEventListener('change',()=>{if(syncing)return;syncing=true;for(const other of scenes){if(other!==item){other.camera.position.copy(camera.position);other.camera.quaternion.copy(camera.quaternion);other.camera.zoom=camera.zoom;other.controls.target.copy(controls.target);other.camera.updateProjectionMatrix()}draw(other)}syncing=false});
+ new ResizeObserver(()=>resize(item)).observe(stage);
+ await new Promise(resolve=>requestAnimationFrame(resolve));
+}
+function draw(item){if(!item.panel.hidden)item.renderer.render(item.scene,item.camera)}
+function resize(item){
+ if(item.panel.hidden)return;const w=item.stage.clientWidth,h=item.stage.clientHeight;if(!w||!h)return;
+ item.renderer.setSize(w,h,false);const aspect=w/h,q=item.camera.quaternion.clone().invert();let px=0,py=0;
+ for(const x of [-137,137])for(const y of [-26,475])for(const z of [-6,362]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}
+ const span=state.view==='base'?220:Math.max(2*py,2*px/aspect)*1.025;Object.assign(item.camera,{left:-span*aspect/2,right:span*aspect/2,top:span/2,bottom:-span/2});item.camera.updateProjectionMatrix();draw(item);
+}
+function orient(){
+ syncing=true;const views={three:[660,-1050,560],front:[0,-1200,30],side:[1200,0,0],base:[660,-1050,290],top:[0,-.001,1200]};
+ for(const item of scenes){const target=state.view==='base'?new THREE.Vector3(0,45,26):new THREE.Vector3(0,217,176);item.controls.target.copy(target);item.camera.position.copy(target).add(new THREE.Vector3(...views[state.view]));item.camera.zoom=1;item.camera.lookAt(target);item.controls.update()}
+ syncing=false;
+}
+function update(){
+ root.dataset.focus=state.focus;
+ for(const item of scenes){
+  item.panel.hidden=state.focus==='all'?item.key==='current':item.key!==state.focus;
+  for(const part of item.parts){if(part.role==='shell'||part.role==='cover')part.mesh.material.color.set(state.finish==='white'?0xd9d8cf:0x34383a)}
+  item.ground.material.color.copy(token('--foreground'));item.ground.material.opacity=state.finish==='white'?.38:.55;resize(item);
+ }
+}
+for(const input of root.querySelectorAll('[data-control]'))input.addEventListener('change',()=>{state[input.dataset.control]=input.value;if(input.dataset.control==='view')orient();update()});
+new MutationObserver(()=>update()).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+orient();update();root.dataset.ready='true';
+window.fasciaStudies={state,scenes,sources:data.sources,displaced,render:()=>scenes.forEach(resize)};
+}catch(error){const el=root.querySelector('.fs-error');el.hidden=false;el.textContent=error.message;root.dataset.error=error.message;throw error;}
+</script>
