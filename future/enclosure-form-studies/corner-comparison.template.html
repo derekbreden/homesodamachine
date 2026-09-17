@@ -1,0 +1,29 @@
+<div id="ef-surface-check">
+  <div class="viz-controls">
+    <label class="form-label">Compare<select class="form-select" data-focus><option value="all">All four</option><option value="current">Current enclosure</option><option value="A">A · Soft shoulders</option><option value="B">B · Bowed front</option><option value="C">C · Crisp bevels</option></select></label>
+    <span class="text-small text-muted">Front corner · same camera and scale</span>
+  </div>
+  <div class="ef-detail-grid">
+    <figure data-model="current"><figcaption>Current enclosure <span class="text-small text-muted">R12</span></figcaption><img src="__CURRENT_IMAGE__" alt="Current enclosure with its published flutes wrapping around the rounded front corner and fading at the pump cartridge seam."></figure>
+    <figure data-model="A"><figcaption>A · Soft shoulders <span class="text-small text-muted">R22</span></figcaption><img src="__A_IMAGE__" alt="Soft shoulders with fluting following the larger rounded front corner and six millimetre round along the display's side edge."></figure>
+    <figure data-model="B"><figcaption>B · Bowed front <span class="text-small text-muted">R22 + 6 mm crown</span></figcaption><img src="__B_IMAGE__" alt="Bowed front with flutes on the gently convex front continuing into the rounded corner."></figure>
+    <figure data-model="C"><figcaption>C · Crisp bevels <span class="text-small text-muted">13 mm bevel</span></figcaption><img src="__C_IMAGE__" alt="Crisp bevels with fluting across the deliberately flat diagonal front corner."></figure>
+  </div>
+</div>
+<style>
+  #ef-surface-check .ef-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px;margin-top:16px}
+  #ef-surface-check figure{margin:0;min-width:0}
+  #ef-surface-check figcaption{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px;font-weight:500}
+  #ef-surface-check figcaption span{font-weight:400}
+  #ef-surface-check img{display:block;width:100%;height:auto}
+  #ef-surface-check[data-focus]:not([data-focus="all"]) .ef-detail-grid{grid-template-columns:minmax(0,1fr)}
+  #ef-surface-check figure[hidden]{display:none}
+  @media(max-width:580px){#ef-surface-check .ef-detail-grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+<script>
+  const surfaceRoot=document.getElementById('ef-surface-check');
+  surfaceRoot.querySelector('select').addEventListener('change',event=>{
+    const focus=event.target.value;surfaceRoot.dataset.focus=focus;
+    surfaceRoot.querySelectorAll('figure').forEach(panel=>panel.hidden=focus!=='all'&&panel.dataset.model!==focus);
+  });
+</script>

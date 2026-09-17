@@ -6,6 +6,12 @@
     "back-top": "da80877c413f44a41c940a8d3f82a94e8d8dd2a7b9d0e5780afb468109467ad5",
     "pump-cartridge": "f44a406dcdc6283095ec0ee228b2608a1ac4f4c58230ea15c8682deda9b3558d",
     "pump-cap": "3ffcbab0816ec63050932a2eeaaa2a4231162093b740375f6b81a5a6881f465d",
+    "front-bottom_fluted_payload_sha256": "cfacf04d7932e01fb57bbc320c307aa6db5d2c38304554e4f36237190391ceb6",
+    "front-top_fluted_payload_sha256": "b6d009fde60498c4ce671fa1e7bbc34494142e53f6cc48f8a95a73ef07c6cdbe",
+    "back-bottom_fluted_payload_sha256": "9274870e3c28bc1350222a968c9559e3a84ea340c1ffcbceb39b1e0b8f9556a0",
+    "back-top_fluted_payload_sha256": "af1eced17b32c8c0037c04df4965b76790c40f0b961b3010f051187882da0a5c",
+    "pump-cartridge_fluted_payload_sha256": "602cbfb6e1e9ab0589d59c56a4c3c22ec9a95832ca78117a73cdff10c681a684",
+    "pump-cap_fluted_payload_sha256": "5eb79a4bfe10c089015ef3a718da9830bc5e3062d6339a2ee5eb7bda7b713329",
     "assembly_sha256": "5abcbf834292ef3d040a86d9c6de5424fdb8235ac9a610bb1671a3bc73812bed",
     "display_cover_sha256": "a3598e623fbc5124c07703cb1c1024912cc18ff07016604e4cb059158102dcf2"
   },
@@ -22,7 +28,12 @@
         107.5000001,
         212.55,
         174.8
-      ]
+      ],
+      "triangles": 494602,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "B-front-bottom": {
       "valid": true,
@@ -36,7 +47,12 @@
         107.5000001,
         212.55,
         174.8
-      ]
+      ],
+      "triangles": 494480,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "C-front-bottom": {
       "valid": true,
@@ -50,7 +66,12 @@
         107.5000001,
         212.55,
         174.8
-      ]
+      ],
+      "triangles": 240452,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "A-front-top": {
       "valid": true,
@@ -64,7 +85,12 @@
         107.50000010000039,
         212.55000010000006,
         355.00000010001145
-      ]
+      ],
+      "triangles": 611446,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "B-front-top": {
       "valid": true,
@@ -78,7 +104,12 @@
         107.50000010000039,
         212.55000010000006,
         355.00000010001145
-      ]
+      ],
+      "triangles": 600886,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "C-front-top": {
       "valid": true,
@@ -92,7 +123,12 @@
         107.50000000000003,
         212.55000010000006,
         355.0
-      ]
+      ],
+      "triangles": 617546,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "A-back-top": {
       "valid": true,
@@ -106,21 +142,12 @@
         107.5000001,
         467.0000001,
         355.0000001
-      ]
-    },
-    "B-back-top": {
-      "valid": true,
-      "solids": 1,
-      "removed_mm3": 4015.99411596125,
-      "added_mm3": 0,
-      "bounds": [
-        -107.5000001,
-        199.9999999,
-        159.9999999,
-        107.5000001,
-        467.0000001,
-        355.0000001
-      ]
+      ],
+      "triangles": 1044506,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "C-back-top": {
       "valid": true,
@@ -134,7 +161,12 @@
         107.50000000000003,
         467.0000001,
         355.0000001
-      ]
+      ],
+      "triangles": 1073448,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "A-pump-cartridge": {
       "valid": true,
@@ -148,7 +180,12 @@
         107.5000001,
         79.269,
         283.24500020000005
-      ]
+      ],
+      "triangles": 194022,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "B-pump-cartridge": {
       "valid": true,
@@ -162,7 +199,12 @@
         107.5000001,
         79.269,
         283.24500020000005
-      ]
+      ],
+      "triangles": 193010,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     },
     "C-pump-cartridge": {
       "valid": true,
@@ -176,7 +218,12 @@
         107.5000001,
         79.269,
         283.2450001
-      ]
+      ],
+      "triangles": 199092,
+      "watertight": true,
+      "preview_reduction": false,
+      "cad_linear_tolerance_mm": 0.02,
+      "cad_angle_tolerance_rad": 0.08
     }
   }
 }
