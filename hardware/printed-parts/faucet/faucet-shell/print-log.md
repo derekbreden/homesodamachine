@@ -907,3 +907,22 @@ Settings unchanged from attempt 9:
 - Wiki language for the feature: "the nozzle is detected to be wrapped by filament" — "wrapping" describes what clumping is physically ([Bambu Wiki: Nozzle Clumping Detection by Probing](https://wiki.bambulab.com/en/software/bambu-studio/nozzle-clumping-detection-by-probing))
 - Behavior match in the gcode: `wrapping_detection_gcode` in the 3mf moves the toolhead to the back of the bed and runs `G39` (probe) at `layer_num` 3, 10, 19 — matching the wiki's "probes at layers 4, 11, 20" (same triggers, 0- vs 1-indexed)
 - Trigger-layer alignment: 4 / 11 / 20 layers in the wiki match the gcode's 3 / 10 / 19 (zero-indexed)
+
+## PET-GF faucet assembly — 2026-09-17, Mark2
+
+- Four parts: shell base, shell tip, display cover and above-counter plate.
+- Shell base rotation about CAD X: −15°; tip −105°; cover +130°; plate 0°.
+- Shared `hardware/printed-parts/petgf.3mf` settings, 0.24 mm layers, left
+  0.4 mm Standard diamond PCD nozzle, external PET-GF mapped as PET-CF.
+- Nozzle 265 °C first layer / 280 °C later; Textured PEI at 80 °C.
+- Part fan 0–70%; final 10 mm of base outer walls uses 67–69%.
+- Support top gap 0.45 mm, bottom gap 0.30 mm, XY gap 0.40 mm, two top
+  interface layers with 0.50 mm line spacing. These values are saved in
+  the user process preset; the cooling profile is saved as a user filament preset.
+- Requested Z trim +0.04 mm; final emitted textured-plate trim `G29.1 Z0.02`.
+- Bed leveling On; timelapse Off; flow and nozzle-offset calibration Auto.
+- Submitted through Bambu Connect as `faucet-mark2.gcode.3mf`; printer
+  telemetry confirms RUNNING with 1,029 total layers and no reported errors.
+- Slice estimate: 5 h 26 min 57 s, 154.19 g at the saved profile density.
+- Project, profile, source STL and submitted archive hashes, together with
+  launch telemetry, are in `../faucet-petgf.readiness.json`.
