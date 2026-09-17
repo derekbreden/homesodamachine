@@ -1391,7 +1391,15 @@ def build_lever_clearance() -> cq.Workplane:
         for i in range(len(profile)):
             j = (i + 1) % len(profile)
             regions.append(Polygon((before[i], before[j], after[j], after[i])).buffer(0))
-    outline = unary_union(regions).simplify(0.001).buffer(clearance + 0.005, join_style=2)
+    envelope_allowance = clearance + 0.005
+    outline = unary_union(regions).simplify(0.001).buffer(envelope_allowance, join_style=2)
+    # Connect the donor's open plateau to the rest-lever corridor. This region
+    # stays inside the donor footprint and opens the complete space under the
+    # lever; the side arch bores and rear structural wall retain their stock.
+    plateau_join = box(-westbrass_bore_rect_long_y / 2.0, zone2_z_top - 0.01,
+                       9.0 + envelope_allowance,
+                       zone2_z_top + 1.0 - envelope_allowance + 0.01)
+    outline = outline.union(plateau_join)
     return (_vertical_plane(-x_half).polyline(list(outline.exterior.coords)[:-1]).close()
             .extrude(2.0 * x_half))
 
