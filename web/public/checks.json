@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "PASS seat:plate-gasket",
-      "status": "red"
+      "note": "PASS faucet geometry: 135 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -32,8 +32,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step.mesh — declared by nobody",
-      "status": "red"
+      "note": "payloads: 40 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -52,7 +52,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 187/187 carry the colour of what they are made of",
+      "note": "step colours: 189/189 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "2 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 2131 tracked, 422 fetched solids, 55 tags, 41 site routes",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 446 of 1000 free, the next cut wants 216, and the whole pointer file reads by name in 31.3 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 446 of 1000 free, the next cut wants 223, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -87,93 +87,20 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 14 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 213 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 44 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 419 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 10 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 422 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds ed174130253c2fcd42e9ddaf4e646f49 for the 133 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 67a8db043c125f0948b753c8c4490564 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 6e32ee114b86f65747b34cb9c9815617 for the 129 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 95b5b0cbda3890fca7f9c600b457e2c3 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_faucet_geometry.py": [
-      "PASS clearance:signal-shell_tip",
-      "PASS clearance:signal-above_counter_plate",
-      "PASS clearance:signal-above_counter_gasket",
-      "PASS clearance:signal-display_cover",
-      "PASS clearance:signal-tpu_thimble",
-      "PASS clearance:signal-flavor_tube_retainer",
-      "PASS clearance:signal-donor",
-      "PASS clearance:signal-soda-tube",
-      "PASS clearance:signal-flavor-a",
-      "PASS clearance:signal-flavor-b",
-      "PASS clearance:signal-countertop",
-      "PASS clearance:signal-under-counter-plate",
-      "PASS clearance:signal-display-body",
-      "PASS fit:signal-lane-section",
-      "PASS wall:neck-signal-lane",
-      "PASS solid:flavor-retainer-installed",
-      "PASS clearance:retainer-shell",
-      "PASS clearance:retainer-plate",
-      "PASS clearance:retainer-donor",
-      "PASS retention:flavor-pressure-pad",
-      "PASS seat:plate-gasket",
-      "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 583, in <module>",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 558, in main",
-      "RuntimeError: a faucet source changed during the reading; rerun after its build settles"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "5 solid(s) the bundle serves a payload for that no rule produces:",
-      "    hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py, then gen_build.py",
-      "    hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py, then gen_build.py",
-      "    hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py, then gen_build.py",
-      "    hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/faucet/faucet-shell/faucet_shell.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/faucet/faucet-shell/faucet_shell.py, then gen_build.py",
-      "    hardware/printed-parts/faucet/flavor-tube-retainer/flavor-tube-retainer.step.mesh — declared by nobody"
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -512,6 +512,7 @@",
-      "           \"pysrc/hardware/printed-parts/cadlib/reeding.py\",",
-      "           \"pysrc/hardware/printed-parts/cadlib/world_workplane.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py\",",
-      "           \"pysrc/hardware/printed-parts/faucet/_faucet_interface.py\",",
-      "           \"pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py\",",
-      "  @@ -530,7 +531,6 @@",
-      "           \"pysrc/hardware/scripts/_realized.py\",",
-      "           \"pysrc/hardware/scripts/_run_lock.py\",",
-      "           \"pysrc/hardware/scripts/_stated_bounds.py\",",
-      "  -        \"pysrc/hardware/scripts/pick_text.py\",",
-      "           \"pysrc/marketing/_install_envelope_sync.py\",",
-      "           \"pysrc/tools/docgen/__init__.py\",",
-      "       ] + glob(",
-      "  @@ -2640,16 +2640,16 @@",
-      "           \"hardware/printed-parts/faucet/faucet-shell/.gitignore\",",
-      "  … 618 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/check_paths.py": [
-      "hardware/printed-parts/faucet/faucet-petgf.md:30 — hardware/printed-parts/faucet/faucet-petgf.print.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/faucet/faucet-petgf.md:43 — hardware/printed-parts/faucet/faucet-petgf.support-audit.json is held nowhere, and no tag is named for it",
-      "2 reference(s) name a path nothing holds."
     ]
   },
   "green": false
