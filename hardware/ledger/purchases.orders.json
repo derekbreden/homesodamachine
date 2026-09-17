@@ -1,14 +1,36 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-16; latest invoice and shipment-banner verification 2026-09-16",
-    "orders": 356,
-    "ordered/total": "ordered present for all 356; total present for 356 — the three cancelled orders were never charged",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-16; latest invoice and shipment-banner verification 2026-09-16 (scanner + scanning spray)",
+    "orders": 358,
+    "ordered/total": "ordered present for all 358; total present for 358 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-3768552-7755445": {
+      "ordered": "2026-09-16",
+      "subtotal": 929.0,
+      "shipping": 0.0,
+      "tax": 67.35,
+      "total": 996.35,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-18"
+    },
+    "112-7976233-8525838": {
+      "ordered": "2026-09-16",
+      "subtotal": 40.99,
+      "shipping": 0.0,
+      "tax": 2.97,
+      "total": 43.96,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-16",
+      "expected_delivery": "2026-09-18"
+    },
     "112-3782386-8113829": {
       "ordered": "2026-09-16",
       "subtotal": 10.38,

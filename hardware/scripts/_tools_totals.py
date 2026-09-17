@@ -199,6 +199,7 @@ TOOLS = [
     ("SH-U09B3 USB-C to TTL", "T_USB_UART", A("B09KXT6W46")),
     ("KATA micro flush cutters", "T_FLUSH_CUTTERS", A("B0BBML9M2V")),
     ("NEIKO 01407A digital caliper", "T_CALIPER", A("B000GSLKIW")),
+    ("Revopoint MINI 2", "T_SCANNER", A("B0FPX92DG3")),
     ("ELP 16MP autofocus USB camera", "T_PANELCAM", A("B0BX6DSQ6C")),
     ("SMALLRIG 9.8\" magic arm", "T_MAGIC_ARM", A("B087T4T8D5")),
     ("Anker 332 5-in-1 USB-C hub", "T_USB_HUB", A("B0BQLLB61B")),

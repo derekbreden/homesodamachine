@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$15,968.22",
+    "TOOLS_TOTAL": "$16,964.57",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -66,6 +66,7 @@
     "T_RXWELD": "$31.09",
     "T_SANDISK": "$45.41",
     "T_SCALE": "$19.25",
+    "T_SCANNER": "$996.35",
     "T_SCOTCHBRITE": "$22.95",
     "T_SHOP_PRESS": "$155.50",
     "T_SLIP_ROLL": "$235.94",
