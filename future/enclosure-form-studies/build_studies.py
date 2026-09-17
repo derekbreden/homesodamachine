@@ -1,6 +1,7 @@
 """Enclosure exterior studies with the installed hardware in its published coordinates."""
 from pathlib import Path
-import argparse, base64, gzip, hashlib, json, struct, time
+import argparse, base64, gzip, hashlib, json, struct, time, math, sys
+from concurrent.futures import ProcessPoolExecutor
 import cadquery as cq
 import numpy as np
 import trimesh
@@ -13,19 +14,100 @@ P=REPO/'hardware/printed-parts/enclosure/enclosure'
 MODELS={k:{'parts':[]} for k in ('current','A','B','C')}
 MESHES={}
 CHECKS={'source':{},'studies':{}}
+sys.path.insert(0,str(REPO/'hardware/printed-parts/cadlib'))
+import flute_skin
+import reeding
+sys.path.insert(0,str(REPO/'hardware/scripts'))
 
 
-def mesh_shape(shape,limit=2800):
-    v,f=shape.tessellate(.12,.2)
+def mesh_shape(shape):
+    v,f=shape.tessellate(.02,.08)
     m=trimesh.Trimesh(vertices=[q.toTuple() for q in v],faces=f,process=True)
-    if len(m.faces)>limit:m=m.simplify_quadric_decimation(face_count=limit,aggression=5)
     return m
 
 
 def add(key,mesh,role,models,limit=None):
+    from flute_payload import creased
     if limit and len(mesh.faces)>limit:mesh=mesh.simplify_quadric_decimation(face_count=limit,aggression=5)
-    MESHES[key]={'p':np.round(mesh.vertices,2).reshape(-1),'i':mesh.faces.reshape(-1)}
+    positions,normals,indices,_=creased(mesh)
+    MESHES[key]={'p':positions.reshape(-1),'n':normals.reshape(-1),'i':indices.reshape(-1)}
     for model in models:MODELS[model]['parts'].append({'mesh':key,'role':role})
+
+
+def read_payload(path):
+    raw=path.read_bytes();n=struct.unpack('<I',raw[:4])[0];header=json.loads(raw[4:4+n]);blob=raw[4+n:]
+    for m in header['meshes']:
+        vertices=np.frombuffer(blob,dtype='<f4',count=m['pos'][1],offset=m['pos'][0]).reshape(-1,3).copy()
+        faces=np.frombuffer(blob,dtype='<u4',count=m['idx'][1],offset=m['idx'][0]).reshape(-1,3).copy()
+        yield m['name'],trimesh.Trimesh(vertices=vertices,faces=faces,process=True)
+
+
+def outline_half(key):
+    """The right half of the plan, from the front centre to the rear centre."""
+    line=lambda a,b: ('line',math.dist(a,b),(a,tuple((np.array(b)-a)/math.dist(a,b)),
+                                          tuple((np.array(b)-a)[[1,0]]*np.array([1,-1])/math.dist(a,b))))
+    arc=lambda c,a,r,sweep: ('arc',r*sweep,(c,a,r))
+    segments=[]
+    if key=='B':
+        a,h=79.5,6.;r=(a*a+h*h)/(2*h);theta=math.asin(a/r)
+        segments += [arc((0,r-1),-math.pi/2,r,theta),line((a,5),(85.5,5))]
+    else:segments.append(line((0,5),(85.5 if key=='A' else 94.5 if key=='C' else 95.5,5)))
+    if key=='C':
+        segments=[line((0,5),(94.6,5)),line((94.6,5),(107.5,17.9))]
+        y=17.9
+    else:
+        r=22 if key in ('A','B') else 12
+        segments.append(arc((107.5-r,5+r),-math.pi/2,r,math.pi/2));y=5+r
+    segments += [line((107.5,y),(107.5,455)),arc((95.5,455),0,12,math.pi/2),line((95.5,467),(0,467))]
+    return segments
+
+
+def study_rail(key):
+    """Retain the installed vent/flute phase aft of Y80; distribute its front phase
+    across the revised forebody. The front remains symmetric about the centreline."""
+    original=outline_half('current');revised=outline_half(key)
+    half=sum(s[1] for s in original);length=sum(s[1] for s in revised)
+    front=half-(467-80+12*(math.pi/2-1)+95.5)
+    new_front=front+length-half
+    def at(s):
+        s=(s+half)%(2*half)-half;side=-1 if s<0 else 1;t=abs(s)
+        t=t*new_front/front if t<front else t+length-half
+        p,n=reeding.walk(revised,t)
+        return (side*p[0],p[1]),(side*n[0],n[1])
+    return flute_skin.Rail(at=at,length=2*half),2*half/260
+
+
+def study_mesh(job):
+    key,stem,cache=job;cache=Path(cache);name=key+'-'+stem
+    saved=cache/(name+'.npz');reading=cache/(name+'.json')
+    dependencies=(Path(__file__),Path(flute_skin.__file__),Path(reeding.__file__),P/f'enclosure-{stem}.step')
+    if saved.exists() and reading.exists() and reading.stat().st_mtime>max(p.stat().st_mtime for p in dependencies):
+        return name,str(saved),json.loads(reading.read_text())
+    start=time.monotonic();s=cq.importers.importStep(str(P/f'enclosure-{stem}.step')).val()
+    cutter=cq.Compound.makeCompound([corner_cuts(bevel=13),upper_cuts(bevel=4)]) if key=='C' else cq.Compound.makeCompound([corner_cuts(radius=22),upper_cuts(radius=6)])
+    result=s
+    for tool in cutter.Solids():result=result.cut(tool,tol=1e-6).clean()
+    cut_volume=result.Volume();added=0
+    if key=='B' and stem!='back-top':
+        z0,z1=(-6,160) if stem=='front-bottom' else (165.6150001,283.2450001) if stem=='pump-cartridge' else (160,355)
+        shape=front_bow().intersect(block(-110,110,-10,6,z0,z1))
+        if stem=='front-top':shape=shape.cut(block(-110,110,-10,6,165.3650001,283.4950001))
+        result=result.fuse(shape).clean();added=result.Volume()-cut_volume
+        assert added>0,(name,'front union lost material',added)
+    assert result.isValid() and len(result.Solids())==1,(name,'invalid study solid')
+    exact_box=Bnd_Box();BRepBndLib.AddOptimal_s(result.wrapped,exact_box,False,False)
+    mesh=mesh_shape(result)
+    rail,pitch=study_rail(key)
+    mesh=flute_skin.flute(mesh,[rail],pitch,1.2,5)
+    assert mesh.is_watertight,(name,'open fluted mesh')
+    # Keep the actual flute triangles and the fine CAD tessellation. No face-count target.
+    np.savez_compressed(saved,p=mesh.vertices,f=mesh.faces)
+    row={'valid':True,'solids':1,'removed_mm3':s.Volume()-cut_volume,'added_mm3':added,
+         'bounds':list(exact_box.Get()),'triangles':len(mesh.faces),'watertight':bool(mesh.is_watertight),
+         'preview_reduction':False,'cad_linear_tolerance_mm':.02,'cad_angle_tolerance_rad':.08}
+    reading.write_text(json.dumps(row,indent=2)+'\n')
+    print(name,len(mesh.faces),'triangles',round(time.monotonic()-start,1),'seconds',flush=True)
+    return name,str(saved),row
 
 
 def block(x0,x1,y0,y1,z0,z1):
@@ -92,36 +174,25 @@ def main(output):
         f=P/f'enclosure-{stem}.step';sources[stem]=cq.importers.importStep(str(f)).val()
         CHECKS['source'][stem]=hashlib.sha256(f.read_bytes()).hexdigest()
         print('read',stem,flush=True)
-    cuts={'A':cq.Compound.makeCompound([corner_cuts(radius=22),upper_cuts(radius=6)]),
-          'B':cq.Compound.makeCompound([corner_cuts(radius=22),upper_cuts(radius=6)]),
-          'C':cq.Compound.makeCompound([corner_cuts(bevel=13),upper_cuts(bevel=4)])}
-    bow=front_bow()
+    cache=OUT/'mesh-cache';cache.mkdir(exist_ok=True)
+    jobs=[]
     for stem,s in sources.items():
         role='cartridge' if stem=='pump-cartridge' else 'cap' if stem=='pump-cap' else stem
         unchanged=stem in ('back-bottom','pump-cap')
-        add('current-'+stem,mesh_shape(s,2800),role,list(MODELS) if unchanged else ['current'])
+        payload=P/f'enclosure-{stem}.step.mesh'
+        CHECKS['source'][stem+'_fluted_payload_sha256']=hashlib.sha256(payload.read_bytes()).hexdigest()
+        _,mesh=next(read_payload(payload))
+        add('current-'+stem,mesh,role,list(MODELS) if unchanged else ['current'])
         if unchanged:continue
-        for k,cutter in cuts.items():
-            start=time.monotonic();result=s
-            for tool in cutter.Solids():
-                result=result.cut(tool,tol=1e-6).clean()
-            cut_volume=result.Volume()
-            added=0
-            if k=='B' and stem!='back-top':
-                if stem=='front-bottom': z0,z1=-6,160
-                elif stem=='pump-cartridge':z0,z1=165.6150001,283.2450001
-                else:z0,z1=160,355
-                shape=bow.intersect(block(-110,110,-10,6,z0,z1))
-                if stem=='front-top':shape=shape.cut(block(-110,110,-10,6,165.3650001,283.4950001))
-                result=result.fuse(shape).clean();added=result.Volume()-cut_volume
-                assert added>0,(k,stem,'front union lost material',added)
-            name=k+'-'+stem
-            assert result.isValid() and len(result.Solids())==1,(k,stem,'invalid study solid')
-            exact_box=Bnd_Box();BRepBndLib.AddOptimal_s(result.wrapped,exact_box,False,False)
-            m=mesh_shape(result,2800)
-            add(name,m,role,[k])
-            CHECKS['studies'][name]={'valid':result.isValid(),'solids':len(result.Solids()),'removed_mm3':s.Volume()-cut_volume,'added_mm3':added,'bounds':list(exact_box.Get())}
-            print(name,CHECKS['studies'][name],round(time.monotonic()-start,2),flush=True)
+        for k in ('A','B','C'):
+            if k=='B' and stem=='back-top':continue
+            jobs.append((k,stem,str(cache)))
+    with ProcessPoolExecutor(max_workers=3) as pool:
+        for name,path,row in pool.map(study_mesh,jobs):
+            k,stem=name.split('-',1);role='cartridge' if stem=='pump-cartridge' else stem
+            saved=np.load(path);mesh=trimesh.Trimesh(saved['p'],saved['f'],process=False)
+            add(name,mesh,role,[k,'B'] if name=='A-back-top' else [k])
+            CHECKS['studies'][name]=row
     for name,mesh in source_payload():
         if name in ('display-cover','display-gasket'):continue
         if name.startswith('enclosure-') and name not in ('enclosure-tee-carrier-left','enclosure-tee-carrier-right'):continue
@@ -149,26 +220,23 @@ def main(output):
     cover_path=REPO/'hardware/printed-parts/enclosure/display-cover/display-cover.step'
     cover=cq.importers.importStep(str(cover_path)).val().rotate((0,0,0),(1,0,0),45).translate((0,35.9359216769,324.0640783231))
     CHECKS['source']['display_cover_sha256']=hashlib.sha256(cover_path.read_bytes()).hexdigest()
-    add('fixed-machine-display-cover',mesh_shape(cover,900),'cover',list(MODELS))
+    add('fixed-machine-display-cover',mesh_shape(cover),'cover',list(MODELS))
     data={'meshes':MESHES,'models':MODELS,'checks':CHECKS}
     buf=bytearray()
     for m in MESHES.values():
-        for key,dtype,scale in [('p','<i2',50),('i','<u2',1)]:
-            values=m[key];values=np.rint(values*scale) if key=='p' else values
+        for key,dtype,scale in [('p','<i4',1000),('n','<i4',10000),('i','<u4',1)]:
+            values=m[key];values=np.rint(values*scale) if key in ('p','n') else values
             assert values.min()>=np.iinfo(dtype).min and values.max()<=np.iinfo(dtype).max
             arr=values.astype(np.int32)
-            delta=np.diff(arr.reshape(-1,3),axis=0,prepend=np.zeros((1,3),dtype=np.int32)).reshape(-1) if key=='p' else np.diff(arr,prepend=0)
-            assert delta.min()>=-32768 and delta.max()<=32767
-            arr=delta.astype('<i2');buf.extend(b'\0'*(-len(buf)%4));m[key]=[len(buf),len(arr)];buf.extend(arr.tobytes())
+            delta=np.diff(arr.reshape(-1,3),axis=0,prepend=np.zeros((1,3),dtype=np.int32)).reshape(-1) if key in ('p','n') else np.diff(arr,prepend=0)
+            arr=delta.astype('<i4');buf.extend(b'\0'*(-len(buf)%4));m[key]=[len(buf),len(arr)];buf.extend(arr.tobytes())
     h=json.dumps(data,separators=(',',':')).encode();raw=struct.pack('<I',len(h))+h
     raw+=b'\0'*(-len(raw)%4)+bytes(buf)
     payload=base64.b64encode(gzip.compress(raw,9)).decode()
     (HERE/'models.b64').write_text(payload)
     (HERE/'geometry-checks.json').write_text(json.dumps(CHECKS,indent=2)+'\n')
-    if (HERE/'enclosure-forms.template.html').exists():
-        content=(HERE/'enclosure-forms.template.html').read_text().replace('__MODEL_DATA__',payload)
-        assert len(content.encode())<1_000_000,len(content)
-        (OUT/'enclosure-forms.html').write_text(content)
+    from compose import compose
+    compose(OUT)
     print('payload bytes',len(payload),flush=True)
 
 if __name__=='__main__':
