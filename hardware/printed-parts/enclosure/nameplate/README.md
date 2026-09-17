@@ -16,7 +16,7 @@ thickens to behind it, the two screw bosses and their heat-set bores are cut by
                SODA
                MACHINE
 
-   homesodamachine.com/u/0001       ← centred below the screw line
+    homesodamachine.com/0001        ← centred below the screw line
 
             SERIAL  0001           ← all details share one small size, each line centred
          120V 60Hz 5A 600W
@@ -52,7 +52,7 @@ One face, `bulkhead_ring.WORD_FONT`, in three levels:
   set at [10.2](TITLE_EM), with caps [7.77 mm](TITLE_CAP) high and [2.8 mm](TITLE_GAP) between lines.
   The complete lockup is [78.63 mm](LOCKUP_W) wide.
 - The unit link: [5.5](LINK_EM), caps [4.19 mm](LINK_CAP) high, centred below the screw line.
-  Its width is [79.97 mm](LINK_W). Every serial is four digits on one advance, so its width
+  Its width is [75.08 mm](LINK_W). Every serial is four digits on one advance, so its width
   holds from unit 0001 to 9999.
 - The details: serial, ratings, voltage warnings and refrigerant notice at [2.8](BODY_EM),
   with caps [2.13 mm](BODY_CAP) high, each line centred on the plate with equal line spacing.
