@@ -1082,6 +1082,26 @@
    "active": true
   },
   {
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant lies inside the appliance's own exterior",
+   "kind": "gate",
+   "status": "pass",
+   "value": "all four inside `outer`",
+   "target": "no face past the box's exterior on any axis",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "y-seam-upper",
    "label": "Both upper seam blocks join the ceiling and pass their complete entry lanes",
    "kind": "gate",
