@@ -358,12 +358,10 @@ gn_bend1_z_mid = (
 
 
 # SPLIT — the shell prints in TWO pieces, meeting at one 20 mm slip-fit
-# joint on bend 2, at half the gooseneck's total turn. Each piece then
-# carries [70°](SPLIT_JUNCTION_ROT) of turn and prints with its build direction on its own
-# half's angular midpoint, so the steepest overhang either piece can
-# reach is a quarter of the total turn (PRINTING section). The joint's
-# mating surfaces follow the arc: the tip swings shut about the bend-2
-# axis.
+# joint on bend 2, at half the gooseneck's total turn. Each piece carries
+# [70°](SPLIT_JUNCTION_ROT) of turn; its bed orientation is set in the
+# PRINTING section. The joint's mating surfaces follow the arc: the tip
+# swings shut about the bend-2 axis.
 # Fit: the plug's outer surface sits slip/2 inside the socket's cavity
 # surface, all the way around the cross-section.
 
@@ -453,27 +451,22 @@ split_normal = (0.0, -_tan_at_junction[0], _tan_at_junction[1])
 split_junction_y = soda_faucet_tube_y - _path_junction[0]  # [-38.37 mm](SPLIT_JUNCTION_Y)
 split_junction_z = zone5_z_top + _path_junction[1]  # [220.9 mm](SPLIT_JUNCTION_Z)
 
-# PRINTING — each piece beds on the face at the far end of its own half
-# of the turn and tilts until its build direction lands on that half's
-# angular midpoint. The overhang on a swept flank is then the angle
-# between the build direction and the local tangent, which over a half
-# of length split_junction_rot never exceeds half of it. Splitting the
-# turn in half and bisecting each half is what puts the worst visible
-# overhang at a quarter of the whole.
-#
-# The base beds on its foot (Z=0) with the -Y edge lifted; the tip beds
-# on the joint end with the crown lifted.
-#
-# Build direction of each piece, as a path rotation: the angular
-# midpoint of the half it carries.
-print_base_build_rot = split_junction_rot / 2.0
+# PRINTING — the base beds on its foot (Z=0) with the -Y edge lifted
+# [15°](PRINT_TILT), keeping the long straight neck close to vertical.
+# The tip beds on the joint end with the crown lifted and its build
+# direction at the angular midpoint of the sweep it carries.
+print_base_build_rot = math.radians(15.0)
 print_tip_build_rot = (split_junction_rot + _path_total_rot) / 2.0
 # Tilt off the bed face. The foot is square to the path at rotation 0
-# and the joint face to the path at the junction, so each tilt is the
-# distance from that end round to the build direction — [35°](PRINT_TILT) both.
+# and the joint face to the path at the junction.
 print_base_tilt_rad = print_base_build_rot
 print_tip_tilt_rad = print_tip_build_rot - split_junction_rot
-max_print_overhang_rad = _path_total_rot / 4.0  # [35°](MAX_PRINT_OVERHANG)
+max_print_overhang_rad = max(
+    print_base_build_rot,
+    split_junction_rot - print_base_build_rot,
+    print_tip_build_rot - split_junction_rot,
+    _path_total_rot - print_tip_build_rot,
+)  # [55°](MAX_PRINT_OVERHANG)
 
 
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
