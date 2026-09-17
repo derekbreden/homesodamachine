@@ -1,0 +1,28 @@
+[step] The two snap teeth project 0.45 mm beyond the 3 mm arms: 0.15 mm running clearance and 0.30 mm engagement with the cover receivers. These are the retaining teeth of the PET-GF fit trial.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=-13.750 y=-133.216 z=193.571
+click: x=13.750 y=-133.216 z=193.571
+
+[slope] The dispense face is the outlet plane s=0. It carries the tube exits and the closed signal-passage cap. With the tip's -105 degree print rotation, this face points upward.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-136.869 z=182.799
+
+[slope] The cantilever-clearance roof is at local n=9.75, leaving 0.15 mm above the 3 mm arms. Its plane preserves the free arm space. It is inclined 55 degrees to the bed in the tip's -105 degree print pose.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-127.068 z=203.816
+
+[slope] The two cantilever undersides are at local n=6.60; their tops are at n=9.60. These flat faces maintain each arm's 3 mm bending section. They are inclined 55 degrees to the bed in the -105 degree print pose.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-122.597 z=204.242
+
+[slope] This is the rear end of the open display-component channel at s=46.25. The end plane bounds the hardware clearance and points upward in the tip's -105 degree print pose.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-110.487 z=221.035
+
+[slope] These are the cantilevers' free end faces at s=9.10. The 3 by 3 mm arms and their retaining teeth terminate here. The end faces point upward in the tip's -105 degree print pose.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-134.352 z=192.567
+
+[slope] The curved lap's male plug ends in a complete annular section with a 3 mm minimum wall, perpendicular to the local arc tangent. This is the plug's entry face into the mating socket. Its inclination is 49.36 degrees to the bed in the -105 degree print pose.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
+click: x=0.000 y=-20.282 z=215.752
