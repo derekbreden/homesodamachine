@@ -36,12 +36,12 @@ def serial_of(unit: int) -> str:
 
 def unit_url(unit: int) -> str:
     """The unit's own page."""
-    return f"https://{portal_host}/u/{serial_of(unit)}"
+    return f"https://{portal_host}/{serial_of(unit)}"
 
 
 def unit_url_plain(unit: int) -> str:
     """That URL as the plate letters it, for a reader who would rather type it."""
-    return f"{portal_host}/u/{serial_of(unit)}"
+    return f"{portal_host}/{serial_of(unit)}"
 
 
 def main():
