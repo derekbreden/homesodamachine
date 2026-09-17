@@ -211,6 +211,8 @@ TOOLS = [
         L(order="us728027710789775361"),
     ])),
     ("AMS HT", "T_AMS_HT", L(order="us717877837343809537", contains="AMS HT")),
+    ("TPU Feed Assist Module", "T_TPU_FEED",
+     L(order="us776951289157341185", contains="Feed Assist")),
     ("AMS 2 Pro", "T_AMS2PRO", SUM([
         L(order="us718417332286169089", contains="Bambu Lab AMS 2 Pro"),
         L(order="us718417332286169089", contains="Switching Adapter"),

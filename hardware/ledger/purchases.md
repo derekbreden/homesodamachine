@@ -612,7 +612,10 @@ Receipts grouped by order; itemized orders separate equipment, filament and tax.
 | 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ACQUIRED (delivered Aug 14) |
 | 2026-08-19 | us766639627317551105 | H2C Right 0.2 mm standard-flow SS induction hotend ×2 ($79.98) + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm **high flow** ×1 ($89.99) + NE tax $12.32; shipping waived | $182.29 | ACQUIRED |
 | 2026-08-30 | us770658156626939905 | Bambu Textured PEI Plate (H2C) ×2 ($109.98) + Mag-Alloy Scraper ×1 ($16.99, add-ons deal −$3.00) + Bambu Scraper 3 pcs ×1 ($2.99, add-ons deal −$1.00) + NE tax $9.41, shipping waived | $139.37 | ACQUIRED (delivered Sep 2; Bambu delivery confirmation in Gmail) |
-| **§15 subtotal — 20 orders (20 ACQUIRED)** | | | **ACQUIRED $9,130.67** | |
+| 2026-09-16 | us776951289157341185 | TPU Feed Assist Module ×1 (H2 Series / X1 Series / P1 Series / P2S / X2D) | $49.99 | ON-ORDER |
+| 2026-09-16 | us776951289157341185 | Filament — TPU 90A White 51105, 1 kg ×1 | $41.99 | ON-ORDER |
+| 2026-09-16 | us776951289157341185 | NE sales tax; shipping waived | $6.66 | ON-ORDER |
+| **§15 subtotal — 21 orders (20 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $9,130.67 · ON-ORDER $98.64** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -715,10 +718,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$34,094.37](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$39,531.91](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,845.56](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,944.20](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$41,430.54](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$41,529.18](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
