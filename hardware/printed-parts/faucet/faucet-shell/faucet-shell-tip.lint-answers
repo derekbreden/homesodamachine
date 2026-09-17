@@ -1,15 +1,11 @@
-[slope] The dispense face is the outlet plane s=0. It carries the three tube exits and the closed signal-passage cap. With the tip's -105 degree print rotation, this face points upward.
+[slope] The dispense face is the outlet plane s=0. It carries the three tube exits and has 2 mm axial stock behind it. With the tip's -105 degree print rotation, this face points upward.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
 click: x=0.000 y=-136.868 z=182.800
 
-[slope] This is the rear end of the open display-component channel at s=46.25. The end plane bounds the hardware clearance and points upward in the tip's -105 degree print pose.
+[slope] This is the rear end of the open display-component channel at s=47.24. The end plane bounds the hardware clearance and points upward in the tip's -105 degree print pose.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-110.483 z=221.036
+click: x=0.000 y=-109.755 z=221.716
 
-[slope] These are the upper bearing shoulders of the two cover-retaining grooves at local n=4.75. The flat shoulders retain the cover's broad lips with 0.15 mm normal play above the seated lips. They are inclined 55 degrees to the bed in the tip's -105 degree print pose.
+[slope] These are the upper bearing shoulders of the two cover-retaining grooves at local n=4.75. They retain the cover's broad lips with 0.15 mm clearance above the seated lip tops. They are inclined 55 degrees to the bed in the tip's -105 degree print pose and belong to the open chassis region served by the bed-rooted tip support body. Exact support contacts and cleanup are a physical print reading.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-122.369 z=201.636
-
-[slope] The curved lap's male plug ends in a complete annular section with a 3 mm minimum wall, perpendicular to the local arc tangent. This is the plug's entry face into the mating socket. Its inclination is 49.36 degrees to the bed in the -105 degree print pose.
-file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-20.282 z=215.752
+click: x=0.000 y=-122.051 z=202.015
