@@ -496,6 +496,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Railer 4 mm hex bit, 2", S2 steel, 5-pack — the M5 SHCS driver size (MewuDecor M5 × 10, §11). Does not drive the M5 × 20 countersunk motor-carriage screws in §1, which are DIN 7991 and take 3 mm. Sole item on its invoice, $9.99 + $0.72 NE tax | [B0BXMJ48LC](https://www.amazon.com/dp/B0BXMJ48LC) | 1 pk (5) | $10.71 | 112-6302698-6065059 | 2026-09-02 | 2026-09-03 | ACQUIRED |
 | SVLING M5 × 0.8 × 50 mm fully threaded socket-head cap screws, 40 pc, 12.9 alloy steel, black, 4 mm hex key included — general fixture stock; $7.99 + $0.58 tax, shipping $0.00. Amazon order details verified 2026-09-08; arriving 2026-09-11 | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR) | 1 pk (40) | $8.57 | 112-6085763-5397009 | 2026-09-08 | 2026-09-11 | ACQUIRED |
 
+| Revopoint MINI 2 3D scanner, Advanced kit — blue-light structured-light scanner for small objects, 0.02 mm stated accuracy, 24-bit colour. Bought to build a manufacturing model of the donor TouchFlo lever: the repo carries that lever only as a swing-clearance envelope ([faucet_assembly.py](/hardware/faucet-layout/faucet_assembly.py)), which cannot become the printed replacement. The lever lifts off the valve, so it scans free-standing on a turntable with its working attachment exposed. Revo Scan 6 is ARM64-native on macOS and also runs on iOS/Android over Wi-Fi, so the capture is not bound to the 8 GB M3 Air. Sole item on its invoice, $929.00 + $67.35 NE tax. Amazon estimates 2026-09-18 | [B0FPX92DG3](https://www.amazon.com/dp/B0FPX92DG3) | 1 | $996.35 | 112-3768552-7755445 | 2026-09-16 | — | ON-ORDER |
+| AESUB Orange sublimating 3D-scanning spray, 13.5 fl oz — matting coat for the MINI 2 above. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. The two surfaces this build has to capture are the worst cases for optical scanning — the donor lever is black plastic, the Westbrass is chrome — and because the lever comes off the faucet it can be sprayed on the bench with nothing installed at risk. Sole item on its invoice, $40.99 + $2.97 NE tax. Amazon estimates 2026-09-18 | [B08ZYVRHLF](https://www.amazon.com/dp/B08ZYVRHLF) | 1 | $43.96 | 112-7976233-8525838 | 2026-09-16 | — | ON-ORDER |
 ## 13. Printing consumables
 
 3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). Per bom.md §7 the exterior and the cold core's own shell stack are Polymaker Fiberon PET-GF15, and the small parts inside are PETG; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
@@ -713,10 +715,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$34,094.37](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$39,531.91](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$805.25](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,845.56](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$40,390.23](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$41,430.54](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
