@@ -1,0 +1,101 @@
+<div id="enclosure-forms" aria-label="Enclosure exterior form comparison">
+  <div class="viz-controls">
+    <label class="form-label">Compare<select class="form-select" data-control="focus"><option value="all">All four</option><option value="current">Current outline</option><option value="A">A · Soft shoulders</option><option value="B">B · Bowed front</option><option value="C">C · Crisp bevels</option></select></label>
+    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Front three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="top">Top</option><option value="rear">Rear three-quarter</option></select></label>
+    <label class="form-label">Show<select class="form-select" data-control="mode"><option value="finish">Exterior</option><option value="pieces">Printed pieces</option><option value="inside">Fixed interior</option></select></label>
+    <label class="form-label">PET-GF<select class="form-select" data-control="finish"><option value="white">White</option><option value="black">Black</option></select></label>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="withdrawn"><span class="form-check-label">Withdraw cartridge</span></label>
+  </div>
+  <div class="ef-key text-small" aria-live="polite"></div>
+  <div class="ef-grid">
+    <section class="ef-panel" data-model="current"><div class="ef-heading"><span>Current outline</span><span class="text-small text-muted">R12 front corners</span></div><div class="ef-stage" role="img" aria-label="Current enclosure outline. Drag to rotate all four models."></div><div class="text-small">215 × 462 × 361 mm</div></section>
+    <section class="ef-panel" data-model="A"><div class="ef-heading"><span>A · Soft shoulders</span><span class="text-small text-muted">R22 front corners</span></div><div class="ef-stage" role="img" aria-label="Soft shoulders enclosure study. Drag to rotate all four models."></div><div class="text-small">Same envelope · rounded upper edges</div></section>
+    <section class="ef-panel" data-model="B"><div class="ef-heading"><span>B · Bowed front</span><span class="text-small text-muted">6 mm front crown</span></div><div class="ef-stage" role="img" aria-label="Bowed front enclosure study. Drag to rotate all four models."></div><div class="text-small">6 mm more depth · R22 front corners</div></section>
+    <section class="ef-panel" data-model="C"><div class="ef-heading"><span>C · Crisp bevels</span><span class="text-small text-muted">13 mm corner bevels</span></div><div class="ef-stage" role="img" aria-label="Crisp bevels enclosure study. Drag to rotate all four models."></div><div class="text-small">Same envelope · flat diagonal shoulders</div></section>
+  </div>
+  <div class="ef-note text-small text-muted">Same scale · smooth surfaces for comparing form · exterior studies, print qualification pending</div>
+  <div class="sr-only">All four models use the same installed components, funnel, display, pump cartridge supports and internal assembly coordinates. The four enclosure quadrants and removable pump cartridge remain separate. The views use simplified meshes of exact CAD studies. The current fluting is omitted from every model to isolate exterior form. The bowed front adds material ahead of the existing front surface. The rounded and beveled alternatives remove material only at the two front vertical corners.</div>
+</div>
+<style>
+#enclosure-forms .ef-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 20px;margin-top:12px}
+#enclosure-forms .ef-heading{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:space-between;font-weight:500}
+#enclosure-forms .ef-heading .text-small{font-weight:400}
+#enclosure-forms .ef-stage{height:345px;width:100%;touch-action:none;position:relative}
+#enclosure-forms canvas{display:block;width:100%;height:100%}
+#enclosure-forms .ef-key{min-height:24px;margin-top:10px;display:flex;gap:8px 16px;flex-wrap:wrap}
+#enclosure-forms .ef-note{margin-top:20px}
+#enclosure-forms .ef-key span{display:inline-flex;align-items:center;gap:5px}
+#enclosure-forms .ef-swatch{width:10px;height:10px;display:inline-block}
+#enclosure-forms[data-focus]:not([data-focus="all"]) .ef-grid{grid-template-columns:minmax(0,1fr)}
+#enclosure-forms[data-focus]:not([data-focus="all"]) .ef-stage{height:550px}
+#enclosure-forms .ef-panel[hidden]{display:none}
+@media(max-width:580px){#enclosure-forms .ef-grid{grid-template-columns:minmax(0,1fr);gap:22px}#enclosure-forms .ef-stage{height:360px}#enclosure-forms[data-focus]:not([data-focus="all"]) .ef-stage{height:420px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {toCreasedNormals} from 'three/addons/utils/BufferGeometryUtils.js';
+const root=document.getElementById('enclosure-forms');
+const binary=Uint8Array.from(atob('__MODEL_DATA__'),c=>c.charCodeAt(0));
+const raw=await new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+const hlen=new DataView(raw).getUint32(0,true), data=JSON.parse(new TextDecoder().decode(new Uint8Array(raw,4,hlen))),offset=(hlen+7)&~3;
+const state={focus:'all',view:'three',mode:'finish',finish:'white',withdrawn:false};
+const geometries=new Map(),scenes=[];let syncing=false;
+for(const [name,m] of Object.entries(data.meshes)){
+ let g=new THREE.BufferGeometry();
+ const positions=Float32Array.from(new Int16Array(raw,offset+m.p[0],m.p[1]));for(let i=3;i<positions.length;i++)positions[i]+=positions[i-3];for(let i=0;i<positions.length;i++)positions[i]/=50;
+ const deltas=new Int16Array(raw,offset+m.i[0],m.i[1]),indices=new Uint16Array(deltas.length);let sum=0;for(let i=0;i<deltas.length;i++){sum+=deltas[i];indices[i]=sum}
+ g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));
+ g=toCreasedNormals(g,Math.PI/4);g.computeBoundingSphere();geometries.set(name,g);
+}
+function token(name){const p=document.createElement('span');p.style.color=`var(${name})`;p.style.display='none';root.append(p);const v=getComputedStyle(p).color;p.remove();return new THREE.Color(v)}
+const pieceTokens={'front-bottom':'--viz-series-1','front-top':'--viz-series-2','back-bottom':'--viz-series-3','back-top':'--viz-series-4',cartridge:'--viz-series-5',cover:'--viz-series-6',cap:'--viz-series-5'};
+const hardwareTokens={core:'--viz-series-1',pump:'--viz-series-2',carrier:'--viz-series-2',compressor:'--viz-series-3',condenser:'--viz-series-3',hardware:'--viz-series-4',tube:'--viz-series-5'};
+function color(role){
+ if(state.mode==='pieces'&&pieceTokens[role])return token(pieceTokens[role]);
+ if(state.mode==='inside'&&hardwareTokens[role])return token(hardwareTokens[role]);
+ if(pieceTokens[role])return new THREE.Color(state.finish==='white'?'#dfdfd7':'#444a4e');
+ if(role==='glass')return new THREE.Color('#172a30');
+ if(role==='funnel')return new THREE.Color('#c0c2bb');
+ if(role==='core')return new THREE.Color('#aaa999');
+ if(role==='port')return new THREE.Color('#859098');
+ return new THREE.Color('#33383c');
+}
+const externals=new Set(['funnel','glass','cover','device','gasket','pan','rear','port','carrier']);
+for(const [key,model] of Object.entries(data.models)){
+ const panel=root.querySelector(`[data-model="${key}"]`),stage=panel.querySelector('.ef-stage');
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.06;renderer.outputColorSpace=THREE.SRGBColorSpace;stage.append(renderer.domElement);
+ const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-300,300,280,-280,.1,3000);camera.up.set(0,0,1);
+ scene.add(new THREE.HemisphereLight(0xffffff,0xa0a4ad,1.6));
+ for(const [p,i] of [[[80,-350,800],3.1],[[-480,50,420],1.1],[[300,550,500],1.7]]){const l=new THREE.DirectionalLight(0xffffff,i);l.position.set(...p);scene.add(l)}
+ const parts=[];
+ for(const p of model.parts){
+  const material=new THREE.MeshStandardMaterial({color:color(p.role),roughness:p.role==='glass'?.25:.79,metalness:0,side:THREE.DoubleSide});
+  const object=new THREE.Mesh(geometries.get(p.mesh),material);object.userData.role=p.role;scene.add(object);
+  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(object.geometry,45),new THREE.LineBasicMaterial({color:token('--foreground'),transparent:true,opacity:.10}));object.add(edges);
+  parts.push({object,edges,role:p.role,name:p.mesh});
+ }
+ const controls=new OrbitControls(camera,renderer.domElement);controls.enablePan=false;controls.minZoom=.65;controls.maxZoom=3.5;controls.target.set(0,210,175);controls.enableDamping=false;
+ const item={key,panel,stage,renderer,scene,camera,controls,parts};scenes.push(item);
+ controls.addEventListener('change',()=>{if(syncing)return;syncing=true;for(const o of scenes){if(o!==item){o.camera.position.copy(camera.position);o.camera.quaternion.copy(camera.quaternion);o.camera.zoom=camera.zoom;o.controls.target.copy(controls.target);o.camera.updateProjectionMatrix()}if(!o.panel.hidden)o.renderer.render(o.scene,o.camera)}syncing=false});
+ new ResizeObserver(()=>resize(item)).observe(stage);
+}
+function resize(item){if(item.panel.hidden)return;const w=item.stage.clientWidth,h=item.stage.clientHeight;if(!w||!h)return;item.renderer.setSize(w,h,false);const a=w/h;const box=[[-114,state.withdrawn?-110:-8,-7],[114,478,366]],q=item.camera.quaternion.clone().invert();let px=0,py=0;for(const x of [box[0][0],box[1][0]])for(const y of [box[0][1],box[1][1]])for(const z of [box[0][2],box[1][2]]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}const span=Math.max(py*2,px*2/a)*1.07;item.camera.left=-span*a/2;item.camera.right=span*a/2;item.camera.top=span/2;item.camera.bottom=-span/2;item.camera.updateProjectionMatrix();item.renderer.render(item.scene,item.camera)}
+function orient(){syncing=true;const dirs={three:[610,-920,490],front:[0,-1200,0],side:[1200,0,0],top:[0,.01,1200],rear:[610,920,470]};for(const s of scenes){const c=new THREE.Vector3(0,215,state.view==='top'?175:177);s.controls.target.copy(c);s.camera.position.copy(c).add(new THREE.Vector3(...dirs[state.view]));s.camera.zoom=1;s.camera.lookAt(c);s.camera.updateProjectionMatrix();s.controls.update()}syncing=false}
+function appearance(){for(const s of scenes){for(const p of s.parts){
+ const shell=Boolean(pieceTokens[p.role]);p.object.visible=state.mode==='inside'||shell||externals.has(p.role)||(state.withdrawn&&p.role==='pump');
+ p.object.material.color.copy(color(p.role));p.object.material.transparent=state.mode==='inside'&&shell;p.object.material.opacity=state.mode==='inside'&&shell?.13:1;p.object.material.depthWrite=!(state.mode==='inside'&&shell);
+ p.edges.material.color.copy(token('--foreground'));p.edges.material.opacity=state.mode==='inside'&&shell?.12:state.mode==='pieces'?.13:.08;
+ const moves=p.role==='cartridge'||p.role==='cap'||p.role==='pump';p.object.position.y=state.withdrawn&&moves?-100:0;
+ }}
+ const key=root.querySelector('.ef-key');key.replaceChildren();
+ const labels=state.mode==='pieces'?[["Front bottom",'--viz-series-1'],["Front top",'--viz-series-2'],["Back bottom",'--viz-series-3'],["Back top",'--viz-series-4'],["Pump cartridge",'--viz-series-5'],["Display cover",'--viz-series-6']]:state.mode==='inside'?[["Cold core",'--viz-series-1'],["Pumps and carrier",'--viz-series-2'],["Refrigeration",'--viz-series-3'],["Other hardware",'--viz-series-4'],["Tubing",'--viz-series-5']]:[];
+ for(const [text,t] of labels){const s=document.createElement('span'),i=document.createElement('i');i.className='ef-swatch';i.style.background=`var(${t})`;s.append(i,document.createTextNode(text));key.append(s)}
+ if(!labels.length)key.textContent='Display, funnel, internal supports and component positions held fixed';
+}
+function update(){root.dataset.focus=state.focus;for(const s of scenes)s.panel.hidden=state.focus!=='all'&&state.focus!==s.key;appearance();for(const s of scenes)resize(s)}
+for(const input of root.querySelectorAll('[data-control]'))input.addEventListener('change',()=>{state[input.dataset.control]=input.type==='checkbox'?input.checked:input.value;if(input.dataset.control==='view')orient();update()});
+new MutationObserver(()=>update()).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+orient();update();root.dataset.ready='true';window.enclosureStudy={state,checks:data.checks,render:()=>{for(const s of scenes)resize(s)},scenes};
+</script>
