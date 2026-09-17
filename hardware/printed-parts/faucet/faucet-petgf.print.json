@@ -1,8 +1,10 @@
 {
   "project": "faucet-petgf.3mf",
-  "settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
-  "printer": "Bambu Lab H2C 0.4 nozzle",
-  "process": "0.24mm Standard @BBL H2C",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "printer": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+  "process": "0.24mm PET-GF faucet",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
   ],
@@ -263,6 +265,6 @@
       "embedded_vertex_error_mm": 4.995115432393504e-10
     }
   ],
-  "project_sha256": "61ea84f45b994e1e87b3bb0bc8fe44b03eca790b5b45b4833e7dc77b1a666722",
+  "project_sha256": "86f2652a35b9196dd83ecd5f16f9964c6a0b6eb6d1e073d206959e68cb903526",
   "settings_preserved_byte_for_byte": true
 }
