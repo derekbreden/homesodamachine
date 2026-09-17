@@ -98,6 +98,17 @@ Geometry as printed (per the current `tpu_o_ring.py` / `README.md`): inner Ø 9.
 
 Settings observed in the 3mf:
 - Printer: Bambu Lab H2C, `nozzle_diameter` `[0.6, 0.6]`; `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate.
+
+**`nozzle_diameter` here is the profile, not the metal.** It mirrors
+`printer_settings_id` (`Bambu Lab H2C 0.6 nozzle`) into both slots: across all
+38 committed `.3mf` projects in this repo the two entries are never once
+different, although the H2C's two sides take different hotend types and the
+ledger buys different sizes for each. The field names the machine profile that
+was selected, not the nozzle that was installed. Derek, 2026-09-17: *"we printed
+TPU with the right hotend"*, and he puts the nozzle at 0.2 mm or possibly
+0.4 mm — every 0.6 hotend on [purchases.md](/hardware/ledger/purchases.md) is an
+L-side part. **The nozzle these runs used is not established.**
+
 - Filament: `Bambu TPU 85A @BBL H2C`, `filament_type` TPU. `nozzle_temperature` 225 °C, `hot_plate_temp` 35 °C, `filament_flow_ratio` 1.0, `filament_max_volumetric_speed` 2.2 mm³/s.
 - Process: `layer_height` 0.18 mm, `initial_layer_print_height` 0.3 mm, `line_width` 0.62 mm, `wall_loops` 1, `wall_generator` classic, `detect_thin_wall` 0, `sparse_infill_density` 0 %, `raft_layers` 0, `brim_type` auto_brim, `enable_support` 0.
 - Object: one, `tpu-o-ring.step`, printed cap-down (per README). The 3mf is saved + printed-from; `slice_info.config` header-only.
