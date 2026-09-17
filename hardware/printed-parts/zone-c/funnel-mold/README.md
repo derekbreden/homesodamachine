@@ -124,17 +124,20 @@ The saved project contains two plates: the cavity upright and the core inverted.
 It selects these presets:
 
 - Process: **0.24mm Standard @BBL H2C funnel mold**
-- Filament: **Bambu PETG Translucent @BBL H2C 0.4 nozzle**
-- Printer: **Bambu Lab H2C 0.4 nozzle**
+- Filament: **Funnel mold PETG Translucent - 0.4 Standard - flow 0.94**
+- Printer: **Bambu Lab H2C 0.4 Standard +0.18 Z trim**
 
 The project selects 0.4 mm Standard nozzles. It uses 0.24 mm layers, a 0.20 mm
 first layer, Textured PEI,
 two wall loops, 100% zig-zag infill and automatic normal supports in Snug style.
 Support top and bottom Z distances are 0.20 mm; first-layer gap and object XY
 distance are 0.48 mm. Top surfaces use monotonic lines and bottom surfaces
-use monotonic fill. The filament flow ratio is 0.97. Maximum volumetric speed
+use monotonic fill. The active Standard filament flow ratio is 0.94. Maximum volumetric speed
 is 6 mm³/s and infill/wall overlap is 15%. Nozzle temperature is 250 °C on the
 first layer and 245 °C afterward.
+
+The startup code applies a +0.18 mm Z trim in addition to the plate correction.
+With the 0.4 mm nozzle and Textured PEI, the emitted command is `G29.1 Z0.16`.
 
 Open and slice this project in Bambu Studio for the current
 toolpaths, print time and material estimate; the saved project contains no G-code.
