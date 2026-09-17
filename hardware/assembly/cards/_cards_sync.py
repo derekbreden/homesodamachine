@@ -61,6 +61,7 @@ from _cardgen import COVER, SUBSYSTEM_ORDER, sync  # noqa: E402
 from _cards_ip import internal_plumbing  # noqa: E402  — IP + WR + FU
 from _cards_cc import cold_core, refrigerant_loop  # noqa: E402
 from _cards_fs import bench  # noqa: E402  — PV + CA + FC + AB + FS + GT
+from _cards_fu import faucet  # noqa: E402  — FU tube cuts
 
 Machine = namedtuple("Machine", "a pack box")
 
@@ -649,7 +650,7 @@ def sub_assemblies(m: Machine):
 #: nothing else — the deck's own page order is `_cardgen.SUBSYSTEM_ORDER`, and a subsystem
 #: function may register a card of another deck (EB derives what EN-07 states).
 SUBSYSTEMS = (deck, enclosure, electronics_bay, cold_core, refrigerant_loop,
-              internal_plumbing, bench, sub_assemblies)
+              internal_plumbing, bench, sub_assemblies, faucet)
 
 
 def collect(machine: Machine = None):

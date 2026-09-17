@@ -15,10 +15,10 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede"><strong>Two cut lengths, not one.</strong> The flavor
-    tubes run up the gooseneck to the tip; the blue stops
-    <span class="dim">362 mm</span> short, at the shank — a faucet-CAD
-    constant. Cut to both numbers below.</p>
+    <p class="lede">The flavor pair runs to the printed tip; the blue ends
+    at the donor shank. The black factory cut is
+    <span class="dim" data-gen="FU_CUT_DIFFERENCE">425 mm</span> longer,
+    following the complete CAD routes.</p>
 
     <div class="critical"><span class="sign">&#9940;</span>
       <div><b>Do not cut tight.</b> The factory length carries 350 mm of
@@ -27,10 +27,9 @@
     </div>
 
     <ol class="steps">
-      <li><b>Blue &#215;1 &#8212; <span class="dim">1540 mm</span>.</b> Its
-        top end is the Westbrass compression port, 44 mm under the
-        countertop.</li>
-      <li><b>Black &#215;2 &#8212; <span class="dim">1900 mm</span>.</b> They
+      <li><b>Blue &#215;1 &#8212; <span class="dim" data-gen="FU_BLUE_CUT">1540 mm</span>.</b> Its
+        top end is the Westbrass compression port below the countertop.</li>
+      <li><b>Black &#215;2 &#8212; <span class="dim" data-gen="FU_FLAVOR_CUT">1965 mm</span>.</b> They
         run on up the gooseneck to the printed tip. Square end, no burr, one
         cut each.</li>
       <li><b>The reach beyond nominal,</b> all three at one
@@ -59,8 +58,8 @@
         <g transform="translate(30,84)">
           <text class="tag" x="0" y="0">&#215;1 — CARBONATED WATER</text>
           <text class="sub" x="566" y="0" text-anchor="end">blue</text>
-          <rect x="0" y="14" width="566" height="18" rx="9" fill="#2a6ec4" stroke="#1d1d26" stroke-width="2.5"/>
-          <text class="dimtx" x="580" y="32">1540 mm</text>
+          <rect x="0" y="14" width="547" height="18" rx="9" fill="#2a6ec4" stroke="#1d1d26" stroke-width="2.5"/>
+          <text class="dimtx" x="561" y="32" data-gen="FU_BLUE_CUT">1540 mm</text>
         </g>
         <!-- flavor tubes -->
         <g transform="translate(30,178)">
@@ -74,16 +73,16 @@
           <line class="dimln" x1="0" y1="14" x2="698" y2="14"/>
           <line class="dimln" x1="0" y1="2" x2="0" y2="26"/>
           <line class="dimln" x1="698" y1="2" x2="698" y2="26"/>
-          <text class="dimtx" x="349" y="58" text-anchor="middle">1900 mm</text>
-          <text class="sub" x="349" y="92" text-anchor="middle">the flavor path runs 362 mm past the blue tube's landing &#8212; a CAD constant</text>
+          <text class="dimtx" x="349" y="58" text-anchor="middle" data-gen="FU_FLAVOR_CUT">1965 mm</text>
+          <text class="sub" x="349" y="92" text-anchor="middle">black factory cut = blue + <tspan data-gen="FU_CUT_DIFFERENCE">425 mm</tspan></text>
         </g>
         <text class="sub" x="24" y="432">square ends, no burr — rear ends push-connect; faucet ends follow FU-02</text>
       </svg>
     </div>
 
     <table class="spec" style="margin-top:22px">
-      <tr><td>Blue &#183; carbonated</td><td class="v">1540 mm</td></tr>
-      <tr><td>Black &#183; flavor &#215;2</td><td class="v">1900 mm</td></tr>
+      <tr><td>Blue &#183; carbonated</td><td class="v" data-gen="FU_BLUE_CUT">1540 mm</td></tr>
+      <tr><td>Black &#183; flavor &#215;2</td><td class="v" data-gen="FU_FLAVOR_CUT">1965 mm</td></tr>
       <tr><td>Reach beyond nominal</td><td class="v">~350 mm each</td></tr>
       <tr><td>Cutter in the cold kit</td><td class="v">same Mudder SKU</td></tr>
     </table>
@@ -91,8 +90,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Three tubes cut — one blue at 1540 mm, two black at 1900 mm — square, burr-free, all three tails flush within a couple of mm.</div>
-  <div class="src">faucet-and-umbilical.md &#167;1<br>rev 2026-09-03</div>
+  <div class="done"><span class="lbl">Done when</span>Square, burr-free: blue <span data-gen="FU_BLUE_CUT">1540 mm</span>, black pair <span data-gen="FU_FLAVOR_CUT">1965 mm</span>; modeled tails within <span data-gen="FU_TAIL_OFFSET">0.74 mm</span> before outlet trimming.</div>
+  <div class="src">faucet-and-umbilical.md &#167;1<br>_cards_sync.py &#183; rev 2026-09-16</div>
 </footer>
 
 </div>

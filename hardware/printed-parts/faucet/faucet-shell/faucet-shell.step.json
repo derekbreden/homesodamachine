@@ -1,6 +1,6 @@
 {
   "thickness_mm": 3.0,
-  "material": "PET-CF",
+  "material": "PET-GF15",
   "process": "3D-print",
-  "notes": "Minimum wall thickness; shroud wrapping the Westbrass, the flavor tubes, and lever swing. PET-CF per MATERIAL.md (Bambu PET-CF / Polymaker Fiberon PET-CF17)."
+  "notes": "Arc shell around the retained Westbrass, lever, three LLDPE tubes and Waveshare display. Functional sections target at least 3 mm; exact scope and measured results are in geometry-check.json."
 }

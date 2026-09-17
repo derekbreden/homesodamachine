@@ -1,33 +1,39 @@
-# Faucet shell — material
+# Faucet shell material and printing
 
-Polymaker Fiberon PET-GF15, black, on the Bambu 0.4 mm tungsten carbide hotend — the one
-spool and the one nozzle every surface a customer sees comes off ([bom.md
-§7](/hardware/ledger/bom.md), [tools.md](/hardware/ledger/tools.md)). The shell's two
-pieces and the [above-counter plate](/hardware/printed-parts/faucet/above-counter-plate/)
-stand in the counter in the same black the box on the floor is closed in.
+The shell base, shell tip, display cover and above-counter plate use PET-GF.
+The recorded production material is black Polymaker Fiberon PET-GF15 on the
+Bambu H2C with its 0.4 mm tungsten-carbide hotend. The print project preserves
+the saved PET-GF profile and 0.24 mm process settings.
 
-15 wt% glass fibre in PET. 1.43 g/cm³, $25.02/kg. Polymaker's published figures on printed
-specimens: 59.9 MPa tensile in X-Y and **48.2 MPa in Z**, 8.7 kJ/m² notched Charpy, 4144 MPa
-Young's modulus, 3705 MPa bending modulus in X-Y and 2998 in Z, HDT 133.7 °C at 0.45 MPa
-after annealing. Nothing here is annealed.
+White Fiberon PET-GF15 is a listed color in
+[Polymaker's range](https://shop.polymaker.com/products/fiberon-pet-gf15).
+It is shown for design review; its settings, surface finish and fitted joints
+remain to be qualified on these parts.
 
-**Z is the direction this part is loaded and the direction it is built in.** Neither piece
-prints upright. Each beds on the face at the far end of its own half of the gooseneck and
-tilts [35°](PRINT_TILT), which lands its build direction on that half's angular midpoint —
-and that is what holds every visible surface to [35°](MAX_PRINT_OVERHANG) of overhang, off
-supports. The base stands [236.9 mm](BASE_PRINT_HEIGHT) tall built that way and the tip
-[99.3 mm](TIP_PRINT_HEIGHT); the layer planes lie [35°](PRINT_TILT) off the shank axis
-rather than square to it, so the lever the customer pulls reacts across them at that angle.
+Functional walls, fastener seats, snap arms, display supports and insert
+backing use a 3 mm minimum at the checked sections. The round gooseneck
+provides separate 3 mm socket and plug walls at its close-fit curved joint.
+The display's cosmetic cover has a nominal 1.30 mm wall, with a 1 mm minimum
+for cosmetic sections. The 2 mm TPU countertop gasket is a compressible
+sealing component.
 
-Drying: 100 °C × 10 h in the SUNLU E2, only if the spool has taken on moisture. The 3 kg
-spools feed the print from a PolyDryer Box XL — a 3 kg spool turns too stiffly in the E2's
-chamber ([tools.md](/hardware/ledger/tools.md) "What dries where").
+The base and tip use build rotations of −35° and −105° about their shared
+arc frame. Their CAD print heights are [232.6 mm](BASE_PRINT_HEIGHT) and
+[138.8 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
+[35°](MAX_PRINT_OVERHANG) of overhang; the hidden curved plug reaches 49.36°.
+Those angles do not describe every face of the lower body or display head.
 
-The wetted path is not this print: soda runs in its own tube through the gooseneck onto the
-TPU thimble, and the two flavour tubes run their own length to the tip
-([ASSEMBLY.md](ASSEMBLY.md)).
+The separate cover prints with its planar bezel face on the bed.
+The plate prints with its gasket face toward the bed. Support contact,
+access and removal must be inspected in the production slice and first
+physical print, especially inside the donor cavity, around the neck joint
+and at the display captures. Preserve the bearing and sliding faces.
 
-Calibration history at [`print-log.md`](/hardware/printed-parts/faucet/faucet-shell/print-log.md).
+The wetted flow remains inside the existing LLDPE tubes and donor metal
+body. PET-GF is the structural enclosure around that flow path.
+
+Use the drying and handling procedure recorded in the
+[print log](print-log.md) and [tool ledger](/hardware/ledger/tools.md).
 
 ## Sources
 [value](NAME) texts are updated by:

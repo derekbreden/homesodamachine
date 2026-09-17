@@ -512,7 +512,9 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
@@ -522,6 +524,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_facts.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -530,7 +533,6 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/pick_text.py",
         "pysrc/marketing/_install_envelope_sync.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
@@ -1159,6 +1161,7 @@ cp hardware/assembly/wiring.md $$O1
 genrule(
     name = "cards-build",
     srcs = [
+        "firmware/lib/machine_policy/cold_policy.h",
         "pysrc/hardware/assembly/_acceptance_and_burn_in_sync.py",
         "pysrc/hardware/assembly/_cable_assemblies_sync.py",
         "pysrc/hardware/assembly/_finish_pack_ship_sync.py",
@@ -1171,6 +1174,7 @@ genrule(
         "pysrc/hardware/assembly/cards/_cardgen.py",
         "pysrc/hardware/assembly/cards/_cards_cc.py",
         "pysrc/hardware/assembly/cards/_cards_fs.py",
+        "pysrc/hardware/assembly/cards/_cards_fu.py",
         "pysrc/hardware/assembly/cards/_cards_ip.py",
         "pysrc/hardware/assembly/cards/_cards_sync.py",
         "hardware/assembly/cards/ab-01-inspect-connect-power.html",
@@ -1455,9 +1459,12 @@ genrule(
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cold-core-layout/_internals.py",
+        "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
         ":out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/manifold-layout/_gas_chain.py",
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -1499,6 +1506,12 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -1779,6 +1792,7 @@ genrule(
         "out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html",
         "out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html",
         "out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html",
+        "out/cards-build/hardware/assembly/cards/fu-01-cut-lldpe-tubes.html",
         "out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html",
         "out/cards-build/hardware/assembly/cards/ip-01-co2-path.html",
         "out/cards-build/hardware/assembly/cards/ip-02-water-path.html",
@@ -2030,39 +2044,40 @@ O210=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-na
 O211=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
 O212=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
 O213=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
-O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
-O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
-O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
-O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-carrier-halves.html)
-O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html)
-O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html)
-O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-risers.html)
-O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html)
-O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
-O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
-O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
-O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
-O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
-O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
-O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
-O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
-O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
-O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
-O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
-O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
-O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
-O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
-O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
-O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
-O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
-O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
-O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
-O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
-O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
-O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
-O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
-O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
+O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-01-cut-lldpe-tubes.html)
+O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
+O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
+O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
+O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
+O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-carrier-halves.html)
+O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html)
+O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html)
+O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-risers.html)
+O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html)
+O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
+O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
+O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
+O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
+O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
+O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
+O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
+O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
+O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
+O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
+O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
+O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
+O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
+O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
+O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
+O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
+O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
+O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
+O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
+O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
+O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
+O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
+O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
+O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2294,39 +2309,40 @@ cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O210
 cp hardware/assembly/cards/fs-03-cap-photograph.html $$O211
 cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O212
 cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O213
-cp hardware/assembly/cards/gt-02-push-to-connect.html $$O214
-cp hardware/assembly/cards/ip-01-co2-path.html $$O215
-cp hardware/assembly/cards/ip-02-water-path.html $$O216
-cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O217
-cp hardware/assembly/cards/ip-04-carrier-halves.html $$O218
-cp hardware/assembly/cards/ip-05-manifold-pumps-channels.html $$O219
-cp hardware/assembly/cards/ip-06-seat-pump-cartridge.html $$O220
-cp hardware/assembly/cards/ip-07-risers.html $$O221
-cp hardware/assembly/cards/ip-08-witness-tidy.html $$O222
-cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O223
-cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O224
-cp hardware/assembly/cards/pv-03-rod-register.html $$O225
-cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O226
-cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O227
-cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O228
-cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O229
-cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O230
-cp hardware/assembly/cards/pv-11-hydro-test.html $$O231
-cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O232
-cp hardware/assembly/cards/pv-14-port-fittings.html $$O233
-cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O234
-cp hardware/assembly/cards/rl-05-pinch-swage.html $$O235
-cp hardware/assembly/cards/sa-01-back-top.html $$O236
-cp hardware/assembly/cards/sa-02-front-top.html $$O237
-cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O238
-cp hardware/assembly/cards/sa-04-cap-lid.html $$O239
-cp hardware/assembly/cards/sa-05-back-half.html $$O240
-cp hardware/assembly/cards/sa-06-funnel-drain.html $$O241
-cp hardware/assembly/cards/sa-07-cold-core.html $$O242
-cp hardware/assembly/cards/sa-08-cold-core-open.html $$O243
-cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O244
-cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O245
-cp hardware/assembly/cards/wr-05-signal-looms.html $$O246
+cp hardware/assembly/cards/fu-01-cut-lldpe-tubes.html $$O214
+cp hardware/assembly/cards/gt-02-push-to-connect.html $$O215
+cp hardware/assembly/cards/ip-01-co2-path.html $$O216
+cp hardware/assembly/cards/ip-02-water-path.html $$O217
+cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O218
+cp hardware/assembly/cards/ip-04-carrier-halves.html $$O219
+cp hardware/assembly/cards/ip-05-manifold-pumps-channels.html $$O220
+cp hardware/assembly/cards/ip-06-seat-pump-cartridge.html $$O221
+cp hardware/assembly/cards/ip-07-risers.html $$O222
+cp hardware/assembly/cards/ip-08-witness-tidy.html $$O223
+cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O224
+cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O225
+cp hardware/assembly/cards/pv-03-rod-register.html $$O226
+cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O227
+cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O228
+cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O229
+cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O230
+cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O231
+cp hardware/assembly/cards/pv-11-hydro-test.html $$O232
+cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O233
+cp hardware/assembly/cards/pv-14-port-fittings.html $$O234
+cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O235
+cp hardware/assembly/cards/rl-05-pinch-swage.html $$O236
+cp hardware/assembly/cards/sa-01-back-top.html $$O237
+cp hardware/assembly/cards/sa-02-front-top.html $$O238
+cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O239
+cp hardware/assembly/cards/sa-04-cap-lid.html $$O240
+cp hardware/assembly/cards/sa-05-back-half.html $$O241
+cp hardware/assembly/cards/sa-06-funnel-drain.html $$O242
+cp hardware/assembly/cards/sa-07-cold-core.html $$O243
+cp hardware/assembly/cards/sa-08-cold-core-open.html $$O244
+cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O245
+cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O246
+cp hardware/assembly/cards/wr-05-signal-looms.html $$O247
 """,
 )
 
@@ -2643,7 +2659,7 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
@@ -3334,10 +3350,31 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
         "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+        "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -3345,6 +3382,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/flute_payload_faucet.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
@@ -3355,10 +3394,15 @@ genrule(
     ),
     outs = [
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "out/under-counter-plate/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "out/under-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
@@ -3372,19 +3416,24 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf)
-O1=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step)
-O2=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl)
-O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step)
-O4=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh)
-O5=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
-O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh)
-O7=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
-O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
-O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
-O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
-O11=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
-O12=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
-O13=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
+O1=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh)
+O2=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh)
+O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh)
+O4=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step)
+O5=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh)
+O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl)
+O7=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step)
+O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh)
+O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl)
+O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
+O11=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh)
+O12=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
+O13=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
+O14=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
+O15=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
+O16=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
+O17=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
+O18=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3402,20 +3451,26 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py > /dev/null
 cp hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf $$O0
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step $$O1
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl $$O2
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step $$O3
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh $$O4
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O5
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh $$O6
-cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O7
-cp hardware/printed-parts/faucet/_faucet_interface.py $$O8
-cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O9
-cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O10
-cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O11
-cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O12
-cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O13
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh $$O1
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh $$O2
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh $$O3
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step $$O4
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh $$O5
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl $$O6
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step $$O7
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh $$O8
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl $$O9
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O10
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh $$O11
+cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O12
+cp hardware/printed-parts/faucet/_faucet_interface.py $$O13
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O14
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O15
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O16
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O17
+cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O18
 """,
 )
 
@@ -3431,9 +3486,25 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        ":out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
@@ -3441,15 +3512,17 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
@@ -3458,6 +3531,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -3782,7 +3856,7 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
@@ -5567,6 +5641,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.support-audit.json",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/enclosure/support-audit.json",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -6280,25 +6355,27 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step)
-O1=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py)
+O1=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl)
+O2=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6316,7 +6393,8 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py > /dev/null
 cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step $$O0
-cp hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py $$O1
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl $$O1
+cp hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py $$O2
 """,
 )
 
@@ -6328,14 +6406,14 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "hardware/printed-parts/faucet/above-counter-plate/README.md",
-        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -6348,16 +6426,16 @@ genrule(
     ),
     outs = [
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md",
-        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step)
-O1=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json)
-O2=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md)
-O3=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py)
+O1=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl)
+O2=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json)
+O3=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6375,9 +6453,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py > /dev/null
 cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step $$O0
-cp hardware/printed-parts/faucet/above-counter-plate/README.figures.json $$O1
-cp hardware/printed-parts/faucet/above-counter-plate/README.md $$O2
-cp hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py $$O3
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl $$O1
+cp hardware/printed-parts/faucet/above-counter-plate/README.figures.json $$O2
+cp hardware/printed-parts/faucet/above-counter-plate/README.md $$O3
 """,
 )
 
@@ -6389,14 +6467,14 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "hardware/printed-parts/faucet/faucet-display-cover/README.md",
-        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -6409,16 +6487,16 @@ genrule(
     ),
     outs = [
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md",
-        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
-O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
-O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
-O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py)
+O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl)
+O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
+O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6436,9 +6514,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O0
-cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O1
-cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O2
-cp hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py $$O3
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl $$O1
+cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O2
+cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O3
 """,
 )
 
@@ -6564,6 +6642,83 @@ cp hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step $$O3
 cp hardware/printed-parts/faucet/tube-collar/tube-collar-water.step $$O4
 cp hardware/printed-parts/faucet/tube-collar/README.figures.json $$O5
 cp hardware/printed-parts/faucet/tube-collar/README.md $$O6
+""",
+)
+
+genrule(
+    name = "faucet-display-snap-trial",
+    srcs = [
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/refresh_print_project.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "pysrc/hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step)
+O1=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl)
+O2=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step)
+O3=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl)
+O4=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step)
+O5=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh)
+O6=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py > /dev/null
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step $$O0
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl $$O1
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step $$O2
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl $$O3
+cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step $$O4
+cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh $$O5
+cp hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json $$O6
 """,
 )
 
@@ -9225,6 +9380,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
@@ -9433,6 +9589,7 @@ genrule(
     srcs = [
         "hardware/ledger/bom.md",
         "hardware/ledger/machine-time.md",
+        "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
         "pysrc/hardware/scripts/_bom_masses.py",
         "pysrc/hardware/scripts/_machine_time.py",
         "pysrc/hardware/scripts/_realized.py",
@@ -9535,6 +9692,7 @@ genrule(
         "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.lint-answers",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
         ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
@@ -9575,56 +9733,6 @@ HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORK
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh $$O1
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh $$O2
-""",
-)
-
-genrule(
-    name = "flute-payload-faucet",
-    srcs = [
-        "hardware/printed-parts/faucet/faucet-shell/.gitignore",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
-        "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
-        "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
-        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
-        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
-        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "hardware/printed-parts/faucet/faucet-shell/print-log.md",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/hardware/scripts/flute_payload_faucet.py",
-    ],
-    outs = [
-        "out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py > /dev/null
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh $$O0
 """,
 )
 
@@ -9784,7 +9892,7 @@ genrule(
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
@@ -10433,6 +10541,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-b83b0cdc9f32",
+    srcs = ["hardware/assembly/cards/_cards_fu.py"],
+    outs = ["pysrc/hardware/assembly/cards/_cards_fu.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-8b21320d2abf",
     srcs = ["hardware/assembly/cards/_cards_ip.py"],
     outs = ["pysrc/hardware/assembly/cards/_cards_ip.py"],
@@ -11041,6 +11157,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-70f123f02eb4",
+    srcs = ["hardware/printed-parts/faucet/_display_snap.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/_display_snap.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-c78bdc0884e3",
     srcs = ["hardware/printed-parts/faucet/_faucet_interface.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/_faucet_interface.py"],
@@ -11081,6 +11205,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-071ced609c47",
+    srcs = ["hardware/printed-parts/faucet/refresh_print_project.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/refresh_print_project.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-1d6d9877c169",
     srcs = ["hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"],
@@ -11092,6 +11224,14 @@ genrule(
     name = "pysrc-dec8aeccf579",
     srcs = ["hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-df40b8271b79",
+    srcs = ["hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py"],
+    outs = ["pysrc/hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -12105,7 +12245,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -12116,11 +12275,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -12461,7 +12622,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -12472,11 +12652,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -12817,7 +12999,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -12828,11 +13029,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -13173,7 +13376,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -13184,11 +13406,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -13540,7 +13764,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -13551,11 +13794,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -13896,7 +14141,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -13907,11 +14171,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -14252,7 +14518,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -14263,11 +14548,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -14608,7 +14895,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -14619,11 +14925,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -14964,7 +15272,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -14975,11 +15302,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -15320,7 +15649,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -15331,11 +15679,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -15676,10 +16026,25 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
         "hardware/printed-parts/faucet/faucet-display-cover/README.md",
         "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
@@ -15691,11 +16056,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -16036,7 +16403,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -16047,11 +16433,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -16392,7 +16780,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -16403,11 +16810,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -16804,7 +17213,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -16815,11 +17243,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -17171,7 +17601,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -17182,11 +17631,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -17528,7 +17979,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -17539,11 +18009,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -17910,7 +18382,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -17921,11 +18412,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -18266,7 +18759,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -18277,11 +18789,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -18636,7 +19150,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -18647,11 +19180,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -18992,7 +19527,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -19003,11 +19557,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -19348,7 +19904,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -19359,11 +19934,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -19754,9 +20331,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
         "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
         "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -19767,11 +20361,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -20157,7 +20753,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -20168,11 +20783,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -20541,7 +21158,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -20552,11 +21188,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -20946,7 +21584,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -20957,11 +21614,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -21303,7 +21962,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -21314,11 +21992,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -21700,7 +22380,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -21711,11 +22410,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -22070,7 +22771,26 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -22081,11 +22801,13 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -22478,6 +23200,7 @@ filegroup(
         ":faucet-display-cover",
         ":tpu-o-ring",
         ":tube-collar",
+        ":faucet-display-snap-trial",
         ":tee-valve-bow-trial",
         ":water-inlet-jet-fixture",
         ":weld-rotator",
@@ -22535,7 +23258,6 @@ filegroup(
         ":machine-time",
         ":tools-totals",
         ":flute-payload-cold-core",
-        ":flute-payload-faucet",
         ":tube-routes",
         ":pump-replacement-sync",
         ":fluid-topology-sync",

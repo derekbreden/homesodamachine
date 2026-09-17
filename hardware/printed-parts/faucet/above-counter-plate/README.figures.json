@@ -1,18 +1,21 @@
 {
   "/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": {
-    "BOSS_CHAMFER": "0.6 mm",
-    "BOSS_H": "7 mm",
     "CBORE_D": "6.15 mm",
-    "PLATE_BOSS_D": "12.15 mm",
+    "CBORE_DEPTH": "3.2 mm",
+    "FOOT_DEPTH": "66 mm",
+    "FOOT_WIDTH": "65 mm",
+    "PEDESTAL_CHAMFER": "0.4 mm",
+    "PEDESTAL_D": "9.9 mm",
+    "PEDESTAL_H": "2.2 mm",
     "PLATE_FLAVOR_Y": "18.93 mm",
     "PLATE_PILL_L": "13.6 mm",
     "PLATE_PILL_W": "7.25 mm",
     "PLATE_T": "4 mm",
-    "PLATE_Y": "3.175 mm",
+    "PLATE_Y": "0 mm",
     "PLATE_Z_BOTTOM": "-4",
+    "SCREW_LENGTH": "8 mm",
+    "SEAT_T": "3 mm",
     "SHANK_D": "3.9 mm",
-    "SHANK_HOLE_D": "12.6 mm",
-    "SHANK_OD": "11 mm",
-    "TUBE_CENTER_X": "6.35 mm"
+    "SHANK_HOLE_D": "12.6 mm"
   }
 }

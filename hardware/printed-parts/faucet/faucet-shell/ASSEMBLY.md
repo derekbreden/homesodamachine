@@ -1,318 +1,131 @@
-# Faucet shell + above-counter plate sub-assembly
+# Faucet shell assembly
 
-Bench procedure for joining the printed `faucet-shell` to the printed
-`above-counter-plate` with the harvested Westbrass
-sandwiched between them — three M3×12 screws driven up through the
-plate's bosses into heat-set inserts in the shell's base pods. This
-sub-assembly hands off to the faucet-and-umbilical bench, where the
-gasket, retained donor hardware, tubes, and SIG-6 join it
-before the complete factory assembly reaches the countertop.
+The PET-GF shell encloses the harvested Westbrass, retained donor lever,
+three LLDPE tubes and Waveshare display. Factory assembly supplies a complete
+faucet and umbilical. Customer installation uses the captive donor nut and the
+existing stainless under-counter plate.
 
-## Where this fits in the build
+## Printed pieces and seams
 
-Upstream:
+The shell base carries the oval foot, lever opening and lower gooseneck. The
+shell tip carries the upper gooseneck and display pocket. Their curved lap
+meets at [70°](SPLIT_JUNCTION_ROT) around the arc, with an
+18 mm plug overlap. The separate display cover has a perimeter
+seam around the display pocket. The above-counter plate meets the shell at
+its foot; the matching TPU gasket sits under that plate.
 
-1. Print `faucet-shell` — two pieces, base and tip, each on its own tilt
-   ([MATERIAL.md](MATERIAL.md)) — and close them at the gooseneck seam:
-   the tip's plug swings into the base's socket about the bend-2 axis.
-   PET-GF15, Bambu 0.4 mm TC nozzle, settings in
-   [`print-log.md`](/hardware/printed-parts/faucet/faucet-shell/print-log.md).
-2. Print `above-counter-plate` (PET-GF15, same H2C).
-3. Harvest the Westbrass from the donor faucet per
-   [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
-   Keep the lever, the Westbrass, the donor washer and the factory shank
-   nut. Discard the donor's own factory plate.
+Functional walls, snap arms, display supports, screw seats and insert backing
+are at least 3 mm at the checked sections. The gooseneck lap has a
+[3 mm](SPLIT_SOCKET_WALL) socket wall and a 3 mm plug wall, separated by
+[0.3 mm](SPLIT_SLIP) diametral clearance. The display cover's cosmetic wall
+is nominally 1.30 mm, with a 1 mm minimum for cosmetic sections.
+The compressible above-counter gasket remains 2 mm TPU.
 
-Downstream (at the faucet-and-umbilical bench, see [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)):
+## Base joint
 
-4. Slide the `above-counter-gasket` up the shank from below
-   the above-counter plate, snug against the plate's bottom face.
-   The gasket sits permanently between the plate's underside and where
-   the countertop top surface will be at the customer's install. The
-   customer never touches the gasket.
-5. Reinstall the retained donor washer and nut loosely on the bare
-   shank before making the blue-tube connection. They remain captive
-   on the shank from this point forward.
-6. Connect the soda umbilical tube to the Westbrass's
-   lower upstream compression port. Seat the TPU thimble in the top
-   port and feed the separate soda faucet tube through the
-   gooseneck. Bottom its lower end on the thimble cap, then square-cut
-   its outlet flush with the printed tip. Route only the two black
-   flavor tubes through the above-counter plate and gasket pill
-   slots, then up the gooseneck to the dispense tip. Fit SIG-6 in its
-   designed passage beside the tubes.
-   The sub-assembly + umbilical leaves the bench as one unit.
+The [65 mm](FOOT_WIDTH) × [66 mm](FOOT_DEPTH) oval plate is [4 mm](PLATE_T) thick, with three [2.2 mm](PEDESTAL_H) raised screw-seat pedestals. Three M3 × [8 mm](BASE_SCREW_L) socket-head screws
+enter from its underside, through 3 mm bearing seats, into ruthex
+RX-M3Sx4.0 inserts heat-set at the ceilings of the shell's pedestal sockets. The three
+chamfered pedestals register the plate. The gasket covers all three screw
+heads on the completed faucet.
 
-Downstream (at the customer's countertop install, illustrated in the
-printed quick start in the appliance carton —
-[`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)):
+1. Clear the donor cavity, pedestal sockets, tube passages and insert pilots
+   of supports and stringing. Dry-fit the printed pieces before heat setting.
+2. Heat-set the three short M3 inserts into the shell's bottom-facing Ø4 mm
+   pilots, with their mouths at Z = [3.2 mm](BASE_INSERT_Z). Let them cool without disturbing their alignment.
+3. With the lever detached and the base plate separate, fit the fresh TPU
+   thimble and soda tube to the bare donor. Feed the tube's free end through
+   the lower neck and seat the donor from below, with its lever pivot aligned
+   to the front opening.
+4. Route the soda tube, both flavor tubes and the unterminated signal ribbon
+   through the open neck pieces. Feed their ends into the tip, then close its
+   curved lap. Confirm the soda tube remains seated in its donor port.
+5. Bring the retained lever through the front opening and reattach it using
+   the donor's original hardware. Set the tube outlets at the tip.
+6. Thread the tube tails and ribbon through the plate's matching openings and
+   pass the shank through its centre hole. The three pedestals enter their
+   sockets; the donor and shell foot seat on the plate.
+7. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
+   progressively so the plate closes evenly. Verify the donor lever through
+   its full travel and confirm the flavor tubes stay in position and pass flow
+   before adding the gasket.
 
-7. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
-   from above. The above-counter gasket (already on the shank, between
-   the above-counter plate and the countertop) compresses against the countertop
-   top surface as the assembly seats. The three tubes + signal cable hang down
-   through the hole.
-8. From below: orient the under-counter plate so its open-edge
-   channels face the dangling umbilical, then slide the plate
-   laterally into the gap above the captive donor washer. The shank and tube bundle enter
-   through their respective channel mouths at the rim and seat in
-   their terminal pockets; the cylinders in the channels keep the
-   plate from drifting back out of alignment.
-9. From below: hand-tighten the same already-threaded factory shank
-   nut. The captive nut + washer clamp the under-counter plate up
-   against the countertop; the entire stack compresses along the
-   shank from the Westbrass above to the nut below.
+The nominal body and lever insertion paths are clear. The donor's attachment
+hardware is not dimensioned in the reference model; verify access for its actual
+fastening operation on the bench.
 
-This document covers step 3a — joining the printed parts to the Westbrass
-into a single rigid sub-assembly.
+The screw stations are (X,Y)=(±[22](BASE_X),[10](BASE_Y)) and (0,[-24.2](BASE_FRONT_Y)) mm. The head recesses
+are Ø[6.15 mm](BASE_CBORE_D) × [3.2 mm](BASE_CBORE_DEPTH) deep. Each [4 mm](BASE_INSERT_L) insert receives the screw's full thread
+engagement; the blind pilot provides tip relief.
 
-## Materials
+## Gooseneck closure
 
-| Qty | Item                                                 | Reference                                                                          |
-| --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
-|  1  | `faucet-shell` (printed, PET-GF15) — three base-pod boss holes + insert pockets opening into the foot bottom | `faucet_shell.py` in this directory (BASE PODS section)        |
-|  1  | `above-counter-plate` (printed, PET-GF15) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/above-counter-plate/`](/hardware/printed-parts/faucet/above-counter-plate/) |
-|  1  | Westbrass + donor washer + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
-|  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.6 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
-|  3  | BNUOK M3 × 12 mm SHCS, black oxide                   | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
+The tubes and close-fit curved lap retain the neck. Rotate the tip's curved
+plug into the base socket about the arc centre until the seam seats. The
+socket has [20 mm](SPLIT_OVERLAP) of engagement length and accepts the
+18 mm plug, with [0.3 mm](SPLIT_SLIP) diametral fit allowance. The smooth
+neck has no screw opening or external bridge.
 
-The three pod screws close the shell and the above-counter plate around
-the Westbrass: each M3×12 drives up from under the plate, through the
-counterbore and the boss, into a ruthex insert heat-set in the shell.
-The retained donor washer and shank nut stay loose for the countertop
-mount. Once installed, that captive stack
-compresses Westbrass → above-counter plate → above-counter gasket →
-countertop → under-counter plate.
+Route the tubes and signal ribbon through both pieces before closing the
+lap. Confirm the seam is fully seated and the outlets remain in position
+through normal lever operation and handling.
 
-The two flavor tubes that pass through the pill slot are NOT installed
-at this step — they're routed in the downstream "tube routing" step,
-which is easier with the shell + plate already joined and the Westbrass
-captured.
+## Display
 
-## Adjacent parts
+Use the exact Waveshare ESP32-S3-Touch-LCD-1.47 housing and PCB envelope.
+Keep the original donor lever; the assembly model is a dimensioned clearance
+stand-in, not a scan suitable for manufacturing a replacement lever.
 
-Two parts in the faucet column aren't joined by this sub-assembly but
-sit immediately adjacent to it, so their spec lives here for one-stop
-reference:
+1. Route SIG-6 through its internal side entry beside the PCB. The ribbon
+   remains inside the shell; it has no opening on the dispense face.
+2. Seat the display's four metal feet on their printed supports. Confirm
+   the underside components clear the three tubes and the ribbon. The
+   central space above the tubes is open.
+3. Lower the cover normal to the display until both long cantilevers return
+   behind its retaining ledges. Their 0.30 mm engagement holds the cover;
+   no display screw or insert is fitted.
+4. Check that the seam closes, the glass clears the bezel, and the display
+   remains seated when its touch surface is pressed. The bezel's lower edge
+   and the three tube outlets end at the same plane.
 
-**Donor faucet — Westbrass 8" Touch-Flo family (A2031-NL / R2031-NL,
-interchangeable).** The BOM SKU is A2031-NL-62 (matte black, B0BXFW1J38).
-Any finish variant in the A2031-NL / R2031-NL series is interchangeable
-for this build because the finish is fully hidden by the printed
-faucet-shell — only the mechanism + shank are exposed. Pick whichever
-is cheaper / Prime-available at order time.
+The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
+some tube movement, so the seated real bundle is part of the
+[complete display fit trial](../../fixtures/faucet-display-snap/README.md).
+That trial prints the actual housing, supports, snaps and cover with a short
+gooseneck stub. Physical snap performance and assembled clearance are
+unmeasured.
 
-**Under-counter plate — SendCutSend 0.060" 316 SS, keyhole design
-(order qty 1).** File `under-counter-plate.dxf` (generated by
-`under_counter_plate.py` in
-[`/hardware/cut-parts/faucet/under-counter-plate/`](/hardware/cut-parts/faucet/under-counter-plate/))
-is a single-piece Ø [54.55 mm](PLATE_D) disc with hole positions that
-match the above-counter gasket exactly — Ø [12.6 mm](SHANK_HOLE_D) shank
-pocket at the gasket's shank center and a [13.6 mm](PILL_L) × [7.25 mm](PILL_W)
-pill pocket (long axis along X, the shell's lateral axis — the plate
-DXF's Y) at the gasket's pill center, [18.93 mm](FLAVOR_TUBE_Y) away
-along +Y. Each pocket has its own open-edge channel extending laterally
-from the pocket to the disc rim on the same side (the plate DXF's −Y;
-channel widths: [12.6 mm](SHANK_HOLE_D) for the shank, [7.25 mm](PILL_W)
-for the pill). The two channels exit the rim at different stations along
-the shank→pill depth axis and do not merge. The four corners where the
-channel walls meet the rim are rounded with R [1.5 mm](FILLET_R)
-fillets — these would otherwise be sharp acute tips (handling hazard,
-laser-dross-prone, no help with alignment); the fillets dull them and
-give the cylinders a small lead-in funnel at each channel mouth.
+The [display cover instructions](../faucet-display-cover/README.md) give the
+mating dimensions and print orientation.
 
-The faucet + umbilical leaves the faucet-and-umbilical build chain
-as one permanently-attached sub-assembly. The soda umbilical tube is clamped
-at the lower compression port; the soda faucet tube is sealed
-into the top port by the TPU thimble; the flavor pair bypasses the Westbrass
-through the pill slot. At install, the under-counter plate's open-edge
-channels let the installer slide the plate laterally past the
-dangling cylinders; both the shank and the tube bundle enter through
-their channel mouths at the rim and seat in their terminal pockets.
-Once seated, the cylinders in the narrow channels keep the plate in
-alignment under gravity while the installer hand-tightens the captive
-shank nut.
+## Tubes and countertop mounting
 
-Anti-rotation during nut tightening is provided by the cylinders
-themselves: any rotational drift of the plate presses the shank and
-tube bundle against the channel walls.
+Route the separate soda faucet tube from the TPU thimble in the Westbrass's
+top port to the printed tip. The two flavor tubes pass through the plate's
+pill opening and continue to the same tip. The prints carry and protect the
+tubes; they do not form the pressurized fluid path.
 
-Stack-up: between the countertop underside and the retained donor
-shank nut. Distributes the nut's clamping force over a wide area so
-the nut doesn't dish or crush the countertop bottom — the above-counter
-plate is too soft / too small for that
-clamping load. Installed during countertop install, not during the
-shell + plate + Westbrass sub-assembly procedure below.
+The signal ribbon follows a dedicated lane beside the flavor tubes. Its lower
+exit passes through the existing stainless plate's open flavor channel and
+the countertop hole. The ribbon is routed before either connector is fitted.
 
-## Tools
+Follow [faucet and umbilical assembly](/hardware/assembly/faucet-and-umbilical.md)
+for the derived tube cuts, gasket, captive washer/nut, blue tube connection
+and cable. Square-cut the three outlets flush with the printed tip.
 
-| Item                                          | Reference                                                                  |
-| --------------------------------------------- | -------------------------------------------------------------------------- |
-| Soldering iron + M3 heat-set tip              | Seats the three ruthex inserts (T18 tip kit + FX-888D — the §13 tooling note in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md)) |
-| 2.5 mm hex key                                | Drives the M3×12 SHCS                                                      |
-| Flat work surface + clean rag                 | Insert setting and final seating                                           |
-
-## Geometry summary
-
-**The joint.** The shell's foot carries three base pods — two lateral
-(±X) and one front (−Y) — each with a blind boss hole opening into the
-foot bottom and a ruthex M3 insert pocket stacked above it, the insert
-opening facing down onto the hole. The plate carries three matching
-bosses rising from its top face, each tipped with a lead-in chamfer
-and bored through: a counterbore from the plate bottom (screw-head
-recess) and an M3 shank bore up through the boss to the insert. The
-bosses register the plate; the screws clamp it. Dimensions live in
-`faucet_shell.py` (BASE PODS section) and the
-[plate README](/hardware/printed-parts/faucet/above-counter-plate/README.md).
-
-What holds the parts together:
-
-- From this bench onward: the three **pod screws** clamp the plate up
-  against the shell foot and capture the Westbrass in the shell's bore with
-  a [0.25 mm](BORE_CLEAR)/side slip-fit. The sub-assembly is rigid and
-  handles in any orientation.
-- Once installed in the countertop: the retained donor mount stack
-  compresses Westbrass → above-counter plate → above-counter gasket →
-  countertop → under-counter plate, and that compression carries the installed loads; the pod screws
-  keep carrying the shell.
-
-Stack-up at the plate-to-shell interface (rear shoulder region):
-
-```
-      shell wall (PET-GF15) — solid material, no pockets
-      └── shell bottom face (smooth)
-           └── plate top face (smooth, clamped to the shell bottom by the pod screws)
-                └── 4 mm plate (solid material, no holes here)
-                     └── plate bottom face (smooth, against TPU gasket)
-```
-
-**Plate bottom face must stay flat for the gasket.** The
-above-counter plate sits *above* the countertop — its top face mates with
-the shell bottom (this doc's joint), its bottom face mates with the
-TPU `above-counter-gasket` that then seals against the
-countertop's top surface. The three screw heads recess fully into
-the counterbores, above the bottom plane, so the plate presents an
-uninterrupted flat face to the gasket — the counterbore rims are the
-only openings.
-
-The Westbrass's [31.5 mm](WESTBRASS_OD) OD bottom face lands on the plate's top
-face while the threaded shank passes through the plate's Ø 12.6 hole.
-The shell sits over that Westbrass+plate stack and closes to the plate through
-the pods; the Westbrass inside the shell's bore adds lateral and rotational
-constraint (rectangular zone-2 cross-section + lever orientation).
-
-## Pre-flight check
-
-1. **Support material removal.** Confirm the shell's Westbrass bore and the
-   three boss holes + insert pockets in its foot, and the plate's
-   shank hole, pill slot, and counterbores, are all clear of supports
-   and stringing.
-2. **Westbrass fit.** Dry-fit the harvested Westbrass into the shell's bore
-   from the bottom (shell oriented bottom-up). It should
-   slide all the way to the bore cove (Z = [19.25 mm](BORE_COVE_Z) in part
-   coordinates) without binding. The lever swings in the shell's
-   -Y clearance ramp; verify the lever clears at the resting
-   position.
-3. **Boss fit.** Dry-fit the plate (no Westbrass) onto the shell foot:
-   all three bosses enter their holes and the plate seats flat
-   against the foot under light hand pressure.
-
-## Step 1 — Heat-set inserts into the shell
-
-1. Set the shell foot-up on the work surface.
-2. Carry each ruthex insert up through its boss hole on the iron's M3
-   tip, opening down, into the Ø 4 pocket above the hole ceiling.
-   Press until the insert mouth sits flush with the ceiling — the
-   pocket runs deeper than the insert's 4 mm length, leaving relief
-   above it.
-3. Let each pod cool before moving the shell.
-
-## Step 2 — Westbrass into the above-counter plate
-
-1. Slot the Westbrass's Ø 11 mm threaded shank up through the
-   plate's Ø 12.6 shank hole. Its [31.5 mm](WESTBRASS_OD) OD landing face
-   bottoms out on the plate's top face; the shank protrudes ~46 mm
-   below the plate's bottom face.
-2. Keep the donor washer and shank nut together for the downstream
-   faucet-and-umbilical bench. They do not clamp this printed joint.
-3. Confirm the Westbrass is rotationally locked — the rectangular zone-2
-   profile ([31.5 mm](WESTBRASS_RECT_LONG) × [17 mm](WESTBRASS_RECT_SHORT)) above [13 mm](WESTBRASS_CYL_TOP_Z) cannot rotate inside the
-   shell's bore that's about to come down on it. Its
-   rotational orientation is set by which way the lever points;
-   orient the lever toward -Y (the lever-clearance ramp side of the
-   shell).
-
-## Step 3 — Shell over the Westbrass
-
-1. Hold the plate + Westbrass sub-assembly with the Westbrass pointing up.
-   Drop the shell down over it so it enters the shell's bore
-   from the bottom. The shell's -Y lever clearance ramp must align
-   with the lever (which you already pointed toward -Y in Step 2).
-2. Push the shell down until the three bosses enter their pod holes —
-   the chamfered tips funnel them in — and the foot seats flat
-   against the plate's top face. The pod pattern matches in exactly
-   one orientation: rotated 180°, the front boss lands on solid foot
-   and the outlines mismatch.
-3. Verify the shell's pill slot aligns with the plate's pill slot
-   (both at world (0, +[18.93 mm](FLAVOR_TUBE_Y)), X-oriented). They should overlay
-   exactly.
-
-## Step 4 — Screws
-
-1. From below, drop an M3×12 SHCS into each counterbore and thread it
-   into its insert with the 2.5 mm hex key.
-2. Snug all three in alternation — hand-snug plus a quarter turn, no
-   more. The threads live in the brass inserts, the clamped material
-   is plastic.
-3. Confirm each head sits fully recessed in its counterbore, above
-   the plate's bottom face.
-
-The sub-assembly is now rigid — shell, plate and Westbrass move as one
-unit in any orientation, ready for the faucet-and-umbilical bench.
+At the modeled 30 mm countertop, 12.476 mm of the 50 mm donor shank remains
+below the stainless plate. Confirm the actual retained washer, nut and
+thread engagement on the bench, including the intended countertop thickness.
+The donor washer and nut have not been dimensionally verified in CAD.
 
 ## Verification
 
-After the screws are snug:
-
-- **Plate seats flat against shell.** No visible gap at the joint
-  line anywhere around the perimeter. A gap means the Westbrass is
-  fouling the bore (most likely the lever orientation), debris in a
-  boss hole, or a screw run home before its boss was fully seated.
-- **Screw heads recessed.** Run a fingertip across the plate bottom —
-  no head proud of the face.
-- **The Westbrass has no rotational play.** Try to rotate it relative to
-  the shell + plate by grabbing the lever and twisting. Should be
-  rigid, set by the rectangular zone-2 profile inside the rectangular
-  bore.
-- **Lever swings freely.** Press the lever toward the -Y ramp; it
-  should pivot through its full ~18° travel without contacting the
-  shell. Release; it should spring back to rest under the factory
-  return spring.
-- **Pill slot is clear.** Sight down through the pill slot from above
-  to below — the shell slot, the Westbrass's open -Y side, and the plate
-  slot should form a continuous opening for the two flavor tubes.
-
-## Disassembly (for service)
-
-Reverse order:
-
-1. Back the three M3×12 out from below the plate.
-2. Lift the shell straight up off the Westbrass + plate.
-3. The Westbrass lifts up and out of the plate's shank hole.
-
-The brass inserts take the thread wear — the joint re-mates
-indefinitely.
-
-## Troubleshooting
-
-| Symptom                                       | Likely cause                                                 | Fix                                                                                    |
-| --------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| Plate-to-shell joint won't close (visible gap) | The Westbrass fouling the shell bore (most likely lever orientation), or support material / stringing in a boss hole | Disassemble; verify the Westbrass slides all the way to the bore cove and the boss dry-fit without it seats flat; clear the offending pod; re-orient lever to -Y if needed. |
-| Lever binds against shell                     | Lever orientation off, or shell -Y ramp printed with a support stub remaining | Disassemble; clear the ramp; re-orient the Westbrass so the lever points to -Y. |
-| Boss binds entering its hole                  | Stringing or first-layer squish at the hole rim               | Clean the rim; re-run the pre-flight boss dry-fit. |
-| Insert spins or pulls out                     | Insert seated cold or shallow                                 | Re-seat with the iron until the mouth is flush with the hole ceiling. |
+`hardware/scripts/check_faucet_geometry.py` records validity, interference,
+assembly motion and measured sections in `geometry-check.json`. These checks
+cover nominal geometry. The fit print must establish actual slip, insert
+seating, full lever travel, tube routing, display/cable fit, support removal
+and resistance to handling loads.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py`
 - `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

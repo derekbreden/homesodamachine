@@ -56,11 +56,11 @@ in `_run_lengths.py` is calibrated on a single point, so those are not meaningfu
 pigtail; they are bought at 302 and give up their service loop (Open item 3).
 
 The contact itself is **SXH-001T-P0.6** — conductor #28 to #22, insulation OD 0.9 to 1.9 mm, tin. It
-is crimped by hand only for J3, J13's 22 AWG 4P exception, and rework. What holds a contact square in the die is a
+is crimped by hand only for J13's 22 AWG 4P exception and rework. What holds a contact square in the die is a
 **locator**, and no low-cost tool has one: the contact is placed by hand and held there. JST's own
 hand tools do — **WC-110** (#22–#28, side entry) covers both gauges in this build. With a ratcheting
 tool and no locator, close the ratchet one click onto the contact so it is captive, then feed the
-wire. The umbilical's 28 AWG has a second contact option: **SXH-002T-P0.6** is the #30 to #26 part,
+wire. Rework on a 28 AWG XH termination has a second contact option: **SXH-002T-P0.6** is the #30 to #26 part,
 insulation OD 0.9 to 1.3 mm, and its barrel closes on 0.08 mm² near the middle of its range rather
 than at the floor of the -001T's.
 

@@ -1,0 +1,2 @@
+# Printable meshes are generated and shipped in the CAD artifact bundle.
+*.stl

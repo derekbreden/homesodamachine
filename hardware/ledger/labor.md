@@ -118,13 +118,13 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.6 kg of filament across the twenty-three §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [79](TOTAL_INSERTS) heat-set inserts and the [79](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
+Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.6 kg of filament across the twenty-three §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [78](TOTAL_INSERTS) heat-set inserts and the [78](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.6 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
-| Press the [79](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the display plate's pair, the faucet display cover's one, the nameplate's pair, the enclosure's [6](SEAM_INSERTS) Y-seam stations — the Z seams slide and take no insert — floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [20](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [75](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
-| Drive the [79](TOTAL_SCREWS) machine screws that close the build | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) touch-flo, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [2](DISPLAY_COVER_SCREWS) display plate, [2](NAMEPLATE_SCREWS) nameplate, [1](FAUCET_DISPLAY_SCREWS) faucet display cover, [6](SEAM_SCREWS) M3 × 10 enclosure Y-seam screws driven from the ±X exterior faces — the Z seams slide home and take none — [4](FLOOR_SCREWS) floor | 5 |
+| Press the [78](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the display plate's pair, the nameplate's pair, the enclosure's [6](SEAM_INSERTS) Y-seam stations — the Z seams slide and take no insert — floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [20](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [74](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
+| Drive the [78](TOTAL_SCREWS) machine screws that close the build | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [2](DISPLAY_COVER_SCREWS) display plate, [2](NAMEPLATE_SCREWS) nameplate, [6](SEAM_SCREWS) M3 × 10 enclosure Y-seam screws driven from the ±X exterior faces — the Z seams slide home and take none — [4](FLOOR_SCREWS) floor | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
@@ -133,7 +133,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Stage the eight printed enclosure pieces and the +Y wall's seven bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four quadrants, cartridge, pump clamp, two tee-carrier halves with integral service tabs; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, electronics bay, close the box, ASSE drip pan | EN-04, EN-06, EN-07, EN-08, EN-09 | | 10 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, the bag | 10 |
-| Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |
+| Assemble the faucet — two-piece shell, display cover, plate, gasket and o-ring | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 |
 | **Assembly** | | | **[120](LAB_SEC8)** |
 
 ## 9. Power-on & testing

@@ -57,21 +57,16 @@ destroyed is a part that comes out by being destroyed.
   Y-guided carrier, and move together. Four bowed stubs flex between those tees and fixed fore
   valves; the tee-side ends of four spine hairpins move with them. Neither a tube nor a fixed
   wall journal substitutes for the carrier.
-- **A catch in PET-GF goes home on a SECOND MOTION, never by deflecting.** Short glass buys
-  stiffness with elongation, and a wall that carries a lip is `2 * wall` thick — a snap asking
-  either of those to flex cracks rather than clicks. So a `barbed lip` is set down clear of its
-  roof by the motion that closes its own seam and driven under it by the motion that closes the
-  next, and the fastener is what stops it travelling back out. The exemplar is the faucet display
-  cover ([`printed-parts/faucet/faucet-display-cover/`](/hardware/printed-parts/faucet/faucet-display-cover/)):
-  set down `display_cover_hook_travel` up-gooseneck of home, pushed to the spout until the riser
-  stops on the roof's face, then the screw. Its bearing face is FLAT, because a ramp there would
-  let the hook cam out under the screw's own clearance. This constrains the ORDER: **a seam is
-  locked by the motion that closes the seam after it, so the seam closing LAST has no motion
-  behind it and takes a screw.**
-- **What strain PET-GF15 has before it breaks is not in this tree.** The rule above is the
-  material's direction, not a number: no elongation, modulus or stress figure for Fiberon PET-GF15
-  is recorded anywhere here. Any claim that a particular catch *could* be sprung answers to that
-  number first.
+- **The enclosure's rigid barbed lips close on sequential motions.** The first motion
+  places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
+  retain the seam, and the final seam screws prevent the reverse motion.
+- **The faucet display uses two long PET-GF cantilevers.** Their 3 × 3 mm arms have
+  0.30 mm engagement, rounded roots and 0.50 mm travel stops. The cover pushes them inward
+  during seating; they relax behind its flat retaining ledges. The
+  [complete display fit trial](printed-parts/fixtures/faucet-display-snap/README.md)
+  carries the actual enclosure, device supports, tubes and ribbon route. Its physical snap
+  performance is unmeasured. The linked PET-GF15 data are annealed specimen results, not an
+  allowable strain for the saved print profile.
 - **How far a tube runs into a collet, and how far its sleeve presses, is measured for the
   tee.** The PP0208E's own figures are in
   [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets

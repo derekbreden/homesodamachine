@@ -289,33 +289,31 @@ def _build_steps(work: Path) -> dict[str, Path]:
         return washer, nut
 
     def signal_ribbon(lift_z: float):
-        """A short, flat identity segment of the fitted SIG-6 harness below the slab.
+        """The actual fitted SIG-6 route, with its free tail continued below the slab.
 
-        Its installed physical assembly is the route authority. The picture stops the segment at
-        the underside stack instead of manufacturing a hidden path through the faucet shell. Three
-        quiet face stripes survive grayscale reduction and distinguish this flat harness from the
-        adjacent round flavor lines; they are an illustration texture, not conductor geometry.
+        The assembly carries the cable through the shell and mounting stack. Three quiet stripes
+        distinguish its exposed flat tail from the adjacent round flavor lines; they are an
+        illustration texture, not conductor geometry.
         """
-        ribbon_bottom_z = -123.0 + lift_z
-        ribbon_length = 84.8
-        ribbon_turn = -144.5
-        ribbon_move = (9.0, 10.5, 0.0)
-        ribbon = (
+        shell = fa.faucet_shell
+        ribbon_bottom_z = -123.0
+        ribbon_length = 73.5
+        tail = (
             cq.Workplane("XY")
             .workplane(offset=ribbon_bottom_z)
-            .rect(4.8, 1.2)
+            .center(shell.signal_lower_exit_x, shell.signal_lower_exit_y)
+            .rect(shell.signal_ribbon_max_width, shell.signal_ribbon_max_depth)
             .extrude(ribbon_length)
-            .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), ribbon_turn)
-            .translate(ribbon_move)
         )
+        ribbon = parts["display_signal_ribbon"].obj.union(tail).translate((0.0, 0.0, lift_z))
         stripes = (
             cq.Workplane("XY")
-            .workplane(offset=ribbon_bottom_z)
-            .pushPoints([(-1.25, 0.635), (0.0, 0.635), (1.25, 0.635)])
+            .workplane(offset=ribbon_bottom_z + lift_z)
+            .center(shell.signal_lower_exit_x,
+                    shell.signal_lower_exit_y - shell.signal_ribbon_max_depth / 2.0 - 0.04)
+            .pushPoints([(-1.05, 0.0), (0.0, 0.0), (1.05, 0.0)])
             .rect(0.24, 0.08)
             .extrude(ribbon_length)
-            .rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), ribbon_turn)
-            .translate(ribbon_move)
         )
         return _clip_z(ribbon, *mount_clip), _clip_z(stripes, *mount_clip)
 
@@ -433,6 +431,10 @@ def _build_steps(work: Path) -> dict[str, Path]:
                 obj=_clip_z(child.obj, *under_clip),
                 color=color,
             )
+        ribbon, ribbon_stripes = signal_ribbon(0.0)
+        out.add(_clip_z(ribbon, *under_clip), name="under-sig6-flat-ribbon", color=signal_black)
+        out.add(_clip_z(ribbon_stripes, *under_clip), name="under-sig6-ribbon-face-stripes",
+                color=signal_stripe_black)
         washer, nut = donor_hardware(washer_top_z)
         out.add(washer, name="under-retained-donor-washer", color=washer_steel)
         out.add(nut, name="under-retained-donor-nut", color=nut_steel)

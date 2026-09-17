@@ -25,7 +25,7 @@ from _cold_core_interface import (attachment_xy_positions, cap_anchor_tie_loop,
 from _reed_channels import reeds_per_reservoir
 from docgen import load_module, substitute_md
 from reservoir import insert_positions_for_side_plus_1
-from faucet_shell import base_pod_centers, display_cover_screw_s
+from faucet_shell import base_pod_centers
 
 import manifold_layout as ml
 import _facts
@@ -196,15 +196,12 @@ foam_cap_screws_per_build = foam_cap_clamp_inserts_per_build  # 1:1 clamp only
 reservoir_cap_inserts_per_build = inserts_per_reservoir_cap * reservoirs_per_build
 reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 
-# Touch-flo plate-to-shell hardware (3 inserts + 3 M3 × 12 screws, one
-# per base pod).
+# Touch-flo plate-to-shell hardware: one short insert and M3 × 8 per station.
 touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
-# The faucet display's face plate: one station on the tip's centreline
-# above the device's north edge, so one insert in the shell and the one
-# M3 x 8 that threads it.
-faucet_display_cover_stations = ((0.0, display_cover_screw_s),)
+# The faucet display cover engages the shell's two printed cantilevers.
+faucet_display_cover_stations = ()
 faucet_display_cover_inserts_per_build = len(faucet_display_cover_stations)
 faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 
@@ -315,7 +312,7 @@ enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
-                  + carrier_joint_screws_per_build)
+                  + carrier_joint_screws_per_build + touchflo_screws_per_build)
 
 # And every M3 x 10: the ground-stack clamp's one and the enclosure's six seam screws.
 m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
@@ -324,10 +321,8 @@ m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
 # it crosses.
 m3x60_per_build = pump_cap_screws_per_build
 
-# And every M3 x 12 of the black-oxide 12.9 kind: the touch-flo plate's. (The 304
-# stainless M3 x 12 is a different row — the reservoir caps' wetted-zone hardware — and
-# is not counted here.)
-m3x12_per_build = touchflo_screws_per_build
+# Black-oxide M3 × 12 screws have no stations in this build.
+m3x12_per_build = 0
 
 # WHICH M3 BODY EACH STATION TAKES. ruthex's short and full-length M3 are the same insert but
 # for the body — same knurl, same recommended hole — so this split is a statement about BORE
@@ -336,9 +331,8 @@ m3x12_per_build = touchflo_screws_per_build
 # it that depth would cost geometry the machine is spending elsewhere.
 #
 # Short insert families and the stock available behind their seats:
-#   touch-flo base pods  — the pod is 8 boss hole + pocket + 3 cap = the visible base cylinder
+#   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
 #   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the electronics bay in
-#   faucet display cover — the shell's own land, one screw
 #   tee-carrier lap      — a 6 mm receiver, with a 4 mm insert and 2 mm backing
 #   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
 m3_long_inserts_per_build = (
@@ -572,8 +566,8 @@ def main():
             "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
             "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
             "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
-        "FAUCET_DISPLAY_INSERTS": f"{faucet_display_cover_inserts_per_build:.4g}",
-        "FAUCET_DISPLAY_SCREWS": f"{faucet_display_cover_screws_per_build:.4g}",
+            "FAUCET_DISPLAY_INSERTS": f"{faucet_display_cover_inserts_per_build:.4g}",
+            "FAUCET_DISPLAY_SCREWS": f"{faucet_display_cover_screws_per_build:.4g}",
             "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",

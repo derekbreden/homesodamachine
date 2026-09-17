@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "physical_trial_completed": false,
+  "trial": "complete faucet display housing and cover with short gooseneck stub",
+  "retained_geometry": {
+    "complete_head_end_s_mm": 50.20572128830402,
+    "neck_cut_s_mm": 70.20572128830402,
+    "minimum_neck_stub_mm": 20.0,
+    "missing_head_material_mm3": 0.0
+  },
+  "sources": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "89e9328d4574e1a6a58441141c13441b7a3cd1b160058b6b10b73bd21af45ec8",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "69df20440344b9b8499a7bf8a12f29b3cb26153d42879b0f5d55bf10baa34ab9",
+    "hardware/printed-parts/faucet/_display_snap.py": "4014df42a2de3b01ea0640a2a2ea6ca03353002f2ffb7a0cfb24fa517d111b67",
+    "hardware/faucet-layout/faucet_assembly.py": "deab4e16a6fec98c97e94b1bb43032202cda44dc11bdb6d048533ed60c74c8a0",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "53c05220ff8490358bf52d8aa291b8efb905e38eb143993645595eb5dfa09158",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "984fdf16afc2ad762d311e986509173af83304bcddddaad1e9dbf9a5bb2cd09f",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
+  },
+  "parts": [
+    {
+      "stl": "display-trial-housing.stl",
+      "sha256": "6f4c41a3ad8e2c141f2b15eaf70ce61a8e8adb98b776b2c83484e6cc73596b37",
+      "source_rotation_x_degrees": -105.0,
+      "source_stl_already_in_print_pose": true,
+      "volume_mm3": 31936.600139873815,
+      "triangles": 12618,
+      "watertight": true,
+      "body_count": 1,
+      "bounds_mm": [
+        [
+          -15.012454986572266,
+          -27.480077743530273,
+          0.0021536496933549643
+        ],
+        [
+          15.012454986572266,
+          27.477989196777344,
+          86.35884094238281
+        ]
+      ]
+    },
+    {
+      "stl": "display-trial-cover.stl",
+      "sha256": "6666bf5826e0e61c65a6de8477801ba3a297b6eb43e1c46c2c31667b0163d5cc",
+      "source_rotation_x_degrees": 130.0,
+      "source_stl_already_in_print_pose": true,
+      "volume_mm3": 3174.610906000992,
+      "triangles": 2582,
+      "watertight": true,
+      "body_count": 1,
+      "bounds_mm": [
+        [
+          -16.659452438354492,
+          -24.828357696533203,
+          1.0000007932831068e-07
+        ],
+        [
+          16.659452438354492,
+          24.828371047973633,
+          18.549999237060547
+        ]
+      ]
+    }
+  ]
+}

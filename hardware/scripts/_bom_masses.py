@@ -93,8 +93,10 @@ PROFILES = {
     # `sparse_infill_density` 100 %: a syrup-tight wall is solid by the time it closes,
     # so these four rows come out at their geometry and the model changes nothing.
     "tight": (3.60, 0.60, 1.00),
-    # faucet-shell/print-log.md attempt 20 — 0.6 nozzle, `wall_loops` 6, 0.62, 100 %.
-    "petgf": (3.72, 0.62, 1.00),
+    # faucet/faucet-petgf.3mf — H2C 0.4 nozzle, 0.24 layer, two wall loops:
+    # outer 0.42 + inner 0.45 mm, 15 % grid. Material density and paid price
+    # come from MATERIALS, independently of the slicer's saved cost metadata.
+    "petgf": (0.87, 0.45, 0.15),
     # No slice of its own. A part this small is nearly all perimeter whatever it is
     # sliced at, so it carries the exterior's figures and lands near solid anyway.
     "small": (0.87, 0.45, 0.15),
