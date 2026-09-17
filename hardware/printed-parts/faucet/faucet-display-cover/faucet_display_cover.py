@@ -40,7 +40,7 @@ window_s = window_s_north - window_s_south
 front_rim_n = 14.0
 front_rim_slope = 1.8
 rear_rim_s = 42.0
-rear_rim_slope = 1.5
+rear_rim_slope = 2.0
 
 
 def build_plate_outer() -> cq.Workplane:
