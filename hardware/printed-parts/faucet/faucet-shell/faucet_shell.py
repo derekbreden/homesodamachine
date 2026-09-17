@@ -621,24 +621,6 @@ def build_lower_outer() -> cq.Workplane:
     return cq.Workplane(obj=loft.fuse(neck_land)).clean()
 
 
-def build_lower_access_cut() -> cq.Workplane:
-    """Open plateau and the donor lever's front approach beneath the arch."""
-    opening_front_y = -65.0
-    arch_radius = back_arch_r + 0.4
-    opening_z_top = back_arch_center_z + arch_radius
-    arch_start = (fill_y_min + arch_radius * math.cos(_back_arch_a_low),
-                  back_arch_center_z + arch_radius * math.sin(_back_arch_a_low))
-    arch_mid = (fill_y_min + arch_radius * math.cos(_back_arch_a_mid),
-                back_arch_center_z + arch_radius * math.sin(_back_arch_a_mid))
-    plane = cq.Plane(origin=(-foot_width, 0.0, 0.0), xDir=(0.0, 1.0, 0.0), normal=(1.0, 0.0, 0.0))
-    front = (cq.Workplane(plane).moveTo(opening_front_y, zone3_z_bottom)
-             .lineTo(*arch_start)
-             .threePointArc(arch_mid, (fill_y_min, opening_z_top))
-             .lineTo(opening_front_y, opening_z_top)
-             .lineTo(opening_front_y, zone3_z_bottom).wire().extrude(2.0 * foot_width))
-    return front
-
-
 # The ribbon leaves the counter beside the flavor pair, inside the metal
 # mounting plate's existing open channel.
 signal_lower_exit_x = 9.3
@@ -1439,7 +1421,6 @@ def build_shell() -> cq.Workplane:
     inner_parts = [
         build_zone1_inner_cut().val(),
         build_base_pod_holes().val(),
-        build_lower_access_cut().val(),
         build_zone2_inner_cut().val(),
         build_zone3_inner_cut().val(),
         build_zone6_inner_cut().val(),
