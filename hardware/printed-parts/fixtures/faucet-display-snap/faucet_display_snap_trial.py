@@ -36,7 +36,7 @@ NECK_STUB = 20.0
 def trial_bounds():
     origin, _, normal = shell._tip_frame()
     frame = cq.Location(cq.Plane(origin=origin, xDir=(1, 0, 0), normal=normal))
-    features = (shell.build_display_outer_envelope(), shell.build_display_snap_arms(),
+    features = (shell.build_display_outer_envelope(), shell.build_display_cover_lips(),
                 shell.build_display_feet_pads())
     head_end = max(part.val().moved(frame.inverse).BoundingBox().ymax for part in features)
     # The wire entry and all display features remain on the test piece.
