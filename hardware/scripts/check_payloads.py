@@ -86,8 +86,9 @@ _IMPLICIT = {p for paths in _IMPLICIT_BY_GEN.values() for p in paths}
 def owed(root: Path) -> list:
     """Every solid the bundle carries a `.step.mesh` for, repo-relative and sorted."""
     dirs = tuple(f"{d}/" for d in pack.BUNDLED_PAYLOAD_DIRS)
+    files = {rel.removesuffix(".mesh") for rel in pack.BUNDLED_PAYLOAD_FILES}
     return [rel for rel in pack.solids(root)
-            if rel.endswith(".step") and rel.startswith(dirs)]
+            if rel.endswith(".step") and (rel.startswith(dirs) or rel in files)]
 
 
 # `_mesh_payload` owns this format, and its four header readers need nothing but `struct` and
