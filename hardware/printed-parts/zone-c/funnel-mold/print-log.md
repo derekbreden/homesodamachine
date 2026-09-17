@@ -1,10 +1,57 @@
 # Funnel mold print log
 
+## 100% infill retry — 2026-09-16
+
+Derek reports saving the project and starting a new print. The inspected
+[funnel-mold.3mf](funnel-mold.3mf) contains these settings:
+
+| Setting | Saved value |
+| --- | --- |
+| Process preset | 0.24mm Balanced Quality @BBL H2C 0.8 nozzle funnel mold |
+| Filament preset | Bambu PETG Translucent @BBL H2C 0.8 nozzle 0 94 flow |
+| Infill | 100%, zig-zag |
+| Internal solid infill and top/bottom surface patterns | Zig-zag |
+| Flow ratio — Direct Drive Standard | 0.94 |
+| Flow ratio — Direct Drive High Flow | 0.97 |
+| Maximum volumetric speed | 16 mm³/s |
+| Infill/wall overlap | 15% |
+| Layer height / first layer | 0.24 / 0.40 mm |
+| Nozzle temperature / first layer | 245 / 250 °C |
+| Supports | Normal (auto), Snug |
+| Support top/bottom Z, first-layer and object XY gaps | 0.48 mm each |
+| Arc fitting | Disabled |
+
+The project selects the left 0.8 mm High Flow nozzle, Textured PEI and the
+**Bambu Lab H2C 0.8 High Flow +0.18 Z trim** printer preset. The saved
+`filament_extruder_variant` array orders Standard before High Flow, and
+`filament_flow_ratio` is `[0.94, 0.97]`: the 0.94 adjustment is stored for
+Standard, while the selected High Flow variant retains 0.97. The filament
+preset's name alone does not establish that this print uses 0.94.
+
+The embedded cavity/core meshes and their placements match commit `6eff076c1`.
+The saved project contains no G-code. Print start is Derek's report; the
+submitted toolpaths and printer state were not independently read. The trial's
+outcome is pending.
+
+Saved project SHA-256:
+`b8e09b0084eab97e7857299f0ac688e0f10d383b48be03fbd691ed8cfef961f3`.
+
+## Solid-infill surface buildup — 2026-09-16
+
+Derek reports that the 15% infill print with Snug normal supports worked well.
+His subsequent 100% infill print failed: material rose above the expected layer
+height in the broad solid region and the hotend dug into it. Photos
+`IMG_7794.jpeg` through `IMG_7797.jpeg` show a raised, rough region around a
+relatively smooth center, with regular outer support walls. Derek reports
+that the supports remained satisfactory. The failure layer and cause of the
+buildup are unconfirmed.
+
 ## Snug normal-support trial — 2026-09-15
 
 Derek reports: “Some supports fell over,” and is trying the saved
 [funnel-mold.3mf](funnel-mold.3mf) below. The failure layer and cause were not
-identified. No result for this trial has been reported.
+identified. On 2026-09-16 he reported that the 15% infill print with Snug
+normal supports worked well.
 
 The saved process is based on **0.24mm Balanced Quality @BBL H2C 0.8 nozzle**
 with these support settings:
