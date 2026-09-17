@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "mobile": {
+    "width": 328,
+    "scroll": 328
+  },
+  "state": {
+    "focus": "B",
+    "view": "three",
+    "mode": "finish",
+    "finish": "black",
+    "withdrawn": false
+  },
+  "canvases": 4
+}
