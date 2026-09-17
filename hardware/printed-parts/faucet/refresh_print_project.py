@@ -1,4 +1,4 @@
-"""Refresh the faucet PET-GF project's four meshes while preserving its complete settings."""
+"""Refresh the faucet's four meshes using the shared PET-GF profile's complete settings."""
 from __future__ import annotations
 
 import argparse
@@ -99,6 +99,8 @@ def refresh(settings_from: Path, output: Path) -> dict:
     model_rels = ET.Element(f"{{{REL}}}Relationships")
     report = {
         "project": output.name,
+        "settings_source": str(settings_from.relative_to(ROOT)) if settings_from.is_relative_to(ROOT) else str(settings_from),
+        "settings_source_sha256": digest(settings_from.read_bytes()),
         "settings_sha256": digest(settings_payload),
         "printer": settings["printer_settings_id"],
         "process": settings["print_settings_id"],
@@ -389,11 +391,11 @@ def slice_review(project: Path, report: dict, directory: Path) -> dict:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=HERE / "faucet-petgf.3mf")
-    parser.add_argument("--settings-from", type=Path)
+    parser.add_argument("--settings-from", type=Path, default=ROOT / "hardware/printed-parts/petgf.3mf")
     parser.add_argument("--slice-output", type=Path, help="Optional local Bambu CLI slice directory; no printer connection.")
     parser.add_argument("--slicer", type=Path, default=Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"))
     args = parser.parse_args()
-    report = refresh(args.settings_from or args.project, args.project)
+    report = refresh(args.settings_from.resolve(), args.project)
     print(f"{args.project}: four parts on one plate; exact settings {report['settings_sha256']}")
     for row in report["parts"]:
         size = np.subtract(row["plate_bounds_mm"][1], row["plate_bounds_mm"][0])
