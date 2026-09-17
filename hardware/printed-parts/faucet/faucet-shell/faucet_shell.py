@@ -1036,6 +1036,7 @@ display_ribbon_side_run_n = 10.60
 display_ribbon_pcb_gap = 0.30
 display_s_bottom = 1.25
 display_s_top = display_s_bottom + display_housing_length + 2.0 * display_cradle_clearance
+_display_housing_center_s = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0
 display_face_n = display_feet_n + display_total_depth
 display_cosmetic_wall = 1.30
 display_cover_top_n = display_face_n + display_cover_over_face + display_cosmetic_wall
@@ -1049,19 +1050,20 @@ display_cover_face_r = 7.25
 display_cover_skirt_r = 10.0
 display_head_s_min = 0.0
 display_head_s_max = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0 + display_cover_skirt_length / 2.0 + 0.2
-display_snap_s_offset = -10.90
+display_clip_s_bottom = (_display_housing_center_s - display_cover_skirt_length / 2.0
+                         + display_cover_skirt_r + _display_snap.END_MARGIN)
+display_clip_s_top = (_display_housing_center_s + display_cover_skirt_length / 2.0
+                      - display_cover_skirt_r - _display_snap.END_MARGIN)
+display_clip_bottom_n = display_cover_bottom_n
+display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
+display_clip_lip_radius = tube_shell_outer_r - _display_snap.ENGAGEMENT
+display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
 display_foot_pad_width = 3.0
 display_foot_pad_depth = 3.0
 display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
 display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
                                   + display_housing_length / 2.0 + y)
                            for x in (-8.5, 8.5) for y in (-19.5, 19.5))
-_pcb_band_half_x = display_pcb_width / 2.0 + display_cradle_clearance
-_pcb_band_end_inset = (display_housing_length - display_pcb_length) / 2.0
-_pcb_band_s_bottom = display_s_bottom + _pcb_band_end_inset
-_pcb_band_s_top = display_s_top - _pcb_band_end_inset
-_pcb_band_n_top = display_floor_n + display_pcb_top_z - 0.05
-_housing_band_half_x = display_housing_width / 2.0 + display_cradle_clearance
 # The vendor USB-C shell extends beyond the PCB and housing's lower end.
 # Raw bounds use the device's centred XY / feet-Z frame; pocket dimensions
 # round them outward before adding the fit clearance.
@@ -1076,7 +1078,6 @@ display_usb_half_width = math.ceil(max(abs(row[0]) for row in display_usb_refere
 display_usb_y_range = (math.floor(display_usb_reference_bounds[0][1] * 100.0) / 100.0,
                        math.ceil(display_usb_reference_bounds[1][1] * 100.0) / 100.0)
 display_usb_top_z = math.ceil(display_usb_reference_bounds[1][2] * 100.0) / 100.0
-_display_housing_center_s = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0
 display_wire_hole_s = _display_housing_center_s - 5.35
 
 def _tip_frame():
@@ -1170,56 +1171,34 @@ def build_display_feet_pads() -> cq.Workplane:
     return cq.Workplane(obj=cq.Compound.makeCompound(solids))
 
 
-def build_display_snap_arms() -> cq.Workplane:
-    """Two unloaded-at-home PET-GF trial cantilevers, with 3 mm sections."""
-    native = cq.Workplane(obj=cq.Compound.makeCompound([
-        _display_snap.build_beam(display_feet_n, side).val() for side in (-1, 1)]))
-    return _display_world(native.translate((0.0, display_snap_s_offset, 0.0)))
+def build_display_cover_lips() -> cq.Workplane:
+    """Two broad 1.3 mm-high lips continuous with the cover's side walls."""
+    band = _cradle_prism(display_cover_skirt_width / 2.0 + 1.0,
+                         display_clip_s_bottom, display_clip_s_top,
+                         display_clip_bottom_n, display_clip_top_n)
+    inner = _build_zone6_outer_shrunk(tube_shell_outer_r - display_clip_lip_radius)
+    return build_display_outer_envelope().intersect(band).cut(inner)
 
 
-def build_display_snap_receivers() -> cq.Workplane:
-    native = cq.Workplane(obj=cq.Compound.makeCompound([
-        _display_snap.build_receiver(display_feet_n, side).val() for side in (-1, 1)]))
-    return _display_world(native.translate((0.0, display_snap_s_offset, 0.0)))
-
-
-def _display_snap_clearance() -> cq.Workplane:
-    native = []
-    for side in (-1, 1):
-        native.append(_display_snap.build_motion_clearance(display_feet_n, side).val())
-        # The receiver and its normal insertion corridor stay outside the
-        # neck's structural side rail.  The beam is added after this cut.
-        receiver = _display_snap.build_receiver(display_feet_n, side).val().BoundingBox()
-        native.append(_display_snap.box(
-            receiver.xmin - display_cover_slip,
-            receiver.xmax + display_cover_slip,
-            receiver.ymin - display_cover_slip,
-            receiver.ymax + display_cover_slip,
-            # The receiver underside seats here before the bezel reaches glass.
-            receiver.zmin,
-            display_cover_top_n + 1.0).val())
-    fused = cq.Workplane(obj=native[0].fuse(*native[1:]))
-    return _display_world(fused.translate((0.0, display_snap_s_offset, 0.0)))
+def build_display_retention_grooves() -> cq.Workplane:
+    """Shallow side grooves with flat seating floors and retaining shoulders."""
+    band = _cradle_prism(tube_shell_outer_r + 1.0,
+                         display_clip_s_bottom - _display_snap.END_SLIP,
+                         display_clip_s_top + _display_snap.END_SLIP,
+                         display_clip_bottom_n,
+                         display_clip_top_n + _display_snap.BEARING_SLIP)
+    core = _build_zone6_outer_shrunk(tube_shell_outer_r - display_clip_groove_radius)
+    return band.cut(core)
 
 
 def _display_cavity() -> cq.Workplane:
-    pcb_band = _cradle_prism(
-        _pcb_band_half_x, _pcb_band_s_bottom, _pcb_band_s_top,
-        display_floor_n, _pcb_band_n_top,
-        corner_r=display_pcb_corner_r + display_cradle_clearance,
-    )
-    housing_band = _cradle_prism(
-        _housing_band_half_x, display_s_bottom, display_s_top,
-        _pcb_band_n_top, display_cover_top_n + 1.0,
-        corner_r=display_corner_r + display_cradle_clearance,
+    device_opening = _cradle_prism(
+        tube_shell_outer_r + wall_thickness_min, display_s_bottom, display_s_top,
+        display_feet_n, display_cover_top_n + 1.0,
     )
     open_channel = _cradle_prism(
         6.75, display_s_bottom, display_s_top, 0.0, display_feet_n + 0.1)
-    feet = cq.Workplane("XY").workplane(offset=display_feet_n)
-    feet = feet.pushPoints(list(display_foot_centers)).circle(
-        display_foot_envelope_r + display_cradle_clearance).extrude(7.25)
-    return (pcb_band.union(housing_band).union(_display_usb_relief())
-            .union(open_channel).union(_display_world(feet)))
+    return device_opening.union(_display_usb_relief()).union(open_channel)
 
 
 def _display_usb_relief() -> cq.Workplane:
@@ -1427,7 +1406,7 @@ def build_shell() -> cq.Workplane:
         build_signal_neck_inner_cut().val(),
         build_lever_clearance().val(),
         _display_cavity().val(),
-        _display_snap_clearance().val(),
+        build_display_retention_grooves().val(),
         _display_wire_hole().val(),
         build_lower_signal_lane().val(),
         build_lower_soda_inner_cut().val(),
@@ -1437,7 +1416,6 @@ def build_shell() -> cq.Workplane:
     part = outer.val()
     for cutter in inner_parts:
         part = part.cut(cutter)
-    part = part.fuse(*build_display_snap_arms().val().Solids())
     return cq.Workplane(obj=part.clean())
 
 
