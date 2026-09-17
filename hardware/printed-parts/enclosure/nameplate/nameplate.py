@@ -722,6 +722,8 @@ def main(unit: int):
     }
     substitute_md(_here.parent / "README.md", variables=variables)
     print("-> README.md")
+    substitute_md(_hw.parent / "future" / "unit-links.md", variables=variables)
+    print("-> future/unit-links.md")
 
 
 if __name__ == "__main__":

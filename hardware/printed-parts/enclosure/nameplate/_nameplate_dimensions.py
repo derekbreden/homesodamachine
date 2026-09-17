@@ -7,7 +7,8 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
-sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+_root = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
+sys.path.insert(0, str(_root / "tools"))
 
 from docgen import substitute_md
 
@@ -57,6 +58,8 @@ def main():
         variables=variables,
     )
     print("-> README.md")
+    substitute_md(_root / "future" / "unit-links.md", variables=variables)
+    print("-> future/unit-links.md")
 
 
 if __name__ == "__main__":

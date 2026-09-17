@@ -40,7 +40,8 @@ go to people Derek knows, or one degree out, at whatever price moves them. The d
 is not the revenue. It is ten machines in daily use by people who did not build them,
 generating failures Derek did not predict, and supplier relationships priced at a run of
 fifty. Ring 1 closes when the tenth unit is installed and the design is tighter than what
-unit one received.
+unit one received. Each plate those units carry is lettered and coded with the
+unit's own address — [Unit links](/future/unit-links.md).
 
 **Three. The Founder Edition run.** Units 001–050 at $7,500, numbered and signed, built one
 at a time by one person. This is the public plan and the price anchor; it opens when the

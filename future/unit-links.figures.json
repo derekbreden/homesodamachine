@@ -1,0 +1,14 @@
+{
+  "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
+    "NAMEPLATE_NOZZLE_D": "0.2 mm"
+  },
+  "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {
+    "CBORE_D": "5.8 mm",
+    "INK_FLOOR": "3.5 mm",
+    "LOCKUP_W": "78.63 mm",
+    "NAMEPLATE_T": "4.5 mm",
+    "PLATE_H": "66.07 mm",
+    "PLATE_W": "104.53 mm",
+    "STACK_H": "57.32 mm"
+  }
+}
