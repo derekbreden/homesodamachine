@@ -15,6 +15,7 @@
     "BASE_SCREW_L": "8 mm",
     "BASE_X": "22",
     "BASE_Y": "10",
+    "DISPENSE_FACE_T": "2 mm",
     "FOOT_DEPTH": "66 mm",
     "FOOT_WIDTH": "65 mm",
     "PEDESTAL_H": "2.2 mm",

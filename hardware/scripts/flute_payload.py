@@ -40,6 +40,7 @@ drawn, with the surface it actually has.
     tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # every tree
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
+    tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest-matching
 """
 
 import itertools
@@ -294,7 +295,7 @@ def surfaces(directories=PIECES_DIRS):
 PLACEMENT_TOL = 0.5
 
 
-def glb_members(scene, fluted):
+def glb_members(scene, fluted, owner=None):
     """Every geometry key in `scene`, grouped by the fluted piece it is a patch of.
 
     TWO ORDINALS, TWO MEANINGS, and telling them apart is the whole of this. cadquery writes one
@@ -303,7 +304,7 @@ def glb_members(scene, fluted):
     ordinal after a SLASH is a body of its own (`fluted_key`), and those never join."""
     out = {}
     for k in scene.geometry:
-        key = fluted_key(re.sub(r"_\d+$", "", k), fluted)
+        key = fluted_key(re.sub(r"_\d+$", "", k), fluted, owner=owner)
         if key:
             out.setdefault(key, []).append(k)
     return {k: sorted(v) for k, v in out.items()}
@@ -327,7 +328,7 @@ def graft_glb(path, fluted):
     they stand. `PLACEMENT_TOL` is what says so rather than this comment: the body that lands
     has to occupy the box the bodies it replaced occupied."""
     scene = trimesh.load(str(path))
-    grouped = glb_members(scene, fluted)
+    grouped = glb_members(scene, fluted, owner=payload_owner(path))
     landed = 0
     for name, surface in fluted.items():
         members = grouped.get(name)
@@ -458,38 +459,61 @@ def piece_names(directories=PIECES_DIRS):
     return out
 
 
-def fluted_key(name, fluted):
-    """Which fluted surface `name` names, or None — the one place a body's name is matched.
+# Only these owners use shortened child names for these specific pieces.
+# Other names must state the complete piece identity, even when a suffix would
+# happen to select just one surface from the current catalog.
+_OWNER_ALIASES = {
+    owner: {"shell-base": "faucet-shell-base", "shell-tip": "faucet-shell-tip"}
+    for owner in ("faucet-shell", "faucet-assembly")
+}
 
-    A SOLID INDEX IS A PATH AND A PIECE'S OWN NAME IS THE END OF IT. The box places its six in
-    the machine's own frame and under their own names (`enclosure-front-top`); the machine
-    places the cold core's three under the core's (`cold-core/foam-shell`), because the core is
-    a subassembly that carries a name. They are the same pieces either way, so both spellings
-    have to reach the same surface — and matching the whole string only ever found the first.
 
-    A TRAILING ORDINAL IS NOT A NAME AND STOPS THE MATCH DEAD. `cold-core/evap-coil/2` is the
-    second solid OF one body, and a fluted surface is the whole of a piece; landing a whole
-    piece on one of its solids would be a worse answer than landing nothing. So only a name
-    that ends ON the piece matches.
+def payload_owner(path):
+    """The adjacent STEP's root product, or its canonical file name when absent.
 
-    AND AN ASSEMBLY MAY LEAVE THE FAMILY OFF. Inside `faucet-shell.step` the two pieces are
-    `shell_base` and `shell_tip`, because the assembly is already called the faucet shell and
-    saying it twice reads as a stutter; the printed piece is `faucet-shell-base`, because a
-    file has no assembly around it to be named inside. Same body, and the surface has to
-    reach it under either spelling. THE TAIL HAS TO LAND ON A HYPHEN AND CARRY ONE: `cap-top`
-    is `foam-cap-top` and never `foam-cap-lid-top`, `top` alone is a role rather than a piece
-    and names nothing, and a tail that fits two pieces fits neither — a whole piece landed on
-    the wrong body is worse than nothing landing at all."""
+    A scene may have a different file name from the assembly it displays, so
+    an existing STEP supplies the owner. Reading only its first named PRODUCT
+    avoids loading geometry to recover that identity. Bare payloads retain
+    the explicit canonical file owner; they do not infer a family from the
+    available replacement surfaces.
+    """
+    path = Path(path)
+    step = path.with_suffix("") if path.suffix == ".mesh" else path.with_suffix(".step")
+    if step.is_file():
+        with step.open(errors="ignore") as source:
+            for line in source:
+                match = re.search(r"PRODUCT\('([^']*)'", line)
+                if match and not match[1].startswith("Open CASCADE"):
+                    return match[1].replace("_", "-")
+        return None
+    return step.stem.replace("_", "-")
+
+
+def fluted_key(name, fluted, *, owner=None):
+    """Match a complete piece name, or a declared alias inside its own assembly.
+
+    Exact leaf names remain valid under any enclosing assembly path, such as
+    `cold-core/foam-shell`. A shortened `shell_base` or `shell_tip` is valid
+    only inside the explicitly named faucet owner. A generic `display-cover`
+    never means `faucet-display-cover`, even when that is the only suffix match.
+    A trailing numeric component names one solid of a body and cannot take a
+    replacement surface for the whole part.
+    """
     name = name.replace("_", "-")
+    parent, _sep, own = name.rpartition("/")
+    if own.isdigit():
+        return None
     if name in fluted:
         return name
-    owner, _sep, own = name.rpartition("/")
-    if owner and own in fluted:
+    if parent and own in fluted:
         return own
-    if "-" not in own:
-        return None
-    tails = [k for k in fluted if k.endswith("-" + own)]
-    return tails[0] if len(tails) == 1 else None
+    owners = parent.split("/") if parent else []
+    if owner:
+        owners.append(str(owner).replace("_", "-"))
+    matches = {_OWNER_ALIASES.get(scope, {}).get(own) for scope in owners}
+    matches.discard(None)
+    matches.intersection_update(fluted)
+    return next(iter(matches)) if len(matches) == 1 else None
 
 
 def _axis_rotations():
@@ -617,17 +641,16 @@ def graft(path: Path, fluted: dict):
     held = read_payload(path)
     if held is None:
         return 0
+    owner = payload_owner(path)
     moved = []
     landed = 0
     for entry in held:
-        surface = fluted.get(fluted_key(entry["name"], fluted) or "")
+        surface = fluted.get(fluted_key(entry["name"], fluted, owner=owner) or "")
         if surface is None:
             continue
-        # EVERY SURFACE LANDS. The box's six pieces are cut in the machine's own coordinates; the
-        # cold core's three are cut in the core's frame and are carried onto the body's placement
-        # when one turn lays the surface on the body (`placement_onto`). A surface that stands off
-        # the body it replaces with no such turn lands as it was cut and says so: a face that
-        # moved is what the viewer is for.
+        # Identity is established by the complete name or an owner-scoped
+        # alias before considering placement. A changed part may have new
+        # extents, so failure to recover a carry does not reject that edit.
         drift = _placement_drift(entry, surface)
         if drift > PLACEMENT_TOL:
             placement = placement_onto(entry, surface)
@@ -733,7 +756,101 @@ def _ridged_slab(pitch=5.0, depth=1.2, width=215.0, height=195.0, thick=10.0, nx
     return trimesh.Trimesh(verts, faces, process=False)
 
 
-def selftest():
+def _matching_checks(check):
+    """Owner collisions must leave unrelated geometry intact while edits still land."""
+    import tempfile
+
+    family = {"faucet-shell-base": 0, "faucet-shell-tip": 0,
+              "faucet-display-cover": 0, "foam-cap-top": 0, "foam-cap-lid-top": 0}
+    check("a complete piece name is its own identity",
+          fluted_key("faucet-shell-base", family), "faucet-shell-base")
+    check("a complete leaf retains identity under a subassembly",
+          fluted_key("core/foam-cap-top", family), "foam-cap-top")
+    check("a trailing solid ordinal cannot receive a whole piece",
+          fluted_key("faucet-shell-base/2", family), None)
+    check("a unique suffix does not confer ownership",
+          fluted_key("display-cover", family), None)
+    check("another owner's generic cover does not become the faucet cover",
+          fluted_key("enclosure/display-cover", family, owner="enclosure-assembly"), None)
+    check("an exact generic piece wins when it actually exists",
+          fluted_key("enclosure/display-cover", {**family, "display-cover": 0}), "display-cover")
+    check("a canonical faucet cover is recognized in an aggregate",
+          fluted_key("faucet/faucet-display-cover", family), "faucet-display-cover")
+    check("an unowned shortened shell name matches nothing",
+          fluted_key("shell_base", family), None)
+    check("the faucet shell owns its declared base alias",
+          fluted_key("shell_base", family, owner="faucet-shell"), "faucet-shell-base")
+    check("the faucet assembly owns its declared tip alias",
+          fluted_key("shell_tip", family, owner="faucet-assembly"), "faucet-shell-tip")
+    check("a named faucet subassembly supplies its own alias scope",
+          fluted_key("machine/faucet-shell/shell_base", family), "faucet-shell-base")
+    check("an unrelated owner cannot claim a faucet alias",
+          fluted_key("shell_base", family, owner="enclosure-assembly"), None)
+    check("an unregistered shortened cap name matches nothing",
+          fluted_key("cap-top", family), None)
+
+    def entry(name, body):
+        return {"name": name, "color": [0.1, 0.2, 0.3],
+                "pos": body.vertices.ravel().tolist(),
+                "nrm": body.vertex_normals.ravel().tolist(),
+                "idx": body.faces.ravel().tolist(), "fac": [0, len(body.faces)-1]}
+
+    with tempfile.TemporaryDirectory() as directory:
+        directory = Path(directory)
+        machine = trimesh.creation.box(extents=(153.2, 82.7, 5.45))
+        machine.apply_translation((0.0, 38.0, 322.0))
+        faucet = trimesh.creation.box(extents=(33.3, 41.8, 44.5))
+        faucet.apply_translation((0.0, -130.0, 208.0))
+        original = [entry("display-cover", machine), entry("faucet-display-cover", faucet)]
+        surface = entry("faucet-display-cover", faucet.subdivide())
+        host = directory / "enclosure-assembly.step.mesh"
+        _mesh_payload.write(original, str(host), src="preserved-host-source")
+        before = read_payload(host)
+        check("only the correctly named cover is grafted",
+              graft(host, {surface["name"]: surface}), 1)
+        after = read_payload(host)
+        check("the machine cover's name, colour and all arrays remain intact", after[0] == before[0], True)
+        check("the faucet cover receives its own replacement", after[1]["idx"], surface["idx"])
+        check("the host's source identity is preserved", _mesh_payload.read_source(host),
+              "preserved-host-source")
+        unrelated = directory / "machine.step.mesh"
+        _mesh_payload.write([original[0]], str(unrelated))
+        untouched = unrelated.read_bytes()
+        check("a machine-only payload receives no faucet cover", graft(unrelated, {surface["name"]: surface}), 0)
+        check("the unrelated payload remains byte-for-byte intact", unrelated.read_bytes() == untouched, True)
+
+        shell = directory / "faucet-shell.step.mesh"
+        check("a bare canonical payload supplies its declared owner", payload_owner(shell), "faucet-shell")
+        shell.with_suffix("").write_text("#1=PRODUCT('enclosure-assembly','', '',());\n")
+        check("an adjacent STEP's root overrides a misleading filename", payload_owner(shell), "enclosure-assembly")
+        renamed = directory / "renamed-scene.step.mesh"
+        renamed.with_suffix("").write_text("#1=PRODUCT('faucet-assembly','', '',());\n")
+        _mesh_payload.write([entry("shell_base", faucet)], str(renamed))
+        check("a renamed scene retains its actual STEP owner", payload_owner(renamed), "faucet-assembly")
+        check("that owner permits the specific shell alias",
+              graft(renamed, {"faucet-shell-base": surface}), 1)
+
+        resized = directory / "resized.step.mesh"
+        edited = trimesh.creation.box(extents=(33.3, 41.8, 46.5))
+        edited.apply_translation((0.0, -130.0, 208.0))
+        replacement = entry("faucet-display-cover", edited)
+        _mesh_payload.write([original[1]], str(resized))
+        check("a correctly named part may change its extents",
+              graft(resized, {replacement["name"]: replacement}), 1)
+        check("the changed part reaches the viewer in its cut frame",
+              read_payload(resized)[0]["pos"],
+              np.asarray(replacement["pos"], dtype=np.float32).astype(float).tolist())
+
+        scene = trimesh.Scene()
+        scene.add_geometry(machine, geom_name="display-cover")
+        scene.add_geometry(machine.copy(), geom_name="display-cover_1")
+        scene.add_geometry(faucet, geom_name="faucet-display-cover")
+        check("scene patches keep the same strict owner matching",
+              glb_members(scene, {"faucet-display-cover": surface}),
+              {"faucet-display-cover": ["faucet-display-cover"]})
+
+
+def selftest(matching_only=False):
     import json
     import struct
     import tempfile
@@ -744,6 +861,12 @@ def selftest():
         ok = got == want
         checks.append((ok, name, got, want))
         print(f"  {'ok  ' if ok else 'FAIL'} {name}: {got!r}" + ("" if ok else f" != {want!r}"))
+
+    _matching_checks(check)
+    if matching_only:
+        bad = [c for c in checks if not c[0]]
+        print(f"\n{len(checks)-len(bad)}/{len(checks)} matching checks passed")
+        return 1 if bad else 0
 
     # A box's six sides are six smooth regions, and every corner vertex is emitted once per side
     # it touches. Averaged over the ring instead, a corner normal points along the diagonal and
@@ -973,32 +1096,11 @@ def selftest():
     check("and the groove is still there afterwards", round(after, 1), round(before, 1))
     check("inside the budget it was accepted on", dev <= budget, True)
 
-    # THE SPELLINGS A BODY'S NAME COMES IN, all of them reaching the one surface — and the three
-    # that must reach nothing. `shell_base` inside `faucet-shell.step` and `faucet-shell-base.step`
-    # on its own are the same piece; `top` is a role; a tail two pieces answer to is a piece
-    # about to land on the wrong body.
-    family = {"faucet-shell-base": 0, "foam-cap-top": 0, "foam-cap-lid-top": 0,
-              "enclosure-back-top": 0, "cold-core-back-top": 0}
-    check("a piece under its own name", fluted_key("faucet-shell-base", family),
-          "faucet-shell-base")
-    check("a piece under a subassembly's path", fluted_key("core/foam-cap-top", family),
-          "foam-cap-top")
-    check("a piece an assembly left the family off", fluted_key("shell_base", family),
-          "faucet-shell-base")
-    check("a tail lands on a hyphen and takes the piece it ends",
-          fluted_key("cap-top", family), "foam-cap-top")
-    check("and the longer piece keeps its own tail",
-          fluted_key("lid-top", family), "foam-cap-lid-top")
-    check("a tail two pieces answer to reaches neither",
-          fluted_key("back-top", family), None)
-    check("a one-word tail is a role and not a piece", fluted_key("top", family), None)
-    check("a trailing ordinal is one solid OF a body and stops the match",
-          fluted_key("faucet-shell-base/2", family), None)
-
     bad = [c for c in checks if not c[0]]
     print(f"\n{len(checks) - len(bad)}/{len(checks)} checks passed")
     return 1 if bad else 0
 
 
 if __name__ == "__main__":
-    sys.exit(selftest() if sys.argv[1:2] == ["selftest"] else main())
+    sys.exit(selftest(matching_only=True) if sys.argv[1:2] == ["selftest-matching"]
+             else selftest() if sys.argv[1:2] == ["selftest"] else main())
