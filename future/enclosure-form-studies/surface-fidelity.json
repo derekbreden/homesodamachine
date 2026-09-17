@@ -1,0 +1,91 @@
+{
+  "position_grid_mm": 0.001,
+  "maximum_position_rounding_mm": 0.0008660254037844386,
+  "meshes": [
+    {
+      "mesh": "current-front-bottom",
+      "triangles": 39828,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "current-front-top",
+      "triangles": 125110,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "current-back-bottom",
+      "triangles": 68122,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "current-back-top",
+      "triangles": 97216,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "current-pump-cartridge",
+      "triangles": 12804,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "current-pump-cap",
+      "triangles": 2236,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "A-front-bottom",
+      "triangles": 494602,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "B-front-bottom",
+      "triangles": 494480,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "C-front-bottom",
+      "triangles": 240452,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "A-front-top",
+      "triangles": 611446,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "B-front-top",
+      "triangles": 600886,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "C-front-top",
+      "triangles": 617546,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "A-back-top",
+      "triangles": 1044506,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "C-back-top",
+      "triangles": 1073448,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "A-pump-cartridge",
+      "triangles": 194022,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "B-pump-cartridge",
+      "triangles": 193010,
+      "source_triangles_preserved_at_0_001_mm": true
+    },
+    {
+      "mesh": "C-pump-cartridge",
+      "triangles": 199092,
+      "source_triangles_preserved_at_0_001_mm": true
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "errors": [],
   "mobile": {
-    "width": 328,
-    "scroll": 328
+    "width": 360,
+    "scroll": 360
   },
   "state": {
     "focus": "B",
@@ -11,5 +11,23 @@
     "finish": "black",
     "withdrawn": false
   },
-  "canvases": 4
+  "canvases": 4,
+  "surfaces": [
+    {
+      "model": "current",
+      "triangles": 345316
+    },
+    {
+      "model": "A",
+      "triangles": 2414934
+    },
+    {
+      "model": "B",
+      "triangles": 2403240
+    },
+    {
+      "model": "C",
+      "triangles": 2200896
+    }
+  ]
 }

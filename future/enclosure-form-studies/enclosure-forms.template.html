@@ -1,20 +1,20 @@
 <div id="enclosure-forms" aria-label="Enclosure exterior form comparison">
   <div class="viz-controls">
-    <label class="form-label">Compare<select class="form-select" data-control="focus"><option value="all">All four</option><option value="current">Current outline</option><option value="A">A · Soft shoulders</option><option value="B">B · Bowed front</option><option value="C">C · Crisp bevels</option></select></label>
-    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Front three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="top">Top</option><option value="rear">Rear three-quarter</option></select></label>
+    <label class="form-label">Compare<select class="form-select" data-control="focus"><option value="all">All four</option><option value="current">Current enclosure</option><option value="A">A · Soft shoulders</option><option value="B">B · Bowed front</option><option value="C">C · Crisp bevels</option></select></label>
+    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Front three-quarter</option><option value="corner">Front corner detail</option><option value="front">Front</option><option value="side">Side</option><option value="top">Top</option><option value="rear">Rear three-quarter</option></select></label>
     <label class="form-label">Show<select class="form-select" data-control="mode"><option value="finish">Exterior</option><option value="pieces">Printed pieces</option><option value="inside">Fixed interior</option></select></label>
     <label class="form-label">PET-GF<select class="form-select" data-control="finish"><option value="white">White</option><option value="black">Black</option></select></label>
     <label class="form-check"><input class="form-check-input" type="checkbox" data-control="withdrawn"><span class="form-check-label">Withdraw cartridge</span></label>
   </div>
   <div class="ef-key text-small" aria-live="polite"></div>
   <div class="ef-grid">
-    <section class="ef-panel" data-model="current"><div class="ef-heading"><span>Current outline</span><span class="text-small text-muted">R12 front corners</span></div><div class="ef-stage" role="img" aria-label="Current enclosure outline. Drag to rotate all four models."></div><div class="text-small">215 × 462 × 361 mm</div></section>
+    <section class="ef-panel" data-model="current"><div class="ef-heading"><span>Current enclosure</span><span class="text-small text-muted">R12 front corners</span></div><div class="ef-stage" role="img" aria-label="Current fluted enclosure. Drag to rotate all four models."></div><div class="text-small">215 × 462 × 361 mm</div></section>
     <section class="ef-panel" data-model="A"><div class="ef-heading"><span>A · Soft shoulders</span><span class="text-small text-muted">R22 front corners</span></div><div class="ef-stage" role="img" aria-label="Soft shoulders enclosure study. Drag to rotate all four models."></div><div class="text-small">Same envelope · rounded upper edges</div></section>
     <section class="ef-panel" data-model="B"><div class="ef-heading"><span>B · Bowed front</span><span class="text-small text-muted">6 mm front crown</span></div><div class="ef-stage" role="img" aria-label="Bowed front enclosure study. Drag to rotate all four models."></div><div class="text-small">6 mm more depth · R22 front corners</div></section>
     <section class="ef-panel" data-model="C"><div class="ef-heading"><span>C · Crisp bevels</span><span class="text-small text-muted">13 mm corner bevels</span></div><div class="ef-stage" role="img" aria-label="Crisp bevels enclosure study. Drag to rotate all four models."></div><div class="text-small">Same envelope · flat diagonal shoulders</div></section>
   </div>
-  <div class="ef-note text-small text-muted">Same scale · smooth surfaces for comparing form · exterior studies, print qualification pending</div>
-  <div class="sr-only">All four models use the same installed components, funnel, display, pump cartridge supports and internal assembly coordinates. The four enclosure quadrants and removable pump cartridge remain separate. The views use simplified meshes of exact CAD studies. The current fluting is omitted from every model to isolate exterior form. The bowed front adds material ahead of the existing front surface. The rounded and beveled alternatives remove material only at the two front vertical corners.</div>
+  <div class="ef-note text-small text-muted">Same scale · fluted surfaces · exterior studies, print qualification pending</div>
+  <div class="sr-only">The current enclosure uses its published fluted viewer geometry. The alternatives retain fine CAD curves and geometric flutes with no mesh reduction. Installed components, funnel, display and support locations are fixed. The four enclosure quadrants and removable pump cartridge remain separate. The bowed front adds material ahead of the existing front surface.</div>
 </div>
 <style>
 #enclosure-forms .ef-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 20px;margin-top:12px}
@@ -35,7 +35,6 @@
 <script type="module">
 import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
-import {toCreasedNormals} from 'three/addons/utils/BufferGeometryUtils.js';
 const root=document.getElementById('enclosure-forms');
 const binary=Uint8Array.from(atob('__MODEL_DATA__'),c=>c.charCodeAt(0));
 const raw=await new Response(new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
@@ -44,10 +43,11 @@ const state={focus:'all',view:'three',mode:'finish',finish:'white',withdrawn:fal
 const geometries=new Map(),scenes=[];let syncing=false;
 for(const [name,m] of Object.entries(data.meshes)){
  let g=new THREE.BufferGeometry();
- const positions=Float32Array.from(new Int16Array(raw,offset+m.p[0],m.p[1]));for(let i=3;i<positions.length;i++)positions[i]+=positions[i-3];for(let i=0;i<positions.length;i++)positions[i]/=50;
- const deltas=new Int16Array(raw,offset+m.i[0],m.i[1]),indices=new Uint16Array(deltas.length);let sum=0;for(let i=0;i<deltas.length;i++){sum+=deltas[i];indices[i]=sum}
- g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));
- g=toCreasedNormals(g,Math.PI/4);g.computeBoundingSphere();geometries.set(name,g);
+ const positions=Float32Array.from(new Int32Array(raw,offset+m.p[0],m.p[1]));for(let i=3;i<positions.length;i++)positions[i]+=positions[i-3];for(let i=0;i<positions.length;i++)positions[i]/=1000;
+ const normals=Float32Array.from(new Int32Array(raw,offset+m.n[0],m.n[1]));for(let i=3;i<normals.length;i++)normals[i]+=normals[i-3];for(let i=0;i<normals.length;i++)normals[i]/=10000;
+ const deltas=new Int32Array(raw,offset+m.i[0],m.i[1]),indices=new Uint32Array(deltas.length);let sum=0;for(let i=0;i<deltas.length;i++){sum+=deltas[i];indices[i]=sum}
+ g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setAttribute('normal',new THREE.BufferAttribute(normals,3));g.setIndex(new THREE.BufferAttribute(indices,1));
+ g.computeBoundingSphere();geometries.set(name,g);
 }
 function token(name){const p=document.createElement('span');p.style.color=`var(${name})`;p.style.display='none';root.append(p);const v=getComputedStyle(p).color;p.remove();return new THREE.Color(v)}
 const pieceTokens={'front-bottom':'--viz-series-1','front-top':'--viz-series-2','back-bottom':'--viz-series-3','back-top':'--viz-series-4',cartridge:'--viz-series-5',cover:'--viz-series-6',cap:'--viz-series-5'};
@@ -76,13 +76,13 @@ for(const [key,model] of Object.entries(data.models)){
   const edges=new THREE.LineSegments(new THREE.EdgesGeometry(object.geometry,45),new THREE.LineBasicMaterial({color:token('--foreground'),transparent:true,opacity:.10}));object.add(edges);
   parts.push({object,edges,role:p.role,name:p.mesh});
  }
- const controls=new OrbitControls(camera,renderer.domElement);controls.enablePan=false;controls.minZoom=.65;controls.maxZoom=3.5;controls.target.set(0,210,175);controls.enableDamping=false;
+ const controls=new OrbitControls(camera,renderer.domElement);controls.enablePan=true;controls.minZoom=.65;controls.maxZoom=12;controls.target.set(0,210,175);controls.enableDamping=false;
  const item={key,panel,stage,renderer,scene,camera,controls,parts};scenes.push(item);
  controls.addEventListener('change',()=>{if(syncing)return;syncing=true;for(const o of scenes){if(o!==item){o.camera.position.copy(camera.position);o.camera.quaternion.copy(camera.quaternion);o.camera.zoom=camera.zoom;o.controls.target.copy(controls.target);o.camera.updateProjectionMatrix()}if(!o.panel.hidden)o.renderer.render(o.scene,o.camera)}syncing=false});
  new ResizeObserver(()=>resize(item)).observe(stage);
 }
-function resize(item){if(item.panel.hidden)return;const w=item.stage.clientWidth,h=item.stage.clientHeight;if(!w||!h)return;item.renderer.setSize(w,h,false);const a=w/h;const box=[[-114,state.withdrawn?-110:-8,-7],[114,478,366]],q=item.camera.quaternion.clone().invert();let px=0,py=0;for(const x of [box[0][0],box[1][0]])for(const y of [box[0][1],box[1][1]])for(const z of [box[0][2],box[1][2]]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}const span=Math.max(py*2,px*2/a)*1.07;item.camera.left=-span*a/2;item.camera.right=span*a/2;item.camera.top=span/2;item.camera.bottom=-span/2;item.camera.updateProjectionMatrix();item.renderer.render(item.scene,item.camera)}
-function orient(){syncing=true;const dirs={three:[610,-920,490],front:[0,-1200,0],side:[1200,0,0],top:[0,.01,1200],rear:[610,920,470]};for(const s of scenes){const c=new THREE.Vector3(0,215,state.view==='top'?175:177);s.controls.target.copy(c);s.camera.position.copy(c).add(new THREE.Vector3(...dirs[state.view]));s.camera.zoom=1;s.camera.lookAt(c);s.camera.updateProjectionMatrix();s.controls.update()}syncing=false}
+function resize(item){if(item.panel.hidden)return;const w=item.stage.clientWidth,h=item.stage.clientHeight;if(!w||!h)return;item.renderer.setSize(w,h,false);const a=w/h;const box=[[-114,state.withdrawn?-110:-8,-7],[114,478,366]],q=item.camera.quaternion.clone().invert();let px=0,py=0;for(const x of [box[0][0],box[1][0]])for(const y of [box[0][1],box[1][1]])for(const z of [box[0][2],box[1][2]]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}const span=state.view==='corner'?92:Math.max(py*2,px*2/a)*1.07;item.camera.left=-span*a/2;item.camera.right=span*a/2;item.camera.top=span/2;item.camera.bottom=-span/2;item.camera.updateProjectionMatrix();item.renderer.render(item.scene,item.camera)}
+function orient(){syncing=true;const dirs={three:[610,-920,490],corner:[610,-920,490],front:[0,-1200,0],side:[1200,0,0],top:[0,.01,1200],rear:[610,920,470]};for(const s of scenes){const c=state.view==='corner'?new THREE.Vector3(87,17,285):new THREE.Vector3(0,215,state.view==='top'?175:177);s.controls.target.copy(c);s.camera.position.copy(c).add(new THREE.Vector3(...dirs[state.view]));s.camera.zoom=1;s.camera.lookAt(c);s.camera.updateProjectionMatrix();s.controls.update()}syncing=false}
 function appearance(){for(const s of scenes){for(const p of s.parts){
  const shell=Boolean(pieceTokens[p.role]);p.object.visible=state.mode==='inside'||shell||externals.has(p.role)||(state.withdrawn&&p.role==='pump');
  p.object.material.color.copy(color(p.role));p.object.material.transparent=state.mode==='inside'&&shell;p.object.material.opacity=state.mode==='inside'&&shell?.13:1;p.object.material.depthWrite=!(state.mode==='inside'&&shell);
