@@ -1,0 +1,17 @@
+[sliver] This is the short planar boundary where the merged flavor opening meets the rounded ribbon lane: X6.800..7.1343, Y16.300, Z0..14.2. The 0.334 mm reading is its face width. Exact sections give 1.8965 mm inward stock at the midpoint and 1.8169..1.9786 mm at the two ends; those sections join continuously into the body, including more than 17 mm outward at Y15.3 and Z0..30 vertically. This is an internal opening-edge termination, with no separate thin fin. Its local stock is distinct from the exterior wall's 3 mm requirement. The face is inclined 55 degrees to the bed in the base's -35 degree print pose.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
+click: x=6.967 y=16.298 z=7.100
+
+[ceiling] This is the lever-clearance ceiling at Z52.355. Its rear 13 by 6 mm bridge contains a complete 3 mm vertical thickness and joins continuously into the neck. The plane is inclined 35 degrees to the bed in the base's -35 degree print pose. The final slice has one bed-rooted support body extending beneath this pocket; removal through the open donor and lever cavities before hardware installation remains a physical print check.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
+click: x=0.000 y=-6.753 z=52.355
+
+[ceiling] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and in front of the flavor opening. It preserves the metal body's top clearance. The material above the named point continues for 12.1129 mm; the ceiling is inclined 35 degrees to the bed in the base's -35 degree print pose. The donor cavity remains open from below for factory inspection and any support removal before the metal body is installed. Physical removal is not established by the CAD or slice.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
+click: x=0.000 y=14.140 z=39.000
+
+[ceiling] These are the annular roofs of the three plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance over its 2.2 mm pedestal, with the insert pilot opening through the roof's center. The planes are inclined 35 degrees to the bed in the base's -35 degree print pose. The sockets open through the bottom for factory cleaning before the plate closes; their actual printed clearance and support removal require inspection.
+file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
+click: x=22.000 y=10.000 z=3.200
+click: x=-22.000 y=10.000 z=3.200
+click: x=0.000 y=-24.200 z=3.200
