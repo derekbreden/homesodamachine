@@ -1,18 +1,17 @@
-<div id="fascia-studies" aria-label="Four enclosure fascia studies">
+<div id="fascia-studies" aria-label="Existing enclosure, flared foot, and two inward-rounded top-edge studies">
   <div class="viz-controls">
-    <label class="form-label">Form<select class="form-select" data-control="focus"><option value="all">Four new options</option><option value="A">A · Bell</option><option value="B">B · Cushion</option><option value="C">C · Arch</option><option value="D">D · Plinth</option><option value="current">Current outline</option></select></label>
-    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="base">Base detail</option><option value="top">Above</option></select></label>
+    <label class="form-label">Form<select class="form-select" data-control="focus"><option value="all">Compare all</option><option value="current">Existing enclosure</option><option value="A">A · Foot only</option><option value="B">B · Compact round</option><option value="C">C · Long round</option></select></label>
+    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="rear">Rear</option><option value="base">Front foot detail</option><option value="rearbase">Rear foot detail</option><option value="roof">Top edges · front</option><option value="rearroof">Top edges · rear</option><option value="top">Above</option></select></label>
     <label class="form-label">Finish<select class="form-select" data-control="finish"><option value="white">White PET-GF</option><option value="black">Black PET-GF</option></select></label>
   </div>
   <div class="fs-grid">
-    <section data-model="A"><h3>A · Bell</h3><div class="fs-stage" role="img" aria-label="Bell: continuous outward flare at the base, a smooth cove, and fluted wall fields. Drag to rotate."></div><div class="text-small">Flared foot · continuous cove</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="B"><h3>B · Cushion</h3><div class="fs-stage" role="img" aria-label="Cushion: a full softly swelling body, rounded shoulders, and inset fluted fields. Drag to rotate."></div><div class="text-small">Full body · rounded fluted fields</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="C"><h3>C · Arch</h3><div class="fs-stage" role="img" aria-label="Arch: smooth sweeping shoulders over arched fluted fields and an outward foot. Drag to rotate."></div><div class="text-small">Sweeping shoulders · arched fluted fields</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="D"><h3>D · Plinth</h3><div class="fs-stage" role="img" aria-label="Plinth: a low projecting base, a recessed waist, and broad fluted panels. Drag to rotate."></div><div class="text-small">Low projecting base · recessed waist</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="current" hidden><h3>Current outline</h3><div class="fs-stage" role="img" aria-label="Current enclosure outline with continuous fluting. Drag to rotate."></div><div class="text-small">Current component positions and shell silhouette</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="current"><h3>Existing enclosure</h3><div class="fs-stage" role="img" aria-label="Existing enclosure with its sharp roof edges and continuous fluting. Drag to rotate."></div><div class="text-small">Reference</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="A"><h3>A · Foot only</h3><div class="fs-stage" role="img" aria-label="Existing enclosure with a smaller Bell foot around the entire base, including the rear. Drag to rotate."></div><div class="text-small">18 mm flare · 66 mm high · all four sides</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="B"><h3>B · Compact round</h3><div class="fs-stage" role="img" aria-label="The same foot with actual roof edges rounded inward by 6 mm, over 6 mm of height. Drag to rotate."></div><div class="text-small">Same foot · top round 6 mm in × 6 mm down</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="C"><h3>C · Long round</h3><div class="fs-stage" role="img" aria-label="The same foot with actual roof edges rounded inward by 6 mm, over 24 mm of height. Drag to rotate."></div><div class="text-small">Same foot · top curve 6 mm in × 24 mm down</div><div class="text-small text-muted fs-size"></div></section>
   </div>
   <div class="text-small text-muted fs-note">Same scale · drag to rotate · scroll to zoom · exterior form studies</div>
-  <div class="sr-only">The display, funnel, rear fittings and cartridge station use the current machine's geometry. The smooth fascia shapes extend outward from the exterior. Fluting is represented by surface shading. These are appearance studies, with joinery and print qualification unresolved.</div>
+  <div class="sr-only">The foot extends outward around the whole base. Above the foot, A retains the existing geometry. B and C curve the top edges inward, including the edges along the display slope and the ridge behind the display. The display and funnel retain their positions and the funnel landing remains flat. Fluting is represented by surface shading. These are appearance studies, with wall sections and print qualification unresolved.</div>
   <div class="fs-error text-destructive" role="alert" hidden></div>
 </div>
 <style>
@@ -54,21 +53,44 @@ function plan(p){
  else if(qx>qy)nx=Math.sign(p[0]);else ny=Math.sign(dy);
  return [Math.hypot(Math.max(qx,0),Math.max(qy,0))+Math.min(Math.max(qx,qy),0)-12,nx,ny];
 }
-const profiles={
- A:[[-6,20],[0,23],[8,22],[18,18],[34,8],[60,1.5],[265,1.5],[310,7],[337,4],[355,0]],
- B:[[-6,7],[3,12],[16,13],[42,8],[100,13],[192,17],[267,16],[306,16],[333,9],[355,0]],
- C:[[-6,18],[1,21],[12,18],[32,9],[64,2],[235,2],[286,14],[322,19],[342,8],[355,0]],
- D:[[-6,23],[0,26],[8,25],[15,17],[23,0],[29,0],[41,5],[265,5],[310,9],[335,6],[355,0]]
-};
+const footProfile=[[-6,15.65],[0,18],[8,17.22],[18,14.09],[34,6.26],[60,0]];
+const roofRidge=355-288.1281566462, ridgeRadius=6;
+const topRounds={B:[6,6],C:[6,24]};
+// The roof/display ridge has a true tangent circular blend. Its roof tangency
+// is at y=69.357, before the fixed funnel brim begins at y=70.
+function roofAt(y,rounded){
+ const nominal=Math.min(355,y+288.1281566462);
+ if(!rounded)return {z:nominal,slope:y<roofRidge?1:0};
+ const cy=roofRidge+ridgeRadius*Math.tan(Math.PI/8),cz=355-ridgeRadius;
+ if(y<=cy-ridgeRadius/Math.SQRT2)return {z:nominal,slope:1};
+ if(y>=cy)return {z:355,slope:0};
+ const dy=y-cy,up=Math.sqrt(ridgeRadius*ridgeRadius-dy*dy);
+ return {z:cz+up,slope:-dy/up};
+}
+function roundedTop(p,key){
+ const spec=topRounds[key];if(!spec)return p.slice();
+ const q=p.slice(),roof=roofAt(q[1],true),originalRoof=roofAt(q[1],false).z;
+ q[2]-=(originalRoof-roof.z)*(1-smooth(2,8,originalRoof-q[2]));
+ const [dist,nx,ny]=plan(q),d=-dist,h=(roof.z-q[2])/Math.hypot(1,roof.slope);
+ // The 135-degree front/display junction needs a shorter tangent run than
+ // the square roof/wall junction. Keep that local blend compact for the bezel.
+ const cosine=Math.max(0,-ny*roof.slope/Math.hypot(1,roof.slope));
+ const width=spec[0]*(1-cosine),drop=(6+(spec[1]-6)*(1-cosine*Math.SQRT2))*(1-cosine);
+ if(d>=width||h>=drop)return q;
+ const u=(width-d)/width,v=(drop-h)/drop,len=Math.hypot(u,v);
+ if(len<=1)return q;
+ // Project both faces of the original sharp edge onto one quarter ellipse.
+ // XY moves only toward the interior; the top surface meets the wall tangentially.
+ const dd=width*(1-u/len)-d,dh=drop*(1-v/len)-h;
+ q[0]-=nx*dd;q[1]-=ny*dd;
+ q[2]+=roofAt(q[1],true).z-roof.z-Math.hypot(1,roof.slope)*dh;
+ return q;
+}
 function displaced(p,key){
  if(key==='current')return p.slice();
- const [dist,nx,ny]=plan(p), weight=smooth(-2.6,-.06,dist), z=p[2];
- let amount=profile(z,profiles[key]);
- const rear=1-.82*smooth(410,462,p[1]);
- if(key==='C')amount+=8*(1-smooth(55,135,p[1]))*smooth(50,100,z)*(1-smooth(255,310,z));
- if(key==='B')amount+=3*Math.sin(clamp((p[1]-5)/462,0,1)*Math.PI)*smooth(30,100,z)*(1-smooth(285,350,z));
- amount*=rear;
- const out=[p[0]+nx*amount*weight,p[1]+ny*amount*weight,p[2]];
+ const [dist,nx,ny]=plan(p),weight=smooth(-2.6,-.06,dist);
+ const amount=profile(p[2],footProfile)*weight,out=roundedTop(p,key);
+ out[0]+=nx*amount;out[1]+=ny*amount;
  return out;
 }
 function normalAt(p,n,key){
@@ -88,7 +110,10 @@ function refined(source,maxEdge=4.5){
   const mid=(a,b)=>{
    const key=Math.min(a,b)+','+Math.max(a,b);if(midpoint.has(key))return midpoint.get(key);
    const ax=a*3,bx=b*3,dx=p[ax]-p[bx],dy=p[ax+1]-p[bx+1],dz=p[ax+2]-p[bx+2];
-   if(dx*dx+dy*dy+dz*dz<=maxEdge*maxEdge)return -1;
+   const mx=(p[ax]+p[bx])/2,my=(p[ax+1]+p[bx+1])/2,mz=(p[ax+2]+p[bx+2])/2;
+   const nearRoof=roofAt(my,false).z-mz<30,nearRidge=Math.abs(my-roofRidge)<5;
+   const edge=nearRoof&&(plan([mx,my,mz])[0]>-9||nearRidge)?1.1:maxEdge;
+   if(dx*dx+dy*dy+dz*dz<=edge*edge)return -1;
    const m=p.length/3;p.push((p[ax]+p[bx])/2,(p[ax+1]+p[bx+1])/2,(p[ax+2]+p[bx+2])/2);
    const nx=n[ax]+n[bx],ny=n[ax+1]+n[bx+1],nz=n[ax+2]+n[bx+2],len=Math.hypot(nx,ny,nz)||1;n.push(nx/len,ny/len,nz/len);
    midpoint.set(key,m);count++;return m;
@@ -132,38 +157,31 @@ const surfaceShader=String.raw`
  varying vec3 vOriginalNormal;
  uniform float variant;
  float sm(float a,float b,float x){return smoothstep(a,b,x);}
- float roundedField(vec2 p,vec2 center,vec2 halfSize,float radius){vec2 q=abs(p-center)-(halfSize-vec2(radius));float d=length(max(q,0.))+min(max(q.x,q.y),0.)-radius;return 1.-sm(-7.,0.,d);}
  float fluteMask(vec3 p,vec3 norm){
-  float nz=1.-sm(.08,.2,abs(norm.z));
-  float side=sm(.8,.99,abs(norm.x))*sm(103.,107.,abs(p.x));
-  float front=sm(.8,.99,-norm.y)*(1.-sm(5.1,7.,p.y));
-  float rear=sm(.8,.99,norm.y)*sm(466.,467.,p.y);
-  float s=0.,f=0.;
-  if(variant<.5){return nz*max(max(side,front),rear);}
-  if(variant<1.5){
-   s=roundedField(p.yz,vec2(258.,186.),vec2(181.,117.),14.);
-   f=roundedField(p.xz,vec2(0.,175.),vec2(80.,101.),12.);
-  }else if(variant<2.5){
-   s=roundedField(p.yz,vec2(256.,184.),vec2(163.,126.),38.);
-   f=roundedField(p.xz,vec2(0.,177.),vec2(78.,101.),28.);
-  }else if(variant<3.5){
-   float top=292.-72.*exp(-pow((p.y-94.)/110.,2.));
-   s=roundedField(p.yz,vec2(254.,180.),vec2(176.,126.),26.)*(1.-sm(top-9.,top,p.z));
-   float crown=278.-.0028*p.x*p.x;
-   f=roundedField(p.xz,vec2(0.,175.),vec2(79.,108.),16.)*(1.-sm(crown-9.,crown,p.z));
-  }else{
-   s=roundedField(p.yz,vec2(254.,183.),vec2(182.,126.),12.);
-   f=roundedField(p.xz,vec2(0.,169.),vec2(83.,111.),10.);
-  }
-  float seam=(.75+.25*sm(.0,3.,abs(p.z-160.)));
-  float holes=1.-roundedField(p.yz,vec2(57.,204.),vec2(17.,38.),3.);
-  return nz*max(side*s*holes,front*f)*seam;
+  vec2 q=abs(vec2(p.x,p.y-236.))-vec2(95.5,219.);
+  float dist=length(max(q,0.))+min(max(q.x,q.y),0.)-12.;
+  float skin=sm(-.55,-.05,dist)*(1.-sm(.08,.2,abs(norm.z)));
+  float roof=min(355.,p.y+288.1281566462),h=(roof-p.z)/(p.y<66.8718433538?1.4142135624:1.);
+  float drop=variant>2.5?24.:variant>1.5?6.:0.;
+  float cosine=max(0.,-norm.y)*(p.y<66.8718433538?.7071067812:0.);
+  if(variant>1.5)drop=(6.+(drop-6.)*(1.-cosine*1.4142135624))*(1.-cosine);
+  float bottom=variant<.5?sm(-6.,-1.,p.z):sm(60.,65.,p.z);
+  return skin*bottom*sm(drop,drop+5.,h);
+ }
+ float perimeterS(vec3 p){
+  float x=abs(p.x),s;
+  if(p.y<17.){
+   s=x<95.5?x:95.5+12.*(atan(p.y-17.,x-95.5)+1.5707963268);
+  }else if(p.y>455.){
+   s=x<95.5?666.6991118431-x:95.5+18.8495559215+438.+12.*atan(p.y-455.,x-95.5);
+  }else s=95.5+18.8495559215+p.y-17.;
+  return s*sign(p.x);
  }
  vec3 flutedNormal(vec3 pos,vec3 normal,vec3 p,vec3 norm){
-  float s=abs(norm.x)>.75?p.y:p.x;
-  float k=6.28318530718/5.39, wave=cos(s*k), a=max(.001,(wave+.75)/1.75);
-  float mask=fluteMask(p,norm), height=-.76*pow(a,.66), dhds=.76*.66*pow(a,-.34)*sin(s*k)*k/1.75;
-  if(wave<-.75)dhds=0.;
+  float s=perimeterS(p),pitch=1333.3982236862/260.,k=6.28318530718/pitch;
+  float t=mod(s+pitch*.5,pitch)-pitch*.5,r=2.2666666667;
+  float mask=fluteMask(p,norm),height=0.,dhds=0.;
+  if(abs(t)<2.){float root=sqrt(r*r-t*t);height=r-1.2-root;dhds=t/root;}
   float visible=1.-smoothstep(2.5,5.,fwidth(s)*k);
   vec2 grad=visible*(dhds*mask*vec2(dFdx(s),dFdy(s))+height*vec2(dFdx(mask),dFdy(mask)));
   vec3 q0=dFdx(pos),q1=dFdy(pos),r0=cross(q1,normal),r1=cross(normal,q0);
@@ -175,19 +193,19 @@ function shellMaterial(key,role){
  const mat=new THREE.MeshStandardMaterial({color:0xdfdfd9,roughness:.67,metalness:0,side:THREE.DoubleSide});
  if(role!=='shell')return mat;
  mat.onBeforeCompile=shader=>{
-  shader.uniforms.variant={value:key==='current'?0:1+'ABCD'.indexOf(key)};
+  shader.uniforms.variant={value:key==='current'?0:1+'ABC'.indexOf(key)};
   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec3 nominal; attribute vec3 originalNormal; varying vec3 vNominal; varying vec3 vOriginalNormal;');
   shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvNominal=nominal; vOriginalNormal=originalNormal;');
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+surfaceShader);
   shader.fragmentShader=shader.fragmentShader.replace('#include <normal_fragment_maps>','#include <normal_fragment_maps>\nnormal=flutedNormal(-vViewPosition,normal,vNominal,normalize(vOriginalNormal));');
-  shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\nfloat inset=fluteMask(vNominal,normalize(vOriginalNormal)); diffuseColor.rgb*=1.-.035*inset; if(variant>3.5&&variant<4.5){float reveal=smoothstep(17.,21.,vNominal.z)*(1.-smoothstep(29.,33.,vNominal.z));diffuseColor.rgb*=1.-.23*reveal;}');
+  shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\nfloat inset=fluteMask(vNominal,normalize(vOriginalNormal)); diffuseColor.rgb*=1.-.035*inset;');
  };
  mat.customProgramCacheKey=()=>key;
  return mat;
 }
 function token(name){const span=document.createElement('span');span.style.color='var('+name+')';span.hidden=true;root.append(span);const color=getComputedStyle(span).color;span.remove();return new THREE.Color(color)}
 let syncing=false;
-for(const key of ['A','B','C','D','current']){
+for(const key of ['current','A','B','C']){
  const panel=root.querySelector('[data-model="'+key+'"]'),stage=panel.querySelector('.fs-stage');
  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.92;
@@ -217,17 +235,19 @@ function resize(item){
  if(item.panel.hidden)return;const w=item.stage.clientWidth,h=item.stage.clientHeight;if(!w||!h)return;
  item.renderer.setSize(w,h,false);const aspect=w/h,q=item.camera.quaternion.clone().invert();let px=0,py=0;
  for(const x of [-137,137])for(const y of [-26,475])for(const z of [-6,362]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}
- const span=state.view==='base'?220:Math.max(2*py,2*px/aspect)*1.025;Object.assign(item.camera,{left:-span*aspect/2,right:span*aspect/2,top:span/2,bottom:-span/2});item.camera.updateProjectionMatrix();draw(item);
+ const closeup={base:220,rearbase:220,roof:240,rearroof:230};
+ const span=closeup[state.view]||Math.max(2*py,2*px/aspect)*1.025;Object.assign(item.camera,{left:-span*aspect/2,right:span*aspect/2,top:span/2,bottom:-span/2});item.camera.updateProjectionMatrix();draw(item);
 }
 function orient(){
- syncing=true;const views={three:[660,-1050,560],front:[0,-1200,30],side:[1200,0,0],base:[660,-1050,290],top:[0,-.001,1200]};
- for(const item of scenes){const target=state.view==='base'?new THREE.Vector3(0,45,26):new THREE.Vector3(0,217,176);item.controls.target.copy(target);item.camera.position.copy(target).add(new THREE.Vector3(...views[state.view]));item.camera.zoom=1;item.camera.lookAt(target);item.controls.update()}
+ syncing=true;const views={three:[660,-1050,560],front:[0,-1200,30],side:[1200,0,0],rear:[-450,1200,260],base:[660,-1050,290],rearbase:[-660,1050,290],roof:[640,-1040,590],rearroof:[-640,1040,540],top:[0,-.001,1200]};
+ const targets={base:[0,45,26],rearbase:[0,427,26],roof:[0,94,321],rearroof:[0,410,331]};
+ for(const item of scenes){const target=new THREE.Vector3(...(targets[state.view]||[0,217,176]));item.controls.target.copy(target);item.camera.position.copy(target).add(new THREE.Vector3(...views[state.view]));item.camera.zoom=1;item.camera.lookAt(target);item.controls.update()}
  syncing=false;
 }
 function update(){
  root.dataset.focus=state.focus;
  for(const item of scenes){
-  item.panel.hidden=state.focus==='all'?item.key==='current':item.key!==state.focus;
+  item.panel.hidden=state.focus!=='all'&&item.key!==state.focus;
   for(const part of item.parts){if(part.role==='shell'||part.role==='cover')part.mesh.material.color.set(state.finish==='white'?0xd9d8cf:0x34383a)}
   item.ground.material.color.copy(token('--foreground'));item.ground.material.opacity=state.finish==='white'?.38:.55;resize(item);
  }
@@ -235,6 +255,6 @@ function update(){
 for(const input of root.querySelectorAll('[data-control]'))input.addEventListener('change',()=>{state[input.dataset.control]=input.value;if(input.dataset.control==='view')orient();update()});
 new MutationObserver(()=>update()).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
 orient();update();root.dataset.ready='true';
-window.fasciaStudies={state,scenes,sources:data.sources,displaced,render:()=>scenes.forEach(resize)};
+window.fasciaStudies={state,scenes,sources:data.sources,displaced,roofAt,plan,render:()=>scenes.forEach(resize)};
 }catch(error){const el=root.querySelector('.fs-error');el.hidden=false;el.textContent=error.message;root.dataset.error=error.message;throw error;}
 </script>
