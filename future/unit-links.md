@@ -1,8 +1,8 @@
 # Unit links
 
 Every plate carries the unit's own address twice: lettered for a person, coded for a phone.
-The lettered one is on the plate. The coded one is not — there is no code on the plate, no
-route behind it, and no DNS on the short domain.
+The lettered one is on the plate. The coded one is not — there is no code on the plate and no
+route behind it, and `hosm.us` does not resolve.
 
 ## The two strings
 
@@ -47,28 +47,47 @@ What stands on that:
   that scans.
 - **No `www`, no trailing slash, no query string.**
 
+## The redirect
+
+`hosm.us` serves nothing of its own. `web/lib/short-host.js` answers every request whose Host
+is `hosm.us` or `www.hosm.us` with a 301 to the same path on `https://homesodamachine.com`,
+carrying path and query through untouched. It is mounted in `web/server.js` ahead of the body
+parser and every route, so the short host is answered before anything else is consulted, and
+`/.well-known/` stands outside it — certificate validation answers about the host it was asked
+about. `web/tests/short-host.test.js` holds it.
+
+Both hosts are one Render service, so the redirect runs in the same process that answers the
+canonical host.
+
 ## What is owed
 
-### One. `hosm.us` answers over TLS
+### One. `hosm.us` reaches the service, over TLS
 
 The code carries `HTTPS://`, so `hosm.us` answers over TLS or the code resolves to nothing.
 Plates are printed per-unit and fitted before the unit ships.
 
-Render issues certificates for the custom domains attached to a service. A registrar
-URL-forward serves whatever certificate the registrar holds for the forwarding host.
-`render.yaml` carries no `domains:` key; the service's custom domains are dashboard-managed,
-and `homesodamachine.com` is attached there now.
+Render's edge routes by Host and answers a Host it does not know with a 403, so the redirect
+above runs only once `hosm.us` is a custom domain on the service. Render issues the certificate
+once it is. `render.yaml` carries no `domains:` key; the service's custom domains are
+dashboard-managed, and `homesodamachine.com` and `www.homesodamachine.com` are attached there,
+which is the two the workspace plan includes. A third costs $0.25 per month.
+
+The service is `srv-d7oqj0og4nts7384fgog`. What it asks of a registrar, read off the attached
+domain's own DNS panel:
+
+| Host | Record | Value |
+|---|---|---|
+| `@` | A | `216.24.57.1` |
+| `www` | CNAME | `homesodamachine.onrender.com` |
+
+`hosm.us` is on Namecheap's standard nameservers holding the two records a parked domain
+carries — a `www` CNAME to `parkingpage.namecheap.com.` and a URL Redirect at `@` — and an A
+record at `@` stands where that redirect does.
 
 The registrar save is Derek's. A hook in this tree refuses DNS, domain and certificate edits;
 everything up to that save is allowed.
 
-### Two. The redirect
-
-A `mount*Routes` module under `web/lib/`, mounted in `web/server.js` beside the others: when
-`req.hostname` is `hosm.us`, 301 to `https://homesodamachine.com` carrying the path through. It
-mounts ahead of `express.static(LANDING_PUBLIC)`, which answers at the root.
-
-### Three. The unit route
+### Two. The unit route
 
 `/0001` sits at the root of `homesodamachine.com`, sharing that root with the static landing
 mount, so it matches four digits and nothing else rather than as a catch-all.
@@ -79,7 +98,7 @@ printed documents — warranty, RMA, troubleshooting, BOM, support contact and o
 archive at `logs/<serial>/` is reachable from it is an Open item in
 [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md).
 
-### Four. The code on the plate
+### Three. The code on the plate
 
 The lettering stands [78.63 mm](LOCKUP_W) × [57.32 mm](STACK_H) on a plate
 [104.53 mm](PLATE_W) × [66.07 mm](PLATE_H), and two Ø[5.8 mm](CBORE_D) screw counterbores
@@ -108,7 +127,7 @@ Two things the geometry answers:
 - **Diagonal modules.** Two dark modules that meet at a corner and nowhere else share no
   edge. Each module carries a bleed so diagonal neighbours do.
 
-### Five. The encoder and its check
+### Four. The encoder and its check
 
 `qrcode` is in `tools/cad-venv`; `segno` is not. `qrcode.util.optimal_mode()` takes bytes, not
 a string.
@@ -119,7 +138,8 @@ drifts to lowercase, or to twenty-one characters, still scans.
 
 ## What is Derek's
 
-The registrar save. The plate layout that makes room. What `/0001` serves.
+The registrar save, and the third custom domain it answers. The plate layout that makes room.
+What `/0001` serves.
 
 ## Sources
 [value](NAME) texts are updated by:
