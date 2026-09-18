@@ -48,8 +48,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
-      "stl_sha256": "cbcb6af41f9496cc9d644cef4c28503eaac3566b23badc1d3ea2d5ecfc531aac",
-      "triangles": 282422,
+      "stl_sha256": "5d58d45db8438ec8b9b4dffe27f24984e89a7c03b17db88c29b52a96ca4827ad",
+      "triangles": 282802,
       "rotation_x_degrees": -14.999999999999998,
       "source_center_mm": [
         0.0,
@@ -265,7 +265,7 @@
       "embedded_vertex_error_mm": 4.99755792304768e-10
     }
   ],
-  "project_sha256": "67c051551922042580b1573ed64a562548e5de1e2c314e370d85b2d91a62b8f0",
+  "project_sha256": "b4d55193f1fb2852c2f15e7b61f66bd000e3eb16a0b8b3526710e8cef7c508be",
   "settings_preserved_byte_for_byte": true,
   "project_title": "Industrial faucet PET-GF",
   "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
