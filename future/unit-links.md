@@ -67,13 +67,14 @@ The code carries `HTTPS://`, so `hosm.us` answers over TLS or the code resolves 
 Plates are printed per-unit and fitted before the unit ships.
 
 Render's edge routes by Host and answers a Host it does not know with a 403, so the redirect
-above runs only once `hosm.us` is a custom domain on the service. Render issues the certificate
-once it is. `render.yaml` carries no `domains:` key; the service's custom domains are
-dashboard-managed, and `homesodamachine.com` and `www.homesodamachine.com` are attached there,
-which is the two the workspace plan includes. A third costs $0.25 per month.
+above runs only once `hosm.us` is a custom domain on the service. `render.yaml` carries no
+`domains:` key; the service's custom domains are dashboard-managed. Service
+`srv-d7oqj0og4nts7384fgog` carries four: `homesodamachine.com` and `www.homesodamachine.com`,
+verified and certificated, and `hosm.us` with the `www.hosm.us` Render redirects to it, both
+waiting for DNS. The workspace plan includes two, and the third is $0.25 per month — the fourth
+came with it, because Render adds the `www` redirect to an apex at no charge.
 
-The service is `srv-d7oqj0og4nts7384fgog`. What it asks of a registrar, read off the attached
-domain's own DNS panel:
+What Render asks of the registrar:
 
 | Host | Record | Value |
 |---|---|---|
@@ -81,11 +82,13 @@ domain's own DNS panel:
 | `www` | CNAME | `homesodamachine.onrender.com` |
 
 `hosm.us` is on Namecheap's standard nameservers holding the two records a parked domain
-carries — a `www` CNAME to `parkingpage.namecheap.com.` and a URL Redirect at `@` — and an A
-record at `@` stands where that redirect does.
+carries: a `www` CNAME to `parkingpage.namecheap.com.` and a URL Redirect at `@` to
+`http://www.hosm.us/`. Both are the ones above, so both are replaced rather than added beside —
+an A record and a URL Redirect cannot share `@`. Render verifies and issues the certificate on
+its own once they resolve.
 
 The registrar save is Derek's. A hook in this tree refuses DNS, domain and certificate edits;
-everything up to that save is allowed.
+everything up to that save is allowed, the Render dashboard included.
 
 ### Two. The unit route
 
