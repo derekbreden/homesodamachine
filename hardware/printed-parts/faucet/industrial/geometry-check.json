@@ -2,14 +2,14 @@
   "style": "Industrial",
   "scope": "Saved production solids, print meshes, shared hardware, lever travel and named cylindrical wall sections. Display cover fit and assembly motion are in display-cover-check.json. Physical retention and surface finish are print readings.",
   "sources_sha256": {
-    "hardware/printed-parts/faucet/industrial/check_geometry.py": "7a1eacacf7818d745693226d128ee79c7759515c46b062e4419c36a33a9d162d",
-    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "dda7628085f632db21fb9bb96a7481a0d780f9f68a7c4a922ce901fac6537252",
+    "hardware/printed-parts/faucet/industrial/check_geometry.py": "9f8f36178415bce8e3558d286e90643101f7869c2e3bcb4306b658d3f964cc80",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1738d7134afb1b23108be4f747a634ee3e16e50b9fdab1369392d526e630081",
     "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "9f2d209beef79f1d405fc548725155318cb5db835da8f13bc21848214ac00787",
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "89be16ab353d87b8ff221c7563b4896fae6f7fb2e6622f2970f1b96a5b035d99",
     "hardware/faucet-layout/faucet-assembly.step": "6ddb93d087b5b197ca71b8d84770c6c6c71c846d32f4392aeb67bfae8f2cc6e1",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "6546d0b6a9806ae2b255cd964c3940e6427176d977fbea778e862cb7b187e7c1",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "cbcb6af41f9496cc9d644cef4c28503eaac3566b23badc1d3ea2d5ecfc531aac",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "d0abfc736f62232e01de77b2bd63fd8758a2df59ab3b2991e095edd3e75b2d3b",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "5d58d45db8438ec8b9b4dffe27f24984e89a7c03b17db88c29b52a96ca4827ad",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "cee07539a0ce40f1cd57cceb3cb87d13718971f0bb1162559758307c914ce301",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "370cae5d20bab44426be6253ce66a8ed5bae0ab25fcab0bfd90060b68fd1c89c",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "6c953bd566e482f951536a8f82c8d2a611933e1a9e72ac3d82ed9c552d7caa43",
@@ -22,12 +22,12 @@
     "industrial-shell-base-solid": {
       "passed": true,
       "solids": 1,
-      "volume_mm3": 137134.12098220168
+      "volume_mm3": 137315.02211603586
     },
     "industrial-shell-base-print-mesh": {
       "passed": true,
       "watertight": true,
-      "facets": 282422,
+      "facets": 282802,
       "print_deflection_mm": 0.005
     },
     "industrial-display-cover-solid": {
@@ -152,11 +152,11 @@
         0.34999999999999876,
         0.34999999999999876,
         0.34999999999999876,
-        0.34999999999999876,
-        0.34999999999999876,
-        0.34999999999999876,
-        0.34999999999999876,
-        0.34999999999999876
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964
       ]
     },
     "open-lever-front": {
@@ -167,6 +167,65 @@
         52.355
       ],
       "clearance_mm": 6.4159999999999995
+    },
+    "lever-lower-edge-matches-sculpted": {
+      "passed": true,
+      "sections": [
+        {
+          "x_mm": -6.84,
+          "y_mm": -16.5,
+          "upper_z_mm": {
+            "sculpted": 39.03608168447997,
+            "industrial": 39.03608168447997
+          },
+          "material_at_z37": true
+        },
+        {
+          "x_mm": -6.84,
+          "y_mm": -16.0,
+          "upper_z_mm": {
+            "sculpted": 39.118082101268,
+            "industrial": 39.118082101268
+          },
+          "material_at_z37": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": -16.5,
+          "upper_z_mm": {
+            "sculpted": 39.03608168447997,
+            "industrial": 39.03608168447997
+          },
+          "material_at_z37": true
+        },
+        {
+          "x_mm": 0.0,
+          "y_mm": -16.0,
+          "upper_z_mm": {
+            "sculpted": 39.118082101268,
+            "industrial": 39.118082101268
+          },
+          "material_at_z37": true
+        },
+        {
+          "x_mm": 6.84,
+          "y_mm": -16.5,
+          "upper_z_mm": {
+            "sculpted": 39.03608168447997,
+            "industrial": 39.03608168447997
+          },
+          "material_at_z37": true
+        },
+        {
+          "x_mm": 6.84,
+          "y_mm": -16.0,
+          "upper_z_mm": {
+            "sculpted": 39.118082101268,
+            "industrial": 39.118082101268
+          },
+          "material_at_z37": true
+        }
+      ]
     },
     "base-industrial-above-counter-plate-clear": {
       "passed": true,
