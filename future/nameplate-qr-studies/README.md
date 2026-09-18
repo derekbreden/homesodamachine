@@ -1,5 +1,37 @@
 # Nameplate QR studies
 
+## G–N
+
+[Eight further compositions](nameplate-more.html) use a 21 × 21 code, a larger brand,
+and `SERIAL` above large `0001` lettering. No domain is lettered on these plates.
+Seven have no dividing line; I has a horizontal rule.
+
+| Layout | Arrangement | QR module |
+| --- | --- | --- |
+| [G · Code left](g-code-left.svg) | Large three-line brand; QR, ratings and serial below | 0.90 mm |
+| [H · Code right](h-code-right.svg) | Large three-line brand; serial, ratings and QR below | 0.90 mm |
+| [I · Two-line name](i-two-line-name.svg) | Wide name, ratings above a horizontal rule | 0.80 mm |
+| [J · Upper code](j-upper-code.svg) | Code beside the name; ratings at the collar's em 6.5 | 0.80 mm |
+| [K · Serial above code](k-serial-above-code.svg) | Large serial beside HOME and SODA, code below | 0.90 mm |
+| [L · Big faucet](l-big-faucet.svg) | 36 mm faucet; serial beside the lower code | 0.90 mm |
+| [M · Separate ratings label](m-separate-ratings-label.svg) | Brand, code and serial on this plate; ratings on a separate label | 0.90 mm |
+| [N · Full-width MACHINE](n-full-width-machine.svg) | MACHINE across the plate beneath the mark, HOME, SODA and code | 0.80 mm |
+
+The payload is `HTTPS://HOSM.US/0001`, explicitly encoded in QR alphanumeric mode,
+version 1, correction M. A payload that exceeds that version fails generation.
+Four-module margins give overall squares of 23.2 or 26.1 mm. Apple Vision decodes
+all eight 1254 × 793 PNG renders to the exact uppercase payload. Physical QR printing
+and scanning are untested. [The marking review](marking-review.md) records the scope
+of the simplified electrical copy, separate refrigerant markings, and text print evidence.
+
+```sh
+tools/cad-venv/bin/python future/nameplate-qr-studies/more.py
+```
+
+The generator accepts the same `--fragment-dir` and `--png-dir` options as `build.py`.
+
+## A–F
+
 Six layouts on the 104.53 × 66.07 mm nameplate, with the production screw positions,
 faucet mark, Helvetica Bold lettering, serial number, input rating and notices.
 The QR payload is `https://hosm.us/0001`; the visible link is `hosm.us/0001`.

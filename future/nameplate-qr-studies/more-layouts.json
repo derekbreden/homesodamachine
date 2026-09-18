@@ -1,0 +1,92 @@
+{
+  "payload": "HTTPS://HOSM.US/0001",
+  "width_mm": 104.53,
+  "height_mm": 66.07,
+  "qr_version": 1,
+  "error_correction": "M",
+  "qr_mode": "alphanumeric",
+  "quiet_zone_modules": 4,
+  "visible_domain": false,
+  "layouts": [
+    {
+      "key": "G",
+      "title": "Code left",
+      "module_mm": 0.9,
+      "active_qr_mm": 18.9,
+      "qr_with_margin_mm": 26.1,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "H",
+      "title": "Code right",
+      "module_mm": 0.9,
+      "active_qr_mm": 18.9,
+      "qr_with_margin_mm": 26.1,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "I",
+      "title": "Two-line name",
+      "module_mm": 0.8,
+      "active_qr_mm": 16.8,
+      "qr_with_margin_mm": 23.2,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "J",
+      "title": "Upper code",
+      "module_mm": 0.8,
+      "active_qr_mm": 16.8,
+      "qr_with_margin_mm": 23.2,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "K",
+      "title": "Serial above code",
+      "module_mm": 0.9,
+      "active_qr_mm": 18.9,
+      "qr_with_margin_mm": 26.1,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "L",
+      "title": "Big faucet",
+      "module_mm": 0.9,
+      "active_qr_mm": 18.9,
+      "qr_with_margin_mm": 26.1,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "M",
+      "title": "Separate ratings label",
+      "module_mm": 0.9,
+      "active_qr_mm": 18.9,
+      "qr_with_margin_mm": 26.1,
+      "rating_on_plate": false,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    },
+    {
+      "key": "N",
+      "title": "Full-width MACHINE",
+      "module_mm": 0.8,
+      "active_qr_mm": 16.8,
+      "qr_with_margin_mm": 23.2,
+      "rating_on_plate": true,
+      "serial_em": 9.4,
+      "serial_label_em": 2.8
+    }
+  ]
+}
