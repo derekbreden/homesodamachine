@@ -32,7 +32,7 @@ import faucet_shell as shell
 PARTS = (
     ("faucet-shell-base", HERE / "faucet-shell/faucet-shell-base.stl", -math.degrees(shell.print_base_build_rot)),
     ("faucet-shell-tip", HERE / "faucet-shell/faucet-shell-tip.stl", -math.degrees(shell.print_tip_build_rot)),
-    ("faucet-display-cover", HERE / "faucet-display-cover/faucet-display-cover.stl", 180.0 + math.degrees(math.atan2(shell._tip_frame()[2].y, shell._tip_frame()[2].z))),
+    ("faucet-display-cover", HERE / "faucet-display-cover/faucet-display-cover.stl", -math.degrees(shell.print_tip_build_rot)),
     ("above-counter-plate", HERE / "above-counter-plate/above-counter-plate.stl", 0.0),
 )
 # Millimetres from the centre of the shared printable area. The base occupies

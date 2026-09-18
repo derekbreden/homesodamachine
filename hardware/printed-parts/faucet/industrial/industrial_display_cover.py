@@ -80,7 +80,7 @@ def build_display_cover_lips(dimensions: CoverDimensions = DIMENSIONS) -> cq.Wor
     )
     core = shell.build_display_neck_reference(
         shell.display_neck_outer_r - shell.display_clip_lip_radius)
-    return band.cut(core)
+    return shell.relieve_display_lip_inner_edges(band.cut(core))
 
 
 def build_seated_display_cover(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
