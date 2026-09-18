@@ -1,7 +1,7 @@
 """Publish the faucet's checked print meshes as viewer payloads.
 
-The shell, display cover, above-counter plate and gasket use their actual
-STLs. The assembled shell payload receives both printed shell surfaces.
+The shell, display cover, above-counter plate and gasket retain every triangle
+from their actual STLs. The assembled shell payload receives both printed shell surfaces.
 The shared pipeline also handles the appliance's fluted parts; the faucet
 itself has smooth CAD-native surfaces.
 """
@@ -46,4 +46,4 @@ def _seed_host(step: Path) -> Path:
 
 if __name__ == "__main__":
     _seed_host(flute_payload.FAUCET_DIRS[0] / "faucet-shell.step")
-    sys.exit(flute_payload.main(flute_payload.FAUCET_DIRS))
+    sys.exit(flute_payload.main(flute_payload.FAUCET_DIRS, preserve_print_triangles=True))
