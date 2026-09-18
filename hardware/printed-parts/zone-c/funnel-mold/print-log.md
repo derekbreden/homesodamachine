@@ -1,5 +1,45 @@
 # Funnel mold print log
 
+## Full cavity at 0.88 flow — 2026-09-18
+
+Derek authorized the next full-size cavity attempt on H2C after the 0.94
+trial failed at layer 375. He reports solid bed adhesion and no visible
+lifting in the dismantled part. The working hypothesis for this attempt is
+accumulating excess extrusion in the fully packed ramp, followed by nozzle
+contact and buildup. This is a hypothesis, not a confirmed diagnosis or a
+calibrated final flow value. The trial uses the complete cavity geometry.
+
+The active Standard filament flow ratio is **0.88**, which commands **6.383%
+less extrusion** than the submitted 0.94 trial. The maximum volumetric speed
+is **5.61702 mm³/s** (`6 × 0.88 / 0.94`), reduced proportionally to the flow.
+Configured movement speed limits are unchanged. Emitted movement speeds are
+not identical: the slice takes longer, and the command comparison is recorded
+in [flow-review.json](flow-review.json).
+
+The left **0.4 mm Standard** nozzle, **+0.18 mm Z trim**, Textured PEI plate,
+0.24/0.20 mm layer heights, 100% zig-zag infill, two walls, 15% infill/wall
+overlap, 250/245 °C nozzle temperatures, 70 °C bed and Snug normal supports
+are retained. The emitted Textured PEI compensation is `G29.1 Z0.16`.
+The filament preset is **Funnel mold PETG Translucent - 0.4 Standard - flow 0.88**.
+The project retains its cavity and core plates; plate 1 is the cavity trial.
+
+The archive audit verifies byte-identical meshes and placement entries.
+The emitted model extrusion is 0.93617 of the submitted 0.94 baseline across
+all model feature types, including solid infill. The slice has 642 layers,
+estimated at **34 h 32 min 9 s** and **673.53 g**. This validates the commanded
+change, not its physical result.
+
+Editable project SHA-256:
+`2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68`.
+Sliced file SHA-256:
+`796882c94d37bb7ba944b379d85366a163733cc72a22f4431045fbbf71a9fb45`.
+Plate 1 G-code SHA-256:
+`d982e579eed499cfb3c6a8396e7e79f9313840c727d71ca9e5bf2405c19f6d10`.
+The exact slice is retained at
+`.cache/prints/2026-09-18-funnel-next/full-cavity/funnel-mold-04-standard-flow088-z018.gcode.3mf`.
+
+Submission and physical result are pending.
+
 ## Reduced-flow 0.4 mm Standard trial — 2026-09-17
 
 Derek authorized a 0.94 filament flow ratio and requested the cavity print on
@@ -26,7 +66,7 @@ The new cavity slice reports a 0.94 flow ratio, the left 0.4 mm Standard
 nozzle, and `G29.1 Z0.16` after the Textured PEI plate correction. Its estimate
 is 32 h 54 min 35 s and 719.38 g. The editable project contains no G-code;
 the sliced submission file is kept outside this folder.
-[flow-review.json](flow-review.json) records identical model extrusion paths
+The flow audit in commit `ca28e9a7a` records identical model extrusion paths
 and the 3.09% reduction in model extrusion, including internal solid infill.
 
 Editable project SHA-256:
@@ -41,7 +81,12 @@ Bambu Connect submitted plate 1 to **H2C**, serial **31B8AP612000452**, using
 timelapse off, and flow dynamic/nozzle offset calibration use Auto. At
 **2026-09-18 00:01:04 UTC** (September 17, 19:01 CDT), the printer reports
 RUNNING, 642 layers, no print error and no HMS entry. Connect shows toolhead
-homing and the left nozzle heating. The physical print result is pending.
+homing and the left nozzle heating. Derek reported this print failed and stopped it at layer 375 on September 18.
+The same raised band, nozzle dragging, fuzz and blobs remained. Photos
+`IMG_7803.jpeg` through `IMG_7806.jpeg` show four views of the same worst area.
+He reports solid bed adhesion and no visible lifting after pulling the print
+apart; he has not ruled lifting out. The bed is clean and H2C is ready for
+the next authorized trial.
 The exact submitted slice is retained at
 `.cache/prints/2026-09-17-funnel-flow094-h2c/funnel-mold-04-standard-flow094-z018.gcode.3mf`.
 
