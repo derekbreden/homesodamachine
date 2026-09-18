@@ -179,6 +179,8 @@ def main():
         "WING_BOTTOM_PRELOAD": f"{preload_inward_at(shell.display_clip_bottom_n):.3f} mm",
         "GROOVE_DEPTH": f"{_display_snap.ENGAGEMENT + _display_snap.RADIAL_SLIP:g} mm",
         "DISPLAY_FEET_N": f"{shell.display_feet_n:g} mm",
+        "FOOT_PAD_WIDTH": f"{shell.display_foot_pad_width:g} mm",
+        "FOOT_PAD_DEPTH": f"{shell.display_foot_pad_depth:g} mm",
     })
     print(f"-> {out.name}; {cover.val().Volume():.0f} mm³")
 

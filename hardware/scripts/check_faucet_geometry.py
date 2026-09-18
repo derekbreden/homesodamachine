@@ -62,6 +62,23 @@ def volume(part) -> float:
     return sum(s.Volume() for s in shape(part).Solids())
 
 
+def outside_material_volume(part, allowed) -> float:
+    """Solid volume outside a mask, ignoring contact-only faces and edges."""
+    import cadquery as cq
+    solids, allowed_solids = shape(part).Solids(), shape(allowed).Solids()
+    total = sum(solid.Volume() for solid in solids)
+    if total <= VOLUME_TOLERANCE:
+        return 0.0
+    if not allowed_solids:
+        return total
+    material = solids[0] if len(solids) == 1 else cq.Compound.makeCompound(solids)
+    mask = allowed_solids[0] if len(allowed_solids) == 1 else cq.Compound.makeCompound(allowed_solids)
+    outside = total-volume(material.intersect(mask))
+    if outside < -VOLUME_TOLERANCE:
+        raise RuntimeError("allowed contact common exceeds the original material volume")
+    return max(0.0, outside)
+
+
 def clean_number(value: float) -> float:
     return round(float(value), 7)
 
@@ -298,7 +315,7 @@ def base_fastener_reading(reading, f, base, plate):
                                f.wall_thickness_min, f.base_insert_bottom_z, f.base_insert_length)
         missing = volume(witness.cut(shape(base)))
         reading.add(f"wall:base-insert-{index}", missing <= VOLUME_TOLERANCE,
-                    method="complete 3 mm radial witness around the real brass OD over its installed length",
+                    method=f"complete {f.wall_thickness_min:g} mm radial witness around the real brass OD over its installed length",
                     center_mm=list(center), insert_od_mm=f.base_insert_outer_dia,
                     required_wall_mm=f.wall_thickness_min, missing_witness_mm3=clean_number(missing))
         radius = (f.base_pod_shank_dia + f.base_pod_counterbore_dia) / 4.0
@@ -437,7 +454,7 @@ def lower_access_reading(reading, f, base):
     witness = roof_circle.translate((0.0, 0.0, wall)).cut(roof_circle).intersect(bridge_box)
     missing = volume(witness.cut(base))
     reading.add("wall:lever-roof-bridge", volume(witness) > VOLUME_TOLERANCE and missing <= VOLUME_TOLERANCE,
-                method="complete three-millimeter vertical strip above two wall-widths of the independently reconstructed circular lever roof, ending one wall-width forward of the water bore",
+                method=f"complete {wall:g} mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, ending one wall-width forward of the water bore",
                 xy_bounds_mm=[-half_width, half_width, clean_number(front_y), clean_number(rear_y)],
                 required_vertical_stock_mm=wall, missing_witness_mm3=clean_number(missing),
                 scope="the bridge from the lever roof into the neck; not every exterior opening edge")
@@ -459,6 +476,34 @@ def lower_access_reading(reading, f, base):
                 probe_height_mm=2.0 * wall,
                 minimum_continuous_stock_mm=wall, samples=samples,
                 scope="no separated upper slit in the roof-to-neck bridge; exterior rays may end at the show surface")
+
+
+def lower_passage_join_reading(reading, base):
+    """Check the small cable/flavor handoff where a residual fin can survive."""
+    import cadquery as cq
+    base = shape(base)
+    probes = []
+    for xyz in ((6.85, 16.299, 7.1), (6.90, 16.299, 7.1),
+                (6.85, 16.5, 15.0)):
+        point = cq.Vector(*xyz)
+        inside = any(solid.isInside(point, DISTANCE_TOLERANCE)
+                     for solid in base.Solids())
+        distance = base.distance(cq.Vertex.makeVertex(*xyz))
+        probes.append({"xyz_mm": list(xyz), "inside_printed_material": inside,
+                       "gap_to_printed_material_mm": clean_number(distance)})
+    minimum = (6.81, 16.48, 14.8)
+    size = (0.13, 0.04, 0.3)
+    witness = cq.Solid.makeBox(*size, cq.Vector(*minimum))
+    interference = volume(witness.intersect(base))
+    reading.add("clearance:lower-passage-join", interference <= VOLUME_TOLERANCE
+                and all(not row["inside_printed_material"]
+                        and row["gap_to_printed_material_mm"] > DISTANCE_TOLERANCE
+                        for row in probes),
+                probes=probes, empty_prism_minimum_xyz_mm=list(minimum),
+                empty_prism_size_xyz_mm=list(size),
+                printed_material_in_empty_prism_mm3=clean_number(interference),
+                method="three exact point-to-solid gaps and a complete empty-volume witness through the flavor/cable opening handoff",
+                scope="named lower-passage corner and loft handoff; not a global small-feature scan")
 
 
 def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
@@ -508,7 +553,10 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
         return volume(shape(first).intersect(shape(second)))
 
     def outside_volume(part, allowed):
-        return volume(shape(part).cut(shape(allowed))) if volume(part) > VOLUME_TOLERANCE else 0.0
+        # Commons at the preload root also carry zero-volume contact faces.
+        # Work only with solid material; a cut of the mixed-dimensional common
+        # can return a null TopoDS shape when all of its solids are covered.
+        return outside_material_volume(part, allowed)
 
     def lip_radii(part):
         return sorted({clean_number(r) for face in shape(part).Faces()
@@ -523,6 +571,29 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
              n0, cover_builder.bezel_n_bottom))
     free_skirts = {side: half(free_lower_skirts, side) for side in (-1, 1)}
     lip_parts = {side: half(lips, side) for side in (-1, 1)}
+    # Crop the obstacle once, using exact conservative bounds of both complete
+    # covers and the full allowed translation range. The lower base and remote
+    # neck faces cannot affect these poses; excluding them avoids repeating
+    # their unrelated intersections in every clearance bisection.
+    search_limit = max(3.0, snap.ENGAGEMENT+cover_builder.preload_inward_at(n0)+0.5)
+    resolution = 0.001
+    lifts = sorted({0.0, 0.10, snap.BEARING_SLIP, snap.BEARING_SLIP+0.001,
+                    snap.BEARING_SLIP+0.01, snap.BEARING_SLIP+0.05, 0.35, 0.50, 0.75,
+                    1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0, 15.0, 20.0})
+    cover_bounds = [local_bounds(part) for part in (cover, free_cover)]
+    margin = 0.1
+    clip_min = [min(b.xmin for b in cover_bounds)-search_limit-margin,
+                min(b.ymin for b in cover_bounds)-margin,
+                min(b.zmin for b in cover_bounds)-margin]
+    clip_max = [max(b.xmax for b in cover_bounds)+search_limit+margin,
+                max(b.ymax for b in cover_bounds)+margin,
+                max(b.zmax for b in cover_bounds)+max(lifts)+margin]
+    native_clip = cq.Solid.makeBox(*(b-a for a, b in zip(clip_min, clip_max)),
+                                   cq.Vector(*clip_min))
+    obstacle_clip = shape(f._display_world(cq.Workplane(obj=native_clip)))
+    full = full.intersect(obstacle_clip)
+    if not full.isValid() or volume(full) <= VOLUME_TOLERANCE:
+        raise RuntimeError("display motion: invalid or empty conservative obstacle crop")
     groove_band = band(s0-snap.END_SLIP, s1+snap.END_SLIP, n0, n1+snap.BEARING_SLIP)
     groove_core = shape(f._build_zone6_outer_shrunk(f.tube_shell_outer_r-f.display_clip_groove_radius))
     backed_core = shape(f._build_zone6_outer_shrunk(
@@ -574,7 +645,7 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
                     and missing <= VOLUME_TOLERANCE,
                     missing_complete_radial_backing_mm3=clean_number(missing),
                     required_radial_backing_mm=f.wall_thickness_min,
-                    method="complete three-millimeter annular witness behind the actual swept groove, including its rear torus section")
+                    method=f"complete {f.wall_thickness_min:g} mm annular witness behind the actual swept groove, including its rear torus section")
         shoulder = half(shoulder_witness, side)
         missing_shoulder = volume(shoulder.cut(tip))
         reading.add(f"wall:retention-shoulder-{side:+d}", volume(shoulder) > VOLUME_TOLERANCE
@@ -582,8 +653,8 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
                     missing_complete_bearing_stock_mm3=clean_number(missing_shoulder),
                     required_normal_witness_span_mm=f.wall_thickness_min,
                     bearing_start_n_mm=clean_number(groove_ceiling),
-                    method="complete annular volume between the original cylinder and groove-root sweep over a three-millimeter N band above each retaining shoulder",
-                    scope="retained stock following the curved neck; not a three-millimeter vertical column at every point of the outer bearing edge")
+                    method=f"complete annular volume between the original cylinder and groove-root sweep over a {f.wall_thickness_min:g} mm N band above each retaining shoulder",
+                    scope=f"retained stock following the curved neck; not a {f.wall_thickness_min:g} mm vertical column at every point of the outer bearing edge")
         faces = [face for face in groove_faces if side*face.Center().x > 0.0]
         if faces:
             gb = local_bounds(cq.Compound.makeCompound(faces))
@@ -614,40 +685,81 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
     reading.add("seat:display-cover", seated_overlap <= VOLUME_TOLERANCE,
                 overlap_mm3=clean_number(seated_overlap),
                 method="exact common volume at the designed lip-floor contact pose")
-    pushed = cover.translate(normal.multiply(-0.01))
-    pushed_lips = lips.translate(normal.multiply(-0.01))
+    early_push, whole_push = 0.01, 0.02
+    early = cover.translate(normal.multiply(-early_push))
+    floor_witnesses = []
+    for fraction in (0.125, 0.5, 0.875):
+        station = s0+(s1-s0)*fraction
+        point = origin+along.multiply(station)+normal.multiply(n0-early_push/2.0)
+        for side in (-1, 1):
+            fixed_spans = line_intervals(tip, point.toTuple(), (side, 0.0, 0.0), 30.0)
+            moving_spans = line_intervals(early, point.toTuple(), (side, 0.0, 0.0), 30.0)
+            overlaps = [(max(a, c), min(b, d)) for a, b in fixed_spans for c, d in moving_spans
+                        if min(b, d)-max(a, c) > 4.0*DISTANCE_TOLERANCE]
+            if not overlaps:
+                floor_witnesses.append({"side": side, "s_mm": clean_number(station), "present": False})
+                continue
+            lo, hi = max(overlaps, key=lambda span: span[1]-span[0])
+            half_x = min(0.1, (hi-lo)/4.0)
+            witness = shape(f._cradle_prism(half_x, station-0.1, station+0.1,
+                                            n0-0.9*early_push, n0-0.1*early_push)
+                            .translate((side*(lo+hi)/2.0, 0.0, 0.0)))
+            missing_fixed, missing_moving = outside_volume(witness, tip), outside_volume(witness, early)
+            floor_witnesses.append({"side": side, "s_mm": clean_number(station),
+                                    "present": volume(witness) > VOLUME_TOLERANCE,
+                                    "witness_volume_mm3": clean_number(volume(witness)),
+                                    "missing_from_tip_mm3": clean_number(missing_fixed),
+                                    "missing_from_pushed_lip_mm3": clean_number(missing_moving)})
+    # A whole-shape common at 0.01 mm can lose these independently verified
+    # slivers at coincident torus/cylinder roots. The larger probe remains well
+    # short of the glass clearance and supplies the complete contact inventory.
+    pushed = cover.translate(normal.multiply(-whole_push))
+    pushed_lips = lips.translate(normal.multiply(-whole_push))
     seat_common = pushed.intersect(full)
-    seat_other = volume(seat_common.cut(pushed_lips))
-    seat_floor = tip.intersect(band(s0, s1, n0-0.01-DISTANCE_TOLERANCE, n0+DISTANCE_TOLERANCE)).cut(groove_core)
-    outside_floor = volume(seat_common.cut(seat_floor))
+    seat_other = outside_volume(seat_common, pushed_lips)
+    root_contact_zone = tip.intersect(groove_band)
+    # The common already lies inside the real tip. Classify it with the full
+    # floor/root coordinate band instead of subtracting the coincident swept
+    # root from a 0.02 mm floor sliver: that redundant Boolean can lose material
+    # at the cylinder-to-torus transition. The independent witnesses above
+    # establish actual floor contact, and the lip mask excludes other parts.
+    seat_allowed = band(s0-DISTANCE_TOLERANCE, s1+DISTANCE_TOLERANCE,
+                        n0-whole_push-DISTANCE_TOLERANCE,
+                        n1+snap.BEARING_SLIP+DISTANCE_TOLERANCE)
+    outside_floor_and_root = outside_volume(seat_common, seat_allowed)
     glass = shape(screen)
     reading.add("seat:display-cover-stop", volume(seat_common) > VOLUME_TOLERANCE
-                and max(seat_other, outside_floor, contact(pushed, body), contact(pushed, glass)) <= VOLUME_TOLERANCE,
-                fixed_body_interference_after_0_01mm_inward_motion_mm3=clean_number(volume(seat_common)),
+                and all(row["present"] and max(row["missing_from_tip_mm3"], row["missing_from_pushed_lip_mm3"]) <= VOLUME_TOLERANCE
+                        for row in floor_witnesses)
+                and max(seat_other, outside_floor_and_root, contact(pushed, body), contact(pushed, glass)) <= VOLUME_TOLERANCE,
+                early_floor_probe_inward_motion_mm=early_push, floor_contact_witnesses=floor_witnesses,
+                complete_contact_probe_inward_motion_mm=whole_push,
+                fixed_body_interference_mm3=clean_number(volume(seat_common)),
                 contact_outside_actual_lips_mm3=clean_number(seat_other),
-                contact_outside_groove_floor_mm3=clean_number(outside_floor),
+                contact_outside_groove_floor_and_root_mm3=clean_number(outside_floor_and_root),
                 device_interference_mm3=clean_number(contact(pushed, body)),
                 glass_interference_mm3=clean_number(contact(pushed, glass)),
-                method="actual lip bottoms contact only the shallow groove floors before the display or glass")
+                method="six independent interior floor witnesses after 0.01 mm inward travel; the complete 0.02 mm contact common must remain in the actual lips against groove floors or preload roots, before the display or glass")
     lifted = cover.translate(normal.multiply(0.5))
     retention_common = lifted.intersect(full)
     shoulder = tip.intersect(band(s0, s1, n1+snap.BEARING_SLIP-DISTANCE_TOLERANCE,
                                   n1+0.5+DISTANCE_TOLERANCE)).cut(groove_core)
-    outside_lips = volume(retention_common.cut(lips.translate(normal.multiply(0.5))))
-    outside_shoulder = volume(retention_common.cut(shoulder))
-    reading.add("retention:display-snaps", volume(retention_common) > VOLUME_TOLERANCE
-                and max(outside_lips, outside_shoulder) <= VOLUME_TOLERANCE,
+    outside_lips = outside_volume(retention_common, lips.translate(normal.multiply(0.5)))
+    shoulder_capture = volume(retention_common)-outside_volume(retention_common, shoulder)
+    root_camming = volume(retention_common)-outside_volume(retention_common, root_contact_zone)
+    outside_shoulder_and_root = outside_volume(retention_common, cq.Compound.makeCompound([shoulder, root_contact_zone]))
+    reading.add("retention:display-snaps", shoulder_capture > VOLUME_TOLERANCE
+                and max(outside_lips, outside_shoulder_and_root) <= VOLUME_TOLERANCE,
                 interference_on_0_5mm_outward_lift_mm3=clean_number(volume(retention_common)),
+                actual_shoulder_capture_mm3=clean_number(shoulder_capture),
+                groove_root_camming_contact_mm3=clean_number(root_camming),
                 contact_outside_actual_lips_mm3=clean_number(outside_lips),
-                contact_outside_retaining_shoulders_mm3=clean_number(outside_shoulder),
+                contact_outside_shoulders_and_preload_roots_mm3=clean_number(outside_shoulder_and_root),
                 scope="geometric cover-lip capture only; PET-GF force, flex distribution and cycling require the complete print trial")
 
     # Independently measure both the nominal seated and relaxed printed skirts.
     # Radial engagement is not a sufficient search budget at the cylinder crown.
     # A rigid skirt translation measures clearance demand, not its elastic path.
-    search_limit = max(3.0, snap.ENGAGEMENT+cover_builder.preload_inward_at(n0)+0.5)
-    resolution = 0.0001
-
     def outward_clearance(skirt, side):
         low, high = 0.0, search_limit
         if contact(skirt, full) <= VOLUME_TOLERANCE:
@@ -665,9 +777,6 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
     hardware_bounds = {name: local_bounds(part) for name, part in hardware.items()}
     travel = {name: {"overlap": 0.0, "gap": float("inf")} for name in hardware}
     rows = []
-    lifts = sorted({0.0, 0.10, snap.BEARING_SLIP, snap.BEARING_SLIP+0.001,
-                    snap.BEARING_SLIP+0.01, snap.BEARING_SLIP+0.05, 0.35, 0.50, 0.75,
-                    1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0, 15.0, 20.0})
     for lift in lifts:
         moved = cover.translate(normal.multiply(lift))
         common = moved.intersect(full)
@@ -728,6 +837,9 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
                 samples=rows, peak_required_outward_clearance_per_side_mm=clean_number(peak),
                 peak_total_outward_clearance_from_relaxed_print_per_side_mm=clean_number(free_peak),
                 outward_search_budget_mm=clean_number(search_limit), clearance_search_resolution_mm=resolution,
+                obstacle_crop_display_frame_xyz_mm={"minimum": [clean_number(v) for v in clip_min],
+                                                     "maximum": [clean_number(v) for v in clip_max]},
+                obstacle_crop_method="exact conservative bounds of both complete covers, expanded by the full independent outward search budget in X, all normal lifts in N, and 0.1 mm on every face; also contains the inward seating probes",
                 scope="sampled normal insertion using separate nominal seated and actual relaxed-print solids; nominal contact must stay in the lips and lower skirts. Each skirt's rigid outward translation measures clearance demand, not deformation, strain, force, or the loaded equilibrium shape of the joined end bridges")
     for name, result in travel.items():
         required = 0.1 if name == "ribbon" else 0.0
@@ -943,7 +1055,8 @@ def display_free_cover_reading(reading, f, cover_builder, seated, free, tip):
 
     upper = native_band(anchor, f.display_cover_top_n+1.0)
     installed_bezel, free_bezel = seated.intersect(upper), free.intersect(upper)
-    bezel_delta = volume(installed_bezel.cut(free_bezel))+volume(free_bezel.cut(installed_bezel))
+    bezel_delta = (outside_material_volume(installed_bezel, free_bezel)
+                   +outside_material_volume(free_bezel, installed_bezel))
     reading.add("shape:display-cover-unchanged-bezel", volume(installed_bezel) > VOLUME_TOLERANCE
                 and bezel_delta <= VOLUME_TOLERANCE,
                 unchanged_from_n_mm=clean_number(anchor),
@@ -956,7 +1069,7 @@ def display_free_cover_reading(reading, f, cover_builder, seated, free, tip):
         halfspace = cq.Solid.makeBox(50.0, 150.0, 100.0,
                                     cq.Vector(0.0 if side == 1 else -50.0, -50.0, -30.0))
         printed_lip = lips.intersect(halfspace).transformGeometry(cover_builder.relaxed_wing_transform(side))
-        missing_lips.append(volume(printed_lip.cut(free)))
+        missing_lips.append(outside_material_volume(printed_lip, free))
         for fraction in (0.125, 0.5, 0.875):
             station = s0+(s1-s0)*fraction
             for n in (n0+0.25, (n0+n1)/2.0, n1-0.25):
@@ -982,7 +1095,7 @@ def display_free_cover_reading(reading, f, cover_builder, seated, free, tip):
     free_common = free.intersect(tip)
     interface_overlap = volume(free_common)
     lower = native_band(n0, anchor)
-    unexpected_overlap = volume(free_common.cut(lower))
+    unexpected_overlap = outside_material_volume(free_common, lower)
     parameter_error = max(abs(cover_builder.preload_inward_at(n)-preload(n)) for n in (n0, n1, anchor))
     reading.add("shape:display-cover-relaxed-preload", bool(shift_samples)
                 and all(max(row["inner_and_outer_shift_error_mm"]) <= DISTANCE_TOLERANCE for row in shift_samples)
@@ -1103,8 +1216,12 @@ def display_reading(reading, f, assembly, parts, body, free_cover):
                     method="actual device translated normally into the complete fixed shell")
     pads = shape(f.build_display_feet_pads())
     missing = volume(pads.cut(tip))
-    reading.add("wall:display-foot-pads", missing <= VOLUME_TOLERANCE,
-                missing_3_by_3_by_3_pad_material_mm3=clean_number(missing),
+    reading.add("wall:display-foot-pads", missing <= VOLUME_TOLERANCE
+                and f.display_foot_pad_depth >= f.wall_thickness_min-DISTANCE_TOLERANCE,
+                missing_complete_pad_material_mm3=clean_number(missing),
+                pad_footprint_mm=[f.display_foot_pad_width, f.display_foot_pad_width],
+                pad_depth_mm=f.display_foot_pad_depth,
+                required_functional_depth_mm=f.wall_thickness_min,
                 method="complete four support-pad witnesses inside the final tip")
     outside = shape(f.build_display_outer_envelope())
     side = cq.Compound.makeCompound([face for face in outside.Faces() if face.geomType() != "PLANE"])
@@ -1300,6 +1417,7 @@ def main() -> int:
     base_fastener_reading(reading, f, base, plate)
     lower_section_reading(reading, f, base)
     lower_access_reading(reading, f, base)
+    lower_passage_join_reading(reading, base)
     display_reading(reading, f, assembly, parts, assembly.build_display_body(), free_cover)
     display_trial_reading(reading, f, parts, free_cover)
     lever_reading(reading, assembly, parts)
