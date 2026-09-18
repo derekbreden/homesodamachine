@@ -1,0 +1,727 @@
+{
+  "passed": true,
+  "sources_sha256": {
+    "hardware/printed-parts/fixtures/faucet-cover-retention/check_geometry.py": "50b9082615cf2617207a0196e61b6aaeed9d2d45d82ddf9e94f8e91c9a56172e",
+    "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py": "2e17b7dee1f472d329c8c7ff484589fe0d546c7f91e624c39f978d2ed55396e3",
+    "hardware/scripts/check_faucet_geometry.py": "cb0577762169ab166b797a1f5be978e67c518b27e594472294c36c74fe2a19ec",
+    "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "3ee3fdb0ed74fd96686eb368fc07cfad3333c0bdca8accb0a3516a63819aec6a",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
+    "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
+  },
+  "trial_manifest_sha256": "43a759ce0bf2b5a3be21c57e090746ff14e511f71717c0c00ef8b880906e0220",
+  "protected_tip_stl_sha256": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+  "reference_base_step_sha256": "89be16ab353d87b8ff221c7563b4896fae6f7fb2e6622f2970f1b96a5b035d99",
+  "saved_parts_sha256": {
+    "A": {
+      "step": "36457193f29176850b8de4d2e3148933a8fc333b0d96ea3e8f264dda6570bddd",
+      "stl": "e3b4b0648f484707f552b8c423f3318c562988258f0a05ce17170d16abe2b743"
+    },
+    "B": {
+      "step": "1ac65e528347923ea25593ef6cdf2c264ebf8ffdd552351d372414aaf39d5d84",
+      "stl": "1520e80c14363a265fc38bd7355e183822c4bab610054a6ae13b8e16e9e7a001"
+    },
+    "C": {
+      "step": "5bbdbd6ea094dc6a6bfb870e7af34795ae86a0d0b7edba7155f63e32bb959e99",
+      "stl": "4f1a9b0f2c101483ad3b04a99708959e45cf264feb3672f24da5dfc2fb9b157f"
+    },
+    "D": {
+      "step": "e0428bfe8ecfbaf6ea1d5b848d19530223756982190ad78bd2b91aef74e2f37e",
+      "stl": "0a6f806f41ff926c65259135c4050fa3e01961f1efceb3e83de520382b4d918c"
+    },
+    "E": {
+      "step": "ec4d7f04d1685010d1771aec1958283805e45b4c1cf80e2f82538317d301db99",
+      "stl": "a1e69a32bee07a1de7911071f15b144a7b5c38eea7025720e031f6133f6dac9e"
+    },
+    "F": {
+      "step": "eac6b743eda3c8f22475d9b33ed421339fb55e26448f4c1fd2b05eb905655282",
+      "stl": "9cab2b46182ff8b883567f34f48843e4fac7ee970a770c00c18b2a3a1f6596de"
+    }
+  },
+  "checks": {
+    "provenance:unchanged-printed-tip": {
+      "printed_tip_stl_sha256": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+      "protected_artifacts_sha256": {
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "0f5f563dc616fb3f13d056a8a36d1a91f60d109458b74fc652f117972a9c82d8",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "ff90c2f4e983e7d2af73317c2637a936b5d1bd5335fb255e66f3318bf816ccae",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "eaada51cfc3ef32e03b150c8d828f45d11073ef703a638c1f05c4c0e876ee1ba"
+      },
+      "generator_sources_current": true,
+      "passed": true
+    },
+    "fit:seated-lip-3.00": {
+      "root_radius_mm": 12.0124554,
+      "radial_engagement_mm": 1.0,
+      "lip_n_range_mm": [
+        3.2999999,
+        6.3000001
+      ],
+      "groove_n_range_mm": [
+        3.2999999,
+        6.4500001
+      ],
+      "floor_gap_mm": 0.0,
+      "roof_gap_mm": 0.15,
+      "end_gaps_mm": [
+        0.15,
+        0.15
+      ],
+      "seated_tip_overlap_mm3": 0.0,
+      "device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "inward_stop_probe_mm": 0.02,
+      "stop_contact_mm3": 1.4486446,
+      "stop_contact_outside_lips_mm3": 0.0,
+      "inward_probe_device_overlap_mm3": 0.0,
+      "outward_capture_probe_mm": 0.5,
+      "actual_shoulder_capture_mm3": 17.6121904,
+      "capture_outside_lips_mm3": 0.0,
+      "method": "actual native groove/lip face radii and extents; complete seated commons and lip-classified inward/outward contact probes",
+      "passed": true
+    },
+    "fit:seated-lip-3.10": {
+      "root_radius_mm": 12.0124554,
+      "radial_engagement_mm": 1.0,
+      "lip_n_range_mm": [
+        3.2999999,
+        6.4000001
+      ],
+      "groove_n_range_mm": [
+        3.2999999,
+        6.4500001
+      ],
+      "floor_gap_mm": 0.0,
+      "roof_gap_mm": 0.05,
+      "end_gaps_mm": [
+        0.15,
+        0.15
+      ],
+      "seated_tip_overlap_mm3": 0.0,
+      "device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "inward_stop_probe_mm": 0.02,
+      "stop_contact_mm3": 1.4746655,
+      "stop_contact_outside_lips_mm3": 0.0,
+      "inward_probe_device_overlap_mm3": 0.0,
+      "outward_capture_probe_mm": 0.5,
+      "actual_shoulder_capture_mm3": 22.6153831,
+      "capture_outside_lips_mm3": 0.0,
+      "method": "actual native groove/lip face radii and extents; complete seated commons and lip-classified inward/outward contact probes",
+      "passed": true
+    },
+    "fit:saved-cover-A": {
+      "saved_sha256": {
+        "step": "36457193f29176850b8de4d2e3148933a8fc333b0d96ea3e8f264dda6570bddd",
+        "stl": "e3b4b0648f484707f552b8c423f3318c562988258f0a05ce17170d16abe2b743"
+      },
+      "generator_hashes_match": true,
+      "valid": true,
+      "solids": 1,
+      "mesh_triangles": 29908,
+      "mesh_watertight": true,
+      "mesh_consistent_winding": true,
+      "preload_at_n6_3_mm": 1.0,
+      "lip_height_mm": 3.0,
+      "free_device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "complete_axial_cylinder_clearance": {
+        "gap_mm": 0.4440206,
+        "overlap_mm3": 0.0
+      },
+      "missing_complete_bezel_floor_mm3": 1.1e-06,
+      "protected_bezel_thickness_mm": 1.0500000000000007,
+      "missing_complete_preformed_lip_witnesses_mm3": [
+        0.0,
+        0.0
+      ],
+      "scope": "actual saved STEP and STL; the complete original aperture-bearing bezel floor remains under the lettering, and both complete preformed lips remain present",
+      "passed": true
+    },
+    "fit:saved-cover-B": {
+      "saved_sha256": {
+        "step": "1ac65e528347923ea25593ef6cdf2c264ebf8ffdd552351d372414aaf39d5d84",
+        "stl": "1520e80c14363a265fc38bd7355e183822c4bab610054a6ae13b8e16e9e7a001"
+      },
+      "generator_hashes_match": true,
+      "valid": true,
+      "solids": 1,
+      "mesh_triangles": 36238,
+      "mesh_watertight": true,
+      "mesh_consistent_winding": true,
+      "preload_at_n6_3_mm": 1.25,
+      "lip_height_mm": 3.0,
+      "free_device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "complete_axial_cylinder_clearance": {
+        "gap_mm": 0.2027543,
+        "overlap_mm3": 0.0
+      },
+      "missing_complete_bezel_floor_mm3": 2.8e-06,
+      "protected_bezel_thickness_mm": 1.0500000000000007,
+      "missing_complete_preformed_lip_witnesses_mm3": [
+        0.0,
+        0.0
+      ],
+      "scope": "actual saved STEP and STL; the complete original aperture-bearing bezel floor remains under the lettering, and both complete preformed lips remain present",
+      "passed": true
+    },
+    "fit:saved-cover-C": {
+      "saved_sha256": {
+        "step": "5bbdbd6ea094dc6a6bfb870e7af34795ae86a0d0b7edba7155f63e32bb959e99",
+        "stl": "4f1a9b0f2c101483ad3b04a99708959e45cf264feb3672f24da5dfc2fb9b157f"
+      },
+      "generator_hashes_match": true,
+      "valid": true,
+      "solids": 1,
+      "mesh_triangles": 34208,
+      "mesh_watertight": true,
+      "mesh_consistent_winding": true,
+      "preload_at_n6_3_mm": 1.0,
+      "lip_height_mm": 3.0,
+      "free_device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "complete_axial_cylinder_clearance": {
+        "gap_mm": 0.4440206,
+        "overlap_mm3": 0.0
+      },
+      "missing_complete_bezel_floor_mm3": 1.8e-06,
+      "protected_bezel_thickness_mm": 1.0500000000000007,
+      "missing_complete_preformed_lip_witnesses_mm3": [
+        0.0,
+        0.0
+      ],
+      "scope": "actual saved STEP and STL; the complete original aperture-bearing bezel floor remains under the lettering, and both complete preformed lips remain present",
+      "passed": true
+    },
+    "fit:saved-cover-D": {
+      "saved_sha256": {
+        "step": "e0428bfe8ecfbaf6ea1d5b848d19530223756982190ad78bd2b91aef74e2f37e",
+        "stl": "0a6f806f41ff926c65259135c4050fa3e01961f1efceb3e83de520382b4d918c"
+      },
+      "generator_hashes_match": true,
+      "valid": true,
+      "solids": 1,
+      "mesh_triangles": 32044,
+      "mesh_watertight": true,
+      "mesh_consistent_winding": true,
+      "preload_at_n6_3_mm": 1.25,
+      "lip_height_mm": 3.0,
+      "free_device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "complete_axial_cylinder_clearance": {
+        "gap_mm": 0.2027543,
+        "overlap_mm3": 0.0
+      },
+      "missing_complete_bezel_floor_mm3": 2.1e-06,
+      "protected_bezel_thickness_mm": 1.0500000000000007,
+      "missing_complete_preformed_lip_witnesses_mm3": [
+        0.0,
+        0.0
+      ],
+      "scope": "actual saved STEP and STL; the complete original aperture-bearing bezel floor remains under the lettering, and both complete preformed lips remain present",
+      "passed": true
+    },
+    "fit:saved-cover-E": {
+      "saved_sha256": {
+        "step": "ec4d7f04d1685010d1771aec1958283805e45b4c1cf80e2f82538317d301db99",
+        "stl": "a1e69a32bee07a1de7911071f15b144a7b5c38eea7025720e031f6133f6dac9e"
+      },
+      "generator_hashes_match": true,
+      "valid": true,
+      "solids": 1,
+      "mesh_triangles": 29934,
+      "mesh_watertight": true,
+      "mesh_consistent_winding": true,
+      "preload_at_n6_3_mm": 1.0,
+      "lip_height_mm": 3.1,
+      "free_device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "complete_axial_cylinder_clearance": {
+        "gap_mm": 0.4440206,
+        "overlap_mm3": 0.0
+      },
+      "missing_complete_bezel_floor_mm3": 1.3e-06,
+      "protected_bezel_thickness_mm": 1.0500000000000007,
+      "missing_complete_preformed_lip_witnesses_mm3": [
+        0.0,
+        0.0
+      ],
+      "scope": "actual saved STEP and STL; the complete original aperture-bearing bezel floor remains under the lettering, and both complete preformed lips remain present",
+      "passed": true
+    },
+    "fit:saved-cover-F": {
+      "saved_sha256": {
+        "step": "eac6b743eda3c8f22475d9b33ed421339fb55e26448f4c1fd2b05eb905655282",
+        "stl": "9cab2b46182ff8b883567f34f48843e4fac7ee970a770c00c18b2a3a1f6596de"
+      },
+      "generator_hashes_match": true,
+      "valid": true,
+      "solids": 1,
+      "mesh_triangles": 29974,
+      "mesh_watertight": true,
+      "mesh_consistent_winding": true,
+      "preload_at_n6_3_mm": 1.25,
+      "lip_height_mm": 3.1,
+      "free_device_clearance": {
+        "gap_mm": 0.1,
+        "overlap_mm3": 0.0
+      },
+      "complete_axial_cylinder_clearance": {
+        "gap_mm": 0.2027543,
+        "overlap_mm3": 0.0
+      },
+      "missing_complete_bezel_floor_mm3": 1.1e-06,
+      "protected_bezel_thickness_mm": 1.0500000000000007,
+      "missing_complete_preformed_lip_witnesses_mm3": [
+        0.0,
+        0.0
+      ],
+      "scope": "actual saved STEP and STL; the complete original aperture-bearing bezel floor remains under the lettering, and both complete preformed lips remain present",
+      "passed": true
+    },
+    "motion:F-representative-normal-seat": {
+      "samples": [
+        {
+          "normal_lift_mm": 0.0,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.0,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.0,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 1.5175781,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 1.5175781,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 0.05,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.0068359,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.0068359,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 1.5175781,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 1.5175781,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 0.06,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 1.0322266,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 1.0322266,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 2.2695312,
+              "remaining_tip_overlap_mm3": 5e-06,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 2.2695312,
+              "remaining_tip_overlap_mm3": 5e-06,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 0.35,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.9501953,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.9501953,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 2.2216797,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 2.2216797,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 1.0,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.8408203,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.8408203,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 2.1669922,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 2.1669922,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 3.0,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.7246094,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.7246094,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 2.2216797,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 2.2216797,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 5.0,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.1914062,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.1914062,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 1.7021484,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 1.7021484,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        },
+        {
+          "normal_lift_mm": 8.5,
+          "sides": [
+            {
+              "state": "nominal",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.0,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "nominal",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.0,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": -1,
+              "outward_clearance_demand_mm": 0.0,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            },
+            {
+              "state": "relaxed",
+              "side": 1,
+              "outward_clearance_demand_mm": 0.0,
+              "remaining_tip_overlap_mm3": 0.0,
+              "maximum_half_full_opening_device_overlap_mm3": 0.0
+            }
+          ],
+          "nominal_bezel_overlap_mm3": 0.0,
+          "relaxed_bezel_overlap_mm3": 0.0
+        }
+      ],
+      "unchanged_base_material_in_motion_crop_mm3": 0.0,
+      "outward_search_budget_mm": 3.5,
+      "search_resolution_mm": 0.01,
+      "peak_relaxed_outward_demand_mm": 2.2695312,
+      "scope": "eight stated final-seating positions for F; independent rigid wing translations and carried-device commons at half/full opening. This is not a continuous elastic path, force prediction or strain certificate",
+      "passed": true
+    },
+    "motion:display-cartridge-axial": {
+      "path_local_s_n_mm": [
+        [
+          -60.0,
+          8.5
+        ],
+        [
+          0.0,
+          8.5
+        ]
+      ],
+      "conservative_cylinder_radius_mm": 13.012455392545599,
+      "complete_moving_bounds_mm": {
+        "s": [
+          -60.1000001,
+          51.2984812
+        ],
+        "n": [
+          11.6999999,
+          30.4500001
+        ],
+        "x": [
+          -14.6067342,
+          14.6067342
+        ]
+      },
+      "fixed_obstacle_containment": [
+        {
+          "part": "shell_base",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "shell_tip",
+          "relevant_volume_mm3": 203.3867399,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "neck_ribbon",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "soda-tube",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "flavor-a",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "flavor-b",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        }
+      ],
+      "complete_mover_clearances": [
+        {
+          "part": "nominal_cover",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 1.4322107
+        },
+        {
+          "part": "relaxed_cover",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 0.2027543
+        },
+        {
+          "part": "display",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 2.4880678
+        },
+        {
+          "part": "glass",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 11.7875892
+        }
+      ],
+      "method": "exact containment of every relevant fixed solid inside a straight cylinder, plus exact clearance of each complete lifted mover from that S-invariant cylinder; proves the entire axial segment rather than sampled poses",
+      "scope": "display and glass travel inside the cover from the outlet. The temporary flexible ribbon branch must be fed during factory assembly; its final route is checked separately. Normal seating and plastic opening have separate readings",
+      "passed": true
+    },
+    "motion:display-loading-into-cover": {
+      "normal_loading_stroke_mm": 25.0,
+      "starts_completely_below_cover": true,
+      "complete_sweep_n_band_mm": [
+        3.1999999,
+        20.45
+      ],
+      "reference_face_kinds": {
+        "PLANE": 706,
+        "CYLINDER": 20
+      },
+      "upward_face_prism_count": 4,
+      "independent_pose_containment_missing_mm3": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "unchanged_bezel_interference_mm3": 0.0,
+      "independent_outward_search_budget_mm": 3.0,
+      "search_resolution_mm": 0.005,
+      "lateral_allowance_mm": 0.25,
+      "sides": [
+        {
+          "side": -1,
+          "unopened_interference_mm3": 176.120827,
+          "required_outward_clearance_from_relaxed_print_mm": 2.0654297,
+          "outward_opening_with_lateral_allowance_mm": 2.3154297,
+          "remaining_interference_mm3": 0.0,
+          "minimum_complete_stroke_gap_mm": 0.24294
+        },
+        {
+          "side": 1,
+          "unopened_interference_mm3": 176.1862086,
+          "required_outward_clearance_from_relaxed_print_mm": 2.0654297,
+          "outward_opening_with_lateral_allowance_mm": 2.3154297,
+          "remaining_interference_mm3": 0.0,
+          "minimum_complete_stroke_gap_mm": 0.24294
+        }
+      ],
+      "method": "exact complete downward projection of every upward device face within the cover band, after verifying all reference surfaces are parallel vertical extrusions; independent actual free-wing translation and exact common/distance",
+      "scope": "factory loading opens the plastic before the PCB enters. Opening demand is geometric; the joined end bridges, force, spring return and display support require the complete print trial. This is not an elastic shape prediction",
+      "passed": true
+    },
+    "clearance:F-final-ribbon": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.0272138,
+      "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    }
+  },
+  "scope": "Six display-cover trials on the unchanged printed tip. Both seated lip heights and all saved free covers are checked; F supplies the bounded seating and complete loading readings. No spring force, material strain, retention force or support-surface finish is inferred from CAD."
+}
