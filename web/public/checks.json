@@ -2,7 +2,7 @@
   "checks": [
     {
       "check": "hardware/scripts/check_build_exit.py",
-      "note": "✗ hardware/printed-parts/faucet/industrial/check_geometry.py:144  — use sys.exit(...) so a follower reads the failure",
+      "note": "✗ hardware/printed-parts/faucet/industrial/check_geometry.py:146  — use sys.exit(...) so a follower reads the failure",
       "status": "red"
     },
     {
@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2206 tracked, 436 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2205 tracked, 436 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -100,7 +100,7 @@
     "hardware/scripts/check_build_exit.py": [
       "lock-taking scripts scanned: 106",
       "1 build(s) end on a status the lock cannot record:",
-      "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:144  — use sys.exit(...) so a follower reads the failure"
+      "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:146  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 129 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at baf86e005a60f87d3701a60b0bc37e37 here. The three artifacts agree with each other and describe a machine that has since moved.",
