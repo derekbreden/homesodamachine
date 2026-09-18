@@ -86,7 +86,7 @@ One 22 AWG 4P ribbon carries RELAYS J5 (`GND` / `V5` / `IO2` / `IO19`) from the 
 
 ### Sensors and signal (low-voltage, low-current)
 
-Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 / SIG-9 with a shared `GND` split near the +X wall; REEDS B J7 carries SIG-2 / SIG-3 / SIG-11 with a shared `GND` exploded at the cold-core end; REEDS A J6 is SIG-10 alone. Every reed input rides its MCP23017's internal pull-up — no resistors in any loom.
+Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 / SIG-9 with a shared `GND` split near the +X wall; REEDS B J7 carries SIG-2 / SIG-3 / SIG-11 with a shared `GND` exploded at the cold-core end; REEDS A J6 is SIG-10 alone. Every reed input rides its MCP23017's internal pull-up — no resistors in any loom. Every loom on this table is 22 AWG black silicone ribbon, one or two ribbons wide — the pairing per connector is in [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) § Ribbon pairs, and the AWG column below is the conductor gauge, which the ribbon and the bulk spool share.
 
 | # | From | To | Conductors | AWG | Approx. length | Notes |
 |---|---|---|---|---|---|---|
