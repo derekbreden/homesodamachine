@@ -216,6 +216,7 @@ _bounds.state(
 lever_x_half = 6.5
 lever_fit_clearance = 0.35
 lever_sweep_allowance = 0.005
+lever_insertion_front_y = -65.0
 lever_rest_back_y = 9.0
 lever_clearance_x_half = lever_x_half + lever_fit_clearance
 lever_clearance_y_back = lever_rest_back_y + lever_fit_clearance + lever_sweep_allowance
@@ -1363,6 +1364,18 @@ def build_lever_overhead_clearance() -> cq.Workplane:
             .extrude(2.0 * lever_clearance_x_half))
 
 
+def build_lever_front_clearance() -> cq.Workplane:
+    """Open central span ahead of the rounded neck cap, above the resting lever."""
+    opening = cq.Solid.makeBox(
+        2.0 * lever_clearance_x_half, fill_y_min - lever_insertion_front_y,
+        zone5_z_top - lever_rest_top_z,
+        cq.Vector(-lever_clearance_x_half, lever_insertion_front_y, lever_rest_top_z))
+    cap = cq.Solid.makeCylinder(
+        shell_outer_r, zone5_z_top - lever_rest_top_z,
+        cq.Vector(0.0, zone45_front_y + shell_outer_r, lever_rest_top_z))
+    return cq.Workplane(obj=opening.cut(cap))
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Lever travel, overhead relief and straight front insertion corridor."""
     from shapely.geometry import Polygon, box
@@ -1389,7 +1402,7 @@ def build_lever_clearance() -> cq.Workplane:
                       for y, z in profile])
     # The complete lever body enters from the front before its donor attachment closes.
     regions = [Polygon(pose) for pose in poses]
-    regions.append(box(-65.0, zone2_z_top + 1.0, -5.9, lever_rest_top_z))
+    regions.append(box(lever_insertion_front_y, zone2_z_top + 1.0, -5.9, lever_rest_top_z))
     # Sweep each edge between adjacent poses in the planar profile before extruding.
     # The 0.005 mm allowance covers the <0.002 mm one-degree arc sag and simplification.
     for before, after in zip(poses, poses[1:]):
@@ -1406,7 +1419,9 @@ def build_lever_clearance() -> cq.Workplane:
                        zone2_z_top + 1.0 - envelope_allowance + 0.01)
     outline = outline.union(plateau_join)
     return (_vertical_plane(-x_half).polyline(list(outline.exterior.coords)[:-1]).close()
-            .extrude(2.0 * x_half).union(build_lever_overhead_clearance()))
+            .extrude(2.0 * x_half)
+            .union(build_lever_overhead_clearance())
+            .union(build_lever_front_clearance()))
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:

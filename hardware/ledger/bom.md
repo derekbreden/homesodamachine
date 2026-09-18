@@ -153,7 +153,7 @@ The internal tee-carrier set is PET-GF: two halves with integral service tabs, j
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | **Printed parts total** | | | **~6.94** | **[$159.86](BOM_SEC7)** |
 
-By material: PETG ≈ 1.00 kg / $11.16 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.94 kg / $148.67.
+By material: PETG ≈ 1.00 kg / $11.16 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.94 kg / $148.66.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the [10](FOAM_FACE_SCREWS) M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics bay stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
