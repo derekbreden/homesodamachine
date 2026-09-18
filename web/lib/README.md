@@ -34,6 +34,7 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 |---|---|---|
 | [`shell.js`](/web/lib/shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
 | [`landing.js`](/web/lib/landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
+| [`unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Registered unit pages with the shared head and their own owner navigation. Equipment, preparation, and links to the printed guides. |
 | [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | Every page renders [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html), which loads `public/js/viewer/main.js`. Which one it shows — parts, charts, drawings + the assembly deck, or boards — is decided client-side by `currentSection()`. |
 | [`viewer-routes.js`](/web/lib/viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid,cards}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs), `/cards/*` (the assembly deck's pages + the assets they embed, loaded into the viewer's iframes, and `deck.pdf` — the whole deck bound for a printer, listed on `/drawings`). Walks `hardware/` via [`walk.js`](/web/lib/walk.js). |
 | [`settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |

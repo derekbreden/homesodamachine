@@ -407,7 +407,6 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")===
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="/pwa-icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="/pwa-icons/favicon-64.png">
@@ -415,12 +414,15 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")===
 <link rel="apple-touch-icon" sizes="167x167" href="/pwa-icons/apple-touch-icon-167.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-touch-icon-180.png">
 <link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon-180.png">
-<meta name="theme-color" content="#10319c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`;
 
-export function renderHead({ title, pageStyles = "", pageHead = "", importMap = null }) {
+export function renderHead({
+  title, pageStyles = "", pageHead = "", importMap = null,
+  fontStylesheet = "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
+  themeColor = "#10319c",
+}) {
   // A page's module map must be installed before the shared boot module resolves imports.
   const moduleMap = importMap
     ? `<script type="importmap">${JSON.stringify(importMap).replaceAll("<", "\\u003c")}</script>\n` : "";
@@ -428,6 +430,8 @@ export function renderHead({ title, pageStyles = "", pageHead = "", importMap = 
 <html lang="en">
 <head>
 ${moduleMap}${HEAD_TAGS}
+<link rel="stylesheet" href="${escape(fontStylesheet)}">
+<meta name="theme-color" content="${escape(themeColor)}">
 <title>${escape(title)}</title>
 <style>${BASE_CSS}${pageStyles ? "\n" + pageStyles : ""}</style>
 ${pageHead}
