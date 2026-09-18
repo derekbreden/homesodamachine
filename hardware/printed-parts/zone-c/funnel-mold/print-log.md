@@ -38,7 +38,14 @@ Plate 1 G-code SHA-256:
 The exact slice is retained at
 `.cache/prints/2026-09-18-funnel-next/full-cavity/funnel-mold-04-standard-flow088-z018.gcode.3mf`.
 
-Submission and physical result are pending.
+Bambu Connect submitted the cavity to **H2C**, serial **31B8AP612000452**,
+using **AMS A2 PETG Translucent** (reported 72% remaining before submission).
+Timelapse is off, bed leveling on, and flow dynamic/nozzle offset calibration
+use Auto. At **2026-09-18 18:43:18 UTC** (13:43 CDT), the printer reports
+**RUNNING**, the correct `funnel-mold-04-standard-flow088-z018.gcode.3mf`
+filename, 642 layers, no print error and no HMS entry. Connect shows chamber
+cooling and the left nozzle heating toward 165 °C. The saved source is commit
+`59e088d8d`. The physical result is pending.
 
 ## Reduced-flow 0.4 mm Standard trial — 2026-09-17
 
