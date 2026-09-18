@@ -71,6 +71,12 @@ export const ICON_INNER = {
   // glyph here: the small triangles of the box-drawing block render at their
   // own weight, which at this size is a dot.
   chevron: '<polyline points="9 18 15 12 9 6"></polyline>',
+  "arrow-right": '<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>',
+  "arrow-down": '<path d="M12 5v14"></path><path d="m5 12 7 7 7-7"></path>',
+  "arrow-up-right": '<path d="M7 17 17 7M7 7h10v10"></path>',
+  snowflake: '<path d="M12 2v20M20.66 7l-17.32 10M20.66 17 3.34 7M8 4l4 4 4-4M8 20l4-4 4 4M3 11l5.5-1.5L7 4M21 13l-5.5 1.5L17 20M3 13l5.5 1.5L7 20M21 11l-5.5-1.5L17 4"></path>',
+  "glass-water": '<path d="m6 3 1.8 17.1a1 1 0 0 0 1 .9h6.4a1 1 0 0 0 1-.9L18 3Z"></path><path d="M6.5 8c2-1 3 .5 5.5.5s3.5-1.5 5.5-.5"></path>',
+  droplets: '<path d="M7 3S2 8.5 2 12a5 5 0 0 0 10 0c0-3.5-5-9-5-9ZM17 8s-4 4.5-4 7.5a4 4 0 0 0 8 0C21 12.5 17 8 17 8Z"></path>',
 };
 
 export function iconSvg(key, className = "") {

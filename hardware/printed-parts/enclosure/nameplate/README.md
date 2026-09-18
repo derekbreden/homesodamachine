@@ -38,9 +38,9 @@ end-use classification and complete marking requirements for this household disp
 been established here. The small nameplate footer is an informational notice.
 
 The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
-the same wall. The link is where everything beyond the two printed documents lives — warranty,
-RMA, troubleshooting, BOM, support contact and ongoing care — per
-[`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
+the same wall. The link opens the machine overview, included-equipment list, preparation
+checklist, and links to the quick start, install guide, and care pages. The routes are described
+in [`/future/unit-links.md`](/future/unit-links.md).
 
 Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 
