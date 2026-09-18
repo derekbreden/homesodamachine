@@ -19,25 +19,21 @@ measurement of appliance input power.
 
 ## Refrigerant copy
 
-[EPA's current stand-alone equipment table](https://www.epa.gov/snap/substitutes-stand-alone-equipment)
-lists R-600a as acceptable with use conditions and links to the
-[April 10, 2015 rule](https://www.govinfo.gov/content/pkg/FR-2015-04-10/pdf/2015-07895.pdf).
-The rule's retail-food stand-alone entry, page 19493, specifies permanent fire/explosion
-warnings at identified locations, including the exterior and near the machine
-compartment, with lettering at least 6.4 mm high. Its household refrigeration entry on
-page 19492 also specifies several warnings and that minimum letter height.
+[The refrigerant marking specification](../../hardware/markings/README.md) contains
+the current-source review, dimensioned warning artwork and proposed locations. Its
+separate labels use 6.5 mm capitals against the current commercial A3 rule's 6.4 mm
+target. They leave the brand/serial composition intact.
 
-Neither entry reduces those markings to the current small flame and the two words
-`FLAMMABLE REFRIGERANT`. Those words on the current plate are an informational notice,
-as its own README states. The rule assigns locations on the equipment rather than
-requiring the complete warning text on this particular brand/serial plate.
+The closest functional EPA category is refrigerated food processing and dispensing
+equipment, whose current table lists R-290 but has no pure R-600a entry. The household
+category lists R-600a; whether this residential dispenser qualifies needs confirmation.
+The proof does not establish the machine's category or refrigerant acceptability.
 
-The exact SNAP end-use classification of this household soda machine and its complete
-marking requirements are unresolved in the nameplate documentation. The current
-`business/regulatory.md` asserts a commercial classification and a short marking list;
-that assertion is not an established minimum for these drawings. A separate exterior
-warning label is a layout proposal, with final wording, dimensions and locations
-dependent on the applicable entry and standard.
+The 2015 household entry does not state the current household conditions; those were
+replaced in 2018 by reference to UL 60335-2-24. The current commercial A3 dispensing
+conditions are in the 2024 rule. Sources and the exact branch distinctions are in the
+marking specification. The small `FLAMMABLE REFRIGERANT` footer is informational and
+does not constitute a complete permanent warning set.
 
 ## Print evidence
 

@@ -30,12 +30,12 @@ The [install guide](/hardware/install-guide/README.md) records the refrigerant a
 Product marking requirements are recorded in
 [`/business/regulatory.md`](/business/regulatory.md).
 
-The refrigerant marking specification remains unresolved. EPA's current
-[R-600a stand-alone equipment listing](https://www.epa.gov/snap/substitutes-stand-alone-equipment)
-links to the [April 2015 rule, pages 19459 and 19493](https://www.govinfo.gov/content/pkg/FR-2015-04-10/pdf/2015-07895.pdf),
-which specifies longer warnings and letters at least 6.4 mm high for that category. The applicable
-end-use classification and complete marking requirements for this household dispenser have not
-been established here. The small nameplate footer is an informational notice.
+[The refrigerant marking specification](/hardware/markings/README.md) contains a
+separate warning-label proof with 6.5 mm capitals against the current commercial A3
+rule's 6.4 mm target. The small nameplate footer is an informational notice.
+The finished machine's SNAP category, R-600a acceptability and complete standard
+conformance remain open. The separate labels preserve space for the brand and serial;
+they do not by themselves establish compliance.
 
 The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
 the same wall. The link opens the machine overview, included-equipment list, preparation

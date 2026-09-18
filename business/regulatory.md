@@ -1,42 +1,71 @@
 # Regulatory Posture
 
-Consolidates the regulatory conclusions already reached across prior conversations so they do not need to be re-derived. The path is direct-to-consumer sale via homesodamachine.com.
+Current regulatory scope for direct-to-consumer sale via homesodamachine.com. The
+refrigerant category, applicable standard and complete product marking specification
+remain open; the [refrigerant marking review](/hardware/markings/README.md) records the
+primary sources, provisional artwork and remaining information.
 
 ## Sales channels
 
-| Channel | UL / ETL listing | Notes |
-|---|---|---|
-| Direct-to-consumer (homesodamachine.com) | Not required | Listing is a retailer/insurer requirement, not federal law. The channel this project sells through. |
-| Big-box retail (Amazon, Walmart, Home Depot, etc.) | Required | Not a channel this project sells through — `marketing/target-market.md` "What this means for how we go to market". No listing is held or sought. |
+The sales channel is homesodamachine.com. No UL or ETL listing is held or sought.
+Sales channel alone does not establish the applicable product, installation or
+certification requirements. SNAP use conditions can incorporate safety standards;
+those obligations require review independently of retailer requirements.
 
 ## EPA Section 608 — refrigerant handling
 
-R-600a (isobutane) is carved out of the Section 608 venting prohibition as a natural refrigerant. No technician certification is legally required to vent, cut, braze, evacuate, or recharge the harvested refrigerant loop on this project.
+[40 CFR 82.154(a)(1)(ix)](https://www.govinfo.gov/content/pkg/CFR-2025-title40-vol21/pdf/CFR-2025-title40-vol21-sec82-154.pdf)
+exempts R-600a only in named end-uses: household refrigerators/freezers, retail food
+stand-alone refrigerators/freezers, and vending machines. The exemption covers the
+venting prohibition and Subpart F requirements for those uses. Natural refrigerants
+have no blanket exemption.
 
-Primary citation: `hardware/reference/ice-maker/README.md` (the line stating the 608 exemption).
-
-Does not apply to: a pivot to an R-134a or other HFC donor. In that case 608 Type I certification applies (open-book online, ~$25, 84% pass).
+[EPA's household definition](https://www.epa.gov/snap/substitutes-refrigeration-and-air-conditioning)
+includes stand-alone household ice makers, supporting that category for the donor.
+The rebuilt dispenser's category remains unresolved. Its service/disposal procedure
+cannot assume that the donor's exemption transfers. Handling non-exempt refrigerants
+requires the applicable recovery practices and technician qualifications; certification
+does not itself authorize intentional venting.
 
 ## EPA SNAP — refrigerant end-use approval
 
 SNAP (Significant New Alternatives Policy, Clean Air Act §612) approves refrigerants for specific product categories. Natural refrigerants are not blanket-exempt from SNAP — approval is granted per end-use.
 
-R-600a is SNAP-approved for this project's end-use category (self-contained commercial refrigeration, which covers countertop refrigerated beverage dispensers). This project's charge — under 40 g per unit, per [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) — is well under applicable SNAP charge limits.
+The closest functional match is **refrigerated food processing and dispensing
+equipment**: [EPA's definition](https://www.epa.gov/snap/retail-food-refrigeration)
+explicitly includes chilled carbonated beverages and holding tanks that dispense
+chilled product. A self-contained refrigeration circuit does not by itself make the
+machine a stand-alone refrigerator.
 
-Approval conditions this project must satisfy at the product level (no third-party listing needed):
+[The current dispensing table](https://www.epa.gov/snap/substitutes-refrigerated-food-processing-and-dispensing-equipment)
+lists R-290 with use conditions and has no pure R-600a entry. Household refrigeration
+does list R-600a with use conditions. Whether this residential-only plumbed dispenser
+qualifies for that household category requires confirmation. The R-600a approval for
+the finished machine is therefore **not established**. The [prepared EPA inquiry](/hardware/markings/epa-inquiry.md)
+describes the actual product and asks for the applicable listing; it has not been sent.
 
-- Design per UL 60335-2-89 (hydrocarbon charge handling, enclosure) — compliance, not listing
-- Flame symbol (ISO 7010 W021) marking on the unit
-- "Flammable refrigerant" text marking on the unit
-- Installation / service instructions note the refrigerant and charge mass
+[The marking specification](/hardware/markings/README.md) uses the current A3
+dispensing warnings as a provisional design target: complete exterior, compressor and
+packaging warnings; 6.5 mm capital letters against a 6.4 mm target; GHS flame with A3;
+and red service-port markings. The actual charge and any applicable calculated
+room-area/installation-height marks remain open. A small flame and `FLAMMABLE
+REFRIGERANT` footer are not a complete warning set.
 
-## UL 60335-2-89 — hydrocarbon appliance safety
+## Applicable refrigeration safety standard
 
-Charge cap for this equipment class is 150 g. Factory donor charge is 15 g (Unit A, Antarctic Star HZB-12/Q) or 23 g (Unit B, Frigidaire EFIC117-SS), and the recharge runs 5–15 g over factory because the wound coil holds more than the finger-plate evaporator it replaces — under 40 g per unit, well below the limit.
+The [current commercial dispensing listing](https://www.govinfo.gov/content/pkg/FR-2024-06-13/pdf/2024-11690.pdf)
+for R-290 incorporates UL 60335-2-89 and ASHRAE 15-2022. The
+[household R-600a listing](https://www.epa.gov/sites/default/files/2018-08/documents/epa_frdoc_0001-22694.pdf)
+incorporates UL 60335-2-24, second edition dated April 28, 2017. Product category and
+the controlling listing determine the applicable edition and conditions. A complete
+evaluation of this machine against either route is not established.
 
-Primary citation: [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for the charge masses and the recharge target; `hardware/reference/ice-maker/README.md` for the line stating charge is "well under the 150 g UL 60335-2-89 limit".
-
-D2C sale does not require this listing. The design follows the standard anyway because the standard codifies what safe handling of hydrocarbon refrigerant in a household appliance actually requires — charge limits, ignition-source containment, marking, service notes. The motivation is not regulatory posture: the appliance is going into kitchens used by friends, family, and customers the founder knows by name (per `marketing/target-market.md` "rings of trust"). Safety is the substance; listing is a credentialing path that's not being pursued separately.
+Factory donor charges are 15 g (Unit A, Antarctic Star HZB-12/Q) and 23 g (Unit B,
+Frigidaire EFIC117-SS). The [assembly procedure](/hardware/assembly/refrigerant-loop.md)
+targets 5–15 g above the donor charge for the wound evaporator. These are development
+targets, not measured finished-unit charges or proof of meeting an applicable charge
+limit. A universal 150 g cap or exemption from room-area marking is not established
+for this machine.
 
 The compressor's terminal block and clip-on PTC start relay/overload module remain under the R-600a donor's own moulded power-box cover. That cover is part of the harvested compressor assembly: it stays intact and securely retained, and the appliance connects only at the donor assembly's factory-external electrical interface without opening or modifying the cover. The current build adds no second sheet-metal shroud. The SEFUSE thermal fuse lies against the outside flank of the donor cover, the MQ-6 sensor sits low in the cabinet and gates the compressor relay, and the Teyleten relay that switches the compressor's AC lives remotely on the +X wall of back-top.
 
