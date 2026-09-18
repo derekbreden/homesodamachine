@@ -326,6 +326,11 @@ tube_shell_pill_x_half_outer = pill_length_x / 2.0 + zone5_wall
 tube_shell_x_half_outer = tube_shell_outer_r
 tube_shell_x_outer = 2.0 * tube_shell_x_half_outer
 
+# The fixed display and inward-preformed cover lips set the head diameter.
+display_neck_outer_r = 15.0
+display_head_blend_start_rot = math.radians(95.0)
+display_head_blend_end_rot = math.radians(115.0)
+
 _neck_walls = _bounds.bound(
     "faucet-neck-joint-walls", "The circular gooseneck joint carries two full walls",
     f"socket and plug at least {wall_thickness_min:g} mm")
@@ -930,8 +935,40 @@ def _sweep_along_gooseneck(sketch: cq.Sketch) -> cq.Workplane:
     return swept.translate((0, soda_faucet_tube_y, zone5_z_top))
 
 
+def build_display_neck_reference(shrink: float = 0.0) -> cq.Workplane:
+    """Constant circular head profile used by its cover, lips and grooves."""
+    sketch = cq.Sketch().push([(0.0, tube_shell_center_y)]).circle(
+        display_neck_outer_r - shrink)
+    return _sweep_along_gooseneck(sketch)
+
+
+def _head_blend_section(angle: float, radius: float) -> cq.Wire:
+    a, b = _bend2_point(angle)
+    plane = cq.Plane(origin=(0.0, soda_faucet_tube_y - a, zone5_z_top + b),
+                     xDir=(1.0, 0.0, 0.0),
+                     normal=(0.0, -math.sin(angle), math.cos(angle)))
+    return (cq.Workplane(plane).center(0.0, tube_shell_center_y)
+            .circle(radius).val())
+
+
 def build_zone6_outer() -> cq.Workplane:
-    return _sweep_along_gooseneck(_tube_shell_outer_sketch())
+    """Slender circular stem with a gradual enlargement under the display."""
+    neck = _sweep_along_gooseneck(_tube_shell_outer_sketch())
+    start, end = display_head_blend_start_rot, display_head_blend_end_rot
+    # Constant end stations let the smooth loft settle onto both round sweeps.
+    fractions = (-0.1, -0.05, *[i / 20.0 for i in range(21)], 1.05, 1.1)
+    sections = []
+    for fraction in fractions:
+        t = min(1.0, max(0.0, fraction))
+        smooth = t * t * t * (10.0 + t * (-15.0 + 6.0 * t))
+        radius = tube_shell_outer_r + (display_neck_outer_r - tube_shell_outer_r) * smooth
+        sections.append(_head_blend_section(start + fraction * (end - start), radius))
+    blend = cq.Workplane(obj=cq.Solid.makeLoft(sections, ruled=False))
+    a, b = _bend2_point(end)
+    head = build_display_neck_reference().intersect(_split_plane_halfspace(
+        (0.0, soda_faucet_tube_y - a, zone5_z_top + b),
+        (0.0, -math.sin(end), math.cos(end)), +1))
+    return neck.union(blend).union(head)
 
 
 def build_zone6_inner_cut() -> cq.Workplane:
@@ -1053,7 +1090,7 @@ display_usb_top_z = math.ceil(display_usb_reference_bounds[1][2] * 100.0) / 100.
 dispense_face_thickness = 2.0  # [2 mm](DISPENSE_FACE_T)
 display_feet_n = 10.10
 display_floor_n = display_feet_n
-display_pocket_inset = tube_shell_center_y + tube_shell_outer_r - display_feet_n
+display_pocket_inset = tube_shell_center_y + display_neck_outer_r - display_feet_n
 display_cradle_clearance = 0.25
 display_wire_bend_radius = 2.5
 display_ribbon_join_s = 46.0
@@ -1077,19 +1114,27 @@ display_cover_face_width = 27.5
 display_cover_end_margin = 1.25
 display_cover_face_length = display_s_top + display_cover_end_margin
 _display_cover_center_s = display_cover_face_length / 2.0
-display_cover_skirt_width = 2.0 * (tube_shell_outer_r + display_cover_slip + display_cosmetic_wall)
+display_cover_skirt_width = 2.0 * (display_neck_outer_r + display_cover_slip + display_cosmetic_wall)
 display_cover_skirt_length = display_cover_face_length + 5.1
 display_cover_face_r = 7.25
 display_cover_skirt_r = 10.0
+display_cover_rear_wrap_s = 58.0
+display_cover_rear_hood_start_s = (_display_cover_center_s + display_cover_skirt_length / 2.0
+                                 - display_cover_skirt_r - display_cosmetic_wall)
+display_cover_rear_wrap_angle = math.asin(
+    (display_cover_rear_wrap_s - gn_tip_straight_len)
+    / (gn_bend1_r + tube_shell_center_y + display_neck_outer_r
+       + display_cover_slip + display_cosmetic_wall))
 display_head_s_min = 0.0
-display_head_s_max = _display_cover_center_s + display_cover_skirt_length / 2.0 + 0.2
+display_head_s_max = max(_display_cover_center_s + display_cover_skirt_length / 2.0,
+                         display_cover_rear_wrap_s) + 0.2
 display_clip_s_bottom = (_display_cover_center_s - display_cover_skirt_length / 2.0
                          + display_cover_skirt_r + _display_snap.END_MARGIN)
 display_clip_s_top = (_display_cover_center_s + display_cover_skirt_length / 2.0
                       - display_cover_skirt_r - _display_snap.END_MARGIN)
 display_clip_bottom_n = display_cover_bottom_n
 display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
-display_clip_lip_radius = tube_shell_outer_r - _display_snap.ENGAGEMENT
+display_clip_lip_radius = display_neck_outer_r - _display_snap.ENGAGEMENT
 display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
 display_foot_pad_width = 3.0
 display_foot_pad_depth = wall_thickness_min
@@ -1145,7 +1190,7 @@ def _display_outline_wire(width: float, length: float, radius: float,
 
 
 def build_display_outer_envelope() -> cq.Workplane:
-    """One plain tapered shroud; its face closely follows the display."""
+    """Tapered display shroud with a rear hood following the curved neck."""
     rows = (
         (display_cover_skirt_width, display_cover_skirt_length,
          display_cover_skirt_r, display_cover_bottom_n),
@@ -1156,8 +1201,21 @@ def build_display_outer_envelope() -> cq.Workplane:
     )
     loft = _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
         [_display_outline_wire(*row) for row in rows], ruled=False)))
-    return loft.intersect(_cradle_prism(30.0, display_head_s_min,
-                                       display_head_s_max + 1.0, -30.0, 40.0))
+    rear_band = _cradle_prism(30.0, display_cover_rear_hood_start_s,
+                              display_cover_rear_wrap_s,
+                              display_cover_bottom_n, display_cover_top_n)
+    rear_hood = build_display_neck_reference(
+        -(display_cover_slip + display_cosmetic_wall)).intersect(rear_band)
+    tip_end, along, outward = _tip_frame()
+    angle = display_cover_rear_wrap_angle
+    mouth_center = (tip_end
+                    + along.multiply(gn_tip_straight_len + gn_bend1_r * math.sin(angle))
+                    + outward.multiply(gn_bend1_r * (math.cos(angle) - 1.0)))
+    mouth_normal = along.multiply(math.cos(angle)) - outward.multiply(math.sin(angle))
+    rear_hood = rear_hood.intersect(_split_plane_halfspace(
+        mouth_center.toTuple(), mouth_normal.toTuple(), -1))
+    return loft.union(rear_hood).intersect(_cradle_prism(
+        30.0, display_head_s_min, display_head_s_max + 1.0, -30.0, 40.0))
 
 
 def build_display_cover_inner_envelope() -> cq.Workplane:
@@ -1178,9 +1236,7 @@ def build_display_cover_inner_envelope() -> cq.Workplane:
 
 def build_display_neck_clearance() -> cq.Workplane:
     """The shroud's open lip follows the round neck without a square shoe."""
-    sketch = cq.Sketch().push([(0.0, tube_shell_center_y)]).circle(
-        tube_shell_outer_r + display_cover_slip)
-    return _sweep_along_gooseneck(sketch)
+    return build_display_neck_reference(-display_cover_slip)
 
 
 def build_display_feet_pads() -> cq.Workplane:
@@ -1199,24 +1255,24 @@ def build_display_cover_lips() -> cq.Workplane:
     band = _cradle_prism(display_cover_skirt_width / 2.0 + 1.0,
                          display_clip_s_bottom, display_clip_s_top,
                          display_clip_bottom_n, display_clip_top_n)
-    inner = _build_zone6_outer_shrunk(tube_shell_outer_r - display_clip_lip_radius)
+    inner = build_display_neck_reference(display_neck_outer_r - display_clip_lip_radius)
     return build_display_outer_envelope().intersect(band).cut(inner)
 
 
 def build_display_retention_grooves() -> cq.Workplane:
     """Side grooves with preload roots, flat floors and retaining shoulders."""
-    band = _cradle_prism(tube_shell_outer_r + 1.0,
+    band = _cradle_prism(display_neck_outer_r + 1.0,
                          display_clip_s_bottom - _display_snap.END_SLIP,
                          display_clip_s_top + _display_snap.END_SLIP,
                          display_clip_bottom_n,
                          display_clip_top_n + _display_snap.BEARING_SLIP)
-    core = _build_zone6_outer_shrunk(tube_shell_outer_r - display_clip_groove_radius)
+    core = build_display_neck_reference(display_neck_outer_r - display_clip_groove_radius)
     return band.cut(core)
 
 
 def _display_cavity() -> cq.Workplane:
     device_opening = _cradle_prism(
-        tube_shell_outer_r + wall_thickness_min, dispense_face_thickness, display_s_top,
+        display_neck_outer_r + wall_thickness_min, dispense_face_thickness, display_s_top,
         display_feet_n, display_cover_top_n + 1.0,
     )
     open_channel = _cradle_prism(
@@ -1570,6 +1626,8 @@ def main():
 
     variables = {
         "DISPENSE_FACE_T": f"{dispense_face_thickness:g} mm",
+        "NECK_DIAMETER": f"{2.0 * tube_shell_outer_r:.3f} mm",
+        "HEAD_DIAMETER": f"{2.0 * display_neck_outer_r:g} mm",
         "FOOT_WIDTH": f"{foot_width:g} mm",
         "FOOT_DEPTH": f"{foot_depth:g} mm",
         "PLATE_T": f"{above_counter_plate_thickness:g} mm",
