@@ -1797,7 +1797,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   // The main board assembles what the whole machine is running; this is this
   // board's line of it.
   if (type == MSG_VERSION_QUERY) {
-    VersionPayload v{OTA_TGT_ENCLOSURE, {0}, 0};
+    VersionPayload v{OTA_TGT_ENCLOSURE, {0}, 0, FW_BUILD_EPOCH};
     strncpy(v.version, FW_VERSION, FW_VERSION_MAX);
     BoardArtHeader h;
     if (boardArtHeader(h) && h.magic == BOARD_ART_MAGIC) v.artCrc32 = h.crc32;

@@ -19,8 +19,10 @@
 void versionsBegin();
 void versionsService();
 
-// A display answering MSG_VERSION_QUERY.
-void versionsOnReport(uint8_t board, const char *version, uint32_t artCrc32);
+// A display answering MSG_VERSION_QUERY. `buildEpoch` is zero from a board
+// built before the field existed, which is "did not say" and not the epoch.
+void versionsOnReport(uint8_t board, const char *version, uint32_t artCrc32,
+                      uint32_t buildEpoch);
 
 void versionsFill(VersionsPayload &out);
 void versionsConsole();

@@ -257,11 +257,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    if (type == MSG_RESP_VERSION && plen >= sizeof(VersionPayload)) {
-        VersionPayload v;
-        memcpy(&v, payload, sizeof(v));
+    // A display built before `buildEpoch` sends the core alone; its bytes are
+    // taken and the epoch stands at zero, which reads as "did not say".
+    if (type == MSG_RESP_VERSION && plen >= VERSION_CORE_BYTES) {
+        VersionPayload v{};
+        memcpy(&v, payload, plen < sizeof(v) ? plen : sizeof(v));
         v.version[FW_VERSION_MAX] = 0;
-        versionsOnReport(OTA_TGT_FAUCET, v.version, v.artCrc32);
+        versionsOnReport(OTA_TGT_FAUCET, v.version, v.artCrc32, v.buildEpoch);
         return;
     }
     if (type == MSG_VERSIONS_QUERY) {

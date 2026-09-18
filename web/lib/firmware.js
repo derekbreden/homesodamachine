@@ -58,6 +58,11 @@ export function mountFirmwareRoutes(app, { commit } = {}) {
         what: e.what,
         kind: e.kind ?? "app",
         version: e.version ?? null,
+        // HEAD's commit time, and the only field the phone orders two builds
+        // by. The version string is what a person reads, and two builds made on
+        // one day are not ordered by its date. Null from an image published
+        // before this field, which reads as "not said".
+        buildEpoch: e.build_epoch ?? null,
         bytes: e.bytes,
         crc32: e.crc32,
         // Art only: the crc32 over the pixels, which is what a board reports

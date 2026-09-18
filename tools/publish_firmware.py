@@ -142,6 +142,30 @@ def fw_version(target: str) -> str | None:
     return m.group(1) if m else None
 
 
+def fw_build_epoch(target: str) -> int | None:
+    """The `FW_BUILD_EPOCH` the build stamped beside the version string.
+
+    HEAD's commit time, and the only field two builds are ordered by. The
+    version string is what a person reads; a date is as fine as a screen has
+    room for, and two builds made on one day are not ordered by one. So the
+    phone gets this instead, and the string is left free to stay readable.
+
+    None where the header does not carry it — a tree built before the field
+    existed — which the manifest passes through as null and every reader treats
+    as "not said" rather than as the epoch.
+    """
+    spec = TARGETS[target]
+    if spec.get("kind") == "art":
+        return None
+    header = _ROOT / "firmware" / spec["src"] / "fw_version.h"
+    try:
+        text = header.read_text()
+    except OSError:
+        return None
+    m = re.search(r"#define\s+FW_BUILD_EPOCH\s+(\d+)", text)
+    return int(m.group(1)) if m else None
+
+
 def build(target: str) -> None:
     """Produce this target's image. A failed build stops publication before any upload.
 
@@ -179,6 +203,7 @@ def survey(targets: list) -> dict:
             "what": spec["what"],
             "kind": spec.get("kind", "app"),
             "version": fw_version(target),
+            "build_epoch": fw_build_epoch(target),
             "bytes": len(data),
             # The one the wire promises; MSG_OTA_BEGIN carries this value.
             "crc32": zlib.crc32(data) & 0xFFFFFFFF,
