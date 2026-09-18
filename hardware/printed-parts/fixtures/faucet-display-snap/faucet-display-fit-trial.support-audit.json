@@ -1,6 +1,6 @@
 {
   "project": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
-  "project_sha256": "5913c01d7f750fd1df2f32898b0d0f0756a71509710bf8e8cb70e3ff9debbfdf",
+  "project_sha256": "844d66d60b5afa7e6e0c49460470b0159b382f5af581676cb50898b2452a16ba",
   "settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
   "slicer": "BambuStudio 02.08.02.61",
   "layer_height_mm": 0.23999999463558197,
@@ -13,8 +13,8 @@
   "plates": [
     {
       "plate": 1,
-      "estimated_total_seconds": 8642.634765625,
-      "saved_profile_filament_estimate_g": 30.60499382019043,
+      "estimated_total_seconds": 8141.41015625,
+      "saved_profile_filament_estimate_g": 25.84540367126465,
       "slicer_warning": ""
     }
   ],
@@ -24,12 +24,12 @@
       "piece": "display-trial-housing",
       "inputs": {
         "gcode": "support-labels-display-trial-housing.gcode",
-        "gcode_sha256": "8f956b53a7eb9aab8e71c73cc419c27a2da434c27056c6d64770835487823478",
+        "gcode_sha256": "301435ed8701f5eb98631c54d1b46a8834215cc400abd9be33fcbcccf141583c",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
-        "model_sha256": "3d68bd7d9ad1e1e0b91185c4aba42aa5319d2f717b06587f28fce307a98d3d99",
+        "model_sha256": "c22f7f35668db5936f512f4a3325ca21496ef48d04dac1d882323a5c95936989",
         "profile": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
-        "profile_sha256": "5913c01d7f750fd1df2f32898b0d0f0756a71509710bf8e8cb70e3ff9debbfdf",
-        "plate_gcode_sha256": "f01a61f6e80583d27f635e9bceacb0b444b53e1bc42260647e5d12806c0aeff2",
+        "profile_sha256": "844d66d60b5afa7e6e0c49460470b0159b382f5af581676cb50898b2452a16ba",
+        "plate_gcode_sha256": "3120dca13deeeba333dd0b52fffb47e96b8033606d428a038fabe64ab6eb40c2",
         "object_label": 1901,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -47,13 +47,13 @@
           0.0,
           1.0,
           -110.0,
-          -160.000218391,
-          0.000422485
+          -160.000009537,
+          1.2773e-05
         ],
         "plate_to_cad_translation_mm": [
           -110.0,
-          -160.000218,
-          0.000422
+          -160.00001,
+          1.3e-05
         ]
       },
       "slicer_settings": {
@@ -86,22 +86,22 @@
           "base_z_mm": 0.2,
           "first_interface_z_mm": null,
           "shortest_build_up_mm": null,
-          "top_z_mm": 85.4,
+          "top_z_mm": 82.52,
           "bbox_xy_mm": [
             90.4,
-            137.6,
+            140.0,
             129.6,
-            188.8
+            186.0
           ],
           "interfaces": [],
           "interface_reading": "unlabelled",
           "bbox_cad_xyz_mm": [
             -19.6,
-            -22.4,
+            -20.0,
             0.2,
             19.6,
-            28.8,
-            85.4
+            26.0,
+            82.52
           ]
         }
       ],
@@ -112,16 +112,16 @@
       "toolpaths": {
         "extrusion_bounds_xy_mm": [
           [
-            89.885628,
-            132.252628
+            89.825806,
+            134.062806
           ],
           [
-            129.91637200000002,
-            189.09337200000002
+            130.03619400000002,
+            186.527194
           ]
         ],
-        "maximum_line_width_mm": 0.770744,
-        "bounds_padding_mm": 0.485372
+        "maximum_line_width_mm": 0.736388,
+        "bounds_padding_mm": 0.468194
       }
     },
     {
@@ -129,12 +129,12 @@
       "piece": "display-trial-cover",
       "inputs": {
         "gcode": "support-labels-display-trial-cover.gcode",
-        "gcode_sha256": "425fae11e9ad57095f4e5af4fa7a564d23f457793203ec9c7b5ce99135cafbae",
+        "gcode_sha256": "f1cb32d4fd0988c01dfe82744ab4b935c97989c924dbd4e481c85c120f134d79",
         "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
-        "model_sha256": "0af8c1419dff5966321957a9bfeeecf67f48fc82d3355d50ebd050016f3d5354",
+        "model_sha256": "eb2167bff5180d68aafcfbc5159e37b081b8a5716ac9afddd3e42bf6683f6e26",
         "profile": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
-        "profile_sha256": "5913c01d7f750fd1df2f32898b0d0f0756a71509710bf8e8cb70e3ff9debbfdf",
-        "plate_gcode_sha256": "f01a61f6e80583d27f635e9bceacb0b444b53e1bc42260647e5d12806c0aeff2",
+        "profile_sha256": "844d66d60b5afa7e6e0c49460470b0159b382f5af581676cb50898b2452a16ba",
+        "plate_gcode_sha256": "3120dca13deeeba333dd0b52fffb47e96b8033606d428a038fabe64ab6eb40c2",
         "object_label": 1902,
         "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."
       },
@@ -175,9 +175,9 @@
         "support_type": "tree(auto)"
       },
       "summary": {
-        "support_bodies": 2,
+        "support_bodies": 1,
         "interface_islands": 2,
-        "bed_rooted_bodies": 2,
+        "bed_rooted_bodies": 1,
         "model_rooted_bodies": 0,
         "shortest_build_up_mm": 14.64,
         "bodies_without_interface_labels": 0,
@@ -193,47 +193,22 @@
           "shortest_build_up_mm": 14.64,
           "top_z_mm": 15.08,
           "bbox_xy_mm": [
-            226.0,
-            146.8,
-            238.8,
-            174.4
+            228.0,
+            145.2,
+            252.0,
+            176.0
           ],
           "interfaces": [
-            "interface-1"
-          ],
-          "interface_reading": "explicit_feature",
-          "bbox_cad_xyz_mm": [
-            -14.0,
-            -13.2,
-            0.2,
-            -1.2,
-            14.4,
-            15.08
-          ]
-        },
-        {
-          "id": "tree-2",
-          "root": "bed",
-          "base_z_mm": 0.2,
-          "first_interface_z_mm": 14.84,
-          "shortest_build_up_mm": 14.64,
-          "top_z_mm": 15.08,
-          "bbox_xy_mm": [
-            240.8,
-            147.6,
-            254.0,
-            174.4
-          ],
-          "interfaces": [
+            "interface-1",
             "interface-2"
           ],
           "interface_reading": "explicit_feature",
           "bbox_cad_xyz_mm": [
-            0.8,
-            -12.4,
+            -12.0,
+            -14.8,
             0.2,
-            14.0,
-            14.4,
+            12.0,
+            16.0,
             15.08
           ]
         }
@@ -244,19 +219,19 @@
           "first_z_mm": 14.84,
           "last_z_mm": 15.08,
           "bbox_xy_mm": [
-            226.0,
-            147.6,
-            227.2,
-            174.0
+            228.0,
+            147.2,
+            229.2,
+            174.4
           ],
           "tree": "tree-1",
           "build_up_mm": 14.64,
           "bbox_cad_xyz_mm": [
-            -14.0,
-            -12.4,
-            14.84,
+            -12.0,
             -12.8,
-            14.0,
+            14.84,
+            -10.8,
+            14.4,
             15.08
           ]
         },
@@ -265,19 +240,19 @@
           "first_z_mm": 14.84,
           "last_z_mm": 15.08,
           "bbox_xy_mm": [
-            252.8,
-            147.6,
-            254.0,
-            174.0
+            251.2,
+            146.8,
+            252.0,
+            174.4
           ],
-          "tree": "tree-2",
+          "tree": "tree-1",
           "build_up_mm": 14.64,
           "bbox_cad_xyz_mm": [
-            12.8,
-            -12.4,
+            11.2,
+            -13.2,
             14.84,
-            14.0,
-            14.0,
+            12.0,
+            14.4,
             15.08
           ]
         }
@@ -288,29 +263,29 @@
       "toolpaths": {
         "extrusion_bounds_xy_mm": [
           [
-            223.775269,
-            134.811269
+            225.77498599999998,
+            134.818986
           ],
           [
-            256.224731,
-            185.192731
+            254.22501400000002,
+            185.194014
           ]
         ],
-        "maximum_line_width_mm": 0.669462,
-        "bounds_padding_mm": 0.434731
+        "maximum_line_width_mm": 0.676028,
+        "bounds_padding_mm": 0.438014
       }
     }
   ],
   "fit": {
-    "minimum_shared_bed_margin_mm": 64.885628,
-    "minimum_toolpath_separation_mm": 93.85889699999998,
+    "minimum_shared_bed_margin_mm": 64.825806,
+    "minimum_toolpath_separation_mm": 95.73879199999996,
     "pairwise_toolpath_separations": [
       {
         "parts": [
           "display-trial-housing",
           "display-trial-cover"
         ],
-        "separation_mm": 93.85889699999998
+        "separation_mm": 95.73879199999996
       }
     ]
   }
