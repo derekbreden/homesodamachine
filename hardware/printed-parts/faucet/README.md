@@ -34,6 +34,10 @@ Use the matching base, cover, plate and gasket for the selected style.
 The PET-GF projects each contain the base, shared tip, cover and plate.
 The gasket is a separate TPU print.
 
+The [display print project](faucet-display-petgf.3mf) contains the complete shared
+tip and two complete Sculpted covers. Its [print record](faucet-display-petgf.md)
+describes their mating geometry, orientations and physical fit observations.
+
 The [assembly procedure](faucet-shell/ASSEMBLY.md) supplies the shared mounting,
 tube routing and display seating order. The Industrial base has a round foot
 and rectangular lever opening; its mounting stations and hardware are shared.

@@ -462,20 +462,17 @@ split_junction_z = zone5_z_top + _path_junction[1]  # [220.9 mm](SPLIT_JUNCTION_
 
 # PRINTING — the base beds on its foot (Z=0) with the -Y edge lifted
 # [15°](PRINT_TILT), keeping the long straight neck close to vertical.
-# The tip beds on the joint end with the crown lifted and its build
-# direction at the angular midpoint of the sweep it carries.
+# The tip stands on its dispense face; both display-groove planes are vertical.
 print_base_build_rot = math.radians(15.0)
-print_tip_build_rot = (split_junction_rot + _path_total_rot) / 2.0
-# Tilt off the bed face. The foot is square to the path at rotation 0
-# and the joint face to the path at the junction.
+print_tip_build_rot = _path_total_rot - math.pi
+# Tilt off each part's bed face.
 print_base_tilt_rad = print_base_build_rot
-print_tip_tilt_rad = print_tip_build_rot - split_junction_rot
+print_tip_tilt_rad = 0.0
 max_print_overhang_rad = max(
     print_base_build_rot,
     split_junction_rot - print_base_build_rot,
-    print_tip_build_rot - split_junction_rot,
-    _path_total_rot - print_tip_build_rot,
-)  # [55°](MAX_PRINT_OVERHANG)
+    _path_total_rot - split_junction_rot,
+)  # [70°](MAX_PRINT_OVERHANG)
 
 
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
@@ -1110,7 +1107,7 @@ display_foot_pad_width = 3.0
 display_foot_pad_depth = wall_thickness_min
 # Factory assembly: place the display in the open cover, approach from the
 # outlet at S=-slide, translate along S while lifted, then seat along -N.
-display_cartridge_lift_n = 7.5
+display_cartridge_lift_n = 8.5
 display_cartridge_slide_s = 60.0
 display_loading_travel_n = 25.0
 display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
@@ -1214,12 +1211,33 @@ def build_display_feet_pads() -> cq.Workplane:
 
 
 def build_display_cover_lips() -> cq.Workplane:
-    """Two broad seated lips continuous with the cover's side walls."""
+    """Broad lips with relieved inner corners and flat bearing lands."""
     band = _cradle_prism(display_cover_skirt_width / 2.0 + 1.0,
                          display_clip_s_bottom, display_clip_s_top,
                          display_clip_bottom_n, display_clip_top_n)
     inner = build_display_neck_reference(display_neck_outer_r - display_clip_lip_radius)
-    return build_display_outer_envelope().intersect(band).cut(inner)
+    lips = build_display_outer_envelope().intersect(band).cut(inner)
+    return relieve_display_lip_inner_edges(lips)
+
+
+def relieve_display_lip_inner_edges(lips: cq.Workplane) -> cq.Workplane:
+    """Chamfer the root's top and bottom corners, retaining flat outer lands."""
+    origin, _, normal = _tip_frame()
+    inner_edges = []
+    for face in lips.val().Faces():
+        if face.geomType() not in ("CYLINDER", "TORUS"):
+            continue
+        for edge in face.Edges():
+            stations = [(vertex.Center() - origin).dot(normal) for vertex in edge.Vertices()]
+            if any(stations and all(abs(n - plane) < 1e-6 for n in stations)
+                   and abs((edge.Center() - origin).dot(normal) - plane) < 1e-6
+                   for plane in (display_clip_bottom_n, display_clip_top_n)):
+                if not any(edge.isSame(existing) for existing in inner_edges):
+                    inner_edges.append(edge)
+    if not inner_edges:
+        raise ValueError("display lips have no inner N-plane corners")
+    return cq.Workplane(obj=lips.val().chamfer(
+        _display_snap.LIP_INNER_EDGE_RELIEF, None, inner_edges))
 
 
 def build_display_retention_grooves() -> cq.Workplane:
