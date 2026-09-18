@@ -214,6 +214,12 @@ _bounds.state(
 
 
 lever_x_half = 6.5
+lever_fit_clearance = 0.35
+lever_sweep_allowance = 0.005
+lever_rest_back_y = 9.0
+lever_clearance_x_half = lever_x_half + lever_fit_clearance
+lever_clearance_y_back = lever_rest_back_y + lever_fit_clearance + lever_sweep_allowance
+lever_rest_top_z = zone2_z_top + 13.0
 
 shell_rect_y_half = shell_outer_r  # [23.89 mm](SHELL_OUTER_R)
 shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + show_wall  # [12.95 mm](SHELL_RECT_X_HALF)
@@ -1170,7 +1176,7 @@ def build_display_feet_pads() -> cq.Workplane:
 
 
 def build_display_cover_lips() -> cq.Workplane:
-    """Two broad 1.3 mm-high lips continuous with the cover's side walls."""
+    """Two broad seated lips continuous with the cover's side walls."""
     band = _cradle_prism(display_cover_skirt_width / 2.0 + 1.0,
                          display_clip_s_bottom, display_clip_s_top,
                          display_clip_bottom_n, display_clip_top_n)
@@ -1179,7 +1185,7 @@ def build_display_cover_lips() -> cq.Workplane:
 
 
 def build_display_retention_grooves() -> cq.Workplane:
-    """Shallow side grooves with flat seating floors and retaining shoulders."""
+    """Side grooves with preload roots, flat floors and retaining shoulders."""
     band = _cradle_prism(tube_shell_outer_r + 1.0,
                          display_clip_s_bottom - _display_snap.END_SLIP,
                          display_clip_s_top + _display_snap.END_SLIP,
@@ -1299,21 +1305,42 @@ def build_display_ribbon_transition() -> cq.Workplane:
                                  - display_ribbon_pcb_gap)
 
 
+def build_lever_overhead_clearance() -> cq.Workplane:
+    """Circular overhead relief above the lever's resting top."""
+    front_y = fill_y_min - math.sqrt(
+        back_arch_r ** 2 - (lever_rest_top_z - back_arch_center_z) ** 2)
+    front_angle = math.atan2(lever_rest_top_z - back_arch_center_z,
+                             front_y - fill_y_min)
+    rear_z = back_arch_center_z + math.sqrt(
+        back_arch_r ** 2 - (lever_clearance_y_back - fill_y_min) ** 2)
+    rear_angle = math.atan2(rear_z - back_arch_center_z,
+                            lever_clearance_y_back - fill_y_min)
+    mid_angle = (front_angle + rear_angle) / 2.0
+    mid = (fill_y_min + back_arch_r * math.cos(mid_angle),
+           back_arch_center_z + back_arch_r * math.sin(mid_angle))
+    return (_vertical_plane(-lever_clearance_x_half)
+            .moveTo(front_y, lever_rest_top_z)
+            .threePointArc(mid, (lever_clearance_y_back, rear_z))
+            .lineTo(lever_clearance_y_back, lever_rest_top_z)
+            .lineTo(front_y, lever_rest_top_z).wire()
+            .extrude(2.0 * lever_clearance_x_half))
+
+
 def build_lever_clearance() -> cq.Workplane:
-    """The lever's full travel and its straight front insertion corridor."""
+    """Lever travel, overhead relief and straight front insertion corridor."""
     from shapely.geometry import Polygon, box
     from shapely.ops import unary_union
 
-    clearance = 0.35
+    clearance = lever_fit_clearance
     pivot_y = 1.5
     pivot_z = zone2_z_top + 7.0
     travel_deg = 18
-    x_half = lever_x_half + clearance
+    x_half = lever_clearance_x_half
     profile = (
         (-42.0, zone2_z_top + 10.0),
-        (-42.0, zone2_z_top + 13.0),
-        (+9.0, zone2_z_top + 13.0),
-        (+9.0, zone2_z_top + 1.0),
+        (-42.0, lever_rest_top_z),
+        (lever_rest_back_y, lever_rest_top_z),
+        (lever_rest_back_y, zone2_z_top + 1.0),
         (-6.0, zone2_z_top + 1.0),
         (-6.0, zone2_z_top + 4.5),
     )
@@ -1325,24 +1352,24 @@ def build_lever_clearance() -> cq.Workplane:
                       for y, z in profile])
     # The complete lever body enters from the front before its donor attachment closes.
     regions = [Polygon(pose) for pose in poses]
-    regions.append(box(-65.0, zone2_z_top + 1.0, -5.9, zone2_z_top + 13.0))
+    regions.append(box(-65.0, zone2_z_top + 1.0, -5.9, lever_rest_top_z))
     # Sweep each edge between adjacent poses in the planar profile before extruding.
     # The 0.005 mm allowance covers the <0.002 mm one-degree arc sag and simplification.
     for before, after in zip(poses, poses[1:]):
         for i in range(len(profile)):
             j = (i + 1) % len(profile)
             regions.append(Polygon((before[i], before[j], after[j], after[i])).buffer(0))
-    envelope_allowance = clearance + 0.005
+    envelope_allowance = clearance + lever_sweep_allowance
     outline = unary_union(regions).simplify(0.001).buffer(envelope_allowance, join_style=2)
     # Connect the donor's open plateau to the rest-lever corridor. This region
     # stays inside the donor footprint and opens the complete space under the
     # lever; the side arch bores and rear structural wall retain their stock.
     plateau_join = box(-westbrass_bore_rect_long_y / 2.0, zone2_z_top - 0.01,
-                       9.0 + envelope_allowance,
+                       lever_clearance_y_back,
                        zone2_z_top + 1.0 - envelope_allowance + 0.01)
     outline = outline.union(plateau_join)
     return (_vertical_plane(-x_half).polyline(list(outline.exterior.coords)[:-1]).close()
-            .extrude(2.0 * x_half))
+            .extrude(2.0 * x_half).union(build_lever_overhead_clearance()))
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
@@ -1437,22 +1464,41 @@ def print_height(shape: cq.Workplane, build_rot: float) -> float:
     return shape.rotate((0, 0, 0), (1, 0, 0), -math.degrees(build_rot)).val().BoundingBox().zlen
 
 
-# Tessellation of the printable surface.
-piece_mesh_tol = 0.02
-piece_mesh_angle = 0.15
+# Absolute millimetre deflection and angular deflection of the printable surface.
+piece_mesh_tol = 0.005
+piece_mesh_angle = 0.05
 
 
 def piece_mesh(solid) -> trimesh.Trimesh:
-    """One solid as the mesh that goes to a bed.
+    """Absolute-tolerance print mesh, on a copy without cached triangulation."""
+    from OCP.BRep import BRep_Tool
+    from OCP.BRepMesh import BRepMesh_IncrementalMesh
+    from OCP.TopAbs import TopAbs_REVERSED
+    from OCP.TopLoc import TopLoc_Location
 
-    TESSELLATED, NOT ROUND-TRIPPED THROUGH STL. An STL is a triangle soup with no shared
-    vertices, and what comes back from re-merging one is a surface with edges that hold one
-    face where they should hold two — which a mesh boolean rightly refuses to treat as a
-    volume. `tessellate` hands back the indices directly."""
     solid = solid.val() if hasattr(solid, "val") else solid
-    points, tris = solid.tessellate(piece_mesh_tol, piece_mesh_angle)
-    mesh = trimesh.Trimesh(vertices=[(p.x, p.y, p.z) for p in points],
-                           faces=tris, process=True)
+    meshed = solid.copy(mesh=False)
+    triangulator = BRepMesh_IncrementalMesh(
+        meshed.wrapped, piece_mesh_tol, False, piece_mesh_angle, False)
+    if not triangulator.IsDone():
+        raise ValueError("the absolute-tolerance print triangulation did not finish")
+    points, tris = [], []
+    for face in meshed.Faces():
+        location = TopLoc_Location()
+        poly = BRep_Tool.Triangulation_s(face.wrapped, location)
+        if poly is None or poly.NbTriangles() == 0:
+            raise ValueError("a printable face has no triangulation")
+        offset = len(points)
+        transform = location.Transformation()
+        for i in range(1, poly.NbNodes()+1):
+            point = poly.Node(i).Transformed(transform)
+            points.append((point.X(), point.Y(), point.Z()))
+        for i in range(1, poly.NbTriangles()+1):
+            a, b, c = poly.Triangle(i).Get()
+            if face.wrapped.Orientation() == TopAbs_REVERSED:
+                b, c = c, b
+            tris.append((offset+a-1, offset+b-1, offset+c-1))
+    mesh = trimesh.Trimesh(vertices=points, faces=tris, process=True)
     mesh.merge_vertices()
     return mesh
 

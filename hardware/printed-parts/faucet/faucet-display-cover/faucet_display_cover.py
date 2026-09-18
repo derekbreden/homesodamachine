@@ -1,7 +1,7 @@
 """Shallow faucet display cover with broad lips around the rigid neck.
 
 The cover moves normal to the display. Its stable cosmetic skin follows the
-glass closely. Its side walls spread over the cylinder and relax into grooves.
+glass closely. Its preformed walls remain spread against the seated groove roots.
 The PET-GF snap's force and durability require the representative print trial.
 """
 from pathlib import Path
@@ -74,11 +74,51 @@ def build_corner_rim_relief() -> cq.Workplane:
     return shell._display_world(front.union(rear))
 
 
-def build_display_cover() -> cq.Workplane:
+def build_seated_display_cover() -> cq.Workplane:
+    """Nominal seated fit surface; not a predicted elastic deformation."""
     skin = (build_plate_outer().cut(build_plate_inner_cut())
             .cut(shell.build_display_neck_clearance())
             .cut(build_corner_rim_relief()))
     return skin.union(shell.build_display_cover_lips())
+
+
+def preload_inward_at(n: float) -> float:
+    """Free wing inset in X, referenced to its upper retaining edge."""
+    return max(0.0, _display_snap.X_PRELOAD * (bezel_n_bottom-n)
+               / (bezel_n_bottom-shell.display_clip_top_n))
+
+
+def relaxed_wing_transform(side: int) -> cq.Matrix:
+    slope = side * _display_snap.X_PRELOAD / (bezel_n_bottom-shell.display_clip_top_n)
+    return cq.Matrix([[1.0, 0.0, slope, -slope*bezel_n_bottom],
+                      [0.0, 1.0, 0.0, 0.0],
+                      [0.0, 0.0, 1.0, 0.0],
+                      [0.0, 0.0, 0.0, 1.0]])
+
+
+def build_display_cover() -> cq.Workplane:
+    """Relaxed printable cover with both wings preformed inward in X.
+
+    The planar bezel keeps its dimensions. The two lower halves shear
+    inward below its inner face and join through the broad end bridges.
+    The seated builder is a fit reference; spring shape and force are measured
+    on the complete printed enclosure.
+    """
+    origin, _, normal = shell._tip_frame()
+    frame = cq.Location(cq.Plane(origin=origin, xDir=(1.0, 0.0, 0.0), normal=normal))
+    seated = build_seated_display_cover().val().moved(frame.inverse)
+    bezel = seated.intersect(cq.Solid.makeBox(100.0, 150.0, 50.0,
+                                             cq.Vector(-50.0, -50.0, bezel_n_bottom)))
+    pieces = [bezel]
+    for side in (-1, 1):
+        half = cq.Solid.makeBox(50.0, 150.0, bezel_n_bottom+50.0,
+                                cq.Vector(0.0 if side > 0 else -50.0, -50.0, -50.0))
+        wing = seated.intersect(half).transformGeometry(relaxed_wing_transform(side))
+        pieces.append(wing)
+    relaxed = pieces[0].fuse(*pieces[1:]).clean()
+    if not relaxed.isValid() or len(relaxed.Solids()) != 1:
+        raise ValueError("the preloaded cover must be one valid printable solid")
+    return cq.Workplane(obj=relaxed.moved(frame))
 
 
 def _plane_faces(cover: cq.Workplane, axis: cq.Vector, station: float, sign: float) -> tuple:
@@ -116,7 +156,7 @@ def selftest() -> int:
     for failure in failures:
         print("FAIL", failure)
     if not failures:
-        print("ok faucet-display-cover: one solid; 1.3 mm bezel and retaining lips; PET-GF cover flex requires print trial")
+        print("ok faucet-display-cover: one solid; planar 1.3 mm bezel and 3 mm preloaded lips; physical retention requires print trial")
     return int(bool(failures))
 
 
@@ -134,6 +174,10 @@ def main():
         "COSMETIC_WALL": f"{bezel_thickness:g} mm",
         "DISPENSE_FACE_T": f"{shell.dispense_face_thickness:g} mm",
         "SNAP_ENGAGEMENT": f"{_display_snap.ENGAGEMENT:g} mm",
+        "LIP_HEIGHT": f"{_display_snap.LIP_HEIGHT:g} mm",
+        "WING_PRELOAD": f"{_display_snap.X_PRELOAD:g} mm",
+        "WING_BOTTOM_PRELOAD": f"{preload_inward_at(shell.display_clip_bottom_n):.3f} mm",
+        "GROOVE_DEPTH": f"{_display_snap.ENGAGEMENT + _display_snap.RADIAL_SLIP:g} mm",
         "DISPLAY_FEET_N": f"{shell.display_feet_n:g} mm",
     })
     print(f"-> {out.name}; {cover.val().Volume():.0f} mm³")
