@@ -16,8 +16,11 @@ dispense face stay in the printed faucet.
 The successful faucet print uses 0.75 mm preload and 3.00 mm tabs, with the bezel
 on the bed. A/C and B/D share their geometry apart from the identification
 letter; their print orientation differs. C/E and D/F differ in tab height.
-The taller tabs occupy more of the existing recess, leaving 0.05 mm below its
-retaining shoulder. All six keep the same radial engagement and tab length.
+The taller CAD tabs occupy more of the existing recess, leaving 0.05 mm below its
+retaining shoulder. At the retained 0.24 mm layer height, both CAD tab heights
+finish on the same printed layer: local N6.38. E/F therefore serve as repeat
+specimens for C/D in this print, rather than a resolved tab-height comparison.
+All six keep the same radial engagement and tab length.
 
 Preload is the free wing's inward displacement at the production tab's upper
 edge. The nominal seated covers keep the display aperture and outer shape.
