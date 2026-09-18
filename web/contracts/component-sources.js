@@ -29,6 +29,7 @@
 // web/tests/component-sources.test.js holds every path to a file that exists.
 
 import { leafOf } from "./body-path.js";
+import { faucetSourceFile } from "./faucet-options.js";
 
 export const ALIASES = {
   "bulkhead-carb": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -149,9 +150,11 @@ function stem(path) {
 // A BODY INSIDE A SUB-ASSEMBLY IS STILL THE BODY IT IS. The appliance stands the cold core's
 // bodies under `cold-core/<name>`, which says what holds them and changes nothing about what
 // each one was modelled in — so the name is asked for whole first, and then by its leaf.
-export function sourceFileFor(name, stepPaths) {
+export function sourceFileFor(name, stepPaths, owner = null) {
   if (!name || !Array.isArray(stepPaths)) return null;
   for (const key of [name, leafOf(name)]) {
+    const scoped = faucetSourceFile(key, owner);
+    if (scoped) return stepPaths.includes(scoped) ? scoped : null;
     const alias = ALIASES[key];
     if (alias) return stepPaths.includes(alias) ? alias : null;
     const hit = stepPaths.find((p) => stem(p) === key);

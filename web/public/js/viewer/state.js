@@ -40,9 +40,12 @@ export const state = {
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
+  faucetStyle: "sculpted",   // /3d's faucet card follows the assembly last opened in this session
+  faucetFinish: "black",     // shared by the faucet assembly and its PET-GF part drilldowns
+  stepLoadSeq: 0,            // only the most recent asynchronous STEP request can mount
   hiddenComponents: new Set(), // component-picker.js: names hidden in the local view (per open file);
                               // repopulated from localStorage on each STEP load, applied to mesh.visible
-  thumbnailCache: new Map(),  // "<STEP file>@<square px>" -> dataURL
+  thumbnailCache: new Map(),  // "<STEP file>@<square px>[@<faucet finish>]" -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
   memberUrls: new Map(),      // file -> the store's URL for its bytes (/api/objects), when there is one

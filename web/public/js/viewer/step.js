@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, fitFog,
          BG_COLOR, TONE_EXPOSURE } from "./scene.js";
-import { applyXray, syncEdgeResolution } from "./xray.js";
+import { applyXray, syncEdgeResolution, setMeshMaterial, applyModelXrayDefault, xrayForModel } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
@@ -17,6 +17,8 @@ import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
 import { onTubeModelLoaded } from "./tube-overlay-host.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
+import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody } from "/contracts/faucet-options.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -194,11 +196,11 @@ function finishFor(color) {
   return best;
 }
 
-function materialFor(color) {
-  const key = color ? color.join(",") : "default";
+function materialFor(color, surface = null) {
+  const key = surface ? `faucet:${surface.id}` : color ? color.join(",") : "default";
   let mat = _matCache.get(key);
   if (!mat) {
-    const finish = finishFor(color);
+    const finish = surface || finishFor(color);
     // Surfaces sit a depth-unit back, so the feature edges xray.js draws on
     // these same triangles resolve in front of them.
     mat = new THREE.MeshStandardMaterial({
@@ -241,8 +243,9 @@ export function forgetMaterials() {
 // solid of its own passes through.
 const bodyName = (name) => (name || "").replace(/\/\d+$/, "");
 
-function buildMesh(result) {
+function buildMesh(result, file = null, finishId = state.faucetFinish) {
   const group = new THREE.Group();
+  const finish = FAUCET_FINISHES.find((f) => f.id === finishId) || FAUCET_FINISHES[0];
 
   result.meshes.forEach((mesh, occtIndex) => {
     const geo = new THREE.BufferGeometry();
@@ -259,16 +262,35 @@ function buildMesh(result) {
     // occt-import-js hands us mesh.color per solid when the STEP carries one;
     // else gray. The occt mesh index rides along so the edge picker's face
     // raycast can map a hit triangle back to its BREP face.
-    const solid = new THREE.Mesh(geo, materialFor(mesh.color));
+    const name = bodyName(mesh.name);
+    const material = isFaucetFinishBody(file, name)
+      ? materialFor(finish.rgb, finish) : materialFor(mesh.color);
+    const solid = new THREE.Mesh(geo, material);
     solid.userData.occtIndex = occtIndex;
     solid.userData.side = "front"; // the name the face raycast selects on
     // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
     // the scorecard's clickable rows can find a solid by name (part-highlight.js).
-    solid.name = bodyName(mesh.name);
+    solid.name = name;
     group.add(solid);
   });
 
   return group;
+}
+
+export function setFaucetFinish(finishId) {
+  const finish = FAUCET_FINISHES.find((f) => f.id === finishId);
+  if (!finish) return;
+  state.faucetFinish = finish.id;
+  const file = state.mountedDetail?.file;
+  const group = state.currentGroup;
+  if (group && hasFaucetFinish(file)) {
+    for (const mesh of group.children) {
+      if (mesh.userData?.side === "front" && isFaucetFinishBody(file, mesh.name)) {
+        setMeshMaterial(group, mesh, materialFor(finish.rgb, finish));
+      }
+    }
+  }
+  window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
 }
 
 // The triangles the model was exported from, written beside the STEP as `<file>.mesh` by
@@ -338,7 +360,11 @@ function nameSurface(file, surface) {
 }
 
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
+  const seq = ++state.stepLoadSeq;
+  const wrapper = state.currentCadWrapper;
+  const current = () => seq === state.stepLoadSeq && (!wrapper || wrapper === state.currentCadWrapper);
   await loadFinishes();   // before any material is built, so none is built at the default
+  if (!current()) return;
   // Loading pill lives inside the current step wrapper (or none if the
   // headless tool drove loadStepFile directly). Tolerate either.
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
@@ -349,7 +375,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
   // so. Hiding it would leave a featureless dark viewport and a live toolbar
   // over nothing.
   let landed = false;
-  const failed = (msg) => { if (pill) pill.textContent = msg; };
+  const failed = (msg) => { if (pill && current()) pill.textContent = msg; };
 
   try {
     // If we're refetching the same file that's already in the scene, send
@@ -376,6 +402,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // told only the STEP's name is told the wrong file. The edge picker states this.
     let surface = "step";
     const meshed = await fetchMeshes(file, headers, { mounted });
+    if (!current()) return;
     if (meshed?.unchanged) { landed = true; onTubeModelLoaded(file); return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
@@ -403,12 +430,15 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       result = await parseStep(text);
     }
 
+    if (!current()) return;
+
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
       state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
     }
 
-    state.currentGroup = buildMesh(result);
+    state.currentGroup = buildMesh(result, file);
+    applyModelXrayDefault(file);
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
     clearPickFind(); // stale find highlights reference the old geometry
@@ -427,12 +457,16 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
     onTubeModelLoaded(file);
     if (!preserveCamera) resetCamera(state.currentGroup);
+    const style = faucetStyleFor(file);
+    if (style) state.faucetStyle = style.id;
+    window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED, { detail: { file } }));
+    if (style) window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
     landed = true;
   } catch (err) {
     failed(`Couldn't read ${file}`);
     console.warn("loadStepFile:", err);
   } finally {
-    if (loadingEl && landed) loadingEl.style.display = "none";
+    if (loadingEl && landed && current()) loadingEl.style.display = "none";
   }
 }
 
@@ -491,9 +525,9 @@ function snapThumbnail(group, px = THUMB_SIZE) {
 
 // Build + shade + snap an occt-shaped result. Both thumbnail sources end here,
 // so where the meshes came from can't change how the part looks.
-export function renderMeshes(result, px) {
-  const group = buildMesh(result);
-  applyXray(group); // match the detail view's x-ray mode in the thumbnail
+export function renderMeshes(result, px, file = null, finishId = state.faucetFinish) {
+  const group = buildMesh(result, file, finishId);
+  applyXray(group, file ? xrayForModel(file) : undefined);
   return snapThumbnail(group, px);
 }
 
@@ -507,29 +541,29 @@ export function renderMeshes(result, px) {
 // drops so the next card redraws from the model that just changed.
 export function forgetThumbnail(file) {
   for (const key of state.thumbnailCache.keys()) {
-    if (key.slice(0, key.lastIndexOf("@")) === file) state.thumbnailCache.delete(key);
+    if (key.startsWith(`${file}@`)) state.thumbnailCache.delete(key);
   }
 }
 
-export async function renderThumbnail(file, px = THUMB_SIZE) {
+export async function renderThumbnail(file, px = THUMB_SIZE, finishId = state.faucetFinish) {
   // THE SIZE IS PART OF WHAT IS CACHED. A card asks at its own width, and the
   // same model shown at two widths is two pictures; keying on the file alone
   // would hand the second one the first one's pixels.
-  const key = `${file}@${px}`;
+  const key = `${file}@${px}${hasFaucetFinish(file) ? `@${finishId}` : ""}`;
   if (state.thumbnailCache.has(key)) return state.thumbnailCache.get(key);
   await loadFinishes();
 
   try {
     const meshed = await fetchMeshes(file, {});
     if (meshed && meshed.result) {
-      const fromPayload = renderMeshes(meshed.result, px);
+      const fromPayload = renderMeshes(meshed.result, px, file, finishId);
       state.thumbnailCache.set(key, fromPayload);
       return fromPayload;
     }
     const resp = await fetch(`/steps/${file}`);
     if (!resp.ok) return null;
     const buf = new Uint8Array(await resp.arrayBuffer());
-    const dataURL = renderMeshes(await parseStep(buf), px);
+    const dataURL = renderMeshes(await parseStep(buf), px, file, finishId);
     state.thumbnailCache.set(key, dataURL);
     return dataURL;
   } catch {

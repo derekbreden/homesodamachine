@@ -43,6 +43,10 @@ tree appears with no edit here and anything unseated is reported on the page.
   ones whose name is not its file's stem; plus `sourceFileFor`, which answers null for the bodies an
   assembly builds and keeps. Read by `web/public/js/viewer/component-picker.js` for the drill-down
   into a selected component; pinned by `web/tests/component-sources.test.js`.
+- **faucet-options.js** — the Sculpted and Industrial faucet assemblies and their part paths,
+  plus the Black/White PET-GF finish palette and the exact bodies that take it. Both styles
+  use the same assembly frame. Read by the viewer's faucet controls, material builder and
+  owner-aware component drilldown; pinned by `web/tests/faucet-options.test.js`.
 
 ## Transport & client interface
 

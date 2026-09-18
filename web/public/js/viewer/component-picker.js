@@ -286,7 +286,7 @@ function buildPanel() {
   openBtn.className = "edge-panel-all component-open";
   openBtn.textContent = "Open part";
   openBtn.addEventListener("click", () => {
-    const file = selection && sourceFileFor(selection, state.allFiles);
+    const file = selection && sourceFileFor(selection, state.allFiles, mountedFile());
     if (file && file !== mountedFile()) drillToComponent(file, selection);
   });
   actions.appendChild(openBtn);
@@ -386,7 +386,7 @@ function showPanel() {
   // STEP to open. The offer is only on screen when the selected component has a
   // different source model (contracts/component-sources.js). The file already
   // on screen is nowhere too: an assembly's own root name resolves to itself.
-  const source = selection ? sourceFileFor(selection, state.allFiles) : null;
+  const source = selection ? sourceFileFor(selection, state.allFiles, mountedFile()) : null;
   const goes = source && source !== mountedFile() ? source : null;
   panel._openBtn.style.display = goes ? "block" : "none";
   // THE BUTTON NAMES ITS DESTINATION WHEN THAT IS NEWS. `foam-assembly` opens

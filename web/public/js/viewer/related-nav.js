@@ -17,6 +17,7 @@ import { state } from "./state.js";
 import { relatedSteps, KIND_CAPTIONS, label } from "/contracts/related-steps.js";
 import { makeToolGroup } from "./tool-rail.js";
 import { drillTo } from "./step-nav.js";
+import { faucetStyleFor } from "/contracts/faucet-options.js";
 
 const GROUP_CLASS = "tool-group-related";
 
@@ -53,7 +54,8 @@ export function mountRelated(wrapper, file, trail = []) {
   if (!rail) return;
   removeRelated(wrapper);
 
-  const related = relatedSteps(file, state.allFiles || [], trail);
+  const related = relatedSteps(file, state.allFiles || [], trail)
+    .filter((rel) => !(faucetStyleFor(file) && faucetStyleFor(rel.file)));
   if (!related.length) return;
 
   // One captioned group per kind, in the order the contract sorts them. The
