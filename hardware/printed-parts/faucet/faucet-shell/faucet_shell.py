@@ -326,10 +326,7 @@ tube_shell_pill_x_half_outer = pill_length_x / 2.0 + zone5_wall
 tube_shell_x_half_outer = tube_shell_outer_r
 tube_shell_x_outer = 2.0 * tube_shell_x_half_outer
 
-# The fixed display and inward-preformed cover lips set the head diameter.
-display_neck_outer_r = 15.0
-display_head_blend_start_rot = math.radians(95.0)
-display_head_blend_end_rot = math.radians(115.0)
+display_neck_outer_r = tube_shell_outer_r
 
 _neck_walls = _bounds.bound(
     "faucet-neck-joint-walls", "The circular gooseneck joint carries two full walls",
@@ -942,33 +939,9 @@ def build_display_neck_reference(shrink: float = 0.0) -> cq.Workplane:
     return _sweep_along_gooseneck(sketch)
 
 
-def _head_blend_section(angle: float, radius: float) -> cq.Wire:
-    a, b = _bend2_point(angle)
-    plane = cq.Plane(origin=(0.0, soda_faucet_tube_y - a, zone5_z_top + b),
-                     xDir=(1.0, 0.0, 0.0),
-                     normal=(0.0, -math.sin(angle), math.cos(angle)))
-    return (cq.Workplane(plane).center(0.0, tube_shell_center_y)
-            .circle(radius).val())
-
-
 def build_zone6_outer() -> cq.Workplane:
-    """Slender circular stem with a gradual enlargement under the display."""
-    neck = _sweep_along_gooseneck(_tube_shell_outer_sketch())
-    start, end = display_head_blend_start_rot, display_head_blend_end_rot
-    # Constant end stations let the smooth loft settle onto both round sweeps.
-    fractions = (-0.1, -0.05, *[i / 20.0 for i in range(21)], 1.05, 1.1)
-    sections = []
-    for fraction in fractions:
-        t = min(1.0, max(0.0, fraction))
-        smooth = t * t * t * (10.0 + t * (-15.0 + 6.0 * t))
-        radius = tube_shell_outer_r + (display_neck_outer_r - tube_shell_outer_r) * smooth
-        sections.append(_head_blend_section(start + fraction * (end - start), radius))
-    blend = cq.Workplane(obj=cq.Solid.makeLoft(sections, ruled=False))
-    a, b = _bend2_point(end)
-    head = build_display_neck_reference().intersect(_split_plane_halfspace(
-        (0.0, soda_faucet_tube_y - a, zone5_z_top + b),
-        (0.0, -math.sin(end), math.cos(end)), +1))
-    return neck.union(blend).union(head)
+    """Uniform circular stem, bend and dispense tip."""
+    return _sweep_along_gooseneck(_tube_shell_outer_sketch())
 
 
 def build_zone6_inner_cut() -> cq.Workplane:
@@ -1118,16 +1091,12 @@ display_cover_skirt_width = 2.0 * (display_neck_outer_r + display_cover_slip + d
 display_cover_skirt_length = display_cover_face_length + 5.1
 display_cover_face_r = 7.25
 display_cover_skirt_r = 10.0
-display_cover_rear_wrap_s = 58.0
-display_cover_rear_hood_start_s = (_display_cover_center_s + display_cover_skirt_length / 2.0
-                                 - display_cover_skirt_r - display_cosmetic_wall)
-display_cover_rear_wrap_angle = math.asin(
-    (display_cover_rear_wrap_s - gn_tip_straight_len)
-    / (gn_bend1_r + tube_shell_center_y + display_neck_outer_r
-       + display_cover_slip + display_cosmetic_wall))
+display_cover_skirt_rear_s = _display_cover_center_s + display_cover_skirt_length / 2.0
+# Rear lower edge: s = s0 + ds_dn * n.
+display_cover_rear_rim_s0 = 41.7
+display_cover_rear_rim_ds_dn = 0.6
 display_head_s_min = 0.0
-display_head_s_max = max(_display_cover_center_s + display_cover_skirt_length / 2.0,
-                         display_cover_rear_wrap_s) + 0.2
+display_head_s_max = display_cover_skirt_rear_s + 0.2
 display_clip_s_bottom = (_display_cover_center_s - display_cover_skirt_length / 2.0
                          + display_cover_skirt_r + _display_snap.END_MARGIN)
 display_clip_s_top = (_display_cover_center_s + display_cover_skirt_length / 2.0
@@ -1138,6 +1107,11 @@ display_clip_lip_radius = display_neck_outer_r - _display_snap.ENGAGEMENT
 display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
 display_foot_pad_width = 3.0
 display_foot_pad_depth = wall_thickness_min
+# Factory assembly: place the display in the open cover, approach from the
+# outlet at S=-slide, translate along S while lifted, then seat along -N.
+display_cartridge_lift_n = 7.5
+display_cartridge_slide_s = 60.0
+display_loading_travel_n = 25.0
 display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
 display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
                                   + display_housing_length / 2.0 + y)
@@ -1190,7 +1164,7 @@ def _display_outline_wire(width: float, length: float, radius: float,
 
 
 def build_display_outer_envelope() -> cq.Workplane:
-    """Tapered display shroud with a rear hood following the curved neck."""
+    """Tapered rounded display shroud."""
     rows = (
         (display_cover_skirt_width, display_cover_skirt_length,
          display_cover_skirt_r, display_cover_bottom_n),
@@ -1201,25 +1175,12 @@ def build_display_outer_envelope() -> cq.Workplane:
     )
     loft = _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
         [_display_outline_wire(*row) for row in rows], ruled=False)))
-    rear_band = _cradle_prism(30.0, display_cover_rear_hood_start_s,
-                              display_cover_rear_wrap_s,
-                              display_cover_bottom_n, display_cover_top_n)
-    rear_hood = build_display_neck_reference(
-        -(display_cover_slip + display_cosmetic_wall)).intersect(rear_band)
-    tip_end, along, outward = _tip_frame()
-    angle = display_cover_rear_wrap_angle
-    mouth_center = (tip_end
-                    + along.multiply(gn_tip_straight_len + gn_bend1_r * math.sin(angle))
-                    + outward.multiply(gn_bend1_r * (math.cos(angle) - 1.0)))
-    mouth_normal = along.multiply(math.cos(angle)) - outward.multiply(math.sin(angle))
-    rear_hood = rear_hood.intersect(_split_plane_halfspace(
-        mouth_center.toTuple(), mouth_normal.toTuple(), -1))
-    return loft.union(rear_hood).intersect(_cradle_prism(
+    return loft.intersect(_cradle_prism(
         30.0, display_head_s_min, display_head_s_max + 1.0, -30.0, 40.0))
 
 
 def build_display_cover_inner_envelope() -> cq.Workplane:
-    """Open underside and the measured display clearance below the bezel."""
+    """Display clearance below the bezel with a vertical rear wall."""
     rows = (
         (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
          50.0, 8.7, display_cover_bottom_n - 1.0),
@@ -1230,8 +1191,9 @@ def build_display_cover_inner_envelope() -> cq.Workplane:
          display_corner_r + display_cradle_clearance,
          display_face_n + display_cover_over_face),
     )
-    return _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
+    loft = _display_world(cq.Workplane(obj=cq.Solid.makeLoft(
         [_display_outline_wire(*row, center_s=_display_housing_center_s) for row in rows], ruled=False)))
+    return loft.intersect(_cradle_prism(50.0, -20.0, display_s_top, -30.0, 40.0))
 
 
 def build_display_neck_clearance() -> cq.Workplane:
@@ -1627,7 +1589,6 @@ def main():
     variables = {
         "DISPENSE_FACE_T": f"{dispense_face_thickness:g} mm",
         "NECK_DIAMETER": f"{2.0 * tube_shell_outer_r:.3f} mm",
-        "HEAD_DIAMETER": f"{2.0 * display_neck_outer_r:g} mm",
         "FOOT_WIDTH": f"{foot_width:g} mm",
         "FOOT_DEPTH": f"{foot_depth:g} mm",
         "PLATE_T": f"{above_counter_plate_thickness:g} mm",
@@ -1705,6 +1666,7 @@ def main():
         "SPLIT_SOCKET_WALL": f"{split_socket_wall:.4g} mm",
         "SPLIT_PLUG_WALL": f"{split_plug_wall:.4g} mm",
         "SPLIT_SLIP": f"{split_slip:.4g} mm",
+        "DISPLAY_INSTALL_LIFT": f"{display_cartridge_lift_n:g} mm",
         "PRINT_TILT": f"{math.degrees(print_base_tilt_rad):.0f}°",
         "MAX_PRINT_OVERHANG": f"{math.degrees(max_print_overhang_rad):.0f}°",
         "BASE_PRINT_HEIGHT": f"{print_height(base, print_base_build_rot):.1f} mm",

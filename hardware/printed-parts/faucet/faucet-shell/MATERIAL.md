@@ -22,7 +22,7 @@ TPU countertop gasket is a compressible sealing component.
 
 The base and tip use build rotations of −15° and −105° about their shared
 arc frame. Their CAD print heights are [244.6 mm](BASE_PRINT_HEIGHT) and
-[138.0 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
+[136.9 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
 [55°](MAX_PRINT_OVERHANG) of overhang; the hidden curved plug reaches 49.36°.
 Those angles do not describe every face of the lower body or display head.
 

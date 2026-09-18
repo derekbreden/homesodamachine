@@ -3,7 +3,8 @@
 The PET-GF shroud follows the Waveshare display and meets the three tube
 outlets at one flush front plane. The cover's side walls spread over the
 rigid round neck, then its two broad lips seat against the roots of side grooves.
-The cover seats straight toward the display; no display fasteners are fitted.
+The display and cover slide onto the tip together, then seat toward the neck.
+No display fasteners are fitted.
 
 The complete enclosure is a fit-and-snap print trial. Assembly force,
 retention, repeated operation and the as-printed PET-GF walls need the physical
@@ -18,9 +19,9 @@ section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_H
 continue inward from the side walls. The four metal-foot bearing pads are
 [3 mm](FOOT_PAD_WIDTH) square and [2 mm](FOOT_PAD_DEPTH) deep.
 
-The rear hood extends beyond the electronics and follows the neck's curved
-surface. Its open mouth meets the neck with a blunt rim perpendicular to
-the local tube direction. The underside remains open for straight-on assembly.
+The rear wall closes within the rounded skirt outline. Its inner face is
+vertical at the display's rear clearance plane; its lower edge slopes upward
+across the curved neck opening. The underside remains open.
 
 The lips follow the neck profile with [1 mm](SNAP_ENGAGEMENT) nominal radial
 engagement in [1 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
@@ -52,14 +53,18 @@ neck, so the parting line stays below the display face.
 1. Remove supports and stringing from the open cover, its two broad lips
    and the neck's retaining grooves. Preserve the lip bearing faces and
    groove floors.
-2. Lay the display ribbon in the open space below the PCB, toward its southwest
-   corner as viewed from the glass, and place the exact
-   module on the four metal-foot pads. Keep the ribbon clear of the USB socket
-   and underside components.
-3. Press the cover squarely toward the display. Its side walls flex outward
-   around the cylinder until both lips enter their grooves below the rigid
+2. Spread the cover's broad side walls far enough for the display housing to
+   pass the retaining lips. Support the display squarely inside the cover with
+   its face aligned to the aperture. Route the ribbon toward the southwest
+   corner as viewed from the glass, clear of the USB socket and underside
+   components, with slack for the assembly motion.
+3. Approach from the tube-outlet end with the display and cover held together
+   [7.5 mm](DISPLAY_INSTALL_LIFT) above their seated position. Slide along the
+   gooseneck to align the module with its four metal-foot pads, then lower the
+   pair squarely toward the neck. Both lips enter their grooves below the
    retaining shoulders. The wings remain spread from their relaxed positions.
-   Confirm both lip bottoms reach their seating floors.
+   Confirm the feet rest on their pads and both lip bottoms reach their seating
+   floors, with the ribbon in its passage.
 4. Read complete seating, display fit, touch response, retention, permanent
    spreading and any whitening or cracks on the cover. Record the trial result
    before using the snap in a customer assembly.
@@ -74,7 +79,8 @@ through that underside before the display is installed.
 
 `faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
 the cosmetic minimum and the lip thickness. The faucet geometry audit checks
-actual hardware and tube clearance, normal assembly motion and snap geometry.
+actual hardware and tube clearance, display loading, lifted axial assembly
+motion, the final seating stroke and snap geometry.
 Those geometric readings do not measure the printed snap's force or durability.
 The [physical trial log](../../fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.
