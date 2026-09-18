@@ -24,24 +24,10 @@ extern "C" uint32_t home_soda_rgb_restart_count(void);
 // 360x360 RGB565 frames share the Big Blue background and live in mapped art.
 // tools/gen_animation_frames.py renders the canonical brand/mark.svg.
 #include "ota_receiver.h"
+#include "logos_sink.h"
 #include "board_art.h"
 #include "wifi_bench.h"
 #include "image_store.h"
-
-// Factory portraits use the same three-rendition wire bundle as customer uploads.
-// Big Blue caches its display-sized portraits from these sources at binding time.
-#include "images/flavor0_anchor.h"
-#include "images/flavor1_anchor.h"
-#include "images/flavor2_anchor.h"
-#include "images/flavor3_anchor.h"
-#include "images/flavor0_card.h"
-#include "images/flavor1_card.h"
-#include "images/flavor2_card.h"
-#include "images/flavor3_card.h"
-#include "images/flavor0_tile.h"
-#include "images/flavor1_tile.h"
-#include "images/flavor2_tile.h"
-#include "images/flavor3_tile.h"
 
 #define NUM_ANIM_FRAMES  16
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
@@ -379,16 +365,6 @@ static void bindBigBlueArt() {
     }
   }
 }
-static const uint16_t *flavorAnchorPixels[FLAVOR_FACTORY_COUNT] = {
-    flavor0_anchor, flavor1_anchor, flavor2_anchor, flavor3_anchor,
-};
-static const uint16_t *flavorCardPixels[FLAVOR_FACTORY_COUNT] = {
-    flavor0_card, flavor1_card, flavor2_card, flavor3_card,
-};
-static const uint16_t *flavorTilePixels[FLAVOR_FACTORY_COUNT] = {
-    flavor0_tile, flavor1_tile, flavor2_tile, flavor3_tile,
-};
-
 // Every wire rendition is retained, in the shared IMAGE_BUNDLE order. The Big
 // Blue display cache is derived after binding and draws without runtime scaling.
 static const ImageSize kLogoSizes[] = {
@@ -409,54 +385,71 @@ static_assert(IMAGE_BUNDLE[LOGO_CARD].w == FLAVOR_CARD_W &&
 static_assert(IMAGE_BUNDLE[LOGO_TILE].w == FLAVOR_TILE_W &&
               IMAGE_BUNDLE[LOGO_TILE].h == FLAVOR_TILE_H, "tile");
 
+// One rendition of one logo, factory or custom, out of the store. Both kinds are
+// slots; which range they sit in is the only difference.
+static const uint16_t *flavorArtPixels(uint8_t art, uint8_t rendition) {
+  const uint8_t slot = (art < FLAVOR_FACTORY_COUNT) ? flavorArtFactorySlot(art)
+                                                    : flavorArtCustomSlot(art);
+  if (art >= FLAVOR_FACTORY_COUNT && slot >= FLAVOR_ART_CUSTOM) return nullptr;
+  return imageStorePixels(slot, rendition);
+}
+
 // Which logo an index resolves to. A custom index whose slot is empty falls
 // back to the factory logo of the same channel: a picture can be removed from
 // the phone while a channel is still wearing it, and that is a state rather
 // than an error.
 static uint8_t resolveFlavorArt(uint8_t art, uint8_t channel) {
-  if (art < FLAVOR_FACTORY_COUNT) return art;
-  const uint8_t slot = flavorArtCustomSlot(art);
-  if (slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_ANCHOR)) return art;
+  if (flavorArtPixels(art, LOGO_ANCHOR)) return art;
   return (uint8_t)(channel & 1);
 }
 
-// Whether an index has a picture behind it at all. The factory four always do;
-// a custom one does only while the phone has put something in that slot.
+// Whether an index has a picture behind it at all: the factory four while the
+// store holds them, a custom one while the phone has put something in its slot.
 static bool flavorArtAvailable(uint8_t art) {
-  if (art < FLAVOR_FACTORY_COUNT) return true;
-  const uint8_t slot = flavorArtCustomSlot(art);
-  return slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_ANCHOR) != nullptr;
+  return flavorArtPixels(art, LOGO_ANCHOR) != nullptr;
 }
 
 // Every descriptor, at every size. Factory entries point at .rodata; custom
 // entries point straight into mapped flash. Both cost a pointer and neither
 // costs RAM — and both have to be rebound whenever a slot is written or
 // erased, because that remaps the partition underneath them.
+// What a descriptor points at while its store slot is empty.
+static const uint16_t kNoLogoW = 2, kNoLogoH = 2;
+static const uint16_t kNoLogo[kNoLogoW * kNoLogoH] = {0, 0, 0, 0};
+
 static void bindFlavorLogos() {
   struct Bound {
-    lv_img_dsc_t    *dsc;
-    const uint16_t **factory;
-    lv_coord_t       w;
-    lv_coord_t       h;
-    uint8_t          rendition;
+    lv_img_dsc_t *dsc;
+    lv_coord_t    w;
+    lv_coord_t    h;
+    uint8_t       rendition;
   };
   const Bound bound[] = {
-      {flavorAnchor, flavorAnchorPixels, FLAVOR_ANCHOR_W, FLAVOR_ANCHOR_H, LOGO_ANCHOR},
-      {flavorCard,   flavorCardPixels,   FLAVOR_CARD_W,   FLAVOR_CARD_H,   LOGO_CARD},
-      {flavorTile,   flavorTilePixels,   FLAVOR_TILE_W,   FLAVOR_TILE_H,   LOGO_TILE},
+      {flavorAnchor, FLAVOR_ANCHOR_W, FLAVOR_ANCHOR_H, LOGO_ANCHOR},
+      {flavorCard,   FLAVOR_CARD_W,   FLAVOR_CARD_H,   LOGO_CARD},
+      {flavorTile,   FLAVOR_TILE_W,   FLAVOR_TILE_H,   LOGO_TILE},
   };
 
   for (const Bound &b : bound) {
     for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
       b.dsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
       b.dsc[i].header.always_zero = 0;
-      b.dsc[i].header.w = b.w;
-      b.dsc[i].header.h = b.h;
-      b.dsc[i].data_size = (uint32_t)b.w * b.h * sizeof(uint16_t);
-      const uint16_t *px = (i < FLAVOR_FACTORY_COUNT)
-                               ? b.factory[i]
-                               : imageStorePixels(flavorArtCustomSlot(i), b.rendition);
-      b.dsc[i].data = (const uint8_t *)(px ? px : b.factory[0]);
+      const uint16_t *px = flavorArtPixels(i, b.rendition);
+      if (!px) px = flavorArtPixels(0, b.rendition);
+      // Every descriptor carries pixels LVGL can read. A store with no face in
+      // it yet gets the placeholder's own geometry, not the rendition's, so
+      // nothing reads past the four words behind it.
+      if (px) {
+        b.dsc[i].header.w = b.w;
+        b.dsc[i].header.h = b.h;
+        b.dsc[i].data_size = (uint32_t)b.w * b.h * sizeof(uint16_t);
+        b.dsc[i].data = (const uint8_t *)px;
+      } else {
+        b.dsc[i].header.w = kNoLogoW;
+        b.dsc[i].header.h = kNoLogoH;
+        b.dsc[i].data_size = sizeof(kNoLogo);
+        b.dsc[i].data = (const uint8_t *)kNoLogo;
+      }
     }
   }
   bindBigBlueArt();
@@ -1375,6 +1368,23 @@ static bool          holding = false;
 // the image it was already running, which is the same image it would have kept
 // anyway.
 static OtaReceiver ota;
+// The factory logos go into store slots rather than into a partition of their
+// own, so they are taken by a sink of their own. One session uses one of the two.
+static LogosSink logos;
+static bool otaIsLogos = false;
+
+static inline bool     otaAnyActive()  { return otaIsLogos ? logos.active() : ota.active(); }
+static inline uint32_t otaAnyNext()    { return otaIsLogos ? logos.nextOffset() : ota.nextOffset(); }
+static inline uint32_t otaAnyExpected(){ return otaIsLogos ? logos.expected : ota.expected; }
+static inline bool     otaAnyWrite(uint32_t off, const uint8_t *d, uint16_t n) {
+  return otaIsLogos ? logos.write(off, d, n) : ota.write(off, d, n);
+}
+static inline void otaAnyFinish() { if (otaIsLogos) logos.finish(); else ota.finish(); }
+static inline void otaAnyAbort()  { if (otaIsLogos) logos.abort();  else ota.abort(); }
+static inline void otaAnyFill(OtaStatePayload &st) {
+  if (otaIsLogos) logos.fill(st); else ota.fill(st);
+}
+
 static unsigned long otaAskedAtMs = 0;
 static bool otaPanelStopped = false;
 static bool otaRebootPending = false;
@@ -1440,14 +1450,14 @@ void wifiBenchPanelStop(bool forPicture) {
 }
 
 static void otaAsk() {
-  OtaReqPayload req{ota.nextOffset()};
+  OtaReqPayload req{otaAnyNext()};
   j9Post(MSG_OTA_REQ, &req, sizeof(req));
   otaAskedAtMs = millis();
 }
 
 static void otaReport() {
   OtaStatePayload st;
-  ota.fill(st);
+  otaAnyFill(st);
   j9Post(MSG_RESP_OTA, &st, sizeof(st));
 }
 
@@ -1462,7 +1472,7 @@ static void otaBanner() {
 }
 
 static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
-  if (type == MSG_OTA_ABORT) { ota.abort(); otaRebootPending = true; otaRebootAtMs = millis() + 200; return; }
+  if (type == MSG_OTA_ABORT) { otaAnyAbort(); otaRebootPending = true; otaRebootAtMs = millis() + 200; return; }
 
   if (type == MSG_OTA_BEGIN && plen >= sizeof(OtaBeginPayload)) {
     OtaBeginPayload b;
@@ -1470,25 +1480,27 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     otaBanner();
     otaStopPanel();
     otaLastDataMs = otaLastProgressMs = millis();
-    ota.begin(b.size, b.crc32, b.kind);
+    otaIsLogos = (b.kind == OTA_KIND_LOGOS);
+    if (otaIsLogos) logos.begin(b.size, b.crc32);
+    else            ota.begin(b.size, b.crc32, b.kind);
     otaReport();
-    if (ota.active()) otaAsk();
+    if (otaAnyActive()) otaAsk();
     else { otaRebootPending = true; otaRebootAtMs = millis() + 200; }
     return;
   }
 
-  if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
+  if (type == MSG_OTA_DATA && plen >= 4 && otaAnyActive()) {
     otaLastDataMs = otaLastProgressMs = millis();
     uint32_t offset;
     memcpy(&offset, payload, 4);
-    if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
+    if (!otaAnyWrite(offset, payload + 4, (uint16_t)(plen - 4))) {
       otaReport();
       otaRebootPending = true;
       otaRebootAtMs = millis() + 200;
       return;
     }
-    if (ota.nextOffset() < ota.expected) { otaAsk(); return; }
-    ota.finish();
+    if (otaAnyNext() < otaAnyExpected()) { otaAsk(); return; }
+    otaAnyFinish();
     otaReport();
     otaRebootPending = true;
     otaRebootAtMs = millis() + 600;   // let the reply clear the pair
@@ -1498,20 +1510,14 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
 
 static void otaService() {
   if (otaRebootPending && (long)(millis() - otaRebootAtMs) >= 0) esp_restart();
-  if (!ota.active()) return;
+  if (!otaAnyActive()) return;
 
   // A source that has stopped existing. The recovery below sets its own clock
-  // every time it fires, so on its own it asks a dead pair forever — with the
-  // panel already torn down and the backlight already off, which is a glass
-  // nobody in the kitchen can get back. The relay sends the abort that ends a
-  // transfer only as part of ending a session it still holds, so a session
-  // that died with its board — the auto-reset a USB cable into J14 drives is
-  // one — leaves nothing that can ever reach this board again. This is the
-  // reboot the block at the top of this section promises "whatever the
-  // outcome": back into the image it was already running, which is the image
-  // it would have kept anyway.
+  // each time it fires, so on its own it asks a dead pair forever, with the
+  // panel torn down and the backlight off. The abort that ends a transfer is
+  // sent only by a relay session that still holds one.
   if (millis() - otaLastProgressMs >= OTA_SILENCE_MS) {
-    ota.abort();
+    otaAnyAbort();
     otaRebootPending = true;
     otaRebootAtMs = millis();
     return;
@@ -5302,7 +5308,7 @@ void loop() {
   // nothing else should be drawing, polling, or sleeping it.
   otaService();
   if (wifiBenchRebootWanted()) esp_restart();
-  if (ota.active() || otaRebootPending) {
+  if (otaAnyActive() || otaRebootPending) {
     j9.service();
     j9Pump();
     delay(1);   // the loop owns the CPU here; the idle task still has to run

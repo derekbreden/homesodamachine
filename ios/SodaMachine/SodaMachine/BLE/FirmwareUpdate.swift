@@ -158,24 +158,15 @@ struct MachineVersions: Codable, Equatable {
         return v.isEmpty ? nil : v
     }
 
-    /// Whether this image is an update to what its board reports.
+    /// Whether this image is newer than what its board reports.
     ///
-    /// Firmware is a build against a build, and the question is which is newer
-    /// — not merely whether the two strings differ. It is settled by the commit
-    /// time both ends carry beside the version string, and by the dates inside
-    /// those strings only where one end predates that field. A board flashed at the
-    /// bench runs commits the site has not published, and reading "different"
-    /// as "an update is available" points a customer's machine backwards: it
-    /// would offer to take the enclosure display back to a build without the
-    /// panel it was just given, and the main board back to one without the
-    /// cold loop and the refill it was just taught. Nothing downstream
-    /// re-checks — the receiver holds the image to its crc32 and moves its boot
-    /// partition — so this comparison is the only place a walk backwards can be
-    /// refused.
+    /// Settled by the commit time both ends carry beside the version string,
+    /// and by the dates inside those strings only where one end predates that
+    /// field. Nothing downstream re-checks: the receiver holds the image to its
+    /// crc32 and moves its boot partition.
     ///
     /// The art partition carries no version. It carries a crc32 over its
-    /// pixels, the manifest carries the same one, and pixels have no order:
-    /// different is the whole question there.
+    /// pixels, the manifest carries the same one, and pixels have no order.
     ///
     /// A board that has said nothing is not called current, and not called
     /// stale either: there is nothing to compare it to.
@@ -197,11 +188,9 @@ struct MachineVersions: Codable, Equatable {
         }
 
         // One of them did not say — a board or an image from before the field
-        // existed. The dates in the strings are all that is left, and they
-        // cannot separate two builds made on one day, so neither is offered
-        // over the other. That silence is the safe direction: it costs a
-        // same-day republish until both ends carry the epoch, and it refuses
-        // the one error that reaches a board.
+        // existed. The dates in the strings are all that is left, and they do
+        // not separate two builds made on one day, so neither is offered over
+        // the other.
         guard let here = Self.buildDate(running),
               let there = Self.buildDate(published) else { return false }
         return there > here
@@ -215,10 +204,7 @@ struct MachineVersions: Codable, Equatable {
     /// string two builds can be ordered by.
     ///
     /// Two builds dated the same day are not ordered by anything the string
-    /// carries, so neither is offered over the other. That silence costs a
-    /// second publish on one day the rest of that day; it buys a bench machine
-    /// that is never offered its own past, which is the case that reaches a
-    /// board.
+    /// carries.
     static func buildDate(_ version: String) -> Int? {
         let field = version.split(separator: " ").first.map(String.init) ?? version
         let parts = field.split(separator: ".")

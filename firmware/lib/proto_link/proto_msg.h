@@ -480,6 +480,14 @@ inline uint8_t flavorArtCustomSlot(uint8_t art) {
   return art >= FLAVOR_ART_FACTORY ? (uint8_t)(art - FLAVOR_ART_FACTORY) : FLAVOR_ART_CUSTOM;
 }
 
+// Where a factory logo is kept, in the same store the custom ones are in.
+// Above the custom slots, so a slot number a phone cached a picture under still
+// names that picture, and the reconcile covers exactly the four a person can
+// change. A store spans 35 slots on the enclosure and 51 on the faucet.
+inline uint8_t flavorArtFactorySlot(uint8_t art) {
+  return art < FLAVOR_ART_FACTORY ? (uint8_t)(FLAVOR_ART_CUSTOM + art) : FLAVOR_ART_CUSTOM;
+}
+
 // ── What one custom picture is ───────────────────────────────────────────
 // Every size either glass draws it at, resampled on the phone, in this order.
 // Nothing on either board scales anything at draw time, so a custom face is as
@@ -753,6 +761,10 @@ struct __attribute__((packed)) OtaBeginPayload {
 // place. Both are verified against the promised CRC32 before anything counts.
 constexpr uint8_t OTA_KIND_APP = 0;
 constexpr uint8_t OTA_KIND_ART = 1;  // the enclosure display's `art` partition
+// The factory logos, into the store slots above the custom ones. Written
+// through the store's per-slot write, which erases one slot and leaves its
+// neighbours alone.
+constexpr uint8_t OTA_KIND_LOGOS = 2;
 
 struct __attribute__((packed)) OtaReqPayload {
   uint32_t offset;  // where the receiver is ready to write
