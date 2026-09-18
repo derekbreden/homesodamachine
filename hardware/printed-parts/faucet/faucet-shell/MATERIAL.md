@@ -11,8 +11,8 @@ It is shown for design review; its settings, surface finish and fitted joints
 remain to be qualified on these parts.
 
 Rigid structural walls, fastener seats, display supports and insert
-backing use a 3 mm minimum at the checked sections. The round gooseneck
-provides separate 3 mm socket and plug walls at its close-fit curved joint.
+backing use a [2 mm](WALL_MIN) minimum at the checked sections. The round gooseneck
+provides [2 mm](SPLIT_SOCKET_WALL) socket and [2 mm](SPLIT_PLUG_WALL) plug walls at its close-fit curved joint.
 The display cover flexes around the rigid neck. Its inward-preformed wings
 carry broad retaining lips. The nominal skin is 1.30 mm, with a 1 mm minimum
 for its thin sections. The [cover geometry](../faucet-display-cover/README.md)
@@ -21,8 +21,8 @@ to permanent spreading must be read from the PET-GF fit trial. The 2 mm
 TPU countertop gasket is a compressible sealing component.
 
 The base and tip use build rotations of −15° and −105° about their shared
-arc frame. Their CAD print heights are [247.2 mm](BASE_PRINT_HEIGHT) and
-[138.8 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
+arc frame. Their CAD print heights are [244.6 mm](BASE_PRINT_HEIGHT) and
+[136.9 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
 [55°](MAX_PRINT_OVERHANG) of overhang; the hidden curved plug reaches 49.36°.
 Those angles do not describe every face of the lower body or display head.
 

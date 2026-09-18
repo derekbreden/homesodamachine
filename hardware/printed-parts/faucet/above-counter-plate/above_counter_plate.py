@@ -4,7 +4,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-import trimesh
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
@@ -36,6 +35,7 @@ from faucet_shell import (
     base_pedestal_height,
     base_pedestal_chamfer,
     build_lower_signal_lane,
+    write_bed_file,
 )
 from docgen import substitute_md
 from world_workplane import WorldWorkplane, xy_plane_z_up
@@ -86,11 +86,7 @@ def main():
     export_assembly(one_body(plate, out.stem, C_FAUCET_BLACK), str(out))
     print(f"-> {out.name}")
     stl = out.with_suffix(".stl")
-    cq.exporters.export(plate, str(stl), tolerance=0.08, angularTolerance=0.1)
-    mesh = trimesh.load(str(stl), force="mesh")
-    if not mesh.is_watertight or not mesh.is_winding_consistent:
-        raise RuntimeError(f"{stl.name} is not a closed, consistently oriented print mesh")
-    print(f"-> {stl.name}")
+    write_bed_file(plate, stl)
     variables = {
         "PLATE_T": f"{plate_thickness:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",

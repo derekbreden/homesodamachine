@@ -9,20 +9,22 @@
   "/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "BASE_CBORE_D": "6.15 mm",
     "BASE_CBORE_DEPTH": "3.2 mm",
-    "BASE_FRONT_Y": "-24.2",
+    "BASE_FRONT_Y": "-22.3",
     "BASE_INSERT_L": "4 mm",
     "BASE_INSERT_Z": "3.2 mm",
     "BASE_SCREW_L": "8 mm",
-    "BASE_X": "22",
+    "BASE_X": "20",
     "BASE_Y": "10",
     "DISPENSE_FACE_T": "2 mm",
-    "FOOT_DEPTH": "66 mm",
-    "FOOT_WIDTH": "65 mm",
+    "FOOT_DEPTH": "59 mm",
+    "FOOT_WIDTH": "58 mm",
     "PEDESTAL_H": "2.2 mm",
     "PLATE_T": "4 mm",
     "SPLIT_JUNCTION_ROT": "70\u00b0",
     "SPLIT_OVERLAP": "20 mm",
+    "SPLIT_PLUG_WALL": "2 mm",
     "SPLIT_SLIP": "0.3 mm",
-    "SPLIT_SOCKET_WALL": "3 mm"
+    "SPLIT_SOCKET_WALL": "2 mm",
+    "WALL_MIN": "2 mm"
   }
 }
