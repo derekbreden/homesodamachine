@@ -1,0 +1,2210 @@
+{
+  "gcode_sha256": "ed220c4501adea597c67831d04ed025e4c04c7fa4596e5a5ba6f264baebe9bce",
+  "method": "Vertical rays from actual labelled support-interface extrusion paths to the placed STL. Up to150 rays per island; representative witnesses retained by contacted face.",
+  "limitation": "Samples locate faces, not complete contact boundaries. Unlabelled contacts remain unknown. Removal and finish require the physical print.",
+  "parts": [
+    {
+      "part": "faucet-shell-tip",
+      "rotation_x_degrees": 40.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 150,
+          "face_counts": {
+            "aft-display-channel-wall": 99,
+            "other; see local coordinate and normal": 6
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -3.0320000000000107,
+                47.239999092436996,
+                8.10120647230957
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                0.00013983178561638194,
+                -0.9999999786408893,
+                -0.00015220148781258658
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7200092458379809
+            },
+            {
+              "display_x_s_n_mm": [
+                6.575999999999993,
+                47.2399999510199,
+                11.70020647230956
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                -2.374295865369131e-05,
+                -0.9999999997181337,
+                6.624576237568292e-08
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 0.48001010442087255
+            },
+            {
+              "display_x_s_n_mm": [
+                -4.442999999999998,
+                47.23999749495904,
+                10.321706472309558
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                5.138284094446788e-07,
+                -0.999999999996257,
+                2.687383536481569e-06
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7200076483600265
+            },
+            {
+              "display_x_s_n_mm": [
+                4.388999999999996,
+                47.23999643952213,
+                12.624206472309565
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                1.0557144076277322e-05,
+                -0.9999999999008888,
+                -9.314984513009161e-06
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600065929231173
+            },
+            {
+              "display_x_s_n_mm": [
+                3.5459999999999923,
+                47.24000390078675,
+                10.936206472309578
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                -1.9637496012380544e-05,
+                -0.9999999997014658,
+                1.4540866988488332e-05
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 0.48001405418772924
+            },
+            {
+              "display_x_s_n_mm": [
+                3.968500000000006,
+                47.239997527475715,
+                12.747706472309561
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                -1.8816967277734327e-05,
+                -0.9999999997889184,
+                8.25134894250068e-06
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600076808767023
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.521000000000001,
+                47.23999711961219,
+                8.083206472309548
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                -0.00047914243135041887,
+                -0.9999996950893626,
+                0.0006166390451869397
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.720007273013176
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.819999999999993,
+                47.23999683061051,
+                12.999206472309558
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                -3.281086338735361e-05,
+                -0.9999999993424945,
+                -1.544208938092373e-05
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.720006984011493
+            },
+            {
+              "display_x_s_n_mm": [
+                4.402500000000003,
+                47.239994299872386,
+                12.869206472309576
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                1.0557144076277322e-05,
+                -0.9999999999008888,
+                -9.314984513009161e-06
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600044532733586
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.8389999999999986,
+                47.24000573132646,
+                10.595206472309556
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                8.865506488463177e-06,
+                -0.9999999999542954,
+                3.579349707738544e-06
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 0.4800158847274597
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.3059999999999974,
+                47.24000066282595,
+                12.747706472309558
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                7.996010554405876e-06,
+                -0.9999999999629623,
+                3.184176070314404e-06
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600108162269431
+            },
+            {
+              "display_x_s_n_mm": [
+                -6.638499999999993,
+                47.23999778206586,
+                11.703706472309555
+              ],
+              "surface": "aft-display-channel-wall",
+              "normal_x_s_n": [
+                5.528733067718079e-05,
+                -0.9999999984683934,
+                -2.5542088624708192e-06
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600079354668433
+            },
+            {
+              "display_x_s_n_mm": [
+                -6.1854999999999905,
+                47.57785728422202,
+                6.08720647230955
+              ],
+              "surface": "other; see local coordinate and normal",
+              "normal_x_s_n": [
+                0.8284290403061799,
+                -0.15570026128614178,
+                -0.538017428911749
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 1.0578674376230048
+            },
+            {
+              "display_x_s_n_mm": [
+                3.477000000000004,
+                47.567942789172385,
+                7.747706472309574
+              ],
+              "surface": "other; see local coordinate and normal",
+              "normal_x_s_n": [
+                -0.08188655052025404,
+                -0.27268088076869457,
+                -0.9586134414387807
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 1.0479529425733554
+            },
+            {
+              "display_x_s_n_mm": [
+                6.170000000000002,
+                47.94101519171305,
+                6.005206472309588
+              ],
+              "surface": "other; see local coordinate and normal",
+              "normal_x_s_n": [
+                -0.8224816640259475,
+                -0.1599916370594367,
+                -0.5458265186047212
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 1.1810253451140462
+            },
+            {
+              "display_x_s_n_mm": [
+                -5.495499999999993,
+                47.72643594706434,
+                6.841706472309561
+              ],
+              "surface": "other; see local coordinate and normal",
+              "normal_x_s_n": [
+                0.6482249866497486,
+                -0.21161725329338799,
+                -0.7314523257133682
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 1.2064461004653304
+            },
+            {
+              "display_x_s_n_mm": [
+                5.453499999999991,
+                47.99502058686319,
+                6.79920647230956
+              ],
+              "surface": "other; see local coordinate and normal",
+              "normal_x_s_n": [
+                -0.628638535091205,
+                -0.21871531195941923,
+                -0.7463090542884214
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 1.7150307402641851
+            },
+            {
+              "display_x_s_n_mm": [
+                -5.42949999999999,
+                47.29033935047602,
+                7.022206472309556
+              ],
+              "surface": "other; see local coordinate and normal",
+              "normal_x_s_n": [
+                0.6161376397901747,
+                -0.21420775154490873,
+                -0.7579508216315011
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7703495038770166
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "trees": [
+            "tree-1",
+            "tree-2"
+          ],
+          "rays": 150,
+          "face_counts": {
+            "outer-neck-joint-plug": 148
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                4.0800000000000125,
+                89.04656405955332,
+                -58.15979352769041
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.37693047530688567,
+                -0.9047418680933293,
+                -0.19840758277827447
+              ],
+              "interface_print_z_mm": 88.04,
+              "gap_above_interface_centerline_mm": 1.006574212954272
+            },
+            {
+              "display_x_s_n_mm": [
+                4.3104999999999905,
+                88.0763540077182,
+                -53.85879352769044
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.3999008989426912,
+                -0.8812279858156925,
+                -0.25202481631784784
+              ],
+              "interface_print_z_mm": 87.56,
+              "gap_above_interface_centerline_mm": 0.5163641611191659
+            },
+            {
+              "display_x_s_n_mm": [
+                4.0049999999999955,
+                88.63702975007956,
+                -56.493793527690414
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.37694442550308754,
+                -0.9015172779745101,
+                -0.2125546931864291
+              ],
+              "interface_print_z_mm": 87.56,
+              "gap_above_interface_centerline_mm": 1.0770399034805487
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.8619999999999948,
+                87.9998784664267,
+                -56.426293527690405
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                -0.1613548909197631,
+                -0.9605586087939939,
+                -0.22647683821534154
+              ],
+              "interface_print_z_mm": 87.32,
+              "gap_above_interface_centerline_mm": 0.67988861982766
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.2154999999999916,
+                88.55616612154463,
+                -59.39029352769043
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                -0.11193719250102659,
+                -0.9738642521624673,
+                -0.19763219195016418
+              ],
+              "interface_print_z_mm": 87.8,
+              "gap_above_interface_centerline_mm": 0.7561762749456259
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.6330000000000098,
+                89.71914205137654,
+                -63.019293527690394
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                -0.3302561352977899,
+                -0.9349785433741682,
+                -0.1294063697353678
+              ],
+              "interface_print_z_mm": 88.52,
+              "gap_above_interface_centerline_mm": 1.1991522047775
+            },
+            {
+              "display_x_s_n_mm": [
+                4.091999999999999,
+                89.44449281391005,
+                -60.157293527690435
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.37690834667221407,
+                -0.9105234517489055,
+                -0.1699621782164379
+              ],
+              "interface_print_z_mm": 88.04,
+              "gap_above_interface_centerline_mm": 1.404502967311013
+            },
+            {
+              "display_x_s_n_mm": [
+                1.8824999999999932,
+                89.17961543027448,
+                -62.49029352769046
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.16138039297681658,
+                -0.9775727282004054,
+                -0.13530679894766712
+              ],
+              "interface_print_z_mm": 88.04,
+              "gap_above_interface_centerline_mm": 1.1396255836754343
+            },
+            {
+              "display_x_s_n_mm": [
+                4.271500000000003,
+                88.56016309025706,
+                -55.72579352769041
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.39988596861618525,
+                -0.8887000112532455,
+                -0.22428442233551715
+              ],
+              "interface_print_z_mm": 88.04,
+              "gap_above_interface_centerline_mm": 0.5201732436580168
+            },
+            {
+              "display_x_s_n_mm": [
+                4.406000000000006,
+                89.74827383691711,
+                -61.133793527690415
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.39990818318915083,
+                -0.9035165017635092,
+                -0.1540499141816815
+              ],
+              "interface_print_z_mm": 88.76,
+              "gap_above_interface_centerline_mm": 0.9882839903180619
+            },
+            {
+              "display_x_s_n_mm": [
+                0.8269999999999982,
+                88.59152270132228,
+                -59.78079352769039
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                0.0871373714592269,
+                -0.9792816242868758,
+                -0.1827965503756424
+              ],
+              "interface_print_z_mm": 87.8,
+              "gap_above_interface_centerline_mm": 0.7915328547232386
+            },
+            {
+              "display_x_s_n_mm": [
+                -4.630499999999998,
+                88.51941077402127,
+                -54.92379352769042
+              ],
+              "surface": "outer-neck-joint-plug",
+              "normal_x_s_n": [
+                -0.4226154643261967,
+                -0.8751697370244054,
+                -0.2355294051896406
+              ],
+              "interface_print_z_mm": 87.8,
+              "gap_above_interface_centerline_mm": 0.7194209274222297
+            }
+          ]
+        },
+        {
+          "id": "interface-3",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 143,
+          "face_counts": {
+            "flavor-pill-passage": 114,
+            "signal-lane": 21
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -4.847999999999999,
+                105.53170216099792,
+                -54.87879352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.45741826166694066,
+                -0.8706639409751831,
+                -0.18086690072856626
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 0.691712314398894
+            },
+            {
+              "display_x_s_n_mm": [
+                -4.978999999999999,
+                105.5179403485906,
+                -55.16479352769041
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.5002377155808253,
+                -0.847789959709451,
+                -0.1761090915493136
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 0.6779505019915556
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.8845000000000027,
+                105.36929987003083,
+                -52.31479352769041
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9717004823291191,
+                -0.23621636827569154
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 0.5293100234317857
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.4540000000000077,
+                107.13143218858784,
+                -62.22629352769043
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.08516397415635021,
+                -0.9891423383809523,
+                -0.11976866004158998
+              ],
+              "interface_print_z_mm": 106.04,
+              "gap_above_interface_centerline_mm": 1.0914423419888046
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.7194999999999965,
+                105.42764287738456,
+                -52.554793527690435
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9717004823291191,
+                -0.23621636827569154
+              ],
+              "interface_print_z_mm": 104.36,
+              "gap_above_interface_centerline_mm": 1.067653030785531
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.0264999999999986,
+                107.14313719501001,
+                -62.2322935276904
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9927488786544836,
+                -0.12020675492777128
+              ],
+              "interface_print_z_mm": 106.04,
+              "gap_above_interface_centerline_mm": 1.103147348410952
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.9879999999999995,
+                107.14406287715323,
+                -63.08529352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.22938162450939126,
+                -0.9679004943801999,
+                -0.10272635161436078
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.8640730305541903
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.2694999999999936,
+                106.02870933310585,
+                -55.26579352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0365423731902299,
+                -0.9800033002273411,
+                -0.19559700024577575
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 1.188719486506836
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.400499999999994,
+                105.10273413340585,
+                -51.27029352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.06096852524980811,
+                -0.9669988989339569,
+                -0.24737818899284175
+              ],
+              "interface_print_z_mm": 104.6,
+              "gap_above_interface_centerline_mm": 0.5027442868068258
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.122,
+                106.23808446055699,
+                -56.3237935276904
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811964726220936,
+                -0.19301161134491696
+              ],
+              "interface_print_z_mm": 105.32,
+              "gap_above_interface_centerline_mm": 0.9180946139579712
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.277000000000001,
+                106.0951917096586,
+                -55.600293527690404
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.03653610974401912,
+                -0.9800036669756859,
+                -0.1955963327851052
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 1.2552018630595634
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.8545000000000016,
+                105.8459655187264,
+                -54.39629352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782464887186955,
+                -0.20744591417895786
+              ],
+              "interface_print_z_mm": 105.32,
+              "gap_above_interface_centerline_mm": 0.5259756721273826
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.5519999999999925,
+                107.18933514907664,
+                -53.28979352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.9093453024775991
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.8029999999999973,
+                107.315830468386,
+                -53.85529352769039
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782465029358072,
+                -0.20744584713573833
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.5558406217869797
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.1260000000000048,
+                107.93987777677151,
+                -57.010793527690424
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.179887930172479
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.295500000000004,
+                107.85977612367542,
+                -56.56929352769043
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.0997862770763853
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.3610000000000042,
+                107.79818040175894,
+                -56.22979352769042
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.0381905551599098
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.3799999999999955,
+                107.91293531814236,
+                -56.8622935276904
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.1529454715433283
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.4629999999999939,
+                107.22664996734892,
+                -53.45379352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.9466601207499062
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.984499999999997,
+                107.19604726577805,
+                -53.31929352769039
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.9160574191790071
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.248500000000007,
+                107.21777632154027,
+                -53.414793527690414
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.9377864749412433
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.3205000000000098,
+                107.9240933060595,
+                -56.92379352769042
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.1641034594604585
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.3745000000000118,
+                107.12107633516386,
+                -52.98979352769038
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.841086488564836
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.9344999999999999,
+                107.58519926422497,
+                -55.140793527690406
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.52,
+              "gap_above_interface_centerline_mm": 1.065209417625932
+            }
+          ]
+        },
+        {
+          "id": "interface-4",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 150,
+          "face_counts": {
+            "flavor-pill-passage": 130,
+            "signal-lane": 19
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                2.687999999999988,
+                106.66521604077559,
+                -58.76279352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.986462896079253,
+                -0.16398461714115992
+              ],
+              "interface_print_z_mm": 105.56,
+              "gap_above_interface_centerline_mm": 1.1052261941765473
+            },
+            {
+              "display_x_s_n_mm": [
+                2.8145000000000095,
+                106.96504870933853,
+                -60.815793527690424
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9908699428147694,
+                -0.1348212016941524
+              ],
+              "interface_print_z_mm": 105.8,
+              "gap_above_interface_centerline_mm": 1.1650588627395089
+            },
+            {
+              "display_x_s_n_mm": [
+                3.772999999999996,
+                106.07100511665027,
+                -55.725293527690425
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.15899050687543498,
+                -0.9681870032108335,
+                -0.1932251162171154
+              ],
+              "interface_print_z_mm": 105.08,
+              "gap_above_interface_centerline_mm": 0.9910152700512592
+            },
+            {
+              "display_x_s_n_mm": [
+                4.251499999999993,
+                107.01700978217481,
+                -62.56079352769043
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.28862907579333463,
+                -0.9520935896807452,
+                -0.10104975554407958
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.7370199355757686
+            },
+            {
+              "display_x_s_n_mm": [
+                3.3445000000000107,
+                107.08624839258997,
+                -61.79679352769041
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.04556590598552088,
+                -0.9917189192924758,
+                -0.1200722004840527
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.8062585459909523
+            },
+            {
+              "display_x_s_n_mm": [
+                2.541499999999999,
+                107.00219403636095,
+                -61.08879352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9908699428147694,
+                -0.1348212016941524
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.7222041897618917
+            },
+            {
+              "display_x_s_n_mm": [
+                4.4424999999999955,
+                106.7181345635421,
+                -60.69879352769041
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.34302400200775895,
+                -0.9307499596241741,
+                -0.126645358012757
+              ],
+              "interface_print_z_mm": 105.8,
+              "gap_above_interface_centerline_mm": 0.9181447169430564
+            },
+            {
+              "display_x_s_n_mm": [
+                3.4170000000000016,
+                106.0507722005169,
+                -55.41179352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.0645923297801591,
+                -0.9786123747146966,
+                -0.19530911650210603
+              ],
+              "interface_print_z_mm": 105.08,
+              "gap_above_interface_centerline_mm": 0.9707823539178785
+            },
+            {
+              "display_x_s_n_mm": [
+                3.3515000000000015,
+                106.34724321759711,
+                -56.9342935276904
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.045404156535465735,
+                -0.9825097102931986,
+                -0.1805910622065166
+              ],
+              "interface_print_z_mm": 105.8,
+              "gap_above_interface_centerline_mm": 0.5472533709980733
+            },
+            {
+              "display_x_s_n_mm": [
+                3.878,
+                106.04909270053318,
+                -55.71379352769045
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                -0.19595350645918666,
+                -0.9616502091721087,
+                -0.19191429989865033
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 1.209102853934136
+            },
+            {
+              "display_x_s_n_mm": [
+                2.228499999999997,
+                105.4001730447555,
+                -52.44179352769043
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.9717004823291191,
+                -0.23621636827569154
+              ],
+              "interface_print_z_mm": 104.36,
+              "gap_above_interface_centerline_mm": 1.040183198156479
+            },
+            {
+              "display_x_s_n_mm": [
+                2.481500000000011,
+                107.19199186218296,
+                -62.65979352769042
+              ],
+              "surface": "flavor-pill-passage",
+              "normal_x_s_n": [
+                0.0,
+                -0.994415167416347,
+                -0.10553897295463155
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.912002015583918
+            },
+            {
+              "display_x_s_n_mm": [
+                1.4240000000000066,
+                107.47551079683535,
+                -54.608293527690435
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782465029358072,
+                -0.20744584713573833
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 1.195520950236324
+            },
+            {
+              "display_x_s_n_mm": [
+                1.3344999999999914,
+                107.50604727398901,
+                -54.75229352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782465029358072,
+                -0.20744584713573833
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.7460574273899804
+            },
+            {
+              "display_x_s_n_mm": [
+                1.3795000000000073,
+                107.45780388126363,
+                -54.524793527690406
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782465029358072,
+                -0.20744584713573833
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 1.1778140346645878
+            },
+            {
+              "display_x_s_n_mm": [
+                1.2674999999999983,
+                107.58657619123855,
+                -55.14779352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.8265863446395324
+            },
+            {
+              "display_x_s_n_mm": [
+                1.6740000000000066,
+                106.80887917354848,
+                -51.687293527690414
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                -0.09317455719631593,
+                -0.9674750974459785,
+                -0.2351817121146214
+              ],
+              "interface_print_z_mm": 104.84,
+              "gap_above_interface_centerline_mm": 1.9688893269494323
+            },
+            {
+              "display_x_s_n_mm": [
+                1.5844999999999914,
+                107.68305943412089,
+                -55.63829352769042
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.923069587521861
+            },
+            {
+              "display_x_s_n_mm": [
+                1.2644999999999982,
+                107.07943845867709,
+                -52.80679352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.52,
+              "gap_above_interface_centerline_mm": 0.5594486120780525
+            },
+            {
+              "display_x_s_n_mm": [
+                1.5480000000000018,
+                107.47381432588236,
+                -54.600293527690425
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782465029358072,
+                -0.20744584713573833
+              ],
+              "interface_print_z_mm": 106.52,
+              "gap_above_interface_centerline_mm": 0.9538244792833505
+            },
+            {
+              "display_x_s_n_mm": [
+                1.4650000000000034,
+                107.11527433598128,
+                -52.96429352769043
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9750787438542594,
+                -0.22185906175678172
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 0.8352844893822559
+            },
+            {
+              "display_x_s_n_mm": [
+                1.2729999999999961,
+                107.72771121013372,
+                -55.86529352769044
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.52,
+              "gap_above_interface_centerline_mm": 1.2077213635346973
+            },
+            {
+              "display_x_s_n_mm": [
+                1.3549999999999898,
+                107.64371866230343,
+                -55.43829352769042
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.8837288157043967
+            },
+            {
+              "display_x_s_n_mm": [
+                1.5374999999999943,
+                107.66614290223937,
+                -55.552293527690395
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.9061530556403549
+            }
+          ]
+        },
+        {
+          "id": "interface-5",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 150,
+          "face_counts": {
+            "signal-lane": 139
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -1.4000000000000057,
+                108.83869874186855,
+                -63.48779352769046
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9944146367032162,
+                -0.10554397334954962
+              ],
+              "interface_print_z_mm": 108.2,
+              "gap_above_interface_centerline_mm": 0.638708895269526
+            },
+            {
+              "display_x_s_n_mm": [
+                0.4064999999999941,
+                107.55175960818013,
+                -54.97079352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 107.0,
+              "gap_above_interface_centerline_mm": 0.551769761581094
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.2524999999999977,
+                108.24544901960832,
+                -58.83779352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9887735965282249,
+                -0.14942146702746179
+              ],
+              "interface_print_z_mm": 107.24,
+              "gap_above_interface_centerline_mm": 1.0054591730092803
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.1260000000000048,
+                107.93987777677151,
+                -57.010793527690424
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.179887930172479
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.295500000000004,
+                107.85977612367542,
+                -56.56929352769043
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.0997862770763853
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.4585000000000008,
+                108.75437306550461,
+                -62.693293527690415
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9944146367032162,
+                -0.10554397334954962
+              ],
+              "interface_print_z_mm": 108.2,
+              "gap_above_interface_centerline_mm": 0.5543832189055659
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.2055000000000007,
+                108.79061877787501,
+                -63.03479352769041
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9944146367032162,
+                -0.10554397334954962
+              ],
+              "interface_print_z_mm": 107.72,
+              "gap_above_interface_centerline_mm": 1.0706289312759716
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.022999999999996135,
+                108.62255010101231,
+                -61.554793527690386
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.992750117550179,
+                -0.12019652284532184
+              ],
+              "interface_print_z_mm": 107.72,
+              "gap_above_interface_centerline_mm": 0.902560254413269
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.3205000000000098,
+                107.9240933060595,
+                -56.92379352769042
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9839369426059892,
+                -0.17851636612696864
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 1.1641034594604585
+            },
+            {
+              "display_x_s_n_mm": [
+                1.1965000000000003,
+                107.53276669149847,
+                -54.87829352769042
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9782465029358072,
+                -0.20744584713573833
+              ],
+              "interface_print_z_mm": 106.28,
+              "gap_above_interface_centerline_mm": 1.2527768448994387
+            },
+            {
+              "display_x_s_n_mm": [
+                0.16949999999999932,
+                107.73548101256767,
+                -55.90479352769043
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9811976995469003,
+                -0.19300537402847256
+              ],
+              "interface_print_z_mm": 106.76,
+              "gap_above_interface_centerline_mm": 0.9754911659686295
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.1905000000000001,
+                108.25580060113043,
+                -58.90629352769044
+              ],
+              "surface": "signal-lane",
+              "normal_x_s_n": [
+                0.0,
+                -0.9887735965282249,
+                -0.14942146702746179
+              ],
+              "interface_print_z_mm": 107.48,
+              "gap_above_interface_centerline_mm": 0.7758107545314014
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "faucet-display-cover-front",
+      "rotation_x_degrees": 40.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 78,
+          "face_counts": {
+            "rear-window-edge": 58
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -7.352000000000004,
+                44.891744640689694,
+                20.87650025061442
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.23458077884825682,
+                -0.972096630057453,
+                5.088054300828038e-06
+              ],
+              "interface_print_z_mm": 44.36,
+              "gap_above_interface_centerline_mm": 0.5317538423129117
+            },
+            {
+              "display_x_s_n_mm": [
+                1.2305000000000064,
+                44.98999565892575,
+                20.86500025061443
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.12,
+              "gap_above_interface_centerline_mm": 0.8700048605489693
+            },
+            {
+              "display_x_s_n_mm": [
+                -5.7309999999999945,
+                44.98999808231563,
+                21.328000250614387
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.36,
+              "gap_above_interface_centerline_mm": 0.6300072839388543
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.7595000000000027,
+                44.98999470893597,
+                20.68350025061439
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.12,
+              "gap_above_interface_centerline_mm": 0.8700039105592007
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.4409999999999741,
+                44.9899974123504,
+                21.200000250614416
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.6,
+              "gap_above_interface_centerline_mm": 0.39000661397361347
+            },
+            {
+              "display_x_s_n_mm": [
+                5.2135000000000105,
+                44.98999932803223,
+                21.566000250614415
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.6,
+              "gap_above_interface_centerline_mm": 0.39000852965547017
+            },
+            {
+              "display_x_s_n_mm": [
+                -6.283999999999992,
+                44.98999698315391,
+                21.11800025061441
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.6,
+              "gap_above_interface_centerline_mm": 0.3900061847771378
+            },
+            {
+              "display_x_s_n_mm": [
+                0.4825000000000159,
+                44.98999720036922,
+                21.1595002506144
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.36,
+              "gap_above_interface_centerline_mm": 0.6300064019924273
+            },
+            {
+              "display_x_s_n_mm": [
+                3.4635000000000105,
+                44.9899974123504,
+                21.200000250614416
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.36,
+              "gap_above_interface_centerline_mm": 0.6300066139736155
+            },
+            {
+              "display_x_s_n_mm": [
+                -6.074000000000012,
+                44.98999956880101,
+                21.612000250614425
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.6,
+              "gap_above_interface_centerline_mm": 0.3900087704242262
+            },
+            {
+              "display_x_s_n_mm": [
+                0.9005000000000223,
+                44.98999528468736,
+                20.793500250614425
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.36,
+              "gap_above_interface_centerline_mm": 0.6300044863105777
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.7024999999999864,
+                44.98999932803223,
+                21.566000250614415
+              ],
+              "surface": "rear-window-edge",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999863021,
+                5.234103424955894e-06
+              ],
+              "interface_print_z_mm": 44.36,
+              "gap_above_interface_centerline_mm": 0.6300085296554722
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 150,
+          "face_counts": {
+            "inner-rear-closure": 150
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -7.936000000000007,
+                47.240003066821615,
+                17.6315002506144
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                -2.3383572138163996e-06,
+                -0.9999999999967863,
+                -9.79049844529456e-07
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600122684448374
+            },
+            {
+              "display_x_s_n_mm": [
+                7.718500000000006,
+                47.240001687104936,
+                18.456500250614422
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                2.418219308382639e-06,
+                -0.999999999996669,
+                -9.022789101975626e-07
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 0.4800108887281619
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.316500000000019,
+                47.239997407592256,
+                16.913500250614426
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                0.0,
+                -0.9999999999999882,
+                -1.5289625077130609e-07
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 0.48000660921547456
+            },
+            {
+              "display_x_s_n_mm": [
+                0.5939999999999941,
+                47.23999889145392,
+                14.273500250614413
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                -3.760724380856083e-06,
+                -0.9999999999877645,
+                3.213729754425465e-06
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7200080930771288
+            },
+            {
+              "display_x_s_n_mm": [
+                -7.231499999999983,
+                47.24000337129114,
+                12.734000250614402
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                9.810696899205042e-06,
+                -0.9999999998352349,
+                1.5273517841307704e-05
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600125729143608
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.716000000000008,
+                47.239999436812354,
+                15.903500250614405
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                3.376391273496298e-05,
+                -0.9999999990671129,
+                2.6940161974020604e-05
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7200086384355681
+            },
+            {
+              "display_x_s_n_mm": [
+                -7.485500000000002,
+                47.24000120078031,
+                18.46150025061442
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                -2.3383572138163996e-06,
+                -0.9999999999967863,
+                -9.79049844529456e-07
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600104024035426
+            },
+            {
+              "display_x_s_n_mm": [
+                8.489000000000004,
+                47.2399999176601,
+                10.73800025061442
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                2.2740669422994877e-06,
+                -0.9999999999939407,
+                2.6357228711804126e-06
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.960009119283337
+            },
+            {
+              "display_x_s_n_mm": [
+                -8.840499999999992,
+                47.239997636626576,
+                16.185000250614436
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                4.350423576419255e-06,
+                -0.9999999999747979,
+                5.610478807038799e-06
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7200068382497898
+            },
+            {
+              "display_x_s_n_mm": [
+                5.636500000000012,
+                47.240001240649214,
+                12.679500250614415
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                -5.689849012775966e-06,
+                -0.9999999999410257,
+                9.250639918134684e-06
+              ],
+              "interface_print_z_mm": 46.52,
+              "gap_above_interface_centerline_mm": 0.7200104422724204
+            },
+            {
+              "display_x_s_n_mm": [
+                -8.908999999999992,
+                47.24000079290943,
+                10.906500250614425
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                4.23736620589693e-06,
+                -0.9999999996363538,
+                2.66333853266576e-05
+              ],
+              "interface_print_z_mm": 46.76,
+              "gap_above_interface_centerline_mm": 0.48000999453264603
+            },
+            {
+              "display_x_s_n_mm": [
+                8.745499999999993,
+                47.24000044732211,
+                17.014500250614425
+              ],
+              "surface": "inner-rear-closure",
+              "normal_x_s_n": [
+                1.0941060706671497e-05,
+                -0.9999999998468284,
+                -1.3661477504811614e-05
+              ],
+              "interface_print_z_mm": 46.28,
+              "gap_above_interface_centerline_mm": 0.9600096489453188
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "faucet-display-cover-up",
+      "rotation_x_degrees": -50.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 68,
+          "face_counts": {
+            "front-inner-bridge": 28
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                1.343999999999994,
+                0.43932773231320255,
+                16.805281737655502
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.1237034859162256,
+                8.696809668362615e-05,
+                -0.9923192228354363
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8252914118186242
+            },
+            {
+              "display_x_s_n_mm": [
+                0.79849999999999,
+                0.09332773231321134,
+                16.863926350002608
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.08454413840985897,
+                9.806140464752033e-05,
+                -0.9964197303568891
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8839360241657458
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.290999999999997,
+                1.9588277323131953,
+                16.64617122416328
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                0.19433158003190884,
+                -5.104215440904225e-05,
+                -0.9809358971905352
+              ],
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.9061808983264031
+            },
+            {
+              "display_x_s_n_mm": [
+                1.704499999999996,
+                1.2598277323132168,
+                16.753328848401956
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.16189319122704038,
+                -7.992929314348807e-05,
+                -0.986808283429782
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.7733385225650947
+            },
+            {
+              "display_x_s_n_mm": [
+                1.57650000000001,
+                1.0003277323132025,
+                16.772938070230957
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.1434990739464313,
+                8.3213273157412e-05,
+                -0.9896504478107753
+              ],
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.5529477443940968
+            },
+            {
+              "display_x_s_n_mm": [
+                1.1335000000000264,
+                0.3608277323131954,
+                16.83102527030922
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.10417192355451779,
+                9.719404058888825e-05,
+                -0.994559299839014
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8510349444723518
+            },
+            {
+              "display_x_s_n_mm": [
+                1.8999999999999773,
+                1.3223277323132008,
+                16.7211093089893
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.18187511170282758,
+                -7.025650711711684e-05,
+                -0.983321635482057
+              ],
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.5011189831524346
+            },
+            {
+              "display_x_s_n_mm": [
+                1.3464999999999918,
+                1.7233277323132237,
+                16.80506487277546
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.12215928295903204,
+                -9.446007785623989e-05,
+                -0.992510504057377
+              ],
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.0650745469385918
+            },
+            {
+              "display_x_s_n_mm": [
+                0.7529999999999859,
+                0.007827732313197444,
+                16.867778515842573
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.08454413840985897,
+                9.806140464752033e-05,
+                -0.9964197303568891
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8877881900057135
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.7060000000000173,
+                1.2603277323132103,
+                16.752938133176613
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                0.1537985699868324,
+                -3.341040168847176e-05,
+                -0.9881022208019525
+              ],
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.5329478073397548
+            },
+            {
+              "display_x_s_n_mm": [
+                0.9629999999999654,
+                0.2288277323132082,
+                16.84887084608894
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.10417192355451779,
+                9.719404058888825e-05,
+                -0.994559299839014
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8688805202520632
+            },
+            {
+              "display_x_s_n_mm": [
+                2.2174999999999727,
+                0.261827732313229,
+                16.660869194959893
+              ],
+              "surface": "front-inner-bridge",
+              "normal_x_s_n": [
+                -0.20279403880981664,
+                5.192348072452502e-05,
+                -0.9792214127188776
+              ],
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.6808788691230264
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "trees": [
+            "tree-1"
+          ],
+          "rays": 150,
+          "face_counts": {
+            "planar-inner-bezel": 150
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -0.9200000000000159,
+                45.807327732313226,
+                20.549998501551684
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                8.384067334832324e-08,
+                -0.9999999999999964
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300081757148172
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.608000000000004,
+                32.523827732313215,
+                20.549999608223924
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                -1.931650395192719e-08,
+                -0.9999999999999998
+              ],
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000928238704466
+            },
+            {
+              "display_x_s_n_mm": [
+                -7.6684999999999945,
+                4.38982773231322,
+                20.54999846436392
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                6.215740756957087e-05,
+                -1.6757997654437418e-05,
+                -0.999999997927813
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300081385270568
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.533999999999992,
+                19.910827732313233,
+                20.549999851862975
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                -1.931650395192719e-08,
+                -0.9999999999999998
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300095260261147
+            },
+            {
+              "display_x_s_n_mm": [
+                -5.231499999999983,
+                46.34132773231321,
+                20.549998546322612
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                8.384067334832324e-08,
+                -0.9999999999999964
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300082204857349
+            },
+            {
+              "display_x_s_n_mm": [
+                11.071000000000026,
+                15.159327732313209,
+                20.549999943645357
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                -1.931650395192719e-08,
+                -0.9999999999999998
+              ],
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000961780848107
+            },
+            {
+              "display_x_s_n_mm": [
+                -8.210500000000025,
+                4.5958277323132375,
+                20.549998189952902
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                2.5818067304420788e-05,
+                -1.1584373438844331e-05,
+                -0.9999999995996147
+              ],
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900078641160365
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.071000000000026,
+                29.283327732313197,
+                20.54999967081904
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                -1.931650395192719e-08,
+                -0.9999999999999998
+              ],
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900093449821755
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.071000000000026,
+                16.670327732313197,
+                20.54999991445811
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                0.0,
+                -1.931650395192719e-08,
+                -0.9999999999999998
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300095886212455
+            },
+            {
+              "display_x_s_n_mm": [
+                6.533999999999992,
+                3.598827732313209,
+                20.54999699298173
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                5.376526223344048e-05,
+                8.384067312627863e-08,
+                -0.9999999985546448
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300066671448727
+            },
+            {
+              "display_x_s_n_mm": [
+                10.012499999999989,
+                4.455827732313221,
+                20.549996359683057
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                1.5964251564749553e-05,
+                2.0865978681894326e-05,
+                -0.9999999996548767
+              ],
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300060338461828
+            },
+            {
+              "display_x_s_n_mm": [
+                6.61749999999995,
+                2.9248277323131937,
+                20.550001616372015
+              ],
+              "surface": "planar-inner-bezel",
+              "normal_x_s_n": [
+                6.336557354396235e-05,
+                6.828390395341444e-07,
+                -0.999999997992169
+              ],
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900112905351458
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
