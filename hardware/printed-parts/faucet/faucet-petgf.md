@@ -30,8 +30,8 @@ The project reopens without an unsaved support-preset indicator.
 
 The shared profile uses a 0–70% part fan according to layer time, with cooling
 off for the first three layers. In this four-part slice, the base's final 10 mm
-of outer walls receives 67–69%, reaching 69% at the top; the tip's final 10 mm
-receives 63–67%. These are emitted G-code readings. Nozzle temperatures are
+of outer walls receives 68–70%, reaching 70% at the top; the tip's final 10 mm
+receives 63–68%. These are emitted G-code readings. Nozzle temperatures are
 265 °C for the first layer and 280 °C thereafter, with an 80 °C textured plate.
 
 Regenerate the CAD/STL files, then refresh the project:
@@ -61,22 +61,24 @@ profile's 1.29 g/cm³ density; they are not a measured PET-GF part mass.
 The material ledger uses PET-GF15's 1.43 g/cm³ and the actual purchase price.
 Object labels in the G-code identify each part's supports.
 The current offline slice completes successfully with no slice warnings. It
-estimates 5 h 16 min 22 s and 153.14 g under the saved profile. The four parts'
+estimates 4 h 28 min 26 s and 126.05 g under the saved profile. The four parts'
 actual extruded toolpaths, including supports and brims, have at least
-24.81 mm of shared-bed border and 20.40 mm separation. The refresh checks
+24.81 mm of shared-bed border and 27.87 mm separation. The refresh checks
 require at least 15 mm and 10 mm respectively. Removal effort and contact
 finish are read from the physical print.
 
 ## Support reading
 
-The slice generates three bed-rooted support bodies for the base, one for
-the tip, two for the cover and three for the plate. Two base bodies are
-isolated first-layer paths at print Z0.20 mm beside the base foot.
-The main base tree ends at print Z62.12 mm, below the exposed long neck.
-Sixteen base interface islands are explicitly labelled, beginning at the bed
-under the tilted foot and continuing inside the lower body. The tip has one
-labelled interface beginning at Z13.64 mm after 13.44 mm of build-up. The cover
-has two labelled interfaces beginning at Z14.84 mm after 14.64 mm of build-up.
+The slice generates one bed-rooted support body for the base and three tiny
+single-layer patches classified as model-rooted. The tip has one bed-rooted
+body, the cover has two and the plate has three.
+The main base tree ends at print Z61.16 mm, below the exposed long neck.
+Nineteen base interface islands are explicitly labelled, beginning at the bed
+under the tilted foot and continuing inside the lower body. One island also
+includes the isolated base patch at Z5.72 mm, whose first labelled interface
+is on that same layer, giving 0 mm build-up. The other two patches are at
+Z11.48 mm and have no labelled interfaces. The tip's contacts are unlabelled.
+The cover has two labelled interfaces beginning at Z14.84 mm after 14.64 mm of build-up.
 Other contacts have no explicit `Support interface` labels; their contact-island count and
 build-up to first contact remain unknown. An empty interface list on a
 retained body does not mean that the part prints without support.
@@ -88,8 +90,9 @@ print reading.
 | Piece / body | Root | Supported region and retained function |
 |---|---|---|
 | Base / tree-1 | Bed | Counter-end face, plate and donor pockets, internal lever-roof underside and lower signal passage. The exposed long neck carries no support. Cleanup uses the bottom cable/flavor passage and donor/lever openings before fitting the metal body or plate. Removal at the roof and small cable branch needs a physical reading. |
-| Base / trees 2–3 | Bed | Two isolated first-layer paths beside the base foot, both at print Z0.20 mm, with no labelled interfaces. |
-| Tip / tree-1 | Bed | Hidden neck-joint shoulder and plug passages, plus the open display-chassis interior. The exposed curved neck carries no support. The annular engagement, tube and ribbon passages, retaining grooves and 3 mm metal-foot supports retain their working sections. Support removal precedes tubes and display installation. |
+| Base / tree-2 | Model | One isolated patch under the tilted counter-end face at print Z5.72 mm. It reaches the same labelled interface island as the main tree on that layer, with 0 mm build-up. Clear it before fitting the plate. |
+| Base / trees 3–4 | Model | Two isolated patches under the tilted counter-end face, both only at print Z11.48 mm, with no labelled interfaces. Clear them before fitting the plate. |
+| Tip / tree-1 | Bed | Hidden neck-joint shoulder and plug passages, plus the open display-chassis interior. The exposed curved neck carries no support. The annular engagement, tube and ribbon passages, retaining grooves and metal-foot supports with 3 × 3 mm bearing faces and 2 mm depth retain their working sections. Support removal precedes tubes and display installation. |
 | Cover / trees 1–2 | Bed | Undersides of the broad retaining lips: one support body reaches each lip. The supports rise from Z0.20 to Z15.08 mm in the print pose, with labelled interfaces from Z14.84 mm. The bezel lies directly on the bed and the exterior walls carry no support. Remove through the open underside before installing the display, preserving the lip bearing faces. |
 | Plate / trees 1–3 | Bed | The three underside screw counterbores. Their flat seats carry the factory base screws; the supports are removed through the counterbore openings. |
 

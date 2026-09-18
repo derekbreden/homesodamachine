@@ -537,11 +537,16 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
         row = island_groups.setdefault(root, {
             "first_z_mm": reading.z, "last_z_mm": reading.z,
             "bbox_xy_mm": _bbox(reading.cells), "tree_nodes": set(),
+            "first_z_by_tree": {},
         })
         row["first_z_mm"] = min(row["first_z_mm"], reading.z)
         row["last_z_mm"] = max(row["last_z_mm"], reading.z)
         row["bbox_xy_mm"] = _merge_bbox(row["bbox_xy_mm"], _bbox(reading.cells))
         row["tree_nodes"].update(island_tree_nodes.get(node, ()))
+        for tree_node in island_tree_nodes.get(node, ()):
+            tree_root = tree_set.find(tree_node)
+            row["first_z_by_tree"][tree_root] = min(
+                row["first_z_by_tree"].get(tree_root, reading.z), reading.z)
 
     for row in island_groups.values():
         row["tree_roots"] = {tree_set.find(node) for node in row.pop("tree_nodes")}
@@ -574,8 +579,12 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
             # support body. Two independently removable trees can reach different passes of
             # the same surface island; keep the island singular and name every body feeding it.
             interface["trees"] = tree_ids
+            interface["first_z_by_tree_mm"] = {
+                tree_id: round(row["first_z_by_tree"][root], 3)
+                for root, tree_id in zip(owners, tree_ids)
+            }
             interface["build_up_by_tree_mm"] = {
-                tree_id: round(row["first_z_mm"] - tree_groups[root]["base_z_mm"], 3)
+                tree_id: round(row["first_z_by_tree"][root] - tree_groups[root]["base_z_mm"], 3)
                 for root, tree_id in zip(owners, tree_ids)
             }
         interfaces.append(interface)
@@ -595,7 +604,8 @@ def audit(gcode: Path, piece: str, model: Path | None = None,
         number = tree_number[root]
         row = tree_groups[root]
         contacts = by_tree[number]
-        first = min((contact["first_z_mm"] for contact in contacts), default=None)
+        first = min((contact.get("first_z_by_tree_mm", {}).get(
+            f"tree-{number}", contact["first_z_mm"]) for contact in contacts), default=None)
         build = first - row["base_z_mm"] if first is not None else None
         bed = first_layer_z is not None and row["base_z_mm"] <= first_layer_z + 1e-6
         trees.append({
@@ -761,6 +771,39 @@ G1 X23.5 Y0 E1
     assert shared["summary"]["interface_islands"] == 1, shared
     assert shared["interfaces"][0]["trees"] == ["tree-1", "tree-2"], shared
     assert all(tree["interfaces"] == ["interface-1"] for tree in shared["trees"]), shared
+
+    delayed_shared_fixture = """G90
+M83
+; Z_HEIGHT: 0.2
+; FEATURE: Support
+G1 X20 Y0
+G1 X21 Y0 E1
+; Z_HEIGHT: 0.4
+; FEATURE: Support interface
+G1 X20 Y0
+G1 X21 Y0 E1
+; Z_HEIGHT: 0.6
+; FEATURE: Support interface
+G1 X20 Y0
+G1 X21 Y0 E1
+G1 X22.5 Y0
+G1 X23.5 Y0 E1
+"""
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "delayed-shared-interface.gcode"
+        path.write_text(delayed_shared_fixture)
+        delayed_shared = audit(path, "delayed-shared-interface")
+    assert delayed_shared["summary"]["support_bodies"] == 2, delayed_shared
+    assert delayed_shared["summary"]["interface_islands"] == 1, delayed_shared
+    assert delayed_shared["summary"]["bed_rooted_bodies"] == 1, delayed_shared
+    assert delayed_shared["summary"]["model_rooted_bodies"] == 1, delayed_shared
+    delayed_interface = delayed_shared["interfaces"][0]
+    assert delayed_interface["first_z_mm"] == 0.4, delayed_shared
+    assert delayed_interface["last_z_mm"] == 0.6, delayed_shared
+    assert delayed_interface["first_z_by_tree_mm"] == {"tree-1": 0.4, "tree-2": 0.6}, delayed_shared
+    assert delayed_interface["build_up_by_tree_mm"] == {"tree-1": 0.2, "tree-2": 0.0}, delayed_shared
+    assert [(tree["first_interface_z_mm"], tree["shortest_build_up_mm"])
+            for tree in delayed_shared["trees"]] == [(0.4, 0.2), (0.6, 0.0)], delayed_shared
 
     interleaved = """G90
 M83
