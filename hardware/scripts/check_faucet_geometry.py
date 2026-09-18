@@ -613,7 +613,8 @@ def lower_passage_join_reading(reading, base):
 
 
 def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
-                              free_cover, cover_builder, *, include_motion=True):
+                              free_cover, cover_builder, *, include_motion=True,
+                              motion_lifts=None, motion_resolution=0.005):
     """Actual cover-lip capture and clearance demand, without an elastic model."""
     import cadquery as cq
     from OCP.BRepAdaptor import BRepAdaptor_Surface
@@ -682,11 +683,14 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
     # neck faces cannot affect these poses; excluding them avoids repeating
     # their unrelated intersections in every clearance bisection.
     search_limit = max(3.0, snap.ENGAGEMENT+cover_builder.preload_inward_at(n0)+0.5)
-    resolution = 0.005
-    lifts = sorted(value for value in {0.0, 0.10, snap.BEARING_SLIP, snap.BEARING_SLIP+0.001,
+    resolution = motion_resolution
+    default_lifts = {0.0, 0.10, snap.BEARING_SLIP, snap.BEARING_SLIP+0.001,
                     snap.BEARING_SLIP+0.01, snap.BEARING_SLIP+0.05, 0.35, 0.50, 0.75,
                     1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, f.display_cartridge_lift_n}
+    lifts = sorted(value for value in (default_lifts if motion_lifts is None else motion_lifts)
                    if value <= f.display_cartridge_lift_n)
+    if not lifts or resolution <= 0.0:
+        raise ValueError("display motion requires positive search resolution and at least one lift")
     cover_bounds = [local_bounds(part) for part in (cover, free_cover)]
     margin = 0.1
     clip_min = [min(b.xmin for b in cover_bounds)-search_limit-margin,
@@ -709,6 +713,21 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
     groove_ceiling = n1+snap.BEARING_SLIP
     shoulder_witness = shape(f.build_display_neck_reference()).cut(groove_core).intersect(
         band(s0, s1, groove_ceiling, groove_ceiling+f.wall_thickness_min))
+    relief = snap.LIP_INNER_EDGE_RELIEF
+    contact_height = snap.LIP_HEIGHT-2.0*relief
+    lip_core = outside.intersect(band(s0, s1, n0+relief, n1-relief)).cut(
+        shape(f.build_display_neck_reference(f.display_neck_outer_r-f.display_clip_lip_radius)))
+    native_tip = tip.moved(frame.inverse)
+
+    def planar_land(part, station, sense):
+        return cq.Compound.makeCompound([
+            face for face in shape(part).Faces()
+            if face.geomType() == "PLANE"
+            and abs(face.Center().z-station) <= DISTANCE_TOLERANCE
+            and abs(face.normalAt().z-sense) <= DISTANCE_TOLERANCE])
+
+    tip_floor = planar_land(native_tip, n0, 1.0)
+    tip_shoulder = planar_land(native_tip, groove_ceiling, -1.0)
     groove_faces = []
     for face in tip.Faces():
         r = radius(face)
@@ -734,18 +753,54 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
         inner_faces = [face for face in lip.Faces() if radius(face) is not None]
         radial_stock = (cq.Compound.makeCompound(inner_faces).distance(outside_faces)
                         if inner_faces else 0.0)
+        core = half(lip_core, side)
+        missing_core = outside_material_volume(core, cover)
         b = local_bounds(lip)
         reading.add(f"wall:cover-lip-{side:+d}", lip.isValid() and len(lip.Solids()) == 1
                     and missing <= VOLUME_TOLERANCE
+                    and volume(core) > VOLUME_TOLERANCE and missing_core <= VOLUME_TOLERANCE
+                    and contact_height >= f.wall_thickness_min-DISTANCE_TOLERANCE
                     and all(row["normal_stock_mm"] >= snap.LIP_HEIGHT-DISTANCE_TOLERANCE for row in lip_chords)
-                    and radial_stock >= 1.0-DISTANCE_TOLERANCE,
+                    and radial_stock >= f.wall_thickness_min-DISTANCE_TOLERANCE,
                     missing_lip_from_cover_mm3=clean_number(missing),
+                    missing_complete_unchamfered_core_mm3=clean_number(missing_core),
+                    inner_edge_relief_mm=relief,
+                    complete_unchamfered_contact_height_mm=clean_number(contact_height),
+                    required_structural_stock_mm=f.wall_thickness_min,
                     sampled_normal_chords=lip_chords,
                     measured_normal_height_mm=clean_number(b.zlen),
                     minimum_inner_surface_to_outer_skin_mm=clean_number(radial_stock),
                     required_normal_height_mm=snap.LIP_HEIGHT,
-                    required_radial_stock_mm=1.0,
-                    method="complete lip containment in the cover, nine exact interior normal chords per side, and complete curved-side separation")
+                    required_radial_stock_mm=f.wall_thickness_min,
+                    method="complete relieved lip and independent central unchamfered-core witnesses, nine exact full-height interior chords per side, and complete curved-root-to-show-skin separation")
+        lip_floor = planar_land(native_lip, n0, -1.0)
+        lip_top = planar_land(native_lip, n1, 1.0)
+        land_samples = []
+        for fraction in (0.001, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 0.999):
+            station = s0+(s1-s0)*fraction
+            row = {"s_mm": clean_number(station)}
+            for name, moving, fixed, moving_n, fixed_n in (
+                    ("floor", lip_floor, tip_floor, n0, n0),
+                    ("retaining", lip_top, tip_shoulder, n1, groove_ceiling)):
+                moving_spans = line_intervals(moving, (0.0, station, moving_n), (side, 0.0, 0.0), 30.0)
+                fixed_spans = line_intervals(fixed, (0.0, station, fixed_n), (side, 0.0, 0.0), 30.0)
+                overlap = max((min(b, d)-max(a, c) for a, b in moving_spans
+                               for c, d in fixed_spans), default=0.0)
+                row[f"{name}_flat_common_width_mm"] = clean_number(max(0.0, overlap))
+            land_samples.append(row)
+        required_land = 0.75
+        minimum_land = min(row[f"{name}_flat_common_width_mm"]
+                           for row in land_samples for name in ("floor", "retaining"))
+        reading.add(f"bearing:display-lip-flat-lands-{side:+d}",
+                    minimum_land >= required_land-DISTANCE_TOLERANCE,
+                    minimum_sampled_flat_common_width_mm=clean_number(minimum_land),
+                    required_flat_common_width_mm=required_land,
+                    lip_top_planar_area_mm2=clean_number(lip_top.Area()),
+                    lip_bottom_planar_area_mm2=clean_number(lip_floor.Area()),
+                    retaining_contact_outward_lift_mm=clean_number(snap.BEARING_SLIP),
+                    samples=land_samples,
+                    method="exact line intervals on actual planar lip and groove faces at nine S stations per side; upper lip translated to the groove ceiling before comparing its flat overlap",
+                    scope="CAD bearing lands after inner corner relief; printed edge shape and support-contact finish require the real parts")
         witness = half(backing, side)
         missing = volume(witness.cut(tip))
         reading.add(f"wall:retention-groove-{side:+d}", volume(witness) > VOLUME_TOLERANCE
@@ -847,22 +902,25 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
                 device_interference_mm3=clean_number(contact(pushed, body)),
                 glass_interference_mm3=clean_number(contact(pushed, glass)),
                 method="six independent interior floor witnesses after 0.01 mm inward travel; the complete 0.02 mm contact common must remain in the actual lips against groove floors or preload roots, before the display or glass")
-    lifted = cover.translate(normal.multiply(0.5))
+    capture_lift = max(0.5, snap.BEARING_SLIP+0.1)
+    lifted = cover.translate(normal.multiply(capture_lift))
     retention_common = lifted.intersect(full)
     shoulder = tip.intersect(band(s0, s1, n1+snap.BEARING_SLIP-DISTANCE_TOLERANCE,
-                                  n1+0.5+DISTANCE_TOLERANCE)).cut(groove_core)
-    outside_lips = outside_volume(retention_common, lips.translate(normal.multiply(0.5)))
+                                  n1+capture_lift+DISTANCE_TOLERANCE)).cut(groove_core)
+    outside_lips = outside_volume(retention_common, lips.translate(normal.multiply(capture_lift)))
     shoulder_capture = volume(retention_common)-outside_volume(retention_common, shoulder)
     root_camming = volume(retention_common)-outside_volume(retention_common, root_contact_zone)
     outside_shoulder_and_root = outside_volume(retention_common, cq.Compound.makeCompound([shoulder, root_contact_zone]))
     reading.add("retention:display-snaps", shoulder_capture > VOLUME_TOLERANCE
                 and max(outside_lips, outside_shoulder_and_root) <= VOLUME_TOLERANCE,
-                interference_on_0_5mm_outward_lift_mm3=clean_number(volume(retention_common)),
+                outward_capture_probe_mm=clean_number(capture_lift),
+                nominal_roof_allowance_mm=clean_number(snap.BEARING_SLIP),
+                interference_on_outward_lift_mm3=clean_number(volume(retention_common)),
                 actual_shoulder_capture_mm3=clean_number(shoulder_capture),
                 groove_root_camming_contact_mm3=clean_number(root_camming),
                 contact_outside_actual_lips_mm3=clean_number(outside_lips),
                 contact_outside_shoulders_and_preload_roots_mm3=clean_number(outside_shoulder_and_root),
-                scope="geometric cover-lip capture only; PET-GF force, flex distribution and cycling require the complete print trial")
+                scope="geometric cover-lip capture only; the roof allowance is nominal upward travel, not a zero-rattle or retention-force prediction. PET-GF force, flex distribution and cycling require the complete print trial")
     if not include_motion:
         display_rigid_neck_reading(reading, f, tip)
         return
@@ -1334,7 +1392,7 @@ def display_rim_reading(reading, f, part):
                 scope="the rear central cover bridge; axial chords alone do not certify a tilted wall")
 
 
-def display_free_cover_reading(reading, f, cover_builder, seated, free, tip):
+def display_free_cover_reading(reading, f, cover_builder, seated, free, tip, *, include_skin=True):
     """Read the printable preform separately from the nominal installed cover."""
     import cadquery as cq
     origin, _, normal = f._tip_frame()
@@ -1410,11 +1468,14 @@ def display_free_cover_reading(reading, f, cover_builder, seated, free, tip):
                 scope="the relaxed print is intentionally narrower than the nominal seated reference; the joined end bridges are not an invertible elastic map, and installed equilibrium and preload force require the print trial")
     reading.add("wall:display-relaxed-lips", max(missing_lips) <= VOLUME_TOLERANCE
                 and all(row["normal_height_mm"] >= f._display_snap.LIP_HEIGHT-DISTANCE_TOLERANCE for row in height_samples)
-                and all(row["printed_lateral_stock_mm"] >= 1.0-DISTANCE_TOLERANCE for row in shift_samples),
+                and all(row["printed_lateral_stock_mm"] >= f.wall_thickness_min-DISTANCE_TOLERANCE for row in shift_samples),
                 missing_complete_lip_witness_mm3=[clean_number(v) for v in missing_lips],
                 required_normal_height_mm=f._display_snap.LIP_HEIGHT,
-                required_lateral_stock_mm=1.0, height_samples=height_samples,
+                required_lateral_stock_mm=f.wall_thickness_min, height_samples=height_samples,
                 method="complete affine lip witnesses inside the printable solid, with six actual material chords projected onto N and eighteen lateral lip sections")
+
+    if not include_skin:
+        return
 
     # Re-read the actual free solid along the mapped surface normals. The
     # centre seam is excluded here and has independent bridge readings below.
@@ -1876,10 +1937,135 @@ def print_reading(f, parts):
     return rows
 
 
+def saved_retention_reading(output: Path, *, sampled_seating=False) -> int:
+    """Bounded production-tip/cover audit; it does not replace the full scorecard."""
+    import cadquery as cq
+    import trimesh
+
+    os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
+    sys.path.insert(0, str(ROOT / "hardware/faucet-layout"))
+    import faucet_assembly as assembly
+    f, cover_builder = assembly.faucet_shell, assembly.faucet_display_cover
+    source_files = (
+        Path(__file__).resolve(), Path(assembly.__file__), Path(f.__file__),
+        Path(cover_builder.__file__), FAUCET / "_faucet_interface.py",
+        FAUCET / "_display_snap.py",
+        ROOT / "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        ROOT / "hardware/printed-parts/cadlib/fits.py",
+        ROOT / "hardware/printed-parts/cadlib/world_workplane.py",
+    )
+    files = {
+        "shell_base": SHELL / "faucet-shell-base.step",
+        "shell_tip": SHELL / "faucet-shell-tip.step",
+        "display_cover_relaxed_print": FAUCET / "faucet-display-cover/faucet-display-cover.step",
+    }
+    before = hashes(source_files)
+    artifacts_before = hashes(tuple(path for step in files.values() for path in (step, step.with_suffix(".stl"))))
+    reading = Reading()
+    print("Reading the saved production tip and complete display cover", flush=True)
+    saved = {name: cq.importers.importStep(str(path)).val() for name, path in files.items()}
+    solids_reading(reading, saved)
+    for name, step in files.items():
+        mesh_path = step.with_suffix(".stl")
+        mesh = trimesh.load_mesh(mesh_path)
+        bodies = len(mesh.split(only_watertight=False))
+        reading.add(f"mesh:saved-{name}", bool(mesh.is_watertight and mesh.is_winding_consistent
+                    and bodies == 1 and mesh.volume > 0.0),
+                    watertight=bool(mesh.is_watertight), consistent_winding=bool(mesh.is_winding_consistent),
+                    body_count=bodies, triangle_count=len(mesh.faces),
+                    stl_sha256=digest(mesh_path), step_sha256=digest(step),
+                    scope="actual saved STL bytes, not a fresh tessellation or slicer result")
+        del mesh
+    free = saved["display_cover_relaxed_print"]
+    seated = shape(cover_builder.build_seated_display_cover())
+    live_free = shape(cover_builder.build_display_cover())
+    solids_reading(reading, {"display_cover_nominal_seated": seated})
+    cover_delta = outside_material_volume(live_free, free)+outside_material_volume(free, live_free)
+    reading.add("provenance:saved-cover-current-builder", cover_delta <= VOLUME_TOLERANCE,
+                exact_symmetric_difference_mm3=clean_number(cover_delta),
+                method="both complete material differences between the saved STEP and current relaxed-cover builder")
+    parts = {"shell_base": saved["shell_base"], "shell_tip": saved["shell_tip"],
+             "display_cover": seated}
+    body, glass = assembly.build_display_body(), assembly.build_display_screen()
+    tubes = {"soda": assembly.build_soda_faucet_tube(),
+             "flavor-a": assembly.build_flavor_tube(1),
+             "flavor-b": assembly.build_flavor_tube(-1)}
+    ribbon = assembly.build_display_ribbon()
+    for name, part in (("nominal-cover", seated), ("relaxed-cover", free)):
+        for component_name, component in (("display", body), ("glass", glass)):
+            clearance_reading(reading, f"clearance:{name}-{component_name}", part, component, 0.1)
+    for name, part in (("tip", saved["shell_tip"]), ("nominal-cover", seated), ("relaxed-cover", free)):
+        clearance_reading(reading, f"clearance:{name}-ribbon", part, ribbon, 0.1)
+    window = shape(f._cradle_prism(
+        cover_builder.window_half_x, cover_builder.window_s_south, cover_builder.window_s_north,
+        cover_builder.bezel_n_bottom, cover_builder.plate_n_top+0.1,
+        corner_r=cover_builder.window_corner_r))
+    aperture_overlap = max(volume(window.intersect(part)) for part in (seated, free))
+    reading.add("clearance:display-window", aperture_overlap <= VOLUME_TOLERANCE
+                and cover_builder.bezel_thickness >= 1.0-DISTANCE_TOLERANCE,
+                window_x_s_mm=[cover_builder.window_x, cover_builder.window_s],
+                window_corner_radius_mm=cover_builder.window_corner_r,
+                bezel_thickness_mm=cover_builder.bezel_thickness,
+                maximum_nominal_or_relaxed_aperture_overlap_mm3=clean_number(aperture_overlap),
+                method="complete required aperture prism against both actual cover states")
+    display_cartridge_axial_reading(reading, f, parts, seated, free, body, glass, tubes)
+    # One floor pose, the shoulder threshold and just beyond it, one mid-stroke
+    # pose and the raised approach are explicit samples, not a continuous
+    # elastic insertion proof. The axial and hardware-loading bounds are full.
+    motion_lifts = (0.0, f._display_snap.BEARING_SLIP,
+                    f._display_snap.BEARING_SLIP+0.1, 3.0, f.display_cartridge_lift_n)
+    display_retention_reading(reading, f, parts, body, glass, ribbon, tubes, free, cover_builder,
+                              include_motion=sampled_seating, motion_lifts=motion_lifts,
+                              motion_resolution=0.01)
+    display_free_cover_reading(reading, f, cover_builder, seated, free, saved["shell_tip"],
+                               include_skin=False)
+    display_loading_reading(reading, f, cover_builder, body, glass, free)
+    if before != hashes(source_files) or artifacts_before != hashes(tuple(
+            path for step in files.values() for path in (step, step.with_suffix(".stl")))):
+        raise RuntimeError("retention sources or production artifacts changed during the reading")
+    passed = all(row["passed"] for row in reading.rows.values())
+    result = {
+        "schema_version": 1,
+        "scope": "Bounded saved production tip and complete Sculpted cover reading: lip relief and flat lands, "
+                 "groove backing/shoulders, seated floor and capture, nominal hardware/aperture, printable preload, "
+                 "complete display-loading and raised axial bounds. It does not refresh the full faucet scorecard.",
+        "nominal_cad_only": True,
+        "geometry_source_sha256": before,
+        "saved_geometry_sha256": artifacts_before,
+        "distance_tolerance_mm": DISTANCE_TOLERANCE,
+        "overlap_tolerance_mm3": VOLUME_TOLERANCE,
+        "sampled_normal_seating": sampled_seating,
+        "normal_seating_stations_mm": list(motion_lifts) if sampled_seating else [],
+        "checks": reading.rows,
+        "physical_checks_remaining": [
+            "Printed groove and lip dimensions, edge rounding and layer quantization.",
+            "Support contact finish and cleanup on the actual flat bearing faces.",
+            "Complete-cover opening and seating force, spring return, pull-off force and cycling.",
+            "Whether inward preload suppresses perceptible movement within the nominal roof allowance.",
+        ],
+        "passed": passed,
+    }
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = output.with_suffix(output.suffix+".tmp")
+    temporary.write_text(json.dumps(result, indent=2, ensure_ascii=False)+"\n")
+    temporary.replace(output)
+    print(f"{'PASS' if passed else 'FAIL'} saved retention: {len(reading.rows)} readings; {output}", flush=True)
+    return 0 if passed else 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--saved-retention", action="store_true",
+                        help="read saved production parts and only the bounded display-retention checks")
+    parser.add_argument("--sampled-seating", action="store_true",
+                        help="add five explicit normal-seating samples to --saved-retention")
     args = parser.parse_args()
+    if args.saved_retention:
+        output = FAUCET / "display-retention-check.json" if args.output == OUTPUT else args.output
+        return saved_retention_reading(output, sampled_seating=args.sampled_seating)
+    if args.sampled_seating:
+        parser.error("--sampled-seating requires --saved-retention")
     paths = source_paths()
     before = hashes(paths)
     os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
