@@ -28,7 +28,8 @@ Generate with the project's CadQuery Python:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/prepare_print_project.py
+tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/prepare_print_project.py \
+  --settings-from hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf
 ```
 
 After removing supports, feed the three real tubes and ribbon through the
@@ -75,23 +76,27 @@ settings and embedded-mesh hashes. Both source STLs are already oriented
 and seated for printing; the project adds no further rotation.
 
 The offline Bambu Studio 02.08.02.61 slice completed without a warning.
-Its estimate is 2 h 15 min 41 s and 25.85 g using the saved 1.29 g/cm³
+Its estimate is 2 h 38 min 55 s and 34.27 g using the saved 1.29 g/cm³
 filament density. These grams are a profile estimate, not a measured PET-GF
-part mass. Actual extrusion paths retain 64.83 mm to the shared bed boundary
-and 95.74 mm between the two parts.
+part mass. Actual extrusion paths retain 62.68 mm to the shared bed boundary
+and 91.48 mm between the two parts.
 
 | Part / support body | Root | Contact reading | Build-up |
 |---|---|---|---|
-| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–82.52 mm | Not measured without interface labels |
-| Cover / tree-1 | Print bed, Z0.20 mm | One connected body reaches two explicitly labelled lip interfaces beginning at Z14.84 mm. The support reaches Z15.08 mm | 14.64 mm to first labelled interface |
+| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–94.52 mm | Not measured without interface labels |
+| Cover / trees 1 and 3 | Print bed, Z0.20 mm | One body reaches each broad retaining lip. Both explicitly labelled interfaces begin at Z14.84 mm, and the supports reach Z15.08 mm | 14.64 mm to first labelled interface on each body |
+| Cover / tree-2 | Print bed, Z0.20 mm | The visible curved rear hood faces the bed beyond the bezel. This separate support spans Z0.20–9.08 mm; exact contacts are unlabelled | Not measured without interface labels |
 
 [The retained support audit](faucet-display-fit-trial.support-audit.json)
 records the support bounds and toolpaths. The supports print the actual
 fit features in their production orientations. The cover's open underside
 provides the intended removal route to its two lip interfaces before fitting
-the display. An unlabelled interface count is unknown, not zero. Check
+the display; remove the rear-hood support from the exposed rear/underside.
+The curved hood retains its rear hardware coverage and tube-following shape.
+Its visible contact finish and removal access require a physical reading.
+An unlabelled interface count is unknown, not zero. Check
 removal access and the finish of the tube passages, display supports,
-broad lips and groove bearing faces on the physical print before testing
+broad lips, rear hood and groove bearing faces on the physical print before testing
 the fit.
 
 To repeat the offline slice, add `--slice-output /path/to/local/slice` to

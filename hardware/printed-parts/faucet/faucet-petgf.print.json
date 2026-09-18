@@ -1,7 +1,7 @@
 {
   "project": "faucet-petgf.3mf",
-  "settings_source": "hardware/printed-parts/petgf.3mf",
-  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "settings_source_sha256": "c64ca246fef512af2c17ce4a6050331fbbb230ab8bbd56dd8fb97e5b0220aeed",
   "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
   "printer": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
   "process": "0.24mm PET-GF faucet",
@@ -48,13 +48,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "stl_sha256": "9458af6f58952108592dc00ff46a90fb6944d4af94ea8c4abb9b604da4fe1444",
+      "stl_sha256": "bd041518d083717e2d6674b31d4d5f2297aaf0325482b13c6ddc1aa5c7386ad7",
       "triangles": 390272,
       "rotation_x_degrees": -14.999999999999998,
       "source_center_mm": [
         0.00014400482177734375,
-        -4.920699119567871,
-        118.30455780029297
+        -4.920716285705566,
+        118.3045654296875
       ],
       "build_transform": [
         1.0,
@@ -67,13 +67,13 @@
         0.25881904510252074,
         0.9659258262890683,
         95.0,
-        166.51680205566814,
-        123.18216022489857
+        166.51678744908503,
+        123.18217203725115
       ],
       "plate_translation_mm": [
         95.0,
-        166.51680205566814,
-        123.18216022489857
+        166.51678744908503,
+        123.18217203725115
       ],
       "plate_origin_mm": [
         0.0,
@@ -83,13 +83,13 @@
       "plate_bounds_mm": [
         [
           64.33249187469482,
-          111.86939198710013,
+          111.86939198710014,
           0.0
         ],
         [
           125.66750812530518,
           208.13060801289987,
-          244.62855174414003
+          244.62856549568215
         ]
       ],
       "watertight": true,
@@ -104,13 +104,13 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
-      "triangles": 261572,
+      "stl_sha256": "5b5e05ab3fb1a5539967576037d1fd1b8fe0f6f5579f494bea1811498abd1c36",
+      "triangles": 269006,
       "rotation_x_degrees": -105.0,
       "source_center_mm": [
-        0.0,
-        -80.49366807937622,
-        208.1917953491211
+        0.0003113746643066406,
+        -81.25493669509888,
+        207.55309295654297
       ],
       "build_transform": [
         1.0,
@@ -123,13 +123,13 @@
         0.9659258262890683,
         -0.25881904510252085,
         195.0,
-        201.75852044194053,
-        68.36063931345514
+        201.4287345579727,
+        69.26127667347674
       ],
       "plate_translation_mm": [
         195.0,
-        201.75852044194053,
-        68.36063931345514
+        201.4287345579727,
+        69.26127667347674
       ],
       "plate_origin_mm": [
         0.0,
@@ -138,19 +138,19 @@
       ],
       "plate_bounds_mm": [
         [
-          181.98754501342773,
-          181.16304674877563,
+          179.9996886253357,
+          179.6250632032324,
           0.0
         ],
         [
-          208.01245498657227,
-          232.83695325122434,
-          136.8511107208395
+          210.0003113746643,
+          234.3749367967676,
+          137.9911086255583
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.997531277695089e-10
+      "embedded_vertex_error_mm": 5.000000413701855e-10
     },
     {
       "name": "faucet-display-cover",
@@ -160,13 +160,13 @@
       "member": "3D/Objects/object_3.model",
       "identify_id": 1903,
       "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
-      "stl_sha256": "40f8968490dcc7582da64e2690a602f5e56d89aa21f46b447775ce8e70c1acdf",
-      "triangles": 29072,
+      "stl_sha256": "1adcf1751bbd40fbc1b0054a2fa448a340351e536351cddeb548bfe534f4108d",
+      "triangles": 48392,
       "rotation_x_degrees": 130.0,
       "source_center_mm": [
-        5.245208740234375e-06,
-        -129.81300735473633,
-        209.32139587402344
+        0.0,
+        -126.31995391845703,
+        210.46599578857422
       ],
       "build_transform": [
         1.0,
@@ -179,13 +179,13 @@
         -0.766044443118978,
         -0.6427876096865394,
         264.0,
-        270.1132228251829,
-        6.457371003589214
+        271.02495364215196,
+        8.397470534847105
       ],
       "plate_translation_mm": [
         264.0,
-        270.1132228251829,
-        6.457371003589214
+        271.02495364215196,
+        8.397470534847105
       ],
       "plate_origin_mm": [
         0.0,
@@ -194,14 +194,14 @@
       ],
       "plate_bounds_mm": [
         [
-          250.00298166275024,
-          245.03382986667845,
+          248.04419422149658,
+          240.99999371444608,
           0.0
         ],
         [
-          277.99701833724976,
-          294.9661701333216,
-          18.550019849555067
+          279.9558057785034,
+          299.000006285554,
+          18.550017694937623
         ]
       ],
       "watertight": true,
@@ -265,6 +265,6 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "c64ca246fef512af2c17ce4a6050331fbbb230ab8bbd56dd8fb97e5b0220aeed",
+  "project_sha256": "abb4f9a217ecb8b6bc45abbd6b6780e70a174c5e758afb95761014a3ed48a6c7",
   "settings_preserved_byte_for_byte": true
 }
