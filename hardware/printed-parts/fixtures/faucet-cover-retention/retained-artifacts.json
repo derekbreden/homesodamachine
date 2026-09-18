@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "scope": "Exact retained A\u2013F artifacts from the submitted Mark2 retention trial; integrity only, not current production fit.",
+  "source_commit": "fa5c2dcb40b2cfd278c07ad571996ec0827b25b3",
+  "printed_tip_stl_sha256": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+  "archive": {
+    "file": "retained-artifacts.zip",
+    "sha256": "2e3fb197517d9349f9e1a3094f4f909cb615192f996dbc2cd19116ad368f0148",
+    "bytes": 8194312
+  },
+  "outputs": {
+    "cover-retention-a.step": {
+      "sha256": "36457193f29176850b8de4d2e3148933a8fc333b0d96ea3e8f264dda6570bddd",
+      "bytes": 764694
+    },
+    "cover-retention-a.stl": {
+      "sha256": "e3b4b0648f484707f552b8c423f3318c562988258f0a05ce17170d16abe2b743",
+      "bytes": 1495484
+    },
+    "cover-retention-a.step.mesh": {
+      "sha256": "4c6fe8101a4dc1ec2f03e0b005369d33f93012f2d71ac24c1d0be7008f89e7c1",
+      "bytes": 750120
+    },
+    "cover-retention-b.step": {
+      "sha256": "1ac65e528347923ea25593ef6cdf2c264ebf8ffdd552351d372414aaf39d5d84",
+      "bytes": 902695
+    },
+    "cover-retention-b.stl": {
+      "sha256": "1520e80c14363a265fc38bd7355e183822c4bab610054a6ae13b8e16e9e7a001",
+      "bytes": 1811984
+    },
+    "cover-retention-b.step.mesh": {
+      "sha256": "6c848b51a8b8cd43275b347334aef00096a3cbd9bb13e989aad22dd865d37ac7",
+      "bytes": 935652
+    },
+    "cover-retention-c.step": {
+      "sha256": "5bbdbd6ea094dc6a6bfb870e7af34795ae86a0d0b7edba7155f63e32bb959e99",
+      "bytes": 830658
+    },
+    "cover-retention-c.stl": {
+      "sha256": "4f1a9b0f2c101483ad3b04a99708959e45cf264feb3672f24da5dfc2fb9b157f",
+      "bytes": 1710484
+    },
+    "cover-retention-c.step.mesh": {
+      "sha256": "27414943418ea26328733123e29f3891376c77766711112e154c744cb99bc6ab",
+      "bytes": 879588
+    },
+    "cover-retention-d.step": {
+      "sha256": "e0428bfe8ecfbaf6ea1d5b848d19530223756982190ad78bd2b91aef74e2f37e",
+      "bytes": 835574
+    },
+    "cover-retention-d.stl": {
+      "sha256": "0a6f806f41ff926c65259135c4050fa3e01961f1efceb3e83de520382b4d918c",
+      "bytes": 1602284
+    },
+    "cover-retention-d.step.mesh": {
+      "sha256": "ea13a1d28017b95f66823182b5f88ed7daf67cc01a18b06cf1962d319a3d5797",
+      "bytes": 822480
+    },
+    "cover-retention-e.step": {
+      "sha256": "ec4d7f04d1685010d1771aec1958283805e45b4c1cf80e2f82538317d301db99",
+      "bytes": 788111
+    },
+    "cover-retention-e.stl": {
+      "sha256": "a1e69a32bee07a1de7911071f15b144a7b5c38eea7025720e031f6133f6dac9e",
+      "bytes": 1496784
+    },
+    "cover-retention-e.step.mesh": {
+      "sha256": "3c310c3678e6c1db86397cabdffdd50cbe79926f4ca7fbccaf596fb9141d3c43",
+      "bytes": 750888
+    },
+    "cover-retention-f.step": {
+      "sha256": "eac6b743eda3c8f22475d9b33ed421339fb55e26448f4c1fd2b05eb905655282",
+      "bytes": 779768
+    },
+    "cover-retention-f.stl": {
+      "sha256": "9cab2b46182ff8b883567f34f48843e4fac7ee970a770c00c18b2a3a1f6596de",
+      "bytes": 1498784
+    },
+    "cover-retention-f.step.mesh": {
+      "sha256": "069a86e67db0e4ebb7c73348fba01f5c4d696fbbcebab9d1474d7eed62e548bd",
+      "bytes": 758368
+    },
+    "trial-geometry.json": {
+      "sha256": "43a759ce0bf2b5a3be21c57e090746ff14e511f71717c0c00ef8b880906e0220",
+      "bytes": 5697
+    }
+  },
+  "records": {
+    "fit-check.json": {
+      "sha256": "ad4e4292931c0db5596b6f10034c5070930e13813cb072865211deb78ed464ed",
+      "bytes": 26909
+    },
+    "faucet-cover-retention-petgf.3mf": {
+      "sha256": "661818e450e324a83072db83f3cefbe596d9eaac7aa6255ac1085a5a8ebfd01a",
+      "bytes": 3038629
+    },
+    "faucet-cover-retention-petgf.md": {
+      "sha256": "e55c3e8a115512d4072e9a360a07f13eff556e7e0bfb28032959bd5c470e8159",
+      "bytes": 5864
+    },
+    "faucet-cover-retention-petgf.print.json": {
+      "sha256": "d023e783b7462d43462e4d45bf6d7e492ff6e4f24110f4ab2d034a0919feb182",
+      "bytes": 13850
+    },
+    "faucet-cover-retention-petgf.readiness.json": {
+      "sha256": "e5c28e240a533d58507b36b988d14e4e40c8d18728e4ddd76b07d3e97978724a",
+      "bytes": 13570
+    },
+    "faucet-cover-retention-petgf.support-audit.json": {
+      "sha256": "b90c9976c3602917885f6a63802dac554f4121a1ad0ba05d8bd4f20bab444941",
+      "bytes": 29420
+    },
+    "faucet-cover-retention-petgf.support-faces.json": {
+      "sha256": "537c46fda5a916a6ea5aa8f7ccde58547ddfeaea7e3c478d5fd39e643a670654",
+      "bytes": 63154
+    },
+    "faucet-cover-retention-petgf.retaining-layers.json": {
+      "sha256": "9aabadee6e2e5da9e8787e0dc1c4b649395a3cc2cb916619ee6cef5445e78e44",
+      "bytes": 97193
+    },
+    "cover-retention-a.lint-answers": {
+      "sha256": "839dca3dd578dfd988b0e5571d6cedb6613d3af4cc96731cecccb44072d729b2",
+      "bytes": 592
+    },
+    "cover-retention-b.lint-answers": {
+      "sha256": "4cbf7978c9433fde7107e91dad3f9184141e736c2ec5facd4e595e5cd6ceae14",
+      "bytes": 400
+    },
+    "cover-retention-c.lint-answers": {
+      "sha256": "4ad81d4c7a6312fb503fb98580fc3b0d1de10dc7e30415f8c3570e9e0044028d",
+      "bytes": 422
+    },
+    "cover-retention-d.lint-answers": {
+      "sha256": "4ad81d4c7a6312fb503fb98580fc3b0d1de10dc7e30415f8c3570e9e0044028d",
+      "bytes": 422
+    },
+    "cover-retention-e.lint-answers": {
+      "sha256": "4ad81d4c7a6312fb503fb98580fc3b0d1de10dc7e30415f8c3570e9e0044028d",
+      "bytes": 422
+    },
+    "cover-retention-f.lint-answers": {
+      "sha256": "7123900a4ebf7809e9557b07e8ddfe99ad5608fde3999faabf2ea8dd25efab1c",
+      "bytes": 614
+    }
+  }
+}
