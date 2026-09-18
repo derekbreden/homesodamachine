@@ -61,22 +61,21 @@ profile's 1.29 g/cm³ density; they are not a measured PET-GF part mass.
 The material ledger uses PET-GF15's 1.43 g/cm³ and the actual purchase price.
 Object labels in the G-code identify each part's supports.
 The current offline slice completes successfully with no slice warnings. It
-estimates 4 h 29 min 21 s and 126.34 g under the saved profile. The four parts'
+estimates 4 h 25 min 59 s and 125.20 g under the saved profile. The four parts'
 actual extruded toolpaths, including supports and brims, have at least
-24.53 mm of shared-bed border and 27.87 mm separation. The refresh checks
+24.53 mm of shared-bed border and 28.15 mm separation. The refresh checks
 require at least 15 mm and 10 mm respectively. Removal effort and contact
 finish are read from the physical print.
 
 ## Support reading
 
-The slice generates one bed-rooted support body for the base and three tiny
+The slice generates one bed-rooted support body for the base and two tiny
 single-layer patches classified as model-rooted. The tip has one bed-rooted
 body, the cover has two and the plate has three.
 The main base tree ends at print Z61.16 mm, below the exposed long neck.
-Nineteen base interface islands are explicitly labelled, beginning at the bed
-under the tilted foot and continuing inside the lower body. One isolated base
-patch at Z5.72 mm shares a labelled interface island with the main tree and has
-zero build-up to that contact. Two other patches at Z11.48 mm have no labelled
+Twenty-two base interface islands are explicitly labelled, beginning at the bed
+under the tilted foot and continuing inside the lower body. The two isolated
+patches at Z11.48 mm have no labelled
 interfaces. The tip's support ends at Z134.60 mm; its contacts are unlabelled.
 The cover has two labelled interfaces beginning at Z14.84 mm after 14.64 mm of build-up.
 Other contacts have no explicit `Support interface` labels; their contact-island count and
@@ -89,9 +88,8 @@ print reading.
 
 | Piece / body | Root | Supported region and retained function |
 |---|---|---|
-| Base / tree-1 | Bed | Counter-end face, plate and donor pockets, internal lever-roof underside and lower signal passage. The exposed long neck carries no support. Cleanup uses the bottom cable/flavor passage and donor/lever openings before fitting the metal body or plate. Removal at the roof and small cable branch needs a physical reading. |
-| Base / tree-2 | Model | One isolated patch under the tilted counter-end face at print Z5.72 mm, with a labelled interface and zero build-up. Clear it before fitting the plate. |
-| Base / trees 3–4 | Model | Two isolated patches under the tilted counter-end face at print Z11.48 mm, with no labelled interfaces. Clear them before fitting the plate. |
+| Base / tree-1 | Bed | Counter-end face, plate and donor pockets, curved aft lever-roof underside and lower signal passage. The exposed long neck carries no support. Cleanup uses the bottom cable/flavor passage and donor/lever openings before fitting the metal body or plate. Removal at the roof and small cable branch needs a physical reading. |
+| Base / trees 2–3 | Model | Two isolated patches under the tilted counter-end face at print Z11.48 mm, with no labelled interfaces. Clear them before fitting the plate. |
 | Tip / tree-1 | Bed | The tree spans the neck-joint end and open display-chassis interior. Its exact contacts are unlabelled. Preserve the annular engagement, tube and ribbon passages, retaining grooves and metal-foot supports with 3 × 3 mm bearing faces and 2 mm depth. Inspect the curved neck and working faces during removal, before tubes and display installation. |
 | Cover / trees 1–2 | Bed | Undersides of the broad retaining lips: one support body reaches each lip. The supports rise from Z0.20 to Z15.08 mm in the print pose, with labelled interfaces from Z14.84 mm. The bezel lies directly on the bed. Remove through the open underside before installing the display, preserving the lip bearing faces. |
 | Plate / trees 1–3 | Bed | The three underside screw counterbores. Their flat seats carry the factory base screws; the supports are removed through the counterbore openings. |
