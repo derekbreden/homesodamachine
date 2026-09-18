@@ -6815,6 +6815,113 @@ cp hardware/printed-parts/faucet/tube-collar/README.md $$O6
 )
 
 genrule(
+    name = "cover-retention-trial",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-petgf.readiness.json",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.step",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.step.mesh",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.stl",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.step",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.step.mesh",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.stl",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.step",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.step.mesh",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.stl",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.step",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.step.mesh",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.stl",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step.mesh",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.stl",
+        "out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/trial-geometry.json",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step)
+O1=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh)
+O2=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl)
+O3=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.step)
+O4=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.step.mesh)
+O5=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.stl)
+O6=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.step)
+O7=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.step.mesh)
+O8=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.stl)
+O9=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.step)
+O10=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.step.mesh)
+O11=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.stl)
+O12=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.step)
+O13=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.step.mesh)
+O14=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.stl)
+O15=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step)
+O16=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step.mesh)
+O17=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.stl)
+O18=$$PWD/$(location out/cover-retention-trial/hardware/printed-parts/fixtures/faucet-cover-retention/trial-geometry.json)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py > /dev/null
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step $$O0
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh $$O1
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl $$O2
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.step $$O3
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.step.mesh $$O4
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.stl $$O5
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.step $$O6
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.step.mesh $$O7
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.stl $$O8
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.step $$O9
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.step.mesh $$O10
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.stl $$O11
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.step $$O12
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.step.mesh $$O13
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.stl $$O14
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step $$O15
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step.mesh $$O16
+cp hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.stl $$O17
+cp hardware/printed-parts/fixtures/faucet-cover-retention/trial-geometry.json $$O18
+""",
+)
+
+genrule(
     name = "faucet-display-snap-trial",
     srcs = [
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
@@ -11417,6 +11524,14 @@ genrule(
     name = "pysrc-dec8aeccf579",
     srcs = ["hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-e9a06f7dedf0",
+    srcs = ["hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py"],
+    outs = ["pysrc/hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -23395,6 +23510,7 @@ filegroup(
         ":industrial-faucet",
         ":tpu-o-ring",
         ":tube-collar",
+        ":cover-retention-trial",
         ":faucet-display-snap-trial",
         ":tee-valve-bow-trial",
         ":water-inlet-jet-fixture",
