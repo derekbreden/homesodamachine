@@ -39,8 +39,6 @@ window_x = 2.0 * window_half_x
 window_s = window_s_north - window_s_south
 front_rim_n = 14.0
 front_rim_slope = 1.8
-rear_rim_s = shell._display_housing_center_s + 18.25
-rear_rim_slope = 2.0
 
 
 def build_plate_outer() -> cq.Workplane:
@@ -59,19 +57,14 @@ def build_plate_inner_cut() -> cq.Workplane:
 
 
 def build_corner_rim_relief() -> cq.Workplane:
-    """Blunt transverse rims keep the end skirts clear of the neck's tangent."""
+    """The front bevel keeps the dispensing rim clear of the neck's tangent."""
     bottom = shell.display_cover_bottom_n
     front_s = (front_rim_n - bottom) / front_rim_slope
     front = (cq.Workplane("YZ")
              .polyline([(-10.0, -30.0), (front_s, -30.0), (front_s, bottom),
                         (-10.0, front_rim_n + 10.0 * front_rim_slope)])
              .close().extrude(30.0, both=True))
-    rear = (cq.Workplane("YZ")
-            .polyline([(rear_rim_s, -30.0), (60.0, -30.0),
-                       (60.0, bottom + (60.0 - rear_rim_s) * rear_rim_slope),
-                       (rear_rim_s, bottom)])
-            .close().extrude(30.0, both=True))
-    return shell._display_world(front.union(rear))
+    return shell._display_world(front)
 
 
 def build_seated_display_cover() -> cq.Workplane:

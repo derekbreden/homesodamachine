@@ -12,14 +12,14 @@
     "wing_inward_preload_at_lip_bottom_mm": 0.9078947368421053
   },
   "retained_geometry": {
-    "complete_head_end_s_mm": 51.19848122893564,
-    "neck_cut_s_mm": 71.19848122893563,
+    "complete_head_end_s_mm": 58.000000099999994,
+    "neck_cut_s_mm": 78.0000001,
     "minimum_neck_stub_mm": 20.0,
     "missing_head_material_mm3": 0.0
   },
   "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "211478f3b25b0e5b416e9fb8893447915efeeebbede7ee18e6780ab99d374a44",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "402a0a3c80e585c3b00f77ec0f18a87cd485b275bffa92e18d08e10c3b3e625b",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "fb6f560853b9ab4cfeca9aa60abfb2fe0e210c7e1b7f95bbd660649187bc5440",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "5822414b3e023188441139e25c85bacd41a312f5ad8c9bbb9f626927572d07af",
     "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
     "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
     "hardware/printed-parts/faucet/refresh_print_project.py": "941f696446bf5dcaffe693a5cf3b26edfba4790abf953cdbbf90cc49e7583541",
@@ -30,44 +30,44 @@
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "c22f7f35668db5936f512f4a3325ca21496ef48d04dac1d882323a5c95936989",
+      "sha256": "ad876d1ccfeba6b94d825d7e41ef6b1a2383e73a08753c21448d1d673c37f65a",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 22000.496363949493,
-      "triangles": 163346,
+      "volume_mm3": 35030.70363588471,
+      "triangles": 172592,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
-          -13.012454986572266,
-          -25.75174331665039,
-          1.2773406524502207e-05
+          -15.0,
+          -27.375051498413086,
+          0.00016638406668789685
         ],
         [
-          13.012454986572266,
-          25.751724243164062,
-          84.94332885742188
+          15.000622749328613,
+          27.374814987182617,
+          96.79103088378906
         ]
       ]
     },
     {
       "stl": "display-trial-cover.stl",
-      "sha256": "eb2167bff5180d68aafcfbc5159e37b081b8a5716ac9afddd3e42bf6683f6e26",
+      "sha256": "a99a14a14b1d54563aab077d07e9b814a6a933cb523482b1fedb6e2ca4f6be7b",
       "source_rotation_x_degrees": 130.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 3332.4413156080286,
-      "triangles": 29090,
+      "volume_mm3": 3973.487453781664,
+      "triangles": 48488,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
-          -13.997013092041016,
-          -24.966163635253906,
+          -15.955805778503418,
+          -29.0,
           1.0000002248489182e-07
         ],
         [
-          13.997013092041016,
-          24.966163635253906,
+          15.955805778503418,
+          29.0,
           18.549999237060547
         ]
       ]

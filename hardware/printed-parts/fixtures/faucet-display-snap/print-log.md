@@ -13,3 +13,11 @@ At the time of this report, the repository geometry has 0.30 mm radial
 engagement, 0.15 mm radial clearance, 1.30 mm lip height and no designed
 wing preload. The report does not identify the printed file or modified
 slicer settings.
+
+## Rear cover coverage
+
+Derek reported: "The display cover does not actually wrap the tube in the
+rear, and is in fact a bit short (not far enough aft) of even covering
+everything even if it were the correct round shape."
+
+The report does not identify a printed file hash.

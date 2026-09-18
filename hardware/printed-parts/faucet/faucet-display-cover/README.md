@@ -18,6 +18,10 @@ section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_H
 continue inward from the side walls. The four metal-foot bearing pads are
 [3 mm](FOOT_PAD_WIDTH) square and [2 mm](FOOT_PAD_DEPTH) deep.
 
+The rear hood extends beyond the electronics and follows the neck's curved
+surface. Its open mouth meets the neck with a blunt rim perpendicular to
+the local tube direction. The underside remains open for straight-on assembly.
+
 The lips follow the neck profile with [1 mm](SNAP_ENGAGEMENT) nominal radial
 engagement in [1 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
 roots share a contact surface. The relaxed print pulls each wing inward by

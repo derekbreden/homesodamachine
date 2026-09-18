@@ -22,6 +22,11 @@ around the rigid neck; the nominal skin is 1.30 mm thick, with a 1 mm
 minimum for the cover's thin sections. Its broad retaining lips are 3 mm high.
 The compressible above-counter gasket remains 2 mm TPU.
 
+The round stem is Ø[26.025 mm](NECK_DIAMETER). A gradual transition enlarges
+the local display head to Ø[30 mm](HEAD_DIAMETER), allowing the inward-preformed
+retaining lips to pass the fixed display housing during straight-on assembly.
+The cover's rear hood follows the curved neck beyond the electronics.
+
 ## Base joint
 
 The [58 mm](FOOT_WIDTH) × [59 mm](FOOT_DEPTH) oval plate is [4 mm](PLATE_T) thick, with three [2.2 mm](PEDESTAL_H) raised screw-seat pedestals. Three M3 × [8 mm](BASE_SCREW_L) socket-head screws
