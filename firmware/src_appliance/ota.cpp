@@ -61,6 +61,9 @@ static bool      bufFull = false;
 static const uint32_t kStallUnstarted = 0xFFFFFFFFu;
 static uint32_t  stallAtOffset = kStallUnstarted;
 static uint32_t  stallSinceMs = 0;
+// When the transfer last advanced. The clock above is reset by its own report;
+// this one moves only when a chunk does.
+static uint32_t  progressSinceMs = 0;
 
 // Raw-mode state: how many bytes of the current chunk the host still owes.
 static uint16_t  hostOwes = 0;
@@ -211,6 +214,7 @@ void otaOnSrcBegin(const uint8_t *payload, uint16_t plen) {
     bufLen = 0;
     stallAtOffset = kStallUnstarted;
     stallSinceMs = millis();
+    progressSinceMs = millis();
     hostOwes = hostGot = 0;
 
     Serial.printf("\nOTA:BEGIN %s size=%lu crc=%08lX kind=%u via J3\n",
@@ -338,7 +342,11 @@ void otaService() {
     // What says it is moving is bufOffset — where in the image the chunk this
     // board holds begins. It advances once per chunk on every path, including
     // `ota self`, where there is no far end to report progress at all.
-    if (bufOffset != stallAtOffset) { stallAtOffset = bufOffset; stallSinceMs = millis(); }
+    if (bufOffset != stallAtOffset) {
+        stallAtOffset = bufOffset;
+        stallSinceMs = millis();
+        progressSinceMs = millis();
+    }
     if (millis() - stallSinceMs >= 4000) {
         stallSinceMs = millis();
         Serial.printf("\nOTA:STALL owes=%u got=%u bufOff=%lu bufLen=%u full=%d seen=%d\n",
@@ -352,9 +360,12 @@ void otaService() {
         volunteer(target, MSG_OTA_BEGIN, &begin, sizeof(begin));
     }
 
-    // A receiver that stops asking is a session nobody will finish. The board
-    // keeps running what it booted either way; this just frees the console.
-    if (millis() - openedAtMs > 600000UL) endSession("FAIL", OTA_STATE_FAILED, OTA_ERR_NONE);
+    // A session nobody is feeding any more. Measured from the last chunk that
+    // moved rather than from the session's start: a transfer still advancing is
+    // not one to give up on, however long it has taken, and a phone can go
+    // quiet for minutes and come back. A BLE disconnect ends a session through
+    // `bleOtaDisconnected` without waiting for this.
+    if (millis() - progressSinceMs > 300000UL) endSession("FAIL", OTA_STATE_FAILED, OTA_ERR_NONE);
 }
 
 // ── Console ───────────────────────────────────────────────────────────────
@@ -415,6 +426,7 @@ void otaConsole(const String &line) {
     bufLen = 0;
     stallAtOffset = kStallUnstarted;
     stallSinceMs = millis();
+    progressSinceMs = millis();
 
     Serial.printf("\nOTA:BAUD %lu\n", (unsigned long)OTA_CONSOLE_BAUD_FAST);
     delay(20);
