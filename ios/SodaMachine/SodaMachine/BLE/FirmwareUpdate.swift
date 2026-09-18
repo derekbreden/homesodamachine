@@ -149,12 +149,25 @@ struct MachineVersions: Codable, Equatable {
         return v.isEmpty ? nil : v
     }
 
-    /// Whether this image differs from what its board reports.
+    /// Whether this image is an update to what its board reports.
     ///
-    /// Firmware is a version string against a version string. The art partition
-    /// carries no version — it carries a crc32 over its pixels, and the manifest
-    /// carries the same one. A board that has said nothing is not called
-    /// current: there is nothing to compare it to.
+    /// Firmware is a build against a build, and the question is which is newer
+    /// — not merely whether the two strings differ. A board flashed at the
+    /// bench runs commits the site has not published, and reading "different"
+    /// as "an update is available" points a customer's machine backwards: it
+    /// would offer to take the enclosure display back to a build without the
+    /// panel it was just given, and the main board back to one without the
+    /// cold loop and the refill it was just taught. Nothing downstream
+    /// re-checks — the receiver holds the image to its crc32 and moves its boot
+    /// partition — so this comparison is the only place a walk backwards can be
+    /// refused.
+    ///
+    /// The art partition carries no version. It carries a crc32 over its
+    /// pixels, the manifest carries the same one, and pixels have no order:
+    /// different is the whole question there.
+    ///
+    /// A board that has said nothing is not called current, and not called
+    /// stale either: there is nothing to compare it to.
     func needs(_ image: FirmwareImage, on model: MachineModel) -> Bool {
         guard let t = image.otaTarget(on: model) else { return false }
         if image.kind == "art" {
@@ -162,8 +175,32 @@ struct MachineVersions: Codable, Equatable {
                   let published = image.artCrc32 else { return false }
             return running != published
         }
-        guard let running = version(for: image, on: model) else { return false }
-        return running != (image.version ?? running)
+        guard let running = version(for: image, on: model),
+              let published = image.version, published != running,
+              let here = Self.buildDate(running),
+              let there = Self.buildDate(published) else { return false }
+        return there > here
+    }
+
+    /// The commit date a version string opens with, as one comparable number.
+    ///
+    /// FW_VERSION is `YYYY.MM.DD <short sha>`, with a trailing `+` where the
+    /// build carried uncommitted edits. The date is that commit's own, so it
+    /// can never drift from the sha beside it, and it is the only part of the
+    /// string two builds can be ordered by.
+    ///
+    /// Two builds dated the same day are not ordered by anything the string
+    /// carries, so neither is offered over the other. That silence costs a
+    /// second publish on one day the rest of that day; it buys a bench machine
+    /// that is never offered its own past, which is the case that reaches a
+    /// board.
+    static func buildDate(_ version: String) -> Int? {
+        let field = version.split(separator: " ").first.map(String.init) ?? version
+        let parts = field.split(separator: ".")
+        guard parts.count == 3,
+              let y = Int(parts[0]), let m = Int(parts[1]), let d = Int(parts[2])
+        else { return nil }
+        return y * 10_000 + m * 100 + d
     }
 
     /// Every board that answered. Until one has, the machine has said nothing
