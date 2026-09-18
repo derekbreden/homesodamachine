@@ -1,0 +1,56 @@
+{
+  "archive": ".cache/prints/2026-09-18-sculpted-white-z018-mark2/ready/sculpted-white-z018-mark2.gcode.3mf",
+  "archive_sha256": "bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0",
+  "gcode_sha256": "e9a115f3fbbf30ea37afc119d2536aa914e3d11be6d1d7393b348ac797493056",
+  "layers": 1019,
+  "staged_input": ".cache/prints/2026-09-18-sculpted-white-z018-mark2/sculpted-white-z018-mark2-input.3mf",
+  "staged_input_sha256": "41199543034faf857f78637572a9cf7e05b1064d4a7642e412442546fcf9ca06",
+  "staged_settings_override": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ]
+  },
+  "native_export_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "emitted_settings_match_successful_job": false,
+  "emitted_settings_match_requested_changes": true,
+  "intentional_emitted_config_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "36f2e905534611757f5eaa11f050385dec18c405326a0966480fa03866279f58",
+      "to_sha256": "e12a815ddb22b05e8743dc8d25e3852f5cec1ea1b3e2f1e2d4242538a4f2153c",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": [
+      "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    ]
+  },
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "slicer_return_code": 0,
+  "warning": "",
+  "objects": 4,
+  "triangles": 692862,
+  "estimated_seconds": 16249.9853515625,
+  "estimated_grams_saved_profile_density": 126.30702209472656,
+  "validation_script_sha256": "122c6f958f56ac69eb031ab30d1b0e8e18b2a3a92dda605340254137eff11237",
+  "layer_height_mm": 0.24,
+  "initial_layer_height_mm": 0.2
+}

@@ -32,7 +32,7 @@ import faucet_shell as shell
 PARTS = (
     ("faucet-shell-base", HERE / "faucet-shell/faucet-shell-base.stl", -math.degrees(shell.print_base_build_rot)),
     ("faucet-shell-tip", HERE / "faucet-shell/faucet-shell-tip.stl", -math.degrees(shell.print_tip_build_rot)),
-    ("faucet-display-cover", HERE / "faucet-display-cover/faucet-display-cover.stl", -math.degrees(shell.print_tip_build_rot)),
+    ("faucet-display-cover", HERE / "faucet-display-cover/faucet-display-cover.stl", -50.0),
     ("above-counter-plate", HERE / "above-counter-plate/above-counter-plate.stl", 0.0),
 )
 # Millimetres from the centre of the shared printable area. The base occupies
@@ -73,7 +73,8 @@ def archive_write(path: Path, members: dict[str, bytes]):
 
 
 def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
-            offsets: tuple | None = None, title: str = "Faucet PET-GF") -> dict:
+            offsets: tuple | None = None, title: str = "Faucet PET-GF",
+            z_trim: float | None = None) -> dict:
     parts = PARTS if parts is None else parts
     offsets = PART_OFFSETS if offsets is None else offsets
     if len(parts) != len(offsets):
@@ -82,7 +83,42 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
         if source.testzip() is not None:
             raise ValueError("source project has a damaged member")
         settings_payload = source.read(SETTINGS_MEMBER)
+        original_settings_payload = settings_payload
         settings = json.loads(settings_payload)
+        settings_changes = {}
+        if z_trim is not None:
+            if not math.isfinite(z_trim):
+                raise ValueError("Z trim must be a finite millimetre value")
+            original_start = settings["machine_start_gcode"]
+            marker = re.search(r"(?m)^;===== (?:for Textured PEI Plate|plate compensation plus user-calibrated)", original_start)
+            if marker is None:
+                raise ValueError("The profile has no recognized plate-compensation block")
+            end = original_start.index("\nG150.1", marker.start())
+            block = f''';===== plate compensation plus user-calibrated +{z_trim:.2f} mm Z trim =====
+{{if curr_bed_type=="Textured PEI Plate"}}
+    {{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}}
+        G29.1 Z{{{z_trim:.2f} - 0.01}}
+    {{else}}
+        G29.1 Z{{{z_trim:.2f} - 0.02}}
+    {{endif}}
+{{else}}
+    {{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}}
+        G29.1 Z{{{z_trim:.2f} + 0.01}}
+    {{else}}
+        G29.1 Z{{{z_trim:.2f}}}
+    {{endif}}
+{{endif}}'''
+            settings["machine_start_gcode"] = original_start[:marker.start()] + block + original_start[end:]
+            nozzle = float(settings["nozzle_diameter"][0])
+            identity = f"Bambu Lab H2C {nozzle:g} Standard +{z_trim:.2f} Z trim"
+            settings_changes = {
+                "machine_start_gcode": {"from_sha256": digest(original_start.encode()),
+                                       "to_sha256": digest(settings["machine_start_gcode"].encode()),
+                                       "requested_z_trim_mm": z_trim},
+                "printer_settings_id": {"from": settings["printer_settings_id"], "to": identity},
+            }
+            settings["printer_settings_id"] = identity
+            settings_payload = (json.dumps(settings, indent=2) + "\n").encode()
         bed_points = np.array([[float(value) for value in point.split("x")] for point in settings["printable_area"]])
         extruder_areas = [np.array([[float(value) for value in point.split("x")] for point in area.split(",")])
                           for area in settings.get("extruder_printable_area", [])]
@@ -107,6 +143,8 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
         "settings_source": str(settings_from.relative_to(ROOT)) if settings_from.is_relative_to(ROOT) else str(settings_from),
         "settings_source_sha256": digest(settings_from.read_bytes()),
         "settings_sha256": digest(settings_payload),
+        "source_settings_sha256": digest(original_settings_payload),
+        "settings_changes": settings_changes,
         "printer": settings["printer_settings_id"],
         "process": settings["print_settings_id"],
         "filament": settings["filament_settings_id"],
@@ -232,7 +270,7 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
             assert np.array_equal(restored_faces, source.faces)
             row["embedded_vertex_error_mm"] = error
     report["project_sha256"] = digest(output.read_bytes())
-    report["settings_preserved_byte_for_byte"] = True
+    report["settings_preserved_byte_for_byte"] = settings_payload == original_settings_payload
     output.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
     return report
 
@@ -397,10 +435,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, default=HERE / "faucet-petgf.3mf")
     parser.add_argument("--settings-from", type=Path, default=ROOT / "hardware/printed-parts/petgf.3mf")
+    parser.add_argument("--z-trim", type=float, help="User Z trim in mm, added to the existing stock plate compensation.")
     parser.add_argument("--slice-output", type=Path, help="Optional local Bambu CLI slice directory; no printer connection.")
     parser.add_argument("--slicer", type=Path, default=Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"))
     args = parser.parse_args()
-    report = refresh(args.settings_from.resolve(), args.project)
+    report = refresh(args.settings_from.resolve(), args.project, z_trim=args.z_trim)
     print(f"{args.project}: four parts on one plate; exact settings {report['settings_sha256']}")
     for row in report["parts"]:
         size = np.subtract(row["plate_bounds_mm"][1], row["plate_bounds_mm"][0])
