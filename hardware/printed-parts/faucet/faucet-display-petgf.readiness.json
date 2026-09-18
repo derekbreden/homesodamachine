@@ -1,0 +1,191 @@
+{
+  "status": "native slice and support audit passed; awaiting printer review",
+  "submitted": false,
+  "printer": "Mark2",
+  "printer_state_checked": false,
+  "project": "hardware/printed-parts/faucet/faucet-display-petgf.3mf",
+  "project_sha256": "a17aaa9acc56e25a54204fb7e8b5d8c2abba7dbd64effc1bef91275c510f6b99",
+  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "print_report_sha256": "5e63ca09ae909d943cb4795820f4e6944131357ce3282f96d10c288debdddb63",
+  "successful_profile": {
+    "record": ".cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.readiness.json",
+    "record_sha256": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649",
+    "snapshot": ".cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.3mf",
+    "snapshot_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+    "native_archive": ".cache/prints/2026-09-17-faucet-open-lever-mark2/ready/faucet-open-lever-mark2.gcode.3mf",
+    "native_archive_sha256": "df95c856987fca6161e2f36b75f4cb9b27e19db967864931be1496eebe816d8b",
+    "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+    "requested_z_trim_mm": 0.04,
+    "actual_trim_commands_mm": [
+      0.0,
+      0.02
+    ]
+  },
+  "cad_sources_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "37ed8573e5249bf2fb18cb17ceada19bb11b8625ea7ce594e5afc01bcb129611",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "ff60a0cb26e96c72d6830eedc5cd9cdb47f603b0d1a7526573bf7fb2d79feead"
+  },
+  "parts": [
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "470a496f5d53b09cd4e2e83f050f8e01e7bf18e882760956de5f3eddf5c76afd",
+      "rotation_x_degrees": 40.0
+    },
+    {
+      "name": "faucet-display-cover-front",
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "d6ec3db737b11e3aa6a09bacbda2328e0999212dc19deac941e4773fed51425f",
+      "rotation_x_degrees": 40.0
+    },
+    {
+      "name": "faucet-display-cover-up",
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+      "stl_sha256": "d6ec3db737b11e3aa6a09bacbda2328e0999212dc19deac941e4773fed51425f",
+      "rotation_x_degrees": -50.0
+    }
+  ],
+  "native": {
+    "archive": ".cache/prints/2026-09-18-faucet-display-mark2/native-slice/ready/faucet-display-mark2.gcode.3mf",
+    "archive_sha256": "defdde770a54b0f22db742c291448d5238ae0a6fe6165c4670103c0786b3034e",
+    "gcode_sha256": "ed220c4501adea597c67831d04ed025e4c04c7fa4596e5a5ba6f264baebe9bce",
+    "layers": 462,
+    "staged_input": ".cache/prints/2026-09-18-faucet-display-mark2/native-slice/faucet-display-mark2-input.3mf",
+    "staged_input_sha256": "3417f45b59cc7986680788465f0251f9320c27c4a2da6b77751736c014b69a20",
+    "staged_settings_override": {
+      "extruder_ams_count": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "native_export_settings_normalizations": {
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ],
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ]
+    },
+    "emitted_settings_match_successful_job": true,
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "slicer_return_code": 0,
+    "warning": "",
+    "objects": 3,
+    "triangles": 321578,
+    "estimated_seconds": 7573.08740234375,
+    "estimated_grams_saved_profile_density": 50.431304931640625
+  },
+  "scope": "One real production tip and two identical complete production covers in different print poses.",
+  "plate_identity": {
+    "left": "tip, dispense face down",
+    "middle": "cover, front edge down",
+    "right": "cover, bezel up"
+  },
+  "physical_trial": "Retention, assembly force, support removal and contact finish require the print.",
+  "submission": "The main task checks current Mark2 compatibility and submits through Bambu Connect.",
+  "geometry_fit_report": {
+    "file": "hardware/printed-parts/faucet/display-retention-check.json",
+    "sha256": "ea8299967e8cca7e89dade18170e152ab85b37f6ebd9a0c4b7e98a7de13288d0"
+  },
+  "support_audit_sha256": "69bc44791fb43c47d47cff598ab500cd30b80bb4eff0543055e1207ff3c0ef6c",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 7573.08740234375,
+      "saved_profile_filament_estimate_g": 50.431304931640625,
+      "slicer_warning": ""
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 40.89286299999998,
+    "minimum_toolpath_separation_mm": 42.92030099999997,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "faucet-display-cover-front"
+        ],
+        "separation_mm": 68.74808599999997
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "faucet-display-cover-up"
+        ],
+        "separation_mm": 147.62151099999997
+      },
+      {
+        "parts": [
+          "faucet-display-cover-front",
+          "faucet-display-cover-up"
+        ],
+        "separation_mm": 42.92030099999997
+      }
+    ]
+  },
+  "support_summary": {
+    "faucet-shell-tip": {
+      "support_bodies": 2,
+      "interface_islands": 5,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": 0.0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 5,
+      "shortest_labelled_build_up_mm": 0.0
+    },
+    "faucet-display-cover-front": {
+      "support_bodies": 1,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 43.92,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 43.92
+    },
+    "faucet-display-cover-up": {
+      "support_bodies": 1,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 12.24,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 12.24
+    }
+  },
+  "support_face_review_sha256": "4d0db0aa933f292621f394feaca7e39c43fe989da997eaeb6f7308349975dfd9",
+  "retention_toolpath_review": {
+    "file": "hardware/printed-parts/faucet/faucet-display-petgf.retention-toolpaths.json",
+    "sha256": "b5898681d027b59e656f421270ca8fbc125f82e792dfcf307dad481be5558691",
+    "sample_columns_per_part": {
+      "faucet-shell-tip": 20,
+      "faucet-display-cover-front": 20,
+      "faucet-display-cover-up": 20
+    },
+    "height_allowances": [
+      {
+        "cover": "faucet-display-cover-front",
+        "minimum_sampled_groove_minus_maximum_sampled_lip_mm": 0.4800000000000004
+      },
+      {
+        "cover": "faucet-display-cover-up",
+        "minimum_sampled_groove_minus_maximum_sampled_lip_mm": 0.40000000000000036
+      }
+    ],
+    "limitation": "Ideal commanded-road envelope only. This does not model bead cross-section, sag, shrinkage, surface roughness or elastic assembly, and does not replace a physical fit reading."
+  }
+}

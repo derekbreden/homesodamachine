@@ -1,0 +1,522 @@
+{
+  "gcode_sha256": "ed220c4501adea597c67831d04ed025e4c04c7fa4596e5a5ba6f264baebe9bce",
+  "sample_pitch_n_mm": 0.002,
+  "method": "Actual model extrusion polylines buffered by half their commanded XY width and extended from layer Z minus .24 to layer Z (first layer0..0.2). Twenty independent X/S columns per part read a continuous empty groove or the lip's outer height envelope including internal infill voids. Shared arc parser samples G2/G3 paths at most0.18 mm apart.",
+  "limitation": "Ideal commanded-road envelope only. This does not model bead cross-section, sag, shrinkage, surface roughness or elastic assembly, and does not replace a physical fit reading.",
+  "parts": [
+    {
+      "part": "faucet-shell-tip",
+      "kind": "continuous empty groove",
+      "minimum_span_mm": 3.4780000000000006,
+      "maximum_span_mm": 3.556,
+      "samples": [
+        {
+          "x_mm": -12.3,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.1,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.1,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.3,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.3,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.1,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.1,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.3,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.3,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.1,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.1,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.3,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.3,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.1,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.1,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.3,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.3,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.852,
+          "span_mm": 3.5520000000000005,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -12.1,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.1,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.7780000000000005,
+          "span_mm": 3.4780000000000006,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 12.3,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.856,
+          "span_mm": 3.556,
+          "bounded_both_sides": true
+        }
+      ]
+    },
+    {
+      "part": "faucet-display-cover-front",
+      "kind": "outer lip height envelope",
+      "minimum_span_mm": 2.998,
+      "maximum_span_mm": 2.998,
+      "samples": [
+        {
+          "x_mm": -11.5,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3019999999999996,
+          "upper_n_mm": 6.3,
+          "span_mm": 2.998,
+          "bounded_both_sides": true
+        }
+      ]
+    },
+    {
+      "part": "faucet-display-cover-up",
+      "kind": "outer lip height envelope",
+      "minimum_span_mm": 3.0780000000000003,
+      "maximum_span_mm": 3.0780000000000003,
+      "samples": [
+        {
+          "x_mm": -11.5,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 12.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 18.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 24.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 30.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.5,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": -11.0,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.0,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        },
+        {
+          "x_mm": 11.5,
+          "s_mm": 36.2,
+          "lower_n_mm": 3.3,
+          "upper_n_mm": 6.378,
+          "span_mm": 3.0780000000000003,
+          "bounded_both_sides": true
+        }
+      ]
+    }
+  ],
+  "height_allowances": [
+    {
+      "cover": "faucet-display-cover-front",
+      "minimum_sampled_groove_minus_maximum_sampled_lip_mm": 0.4800000000000004
+    },
+    {
+      "cover": "faucet-display-cover-up",
+      "minimum_sampled_groove_minus_maximum_sampled_lip_mm": 0.40000000000000036
+    }
+  ]
+}

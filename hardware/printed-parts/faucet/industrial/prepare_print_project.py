@@ -50,8 +50,7 @@ def protected_hashes() -> dict[str, str]:
 
 
 def industrial_parts() -> tuple:
-    # These STLs retain the shared assembled faucet frame. Use the established
-    # base/tip directions and lay the cover's planar bezel face on the bed.
+    # Assembly-frame STLs use the shared production print rotations.
     rotations = {name: rotation for name, _, rotation in writer.PARTS}
     parts = (
         ("industrial-shell-base", HERE / "industrial-shell-base.stl",
