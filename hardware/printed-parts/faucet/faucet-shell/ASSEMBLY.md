@@ -1,4 +1,6 @@
-# Faucet shell assembly
+# Sculpted faucet assembly
+
+[Faucet styles](../README.md) names the Sculpted and Industrial pieces.
 
 The PET-GF shell encloses the harvested Westbrass, retained donor lever,
 three LLDPE tubes and Waveshare display. Factory assembly supplies a complete

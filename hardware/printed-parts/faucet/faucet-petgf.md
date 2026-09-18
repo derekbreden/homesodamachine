@@ -1,4 +1,4 @@
-# Faucet PET-GF print project
+# Sculpted faucet PET-GF print project
 
 [`faucet-petgf.3mf`](faucet-petgf.3mf) contains all four parts on one plate,
 with separate spaces for their automatic tree supports and brims.

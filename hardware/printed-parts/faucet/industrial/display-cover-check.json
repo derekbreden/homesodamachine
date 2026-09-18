@@ -1,0 +1,7324 @@
+{
+  "passed": true,
+  "geometry_source_sha256": {
+    "hardware/scripts/check_faucet_geometry.py": "cb0577762169ab166b797a1f5be978e67c518b27e594472294c36c74fe2a19ec",
+    "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "9f2d209beef79f1d405fc548725155318cb5db835da8f13bc21848214ac00787",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
+    "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+    "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/faucet/industrial/check_display_cover.py": "b239e8cc3588b74082787909e911a3ac4c8e5c385d3bf62d4d817dd2ef6b6d96"
+  },
+  "checks": {
+    "solid:cover-seated": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 4588.179185135934,
+      "passed": true
+    },
+    "clearance:seated-display": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1,
+      "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:seated-glass": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3786316,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:seated-ribbon": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.6069181,
+      "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:seated-soda-tube": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 7.6868624,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:seated-flavor-a": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 5.1011693,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:seated-flavor-b": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 5.1011693,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "solid:cover-relaxed": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 4581.800943309162,
+      "passed": true
+    },
+    "clearance:relaxed-display": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 0.1,
+      "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:relaxed-glass": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 1.3786316,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:relaxed-ribbon": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 2.25,
+      "required_gap_mm": 0.1,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:relaxed-soda-tube": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 6.8139465,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:relaxed-flavor-a": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 4.3512373,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "clearance:relaxed-flavor-b": {
+      "overlap_mm3": 0.0,
+      "gap_mm": 4.3512373,
+      "required_gap_mm": 0.0,
+      "overlap_method": "positive exact solid distance",
+      "passed": true
+    },
+    "wall:cover-lip--1": {
+      "missing_lip_from_cover_mm3": 0.0,
+      "sampled_normal_chords": [
+        {
+          "x_mm": -13.2332368,
+          "s_mm": 10.47759,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.2332368,
+          "s_mm": 13.89875,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.2332368,
+          "s_mm": 17.3475,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.2332368,
+          "s_mm": 20.79625,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.2332368,
+          "s_mm": 24.245,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.2311121,
+          "s_mm": 27.69375,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.2211734,
+          "s_mm": 31.1425,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.1994241,
+          "s_mm": 34.59125,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": -13.1594766,
+          "s_mm": 38.01241,
+          "normal_stock_mm": 3.0
+        }
+      ],
+      "measured_normal_height_mm": 3.0000002,
+      "minimum_inner_surface_to_outer_skin_mm": 2.4875446,
+      "required_normal_height_mm": 3.0,
+      "required_radial_stock_mm": 2.0,
+      "method": "complete lip containment in the cover, nine exact interior normal chords per side, and complete separation from the planar exterior flanks",
+      "passed": true
+    },
+    "wall:retention-groove--1": {
+      "missing_complete_radial_backing_mm3": 0.0,
+      "required_radial_backing_mm": 2.0,
+      "method": "complete 2 mm annular witness behind the actual swept groove, including its rear torus section",
+      "passed": true
+    },
+    "wall:retention-shoulder--1": {
+      "missing_complete_bearing_stock_mm3": 0.0,
+      "required_normal_witness_span_mm": 2.0,
+      "bearing_start_n_mm": 6.45,
+      "method": "complete annular volume between the original cylinder and groove-root sweep over a 2 mm N band above each retaining shoulder",
+      "scope": "retained stock following the curved neck; not a 2 mm vertical column at every point of the outer bearing edge",
+      "passed": true
+    },
+    "snap:engagement--1": {
+      "measured_radial_engagement_mm": 1.0,
+      "measured_radial_clearance_mm": 0.0,
+      "measured_normal_bearing_gap_mm": 0.15,
+      "measured_floor_gap_mm": 0.0,
+      "measured_end_gaps_mm": [
+        0.1499999,
+        0.15
+      ],
+      "method": "actual lip and groove cylinder/torus radii and clipped face extents in the display frame",
+      "passed": true
+    },
+    "wall:cover-lip-+1": {
+      "missing_lip_from_cover_mm3": 0.0,
+      "sampled_normal_chords": [
+        {
+          "x_mm": 13.2332368,
+          "s_mm": 10.47759,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.2332368,
+          "s_mm": 13.89875,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.2332368,
+          "s_mm": 17.3475,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.2332368,
+          "s_mm": 20.79625,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.2332368,
+          "s_mm": 24.245,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.2311121,
+          "s_mm": 27.69375,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.2211734,
+          "s_mm": 31.1425,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.1994241,
+          "s_mm": 34.59125,
+          "normal_stock_mm": 3.0
+        },
+        {
+          "x_mm": 13.1594766,
+          "s_mm": 38.01241,
+          "normal_stock_mm": 3.0
+        }
+      ],
+      "measured_normal_height_mm": 3.0000002,
+      "minimum_inner_surface_to_outer_skin_mm": 2.4875446,
+      "required_normal_height_mm": 3.0,
+      "required_radial_stock_mm": 2.0,
+      "method": "complete lip containment in the cover, nine exact interior normal chords per side, and complete separation from the planar exterior flanks",
+      "passed": true
+    },
+    "wall:retention-groove-+1": {
+      "missing_complete_radial_backing_mm3": 0.0,
+      "required_radial_backing_mm": 2.0,
+      "method": "complete 2 mm annular witness behind the actual swept groove, including its rear torus section",
+      "passed": true
+    },
+    "wall:retention-shoulder-+1": {
+      "missing_complete_bearing_stock_mm3": 0.0,
+      "required_normal_witness_span_mm": 2.0,
+      "bearing_start_n_mm": 6.45,
+      "method": "complete annular volume between the original cylinder and groove-root sweep over a 2 mm N band above each retaining shoulder",
+      "scope": "retained stock following the curved neck; not a 2 mm vertical column at every point of the outer bearing edge",
+      "passed": true
+    },
+    "snap:engagement-+1": {
+      "measured_radial_engagement_mm": 1.0,
+      "measured_radial_clearance_mm": 0.0,
+      "measured_normal_bearing_gap_mm": 0.15,
+      "measured_floor_gap_mm": 0.0,
+      "measured_end_gaps_mm": [
+        0.1499999,
+        0.15
+      ],
+      "method": "actual lip and groove cylinder/torus radii and clipped face extents in the display frame",
+      "passed": true
+    },
+    "seat:display-cover": {
+      "overlap_mm3": 0.0,
+      "method": "exact common volume at the designed lip-floor contact pose",
+      "passed": true
+    },
+    "seat:display-cover-stop": {
+      "early_floor_probe_inward_motion_mm": 0.01,
+      "floor_contact_witnesses": [
+        {
+          "side": -1,
+          "s_mm": 13.89875,
+          "present": true,
+          "witness_volume_mm3": 0.00032,
+          "missing_from_tip_mm3": 0.0,
+          "missing_from_pushed_lip_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "s_mm": 13.89875,
+          "present": true,
+          "witness_volume_mm3": 0.00032,
+          "missing_from_tip_mm3": 0.0,
+          "missing_from_pushed_lip_mm3": 0.0
+        },
+        {
+          "side": -1,
+          "s_mm": 24.245,
+          "present": true,
+          "witness_volume_mm3": 0.00032,
+          "missing_from_tip_mm3": 0.0,
+          "missing_from_pushed_lip_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "s_mm": 24.245,
+          "present": true,
+          "witness_volume_mm3": 0.00032,
+          "missing_from_tip_mm3": 0.0,
+          "missing_from_pushed_lip_mm3": 0.0
+        },
+        {
+          "side": -1,
+          "s_mm": 34.59125,
+          "present": true,
+          "witness_volume_mm3": 0.00032,
+          "missing_from_tip_mm3": 0.0,
+          "missing_from_pushed_lip_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "s_mm": 34.59125,
+          "present": true,
+          "witness_volume_mm3": 0.00032,
+          "missing_from_tip_mm3": 0.0,
+          "missing_from_pushed_lip_mm3": 0.0
+        }
+      ],
+      "complete_contact_probe_inward_motion_mm": 0.02,
+      "fixed_body_interference_mm3": 1.4486449,
+      "contact_outside_actual_lips_mm3": 0.0,
+      "contact_outside_groove_floor_and_root_mm3": 0.0,
+      "device_interference_mm3": 0.0,
+      "glass_interference_mm3": 0.0,
+      "method": "six independent interior floor witnesses after 0.01 mm inward travel; the complete 0.02 mm contact common must remain in the actual lips against groove floors or preload roots, before the display or glass",
+      "passed": true
+    },
+    "retention:display-snaps": {
+      "interference_on_0_5mm_outward_lift_mm3": 17.6412861,
+      "actual_shoulder_capture_mm3": 17.6121903,
+      "groove_root_camming_contact_mm3": 0.0290959,
+      "contact_outside_actual_lips_mm3": 0.0,
+      "contact_outside_shoulders_and_preload_roots_mm3": 0.0,
+      "scope": "geometric cover-lip capture only; PET-GF force, flex distribution and cycling require the complete print trial",
+      "passed": true
+    },
+    "motion:display-cover-normal": {
+      "samples": [
+        {
+          "normal_lift_mm": 0.0,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0,
+              "total_outward_clearance_from_relaxed_print_mm": 0.9082031,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0,
+              "total_outward_clearance_from_relaxed_print_mm": 0.9082031,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 0.1,
+          "unflexed_body_interference_mm3": 0.024892,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0058594,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0058594,
+              "total_outward_clearance_from_relaxed_print_mm": 0.9111328,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 1.1e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0058594,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0058594,
+              "total_outward_clearance_from_relaxed_print_mm": 0.9111328,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 1.1e-06
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 0.15,
+          "unflexed_body_interference_mm3": 0.0325856,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0058594,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0058594,
+              "total_outward_clearance_from_relaxed_print_mm": 0.9140625,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0058594,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0058594,
+              "total_outward_clearance_from_relaxed_print_mm": 0.9140625,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 0.16,
+          "unflexed_body_interference_mm3": 0.5798818,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.9960938,
+              "required_outward_clearance_from_nominal_seat_mm": 0.9960938,
+              "total_outward_clearance_from_relaxed_print_mm": 1.7490234,
+              "remaining_body_interference_mm3": 9.2e-06,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.9960938,
+              "required_outward_clearance_from_nominal_seat_mm": 0.9960938,
+              "total_outward_clearance_from_relaxed_print_mm": 1.7490234,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 0.35,
+          "unflexed_body_interference_mm3": 10.481845,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.9492188,
+              "required_outward_clearance_from_nominal_seat_mm": 0.9492188,
+              "total_outward_clearance_from_relaxed_print_mm": 1.7109375,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.9492188,
+              "required_outward_clearance_from_nominal_seat_mm": 0.9492188,
+              "total_outward_clearance_from_relaxed_print_mm": 1.7109375,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 1.0,
+          "unflexed_body_interference_mm3": 37.4256211,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.8378906,
+              "required_outward_clearance_from_nominal_seat_mm": 0.8378906,
+              "total_outward_clearance_from_relaxed_print_mm": 1.6347656,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.8378906,
+              "required_outward_clearance_from_nominal_seat_mm": 0.8378906,
+              "total_outward_clearance_from_relaxed_print_mm": 1.6347656,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 3.0,
+          "unflexed_body_interference_mm3": 53.8820526,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.7207031,
+              "required_outward_clearance_from_nominal_seat_mm": 0.7207031,
+              "total_outward_clearance_from_relaxed_print_mm": 1.6201172,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 4.5e-06
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.7207031,
+              "required_outward_clearance_from_nominal_seat_mm": 0.7207031,
+              "total_outward_clearance_from_relaxed_print_mm": 1.6201172,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 4.5e-06
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 5.0,
+          "unflexed_body_interference_mm3": 1.6192856,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.1875,
+              "required_outward_clearance_from_nominal_seat_mm": 0.1875,
+              "total_outward_clearance_from_relaxed_print_mm": 1.0957031,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.1875,
+              "required_outward_clearance_from_nominal_seat_mm": 0.1875,
+              "total_outward_clearance_from_relaxed_print_mm": 1.0957031,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "normal_lift_mm": 7.5,
+          "unflexed_body_interference_mm3": 0.0,
+          "contact_outside_actual_lips_mm3": 0.0,
+          "contact_outside_lower_skirts_mm3": 0.0,
+          "sides": [
+            {
+              "side": -1,
+              "required_outward_clearance_mm": 0.0,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0,
+              "total_outward_clearance_from_relaxed_print_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            },
+            {
+              "side": 1,
+              "required_outward_clearance_mm": 0.0,
+              "required_outward_clearance_from_nominal_seat_mm": 0.0,
+              "total_outward_clearance_from_relaxed_print_mm": 0.0,
+              "remaining_body_interference_mm3": 0.0,
+              "remaining_relaxed_body_interference_mm3": 0.0
+            }
+          ]
+        }
+      ],
+      "peak_required_outward_clearance_per_side_mm": 0.9960938,
+      "peak_total_outward_clearance_from_relaxed_print_per_side_mm": 1.7490234,
+      "outward_search_budget_mm": 3.0,
+      "clearance_search_resolution_mm": 0.005,
+      "obstacle_crop_display_frame_xyz_mm": {
+        "minimum": [
+          -17.6000001,
+          -0.1000001,
+          3.1999999
+        ],
+        "maximum": [
+          17.6000001,
+          49.8500001,
+          29.4500001
+        ]
+      },
+      "obstacle_crop_method": "exact conservative bounds of both complete covers, expanded by the full independent outward search budget in X, all normal lifts in N, and 0.1 mm on every face; also contains the inward seating probes",
+      "cartridge_lift_n_mm": 7.5,
+      "scope": "final normal seating of the preloaded cover/display cartridge after the lifted axial approach; display and glass move with the cover. Nominal contact must stay in the lips and lower skirts. Each skirt's rigid outward translation measures clearance demand, not deformation, strain, force, or the loaded equilibrium shape of the joined end bridges",
+      "passed": true
+    },
+    "clearance:snap-travel-display": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "maximum_overlap_pose": null,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "clearance:snap-travel-glass": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "maximum_overlap_pose": null,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "clearance:snap-travel-ribbon-neck": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "maximum_overlap_pose": null,
+      "minimum_sampled_gap_lower_bound_mm": 1.3098093,
+      "required_gap_mm": 0.1,
+      "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "clearance:snap-travel-soda-tube": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "maximum_overlap_pose": null,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "clearance:snap-travel-flavor-a": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "maximum_overlap_pose": null,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "clearance:snap-travel-flavor-b": {
+      "maximum_sampled_overlap_mm3": 0.0,
+      "maximum_overlap_pose": null,
+      "minimum_sampled_gap_lower_bound_mm": 0.0,
+      "required_gap_mm": 0.0,
+      "method": "complete nominal and relaxed covers at every final seating station, plus both states' actual lower skirts at half and full measured outward travel; the display/glass share the cover's normal translation, while tubes and neck ribbon remain fixed; exact commons or distance, with conservative box separation where available",
+      "passed": true
+    },
+    "shape:display-rigid-neck": {
+      "missing_complete_subsurface_witness_mm3": 0.0,
+      "radial_witness_range_below_exterior_mm": [
+        0.01,
+        1.0
+      ],
+      "witness_open_boundary_inset_mm": 0.02,
+      "exterior_sections": [
+        {
+          "s_mm": 2.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.568627
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.568627
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5547479
+        },
+        {
+          "s_mm": 2.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5547479
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 6.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 10.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 13.573,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.827423
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5401582
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 20.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.111746
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.8252448
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.8252448
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5379777
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.5379777
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.1089566
+        },
+        {
+          "s_mm": 26.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.1089566
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.7753584
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.7753584
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.4846208
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.4846208
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.0409065
+        },
+        {
+          "s_mm": 30.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.0409065
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.67644
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.67644
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.3523934
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.3523934
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.8737582
+        },
+        {
+          "s_mm": 34.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.8737582
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.4162473
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.4162473
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.9611357
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.9611357
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.3875899
+        },
+        {
+          "s_mm": 40.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.3875899
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 6.95,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.0616805
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 6.95,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 5.0616805
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 8.025,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.5197735
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 8.025,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 4.5197735
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 9.1,
+          "side": -1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 3.8472949
+        },
+        {
+          "s_mm": 44.0,
+          "n_mm": 9.1,
+          "side": 1,
+          "outer_endpoint_error_mm": 0.0,
+          "continuous_stock_mm": 3.8472949
+        }
+      ],
+      "groove_ceiling_n_mm": 6.45,
+      "local_head_radius_mm": 13.012455392545599,
+      "sampled_n_stations_mm": [
+        6.95,
+        8.025,
+        9.1
+      ],
+      "required_continuous_chord_stock_mm": 1.0,
+      "material_beyond_swept_cylinder_mm3": 0.2798167,
+      "material_beyond_cylinder_and_named_foot_pads_mm3": 0.0,
+      "upper_device_opening_material_mm3": 0.0,
+      "method": "complete swept subsurface witness above the grooves, exact exterior endpoints and continuous material on 60 chords, no material beyond the cylinder and named foot pads, and the complete full-width opening above the feet; complete pad/backing volumes are checked separately",
+      "passed": true
+    },
+    "motion:display-loading-into-cover": {
+      "normal_loading_stroke_mm": 25.0,
+      "starts_completely_below_cover": true,
+      "complete_sweep_n_band_mm": [
+        3.1999999,
+        20.45
+      ],
+      "reference_face_kinds": {
+        "PLANE": 706,
+        "CYLINDER": 20
+      },
+      "upward_face_prism_count": 4,
+      "independent_pose_containment_missing_mm3": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "unchanged_bezel_interference_mm3": 0.0,
+      "independent_outward_search_budget_mm": 3.0,
+      "search_resolution_mm": 0.005,
+      "lateral_allowance_mm": 0.25,
+      "sides": [
+        {
+          "side": -1,
+          "unopened_interference_mm3": 96.6772458,
+          "required_outward_clearance_from_relaxed_print_mm": 1.5410156,
+          "outward_opening_with_lateral_allowance_mm": 1.7910156,
+          "remaining_interference_mm3": 0.0,
+          "minimum_complete_stroke_gap_mm": 0.2415024
+        },
+        {
+          "side": 1,
+          "unopened_interference_mm3": 96.6772461,
+          "required_outward_clearance_from_relaxed_print_mm": 1.5410156,
+          "outward_opening_with_lateral_allowance_mm": 1.7910156,
+          "remaining_interference_mm3": 0.0,
+          "minimum_complete_stroke_gap_mm": 0.2415024
+        }
+      ],
+      "method": "exact complete downward projection of every upward device face within the cover band, after verifying all reference surfaces are parallel vertical extrusions; independent actual free-wing translation and exact common/distance",
+      "scope": "factory loading opens the plastic before the PCB enters. Opening demand is geometric; the joined end bridges, force, spring return and display support require the complete print trial. This is not an elastic shape prediction",
+      "passed": true
+    },
+    "motion:display-cartridge-axial": {
+      "path_local_s_n_mm": [
+        [
+          -60.0,
+          7.5
+        ],
+        [
+          0.0,
+          7.5
+        ]
+      ],
+      "conservative_cylinder_radius_mm": 13.012455392545599,
+      "complete_moving_bounds_mm": {
+        "s": [
+          -60.1000001,
+          49.8500001
+        ],
+        "n": [
+          10.6999999,
+          29.4500001
+        ],
+        "x": [
+          -14.6000001,
+          14.6000001
+        ]
+      },
+      "fixed_obstacle_containment": [
+        {
+          "part": "shell_base",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "shell_tip",
+          "relevant_volume_mm3": 267.2298559,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "neck_ribbon",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "soda-tube",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "flavor-a",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        },
+        {
+          "part": "flavor-b",
+          "relevant_volume_mm3": 0.0,
+          "outside_cylinder_mm3": 0.0
+        }
+      ],
+      "complete_mover_clearances": [
+        {
+          "part": "nominal_cover",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 0.899708
+        },
+        {
+          "part": "relaxed_cover",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 0.1250789
+        },
+        {
+          "part": "display",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 1.4880678
+        },
+        {
+          "part": "glass",
+          "overlap_mm3": 0.0,
+          "minimum_cylinder_gap_mm": 10.7875892
+        }
+      ],
+      "method": "exact containment of every relevant fixed solid inside a straight cylinder, plus exact clearance of each complete lifted mover from that S-invariant cylinder; proves the entire axial segment rather than sampled poses",
+      "scope": "display and glass travel inside the cover from the outlet. The temporary flexible ribbon branch must be fed during factory assembly; its final route is checked separately. Normal seating and plastic opening have separate readings",
+      "passed": true
+    },
+    "coverage:display-rear-electronics": {
+      "sample_count": 209,
+      "missing_barrier_count": 0,
+      "independent_edge_boolean_crosschecks": [
+        {
+          "part": "hardware",
+          "x_mm": -10.0,
+          "n_mm": 14.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "printed",
+          "x_mm": -10.0,
+          "n_mm": 14.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "hardware",
+          "x_mm": 0.0,
+          "n_mm": 14.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "printed",
+          "x_mm": 0.0,
+          "n_mm": 14.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "hardware",
+          "x_mm": 8.5,
+          "n_mm": 18.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "printed",
+          "x_mm": 8.5,
+          "n_mm": 18.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "hardware",
+          "x_mm": 12.0,
+          "n_mm": 19.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        },
+        {
+          "part": "printed",
+          "x_mm": 12.0,
+          "n_mm": 19.2,
+          "interval_count_matches": true,
+          "maximum_endpoint_error_mm": 0.0,
+          "passed": true
+        }
+      ],
+      "samples": [
+        {
+          "x_mm": -12.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -12.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 45.4501811,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 45.4501811,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 45.4501811,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -10.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              48.8662723
+            ],
+            [
+              49.5628421,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.8272466,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.3366288,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.3366288,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.3366288,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -8.5,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 40.2387112,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 40.2389596,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 40.2393469,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 34.3995748,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              49.7701495
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 37.5399889,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 40.742254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -6.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 42.7746068,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 42.7717638,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 40.3589559,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.3196283
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 46.4899705,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              48.5867242
+            ],
+            [
+              49.1566724,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 46.4899705,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": -3.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 43.4358436,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 41.0753377,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 9.7857766,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 32.9900801,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 32.9900801,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 46.4899705,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              49.8656544
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 46.4899705,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              48.0878917
+            ],
+            [
+              48.6567533,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 0.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 9.7857766,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.7500001
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 19.2398908,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              50.3196283
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 46.4899705,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              48.5867242
+            ],
+            [
+              49.1566724,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 46.4899705,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 3.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 6.154909,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.715,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 6.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.99,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.24,
+              48.8662723
+            ],
+            [
+              49.5628421,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.8272466,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 45.9720508,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 46.3366288,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 46.3366288,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 46.3366288,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 8.5,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 46.6309647,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 10.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 10.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 11.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 11.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 12.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 12.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 13.2,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 13.7,
+          "hardware_rear_s_mm": 45.1060254,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 14.2,
+          "hardware_rear_s_mm": 45.4501811,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 14.7,
+          "hardware_rear_s_mm": 45.4501811,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 15.2,
+          "hardware_rear_s_mm": 45.4501811,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 10.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 45.8020719,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 15.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 16.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 16.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 17.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 17.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 18.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 18.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 19.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 19.7,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 20.2,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        },
+        {
+          "x_mm": 12.0,
+          "n_mm": 20.44,
+          "hardware_rear_s_mm": 42.917051,
+          "printed_rear_barrier_s_intervals_mm": [
+            [
+              47.75,
+              49.75
+            ]
+          ],
+          "present": true
+        }
+      ],
+      "method": "exact +S surface crossings and solid-classified material intervals behind occupied display/component or branch-ribbon sections, through the nominal assembled tip and cover",
+      "scope": "sampled rear line-of-sight closure around the actual hardware; stock and rim thickness have separate readings. This is not a water-seal or all-angle visibility certificate",
+      "passed": true
+    },
+    "wall:industrial-flanks": {
+      "minimum_sampled_normal_stock_mm": 1.3358831,
+      "required_mm": 1.0,
+      "samples": [
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5849543
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.619554
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0425784
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 2.9705956
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5849543
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.619554
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0425784
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 2.9705956
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.495604
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4875446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7591628
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.495604
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4875446
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7591628
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4896112
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.5056336
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.9154788
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3789498
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.4204206
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.6846061
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.7905521
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7123378
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 2.794785
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 3.6822701
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.8118303
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.9347205
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.9640813
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 6.46,
+          "normal_stock_mm": 3.0546562
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 8.0,
+          "normal_stock_mm": 4.0251846
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5849543
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.619554
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0425784
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 2.9705956
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5849543
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.619554
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0425784
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 2.9705956
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3448994
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3375446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.495604
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4875446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7591628
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.495604
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4875446
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7591628
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4896112
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.5056336
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.9154788
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3789498
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.4204206
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.45
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7315789
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8657895
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 1.9994737
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.6846061
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.7905521
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7123378
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 2.794785
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 3.6822701
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.8118303
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.9347205
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.9640813
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 6.46,
+          "normal_stock_mm": 3.0546562
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 8.0,
+          "normal_stock_mm": 4.0251846
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "seated",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5995595
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.635678
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0774909
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 3.0563087
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 0.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5995595
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.635678
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0774909
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 3.0563087
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 1.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 2.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 5.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 10.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4880806
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4848159
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 15.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4880806
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4848159
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 25.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4892724
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.5100608
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 35.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3828977
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.4269496
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 40.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 47.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.7026003
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.8129496
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7791592
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 2.8662921
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 3.8130587
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 48.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.8349369
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.9630241
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 6.29,
+          "normal_stock_mm": 3.0450538
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 6.46,
+          "normal_stock_mm": 3.1411963
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 8.0,
+          "normal_stock_mm": 4.1826166
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": -1,
+          "s_mm": 49.65,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5995595
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.635678
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0774909
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 3.0563087
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 0.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.5995595
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.635678
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 2.0774909
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 3.0563087
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 1.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 2.1,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 5.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3408756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.3358831
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 10.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4880806
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4848159
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 15.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4880806
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.4848159
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 25.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 2.4892724
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 2.5100608
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 35.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.3828977
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.4269496
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 4.2553553
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 40.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 4.25
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 1.4479959
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 1.4520069
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 1.7339756
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 1.8683719
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 47.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.7026003
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.8129496
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 6.29,
+          "normal_stock_mm": 2.7791592
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 6.46,
+          "normal_stock_mm": 2.8662921
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 8.0,
+          "normal_stock_mm": 3.8130587
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 48.0,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 3.31,
+          "normal_stock_mm": 1.8349369
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 3.75,
+          "normal_stock_mm": 1.9630241
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 6.29,
+          "normal_stock_mm": 3.0450538
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 6.46,
+          "normal_stock_mm": 3.1411963
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 8.0,
+          "normal_stock_mm": 4.1826166
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 10.1,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 15.45,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 18.0,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 20.54,
+          "normal_stock_mm": 5.0001
+        },
+        {
+          "shape": "relaxed",
+          "side": 1,
+          "s_mm": 49.65,
+          "n_mm": 21.0,
+          "normal_stock_mm": 5.0001
+        }
+      ],
+      "method": "exact B-rep chords normal to the complete rectangular flank faces and their affine relaxed images",
+      "scope": "480 named flank sections; the bezel and end walls have separate complete witnesses",
+      "passed": true
+    },
+    "shape:industrial-bezel": {
+      "unchanged_bezel_symmetric_difference_mm3": 0.0,
+      "bezel_thickness_mm": 1.3000000000000007,
+      "window_mm": [
+        20.5,
+        40.5
+      ],
+      "show_face_count": 1,
+      "passed": true
+    },
+    "wall:industrial-end-walls": {
+      "samples": [
+        {
+          "shape": "seated",
+          "end": "front",
+          "surface_gap_mm": 2.0,
+          "required_mm": 2.0
+        },
+        {
+          "shape": "seated",
+          "end": "rear",
+          "surface_gap_mm": 2.0,
+          "required_mm": 2.0
+        },
+        {
+          "shape": "relaxed",
+          "end": "front",
+          "surface_gap_mm": 2.0,
+          "required_mm": 2.0
+        },
+        {
+          "shape": "relaxed",
+          "end": "rear",
+          "surface_gap_mm": 2.0,
+          "required_mm": 2.0
+        }
+      ],
+      "method": "complete parallel outer/inner end-face distances on both actual solids; X preforming preserves every S coordinate",
+      "scope": "the remaining front and rear slabs and their neck-opening rims; no cuff",
+      "passed": true
+    },
+    "mesh:industrial-cover": {
+      "triangles": 5004,
+      "watertight": true,
+      "consistent_winding": true,
+      "bodies": 1,
+      "sha256": "370cae5d20bab44426be6253ce66a8ed5bae0ab25fcab0bfd90060b68fd1c89c",
+      "tolerance_mm": 0.005,
+      "tolerance_is_relative": false,
+      "angular_tolerance_rad": 0.05,
+      "passed": true
+    }
+  },
+  "dimensions": {
+    "width": 29.0,
+    "length": 49.75,
+    "upper_side_wall": 2.0,
+    "rear_wall": 2.0,
+    "front_wall": 2.0,
+    "n_bottom": 3.3,
+    "n_top": 21.85,
+    "bezel_n_bottom": 20.55
+  },
+  "reference_artifact_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "89be16ab353d87b8ff221c7563b4896fae6f7fb2e6622f2970f1b96a5b035d99",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "0f5f563dc616fb3f13d056a8a36d1a91f60d109458b74fc652f117972a9c82d8"
+  },
+  "validation_script_sha256": "b239e8cc3588b74082787909e911a3ac4c8e5c385d3bf62d4d817dd2ef6b6d96",
+  "scope": "Industrial cover only against the shared exact tip, device and tubing. Nine explicit normal stations measure geometric outward demand; whole-volume loading and axial cylinder bounds cover their complete strokes. The shared lower base is outside the display motion region. Material behavior, insertion force and retention require the complete Industrial print trial.",
+  "audit_completion": {
+    "original_runner_sha256": "103150f547427ce64a2d87f3216202cb31f7032ba0cb324c53384feb25bfb8ee",
+    "repository_runner_sha256": "b239e8cc3588b74082787909e911a3ac4c8e5c385d3bf62d4d817dd2ef6b6d96",
+    "geometry_measurement_statements_identical": true,
+    "changes": [
+      "repository-relative root discovery",
+      "temporary diagnostics directory",
+      "actual geometry dependency list",
+      "source-adaptation occurrence guard",
+      "function and main wrapper",
+      "exit status"
+    ],
+    "retained_completed_phase_sha256": "02ab591b9f6bf97794c2141826431d589a6d872e0abe638c50801f6ff256bc6d",
+    "retained_completed_readings": [
+      "solid:cover-seated",
+      "clearance:seated-display",
+      "clearance:seated-glass",
+      "clearance:seated-ribbon",
+      "clearance:seated-soda-tube",
+      "clearance:seated-flavor-a",
+      "clearance:seated-flavor-b",
+      "solid:cover-relaxed",
+      "clearance:relaxed-display",
+      "clearance:relaxed-glass",
+      "clearance:relaxed-ribbon",
+      "clearance:relaxed-soda-tube",
+      "clearance:relaxed-flavor-a",
+      "clearance:relaxed-flavor-b",
+      "wall:cover-lip--1",
+      "wall:retention-groove--1",
+      "wall:retention-shoulder--1",
+      "snap:engagement--1",
+      "wall:cover-lip-+1",
+      "wall:retention-groove-+1",
+      "wall:retention-shoulder-+1",
+      "snap:engagement-+1",
+      "seat:display-cover",
+      "seat:display-cover-stop",
+      "retention:display-snaps",
+      "motion:display-cover-normal",
+      "clearance:snap-travel-display",
+      "clearance:snap-travel-glass",
+      "clearance:snap-travel-ribbon-neck",
+      "clearance:snap-travel-soda-tube",
+      "clearance:snap-travel-flavor-a",
+      "clearance:snap-travel-flavor-b",
+      "shape:display-rigid-neck"
+    ],
+    "rerun_completion_readings": [
+      "motion:display-loading-into-cover",
+      "motion:display-cartridge-axial",
+      "coverage:display-rear-electronics",
+      "wall:industrial-flanks",
+      "shape:industrial-bezel",
+      "wall:industrial-end-walls",
+      "mesh:industrial-cover"
+    ],
+    "geometry_input_mtimes_precede_original_run": true,
+    "actual_geometry_input_sha256_at_completion": {
+      "hardware/scripts/check_faucet_geometry.py": "cb0577762169ab166b797a1f5be978e67c518b27e594472294c36c74fe2a19ec",
+      "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
+      "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "9f2d209beef79f1d405fc548725155318cb5db835da8f13bc21848214ac00787",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
+      "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+      "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
+      "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+      "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+      "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226"
+    },
+    "original_guard_failure": "The original broad source list included refresh_print_project.py, which changed during the readings. That print-project writer is not an input to this cover audit. The reproducible runner lists only its actual geometry and reference dependencies.",
+    "scope": "The original complete static and nine-station normal-motion phase passed and was serialized before the over-broad final source guard stopped publication. Its measurement statements are identical in the repository runner; this completion reread loading, axial motion, closure, stock and mesh, without representing the retained phase as a second run.",
+    "runner_formatting_ast_unchanged": true,
+    "repository_runner_before_format_sha256": "a905ca2210d077ef0f577500d2ba7d9471615e37f690dcaa99dcb450c53b9daf"
+  }
+}

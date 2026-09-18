@@ -1,0 +1,286 @@
+{
+  "project": "faucet-industrial-petgf.3mf",
+  "settings_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "settings_source_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "printer": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "industrial-shell-base",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "stl_sha256": "cbcb6af41f9496cc9d644cef4c28503eaac3566b23badc1d3ea2d5ecfc531aac",
+      "triangles": 282422,
+      "rotation_x_degrees": -14.999999999999998,
+      "source_center_mm": [
+        0.0,
+        -6.0178985595703125,
+        118.30455780029297
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252074,
+        0.0,
+        0.25881904510252074,
+        0.9659258262890683,
+        95.0,
+        165.3139108425393,
+        123.46613633624702
+      ],
+      "plate_translation_mm": [
+        95.0,
+        165.3139108425393,
+        123.46613633624702
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          65.5,
+          112.01246992454072,
+          0.0
+        ],
+        [
+          124.5,
+          207.9875300754593,
+          244.62855174414003
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "faucet-shell-tip",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+      "stl_sha256": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+      "triangles": 261572,
+      "rotation_x_degrees": -105.0,
+      "source_center_mm": [
+        0.0,
+        -80.49366807937622,
+        208.1917953491211
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.25881904510252085,
+        -0.9659258262890683,
+        0.0,
+        0.9659258262890683,
+        -0.25881904510252085,
+        195.0,
+        201.75852044194053,
+        68.36063931345514
+      ],
+      "plate_translation_mm": [
+        195.0,
+        201.75852044194053,
+        68.36063931345514
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          181.98754501342773,
+          181.16304674877563,
+          0.0
+        ],
+        [
+          208.01245498657227,
+          232.83695325122434,
+          136.8511107208395
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.997531277695089e-10
+    },
+    {
+      "name": "industrial-display-cover",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
+      "stl_sha256": "370cae5d20bab44426be6253ce66a8ed5bae0ab25fcab0bfd90060b68fd1c89c",
+      "triangles": 5004,
+      "rotation_x_degrees": 130.0,
+      "source_center_mm": [
+        0.0,
+        -127.64038467407227,
+        207.52715301513672
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.6427876096865394,
+        0.766044443118978,
+        0.0,
+        -0.766044443118978,
+        -0.6427876096865394,
+        264.0,
+        269.9999966264538,
+        9.275013613567113
+      ],
+      "plate_translation_mm": [
+        264.0,
+        269.9999966264538,
+        9.275013613567113
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          249.5,
+          245.1249917994132,
+          0.0
+        ],
+        [
+          278.5,
+          294.87500820058676,
+          18.550015622610974
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "industrial-above-counter-plate",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "stl_sha256": "83e1fdb395136686205422ac91fe585010f64615146d4228ad2a0bacc501694c",
+      "triangles": 15172,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        -0.8999999761581421
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        218.0,
+        108.0,
+        3.100000023841858
+      ],
+      "plate_translation_mm": [
+        218.0,
+        108.0,
+        3.100000023841858
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          188.5,
+          78.5,
+          0.0
+        ],
+        [
+          247.5,
+          137.5,
+          6.200000047683716
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.99755792304768e-10
+    }
+  ],
+  "project_sha256": "67c051551922042580b1573ed64a562548e5de1e2c314e370d85b2d91a62b8f0",
+  "settings_preserved_byte_for_byte": true,
+  "project_title": "Industrial faucet PET-GF",
+  "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "all_profile_members_preserved_byte_for_byte": true,
+  "profile_member_sha256": {
+    "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
+    "Metadata/project_settings.config": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e"
+  },
+  "sculpted_artifacts_unchanged": {
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "50592e910fedc2914dc954df1795cea8c346778b7a898a4cf587d4ad191a896a",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649"
+  },
+  "shared_tip_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+  "gasket_included": false,
+  "color_independent_geometry": true
+}
