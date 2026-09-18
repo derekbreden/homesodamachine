@@ -328,5 +328,92 @@
         "IMG_7803.jpeg"
       ]
     }
+  },
+  {
+    "printer": "H2C",
+    "printer_serial": "31B8AP612000452",
+    "part": "cavity",
+    "plate": 1,
+    "submission": "Bambu Connect",
+    "source_project": "funnel-mold.3mf",
+    "source_project_commit": "59e088d8d",
+    "source_project_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
+    "project": "funnel-mold-04-standard-flow088-z018.gcode.3mf",
+    "local_archive": ".cache/prints/2026-09-18-funnel-next/full-cavity/funnel-mold-04-standard-flow088-z018.gcode.3mf",
+    "project_sha256": "796882c94d37bb7ba944b379d85366a163733cc72a22f4431045fbbf71a9fb45",
+    "gcode_sha256": "d982e579eed499cfb3c6a8396e7e79f9313840c727d71ca9e5bf2405c19f6d10",
+    "settings": {
+      "printer_preset": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "process_preset": "0.24mm Standard @BBL H2C funnel mold",
+      "filament_preset": "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88",
+      "plate": "Textured PEI Plate",
+      "z_trim_mm": 0.18,
+      "effective_g29_1_mm": 0.16,
+      "nozzle_side": "left",
+      "nozzle_mm": 0.4,
+      "nozzle_flow": "Standard",
+      "filament_slot": "AMS A2",
+      "filament_type": "Bambu PETG Translucent",
+      "filament_remaining_percent_before_submission": 72,
+      "filament_flow_ratio": 0.88,
+      "nozzle_first_layer_c": 250,
+      "nozzle_other_layers_c": 245,
+      "bed_c": 70,
+      "volumetric_limit_mm3_s": 5.61702,
+      "first_layer_mm": 0.2,
+      "other_layers_mm": 0.24,
+      "infill_percent": 100,
+      "infill_pattern": "zig-zag",
+      "wall_loops": 2,
+      "infill_wall_overlap_percent": 15,
+      "support_type": "normal (auto)",
+      "support_style": "Snug",
+      "support_top_z_distance_mm": 0.2,
+      "support_bottom_z_distance_mm": 0.2,
+      "support_first_layer_gap_mm": 0.48,
+      "support_object_xy_distance_mm": 0.48
+    },
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "estimated_seconds": 124329,
+    "estimated_filament_g": 673.53,
+    "layers": 642,
+    "printer_observation": {
+      "printer": "H2C",
+      "observed_at": "2026-09-18T18:43:18.785347+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "funnel-mold-04-standard-flow088-z018.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 0,
+      "total_layer_num": 642,
+      "mc_remaining_time": 2072,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 39.0,
+      "nozzle_target_temper": 165.0,
+      "bed_temper": 42.0,
+      "bed_target_temper": 42.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
+    },
+    "connect_observation": "H2C Devices shows the correct 0.88 full cavity file, cooling chamber, 0/642 layers and left nozzle heating toward 165 C.",
+    "authorization": "User reports bed clean and H2C ready for the next attempt; asks to choose the strongest hypothesis and proceed.",
+    "trial_hypothesis": "Accumulating excess extrusion in the fully packed ramp, followed by nozzle contact and buildup. Physical outcome pending."
   }
 ]
