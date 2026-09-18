@@ -278,8 +278,11 @@ partition holding the loading animation, erased and rewritten in place, verified
 from PSRAM, a flash write suspends the cache PSRAM is reached through, and the refill then
 faults — the same constraint that keeps its logo choice on the main board rather than in local
 NVS. So it says what is about to happen, stops the panel, takes the image dark and reboots either
-way. A failed transfer costs a reboot into the image it was already running. The faucet drives
-SPI, has no such conflict, and shows a live percentage.
+way. A failed transfer costs a reboot into the image it was already running, and so does one
+that simply stops: the glass is dark until it reboots, the abort that ends a transfer is only
+ever sent by a relay session that still exists, and a minute with no bytes is a minute nothing
+upstream is coming back from. The faucet drives SPI, has no such conflict, and shows a live
+percentage.
 
 ### Where the images come from
 
