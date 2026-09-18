@@ -1381,6 +1381,16 @@ static bool otaRebootPending = false;
 static unsigned long otaRebootAtMs = 0;
 static const unsigned long OTA_REASK_MS = 40;
 static unsigned long otaLastDataMs = 0;
+// When a byte of the image last arrived. otaLastDataMs below is reset by this
+// end's own recovery, so it measures the asking rather than the transfer; this
+// one is moved only by the relay, and is what says the source still exists.
+static unsigned long otaLastProgressMs = 0;
+// How long a transfer may carry nothing before this board stops waiting on it.
+// Generous against a phone that was briefly backgrounded or walked out of BLE
+// range mid-push, and far inside the 600 s the relay holds a session for, so
+// the glass is never the thing still dark after the session that took it down
+// has gone.
+static const unsigned long OTA_SILENCE_MS = 60000;
 
 static void j9Post(uint8_t type, const void *data, uint8_t len);
 static bool setBacklight(bool on);
@@ -1459,7 +1469,7 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     memcpy(&b, payload, sizeof(b));
     otaBanner();
     otaStopPanel();
-    otaLastDataMs = millis();
+    otaLastDataMs = otaLastProgressMs = millis();
     ota.begin(b.size, b.crc32, b.kind);
     otaReport();
     if (ota.active()) otaAsk();
@@ -1468,7 +1478,7 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
   }
 
   if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
-    otaLastDataMs = millis();
+    otaLastDataMs = otaLastProgressMs = millis();
     uint32_t offset;
     memcpy(&offset, payload, 4);
     if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
@@ -1489,6 +1499,23 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
 static void otaService() {
   if (otaRebootPending && (long)(millis() - otaRebootAtMs) >= 0) esp_restart();
   if (!ota.active()) return;
+
+  // A source that has stopped existing. The recovery below sets its own clock
+  // every time it fires, so on its own it asks a dead pair forever — with the
+  // panel already torn down and the backlight already off, which is a glass
+  // nobody in the kitchen can get back. The relay sends the abort that ends a
+  // transfer only as part of ending a session it still holds, so a session
+  // that died with its board — the auto-reset a USB cable into J14 drives is
+  // one — leaves nothing that can ever reach this board again. This is the
+  // reboot the block at the top of this section promises "whatever the
+  // outcome": back into the image it was already running, which is the image
+  // it would have kept anyway.
+  if (millis() - otaLastProgressMs >= OTA_SILENCE_MS) {
+    ota.abort();
+    otaRebootPending = true;
+    otaRebootAtMs = millis();
+    return;
+  }
 
   // A transfer owns the loop, which means it also owns the link's recovery.
   // The pair can wedge mid-session with this end still sending — the failure
