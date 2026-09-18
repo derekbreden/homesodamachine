@@ -5,14 +5,14 @@
   "distance_tolerance_mm": 0.0001,
   "overlap_tolerance_mm3": 1e-05,
   "geometry_source_sha256": {
-    "hardware/scripts/check_faucet_geometry.py": "8a3df44ced840abe5d05f8e325f181e43fc27b204302c1b2bd49990a425c4632",
+    "hardware/scripts/check_faucet_geometry.py": "cb0577762169ab166b797a1f5be978e67c518b27e594472294c36c74fe2a19ec",
     "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
     "hardware/printed-parts/faucet/refresh_print_project.py": "941f696446bf5dcaffe693a5cf3b26edfba4790abf953cdbbf90cc49e7583541",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7dc2ccb679b02d84a164b9dd755650f0e7544883a72696444cae9f8daf6cd2b3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "3b5f877df51dc9cc0acc2fa255e808f3d44f4a249b9fb9c302cbf7463016ac8f",
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "3ee3fdb0ed74fd96686eb368fc07cfad3333c0bdca8accb0a3516a63819aec6a",
@@ -76,7 +76,7 @@
     "solid:shell_base": {
       "valid": true,
       "solids": 1,
-      "volume_mm3": 128844.2365617,
+      "volume_mm3": 128498.3318169,
       "bounds_mm": [
         -30.6677201,
         30.6677201,
@@ -161,12 +161,13 @@
       "watertight": true,
       "consistent_winding": true,
       "bodies": 1,
-      "triangle_count": 390272,
-      "volume_mm3": 128832.9490316,
+      "triangle_count": 385896,
+      "volume_mm3": 128486.8009213,
       "tolerance_mm": 0.005,
       "angular_tolerance_rad": 0.05,
       "tolerance_is_relative": false,
-      "scope": "live B-rep tessellated, serialized as STL and loaded again; not a slicer result",
+      "stl_sha256": "fd5cf2950e7a38b5857f900903bc90f325a0fdba7a2e6109a94aac8b08c92e99",
+      "scope": "canonical production STL loaded and checked after the completed source generator; not a slicer result",
       "passed": true
     },
     "mesh:shell_tip": {
@@ -257,8 +258,8 @@
     },
     "mesh:lower-outer-loft-accuracy": {
       "mesh": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "stl_sha256": "9458af6f58952108592dc00ff46a90fb6944d4af94ea8c4abb9b604da4fe1444",
-      "triangle_count": 390272,
+      "stl_sha256": "fd5cf2950e7a38b5857f900903bc90f325a0fdba7a2e6109a94aac8b08c92e99",
+      "triangle_count": 385896,
       "grid_per_bspline_face": [
         41,
         51
@@ -813,7 +814,7 @@
       "passed": true
     },
     "wall:lever-roof-bridge": {
-      "method": "complete 2 mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, ending one wall-width forward of the water bore",
+      "method": "complete 2 mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, clipped to the retained rounded cap and ending one wall-width forward of the water bore",
       "xy_bounds_mm": [
         -6.5,
         6.5,
@@ -832,20 +833,22 @@
       "samples": [
         {
           "x_mm": -6.5,
-          "y_mm": -2.2376,
-          "circular_roof_z_mm": 55.1529103,
+          "y_mm": -0.9156327,
+          "rounded_cap_front_y_mm": -0.9157327,
+          "circular_roof_z_mm": 55.6291587,
           "material_intervals_above_roof_mm": [
             [
               0.0,
-              2.9804459
+              3.6393698
             ]
           ],
           "continuous": true
         },
         {
           "x_mm": -6.5,
-          "y_mm": -0.2376,
-          "circular_roof_z_mm": 55.8508162,
+          "y_mm": 0.4233837,
+          "rounded_cap_front_y_mm": -0.9157327,
+          "circular_roof_z_mm": 56.0525273,
           "material_intervals_above_roof_mm": [
             [
               0.0,
@@ -857,6 +860,7 @@
         {
           "x_mm": -6.5,
           "y_mm": 1.7624,
+          "rounded_cap_front_y_mm": -0.9157327,
           "circular_roof_z_mm": 56.4186765,
           "material_intervals_above_roof_mm": [
             [
@@ -868,8 +872,9 @@
         },
         {
           "x_mm": 0.0,
-          "y_mm": -2.2376,
-          "circular_roof_z_mm": 55.1529103,
+          "y_mm": -1.8168223,
+          "rounded_cap_front_y_mm": -1.8169223,
+          "circular_roof_z_mm": 55.3109258,
           "material_intervals_above_roof_mm": [
             [
               0.0,
@@ -880,8 +885,9 @@
         },
         {
           "x_mm": 0.0,
-          "y_mm": -0.2376,
-          "circular_roof_z_mm": 55.8508162,
+          "y_mm": -0.0272111,
+          "rounded_cap_front_y_mm": -1.8169223,
+          "circular_roof_z_mm": 55.916547,
           "material_intervals_above_roof_mm": [
             [
               0.0,
@@ -893,6 +899,7 @@
         {
           "x_mm": 0.0,
           "y_mm": 1.7624,
+          "rounded_cap_front_y_mm": -1.8169223,
           "circular_roof_z_mm": 56.4186765,
           "material_intervals_above_roof_mm": [
             [
@@ -904,20 +911,22 @@
         },
         {
           "x_mm": 6.5,
-          "y_mm": -2.2376,
-          "circular_roof_z_mm": 55.1529103,
+          "y_mm": -0.9156327,
+          "rounded_cap_front_y_mm": -0.9157327,
+          "circular_roof_z_mm": 55.6291587,
           "material_intervals_above_roof_mm": [
             [
               0.0,
-              2.9804459
+              3.6393697
             ]
           ],
           "continuous": true
         },
         {
           "x_mm": 6.5,
-          "y_mm": -0.2376,
-          "circular_roof_z_mm": 55.8508162,
+          "y_mm": 0.4233837,
+          "rounded_cap_front_y_mm": -0.9157327,
+          "circular_roof_z_mm": 56.0525273,
           "material_intervals_above_roof_mm": [
             [
               0.0,
@@ -929,6 +938,7 @@
         {
           "x_mm": 6.5,
           "y_mm": 1.7624,
+          "rounded_cap_front_y_mm": -0.9157327,
           "circular_roof_z_mm": 56.4186765,
           "material_intervals_above_roof_mm": [
             [
@@ -12574,6 +12584,42 @@
       "required_gap_mm": 0.0,
       "overlap_method": "B-rep common volume",
       "passed": true
+    },
+    "clearance:lever-front-opening": {
+      "complete_open_span_mm3": 13487.3174815,
+      "printed_material_in_open_span_mm3": 0.0,
+      "clearance_builder_symmetric_difference_mm3": 0.0,
+      "selected_point_xyz_mm": [
+        -0.434,
+        -12.227,
+        52.355
+      ],
+      "selected_point_gap_mm": 6.5229504,
+      "insertion_ceiling_z_mm": 52.355,
+      "remaining_downward_ceiling_area_mm2": 0.0,
+      "x_half_width_mm": 6.85,
+      "z_range_mm": [
+        52.0,
+        67.5
+      ],
+      "cap_circle_xy_mm": [
+        0.0,
+        22.0749108
+      ],
+      "cap_radius_mm": 23.891833073135476,
+      "method": "independent three-point-arc XY opening profile extruded over its complete height, exact material intersection, the selected point's gap, and any surviving downward insertion-ceiling face area",
+      "scope": "the entire central span forward of the rounded cap; the circular aft relief and complete donor cheeks have separate readings",
+      "passed": true
+    },
+    "wall:lever-front-cap-rim": {
+      "required_radial_arch_stock_mm": 2.0,
+      "required_inward_cap_band_mm": 2.0,
+      "open_boundary_inset_mm": 0.0001,
+      "complete_witness_mm3": 58.3408413,
+      "missing_complete_witness_mm3": 0.0,
+      "method": "complete radial arch annulus across an equally wide inward band following the rounded front cap, over the full opening width",
+      "scope": "material inside the retained cap at the open rim; not a global minimum-wall certificate",
+      "passed": true
     }
   },
   "printing": {
@@ -12652,5 +12698,208 @@
     "retained_readings_canonical_json_sha256": "5cefb394c6a82b9331607f072be955e0c338643fbf6fab8c2e6192d16edcf6f9",
     "retained_reading_provenance": "All other readings are byte-equivalent JSON values from the completed full audit. Every non-checker audit input hash is unchanged before and after the affected-reader run.",
     "scope": "This records the completion of one full audit with a bounded dependent-reader rerun, not a second complete audit."
-  }
+  },
+  "audit_updates": [
+    {
+      "kind": "bounded lower-body CAD correction following the completed full audit",
+      "previous_report_sha256": "ab64241bba273dab5aa17b7be7a9d00e6a1a385e5bdb6d3cf19b5b40d1b05dc1",
+      "previous_geometry_source_sha256": {
+        "hardware/scripts/check_faucet_geometry.py": "8a3df44ced840abe5d05f8e325f181e43fc27b204302c1b2bd49990a425c4632",
+        "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
+        "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+        "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
+        "hardware/printed-parts/faucet/refresh_print_project.py": "941f696446bf5dcaffe693a5cf3b26edfba4790abf953cdbbf90cc49e7583541",
+        "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7dc2ccb679b02d84a164b9dd755650f0e7544883a72696444cae9f8daf6cd2b3",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "3b5f877df51dc9cc0acc2fa255e808f3d44f4a249b9fb9c302cbf7463016ac8f",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "3ee3fdb0ed74fd96686eb368fc07cfad3333c0bdca8accb0a3516a63819aec6a",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+        "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+        "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "86b31b6b3c7fe31a98de21bb7d16538a02a9fed8f6ab51ed19a96ce1fdcabb1f",
+        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2"
+      },
+      "changed_sources": [
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/scripts/check_faucet_geometry.py"
+      ],
+      "source_change_scope": "AST comparison proves only lower_access_reading changed in the checker. Removing the appended front-cutter union and substituting the named -65 mm datum restores the exact prior lever-clearance function AST; all other shell nodes are unchanged except the added front-cutter builder.",
+      "geometry_locality": {
+        "only_subtractive_cutter_appended_ast_verified": true,
+        "canonical_geometry_input": "exported production STEP solids from the completed source generator",
+        "valid_before_after_and_removed_solids": true,
+        "adaptive_volumes": {
+          "before": {
+            "volume_mm3": 128844.02989014769,
+            "requested_relative_accuracy": 1e-11,
+            "estimated_relative_error": 3.841369503531055e-12
+          },
+          "after": {
+            "volume_mm3": 128498.12664815421,
+            "requested_relative_accuracy": 1e-11,
+            "estimated_relative_error": 3.9533928223295544e-12
+          },
+          "removed": {
+            "volume_mm3": 345.9032421587821,
+            "requested_relative_accuracy": 1e-11,
+            "estimated_relative_error": 6.083609775139936e-16
+          }
+        },
+        "volume_conservation_absolute_error_mm3": 1.6530105995116173e-07,
+        "printed_material_in_complete_new_cut_mm3": 0,
+        "whole_body_boolean_comparison": "unavailable: direct before/after subtraction returned invalid bodies; none was accepted",
+        "invalid_whole_body_diagnostics": {
+          "added": {
+            "volume": 128498.33215222592,
+            "valid": false,
+            "solids": 1,
+            "faces": 183
+          },
+          "removed": {
+            "volume": 128844.23536086544,
+            "valid": false,
+            "solids": 2,
+            "faces": 186
+          }
+        },
+        "tip_stl_byte_identical": true,
+        "display_motion_regions": {
+          "normal_seating": {
+            "before_base_overlap_mm3": 0,
+            "after_base_overlap_mm3": 0,
+            "removed_material_overlap_mm3": 0,
+            "gap_to_removed_material_mm": 179.8571922601892
+          },
+          "raised_axial": {
+            "before_base_overlap_mm3": 0,
+            "after_base_overlap_mm3": 0,
+            "removed_material_overlap_mm3": 0,
+            "gap_to_removed_material_mm": 186.27369033503894
+          },
+          "carried_device_normal": {
+            "before_base_overlap_mm3": 0,
+            "after_base_overlap_mm3": 0,
+            "removed_material_overlap_mm3": 0,
+            "gap_to_removed_material_mm": 186.9805390351047
+          }
+        },
+        "before_base_step_sha256": "79f612e7d072580e3c8afaecea05441001b8fa27469c0bad6874f8dff67aca31",
+        "before_tip_step_sha256": "0f5f563dc616fb3f13d056a8a36d1a91f60d109458b74fc652f117972a9c82d8",
+        "before_tip_stl_sha256": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+        "current_artifact_sha256": {
+          "base.step": "89be16ab353d87b8ff221c7563b4896fae6f7fb2e6622f2970f1b96a5b035d99",
+          "base.stl": "fd5cf2950e7a38b5857f900903bc90f325a0fdba7a2e6109a94aac8b08c92e99",
+          "tip.step": "0f5f563dc616fb3f13d056a8a36d1a91f60d109458b74fc652f117972a9c82d8",
+          "tip.stl": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06"
+        }
+      },
+      "retained_lower_and_neck_scope_separation": {
+        "section:neck": {
+          "conservative_probe_minimum_z_mm": 95.43138923921998,
+          "cutter_maximum_z_mm": 67.5
+        },
+        "section:socket": {
+          "conservative_probe_minimum_z_mm": 205.5815157369001,
+          "cutter_maximum_z_mm": 67.5
+        },
+        "section:plug": {
+          "conservative_probe_minimum_z_mm": 205.5815157369001,
+          "cutter_maximum_z_mm": 67.5
+        },
+        "motion:neck-joint": {
+          "poses": [
+            {
+              "rotation_deg": 0.0,
+              "conservative_tip_minimum_z_mm": 174.43492315688925
+            },
+            {
+              "rotation_deg": 1.7954799788109972,
+              "conservative_tip_minimum_z_mm": 172.42009286725116
+            },
+            {
+              "rotation_deg": 3.5909599576219944,
+              "conservative_tip_minimum_z_mm": 170.38657409817546
+            },
+            {
+              "rotation_deg": 5.386439936432992,
+              "conservative_tip_minimum_z_mm": 168.33636362182463
+            },
+            {
+              "rotation_deg": 7.181919915243989,
+              "conservative_tip_minimum_z_mm": 166.27147460044176
+            },
+            {
+              "rotation_deg": 8.977399894054987,
+              "conservative_tip_minimum_z_mm": 164.19393460956695
+            },
+            {
+              "rotation_deg": 10.772879872865984,
+              "conservative_tip_minimum_z_mm": 162.10578364710122
+            },
+            {
+              "rotation_deg": 12.56835985167698,
+              "conservative_tip_minimum_z_mm": 160.00907213017183
+            },
+            {
+              "rotation_deg": 14.363839830487978,
+              "conservative_tip_minimum_z_mm": 157.9058588817676
+            }
+          ],
+          "cutter_maximum_z_mm": 67.5
+        },
+        "unchanged_lower_sections_and_fasteners": {
+          "closed_body_probe_maximum_z_mm": 38.0,
+          "insert_pod_maximum_z_mm": 10.45,
+          "passage_join_probe_maximum_z_mm": 15.3,
+          "cutter_minimum_z_mm": 52.0
+        }
+      },
+      "completed_production_reading_phase_sha256": "0b925c2e951b2fa033e45f7d05ab1ac03003ae8a8e8909d01759936f6e90b30e",
+      "completed_production_phase_source_sha256": {
+        "hardware/scripts/check_faucet_geometry.py": "cb0577762169ab166b797a1f5be978e67c518b27e594472294c36c74fe2a19ec",
+        "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
+        "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
+        "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
+        "hardware/printed-parts/faucet/refresh_print_project.py": "941f696446bf5dcaffe693a5cf3b26edfba4790abf953cdbbf90cc49e7583541",
+        "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "3b5f877df51dc9cc0acc2fa255e808f3d44f4a249b9fb9c302cbf7463016ac8f",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "3ee3fdb0ed74fd96686eb368fc07cfad3333c0bdca8accb0a3516a63819aec6a",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "81a348b7b08866c60026226f592cfd250669edfa0b2aa18dcb44c7687c8db575",
+        "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+        "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "86b31b6b3c7fe31a98de21bb7d16538a02a9fed8f6ab51ed19a96ce1fdcabb1f",
+        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2"
+      },
+      "completed_production_phase_source_mtimes_precede_start": true,
+      "interrupted_unfinished_reader": "The unchanged neck radial reader on the imported compound was interrupted before reporting any result. Its readings are retained from the completed prior audit with the source and probe/motion separation evidence above.",
+      "rerun_checks": [
+        "solid:shell_base",
+        "mesh:shell_base",
+        "mesh:lower-outer-loft-accuracy",
+        "clearance:donor-shell_base",
+        "clearance:soda-shell_base",
+        "clearance:flavor-a-shell_base",
+        "clearance:flavor-b-shell_base",
+        "clearance:display-body-shell_base",
+        "clearance:display-screen-shell_base",
+        "wall:lever-cheek",
+        "clearance:lever-overhead-profile",
+        "clearance:lever-front-opening",
+        "wall:lever-front-cap-rim",
+        "wall:lever-roof-bridge",
+        "section:lever-roof-continuity",
+        "wall:lever-to-flavor-transition",
+        "motion:lever",
+        "clearance:signal-shell_base"
+      ],
+      "retained_reading_count": 123,
+      "retained_readings_canonical_json_sha256": "ed17a3947b639cc0333a97e22d0e99347135fe9afdf6409c0557804c2642643f",
+      "scope": "Production base validity, its actual serialized STL and surface error, all base-to-donor/tube/display/glass clearances, the complete front opening, cap rim, aft roof, donor cheeks, lever-to-flavor stock, lever motion and ribbon-to-base clearance were reread. Unchanged display, neck, fastener and lower closed-body readings retain the completed prior measurements, with byte-identical tip STL, source AST and exact empty display crops plus separated probe/motion bounds. No second full audit is claimed."
+    }
+  ]
 }
