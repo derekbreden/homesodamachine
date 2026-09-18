@@ -1,0 +1,8 @@
+[slope] The inner bezel is a plane at display N20.55. In the assigned -50 degree print pose it faces down onto slicer support beneath the bezel. This face maintains the display clearance.
+click: x=0.000 y=-133.838 z=212.552
+
+[slope] The paired wing feet share the seating plane N3.30 and register on the existing tip recess floor. This is the bed plane in the assigned -50 degree pose.
+click: x=0.000 y=-120.578 z=201.519
+
+[step] The recessed F trial identifier is 0.25 mm deep in the outer bezel. The saved-solid fit check verifies the complete remaining 1.05 mm bezel floor.
+click: x=12.038 y=-134.907 z=212.903
