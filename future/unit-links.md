@@ -1,8 +1,8 @@
 # Unit links
 
 Every plate carries the unit's own address twice: lettered for a person, coded for a phone.
-The lettered one is on the plate. The coded one is not — there is no code on the plate, and no
-route behind the address it would carry.
+The lettered one is on the plate and opens the unit's machine page. The QR code is not on the
+plate.
 
 ## The two strings
 
@@ -76,20 +76,22 @@ redirect nor a certificate challenge reaches anything until the domain is attach
 `curl` at the canonical host bearing a `Host:` header for another one proves nothing about this
 module; `web/tests/short-host.test.js` against a local boot is what holds it.
 
-## What is owed
-
-### One. The unit route
+## The unit route
 
 `/0001` sits at the root of `homesodamachine.com`, sharing that root with the static landing
 mount, so it matches four digits and nothing else rather than as a catch-all.
 
-What it serves is open. The nameplate page has the link carrying everything beyond the two
-printed documents — warranty, RMA, troubleshooting, BOM, support contact and ongoing care, per
-[`unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md). Whether the per-serial
-archive at `logs/<serial>/` is reachable from it is an Open item in
-[`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md).
+`web/lib/unit.js` serves registered serials. `/0001` opens the machine overview, including
+the soda machine, faucet, install kit, and customer-supplied equipment. `/0001/get-started`
+holds the preparation checklist and the seven installation steps, linked to the matching
+pages of the install guide. `/0001/guides` opens the quick start, install guide, and care pages.
+The checklist's checkmarks are stored in the browser under the serial. Unregistered serials
+return 404. `web/tests/unit.test.js` checks the route and its links, and
+`web/tests/browser/unit.browser.js` checks navigation, the checklist, and phone layouts.
 
-### Two. The code on the plate
+## What is owed
+
+### The code on the plate
 
 The lettering stands [78.63 mm](LOCKUP_W) × [57.32 mm](STACK_H) on a plate
 [104.53 mm](PLATE_W) × [66.07 mm](PLATE_H), and two Ø[5.8 mm](CBORE_D) screw counterbores
@@ -118,7 +120,7 @@ Two things the geometry answers:
 - **Diagonal modules.** Two dark modules that meet at a corner and nowhere else share no
   edge. Each module carries a bleed so diagonal neighbours do.
 
-### Three. The encoder and its check
+### The encoder and its check
 
 `qrcode` is in `tools/cad-venv`; `segno` is not. `qrcode.util.optimal_mode()` takes bytes, not
 a string.
@@ -129,7 +131,7 @@ drifts to lowercase, or to twenty-one characters, still scans.
 
 ## What is Derek's
 
-The plate layout that makes room. What `/0001` serves.
+The plate layout that makes room.
 
 ## Sources
 [value](NAME) texts are updated by:

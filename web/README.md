@@ -54,7 +54,7 @@ state, WebSocket owner, /api/version activation check). Then any page-specific
 module (/landing.js, /js/viewer/main.js, etc.).
 ```
 
-The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page goes through `renderHead` + `renderNav` + `renderFooter`. The `surface` arg is `"public"` (hides Parts/Charts unless dev-mode is set in localStorage) or `"dev"` (always shows them).
+The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses `renderHead` and `renderFooter`. Public and engineering pages use `renderNav`; its `surface` arg is `"public"` (hides Parts/Charts unless dev-mode is set in localStorage) or `"dev"` (always shows them). Unit pages have their own named navigation: Your machine, Get started, and Guides.
 
 ## Module layout
 
@@ -65,6 +65,7 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page goes 
 | [`server.js`](/web/server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
 | [`lib/shell.js`](/web/lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Marketing landing + email signup form. |
+| [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, the documents shelf, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/cards/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
 | [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
@@ -84,6 +85,7 @@ Served flat via `express.static(public/)`.
 |---|---|---|
 | [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
 | [`public/landing.js`](/web/public/landing.js) | `/` | Signup form submit and feedback. |
+| [`public/unit.js`](/web/public/unit.js) | Unit pages | Opens the included-equipment disclosure from its link and saves preparation checkmarks in this browser, keyed by serial. Navigation and documents are server-rendered links. |
 | [`public/settings.js`](/web/public/settings.js) | `/settings` | Dev-mode + notification toggles. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`../tools/build_brand_assets.py`](../tools/build_brand_assets.py). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
@@ -112,6 +114,19 @@ Served flat via `express.static(public/)`.
 State sharing pattern is **one shared object** (`state.js`'s exported `state`). Other modules `import { state } from './state.js'` and read/write `state.allFiles` etc. directly. Live binding via the object identity; no per-module proxy or sync ceremony.
 
 The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](/tools/render/) (which lives at the repo root and imports `web/server.js`) and must not change without updating those.
+
+## Unit pages
+
+`/0001` presents the soda machine, faucet, and install kit. Its Get started page links the
+seven installation steps to the matching pages of the install guide; Guides opens the quick
+start, full booklet, and care pages. The dark layout is in `public/css/unit.css`. The common
+head supplies boot behavior, icons, and metadata, with IBM Plex Sans and the unit page's theme
+color. The pages work without JavaScript; the disclosure's direct link and saved checkmarks
+are progressive enhancements.
+
+`public/unit/faucet.webp` is the optimized copy of the install guide's committed
+`hardware/install-guide/assets/steps/pour-base.png`. Regenerate it with
+`node web/scripts/build-unit-assets.mjs`, using the Sharp dependency in `tools/render/`.
 
 ## Machine tour
 
