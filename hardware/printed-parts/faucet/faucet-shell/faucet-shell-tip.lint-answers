@@ -1,3 +1,3 @@
-[slope] This is the rear end of the open display-component channel at s=47.24. It bounds the hardware insertion clearance. The tip's -105 degree print rotation makes this face point upward, 35 degrees to the bed.
+[slope] This is the rear end of the open display-component channel at S47.24. It bounds the hardware insertion clearance. In the tip's +40 degree print pose, the dispense face is on the bed and this rear wall faces down. The retained faucet-display-petgf native slice carries it with bed-rooted tree-1, interface-1 at print Z46.28 through Z46.76, after 46.08 mm of build-up. The opening admits support removal before loading the display; physical removal and contact finish remain print observations.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-108.967 z=221.049
+click: x=0.000 y=-108.966 z=221.050
