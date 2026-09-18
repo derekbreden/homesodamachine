@@ -22,9 +22,9 @@
 //
 // step.js calls applyXray() on the group after every load (so switching
 // files keeps the mode) and inside renderThumbnail (so a grid card matches the
-// detail view it opens). The toggle re-applies to the live detail group only —
-// a card is drawn once and cached, and always shows the x-ray look. Defaults to
-// ON; an explicit toggle is remembered.
+// detail view it opens). The toggle re-applies to the live detail group only.
+// Faucet views default to solid; other models default to x-ray. An explicit
+// toggle is remembered across models.
 
 import * as THREE from "three";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
@@ -32,6 +32,7 @@ import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { state } from "./state.js";
 import { makeToolChip } from "./tool-rail.js";
+import { hasFaucetFinish } from "/contracts/faucet-options.js";
 
 const LS_KEY = "step-xray";
 
@@ -53,6 +54,7 @@ let enabled = (() => {
     return v === null ? true : v === "1"; // default on; respect an explicit choice
   } catch { return true; }
 })();
+let chosenInSession = false;
 
 // base shading material -> its x-ray clone. WeakMap so a clone dies with the
 // (cached) base material it shadows; one clone per base, reused across
@@ -140,14 +142,14 @@ function removeXrayEdges(group) {
 // Idempotent: clears any prior x-ray edges, then either swaps each mesh to
 // its ghost clone and adds feature edges (when on) or restores the saved
 // originals (when off). Safe to call on a null group or in either state.
-export function applyXray(group) {
+export function applyXray(group, on = enabled) {
   if (!group) return;
   removeXrayEdges(group);
   // LineSegments2 extends Mesh, so the edges this adds would answer to isMesh
   // on the next pass. removeXrayEdges has already taken them out above; the
   // guard says so where a reader is looking at the filter.
   const meshes = group.children.filter((c) => c.isMesh && !c.userData.isXrayEdge);
-  if (enabled) {
+  if (on) {
     for (const mesh of meshes) {
       if (!mesh.userData.baseMaterial) mesh.userData.baseMaterial = mesh.material;
       const base = mesh.userData.baseMaterial;
@@ -161,6 +163,7 @@ export function applyXray(group) {
       // hidden solid keeps obstructing the view. Born hidden if already hidden, so
       // toggling x-ray on doesn't resurrect a hidden part's edges.
       line.userData.xrayComponent = mesh.name || "";
+      line.userData.sourceMesh = mesh;
       line.visible = !(mesh.name && state.hiddenComponents && state.hiddenComponents.has(mesh.name));
       group.add(line);
       mesh.material = xrayVariant(base);
@@ -172,7 +175,18 @@ export function applyXray(group) {
   }
 }
 
+// Swap a body's finish without rebuilding its feature-edge geometry. The base
+// and its ghost variant stay shared and immutable; only this mesh changes.
+export function setMeshMaterial(group, mesh, material) {
+  mesh.userData.baseMaterial = material;
+  mesh.material = enabled ? xrayVariant(material) : material;
+  for (const edge of group.children) {
+    if (edge.userData?.sourceMesh === mesh) edge.material = edgeMaterial(material.color);
+  }
+}
+
 export function setXrayEnabled(on, { persist = true } = {}) {
+  chosenInSession = true;
   enabled = !!on;
   if (persist) {
     try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
@@ -182,6 +196,20 @@ export function setXrayEnabled(on, { persist = true } = {}) {
 
 export function isXrayEnabled() {
   return enabled;
+}
+
+// A new faucet view presents the outside form and finish. A saved x-ray choice
+// applies to every model; other models keep the viewer's default ghost view.
+export function xrayForModel(file) {
+  if (chosenInSession) return enabled;
+  try { if (localStorage.getItem(LS_KEY) !== null) return enabled; } catch { /* session defaults */ }
+  return !hasFaucetFinish(file);
+}
+
+export function applyModelXrayDefault(file) {
+  enabled = xrayForModel(file);
+  const toggle = document.querySelector(".xray-toggle");
+  if (toggle) toggle.refresh();
 }
 
 export function makeXrayToggle() {
