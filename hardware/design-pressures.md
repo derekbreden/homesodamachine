@@ -61,13 +61,13 @@ destroyed is a part that comes out by being destroyed.
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the final seam screws prevent the reverse motion.
 - **The faucet display cover flexes around the rigid cylindrical neck.** Its side walls
-  spread during seating, then two broad 1.30 mm-high lips enter shallow grooves below
-  rigid retaining shoulders. The lips have 0.30 mm nominal radial engagement, with
-  0.15 mm radial and upper bearing clearance. The groove floors stop the cover before
-  its bezel reaches the glass. The
+  are printed inward, spread during seating, and remain spread when the broad lips
+  contact the groove roots below rigid retaining shoulders. The groove floors stop
+  the cover before its bezel reaches the glass. The
   [complete display fit trial](printed-parts/fixtures/faucet-display-snap/README.md)
-  carries the actual enclosure, device supports, tubes and ribbon route. Its physical snap
-  performance is unmeasured. The linked PET-GF15 data are annealed specimen results, not an
+  carries the actual enclosure, device supports, tubes and ribbon route. Its print log
+  records the physical observations. The preloaded geometry needs its own fit and
+  retention reading. The linked PET-GF15 data are annealed specimen results, not an
   allowable strain for the saved print profile.
 - **How far a tube runs into a collet, and how far its sleeve presses, is measured for the
   tee.** The PP0208E's own figures are in

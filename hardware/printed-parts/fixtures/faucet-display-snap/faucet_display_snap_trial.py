@@ -39,7 +39,7 @@ def trial_bounds():
     features = (shell.build_display_outer_envelope(), shell.build_display_cover_lips(),
                 shell.build_display_feet_pads())
     head_end = max(part.val().moved(frame.inverse).BoundingBox().ymax for part in features)
-    # The wire entry and all display features remain on the test piece.
+    # The open ribbon space and all display features remain on the test piece.
     neck_end = max(head_end, shell.display_ribbon_reference_start_s) + NECK_STUB
     return head_end, neck_end
 
@@ -106,6 +106,13 @@ def main():
     poses = {name: angle for name, _, angle in production_print.PARTS}
     report = {"schema_version": 2, "physical_trial_completed": False,
               "trial": "complete faucet display housing and cover with short gooseneck stub",
+              "cover_print_shape": "relaxed inward-preloaded wings",
+              "assembly_cover_shape": "nominal seated fit reference, not an elastic deformation prediction",
+              "retention": {"radial_engagement_mm": snap.ENGAGEMENT,
+                            "groove_depth_mm": snap.ENGAGEMENT + snap.RADIAL_SLIP,
+                            "lip_height_mm": snap.LIP_HEIGHT,
+                            "wing_inward_preload_at_lip_top_mm": snap.X_PRELOAD,
+                            "wing_inward_preload_at_lip_bottom_mm": cover.preload_inward_at(shell.display_clip_bottom_n)},
               "retained_geometry": retained,
               "sources": before,
               "parts": []}
@@ -114,7 +121,7 @@ def main():
         report["parts"].append(export_part(print_pose(body, angle), name, angle))
     assy = cq.Assembly(name="faucet-display-fit-trial")
     assy.add(housing, name="trial_housing", color=C_FAUCET_BLACK)
-    assy.add(lid, name="trial_cover", color=C_FAUCET_BLACK)
+    assy.add(cover.build_seated_display_cover(), name="trial_cover_seated", color=C_FAUCET_BLACK)
     assy.add(assembly.build_display_body(), name="faucet_display", color=C_FAUCET_DISPLAY)
     assy.add(assembly.build_display_screen(), name="faucet_display_screen", color=C_FAUCET_DISPLAY_GLASS)
     for name, body, color in (

@@ -2,7 +2,7 @@
 
 The PET-GF shroud follows the Waveshare display and meets the three tube
 outlets at one flush front plane. The cover's side walls spread over the
-rigid round neck, then its two broad lips seat in shallow side grooves.
+rigid round neck, then its two broad lips seat against the roots of side grooves.
 The cover seats straight toward the display; no display fasteners are fitted.
 
 The complete enclosure is a fit-and-snap print trial. Assembly force,
@@ -14,14 +14,22 @@ reading before this joint is treated as validated.
 The planar face is [27.5 mm](PLATE_X) wide and [48.49 mm](PLATE_S) long. Its
 rounded skin tapers to the skirt around the neck. The bezel is
 [1.3 mm](COSMETIC_WALL) thick. The finished rim has a 1 mm minimum cosmetic
-section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad 1.3 mm-high retaining lips
+section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_HEIGHT)-high retaining lips
 continue inward from the side walls. The four metal-foot bearing pads have
 3 mm working sections.
 
-The lips follow the neck profile with [0.3 mm](SNAP_ENGAGEMENT) nominal
-radial engagement. Their grooves provide 0.15 mm radial clearance and
-0.15 mm clearance above the lip tops. The lip bottoms seat on the groove
-floors, stopping the cover before its bezel reaches the glass.
+The lips follow the neck profile with [1 mm](SNAP_ENGAGEMENT) nominal radial
+engagement in [1 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
+roots share a contact surface. The relaxed print pulls each wing inward by
+[0.75 mm](WING_PRELOAD) at the lip top and [0.908 mm](WING_BOTTOM_PRELOAD) at
+its bottom. This inset tapers to zero at the bezel's inner face.
+The grooves leave 0.15 mm above the lip tops and at their ends. The lip
+bottoms seat on the groove floors before the bezel can reach the glass.
+
+The standalone STEP, STL and print project contain the relaxed shape.
+The faucet assembly shows the nominal seated fit surface. That surface
+does not predict the closed cover's elastic deformation, insertion force
+or long-term preload.
 
 The window is [20.5 mm](WINDOW_X) × [40.5 mm](WINDOW_S). Its lip overlaps the
 module housing and leaves [0.1 mm](COVER_OVER_FACE) above the glass. The display
@@ -38,7 +46,7 @@ neck, so the parting line stays below the display face.
 ## Assembly trial
 
 1. Remove supports and stringing from the open cover, its two broad lips
-   and the neck's shallow grooves. Preserve the lip bearing faces and
+   and the neck's retaining grooves. Preserve the lip bearing faces and
    groove floors.
 2. Lay the display ribbon in the open space below the PCB, toward its southwest
    corner as viewed from the glass, and place the exact
@@ -46,7 +54,8 @@ neck, so the parting line stays below the display face.
    and underside components.
 3. Press the cover squarely toward the display. Its side walls flex outward
    around the cylinder until both lips enter their grooves below the rigid
-   retaining shoulders. Confirm both lip bottoms reach their seating floors.
+   retaining shoulders. The wings remain spread from their relaxed positions.
+   Confirm both lip bottoms reach their seating floors.
 4. Read complete seating, display fit, touch response, retention, permanent
    spreading and any whitening or cracks on the cover. Record the trial result
    before using the snap in a customer assembly.
@@ -63,6 +72,8 @@ through that underside before the display is installed.
 the cosmetic minimum and the lip thickness. The faucet geometry audit checks
 actual hardware and tube clearance, normal assembly motion and snap geometry.
 Those geometric readings do not measure the printed snap's force or durability.
+The [physical trial log](../../fixtures/faucet-display-snap/print-log.md)
+records the reported print and retention observations.
 
 ```
 tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py

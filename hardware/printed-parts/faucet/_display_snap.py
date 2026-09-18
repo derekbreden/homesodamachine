@@ -1,13 +1,15 @@
-"""The faucet cover's broad lips seat in shallow grooves on the rigid neck.
+"""The faucet cover's preloaded wings carry broad lips around the rigid neck.
 
-The cover walls spread outward over the cylindrical lead-in. The lip bottoms
-seat on the groove floors; their tops catch below the retaining shoulders.
+The relaxed cover walls spread outward over the cylindrical lead-in. Seated
+lips bear against the groove roots under preload. Their bottoms seat on the
+groove floors; their tops catch below the retaining shoulders.
 Physical insertion force, retention and PET-GF durability are print trials.
 """
 
-ENGAGEMENT = 0.30
-RADIAL_SLIP = 0.15
+ENGAGEMENT = 1.0
+RADIAL_SLIP = 0.0
+X_PRELOAD = 0.75
 BEARING_SLIP = 0.15
 END_SLIP = 0.15
 END_MARGIN = 3.0
-LIP_HEIGHT = 1.30
+LIP_HEIGHT = 3.0

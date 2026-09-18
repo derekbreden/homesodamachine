@@ -13,9 +13,10 @@ remain to be qualified on these parts.
 Rigid structural walls, fastener seats, display supports and insert
 backing use a 3 mm minimum at the checked sections. The round gooseneck
 provides separate 3 mm socket and plug walls at its close-fit curved joint.
-The display cover flexes around the rigid neck. It has a nominal 1.30 mm
-wall and 1.30 mm-high broad retaining lips, with a 1 mm minimum for its thin
-sections. The complete cover's insertion force, retention and resistance
+The display cover flexes around the rigid neck. Its inward-preformed wings
+carry broad retaining lips. The nominal skin is 1.30 mm, with a 1 mm minimum
+for its thin sections. The [cover geometry](../faucet-display-cover/README.md)
+defines the preload and mating grooves. The complete cover's insertion force, retention and resistance
 to permanent spreading must be read from the PET-GF fit trial. The 2 mm
 TPU countertop gasket is a compressible sealing component.
 
@@ -30,6 +31,12 @@ The plate prints with its gasket face toward the bed. Support contact,
 access and removal must be inspected in the production slice and first
 physical print, especially inside the donor cavity, around the neck joint
 and at the display lips and grooves. Preserve their seating and retaining faces.
+
+Printable meshes use an absolute surface-distance tolerance in millimetres
+and an angular tolerance, both set in `piece_mesh`. Meshing uses fresh CAD
+copies without cached triangles. The print project embeds those STL surfaces
+without reducing them. The geometry audit measures the serialized base STL
+against points on its analytic outer loft.
 
 The wetted flow remains inside the existing LLDPE tubes and donor metal
 body. PET-GF is the structural enclosure around that flow path.

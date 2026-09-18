@@ -2,6 +2,15 @@
   "schema_version": 2,
   "physical_trial_completed": false,
   "trial": "complete faucet display housing and cover with short gooseneck stub",
+  "cover_print_shape": "relaxed inward-preloaded wings",
+  "assembly_cover_shape": "nominal seated fit reference, not an elastic deformation prediction",
+  "retention": {
+    "radial_engagement_mm": 1.0,
+    "groove_depth_mm": 1.0,
+    "lip_height_mm": 3.0,
+    "wing_inward_preload_at_lip_top_mm": 0.75,
+    "wing_inward_preload_at_lip_bottom_mm": 0.9078947368421053
+  },
   "retained_geometry": {
     "complete_head_end_s_mm": 51.19572128830402,
     "neck_cut_s_mm": 71.19572128830401,
@@ -9,56 +18,56 @@
     "missing_head_material_mm3": 0.0
   },
   "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c788010a193f45f879b258010559c7e908a4e825668b5192f1b3db7ff62861ac",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "13faa9c2e4e5fa2166a93778d606bbd1ec3cb9211b27ccb591dcb794f63cc051",
-    "hardware/printed-parts/faucet/_display_snap.py": "e9f4954e21969500691db7fbb5cdbb3b7942f34120aad42b0f167255fd35eadf",
-    "hardware/faucet-layout/faucet_assembly.py": "fd6464040e1162a02949fb71507071387a8eef8b35b2ebd0fe5425129922afc5",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "53c05220ff8490358bf52d8aa291b8efb905e38eb143993645595eb5dfa09158",
-    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "c56951365f469cdb2ca17e455510647f6c10359a27b167d9d9dedfab6ce9bafc",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c85b4ae98439fcad7b99ae2770beaeb7d809a6cebfcc8018fd7ff087168a9400",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "cd9df5ebae8eb6de4b9c456c48c2efe2c01dc090d7c84f455c2b57b4ad753045",
+    "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
+    "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "941f696446bf5dcaffe693a5cf3b26edfba4790abf953cdbbf90cc49e7583541",
+    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
   },
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "28c346a040baaf5484cfdc95bc0793184e1a2c9036bb792063fdcac95818d3f4",
+      "sha256": "3d68bd7d9ad1e1e0b91185c4aba42aa5319d2f717b06587f28fce307a98d3d99",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 32653.778676454338,
-      "triangles": 11072,
+      "volume_mm3": 32513.396098526806,
+      "triangles": 164504,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
           -15.012454986572266,
           -27.526981353759766,
-          0.0029240092262625694
+          0.00042248526006005704
         ],
         [
           15.012454986572266,
-          27.526044845581055,
+          27.52654457092285,
           87.82355499267578
         ]
       ]
     },
     {
       "stl": "display-trial-cover.stl",
-      "sha256": "5d7eb28d6a5b9a130b8ceda23a20cafa9de038ca3c007b380a5582f04d86f6fc",
+      "sha256": "0af8c1419dff5966321957a9bfeeecf67f48fc82d3355d50ebd050016f3d5354",
       "source_rotation_x_degrees": 130.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 3255.1804018856706,
-      "triangles": 2310,
+      "volume_mm3": 3449.011145119637,
+      "triangles": 36860,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
-          -16.659452438354492,
-          -24.338674545288086,
+          -16.007762908935547,
+          -24.9682674407959,
           1.0000013617172954e-07
         ],
         [
-          16.659452438354492,
-          25.59786033630371,
+          16.007762908935547,
+          24.9682674407959,
           18.549999237060547
         ]
       ]
