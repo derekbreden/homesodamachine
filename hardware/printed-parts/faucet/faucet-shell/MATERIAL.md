@@ -3,7 +3,7 @@
 The shell base, shell tip, display cover and above-counter plate use PET-GF.
 The full Sculpted faucet uses white Polymaker Fiberon PET-GF15 on Mark2, a
 Bambu H2C with its left 0.4 mm diamond PCD hotend. The print project uses
-[0.18 mm](PRINT_LAYER) layers with the saved PET-GF material settings.
+[0.24 mm](PRINT_LAYER) layers with the saved PET-GF material settings.
 
 Rigid structural walls, fastener seats, display supports and insert
 backing use a [2 mm](WALL_MIN) minimum at the checked sections. The round gooseneck

@@ -116,7 +116,7 @@ wall_thickness_min = 2.0
 
 # The donor and lever envelope owns the lower arch's construction datum.
 show_wall = 4.2
-print_layer_height = 0.18
+print_layer_height = 0.24
 print_bead_width = 0.42
 
 _westbrass_bore_farthest_from_shell_center = (
