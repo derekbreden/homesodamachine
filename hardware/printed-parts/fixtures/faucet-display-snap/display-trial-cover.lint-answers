@@ -1,9 +1,4 @@
-[sliver] These are the long side faces of the screen aperture through the 1.30 mm cosmetic bezel. The outer bezel lies on the bed in this already posed STL.
+[ceiling] These are the upper bearing faces of the broad retaining lips on the complete relaxed cover, already placed in its +130 degree print orientation. Each lip spans 3.00 mm in the display-normal direction. The wings are preformed inward by 0.750 mm at these faces and 0.907895 mm at the lower rim; the seated reference gives 1.00 mm radial engagement. The retained trial slice records one connected bed-rooted support body reaching both labelled lip interfaces, with 14.64 mm build-up and print Z0.20 to Z15.08 mm extent. Removal effort, contact finish, PET-GF spreading and retention are measured with the physical trial.
 file: hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step
-click: x=10.250 y=0.858 z=0.650
-click: x=-10.250 y=0.858 z=0.650
-
-[sliver] These are the exposed retaining-lip bearing faces. Their 0.811 mm in-plane width is the inward overhang projection; the lips have 1.30 mm normal height and join the full cover side walls. The geometry audit measures nine interior normal material chords per lip and the separation of the complete curved inner face from the outer skin. The two bed-rooted supports reach these lips through the open underside. Support removal and PET-GF retention are measured with the physical trial.
-file: hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step
-click: x=-14.988 y=1.353 z=17.250
-click: x=14.988 y=1.353 z=17.250
+click: x=-11.587 y=0.998 z=15.550
+click: x=11.587 y=0.998 z=15.550

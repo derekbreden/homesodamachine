@@ -1,0 +1,3 @@
+[sliver] This 0.020 mm edge segment belongs to the bulk wall of the combined flavor/cable opening. The clearance connector crosses the adjoining pill boundary by 0.020 mm to provide positive Boolean overlap. Exact B-rep chords at the named face give 9.730093 mm material inward in +Y, 15.419494 mm continuously toward -X, and the full 4.00 mm plate thickness in Z; the strip width is not a wall between two neighboring voids. This face is vertical in the plate's flat print pose.
+file: hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step
+click: x=-6.810 y=18.945 z=-2.000
