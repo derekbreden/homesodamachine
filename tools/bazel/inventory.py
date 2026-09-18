@@ -122,6 +122,9 @@ IMPLICIT_SOLIDS = {
     "hardware/faucet-layout/faucet_assembly.py": (
         "hardware/faucet-layout/faucet-assembly.step.mesh",
     ),
+    "hardware/faucet-layout/faucet_industrial_assembly.py": (
+        "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
+    ),
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": (
         "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
     ),

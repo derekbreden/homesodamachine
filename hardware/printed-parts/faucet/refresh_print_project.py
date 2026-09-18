@@ -72,7 +72,12 @@ def archive_write(path: Path, members: dict[str, bytes]):
     temporary.replace(path)
 
 
-def refresh(settings_from: Path, output: Path) -> dict:
+def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
+            offsets: tuple | None = None, title: str = "Faucet PET-GF") -> dict:
+    parts = PARTS if parts is None else parts
+    offsets = PART_OFFSETS if offsets is None else offsets
+    if len(parts) != len(offsets):
+        raise ValueError("Each print-project part needs one bed-position offset")
     with zipfile.ZipFile(settings_from) as source:
         if source.testzip() is not None:
             raise ValueError("source project has a damaged member")
@@ -91,7 +96,7 @@ def refresh(settings_from: Path, output: Path) -> dict:
                        **{"xmlns:BambuStudio": "http://schemas.bambulab.com/package/2021"})
     ET.SubElement(model, qn("metadata"), name="Application").text = "BambuStudio-02.08.02.61"
     ET.SubElement(model, qn("metadata"), name="BambuStudio:3mfVersion").text = "1"
-    ET.SubElement(model, qn("metadata"), name="Title").text = "Faucet PET-GF"
+    ET.SubElement(model, qn("metadata"), name="Title").text = title
     resources = ET.SubElement(model, qn("resources"))
     build = ET.SubElement(model, qn("build"), **{f"{{{PROD}}}UUID": identifier("build")})
     config = ET.Element("config")
@@ -120,11 +125,11 @@ def refresh(settings_from: Path, output: Path) -> dict:
         "parts": [],
     }
     plate = ET.Element("plate")
-    for key, value in {"plater_id": 1, "plater_name": "Faucet PET-GF", "locked": "false",
+    for key, value in {"plater_id": 1, "plater_name": title, "locked": "false",
                        "filament_map_mode": "Auto For Flush", "filament_maps": "1",
                        "filament_volume_maps": "0", "bed_type": settings["curr_bed_type"]}.items():
         metadata(plate, key, value)
-    for part_index, (name, source_path, angle) in enumerate(PARTS, 1):
+    for part_index, (name, source_path, angle) in enumerate(parts, 1):
         payload = source_path.read_bytes()
         mesh = trimesh.load(source_path, force="mesh", process=True)
         if not mesh.is_watertight or not mesh.is_winding_consistent or mesh.volume <= 0 or mesh.body_count != 1:
@@ -135,7 +140,7 @@ def refresh(settings_from: Path, output: Path) -> dict:
         rotation = np.array([[1, 0, 0], [0, math.cos(theta), -math.sin(theta)], [0, math.sin(theta), math.cos(theta)]])
         rotated = local_vertices @ rotation.T
         low, high = rotated.min(axis=0), rotated.max(axis=0)
-        plate_center = np.array([*((usable_low + usable_high) / 2.0 + PART_OFFSETS[part_index - 1]), 0.0])
+        plate_center = np.array([*((usable_low + usable_high) / 2.0 + offsets[part_index - 1]), 0.0])
         local_translation = plate_center - (low + high) / 2.0
         local_translation[2] = -low[2]
         placed = rotated + local_translation

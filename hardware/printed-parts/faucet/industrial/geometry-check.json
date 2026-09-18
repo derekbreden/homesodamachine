@@ -1,0 +1,234 @@
+{
+  "style": "Industrial",
+  "scope": "Saved production solids, print meshes, shared hardware, lever travel and named cylindrical wall sections. Display cover fit and assembly motion are in display-cover-check.json. Physical retention and surface finish are print readings.",
+  "sources_sha256": {
+    "hardware/printed-parts/faucet/industrial/check_geometry.py": "7a1eacacf7818d745693226d128ee79c7759515c46b062e4419c36a33a9d162d",
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "dda7628085f632db21fb9bb96a7481a0d780f9f68a7c4a922ce901fac6537252",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "9f2d209beef79f1d405fc548725155318cb5db835da8f13bc21848214ac00787",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "c37fdfb8cb0aaafd13da2cbb9e3c80d6eca4a568cb1a38fd1cbbe3d1c49ce58f",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "89be16ab353d87b8ff221c7563b4896fae6f7fb2e6622f2970f1b96a5b035d99",
+    "hardware/faucet-layout/faucet-assembly.step": "6ddb93d087b5b197ca71b8d84770c6c6c71c846d32f4392aeb67bfae8f2cc6e1",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "6546d0b6a9806ae2b255cd964c3940e6427176d977fbea778e862cb7b187e7c1",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "cbcb6af41f9496cc9d644cef4c28503eaac3566b23badc1d3ea2d5ecfc531aac",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "cee07539a0ce40f1cd57cceb3cb87d13718971f0bb1162559758307c914ce301",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "370cae5d20bab44426be6253ce66a8ed5bae0ab25fcab0bfd90060b68fd1c89c",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "6c953bd566e482f951536a8f82c8d2a611933e1a9e72ac3d82ed9c552d7caa43",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "83e1fdb395136686205422ac91fe585010f64615146d4228ad2a0bacc501694c",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "494701c23319d6ce229e8281541de88f91fc99b66ecc22380981ead937005276",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "c734f547c351c059aabd61fb846686ad45b7dcff992665f47d6b553ebc334d1d"
+  },
+  "passed": true,
+  "checks": {
+    "industrial-shell-base-solid": {
+      "passed": true,
+      "solids": 1,
+      "volume_mm3": 137134.12098220168
+    },
+    "industrial-shell-base-print-mesh": {
+      "passed": true,
+      "watertight": true,
+      "facets": 282422,
+      "print_deflection_mm": 0.005
+    },
+    "industrial-display-cover-solid": {
+      "passed": true,
+      "solids": 1,
+      "volume_mm3": 4581.800943721512
+    },
+    "industrial-display-cover-print-mesh": {
+      "passed": true,
+      "watertight": true,
+      "facets": 5004,
+      "print_deflection_mm": 0.005
+    },
+    "industrial-above-counter-plate-solid": {
+      "passed": true,
+      "solids": 1,
+      "volume_mm3": 9889.270728167921
+    },
+    "industrial-above-counter-plate-print-mesh": {
+      "passed": true,
+      "watertight": true,
+      "facets": 15172,
+      "print_deflection_mm": 0.005
+    },
+    "industrial-above-counter-gasket-solid": {
+      "passed": true,
+      "solids": 1,
+      "volume_mm3": 4982.101998070661
+    },
+    "industrial-above-counter-gasket-print-mesh": {
+      "passed": true,
+      "watertight": true,
+      "facets": 3064,
+      "print_deflection_mm": 0.005
+    },
+    "base-westbrass-clear": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 0.0
+    },
+    "base-soda_faucet_tube-clear": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 0.349999946792654
+    },
+    "base-flavor_tube_pos_x-clear": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 0.44999996347535604
+    },
+    "base-flavor_tube_neg_x-clear": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 0.44999998401731567
+    },
+    "base-display_signal_ribbon-clear": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 0.10942594701646374
+    },
+    "base-shell_tip-clear": {
+      "passed": true,
+      "overlap_mm3": 0,
+      "clearance_mm": 0.0
+    },
+    "lever-full-travel": {
+      "passed": true,
+      "angles_deg": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "overlaps_mm3": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "clearances_mm": [
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999964,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876,
+        0.34999999999999876
+      ]
+    },
+    "open-lever-front": {
+      "passed": true,
+      "selected_point_mm": [
+        -0.434,
+        -12.227,
+        52.355
+      ],
+      "clearance_mm": 6.4159999999999995
+    },
+    "base-industrial-above-counter-plate-clear": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "base-industrial-above-counter-gasket-clear": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "base_screw_1-clear": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "base_screw_2-clear": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "base_screw_3-clear": {
+      "passed": true,
+      "overlap_mm3": 0
+    },
+    "body-cavity-wall": {
+      "passed": true,
+      "radial_stock_mm": {
+        "donor-cylinder": 2.136000936329384,
+        "donor-body": 1.999999999999993,
+        "donor-arches": 2.380251856285986,
+        "lower-signal": 2.1665909578932347,
+        "water": 14.812499999999998,
+        "flavor": 5.882331069949156,
+        "signal": 4.628074120970652
+      },
+      "required_mm": 2.0
+    },
+    "neck-cavity-wall": {
+      "passed": true,
+      "radial_stock_mm": {
+        "donor-cylinder": 44.25,
+        "donor-body": 18.5,
+        "donor-arches": 11.272438581639376,
+        "lower-signal": 18.550428744631876,
+        "water": 4.15,
+        "flavor": 4.313700409419767,
+        "signal": 3.6904564997058147
+      },
+      "required_mm": 2.0
+    },
+    "foot-socket-outside-wall": {
+      "passed": true,
+      "stock_mm": 3.0393202250021005,
+      "required_mm": 2.0
+    },
+    "shared-gooseneck-surface-agreement": {
+      "passed": true,
+      "matched_faces": 22,
+      "samples_per_face_up_to": 64,
+      "directions": 2,
+      "max_surface_sample_drift_mm": 3.765876499528531e-13,
+      "volume_difference_mm3": 1.603621058166027e-08,
+      "area_difference_mm2": 9.822542779147625e-11,
+      "lower_z_mm": 68.0,
+      "method": "Matching face types, areas and centroids, bidirectional surface-node distances to paired exact faces, total area and volume. Coincident whole-solid subtraction returns invalid OCCT solids and is not used as evidence."
+    }
+  }
+}

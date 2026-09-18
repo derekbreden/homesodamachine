@@ -36,7 +36,7 @@ they became.
 | --- | --- | --- |
 | **soda machine** | the complete under-counter unit, including its enclosure and everything inside; **the machine** in instructions | appliance, main unit |
 | **faucet** | the whole fixture that clamps through the counter hole | tap, faucet head, faucet stack |
-| **faucet shell** | the printed black cover wrapping the Westbrass and the flavor tubes | faucet body, printed shell |
+| **faucet shell** | the printed PET-GF cover wrapping the Westbrass and the flavor tubes, in Black or White | faucet body, printed shell |
 | **gooseneck** | the faucet shell's forward arc, out to where the tubes exit over the glass | dispense head, nozzle, spout |
 | **pill slot** | the two-tube slot where the flavor tubes enter the faucet shell | |
 | **Westbrass** | the harvested Westbrass 8" Touch-Flo dispenser inside the faucet shell | faucet body, valve body |
@@ -104,6 +104,8 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | Name | Point at | Not |
 | --- | --- | --- |
 | **holder** | one printed Gridfinity module of `printed-parts/shop-storage/`, holding one kind of thing | tool tray, tool caddy, organizer, bin |
+| **Sculpted** | the faucet style with smooth curves and softly blended transitions | Arc |
+| **Industrial** | the faucet style with simple cylinders and crisp, pronounced shoulders | Stepped |
 | **tub** | a holder that is an open bin, plain or divided: loose stock, and anything that just stands | drawer, box |
 | **cradle** | a holder that is a 90-degree V trough: anything round, at any radius, free to turn | spool shelf, reel rest |
 | **comb** | a holder slotted one slot per tool, each slot a parallel throat closing to a taper | tool rack, plier holder |
