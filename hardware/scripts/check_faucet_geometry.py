@@ -1129,7 +1129,20 @@ def display_rim_reading(reading, f, part):
     # their normal probes detected the original neck-cut feathered material.
     stations = [0.5, 1.0, 2.0, 4.0, 6.0, 42.0, 44.0, 46.0, 48.0]
     rear_start = max(stations[-1], (f.display_cover_rear_rim_s0+f.display_cover_rear_rim_ds_dn*f.display_cover_bottom_n))
-    stations.extend(rear_start+(cover.BoundingBox().ymax-rear_start)*fraction
+    # A trimmed BSpline's conservative box can extend past its real end, even
+    # with AddOptimal. Exact distance to a transverse plane beyond that box
+    # gives the true +S support point. The plane covers every X/N projection.
+    box = cover.BoundingBox()
+    reference_s = box.ymax+10.0
+    end_plane = cq.Plane(origin=(0.0, reference_s, 0.0),
+                         xDir=(1.0, 0.0, 0.0), normal=(0.0, 1.0, 0.0))
+    end_face = cq.Face.makeFromWires(cq.Workplane(end_plane).rect(
+        2.0*(max(abs(box.xmin), abs(box.xmax))+1.0),
+        2.0*(max(abs(box.zmin), abs(box.zmax))+1.0)).val())
+    rear_end = reference_s-cover.distance(end_face)
+    if rear_end <= rear_start+DISTANCE_TOLERANCE:
+        raise RuntimeError("finished neck rim: no positive exact rear sampling span")
+    stations.extend(rear_start+(rear_end-rear_start)*fraction
                     for fraction in (0.25, 0.5, 0.75, 0.9))
     for station in stations:
         plane = cq.Plane(origin=(0.0, station, 0.0), xDir=(1.0, 0.0, 0.0), normal=(0.0, 1.0, 0.0))
@@ -1174,6 +1187,8 @@ def display_rim_reading(reading, f, part):
                 and all(row["present"] and row["probe_count"] > 0 for row in sections),
                 minimum_sampled_normal_stock_mm=clean_number(least), required_mm=1.0,
                 minimum_unqualified_normal_chord_mm=clean_number(min((row["normal_stock_mm"] for row in samples), default=0.0)),
+                exact_rear_sampling_span_s_mm=[clean_number(rear_start), clean_number(rear_end)],
+                rear_extent_method="exact distance to a transverse plane beyond the conservative box and covering every X/N projection",
                 sections=sections, samples=samples,
                 method=f"exact finished-cover sections at {len(stations)} fore/aft stations including the rear closure; inward normal material chords on both sides at five heights above each actual lower edge",
                 scope="sampled neck-rim and corner stock after all cuts. Rays leaving the intentional flat lower rim are reported with independent lateral rim stock and an elevated through-wall normal chord; other short chords still fail. Not a global minimum-wall certificate")
