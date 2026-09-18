@@ -926,3 +926,19 @@ Settings unchanged from attempt 9:
 - Slice estimate: 5 h 26 min 57 s, 154.19 g at the saved profile density.
 - Project, profile, source STL and submitted archive hashes, together with
   launch telemetry, are in `../faucet-petgf.readiness.json`.
+
+## PET-GF faucet fit — 2026-09-17
+
+Derek reported:
+
+- "Many things about the faucet turned out great, cosmetic faces printed, etc."
+- "on the other side of the pivot point the lever raises up when the user presses down."
+- "we need the old clearance back there, where the previous model did not cover as much of the lever."
+- "I don't think you need to remove too much material, just over (Z+) the lever, in the same places where the old model had clearance."
+
+The [display trial log](../../fixtures/faucet-display-snap/print-log.md)
+records the cover's fit, retention and wing-flex observations.
+
+Derek supplied a Bambu Studio screenshot and a photograph of the printed
+lower shell, reporting: "Some of those defects (low resolution polygons on
+what should be smooth surfaces) are showing through in the final print."

@@ -124,7 +124,72 @@ def mesh_reading(reading, f, parts):
                     consistent_winding=bool(mesh.is_winding_consistent), bodies=bodies,
                     triangle_count=len(mesh.faces), volume_mm3=clean_number(mesh.volume),
                     tolerance_mm=f.piece_mesh_tol, angular_tolerance_rad=f.piece_mesh_angle,
+                    tolerance_is_relative=False,
                     scope="live B-rep tessellated, serialized as STL and loaded again; not a slicer result")
+
+
+def lower_outer_mesh_reading(reading, f, mesh_path: Path | None = None):
+    """Measure the saved base mesh against analytic, uncut outer loft points."""
+    import numpy as np
+    import trimesh
+    from OCP.BRepAdaptor import BRepAdaptor_Surface
+    from OCP.BRepTools import BRepTools
+
+    mesh_path = Path(mesh_path) if mesh_path is not None else SHELL / "faucet-shell-base.stl"
+    payload = mesh_path.read_bytes()
+    mesh = trimesh.load_mesh(io.BytesIO(payload), file_type="stl")
+    samples, faces = [], []
+    u_count, v_count, batch_size = 41, 51, 128
+    for index, face in enumerate(shape(f.build_lower_outer()).Faces()):
+        if face.geomType() != "BSPLINE":
+            continue
+        u0, u1, v0, v1 = BRepTools.UVBounds_s(face.wrapped)
+        surface = BRepAdaptor_Surface(face.wrapped)
+        before = len(samples)
+        for u in np.linspace(u0, u1, u_count):
+            for v in np.linspace(v0, v1, v_count):
+                point = surface.Value(float(u), float(v))
+                xyz = (point.X(), point.Y(), point.Z())
+                if abs(xyz[0]) > 10.0 and 2.0 < xyz[2] < 63.0:
+                    samples.append(xyz)
+        faces.append({"face_index": index,
+                      "uv_bounds": [clean_number(value) for value in (u0, u1, v0, v1)],
+                      "selected_points": len(samples)-before})
+    points = np.asarray(samples, dtype=float).reshape((-1, 3))
+    distances = []
+    for start in range(0, len(points), batch_size):
+        _, measured, _ = trimesh.proximity.closest_point(mesh, points[start:start+batch_size])
+        distances.extend(float(value) for value in measured)
+    errors = np.asarray(distances)
+    finite = bool(len(errors) and np.isfinite(errors).all())
+    maximum = float(errors.max()) if finite else float("inf")
+    percentiles = ({f"p{percent}": clean_number(np.percentile(errors, percent))
+                    for percent in (50, 90, 95, 99)} if finite else {})
+    worst = int(errors.argmax()) if finite else None
+    target = 0.015
+    measurements = {
+        "mesh": str(mesh_path),
+        "stl_sha256": hashlib.sha256(payload).hexdigest(),
+        "triangle_count": len(mesh.faces),
+        "grid_per_bspline_face": [u_count, v_count],
+        "selection": "abs(X)>10 mm and 2<Z<63 mm; outside the lever cut",
+        "faces": faces, "sample_count": len(samples),
+        "closest_point_batch_size": batch_size,
+        "maximum_surface_to_mesh_distance_mm": clean_number(maximum) if finite else None,
+        "rms_surface_to_mesh_distance_mm": clean_number(math.sqrt(float(np.mean(errors**2)))) if finite else None,
+        "distance_percentiles_mm": percentiles,
+        "worst_sample_xyz_mm": [clean_number(value) for value in points[worst]] if worst is not None else None,
+        "required_maximum_mm": target,
+        "current_export_settings": {"deflection_mm": f.piece_mesh_tol,
+                                    "angle_rad": f.piece_mesh_angle,
+                                    "tolerance_is_relative": False},
+        "method": "analytic B-rep BSpline surface values on each exact UV rectangle, measured to triangles loaded from the actual serialized STL in bounded nearest-point batches",
+        "scope": "sampled surface-to-mesh error on the broad lower outer loft; the source file is identified by SHA, and current exporter settings do not establish the provenance of an optional comparison file. Not a two-sided Hausdorff bound or a physical print-surface measurement",
+    }
+    reading.add("mesh:lower-outer-loft-accuracy", finite and len(samples) >= 100
+                and bool(np.any(points[:, 0] < -10.0)) and bool(np.any(points[:, 0] > 10.0))
+                and maximum <= target+1e-6, **measurements)
+    return measurements
 
 
 def tube_radius_reading(reading, f, assembly):
@@ -337,46 +402,67 @@ def lower_access_reading(reading, f, base):
                 required_outward_stock_mm=wall, samples=cheek_rows,
                 scope="the two outer cheeks over the complete donor-arch footprint")
 
-    ceiling_faces = [face for face in shape(f.build_lever_clearance()).Faces()
-                     if face.geomType() == "PLANE" and face.normalAt().z > 0.999999]
-    if not ceiling_faces:
-        reading.add("wall:lever-roof-bridge", False, reason="the lever clearance has no horizontal ceiling")
-        reading.add("section:lever-roof-continuity", False, reason="no lever ceiling datum")
-        return
-    ceiling = max(ceiling_faces, key=lambda face: face.Area())
-    roof_z = ceiling.Center().z
-    rear_y = ceiling.BoundingBox().ymax - DISTANCE_TOLERANCE
+    # The geometric lever stand-in does not include a measured rear arm. Keep
+    # its established overhead envelope independently of that moving model.
+    opening_half_width = f.lever_clearance_x_half
+    opening_rear_y = f.lever_clearance_y_back
+    rest_top = f.lever_rest_top_z
+    roof_circle = (cq.Workplane("YZ").center(f.fill_y_min, f.back_arch_center_z)
+                   .circle(f.back_arch_r).extrude(opening_half_width, both=True).val())
+    overhead_box = cq.Solid.makeBox(2.0*opening_half_width, opening_rear_y-f.shell_rect_y_min,
+                                    f.zone4_z_top-rest_top,
+                                    cq.Vector(-opening_half_width, f.shell_rect_y_min, rest_top))
+    overhead = roof_circle.intersect(overhead_box)
+    implemented = shape(f.build_lever_overhead_clearance())
+    profile_delta = volume(overhead.cut(implemented))+volume(implemented.cut(overhead))
+    remaining = volume(overhead.intersect(base))
+    reading.add("clearance:lever-overhead-profile", volume(overhead) > VOLUME_TOLERANCE
+                and max(profile_delta, remaining) <= VOLUME_TOLERANCE,
+                profile_volume_mm3=clean_number(volume(overhead)),
+                printed_material_inside_profile_mm3=clean_number(remaining),
+                clearance_builder_symmetric_difference_mm3=clean_number(profile_delta),
+                x_half_width_mm=clean_number(opening_half_width),
+                rear_y_mm=clean_number(opening_rear_y),
+                minimum_z_mm=clean_number(rest_top),
+                circle_center_yz_mm=[clean_number(f.fill_y_min), clean_number(f.back_arch_center_z)],
+                circle_radius_mm=clean_number(f.back_arch_r),
+                method="independently reconstructed circular overhead volume, clipped to the lever opening and above the rest-lever top, intersected with the complete printed base",
+                scope="keeps the full overhead relief for the rising rear arm; it is not a measured metal-arm shape or proof of the harvested lever's complete travel")
+
+    rear_y = f.soda_faucet_tube_y-f.soda_faucet_hole_diameter/2.0-wall-DISTANCE_TOLERANCE
     front_y = rear_y - 2.0 * wall
     half_width = f.lever_x_half
-    witness = (cq.Workplane("XY").workplane(offset=roof_z)
-               .center(0.0, (front_y + rear_y) / 2.0)
-               .rect(2.0 * half_width, rear_y - front_y).extrude(wall).val())
+    bridge_box = cq.Solid.makeBox(2.0*half_width, rear_y-front_y, f.zone4_z_top+wall-rest_top,
+                                  cq.Vector(-half_width, front_y, rest_top))
+    witness = roof_circle.translate((0.0, 0.0, wall)).cut(roof_circle).intersect(bridge_box)
     missing = volume(witness.cut(base))
-    reading.add("wall:lever-roof-bridge", missing <= VOLUME_TOLERANCE,
-                method="complete vertical wall witness above the rear two wall-widths of the actual flat lever ceiling",
-                bounds_mm=[-half_width, half_width, clean_number(front_y), clean_number(rear_y),
-                           clean_number(roof_z), clean_number(roof_z + wall)],
+    reading.add("wall:lever-roof-bridge", volume(witness) > VOLUME_TOLERANCE and missing <= VOLUME_TOLERANCE,
+                method="complete three-millimeter vertical strip above two wall-widths of the independently reconstructed circular lever roof, ending one wall-width forward of the water bore",
+                xy_bounds_mm=[-half_width, half_width, clean_number(front_y), clean_number(rear_y)],
                 required_vertical_stock_mm=wall, missing_witness_mm3=clean_number(missing),
                 scope="the bridge from the lever roof into the neck; not every exterior opening edge")
     samples = []
     for x in (-half_width, 0.0, half_width):
         for y in (front_y, rear_y - wall, rear_y):
+            roof_z = f.back_arch_center_z+math.sqrt(f.back_arch_r**2-(y-f.fill_y_min)**2)
             spans = line_intervals(base, (x, y, roof_z + DISTANCE_TOLERANCE),
                                    (0.0, 0.0, 1.0), 2.0 * wall)
             continuous = (len(spans) == 1 and spans[0][0] <= DISTANCE_TOLERANCE
                           and spans[0][1] - spans[0][0] >= wall - DISTANCE_TOLERANCE)
             samples.append({"x_mm": clean_number(x), "y_mm": clean_number(y),
+                            "circular_roof_z_mm": clean_number(roof_z),
                             "material_intervals_above_roof_mm":
                                 [[clean_number(a), clean_number(b)] for a, b in spans],
                             "continuous": continuous})
     reading.add("section:lever-roof-continuity", all(row["continuous"] for row in samples),
-                method="nine exact vertical B-rep chords from the lever ceiling through two wall-widths of roof and neck",
-                roof_z_mm=clean_number(roof_z), probe_height_mm=2.0 * wall,
+                method="nine exact vertical B-rep chords from the circular roof at each Y station through two wall-widths of roof and neck",
+                probe_height_mm=2.0 * wall,
                 minimum_continuous_stock_mm=wall, samples=samples,
                 scope="no separated upper slit in the roof-to-neck bridge; exterior rays may end at the show surface")
 
 
-def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
+def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
+                              free_cover, cover_builder):
     """Actual cover-lip capture and clearance demand, without an elastic model."""
     import cadquery as cq
     from OCP.BRepAdaptor import BRepAdaptor_Surface
@@ -431,12 +517,20 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
     lower_skirts = cover.intersect(band(f.display_head_s_min, f.display_head_s_max + 1.0,
                                        n0, f.display_cover_shoulder_n))
     skirts = {side: half(lower_skirts, side) for side in (-1, 1)}
+    free_cover = shape(free_cover)
+    free_lower_skirts = free_cover.intersect(
+        band(f.display_head_s_min, f.display_head_s_max + 1.0,
+             n0, cover_builder.bezel_n_bottom))
+    free_skirts = {side: half(free_lower_skirts, side) for side in (-1, 1)}
     lip_parts = {side: half(lips, side) for side in (-1, 1)}
     groove_band = band(s0-snap.END_SLIP, s1+snap.END_SLIP, n0, n1+snap.BEARING_SLIP)
     groove_core = shape(f._build_zone6_outer_shrunk(f.tube_shell_outer_r-f.display_clip_groove_radius))
     backed_core = shape(f._build_zone6_outer_shrunk(
         f.tube_shell_outer_r-f.display_clip_groove_radius+f.wall_thickness_min))
     backing = groove_core.cut(backed_core).intersect(groove_band)
+    groove_ceiling = n1+snap.BEARING_SLIP
+    shoulder_witness = shape(f._build_zone6_outer_shrunk(0.0)).cut(groove_core).intersect(
+        band(s0, s1, groove_ceiling, groove_ceiling+f.wall_thickness_min))
     groove_faces = []
     for face in tip.Faces():
         r = radius(face)
@@ -465,13 +559,14 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
         b = local_bounds(lip)
         reading.add(f"wall:cover-lip-{side:+d}", lip.isValid() and len(lip.Solids()) == 1
                     and missing <= VOLUME_TOLERANCE
-                    and all(row["normal_stock_mm"] >= 1.0-DISTANCE_TOLERANCE for row in lip_chords)
+                    and all(row["normal_stock_mm"] >= snap.LIP_HEIGHT-DISTANCE_TOLERANCE for row in lip_chords)
                     and radial_stock >= 1.0-DISTANCE_TOLERANCE,
                     missing_lip_from_cover_mm3=clean_number(missing),
                     sampled_normal_chords=lip_chords,
                     measured_normal_height_mm=clean_number(b.zlen),
                     minimum_inner_surface_to_outer_skin_mm=clean_number(radial_stock),
-                    required_mm=1.0,
+                    required_normal_height_mm=snap.LIP_HEIGHT,
+                    required_radial_stock_mm=1.0,
                     method="complete lip containment in the cover, nine exact interior normal chords per side, and complete curved-side separation")
         witness = half(backing, side)
         missing = volume(witness.cut(tip))
@@ -480,6 +575,15 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
                     missing_complete_radial_backing_mm3=clean_number(missing),
                     required_radial_backing_mm=f.wall_thickness_min,
                     method="complete three-millimeter annular witness behind the actual swept groove, including its rear torus section")
+        shoulder = half(shoulder_witness, side)
+        missing_shoulder = volume(shoulder.cut(tip))
+        reading.add(f"wall:retention-shoulder-{side:+d}", volume(shoulder) > VOLUME_TOLERANCE
+                    and missing_shoulder <= VOLUME_TOLERANCE,
+                    missing_complete_bearing_stock_mm3=clean_number(missing_shoulder),
+                    required_normal_witness_span_mm=f.wall_thickness_min,
+                    bearing_start_n_mm=clean_number(groove_ceiling),
+                    method="complete annular volume between the original cylinder and groove-root sweep over a three-millimeter N band above each retaining shoulder",
+                    scope="retained stock following the curved neck; not a three-millimeter vertical column at every point of the outer bearing edge")
         faces = [face for face in groove_faces if side*face.Center().x > 0.0]
         if faces:
             gb = local_bounds(cq.Compound.makeCompound(faces))
@@ -538,10 +642,24 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
                 contact_outside_retaining_shoulders_mm3=clean_number(outside_shoulder),
                 scope="geometric cover-lip capture only; PET-GF force, flex distribution and cycling require the complete print trial")
 
-    # This measures clearance demand by translating only each actual lower
-    # skirt outwards. It is not a deformed-cover model or an elastic solution.
-    search_limit = snap.ENGAGEMENT+snap.RADIAL_SLIP
+    # Independently measure both the nominal seated and relaxed printed skirts.
+    # Radial engagement is not a sufficient search budget at the cylinder crown.
+    # A rigid skirt translation measures clearance demand, not its elastic path.
+    search_limit = max(3.0, snap.ENGAGEMENT+cover_builder.preload_inward_at(n0)+0.5)
     resolution = 0.0001
+
+    def outward_clearance(skirt, side):
+        low, high = 0.0, search_limit
+        if contact(skirt, full) <= VOLUME_TOLERANCE:
+            return 0.0, 0.0
+        if contact(skirt.translate((side*high, 0.0, 0.0)), full) <= VOLUME_TOLERANCE:
+            while high-low > resolution:
+                mid = (low+high)/2.0
+                if contact(skirt.translate((side*mid, 0.0, 0.0)), full) <= VOLUME_TOLERANCE:
+                    high = mid
+                else:
+                    low = mid
+        return high, contact(skirt.translate((side*high, 0.0, 0.0)), full)
     hardware = {"display": body, "glass": glass, "ribbon": ribbon,
                 **{name: shape(part) for name, part in tubes.items()}}
     hardware_bounds = {name: local_bounds(part) for name, part in hardware.items()}
@@ -557,24 +675,20 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
                "contact_outside_actual_lips_mm3": clean_number(outside_volume(common, lips.translate(normal.multiply(lift)))),
                "contact_outside_lower_skirts_mm3": clean_number(outside_volume(common, lower_skirts.translate(normal.multiply(lift)))),
                "sides": []}
-        hardware_poses = [moved]
+        hardware_poses = [moved, free_cover.translate(normal.multiply(lift))]
         for side in (-1, 1):
             skirt = skirts[side].translate(normal.multiply(lift))
-            low, high = 0.0, search_limit
-            first = contact(skirt, full)
-            if first <= VOLUME_TOLERANCE:
-                high = 0.0
-            elif contact(skirt.translate((side*high, 0.0, 0.0)), full) <= VOLUME_TOLERANCE:
-                while high-low > resolution:
-                    mid = (low+high)/2.0
-                    if contact(skirt.translate((side*mid, 0.0, 0.0)), full) <= VOLUME_TOLERANCE:
-                        high = mid
-                    else:
-                        low = mid
-            remaining = contact(skirt.translate((side*high, 0.0, 0.0)), full)
+            high, remaining = outward_clearance(skirt, side)
+            free_skirt = free_skirts[side].translate(normal.multiply(lift))
+            free_high, free_remaining = outward_clearance(free_skirt, side)
             row["sides"].append({"side": side, "required_outward_clearance_mm": clean_number(high),
-                                  "remaining_body_interference_mm3": clean_number(remaining)})
+                                  "required_outward_clearance_from_nominal_seat_mm": clean_number(high),
+                                  "total_outward_clearance_from_relaxed_print_mm": clean_number(free_high),
+                                  "remaining_body_interference_mm3": clean_number(remaining),
+                                  "remaining_relaxed_body_interference_mm3": clean_number(free_remaining)})
             hardware_poses.extend(skirt.translate((side*high*fraction, 0.0, 0.0))
+                                  for fraction in (0.5, 1.0))
+            hardware_poses.extend(free_skirt.translate((side*free_high*fraction, 0.0, 0.0))
                                   for fraction in (0.5, 1.0))
         posed = [(pose, local_bounds(pose)) for pose in hardware_poses]
         for name, obstacle in hardware.items():
@@ -600,23 +714,28 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes):
                 travel[name]["gap"] = min(travel[name]["gap"], gap)
                 travel[name]["overlap"] = max(travel[name]["overlap"], overlap)
         rows.append(row)
-        print(f"  cover normal lift {lift:g} mm: outward demands "
-              + ", ".join(f"{side['required_outward_clearance_mm']:.4f}" for side in row["sides"]) + " mm", flush=True)
+        print(f"  cover normal lift {lift:g} mm: nominal / relaxed outward demands "
+              + ", ".join(f"{side['required_outward_clearance_mm']:.4f} / "
+                          f"{side['total_outward_clearance_from_relaxed_print_mm']:.4f}"
+                          for side in row["sides"]) + " mm", flush=True)
     peak = max(side["required_outward_clearance_mm"] for row in rows for side in row["sides"])
+    free_peak = max(side["total_outward_clearance_from_relaxed_print_mm"] for row in rows for side in row["sides"])
     reading.add("motion:display-cover-normal", all(
                     max(row["contact_outside_actual_lips_mm3"], row["contact_outside_lower_skirts_mm3"],
-                        *(side["remaining_body_interference_mm3"] for side in row["sides"])) <= VOLUME_TOLERANCE
+                        *(side["remaining_body_interference_mm3"] for side in row["sides"]),
+                        *(side["remaining_relaxed_body_interference_mm3"] for side in row["sides"])) <= VOLUME_TOLERANCE
                     for row in rows),
                 samples=rows, peak_required_outward_clearance_per_side_mm=clean_number(peak),
+                peak_total_outward_clearance_from_relaxed_print_per_side_mm=clean_number(free_peak),
                 outward_search_budget_mm=clean_number(search_limit), clearance_search_resolution_mm=resolution,
-                scope="sampled normal insertion; all unflexed contact must be in actual lips on actual lower skirts; outward translation measures the skirts' geometric clearance demand, not deformation, strain or insertion force")
+                scope="sampled normal insertion using separate nominal seated and actual relaxed-print solids; nominal contact must stay in the lips and lower skirts. Each skirt's rigid outward translation measures clearance demand, not deformation, strain, force, or the loaded equilibrium shape of the joined end bridges")
     for name, result in travel.items():
         required = 0.1 if name == "ribbon" else 0.0
         reading.add(f"clearance:snap-travel-{name}", result["overlap"] <= VOLUME_TOLERANCE
                     and result["gap"] >= required-DISTANCE_TOLERANCE,
                     maximum_sampled_overlap_mm3=clean_number(result["overlap"]),
                     minimum_sampled_gap_lower_bound_mm=clean_number(result["gap"]), required_gap_mm=required,
-                    method="complete cover at every normal station plus both actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available")
+                    method="complete nominal and relaxed covers at every normal station, plus both states' actual lower skirts at half and full measured outward travel; exact commons or distance, with conservative box separation where available")
 
     display_rigid_neck_reading(reading, f, tip)
 
@@ -643,8 +762,11 @@ def display_rigid_neck_reading(reading, f, part):
              f.display_feet_n-edge_inset))
     missing_skin = volume(restored.cut(tip))
     samples = []
+    groove_ceiling = f.display_clip_top_n+f._display_snap.BEARING_SLIP
+    n_low, n_high = groove_ceiling+0.5, f.display_feet_n-1.0
+    n_stations = (n_low, (n_low+n_high)/2.0, n_high)
     for station in (2.0, 6.0, 10.0, 13.573, 20.0, 26.0, 30.0, 34.0, 40.0, 44.0):
-        for n in (5.0, 7.0, 9.0):
+        for n in n_stations:
             point = (origin+along.multiply(station)+normal.multiply(n)).toTuple()
             for side in (-1, 1):
                 expected = line_intervals(neck_outer, point, (side, 0.0, 0.0), 25.0)
@@ -661,13 +783,16 @@ def display_rigid_neck_reading(reading, f, part):
     upper = band(f.display_s_bottom, f.display_s_top, f.display_feet_n+DISTANCE_TOLERANCE,
                  f.display_cover_top_n+1.0)
     upper_fins = volume(tip.intersect(upper))
-    reading.add("shape:display-rigid-neck", restored.isValid() and volume(restored) > VOLUME_TOLERANCE
+    reading.add("shape:display-rigid-neck", n_low < n_high
+                and restored.isValid() and volume(restored) > VOLUME_TOLERANCE
                 and max(missing_skin, beyond_neck, upper_fins) <= VOLUME_TOLERANCE
                 and all(row["outer_endpoint_error_mm"] <= DISTANCE_TOLERANCE
                         and row["continuous_stock_mm"] >= depth-DISTANCE_TOLERANCE for row in samples),
                 missing_complete_subsurface_witness_mm3=clean_number(missing_skin),
                 radial_witness_range_below_exterior_mm=[surface_inset, depth],
                 witness_open_boundary_inset_mm=edge_inset, exterior_sections=samples,
+                groove_ceiling_n_mm=clean_number(groove_ceiling),
+                sampled_n_stations_mm=[clean_number(n) for n in n_stations],
                 required_continuous_chord_stock_mm=depth,
                 material_beyond_swept_cylinder_mm3=clean_number(beyond_neck),
                 upper_device_opening_material_mm3=clean_number(upper_fins),
@@ -799,7 +924,146 @@ def display_rim_reading(reading, f, part):
                 scope="the rear central cover bridge; axial chords alone do not certify a tilted wall")
 
 
-def display_reading(reading, f, assembly, parts, body):
+def display_free_cover_reading(reading, f, cover_builder, seated, free, tip):
+    """Read the printable preform separately from the nominal installed cover."""
+    import cadquery as cq
+    origin, _, normal = f._tip_frame()
+    frame = cq.Location(cq.Plane(origin=origin, xDir=(1.0, 0.0, 0.0), normal=normal))
+    seated, free, tip = (shape(part).moved(frame.inverse) for part in (seated, free, tip))
+    lips = shape(f.build_display_cover_lips()).moved(frame.inverse)
+    n0, n1 = f.display_clip_bottom_n, f.display_clip_top_n
+    anchor = cover_builder.bezel_n_bottom
+    slope = f._display_snap.X_PRELOAD/(anchor-n1)
+
+    def preload(n):
+        return slope*max(0.0, anchor-n)
+
+    def native_band(low, high):
+        return cq.Solid.makeBox(100.0, 150.0, high-low, cq.Vector(-50.0, -50.0, low))
+
+    upper = native_band(anchor, f.display_cover_top_n+1.0)
+    installed_bezel, free_bezel = seated.intersect(upper), free.intersect(upper)
+    bezel_delta = volume(installed_bezel.cut(free_bezel))+volume(free_bezel.cut(installed_bezel))
+    reading.add("shape:display-cover-unchanged-bezel", volume(installed_bezel) > VOLUME_TOLERANCE
+                and bezel_delta <= VOLUME_TOLERANCE,
+                unchanged_from_n_mm=clean_number(anchor),
+                symmetric_difference_mm3=clean_number(bezel_delta),
+                method="exact symmetric difference of the complete nominal and printed solids above the bezel underside")
+
+    shift_samples, height_samples, missing_lips = [], [], []
+    s0, s1 = f.display_clip_s_bottom, f.display_clip_s_top
+    for side in (-1, 1):
+        halfspace = cq.Solid.makeBox(50.0, 150.0, 100.0,
+                                    cq.Vector(0.0 if side == 1 else -50.0, -50.0, -30.0))
+        printed_lip = lips.intersect(halfspace).transformGeometry(cover_builder.relaxed_wing_transform(side))
+        missing_lips.append(volume(printed_lip.cut(free)))
+        for fraction in (0.125, 0.5, 0.875):
+            station = s0+(s1-s0)*fraction
+            for n in (n0+0.25, (n0+n1)/2.0, n1-0.25):
+                nominal = line_intervals(seated, (0.0, station, n), (side, 0.0, 0.0), 30.0)
+                printed = line_intervals(free, (0.0, station, n), (side, 0.0, 0.0), 30.0)
+                errors = ([abs(a-b-preload(n)) for a, b in zip(nominal[-1], printed[-1])]
+                          if nominal and printed else [30.0, 30.0])
+                shift_samples.append({"side": side, "s_mm": clean_number(station), "n_mm": clean_number(n),
+                                      "expected_inward_shift_mm": clean_number(preload(n)),
+                                      "inner_and_outer_shift_error_mm": [clean_number(v) for v in errors],
+                                      "printed_lateral_stock_mm": clean_number(printed[-1][1]-printed[-1][0]) if printed else 0.0})
+            middle = line_intervals(seated, (0.0, station, (n0+n1)/2.0), (side, 0.0, 0.0), 30.0)
+            if not middle:
+                height_samples.append({"side": side, "s_mm": clean_number(station), "normal_height_mm": 0.0})
+                continue
+            x = side*sum(middle[-1])/2.0
+            start = (x-side*preload(n0-0.1), station, n0-0.1)
+            direction = cq.Vector(side*slope, 0.0, 1.0).normalized()
+            chords = line_intervals(free, start, direction.toTuple(), (n1-n0+0.2)/direction.z)
+            height = max((b-a for a, b in chords), default=0.0)*direction.z
+            height_samples.append({"side": side, "s_mm": clean_number(station),
+                                   "normal_height_mm": clean_number(height)})
+    free_common = free.intersect(tip)
+    interface_overlap = volume(free_common)
+    lower = native_band(n0, anchor)
+    unexpected_overlap = volume(free_common.cut(lower))
+    parameter_error = max(abs(cover_builder.preload_inward_at(n)-preload(n)) for n in (n0, n1, anchor))
+    reading.add("shape:display-cover-relaxed-preload", bool(shift_samples)
+                and all(max(row["inner_and_outer_shift_error_mm"]) <= DISTANCE_TOLERANCE for row in shift_samples)
+                and parameter_error <= DISTANCE_TOLERANCE
+                and interface_overlap > VOLUME_TOLERANCE and unexpected_overlap <= VOLUME_TOLERANCE,
+                preload_at_lip_top_mm=clean_number(preload(n1)),
+                preload_at_lip_bottom_mm=clean_number(preload(n0)),
+                nominal_radial_clearance_mm=f._display_snap.RADIAL_SLIP,
+                shear_x_per_n=clean_number(slope),
+                free_interference_with_rigid_tip_mm3=clean_number(interface_overlap),
+                interference_outside_preformed_wings_mm3=clean_number(unexpected_overlap),
+                samples=shift_samples,
+                method="independent actual-solid X chords at three lip stations and three heights per wing, plus exact common volume against the rigid tip",
+                scope="the relaxed print is intentionally narrower than the nominal seated reference; the joined end bridges are not an invertible elastic map, and installed equilibrium and preload force require the print trial")
+    reading.add("wall:display-relaxed-lips", max(missing_lips) <= VOLUME_TOLERANCE
+                and all(row["normal_height_mm"] >= f._display_snap.LIP_HEIGHT-DISTANCE_TOLERANCE for row in height_samples)
+                and all(row["printed_lateral_stock_mm"] >= 1.0-DISTANCE_TOLERANCE for row in shift_samples),
+                missing_complete_lip_witness_mm3=[clean_number(v) for v in missing_lips],
+                required_normal_height_mm=f._display_snap.LIP_HEIGHT,
+                required_lateral_stock_mm=1.0, height_samples=height_samples,
+                method="complete affine lip witnesses inside the printable solid, with six actual material chords projected onto N and eighteen lateral lip sections")
+
+    # Re-read the actual free solid along the mapped surface normals. The
+    # centre seam is excluded here and has independent bridge readings below.
+    skin_samples = []
+    for name in ("wall:display-finished-neck-rim", "wall:display-rear-rim"):
+        for row in reading.rows[name]["samples"]:
+            x, station, n = row["point_x_s_n_mm"]
+            if abs(x) < 1.0:
+                continue
+            side = 1 if x > 0.0 else -1
+            point = cq.Vector(x-side*preload(n), station, n)
+            vx, vs, vn = row["normal_inward"]
+            inward = cq.Vector(vx, vs, vn-side*slope*vx if n < anchor else vn).normalized()
+            start = point+inward.multiply(DISTANCE_TOLERANCE)
+            chords = line_intervals(free, start.toTuple(), inward.toTuple(), 6.0)
+            stock = chords[0][1]+DISTANCE_TOLERANCE if chords and chords[0][0] < 0.001 else 0.0
+            skin_samples.append({"source_section": name, "point_x_s_n_mm": [clean_number(v) for v in point.toTuple()],
+                                 "normal_inward": [clean_number(v) for v in inward.toTuple()],
+                                 "normal_stock_mm": clean_number(stock)})
+    minimum = min((row["normal_stock_mm"] for row in skin_samples), default=0.0)
+    reading.add("wall:display-relaxed-cosmetic-rims", bool(skin_samples) and minimum >= 1.0-DISTANCE_TOLERANCE,
+                minimum_sampled_normal_stock_mm=clean_number(minimum), required_mm=1.0,
+                samples=skin_samples,
+                method="actual printable-solid material chords on the affine images of the finished corner and rear-rim sections, using inverse-transpose surface normals",
+                scope="sampled material after the wing union; not a global thickness or elastic-deformation certificate")
+
+    bridge_samples = []
+    faces = free.Faces()
+    for x in (-3.0, 0.0, 3.0):
+        for front in (True, False):
+            station = DISTANCE_TOLERANCE if front else f._display_housing_center_s
+            for n in (14.25, 16.0, 18.0, anchor-0.1, anchor+0.1):
+                spans = line_intervals(free, (x, station, n), (0.0, 1.0, 0.0), f.display_head_s_max+1.0-station)
+                if not spans:
+                    continue
+                point = cq.Vector(x, station+(spans[0][0] if front else spans[-1][1]), n)
+                if front:
+                    inward = cq.Vector(0.0, 1.0, 0.0)
+                else:
+                    vertex = cq.Vertex.makeVertex(*point.toTuple())
+                    face = min(faces, key=lambda candidate: candidate.distance(vertex))
+                    inward = face.normalAt(point)
+                    if inward.y > 0.0:
+                        inward = inward.multiply(-1.0)
+                start = point+inward.multiply(DISTANCE_TOLERANCE)
+                chords = line_intervals(free, start.toTuple(), inward.toTuple(), 6.0)
+                stock = chords[0][1]+DISTANCE_TOLERANCE if chords and chords[0][0] < 0.001 else 0.0
+                bridge_samples.append({"end": "front" if front else "rear", "x_mm": x, "n_mm": n,
+                                       "normal_stock_mm": clean_number(stock)})
+    minimum_bridge = min((row["normal_stock_mm"] for row in bridge_samples), default=0.0)
+    reading.add("wall:display-relaxed-end-bridges", minimum_bridge >= 1.0-DISTANCE_TOLERANCE
+                and {(row["end"], row["x_mm"]) for row in bridge_samples}
+                == {(end, x) for end in ("front", "rear") for x in (-3.0, 0.0, 3.0)},
+                minimum_sampled_normal_stock_mm=clean_number(minimum_bridge), required_mm=1.0,
+                samples=bridge_samples,
+                method="actual free-solid front and rear bridge chords at X0/±3, below and above the unchanged-bezel join",
+                scope="named central-union sections; the bridges' installed bending and any load on the glass remain physical trial observations")
+
+
+def display_reading(reading, f, assembly, parts, body, free_cover):
     import cadquery as cq
     full = cq.Compound.makeCompound([shape(parts["shell_base"]), shape(parts["shell_tip"])])
     tip, cover, body = shape(parts["shell_tip"]), shape(parts["display_cover"]), shape(body)
@@ -829,7 +1093,8 @@ def display_reading(reading, f, assembly, parts, body):
                 flavor_bore_radial_allowance_mm=clean_number((f.flavor_tube_hole_dia-f.flavor_tube_od)/2.0),
                 scope="nominal placement only; the tube fit trial checks actual tube motion, component tolerances and contact")
 
-    display_retention_reading(reading, f, parts, body, assembly.build_display_screen(), ribbon, tubes)
+    display_retention_reading(reading, f, parts, body, assembly.build_display_screen(), ribbon, tubes,
+                              free_cover, assembly.faucet_display_cover)
     for lift in [step/4.0 for step in range(17)] + [6.0, 10.0, 20.0]:
         moved = body.translate(normal.multiply(lift))
         overlap = volume(moved.intersect(full))
@@ -848,6 +1113,7 @@ def display_reading(reading, f, assembly, parts, body):
                 minimum_loft_side_separation_mm=clean_number(side_wall), required_mm=1.0,
                 method="exact separation of the complete outer loft's curved side faces and inner cover cavity")
     display_rim_reading(reading, f, cover)
+    display_free_cover_reading(reading, f, assembly.faucet_display_cover, cover, free_cover, tip)
     spans = line_intervals(cover, point(11.0, f._display_housing_center_s,
                                       f.display_cover_top_n+1.0), normal.multiply(-1).toTuple(), 5.0)
     bezel = spans[0][1]-spans[0][0] if spans else 0.0
@@ -894,7 +1160,7 @@ def display_reading(reading, f, assembly, parts, body):
                 method="complete 2 mm cylinder-minus-tube-passages witness, with a common planar cavity face behind it")
 
 
-def display_trial_reading(reading, f, parts):
+def display_trial_reading(reading, f, parts, free_cover):
     sys.path.insert(0, str(ROOT / "hardware/printed-parts/fixtures/faucet-display-snap"))
     import faucet_display_snap_trial as trial
     housing, cover, clip, dimensions = trial.build_trial()
@@ -903,7 +1169,7 @@ def display_trial_reading(reading, f, parts):
     witness = tip.intersect(shape(trial.trial_region(boundary)))
     missing = volume(witness.cut(shape(housing)))
     extra = volume(shape(housing).cut(tip))
-    cover_delta = volume(shape(cover).cut(shape(parts["display_cover"]))) + volume(shape(parts["display_cover"]).cut(shape(cover)))
+    cover_delta = volume(shape(cover).cut(shape(free_cover))) + volume(shape(free_cover).cut(shape(cover)))
     cable_clipped = volume(shape(f.build_display_ribbon_transition()).cut(shape(clip)))
     reading.add("fixture:complete-display-fit-trial", max(missing, extra, cover_delta, cable_clipped) <= VOLUME_TOLERANCE,
                 missing_head_or_anchor_material_mm3=clean_number(missing),
@@ -911,7 +1177,7 @@ def display_trial_reading(reading, f, parts):
                 cover_symmetric_difference_mm3=clean_number(cover_delta),
                 clipped_side_entry_ribbon_mm3=clean_number(cable_clipped),
                 retained_geometry=dimensions,
-                method="complete production head region through the cable branch, and exact complete cover")
+                method="complete production head region through the cable branch, and exact complete relaxed printable cover")
     poses = {name: angle for name, _, angle in trial.production_print.PARTS}
     reading.add("fixture:production-print-orientations",
                 abs(poses["faucet-shell-tip"]+math.degrees(f.print_tip_build_rot)) < DISTANCE_TOLERANCE,
@@ -1013,8 +1279,12 @@ def main() -> int:
              "above_counter_plate": assembly.load_above_counter_plate(),
              "above_counter_gasket": assembly.load_above_counter_gasket(),
              "display_cover": assembly.load_display_cover(), "tpu_thimble": assembly.build_o_ring()}
+    free_cover = assembly.faucet_display_cover.build_display_cover()
     solids_reading(reading, parts)
     mesh_reading(reading, f, parts)
+    solids_reading(reading, {"display_cover_relaxed_print": free_cover})
+    mesh_reading(reading, f, {"display_cover_relaxed_print": free_cover})
+    lower_outer_mesh_reading(reading, f)
     tube_radius_reading(reading, f, assembly)
     base, tip, plate = parts["shell_base"], parts["shell_tip"], parts["above_counter_plate"]
     for name in ("shell_base", "shell_tip", "above_counter_plate", "display_cover"):
@@ -1030,8 +1300,8 @@ def main() -> int:
     base_fastener_reading(reading, f, base, plate)
     lower_section_reading(reading, f, base)
     lower_access_reading(reading, f, base)
-    display_reading(reading, f, assembly, parts, assembly.build_display_body())
-    display_trial_reading(reading, f, parts)
+    display_reading(reading, f, assembly, parts, assembly.build_display_body(), free_cover)
+    display_trial_reading(reading, f, parts, free_cover)
     lever_reading(reading, assembly, parts)
     ribbon_reading(reading, f, assembly, parts)
     clearance_reading(reading, "seat:plate-gasket", plate, parts["above_counter_gasket"])
@@ -1040,7 +1310,7 @@ def main() -> int:
         raise RuntimeError("a faucet source changed during the reading; rerun after its build settles")
     passed = all(row["passed"] for row in reading.rows.values())
     result = {"schema_version": 1,
-              "scope": "Live production B-rep builders and serialized STL surfaces, fixed donor, dimensional display and tube models; "
+              "scope": "Live B-rep builders and serialized STL surfaces, separate nominal seated and relaxed printable display covers, fixed donor, dimensional display and tube models; "
                        "named wall witnesses and sampled sections. No global minimum-wall certification.",
               "nominal_cad_only": True,
               "distance_tolerance_mm": DISTANCE_TOLERANCE,
@@ -1068,7 +1338,7 @@ def main() -> int:
                   "PET-GF print strength, curved-joint fit and retention, and heat-set insert installation.",
                   "Support access and contact finish from a production-profile slice and physical print.",
                   "Tube feeding, flow, actual tube/display separation, cable routing and splash drainage.",
-                  "PET-GF cover-wall spreading, seating and pull-off force, lip strength, repeated closure and release in the complete display fit trial."],
+                  "PET-GF cover-wall spreading, installed shape and end-bridge bending, seating and pull-off force, lip strength, repeated closure and release in the complete display fit trial."],
               "passed": passed}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     temporary = args.output.with_suffix(args.output.suffix + ".tmp")

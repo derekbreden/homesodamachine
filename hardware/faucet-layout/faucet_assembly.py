@@ -292,8 +292,8 @@ def load_above_counter_gasket():
 
 
 def load_display_cover():
-    """Display cover with its broad lips seated, in the shell's tip frame."""
-    return faucet_display_cover.build_display_cover()
+    """Nominal seated cover surface, with its relaxed print supplied separately."""
+    return faucet_display_cover.build_seated_display_cover()
 
 
 def load_shell_pieces():
@@ -1102,7 +1102,7 @@ def build_assembly():
     assy.add(above_counter_gasket, name="above_counter_gasket", color=tpu_black)
     assy.add(shell_base, name="shell_base", color=faucet_black)
     assy.add(shell_tip, name="shell_tip", color=faucet_black)
-    assy.add(display_cover, name="faucet-display-cover", color=faucet_black)
+    assy.add(display_cover, name="faucet-display-cover-seated", color=faucet_black)
     for i, (x, y) in enumerate(faucet_shell.base_pod_centers, 1):
         assy.add(build_base_screw(x, y), name=f"base_screw_{i}", color=donor_black)
         assy.add(build_base_insert(x, y), name=f"base_insert_{i}", color=_mat.M_BRASS)
@@ -1187,7 +1187,7 @@ def main():
     print(f"  Above-counter plate:   above_counter_plate.build_above_counter_plate()")
     print(f"  Above-counter gasket:  above_counter_gasket.build_above_counter_gasket()")
     print(f"  Shell pieces:          faucet_shell.build_shell_base/tip()")
-    print(f"  Display cover:         faucet_display_cover.build_display_cover()")
+    print(f"  Display cover:         faucet_display_cover.build_seated_display_cover()")
     print(f"  Countertop:            {countertop_thickness:.0f} mm slab, "
           f"Z = {countertop_bottom_z:.1f} → {countertop_top_z:.1f}")
     print(f"    standard hole:       Ø{countertop_hole_diameter:.2f} mm at Y = "

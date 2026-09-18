@@ -18,8 +18,8 @@ Rigid structural walls, display supports, screw seats and insert backing
 are at least 3 mm at the checked sections. The gooseneck lap has a
 [3 mm](SPLIT_SOCKET_WALL) socket wall and a 3 mm plug wall, separated by
 [0.3 mm](SPLIT_SLIP) diametral clearance. The display cover's side walls flex
-around the rigid neck; the nominal wall and broad retaining lips are
-1.30 mm thick, with a 1 mm minimum for the cover's thin sections.
+around the rigid neck; the nominal skin is 1.30 mm thick, with a 1 mm
+minimum for the cover's thin sections. Its broad retaining lips are 3 mm high.
 The compressible above-counter gasket remains 2 mm TPU.
 
 ## Base joint
@@ -55,6 +55,11 @@ The nominal body and lever insertion paths are clear. The donor's attachment
 hardware is not dimensioned in the reference model; verify access for its actual
 fastening operation on the bench.
 
+The lever opening includes an arched clearance above the rear arm, joined
+to the opening below. Its roof leaves room for the arm to rise when the
+front is pressed. Confirm this motion with the harvested lever before
+closing the faucet base.
+
 The screw stations are (X,Y)=(±[22](BASE_X),[10](BASE_Y)) and (0,[-24.2](BASE_FRONT_Y)) mm. The head recesses
 are Ø[6.15 mm](BASE_CBORE_D) × [3.2 mm](BASE_CBORE_DEPTH) deep. Each [4 mm](BASE_INSERT_L) insert receives the screw's full thread
 engagement; the blind pilot provides tip relief.
@@ -85,9 +90,11 @@ stand-in, not a scan suitable for manufacturing a replacement lever.
    central space above the tubes is open.
 3. Lower the cover normal to the display. Its side walls spread outward
    around the rigid cylinder until both broad lips seat in the side grooves,
-   under their retaining shoulders. The lips have 0.30 mm nominal radial
-   engagement; their bottoms seat on the groove floors before the bezel
-   reaches the glass. No display screw or insert is fitted.
+   under their retaining shoulders. The lips have 1 mm nominal radial
+   engagement and contact the groove roots. Each wing is printed 0.75–0.908 mm
+   inward from its nominal seated position, so it remains spread after
+   assembly. Lip bottoms seat on the groove floors before the bezel reaches
+   the glass. No display screw or insert is fitted.
 4. Check that the seam closes, the glass clears the bezel, and the display
    remains seated when its touch surface is pressed. The enclosure's lower edge
    and the three tube outlets end at the same plane.
@@ -96,8 +103,9 @@ The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
 some tube movement, so the seated real bundle is part of the
 [complete display fit trial](../../fixtures/faucet-display-snap/README.md).
 That trial prints the actual housing, supports, snaps and cover with a short
-gooseneck stub. Physical snap performance and assembled clearance are
-unmeasured.
+gooseneck stub. Its [print log](../../fixtures/faucet-display-snap/print-log.md)
+records physical observations. The preloaded cover and matching grooves
+require a new trial for retention and assembled clearance.
 
 The dispense face has [2 mm](DISPENSE_FACE_T) axial stock. The display pocket and USB clearance
 share one flat plane behind it.
