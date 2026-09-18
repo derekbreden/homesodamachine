@@ -1,0 +1,52 @@
+{
+  "url": "https://hosm.us/0001",
+  "width_mm": 104.53,
+  "height_mm": 66.07,
+  "qr_version": 2,
+  "error_correction": "M",
+  "quiet_zone_modules": 4,
+  "layouts": [
+    {
+      "key": "A",
+      "title": "Lower right",
+      "module_mm": 0.6,
+      "active_qr_mm": 15.0,
+      "qr_with_margin_mm": 19.8
+    },
+    {
+      "key": "B",
+      "title": "Upper corner",
+      "module_mm": 0.56,
+      "active_qr_mm": 14.000000000000002,
+      "qr_with_margin_mm": 18.48
+    },
+    {
+      "key": "C",
+      "title": "Serial group",
+      "module_mm": 0.6,
+      "active_qr_mm": 15.0,
+      "qr_with_margin_mm": 19.8
+    },
+    {
+      "key": "D",
+      "title": "Right column",
+      "module_mm": 0.7,
+      "active_qr_mm": 17.5,
+      "qr_with_margin_mm": 23.099999999999998
+    },
+    {
+      "key": "E",
+      "title": "White footer",
+      "module_mm": 0.6,
+      "active_qr_mm": 15.0,
+      "qr_with_margin_mm": 19.8
+    },
+    {
+      "key": "F",
+      "title": "Centered",
+      "module_mm": 0.6,
+      "active_qr_mm": 15.0,
+      "qr_with_margin_mm": 19.8
+    }
+  ]
+}

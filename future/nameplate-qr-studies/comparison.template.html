@@ -1,0 +1,58 @@
+<div id="nameplate-qr-study" aria-label="Nameplate QR layouts">
+  <div class="viz-row" role="group" aria-label="Layout">
+    <button type="button" class="btn" data-show="all" aria-pressed="true">All six</button>
+    <button type="button" class="btn" data-show="A" aria-pressed="false">A</button>
+    <button type="button" class="btn" data-show="B" aria-pressed="false">B</button>
+    <button type="button" class="btn" data-show="C" aria-pressed="false">C</button>
+    <button type="button" class="btn" data-show="D" aria-pressed="false">D</button>
+    <button type="button" class="btn" data-show="E" aria-pressed="false">E</button>
+    <button type="button" class="btn" data-show="F" aria-pressed="false">F</button>
+  </div>
+  <div class="nameplate-gallery" aria-live="polite">
+    <!-- PLATES -->
+  </div>
+  <div class="viz-row text-small text-muted">
+    <span>104.53 × 66.07 mm</span><span>Fixed screw positions</span><span>hosm.us/0001</span>
+  </div>
+</div>
+<style>
+  #nameplate-qr-study .nameplate-gallery {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px;margin:20px 0 16px}
+  #nameplate-qr-study .nameplate-gallery.single {grid-template-columns:1fr}
+  #nameplate-qr-study figure {margin:0;min-width:0}
+  #nameplate-qr-study figure[hidden] {display:none}
+  #nameplate-qr-study figcaption {margin-bottom:8px;color:var(--foreground)}
+  #nameplate-qr-study .nameplate {display:block;width:100%;height:auto}
+  #nameplate-qr-study.white-field .qr-ground {fill:#dededb}
+  #nameplate-qr-study.white-field .qr-modules {fill:#1c1e21}
+  #nameplate-qr-study.reverse-field .qr-ground {fill:#1c1e21}
+  #nameplate-qr-study.reverse-field .qr-modules {fill:#dededb}
+  @media (max-width:580px) {#nameplate-qr-study .nameplate-gallery {grid-template-columns:1fr}}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('nameplate-qr-study');
+    const gallery = root.querySelector('.nameplate-gallery');
+    const figures = [...gallery.querySelectorAll('figure')];
+    const buttons = [...root.querySelectorAll('[data-show]')];
+    const state = {treatment:'layout'};
+    const renderTreatment = () => {
+      root.classList.toggle('white-field', state.treatment === 'white');
+      root.classList.toggle('reverse-field', state.treatment === 'reverse');
+    };
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const value = button.dataset.show;
+      gallery.classList.toggle('single', value !== 'all');
+      figures.forEach(figure => {figure.hidden = value !== 'all' && figure.dataset.layout !== value;});
+      buttons.forEach(peer => peer.setAttribute('aria-pressed', String(peer === button)));
+    }));
+    renderTreatment();
+    if (globalThis.Tweak) {
+      const tweak = new Tweak({container:root,onChange:renderTreatment});
+      tweak.addSelect(state,'treatment',{label:'QR treatment',options:[
+        {label:'As drawn',value:'layout'},
+        {label:'Black on white',value:'white'},
+        {label:'White on black',value:'reverse'}
+      ]});
+    }
+  })();
+</script>
