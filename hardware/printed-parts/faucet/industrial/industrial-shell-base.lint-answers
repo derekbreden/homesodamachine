@@ -1,0 +1,13 @@
+[ceiling] This is the roof at the back of the open lever region, where the lower cylinder meets the narrower neck at Z57.5. The opening is 13.7 mm wide and the saved geometry check reads 0.35 mm lever clearance at all 19 poses from rest through 18 degrees. The former forward-ledge pick has 6.416 mm clearance. This roof is inclined 15 degrees to the bed in the base's -15 degree print pose. The retained bed-rooted support reaches this rear lever/tube transition and is accessed through the open lever and donor cavities before hardware installation; removal effort and contact finish require the physical print.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=0.000 y=5.037 z=57.500
+
+[ceiling] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. It follows the metal body's plateau envelope and is inclined 15 degrees to the bed in the base's -15 degree print pose. The donor cavity opens below for support cleanup and inspection before fitting the metal body. The support ledger records the retained bed-rooted tree; cleanup effort and finish remain physical print observations.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=0.000 y=14.712 z=39.000
+
+[ceiling] These are the annular roofs of the three 8.2 mm plate-registration sockets at Z3.2. Each leaves 1 mm axial clearance above its 2.2 mm pedestal, with the insert pilot through its center. The socket roofs are inclined 15 degrees to the bed in the base's -15 degree print pose. The sockets open through the bottom before the mounting plate is attached; inspect printed fit and remove supports through those openings.
+file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
+click: x=0.000 y=-22.300 z=3.200
+click: x=-20.000 y=10.000 z=3.200
+click: x=20.000 y=10.000 z=3.200
