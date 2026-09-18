@@ -1669,20 +1669,36 @@ class BLEManager {
         }
     }
 
-    /// VersionsPayload: [count:1] then count × [board:1][version:24][artCrc:4].
+    /// VersionsPayload: [count:1] then count × [board:1][version:24][artCrc:4][buildEpoch:4].
+    ///
+    /// A main board built before `buildEpoch` sends 29-byte entries and this
+    /// reads them, because the frame says how long an entry is: the length it
+    /// arrived at, over the count it declares. The epoch is taken only when the
+    /// entry is long enough to hold one, and stays absent otherwise — which
+    /// `needs()` reads as "did not say" and answers with the dates instead.
+    private static let versionCoreBytes = 29
+    private static let versionEpochBytes = 33
+
     fileprivate func handleVersions(_ payload: Data) {
         guard payload.count >= 1 else { return }
         let b = payload.startIndex
         let count = min(Int(payload[b]), 3)
+        guard count > 0 else { return }
+        let stride = (payload.count - 1) / count
+        guard stride >= Self.versionCoreBytes else { return }
         var found = MachineVersions()
         for i in 0..<count {
-            let o = b + 1 + i * 29
-            guard payload.count >= (o - b) + 29 else { break }
+            let o = b + 1 + i * stride
+            guard payload.count >= (o - b) + Self.versionCoreBytes else { break }
             let board = payload[o]
             let raw = payload[(o + 1)..<(o + 25)].prefix { $0 != 0 }
             found.byBoard[board] = String(data: Data(raw), encoding: .utf8) ?? ""
             found.artCrc[board] = UInt32(payload[o + 25]) | (UInt32(payload[o + 26]) << 8)
                                 | (UInt32(payload[o + 27]) << 16) | (UInt32(payload[o + 28]) << 24)
+            guard stride >= Self.versionEpochBytes,
+                  payload.count >= (o - b) + Self.versionEpochBytes else { continue }
+            found.buildEpoch[board] = UInt32(payload[o + 29]) | (UInt32(payload[o + 30]) << 8)
+                                    | (UInt32(payload[o + 31]) << 16) | (UInt32(payload[o + 32]) << 24)
         }
         onMain(linkGeneration) {
             guard let m = self.current else { return }
