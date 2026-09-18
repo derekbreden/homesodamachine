@@ -7,173 +7,235 @@
     "status": "pass",
     "printer": "Mark2",
     "sent": true,
-    "source_profile": "hardware/printed-parts/petgf.3mf",
-    "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-    "project_sha256": "f06877fc6b59d0531987538388d0b8daf2e5d8efe492a292a107449049d72f22",
-    "input_sha256": "5d6854135fc38330bdab2d1197f6ff29ea0f57fc5ab49c263a8ed806610f112d",
-    "sliced_archive": ".cache/prints/2026-09-17-faucet-15deg-mark2/ready/faucet-mark2.gcode.3mf",
-    "sliced_archive_sha256": "c84816535a403e0c85da98f4e478b8aae642232ca96b99adf680d18fdfc731be",
-    "gcode_sha256": "f7306e780be02600691fee22b6381ed82ab27e59597afc04c1337f61d58486ff",
+    "checked_at_utc": "2026-09-18T04:58:16.648882+00:00",
+    "source_profile": ".cache/prints/2026-09-17-faucet-open-lever-mark2/production-settings-baseline.3mf",
+    "source_profile_sha256": "f06877fc6b59d0531987538388d0b8daf2e5d8efe492a292a107449049d72f22",
+    "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+    "project_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+    "input_project": ".cache/prints/2026-09-17-faucet-open-lever-mark2/faucet-open-lever-mark2-input.3mf",
+    "input_sha256": "220fb8395b65244c7aee4e501cca0564ad47a37c3d4b206793ab642683ed28a2",
+    "canonical_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+    "canonical_profile_byte_identical_to_saved_snapshot": true,
+    "sliced_archive": ".cache/prints/2026-09-17-faucet-open-lever-mark2/ready/faucet-open-lever-mark2.gcode.3mf",
+    "sliced_archive_sha256": "df95c856987fca6161e2f36b75f4cb9b27e19db967864931be1496eebe816d8b",
+    "gcode_sha256": "92d2d4da4f22c1251c87f72bca6ed09d0dd4cd7eaffa58a8683c8b65b4b68311",
     "source_stls": {
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "0a8168c6201a018ba158af617ec535c716e0f62f1ee464a1508472a410a4d2c0",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "bc062cd00e8dd5bb8f64da5a9df6bb0986f2e691e1a1a8b64bfaf65fa16756bf",
-      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "7b966dd384c22265ddcae49e56f9149e3fea69c9884bf449ba2ece02969d2c86",
-      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "2a3c6bad4685062f7c2eab7778195ee56a4d0b08d06ffc73e5655cf6ce98e780"
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "fd5cf2950e7a38b5857f900903bc90f325a0fdba7a2e6109a94aac8b08c92e99",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "eaada51cfc3ef32e03b150c8d828f45d11073ef703a638c1f05c4c0e876ee1ba",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "07a35313f05a788d2b324989cf18c35791580a50776748f582ac68bee37099d0"
     },
     "requested_z_trim_mm": 0.04,
     "actual_trim_commands_mm": [
       0.0,
       0.02
     ],
-    "estimated_seconds": 19617.0,
-    "grams": 154.19,
-    "layers": 1029,
+    "estimated_seconds": 15957.9296875,
+    "grams": 125.2046127319336,
+    "saved_profile_density_g_cm3": [
+      1.29
+    ],
+    "mass_note": "Slicer estimate under the saved 1.29 g/cm3 profile; not measured PET-GF mass.",
+    "layers": 1019,
     "objects": 4,
+    "triangles": 692364,
+    "slicer": "BambuStudio 02.08.02.61",
+    "slicer_return_code": 0,
     "slicer_warning_message": "",
-    "critical_settings_match_source_profile": true,
+    "native_archive_valid": true,
     "geometry_unchanged_in_staged_input": true,
     "settings_overrides": {
       "extruder_ams_count": [
         "1#0|4#0",
         "1#0|4#0"
       ]
-    }
+    },
+    "native_export_settings_normalizations": {
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ],
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ]
+    },
+    "native_emitted_settings_identical_to_reviewed_slice": true,
+    "critical_emitted_settings": {
+      "printer_model": "Bambu Lab H2C",
+      "printer_settings_id": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "nozzle_diameter": "0.4,0.4",
+      "nozzle_type": "hardened_steel,hardened_steel",
+      "nozzle_volume_type": "Standard,Standard",
+      "filament_settings_id": "\"Polymaker PET-GF @BBL H2C\"",
+      "filament_type": "PET-CF",
+      "filament_map": "1",
+      "filament_nozzle_map": "0",
+      "filament_volume_map": "0",
+      "fan_min_speed": "0",
+      "fan_max_speed": "70",
+      "close_fan_the_first_x_layers": "3",
+      "nozzle_temperature_initial_layer": "265",
+      "nozzle_temperature": "280",
+      "textured_plate_temp_initial_layer": "80",
+      "textured_plate_temp": "80",
+      "layer_height": "0.24",
+      "wall_loops": "2",
+      "sparse_infill_density": "15%",
+      "sparse_infill_pattern": "grid",
+      "support_type": "tree(auto)",
+      "support_top_z_distance": "0.45",
+      "support_bottom_z_distance": "0.3",
+      "support_interface_top_layers": "2",
+      "support_interface_spacing": "0.5",
+      "support_object_xy_distance": "0.4",
+      "curr_bed_type": "Textured PEI Plate"
+    },
+    "support_cooling_fit_reaudited_from_native_emitted_gcode": true,
+    "readiness_file": ".cache/prints/2026-09-17-faucet-open-lever-mark2/readiness.json",
+    "readiness_sha256": "1c53199cd6f6ec38aaa8a3c7c333d82580c42edaf9aedd168f56b31fc84f520a",
+    "native_validation_file": ".cache/prints/2026-09-17-faucet-open-lever-mark2/ready/validation.json"
   },
   "cooling": {
     "profile_min_percent": 0,
     "profile_max_percent": 70,
     "off_first_layers": 3,
+    "scope": "Emitted part-fan commands on actual positive outer-wall/overhang-wall extrusion moves, including arcs. Not a physical temperature or print-quality measurement.",
     "parts": [
       {
-        "part": "faucet-shell-base",
-        "last_layer": 1029,
-        "final_10mm_outer_wall_fan_percent": [
-          67.0,
-          69.0
+        "object": "above-counter-plate",
+        "top_outer_wall_print_z_mm": 6.2,
+        "last_10mm_fan_min_percent": 0.0,
+        "last_10mm_fan_max_percent": 45.0,
+        "top_outer_wall_fans_percent": [
+          43.0
         ],
-        "last_layer_fan_percent": [
-          69.0
-        ]
+        "sampled_extrusion_moves": 9771,
+        "filtered_gcode_sha256": "00e21bc9a4fed15f69d26a72e55b9d162a75ac08ca1b8de8620daf964fc28bb2"
       },
       {
-        "part": "faucet-shell-tip",
-        "last_layer": 578,
-        "final_10mm_outer_wall_fan_percent": [
-          63.0,
-          67.0
+        "object": "faucet-display-cover",
+        "top_outer_wall_print_z_mm": 18.44,
+        "last_10mm_fan_min_percent": 34.0,
+        "last_10mm_fan_max_percent": 51.00000000000001,
+        "top_outer_wall_fans_percent": [
+          50.0
         ],
-        "last_layer_fan_percent": [
-          67.0
-        ]
+        "sampled_extrusion_moves": 3265,
+        "filtered_gcode_sha256": "1f3c6443d33f76b7c35331bd98b13e352d7a475f2e27e4aa8484ac02a8d81231"
       },
       {
-        "part": "faucet-display-cover",
-        "last_layer": 77,
-        "final_10mm_outer_wall_fan_percent": [
-          29.0,
-          46.0
+        "object": "faucet-shell-base",
+        "top_outer_wall_print_z_mm": 244.52,
+        "last_10mm_fan_min_percent": 68.0,
+        "last_10mm_fan_max_percent": 70.0,
+        "top_outer_wall_fans_percent": [
+          70.0
         ],
-        "last_layer_fan_percent": [
-          46.0
-        ]
+        "sampled_extrusion_moves": 3503,
+        "filtered_gcode_sha256": "97af9678e5692d0a79848cb8804b3e8fd06631421a86885d4db0e0e12b5a6c65"
       },
       {
-        "part": "above-counter-plate",
-        "last_layer": 26,
-        "final_10mm_outer_wall_fan_percent": [
-          0.0,
-          39.0
+        "object": "faucet-shell-tip",
+        "top_outer_wall_print_z_mm": 136.76,
+        "last_10mm_fan_min_percent": 63.0,
+        "last_10mm_fan_max_percent": 68.0,
+        "top_outer_wall_fans_percent": [
+          68.0
         ],
-        "last_layer_fan_percent": [
-          38.0
-        ]
+        "sampled_extrusion_moves": 2057,
+        "filtered_gcode_sha256": "727e86ba5147a1b907009af7a8bdc8380d3805474e7e84fa96d9254cb0e42377"
       }
-    ],
-    "historical_reference": "hardware/printed-parts/faucet/faucet-shell/print-log.md: PET-CF print attempt 21",
-    "historical_setting": "M106 P1 S180 (~70%); current slice uses profile-driven cooling rather than the old layer-333 trigger"
+    ]
   },
   "arrangement": [
     {
       "part": "faucet-shell-base",
-      "rotation_x_degrees": -15.0,
-      "height_mm": 247.171,
+      "rotation_x_degrees": -14.999999999999998,
+      "height_mm": 244.62855174414003,
       "plate_bounds_mm": [
         [
-          60.58106803894043,
-          109.01730650987011,
+          64.33249187469482,
+          111.86939198710013,
           0.0
         ],
         [
-          129.41893196105957,
-          210.98269349012986,
-          247.1713605276097
+          125.66750812530518,
+          208.13060801289987,
+          244.62855174414003
         ]
       ]
     },
     {
       "part": "faucet-shell-tip",
       "rotation_x_degrees": -105.0,
-      "height_mm": 138.757,
+      "height_mm": 136.8511107208395,
       "plate_bounds_mm": [
         [
-          179.98754501342773,
-          179.35159294142474,
+          181.98754501342773,
+          181.16304674877563,
           0.0
         ],
         [
-          210.01245498657227,
-          234.64840705857523,
-          138.75712253919463
+          208.01245498657227,
+          232.83695325122434,
+          136.8511107208395
         ]
       ]
     },
     {
       "part": "faucet-display-cover",
       "rotation_x_degrees": 130.0,
-      "height_mm": 18.55,
+      "height_mm": 18.550019849555067,
       "plate_bounds_mm": [
         [
-          247.3405475616455,
-          245.03173194772356,
+          250.00298166275024,
+          244.7566628119758,
           0.0
         ],
         [
-          280.6594524383545,
-          294.96826805227647,
-          18.55001750782573
+          277.99701833724976,
+          295.2433371880242,
+          18.550019849555067
         ]
       ]
     },
     {
       "part": "above-counter-plate",
       "rotation_x_degrees": 0.0,
-      "height_mm": 6.2,
+      "height_mm": 6.200000047683716,
       "plate_bounds_mm": [
         [
-          185.503511428833,
-          75.00142669677734,
+          189.00003719329834,
+          78.50001525878906,
           0.0
         ],
         [
-          250.496488571167,
-          140.99857330322266,
+          246.99996280670166,
+          137.49998474121094,
           6.200000047683716
         ]
       ]
     }
   ],
   "support_review": {
-    "bed_rooted_bodies": 9,
-    "model_rooted_bodies": 0,
+    "bed_rooted_bodies": 7,
+    "model_rooted_bodies": 2,
     "by_part": {
       "faucet-shell-base": {
-        "support_bodies": 1,
-        "interface_islands": 11,
+        "support_bodies": 3,
+        "interface_islands": null,
         "bed_rooted_bodies": 1,
-        "model_rooted_bodies": 0,
-        "shortest_build_up_mm": 0.0,
-        "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 11,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 2,
+        "explicit_interface_islands": 22,
         "shortest_labelled_build_up_mm": 0.0
       },
       "faucet-shell-tip": {
@@ -187,14 +249,14 @@
         "shortest_labelled_build_up_mm": null
       },
       "faucet-display-cover": {
-        "support_bodies": 4,
-        "interface_islands": null,
-        "bed_rooted_bodies": 4,
+        "support_bodies": 2,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 2,
         "model_rooted_bodies": 0,
-        "shortest_build_up_mm": null,
-        "bodies_without_interface_labels": 4,
-        "explicit_interface_islands": 0,
-        "shortest_labelled_build_up_mm": null
+        "shortest_build_up_mm": 14.64,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 14.64
       },
       "above-counter-plate": {
         "support_bodies": 3,
@@ -208,102 +270,76 @@
       }
     },
     "fit": {
-      "minimum_shared_bed_margin_mm": 24.80607100000003,
-      "minimum_toolpath_separation_mm": 15.736098219210579,
+      "minimum_shared_bed_margin_mm": 24.529228499999988,
+      "minimum_toolpath_separation_mm": 28.154326500000025,
       "pairwise_toolpath_separations": [
         {
           "parts": [
             "faucet-shell-base",
             "faucet-shell-tip"
           ],
-          "separation_mm": 40.971997500000015
+          "separation_mm": 28.154326500000025
         },
         {
           "parts": [
             "faucet-shell-base",
             "faucet-display-cover"
           ],
-          "separation_mm": 119.65795752489052
+          "separation_mm": 127.24383882754775
         },
         {
           "parts": [
             "faucet-shell-tip",
             "faucet-display-cover"
           ],
-          "separation_mm": 15.736098219210579
+          "separation_mm": 36.247229954577236
         },
         {
           "parts": [
             "faucet-shell-base",
             "above-counter-plate"
           ],
-          "separation_mm": 53.04917950000001
+          "separation_mm": 61.01685500000002
         },
         {
           "parts": [
             "faucet-shell-tip",
             "above-counter-plate"
           ],
-          "separation_mm": 37.88381800000002
+          "separation_mm": 41.71847150000002
         },
         {
           "parts": [
             "faucet-display-cover",
             "above-counter-plate"
           ],
-          "separation_mm": 103.61607100000003
+          "separation_mm": 106.89325367773884
         }
       ]
     },
-    "reviewed_clean_surfaces": [
-      "exposed shell base and tip neck skins",
-      "display bezel face and cover exterior",
-      "above-counter plate outer edge"
-    ],
     "retained_contacts": {
-      "faucet-shell-base": "Concealed counter-end mating face, mounting/donor pockets, internal lever roof, cable/flavor passage.",
-      "faucet-shell-tip": "Concealed joint shoulder and plug passages; display chassis interior.",
-      "faucet-display-cover": "Internal retaining lip undersides, two bed-rooted support bodies per lip.",
+      "faucet-shell-base": "Counter-end face, plate and donor pockets, curved aft lever-roof underside and lower signal passage. Two isolated model-rooted patches lie under the tilted counter-end face.",
+      "faucet-shell-tip": "The tree spans the neck-joint end and open display-chassis interior; exact contact boundaries are unlabelled.",
+      "faucet-display-cover": "One bed-rooted support body reaches each retaining lip underside. Labelled interfaces begin at print Z14.84 mm after 14.64 mm of build-up.",
       "above-counter-plate": "Three underside screw counterbores."
     },
-    "method": "STL down-facing triangle review, sampled support-to-model vertical proximity, rendered contact-face review, and per-object connected-body audit from the slice. Actual removal finish remains a physical print observation.",
-    "detailed_contact_review": ".cache/prints/2026-09-17-faucet-15deg-mark2/contact-review.json",
-    "staged_support_audit": ".cache/prints/2026-09-17-faucet-15deg-mark2/faucet-mark2-input.support-audit.json",
-    "near_bed_fragment": "The reader classifies one 0.68 mm-high support path fragment at the base foot as model-rooted; the complete main base tree is bed-rooted and ends at print Z62.12 mm."
+    "method": "Per-object connected-body, interface, toolpath-fit and cooling audits of the native submitted G-code. The retained CAD contact-region descriptions refer to the same current source STLs.",
+    "native_support_roots_bounds_interface_assignments_match_reviewed_slice": true,
+    "physical_reading_limit": "Unlabelled contacts and physical support-removal effort require the printed-part reading.",
+    "staged_support_audit": ".cache/prints/2026-09-17-faucet-open-lever-mark2/faucet-open-lever-mark2-input.support-audit.json",
+    "staged_support_audit_sha256": "a96864228914db874dacbfcc7cabe94358e80101c23f2e671e5dc689e652d357"
   },
-  "preview": ".cache/prints/2026-09-17-faucet-15deg-mark2/prepared-plate.png",
-  "source_profile_recheck": "The shared PET-GF profile, all four source STLs, the canonical project and the submitted archive match the recorded hashes.",
-  "saved_presets": {
-    "process": {
-      "name": "0.24mm PET-GF faucet",
-      "local_file": "/Users/derekbredensteiner/Library/Application Support/BambuStudio/user/1920543243/process/0.24mm PET-GF faucet.json",
-      "sha256": "86698f04e6d8e1faefc7c056c133a026e5f57f253b4b63092428d7951bf1588c",
-      "from": "User",
-      "support_top_z_distance_mm": 0.45
-    },
-    "filament": {
-      "name": "Polymaker PET-GF @BBL H2C",
-      "local_file": "/Users/derekbredensteiner/Library/Application Support/BambuStudio/user/1920543243/filament/Polymaker PET-GF @BBL H2C.json",
-      "sha256": "a1638cf2f9d56664d57717506fb472588a9590dad450ec5f718bf3dfced2aa59",
-      "from": "User",
-      "fan_max_percent": 70
-    },
-    "machine": {
-      "name": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
-      "local_file": "/Users/derekbredensteiner/Library/Application Support/BambuStudio/user/1920543243/machine/Bambu Lab H2C 0.4 nozzle 04 first layer by agent.json",
-      "sha256": "d3472ca7a3e134812bc25b21b7f1ce8cb45a494686ba17ccdae336ce3fc9b2ac",
-      "from": "User"
-    }
-  },
-  "reopened_project_support_tab": "No unsaved preset indicator; top Z distance 0.45 mm, XY distance 0.4 mm, two top interface layers, 0.5 mm interface spacing.",
   "launch": {
-    "observed_at": "2026-09-17T19:02:51.713488+00:00",
-    "printer_serial": "31B8AP612801351",
+    "observed_at": "2026-09-18T05:01:05.234355+00:00",
     "application": "Bambu Connect",
-    "job_name": "faucet-mark2.gcode.3mf",
+    "job_name": "faucet-open-lever-mark2.gcode.3mf",
+    "send_clicked_once": true,
     "options": {
       "printer": "Mark2",
       "filament_mapping": "left external spool, PET-CF metadata",
+      "right_nozzle": "unused",
+      "nozzle": "left 0.4 mm Standard",
+      "nozzle_compatibility_warning": false,
       "bed": "Textured PEI",
       "requested_z_offset_mm": 0.04,
       "auto_bed_leveling": "On",
@@ -311,21 +347,25 @@
       "flow_dynamic_calibration": "Auto",
       "nozzle_offset_calibration": "Auto"
     },
+    "ui_startup_phase": "Homing toolhead",
+    "startup_confirmed": true,
+    "telemetry_file": ".cache/prints/2026-09-17-faucet-open-lever-mark2/startup-status.json",
+    "telemetry_sha256": "d738d9d31bc25d8f52dc15cc8cb7e5273854bad4f57f6de40e232945dc61b278",
     "telemetry": {
       "printer": "Mark2",
-      "observed_at": "2026-09-17T19:02:51.713488+00:00",
+      "observed_at": "2026-09-18T05:01:05.234355+00:00",
       "gcode_state": "RUNNING",
-      "subtask_name": "faucet-mark2.gcode.3mf",
+      "subtask_name": "faucet-open-lever-mark2.gcode.3mf",
       "mc_percent": 0,
       "layer_num": 0,
-      "total_layer_num": 1029,
-      "mc_remaining_time": 326,
+      "total_layer_num": 1019,
+      "mc_remaining_time": 265,
       "print_error": 0,
       "hms": [],
-      "nozzle_temper": 162.0,
+      "nozzle_temper": 199.0,
       "nozzle_target_temper": 200.0,
-      "bed_temper": 32.0,
-      "bed_target_temper": 32.0,
+      "bed_temper": 23.0,
+      "bed_target_temper": 23.0,
       "lights_report": [
         {
           "mode": "on",

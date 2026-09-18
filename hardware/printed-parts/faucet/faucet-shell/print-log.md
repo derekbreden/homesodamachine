@@ -925,7 +925,8 @@ Settings unchanged from attempt 9:
   telemetry confirms RUNNING with 1,029 total layers and no reported errors.
 - Slice estimate: 5 h 26 min 57 s, 154.19 g at the saved profile density.
 - Project, profile, source STL and submitted archive hashes, together with
-  launch telemetry, are in `../faucet-petgf.readiness.json`.
+  launch telemetry, are archived at
+  `.cache/prints/2026-09-17-faucet-15deg-mark2/readiness.json` from the repository root.
 
 ## PET-GF faucet fit — 2026-09-17
 
@@ -938,6 +939,32 @@ Derek reported:
 
 The [display trial log](../../fixtures/faucet-display-snap/print-log.md)
 records the cover's fit, retention and wing-flex observations.
+
+## PET-GF faucet with open forward lever clearance — 2026-09-18, Mark2
+
+- Four current parts: shell base, shell tip, display cover and above-counter plate.
+- CAD X rotations: base −15°, tip −105°, cover +130°, plate 0°.
+- Saved PET-GF profile: 0.24 mm layers, two walls, 15% grid infill, left
+  0.4 mm Standard nozzle, external PET-GF mapped as PET-CF. Right nozzle unused.
+- Nozzle 265 °C first layer / 280 °C later; Textured PEI at 80 °C.
+- Part fan 0–70%, off for the first three layers. The final 10 mm of base
+  outer walls uses 68–70%; the tip uses 63–68%.
+- Support top gap 0.45 mm, bottom gap 0.30 mm, XY gap 0.40 mm, two top
+  interface layers with 0.50 mm line spacing.
+- Native G-code audit: base 3 support bodies, tip 1, cover 2, plate 3;
+  at least 24.53 mm shared-bed border and 28.15 mm toolpath separation.
+  Physical support removal and contact finish remain print observations.
+- Requested Z trim +0.04 mm; emitted textured-plate trim `G29.1 Z0.02`.
+- Accepted Send options: Mark2, left external PET-CF mapping, bed leveling On,
+  timelapse Off, flow dynamic calibration Auto and nozzle-offset calibration Auto.
+- Submitted once through Bambu Connect as `faucet-open-lever-mark2.gcode.3mf`.
+  Telemetry at 2026-09-18 05:01:05 UTC confirms that exact job RUNNING,
+  0/1,019 layers, 265 minutes remaining, no print error and no HMS entries.
+  Bambu Connect shows Homing toolhead.
+- Native slice estimate: 4 h 25 min 57 s, 125.20 g at the saved 1.29 g/cm³ density.
+- Archive SHA-256: `df95c856987fca6161e2f36b75f4cb9b27e19db967864931be1496eebe816d8b`.
+  Current project/source hashes, accepted options and startup telemetry are in
+  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json).
 
 Derek supplied a Bambu Studio screenshot and a photograph of the printed
 lower shell, reporting: "Some of those defects (low resolution polygons on
