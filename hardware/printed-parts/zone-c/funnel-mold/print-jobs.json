@@ -231,5 +231,90 @@
       "selected": "AMS A3"
     },
     "authorization": "User confirmed the bed is free and requested the print be started."
+  },
+  {
+    "printer": "H2C",
+    "printer_serial": "31B8AP612000452",
+    "part": "cavity",
+    "plate": 1,
+    "submission": "Bambu Connect",
+    "source_project": "funnel-mold.3mf",
+    "source_project_commit": "ca28e9a7a",
+    "source_project_sha256": "04216c993c00e70c7b35e552c4fdb228cbd110bc17804051c8ebeddc4f738f8f",
+    "project": "funnel-mold-04-standard-flow094-z018.gcode.3mf",
+    "local_archive": ".cache/prints/2026-09-17-funnel-flow094-h2c/funnel-mold-04-standard-flow094-z018.gcode.3mf",
+    "project_sha256": "324efc0cbd3e15e58c83cf49f25847c347954165b7f240c359aea4c1731c0734",
+    "gcode_sha256": "e6b1c00ed8592b7616f95c793aae4fb4a1c96358b2a0953f851e6ecf87d9f110",
+    "settings": {
+      "printer_preset": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+      "process_preset": "0.24mm Standard @BBL H2C funnel mold",
+      "filament_preset": "Funnel mold PETG Translucent - 0.4 Standard - flow 0.94",
+      "plate": "Textured PEI Plate",
+      "z_trim_mm": 0.18,
+      "effective_g29_1_mm": 0.16,
+      "nozzle_side": "left",
+      "nozzle_mm": 0.4,
+      "nozzle_flow": "Standard",
+      "filament_slot": "AMS A2",
+      "filament_type": "Bambu PETG Translucent",
+      "filament_remaining_percent_before_submission": 100,
+      "filament_flow_ratio": 0.94,
+      "nozzle_first_layer_c": 250,
+      "nozzle_other_layers_c": 245,
+      "bed_c": 70,
+      "volumetric_limit_mm3_s": 6,
+      "first_layer_mm": 0.2,
+      "other_layers_mm": 0.24,
+      "infill_percent": 100,
+      "infill_pattern": "zig-zag",
+      "wall_loops": 2,
+      "infill_wall_overlap_percent": 15,
+      "support_type": "normal (auto)",
+      "support_style": "Snug",
+      "support_top_z_distance_mm": 0.2,
+      "support_bottom_z_distance_mm": 0.2,
+      "support_first_layer_gap_mm": 0.48,
+      "support_object_xy_distance_mm": 0.48
+    },
+    "send_options": {
+      "timelapse": "off",
+      "bed_leveling": "on",
+      "flow_dynamic_calibration": "auto",
+      "nozzle_offset_calibration": "auto"
+    },
+    "estimated_seconds": 118475,
+    "estimated_filament_g": 719.38,
+    "layers": 642,
+    "printer_observation": {
+      "printer": "H2C",
+      "observed_at": "2026-09-18T00:01:04.122430+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "funnel-mold-04-standard-flow094-z018.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 0,
+      "total_layer_num": 642,
+      "mc_remaining_time": 1974,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 168.0,
+      "nozzle_target_temper": 165.0,
+      "bed_temper": 43.0,
+      "bed_target_temper": 43.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
+    },
+    "connect_observation": "H2C shows the submitted file, homing toolhead, and left nozzle heating to 165 C."
   }
 ]
