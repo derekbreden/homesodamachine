@@ -86,6 +86,20 @@ def main():
            selected_point_mm=list(point.Center().toTuple()),
            clearance_mm=base.distance(point))
 
+    source_base = import_step(design.FAUCET / "faucet-shell/faucet-shell-base.step").val()
+    lever_edge_sections = []
+    for x in (-6.84, 0.0, 6.84):
+        for y in (-16.5, -16.0):
+            probe = cq.Edge.makeLine(cq.Vector(x, y, 30.0), cq.Vector(x, y, 50.0))
+            heights = {name: max(vertex.Center().z for vertex in shape.intersect(probe).Vertices())
+                       for name, shape in (("sculpted", source_base), ("industrial", base))}
+            lever_edge_sections.append({"x_mm": x, "y_mm": y, "upper_z_mm": heights,
+                                        "material_at_z37": base.isInside(cq.Vector(x, y, 37.0))})
+    record("lever-lower-edge-matches-sculpted",
+           all(abs(row["upper_z_mm"]["industrial"] - row["upper_z_mm"]["sculpted"]) < 1e-5
+               and row["material_at_z37"] for row in lever_edge_sections),
+           sections=lever_edge_sections)
+
     for name in ("industrial-above-counter-plate", "industrial-above-counter-gasket"):
         overlap = volume(base.intersect(solids[name]))
         record(f"base-{name}-clear", overlap < 1e-5, overlap_mm3=overlap)
@@ -115,7 +129,6 @@ def main():
     record("foot-socket-outside-wall", socket_stock >= design.wall,
            stock_mm=socket_stock, required_mm=design.wall)
 
-    source_base = import_step(design.FAUCET / "faucet-shell/faucet-shell-base.step").val()
     upper_mask = cq.Solid.makeBox(200, 400, 400, cq.Vector(-100, -200, design.neck_join_z + 0.5))
     original_upper, actual_upper = source_base.intersect(upper_mask), base.intersect(upper_mask)
     original_faces, actual_faces = surface_reading(original_upper), surface_reading(actual_upper)

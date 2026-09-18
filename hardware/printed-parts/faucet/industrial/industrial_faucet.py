@@ -32,7 +32,6 @@ neck_center_y = shell.soda_faucet_tube_y + shell.tube_shell_center_y
 neck_radius = shell.tube_shell_outer_r
 neck_join_z = shell.zone5_z_top
 neck_join_overlap = 0.2
-lever_opening_bottom = 34.0
 
 
 def cylinder(radius, center_y, z_bottom, z_top):
@@ -52,9 +51,9 @@ def build_lever_opening():
     opening = cq.Solid.makeBox(
         2.0 * shell.lever_clearance_x_half,
         shell.fill_y_min - shell.lever_insertion_front_y,
-        body_top - lever_opening_bottom,
+        body_top - shell.lever_rest_top_z,
         cq.Vector(-shell.lever_clearance_x_half,
-                  shell.lever_insertion_front_y, lever_opening_bottom))
+                  shell.lever_insertion_front_y, shell.lever_rest_top_z))
     return shell.build_lever_clearance().union(cq.Workplane(obj=opening))
 
 
