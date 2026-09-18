@@ -77,7 +77,7 @@ Customer installation uses the assembled faucet.
 ## Printing and checks
 
 The white PET-GF cover prints bezel up at −50° about the CAD X axis, using
-0.18 mm layers. Its lower skirt and lip seating lands face the bed; the flat
+0.24 mm layers. Its lower skirt and lip seating lands face the bed; the flat
 upper retaining lands face up. The inner bezel receives support accessible
 through the open underside before the display is installed. The visible front
 wall and outer bezel remain clear of the bed.
