@@ -1,7 +1,12 @@
-[slope] This is the inner face of the 1.30 mm cosmetic bezel at local n=20.55, with 0.10 mm clearance over the display glass. The cover's +130 degree print rotation puts its outer bezel on the bed and this inner face upward.
+[slope] This is the inner face of the 1.30 mm cosmetic bezel at local n=20.55, with 0.10 mm clearance over the display glass in the seated reference. The cover's +130 degree print rotation places its outer bezel on the bed and this inner face upward. The planar bezel is unchanged by the lower wings' inward preload.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
-click: x=0.000 y=-133.835 z=212.549
+click: x=0.000 y=-133.838 z=212.552
 
-[slope] This is the open skirt rim and the coplanar bottoms of the two retaining lips at local n=3.30. They face upward in the cover's +130 degree print pose. The lips have 1.30 mm normal height; their opposite bearing faces receive the two bed-rooted support bodies recorded in faucet-petgf.support-audit.json.
+[slope] This is the flat lower skirt rim and the coplanar bottoms of the retaining lips at local n=3.30. They face upward in the cover's +130 degree print pose. The lips have 3.00 mm normal height and join the broad side walls; their opposite bearing faces are supported in the retained production slice.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
-click: x=0.000 y=-120.797 z=201.252
+click: x=0.000 y=-120.578 z=201.519
+
+[ceiling] These are the upper bearing faces of the two broad retaining lips, read in the cover's +130 degree print pose and mapped back to this STEP frame. Each lip spans 3.00 mm in the display-normal direction. The printable wings are preformed inward by 0.750 mm at these faces and 0.907895 mm at the lower rim; the seated reference gives 1.00 mm radial engagement. The retained production slice records two bed-rooted support bodies, one reaching each labelled lip interface. Both have 14.64 mm build-up and extend from print Z0.20 to Z15.08 mm. PET-GF spreading, retention, support removal and contact finish require the physical trial.
+file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
+click: x=-11.587 y=-123.239 z=203.011
+click: x=11.587 y=-123.239 z=203.011

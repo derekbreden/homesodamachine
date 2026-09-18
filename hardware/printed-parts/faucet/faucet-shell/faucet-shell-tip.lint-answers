@@ -1,11 +1,3 @@
-[slope] The dispense face is the outlet plane s=0. It carries the three tube exits and has 2 mm axial stock behind it. With the tip's -105 degree print rotation, this face points upward.
+[slope] This is the rear end of the open display-component channel at s=47.24. It bounds the hardware insertion clearance. The tip's -105 degree print rotation makes this face point upward, 35 degrees to the bed.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-136.868 z=182.800
-
-[slope] This is the rear end of the open display-component channel at s=47.24. The end plane bounds the hardware clearance and points upward in the tip's -105 degree print pose.
-file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-109.755 z=221.716
-
-[slope] These are the upper bearing shoulders of the two cover-retaining grooves at local n=4.75. They retain the cover's broad lips with 0.15 mm clearance above the seated lip tops. They are inclined 55 degrees to the bed in the tip's -105 degree print pose and belong to the open chassis region served by the bed-rooted tip support body. Exact support contacts and cleanup are a physical print reading.
-file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step
-click: x=0.000 y=-122.051 z=202.015
+click: x=0.000 y=-108.967 z=221.049
