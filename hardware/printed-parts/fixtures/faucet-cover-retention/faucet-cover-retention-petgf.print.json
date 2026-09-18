@@ -1,0 +1,488 @@
+{
+  "project": "faucet-cover-retention-petgf.3mf",
+  "settings_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "settings_source_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "printer": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "cover-A",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl",
+      "stl_sha256": "e3b4b0648f484707f552b8c423f3318c562988258f0a05ce17170d16abe2b743",
+      "triangles": 29908,
+      "rotation_x_degrees": 130.0,
+      "source_center_mm": [
+        0.0,
+        -129.59124755859375,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.6427876096865394,
+        0.766044443118978,
+        0.0,
+        -0.766044443118978,
+        -0.6427876096865394,
+        85.0,
+        115.24784545486963,
+        6.627248863131434
+      ],
+      "plate_translation_mm": [
+        85.0,
+        115.24784545486963,
+        6.627248863131434
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          71.08324241638184,
+          89.75666283624699,
+          0.0
+        ],
+        [
+          98.91675758361816,
+          140.24333716375304,
+          18.550019849555067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "trial_id": "A",
+      "trial_label": "A",
+      "trial_parameters": {
+        "preload_mm": 1.0,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.2105263157894737
+      },
+      "plate_position_from_shared_center_mm": [
+        -90.0,
+        -45.0
+      ]
+    },
+    {
+      "name": "cover-B",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.stl",
+      "stl_sha256": "1520e80c14363a265fc38bd7355e183822c4bab610054a6ae13b8e16e9e7a001",
+      "triangles": 36238,
+      "rotation_x_degrees": 130.0,
+      "source_center_mm": [
+        0.0,
+        -129.59124755859375,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.6427876096865394,
+        0.766044443118978,
+        0.0,
+        -0.766044443118978,
+        -0.6427876096865394,
+        175.0,
+        115.24784568468624,
+        6.627248992272072
+      ],
+      "plate_translation_mm": [
+        175.0,
+        115.24784568468624,
+        6.627248992272072
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          161.11964416503906,
+          89.7566630660636,
+          0.0
+        ],
+        [
+          188.88035583496094,
+          140.24333693393643,
+          18.550019978695705
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "trial_id": "B",
+      "trial_label": "B",
+      "trial_parameters": {
+        "preload_mm": 1.25,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.513157894736842
+      },
+      "plate_position_from_shared_center_mm": [
+        0.0,
+        -45.0
+      ]
+    },
+    {
+      "name": "cover-C",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.stl",
+      "stl_sha256": "4f1a9b0f2c101483ad3b04a99708959e45cf264feb3672f24da5dfc2fb9b157f",
+      "triangles": 34208,
+      "rotation_x_degrees": -50.0,
+      "source_center_mm": [
+        0.0,
+        -129.59124755859375,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        265.0,
+        114.75215454513037,
+        11.922770986423632
+      ],
+      "plate_translation_mm": [
+        265.0,
+        114.75215454513037,
+        11.922770986423632
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          251.08324241638184,
+          89.75666283624697,
+          0.0
+        ],
+        [
+          278.91675758361816,
+          140.243337163753,
+          18.550019849555067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "trial_id": "C",
+      "trial_label": "C",
+      "trial_parameters": {
+        "preload_mm": 1.0,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.2105263157894737
+      },
+      "plate_position_from_shared_center_mm": [
+        90.0,
+        -45.0
+      ]
+    },
+    {
+      "name": "cover-D",
+      "plate": 1,
+      "object_id": "8",
+      "part_id": "7",
+      "member": "3D/Objects/object_4.model",
+      "identify_id": 1904,
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.stl",
+      "stl_sha256": "0a6f806f41ff926c65259135c4050fa3e01961f1efceb3e83de520382b4d918c",
+      "triangles": 32044,
+      "rotation_x_degrees": -50.0,
+      "source_center_mm": [
+        0.0,
+        -129.59124755859375,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        85.0,
+        204.75215431531376,
+        11.922770986423632
+      ],
+      "plate_translation_mm": [
+        85.0,
+        204.75215431531376,
+        11.922770986423632
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          71.11964416503906,
+          179.75666306606357,
+          0.0
+        ],
+        [
+          98.88035583496094,
+          230.2433369339364,
+          18.55002001825497
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "trial_id": "D",
+      "trial_label": "D",
+      "trial_parameters": {
+        "preload_mm": 1.25,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.513157894736842
+      },
+      "plate_position_from_shared_center_mm": [
+        -90.0,
+        45.0
+      ]
+    },
+    {
+      "name": "cover-E",
+      "plate": 1,
+      "object_id": "10",
+      "part_id": "9",
+      "member": "3D/Objects/object_5.model",
+      "identify_id": 1905,
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.stl",
+      "stl_sha256": "a1e69a32bee07a1de7911071f15b144a7b5c38eea7025720e031f6133f6dac9e",
+      "triangles": 29934,
+      "rotation_x_degrees": -50.0,
+      "source_center_mm": [
+        -3.147125244140625e-05,
+        -129.59124755859375,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        175.0,
+        204.75215454513037,
+        11.922770986423632
+      ],
+      "plate_translation_mm": [
+        175.0,
+        204.75215454513037,
+        11.922770986423632
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          161.0832109451294,
+          179.75666283624696,
+          0.0
+        ],
+        [
+          188.9167890548706,
+          230.243337163753,
+          18.550019849555067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
+      "trial_id": "E",
+      "trial_label": "E",
+      "trial_parameters": {
+        "preload_mm": 1.0,
+        "lip_height_mm": 3.1,
+        "groove_roof_clearance_mm": 0.04999999999999982,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.2105263157894737
+      },
+      "plate_position_from_shared_center_mm": [
+        0.0,
+        45.0
+      ]
+    },
+    {
+      "name": "cover-F",
+      "plate": 1,
+      "object_id": "12",
+      "part_id": "11",
+      "member": "3D/Objects/object_6.model",
+      "identify_id": 1906,
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.stl",
+      "stl_sha256": "9cab2b46182ff8b883567f34f48843e4fac7ee970a770c00c18b2a3a1f6596de",
+      "triangles": 29974,
+      "rotation_x_degrees": -50.0,
+      "source_center_mm": [
+        -4.5299530029296875e-05,
+        -129.59124755859375,
+        209.32139587402344
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        265.0,
+        204.75215431531376,
+        11.922770986423632
+      ],
+      "plate_translation_mm": [
+        265.0,
+        204.75215431531376,
+        11.922770986423632
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          251.1196894645691,
+          179.75666306606357,
+          0.0
+        ],
+        [
+          278.8803105354309,
+          230.2433369339364,
+          18.550019849555067
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10,
+      "trial_id": "F",
+      "trial_label": "F",
+      "trial_parameters": {
+        "preload_mm": 1.25,
+        "lip_height_mm": 3.1,
+        "groove_roof_clearance_mm": 0.04999999999999982,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.513157894736842
+      },
+      "plate_position_from_shared_center_mm": [
+        90.0,
+        45.0
+      ]
+    }
+  ],
+  "project_sha256": "661818e450e324a83072db83f3cefbe596d9eaac7aa6255ac1085a5a8ebfd01a",
+  "settings_preserved_byte_for_byte": true,
+  "project_title": "Faucet cover retention trials",
+  "geometry_report": "hardware/printed-parts/fixtures/faucet-cover-retention/trial-geometry.json",
+  "geometry_report_sha256": "43a759ce0bf2b5a3be21c57e090746ff14e511f71717c0c00ef8b880906e0220",
+  "successful_profile": {
+    "record": "hardware/printed-parts/faucet/faucet-petgf.readiness.json",
+    "record_sha256": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649",
+    "snapshot": ".cache/prints/2026-09-17-faucet-open-lever-mark2/production-settings-baseline.3mf",
+    "snapshot_sha256": "f06877fc6b59d0531987538388d0b8daf2e5d8efe492a292a107449049d72f22",
+    "native_archive": ".cache/prints/2026-09-17-faucet-open-lever-mark2/ready/faucet-open-lever-mark2.gcode.3mf",
+    "native_archive_sha256": "df95c856987fca6161e2f36b75f4cb9b27e19db967864931be1496eebe816d8b",
+    "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+    "requested_z_trim_mm": 0.04,
+    "actual_trim_commands_mm": [
+      0.0,
+      0.02
+    ]
+  },
+  "all_profile_members_preserved_byte_for_byte": true,
+  "production_artifacts_unchanged": {
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "50592e910fedc2914dc954df1795cea8c346778b7a898a4cf587d4ad191a896a",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "b4d55193f1fb2852c2f15e7b61f66bd000e3eb16a0b8b3526710e8cef7c508be",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "7ae42ad91f93f7401ef884e0ce8bd3c565c75ef45348768c5b0cf6efbd7832d7",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "f293db79898db6c702a17ce21eaedc97bfd0093ed041f5a438f6ba6c0a7b3062",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.readiness.json": "4d1deba67300ef40fd971e951709efc01e8b1d3f96ba60b62759209d61f3f691"
+  }
+}

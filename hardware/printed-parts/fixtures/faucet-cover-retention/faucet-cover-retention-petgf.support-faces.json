@@ -1,0 +1,1770 @@
+{
+  "method": "Up to 120 vertical rays from actual labelled support-interface extrusion segment midpoints, across that island's retained layers; first actual mesh surface within 2 mm. Samples identify faces, not complete contact boundaries.",
+  "limitation": "Unlabelled interfaces remain unknown. This does not measure physical support removal or finish.",
+  "parts": [
+    {
+      "part": "cover-A",
+      "trial_id": "A",
+      "rotation_x_degrees": 130.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "tree": "tree-1",
+          "last_print_z_mm": 15.08,
+          "rays": 74,
+          "face_counts": {
+            "lip-bearing": 74
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -10.960000000000008,
+                32.42582750249662,
+                6.29999756658291
+              ],
+              "normal_dot_display_n": 0.9999999999985385,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001260880903273
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.199999999999989,
+                16.799327502496606,
+                6.29999719472466
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700129806672605
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.356499999999997,
+                31.310827502496593,
+                6.29999712517858
+              ],
+              "normal_dot_display_n": 0.9999999993969336,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700130502133538
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.165999999999997,
+                31.876327502496594,
+                6.300000859249289
+              ],
+              "normal_dot_display_n": 0.9999999998321168,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700093161426496
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.359499999999997,
+                16.150327502496587,
+                6.299996904998411
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100132703935215
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.839500000000001,
+                36.31432750249659,
+                6.300001990855931
+              ],
+              "normal_dot_display_n": 0.9999999999953924,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100081845359961
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.040999999999997,
+                14.957827502496599,
+                6.2999963726431325
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100138027487853
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.138499999999993,
+                33.748827502496596,
+                6.299997024948992
+              ],
+              "normal_dot_display_n": 0.9999999999985385,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100131504429475
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.197500000000005,
+                26.134827502496613,
+                6.29999919777242
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100109776195153
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.200500000000005,
+                12.266327502496578,
+                6.299995171105042
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001500428689147
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.128500000000003,
+                34.86082750249661,
+                6.299999957783173
+              ],
+              "normal_dot_display_n": 0.9999999999586323,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700102176087674
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.188999999999993,
+                28.8773275024966,
+                6.29999940005384
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001077533809854
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "tree": "tree-2",
+          "last_print_z_mm": 15.08,
+          "rays": 72,
+          "face_counts": {
+            "lip-bearing": 72
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                10.840000000000003,
+                36.313827502496615,
+                6.2999954898262995
+              ],
+              "normal_dot_display_n": 0.9999999999948456,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001468556564474
+            },
+            {
+              "display_x_s_n_mm": [
+                11.199999999999989,
+                19.82132750249661,
+                6.2999985438044375
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100116315875061
+            },
+            {
+              "display_x_s_n_mm": [
+                11.022500000000008,
+                37.7768275024966,
+                6.299997081074249
+              ],
+              "normal_dot_display_n": 0.9999999999926653,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100130943176849
+            },
+            {
+              "display_x_s_n_mm": [
+                10.819500000000005,
+                36.81832750249661,
+                6.299996975837386
+              ],
+              "normal_dot_display_n": 0.9999999999864988,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100131995545566
+            },
+            {
+              "display_x_s_n_mm": [
+                11.200500000000005,
+                15.288827502496606,
+                6.299996520408012
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.710013654983929
+            },
+            {
+              "display_x_s_n_mm": [
+                11.032499999999999,
+                27.054827502496604,
+                6.299999876419189
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700102989727585
+            },
+            {
+              "display_x_s_n_mm": [
+                11.195999999999998,
+                27.372327502496592,
+                6.29999928025066
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100108951412724
+            },
+            {
+              "display_x_s_n_mm": [
+                11.040999999999997,
+                15.88482750249661,
+                6.299996786474026
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100133889179011
+            },
+            {
+              "display_x_s_n_mm": [
+                11.040999999999997,
+                12.86182750249661,
+                6.299995436947849
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100147384440755
+            },
+            {
+              "display_x_s_n_mm": [
+                11.1995,
+                23.110327502496595,
+                6.299999002468072
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700111729238726
+            },
+            {
+              "display_x_s_n_mm": [
+                11.198000000000008,
+                25.863827502496587,
+                6.299999179064432
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100109963274891
+            },
+            {
+              "display_x_s_n_mm": [
+                11.1935,
+                27.649827502496606,
+                6.299999306895881
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700108684960581
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "cover-B",
+      "trial_id": "B",
+      "rotation_x_degrees": 130.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "tree": "tree-1",
+          "last_print_z_mm": 15.08,
+          "rays": 71,
+          "face_counts": {
+            "lip-bearing": 71
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -11.120000000000005,
+                16.389827732313208,
+                6.299997011916
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100132926165857
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.953499999999991,
+                23.356327732313197,
+                6.299999002673138
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100113018594284
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.117999999999995,
+                25.028327732313205,
+                6.2999984868294785
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001181770308753
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.778500000000008,
+                27.308827732313212,
+                6.299999907255721
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100103972768507
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.746499999999997,
+                30.362827732313203,
+                6.300000396968889
+              ],
+              "normal_dot_display_n": 0.9999999998321168,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100099075636953
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.90949999999998,
+                32.4668277323132,
+                6.300000952273317
+              ],
+              "normal_dot_display_n": 0.9999999997103401,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.71000935225926
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.119,
+                22.0068277323132,
+                6.299998295478235
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700120090543459
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.784500000000008,
+                26.20632773231319,
+                6.299999816207883
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700104883246846
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.954000000000008,
+                18.0648277323132,
+                6.299997759668659
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.470012544863908
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.945999999999998,
+                27.8973277323132,
+                6.299999312844351
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100109916882135
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.788999999999987,
+                23.187827732313217,
+                6.299999611858914
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700106926736668
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.950499999999977,
+                26.38132773231321,
+                6.299999201775385
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.710011102757179
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "tree": "tree-2",
+          "last_print_z_mm": 15.08,
+          "rays": 71,
+          "face_counts": {
+            "lip-bearing": 71
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                11.120000000000005,
+                16.389827732313208,
+                6.299997011916
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001329261658553
+            },
+            {
+              "display_x_s_n_mm": [
+                11.118499999999983,
+                25.457827732313202,
+                6.299998511610795
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700117929217763
+            },
+            {
+              "display_x_s_n_mm": [
+                10.907499999999999,
+                33.128827732313226,
+                6.299999149823199
+              ],
+              "normal_dot_display_n": 0.9999999999389688,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100111547093798
+            },
+            {
+              "display_x_s_n_mm": [
+                10.954000000000008,
+                17.311327732313213,
+                6.299997423291571
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700128812410084
+            },
+            {
+              "display_x_s_n_mm": [
+                10.937999999999988,
+                29.41632773231321,
+                6.299996755771732
+              ],
+              "normal_dot_display_n": 0.9999999989075585,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700135487608522
+            },
+            {
+              "display_x_s_n_mm": [
+                11.119,
+                22.007327732313218,
+                6.299998295509271
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100120090233061
+            },
+            {
+              "display_x_s_n_mm": [
+                10.788000000000011,
+                18.232827732313204,
+                6.299997834667153
+              ],
+              "normal_dot_display_n": 0.9999999999999003,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700124698654312
+            },
+            {
+              "display_x_s_n_mm": [
+                10.682500000000005,
+                33.449327732313215,
+                6.299993983285937
+              ],
+              "normal_dot_display_n": 0.9999999998165543,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.47001632124663806
+            },
+            {
+              "display_x_s_n_mm": [
+                10.746500000000026,
+                30.363327732313216,
+                6.299999115985933
+              ],
+              "normal_dot_display_n": 0.9999999999997453,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700111885466397
+            },
+            {
+              "display_x_s_n_mm": [
+                10.863499999999988,
+                35.534827732313204,
+                6.300002488272511
+              ],
+              "normal_dot_display_n": 0.9999999999948752,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 15.08,
+              "gap_above_interface_centerline_mm": 0.4700078162600617
+            },
+            {
+              "display_x_s_n_mm": [
+                10.862000000000023,
+                36.10532773231319,
+                6.299996775344317
+              ],
+              "normal_dot_display_n": 0.9999999997232634,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100135291882582
+            },
+            {
+              "display_x_s_n_mm": [
+                10.95350000000002,
+                21.08682773231322,
+                6.29999886177532
+              ],
+              "normal_dot_display_n": 0.9999999999929033,
+              "surface": "lip-bearing",
+              "interface_print_z_mm": 14.84,
+              "gap_above_interface_centerline_mm": 0.7100114427572658
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "cover-C",
+      "trial_id": "C",
+      "rotation_x_degrees": -50.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "tree": "tree-1",
+          "last_print_z_mm": 13.16,
+          "rays": 49,
+          "face_counts": {
+            "curved-front-inner-bridge": 23
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                0.3919999999999959,
+                1.4583275024965996,
+                16.89632827294681
+              ],
+              "normal_dot_display_n": -0.9990163260412006,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 13.16,
+              "gap_above_interface_centerline_mm": 0.43633794710993945
+            },
+            {
+              "display_x_s_n_mm": [
+                0.4159999999999968,
+                1.7128275024966175,
+                16.895107191075887
+              ],
+              "normal_dot_display_n": -0.9982155718177637,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.915116865239011
+            },
+            {
+              "display_x_s_n_mm": [
+                2.947499999999991,
+                1.8848275024966172,
+                16.50952076021273
+              ],
+              "normal_dot_display_n": -0.9660835596563735,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.7695304343758741
+            },
+            {
+              "display_x_s_n_mm": [
+                2.280499999999961,
+                0.29682750249660117,
+                16.661832291346315
+              ],
+              "normal_dot_display_n": -0.9797978757681303,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.921841965509462
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.0330000000000155,
+                0.5438275024966135,
+                16.709307340770994
+              ],
+              "normal_dot_display_n": -0.9856675895463605,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.7293170149341274
+            },
+            {
+              "display_x_s_n_mm": [
+                0.9399999999999977,
+                1.659327502496593,
+                16.857433557818798
+              ],
+              "normal_dot_display_n": -0.9950938970410534,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.6374432319819233
+            },
+            {
+              "display_x_s_n_mm": [
+                1.7719999999999914,
+                0.8053275024966036,
+                16.753138014864774
+              ],
+              "normal_dot_display_n": -0.9873696873148978,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.533147689027898
+            },
+            {
+              "display_x_s_n_mm": [
+                1.2024999999999864,
+                1.7388275024966005,
+                16.83048642029987
+              ],
+              "normal_dot_display_n": -0.9929283858888984,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.6104960944630046
+            },
+            {
+              "display_x_s_n_mm": [
+                2.8315000000000055,
+                1.991827502496606,
+                16.538354879397563
+              ],
+              "normal_dot_display_n": -0.9712115126097802,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.7983645535606888
+            },
+            {
+              "display_x_s_n_mm": [
+                0.12599999999997635,
+                0.9403275024966042,
+                16.90650763367635
+              ],
+              "normal_dot_display_n": -0.9996162839936371,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.6865173078394863
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.10750000000001592,
+                1.7163275024966032,
+                16.906787548568722
+              ],
+              "normal_dot_display_n": -0.9995726056251351,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.6867972227318481
+            },
+            {
+              "display_x_s_n_mm": [
+                1.7134999999999536,
+                1.754327502496591,
+                16.762406055837598
+              ],
+              "normal_dot_display_n": -0.9873696873148978,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.0224157300007328
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "tree": "tree-1",
+          "last_print_z_mm": 16.76,
+          "rays": 120,
+          "face_counts": {
+            "planar-inner-bezel": 120
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -0.9200000000000159,
+                45.80732750249661,
+                20.549998501551663
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300081757147959
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.619,
+                14.380327502496609,
+                20.549999958692904
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900096328560425
+            },
+            {
+              "display_x_s_n_mm": [
+                7.665999999999997,
+                3.0948275024966083,
+                20.550000127831773
+              ],
+              "normal_dot_display_n": -0.9999999989244905,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300098019949056
+            },
+            {
+              "display_x_s_n_mm": [
+                11.617999999999995,
+                8.611827502496617,
+                20.550000070120166
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300097442832959
+            },
+            {
+              "display_x_s_n_mm": [
+                11.007000000000005,
+                43.703327502496606,
+                20.550002533054254
+              ],
+              "normal_dot_display_n": -0.9999999993788602,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49001220721737104
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.075999999999993,
+                19.697827502496583,
+                20.5499998559774
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300095301405337
+            },
+            {
+              "display_x_s_n_mm": [
+                9.412000000000035,
+                44.5413275024966,
+                20.54999830249603
+              ],
+              "normal_dot_display_n": -0.9999999999962866,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300079766591511
+            },
+            {
+              "display_x_s_n_mm": [
+                -4.956000000000017,
+                2.909827502496615,
+                20.54999510719658
+              ],
+              "normal_dot_display_n": -0.9999999999999967,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900047813597107
+            },
+            {
+              "display_x_s_n_mm": [
+                3.89549999999997,
+                4.206327502496601,
+                20.549995215895997
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900048900591424
+            },
+            {
+              "display_x_s_n_mm": [
+                10.533999999999992,
+                10.844827502496596,
+                20.55000002698642
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000970114954134
+            },
+            {
+              "display_x_s_n_mm": [
+                -5.6754999999999995,
+                45.2743275024966,
+                20.549998456864593
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300081310277188
+            },
+            {
+              "display_x_s_n_mm": [
+                7.249500000000012,
+                4.278327502496612,
+                20.54999683382585
+              ],
+              "normal_dot_display_n": -0.9999999977700227,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900065079889858
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "cover-D",
+      "trial_id": "D",
+      "rotation_x_degrees": -50.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "tree": "tree-1",
+          "last_print_z_mm": 13.16,
+          "rays": 68,
+          "face_counts": {
+            "curved-front-inner-bridge": 28
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                1.343999999999994,
+                0.43932773231320255,
+                16.805281737655502
+              ],
+              "normal_dot_display_n": -0.9923192228354363,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8252914118186242
+            },
+            {
+              "display_x_s_n_mm": [
+                0.8464999999999918,
+                1.8168277323131852,
+                16.859992068673762
+              ],
+              "normal_dot_display_n": -0.9965706119648217,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.1200017428368985
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.290999999999997,
+                1.9588277323131953,
+                16.64617122416328
+              ],
+              "normal_dot_display_n": -0.9809358971905352,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.9061808983264031
+            },
+            {
+              "display_x_s_n_mm": [
+                1.57650000000001,
+                1.0003277323132025,
+                16.772938070230957
+              ],
+              "normal_dot_display_n": -0.9896504478107753,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.5529477443940968
+            },
+            {
+              "display_x_s_n_mm": [
+                2.288499999999999,
+                1.7558277323131888,
+                16.646170560606862
+              ],
+              "normal_dot_display_n": -0.9794070041845091,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.9061802347700111
+            },
+            {
+              "display_x_s_n_mm": [
+                1.133499999999998,
+                0.3608277323131954,
+                16.83102527030922
+              ],
+              "normal_dot_display_n": -0.994559299839014,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8510349444723536
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.9719999999999942,
+                0.6053277323132269,
+                16.707792653685154
+              ],
+              "normal_dot_display_n": -0.9847404727474742,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.7278023278482953
+            },
+            {
+              "display_x_s_n_mm": [
+                1.3464999999999918,
+                1.7233277323132237,
+                16.80506487277546
+              ],
+              "normal_dot_display_n": -0.992510504057377,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.0650745469385918
+            },
+            {
+              "display_x_s_n_mm": [
+                0.7530000000000001,
+                0.007827732313197444,
+                16.867778515842573
+              ],
+              "normal_dot_display_n": -0.9964197303568891,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8877881900057135
+            },
+            {
+              "display_x_s_n_mm": [
+                2.141999999999996,
+                0.43532773231320654,
+                16.676201167725242
+              ],
+              "normal_dot_display_n": -0.9831169825629661,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.9362108418883951
+            },
+            {
+              "display_x_s_n_mm": [
+                0.9629999999999939,
+                0.2288277323132082,
+                16.84887084608894
+              ],
+              "normal_dot_display_n": -0.994559299839014,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8688805202520596
+            },
+            {
+              "display_x_s_n_mm": [
+                2.217500000000001,
+                0.261827732313229,
+                16.660869194959893
+              ],
+              "normal_dot_display_n": -0.9792214127188776,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.6808788691230211
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "tree": "tree-1",
+          "last_print_z_mm": 16.76,
+          "rays": 120,
+          "face_counts": {
+            "planar-inner-bezel": 120
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                11.608000000000004,
+                37.606827732313185,
+                20.54999951003813
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900091842012545
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.608000000000004,
+                34.584327732313206,
+                20.54999956842225
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300092425853913
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.9375,
+                7.470327732313187,
+                20.550001115868838
+              ],
+              "normal_dot_display_n": -0.9999999965637344,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300107900319782
+            },
+            {
+              "display_x_s_n_mm": [
+                0.5314999999999941,
+                3.5568277323131667,
+                20.54999516144152
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300048356046483
+            },
+            {
+              "display_x_s_n_mm": [
+                8.593999999999994,
+                44.68132773231319,
+                20.549993920847257
+              ],
+              "normal_dot_display_n": -0.9999999965863728,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900035950103879
+            },
+            {
+              "display_x_s_n_mm": [
+                2.4310000000000116,
+                45.807327732313226,
+                20.549998501551684
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000817571481525
+            },
+            {
+              "display_x_s_n_mm": [
+                11.070999999999998,
+                24.749827732313218,
+                20.54999975839042
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300094325535499
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.524000000000001,
+                8.251827732313206,
+                20.55000007707411
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000975123723356
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.070999999999998,
+                39.33632773231324,
+                20.54999947663024
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300091507933631
+            },
+            {
+              "display_x_s_n_mm": [
+                5.231499999999997,
+                46.34132773231321,
+                20.549998546322612
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900082204857329
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.283500000000004,
+                6.436827732313207,
+                20.549996337108112
+              ],
+              "normal_dot_display_n": -0.999999999665088,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300060112712453
+            },
+            {
+              "display_x_s_n_mm": [
+                7.249499999999998,
+                4.278327732313196,
+                20.549996833828295
+              ],
+              "normal_dot_display_n": -0.9999999977700227,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900065079914159
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "cover-E",
+      "trial_id": "E",
+      "rotation_x_degrees": -50.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "tree": "tree-1",
+          "last_print_z_mm": 13.16,
+          "rays": 65,
+          "face_counts": {
+            "curved-front-inner-bridge": 38
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                1.0959685287475622,
+                0.4878275024965735,
+                16.84183405092886
+              ],
+              "normal_dot_display_n": -0.9948447935666735,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8618437250919909
+            },
+            {
+              "display_x_s_n_mm": [
+                2.998468528747537,
+                0.33232750249660015,
+                16.495990608722348
+              ],
+              "normal_dot_display_n": -0.9658206260521032,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.7560002828854865
+            },
+            {
+              "display_x_s_n_mm": [
+                0.8529685287475672,
+                0.2038275024965852,
+                16.86485816337638
+              ],
+              "normal_dot_display_n": -0.9966446726091738,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8848678375395101
+            },
+            {
+              "display_x_s_n_mm": [
+                2.9554685287475593,
+                0.7768275024965909,
+                16.507469770718437
+              ],
+              "normal_dot_display_n": -0.9660835596563735,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.7674794448815684
+            },
+            {
+              "display_x_s_n_mm": [
+                1.3874685287475472,
+                0.5228275024965932,
+                16.8082031480281
+              ],
+              "normal_dot_display_n": -0.992642048131378,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.82821282219123
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.7740314712524423,
+                1.3288275024965932,
+                16.753081591738564
+              ],
+              "normal_dot_display_n": -0.9889036705370062,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.5330912659017054
+            },
+            {
+              "display_x_s_n_mm": [
+                0.9574685287475688,
+                1.854827502496578,
+                16.85566920251239
+              ],
+              "normal_dot_display_n": -0.9950938970410534,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8756788766755174
+            },
+            {
+              "display_x_s_n_mm": [
+                1.1064685287475697,
+                1.6888275024965775,
+                16.840878646506674
+              ],
+              "normal_dot_display_n": -0.9950938970410534,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8608883206698194
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.0150314712524278,
+                0.5623275024966237,
+                16.712381935715875
+              ],
+              "normal_dot_display_n": -0.9856675895463605,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.7323916098790028
+            },
+            {
+              "display_x_s_n_mm": [
+                1.5739685287475709,
+                0.8183275024965901,
+                16.782874327901542
+              ],
+              "normal_dot_display_n": -0.9900511263209244,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8028840020646785
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.002031471252450956,
+                1.0683275024965972,
+                16.909873282818566
+              ],
+              "normal_dot_display_n": -0.9995732829867336,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.689882956981713
+            },
+            {
+              "display_x_s_n_mm": [
+                0.6174685287475654,
+                1.6838275024965776,
+                16.883059440006694
+              ],
+              "normal_dot_display_n": -0.9982155718177637,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.9030691141698478
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "tree": "tree-1",
+          "last_print_z_mm": 16.76,
+          "rays": 120,
+          "face_counts": {
+            "planar-inner-bezel": 120
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -8.872031471252456,
+                4.282827502496623,
+                20.55000003221019
+              ],
+              "normal_dot_display_n": -0.999999996398925,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900097063733201
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.619031471252441,
+                8.624327502496609,
+                20.55000006987871
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900097440418373
+            },
+            {
+              "display_x_s_n_mm": [
+                -6.964531471252428,
+                45.8078275024966,
+                20.550002924985897
+              ],
+              "normal_dot_display_n": -0.9999999999844211,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300125991490193
+            },
+            {
+              "display_x_s_n_mm": [
+                11.617968528747554,
+                25.52882750249661,
+                20.549999743342855
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000941750599714
+            },
+            {
+              "display_x_s_n_mm": [
+                -3.89553147125244,
+                4.206327502496601,
+                20.549995215895997
+              ],
+              "normal_dot_display_n": -0.9999999999999967,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300048900591444
+            },
+            {
+              "display_x_s_n_mm": [
+                -6.970531471252457,
+                45.23682750249661,
+                20.550000793013268
+              ],
+              "normal_dot_display_n": -0.999999998950422,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900104671763922
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.076031471252435,
+                30.788827502496613,
+                20.54999964173806
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000931590118546
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.9800314712524312,
+                3.5573275024966033,
+                20.549995161483416
+              ],
+              "normal_dot_display_n": -0.9999999999999967,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.730004835646549
+            },
+            {
+              "display_x_s_n_mm": [
+                1.9369685287475704,
+                2.9068275024965935,
+                20.54999510694505
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300047811081912
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.618031471252436,
+                31.572827502496587,
+                20.549999626593927
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300093007570491
+            },
+            {
+              "display_x_s_n_mm": [
+                11.076468528747569,
+                34.808327502496596,
+                20.549999564095366
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000923825849674
+            },
+            {
+              "display_x_s_n_mm": [
+                -2.1025314712524334,
+                45.80732750249661,
+                20.549998501551663
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000817571479394
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "cover-F",
+      "trial_id": "F",
+      "rotation_x_degrees": -50.0,
+      "unlabelled_support_bodies": 0,
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "tree": "tree-1",
+          "last_print_z_mm": 13.16,
+          "rays": 61,
+          "face_counts": {
+            "curved-front-inner-bridge": 29
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                1.6289547004699898,
+                0.6303277323131997,
+                16.76530104054096
+              ],
+              "normal_dot_display_n": -0.9896504478107753,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.0253107147041018
+            },
+            {
+              "display_x_s_n_mm": [
+                1.667454700469989,
+                0.873827732313222,
+                16.759437668695867
+              ],
+              "normal_dot_display_n": -0.986808283429782,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.0194473428590176
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.5100452995300202,
+                1.3918277323132262,
+                16.78286098932725
+              ],
+              "normal_dot_display_n": -0.9910263187764321,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8028706634903872
+            },
+            {
+              "display_x_s_n_mm": [
+                1.0164547004699784,
+                1.5608277323131965,
+                16.843277923070477
+              ],
+              "normal_dot_display_n": -0.9947398099848117,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 1.1032875972336211
+            },
+            {
+              "display_x_s_n_mm": [
+                2.893454700469988,
+                1.7983277323132043,
+                16.505306087364023
+              ],
+              "normal_dot_display_n": -0.9650646714214546,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.7653157615271488
+            },
+            {
+              "display_x_s_n_mm": [
+                1.522454700470007,
+                1.0778277323131924,
+                16.780762670307574
+              ],
+              "normal_dot_display_n": -0.9898643359668522,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8007723444707141
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.943045299530013,
+                1.9623277323132138,
+                16.712856830950937
+              ],
+              "normal_dot_display_n": -0.9847404727474742,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.9728665051140718
+            },
+            {
+              "display_x_s_n_mm": [
+                2.968954700469965,
+                1.9133277323132267,
+                16.48480589471417
+              ],
+              "normal_dot_display_n": -0.9650646714214546,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.44,
+              "gap_above_interface_centerline_mm": 0.7448155688773076
+            },
+            {
+              "display_x_s_n_mm": [
+                -0.0005452995300174734,
+                1.0658277323131857,
+                16.908517112954407
+              ],
+              "normal_dot_display_n": -0.9994164048008228,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 13.16,
+              "gap_above_interface_centerline_mm": 0.44852678711753724
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.592545299530002,
+                1.7163277323132373,
+                16.770581991454
+              ],
+              "normal_dot_display_n": -0.9881022208019525,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.7905916656171433
+            },
+            {
+              "display_x_s_n_mm": [
+                -1.7060452995300466,
+                1.2603277323132094,
+                16.75293108228371
+              ],
+              "normal_dot_display_n": -0.9881022208019525,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.92,
+              "gap_above_interface_centerline_mm": 0.532940756446847
+            },
+            {
+              "display_x_s_n_mm": [
+                0.657454700469998,
+                1.3938277323132011,
+                16.875735098541835
+              ],
+              "normal_dot_display_n": -0.9965706119648217,
+              "surface": "curved-front-inner-bridge",
+              "interface_print_z_mm": 12.68,
+              "gap_above_interface_centerline_mm": 0.8957447727049713
+            }
+          ]
+        },
+        {
+          "id": "interface-2",
+          "tree": "tree-1",
+          "last_print_z_mm": 16.76,
+          "rays": 120,
+          "face_counts": {
+            "planar-inner-bezel": 120
+          },
+          "samples": [
+            {
+              "display_x_s_n_mm": [
+                -0.9200452995300452,
+                45.807327732313226,
+                20.549998501551684
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300081757148172
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.608045299530033,
+                22.495827732313188,
+                20.54999980192982
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300094760929513
+            },
+            {
+              "display_x_s_n_mm": [
+                10.020954700469929,
+                43.188827732313186,
+                20.550003255191477
+              ],
+              "normal_dot_display_n": -0.9999999995995406,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900129293546117
+            },
+            {
+              "display_x_s_n_mm": [
+                -10.534045299530021,
+                26.04182773231321,
+                20.549999733433495
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000940759662603
+            },
+            {
+              "display_x_s_n_mm": [
+                -7.158045299530045,
+                3.6913277323132228,
+                20.550003177553897
+              ],
+              "normal_dot_display_n": -0.9999999961461854,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300128517170338
+            },
+            {
+              "display_x_s_n_mm": [
+                -7.833045299529999,
+                3.8103277323132207,
+                20.549998075079937
+              ],
+              "normal_dot_display_n": -0.9999999999972577,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000774924306134
+            },
+            {
+              "display_x_s_n_mm": [
+                11.070954700469997,
+                22.714827732313204,
+                20.549999797699517
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000947186263366
+            },
+            {
+              "display_x_s_n_mm": [
+                6.963954700469969,
+                45.80732773231322,
+                20.55000171323723
+              ],
+              "normal_dot_display_n": -0.9999999997488318,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900113874003639
+            },
+            {
+              "display_x_s_n_mm": [
+                -11.071045299530027,
+                20.216827732313213,
+                20.549999845952122
+              ],
+              "normal_dot_display_n": -0.9999999999999998,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.49000952011526044
+            },
+            {
+              "display_x_s_n_mm": [
+                3.8954547004699407,
+                4.206327732313197,
+                20.54999521589604
+              ],
+              "normal_dot_display_n": -0.9999999999999964,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.76,
+              "gap_above_interface_centerline_mm": 0.4900048900591637
+            },
+            {
+              "display_x_s_n_mm": [
+                -7.5075452995300225,
+                3.059327732313193,
+                20.549993377716817
+              ],
+              "normal_dot_display_n": -0.9999999977669745,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300030518799462
+            },
+            {
+              "display_x_s_n_mm": [
+                -8.06254529953003,
+                46.24982773231322,
+                20.550000464705377
+              ],
+              "normal_dot_display_n": -0.999999999240511,
+              "surface": "planar-inner-bezel",
+              "interface_print_z_mm": 16.52,
+              "gap_above_interface_centerline_mm": 0.7300101388685031
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
