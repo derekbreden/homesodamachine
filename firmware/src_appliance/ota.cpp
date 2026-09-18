@@ -307,16 +307,37 @@ void otaService() {
     // A request the host never saw is a deadlock: it waits for a line, this
     // board waits for the bytes that line asked for, and neither speaks again.
     // The console changes rate at the start of a session, and the first request
-    // is the one most likely to fall in that seam. Re-asking is only safe before
-    // any of the chunk has arrived — once bytes are in flight a second ask would
-    // leave the stream out of step.
-    if (hostOwes > 0 && hostGot == 0 && millis() - askedHostAtMs >= (source == OTA_SRC_J3 ? 400 : 1500)) {
+    // is the one most likely to fall in that seam.
+    //
+    // WHETHER A PART-ARRIVED CHUNK MAY BE RE-ASKED IS A PROPERTY OF THE SOURCE,
+    // not of the session. Over J3 every frame names the offset it starts at and
+    // `otaOnSrcData` takes only the one at `bufOffset + hostGot`, so asking
+    // again for the remainder cannot put the stream out of step: whatever the
+    // first send still delivers either lands exactly where it was going to, or
+    // names a position already passed and is dropped by that same test. The
+    // console carries raw bytes in arrival order with nothing naming where they
+    // belong, so there a straggler from the first send would be appended behind
+    // the re-sent ones — and that side may only be re-asked while none of the
+    // chunk has arrived.
+    //
+    // Holding both sides to the console's rule is what a phone's lost frame
+    // used to cost: 960 bytes of a 1024-byte chunk held, 64 owed, nothing
+    // allowed to ask for them, and a session that stalled at 85% until the
+    // ceiling below ended it — which the phone reports as "something went wrong
+    // partway through".
+    const bool resumable = (source == OTA_SRC_J3) || hostGot == 0;
+    if (hostOwes > 0 && resumable && millis() - askedHostAtMs >= (source == OTA_SRC_J3 ? 400 : 1500)) {
         askedHostAtMs = millis();
+        // From where this board is actually waiting. Asking from the chunk's
+        // start would name bytes it already holds, and every frame of the
+        // answer would fail the offset test and be dropped — a re-ask that
+        // cannot succeed is the deadlock with extra steps.
+        const uint32_t from = bufOffset + hostGot;
         if (source == OTA_SRC_J3) {
-            OtaSrcNeedPayload need{bufOffset, hostOwes};
+            OtaSrcNeedPayload need{from, hostOwes};
             faucetLinkSendOta(MSG_OTA_SRC_NEED, &need, sizeof(need));
         } else {
-            Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)bufOffset, hostOwes);
+            Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)from, hostOwes);
         }
     }
 
