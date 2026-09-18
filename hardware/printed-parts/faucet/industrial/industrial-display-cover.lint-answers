@@ -1,0 +1,25 @@
+[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N20.55, with 0.10 mm clearance over the seated display glass. The cover prints at +130 degrees about the CAD X axis, with its outer bezel on the bed and this face upward. The planar bezel retains its shape while the lower wings are preformed inward.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=0.000 y=-133.750 z=212.653
+
+[slope] This is the outer front wall at local S0. Its normal becomes horizontal in the cover's +130 degree print pose, so it prints as the upright end wall rising from the bezel. The 2 mm front wall closes the display end around the cylindrical neck clearance and keeps the front flush with the tube outlet plane.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=0.000 y=-143.630 z=188.471
+
+[slope] This is the inner rear wall at local S47.75. It stands vertically in the cover's +130 degree print pose and has 2 mm axial stock to the outer rear face at S49.75. The wall closes the rear of the display pocket around the neck clearance.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=0.000 y=-112.439 z=224.632
+
+[slope] This is the flat lower skirt rim, including the coplanar lip bottoms, at local N3.30. It faces upward in the cover's +130 degree print pose. The retaining lips have 3 mm normal height and join the broad side walls; their opposite bearing faces receive the two retained bed-rooted support bodies in the offline slice.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=0.000 y=-120.535 z=201.565
+
+[sliver] These are the exposed bearing faces of the two retaining lips, read in the +130 degree print pose and mapped back to this STEP frame. The 1.600 mm reading is the width of the exposed face. Each lip spans local N3.30 to N6.30; exact sections through these anchors at X +/-11.50 and S24.245 contain the full 3.00 mm of material below the bearing face. The inner boundary follows the curved neck, so the edge is not a prismatic strip with the same normal chord everywhere. The lip joins the broad wing continuously and provides the intended seated 1.00 mm radial engagement.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=-11.500 y=-123.239 z=203.011
+click: x=11.500 y=-123.239 z=203.011
+
+[ceiling] These are the same two lip bearing faces facing down in the cover's +130 degree print pose, at print Z15.55. The retained offline slice supplies one bed-rooted support body per lip, with labelled interfaces beginning at Z14.84 after 14.64 mm of build-up and extending to Z15.08. Supports are accessed through the open underside before loading the display. PET-GF spreading and retention, support removal effort and bearing-face finish require the physical print.
+file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
+click: x=-11.500 y=-123.239 z=203.011
+click: x=11.500 y=-123.239 z=203.011
