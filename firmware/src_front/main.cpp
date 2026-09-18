@@ -1396,11 +1396,17 @@ static unsigned long otaLastDataMs = 0;
 // one is moved only by the relay, and is what says the source still exists.
 static unsigned long otaLastProgressMs = 0;
 // How long a transfer may carry nothing before this board stops waiting on it.
-// Generous against a phone that was briefly backgrounded or walked out of BLE
-// range mid-push, and far inside the 600 s the relay holds a session for, so
-// the glass is never the thing still dark after the session that took it down
-// has gone.
-static const unsigned long OTA_SILENCE_MS = 60000;
+//
+// Longer than the 600 s the relay holds a session for, so a session that is
+// still alive always ends from that end: the relay gives up, sends the abort,
+// and this board reboots on it. What is left for this clock is the session that
+// died with its board, where no abort is ever coming and nothing else would
+// turn the panel back on.
+//
+// A source can go quiet for minutes and still return — a phone that answered
+// again after 184 s is what set this number — and a clock shorter than the
+// relay's turns one of those into a failed update.
+static const unsigned long OTA_SILENCE_MS = 900000;
 
 static void j9Post(uint8_t type, const void *data, uint8_t len);
 static bool setBacklight(bool on);
