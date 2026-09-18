@@ -15,8 +15,8 @@ The planar face is [27.5 mm](PLATE_X) wide and [48.49 mm](PLATE_S) long. Its
 rounded skin tapers to the skirt around the neck. The bezel is
 [1.3 mm](COSMETIC_WALL) thick. The finished rim has a 1 mm minimum cosmetic
 section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_HEIGHT)-high retaining lips
-continue inward from the side walls. The four metal-foot bearing pads have
-3 mm working sections.
+continue inward from the side walls. The four metal-foot bearing pads are
+[3 mm](FOOT_PAD_WIDTH) square and [2 mm](FOOT_PAD_DEPTH) deep.
 
 The lips follow the neck profile with [1 mm](SNAP_ENGAGEMENT) nominal radial
 engagement in [1 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove

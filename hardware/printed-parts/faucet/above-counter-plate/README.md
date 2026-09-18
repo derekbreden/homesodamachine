@@ -7,7 +7,7 @@ covers the underside and the fasteners when the faucet ships.
 
 ## Footprint and bearing
 
-The oval measures [65 mm](FOOT_WIDTH) across X and [66 mm](FOOT_DEPTH)
+The oval measures [58 mm](FOOT_WIDTH) across X and [59 mm](FOOT_DEPTH)
 along Y, centered at world (0, [0 mm](PLATE_Y)). The shell and gasket share
 this exact perimeter.
 
@@ -21,7 +21,7 @@ plate together at installation.
 
 Three M3×[8 mm](SCREW_LENGTH) socket-head screws enter from below. Each
 Ø[6.15 mm](CBORE_D) counterbore is [3.2 mm](CBORE_DEPTH) deep. Its
-Ø[9.9 mm](PEDESTAL_D) pedestal stands [2.2 mm](PEDESTAL_H) above the plate,
+Ø[7.9 mm](PEDESTAL_D) pedestal stands [2.2 mm](PEDESTAL_H) above the plate,
 giving a [3 mm](SEAT_T) bearing section above the head. The screw passes
 through a Ø[3.9 mm](SHANK_D) clearance hole and into a ruthex M3 short
 insert above the shell socket. All heads sit below the gasket-contact face.

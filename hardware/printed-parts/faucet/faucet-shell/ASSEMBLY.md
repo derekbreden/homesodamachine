@@ -15,8 +15,8 @@ seam around the display pocket. The above-counter plate meets the shell at
 its foot; the matching TPU gasket sits under that plate.
 
 Rigid structural walls, display supports, screw seats and insert backing
-are at least 3 mm at the checked sections. The gooseneck lap has a
-[3 mm](SPLIT_SOCKET_WALL) socket wall and a 3 mm plug wall, separated by
+are at least [2 mm](WALL_MIN) at the checked sections. The gooseneck lap has a
+[2 mm](SPLIT_SOCKET_WALL) socket wall and a [2 mm](SPLIT_PLUG_WALL) plug wall, separated by
 [0.3 mm](SPLIT_SLIP) diametral clearance. The display cover's side walls flex
 around the rigid neck; the nominal skin is 1.30 mm thick, with a 1 mm
 minimum for the cover's thin sections. Its broad retaining lips are 3 mm high.
@@ -24,7 +24,7 @@ The compressible above-counter gasket remains 2 mm TPU.
 
 ## Base joint
 
-The [65 mm](FOOT_WIDTH) × [66 mm](FOOT_DEPTH) oval plate is [4 mm](PLATE_T) thick, with three [2.2 mm](PEDESTAL_H) raised screw-seat pedestals. Three M3 × [8 mm](BASE_SCREW_L) socket-head screws
+The [58 mm](FOOT_WIDTH) × [59 mm](FOOT_DEPTH) oval plate is [4 mm](PLATE_T) thick, with three [2.2 mm](PEDESTAL_H) raised screw-seat pedestals. Three M3 × [8 mm](BASE_SCREW_L) socket-head screws
 enter from its underside, through 3 mm bearing seats, into ruthex
 RX-M3Sx4.0 inserts heat-set at the ceilings of the shell's pedestal sockets. The three
 chamfered pedestals register the plate. The gasket covers all three screw
@@ -60,7 +60,7 @@ to the opening below. Its roof leaves room for the arm to rise when the
 front is pressed. Confirm this motion with the harvested lever before
 closing the faucet base.
 
-The screw stations are (X,Y)=(±[22](BASE_X),[10](BASE_Y)) and (0,[-24.2](BASE_FRONT_Y)) mm. The head recesses
+The screw stations are (X,Y)=(±[20](BASE_X),[10](BASE_Y)) and (0,[-22.3](BASE_FRONT_Y)) mm. The head recesses
 are Ø[6.15 mm](BASE_CBORE_D) × [3.2 mm](BASE_CBORE_DEPTH) deep. Each [4 mm](BASE_INSERT_L) insert receives the screw's full thread
 engagement; the blind pilot provides tip relief.
 

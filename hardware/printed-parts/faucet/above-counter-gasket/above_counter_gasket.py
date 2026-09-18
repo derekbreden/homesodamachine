@@ -15,7 +15,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-import trimesh
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -43,6 +42,7 @@ from faucet_shell import (
     build_foot_outline,
     foot_center_y,
     build_lower_signal_lane,
+    write_bed_file,
 )
 from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
@@ -107,11 +107,7 @@ def main():
     export_assembly(one_body(gasket, out.stem, M_TPU_BLACK), str(out))
     print(f"-> {out.name}")
     stl = out.with_suffix(".stl")
-    cq.exporters.export(gasket, str(stl), tolerance=0.08, angularTolerance=0.1)
-    mesh = trimesh.load(str(stl), force="mesh")
-    if not mesh.is_watertight or not mesh.is_winding_consistent:
-        raise RuntimeError(f"{stl.name} is not a closed, consistently oriented print mesh")
-    print(f"-> {stl.name}")
+    write_bed_file(gasket, stl)
 
     variables = {
         "GASKET_T": f"{gasket_thickness:.4g} mm",

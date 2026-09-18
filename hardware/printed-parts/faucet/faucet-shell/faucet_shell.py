@@ -112,7 +112,7 @@ flavor_pill_y_minus_edge = min(
 
 
 # SHELL OUTER
-wall_thickness_min = 3.0
+wall_thickness_min = 2.0
 
 # The donor and lever envelope owns the lower arch's construction datum.
 show_wall = 4.2
@@ -156,24 +156,24 @@ cove_r = 6.0
 
 zone2_bore_z_bottom = zone1_z_top + bore_clearance  # [13.25 mm](ZONE2_BORE_Z_BOTTOM)
 
-# [3 mm](WALL_MIN) cylindrical shell wall above the Westbrass cyl top before the cove.
-shell_outer_lip = wall_thickness_min + bore_clearance  # [3.25 mm](SHELL_OUTER_LIP)
-zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [16.25 mm](ZONE1_OUTER_Z_TOP)
-zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
+# [2 mm](WALL_MIN) cylindrical shell wall above the Westbrass cyl top before the cove.
+shell_outer_lip = wall_thickness_min + bore_clearance  # [2.25 mm](SHELL_OUTER_LIP)
+zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [15.25 mm](ZONE1_OUTER_Z_TOP)
+zone2_outer_z_bottom = zone1_outer_z_top  # [15.25 mm](ZONE1_OUTER_Z_TOP)
 
 
 # BASE JOINT — three hidden M3 screws clamp the plate against the shell.
 # Three pedestals register the plate before the screws are tightened.
-foot_width = 65.0
-foot_depth = 66.0
+foot_width = 58.0
+foot_depth = 59.0
 foot_center_y = 0.0
 base_pod_counterbore_dia = 6.15
 base_pod_shank_dia = 3.9
 base_pod_wall = wall_thickness_min
-base_pod_center_x = 22.0
+base_pod_center_x = 20.0
 base_pod_center_y = 10.0
 base_pod_front_center_x = 0.0
-base_pod_front_center_y = -24.2
+base_pod_front_center_y = -22.3
 base_pod_centers = [
     (+base_pod_center_x, base_pod_center_y),
     (-base_pod_center_x, base_pod_center_y),
@@ -247,8 +247,8 @@ shell_arch_bore_outer_x = westbrass_arch_outer_x + bore_clearance  # [8.75 mm](S
 shell_arch_bore_z_foot_top = arch_z_base + bore_clearance  # [41.25 mm](SHELL_ARCH_BORE_Z_FOOT_TOP)
 shell_arch_bore_z_peak = arch_z_peak + bore_clearance  # [46.25 mm](SHELL_ARCH_BORE_Z_PEAK)
 
-shell_arch_z_foot_top = arch_z_base + shell_outer_lip  # [44.25 mm](SHELL_ARCH_Z_FOOT_TOP)
-shell_arch_z_peak = arch_z_peak + shell_outer_lip  # [49.25 mm](SHELL_ARCH_Z_PEAK)
+shell_arch_z_foot_top = arch_z_base + shell_outer_lip  # [43.25 mm](SHELL_ARCH_Z_FOOT_TOP)
+shell_arch_z_peak = arch_z_peak + shell_outer_lip  # [48.25 mm](SHELL_ARCH_Z_PEAK)
 wing_inner_x = shell_arch_bore_inner_x  # [6.75 mm](WING_INNER_X)
 wing_outer_x = shell_rect_x_half  # [12.95 mm](SHELL_RECT_X_HALF)
 
@@ -280,12 +280,12 @@ fill_y_min = +10.46  # back third of the soda faucet tube (Y ≥ [10.46 mm](FILL
 
 
 # ZONE 4 — rect column above the arch (soda faucet tube + flavor pill cutouts).
-zone4_z_bottom = shell_arch_z_foot_top  # [44.25 mm](SHELL_ARCH_Z_FOOT_TOP)
+zone4_z_bottom = shell_arch_z_foot_top  # [43.25 mm](SHELL_ARCH_Z_FOOT_TOP)
 # Clears the pressed-lever head corner (Y=+6.78, Z=54.024), which sits
 # inside zone 5's water-circle outline (Y=+[8.875 mm](SODA_FAUCET_TUBE_Y),
-# R=[11.26 mm](TUBE_SHELL_SODA_R)); zone 5's bottom is above it.
+# R=[9.262 mm](TUBE_SHELL_SODA_R)); zone 5's bottom is above it.
 zone4_z_top = 57.5
-zone4_height = zone4_z_top - zone4_z_bottom  # [13.25 mm](ZONE4_HEIGHT)
+zone4_height = zone4_z_top - zone4_z_bottom  # [14.25 mm](ZONE4_HEIGHT)
 
 
 # ZONE 5 — round tube wrapper above the lever, carrying the soda bore
@@ -321,7 +321,7 @@ tube_shell_center_y = max(
     for x, y, radius in _tube_bore_caps)
 tube_shell_bore_radius = tube_shell_center_y + _tube_soda_bore_r
 tube_shell_outer_r = tube_shell_bore_radius + zone5_wall
-tube_shell_soda_r_outer = tube_shell_outer_r - tube_shell_center_y  # [11.26 mm](TUBE_SHELL_SODA_R)
+tube_shell_soda_r_outer = tube_shell_outer_r - tube_shell_center_y  # [9.262 mm](TUBE_SHELL_SODA_R)
 tube_shell_pill_x_half_outer = pill_length_x / 2.0 + zone5_wall
 tube_shell_x_half_outer = tube_shell_outer_r
 tube_shell_x_outer = 2.0 * tube_shell_x_half_outer
@@ -604,10 +604,10 @@ def build_lower_outer() -> cq.Workplane:
     sections = (
         (0.0, foot_width, foot_depth, foot_center_y),
         (8.5, foot_width, foot_depth, foot_center_y),
-        (20.0, 47.0, 55.5, 3.75),
-        (34.0, 44.0, 55.5, 4.75),
-        (43.0, 42.0, 54.0, 5.0),
-        (59.0, 31.0, 33.0, 11.5),
+        (20.0, 43.0, 53.5, 4.25),
+        (34.0, 40.0, 52.5, 5.25),
+        (43.0, 38.0, 50.0, 5.0),
+        (59.0, 27.0, 29.0, 11.5),
     )
     wires = [cq.Workplane("XY").workplane(offset=z).center(0.0, cy)
              .ellipse(width / 2.0, depth / 2.0).val()
@@ -662,6 +662,8 @@ def build_lower_signal_ribbon() -> cq.Workplane:
 
 def build_lower_signal_lane() -> cq.Workplane:
     """Cable lane with a broad opening to the flavor passage, leaving no thin fin."""
+    from shapely.geometry import MultiPoint
+
     # Carry the vertical relief beyond the ribbon's straight-to-turn join so
     # its square corner has clearance from the passage's transition ledge.
     # The curved run needs additional normal clearance at its oblique sections.
@@ -670,12 +672,27 @@ def build_lower_signal_lane() -> cq.Workplane:
     stations = _lower_signal_stations()
     wires = []
     for z, x, y in stations:
-        x0, x1 = -0.75, max(0.75, x + 0.75)
-        y0 = min(flavor_tube_depth, y) - signal_lane_depth / 2.0 + 0.2
-        y1 = max(flavor_tube_depth, y) + signal_lane_depth / 2.0 - 0.2
+        # Join the existing flat-sided flavor opening to the capsule's
+        # interior. A convex bridge removes the material wedge between the
+        # pill side and the capsule end throughout the straight/turn handoff.
+        # Its cable-end rectangle stays 0.1 mm inside the capsule's flat
+        # sides so their union has positive overlap without coincident faces.
+        # Cross the shared pill boundary slightly so subtraction cannot leave
+        # a coincident face enclosing the very wedge this connector removes.
+        overlap = 0.02
+        pill_half_x = pill_length_x / 2.0 + overlap
+        lane_half_x = (signal_lane_width - signal_lane_depth) / 2.0
+        lane_half_y = signal_lane_depth / 2.0 - 0.1
+        points = [(px, py)
+                  for px in (-pill_half_x, pill_half_x)
+                  for py in (flavor_pill_y_minus_edge - overlap,
+                             flavor_tube_depth + overlap)]
+        points.extend((px, py)
+                      for px in (x - lane_half_x, x + lane_half_x)
+                      for py in (y - lane_half_y, y + lane_half_y))
+        outline = list(MultiPoint(points).convex_hull.exterior.coords)[:-1]
         wires.append(cq.Workplane("XY").workplane(offset=z)
-                     .center((x0 + x1) / 2.0, (y0 + y1) / 2.0)
-                     .rect(x1 - x0, y1 - y0).val())
+                     .polyline(outline).close().val())
     upper = cq.Solid.makeLoft(wires, ruled=False)
     lower = cq.Solid.extrudeLinear(wires[0].translate((0.0, 0.0, -20.2)), [], cq.Vector(0.0, 0.0, 20.4))
     return lane.union(cq.Workplane(obj=upper.fuse(lower)))
@@ -1060,7 +1077,7 @@ display_cover_face_width = 27.5
 display_cover_end_margin = 1.25
 display_cover_face_length = display_s_top + display_cover_end_margin
 _display_cover_center_s = display_cover_face_length / 2.0
-display_cover_skirt_width = 33.0
+display_cover_skirt_width = 2.0 * (tube_shell_outer_r + display_cover_slip + display_cosmetic_wall)
 display_cover_skirt_length = display_cover_face_length + 5.1
 display_cover_face_r = 7.25
 display_cover_skirt_r = 10.0
@@ -1075,7 +1092,7 @@ display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
 display_clip_lip_radius = tube_shell_outer_r - _display_snap.ENGAGEMENT
 display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
 display_foot_pad_width = 3.0
-display_foot_pad_depth = 3.0
+display_foot_pad_depth = wall_thickness_min
 display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
 display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
                                   + display_housing_length / 2.0 + y)
@@ -1146,8 +1163,10 @@ def build_display_outer_envelope() -> cq.Workplane:
 def build_display_cover_inner_envelope() -> cq.Workplane:
     """Open underside and the measured display clearance below the bezel."""
     rows = (
-        (30.4, 50.0, 8.7, display_cover_bottom_n - 1.0),
-        (30.4, 50.0, 8.7, display_cover_shoulder_n),
+        (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
+         50.0, 8.7, display_cover_bottom_n - 1.0),
+        (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
+         50.0, 8.7, display_cover_shoulder_n),
         (display_housing_width + 2.0 * display_cradle_clearance,
          display_housing_length + 2.0 * display_cradle_clearance,
          display_corner_r + display_cradle_clearance,
@@ -1626,6 +1645,7 @@ def main():
         "SPLIT_JUNCTION_Z": f"{split_junction_z:.4g} mm",
         "SPLIT_OVERLAP": f"{split_socket_overlap_len:.4g} mm",
         "SPLIT_SOCKET_WALL": f"{split_socket_wall:.4g} mm",
+        "SPLIT_PLUG_WALL": f"{split_plug_wall:.4g} mm",
         "SPLIT_SLIP": f"{split_slip:.4g} mm",
         "PRINT_TILT": f"{math.degrees(print_base_tilt_rad):.0f}°",
         "MAX_PRINT_OVERHANG": f"{math.degrees(max_print_overhang_rad):.0f}°",

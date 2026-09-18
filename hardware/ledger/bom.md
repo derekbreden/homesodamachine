@@ -148,12 +148,12 @@ The internal tee-carrier set is PET-GF: two halves with integral service tabs, j
 | Nameplate — one per unit, serialized | 1 | PETG (black + white) | 0.025 | $0.28 <!--@printed--> |
 | ASSE drip pan | 1 | PETG | 0.020 | $0.23 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--> |
-| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.125 | $3.13 <!--@printed--> |
-| Faucet display cover plate | 1 | PET-GF | 0.005 | $0.12 <!--@printed--> |
-| Above-counter plate | 1 | PET-GF | 0.011 | $0.28 <!--@printed--> |
-| **Printed parts total** | | | **~6.96** | **[$160.47](BOM_SEC7)** |
+| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.103 | $2.57 <!--@printed--> |
+| Faucet display cover plate | 1 | PET-GF | 0.004 | $0.10 <!--@printed--> |
+| Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
+| **Printed parts total** | | | **~6.94** | **[$159.83](BOM_SEC7)** |
 
-By material: PETG ≈ 1.00 kg / $11.16 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.97 kg / $149.28.
+By material: PETG ≈ 1.00 kg / $11.16 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.94 kg / $148.65.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the [10](FOAM_FACE_SCREWS) M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics bay stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -277,7 +277,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [ruthex M3 Threaded Inserts, 100 pc, RX-M3x5.7 brass heat-set](https://www.amazon.com/dp/B08BCRZZS3) | M3 × 5.7 mm L × 4.6 mm OD knurled brass, ⌀4.0 recommended hole; **the appliance's default M3 insert** — [44](M3_LONG_INSERTS) per build, every station whose bore already had the depth for it: [24](FOAM_INSERTS) foam caps — [20](FOAM_CLAMP_INSERTS) clamp bosses in an 8 mm pocket plus [4](DECK_INSERTS) deck-mount columns in the top cap, all [4](PUMP_MOUNT_SCREWS) under the water pump's bracket — + [12](RES_INSERTS) reservoir caps in a 7 mm pocket + [2](COND_INSERTS) condenser-block fingers on `enclosure-front-bottom`, whose 9 mm bore swallows the whole M3×8 because the donor's four tenths of folded sheet holds none of it, so the insert is that joint entire + [2](NAMEPLATE_INSERTS) nameplate bosses behind the +Y wall's outer face + [2](DISPLAY_COVER_INSERTS) under the display facet's inset floor on `enclosure-front-top`, which are the whole of what holds the screen in and now take the screw's full reach in thread + [2](PUMP_CAP_INSERTS) opening upward in the lower pump cradle's centre lane under the top clamp's two M3×60, where the spine below the bracket plane has the depth and the screw the reach. Not one of these moved a pocket to take the longer body. Amazon 112-6100127 Sep 2: $10.71 ÷ 100 = $0.1071/ea | [44](M3_LONG_INSERTS) (of 100 pk) | $0.11 | $4.50 <!--@fasteners--> |
-| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B09ZHSGHXD) | M3 × 4 mm L × 4.6 mm OD knurled brass, ⌀4.0 recommended hole — same insert as the row above but for the body; [30](M3_SHORT_INSERTS) per build, each at a station that cannot give the long one its depth and is spending that depth on something named: [3](TOUCHFLO_INSERTS) faucet base stations, with a 4 mm insert and 3 mm backing + [17](SHELF_INSERTS) +X wall bosses on `enclosure-back-top` carrying the whole electronics bay, whose bore stops at `flute_backing` — 3 mm of stock has to stay behind the fluted exterior, and `east_wall_seat` is struck off that bore, so a longer body walks the PSU, main board and both relays inboard + [2](C14_INSERTS) in the fore face of the +Y wall's C14 inlet tunnel, whose depth is capped by the wall the cord passes through + [2](CARRIER_JOINT_SCREWS) in the left tee-carrier half's 5 mm center-lap receiver + [6](SEAM_INSERTS) at the enclosure's Y-seam stations — the box's only seam screws, the Z seams sliding home on their hooked rails and taking none — whose pilot is `screw_len - seam_pin_shank_len` and would want an M3×12 and a wider `side_band_inset` to grow. Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [30](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | $3.32 <!--@fasteners--> |
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B09ZHSGHXD) | M3 × 4 mm L × 4.6 mm OD knurled brass, ⌀4.0 recommended hole — same insert as the row above but for the body; [30](M3_SHORT_INSERTS) per build, each at a station that cannot give the long one its depth and is spending that depth on something named: [3](TOUCHFLO_INSERTS) faucet base stations, with a 4 mm insert and 2 mm backing + [17](SHELF_INSERTS) +X wall bosses on `enclosure-back-top` carrying the whole electronics bay, whose bore stops at `flute_backing` — 3 mm of stock has to stay behind the fluted exterior, and `east_wall_seat` is struck off that bore, so a longer body walks the PSU, main board and both relays inboard + [2](C14_INSERTS) in the fore face of the +Y wall's C14 inlet tunnel, whose depth is capped by the wall the cord passes through + [2](CARRIER_JOINT_SCREWS) in the left tee-carrier half's 5 mm center-lap receiver + [6](SEAM_INSERTS) at the enclosure's Y-seam stations — the box's only seam screws, the Z seams sliding home on their hooked rails and taking none — whose pilot is `screw_len - seam_pin_shank_len` and would want an M3×12 and a wider `side_band_inset` to grow. Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [30](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | $3.32 <!--@fasteners--> |
 | [ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set](https://www.amazon.com/dp/B07YSVXWS8) | M5 × 9.5 mm L × 7.0 mm OD knurled brass; [4](TOTAL_M5_INSERTS) per build, one in each floor-slab post under the compressor's plate holes. The long body rather than the short: the post stands 15 mm and has the depth for it, and the grip is what stops the insert pulling out of PETG when the appliance is tipped. Same brand and same press as the M3s, one tip further along the T18 kit. Amazon 112-6038990-5011450 Aug 11: $9.99 + $0.72 tax = $10.71 ÷ 50 = $0.2142/ea | [4](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | $0.86 <!--@fasteners--> |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | reservoir-cap clamp screws ([12](RES_SCREWS), reservoir lid/body joint); Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | 12 (of 120 pk) | $0.07 | $0.87 <!--@fasteners--> |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-cap clamp screws (6 top + 6 bottom, each through cap lid + cap into a shell-face insert); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [20](FOAM_SCREWS) (of 60 pk) | $0.14 | $2.86 <!--@fasteners--> |
@@ -307,7 +307,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$96.45](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$160.47](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$159.83](BOM_SEC7) |
 | 8. Flavor subsystem | [$228.13](BOM_SEC8) |
 | 9. Dispensing | [$63.27](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -315,7 +315,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$16.54](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,400.96](BOM_GRAND)** |
+| **Total** | **[$1,400.32](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
