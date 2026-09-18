@@ -50,7 +50,7 @@ broad retaining lips are 3 mm high, with 1 mm nominal radial engagement
 in 1 mm deep grooves. The seated lips contact the groove roots, keeping the
 wings spread. There is 0.15 mm clearance above the lip tops; the groove
 floors support the seated lips before the bezel can reach the glass.
-All four metal-foot pads keep their 3 mm sections. The seated CAD is a fit
+All four metal-foot pads have 3 × 3 mm bearing faces and 2 mm depth. The seated CAD is a fit
 reference, not a prediction of the cover's elastic shape or force.
 Print both parts together: the larger lips require the matching housing.
 The complete cover's insertion force, retention, repeatability, whitening,
@@ -75,20 +75,20 @@ settings and embedded-mesh hashes. Both source STLs are already oriented
 and seated for printing; the project adds no further rotation.
 
 The offline Bambu Studio 02.08.02.61 slice completed without a warning.
-Its estimate is 2 h 24 min 3 s and 30.60 g using the saved 1.29 g/cm³
+Its estimate is 2 h 15 min 41 s and 25.85 g using the saved 1.29 g/cm³
 filament density. These grams are a profile estimate, not a measured PET-GF
-part mass. Actual extrusion paths retain 64.89 mm to the shared bed boundary
-and 93.86 mm between the two parts.
+part mass. Actual extrusion paths retain 64.83 mm to the shared bed boundary
+and 95.74 mm between the two parts.
 
 | Part / support body | Root | Contact reading | Build-up |
 |---|---|---|---|
-| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–85.40 mm | Not measured without interface labels |
-| Cover / trees 1–2 | Print bed, Z0.20 mm | Two explicitly labelled lip interfaces begin at Z14.84 mm. The supports reach Z15.08 mm | 14.64 mm to first labelled interface on each body |
+| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–82.52 mm | Not measured without interface labels |
+| Cover / tree-1 | Print bed, Z0.20 mm | One connected body reaches two explicitly labelled lip interfaces beginning at Z14.84 mm. The support reaches Z15.08 mm | 14.64 mm to first labelled interface |
 
 [The retained support audit](faucet-display-fit-trial.support-audit.json)
 records the support bounds and toolpaths. The supports print the actual
 fit features in their production orientations. The cover's open underside
-provides the intended removal route to its two lip supports before fitting
+provides the intended removal route to its two lip interfaces before fitting
 the display. An unlabelled interface count is unknown, not zero. Check
 removal access and the finish of the tube passages, display supports,
 broad lips and groove bearing faces on the physical print before testing
