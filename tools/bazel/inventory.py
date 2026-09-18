@@ -78,6 +78,10 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py": tuple(
+        f"hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-{label}.step.mesh"
+        for label in "abcdef"
+    ),
     # These STL exports are written by OCCT below Python's filesystem audit.
     # Their generators still own them in a clean action.
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": (
