@@ -36,6 +36,15 @@ Sliced file SHA-256:
 Plate 1 G-code SHA-256:
 `e6b1c00ed8592b7616f95c793aae4fb4a1c96358b2a0953f851e6ecf87d9f110`.
 
+Bambu Connect submitted plate 1 to **H2C**, serial **31B8AP612000452**, using
+**AMS A2 PETG Translucent** (reported 100% remaining). Bed leveling is on,
+timelapse off, and flow dynamic/nozzle offset calibration use Auto. At
+**2026-09-18 00:01:04 UTC** (September 17, 19:01 CDT), the printer reports
+RUNNING, 642 layers, no print error and no HMS entry. Connect shows toolhead
+homing and the left nozzle heating. The physical print result is pending.
+The exact submitted slice is retained at
+`.cache/prints/2026-09-17-funnel-flow094-h2c/funnel-mold-04-standard-flow094-z018.gcode.3mf`.
+
 ## 0.4 mm Standard nozzle, stopped at layer 374 — 2026-09-17
 
 Derek reports that the 0.4 mm regular-flow print developed the same raised,
