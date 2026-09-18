@@ -64,8 +64,11 @@ def lettering(value, size, tracking=0):
 
 
 class Plate:
-    def __init__(self, key, title, pitch):
+    def __init__(self, key, title, pitch, *, code=None, payload=URL):
         self.key, self.title, self.pitch = key, title, pitch
+        self.code = code if code is not None else QR
+        self.matrix = self.code.get_matrix()
+        self.payload = payload
         self.elements, self.bounds = [], []
 
     def text(self, value, x, y, size=2.8, align="left", tracking=0.08, fill=WHITE):
@@ -103,12 +106,13 @@ class Plate:
         self.text("FLAMMABLE REFRIGERANT", x + flame_width + gap, y, size, fill=fill)
 
     def qr(self, x, y, light=False):
-        side = len(MATRIX) * self.pitch
-        path = " ".join(f'M{col},{row}h1v1h-1z' for row, cells in enumerate(MATRIX)
+        count = len(self.matrix)
+        side = count * self.pitch
+        path = " ".join(f'M{col},{row}h1v1h-1z' for row, cells in enumerate(self.matrix)
                         for col, filled in enumerate(cells) if filled)
         self.elements.append(f'<g class="qr {"qr-light" if light else "qr-reverse"}" '
                              f'transform="translate({x} {y}) scale({self.pitch})">'
-                             f'<rect class="qr-ground" width="33" height="33" '
+                             f'<rect class="qr-ground" width="{count}" height="{count}" '
                              f'fill="{WHITE if light else BLACK}"/>'
                              f'<path class="qr-modules" d="{path}" '
                              f'fill="{BLACK if light else WHITE}"/></g>')
@@ -139,7 +143,7 @@ class Plate:
                 f'width="{WIDTH}mm" height="{HEIGHT}mm" viewBox="0 0 {WIDTH} {HEIGHT}" '
                 f'role="img" aria-label="{self.key}: {self.title}. Unit 0001 nameplate.">'
                 f'<title>{self.key} · {self.title}</title>'
-                f'<desc>{WIDTH} by {HEIGHT} millimetres. QR encodes {URL}. '
+                f'<desc>{WIDTH} by {HEIGHT} millimetres. QR encodes {self.payload}. '
                 f'{self.pitch:.2f} millimetre modules, four-module quiet zone.</desc>'
                 f'<rect x="0.12" y="0.12" width="{WIDTH-.24}" height="{HEIGHT-.24}" '
                 f'rx="3" fill="{BLACK}" stroke="#686a6d" stroke-width="0.24"/>'
