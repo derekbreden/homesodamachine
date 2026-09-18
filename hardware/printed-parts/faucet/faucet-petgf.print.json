@@ -48,8 +48,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "stl_sha256": "9458af6f58952108592dc00ff46a90fb6944d4af94ea8c4abb9b604da4fe1444",
-      "triangles": 390272,
+      "stl_sha256": "fd5cf2950e7a38b5857f900903bc90f325a0fdba7a2e6109a94aac8b08c92e99",
+      "triangles": 385896,
       "rotation_x_degrees": -14.999999999999998,
       "source_center_mm": [
         0.00014400482177734375,
@@ -265,6 +265,6 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "e424b90b66296aefbe3d155fe801897cc851125a43077d7b652b3b569c60735d",
+  "project_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
   "settings_preserved_byte_for_byte": true
 }
