@@ -969,3 +969,34 @@ records the cover's fit, retention and wing-flex observations.
 Derek supplied a Bambu Studio screenshot and a photograph of the printed
 lower shell, reporting: "Some of those defects (low resolution polygons on
 what should be smooth surfaces) are showing through in the final print."
+
+## White Sculpted faucet — 2026-09-18, Mark2
+
+- Complete shell base, shell tip, display cover and above-counter plate;
+  CAD X rotations −15°, −105°, −50° bezel-up and 0°, respectively.
+- The production STLs retain the physically accepted snap geometry, including
+  1.25 mm inward preload per cover wing. The tip rests toward its neck joint;
+  the visible cover bezel faces upward.
+- White Polymaker PET-GF loaded by Derek, with the existing external PET-CF
+  mapping on the left 0.4 mm nozzle. Right nozzle unused.
+- 0.24 mm layers, 0.20 mm first layer, two walls and 15% grid infill.
+  Nozzle 265 °C first / 280 °C later; Textured PEI at 80 °C. Saved cooling
+  and support settings are retained.
+- Requested +0.18 mm Z trim; emitted textured-plate trim `G29.1 Z0.16`.
+- Native slice: 4 h 30 min 50 s, 126.31 g at the saved profile density,
+  1,019 layers. Minimum bed margin 23.12 mm; toolpath separation 27.17 mm.
+- Support contact samples locate the tip's joint rim within 1.36 mm of the
+  seam, its internal passages and display pocket. No sampled contact is
+  farther along the broad neck skin or on the cover's visible outer bezel.
+  Physical removal and finish remain observations to make from this print.
+- Sent once through Bambu Connect as `sculpted-white-z018-mark2.gcode.3mf`:
+  bed leveling On, timelapse Off, flow dynamic calibration Auto and
+  nozzle-offset calibration Auto.
+- Telemetry at 2026-09-18 21:05:14 UTC confirms the exact job RUNNING,
+  0/1,019 layers, 270 minutes remaining, no print error and no HMS entries.
+  Bambu Connect shows Homing toolhead.
+- Native archive SHA-256:
+  `bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0`.
+  Project, source, support and launch records are in
+  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json) and
+  `.cache/prints/2026-09-18-sculpted-white-z018-mark2/readiness.json`.

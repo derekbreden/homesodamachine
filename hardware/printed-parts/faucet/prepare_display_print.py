@@ -79,7 +79,9 @@ def emitted_config(archive: zipfile.ZipFile) -> tuple[dict, list[float], int]:
         raise ValueError("Native G-code lacks its emitted configuration or layer count")
     return config, trims, layers
 
-def validate_native(path: Path, staged: Path, directory: Path, report: dict) -> dict:
+def validate_native(path: Path, staged: Path, directory: Path, report: dict,
+                    expected_config_changes: dict | None = None,
+                    expected_trim_commands: list[float] | None = None) -> dict:
     baseline = writer.ROOT / report["successful_profile"]["native_archive"]
     with zipfile.ZipFile(staged) as archive:
         expected = json.loads(archive.read(writer.SETTINGS_MEMBER))
@@ -100,10 +102,13 @@ def validate_native(path: Path, staged: Path, directory: Path, report: dict) -> 
         drift = {key: [previous_config.get(key), current_config.get(key)]
                  for key in set(previous_config) | set(current_config)
                  if previous_config.get(key) != current_config.get(key)}
-        if drift:
-            raise ValueError(f"Native emitted settings differ from the successful Mark2 job: {drift}")
-        if trim != previous_trim or trim != report["successful_profile"]["actual_trim_commands_mm"]:
-            raise ValueError("Native Z-trim commands differ from the successful Mark2 job")
+        if drift != (expected_config_changes or {}):
+            raise ValueError(f"Native emitted settings differ from the requested changes; changed keys: {sorted(drift)}")
+        target_trim = previous_trim if expected_trim_commands is None else expected_trim_commands
+        if trim != target_trim:
+            raise ValueError(f"Native Z-trim commands differ from the requested values: {trim} vs {target_trim}")
+        if previous_trim != report["successful_profile"]["actual_trim_commands_mm"]:
+            raise ValueError("Successful job trim differs from its saved record")
         value, md5 = hashlib.sha256(), hashlib.md5()
         with archive.open("Metadata/plate_1.gcode") as stream:
             for chunk in iter(lambda: stream.read(1024 * 1024), b""):
@@ -134,7 +139,9 @@ def validate_native(path: Path, staged: Path, directory: Path, report: dict) -> 
             "staged_input": relative(staged), "staged_input_sha256": sha_file(staged),
             "staged_settings_override": EXTERNAL_SPOOL,
             "native_export_settings_normalizations": differences,
-            "emitted_settings_match_successful_job": True, "actual_z_trim_commands_mm": trim,
+            "emitted_settings_match_successful_job": not drift,
+            "emitted_settings_match_requested_changes": True,
+            "intentional_emitted_config_changes": drift, "actual_z_trim_commands_mm": trim,
             "slicer_return_code": result["return_code"], "warning": plate["warning_message"],
             "objects": len(objects), "triangles": plate["triangle_count"],
             "estimated_seconds": plate["total_predication"],
