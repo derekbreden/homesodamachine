@@ -59,9 +59,12 @@ TARGETS = {
 # out from the same frame headers the firmware used to compile in.
 ART_IMAGE = os.path.join(REPO, ".pio", "build", "esp32s3_front", "art.bin")
 
-# The factory logos are not a firmware image either. One blob fills either
-# display's store; tools/make_logos.py lays it out.
-LOGOS_IMAGE = os.path.join(REPO, ".pio", "build", "esp32s3_front", "logos.bin")
+
+# The factory logos are not a firmware image either. The same blob fills either
+# display's store and each display's build lays one down, so a target takes the
+# one beside its own firmware rather than the other board's.
+def logos_image(target: str) -> str:
+    return os.path.join(REPO, ".pio", "build", TARGETS[target][0], "logos.bin")
 
 
 def main_board_port() -> str:
@@ -304,14 +307,14 @@ if __name__ == "__main__":
     elif a.target == "art":
         img = ART_IMAGE
     elif a.target.startswith("logos"):
-        img = LOGOS_IMAGE
+        img = logos_image(a.target)
     else:
         img = os.path.join(REPO, ".pio", "build", TARGETS[a.target][0], "firmware.bin")
     if not os.path.exists(img):
         if a.target == "art":
             how = "~/.platformio/penv/bin/python tools/make_art.py enclosure"
         elif a.target.startswith("logos"):
-            how = f"~/.platformio/penv/bin/python tools/make_logos.py -o {LOGOS_IMAGE}"
+            how = f"~/.platformio/penv/bin/python tools/make_logos.py -o {img}"
         else:
             how = f"pio run -e {TARGETS[a.target][0]}"
         sys.exit(f"no image at {img} — build it first: {how}")
