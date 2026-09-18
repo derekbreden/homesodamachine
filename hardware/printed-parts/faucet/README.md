@@ -50,5 +50,12 @@ tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prepare_print
 
 The Industrial generator reads the current Sculpted base's shared upper
 gooseneck. Both assemblies use the same hardware locations and tube paths.
-Printable meshes use the faucet's absolute 0.005 mm tessellation tolerance;
+Printable meshes use the faucet's absolute tessellation tolerance;
 their viewer payloads retain every print triangle.
+
+The [Industrial geometry readings](industrial/geometry-check.json) cover the
+saved solids, hardware, lever travel and named wall sections. The
+[display cover readings](industrial/display-cover-check.json) cover display fit,
+wing geometry, loading and seating. Their reproducible readers are
+[`check_geometry.py`](industrial/check_geometry.py) and
+[`check_display_cover.py`](industrial/check_display_cover.py).
