@@ -38,3 +38,25 @@ the tip STL is
 The [A–F retention trials](../faucet-cover-retention/README.md) carry complete
 covers for this same tip, with stronger preload, two tab heights and two print
 orientations.
+
+## Complete tip and two Sculpted covers — 2026-09-18, Mark2
+
+The submitted job was `faucet-display-mark2.gcode.3mf`: one production tip
+at CAD X +40°, one complete cover on its front wall at +40°, and an identical
+complete cover bezel up at −50°. The retained native archive SHA-256 is
+`defdde770a54b0f22db742c291448d5238ae0a6fe6165c4670103c0786b3034e`.
+The [submission record](../../faucet/faucet-display-petgf.readiness.json)
+identifies the exact geometry, 0.24 mm layer profile and printer startup.
+
+Both covers use 1.25 mm inward preload per wing, 3.00 mm lips with 0.25 mm
+inner-corner relief, 1.20 mm radial engagement, 0.48 mm groove roof allowance
+and 0.30 mm clearance at each groove end.
+
+Derek reported that both covers snapped into place and retained firmly.
+He rejected the tip's +40° orientation because supports marked its finished
+surface, and rejected the front-wall-down cover because its visible face
+contacted the print bed. The requested full Sculpted print uses white PET-GF,
+with the tip at −105° and cover bezel up at −50°.
+
+This is a physical seating and retention observation; repeated cycling and
+long-term preload were not reported.

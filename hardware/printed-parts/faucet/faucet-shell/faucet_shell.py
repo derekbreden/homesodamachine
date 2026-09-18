@@ -116,7 +116,7 @@ wall_thickness_min = 2.0
 
 # The donor and lever envelope owns the lower arch's construction datum.
 show_wall = 4.2
-print_layer_height = 0.24
+print_layer_height = 0.18
 print_bead_width = 0.42
 
 _westbrass_bore_farthest_from_shell_center = (
@@ -462,17 +462,20 @@ split_junction_z = zone5_z_top + _path_junction[1]  # [220.9 mm](SPLIT_JUNCTION_
 
 # PRINTING — the base beds on its foot (Z=0) with the -Y edge lifted
 # [15°](PRINT_TILT), keeping the long straight neck close to vertical.
-# The tip stands on its dispense face; both display-groove planes are vertical.
+# The tip beds on the joint end with the crown lifted and its build
+# direction at the angular midpoint of the sweep it carries.
 print_base_build_rot = math.radians(15.0)
-print_tip_build_rot = _path_total_rot - math.pi
-# Tilt off each part's bed face.
+print_tip_build_rot = (split_junction_rot + _path_total_rot) / 2.0
+# Tilt off the bed face. The foot is square to the path at rotation 0
+# and the joint face to the path at the junction.
 print_base_tilt_rad = print_base_build_rot
-print_tip_tilt_rad = 0.0
+print_tip_tilt_rad = print_tip_build_rot - split_junction_rot
 max_print_overhang_rad = max(
     print_base_build_rot,
     split_junction_rot - print_base_build_rot,
-    _path_total_rot - split_junction_rot,
-)  # [70°](MAX_PRINT_OVERHANG)
+    print_tip_build_rot - split_junction_rot,
+    _path_total_rot - print_tip_build_rot,
+)  # [55°](MAX_PRINT_OVERHANG)
 
 
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
