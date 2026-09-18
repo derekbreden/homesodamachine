@@ -309,29 +309,19 @@ void otaService() {
     // The console changes rate at the start of a session, and the first request
     // is the one most likely to fall in that seam.
     //
-    // WHETHER A PART-ARRIVED CHUNK MAY BE RE-ASKED IS A PROPERTY OF THE SOURCE,
-    // not of the session. Over J3 every frame names the offset it starts at and
-    // `otaOnSrcData` takes only the one at `bufOffset + hostGot`, so asking
-    // again for the remainder cannot put the stream out of step: whatever the
-    // first send still delivers either lands exactly where it was going to, or
-    // names a position already passed and is dropped by that same test. The
-    // console carries raw bytes in arrival order with nothing naming where they
-    // belong, so there a straggler from the first send would be appended behind
-    // the re-sent ones — and that side may only be re-asked while none of the
-    // chunk has arrived.
-    //
-    // Holding both sides to the console's rule is what a phone's lost frame
-    // used to cost: 960 bytes of a 1024-byte chunk held, 64 owed, nothing
-    // allowed to ask for them, and a session that stalled at 85% until the
-    // ceiling below ended it — which the phone reports as "something went wrong
-    // partway through".
+    // Whether a part-arrived chunk may be re-asked is a property of the source.
+    // Over J3 every frame names the offset it starts at and `otaOnSrcData`
+    // takes only the one at `bufOffset + hostGot`, so a second ask for the
+    // remainder cannot put the stream out of step: what the first send still
+    // delivers either lands where it was going to, or names a position already
+    // passed and is dropped by that same test. The console carries raw bytes in
+    // arrival order with nothing naming where they belong, and is re-asked only
+    // while none of the chunk has arrived.
     const bool resumable = (source == OTA_SRC_J3) || hostGot == 0;
     if (hostOwes > 0 && resumable && millis() - askedHostAtMs >= (source == OTA_SRC_J3 ? 400 : 1500)) {
         askedHostAtMs = millis();
-        // From where this board is actually waiting. Asking from the chunk's
-        // start would name bytes it already holds, and every frame of the
-        // answer would fail the offset test and be dropped — a re-ask that
-        // cannot succeed is the deadlock with extra steps.
+        // From where this board is waiting: hostGot bytes of the chunk are
+        // already held, and a frame at any other offset fails the test above.
         const uint32_t from = bufOffset + hostGot;
         if (source == OTA_SRC_J3) {
             OtaSrcNeedPayload need{from, hostOwes};
@@ -377,7 +367,7 @@ void otaConsole(const String &line) {
                       OtaReceiver::slotAvailable()
                           ? "a spare OTA slot is present — it can take an update"
                           : "SINGLE SLOT — no ota_1, so it cannot take an update");
-        Serial.println("  ota <self|faucet|enclosure|art> <size> <crc32>");
+        Serial.println("  ota <self|faucet|enclosure|art|logos|logos-faucet> <size> <crc32>");
         if (target != OTA_TGT_NONE)
             Serial.printf("  a session to %s is open, %lu bytes\n",
                           targetName(target), (unsigned long)imgSize);
@@ -401,7 +391,13 @@ void otaConsole(const String &line) {
     // The enclosure's art partition rides the same session; only what the
     // receiver opens at the far end differs.
     else if (!strcmp(who, "art"))     { t = OTA_TGT_ENCLOSURE; imgKind = OTA_KIND_ART; }
-    else { Serial.println("\nusage: ota <self|faucet|enclosure|art> <size> <crc32>"); return; }
+    // The factory logos ride it too, and go to either display's store.
+    else if (!strcmp(who, "logos"))   { t = OTA_TGT_ENCLOSURE; imgKind = OTA_KIND_LOGOS; }
+    else if (!strcmp(who, "logos-faucet")) { t = OTA_TGT_FAUCET; imgKind = OTA_KIND_LOGOS; }
+    else {
+        Serial.println("\nusage: ota <self|faucet|enclosure|art|logos|logos-faucet> <size> <crc32>");
+        return;
+    }
 
     if (target != OTA_TGT_NONE) { Serial.println("\nOTA:FAIL a session is already open"); return; }
     if (size == 0) { Serial.println("\nOTA:FAIL size is zero"); return; }

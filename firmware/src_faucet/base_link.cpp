@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <driver/gpio.h>
 #include "base_link.h"
+#include "logos_sink.h"
 #include "ble_link.h"
 #include "fw_version.h"
 #include "ota_receiver.h"
@@ -228,6 +229,29 @@ void settleFromMainBoardHeartbeat(const FlavorStatePayload &state) {
 // board answers that. A request that goes unanswered is simply re-asked, so a
 // lost frame costs a retry interval rather than the transfer.
 static OtaReceiver ota;
+// The factory logos go into store slots rather than into a partition of their
+// own, so they are taken by a sink of their own. One session uses one of the two.
+static LogosSink logos;
+static bool otaIsLogos = false;
+
+static inline bool     otaAnyActive()   { return otaIsLogos ? logos.active() : ota.active(); }
+static inline bool     otaAnyDone()     { return otaIsLogos ? logos.done() : ota.done(); }
+static inline uint32_t otaAnyNext()     { return otaIsLogos ? logos.nextOffset() : ota.nextOffset(); }
+static inline uint32_t otaAnyExpected() { return otaIsLogos ? logos.expected : ota.expected; }
+static inline uint8_t  otaAnyState()    { return otaIsLogos ? logos.state : ota.state; }
+static inline uint8_t  otaAnyErr()      { return otaIsLogos ? logos.err : ota.err; }
+static inline uint32_t otaAnyRecv()     { return otaIsLogos ? logos.received : ota.received; }
+static inline uint32_t otaAnyRunCrc()   { return otaIsLogos ? logos.runCrc : ota.runCrc; }
+static inline uint32_t otaAnyWantCrc()  { return otaIsLogos ? logos.wantCrc : ota.wantCrc; }
+static inline bool otaAnyWrite(uint32_t off, const uint8_t *d, uint16_t n) {
+  return otaIsLogos ? logos.write(off, d, n) : ota.write(off, d, n);
+}
+static inline bool otaAnyFinish() { return otaIsLogos ? logos.finish() : ota.finish(); }
+static inline void otaAnyAbort()  { if (otaIsLogos) logos.abort(); else ota.abort(); }
+static inline void otaAnyFill(OtaStatePayload &st) {
+  if (otaIsLogos) logos.fill(st); else ota.fill(st);
+}
+
 static uint32_t otaAskedAtMs = 0;
 static uint32_t otaFrames = 0, otaDups = 0, otaGaps = 0, otaBytes = 0;
 static bool     otaRebootPending = false;
@@ -235,20 +259,20 @@ static uint32_t otaRebootAtMs = 0;
 static const uint32_t OTA_REASK_MS = 40;
 
 static void otaAsk() {
-  OtaReqPayload req{ota.nextOffset()};
+  OtaReqPayload req{otaAnyNext()};
   base.trySend(MSG_OTA_REQ, &req, sizeof(req));
   otaAskedAtMs = millis();
 }
 
 static void otaReport() {
   OtaStatePayload st;
-  ota.fill(st);
+  otaAnyFill(st);
   base.trySend(MSG_RESP_OTA, &st, sizeof(st));
 }
 
 static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
   if (type == MSG_OTA_ABORT) {
-    ota.abort();
+    otaAnyAbort();
     faucetApplyOta(false, 0);
     return;
   }
@@ -261,42 +285,44 @@ static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
     otaFrames = otaDups = otaGaps = otaBytes = 0;
     Serial.printf("OTA:BEGIN size=%lu crc=%08lX chunk=%u kind=%u\n",
                   (unsigned long)b.size, (unsigned long)b.crc32, b.chunk, b.kind);
-    ota.begin(b.size, b.crc32, b.kind);
+    otaIsLogos = (b.kind == OTA_KIND_LOGOS);
+    if (otaIsLogos) logos.begin(b.size, b.crc32);
+    else            ota.begin(b.size, b.crc32, b.kind);
     otaReport();
-    if (ota.active()) otaAsk();
+    if (otaAnyActive()) otaAsk();
     else faucetApplyOta(false, 0);
     return;
   }
 
-  if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
+  if (type == MSG_OTA_DATA && plen >= 4 && otaAnyActive()) {
     uint32_t offset;
     memcpy(&offset, payload, 4);
     ++otaFrames;
     otaBytes += (uint32_t)(plen - 4);
-    if (offset < ota.nextOffset()) ++otaDups;
-    else if (offset != ota.nextOffset()) ++otaGaps;
-    if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
+    if (offset < otaAnyNext()) ++otaDups;
+    else if (offset != otaAnyNext()) ++otaGaps;
+    if (!otaAnyWrite(offset, payload + 4, (uint16_t)(plen - 4))) {
       otaReport();
       faucetApplyOta(false, 0);
       return;
     }
-    if (ota.nextOffset() < ota.expected) {
-      faucetApplyOta(true, (uint8_t)((uint64_t)ota.nextOffset() * 100 / ota.expected));
+    if (otaAnyNext() < otaAnyExpected()) {
+      faucetApplyOta(true, (uint8_t)((uint64_t)otaAnyNext() * 100 / otaAnyExpected()));
       otaAsk();
       return;
     }
     // Last byte is in. Nothing has moved yet — finish() is what verifies the
     // whole image and only then points the bootloader at it.
-    const bool ok = ota.finish();
+    const bool ok = otaAnyFinish();
     Serial.printf("OTA:END ok=%d state=%u err=%u recv=%lu exp=%lu run=%08lX want=%08lX "
                   "frames=%lu dup=%lu bytes=%lu\n",
-                  (int)ok, ota.state, ota.err,
-                  (unsigned long)ota.received, (unsigned long)ota.expected,
-                  (unsigned long)ota.runCrc, (unsigned long)ota.wantCrc,
+                  (int)ok, otaAnyState(), otaAnyErr(),
+                  (unsigned long)otaAnyRecv(), (unsigned long)otaAnyExpected(),
+                  (unsigned long)otaAnyRunCrc(), (unsigned long)otaAnyWantCrc(),
                   (unsigned long)otaFrames, (unsigned long)otaDups,
                   (unsigned long)otaBytes);
     otaReport();
-    if (ota.done()) {
+    if (otaAnyDone()) {
       faucetApplyOta(true, 100);
       otaRebootPending = true;
       otaRebootAtMs = millis() + 400;   // let the reply clear J3 first
@@ -664,7 +690,7 @@ void baseLinkService() {
   base.service();
 
   if (otaRebootPending && (int32_t)(millis() - otaRebootAtMs) >= 0) esp_restart();
-  if (ota.active() && millis() - otaAskedAtMs >= OTA_REASK_MS) otaAsk();
+  if (otaAnyActive() && millis() - otaAskedAtMs >= OTA_REASK_MS) otaAsk();
 
   const uint32_t generation = base.connectionGeneration();
   const bool connected = base.isConnected();
