@@ -4,7 +4,7 @@
     "MAX_PRINT_OVERHANG": "55\u00b0",
     "SPLIT_PLUG_WALL": "2 mm",
     "SPLIT_SOCKET_WALL": "2 mm",
-    "TIP_PRINT_HEIGHT": "138.0 mm",
+    "TIP_PRINT_HEIGHT": "136.9 mm",
     "WALL_MIN": "2 mm"
   }
 }

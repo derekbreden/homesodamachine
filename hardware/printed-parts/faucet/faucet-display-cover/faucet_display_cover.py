@@ -1,7 +1,8 @@
 """Shallow faucet display cover with broad lips around the rigid neck.
 
-The cover moves normal to the display. Its stable cosmetic skin follows the
-glass closely. Its preformed walls remain spread against the seated groove roots.
+The display and cover slide onto the tip together, then seat normal to the glass.
+The cosmetic skin follows the glass closely. Its preformed walls remain spread
+against the seated groove roots.
 The PET-GF snap's force and durability require the representative print trial.
 """
 from pathlib import Path
@@ -57,14 +58,20 @@ def build_plate_inner_cut() -> cq.Workplane:
 
 
 def build_corner_rim_relief() -> cq.Workplane:
-    """The front bevel keeps the dispensing rim clear of the neck's tangent."""
+    """Sloping front and rear lower edges meet the open underside."""
     bottom = shell.display_cover_bottom_n
     front_s = (front_rim_n - bottom) / front_rim_slope
     front = (cq.Workplane("YZ")
              .polyline([(-10.0, -30.0), (front_s, -30.0), (front_s, bottom),
                         (-10.0, front_rim_n + 10.0 * front_rim_slope)])
              .close().extrude(30.0, both=True))
-    return shell._display_world(front)
+    rear_s = shell.display_cover_rear_rim_s0 + shell.display_cover_rear_rim_ds_dn * bottom
+    rear_n = (70.0 - shell.display_cover_rear_rim_s0) / shell.display_cover_rear_rim_ds_dn
+    rear = (cq.Workplane("YZ")
+            .polyline([(rear_s, -30.0), (70.0, -30.0),
+                       (70.0, rear_n), (rear_s, bottom)])
+            .close().extrude(30.0, both=True))
+    return shell._display_world(front).union(shell._display_world(rear))
 
 
 def build_seated_display_cover() -> cq.Workplane:
@@ -172,6 +179,7 @@ def main():
         "WING_BOTTOM_PRELOAD": f"{preload_inward_at(shell.display_clip_bottom_n):.3f} mm",
         "GROOVE_DEPTH": f"{_display_snap.ENGAGEMENT + _display_snap.RADIAL_SLIP:g} mm",
         "DISPLAY_FEET_N": f"{shell.display_feet_n:g} mm",
+        "DISPLAY_INSTALL_LIFT": f"{shell.display_cartridge_lift_n:g} mm",
         "FOOT_PAD_WIDTH": f"{shell.display_foot_pad_width:g} mm",
         "FOOT_PAD_DEPTH": f"{shell.display_foot_pad_depth:g} mm",
     })

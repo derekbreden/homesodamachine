@@ -22,10 +22,8 @@ around the rigid neck; the nominal skin is 1.30 mm thick, with a 1 mm
 minimum for the cover's thin sections. Its broad retaining lips are 3 mm high.
 The compressible above-counter gasket remains 2 mm TPU.
 
-The round stem is Ø[26.025 mm](NECK_DIAMETER). A gradual transition enlarges
-the local display head to Ø[30 mm](HEAD_DIAMETER), allowing the inward-preformed
-retaining lips to pass the fixed display housing during straight-on assembly.
-The cover's rear hood follows the curved neck beyond the electronics.
+The round stem, bend and dispense tip share a Ø[26.025 mm](NECK_DIAMETER)
+section. The display is placed inside its cover before the pair seats on the tip.
 
 ## Base joint
 
@@ -90,19 +88,25 @@ stand-in, not a scan suitable for manufacturing a replacement lever.
 1. Route SIG-6 from the neck into the open space below the PCB, toward its
    southwest corner as viewed from the glass. The cable lies freely between
    the components and supports.
-2. Seat the display's four metal feet on their printed supports. Confirm
-   the underside components clear the three tubes and the ribbon. The
-   central space above the tubes is open.
-3. Lower the cover normal to the display. Its side walls spread outward
+2. Spread the cover's plastic wings and place the display inside it from
+   the open underside. Keep the PCB clear of the retaining lips; spread the
+   plastic by hand rather than using the board as a wedge.
+3. Hold the display and cover together [7.5 mm](DISPLAY_INSTALL_LIFT) above
+   their final seat, measured normal to the glass. Slide the pair along the
+   tip from the outlet end until the four metal feet align with their
+   printed supports. Feed the ribbon through the neck as the pair moves.
+4. Lower the pair normal to the display. Its side walls spread outward
    around the rigid cylinder until both broad lips seat in the side grooves,
    under their retaining shoulders. The lips have 1 mm nominal radial
    engagement and contact the groove roots. Each wing is printed 0.75–0.908 mm
    inward from its nominal seated position, so it remains spread after
    assembly. Lip bottoms seat on the groove floors before the bezel reaches
    the glass. No display screw or insert is fitted.
-4. Check that the seam closes, the glass clears the bezel, and the display
-   remains seated when its touch surface is pressed. The enclosure's lower edge
-   and the three tube outlets end at the same plane.
+5. Check that all four feet sit on their supports and the underside
+   components clear the three tubes and ribbon. The central space above the
+   tubes is open. Check that the seam closes, the glass clears the bezel,
+   and the display remains seated when its touch surface is pressed. The
+   enclosure's lower edge and the three tube outlets end at the same plane.
 
 The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
 some tube movement, so the seated real bundle is part of the

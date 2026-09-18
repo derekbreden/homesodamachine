@@ -63,7 +63,9 @@ destroyed is a part that comes out by being destroyed.
 - **The faucet display cover flexes around the rigid cylindrical neck.** Its side walls
   are printed inward, spread during seating, and remain spread when the broad lips
   contact the groove roots below rigid retaining shoulders. The groove floors stop
-  the cover before its bezel reaches the glass. The
+  the cover before its bezel reaches the glass. Factory assembly places the display
+  inside the cover, slides the pair along the tip with clearance above the neck,
+  then lowers it onto the supports. The
   [complete display fit trial](printed-parts/fixtures/faucet-display-snap/README.md)
   carries the actual enclosure, device supports, tubes and ribbon route. Its print log
   records the physical observations. The preloaded geometry needs its own fit and
