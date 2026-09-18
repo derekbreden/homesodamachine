@@ -5,6 +5,7 @@ import fs from "fs";
 import { fileURLToPath, pathToFileURL } from "url";
 import pg from "pg";
 
+import { mountShortHost } from "./lib/short-host.js";
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
@@ -229,6 +230,10 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // it existed at a specific past commit.
   const HARDWARE_DIR = hardwareDir || DEFAULT_HARDWARE_DIR;
   const app = express();
+  // THE SHORT HOST STANDS FIRST. `hosm.us` carries no route of its own — every
+  // path on it is a redirect to the same path here (web/lib/short-host.js) — so
+  // it is answered before a body is parsed and before any route is consulted.
+  mountShortHost(app);
   app.use(express.json());
 
   const pool = makePool();
