@@ -8,7 +8,13 @@ Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator 
 
 The hot-gas bypass solenoid is deleted.
 
-R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold work — refrigerant is vented to atmosphere rather than recovered.
+EPA's R-600a Section 608 exemption applies to specified end-uses. Its household
+refrigeration definition includes stand-alone household ice makers; the rebuilt soda
+machine's category and handling route remain open in
+[`business/regulatory.md`](/business/regulatory.md). Equipment suitability for
+flammable refrigerants must be checked against its manufacturer's instructions;
+an end-use venting exemption is not a qualification of the pump, manifold or other
+service equipment.
 
 ---
 
@@ -22,7 +28,7 @@ R-600a is carved out of the EPA Section 608 venting prohibition as a natural ref
 
 ### Refrigerant
 
-**R600a (isobutane), 15 g** factory charge per the Antarctic Star HZB-12/Q technical-parameters table in the product manual (UK reseller hosts the 220-240 V / 50 Hz variant manual at `adexa.co.uk`; the US Amazon variant we bought is 110-120 V / 60 Hz — same HZB-12/Q model number, same evap + condenser + refrigerant charge across voltage variants, only the compressor electrical spec changes). Well under the 150 g UL 60335-2-89 limit for small appliances. Brazing anywhere in the sealed loop requires the charge to be vented first — do not heat a pressurized R600a circuit.
+**R600a (isobutane), 15 g** factory charge per the Antarctic Star HZB-12/Q technical-parameters table in the product manual (UK reseller hosts the 220-240 V / 50 Hz variant manual at `adexa.co.uk`; the US Amazon variant we bought is 110-120 V / 60 Hz — same HZB-12/Q model number, same evap + condenser + refrigerant charge across voltage variants, only the compressor electrical spec changes). This is the donor charge; the finished soda machine's charge and applicable limit need their own specification. Brazing anywhere in the sealed loop requires prior charge removal and the documented purge precautions — do not heat a pressurized R600a circuit.
 
 ### Refrigerant circuit topology (verified by disassembly)
 

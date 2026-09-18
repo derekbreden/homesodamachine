@@ -25,7 +25,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 | CGA-320 primary regulator | [`bom.md`](/hardware/ledger/bom.md) §4 | The Wellbom dual-gauge regulator ships with the machine and mounts on the customer's own 5 lb cylinder — the tank is the one thing on the water-and-gas path the customer brings. Packed in the install kit at step 6, in its factory box. |
 | Cold kit | Its own bag, with its own guide | The Mudder PTFE tubing cutter (B08VW15TK8, 1 of 3 pk, [`bom.md`](/hardware/ledger/bom.md) §14) and loose 1-ft CARGEN nitrile foam segments (B0D2XFK337, [`bom.md`](/hardware/ledger/bom.md) §9) **on top of the 84"/build §9 allocates** — 60" to the umbilical's five segments and ~24" to the cabinet-internal riser. The umbilical ships at its factory length and installs uncut; the kit is for the buyer who trims it to the cabinet's own length and foams the whole run. The segment count per machine is open until the first real install. |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per machine | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5. Standard US wall outlet to C14 inlet. |
-| Customer documentation packet | Printed in-house | (a) Printed quick start, which lies on top of the packed carton at step 7 rather than in the kit; (b) the bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), which carries the refrigerant and charge-mass statement the SNAP conditions in [`/business/regulatory.md`](/business/regulatory.md) put on installation instructions; (c) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. Of the four SNAP conditions in [`/business/regulatory.md`](/business/regulatory.md), this packet carries the one that falls on instructions; the two that fall on the unit are lettered on the [nameplate](/hardware/printed-parts/enclosure/nameplate/README.md). |
+| Customer documentation packet | Printed in-house | (a) Printed quick start, which lies on top of the packed carton at step 7 rather than in the kit; (b) the bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (c) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) records the separate unit/carton warning proof and unresolved end-use/standard requirements. The small nameplate flame/footer does not complete them. |
 | Transit inlet caps | TBD per Open items | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
 | Soda machine carton + molded foam end-caps | TBD per Open items | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Archival pen (signature application) | TBD per Open items | Pigment-ink, fade-resistant, kitchen-wipe-resistant. Used if the signature is applied handwritten rather than laser-engraved (decision pending per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "Signature fidelity"). |
@@ -73,6 +73,21 @@ The signature is not printed — it lands here, at the final-stage bench, on the
 Whichever path is in service, the signature is applied to *this* plate for *this* unit — the builder is signing this specific machine, not pre-signing a batch of blank plates. The signature is the physical proof per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" that a specific person built this specific machine.
 
 Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap screws down into the heat-sets in the wall's own bosses, one at each end of the plate on its horizontal centreline. Those two are full-length ruthex, pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1 and standing empty until now; each takes the whole of the screw's reach in thread. The heads land in the plate's counterbores and come out flush with the wall. Apply the signature first and mount second — a plate in its pocket cannot be signed in place.
+
+### 3a. Refrigerant markings and unit record
+
+The [refrigerant marking specification](/hardware/markings/README.md) supplies a
+provisional full-size proof and attachment proposals. The finished machine's category,
+R-600a listing, applicable standard and physical label attachments remain open. The
+paper proof is not a permanent production label.
+
+The completed marking record includes the applicable warning set on the exterior,
+inside near the compressor, at the service port and on the outer carton; the actual
+charge in grams on the unit and in the delivered documentation; any required
+calculated room-area/installation-height marking; and the service-port color and
+extent. Photograph the permanent markings and record their measured letter/symbol
+sizes and locations with the per-unit finish photos. The brand/serial plate remains
+a separate part.
 
 ### 4. Cap the +Y wall's inlets for transit
 

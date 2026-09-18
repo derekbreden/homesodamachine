@@ -16,7 +16,12 @@ Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-c
 
 ## Safety
 
-R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natural refrigerants out of the venting prohibition, so no technician certification is legally required ([`/business/regulatory.md`](/business/regulatory.md)). Three hazards apply to this procedure — two to the technician, one to the part:
+R-600a (isobutane) is flammable, LFL ~1.8 % in air. The Section 608 exemption is
+end-use-specific: EPA includes household ice makers in the household refrigeration
+category, but the rebuilt dispenser's category and handling route remain open
+([`/business/regulatory.md`](/business/regulatory.md)). The donor's exemption does not
+automatically transfer to the completed soda machine. Three hazards apply to this
+procedure — two to the technician, one to the part:
 
 **Hazard A — Vent the factory charge before applying any flame.** The charge must be vented and the loop allowed to decompress to atmospheric before any cut, braze, or torch step.
 
@@ -69,9 +74,16 @@ Tooling — all committed in [`/hardware/ledger/purchases.md`](/hardware/ledger/
 
 Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) are both R-600a. Factory charge mass: **[15 g](UNIT_A_CHARGE)** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **[23 g](UNIT_B_CHARGE)** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
 
-If the donor is anything other than R-600a (R-134a, R-410a, any HFC), this procedure does not apply: Section 608 certification is required to vent, and the cold-core architecture changes.
+If the donor is anything other than R-600a (R-134a, R-410a, any HFC), this procedure
+does not apply: the applicable recovery practices and technician qualifications need
+review, and the cold-core architecture changes. Technician certification does not
+authorize intentional venting of non-exempt refrigerants.
 
 ### 2. Vent factory R-600a
+
+This step concerns the verified household ice-maker donor before conversion. Record
+the donor type and R-600a label. Venting of the rebuilt dispenser requires its own
+confirmed end-use exemption; this step does not establish one.
 
 Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within [3 m](VENT_CLEARANCE).
 
@@ -129,7 +141,13 @@ Energize the compressor briefly. (Firmware enforces a [3-minute](OFF_TIME) minim
 
 Apply electronic leak detector or soap solution at all braze joints + the BPV31 saddle clamp + the BPV31 flare port cap + any threaded connection. No bubbles, no detector hits.
 
-A leak at any joint requires the loop be re-vented through the BPV31 (open the valve, vent to atmosphere as in step 2), the joint re-cut, the continuous argon flow from step 3 restored, the joint re-brazed, the loop re-vacuumed (step 7), and re-charged (step 8). Field-repair-in-place with the charge still in is not the path.
+A leak at any joint requires removal of the charge through the BPV31 using the
+handling route applicable to the completed dispenser. Its end-use exemption remains
+open in [`/business/regulatory.md`](/business/regulatory.md); the donor-removal step
+does not authorize re-venting the rebuilt unit. Recovery equipment must be suitable
+for flammable refrigerants. After charge removal, the joint is re-cut, the continuous
+argon flow from step 3 restored, the joint re-brazed, the loop re-vacuumed (step 7),
+and re-charged (step 8). Field-repair-in-place with the charge still in is not the path.
 
 ## Output condition
 

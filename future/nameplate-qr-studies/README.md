@@ -6,6 +6,11 @@
 and `SERIAL` above large `0001` lettering. No domain is lettered on these plates.
 Seven have no dividing line; I has a horizontal rule.
 
+L is the preferred compositional direction: its logo, name, code and serial fit
+together with balanced spacing. Its faucet size is one part of that arrangement.
+The separate [refrigerant warning proof](../../hardware/markings/README.md) carries
+the long safety copy and records the open classification question.
+
 | Layout | Arrangement | QR module |
 | --- | --- | --- |
 | [G · Code left](g-code-left.svg) | Large three-line brand; QR, ratings and serial below | 0.90 mm |

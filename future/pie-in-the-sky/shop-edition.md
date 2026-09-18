@@ -14,7 +14,7 @@ Someone who would buy the appliance but for living-partner / kitchen-priority / 
 
 - Cold core, carbonator, refrigeration loop, foam shells, flavor reservoirs, valve manifold, peristaltic pumps, main board — all unchanged.
 - Side-to-side condenser airflow, as the appliance has ([`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)"). Intake on one side face, exhaust on the opposite — no thermal duty on the front face, which is the precondition that makes a countertop unit possible at all.
-- Regulatory posture identical. R-600a, UL 60335-2-89 compliance, SNAP markings. The flame symbol and "flammable refrigerant" labels become user-visible on a countertop unit — worth designing into the nameplate as deliberate visual elements rather than letting them look like stickers.
+- Refrigerant category, R-600a acceptability and applicable standard remain open in [regulatory.md](/business/regulatory.md). Commercial use needs its own applicability review. The [refrigerant warning proof](/hardware/markings/README.md) carries complete warning text on separate labels; a small nameplate flame/footer does not complete that set.
 - Same water inlet, same C14 power inlet on the +Y wall of back-top. CO2 inlet placement is the open question — the appliance lands its CO2 inlet on that same rear wall with the cylinder beside it in the under-sink cabinet, and a countertop context may warrant a different placement; resolved when the countertop unit itself is designed. Customer plumbs water + CO2 once, plugs in, done.
 
 ## What's different
