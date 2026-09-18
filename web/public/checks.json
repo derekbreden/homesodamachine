@@ -2,8 +2,8 @@
   "checks": [
     {
       "check": "hardware/scripts/check_build_exit.py",
-      "note": "✓ every lock-taking script ends through sys.exit or an exception",
-      "status": "ok"
+      "note": "✗ hardware/printed-parts/faucet/industrial/check_geometry.py:144  — use sys.exit(...) so a follower reads the failure",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_copper_plug_clearance.py",
@@ -32,7 +32,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 40 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "note": "payloads: 45 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 189/189 carry the colour of what they are made of",
+      "note": "step colours: 194/194 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2174 tracked, 422 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2206 tracked, 436 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 446 of 1000 free, the next cut wants 223, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 446 of 1000 free, the next cut wants 237, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,16 +87,21 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 213 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 216 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 11 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 422 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 436 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_build_exit.py": [
+      "lock-taking scripts scanned: 106",
+      "1 build(s) end on a status the lock cannot record:",
+      "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:144  — use sys.exit(...) so a follower reads the failure"
+    ],
     "hardware/scripts/check_facts_current.py": [
       "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 129 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at baf86e005a60f87d3701a60b0bc37e37 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
