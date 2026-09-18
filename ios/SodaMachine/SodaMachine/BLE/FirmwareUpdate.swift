@@ -36,6 +36,11 @@ struct FirmwareImage: Codable, Identifiable, Equatable {
     let what: String
     let kind: String
     let version: String?
+    /// HEAD's commit time, and the only field two builds are ordered by. The
+    /// version string above is what a person reads; a date is as fine as a
+    /// screen has room for, and two builds made on one day are not ordered by
+    /// one. Null from an image published before this field existed.
+    let buildEpoch: UInt32?
     let bytes: Int
     let crc32: UInt32
     /// Art only: the crc32 over the pixels, which is what a board reports about
@@ -142,6 +147,10 @@ struct MachineVersions: Codable, Equatable {
     var byBoard: [UInt8: String] = [:]
     /// The crc32 over the art partition's pixels, by the board that holds one.
     var artCrc: [UInt8: UInt32] = [:]
+    /// HEAD's commit time for the build each board is running. Absent, or zero,
+    /// from a board built before the field existed — "did not say", never the
+    /// epoch — and the comparison falls back to the dates in the strings.
+    var buildEpoch: [UInt8: UInt32] = [:]
 
     func version(for image: FirmwareImage, on model: MachineModel) -> String? {
         guard let t = image.otaTarget(on: model) else { return nil }
@@ -152,7 +161,9 @@ struct MachineVersions: Codable, Equatable {
     /// Whether this image is an update to what its board reports.
     ///
     /// Firmware is a build against a build, and the question is which is newer
-    /// — not merely whether the two strings differ. A board flashed at the
+    /// — not merely whether the two strings differ. It is settled by the commit
+    /// time both ends carry beside the version string, and by the dates inside
+    /// those strings only where one end predates that field. A board flashed at the
     /// bench runs commits the site has not published, and reading "different"
     /// as "an update is available" points a customer's machine backwards: it
     /// would offer to take the enclosure display back to a build without the
@@ -176,8 +187,22 @@ struct MachineVersions: Codable, Equatable {
             return running != published
         }
         guard let running = version(for: image, on: model),
-              let published = image.version, published != running,
-              let here = Self.buildDate(running),
+              let published = image.version, published != running else { return false }
+
+        // Both ends said when they were committed, so the question is settled
+        // to the second and two builds made on one day order correctly.
+        if let mine = buildEpoch[t.rawValue], mine != 0,
+           let theirs = image.buildEpoch, theirs != 0 {
+            return theirs > mine
+        }
+
+        // One of them did not say — a board or an image from before the field
+        // existed. The dates in the strings are all that is left, and they
+        // cannot separate two builds made on one day, so neither is offered
+        // over the other. That silence is the safe direction: it costs a
+        // same-day republish until both ends carry the epoch, and it refuses
+        // the one error that reaches a board.
+        guard let here = Self.buildDate(running),
               let there = Self.buildDate(published) else { return false }
         return there > here
     }

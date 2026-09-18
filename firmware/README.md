@@ -296,6 +296,16 @@ build filter, so publishing firmware deploys the site the way a geometry publish
 The version string is the board's own: `pre_build.py` writes `FW_VERSION` into each tree from
 HEAD's date and short SHA, the board reports that string, and the manifest carries the same one.
 
+**What a person reads and what the phone compares are two fields.** A date is as fine as a
+string a screen has room for, and two builds made on one day are not ordered by one — so
+`pre_build.py` stamps `FW_BUILD_EPOCH` beside it, HEAD's commit time, and that is the only
+field an update is decided by. It travels in `VersionPayload` and in the manifest, leaving the
+string free to stay readable. Which of two builds is newer is the question that has to be right:
+the phone is the only place a machine can be refused its own past, because the receiver holds the
+image to its crc32 and moves its boot partition without asking what it came from. Where either
+end predates the field it reads as "did not say", and the dates in the strings answer instead —
+which cannot separate two builds made on one day, so neither is offered over the other.
+
 ```bash
 ~/.platformio/penv/bin/python tools/publish_firmware.py --write
 ```

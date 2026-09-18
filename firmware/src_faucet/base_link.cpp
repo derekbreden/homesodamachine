@@ -333,7 +333,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
   if (type == MSG_VERSION_QUERY) {
-    VersionPayload v{OTA_TGT_FAUCET, {0}, 0};
+    VersionPayload v{OTA_TGT_FAUCET, {0}, 0, FW_BUILD_EPOCH};
     strncpy(v.version, FW_VERSION, FW_VERSION_MAX);
     base.trySend(MSG_RESP_VERSION, &v, sizeof(v));
     return;

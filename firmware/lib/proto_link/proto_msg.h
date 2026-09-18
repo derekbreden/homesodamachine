@@ -841,7 +841,31 @@ struct __attribute__((packed)) VersionPayload {
   // pictures on this board are the published pictures. Zero where the board has
   // no art partition, or has not mapped one.
   uint32_t artCrc32;
+  // HEAD's commit time, and the only field two builds are ordered by.
+  //
+  // THE STRING ABOVE IS READ BY A PERSON AND THIS IS READ BY THE PHONE. A date
+  // is all a screen has room for, and two builds made on one day are not
+  // ordered by one — so the ordering rides beside the display string instead of
+  // being crammed into it, exact to the second, and neither constrains the
+  // other. Which of two builds is newer is the question the phone has to get
+  // right: it is the only place a machine can be refused its own past, because
+  // the receiver downstream holds the image to its crc32 and moves its boot
+  // partition without ever asking what it came from.
+  //
+  // Zero from a board built before this field, and from one whose build could
+  // not reach git. Zero is "did not say" and never "the epoch" — a reader that
+  // has it on one side and not the other falls back to the dates in the strings.
+  uint32_t buildEpoch;
 };
+
+// What every board has always sent. A frame at or above this is read: the bytes
+// that arrived are taken and the fields behind them stand at zero, so a display
+// built before `buildEpoch` still reports its version rather than being dropped
+// for being the wrong length.
+constexpr uint8_t VERSION_CORE_BYTES = 1 + FW_VERSION_MAX + 1 + 4;
+
+static_assert(sizeof(VersionPayload) == VERSION_CORE_BYTES + 4,
+              "version wire layout drift");
 
 // Every board on this machine that can take an image. An entry whose version is
 // empty is a board that has not answered — which is not the same as one running
