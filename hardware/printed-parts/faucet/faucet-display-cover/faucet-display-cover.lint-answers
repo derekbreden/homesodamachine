@@ -1,7 +1,7 @@
-[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N20.55, with 0.10 mm clearance over the display glass in the seated reference. It is vertical in the production cover's +40 degree front-wall-down print pose. The second complete cover in faucet-display-petgf uses -50 degrees with the bezel up; that pose places this inner cosmetic face over support. The planar bezel is unchanged by the lower wings' 1.25 mm inward preload.
+[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N20.55, with 0.10 mm clearance over the display glass in the seated reference. The cover prints bezel up at -50 degrees about CAD X, placing this inner cosmetic face over support accessible through the open underside before the display is installed. The planar bezel is unchanged by the lower wings' 1.25 mm inward preload.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
 click: x=0.000 y=-133.838 z=212.552
 
-[slope] This is the flat lower skirt rim and the coplanar lip seating lands at local N3.30. These faces are vertical in the production +40 degree print pose. On the second complete cover, printed bezel up at -50 degrees, these lands face the bed and the upper retaining lands face up. The 3.00 mm lips have 0.25 mm relief only at their inner curved corners; their broad seating and retaining lands remain flat.
+[slope] This is the flat lower skirt rim and the coplanar lip seating lands at local N3.30. The cover prints bezel up at -50 degrees about CAD X, so these lands face the bed and the upper retaining lands face up. The 3.00 mm lips have 0.25 mm relief only at their inner curved corners; their broad seating and retaining lands remain flat.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
 click: x=0.000 y=-120.577 z=201.519
