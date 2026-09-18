@@ -1,8 +1,8 @@
 {
-  "status": "native slice and support audit passed; awaiting printer review",
-  "submitted": false,
+  "status": "submitted to Mark2; startup verified",
+  "submitted": true,
   "printer": "Mark2",
-  "printer_state_checked": false,
+  "printer_state_checked": true,
   "project": "hardware/printed-parts/fixtures/faucet-cover-retention/faucet-cover-retention-petgf.3mf",
   "project_sha256": "661818e450e324a83072db83f3cefbe596d9eaac7aa6255ac1085a5a8ebfd01a",
   "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
@@ -160,7 +160,53 @@
     "estimated_grams_saved_profile_density": 35.51961898803711
   },
   "physical_trial": "Retention force, spreading, support removal and contact finish require the print.",
-  "submission": "The main task checks current Mark2 compatibility and submits through Bambu Connect.",
+  "submission": {
+    "method": "Bambu Connect signed application; Print > Import Gcode 3MF > Send to print",
+    "send_count": 1,
+    "printer": "Mark2",
+    "job_name": "faucet-cover-retention-mark2.gcode.3mf",
+    "archive_sha256": "4ac5802ae1a4ee1c6f22f5048af6fd668cf114938616f39500505daf723ae251",
+    "material_mapping": "Left external spool, PET-CF metadata for the existing PET-GF profile; right nozzle unused",
+    "nozzle_compatibility": "0.4 mm sliced nozzle; no mismatch reported by Bambu Connect",
+    "bed": "Textured PEI Plate",
+    "options": {
+      "auto_bed_leveling": "On",
+      "timelapse": "Off",
+      "flow_dynamic_calibration": "Auto",
+      "nozzle_offset_calibration": "Auto"
+    },
+    "bambu_connect_verified": "Mark2 Devices showed faucet-cover-retention-mark2.gcode.3mf, 0/77 layers, 1h38m remaining",
+    "accepted_telemetry": {
+      "printer": "Mark2",
+      "observed_at": "2026-09-18T15:31:44.979302+00:00",
+      "gcode_state": "RUNNING",
+      "subtask_name": "faucet-cover-retention-mark2.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 0,
+      "total_layer_num": 77,
+      "mc_remaining_time": 98,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 36.0,
+      "nozzle_target_temper": 200.0,
+      "bed_temper": 25.0,
+      "bed_target_temper": 25.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
+    }
+  },
   "support_audit_sha256": "b90c9976c3602917885f6a63802dac554f4121a1ad0ba05d8bd4f20bab444941",
   "plates": [
     {
@@ -345,5 +391,6 @@
   },
   "support_face_review_sha256": "537c46fda5a916a6ea5aa8f7ccde58547ddfeaea7e3c478d5fd39e643a670654",
   "retaining_layers_sha256": "9aabadee6e2e5da9e8787e0dc1c4b649395a3cc2cb916619ee6cef5445e78e44",
-  "retaining_layer_result": "C/E and D/F have the same retaining top layers in this slice. The 0.10 mm CAD lip increase does not resolve as an additional printed layer at 0.24 mm. E/F are repeat specimens for print and fit consistency; minor path placement differences do not establish a 0.10 mm height difference."
+  "retaining_layer_result": "C/E and D/F have the same retaining top layers in this slice. The 0.10 mm CAD lip increase does not resolve as an additional printed layer at 0.24 mm. E/F are repeat specimens for print and fit consistency; minor path placement differences do not establish a 0.10 mm height difference.",
+  "fit_check_sha256": "ad4e4292931c0db5596b6f10034c5070930e13813cb072865211deb78ed464ed"
 }
