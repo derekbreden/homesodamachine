@@ -1,0 +1,349 @@
+{
+  "status": "native slice and support audit passed; awaiting printer review",
+  "submitted": false,
+  "printer": "Mark2",
+  "printer_state_checked": false,
+  "project": "hardware/printed-parts/fixtures/faucet-cover-retention/faucet-cover-retention-petgf.3mf",
+  "project_sha256": "661818e450e324a83072db83f3cefbe596d9eaac7aa6255ac1085a5a8ebfd01a",
+  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "print_report_sha256": "d023e783b7462d43462e4d45bf6d7e492ff6e4f24110f4ab2d034a0919feb182",
+  "geometry_report_sha256": "43a759ce0bf2b5a3be21c57e090746ff14e511f71717c0c00ef8b880906e0220",
+  "successful_profile": {
+    "record": "hardware/printed-parts/faucet/faucet-petgf.readiness.json",
+    "record_sha256": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649",
+    "snapshot": ".cache/prints/2026-09-17-faucet-open-lever-mark2/production-settings-baseline.3mf",
+    "snapshot_sha256": "f06877fc6b59d0531987538388d0b8daf2e5d8efe492a292a107449049d72f22",
+    "native_archive": ".cache/prints/2026-09-17-faucet-open-lever-mark2/ready/faucet-open-lever-mark2.gcode.3mf",
+    "native_archive_sha256": "df95c856987fca6161e2f36b75f4cb9b27e19db967864931be1496eebe816d8b",
+    "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+    "requested_z_trim_mm": 0.04,
+    "actual_trim_commands_mm": [
+      0.0,
+      0.02
+    ]
+  },
+  "production_artifacts_unchanged": {
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "50592e910fedc2914dc954df1795cea8c346778b7a898a4cf587d4ad191a896a",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "b4d55193f1fb2852c2f15e7b61f66bd000e3eb16a0b8b3526710e8cef7c508be",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "7ae42ad91f93f7401ef884e0ce8bd3c565c75ef45348768c5b0cf6efbd7832d7",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "f293db79898db6c702a17ce21eaedc97bfd0093ed041f5a438f6ba6c0a7b3062",
+    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.readiness.json": "4d1deba67300ef40fd971e951709efc01e8b1d3f96ba60b62759209d61f3f691"
+  },
+  "parts": [
+    {
+      "name": "cover-A",
+      "trial_id": "A",
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl",
+      "stl_sha256": "e3b4b0648f484707f552b8c423f3318c562988258f0a05ce17170d16abe2b743",
+      "rotation_x_degrees": 130.0,
+      "trial_parameters": {
+        "preload_mm": 1.0,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.2105263157894737
+      }
+    },
+    {
+      "name": "cover-B",
+      "trial_id": "B",
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-b.stl",
+      "stl_sha256": "1520e80c14363a265fc38bd7355e183822c4bab610054a6ae13b8e16e9e7a001",
+      "rotation_x_degrees": 130.0,
+      "trial_parameters": {
+        "preload_mm": 1.25,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.513157894736842
+      }
+    },
+    {
+      "name": "cover-C",
+      "trial_id": "C",
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-c.stl",
+      "stl_sha256": "4f1a9b0f2c101483ad3b04a99708959e45cf264feb3672f24da5dfc2fb9b157f",
+      "rotation_x_degrees": -50.0,
+      "trial_parameters": {
+        "preload_mm": 1.0,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.2105263157894737
+      }
+    },
+    {
+      "name": "cover-D",
+      "trial_id": "D",
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-d.stl",
+      "stl_sha256": "0a6f806f41ff926c65259135c4050fa3e01961f1efceb3e83de520382b4d918c",
+      "rotation_x_degrees": -50.0,
+      "trial_parameters": {
+        "preload_mm": 1.25,
+        "lip_height_mm": 3.0,
+        "groove_roof_clearance_mm": 0.15000000000000036,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.513157894736842
+      }
+    },
+    {
+      "name": "cover-E",
+      "trial_id": "E",
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-e.stl",
+      "stl_sha256": "a1e69a32bee07a1de7911071f15b144a7b5c38eea7025720e031f6133f6dac9e",
+      "rotation_x_degrees": -50.0,
+      "trial_parameters": {
+        "preload_mm": 1.0,
+        "lip_height_mm": 3.1,
+        "groove_roof_clearance_mm": 0.04999999999999982,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.2105263157894737
+      }
+    },
+    {
+      "name": "cover-F",
+      "trial_id": "F",
+      "source": "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.stl",
+      "stl_sha256": "9cab2b46182ff8b883567f34f48843e4fac7ee970a770c00c18b2a3a1f6596de",
+      "rotation_x_degrees": -50.0,
+      "trial_parameters": {
+        "preload_mm": 1.25,
+        "lip_height_mm": 3.1,
+        "groove_roof_clearance_mm": 0.04999999999999982,
+        "lip_radius_mm": 12.012455392545599,
+        "bottom_inset_per_wing_mm": 1.513157894736842
+      }
+    }
+  ],
+  "native": {
+    "archive": ".cache/prints/2026-09-18-faucet-cover-retention-mark2/ready/faucet-cover-retention-mark2.gcode.3mf",
+    "archive_sha256": "4ac5802ae1a4ee1c6f22f5048af6fd668cf114938616f39500505daf723ae251",
+    "gcode_sha256": "d7b74a1affa727a85baa889e338ef0762933e7e9ec3b39acbb253036c79564f2",
+    "layers": 77,
+    "staged_input": ".cache/prints/2026-09-18-faucet-cover-retention-mark2/faucet-cover-retention-mark2-input.3mf",
+    "staged_input_sha256": "fb39eee5beb608a19fcd5aa6efff05e6b5bdbac3e09d13c773397cf96e379101",
+    "staged_settings_override": {
+      "extruder_ams_count": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "native_export_settings_normalizations": {
+      "filament_map_2": [
+        null,
+        [
+          "1"
+        ]
+      ],
+      "filament_prime_volume": [
+        [
+          "30"
+        ],
+        [
+          "45"
+        ]
+      ]
+    },
+    "emitted_settings_match_successful_job": true,
+    "actual_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "slicer_return_code": 0,
+    "warning": "",
+    "objects": 6,
+    "triangles": 192306,
+    "estimated_seconds": 5902.23681640625,
+    "estimated_grams_saved_profile_density": 35.51961898803711
+  },
+  "physical_trial": "Retention force, spreading, support removal and contact finish require the print.",
+  "submission": "The main task checks current Mark2 compatibility and submits through Bambu Connect.",
+  "support_audit_sha256": "b90c9976c3602917885f6a63802dac554f4121a1ad0ba05d8bd4f20bab444941",
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 5902.23681640625,
+      "saved_profile_filament_estimate_g": 35.51961898803711,
+      "slicer_warning": ""
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 45.85349149999996,
+    "minimum_toolpath_separation_mm": 34.905351499999995,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "cover-A",
+          "cover-B"
+        ],
+        "separation_mm": 61.74436850000001
+      },
+      {
+        "parts": [
+          "cover-A",
+          "cover-C"
+        ],
+        "separation_mm": 151.70971400000002
+      },
+      {
+        "parts": [
+          "cover-B",
+          "cover-C"
+        ],
+        "separation_mm": 61.741637500000024
+      },
+      {
+        "parts": [
+          "cover-A",
+          "cover-D"
+        ],
+        "separation_mm": 36.580085499999996
+      },
+      {
+        "parts": [
+          "cover-B",
+          "cover-D"
+        ],
+        "separation_mm": 71.79622209717
+      },
+      {
+        "parts": [
+          "cover-C",
+          "cover-D"
+        ],
+        "separation_mm": 155.5559275231913
+      },
+      {
+        "parts": [
+          "cover-A",
+          "cover-E"
+        ],
+        "separation_mm": 71.81234703728212
+      },
+      {
+        "parts": [
+          "cover-B",
+          "cover-E"
+        ],
+        "separation_mm": 36.7236345
+      },
+      {
+        "parts": [
+          "cover-C",
+          "cover-E"
+        ],
+        "separation_mm": 70.62977966269469
+      },
+      {
+        "parts": [
+          "cover-D",
+          "cover-E"
+        ],
+        "separation_mm": 61.74635149999999
+      },
+      {
+        "parts": [
+          "cover-A",
+          "cover-F"
+        ],
+        "separation_mm": 156.25889763193845
+      },
+      {
+        "parts": [
+          "cover-B",
+          "cover-F"
+        ],
+        "separation_mm": 72.15017606052028
+      },
+      {
+        "parts": [
+          "cover-C",
+          "cover-F"
+        ],
+        "separation_mm": 34.905351499999995
+      },
+      {
+        "parts": [
+          "cover-D",
+          "cover-F"
+        ],
+        "separation_mm": 151.78572300000002
+      },
+      {
+        "parts": [
+          "cover-E",
+          "cover-F"
+        ],
+        "separation_mm": 61.74634850000001
+      }
+    ]
+  },
+  "support_summary": {
+    "cover-A": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 14.64,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 14.64
+    },
+    "cover-B": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 14.64,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 14.64
+    },
+    "cover-C": {
+      "support_bodies": 1,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 12.24,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 12.24
+    },
+    "cover-D": {
+      "support_bodies": 1,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 12.24,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 12.24
+    },
+    "cover-E": {
+      "support_bodies": 1,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 12.24,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 12.24
+    },
+    "cover-F": {
+      "support_bodies": 1,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 12.24,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 12.24
+    }
+  },
+  "support_face_review_sha256": "537c46fda5a916a6ea5aa8f7ccde58547ddfeaea7e3c478d5fd39e643a670654",
+  "retaining_layers_sha256": "9aabadee6e2e5da9e8787e0dc1c4b649395a3cc2cb916619ee6cef5445e78e44",
+  "retaining_layer_result": "C/E and D/F have the same retaining top layers in this slice. The 0.10 mm CAD lip increase does not resolve as an additional printed layer at 0.24 mm. E/F are repeat specimens for print and fit consistency; minor path placement differences do not establish a 0.10 mm height difference."
+}

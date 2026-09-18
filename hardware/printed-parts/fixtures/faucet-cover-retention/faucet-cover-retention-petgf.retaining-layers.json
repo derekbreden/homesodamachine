@@ -1,0 +1,3020 @@
+{
+  "gcode_sha256": "d7b74a1affa727a85baa889e338ef0762933e7e9ec3b39acbb253036c79564f2",
+  "layer_height_mm": 0.24,
+  "method": "Actual native model extrusion intersections at three S stations within the broad lips; support paths excluded. G2/G3 paths are sampled at at most 0.18 mm by the shared reader.",
+  "parts": [
+    {
+      "trial_id": "C",
+      "cad_lip_height_mm": 3.0,
+      "top_surface_print_z_mm": [
+        3.08
+      ],
+      "near_top_crossings": [
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368544,
+          "display_x_mm": -12.882193836400694,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836858,
+          "display_x_mm": -12.883500032666268,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": -12.884806228931842,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": -11.369,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": -11.369,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836864,
+          "display_x_mm": -11.312138982833892,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -13.266310555458954,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": -13.267396365546485,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836859,
+          "display_x_mm": -13.268482175634016,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836864,
+          "display_x_mm": -10.98599999999999,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -10.98599999999999,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -10.929028917775499,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": -11.752999999999986,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836865,
+          "display_x_mm": -11.752999999999986,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": -12.499154659950353,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -12.500499936124482,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": -12.50184521229861,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": -11.6957877407682,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583686,
+          "display_x_mm": -12.122805704129489,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.43213
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583686,
+          "display_x_mm": -12.118834548622555,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.43213
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": -12.098919272562593,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.473059
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368544,
+          "display_x_mm": 12.881522465439724,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836858,
+          "display_x_mm": 12.880999986933492,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": 12.88047750842726,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": 11.307369585388656,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836857,
+          "display_x_mm": 11.363897472685169,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836864,
+          "display_x_mm": 11.358314712668978,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836865,
+          "display_x_mm": 13.264482305447308,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": 13.264051682690944,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836874,
+          "display_x_mm": 13.263621059934582,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": 10.923809668882921,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 10.980703828988782,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 10.975241080784897,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": 11.691014195896985,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": 12.497538136019843,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.497000025550188,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": 12.496461915080534,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836858,
+          "display_x_mm": 11.7474346753786,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836859,
+          "display_x_mm": 11.742115687361027,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": 12.094049843214504,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.465027
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.122669566346163,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.435294
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 12.119740158507305,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.435294
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836871,
+          "display_x_mm": 13.291272931635469,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": 13.291488593080606,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 13.291704254525744,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836877,
+          "display_x_mm": 10.891115070527514,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": 10.953555315035404,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": 10.953096643669515,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836874,
+          "display_x_mm": 12.674172497503378,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836875,
+          "display_x_mm": 12.110172497503392,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836875,
+          "display_x_mm": 11.546172497503404,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": 12.808672497503375,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836877,
+          "display_x_mm": 12.245108352017136,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836874,
+          "display_x_mm": 11.681672497503396,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": 12.943172497503372,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": 12.38017249750338,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 11.816172497503375,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368715,
+          "display_x_mm": 11.252172497503405,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -13.28442371086105,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -13.286334905097677,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": -13.288246099334305,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": -10.954000000000008,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -10.954000000000008,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": -10.892029281506455,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368715,
+          "display_x_mm": -11.558827502496593,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836877,
+          "display_x_mm": -12.12232923466866,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": -12.685827502496611,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": -11.423465478316926,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -11.9877587700486,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836875,
+          "display_x_mm": -12.551327502496607,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": -11.28973136773464,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836862,
+          "display_x_mm": -11.852827502496607,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": -12.41649590582786,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368715,
+          "display_x_mm": -12.979827502496608,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836856,
+          "display_x_mm": -13.300066712102891,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836858,
+          "display_x_mm": -13.300908050193337,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836862,
+          "display_x_mm": -13.301749388283781,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836866,
+          "display_x_mm": -12.444422018119843,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836867,
+          "display_x_mm": -12.443153201245206,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836868,
+          "display_x_mm": -12.44188438437057,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": -12.872000000000014,
+          "feature": "Gap infill",
+          "line_width_mm": 0.52681
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.61999032583687,
+          "display_x_mm": -12.872000000000014,
+          "feature": "Gap infill",
+          "line_width_mm": 0.52681
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836872,
+          "display_x_mm": -12.872000000000014,
+          "feature": "Gap infill",
+          "line_width_mm": 0.52681
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836864,
+          "display_x_mm": 12.444421485769968,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836864,
+          "display_x_mm": 12.443152240845716,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836864,
+          "display_x_mm": 12.441882995921462,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836873,
+          "display_x_mm": 13.307400737030395,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836871,
+          "display_x_mm": 13.306138498948222,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 13.30487626086605,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 12.87563968309898,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530926
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.61999032583687,
+          "display_x_mm": 12.874595082160015,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530926
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836872,
+          "display_x_mm": 12.873550481221049,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530926
+        }
+      ]
+    },
+    {
+      "trial_id": "D",
+      "cad_lip_height_mm": 3.0,
+      "top_surface_print_z_mm": [
+        3.08
+      ],
+      "near_top_crossings": [
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836871,
+          "display_x_mm": 12.630567396371397,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 12.628999960852706,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 12.627432525334015,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836865,
+          "display_x_mm": 11.052369589294996,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": 11.108897472871156,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 11.103314712854965,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 13.013906176052817,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 13.012190380032914,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": 13.010474584013012,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836874,
+          "display_x_mm": 10.66925024808632,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583688,
+          "display_x_mm": 10.725703829170804,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836878,
+          "display_x_mm": 10.720241080966925,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": 11.43601419983954,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": 12.24738347613224,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": 12.245500089488461,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.243616702844681,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583686,
+          "display_x_mm": 11.492434675555822,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": 11.48711568753826,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836877,
+          "display_x_mm": 11.84004984518016,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.467152
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": 11.870004456892651,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.439154
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": 11.866237618300419,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.439154
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836871,
+          "display_x_mm": -12.626522465457127,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": -12.625999986950898,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": -12.62547750844467,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": -11.11456702113546,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": -11.11409329173986,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": -11.057686246437301,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": -13.010223458192502,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836864,
+          "display_x_mm": -13.009577524057962,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -13.00893158992342,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": -10.730999999999995,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836858,
+          "display_x_mm": -10.730999999999995,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836862,
+          "display_x_mm": -10.674028921813814,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -11.498000000000005,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": -11.498000000000005,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": -12.24276906801889,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -12.242500012784065,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -12.242230957549243,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": -11.440787744848718,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -11.86716684511415,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.429991
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": -11.862401458505826,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.429991
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368775,
+          "display_x_mm": -11.841919274550982,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.468439
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836861,
+          "display_x_mm": 13.040999999999997,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": 13.040999999999997,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368715,
+          "display_x_mm": 13.040999999999997,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": 10.640480068060464,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": 10.703000000000003,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368635,
+          "display_x_mm": 10.703000000000003,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583686,
+          "display_x_mm": 12.674087857250147,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": 12.1101722676868,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836878,
+          "display_x_mm": 11.546503616710988,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": 10.983172267686804,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": 12.808672267686784,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 12.24536572142848,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836875,
+          "display_x_mm": 11.681672267686782,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836876,
+          "display_x_mm": 11.117672267686785,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": 12.380172267686799,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836864,
+          "display_x_mm": 11.816172267686806,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": 11.252373967418498,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836863,
+          "display_x_mm": -13.034934376014638,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836863,
+          "display_x_mm": -13.034081015462844,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368635,
+          "display_x_mm": -13.033227654911052,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": -10.70346633000472,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836876,
+          "display_x_mm": -10.703947327215314,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -10.648366890169827,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": -10.995827732313224,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836862,
+          "display_x_mm": -11.558827732313205,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -12.122827732313196,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": -12.686827732313226,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": -11.424327732313202,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836864,
+          "display_x_mm": -11.987327732313204,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": -12.551327732313224,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836864,
+          "display_x_mm": -11.2896024668543,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -11.852827732313214,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836878,
+          "display_x_mm": -12.415827732313211,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 12.197684910549997,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.61999032583687,
+          "display_x_mm": 12.196627109120682,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836872,
+          "display_x_mm": 12.195569307691366,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836858,
+          "display_x_mm": 13.060667352101923,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836863,
+          "display_x_mm": 13.059615422865992,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836867,
+          "display_x_mm": 13.058563493630063,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 12.620710389528355,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530873
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836871,
+          "display_x_mm": 12.621941572963829,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530873
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.6199903258368735,
+          "display_x_mm": 12.6231727563993,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530873
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836857,
+          "display_x_mm": -13.054066655151434,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836861,
+          "display_x_mm": -13.054908044557065,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836866,
+          "display_x_mm": -13.055749433962696,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836866,
+          "display_x_mm": -12.197685087801979,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836867,
+          "display_x_mm": -12.196627675568346,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836868,
+          "display_x_mm": -12.19557026333471,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836871,
+          "display_x_mm": -12.625727972486745,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526809
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836873,
+          "display_x_mm": -12.625519033313111,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526809
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836874,
+          "display_x_mm": -12.625310094139476,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526809
+        }
+      ]
+    },
+    {
+      "trial_id": "E",
+      "cad_lip_height_mm": 3.1,
+      "top_surface_print_z_mm": [
+        3.08
+      ],
+      "near_top_crossings": [
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836862,
+          "display_x_mm": 11.31942126220357,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836871,
+          "display_x_mm": 11.369968528747563,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836874,
+          "display_x_mm": 11.369968528747563,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": 12.881490994187283,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.880968515681051,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836865,
+          "display_x_mm": 12.880446037174819,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836858,
+          "display_x_mm": 10.936146773518924,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836862,
+          "display_x_mm": 10.985968528747549,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836862,
+          "display_x_mm": 10.985968528747549,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836879,
+          "display_x_mm": 13.264450834194873,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836879,
+          "display_x_mm": 13.264020211438517,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836879,
+          "display_x_mm": 13.26358958868216,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836873,
+          "display_x_mm": 11.703551735323584,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": 12.497506664767409,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.49696855429776,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": 12.496430443828114,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": 11.74774269531834,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 11.741654158862158,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.10028390386108,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.490584
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": 12.122326809133835,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.438513
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 12.119006712864277,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.438513
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": -11.369598105438358,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836871,
+          "display_x_mm": -11.369123952692085,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836877,
+          "display_x_mm": -11.310887242441392,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": -12.882225307653135,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -12.883531503918709,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836865,
+          "display_x_mm": -12.884837700184283,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -10.986031471252431,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": -10.986031471252431,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": -10.92717321597579,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -13.266342026711396,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": -13.267427836798927,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836859,
+          "display_x_mm": -13.268513646886458,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": -11.753031471252427,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836878,
+          "display_x_mm": -11.753031471252427,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": -12.499186131202794,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -12.500531407376924,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": -12.501876683551052,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836862,
+          "display_x_mm": -11.69398062475786,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836876,
+          "display_x_mm": -12.123727686255261,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.431293
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": -12.120863615784266,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.431293
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836884,
+          "display_x_mm": -12.097817627220266,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.511145
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836858,
+          "display_x_mm": 10.893121775334091,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": 10.953968528747566,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": 10.953968528747566,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836871,
+          "display_x_mm": 13.291241460383034,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": 13.291457121828179,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 13.291672783273322,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836877,
+          "display_x_mm": 12.673141026250962,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": 12.110141026250961,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": 11.546141026250938,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 12.807784868316576,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": 12.24464102625095,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": 11.681369411885013,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": 12.944068517302854,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836871,
+          "display_x_mm": 12.380141026250977,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": 11.816784955004755,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836862,
+          "display_x_mm": 11.253141026250974,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836867,
+          "display_x_mm": -10.95403147125245,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -10.95403147125245,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583686,
+          "display_x_mm": -10.894859464754633,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -13.284455182113492,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -13.286366376350118,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": -13.288277570586747,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368715,
+          "display_x_mm": -11.558858973749034,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836862,
+          "display_x_mm": -12.122360705921093,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": -12.685858973749053,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": -11.423496949569367,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -11.987790241301019,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836875,
+          "display_x_mm": -12.551358973749048,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836877,
+          "display_x_mm": -11.288858973749065,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -11.852858973749044,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -12.416858973749047,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836871,
+          "display_x_mm": -12.97985897374905,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836878,
+          "display_x_mm": 12.444390014517506,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.6199903258368735,
+          "display_x_mm": 12.443120769593259,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 12.441851524669012,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836856,
+          "display_x_mm": 13.307369265777933,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836859,
+          "display_x_mm": 13.306107027695766,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836862,
+          "display_x_mm": 13.3048447896136,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 12.875608211846538,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530917
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.61999032583687,
+          "display_x_mm": 12.874563610907574,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530917
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836872,
+          "display_x_mm": 12.873519009968607,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530917
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836868,
+          "display_x_mm": -13.300098183355333,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836868,
+          "display_x_mm": -13.300939521445779,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836867,
+          "display_x_mm": -13.301780859536223,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.61999032583688,
+          "display_x_mm": -12.444453489372284,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836877,
+          "display_x_mm": -12.443184672497647,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836874,
+          "display_x_mm": -12.441915855623012,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": -12.872031471252456,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526801
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.61999032583687,
+          "display_x_mm": -12.872031471252456,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526801
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836872,
+          "display_x_mm": -12.872031471252456,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526801
+        }
+      ]
+    },
+    {
+      "trial_id": "F",
+      "cad_lip_height_mm": 3.1,
+      "top_surface_print_z_mm": [
+        3.08
+      ],
+      "near_top_crossings": [
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836876,
+          "display_x_mm": 11.053630329798342,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": 11.11495470046998,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836865,
+          "display_x_mm": 11.11495470046998,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836871,
+          "display_x_mm": 12.63052209684136,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 12.628954661322663,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 12.627387225803965,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 10.670501501077691,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836883,
+          "display_x_mm": 10.730954700469965,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836882,
+          "display_x_mm": 10.730954700469965,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 13.013860876522795,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 13.012145080502886,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": 13.010429284482978,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": 11.437306438827925,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": 12.247338176602236,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": 12.245454789958453,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": 12.24357140331467,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": 11.497954700469961,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836877,
+          "display_x_mm": 11.497954700469961,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836875,
+          "display_x_mm": 11.840441944705962,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.468953
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 11.869683876219703,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.432985
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": 11.86557087681601,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.432985
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836867,
+          "display_x_mm": -11.11461193373175,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -11.114137780985477,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836868,
+          "display_x_mm": -11.055901074597536,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836871,
+          "display_x_mm": -12.626567764987167,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": -12.626045286480934,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": -12.625522807974702,
+          "feature": "Inner wall",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368775,
+          "display_x_mm": -10.731045299530024,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836872,
+          "display_x_mm": -10.731045299530024,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368695,
+          "display_x_mm": -10.6717906082583,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.1399903258368616,
+          "display_x_mm": -13.009527604991696,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836864,
+          "display_x_mm": -13.00909698223534,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -13.008666359478983,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836864,
+          "display_x_mm": -11.49804529953002,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.13999032583687,
+          "display_x_mm": -11.49804529953002,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836861,
+          "display_x_mm": -12.242583435567813,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -12.242045325098166,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -12.241507214628518,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836869,
+          "display_x_mm": -11.438994456910077,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.419994
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836863,
+          "display_x_mm": -11.868083290370633,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.429219
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836866,
+          "display_x_mm": -11.864400914050778,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.429219
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 2.84,
+          "display_n_mm": 6.139990325836875,
+          "display_x_mm": -11.840831457450173,
+          "feature": "Internal solid infill",
+          "line_width_mm": 0.505988
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": 10.645376799135187,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": 10.702954700469945,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836876,
+          "display_x_mm": 10.702954700469945,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836861,
+          "display_x_mm": 13.040954700469968,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": 13.040954700469968,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368715,
+          "display_x_mm": 13.040954700469968,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583686,
+          "display_x_mm": 12.674126968156763,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 12.110126968156774,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836878,
+          "display_x_mm": 11.547126968156764,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": 10.983126968156775,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": 12.80862696815674,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": 12.245626968156772,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583687,
+          "display_x_mm": 11.68162696815676,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836876,
+          "display_x_mm": 11.11851781154139,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": 12.380126968156764,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836864,
+          "display_x_mm": 11.816126968156782,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836871,
+          "display_x_mm": 11.253126968156742,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": -10.703045299530032,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836876,
+          "display_x_mm": -10.703045299530032,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.37999032583686,
+          "display_x_mm": -10.643920038016775,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836863,
+          "display_x_mm": -13.03497967554467,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836863,
+          "display_x_mm": -13.03412631499288,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.3799903258368635,
+          "display_x_mm": -13.03327295444109,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": -10.995873031843239,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836868,
+          "display_x_mm": -11.559534244040574,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -12.122873031843211,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836872,
+          "display_x_mm": -12.686873031843241,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836866,
+          "display_x_mm": -11.424373031843224,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836861,
+          "display_x_mm": -11.98781078367061,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836865,
+          "display_x_mm": -12.551373031843262,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836864,
+          "display_x_mm": -11.288873031843249,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836869,
+          "display_x_mm": -11.85287303184323,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.08,
+          "display_n_mm": 6.379990325836873,
+          "display_x_mm": -12.415873031843248,
+          "feature": "Top surface",
+          "line_width_mm": 0.45
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836858,
+          "display_x_mm": 13.060622052571908,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836863,
+          "display_x_mm": 13.059570123335977,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836867,
+          "display_x_mm": 13.058518194100047,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836873,
+          "display_x_mm": 12.197594949497695,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836873,
+          "display_x_mm": 12.196549968738372,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.6199903258368735,
+          "display_x_mm": 12.195504987979048,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836869,
+          "display_x_mm": 12.620665089998345,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530873
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836871,
+          "display_x_mm": 12.621896273433814,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530873
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.6199903258368735,
+          "display_x_mm": 12.62312745686928,
+          "feature": "Gap infill",
+          "line_width_mm": 0.530873
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836857,
+          "display_x_mm": -13.05411195468146,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836861,
+          "display_x_mm": -13.054953344087089,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836866,
+          "display_x_mm": -13.055794733492716,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836866,
+          "display_x_mm": -12.197730387332015,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836867,
+          "display_x_mm": -12.196672975098375,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836868,
+          "display_x_mm": -12.195615562864734,
+          "feature": "Outer wall",
+          "line_width_mm": 0.42
+        },
+        {
+          "station_s_mm": 17.347499999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836871,
+          "display_x_mm": -12.625773272016774,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526818
+        },
+        {
+          "station_s_mm": 24.244999999999997,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836873,
+          "display_x_mm": -12.62556433284314,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526818
+        },
+        {
+          "station_s_mm": 31.142499999999995,
+          "print_z_mm": 3.32,
+          "display_n_mm": 6.619990325836874,
+          "display_x_mm": -12.625355393669505,
+          "feature": "Gap infill",
+          "line_width_mm": 0.526818
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "trials": [
+        "C",
+        "E"
+      ],
+      "same_retaining_top_layers": true
+    },
+    {
+      "trials": [
+        "D",
+        "F"
+      ],
+      "same_retaining_top_layers": true
+    }
+  ],
+  "conclusion": "C/E and D/F have the same retaining top layers in this slice. The 0.10 mm CAD lip increase does not resolve as an additional printed layer at 0.24 mm. E/F are repeat specimens for print and fit consistency; minor path placement differences do not establish a 0.10 mm height difference."
+}
