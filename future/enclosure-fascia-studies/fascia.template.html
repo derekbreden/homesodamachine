@@ -1,17 +1,18 @@
-<div id="fascia-studies" aria-label="Existing enclosure, flared foot, and two inward-rounded top-edge studies">
+<div id="fascia-studies" aria-label="A smaller flared foot and three display and chamfer variations">
   <div class="viz-controls">
-    <label class="form-label">Form<select class="form-select" data-control="focus"><option value="all">Compare all</option><option value="current">Existing enclosure</option><option value="A">A · Foot only</option><option value="B">B · Compact round</option><option value="C">C · Long round</option></select></label>
-    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="rear">Rear</option><option value="base">Front foot detail</option><option value="rearbase">Rear foot detail</option><option value="roof">Top edges · front</option><option value="rearroof">Top edges · rear</option><option value="top">Above</option></select></label>
+    <label class="form-label">Form<select class="form-select" data-control="focus"><option value="all">Compare all</option><option value="current">Foot only</option><option value="A">A · Soft sweep</option><option value="B">B · Low console</option><option value="C">C · Upright crown</option></select></label>
+    <label class="form-label">View<select class="form-select" data-control="view"><option value="three">Three-quarter</option><option value="front">Front</option><option value="side">Side</option><option value="rear">Rear</option><option value="base">Front foot detail</option><option value="rearbase">Rear foot detail</option><option value="roof">Display &amp; chamfer</option><option value="rearroof">Rear top edges</option><option value="top">Above</option></select></label>
     <label class="form-label">Finish<select class="form-select" data-control="finish"><option value="white">White PET-GF</option><option value="black">Black PET-GF</option></select></label>
   </div>
+  <div class="text-small fs-shared">Shared foot · 12 mm flare × 44 mm high · all four sides</div>
   <div class="fs-grid">
-    <section data-model="current"><h3>Existing enclosure</h3><div class="fs-stage" role="img" aria-label="Existing enclosure with its sharp roof edges and continuous fluting. Drag to rotate."></div><div class="text-small">Reference</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="A"><h3>A · Foot only</h3><div class="fs-stage" role="img" aria-label="Existing enclosure with a smaller Bell foot around the entire base, including the rear. Drag to rotate."></div><div class="text-small">18 mm flare · 66 mm high · all four sides</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="B"><h3>B · Compact round</h3><div class="fs-stage" role="img" aria-label="The same foot with actual roof edges rounded inward by 6 mm, over 6 mm of height. Drag to rotate."></div><div class="text-small">Same foot · top round 6 mm in × 6 mm down</div><div class="text-small text-muted fs-size"></div></section>
-    <section data-model="C"><h3>C · Long round</h3><div class="fs-stage" role="img" aria-label="The same foot with actual roof edges rounded inward by 6 mm, over 24 mm of height. Drag to rotate."></div><div class="text-small">Same foot · top curve 6 mm in × 24 mm down</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="current"><h3>Foot only</h3><div class="fs-stage" role="img" aria-label="The existing enclosure with the smaller foot, retaining its display angle and funnel position. Drag to rotate."></div><div class="text-small">45° display · original front depth</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="A"><h3>A · Soft sweep</h3><div class="fs-stage" role="img" aria-label="A fuller rounded chamfer, 40 degree display, 18 mm deeper front wall, and funnel moved 32 mm aft. Drag to rotate."></div><div class="text-small">40° display · front +18 mm</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="B"><h3>B · Low console</h3><div class="fs-stage" role="img" aria-label="A low angled console with a broad upper roll, 28 degree display, 40 mm deeper front wall, and funnel moved 44 mm aft. Drag to rotate."></div><div class="text-small">28° display · front +40 mm</div><div class="text-small text-muted fs-size"></div></section>
+    <section data-model="C"><h3>C · Upright crown</h3><div class="fs-stage" role="img" aria-label="A tall display face with a rounded crown, 62 degree display, 24 mm deeper front wall, and funnel moved 26 mm aft. Drag to rotate."></div><div class="text-small">62° display · front +24 mm</div><div class="text-small text-muted fs-size"></div></section>
   </div>
-  <div class="text-small text-muted fs-note">Same scale · drag to rotate · scroll to zoom · exterior form studies</div>
-  <div class="sr-only">The foot extends outward around the whole base. Above the foot, A retains the existing geometry. B and C curve the top edges inward, including the edges along the display slope and the ridge behind the display. The display and funnel retain their positions and the funnel landing remains flat. Fluting is represented by surface shading. These are appearance studies, with wall sections and print qualification unresolved.</div>
+  <div class="text-small text-muted fs-note">Same scale · angles from horizontal · drag to rotate · scroll to zoom · form studies</div>
+  <div class="sr-only">Every form has a 12 mm outward flare over 44 mm of height, including at the rear. The three variations add depth to the entire front wall and combine a rigidly tilted display with a new rounded chamfer and an aft-shifted funnel. The viewing geometry does not qualify the internal mechanism, tubing routes or printed construction. Fluting is represented by surface shading.</div>
   <div class="fs-error text-destructive" role="alert" hidden></div>
 </div>
 <style>
@@ -20,6 +21,7 @@
 #fascia-studies .fs-stage{width:100%;height:360px;touch-action:none}
 #fascia-studies canvas{display:block;width:100%;height:100%}
 #fascia-studies .fs-size{margin-top:3px}
+#fascia-studies .fs-shared{margin-top:16px}
 #fascia-studies .fs-note{margin-top:20px}
 #fascia-studies[data-focus]:not([data-focus="all"]) .fs-grid{grid-template-columns:minmax(0,1fr)}
 #fascia-studies[data-focus]:not([data-focus="all"]) .fs-stage{height:580px}
@@ -36,6 +38,10 @@ try {
 const compressed=Uint8Array.from(atob('__MODEL_DATA__'),c=>c.charCodeAt(0));
 const raw=await new Response(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
 const hlen=new DataView(raw).getUint32(0,true), data=JSON.parse(new TextDecoder().decode(new Uint8Array(raw,4,hlen))), offset=(hlen+7)&~3;
+const capBytes=Uint8Array.from(atob('__CAP_DATA__'),c=>c.charCodeAt(0));
+const capRaw=await new Response(new Blob([capBytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+const capHlen=new DataView(capRaw).getUint32(0,true),caps=JSON.parse(new TextDecoder().decode(new Uint8Array(capRaw,4,capHlen))),capOffset=(capHlen+7)&~3;
+const forms=caps.forms;
 const state={focus:'all',view:'three',finish:'white'};
 const scenes=[], baseMeshes=new Map();
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
@@ -46,55 +52,26 @@ function profile(z,points){
  for(let i=1;i<points.length;i++){if(z<=points[i][0]){const [a,u]=points[i-1],[b,v]=points[i],h=b-a,t=(z-a)/h,t2=t*t,t3=t2*t;return (2*t3-3*t2+1)*u+(t3-2*t2+t)*h*slope(i-1)+(-2*t3+3*t2)*v+(t3-t2)*h*slope(i)}}
  return points.at(-1)[1];
 }
-function plan(p){
- const ax=Math.abs(p[0]), dy=p[1]-236, ay=Math.abs(dy), qx=ax-95.5, qy=ay-219;
+function plan(p,depth=0){
+ const ax=Math.abs(p[0]),dy=p[1]-(236-depth/2),ay=Math.abs(dy),qx=ax-95.5,qy=ay-(219+depth/2);
  let nx=0,ny=0;
  if(qx>0&&qy>0){const l=Math.hypot(qx,qy);nx=qx/l*Math.sign(p[0]);ny=qy/l*Math.sign(dy)}
  else if(qx>qy)nx=Math.sign(p[0]);else ny=Math.sign(dy);
  return [Math.hypot(Math.max(qx,0),Math.max(qy,0))+Math.min(Math.max(qx,qy),0)-12,nx,ny];
 }
-const footProfile=[[-6,15.65],[0,18],[8,17.22],[18,14.09],[34,6.26],[60,0]];
-const roofRidge=355-288.1281566462, ridgeRadius=6;
-const topRounds={B:[6,6],C:[6,24]};
-// The roof/display ridge has a true tangent circular blend. Its roof tangency
-// is at y=69.357, before the fixed funnel brim begins at y=70.
-function roofAt(y,rounded){
- const nominal=Math.min(355,y+288.1281566462);
- if(!rounded)return {z:nominal,slope:y<roofRidge?1:0};
- const cy=roofRidge+ridgeRadius*Math.tan(Math.PI/8),cz=355-ridgeRadius;
- if(y<=cy-ridgeRadius/Math.SQRT2)return {z:nominal,slope:1};
- if(y>=cy)return {z:355,slope:0};
- const dy=y-cy,up=Math.sqrt(ridgeRadius*ridgeRadius-dy*dy);
- return {z:cz+up,slope:-dy/up};
-}
-function roundedTop(p,key){
- const spec=topRounds[key];if(!spec)return p.slice();
- const q=p.slice(),roof=roofAt(q[1],true),originalRoof=roofAt(q[1],false).z;
- q[2]-=(originalRoof-roof.z)*(1-smooth(2,8,originalRoof-q[2]));
- const [dist,nx,ny]=plan(q),d=-dist,h=(roof.z-q[2])/Math.hypot(1,roof.slope);
- // The 135-degree front/display junction needs a shorter tangent run than
- // the square roof/wall junction. Keep that local blend compact for the bezel.
- const cosine=Math.max(0,-ny*roof.slope/Math.hypot(1,roof.slope));
- const width=spec[0]*(1-cosine),drop=(6+(spec[1]-6)*(1-cosine*Math.SQRT2))*(1-cosine);
- if(d>=width||h>=drop)return q;
- const u=(width-d)/width,v=(drop-h)/drop,len=Math.hypot(u,v);
- if(len<=1)return q;
- // Project both faces of the original sharp edge onto one quarter ellipse.
- // XY moves only toward the interior; the top surface meets the wall tangentially.
- const dd=width*(1-u/len)-d,dh=drop*(1-v/len)-h;
- q[0]-=nx*dd;q[1]-=ny*dd;
- q[2]+=roofAt(q[1],true).z-roof.z-Math.hypot(1,roof.slope)*dh;
- return q;
-}
+const footProfile=[[-6,10.4333333333],[-2,12],[3.3333333333,11.48],[10,9.3933333333],[20.6666666667,4.1733333333],[38,0]];
+function deepened(p,key){const depth=forms[key]?.front_depth||0;return [p[0],p[1]-depth*(1-smooth(17,23,p[1])),p[2]];}
 function displaced(p,key){
- if(key==='current')return p.slice();
- const [dist,nx,ny]=plan(p),weight=smooth(-2.6,-.06,dist);
- const amount=profile(p[2],footProfile)*weight,out=roundedTop(p,key);
+ const out=deepened(p,key),[dist,nx,ny]=plan(out,forms[key]?.front_depth||0),weight=smooth(-2.6,-.06,dist);
+ const amount=profile(p[2],footProfile)*weight;
  out[0]+=nx*amount;out[1]+=ny*amount;
+ if(key!=='current'&&p[1]>=caps.cap_back-.01){
+  const d=-dist,h=355-p[2],r=8,u=(r-d)/r,v=(r-h)/r,len=Math.hypot(u,v);
+  if(d<r&&h<r&&len>1){const dd=r*(1-u/len)-d,dh=r*(1-v/len)-h;out[0]-=nx*dd;out[1]-=ny*dd;out[2]-=dh;}
+ }
  return out;
 }
 function normalAt(p,n,key){
- if(key==='current')return n;
  const nv=new THREE.Vector3(...n), axis=Math.abs(n[2])<.8?new THREE.Vector3(0,0,1):new THREE.Vector3(0,1,0);
  const u=new THREE.Vector3().crossVectors(nv,axis).normalize(),v=new THREE.Vector3().crossVectors(nv,u).normalize();
  const eps=.035, pos=new THREE.Vector3(...displaced(p,key));
@@ -102,7 +79,7 @@ function normalAt(p,n,key){
  const pv=displaced([p[0]+v.x*eps,p[1]+v.y*eps,p[2]+v.z*eps],key);
  return new THREE.Vector3(...pu).sub(pos).cross(new THREE.Vector3(...pv).sub(pos)).normalize().toArray();
 }
-function refined(source,maxEdge=4.5){
+function refined(source,maxEdge=6){
  const p=Array.from(source.attributes.position.array),n=Array.from(source.attributes.normal.array);
  let faces=Array.from(source.index.array);
  for(let pass=0;pass<14;pass++){
@@ -111,8 +88,8 @@ function refined(source,maxEdge=4.5){
    const key=Math.min(a,b)+','+Math.max(a,b);if(midpoint.has(key))return midpoint.get(key);
    const ax=a*3,bx=b*3,dx=p[ax]-p[bx],dy=p[ax+1]-p[bx+1],dz=p[ax+2]-p[bx+2];
    const mx=(p[ax]+p[bx])/2,my=(p[ax+1]+p[bx+1])/2,mz=(p[ax+2]+p[bx+2])/2;
-   const nearRoof=roofAt(my,false).z-mz<30,nearRidge=Math.abs(my-roofRidge)<5;
-   const edge=nearRoof&&(plan([mx,my,mz])[0]>-9||nearRidge)?1.1:maxEdge;
+   const outer=plan([mx,my,mz])[0];
+   const edge=mz>344&&my>310&&outer>-10?1.3:mz<42&&outer>-3?2.2:maxEdge;
    if(dx*dx+dy*dy+dz*dz<=edge*edge)return -1;
    const m=p.length/3;p.push((p[ax]+p[bx])/2,(p[ax+1]+p[bx+1])/2,(p[ax+2]+p[bx+2])/2);
    const nx=n[ax]+n[bx],ny=n[ax+1]+n[bx+1],nz=n[ax+2]+n[bx+2],len=Math.hypot(nx,ny,nz)||1;n.push(nx/len,ny/len,nz/len);
@@ -133,21 +110,44 @@ function refined(source,maxEdge=4.5){
  }
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(n,3));g.setIndex(faces);return g;
 }
-for(const [name,m] of Object.entries(data.meshes)){
+function decodeGeometry(m,raw,offset,scales={p:1000,n:10000}){
  const g=new THREE.BufferGeometry();
- for(const [f,s] of [['p',1000],['n',10000]]){const arr=Float32Array.from(new Int32Array(raw,offset+m[f][0],m[f][1]));for(let i=3;i<arr.length;i++)arr[i]+=arr[i-3];for(let i=0;i<arr.length;i++)arr[i]/=s;g.setAttribute(f==='p'?'position':'normal',new THREE.BufferAttribute(arr,3))}
+ for(const [f,s] of [['p',scales.p],['n',scales.n]]){const arr=Float32Array.from(new Int32Array(raw,offset+m[f][0],m[f][1]));for(let i=3;i<arr.length;i++)arr[i]+=arr[i-3];for(let i=0;i<arr.length;i++)arr[i]/=s;g.setAttribute(f==='p'?'position':'normal',new THREE.BufferAttribute(arr,3))}
  const diffs=new Int32Array(raw,offset+m.i[0],m.i[1]),idx=new Uint32Array(diffs.length);let sum=0;for(let i=0;i<diffs.length;i++){sum+=diffs[i];idx[i]=sum}g.setIndex(new THREE.BufferAttribute(idx,1));
+ return g;
+}
+function bodyBelowCap(source){
+ const p=Array.from(source.attributes.position.array),n=Array.from(source.attributes.normal.array),faces=source.index.array,indices=[],cuts=new Map();
+ function cut(poly,axis,limit,less){
+  const out=[];for(let i=0;i<poly.length;i++){
+   const a=poly[i],b=poly[(i+1)%poly.length],da=p[a*3+axis]-limit,db=p[b*3+axis]-limit,ia=less?da<=0:da>=0,ib=less?db<=0:db>=0;
+   if(ia)out.push(a);if(ia===ib)continue;
+   const tag=axis+','+limit+','+Math.min(a,b)+','+Math.max(a,b);
+   if(!cuts.has(tag)){const t=da/(da-db),m=p.length/3,np=[];for(let k=0;k<3;k++){p.push(p[a*3+k]+t*(p[b*3+k]-p[a*3+k]));np.push(n[a*3+k]+t*(n[b*3+k]-n[a*3+k]));}const len=Math.hypot(...np)||1;n.push(...np.map(v=>v/len));cuts.set(tag,m);}
+   out.push(cuts.get(tag));
+  }return out.filter((v,i)=>v!==out[(i+out.length-1)%out.length]);
+ }
+ function add(poly){for(let j=1;j+1<poly.length;j++)if(poly[0]!==poly[j]&&poly[j]!==poly[j+1]&&poly[0]!==poly[j+1])indices.push(poly[0],poly[j],poly[j+1]);}
+ for(let i=0;i<faces.length;i+=3){
+  const tri=[faces[i],faces[i+1],faces[i+2]];
+  if(tri.every(a=>p[a*3+2]<=caps.cap_bottom)||tri.every(a=>p[a*3+1]>=caps.cap_back)){indices.push(...tri);continue;}
+  if(tri.every(a=>p[a*3+2]>caps.cap_bottom&&p[a*3+1]<caps.cap_back))continue;
+  add(cut(tri,2,caps.cap_bottom,true));add(cut(cut(tri,2,caps.cap_bottom,false),1,caps.cap_back,false));
+ }
+ const np=[],nn=[],ni=[],map=new Map();for(const i of indices){if(!map.has(i)){map.set(i,np.length/3);np.push(p[i*3],p[i*3+1],p[i*3+2]);nn.push(n[i*3],n[i*3+1],n[i*3+2]);}ni.push(map.get(i));}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(np,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nn,3));g.setIndex(ni);return g;
+}
+for(const [name,m] of Object.entries(data.meshes)){
+ const g=decodeGeometry(m,raw,offset,data.scales);
  const mesh=m.role==='shell'?refined(g):g;
- baseMeshes.set(name,{geometry:mesh,role:m.role});
+ baseMeshes.set(name,{geometry:mesh,body:m.role==='shell'?bodyBelowCap(mesh):mesh,role:m.role});
 }
 function surfaceGeometry(source,key){
- if(key==='current'){
-  const g=source.clone();g.setAttribute('nominal',source.attributes.position.clone());g.setAttribute('originalNormal',source.attributes.normal.clone());return g;
- }
  const g=source.clone(),pos=g.attributes.position,norm=g.attributes.normal;
  g.setAttribute('nominal',pos.clone());g.setAttribute('originalNormal',norm.clone());
  for(let i=0;i<pos.count;i++){
   const p=[pos.getX(i),pos.getY(i),pos.getZ(i)],n=[norm.getX(i),norm.getY(i),norm.getZ(i)],q=displaced(p,key),nn=normalAt(p,n,key);
+  g.attributes.nominal.setXYZ(i,...deepened(p,key));
   pos.setXYZ(i,...q);norm.setXYZ(i,...nn);
  }
  g.computeBoundingSphere();g.computeBoundingBox();return g;
@@ -156,25 +156,26 @@ const surfaceShader=String.raw`
  varying vec3 vNominal;
  varying vec3 vOriginalNormal;
  uniform float variant;
+ uniform float frontDepth;
+ uniform float frontZ;
+ uniform float slope;
  float sm(float a,float b,float x){return smoothstep(a,b,x);}
  float fluteMask(vec3 p,vec3 norm){
-  vec2 q=abs(vec2(p.x,p.y-236.))-vec2(95.5,219.);
+  vec2 q=abs(vec2(p.x,p.y-(236.-frontDepth*.5)))-vec2(95.5,219.+frontDepth*.5);
   float dist=length(max(q,0.))+min(max(q.x,q.y),0.)-12.;
   float skin=sm(-.55,-.05,dist)*(1.-sm(.08,.2,abs(norm.z)));
-  float roof=min(355.,p.y+288.1281566462),h=(roof-p.z)/(p.y<66.8718433538?1.4142135624:1.);
-  float drop=variant>2.5?24.:variant>1.5?6.:0.;
-  float cosine=max(0.,-norm.y)*(p.y<66.8718433538?.7071067812:0.);
-  if(variant>1.5)drop=(6.+(drop-6.)*(1.-cosine*1.4142135624))*(1.-cosine);
-  float bottom=variant<.5?sm(-6.,-1.,p.z):sm(60.,65.,p.z);
+  float roof=min(355.,frontZ+(p.y-(5.-frontDepth))*slope),h=roof-p.z;
+  float drop=variant<.5?0.:8.;
+  float bottom=sm(38.,43.,p.z);
   return skin*bottom*sm(drop,drop+5.,h);
  }
  float perimeterS(vec3 p){
   float x=abs(p.x),s;
-  if(p.y<17.){
-   s=x<95.5?x:95.5+12.*(atan(p.y-17.,x-95.5)+1.5707963268);
+  if(p.y<17.-frontDepth){
+   s=x<95.5?x:95.5+12.*(atan(p.y-(17.-frontDepth),x-95.5)+1.5707963268);
   }else if(p.y>455.){
-   s=x<95.5?666.6991118431-x:95.5+18.8495559215+438.+12.*atan(p.y-455.,x-95.5);
-  }else s=95.5+18.8495559215+p.y-17.;
+   s=x<95.5?666.6991118431+frontDepth-x:95.5+18.8495559215+438.+frontDepth+12.*atan(p.y-455.,x-95.5);
+  }else s=95.5+18.8495559215+p.y-(17.-frontDepth);
   return s*sign(p.x);
  }
  vec3 flutedNormal(vec3 pos,vec3 normal,vec3 p,vec3 norm){
@@ -193,7 +194,11 @@ function shellMaterial(key,role){
  const mat=new THREE.MeshStandardMaterial({color:0xdfdfd9,roughness:.67,metalness:0,side:THREE.DoubleSide});
  if(role!=='shell')return mat;
  mat.onBeforeCompile=shader=>{
-  shader.uniforms.variant={value:key==='current'?0:1+'ABC'.indexOf(key)};
+  const spec=forms[key];
+  shader.uniforms.variant={value:spec?1:0};
+  shader.uniforms.frontDepth={value:spec?.front_depth||0};
+  shader.uniforms.frontZ={value:spec?.front_z||293.1281566462};
+  shader.uniforms.slope={value:spec?Math.tan(spec.angle*Math.PI/180):1};
   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute vec3 nominal; attribute vec3 originalNormal; varying vec3 vNominal; varying vec3 vOriginalNormal;');
   shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvNominal=nominal; vOriginalNormal=originalNormal;');
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\n'+surfaceShader);
@@ -217,15 +222,29 @@ for(const key of ['current','A','B','C']){
  for(const [p,intensity] of [[[400,100,400],.65],[[-80,650,600],1.1]]){const light=new THREE.DirectionalLight(0xffffff,intensity);light.position.set(...p);scene.add(light)}
  const parts=[],bounds=new THREE.Box3();
  for(const [name,item] of baseMeshes){
-  const shell=item.role==='shell';const geometry=shell?surfaceGeometry(item.geometry,key):item.geometry;
+  const shell=item.role==='shell';const geometry=shell?surfaceGeometry(key==='current'?item.geometry:item.body,key):item.geometry;
   const material=shell||item.role==='cover'?shellMaterial(key,item.role):new THREE.MeshStandardMaterial({color:item.role==='glass'?0x16252b:item.role==='funnel'?0xb8bbb3:0x44484b,roughness:item.role==='glass'?.42:.74,envMapIntensity:item.role==='glass'?.08:1,side:THREE.DoubleSide});
-  const mesh=new THREE.Mesh(geometry,material);mesh.castShadow=false;mesh.receiveShadow=false;scene.add(mesh);parts.push({mesh,role:item.role,name});if(shell)bounds.expandByObject(mesh);
+  const mesh=new THREE.Mesh(geometry,material);
+  if(forms[key]&&['device','glass','cover'].includes(item.role)){
+   mesh.rotation.x=(forms[key].angle-45)*Math.PI/180;
+   const pivot=new THREE.Vector3(0,35.9359216769,324.0640783231).applyEuler(mesh.rotation);
+   mesh.position.copy(new THREE.Vector3(...forms[key].display_center).sub(pivot));
+  }
+  if(forms[key]&&item.role==='funnel')mesh.position.y=forms[key].funnel_aft;
+  mesh.castShadow=false;mesh.receiveShadow=false;scene.add(mesh);parts.push({mesh,role:item.role,name});if(shell)bounds.expandByObject(mesh);
+ }
+ if(forms[key]){
+  for(const name of [key,'shared']){
+   const geometry=decodeGeometry(caps.meshes[name],capRaw,capOffset,caps.scales);
+   geometry.setAttribute('nominal',geometry.attributes.position.clone());geometry.setAttribute('originalNormal',geometry.attributes.normal.clone());
+   const mesh=new THREE.Mesh(geometry,shellMaterial(key,'shell'));scene.add(mesh);parts.push({mesh,role:'shell',name:'display-chamfer-'+name});bounds.expandByObject(mesh);
+  }
  }
  const shade=document.createElement('canvas');shade.width=128;shade.height=128;const ctx=shade.getContext('2d'),gradient=ctx.createRadialGradient(64,64,15,64,64,64);gradient.addColorStop(0,'rgba(0,0,0,.34)');gradient.addColorStop(.62,'rgba(0,0,0,.14)');gradient.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=gradient;ctx.fillRect(0,0,128,128);
  const ground=new THREE.Mesh(new THREE.PlaneGeometry(340,620),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(shade),color:0x000000,transparent:true,opacity:.5,depthWrite:false}));ground.position.set(0,235,-6.25);scene.add(ground);
  const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=false;controls.enablePan=true;controls.minZoom=.65;controls.maxZoom=9;
  const item={key,panel,stage,renderer,scene,camera,controls,parts,ground,bounds};scenes.push(item);
- const size=bounds.getSize(new THREE.Vector3());panel.querySelector('.fs-size').textContent=Math.round(size.x)+' × '+Math.round(size.y)+' × '+Math.round(size.z)+' mm';
+ const size=bounds.getSize(new THREE.Vector3());panel.querySelector('.fs-size').textContent=(forms[key]?'Funnel +'+forms[key].funnel_aft+' mm aft':'Original funnel position')+' · '+Math.round(size.y)+' mm overall depth';
  controls.addEventListener('change',()=>{if(syncing)return;syncing=true;for(const other of scenes){if(other!==item){other.camera.position.copy(camera.position);other.camera.quaternion.copy(camera.quaternion);other.camera.zoom=camera.zoom;other.controls.target.copy(controls.target);other.camera.updateProjectionMatrix()}draw(other)}syncing=false});
  new ResizeObserver(()=>resize(item)).observe(stage);
  await new Promise(resolve=>requestAnimationFrame(resolve));
@@ -234,13 +253,13 @@ function draw(item){if(!item.panel.hidden)item.renderer.render(item.scene,item.c
 function resize(item){
  if(item.panel.hidden)return;const w=item.stage.clientWidth,h=item.stage.clientHeight;if(!w||!h)return;
  item.renderer.setSize(w,h,false);const aspect=w/h,q=item.camera.quaternion.clone().invert();let px=0,py=0;
- for(const x of [-137,137])for(const y of [-26,475])for(const z of [-6,362]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}
- const closeup={base:220,rearbase:220,roof:240,rearroof:230};
+ for(const x of [-123,123])for(const y of [-49,485])for(const z of [-6,362]){const v=new THREE.Vector3(x,y,z).sub(item.controls.target).applyQuaternion(q);px=Math.max(px,Math.abs(v.x));py=Math.max(py,Math.abs(v.y))}
+ const closeup={base:210,rearbase:210,roof:300,rearroof:230};
  const span=closeup[state.view]||Math.max(2*py,2*px/aspect)*1.025;Object.assign(item.camera,{left:-span*aspect/2,right:span*aspect/2,top:span/2,bottom:-span/2});item.camera.updateProjectionMatrix();draw(item);
 }
 function orient(){
  syncing=true;const views={three:[660,-1050,560],front:[0,-1200,30],side:[1200,0,0],rear:[-450,1200,260],base:[660,-1050,290],rearbase:[-660,1050,290],roof:[640,-1040,590],rearroof:[-640,1040,540],top:[0,-.001,1200]};
- const targets={base:[0,45,26],rearbase:[0,427,26],roof:[0,94,321],rearroof:[0,410,331]};
+ const targets={base:[0,20,20],rearbase:[0,427,20],roof:[0,95,310],rearroof:[0,410,331]};
  for(const item of scenes){const target=new THREE.Vector3(...(targets[state.view]||[0,217,176]));item.controls.target.copy(target);item.camera.position.copy(target).add(new THREE.Vector3(...views[state.view]));item.camera.zoom=1;item.camera.lookAt(target);item.controls.update()}
  syncing=false;
 }
@@ -255,6 +274,6 @@ function update(){
 for(const input of root.querySelectorAll('[data-control]'))input.addEventListener('change',()=>{state[input.dataset.control]=input.value;if(input.dataset.control==='view')orient();update()});
 new MutationObserver(()=>update()).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
 orient();update();root.dataset.ready='true';
-window.fasciaStudies={state,scenes,sources:data.sources,displaced,roofAt,plan,render:()=>scenes.forEach(resize)};
+window.fasciaStudies={state,scenes,sources:data.sources,forms,caps,displaced,deepened,plan,render:()=>scenes.forEach(resize)};
 }catch(error){const el=root.querySelector('.fs-error');el.hidden=false;el.textContent=error.message;root.dataset.error=error.message;throw error;}
 </script>
