@@ -20,18 +20,29 @@ targets:
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
-        INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "This app uses Bluetooth to connect to your soda machine for managing display images, maintenance, and usage statistics."
-        INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
-        INFOPLIST_KEY_UISupportedInterfaceOrientations:
+        SWIFT_VERSION: "5.0"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    # Written rather than generated from build settings: GENERATE_INFOPLIST_FILE
+    # carries only the keys Xcode has an INFOPLIST_KEY_ for, and UIBackgroundModes
+    # is not one of them — it is accepted as a setting and dropped from the plist.
+    info:
+      path: SodaMachine/Info.plist
+      properties:
+        CFBundleDisplayName: Soda Machine
+        NSBluetoothAlwaysUsageDescription: "This app uses Bluetooth to connect to your soda machine for managing display images, maintenance, and usage statistics."
+        UILaunchStoryboardName: LaunchScreen
+        # An update is minutes of pulling one chunk at a time, and a phone whose
+        # screen has gone off is a suspended app with a stalled transfer behind
+        # it. The machine is told to keep its panel down and not be unplugged
+        # while that happens, so the phone has to keep answering.
+        UIBackgroundModes:
+          - bluetooth-central
+        UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad:
+        UISupportedInterfaceOrientations~ipad:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-        SWIFT_VERSION: "5.0"
-        GENERATE_INFOPLIST_FILE: true
-        INFOPLIST_KEY_CFBundleDisplayName: "Soda Machine"
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
