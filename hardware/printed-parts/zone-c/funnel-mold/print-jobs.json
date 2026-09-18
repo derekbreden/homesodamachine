@@ -315,6 +315,18 @@
         }
       ]
     },
-    "connect_observation": "H2C shows the submitted file, homing toolhead, and left nozzle heating to 165 C."
+    "connect_observation": "H2C shows the submitted file, homing toolhead, and left nozzle heating to 165 C.",
+    "outcome": {
+      "result": "failed, stopped by user",
+      "reported_date": "2026-09-18",
+      "stopped_layer": 375,
+      "observation": "User reports the same accumulating raised material in the middle solid band, nozzle dragging, fuzzy material and worsening blobs. Bed adhesion remained solid. After pulling the print apart, the user found no visible lifting; lifting was not ruled out.",
+      "photos": [
+        "IMG_7806.jpeg",
+        "IMG_7805.jpeg",
+        "IMG_7804.jpeg",
+        "IMG_7803.jpeg"
+      ]
+    }
   }
 ]

@@ -1,69 +1,10 @@
 {
   "baseline": {
-    "sha256": "5777addff7189eadb5ec57861ac13f2128e0b2389152fbb468a0c020e0b038a7",
-    "gcode_sha256": "5e7cec7f815dc1cf475a43ce62b396c53fd56624d0039c2d61964446714f7168",
-    "headers": [
-      "; total layer number: 642",
-      "; total filament weight [g] : 742.41",
-      "; filament_flow_ratio = 0.97",
-      "; nozzle_diameter = 0.4,0.4"
-    ],
-    "z_compensation": [
-      "G29.1 Z0 ; clear z-trim value first",
-      "G29.1 Z-0.02 ; for Textured PEI Plate"
-    ],
-    "nozzles": [
-      {
-        "id": "0",
-        "extruder_id": "1",
-        "nozzle_diameter": "0.4",
-        "volume_type": "Standard"
-      }
-    ],
-    "slice_metadata": {
-      "prediction": "118487",
-      "weight": "742.41"
-    },
-    "feature_extrusion_mm": {
-      "Support": 116243.03794008266,
-      "Support transition": 2214.632439999357,
-      "Support interface": 4301.597270000669,
-      "Inner wall": 8720.420420000055,
-      "Outer wall": 7951.688190000072,
-      "Bottom surface": 12.136200000000004,
-      "Internal solid infill": 9991.714560000804,
-      "Sparse infill": 76073.25598969254,
-      "Overhang wall": 2271.568200000002,
-      "Bridge": 4835.865150001199,
-      "Floating vertical shell": 9409.19565999994,
-      "Top surface": 4887.692960000536,
-      "Gap infill": 5.073630000000003
-    },
-    "layer374_z": 47.24,
-    "layer374_extrusion_mm": {
-      "Inner wall": 15.65036,
-      "Outer wall": 14.01371,
-      "Overhang wall": 39.922599999999974,
-      "Bridge": 79.06529000000168,
-      "Sparse infill": 501.11110999999926,
-      "Internal solid infill": 23.1584,
-      "Top surface": 49.64935999999984,
-      "Gap infill": 0.03815999999999999,
-      "Floating vertical shell": 123.71460999999991
-    },
-    "layers": 642,
-    "model_extrusion_paths_sha256": "2a701abc82810a4f0ef1dab99b75f3911e918ad36f6366f4dd6b8328bb26f2a4"
-  },
-  "reduced": {
-    "sha256": "324efc0cbd3e15e58c83cf49f25847c347954165b7f240c359aea4c1731c0734",
+    "slice": "funnel-mold-04-standard-flow094-z018.gcode.3mf",
+    "slice_sha256": "324efc0cbd3e15e58c83cf49f25847c347954165b7f240c359aea4c1731c0734",
     "gcode_sha256": "e6b1c00ed8592b7616f95c793aae4fb4a1c96358b2a0953f851e6ecf87d9f110",
-    "headers": [
-      "; total layer number: 642",
-      "; total filament weight [g] : 719.38",
-      "; filament_flow_ratio = 0.94",
-      "; nozzle_diameter = 0.4,0.4"
-    ],
-    "z_compensation": [
+    "flow_ratio": "0.94",
+    "z_commands": [
       "G29.1 Z0 ; clear z-trim value first",
       "G29.1 Z0.16"
     ],
@@ -75,11 +16,12 @@
         "volume_type": "Standard"
       }
     ],
-    "slice_metadata": {
-      "prediction": "118475",
-      "weight": "719.38"
-    },
-    "feature_extrusion_mm": {
+    "estimated_seconds": 118475,
+    "estimated_filament_g": 719.38,
+    "layer_count": 642,
+    "layer375_z_mm": 47.28,
+    "model_path_sha256": "36970f099996c23953fc11122f4b1d18a6c1e403660825d0695d47ee7c5d6b13",
+    "extrusion_mm_by_feature": {
       "Support": 112622.35797004674,
       "Support transition": 2145.9693699995605,
       "Support interface": 4168.516589999385,
@@ -93,46 +35,165 @@
       "Floating vertical shell": 9118.188809999849,
       "Top surface": 4736.524880000633,
       "Gap infill": 4.916659999999998
-    },
-    "layer374_z": 47.24,
-    "layer374_extrusion_mm": {
-      "Inner wall": 15.166310000000001,
-      "Outer wall": 13.580320000000002,
-      "Overhang wall": 38.68786999999999,
-      "Bridge": 76.61737000000038,
-      "Sparse infill": 485.6120900000014,
-      "Internal solid infill": 22.44214,
-      "Top surface": 48.11338000000024,
-      "Gap infill": 0.03701,
-      "Floating vertical shell": 119.88833
-    },
-    "layers": 642,
-    "model_extrusion_paths_sha256": "2a701abc82810a4f0ef1dab99b75f3911e918ad36f6366f4dd6b8328bb26f2a4"
+    }
   },
-  "feature_ratio": {
-    "Support": 0.9688525004662886,
-    "Support transition": 0.9689957264421647,
-    "Support interface": 0.9690624966383098,
-    "Inner wall": 0.9690720840268787,
-    "Outer wall": 0.9690719499905182,
-    "Bottom surface": 0.9690718676356677,
-    "Internal solid infill": 0.9690717665977628,
-    "Sparse infill": 0.9690707875092293,
-    "Overhang wall": 0.9690721854620077,
-    "Bridge": 0.9690713005095666,
-    "Floating vertical shell": 0.9690720800676715,
-    "Top surface": 0.9690716906243868,
-    "Gap infill": 0.9690615988946759
+  "current": {
+    "slice": "funnel-mold-04-standard-flow088-z018.gcode.3mf",
+    "slice_sha256": "796882c94d37bb7ba944b379d85366a163733cc72a22f4431045fbbf71a9fb45",
+    "gcode_sha256": "d982e579eed499cfb3c6a8396e7e79f9313840c727d71ca9e5bf2405c19f6d10",
+    "flow_ratio": "0.88",
+    "z_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.16"
+    ],
+    "nozzles": [
+      {
+        "id": "0",
+        "extruder_id": "1",
+        "nozzle_diameter": "0.4",
+        "volume_type": "Standard"
+      }
+    ],
+    "estimated_seconds": 124329,
+    "estimated_filament_g": 673.53,
+    "layer_count": 642,
+    "layer375_z_mm": 47.28,
+    "model_path_sha256": "3fd3b4074f70d07fa949154fdcefe447cd6f198e5f016276d5dbc832d3e7a335",
+    "extrusion_mm_by_feature": {
+      "Support": 105457.43672001948,
+      "Support transition": 2009.0976899996588,
+      "Support interface": 3902.4186200007834,
+      "Inner wall": 7911.309319999876,
+      "Outer wall": 7213.900720000133,
+      "Bottom surface": 11.010139999999996,
+      "Internal solid infill": 9064.659629999182,
+      "Sparse infill": 69014.7402098694,
+      "Overhang wall": 2060.8047099999926,
+      "Bridge": 4387.180309999677,
+      "Floating vertical shell": 8536.178849999907,
+      "Top surface": 4434.202200000365,
+      "Gap infill": 4.602739999999995
+    }
   },
-  "total_extrusion_ratio": 0.9689674182665499,
-  "expected_ratio": 0.9690721649484536,
-  "same_model_extrusion_paths": true,
+  "project": "funnel-mold.3mf",
+  "project_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
+  "baseline_project_sha256": "04216c993c00e70c7b35e552c4fdb228cbd110bc17804051c8ebeddc4f738f8f",
+  "expected_extrusion_ratio": 0.9361702127659575,
+  "extrusion_ratio_by_feature": {
+    "Support": 0.9363810048096058,
+    "Support transition": 0.9362191828488541,
+    "Support interface": 0.9361648288417532,
+    "Inner wall": 0.9361702995771691,
+    "Outer wall": 0.9361701650536638,
+    "Bottom surface": 0.9361687293010286,
+    "Internal solid infill": 0.9361717717885983,
+    "Sparse infill": 0.9361692043232043,
+    "Overhang wall": 0.9361704517915166,
+    "Bridge": 0.9361718329258664,
+    "Floating vertical shell": 0.9361704421648238,
+    "Top surface": 0.9361720485673397,
+    "Gap infill": 0.9361517778329186
+  },
+  "model_motion_comparison": {
+    "baseline_model_moves": 717937,
+    "current_model_moves": 717886,
+    "matched_model_moves": 717816,
+    "unmatched_current_model_moves": 70,
+    "unmatched_baseline_model_moves": 121,
+    "exact_model_path_match": false,
+    "maximum_matched_model_speed_difference_mm_s": 48.76003333333334,
+    "speed_difference_by_feature": {
+      "Bottom surface": {
+        "matched_moves": 100,
+        "maximum_absolute_difference_mm_s": 4.090449999999997
+      },
+      "Bridge": {
+        "matched_moves": 71429,
+        "maximum_absolute_difference_mm_s": 0.0
+      },
+      "Floating vertical shell": {
+        "matched_moves": 44986,
+        "maximum_absolute_difference_mm_s": 7.839950000000002
+      },
+      "Gap infill": {
+        "matched_moves": 1273,
+        "maximum_absolute_difference_mm_s": 15.94483333333335
+      },
+      "Inner wall": {
+        "matched_moves": 11500,
+        "maximum_absolute_difference_mm_s": 4.700483333333338
+      },
+      "Internal solid infill": {
+        "matched_moves": 47226,
+        "maximum_absolute_difference_mm_s": 7.588633333333348
+      },
+      "Outer wall": {
+        "matched_moves": 13179,
+        "maximum_absolute_difference_mm_s": 48.76003333333334
+      },
+      "Overhang wall": {
+        "matched_moves": 7017,
+        "maximum_absolute_difference_mm_s": 0.0
+      },
+      "Sparse infill": {
+        "matched_moves": 472115,
+        "maximum_absolute_difference_mm_s": 4.004449999999991
+      },
+      "Top surface": {
+        "matched_moves": 48991,
+        "maximum_absolute_difference_mm_s": 4.004449999999991
+      }
+    }
+  },
+  "same_meshes_and_placements": true,
+  "settings_changes": {
+    "different_settings_to_system": {
+      "baseline": [
+        "enable_support;skeleton_infill_density;skin_infill_density;sparse_infill_density;sparse_infill_pattern;support_object_first_layer_gap;support_object_xy_distance;support_style;support_type",
+        "filament_flow_ratio",
+        "machine_start_gcode"
+      ],
+      "current": [
+        "enable_support;skeleton_infill_density;skin_infill_density;sparse_infill_density;sparse_infill_pattern;support_object_first_layer_gap;support_object_xy_distance;support_style;support_type",
+        "filament_flow_ratio;filament_max_volumetric_speed",
+        "machine_start_gcode"
+      ]
+    },
+    "filament_flow_ratio": {
+      "baseline": [
+        "0.94",
+        "0.97",
+        "0.97"
+      ],
+      "current": [
+        "0.88",
+        "0.97",
+        "0.97"
+      ]
+    },
+    "filament_max_volumetric_speed": {
+      "baseline": [
+        "6",
+        "6",
+        "6"
+      ],
+      "current": [
+        "5.61702",
+        "6",
+        "6"
+      ]
+    },
+    "filament_settings_id": {
+      "baseline": [
+        "Funnel mold PETG Translucent - 0.4 Standard - flow 0.94"
+      ],
+      "current": [
+        "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88"
+      ]
+    }
+  },
   "verified": true,
-  "source_project": "funnel-mold.3mf",
-  "source_project_sha256": "04216c993c00e70c7b35e552c4fdb228cbd110bc17804051c8ebeddc4f738f8f",
-  "baseline_project_sha256": "1b5c186184b9ce714235dc059d6a66cff8e2295d3c3406e6402a560c009a7661",
-  "baseline_commit": "9ccc619e7",
-  "slice_name": "funnel-mold-04-standard-flow094-z018.gcode.3mf",
-  "comparison_method": "Sum positive XY extrusion moves after the first layer marker, excluding wipe moves. Model path hashes include feature, motion command and XYZ/IJ geometry, excluding extrusion and feed rate. Support geometry is excluded from the path hash.",
-  "physical_status": "Unvalidated flow-reduction trial; the failed print is reported stopped at layer 374."
+  "scope": "Archive, active flow/nozzle/Z trim and emitted model extrusion verified against the submitted 0.94 failure. Original model meshes and placement entries are byte-identical. G-code model motion matching allows small slicer differences; exact toolpath identity is not claimed. Physical success remains untested.",
+  "comparison_method": "Positive or zero XY extrusion after layer markers, excluding wipe moves. Model extrusion sums exclude Support features. Model motion matching uses layer, feature, command and XYZ/IJ endpoint fields; feed rates are compared only for matched entries. This is a command-level audit, not a measurement of deposited plastic.",
+  "physical_status": "Full-size 0.88 cavity trial prepared; physical result pending."
 }
