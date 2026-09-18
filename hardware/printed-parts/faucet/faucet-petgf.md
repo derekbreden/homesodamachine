@@ -98,10 +98,11 @@ The support reader's `--include-unlabelled-support` option produces this
 complete body inventory. Callers that omit the option retain the explicit
 interface-only reading.
 
-[`faucet-petgf.readiness.json`](faucet-petgf.readiness.json) records the prior submitted
-Mark2 job's archive, source hashes, cooling readings and support-contact review. That
-recorded job used the left external PET-GF spool and +0.04 mm Z trim; combined with
-the stock −0.02 mm textured-plate correction, the emitted trim is +0.02 mm.
-Its submitted slice estimated 5 h 26 min 57 s and 154.19 g. Print submission
-is recorded with the accepted job name and printer telemetry. The refreshed
-project's offline slice is documented above.
+[`faucet-petgf.readiness.json`](faucet-petgf.readiness.json) records the submitted
+Mark2 job `faucet-open-lever-mark2.gcode.3mf`, its archive and source hashes,
+native toolpath audits and confirmed startup telemetry. It uses the left external
+PET-GF spool and +0.04 mm Z trim; combined with the stock −0.02 mm textured-plate
+correction, the emitted trim is +0.02 mm. The submitted archive estimates
+4 h 25 min 57 s and 125.20 g across 1,019 layers. Bed leveling is On, timelapse
+Off, and flow and nozzle-offset calibration Auto. Startup telemetry at
+2026-09-18 05:01:05 UTC reports the exact job RUNNING with no reported errors.
