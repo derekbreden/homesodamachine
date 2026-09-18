@@ -14,6 +14,9 @@ firmware/src_appliance/fw_build_time.h
 **/build/
 __pycache__/
 *.xcodeproj/
+# Written by xcodegen from ios/SodaMachine/project.yml, beside the project it
+# generates.
+ios/SodaMachine/SodaMachine/Info.plist
 logs/*.log
 .claude/*
 !.claude/commands/
