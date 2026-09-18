@@ -1,0 +1,105 @@
+{
+  "project_title": "Industrial faucet PET-GF",
+  "status": "offline slice and support audit passed; not submitted",
+  "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "project_sha256": "67c051551922042580b1573ed64a562548e5de1e2c314e370d85b2d91a62b8f0",
+  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "print_report_sha256": "12c062a0ae82c305b3817428f838ed8df87036337e71effef45621a570195bb8",
+  "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "all_profile_members_preserved_byte_for_byte": true,
+  "source_stls": {
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "cbcb6af41f9496cc9d644cef4c28503eaac3566b23badc1d3ea2d5ecfc531aac",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "d868730d5db2ff2476391a870e9f2a686ea06be8ec6746011f7d07ef3e74ad06",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "370cae5d20bab44426be6253ce66a8ed5bae0ab25fcab0bfd90060b68fd1c89c",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "83e1fdb395136686205422ac91fe585010f64615146d4228ad2a0bacc501694c"
+  },
+  "mesh_and_placement": {
+    "closed_oriented_single_body_meshes": true,
+    "embedded_meshes_match_source_stls": true,
+    "parts": 4,
+    "plates": 1,
+    "minimum_required_model_bed_margin_mm": 15.0
+  },
+  "offline_slice": {
+    "completed": true,
+    "directory": "/Users/derekbredensteiner/.codex/visualizations/2026/09/16/01a0ac4b-6b4c-7d72-8043-23e59cd4ede4/print-review/industrial-petgf-slice",
+    "slicer": "BambuStudio 02.08.02.61",
+    "support_audit_sha256": "fa22d504dabfae422071d17401d935014ac715aa61fa0b7fc3940f76e2472bcd",
+    "plates": [
+      {
+        "plate": 1,
+        "estimated_total_seconds": 16739.029296875,
+        "saved_profile_filament_estimate_g": 130.29689025878906,
+        "slicer_warning": ""
+      }
+    ],
+    "fit": {
+      "minimum_shared_bed_margin_mm": 24.90139549999998,
+      "minimum_toolpath_separation_mm": 26.813015500000006,
+      "pairwise_toolpath_separations": [
+        {
+          "parts": [
+            "industrial-shell-base",
+            "faucet-shell-tip"
+          ],
+          "separation_mm": 26.813015500000006
+        },
+        {
+          "parts": [
+            "industrial-shell-base",
+            "industrial-display-cover"
+          ],
+          "separation_mm": 125.61992839862758
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "industrial-display-cover"
+          ],
+          "separation_mm": 35.88430288242172
+        },
+        {
+          "parts": [
+            "industrial-shell-base",
+            "industrial-above-counter-plate"
+          ],
+          "separation_mm": 59.175544
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "industrial-above-counter-plate"
+          ],
+          "separation_mm": 41.71847150000002
+        },
+        {
+          "parts": [
+            "industrial-display-cover",
+            "industrial-above-counter-plate"
+          ],
+          "separation_mm": 107.21298531390609
+        }
+      ]
+    },
+    "physical_support_removal_validated": false
+  },
+  "printer_submission": {
+    "performed_by_this_tool": false
+  },
+  "physical_print": {
+    "evaluated": false,
+    "remaining": "Support removal, contact finish, display fit and retention are physical print readings."
+  },
+  "gasket": {
+    "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+    "material": "TPU",
+    "included_in_petgf_project": false
+  },
+  "color": "The same meshes and project geometry serve black and white PET-GF.",
+  "sculpted_artifacts_unchanged": {
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "50592e910fedc2914dc954df1795cea8c346778b7a898a4cf587d4ad191a896a",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "617c1b89e43cdf325c70da9fa8c12143ae6d1282bdd521d726e93c1e0bdc9649"
+  }
+}

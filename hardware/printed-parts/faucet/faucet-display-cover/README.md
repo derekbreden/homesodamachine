@@ -1,4 +1,4 @@
-# Faucet display cover
+# Sculpted faucet display cover
 
 The PET-GF shroud follows the Waveshare display and meets the three tube
 outlets at one flush front plane. The cover's side walls spread over the
