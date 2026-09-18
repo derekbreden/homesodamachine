@@ -2,15 +2,15 @@
   "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "release": {
     "tag": "firmware",
-    "asset": "fw-842b19cb7d4a6d77.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-842b19cb7d4a6d77.tar.gz"
+    "asset": "fw-086dd65d85d2e510.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-086dd65d85d2e510.tar.gz"
   },
   "source": {
-    "commit": "19e6002e43f51ccb0ae3c2e04efc416755e99259"
+    "commit": "e5862143283496c7c532c25665babba8478cf61a"
   },
   "bundle": {
-    "sha256": "842b19cb7d4a6d77f020b5cdb57ca9571ebaf6a1b9852bfd78105182f3aa0767",
-    "bytes": 2357776,
+    "sha256": "086dd65d85d2e510d108fbeb13e22db627b58b21d1f37a857821d35996b84336",
+    "bytes": 2364828,
     "images": 4
   },
   "images": {
@@ -19,10 +19,11 @@
       "machine": "appliance",
       "what": "the main board's own firmware",
       "kind": "app",
-      "version": "2026.09.16 19e6002e4",
-      "bytes": 476704,
-      "crc32": 1881456240,
-      "sha256": "5c7f2190b54f6b205527311298c2eea010c65c51de239c8519a60e5cbed76047",
+      "version": "2026.09.17 e58621432+",
+      "build_epoch": 1789707540,
+      "bytes": 486976,
+      "crc32": 1420200177,
+      "sha256": "66cbb069645aea710ab08aba883a2d2280f7c88088522d1fb8442e05fa0b8f1e",
       "file": "appliance.bin"
     },
     "art": {
@@ -31,6 +32,7 @@
       "what": "the machine display's loading animation",
       "kind": "art",
       "version": null,
+      "build_epoch": null,
       "bytes": 4147232,
       "crc32": 2210037632,
       "sha256": "cbcb71b394644d4c1d2170bc84aa10fab665f9fa98d493470af498879db08311",
@@ -42,10 +44,11 @@
       "machine": "appliance",
       "what": "the 4.3\" machine display",
       "kind": "app",
-      "version": "2026.09.16 19e6002e4",
-      "bytes": 2359120,
-      "crc32": 1943044776,
-      "sha256": "36fced2e7b86e8ece045fbb1a0aac37a56807e8be659ca5106adee58ffcd95ab",
+      "version": "2026.09.17 e58621432+",
+      "build_epoch": 1789707540,
+      "bytes": 2360144,
+      "crc32": 1107288903,
+      "sha256": "e6c8df07589c98fa864895f9a406a17af85f11f4db194b98ba30779928cf14b2",
       "file": "enclosure.bin"
     },
     "faucet": {
@@ -53,11 +56,20 @@
       "machine": "appliance",
       "what": "the 1.47\" faucet display",
       "kind": "app",
-      "version": "2026.09.16 19e6002e4",
+      "version": "2026.09.17 e58621432+",
+      "build_epoch": 1789707540,
       "bytes": 1906768,
-      "crc32": 3447050693,
-      "sha256": "78407b92f8eb71f528a148753b09d6f2feab9b4f27a66f0cf308e8b2e2549103",
+      "crc32": 2461804863,
+      "sha256": "309438979147f3e341afa26e6bab6aba5483934d29e5015bcf28444fdeca85b7",
       "file": "faucet.bin"
     }
+  },
+  "unproven": {
+    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
+    "paths": [
+      "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
+      "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
+      "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png"
+    ]
   }
 }
