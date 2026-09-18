@@ -2,226 +2,231 @@
   "rows": [
     {
       "key": "current",
-      "fixedGeometryShared": true,
-      "aboveFootMaxMove": 0,
-      "topOutwardDistance": 0,
-      "topOutsideNominal": 0.0006723142083249201,
-      "topMaxDrop": 0,
       "finite": true,
-      "landingMaxMove": 0
+      "fixedHardwareUnchanged": true,
+      "footFlare": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "footHeight": 44,
+      "footTopZ": 38,
+      "footTopDisplacement": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontDepthAtHeights": [
+        {
+          "z": 60,
+          "depth": 0
+        },
+        {
+          "z": 120,
+          "depth": 0
+        },
+        {
+          "z": 220,
+          "depth": 0
+        }
+      ],
+      "referenceAboveFootMaxMove": 0,
+      "displayAngle": 45,
+      "displayNormalError": 1.1102230246251565e-16,
+      "displayTransformDeterminant": 1,
+      "funnelTranslation": [
+        0,
+        0,
+        0
+      ],
+      "displayTranslation": [
+        0,
+        0,
+        0
+      ],
+      "displayFlatMargin": null,
+      "funnelFlatLanding": null,
+      "shellBounds": [
+        -119.49999237060547,
+        -6.9965500831604,
+        -6,
+        119.5,
+        478.9965515136719,
+        355
+      ]
     },
     {
       "key": "A",
-      "fixedGeometryShared": true,
-      "aboveFootMaxMove": 0,
-      "topOutwardDistance": 0,
-      "topOutsideNominal": 0.0006723142083249201,
-      "topMaxDrop": 0,
       "finite": true,
-      "landingMaxMove": 0
-    },
-    {
-      "key": "B",
-      "fixedGeometryShared": true,
-      "aboveFootMaxMove": 3.0437480765012053,
-      "topOutwardDistance": 0,
-      "topOutsideNominal": 0.000612158090753212,
-      "topMaxDrop": 2.485198974609375,
-      "finite": true,
-      "landingMaxMove": 0
-    },
-    {
-      "key": "C",
-      "fixedGeometryShared": true,
-      "aboveFootMaxMove": 10.095174387423508,
-      "topOutwardDistance": 0,
-      "topOutsideNominal": 0.0005189068568736133,
-      "topMaxDrop": 9.9410400390625,
-      "finite": true,
-      "landingMaxMove": 0
-    }
-  ],
-  "footSamples": [
-    {
-      "key": "A",
-      "points": [
+      "fixedHardwareUnchanged": true,
+      "footFlare": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "footHeight": 44,
+      "footTopZ": 38,
+      "footTopDisplacement": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontDepthAtHeights": [
         {
-          "source": [
-            107.5,
-            236,
-            0
-          ],
-          "result": [
-            125.5,
-            236,
-            0
-          ],
-          "flare": 18
+          "z": 60,
+          "depth": 18
         },
         {
-          "source": [
-            -107.5,
-            236,
-            0
-          ],
-          "result": [
-            -125.5,
-            236,
-            0
-          ],
-          "flare": 18
+          "z": 120,
+          "depth": 18
         },
         {
-          "source": [
-            0,
-            5,
-            0
-          ],
-          "result": [
-            0,
-            -13,
-            0
-          ],
-          "flare": 18
-        },
-        {
-          "source": [
-            0,
-            467,
-            0
-          ],
-          "result": [
-            0,
-            485,
-            0
-          ],
-          "flare": 18
+          "z": 220,
+          "depth": 18
         }
+      ],
+      "referenceAboveFootMaxMove": null,
+      "displayAngle": 40,
+      "displayNormalError": 1.1102230246251565e-16,
+      "displayTransformDeterminant": 1,
+      "funnelTranslation": [
+        0,
+        32,
+        0
+      ],
+      "displayTranslation": [
+        0,
+        -32.46603389553803,
+        -1.9285790840864365
+      ],
+      "displayFlatMargin": 5.5,
+      "funnelFlatLanding": 15.13509668869682,
+      "shellBounds": [
+        -119.49999237060547,
+        -24.996549606323242,
+        -6,
+        119.5,
+        478.9965515136719,
+        355
       ]
     },
     {
       "key": "B",
-      "points": [
+      "finite": true,
+      "fixedHardwareUnchanged": true,
+      "footFlare": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "footHeight": 44,
+      "footTopZ": 38,
+      "footTopDisplacement": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontDepthAtHeights": [
         {
-          "source": [
-            107.5,
-            236,
-            0
-          ],
-          "result": [
-            125.5,
-            236,
-            0
-          ],
-          "flare": 18
+          "z": 60,
+          "depth": 40
         },
         {
-          "source": [
-            -107.5,
-            236,
-            0
-          ],
-          "result": [
-            -125.5,
-            236,
-            0
-          ],
-          "flare": 18
+          "z": 120,
+          "depth": 40
         },
         {
-          "source": [
-            0,
-            5,
-            0
-          ],
-          "result": [
-            0,
-            -13,
-            0
-          ],
-          "flare": 18
-        },
-        {
-          "source": [
-            0,
-            467,
-            0
-          ],
-          "result": [
-            0,
-            485,
-            0
-          ],
-          "flare": 18
+          "z": 220,
+          "depth": 40
         }
+      ],
+      "referenceAboveFootMaxMove": null,
+      "displayAngle": 28,
+      "displayNormalError": 0,
+      "displayTransformDeterminant": 1,
+      "funnelTranslation": [
+        0,
+        44,
+        0
+      ],
+      "displayTranslation": [
+        0,
+        -104.04962706889222,
+        26.978743290798093
+      ],
+      "displayFlatMargin": 8.5,
+      "funnelFlatLanding": 24.132638835104828,
+      "shellBounds": [
+        -119.49999237060547,
+        -46.996551513671875,
+        -6,
+        119.5,
+        478.9965515136719,
+        355
       ]
     },
     {
       "key": "C",
-      "points": [
+      "finite": true,
+      "fixedHardwareUnchanged": true,
+      "footFlare": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "footHeight": 44,
+      "footTopZ": 38,
+      "footTopDisplacement": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontDepthAtHeights": [
         {
-          "source": [
-            107.5,
-            236,
-            0
-          ],
-          "result": [
-            125.5,
-            236,
-            0
-          ],
-          "flare": 18
+          "z": 60,
+          "depth": 24
         },
         {
-          "source": [
-            -107.5,
-            236,
-            0
-          ],
-          "result": [
-            -125.5,
-            236,
-            0
-          ],
-          "flare": 18
+          "z": 120,
+          "depth": 24
         },
         {
-          "source": [
-            0,
-            5,
-            0
-          ],
-          "result": [
-            0,
-            -13,
-            0
-          ],
-          "flare": 18
-        },
-        {
-          "source": [
-            0,
-            467,
-            0
-          ],
-          "result": [
-            0,
-            485,
-            0
-          ],
-          "flare": 18
+          "z": 220,
+          "depth": 24
         }
+      ],
+      "referenceAboveFootMaxMove": null,
+      "displayAngle": 62,
+      "displayNormalError": 1.2412670766236366e-16,
+      "displayTransformDeterminant": 1,
+      "funnelTranslation": [
+        0,
+        26,
+        0
+      ],
+      "displayTranslation": [
+        0,
+        66.02305255145467,
+        -25.830117341124378
+      ],
+      "displayFlatMargin": 6.5,
+      "funnelFlatLanding": 37.80356848681165,
+      "shellBounds": [
+        -119.49999237060547,
+        -30.996549606323242,
+        -6,
+        119.5,
+        478.9965515136719,
+        355
       ]
     }
-  ],
-  "displayCoverBounds": [
-    -76.5999984741211,
-    6.697000026702881,
-    290.97100830078125,
-    76.5999984741211,
-    69.02899932861328,
-    353.3030090332031
-  ],
-  "ridgeTangencyY": 69.35712472803856,
-  "funnelBrimFrontY": 70
+  ]
 }
