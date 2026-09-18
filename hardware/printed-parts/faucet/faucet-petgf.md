@@ -61,21 +61,23 @@ profile's 1.29 g/cm³ density; they are not a measured PET-GF part mass.
 The material ledger uses PET-GF15's 1.43 g/cm³ and the actual purchase price.
 Object labels in the G-code identify each part's supports.
 The current offline slice completes successfully with no slice warnings. It
-estimates 5 h 27 min 3 s and 154.29 g under the saved profile. The four parts'
+estimates 5 h 16 min 22 s and 153.14 g under the saved profile. The four parts'
 actual extruded toolpaths, including supports and brims, have at least
-24.81 mm of shared-bed border and 15.74 mm separation. The refresh checks
+24.81 mm of shared-bed border and 20.40 mm separation. The refresh checks
 require at least 15 mm and 10 mm respectively. Removal effort and contact
 finish are read from the physical print.
 
 ## Support reading
 
-The slice generates one main bed-rooted support body for the base, one for
-the tip, four for the cover and three for the plate. The reader also reports
-a small isolated path at print Z0.68 mm beside the base foot as model-rooted.
+The slice generates three bed-rooted support bodies for the base, one for
+the tip, two for the cover and three for the plate. Two base bodies are
+isolated first-layer paths at print Z0.20 mm beside the base foot.
 The main base tree ends at print Z62.12 mm, below the exposed long neck.
-Twelve base interface islands are explicitly labelled, beginning at the bed
-under the tilted foot and continuing inside the lower body. Other contacts
-have no explicit `Support interface` labels; their contact-island count and
+Sixteen base interface islands are explicitly labelled, beginning at the bed
+under the tilted foot and continuing inside the lower body. The tip has one
+labelled interface beginning at Z13.64 mm after 13.44 mm of build-up. The cover
+has two labelled interfaces beginning at Z14.84 mm after 14.64 mm of build-up.
+Other contacts have no explicit `Support interface` labels; their contact-island count and
 build-up to first contact remain unknown. An empty interface list on a
 retained body does not mean that the part prints without support.
 
@@ -86,17 +88,19 @@ print reading.
 | Piece / body | Root | Supported region and retained function |
 |---|---|---|
 | Base / tree-1 | Bed | Counter-end face, plate and donor pockets, internal lever-roof underside and lower signal passage. The exposed long neck carries no support. Cleanup uses the bottom cable/flavor passage and donor/lever openings before fitting the metal body or plate. Removal at the roof and small cable branch needs a physical reading. |
+| Base / trees 2–3 | Bed | Two isolated first-layer paths beside the base foot, both at print Z0.20 mm, with no labelled interfaces. |
 | Tip / tree-1 | Bed | Hidden neck-joint shoulder and plug passages, plus the open display-chassis interior. The exposed curved neck carries no support. The annular engagement, tube and ribbon passages, retaining grooves and 3 mm metal-foot supports retain their working sections. Support removal precedes tubes and display installation. |
-| Cover / trees 1–4 | Bed | Undersides of the broad retaining lips: two support bodies reach each lip. The supports rise from Z0.20 to Z16.76 mm in the print pose. The bezel lies directly on the bed and the exterior walls carry no support. Remove through the open underside before installing the display, preserving the lip bearing faces. |
+| Cover / trees 1–2 | Bed | Undersides of the broad retaining lips: one support body reaches each lip. The supports rise from Z0.20 to Z15.08 mm in the print pose, with labelled interfaces from Z14.84 mm. The bezel lies directly on the bed and the exterior walls carry no support. Remove through the open underside before installing the display, preserving the lip bearing faces. |
 | Plate / trees 1–3 | Bed | The three underside screw counterbores. Their flat seats carry the factory base screws; the supports are removed through the counterbore openings. |
 
 The support reader's `--include-unlabelled-support` option produces this
 complete body inventory. Callers that omit the option retain the explicit
 interface-only reading.
 
-[`faucet-petgf.readiness.json`](faucet-petgf.readiness.json) records the submitted
-Mark2 archive, source hashes, cooling readings and support-contact review. The
-staged job uses the left external PET-GF spool and +0.04 mm Z trim; combined with
+[`faucet-petgf.readiness.json`](faucet-petgf.readiness.json) records the prior submitted
+Mark2 job's archive, source hashes, cooling readings and support-contact review. That
+recorded job used the left external PET-GF spool and +0.04 mm Z trim; combined with
 the stock −0.02 mm textured-plate correction, the emitted trim is +0.02 mm.
-The submitted slice estimates 5 h 26 min 57 s and 154.19 g. Print submission
-is recorded with the accepted job name and printer telemetry.
+Its submitted slice estimated 5 h 26 min 57 s and 154.19 g. Print submission
+is recorded with the accepted job name and printer telemetry. The refreshed
+project's offline slice is documented above.

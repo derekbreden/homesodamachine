@@ -1,5 +1,7 @@
 {
   "project": "faucet-display-fit-trial.3mf",
+  "settings_source": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
+  "settings_source_sha256": "f8256f47de772afc57cdc60f6ce8e477cee92356b367a7c30525a212776e9258",
   "settings_sha256": "7824aefdca52c9fcfee5723cd3a820b0f4e5e61ebca5bf1662b74ea3947075fa",
   "printer": "Bambu Lab H2C 0.4 nozzle",
   "process": "0.24mm Standard @BBL H2C",
@@ -46,13 +48,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
-      "stl_sha256": "28c346a040baaf5484cfdc95bc0793184e1a2c9036bb792063fdcac95818d3f4",
-      "triangles": 11072,
+      "stl_sha256": "3d68bd7d9ad1e1e0b91185c4aba42aa5319d2f717b06587f28fce307a98d3d99",
+      "triangles": 164504,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
-        -0.00046825408935546875,
-        43.91323950095102
+        -0.00021839141845703125,
+        43.91198873896792
       ],
       "build_transform": [
         1.0,
@@ -66,12 +68,12 @@
         1.0,
         110.0,
         160.0,
-        43.91031549172476
+        43.91156625370786
       ],
       "plate_translation_mm": [
         110.0,
         160.0,
-        43.91031549172476
+        43.91156625370786
       ],
       "plate_origin_mm": [
         0.0,
@@ -81,13 +83,13 @@
       "plate_bounds_mm": [
         [
           94.98754501342773,
-          132.4734869003296,
+          132.4732370376587,
           0.0
         ],
         [
           125.01245498657227,
-          187.5265130996704,
-          87.82063098344952
+          187.5267629623413,
+          87.82313250741572
         ]
       ],
       "watertight": true,
@@ -102,12 +104,12 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
-      "stl_sha256": "5d7eb28d6a5b9a130b8ceda23a20cafa9de038ca3c007b380a5582f04d86f6fc",
-      "triangles": 2310,
+      "stl_sha256": "0af8c1419dff5966321957a9bfeeecf67f48fc82d3355d50ebd050016f3d5354",
+      "triangles": 36860,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
-        0.6295928955078125,
+        0.0,
         9.274999668530342
       ],
       "build_transform": [
@@ -136,12 +138,12 @@
       ],
       "plate_bounds_mm": [
         [
-          223.3405475616455,
+          223.99223709106445,
           135.0317325592041,
           0.0
         ],
         [
-          256.6594524383545,
+          256.00776290893555,
           184.9682674407959,
           18.54999913706041
         ]
@@ -151,11 +153,11 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "e326ffdaec588c8467de5033b827b25d558ae7280ebcdcf0ca3a17ee19d5e1a7",
+  "project_sha256": "5913c01d7f750fd1df2f32898b0d0f0756a71509710bf8e8cb70e3ff9debbfdf",
   "settings_preserved_byte_for_byte": true,
   "project_title": "Faucet display fit trial",
-  "geometry_report_sha256": "930133abd259d39d7a05c7edf67d917bb0f9c6c541655b3d122cfb917136ad12",
-  "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "geometry_report_sha256": "529e1e2a34f91ccb09831aca6ea74ac8271cad676189f1210b3c01f268c11211",
+  "profile_source": "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf",
   "all_profile_members_preserved_byte_for_byte": true,
   "placement": {
     "left_to_right": [
