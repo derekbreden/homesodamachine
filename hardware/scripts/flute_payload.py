@@ -1,11 +1,11 @@
-"""The machine's flutes, in the triangles every picture is drawn from.
+"""The machine's printed surfaces, in the triangles every picture is drawn from.
 
 `printed-parts/cadlib/flute_skin.py` cuts the show surfaces into the MESH and says why they are
 not in the solid. The STEP beside that mesh is a smooth prism — 343 faces on the front-top piece,
 every one a plane or a cylinder — so a reader who is handed the solid is handed a box with no
-texture on it. The box's six pieces, the cold core's shell and two caps, and the faucet's base
-are all cut that way and all read the same here: a piece is any `.step` under `PIECES_DIRS` with
-an `.stl` of the same stem, so another one is carried with no edit to this file.
+texture on it. The box's six pieces and the cold core's shell and two caps carry that mesh-only
+texture. The faucet has smooth CAD-native surfaces and carries its complete print triangles.
+A piece is any `.step` under `PIECES_DIRS` with an `.stl` of the same stem.
 
 THE VIEWER PREFERS A PAYLOAD TO THE STEP BESIDE IT. `loadStepFile` fetches `<file>.step.mesh`
 first and only parses the solid when there is none (`web/public/js/viewer/step.js`), and every
@@ -15,13 +15,16 @@ So the flutes reach all of them by standing in the payload,
 and nothing above it is touched — same card, same part, same camera, same x-ray, same pickable
 edges.
 
-WHAT IS DECIMATED TO IS THE VIEWER'S OWN TOLERANCE. `_mesh_payload.LINEAR_DEFLECTION_RATIO` is
+THE FLUTED PARTS ARE DECIMATED TO THE VIEWER'S OWN TOLERANCE. `_mesh_payload.LINEAR_DEFLECTION_RATIO` is
 the deflection occt-import-js meshes a STEP at, which is what every other part in the catalog is
-already drawn at; a piece is reduced as far as it will go while every point of the printed mesh
-stays inside that distance of the result, measured exactly rather than sampled. On the front-top
+already drawn at; a piece is reduced as far as it will go while the probed vertices of the printed
+mesh stay inside that distance of the result. On the front-top
 piece that is 676,188 facets down to 53,492 at 0.147 mm against a 0.206 mm budget, and the
 groove comes through at its full depth. The printed mesh is what a slicer reads and is
 untouched — it is this file's input.
+
+THE SMOOTH FAUCET KEEPS ITS PRINT TRIANGLES. Its payload changes only triangle order,
+duplicated crease vertices and shading normals, preserving every STL triangle's geometry.
 
 SHADING BREAKS WHERE THE VIEWER DRAWS A LINE. `xray.js` draws a feature edge at a 30° crease, so
 the normals are split on the same angle: a groove shades round, the arris between it and its land
@@ -41,6 +44,7 @@ drawn, with the surface it actually has.
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # every tree
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest-matching
+    tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest-exact
 """
 
 import itertools
@@ -60,11 +64,8 @@ import _mesh_payload                                                    # noqa: 
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
 
-#: Every directory whose solids stand beside a printed mesh the solid does not describe, in the
-#: three trees they fall into. The box's six pieces are one tree; the cold core's shell and its
-#: two caps are another; the faucet's base — the one piece that stands in the open on a kitchen
-#: counter — is the third. All three are fluted on the same field off the same
-#: `cadlib/flute_skin.py` (`cold-core/_show_skin.py`, `faucet_shell.write_bed_file`).
+#: Printed surfaces in three independently generated trees. The box and cold core carry the
+#: mesh-only field from `cadlib/flute_skin.py`; the faucet carries smooth CAD-native surfaces.
 #:
 #: NOTHING PASSES BETWEEN THEM. A run over one tree opens that tree's directories and writes
 #: the payloads standing in them, and reads nothing of the others — which is what lets the build
@@ -377,23 +378,35 @@ def graft_glb(path, fluted):
     return landed
 
 
-def cut(step: Path, stl: Path, verbose=True):
-    """Write the payload beside `step` out of the printed mesh at `stl`. Returns the mesh."""
+def keeps_print_triangles(step: Path, requested=None):
+    """Keep complete faucet surfaces in every caller, including build reconciliation.
+
+    An explicit option also supports a standalone candidate outside the repository. Other
+    families retain their bounded reduction unless their caller explicitly opts in.
+    """
+    if requested is not None:
+        return bool(requested)
+    return Path(step).resolve().parent in FAUCET_DIRS
+
+
+def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
+    """Write the printed surface beside `step`, retaining every faucet triangle by default."""
     printed = trimesh.load_mesh(str(stl))
     printed.merge_vertices()
     bound = deflection(printed)
-    reduced, dev = simplify_within(printed, bound)
+    if keeps_print_triangles(step, preserve_print_triangles):
+        reduced, dev = printed, 0.0
+    else:
+        reduced, dev = simplify_within(printed, bound)
     pos, nrm, idx, fac = creased(reduced)
     name, color = solid_identity(step)
     mesh = {"name": name, "color": color,
             "pos": pos.ravel().tolist(), "nrm": nrm.ravel().tolist(),
             "idx": idx.ravel().tolist(), "fac": fac.tolist()}
     out = step.with_name(step.name + ".mesh")
-    # THIS PAYLOAD CARRIES MORE SURFACE THAN THE SOLID AND IT STILL STANDS FOR IT. The flutes
-    # are in the mesh and not in the STEP, so the two are not the same surface — but the mesh
-    # is cut FROM this solid's print and is answerable to these bytes, and `_payload_current`
-    # asks exactly that. Written without `src` it would read as a payload of unknown descent,
-    # and the plain tessellation in `_cadq_export` would replace it — serving a smooth box.
+    # The print is cut from this solid and the payload remains answerable to its source bytes.
+    # On fluted parts the print also carries texture absent from the STEP. Without `src`, the
+    # plain tessellation in `_cadq_export` could replace that surface with a smooth box.
     # AND WHAT THE REDUCTION COST, because the budget is a distance bound and a feature
     # shorter than it does not survive being stayed inside of. A reader handed this surface
     # is handed these two numbers with it, so a reading at their scale is known to be one
@@ -679,14 +692,14 @@ def graft(path: Path, fluted: dict):
     return landed
 
 
-def main(directories=PIECES_DIRS):
+def main(directories=PIECES_DIRS, *, preserve_print_triangles=None):
     found = pieces(directories)
     if not found:
         raise SystemExit("no printed meshes beside the solids in "
                          + ", ".join(str(d) for d in directories))
     fluted = {}
     for step, stl in found:
-        mesh = cut(step, stl)
+        mesh = cut(step, stl, preserve_print_triangles=preserve_print_triangles)
         fluted[mesh["name"]] = mesh
 
     # AND INTO THE BOX THE SIX OF THEM MAKE. `enclosure.py` writes `enclosure.step` and the
@@ -850,7 +863,65 @@ def _matching_checks(check):
               {"faucet-display-cover": ["faucet-display-cover"]})
 
 
-def selftest(matching_only=False):
+def _exact_print_checks(check):
+    """Long cylinder triangles and their graft must survive the publication path unchanged."""
+    import tempfile
+    from unittest.mock import patch
+
+    for directory in FAUCET_DIRS:
+        check(f"{directory.name} retains its print triangles for every caller",
+              keeps_print_triangles(directory / "part.step"), True)
+    check("fluted enclosure parts retain bounded reduction",
+          keeps_print_triangles(ENCLOSURE_DIRS[0] / "part.step"), False)
+    check("a standalone caller can explicitly retain its triangles",
+          keeps_print_triangles(Path("candidate.step"), True), True)
+    check("the shared reduction option remains available",
+          keeps_print_triangles(FAUCET_DIRS[0] / "part.step", False), False)
+
+    with tempfile.TemporaryDirectory() as directory:
+        directory = Path(directory)
+        step = directory / "faucet-shell-base.step"
+        step.write_text("exact-print test fixture\n")
+        stl = step.with_suffix(".stl")
+        # Match the long, narrow axial triangles at the reported straight-neck pick.
+        cylinder = trimesh.creation.cylinder(radius=13.0124554, height=88.3876953,
+                                             sections=360)
+        cylinder.apply_translation((0, 12.6249554, 109.19384765))
+        cylinder.export(stl)
+        printed = trimesh.load_mesh(str(stl))
+        with patch.object(sys.modules[__name__], "simplify_within",
+                          side_effect=AssertionError("exact print invoked reduction")):
+            with patch.object(sys.modules[__name__], "solid_identity",
+                              return_value=("faucet-shell-base", [0.1, 0.2, 0.3])):
+                cut(step, stl, verbose=False, preserve_print_triangles=True)
+        surface = read_payload(step.with_name(step.name + ".mesh"))[0]
+        drawn = trimesh.Trimesh(np.asarray(surface["pos"]).reshape(-1, 3),
+                                np.asarray(surface["idx"]).reshape(-1, 3), process=False)
+        same_triangles = sorted(map(tuple, printed.triangles.reshape(-1, 9))) == \
+            sorted(map(tuple, drawn.triangles.reshape(-1, 9)))
+        check("serialized full-print geometry preserves every oriented triangle",
+              same_triangles, True)
+        check("the straight cylinder retains only barrel and cap face regions",
+              len(surface["fac"]) // 2, 3)
+        drawn.merge_vertices()
+        middle = drawn.vertices[drawn.face_adjacency_edges].mean(axis=1)
+        barrel = (middle[:, 2] > 66) & (middle[:, 2] < 152)
+        angle = np.degrees(drawn.face_adjacency_angles[barrel])
+        check("the long straight cylinder gains no artificial feature creases",
+              bool(len(angle) and angle.max() < 1.01), True)
+
+        host = directory / "faucet-assembly.step.mesh"
+        original = dict(surface, name="shell_base")
+        _mesh_payload.write([original], str(host), src="assembly-fixture")
+        check("the full printed surface reaches its owning assembly",
+              graft(host, {surface["name"]: surface}), 1)
+        carried = read_payload(host)[0]
+        check("the graft preserves geometry, normals and feature regions exactly",
+              all(carried[key] == surface[key] for key in ("pos", "nrm", "idx", "fac")),
+              True)
+
+
+def selftest(matching_only=False, exact_only=False):
     import json
     import struct
     import tempfile
@@ -866,6 +937,12 @@ def selftest(matching_only=False):
     if matching_only:
         bad = [c for c in checks if not c[0]]
         print(f"\n{len(checks)-len(bad)}/{len(checks)} matching checks passed")
+        return 1 if bad else 0
+
+    _exact_print_checks(check)
+    if exact_only:
+        bad = [c for c in checks if not c[0]]
+        print(f"\n{len(checks)-len(bad)}/{len(checks)} matching and exact-print checks passed")
         return 1 if bad else 0
 
     # A box's six sides are six smooth regions, and every corner vertex is emitted once per side
@@ -1103,4 +1180,5 @@ def selftest(matching_only=False):
 
 if __name__ == "__main__":
     sys.exit(selftest(matching_only=True) if sys.argv[1:2] == ["selftest-matching"]
+             else selftest(exact_only=True) if sys.argv[1:2] == ["selftest-exact"]
              else selftest() if sys.argv[1:2] == ["selftest"] else main())
