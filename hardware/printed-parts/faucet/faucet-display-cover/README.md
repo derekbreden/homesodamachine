@@ -6,9 +6,9 @@ rigid round neck, then its two broad lips seat against the roots of side grooves
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
-The complete enclosure is a fit-and-snap print trial. Assembly force,
-retention, repeated operation and the as-printed PET-GF walls need the physical
-reading before this joint is treated as validated.
+Both complete covers in the [physical trial](../../fixtures/faucet-display-snap/print-log.md)
+snapped onto the tip and retained firmly. Repeated operation, permanent
+spreading and long-term preload require further physical readings.
 
 ## Geometry
 
@@ -76,9 +76,11 @@ Customer installation uses the assembled faucet.
 
 ## Printing and checks
 
-The cover stands on its front wall: +40° about the CAD X axis. The retaining
-faces and inner bezel print vertically. Support access is through the open
-underside before the display is installed.
+The white PET-GF cover prints bezel up at −50° about the CAD X axis, using
+0.18 mm layers. Its lower skirt and lip seating lands face the bed; the flat
+upper retaining lands face up. The inner bezel receives support accessible
+through the open underside before the display is installed. The visible front
+wall and outer bezel remain clear of the bed.
 
 `faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
 the cosmetic minimum and the lip thickness. The faucet geometry audit checks
