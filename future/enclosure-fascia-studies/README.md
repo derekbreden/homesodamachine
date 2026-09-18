@@ -1,63 +1,71 @@
 # Enclosure fascia studies
 
-The existing enclosure and three treatments of its bottom and top edges. The display, funnel,
-pump cartridge and rear fittings retain their assembly coordinates.
+A 12 mm flared foot, 44 mm high, around the complete perimeter. Three upper forms combine a
+deeper front wall, a tilted machine display, a rounded chamfer and an aft-shifted funnel.
 
-| Form | Shape |
-| --- | --- |
-| Existing enclosure | The source shell with zero displacement. |
-| A · Foot only | A continuous flared foot projects up to 18 mm around all four sides, over the bottom 66 mm. Above the foot, the source shell is unchanged. |
-| B · Compact round | The same foot and a 6 mm inward round on the actual roof edges. |
-| C · Long round | The same foot and a top curve extending 6 mm inward and 24 mm down the side and rear walls. |
+| Form | Display angle from horizontal | Added front depth | Funnel aft |
+| --- | --- | --- | --- |
+| Foot only | 45° | 0 mm | 0 mm |
+| A · Soft sweep | 40° | 18 mm | 32 mm |
+| B · Low console | 28° | 40 mm | 44 mm |
+| C · Upright crown | 62° | 24 mm | 26 mm |
 
-![The existing enclosure and three edge treatments](renders/comparison.png)
+![The smaller foot and three display forms](renders/comparison.png)
 
+[Side profiles](renders/side.png) · [Display and chamfer](renders/top-front.png) ·
 [Front foot](renders/bases.png) · [Rear foot](renders/rear-base.png) ·
-[Front top edges](renders/top-front.png) · [Rear top edges](renders/top-rear.png)
+[Rear top edges](renders/top-rear.png)
 
-The foot runs from Z −6 to Z 60, with its maximum projection at Z 0. Its profile is identical
-at the front, rear and sides. Smooth interpolation joins the toe and cove to the original wall.
+The foot runs from Z −6 to Z 38, with its maximum projection at Z −2. Its profile is identical
+at the front, rear and sides. The reference retains the source shell above the foot.
 
-The top curves remove the sharp roof/wall arrises by mapping both incident faces onto a common
-curve. Their XY displacement points inward everywhere. The side treatment follows the sloping
-display roof. At its 135-degree meeting with the front wall, the tangent run contracts and the
-curve stays compact around the display bezel. Both upper treatments use a 6 mm circular blend
-across the roof/display ridge. Its roof tangency is at Y 69.357 mm; the funnel brim starts at
-Y 70 mm, and its landing remains flat.
+The added front depth extends from the base to the display, with rounded plan corners joining
+the existing flanks. The cartridge pull openings, service slots and ventilation openings retain
+their original positions. The machine display, its glass and its cover share one rigid rotation
+and translation. The funnel and its new roof opening share one aft translation.
 
-The fluted walls follow the source perimeter: 260 grooves, 5.1285 mm pitch, 4 mm width and
-1.2 mm depth. Surface shading represents those grooves. They fade before the smooth foot and
-top curves; A keeps the original wall treatment above the foot.
+Each upper form has a flat display seat between tangent circular transitions into the front
+wall and roof. A has 24 mm lower and 30 mm upper radii; B has 30 mm and 44 mm radii; C has
+18 mm and 34 mm radii. The remaining top perimeter has an 8 mm inward round. The funnel brim
+lands on a flat roof, with 15.1, 24.1 and 37.8 mm between its front edge and the end of the
+upper curve in A, B and C respectively.
 
-`fascia.template.html` contains the profiles, edge mappings, flute shading, lighting and
-rotatable comparison. `models.b64` contains compressed meshes from the current enclosure STEP
-files and assembly payload. `sources.json` identifies those source files by digest.
+Surface shading represents 4 mm wide, 1.2 mm deep flutes on approximately 5.1285 mm pitch.
+The pattern follows each form's perimeter and fades into the smooth foot and upper edges.
 
-The foot displacement fades to zero within 2.6 mm of the nominal perimeter. The viewing meshes
-contain exterior faces and opening rims; simplified hardware fills the visible cavities.
-Shared triangle edges subdivide together before the skin is shaped, with finer subdivision
-around the top curves. The comparison includes front, side, rear, overhead and edge-detail
-views, white and black finishes, and measured shell envelopes at one common scale.
+`build_caps.py` constructs the upper surfaces in CadQuery and writes `caps.b64`. Its visible
+patch joins the source enclosure at Z 242 and Y 315. The cartridge pull air is cut from the
+source front-top and pump-cartridge solids. `cap-readings.json` records CAD validity and the
+funnel's flat landing. `fascia.template.html` contains the foot profile, front extension,
+hardware transforms, surface shading and rotatable comparison.
 
-This is appearance geometry. Wall sections, joints, cartridge motion, printer envelopes and
-support removal remain unqualified. The longer rear curve also needs the fitting landings
-resolved in the printable construction. The production parts retain their existing geometry.
+`models.b64` contains the exterior faces and opening rims from the source enclosure STEP
+files, plus assembly hardware. `sources.json` identifies those files by digest. Positions are
+quantized to 0.001 mm and source normals to 0.001. Shared triangle edges subdivide together
+before the foot and rear top edges are shaped. The comparison includes front, side, rear,
+overhead and detail views, with synchronized cameras and white and black finishes.
 
-Build the comparison with the project's CadQuery environment:
+These are appearance surfaces. The fixed pump hardware and other internal components retain
+their assembly coordinates. Internal wall sections, cartridge construction and travel,
+display mounting, funnel tube routing, joints and print qualification are unresolved. The
+production parts retain their existing geometry.
+
+Rebuild the source meshes and upper forms with the project's CadQuery environment:
 
 ```sh
 tools/cad-venv/bin/python future/enclosure-fascia-studies/build_studies.py /absolute/output/directory
 ```
 
-Compose the saved meshes after editing the form profiles or presentation:
+Rebuild the upper forms and compose the saved source meshes:
 
 ```sh
+tools/cad-venv/bin/python future/enclosure-fascia-studies/build_caps.py
 tools/cad-venv/bin/python future/enclosure-fascia-studies/build_studies.py --compose /absolute/output/directory
 ```
 
 The output is `enclosure-fascia.html`, an inline visualization fragment.
 
-`browser-checks.json` records the rendered envelopes, browser errors and narrow-screen layout.
-`interaction-checks.json` records synchronized rotation and zoom across the comparison.
-`geometry-checks.json` records the equal four-sided flare, unchanged A geometry above the foot,
-inward-only upper displacement, fixed hardware meshes and unchanged funnel landing.
+`browser-checks.json` records rendered envelopes, browser errors and narrow-screen layout.
+`interaction-checks.json` records synchronized rotation and zoom. `geometry-checks.json` records
+the four-sided flare, its height, full-height front extensions, rigid display transforms,
+funnel translations and unchanged fixed hardware.

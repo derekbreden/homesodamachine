@@ -94,7 +94,7 @@ def main(output):
 
     blob = bytearray()
     for item in geometry.values():
-        for field, scale in (("p", 1000), ("n", 10000), ("i", 1)):
+        for field, scale in (("p", 1000), ("n", 1000), ("i", 1)):
             array = np.rint(item[field] * scale).astype(np.int32)
             if field in ("p", "n"):
                 array = np.diff(array.reshape(-1, 3), axis=0, prepend=np.zeros((1, 3), dtype=np.int32))
@@ -103,18 +103,21 @@ def main(output):
             array = array.astype("<i4").reshape(-1)
             item[field] = [len(blob), len(array)]
             blob.extend(array.tobytes())
-    header = json.dumps({"meshes": geometry, "sources": sources}, separators=(",", ":")).encode()
+    header = json.dumps({"meshes": geometry, "sources": sources, "scales": {"p": 1000, "n": 1000}}, separators=(",", ":")).encode()
     raw = struct.pack("<I", len(header)) + header
     raw += b"\0" * (-len(raw) % 4) + blob
     encoded = base64.b64encode(gzip.compress(raw, 9)).decode()
     (HERE / "models.b64").write_text(encoded)
     (HERE / "sources.json").write_text(json.dumps(sources, indent=2) + "\n")
+    from build_caps import main as build_caps
+    build_caps()
     compose(output)
 
 
 def compose(output):
     fragment = (HERE / "fascia.template.html").read_text()
     fragment = fragment.replace("__MODEL_DATA__", (HERE / "models.b64").read_text())
+    fragment = fragment.replace("__CAP_DATA__", (HERE / "caps.b64").read_text())
     output.mkdir(parents=True, exist_ok=True)
     target = output / "enclosure-fascia.html"
     target.write_text(fragment)

@@ -1,0 +1,23 @@
+{
+  "A": {
+    "cad_valid": true,
+    "triangles": 9797,
+    "roof_flat_start_y": 86.86490331130318,
+    "funnel_brim_front_y": 102,
+    "funnel_front_landing": 15.13509668869682
+  },
+  "B": {
+    "cad_valid": true,
+    "triangles": 9814,
+    "roof_flat_start_y": 89.86736116489517,
+    "funnel_brim_front_y": 114,
+    "funnel_front_landing": 24.132638835104828
+  },
+  "C": {
+    "cad_valid": true,
+    "triangles": 10645,
+    "roof_flat_start_y": 58.19643151318835,
+    "funnel_brim_front_y": 96,
+    "funnel_front_landing": 37.80356848681165
+  }
+}
