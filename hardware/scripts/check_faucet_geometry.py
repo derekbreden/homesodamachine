@@ -489,27 +489,90 @@ def lower_access_reading(reading, f, base):
                 method="independently reconstructed circular overhead volume, clipped to the lever opening and above the rest-lever top, intersected with the complete printed base",
                 scope="keeps the full overhead relief for the rising rear arm; it is not a measured metal-arm shape or proof of the harvested lever's complete travel")
 
+    cap_y = f.zone45_front_y+f.shell_outer_r
+    cap_edge_y = cap_y-math.sqrt(f.shell_outer_r**2-opening_half_width**2)
+    front_profile = (cq.Workplane("XY").workplane(offset=rest_top)
+                     .moveTo(-opening_half_width, f.lever_insertion_front_y)
+                     .lineTo(opening_half_width, f.lever_insertion_front_y)
+                     .lineTo(opening_half_width, cap_edge_y)
+                     .threePointArc((0.0, f.zone45_front_y), (-opening_half_width, cap_edge_y))
+                     .lineTo(-opening_half_width, f.lever_insertion_front_y).wire()
+                     .extrude(f.zone5_z_top-rest_top).val())
+    implemented_front = shape(f.build_lever_front_clearance())
+    front_delta = (outside_material_volume(front_profile, implemented_front)
+                   +outside_material_volume(implemented_front, front_profile))
+    front_remaining = volume(front_profile.intersect(base))
+    pick = (-0.434, -12.227, 52.355)
+    pick_gap = base.distance(cq.Vertex.makeVertex(*pick))
+    insertion_ceiling = rest_top+f.lever_fit_clearance+f.lever_sweep_allowance
+    residual_ceiling_area = 0.0
+    for face in base.Faces():
+        if (face.geomType() == "PLANE" and face.normalAt().z < -1.0+1e-6
+                and abs(face.Center().z-insertion_ceiling) <= DISTANCE_TOLERANCE):
+            residual_ceiling_area += sum(part.Area() for part in face.intersect(front_profile).Faces())
+    reading.add("clearance:lever-front-opening", volume(front_profile) > VOLUME_TOLERANCE
+                and max(front_delta, front_remaining) <= VOLUME_TOLERANCE
+                and residual_ceiling_area <= DISTANCE_TOLERANCE and pick_gap > wall,
+                complete_open_span_mm3=clean_number(volume(front_profile)),
+                printed_material_in_open_span_mm3=clean_number(front_remaining),
+                clearance_builder_symmetric_difference_mm3=clean_number(front_delta),
+                selected_point_xyz_mm=list(pick), selected_point_gap_mm=clean_number(pick_gap),
+                insertion_ceiling_z_mm=clean_number(insertion_ceiling),
+                remaining_downward_ceiling_area_mm2=clean_number(residual_ceiling_area),
+                x_half_width_mm=clean_number(opening_half_width),
+                z_range_mm=[clean_number(rest_top), clean_number(f.zone5_z_top)],
+                cap_circle_xy_mm=[0.0, clean_number(cap_y)], cap_radius_mm=f.shell_outer_r,
+                method="independent three-point-arc XY opening profile extruded over its complete height, exact material intersection, the selected point's gap, and any surviving downward insertion-ceiling face area",
+                scope="the entire central span forward of the rounded cap; the circular aft relief and complete donor cheeks have separate readings")
+
+    cap = cq.Solid.makeCylinder(f.shell_outer_r, f.zone5_z_top-rest_top,
+                                cq.Vector(0.0, cap_y, rest_top))
+    rim_inset = DISTANCE_TOLERANCE
+    cap_band = cq.Solid.makeCylinder(f.shell_outer_r-rim_inset, f.zone5_z_top-rest_top,
+                                     cq.Vector(0.0, cap_y, rest_top)).cut(
+        cq.Solid.makeCylinder(f.shell_outer_r-rim_inset-wall, f.zone5_z_top-rest_top,
+                              cq.Vector(0.0, cap_y, rest_top)))
+    roof_outer = (cq.Workplane("YZ").center(f.fill_y_min, f.back_arch_center_z)
+                  .circle(f.back_arch_r+wall).extrude(opening_half_width, both=True).val())
+    rim_box = cq.Solid.makeBox(2.0*(opening_half_width-rim_inset), cap_y-f.lever_insertion_front_y,
+                                f.zone5_z_top-rest_top,
+                                cq.Vector(-opening_half_width+rim_inset,
+                                          f.lever_insertion_front_y, rest_top))
+    rim_witness = roof_outer.cut(roof_circle).intersect(cap_band).intersect(rim_box)
+    missing_rim = outside_material_volume(rim_witness, base)
+    reading.add("wall:lever-front-cap-rim", volume(rim_witness) > VOLUME_TOLERANCE
+                and missing_rim <= VOLUME_TOLERANCE,
+                required_radial_arch_stock_mm=wall, required_inward_cap_band_mm=wall,
+                open_boundary_inset_mm=rim_inset,
+                complete_witness_mm3=clean_number(volume(rim_witness)),
+                missing_complete_witness_mm3=clean_number(missing_rim),
+                method="complete radial arch annulus across an equally wide inward band following the rounded front cap, over the full opening width",
+                scope="material inside the retained cap at the open rim; not a global minimum-wall certificate")
+
     rear_y = f.soda_faucet_tube_y-f.soda_faucet_hole_diameter/2.0-wall-DISTANCE_TOLERANCE
     front_y = rear_y - 2.0 * wall
     half_width = f.lever_x_half
     bridge_box = cq.Solid.makeBox(2.0*half_width, rear_y-front_y, f.zone4_z_top+wall-rest_top,
                                   cq.Vector(-half_width, front_y, rest_top))
-    witness = roof_circle.translate((0.0, 0.0, wall)).cut(roof_circle).intersect(bridge_box)
+    witness = roof_circle.translate((0.0, 0.0, wall)).cut(roof_circle).intersect(bridge_box).intersect(cap)
     missing = volume(witness.cut(base))
     reading.add("wall:lever-roof-bridge", volume(witness) > VOLUME_TOLERANCE and missing <= VOLUME_TOLERANCE,
-                method=f"complete {wall:g} mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, ending one wall-width forward of the water bore",
+                method=f"complete {wall:g} mm vertical strip above two wall-widths of the independently reconstructed circular lever roof, clipped to the retained rounded cap and ending one wall-width forward of the water bore",
                 xy_bounds_mm=[-half_width, half_width, clean_number(front_y), clean_number(rear_y)],
                 required_vertical_stock_mm=wall, missing_witness_mm3=clean_number(missing),
                 scope="the bridge from the lever roof into the neck; not every exterior opening edge")
     samples = []
     for x in (-half_width, 0.0, half_width):
-        for y in (front_y, rear_y - wall, rear_y):
+        cap_front_y = cap_y-math.sqrt(f.shell_outer_r**2-x**2)
+        retained_front_y = max(front_y, cap_front_y+DISTANCE_TOLERANCE)
+        for y in (retained_front_y, (retained_front_y+rear_y)/2.0, rear_y):
             roof_z = f.back_arch_center_z+math.sqrt(f.back_arch_r**2-(y-f.fill_y_min)**2)
             spans = line_intervals(base, (x, y, roof_z + DISTANCE_TOLERANCE),
                                    (0.0, 0.0, 1.0), 2.0 * wall)
             continuous = (len(spans) == 1 and spans[0][0] <= DISTANCE_TOLERANCE
                           and spans[0][1] - spans[0][0] >= wall - DISTANCE_TOLERANCE)
             samples.append({"x_mm": clean_number(x), "y_mm": clean_number(y),
+                            "rounded_cap_front_y_mm": clean_number(cap_front_y),
                             "circular_roof_z_mm": clean_number(roof_z),
                             "material_intervals_above_roof_mm":
                                 [[clean_number(a), clean_number(b)] for a, b in spans],

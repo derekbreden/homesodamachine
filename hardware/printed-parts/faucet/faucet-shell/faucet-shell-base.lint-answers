@@ -1,7 +1,3 @@
-[ceiling] This is the flat forward part of the lever insertion opening at Z52.355. It joins the circular overhead clearance for the lever's rising rear arm. The separate roof-to-neck bridge contains the complete 2 mm vertical wall witness and has continuous material in all nine checked sections. The base prints at -15 degrees, putting this plane 15 degrees to the bed. The retained slice records bed-rooted tree-1 reaching the overhead region at interface-19, with 59.52 mm build-up. Support removal and the harvested lever's full travel require the physical print.
-file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
-click: x=0.000 y=-10.093 z=52.355
-
 [ceiling] This is the rear shoulder of the donor-body cavity at Z39, around the soda passage and forward of the flavor opening. The shoulder follows the metal body's plateau envelope. It is inclined 15 degrees to the bed in the base's -15 degree print pose. The donor cavity is open below for inspection and support cleanup before installing the metal body; removal effort and contact finish are physical print observations.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
 click: x=0.000 y=14.160 z=39.000
