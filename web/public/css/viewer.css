@@ -153,7 +153,7 @@
 .faucet-style-description { margin: 8px 0 14px; color: var(--text-2); font-size: 12px; line-height: 1.45; min-height: 35px; }
 .faucet-options-status { margin: 8px 0 0; color: var(--text-2); font-size: 12px; }
 .faucet-options-status:empty { display: none; }
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .cad-wrapper > .faucet-options { top: 60px; left: 12px; width: min(270px, calc(100% - 24px)); padding: 10px; }
   .cad-wrapper > .faucet-options:not([open]) { width: min(186px, calc(100% - var(--cube-size, 140px) - 32px)); }
   .faucet-options > summary { display: block; }

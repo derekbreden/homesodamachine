@@ -10,10 +10,10 @@ export function mountFaucetOptions(wrapper) {
   const panel = document.createElement("details");
   panel.className = "faucet-options";
   panel.setAttribute("aria-label", "Faucet options");
-  const mobile = matchMedia("(max-width: 600px)");
-  const compact = () => { panel.open = !mobile.matches; };
+  const compactViewport = matchMedia("(max-width: 900px)");
+  const compact = () => { panel.open = !compactViewport.matches; };
   compact();
-  mobile.addEventListener("change", compact);
+  compactViewport.addEventListener("change", compact);
   const summary = document.createElement("summary");
   summary.textContent = "Style and finish";
   const current = document.createElement("span");
@@ -65,7 +65,7 @@ export function mountFaucetOptions(wrapper) {
     if (!wrapper.isConnected) return;
     status.textContent = moved ? "" : `Couldn't load ${style.label}. Please try again.`;
     sync();
-    if (moved && mobile.matches) panel.open = false;
+    if (moved && compactViewport.matches) panel.open = false;
   });
   const description = document.createElement("p");
   description.className = "faucet-style-description";
@@ -73,7 +73,7 @@ export function mountFaucetOptions(wrapper) {
   choices("Finish", "faucet-finish", FAUCET_FINISHES, (finish) => {
     setFaucetFinish(finish.id);
     sync();
-    if (mobile.matches) panel.open = false;
+    if (compactViewport.matches) panel.open = false;
   });
   const status = document.createElement("p");
   status.className = "faucet-options-status";
@@ -102,7 +102,7 @@ export function mountFaucetOptions(wrapper) {
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
   sync();
   return () => {
-    mobile.removeEventListener("change", compact);
+    compactViewport.removeEventListener("change", compact);
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
     window.removeEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
   };

@@ -198,16 +198,19 @@ test("fresh faucet opens solid, explicit x-ray preference survives style changes
   } finally { await page.close(); }
 });
 
-test("mobile choices stay clear of the view cube and close after choosing a finish", async () => {
+for (const viewport of [{ width: 390, height: 844 }, { width: 613, height: 781 }]) {
+test(`compact choices at ${viewport.width}×${viewport.height} stay clear of the view cube and close after choosing a finish`, async () => {
   const { page } = await openPage();
   try {
-    await page.setViewport({ width: 390, height: 844 });
+    await page.setViewport(viewport);
     await page.waitForFunction(() => !document.querySelector(".faucet-options").open);
     const rects = await page.evaluate(() => ({
       panel: document.querySelector(".faucet-options").getBoundingClientRect().toJSON(),
       cube: document.querySelector(".cad-gizmo").getBoundingClientRect().toJSON(),
     }));
     assert.ok(rects.panel.right <= rects.cube.left);
+    assert.ok(rects.panel.width <= 186);
+    assert.ok(rects.panel.height < 70);
     await page.click(".faucet-options > summary");
     await choose(page, "finish", "white");
     assert.equal(await page.$eval(".faucet-options", (e) => e.open), false);
@@ -215,3 +218,4 @@ test("mobile choices stay clear of the view cube and close after choosing a fini
     assert.ok((await materials(page)).shell_base[0] > .8);
   } finally { await page.close(); }
 });
+}
