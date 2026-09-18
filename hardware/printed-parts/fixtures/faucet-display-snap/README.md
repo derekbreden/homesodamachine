@@ -33,11 +33,21 @@ tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/pr
 ```
 
 After removing supports, feed the three real tubes and ribbon through the
-stub. Seat the display on all four supports and check the underside
-components clear the tubes and ribbon. Lower the cover squarely, letting
-its side walls spread over the rigid cylinder until both broad lips enter
-the side grooves. Check the seam closes, the glass remains clear of the bezel,
-and pressing the touchscreen does not rock the module or move the tubes.
+stub. Follow the [faucet assembly sequence](../../faucet/faucet-shell/ASSEMBLY.md#display):
+spread the cover's plastic wings by hand and place the display inside it
+from the open underside, keeping the PCB clear of the retaining lips.
+
+Hold the display and cover together 7.5 mm above their final seat, measured
+normal to the glass. Slide the pair along the tip from the outlet end until
+the four metal feet align with their printed supports. Feed the ribbon
+through the neck as the pair moves. Lower the pair normal to the glass,
+letting the side walls spread over the cylinder until both broad lips seat
+in their grooves.
+
+Check that all four feet sit on their supports and the underside components
+clear the tubes and ribbon. Confirm the seam closes, the glass remains clear
+of the bezel, and pressing the touchscreen does not rock the module or move
+the tubes.
 Check that the real ribbon lies in the open space below the PCB and reaches
 the southwest corner as viewed from the glass, clear of the deeper components.
 The 2 mm dispense face has one flat rear plane. The CAD envelope
@@ -76,27 +86,25 @@ settings and embedded-mesh hashes. Both source STLs are already oriented
 and seated for printing; the project adds no further rotation.
 
 The offline Bambu Studio 02.08.02.61 slice completed without a warning.
-Its estimate is 2 h 38 min 55 s and 34.27 g using the saved 1.29 g/cm³
+Its estimate is 2 h 16 min and 26.12 g using the saved 1.29 g/cm³
 filament density. These grams are a profile estimate, not a measured PET-GF
-part mass. Actual extrusion paths retain 62.68 mm to the shared bed boundary
-and 91.48 mm between the two parts.
+part mass. Actual extrusion paths retain 64.83 mm to the shared bed boundary
+and 95.74 mm between the two parts.
 
 | Part / support body | Root | Contact reading | Build-up |
 |---|---|---|---|
-| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–94.52 mm | Not measured without interface labels |
-| Cover / trees 1 and 3 | Print bed, Z0.20 mm | One body reaches each broad retaining lip. Both explicitly labelled interfaces begin at Z14.84 mm, and the supports reach Z15.08 mm | 14.64 mm to first labelled interface on each body |
-| Cover / tree-2 | Print bed, Z0.20 mm | The visible curved rear hood faces the bed beyond the bezel. This separate support spans Z0.20–9.08 mm; exact contacts are unlabelled | Not measured without interface labels |
+| Housing / tree-1 | Print bed, Z0.20 mm | Housing and neck-stub underside; exact contacts are unlabelled in the G-code. The support spans Z0.20–82.52 mm | Not measured without interface labels |
+| Cover / tree-1 | Print bed, Z0.20 mm | One connected body reaches both broad retaining lips. Its two explicitly labelled interfaces begin at Z14.84 mm, and the support reaches Z15.08 mm | 14.64 mm to first labelled interface |
 
 [The retained support audit](faucet-display-fit-trial.support-audit.json)
 records the support bounds and toolpaths. The supports print the actual
 fit features in their production orientations. The cover's open underside
-provides the intended removal route to its two lip interfaces before fitting
-the display; remove the rear-hood support from the exposed rear/underside.
-The curved hood retains its rear hardware coverage and tube-following shape.
-Its visible contact finish and removal access require a physical reading.
+provides the intended removal route to its two lip interfaces before loading
+the display into the cover. Contact finish and removal access require a
+physical reading.
 An unlabelled interface count is unknown, not zero. Check
 removal access and the finish of the tube passages, display supports,
-broad lips, rear hood and groove bearing faces on the physical print before testing
+broad lips, rear wall and groove bearing faces on the physical print before testing
 the fit.
 
 To repeat the offline slice, add `--slice-output /path/to/local/slice` to

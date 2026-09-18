@@ -82,7 +82,10 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
     assert profile_members(output) == preserved
     report["project_title"] = TITLE
     report["geometry_report_sha256"] = writer.digest((HERE / "trial-geometry.json").read_bytes())
-    report["profile_source"] = str(settings_from.resolve().relative_to(writer.ROOT))
+    profile_source = settings_from.resolve()
+    report["profile_source"] = str(profile_source.relative_to(writer.ROOT)
+                                   if profile_source.is_relative_to(writer.ROOT)
+                                   else profile_source)
     report["project_sha256"] = writer.digest(output.read_bytes())
     report["all_profile_members_preserved_byte_for_byte"] = True
     report["placement"] = {
