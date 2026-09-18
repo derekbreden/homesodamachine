@@ -58,9 +58,9 @@ The nominal body and lever insertion paths are clear. The donor's attachment
 hardware is not dimensioned in the reference model; verify access for its actual
 fastening operation on the bench.
 
-The lever opening includes an arched clearance above the rear arm, joined
-to the opening below. Its roof leaves room for the arm to rise when the
-front is pressed. Confirm this motion with the harvested lever before
+The central lever opening is open above the handle up to the rounded front
+of the neck cap. The arched clearance farther aft leaves room for the rear
+arm to rise when the front is pressed. Confirm this motion with the harvested lever before
 closing the faucet base.
 
 The screw stations are (X,Y)=(±[20](BASE_X),[10](BASE_Y)) and (0,[-22.3](BASE_FRONT_Y)) mm. The head recesses
