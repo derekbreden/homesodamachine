@@ -1932,7 +1932,7 @@ def print_reading(f, parts):
                                                        clean_number(box.zlen)]}
     rows["visible_swept_neck_maximum_overhang_deg"] = clean_number(math.degrees(f.max_print_overhang_rad))
     rows["hidden_plug_maximum_flank_overhang_deg"] = clean_number(
-        math.degrees(f.print_tip_build_rot - f._path_plug_start_rot))
+        math.degrees(math.acos(abs(math.cos(f.print_tip_build_rot-f._path_plug_start_rot)))))
     rows["scope"] = "Geometric orientations only; no slice or physical support-removal result."
     return rows
 

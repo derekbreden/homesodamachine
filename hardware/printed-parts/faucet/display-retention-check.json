@@ -3,7 +3,7 @@
   "scope": "Bounded saved production tip and complete Sculpted cover reading: lip relief and flat lands, groove backing/shoulders, seated floor and capture, nominal hardware/aperture, printable preload, complete display-loading and raised axial bounds. It does not refresh the full faucet scorecard.",
   "nominal_cad_only": true,
   "geometry_source_sha256": {
-    "hardware/scripts/check_faucet_geometry.py": "93218e775366e9ae8bbf200370781fe9c95a07ab8625748ad738c5e41c8fed5c",
+    "hardware/scripts/check_faucet_geometry.py": "5b87f75f4d8aefa03ee0c151a2c2d43cd6d3f0cb797fb191db3d49b4b6826087",
     "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "37ed8573e5249bf2fb18cb17ceada19bb11b8625ea7ce594e5afc01bcb129611",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "ff60a0cb26e96c72d6830eedc5cd9cdb47f603b0d1a7526573bf7fb2d79feead",
