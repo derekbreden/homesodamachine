@@ -55,10 +55,25 @@ void versionsFill(VersionsPayload &out) {
     put(out.entries[2], OTA_TGT_ENCLOSURE, enclosureV, enclosureEpoch, enclosureArtCrc);
 }
 
+// The string is what a person reads and the epoch is what decides an update, so
+// both are printed: a board answering with a version and no epoch is one built
+// before the field, and the phone falls back to comparing dates for it. Without
+// this line that distinction is only visible from a phone.
+static void epochText(char *out, size_t n, uint32_t epoch) {
+    if (epoch) snprintf(out, n, "%lu", (unsigned long)epoch);
+    else       snprintf(out, n, "not said");
+}
+
 void versionsConsole() {
-    Serial.printf("\nmain board  %s\nfaucet      %s\nenclosure   %s  art crc %08lX\n",
-                  FW_VERSION,
-                  faucetV[0] ? faucetV : "(unanswered)",
-                  enclosureV[0] ? enclosureV : "(unanswered)",
+    char self[16], fau[16], enc[16];
+    epochText(self, sizeof(self), FW_BUILD_EPOCH);
+    epochText(fau, sizeof(fau), faucetEpoch);
+    epochText(enc, sizeof(enc), enclosureEpoch);
+    Serial.printf("\nmain board  %-24s committed %s"
+                  "\nfaucet      %-24s committed %s"
+                  "\nenclosure   %-24s committed %s  art crc %08lX\n",
+                  FW_VERSION, self,
+                  faucetV[0] ? faucetV : "(unanswered)", fau,
+                  enclosureV[0] ? enclosureV : "(unanswered)", enc,
                   (unsigned long)enclosureArtCrc);
 }
