@@ -13,5 +13,11 @@ A/B test 1.00/1.25 mm inward preload per wing in the bezel-down orientation;
 C/D use those preloads with the bezel up. E/F are repeat specimens for C/D at
 this slice's layer resolution. All six use the existing printed Sculpted tip.
 
-Physical retention, assembly force, removal effort and contact finish are pending.
-Record observations by the engraved cover letter.
+Derek reported that only A/B, printed bezel-down, could be snapped into place.
+C–F could not seat. The supported first layer on A/B's retaining lips was loose
+and compressed during insertion; the assembled fit remained loose. Derek
+observed rounded groove edges and identified reduced usable groove height as
+the likely interference. The groove's printed dimensions have not been measured.
+
+B's 1.25 mm inward preload per wing felt good despite those surface defects.
+Derek considers that preload suitable for the next complete tip and cover.

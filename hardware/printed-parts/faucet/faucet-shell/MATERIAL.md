@@ -20,13 +20,15 @@ defines the preload and mating grooves. The complete cover's insertion force, re
 to permanent spreading must be read from the PET-GF fit trial. The 2 mm
 TPU countertop gasket is a compressible sealing component.
 
-The base and tip use build rotations of −15° and −105° about their shared
-arc frame. Their CAD print heights are [244.6 mm](BASE_PRINT_HEIGHT) and
-[136.9 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks stay within
-[55°](MAX_PRINT_OVERHANG) of overhang; the hidden curved plug reaches 49.36°.
-Those angles do not describe every face of the lower body or display head.
+The base and tip use build rotations of −15° and +40° about their shared
+arc frame. The tip stands on its dispense face with the display groove planes
+vertical. Their CAD print heights are [244.6 mm](BASE_PRINT_HEIGHT) and
+[111.0 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks reach
+[70°](MAX_PRINT_OVERHANG) of overhang. Those angles do not describe every face
+of the lower body or the hidden curved plug.
 
-The separate cover prints with its planar bezel face on the bed.
+The separate cover stands on its front wall, with the inner bezel and retaining
+faces vertical.
 The plate prints with its gasket face toward the bed. Support contact,
 access and removal must be inspected in the production slice and first
 physical print, especially inside the donor cavity, around the neck joint

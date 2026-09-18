@@ -66,9 +66,9 @@ destroyed is a part that comes out by being destroyed.
   the cover before its bezel reaches the glass. Factory assembly places the display
   inside the cover, slides the pair along the tip with clearance above the neck,
   then lowers it onto the supports. The
-  [complete display fit trial](printed-parts/fixtures/faucet-display-snap/README.md)
-  carries the actual enclosure, device supports, tubes and ribbon route. Its print log
-  records the physical observations. The preloaded geometry needs its own fit and
+  [complete tip and display covers](printed-parts/faucet/faucet-display-petgf.md)
+  carry the actual enclosure, device supports, tubes and ribbon route. The print record
+  identifies their geometry and settings. The preloaded geometry needs its own fit and
   retention reading. The linked PET-GF15 data are annealed specimen results, not an
   allowable strain for the saved print profile.
 - **How far a tube runs into a collet, and how far its sleeve presses, is measured for the

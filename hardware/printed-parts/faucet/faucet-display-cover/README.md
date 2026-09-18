@@ -23,13 +23,16 @@ The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
 across the curved neck opening. The underside remains open.
 
-The lips follow the neck profile with [1 mm](SNAP_ENGAGEMENT) nominal radial
-engagement in [1 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
+The lips follow the neck profile with [1.2 mm](SNAP_ENGAGEMENT) nominal radial
+engagement in [1.2 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
 roots share a contact surface. The relaxed print pulls each wing inward by
-[0.75 mm](WING_PRELOAD) at the lip top and [0.908 mm](WING_BOTTOM_PRELOAD) at
+[1.25 mm](WING_PRELOAD) at the lip top and [1.513 mm](WING_BOTTOM_PRELOAD) at
 its bottom. This inset tapers to zero at the bezel's inner face.
-The grooves leave 0.15 mm above the lip tops and at their ends. The lip
-bottoms seat on the groove floors before the bezel can reach the glass.
+The grooves leave [0.48 mm](GROOVE_ROOF_CLEARANCE) above the lip tops and
+[0.3 mm](GROOVE_END_CLEARANCE) at their ends. The lips' inner upper and lower
+corners carry [0.25 mm](LIP_INNER_EDGE_RELIEF) chamfers. Their central curved
+faces contact the groove roots under preload, and the remaining flat lower
+lands seat on the groove floors before the bezel can reach the glass.
 
 The standalone STEP, STL and print project contain the relaxed shape.
 The faucet assembly shows the nominal seated fit surface. That surface
@@ -59,7 +62,7 @@ neck, so the parting line stays below the display face.
    corner as viewed from the glass, clear of the USB socket and underside
    components, with slack for the assembly motion.
 3. Approach from the tube-outlet end with the display and cover held together
-   [7.5 mm](DISPLAY_INSTALL_LIFT) above their seated position. Slide along the
+   [8.5 mm](DISPLAY_INSTALL_LIFT) above their seated position. Slide along the
    gooseneck to align the module with its four metal-foot pads, then lower the
    pair squarely toward the neck. Both lips enter their grooves below the
    retaining shoulders. The wings remain spread from their relaxed positions.
@@ -73,9 +76,9 @@ Customer installation uses the assembled faucet.
 
 ## Printing and checks
 
-The broad planar bezel prints face down: +130° about the CAD X axis. The
-rounded walls expand gradually toward the open underside. Support access is
-through that underside before the display is installed.
+The cover stands on its front wall: +40° about the CAD X axis. The retaining
+faces and inner bezel print vertically. Support access is through the open
+underside before the display is installed.
 
 `faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
 the cosmetic minimum and the lip thickness. The faucet geometry audit checks

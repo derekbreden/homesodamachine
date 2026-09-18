@@ -93,16 +93,15 @@ stand-in, not a scan suitable for manufacturing a replacement lever.
 2. Spread the cover's plastic wings and place the display inside it from
    the open underside. Keep the PCB clear of the retaining lips; spread the
    plastic by hand rather than using the board as a wedge.
-3. Hold the display and cover together [7.5 mm](DISPLAY_INSTALL_LIFT) above
+3. Hold the display and cover together [8.5 mm](DISPLAY_INSTALL_LIFT) above
    their final seat, measured normal to the glass. Slide the pair along the
    tip from the outlet end until the four metal feet align with their
    printed supports. Feed the ribbon through the neck as the pair moves.
 4. Lower the pair normal to the display. Its side walls spread outward
    around the rigid cylinder until both broad lips seat in the side grooves,
-   under their retaining shoulders. The lips have 1 mm nominal radial
-   engagement and contact the groove roots. Each wing is printed 0.75–0.908 mm
-   inward from its nominal seated position, so it remains spread after
-   assembly. Lip bottoms seat on the groove floors before the bezel reaches
+   under their retaining shoulders. The lips contact the groove roots, and
+   the inward-preformed wings remain spread after assembly. The lips' flat
+   lower lands seat on the groove floors before the bezel reaches
    the glass. No display screw or insert is fitted.
 5. Check that all four feet sit on their supports and the underside
    components clear the three tubes and ribbon. The central space above the
@@ -111,12 +110,10 @@ stand-in, not a scan suitable for manufacturing a replacement lever.
    enclosure's lower edge and the three tube outlets end at the same plane.
 
 The nominal tube-to-USB clearance is 0.30 mm. The flavor passages permit
-some tube movement, so the seated real bundle is part of the
-[complete display fit trial](../../fixtures/faucet-display-snap/README.md).
-That trial prints the actual housing, supports, snaps and cover with a short
-gooseneck stub. Its [print log](../../fixtures/faucet-display-snap/print-log.md)
-records physical observations. The preloaded cover and matching grooves
-require a new trial for retention and assembled clearance.
+some tube movement, so the seated real bundle is part of the complete faucet's
+fit reading. The [display print project](../faucet-display-petgf.3mf) contains
+the complete tip and two complete covers in their stated print orientations.
+Its [print record](../faucet-display-petgf.md) identifies the geometry and settings.
 
 The dispense face has [2 mm](DISPENSE_FACE_T) axial stock. The display pocket and USB clearance
 share one flat plane behind it.
