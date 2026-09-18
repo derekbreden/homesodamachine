@@ -10,7 +10,8 @@ import { state } from "./state.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
 // edit runs fresh code; thumbnail renderers stay from the modules (static).
 import { openMmdDetail, openPcbDetail } from "./detail-shims.js";
-import { buildPartsSection } from "./parts.js";
+import { buildPartsSection, syncFaucetCard } from "./parts.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { windowContent, markupThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
@@ -45,13 +46,31 @@ export function paintStepThumb(card, { bust = false } = {}) {
   const img = card.querySelector("img");
   if (!img) return;
   const file = card.dataset.file;
+  const finish = state.faucetFinish;
+  const drawing = (card._drawingSeq || 0) + 1;
+  card._drawingSeq = drawing;
   if (bust) forgetThumbnail(file);
   card.dataset.drawing = "1";
-  renderThumbnail(file, thumbSize(card)).then((url) => {
+  renderThumbnail(file, thumbSize(card), finish).then((url) => {
+    if (card._drawingSeq !== drawing || card.dataset.file !== file) return;
     if (url) img.src = url;
     delete card.dataset.drawing;
   });
 }
+
+window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, () => {
+  for (const card of state.gridEl?.querySelectorAll(".card[data-faucet]") || []) {
+    const before = `${card.dataset.file}:${card.dataset.finish}`;
+    syncFaucetCard(card);
+    if (before !== `${card.dataset.file}:${card.dataset.finish}`) card.dataset.faucetDirty = "1";
+    // Rebuild the offscreen thumbnail when it is visible again. Finish changes
+    // on a large open assembly remain a material swap with no mesh rebuild.
+    if (card.dataset.faucetDirty && !state.currentCadWrapper) {
+      delete card.dataset.faucetDirty;
+      paintStepThumb(card);
+    }
+  }
+});
 
 // Subsystem grouping for the charts grid. Files under
 // printed-parts/<subsystem>/... or cut-parts/<subsystem>/... bucket by

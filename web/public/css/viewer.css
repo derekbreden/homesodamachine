@@ -112,6 +112,56 @@
   z-index: 10;
   pointer-events: none;
 }
+.faucet-card-options { display: block; margin-top: 8px; color: var(--text-2); font-size: 12px; }
+.cad-wrapper > .faucet-options {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 60px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  z-index: 12;
+  width: 286px;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .16);
+  color: var(--text);
+  touch-action: manipulation;
+}
+.faucet-options[hidden], .faucet-options [hidden] { display: none; }
+.faucet-options > summary { display: none; cursor: pointer; font-size: 11px; color: var(--text-2); list-style: none; }
+.faucet-options > summary::-webkit-details-marker { display: none; }
+.faucet-options > summary span { display: block; margin-top: 4px; font-size: 13px; color: var(--text); }
+.faucet-options > summary::after { content: "⌄"; position: absolute; top: 10px; right: 10px; color: var(--text-2); }
+.faucet-options[open] > summary::after { content: "⌃"; }
+.faucet-options fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.faucet-options legend { padding: 0 0 7px; font-size: 12px; font-weight: 600; }
+.faucet-choice-row { display: flex; gap: 6px; }
+.faucet-choice { position: relative; flex: 1; cursor: pointer; }
+.faucet-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.faucet-choice > span {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 38px; padding: 0 10px; border: 1px solid var(--border);
+  border-radius: 7px; color: var(--text-2); font-size: 13px;
+}
+.faucet-choice input:checked + span { color: var(--text); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+.faucet-choice input:focus-visible + span { outline: 2px solid var(--text); outline-offset: 2px; }
+.faucet-choice input:disabled + span { opacity: .55; cursor: wait; }
+.faucet-swatch { display: inline-block; width: 13px; height: 13px; border-radius: 50%; border: 1px solid rgba(128, 128, 128, .6); }
+.faucet-swatch-black { background: #333336; }
+.faucet-swatch-white { background: #f0f0ee; }
+.faucet-style-description { margin: 8px 0 14px; color: var(--text-2); font-size: 12px; line-height: 1.45; min-height: 35px; }
+.faucet-options-status { margin: 8px 0 0; color: var(--text-2); font-size: 12px; }
+.faucet-options-status:empty { display: none; }
+@media (max-width: 600px) {
+  .cad-wrapper > .faucet-options { top: 60px; left: 12px; width: min(270px, calc(100% - 24px)); padding: 10px; }
+  .cad-wrapper > .faucet-options:not([open]) { width: min(186px, calc(100% - var(--cube-size, 140px) - 32px)); }
+  .faucet-options > summary { display: block; }
+  .faucet-options[open] > summary { padding-bottom: 12px; }
+  .faucet-choice > span { min-height: 40px; }
+  .faucet-style-description { margin-bottom: 10px; }
+}
+
 /* Scrim across the viewport, message centered on it, toggled by the loaders.
    Drags pass through to the view underneath. */
 .cad-wrapper > .cad-loading {

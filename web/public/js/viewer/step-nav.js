@@ -310,3 +310,21 @@ export async function jumpToStep(file) {
   if (moved) history.replaceState(null, "", "#" + stepHash([file]));
   return moved;
 }
+
+// A style is the same faucet in the same coordinate frame. It replaces this
+// entry in the walk and keeps the live camera, roll, zoom and orbit point.
+export async function switchStepVariant(file) {
+  const from = state.mountedDetail?.file;
+  const moved = await showStep(file, false, {
+    position: camera.position.clone(), up: camera.up.clone(),
+    target: controls.target.clone(), shift: new THREE.Vector3(),
+  });
+  if (moved) {
+    history.replaceState(null, "", "#" + stepHash([...trail, file]));
+  } else if (state.currentDetail?.file === file && state.mountedDetail?.file === from) {
+    state.currentDetail = { type: "step", file: from };
+    const loading = state.currentCadWrapper?.querySelector(".cad-loading");
+    if (loading) loading.style.display = "none";
+  }
+  return moved;
+}

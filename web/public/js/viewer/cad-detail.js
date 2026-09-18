@@ -41,6 +41,8 @@ import { mountScorecard } from "./scorecard-3d.js";
 import { mountRelated } from "./related-nav.js";
 import { clearHighlight } from "./part-highlight.js";
 import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
+import { mountFaucetOptions } from "./faucet-options.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -181,6 +183,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   if (type === "step") mountScorecard(wrapper, file);
 
   state.currentCadWrapper = wrapper;
+  const clearFaucetOptions = type === "step" ? mountFaucetOptions(wrapper) : () => {};
   // Whatever trail the last open left behind ends here. A card names no walk and
   // this file is the root of the one about to be taken; a link that carries a
   // path opens partway down one already walked.
@@ -233,6 +236,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       // the modal stays the same UI surface.
       const wasUiDriven = state.currentDetail && state.currentDetail.type === type;
       document.removeEventListener("keydown", onEscape, true);
+      clearFaucetOptions();
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
       // fires once more for the move into the hidden host).
@@ -260,6 +264,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;
+      window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
       // Undo the URL if the user dismissed the modal directly — popstate
       // already moved it, so don't double-pop. A walk pops every entry it
       // pushed, in one go; a model opened from a pasted link pushed none, and
@@ -274,7 +279,9 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
 
   // Resolve the loader now (current-build code) rather than binding it at
   // import time, so opening a part after a code edit / deploy runs fresh code.
-  getLoader(type).then((load) => load(file)).then(() => applyCameraState(file));
+  getLoader(type).then((load) => load(file)).then(() => {
+    if (state.currentCadWrapper === wrapper && state.mountedDetail?.file === file) applyCameraState(file);
+  });
 }
 
 // closeCadDetail is the entry point for the popstate path; UI-driven

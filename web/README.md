@@ -102,6 +102,7 @@ Served flat via `express.static(public/)`.
 | `state.js` | Single exported `state` object holding all shared mutable refs (`allFiles`, `currentDetail`, `mountedDetail`, caches, etag maps, `gridEl`). Every other module reads/writes through `state.X`. |
 | `scene.js` | Three.js renderer/camera/controls/scene/lighting + ViewCube + animate loop + per-file camera persistence + canvas reparenting (canvases live in `#cad-canvas-host` between opens). |
 | `step.js` | STEP loader (occt-import-js), parser, mesher, thumbnail renderer. |
+| `faucet-options.js` | The faucet's Sculpted/Industrial style and Black/White finish controls. Style swaps actual assembly payloads in the same view; finish recolors only PET-GF bodies, including their direct part views. Fresh faucet views are solid unless the browser holds an explicit x-ray preference. On narrow screens the choices expand from a compact summary. |
 | `dxf.js` | DXF loader, parser and extrusion mesher. No page draws a card for a cut, so a `.dxf` is reached by opening it. |
 | `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |

@@ -23,6 +23,16 @@
 
 import { openDetail } from "./cad-detail.js";
 import { seatParts } from "/contracts/parts-tree.js";
+import { FAUCET_STYLES, FAUCET_FINISHES, faucetStyleFor } from "/contracts/faucet-options.js";
+import { state } from "./state.js";
+
+export function syncFaucetCard(card) {
+  const style = FAUCET_STYLES.find((s) => s.id === state.faucetStyle) || FAUCET_STYLES[0];
+  const finish = FAUCET_FINISHES.find((f) => f.id === state.faucetFinish) || FAUCET_FINISHES[0];
+  card.dataset.file = style.assembly;
+  card.dataset.finish = finish.id;
+  card.querySelector(".faucet-card-options").textContent = `${style.label} · ${finish.label} · Choose style and finish`;
+}
 
 function esc(s) {
   return String(s ?? "")
@@ -41,7 +51,14 @@ function renderAssembly(assembly) {
     `<div class="label"><span class="name-row">` +
     `<span class="name">${esc(assembly.label)}</span></span>` +
     `<span class="assembly-note">${esc(assembly.note)}</span></div>`;
-  card.addEventListener("click", () => openDetail(assembly.model.primary.file));
+  if (faucetStyleFor(assembly.model.primary.file)) {
+    card.dataset.faucet = "1";
+    const options = document.createElement("span");
+    options.className = "faucet-card-options";
+    card.querySelector(".label").appendChild(options);
+    syncFaucetCard(card);
+  }
+  card.addEventListener("click", () => openDetail(card.dataset.file));
   return card;
 }
 
