@@ -51,11 +51,17 @@ TARGETS = {
     "faucet":    ("esp32s3_faucet", "the faucet display, over J3"),
     "enclosure": ("esp32s3_front",  "the enclosure display, over J9"),
     "art":       ("esp32s3_front",  "the enclosure display's art partition, over J9"),
+    "logos":        ("esp32s3_front",  "the enclosure display's factory logos, over J9"),
+    "logos-faucet": ("esp32s3_faucet", "the faucet display's factory logos, over J3"),
 }
 
 # The art partition is not a firmware image and is not built by pio; it is laid
 # out from the same frame headers the firmware used to compile in.
 ART_IMAGE = os.path.join(REPO, ".pio", "build", "esp32s3_front", "art.bin")
+
+# The factory logos are not a firmware image either. One blob fills either
+# display's store; tools/make_logos.py lays it out.
+LOGOS_IMAGE = os.path.join(REPO, ".pio", "build", "esp32s3_front", "logos.bin")
 
 
 def main_board_port() -> str:
@@ -297,10 +303,16 @@ if __name__ == "__main__":
         img = a.image
     elif a.target == "art":
         img = ART_IMAGE
+    elif a.target.startswith("logos"):
+        img = LOGOS_IMAGE
     else:
         img = os.path.join(REPO, ".pio", "build", TARGETS[a.target][0], "firmware.bin")
     if not os.path.exists(img):
-        how = ("~/.platformio/penv/bin/python tools/make_art.py enclosure"
-               if a.target == "art" else f"pio run -e {TARGETS[a.target][0]}")
+        if a.target == "art":
+            how = "~/.platformio/penv/bin/python tools/make_art.py enclosure"
+        elif a.target.startswith("logos"):
+            how = f"~/.platformio/penv/bin/python tools/make_logos.py -o {LOGOS_IMAGE}"
+        else:
+            how = f"pio run -e {TARGETS[a.target][0]}"
         sys.exit(f"no image at {img} — build it first: {how}")
     sys.exit(run(a.target, img, a.verbose))

@@ -195,6 +195,18 @@ if os.path.isdir(libdeps_dir):
 # partition (firmware/partitions_s3_front.csv) and firmware/lib/board_art maps
 # it. Laying the blob out here rather than by hand is what keeps it and the
 # firmware from drifting: both come from this tree, in one build.
+# The factory logos are laid out beside the animation, from the same headers,
+# for whichever display build asks. One blob fills either store.
+if env_name in ("esp32s3_front", "esp32s3_faucet"):
+    logos_out = os.path.join(env.subst("$BUILD_DIR"), "logos.bin")
+    logos_maker = os.path.join(env.subst("$PROJECT_DIR"), "tools", "make_logos.py")
+    logos_src = os.path.join(env.subst("$PROJECT_DIR"), "firmware", "src_front", "images")
+    newest_logo = max((os.path.getmtime(os.path.join(logos_src, f))
+                       for f in os.listdir(logos_src) if f.startswith("flavor")), default=0)
+    if not os.path.isfile(logos_out) or os.path.getmtime(logos_out) < newest_logo:
+        os.makedirs(os.path.dirname(logos_out), exist_ok=True)
+        subprocess.run([sys.executable, logos_maker, "-o", logos_out, "-q"], check=True)
+
 ART_BOARD = {"esp32s3_front": ("enclosure", "src_front")}
 if env_name in ART_BOARD:
     board, tree = ART_BOARD[env_name]
