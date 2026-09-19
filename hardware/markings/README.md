@@ -1,9 +1,11 @@
 # Refrigerant markings
 
-Provisional warning artwork for the integrated R-600a soda machine. The artwork uses
-the current EPA A3 beverage-dispenser warning set as a conservative design target.
-**The machine's SNAP category and R-600a acceptability are not established. Applying
-these warnings does not establish either, or complete appliance compliance.**
+Commercial A3 warning comparison artwork for the integrated R-600a soda machine.
+**Household refrigeration is the working starting point for the residential-only
+product, and R-600a is listed there with use conditions.** The commercial proof is
+not an established minimum label set for this household machine. The household
+standard's scope, marking provisions and finished-product conformance remain under
+review.
 
 The brand/serial nameplate remains a separate part. The preferred study composition is
 [L](../../future/nameplate-qr-studies/l-big-faucet.svg): the logo, name, code and serial
@@ -17,27 +19,29 @@ Reviewed against EPA's current tables on September 18, 2026.
 
 | Candidate end-use | Match to this machine | R-600a listing |
 | --- | --- | --- |
-| Refrigerated food processing and dispensing equipment | Closest functional match: chilled carbonated beverage held in a refrigerated vessel and dispensed through a faucet. EPA explicitly includes carbonated beverages; mixing ingredients is not required. | Pure R-600a has no entry in the current category table. R-290 has a conditional entry. The R-125/R-290/R-134a/R-600a blend entry does not list pure R-600a. |
-| Household refrigerators/freezers | Residential purpose matches. EPA's examples include household beverage centers and household ice makers, but its definition centers on refrigerated storage. Whether this plumbed dispenser qualifies needs EPA confirmation. | R-600a is acceptable with use conditions, including the incorporated edition of UL 60335-2-24. |
+| Household refrigerators/freezers | Working starting point: the machine is intended for home kitchens, and EPA includes household beverage centers and stand-alone household ice makers. The exact product scope and applicable conditions need review. | R-600a is acceptable with use conditions, including the incorporated edition of UL 60335-2-24. |
+| Refrigerated food processing and dispensing equipment | EPA's parent retail-food category concerns goods for commercial sale. The dispensing subcategory includes carbonated beverages, but dispensing alone does not establish that this residential product belongs there. | Pure R-600a has no entry in the current commercial category table. That absence does not establish a restriction on this household product. |
 | Retail food stand-alone refrigerators/freezers | A self-contained circuit alone does not establish this category. EPA separates beverage processing/dispensing from ordinary refrigerators, freezers and reach-in coolers. | R-600a is acceptable with use conditions in this category, which cannot simply be transferred to a dispenser. |
 
 The circuit is entirely inside the under-counter enclosure. The remote faucet carries
 water and flavor, not refrigerant. The machine dispenses no ice and has no payment
-mechanism. Reusing an ice maker's compressor and condenser does not establish the
-finished soda machine's category or qualification.
+mechanism. The donor is a household ice maker; both donor and finished machine are
+intended for residential use. No reviewed source says that replacing the evaporator
+alone changes the product to a commercial end-use. The finished design's safety
+qualification is separate from that category question.
 
 Sources: [EPA end-use definitions][definitions], [retail food categories][categories],
 [dispensing refrigerant table][dispensing], [household refrigerant table][household],
 [stand-alone refrigerant table][standalone]. A precise [classification inquiry](epa-inquiry.md)
-is prepared but has not been sent. The inquiry asks about the residential boundary and
-the applicable R-600a listing; it does not assume a refrigerant change. R-290 is not a
-drop-in replacement for the R-600a donor circuit.
+is prepared but has not been sent. It is available to clarify the exact product scope.
+The current design uses R-600a and the reviewed sources do not establish a need to
+change refrigerants. R-290 is not a drop-in replacement for the R-600a donor circuit.
 
 ## Current rule used for the proof
 
 [SNAP Rule 26][rule26], 89 FR 50482–50484, Appendix Y, listing 2, supplies the A3
-**R-290** food-processing/dispensing warning set below. Its wording is a voluntary
-hazard-communication target for this **R-600a** proof while classification is open.
+**R-290** food-processing/dispensing warning set below. Its wording is a commercial
+comparison for this **R-600a** proof, not an established household requirement.
 The separate current R-600a stand-alone entry is Appendix R, listing 4, at 89 FR
 50465–50467. It also requires substantial permanent warnings with 6.4 mm letters,
 but has differences, including the packaging wording. A confirmed end-use controls

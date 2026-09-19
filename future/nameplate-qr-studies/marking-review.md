@@ -24,10 +24,13 @@ the current-source review, dimensioned warning artwork and proposed locations. I
 separate labels use 6.5 mm capitals against the current commercial A3 rule's 6.4 mm
 target. They leave the brand/serial composition intact.
 
-The closest functional EPA category is refrigerated food processing and dispensing
-equipment, whose current table lists R-290 but has no pure R-600a entry. The household
-category lists R-600a; whether this residential dispenser qualifies needs confirmation.
-The proof does not establish the machine's category or refrigerant acceptability.
+Household refrigeration is the working starting point for this residential-only
+machine. EPA includes household beverage centers and household ice makers there and
+lists R-600a with use conditions. The commercial dispensing category concerns goods
+for commercial sale; its lack of a pure R-600a entry does not establish a restriction
+on this household product. The commercial warning proof and its 6.4 mm target are
+not an established minimum for this machine. The applicable household provisions
+remain to be reviewed.
 
 The 2015 household entry does not state the current household conditions; those were
 replaced in 2018 by reference to UL 60335-2-24. The current commercial A3 dispensing
