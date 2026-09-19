@@ -42,8 +42,8 @@ points, it does not gate:
            or a feature emerging by a smear (0.25 mm of boss out of a wall).
   sliver   an axis-aligned face that is a strip — long, and thinner than a
            ligament (a 0.1 mm land, a 1.5 mm ledge carrying a plate).
-  ceiling  a horizontal down-facing face above air — needs support the corbel
-           policy exists to avoid, or is a designed support roof (say which).
+  ceiling  a horizontal down-facing face above air — carried by a corbel, by a
+           column, or by support that leaves through a stated lane (say which).
   slope    a 45° underside that slopes along its adjacent wall instead of
            rising off it — a Y slope on an X wall.
 

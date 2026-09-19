@@ -1,6 +1,11 @@
 {
-  "schema": 1,
+  "schema": 2,
   "policy": "README.md#support-removal-strategy",
+  "fields": {
+    "rationale": "why the face keeps the shape it has — the work it does",
+    "removal.lane": "where the support body leaves and what it passes on the way out; null where no one has stated it yet",
+    "removal.bench": "what removing it took on a printed piece; null until one has been pulled"
+  },
   "pieces": {
     "enclosure-back-bottom": {
       "status": "audited",
@@ -31,7 +36,11 @@
           "root": "bed",
           "build_up_mm": 174.8,
           "interface_islands": 2,
-          "rationale": "The -X rail's broad, flat slide-head underside is the Z seam's one down-looking face on this floor-down piece. Lifting a seated back-top lands that piece's flat foot on this complete bearing plane. Its two interface islands are the one run either side of the required 12 mm PRV passage; that opening also lets the support body root on the bed outside the flank instead of on the arm's under-flare."
+          "rationale": "The -X rail's broad, flat slide-head underside is the Z seam's one down-looking face on this floor-down piece. Lifting a seated back-top lands that piece's flat foot on this complete bearing plane. Its two interface islands are the one run either side of the required 12 mm PRV passage; that opening also lets the support body root on the bed outside the flank instead of on the arm's under-flare.",
+          "removal": {
+            "lane": "The groove under the catch is open air from the arm's sliding face out past the exterior plane. The body stands on the outside of the flank with a face exposed down the whole run, nothing over it and no branch turning back in. The PRV passage splits it in two, so it lifts off as two pieces.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -49,7 +58,11 @@
           "root": "bed",
           "build_up_mm": 34.4,
           "interface_islands": 1,
-          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.40 mm of build-up. The opening gives direct access to remove the complete body."
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.40 mm of build-up.",
+          "removal": {
+            "lane": "The opening gives direct access to remove the complete body.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-3",
@@ -67,7 +80,11 @@
           "root": "bed",
           "build_up_mm": 34.4,
           "interface_islands": 1,
-          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.40 mm of build-up. The opening gives direct access to remove the complete body."
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.40 mm of build-up.",
+          "removal": {
+            "lane": "The opening gives direct access to remove the complete body.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-4",
@@ -85,7 +102,11 @@
           "root": "model",
           "build_up_mm": 8.6,
           "interface_islands": 1,
-          "rationale": "The +X rail's broad, flat slide-head underside mirrors the west one and remains continuous because nothing crosses this flank. With no opening through the wall beside it, the support has no lane to the bed and roots on the arm's own 45 degree under-flare 8.60 mm below the bearing plane."
+          "rationale": "The +X rail's broad, flat slide-head underside mirrors the west one and remains continuous because nothing crosses this flank. With no opening through the wall beside it, the support has no lane to the bed and roots on the arm's own 45 degree under-flare 8.60 mm below the bearing plane.",
+          "removal": {
+            "lane": "The groove under the catch is open air from the arm's sliding face out past the exterior plane. The body stands on the outside of the flank with a face exposed down the whole run, nothing over it and no branch turning back in.",
+            "bench": null
+          }
         }
       ]
     },
@@ -142,7 +163,11 @@
           "root": "bed",
           "build_up_mm": 28.56,
           "interface_islands": 5,
-          "rationale": "The two round seats locate the ASSE fitting; the sleeve lid, rim-rebate shoulders and berth floor retain and support the removable pan. Their working sections remain round or flat as required. This bed-rooted tree reaches them through the open quadrant and pan openings."
+          "rationale": "The two round seats locate the ASSE fitting; the sleeve lid, rim-rebate shoulders and berth floor retain and support the removable pan. Their working sections remain round or flat as required.",
+          "removal": {
+            "lane": "This bed-rooted tree reaches them through the open quadrant and pan openings.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -232,7 +257,11 @@
           "root": "bed",
           "build_up_mm": 36.0,
           "interface_islands": 10,
-          "rationale": "The water-split seat lip, flow-regulator crown, seat lip and tie-band flank, and flavour-line anchor flank retain their tube and tie clearances. The PRV mouth keeps its passage floor, the two west Z-seam foot faces bear against lift, and the identification pockets keep their locating arcs. This bed-rooted tree reaches the ten contact islands through the open quadrant and its wall passages."
+          "rationale": "The water-split seat lip, flow-regulator crown, seat lip and tie-band flank, and flavour-line anchor flank retain their tube and tie clearances. The PRV mouth keeps its passage floor, the two west Z-seam foot faces bear against lift, and the identification pockets keep their locating arcs.",
+          "removal": {
+            "lane": "This bed-rooted tree reaches the ten contact islands through the open quadrant and its wall passages.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-3",
@@ -258,7 +287,11 @@
           "root": "model",
           "build_up_mm": 12.48,
           "interface_islands": 2,
-          "rationale": "Roots on the ceiling slab's interior face and reaches 2 interface island(s): the water-split rib's tie-band crown; the water-split rib's tie-band flank."
+          "rationale": "Roots on the ceiling slab's interior face and reaches 2 interface island(s): the water-split rib's tie-band crown; the water-split rib's tie-band flank.",
+          "removal": {
+            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-4",
@@ -276,7 +309,11 @@
           "root": "model",
           "build_up_mm": 28.32,
           "interface_islands": 1,
-          "rationale": "Roots on the ceiling slab's interior face and reaches 1 interface island(s): the ASSE tie cavity's lower threshold."
+          "rationale": "Roots on the ceiling slab's interior face and reaches 1 interface island(s): the ASSE tie cavity's lower threshold.",
+          "removal": {
+            "lane": null,
+            "bench": null
+          }
         },
         {
           "tree": "tree-5",
@@ -318,7 +355,11 @@
           "root": "bed",
           "build_up_mm": 36.0,
           "interface_islands": 4,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): an identification-chip pocket's lower arc; the keystone pocket's floor; the keystone snap catch."
+          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): an identification-chip pocket's lower arc; the keystone pocket's floor; the keystone snap catch.",
+          "removal": {
+            "lane": null,
+            "bench": null
+          }
         },
         {
           "tree": "tree-6",
@@ -336,7 +377,11 @@
           "root": "model",
           "build_up_mm": 1.2,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a flow-meter anchor's tie-band crown."
+          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a flow-meter anchor's tie-band crown.",
+          "removal": {
+            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-7",
@@ -354,11 +399,15 @@
           "root": "model",
           "build_up_mm": 1.2,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a flow-meter anchor's tie-band crown."
+          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a flow-meter anchor's tie-band crown.",
+          "removal": {
+            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-8",
-          "name": "an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim \u2026",
+          "name": "an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim …",
           "first_contacts_cad_xyz_mm": [
             [
               -1.8,
@@ -396,7 +445,11 @@
           "root": "bed",
           "build_up_mm": 35.52,
           "interface_islands": 4,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim; the east Z-seam foot's catch face."
+          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim; the east Z-seam foot's catch face.",
+          "removal": {
+            "lane": null,
+            "bench": null
+          }
         },
         {
           "tree": "tree-9",
@@ -414,7 +467,11 @@
           "root": "model",
           "build_up_mm": 1.44,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown."
+          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown.",
+          "removal": {
+            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-10",
@@ -432,7 +489,11 @@
           "root": "model",
           "build_up_mm": 1.44,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown."
+          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown.",
+          "removal": {
+            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-11",
@@ -450,11 +511,15 @@
           "root": "model",
           "build_up_mm": 1.44,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown."
+          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown.",
+          "removal": {
+            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-12",
-          "name": "the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top \u2026",
+          "name": "the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top …",
           "first_contacts_cad_xyz_mm": [
             [
               55.0,
@@ -492,7 +557,11 @@
           "root": "bed",
           "build_up_mm": 27.12,
           "interface_islands": 4,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top; the PSU aft-lower insert bore's lower arc."
+          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top; the PSU aft-lower insert bore's lower arc.",
+          "removal": {
+            "lane": null,
+            "bench": null
+          }
         }
       ]
     },
@@ -517,7 +586,11 @@
           "root": "bed",
           "build_up_mm": 34.2,
           "interface_islands": 1,
-          "rationale": "The lifting ceiling keeps its flat hand-bearing face. This bed-rooted support reaches it through the open bottom and is removed through the handhold before assembly."
+          "rationale": "The lifting ceiling keeps its flat hand-bearing face.",
+          "removal": {
+            "lane": "This bed-rooted support reaches it through the open bottom and is removed through the handhold before assembly.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -535,7 +608,11 @@
           "root": "model",
           "build_up_mm": 8.0,
           "interface_islands": 1,
-          "rationale": "The west rail keeps a broad flat bearing against lift along the top piece\u2019s full foot. The support roots on the arm\u2019s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passages have no separate support interface."
+          "rationale": "The west rail keeps a broad flat bearing against lift along the top piece’s full foot. The support roots on the arm’s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passages have no separate support interface.",
+          "removal": {
+            "lane": "The groove under the catch is open air from the arm's sliding face out past the exterior plane. The body stands on the outside of the flank with a face exposed down the whole run, nothing over it and no branch turning back in.",
+            "bench": "Printed and pulled: among the easiest supports on the enclosure, off cleanly in one piece, reached from outside the flank without going near the cavity."
+          }
         },
         {
           "tree": "tree-3",
@@ -553,7 +630,11 @@
           "root": "bed",
           "build_up_mm": 34.2,
           "interface_islands": 1,
-          "rationale": "The lifting ceiling keeps its flat hand-bearing face. This bed-rooted support reaches it through the open bottom and is removed through the handhold before assembly."
+          "rationale": "The lifting ceiling keeps its flat hand-bearing face.",
+          "removal": {
+            "lane": "This bed-rooted support reaches it through the open bottom and is removed through the handhold before assembly.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-4",
@@ -571,7 +652,11 @@
           "root": "model",
           "build_up_mm": 8.0,
           "interface_islands": 1,
-          "rationale": "The east rail keeps a broad flat bearing against lift along the top piece\u2019s full foot. The support roots on the arm\u2019s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passages have no separate support interface."
+          "rationale": "The east rail keeps a broad flat bearing against lift along the top piece’s full foot. The support roots on the arm’s 45 degree under-flare, 8.00 mm below the catch. The lower and middle Y-seam passages have no separate support interface.",
+          "removal": {
+            "lane": "The groove under the catch is open air from the arm's sliding face out past the exterior plane. The body stands on the outside of the flank with a face exposed down the whole run, nothing over it and no branch turning back in.",
+            "bench": "Printed and pulled: among the easiest supports on the enclosure, off cleanly in one piece, reached from outside the flank without going near the cavity."
+          }
         }
       ]
     },
@@ -596,7 +681,11 @@
           "root": "bed",
           "build_up_mm": 122.64,
           "interface_islands": 1,
-          "rationale": "The fixed roof carries the display and ridge wall above the cartridge withdrawal envelope. Its flat underside runs to the bay bulkhead and is accessible through the empty cartridge bay for support removal."
+          "rationale": "The fixed roof carries the display and ridge wall above the cartridge withdrawal envelope.",
+          "removal": {
+            "lane": "Its flat underside runs to the bay bulkhead and is accessible through the empty cartridge bay for support removal.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -630,7 +719,11 @@
           "root": "bed",
           "build_up_mm": 65.52,
           "interface_islands": 3,
-          "rationale": "The square ceilings carry the moving carrier retaining rim and close its guide opening. The hardware well crown retains its locating face. The bed-rooted tree leaves through the open bay and side opening before the carrier is installed."
+          "rationale": "The square ceilings carry the moving carrier retaining rim and close its guide opening. The hardware well crown retains its locating face.",
+          "removal": {
+            "lane": "The bed-rooted tree leaves through the open bay and side opening before the carrier is installed.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-3",
@@ -728,7 +821,11 @@
           "root": "bed",
           "build_up_mm": 28.56,
           "interface_islands": 11,
-          "rationale": "The spring guides locate the carrier on its lowered tee axis. The upper bearing planes retain the carrier through its full Y travel, and the fixed well crowns and jack roof retain their hardware. Their flat locating and retaining faces share one support body, accessible from the empty bay and open interior before assembly."
+          "rationale": "The spring guides locate the carrier on its lowered tee axis. The upper bearing planes retain the carrier through its full Y travel, and the fixed well crowns and jack roof retain their hardware.",
+          "removal": {
+            "lane": "Their flat locating and retaining faces share one support body, accessible from the empty bay and open interior before assembly.",
+            "bench": null
+          }
         }
       ]
     },
@@ -759,7 +856,11 @@
           "root": "bed",
           "build_up_mm": 105.36,
           "interface_islands": 1,
-          "rationale": "The roof joins the fore and aft ends of the rounded hand pocket and retains the equal upper edge margin. Its bed-rooted support is accessible through the open side before pump installation."
+          "rationale": "The roof joins the fore and aft ends of the rounded hand pocket and retains the equal upper edge margin.",
+          "removal": {
+            "lane": "Its bed-rooted support is accessible through the open side before pump installation.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -777,7 +878,11 @@
           "root": "bed",
           "build_up_mm": 105.36,
           "interface_islands": 1,
-          "rationale": "The roof joins the fore and aft ends of the rounded hand pocket and retains the equal upper edge margin. Its bed-rooted support is accessible through the open side before pump installation."
+          "rationale": "The roof joins the fore and aft ends of the rounded hand pocket and retains the equal upper edge margin.",
+          "removal": {
+            "lane": "Its bed-rooted support is accessible through the open side before pump installation.",
+            "bench": null
+          }
         }
       ]
     },
@@ -802,7 +907,11 @@
           "root": "bed",
           "build_up_mm": 49.6,
           "interface_islands": 1,
-          "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull. The rounded mouth gives direct access to remove its support on the loose half."
+          "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull.",
+          "removal": {
+            "lane": "The rounded mouth gives direct access to remove its support on the loose half.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -820,7 +929,11 @@
           "root": "bed",
           "build_up_mm": 3.0,
           "interface_islands": 1,
-          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The outer cup floor remains bedded. Support beneath the inboard relief and projecting rim ends is accessible on the loose half."
+          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The outer cup floor remains bedded.",
+          "removal": {
+            "lane": "Support beneath the inboard relief and projecting rim ends is accessible on the loose half.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-3",
@@ -838,7 +951,11 @@
           "root": "bed",
           "build_up_mm": 38.4,
           "interface_islands": 1,
-          "rationale": "The lap keeps its flat fastening section above the tee run ends. This bed-rooted support is removed through the open center end before joining the halves."
+          "rationale": "The lap keeps its flat fastening section above the tee run ends.",
+          "removal": {
+            "lane": "This bed-rooted support is removed through the open center end before joining the halves.",
+            "bench": null
+          }
         }
       ]
     },
@@ -863,7 +980,11 @@
           "root": "bed",
           "build_up_mm": 38.4,
           "interface_islands": 1,
-          "rationale": "The lap keeps its flat fastening section above the tee run ends. This bed-rooted support is removed through the open center end before joining the halves."
+          "rationale": "The lap keeps its flat fastening section above the tee run ends.",
+          "removal": {
+            "lane": "This bed-rooted support is removed through the open center end before joining the halves.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-2",
@@ -881,7 +1002,11 @@
           "root": "bed",
           "build_up_mm": 3.0,
           "interface_islands": 1,
-          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The outer cup floor remains bedded. Support beneath the inboard relief and projecting rim ends is accessible on the loose half."
+          "rationale": "The retaining rim and grip root share a flat lower face above the enclosure seam rail. The outer cup floor remains bedded.",
+          "removal": {
+            "lane": "Support beneath the inboard relief and projecting rim ends is accessible on the loose half.",
+            "bench": null
+          }
         },
         {
           "tree": "tree-3",
@@ -899,7 +1024,11 @@
           "root": "bed",
           "build_up_mm": 49.6,
           "interface_islands": 1,
-          "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull. The rounded mouth gives direct access to remove its support on the loose half."
+          "rationale": "The pocket roof is the flat hand-contact plane shared with the cartridge pull.",
+          "removal": {
+            "lane": "The rounded mouth gives direct access to remove its support on the loose half.",
+            "bench": null
+          }
         }
       ]
     }
