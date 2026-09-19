@@ -1,145 +1,107 @@
 # Nameplate
 
-The plate the machine is named and rated on: [104.53 mm](PLATE_W) × [66.07 mm](PLATE_H) ×
-[4.5 mm](NAMEPLATE_T), corners r[3 mm](PLATE_CORNER) and its back edge chamfered
-[3 mm](PLATE_BEVEL) at 45°, lying flush in a pocket of `enclosure-back-top`'s outer face, in the
-field east of the flavour rings. One plate per unit, serialized. Visible after install.
+A [104.53 mm](PLATE_W) × [38 mm](PLATE_H) horizontal plate, flush with the rear wall of
+`enclosure-back-top`. The face carries the faucet mark, `HOME / SODA / MACHINE` in equal-size
+Helvetica Bold, and a unit-specific QR. The three groups have equal 5.1 mm visible gaps.
+There is no printed domain, serial, dividing rule or rating footer.
 
-Cut by [`nameplate.py`](nameplate.py) → `nameplate-NNN.step`; the pocket, the plateau the wall
-thickens to behind it, the two screw bosses and their heat-set bores are cut by
-`enclosure._nameplate` off the same figures.
+[`nameplate.py`](nameplate.py) generates the two-colour part. [`wordmark.svg`](wordmark.svg)
+contains the exact outlined lettering; the faucet comes from [`brand/mark.svg`](/brand/mark.svg).
+The face is [2.4 mm](NAMEPLATE_T) thick, with r3 mm corners and a 0.4 mm rear-edge lead-in.
+The white inlay is [0.72 mm](INK_DEPTH) deep and flush with the black face.
+The STEP and 3MF preserve both colour volumes; the STL represents their combined exterior.
 
-## What it says
+## QR
 
-```
-     [faucet]  HOME                 ← large mark and three lines of large type
-               SODA
-               MACHINE
+The unit-0001 payload is `HTTPS://HOSM.US/0001`. Uppercase scheme and host allow the complete
+URL to use QR alphanumeric mode: version 1, error correction M, **21 × 21 active modules**.
+Each module is 1.1 mm; the active square is 23.1 mm and its four-module quiet zone makes a
+31.9 mm square. The quiet zone is part of the black face and contains no other artwork.
+Diagonal-only white contacts have 0.02 mm corner joins to keep the CAD interface manifold;
+the 1.1 mm module pitch is unchanged. The unit identifier is encoded in the QR. The full-domain address in written instructions is
+`homesodamachine.com/0001`; neither address is lettered on this plate.
 
-    homesodamachine.com/0001        ← centred below the screw line
+The separate [appliance marking specification](/hardware/markings/README.md) covers ratings and
+refrigerant warnings. The exterior disposal warning is raised into a plain field low on the
+rear enclosure.
 
-            SERIAL  0001           ← all details share one small size, each line centred
-         120V 60Hz 5A 600W
-           120V 60Hz ONLY
-            NOT FOR 240V
-  [flame] FLAMMABLE REFRIGERANT
-```
+## Retention
 
-The details block starts with the serial and ends with a white flame and `FLAMMABLE REFRIGERANT`.
-The [install guide](/hardware/install-guide/README.md) records the refrigerant and charge mass.
-Product marking requirements are recorded in
-[`/business/regulatory.md`](/business/regulatory.md).
+Two straight PET-GF tabs are integral to the plate. Each is 8 mm wide, 0.8 mm thick and 9 mm
+long, with a 0.6 mm inner-root radius. A 0.6 mm outward lip starts 7.5 mm from the root and
+runs into a tapered insertion nose. Pushing the plate straight into its pocket bends the tabs
+inward; they return behind the enclosure's rigid shoulders. The 0.15 mm side clearance leaves
+0.45 mm nominal catch engagement. The square retaining face has 0.48 mm axial clearance.
 
-[The household refrigerant marking specification](/hardware/markings/README.md)
-provides a separate exterior disposal panel and compressor service/tubing panel. Its
-6.5 mm capitals satisfy the incorporated household standard's 6.4 mm warning-letter
-target. The small nameplate footer is informational and does not replace those panels.
-The separate warnings and an adjacent appliance-rating block preserve space for the
-brand, serial and QR. The generated plate's `5A 600W` text is unverified study copy;
-the household rating specification calls for established input current in amperes.
+The shoulders have straight slots, an inward flex lane, and open rear relief. Their supported
+ends receive the enclosure's 0.25 mm print-direction allowance. The pocket floor is continuous
+except at the two slots and retains 3.6 mm of material. The water pump's full-width rear bearing
+ledge remains at its assembly datum. The plate centre is 9.5 mm above the cold-core cap.
 
-The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
-the same wall. The link opens the machine overview, included-equipment list, preparation
-checklist, and links to the quick start, install guide, and care pages. The routes are described
-in [`/future/unit-links.md`](/future/unit-links.md).
+The interface is defined once in
+[`_nameplate_interface.py`](../enclosure/_nameplate_interface.py); `enclosure._nameplate` cuts
+the production pocket and the separately generated `nameplate-receiver.step` fit coupon.
+No screws or heat-set inserts are used at this joint.
 
-Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
+The [faucet trials](/hardware/printed-parts/faucet/faucet-display-petgf.md) establish PET-GF
+flexure and the value of generous receiving clearance on that cover. This nameplate's tab
+length, lip and lower insertion travel are specific to this much lighter part. Its fit has
+been checked in CAD; insertion force and retention await a physical plate-and-receiver print.
 
-## The type
+## Printing and assembly
 
-One face, `bulkhead_ring.WORD_FONT`, in three levels:
+Print **artwork down**, with the complete black-and-white face on the bed and both tabs
+pointing up. Use black and white PET-GF, a hardened 0.4 mm nozzle, a 0.20 mm first layer,
+0.24 mm subsequent layers and the faucet's PET-GF material profile. The inlay occupies the first three layers. Each colour is a
+separate part of the same object, so both colours print in those layers; this is not a single
+filament change above a black slab.
 
-- The brand: a [28 mm](LOGO_H) On tap faucet and drop beside `HOME`, `SODA` and `MACHINE` on three lines,
-  set at [10.2](TITLE_EM), with caps [7.77 mm](TITLE_CAP) high and [2.8 mm](TITLE_GAP) between lines.
-  The complete lockup is [78.63 mm](LOCKUP_W) wide.
-- The unit link: [5.5](LINK_EM), caps [4.19 mm](LINK_CAP) high, centred below the screw line.
-  Its width is [75.08 mm](LINK_W). Every serial is four digits on one advance, so its width
-  holds from unit 0001 to 9999.
-- The details: serial, ratings, voltage warnings and refrigerant notice at [2.8](BODY_EM),
-  with caps [2.13 mm](BODY_CAP) high, each line centred on the plate with equal line spacing.
-  Each letter has [0.1 mm](DETAIL_TRACKING) of extra spacing. The [2.13 mm](FLAME_H) flame and
-  refrigerant wording are centred together as the final line, with the flame at cap height.
+The 0.6 mm lips have exposed undersides. Any small support under a lip is rooted on the
+plate's back and fully accessible from either side of its tab; there are no enclosed support
+channels on the removable plate. Keep the two square catches, their receiving shoulders and
+the pocket's lower rim clean. The coupon can be printed in the enclosure orientation to check
+those supported receiver faces with the production material.
 
-The detail letter strokes and the plate between adjacent letters are measured against the print
-profile's 0.22 mm bead.
+Scan the finished plate to verify the unit number, then press it straight into the rear
+pocket until both clips engage and its face seats. Confirm the plate is retained and that
+the QR still scans after installation. The CAD artwork scan is not a physical print test.
 
-The lettering lies in a recess [1 mm](INK_DEPTH) into the plate's face and fills it flush — the
-bulkhead ring's construction at another size, printed in a second filament.
+## Generation
 
-The faucet and drop are read directly from [`brand/mark.svg`](/brand/mark.svg), with the
-master's proportions and circular arcs. Both print in the white inlay.
-
-## The two screws
-
-| | |
-|---|---|
-| Head | M3×[8 mm](NAMEPLATE_SCREW_LEN) DIN 912, in a Ø[5.8 mm](CBORE_D) flat counterbore [3 mm](NAMEPLATE_CBORE_DEPTH) deep |
-| Land under it | [1.5 mm](NAMEPLATE_LAND), and it is the plate's own section — head plus land is what sets [4.5 mm](NAMEPLATE_T) |
-| Seat | Ø[8.8 mm](NAMEPLATE_SEAT_D) of plate round the counterbore, one ligament, and no pad standing off the back |
-| Reach | [8 mm](NAMEPLATE_SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
-| Boss | [7 mm](BOSS_STEM_D) wide, [5 mm](BOSS_REACH) off the plateau: round above the insert, square below its tangents, and carried to the wall on a full-width 45° corbel. No collar — a collar closes a pad pocket, and there is none |
-
-**The wall thickens to take it.** A pocket [4.5 mm](NAMEPLATE_T) deep is deeper than this wall's
-[3 mm](WALL_T) of stock, so the inner face carries a plateau standing to [6 mm](NAMEPLATE_WALL) —
-one wall and one `enclosure.rear_seam_clear`. That second figure is the band the pack already
-stands off this face, so the plateau reaches exactly the plane the rear Z seam's lip presents the
-cold core and stops there, taking nothing the pack was using. Under the pocket it leaves
-[1.5 mm](NAMEPLATE_FLOOR) of floor. Its down-facing edge is struck at 45°: the piece prints with
-this wall vertical on the bed, and a plateau's underside is the plate's whole width of ceiling
-otherwise.
-
-**The pocket follows the plate's silhouette with 0.15 mm normal clearance.** Its outline
-and corner radii expand by [0.15 mm](PLATE_SLIP); its 45° bevel is
-[2.938 mm](POCKET_BEVEL), preserving that same clearance along the bevel faces.
-The pocket remains [4.5 mm](NAMEPLATE_T) deep, with a flat rim
-[1.562 mm](POCKET_RIM) deep and [153.9 mm²](POCKET_SOFFIT) of flat ceiling.
-The supported edge receives the enclosure's additional 0.25 mm relief toward print-up.
-
-**Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the
-SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall. The
-plate's horizontal centreline is therefore the lowest line that leaves the corbel one millimetre
-over the cap; the pump's rounded aft disc leaves more at the west screw and the PSU leaves more
-at the east one. `enclosure_assembly.nameplate_screw_line` is the figure.
-
-**The squared lower half is part of the corbel.** It gives the wedge one full-width face to carry
-while the upper half remains the standard M3 boss section around the insert. The two screw
-supports are identical.
-
-## Print settings
-
-A separate print from the enclosure, with its own settings.
-
-- **Lettering up, on a solid plane.** The type is 0.2 mm work and wants laying last, on the face
-  looking at the nozzle — which puts the plate's inboard face on the bed. Everything the plate
-  carries is sunk into the face that looks up, so that bed face is one plane of
-  [5902 mm²](BED_AREA) broken only by the two screw shanks: no support, no bridge, no pad to
-  stand on. It is what the [4.5 mm](NAMEPLATE_T) section buys.
-- **The back edge is chamfered** [3 mm](PLATE_BEVEL) at 45°, so the first layer is inset all
-  round and the outline grows out to full size over three millimetres. No elephant's foot on the
-  rim the customer can see, and no arris to catch the pocket's inside corner on the way in. At
-  [3 mm](PLATE_BEVEL) the corner rounds come to nothing on the bed, so the first layer is a plain
-  rectangle. **The pocket is cut to that chamfer too** — see below; it is the wall's relief as
-  much as the plate's.
-- **Nozzle:** [0.2 mm](NAMEPLATE_NOZZLE_D) (bulk enclosure parts use [0.4 mm](BULK_NOZZLE_D))
-- **Layer height:** [0.08](LAYER_H_MIN)–[0.12 mm](LAYER_H_MAX)
-- **Two colours:** the plate in PETG Basic Black 30105 and the lettering in White 30106, a
-  filament change at the recess floor — [3.5 mm](INK_FLOOR) up, with [1 mm](INK_DEPTH) of type
-  over it. No paint; survives kitchen wipe-down.
-
-## Per-unit generation
-
-```
+```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 27
+tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py selftest
 ```
 
-emits `nameplate-027.step` — the plate and its lettering as two bodies of one part, each in the
-filament it comes off. `nameplate-001.step` is the one the assembly stands.
-
-The signature the Founder Edition story asks for is not on the plate. Laser-engraving it onto
-the printed plate after the print is the open item, and the decision waits on the first plate
-off the bed.
+The first command emits `nameplate-027.step`; the assembly uses `nameplate-001.step`.
+Units are restricted to 0001–9999 so every QR stays version 1. The self-test checks solid
+validity, receiver clearance, inward seating and outward capture, full face contact on the
+print bed, and QR size/quiet-zone geometry.
 
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py`
 - `/hardware/printed-parts/enclosure/nameplate/nameplate.py`
+
+## Prepared print project
+
+[`nameplate-001-petgf.3mf`](nameplate-001-petgf.3mf) is an editable two-colour project with
+the nameplate artwork-down and the receiver coupon in the back-top print orientation.
+Both PET-GF colours map to the profile-compatible extruder. The local Bambu Studio slice
+estimates 1 h 20 min and 33.89 g for the plate, coupon, purge and supports using its saved
+1.29 g/cm³ density. It has not been submitted to a printer.
+
+The [slice reading](nameplate-001-petgf.print.json) records the emitted temperatures, material
+mapping and Bambu's profile-lookup/special-tool-command notices. The rendered first-layer
+extrusions decode to `HTTPS://HOSM.US/0001`. The actual filament assignment and two-colour
+purge remain setup items before sending this editable project to a printer.
+
+The [support audit](nameplate-001-petgf.support-audit.json) finds **no slicer supports on the
+nameplate**, including its two lip undersides. The coupon has two bed-rooted support bodies:
+one reaches the pump ledge with 18.48 mm build-up; the other reaches the pocket's lower rim
+with 41.28 mm build-up. Both contact regions remain open for removal. These are slice readings;
+physical catch finish and retention have not been measured.
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/prepare_print.py
+```

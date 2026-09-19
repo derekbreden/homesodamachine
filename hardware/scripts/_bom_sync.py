@@ -32,7 +32,6 @@ import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 import enclosure as _enc  # likewise
-import nameplate as _np  # likewise
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 import iec_c14_inlet as _c14  # likewise — the inlet whose flange the +Y wall's tunnel bores for
 
@@ -242,13 +241,9 @@ cond_inserts_per_build = len(_cond_bosses)
 # the same screw the shelf's sixteen are.
 cond_screws_per_build = cond_inserts_per_build
 
-# Nameplate hardware (assembly/finish-pack-ship.md §3). `enclosure._nameplate` stands ONE BOSS
-# PER SCREW STATION the plate declares, each bored for a ruthex short — so this count is the
-# plate's the way the shelf's is the pack's.
-nameplate_inserts_per_build = len(_np.screw_stations())
-# One M3 × 8 in from outside through each counterbore into its boss's insert — 1:1 with the
-# bosses, and the same screw the shelf's sixteen and the condenser's two are.
-nameplate_screws_per_build = nameplate_inserts_per_build
+# The nameplate's two integral PET-GF tabs engage rigid enclosure shoulders.
+nameplate_inserts_per_build = 0
+nameplate_screws_per_build = 0
 
 # Display cover-plate hardware (assembly/enclosure-mechanical.md §8). THE PLATE IS THE
 # DISPLAY'S ONLY FASTENING, so this pair of stations is what holds the screen in the facet.
