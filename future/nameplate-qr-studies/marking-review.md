@@ -39,7 +39,9 @@ on their own surfaces. The design can omit that footer and the repeated voltage
 sentences from the brand plate when the separate permanent markings are provided.
 Study L illustrates balanced composition. Its arrangement and serial treatment are
 not prescribed. The design brief calls for a large brand, a 21 x 21 QR and no
-lettered short domain. O–R place ordinary ratings on a separate permanent field.
+lettered short domain. O–R and S–X place ordinary ratings on a separate permanent
+field. O is the preferred compositional reference; the current brief keeps all
+three brand words together at one type size and reads the unit number after them.
 
 ## Print evidence
 
