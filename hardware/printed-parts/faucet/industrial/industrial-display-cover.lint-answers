@@ -1,11 +1,11 @@
-[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N20.55, with 0.10 mm clearance over the seated display glass. It is vertical in the cover's +40 degree front-wall-down print pose. The planar bezel retains its shape while the lower wings are preformed inward by 1.25 mm.
+[slope] This is the inner face of the 1.30 mm cosmetic bezel at local N20.55, with 0.10 mm clearance over the seated display glass. It faces down in the cover's -50 degree bezel-up print pose and is reached through the open underside for support removal. The planar bezel retains its shape while the lower wings are preformed inward by 1.25 mm.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-133.749 z=212.653
 
-[slope] This is the outer front wall at local S0. It is the bed face in the cover's +40 degree print pose. The 2 mm front wall closes the display end around the cylindrical neck clearance and keeps the front flush with the tube outlet plane.
+[slope] This is the outer front wall at local S0. It is vertical in the cover's -50 degree bezel-up print pose. The 2 mm front wall closes the display end around the cylindrical neck clearance and keeps the front flush with the tube outlet plane.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-143.624 z=188.478
 
-[slope] This is the inner rear wall at local S47.75, with 2 mm axial stock to the outer rear face at S49.75. It closes the rear of the display pocket around the neck clearance and faces down in the +40 degree front-wall-down print pose. Slicer support is required under this roof; the open pocket admits removal before installing the display. The refreshed Industrial full plate is unsliced, as its readiness record states, so its retained earlier support ledger does not validate this pose.
+[slope] This is the inner rear wall at local S47.75, with 2 mm axial stock to the outer rear face at S49.75. It closes the rear of the display pocket around the neck clearance and is vertical in the -50 degree bezel-up print pose. The inner bezel above it is supported through the open underside before installing the display. The current native support audit records those contacts.
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=0.000 y=-112.434 z=224.639

@@ -1000,3 +1000,7 @@ what should be smooth surfaces) are showing through in the final print."
   Project, source, support and launch records are in
   [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json) and
   `.cache/prints/2026-09-18-sculpted-white-z018-mark2/readiness.json`.
+
+Derek reported: "Came out great" and loaded black filament for the Industrial
+print. Mark2 telemetry at 2026-09-19 02:13:16 UTC shows this white Sculpted job
+FINISH at 1,019/1,019 layers, with no print error or HMS entries.
