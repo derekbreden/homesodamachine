@@ -2,12 +2,51 @@
 
 ## Design brief
 
-O · Tall name is the preferred reference. The name reads as a continuous
+The current direction is a wide, shallow plate with faucet, complete name and
+QR alongside one another. The outline follows that composition. The name reads as a continuous
 `HOME SODA MACHINE`, followed by `NO. 0001` or `0001`. All three words share one
 font size within each composition. The mark and code fit around that reading
 sequence. White artwork sits on the black plate; no inverted identification field
 or lettered domain is specified. The nameplate uses concealed retention in these
 studies, with ordinary ratings on a separate permanent field.
+
+## Horizontal composition
+
+[The horizontal study](nameplate-horizontal.html) aligns the top and bottom of
+the name with the QR's visible 23.1 mm square. The faucet is 25 mm tall, extending
+0.95 mm above and below those guides. The visible gaps between the three groups
+are both 5.1 mm. The QR's complete four-module quiet zone fits between the name
+and the plate edge.
+
+| Drawing | Face size | Identification |
+| --- | --- | --- |
+| [Horizontal](horizontal-wide.svg) | 104.53 × 38 mm | Unit identity in the QR |
+| [Number inline](horizontal-number.svg) | 120.63 × 38 mm | MACHINE followed by 0001 |
+| [Number with prefix](horizontal-prefix.svg) | 133.72 × 38 mm | MACHINE followed by NO. 0001 |
+
+All three keep the same artwork sizes. The middle text column expands for a
+printed number; the plate gains the necessary width. The comparison displays
+both visible plates at one scale. Its guides show the name/active-code alignment
+and the complete QR quiet zone; design controls choose the number wording.
+
+Brand lettering is em 8.2, with a 5.90 mm H and identical size across the three
+words. The serial is em 6.5. Every code is version 1, correction M, in alphanumeric
+mode, with 1.1 mm modules. Apple Vision decodes all three full-plate PNG renders
+to `HTTPS://HOSM.US/0001`; physical scan performance is not yet established.
+
+The current enclosure's horizontal field is 114.68 mm before its two 5 mm margins.
+The 104.53 × 38 mm face fits inside the existing 104.53 × 66.07 mm plate outline.
+The numbered versions need more width than the current field provides. Pocket
+and retention geometry remain a separate CAD step; these drawings do not change
+the production enclosure.
+
+```sh
+tools/cad-venv/bin/python future/nameplate-qr-studies/horizontal.py
+```
+
+`--fragment-dir` writes the conversation comparison; `--png-dir` renders the
+three plates. Generation checks the visible-art margins, the entire QR quiet
+zone, non-overlap and the equality of name and active-QR heights.
 
 ## S–X · Name and number
 
