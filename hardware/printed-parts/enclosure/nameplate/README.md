@@ -27,26 +27,29 @@ rear enclosure.
 
 ## Retention
 
-Two straight PET-GF tabs are integral to the plate. Each is 8 mm wide, 0.8 mm thick and 9 mm
-long, with a 0.6 mm inner-root radius. A 0.6 mm outward lip starts 7.5 mm from the root and
-runs into a tapered insertion nose. Pushing the plate straight into its pocket bends the tabs
-inward; they return behind the enclosure's rigid shoulders. The 0.15 mm side clearance leaves
-0.45 mm nominal catch engagement. The square retaining face has 0.48 mm axial clearance.
+Two straight PET-GF tabs are integral to the plate. Each is 8 mm wide, **1.3 mm thick and
+11.5 mm long**, with a 1 mm inner-root radius. A **1.8 mm outward lip** starts 8.5 mm from the
+root. The hook has a 1.2 mm tall full-depth land followed by a 1.8 mm, 45° lead-in;
+its total height is 3 mm. Pushing the plate into its pocket bends the
+tabs inward; they return behind the enclosure's rigid shoulders. The 0.60 mm shank clearance
+leaves 1.2 mm nominal catch engagement. The square retaining face has 0.48 mm axial clearance.
 
-The shoulders have straight slots, an inward flex lane, and open rear relief. Their supported
-ends receive the enclosure's 0.25 mm print-direction allowance. The pocket floor is continuous
-except at the two slots and retains 3.6 mm of material. The water pump's full-width rear bearing
-ledge remains at its assembly datum. The plate centre is 9.5 mm above the cold-core cap.
+The receiver has straight slots, an inward flex lane and open rear relief. Each shoulder
+retains 2 mm of stock behind its bearing face. Its supported end receives the enclosure's
+0.25 mm print-direction allowance. The pocket floor retains 3.6 mm of material outside the
+two slots. The water pump's full-width rear bearing ledge remains at its assembly datum.
+The plate centre is 9.5 mm above the cold-core cap.
 
 The interface is defined once in
 [`_nameplate_interface.py`](../enclosure/_nameplate_interface.py); `enclosure._nameplate` cuts
 the production pocket and the separately generated `nameplate-receiver.step` fit coupon.
 No screws or heat-set inserts are used at this joint.
 
-The [faucet trials](/hardware/printed-parts/faucet/faucet-display-petgf.md) establish PET-GF
-flexure and the value of generous receiving clearance on that cover. This nameplate's tab
-length, lip and lower insertion travel are specific to this much lighter part. Its fit has
-been checked in CAD; insertion force and retention await a physical plate-and-receiver print.
+The [faucet trials](/hardware/printed-parts/faucet/faucet-display-petgf.md) establish the useful
+scale of PET-GF features: 1.3 mm cover stock, 3 mm lips and generous receiving clearance.
+The nameplate carries this stock and lip height into straight tabs with supported bearing
+faces. Its CAD fit and swept insertion are checked; force, edge finish and retention are
+read from a physical plate-and-receiver print.
 
 ## Printing and assembly
 
@@ -56,9 +59,10 @@ pointing up. Use black and white PET-GF, a hardened 0.4 mm nozzle, a 0.20 mm fir
 separate part of the same object, so both colours print in those layers; this is not a single
 filament change above a black slab.
 
-The 0.6 mm lips have exposed undersides. Any small support under a lip is rooted on the
-plate's back and fully accessible from either side of its tab; there are no enclosed support
-channels on the removable plate. Keep the two square catches, their receiving shoulders and
+The square lip undersides receive accessible supports with a 0.24 mm top gap; the slicer's
+small-overhang support filter is disabled to keep these contacts. Preserve
+these bearing faces during removal; a rounded extrusion envelope is not a substitute for
+a printed ledge. Supports on the removable plate are accessible from both sides of each tab. Keep the two square catches, their receiving shoulders and
 the pocket's lower rim clean. The coupon can be printed in the enclosure orientation to check
 those supported receiver faces with the production material.
 
@@ -87,20 +91,27 @@ print bed, and QR size/quiet-zone geometry.
 
 [`nameplate-001-petgf.3mf`](nameplate-001-petgf.3mf) is an editable two-colour project with
 the nameplate artwork-down and the receiver coupon in the back-top print orientation.
-Both PET-GF colours map to the profile-compatible extruder. The local Bambu Studio slice
-estimates 1 h 20 min and 33.89 g for the plate, coupon, purge and supports using its saved
-1.29 g/cm³ density. It has not been submitted to a printer.
+Both PET-GF colours map to the profile-compatible extruder. The slice and support audit
+are regenerated from these meshes. The project uses black and
+white PET-GF; filament assignment and two-colour purge are setup items before sending it
+to a printer. No printer has been started.
 
-The [slice reading](nameplate-001-petgf.print.json) records the emitted temperatures, material
-mapping and Bambu's profile-lookup/special-tool-command notices. The rendered first-layer
-extrusions decode to `HTTPS://HOSM.US/0001`. The actual filament assignment and two-colour
-purge remain setup items before sending this editable project to a printer.
+The [slice reading](nameplate-001-petgf.print.json) records 1.3 mm stem toolpath envelopes
+and five consecutive full-depth catch layers. The total catch section is 3.10–3.115 mm:
+1.3 mm stem plus 1.8 mm lip. This is commanded extrusion geometry, not measured edge finish.
+The first-layer artwork decodes to `HTTPS://HOSM.US/0001`.
 
-The [support audit](nameplate-001-petgf.support-audit.json) finds **no slicer supports on the
-nameplate**, including its two lip undersides. The coupon has two bed-rooted support bodies:
-one reaches the pump ledge with 18.48 mm build-up; the other reaches the pocket's lower rim
-with 41.28 mm build-up. Both contact regions remain open for removal. These are slice readings;
-physical catch finish and retention have not been measured.
+The [support audit](nameplate-001-petgf.support-audit.json) records one bed-rooted support
+beneath each nameplate catch. Each reaches its labelled interface after 10.32 mm of build-up;
+both contacts are exposed beside their tabs. The receiver coupon has one larger support body
+serving its ledge, shoulders and rim, plus two small bodies without labelled interfaces near
+the pad corners. Those two bodies' contact area and build-up are unmeasured. Support count
+is an observation; preserve the working faces when removing them.
+
+The local slice estimates 1 h 25 min and 35.33 g, including the coupon, purge and supports,
+using the saved profile's 1.29 g/cm³ density. Its native log notices are retained in the slice
+reading. Physical catch finish, insertion force and retention are established with the
+included receiver coupon.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/prepare_print.py

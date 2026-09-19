@@ -252,7 +252,7 @@ def selftest():
         slope = side*(interface.LIP-interface.SIDE_SLIP+.01)/interface.LIP_START
         bent = tab.transformGeometry(cq.Matrix([[1,slope,0,0],[0,1,0,0],
                                                 [0,0,1,0],[0,0,0,1]]))
-        for half_mm in range(20):
+        for half_mm in range(math.ceil(interface.TAB_LENGTH*2)+2):
             assert bent.translate((0,half_mm*.5,0)).intersect(receiver).Volume() < 1e-6
     for unit in (1, 27, 9999):
         assert len(qr_matrix(unit)) == 21
@@ -275,7 +275,7 @@ def selftest():
                       "bed_contact_mm2":round(area,3),
                       "lip_engagement_mm":interface.LIP-interface.SIDE_SLIP,
                       "bearing_clearance_mm":interface.BEARING_SLIP,
-                      "insertion_sweep":"20 poses per tab; no interference",
+                      "insertion_sweep":f"{math.ceil(interface.TAB_LENGTH*2)+2} poses per tab; no interference",
                       "qr":"version 1 / M / 21x21 / 1.1 mm modules",
                       "payload":_plan.unit_url(1)}, indent=2))
     return 0

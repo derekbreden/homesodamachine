@@ -20,14 +20,17 @@ WALL = 6.0
 TAB_X = 45.0
 TAB_Z = -2.5
 TAB_WIDTH = 8.0
-TAB_THICK = 0.8
-TAB_LENGTH = 9.0
-TAB_ROOT_R = 0.6
-LIP_START = 7.5
-LIP = 0.6
-SIDE_SLIP = 0.15
+TAB_THICK = 1.3
+TAB_LENGTH = 11.5
+TAB_ROOT_R = 1.0
+LIP_START = 8.5
+LIP = 1.8
+LIP_LAND = 1.2
+SIDE_SLIP = 0.60
 END_SLIP = 0.30
 BEARING_SLIP = 0.48
+SHOULDER_STOCK = 2.0
+SHOULDER_HALF_WIDTH = 3.5
 
 # The water pump's rear bearing remains on this full-width ledge. Its top
 # sits 13 mm above the cold-core cap; the plate centre is 9.5 mm above it.
@@ -53,7 +56,8 @@ def tabs():
     for side in (-1, 1):
         inner, outer = TAB_X-TAB_THICK/2, TAB_X+TAB_THICK/2
         profile = [(inner, 0), (outer, 0), (outer, -LIP_START),
-                   (outer+LIP, -LIP_START), (outer, -TAB_LENGTH),
+                   (outer+LIP, -LIP_START), (outer+LIP, -LIP_START-LIP_LAND),
+                   (outer, -TAB_LENGTH),
                    (inner, -TAB_LENGTH)]
         parts.append(cq.Workplane("XY").workplane(offset=TAB_Z-TAB_WIDTH/2)
                      .polyline([(side*x, y) for x, y in profile]).close()
@@ -68,8 +72,10 @@ def receiver_additions(supported=0.25):
     parts = [box(-LEDGE_WIDTH/2, LEDGE_WIDTH/2, back_y, pad_y,
                  -LEDGE_HEIGHT/2-supported, LEDGE_HEIGHT/2-supported)]
     for side in (-1, 1):
-        x = side*TAB_X
-        parts.append(box(x-2.5, x+2.5, back_y, pad_y,
+        shoulder_back = -LIP_START+BEARING_SLIP-SHOULDER_STOCK
+        x0, x1 = sorted((side*(TAB_X-SHOULDER_HALF_WIDTH), side*LEDGE_WIDTH/2))
+        parts.append(box(x0, x1,
+                         min(back_y, shoulder_back), pad_y,
                          TAB_Z-TAB_WIDTH/2-END_SLIP-1.5,
                          LEDGE_HEIGHT/2-supported))
     return parts
@@ -88,14 +94,11 @@ def receiver_cuts(supported=0.25, up=-1.0):
     for side in (-1, 1):
         inward = TAB_X-TAB_THICK/2-(LIP-SIDE_SLIP)-SIDE_SLIP
         neck = TAB_X+TAB_THICK/2+SIDE_SLIP
-        outside = TAB_X+2.6
+        outside = LEDGE_WIDTH/2+.1
         x0, x1 = sorted((side*inward, side*neck))
         cuts.append(box(x0, x1, -TAB_LENGTH-1, .8, z0, z1))
         x0, x1 = sorted((side*inward, side*outside))
         cuts.append(box(x0, x1, -TAB_LENGTH-1, -LIP_START+BEARING_SLIP, z0, z1))
-        # Root fillets grow only inward, inside a short flared mouth.
-        x0, x1 = sorted((side*(TAB_X-TAB_THICK/2-TAB_ROOT_R-SIDE_SLIP), side*neck))
-        cuts.append(box(x0, x1, -TAB_ROOT_R-SIDE_SLIP, .8, z0, z1))
     return cuts
 
 
