@@ -1,0 +1,43 @@
+<div id="nameplate-horizontal-study" aria-label="Horizontal nameplate proportions">
+  <div class="viz-row">
+    <label class="form-check">
+      <input class="form-check-input" type="checkbox" name="guides">
+      <span class="form-check-label">Alignment guides</span>
+    </label>
+  </div>
+  <div class="horizontal-gallery" aria-live="polite">
+    <!-- PLATES -->
+  </div>
+  <div class="viz-row text-small text-muted">
+    <span>Shown at the same scale</span><span>21 × 21 QR · 1.1 mm modules</span>
+  </div>
+</div>
+<style>
+  #nameplate-horizontal-study .horizontal-gallery {display:flex;flex-direction:column;align-items:center;gap:26px;margin:16px 0}
+  #nameplate-horizontal-study figure {margin:0;min-width:0;max-width:100%}
+  #nameplate-horizontal-study figure[hidden] {display:none}
+  #nameplate-horizontal-study figcaption {margin-bottom:8px;color:var(--foreground)}
+  #nameplate-horizontal-study .nameplate {display:block;width:100%;height:auto}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('nameplate-horizontal-study');
+    const figures = [...root.querySelectorAll('figure')];
+    const guides = root.querySelector('input[name="guides"]');
+    const state = {wording:'number'};
+    function render() {
+      figures.forEach(figure => {figure.hidden = figure.dataset.layout !== 'wide' && figure.dataset.layout !== state.wording;});
+      const maxWidth = Math.max(...figures.filter(figure=>!figure.hidden).map(figure=>Number(figure.dataset.width)));
+      figures.forEach(figure=>{figure.style.width=`${100*Number(figure.dataset.width)/maxWidth}%`;});
+      root.querySelectorAll('.alignment-guides').forEach(group=>{group.style.display=guides.checked?'inline':'none';});
+    }
+    guides.addEventListener('change',render);
+    render();
+    if (globalThis.Tweak) {
+      const tweak = new Tweak({container:root,onChange:render});
+      tweak.addSelect(state,'wording',{label:'Printed unit number',options:[
+        {label:'0001',value:'number'},{label:'NO. 0001',value:'prefix'}
+      ]});
+    }
+  })();
+</script>
