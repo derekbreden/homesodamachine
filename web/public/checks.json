@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 445 of 1000 free, the next cut wants 264, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 261, and the whole pointer file reads by name in 37.5 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 31 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 461 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 37 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 461 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,8 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 81b6222847d550a8ef2de63f283bf9ca for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c958ffd6a8f8b469e23f36679412e2d1 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 228e0dfdaec4284d88235a9e6c444a3a, enclosure-assembly.step here is 31127fc1e84c72f853f5292b0d8bf84f",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 81b6222847d550a8ef2de63f283bf9ca for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c958ffd6a8f8b469e23f36679412e2d1 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -150,12 +151,13 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
-      "5 test(s) in web/ fail:",
+      "6 test(s) in web/ fail:",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    build order puts a producer before the scripts that load its STEP",
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
+      "    the artifact pointer file points at every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
