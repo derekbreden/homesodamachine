@@ -1,15 +1,46 @@
 # Nameplate QR studies
 
+## O–R · Concealed retention
+
+[Four compositions](nameplate-hidden.html) use the complete face, with no screw
+heads. [The retention concept](retention.md) applies the Faucet print findings to
+long spring rails behind the side edges of the plate. The production plate and
+enclosure remain the screw-retained CAD; the concept has no physical fit result.
+
+| Layout | Arrangement | Serial treatment |
+| --- | --- | --- |
+| [O · Tall name](o-tall-name.svg) | Tall three-line name beside the mark and code | Inline NO. 0001 |
+| [P · Across the plate](p-across-the-plate.svg) | Mark, HOME, SODA and code above a full-width MACHINE | Inline NO. 0001 between the name lines |
+| [Q · Interlocking blocks](q-interlocking-blocks.svg) | Large mark and HOME/SODA, with MACHINE beside the lower code | Number alone in the remaining space |
+| [R · Light lower field](r-light-lower-field.svg) | Two-line name above a light QR and identification field | Inline SERIAL 0001 |
+
+Each QR uses the same 21 × 21 active grid, 0.9 mm modules and a four-module quiet
+zone: 26.1 mm overall. No domain is lettered. Ordinary appliance ratings belong on
+their separate permanent field. Serial lettering is at least em 6.5, the type size
+selected in the collar print comparison; this does not establish nameplate print
+legibility. The drawings include no tiny serial heading.
+
+```sh
+tools/cad-venv/bin/python future/nameplate-qr-studies/hidden.py
+```
+
+The generator checks boundaries and separation, including QR quiet zones. It
+accepts `--fragment-dir` and `--png-dir`. The SVGs use the actual brand paths and
+outlined Helvetica Bold, with dimensions in millimetres. Apple Vision decodes
+all four 1254 × 793 PNG renders to `HTTPS://HOSM.US/0001`. Desktop and narrow
+browser reviews cover selection, layout and light/dark display. Physical printing,
+QR scanning and snap retention remain untested for these nameplate concepts.
+
 ## G–N
 
 [Eight further compositions](nameplate-more.html) use a 21 × 21 code, a larger brand,
 and `SERIAL` above large `0001` lettering. No domain is lettered on these plates.
 Seven have no dividing line; I has a horizontal rule.
 
-L is the preferred compositional direction: its logo, name, code and serial fit
-together with balanced spacing. Its faucet size is one part of that arrangement.
+L illustrates balanced use of space among logo, name, code and serial. It is an
+example of compositional quality, not a prescribed layout or serial treatment.
 The separate [refrigerant warning proof](../../hardware/markings/README.md) carries
-the long safety copy and records the open classification question.
+the household warning specification and long safety copy.
 
 | Layout | Arrangement | QR module |
 | --- | --- | --- |
