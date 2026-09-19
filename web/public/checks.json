@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "PASS faucet geometry: 141 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
-      "status": "ok"
+      "note": "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -32,7 +32,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 45 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "note": "payloads: 51 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 194/194 carry the colour of what they are made of",
+      "note": "step colours: 200/200 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2216 tracked, 436 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2304 tracked, 454 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 446 of 1000 free, the next cut wants 237, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 446 of 1000 free, the next cut wants 255, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,12 +87,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 216 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 217 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 436 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 18 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 454 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,9 +103,36 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 129 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at baf86e005a60f87d3701a60b0bc37e37 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 129 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3e050430b27932c5dddcdb3ec86ccbd3 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "hardware/scripts/check_faucet_geometry.py": [
+      "PASS fixture:complete-display-fit-trial",
+      "PASS fixture:production-print-orientations",
+      "PASS solid:display_trial_housing",
+      "PASS mesh:display_trial_housing",
+      "PASS motion:lever",
+      "PASS position:signal-southwest",
+      "PASS solid:display-ribbon-envelope",
+      "PASS clearance:signal-shell_base",
+      "PASS clearance:signal-shell_tip",
+      "PASS clearance:signal-above_counter_plate",
+      "PASS clearance:signal-above_counter_gasket",
+      "PASS clearance:signal-display_cover",
+      "PASS clearance:signal-tpu_thimble",
+      "PASS clearance:signal-donor",
+      "PASS clearance:signal-soda-tube",
+      "PASS clearance:signal-flavor-a",
+      "PASS clearance:signal-flavor-b",
+      "PASS clearance:signal-countertop",
+      "PASS clearance:signal-under-counter-plate",
+      "PASS clearance:signal-display-body",
+      "PASS clearance:signal-display-usb",
+      "PASS fit:signal-lane-section",
+      "PASS wall:neck-signal-lane",
+      "PASS seat:plate-gasket",
+      "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
     ]
   },
   "green": false
