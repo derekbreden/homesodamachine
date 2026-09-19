@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-18; latest invoice and shipment-banner verification 2026-09-18 (the 3P and 5P 22 AWG ribbon spools)",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-18; latest invoice and shipment-banner verification 2026-09-18 (the 3P and 5P 22 AWG ribbon spools, and the two 2026-09-02 ruthex insert orders)",
     "orders": 360,
     "ordered/total": "ordered present for all 360; total present for 360 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
@@ -270,14 +270,14 @@
     },
     "112-9132466-5487409": {
       "ordered": "2026-09-02",
+      "delivered": "2026-09-05",
       "total": 10.71,
-      "in_transit": true,
       "project": true
     },
     "112-6100127-7029800": {
       "ordered": "2026-09-02",
+      "delivered": "2026-09-03",
       "total": 10.71,
-      "in_transit": true,
       "project": true
     },
     "112-6708194-8872235": {
