@@ -181,7 +181,7 @@ def review(source, step, minimum=6.0, tolerance=0.01, grid=5, edge_margin=0.25):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     exterior, bore, metadata = module.build_solids()
-    cast = exterior.cut(bore)
+    cast = module.build()[0].val()
     exported = cq.importers.importStep(str(step)).val()
     ramp_faces = [face for face in bore.Faces() if ramp_face(face, metadata)]
     assert ramp_faces, "The inner bore has no sloping ramp faces."

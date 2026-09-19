@@ -68,7 +68,7 @@ physical trial establishes retention, sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[244 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+[258 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
 leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
@@ -87,7 +87,7 @@ one-atmosphere differential or pressure injection.
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
 [0.243 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.831 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.875 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -142,8 +142,11 @@ With the 0.4 mm nozzle and Textured PEI, the emitted command is `G29.1 Z0.16`.
 Open and slice this project in Bambu Studio for the current
 toolpaths, print time and material estimate; the saved project contains no G-code.
 
-The core's envelope is [211 × 211 × 38.3 mm](CORE_DIMS); the cavity is
-[211 × 211 × 78.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
+[current-slice-review.json](current-slice-review.json) records a successful slice
+of these meshes and verifies that the saved project contains the current STL geometry.
+
+The core's envelope is [211 × 211 × 42.2 mm](CORE_DIMS); the cavity is
+[211 × 211 × 82.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
 Inspect and remove every branch before finishing. Sand and finish the layer
 steps on the forming slopes before casting.
 

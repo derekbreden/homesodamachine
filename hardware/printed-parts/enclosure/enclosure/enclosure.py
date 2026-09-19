@@ -1647,6 +1647,9 @@ def documented(box):
 #                 `c14-inlet` cuts its canonical flange profile over the entry's Y span; its XZ
 #                 numbers are the resulting cut's bounds. Geometry struck by the pack, not
 #                 another placement.
+#   flank_reliefs  named clearance pockets in back-top's west flank, one
+#                 `(name, x0, x1, y0, y1, z0, z1)` from the intruding body. The pocket
+#                 keeps the nominal wall; its print-down edge has a 45-degree return.
 #   port_field    the pockets the +Y wall of back-top's outer face carries and the nut lands
 #                 behind them, (proud, rim, pockets) — how deep a pocket is cut and how far a
 #                 relieved station's retained land stands inboard, the wall the field keeps
@@ -1685,7 +1688,7 @@ Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
-            "port_field nameplate keystone "
+            "flank_reliefs port_field nameplate keystone "
             "valve_trays pump_trays core_stops core_holds vent_chase collet_plate tee_carrier")
 Pack.__new__.__defaults__ = (
     (),             # front_ports
@@ -1707,6 +1710,7 @@ Pack.__new__.__defaults__ = (
     (),             # flow_meter_anchors
     (),             # tube_anchors
     (),             # ceiling_reliefs
+    (),             # flank_reliefs
     (),             # port_field
     None,           # nameplate
     None,           # keystone
@@ -2487,7 +2491,9 @@ def _dims(pack):
         cy, cz = (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0
         if any(ly0 <= cy <= ly1 and lz0 <= cz <= lz1 for ly0, ly1, lz0, lz1 in lanes):
             continue
-        flank_rows.append((max(bt0 - b.xmin, b.xmax - bt1), name))
+        pocket = next((r for r in pack.flank_reliefs if r[0] == name), None)
+        west_face = pocket[1] if pocket is not None else bt0
+        flank_rows.append((max(west_face - b.xmin, b.xmax - bt1), name))
     flank_rows.sort(reverse=True)
     flank_over, flank_who = flank_rows[0] if flank_rows else (-bt1, "nothing")
     flank_ok = flank_over <= stated_bound_tol
@@ -4912,6 +4918,20 @@ def _back_top_flank_tie_cut(box):
     tie_y0, tie_y1 = _asse_tie_channel_span(ties)
     return _ybox(min(face, floor), max(face, floor), tie_y0, tie_y1,
                  mouth_z, box.inner[5] + 1.0)
+
+
+def _flank_body_pockets(piece, pockets):
+    """Body clearance in the west flank with a supported, 45-degree lower return.
+
+    Back-top prints ceiling-down. The return below the pocket closes that small
+    recess progressively while its locating barrel seat stays untouched.
+    """
+    for _name, x0, x1, y0, y1, z0, z1 in pockets:
+        depth = x1 - x0
+        piece = piece.cut(_xz_prism(y0, y1, [
+            (x0, z0), (x0, z1), (x1 + 1.0, z1),
+            (x1 + 1.0, z0 - depth - 1.0)]))
+    return piece
 
 
 def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
@@ -8768,6 +8788,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # reason the ASSE anchor is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, roots, inner, box.pack.tube_anchors, ylo, yhi, zlo, zhi,
                           up=up)
+    if (y_side, z_side) == ("back", "top"):
+        piece = _flank_body_pockets(piece, box.pack.flank_reliefs)
     # And the nameplate — the pocket on the +Y wall's outer face, the plateau that floors it on
     # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
     # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,

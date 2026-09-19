@@ -28,7 +28,7 @@ import reeding
 import fits
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
-from _enclosure_interface import manifold_rise
+from _enclosure_interface import manifold_rise, inner_limb_drop
 
 
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PET-GF. The outer
@@ -812,8 +812,8 @@ Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.020,  65.050), 0.0, 3.4000),
-    "valve-v-a":   Cradle(( 94.020,  22.490), 0.0, 9.6150 + manifold_rise),
-    "valve-v-b":   Cradle(( 94.020, -20.070), 0.0, 9.6150 + manifold_rise),
+    "valve-v-a":   Cradle(( 94.020,  22.490), 0.0, 9.6150 + manifold_rise - inner_limb_drop),
+    "valve-v-b":   Cradle(( 94.020, -20.070), 0.0, 9.6150 + manifold_rise - inner_limb_drop),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.

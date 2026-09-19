@@ -514,7 +514,7 @@ NEVER = {
         "rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "funnel-drain-union":
         "Both its collets land on held bodies — the +Z leg takes the stub the funnel carries, the "
-        "+Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap — so the elbow "
+        "other leg hands `fluid-4` forward to turn west and return to V-B's cap cradle — so the elbow "
         "hangs between two seats with nothing printed closing on it. It is the joint the customer "
         "opens, and a thumb on that collet is the whole of the motion.",
     "fuse-clamp":

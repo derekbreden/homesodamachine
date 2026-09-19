@@ -1598,9 +1598,11 @@ bearing section with 0.25 mm running clearance, and the six enclosure seam screw
 retain their existing axes.
 
 The opening follows the funnel's rounded collar, ramp and outlet with
-[0.25 mm](FUNNEL_COLLAR_AIR) running clearance. The drain remains at
-X1.85, Y156.5, Z303.0508. The inlet basin is wider than its depth and falls toward
-that forward outlet; its whole rounded brim is inset. The silicone funnel and its
+[0.25 mm](FUNNEL_COLLAR_AIR) running clearance. The drain is centered fore–aft
+at X1.85, Y182.5, Z299.0648. The basin holds 600 mL within its inset rounded brim.
+V-A/B, Y-A/B and V-C/D sit 6 mm below the outer manifold limbs. The flow
+regulator points 15° down toward the center, with its square hub in a shallow
+clearance pocket in the 9 mm west flank. The silicone funnel and its
 casting molds share the same source geometry in
 [`zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/).
 

@@ -1,53 +1,53 @@
 {
   "dimensions_mm": {
     "cavity": [
-      211.0,
-      211.0,
-      78.94923316370999
+      211.0000002,
+      211.0000002,
+      82.93517945471505
     ],
     "core": [
       211.0,
       211.0,
-      38.27194211303167
+      42.23413376395925
     ],
     "funnel": [
-      179.0,
-      165.0,
-      69.94923316370999
+      179.0000002,
+      165.0000002,
+      73.93517955471506
     ],
     "rod": [
       6.35,
-      6.350000000000001,
+      6.35,
       50.8
     ],
     "seal": [
-      8.387714512024655,
-      8.350257811765545,
-      1.6976532440466556
+      8.350000200207939,
+      8.3500002,
+      1.6970277233049416
     ]
   },
   "volume_ml": {
-    "cavity": 306.29964942469536,
-    "core": 295.9767997161195,
-    "funnel": 244.19093962718807,
+    "cavity": 318.6055867571337,
+    "core": 306.8088298161823,
+    "funnel": 257.806513260027,
     "rod": 1.6087962461345553,
-    "seal": 0.03673543470378883
+    "seal": 0.036943020107135925
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 4.99986305734002,
-  "minimum_core_backing_mm": 4.999999999999988,
+  "minimum_cavity_backing_mm": 4.99981940254929,
+  "minimum_core_backing_mm": 4.999999986427598,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 773.1906365303538,
+      "retained_volume_ml": 871.589168253386,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 270.5519355011097,
+      "retained_volume_ml": 285.50638108379496,
       "casting_outside_retained_mm3": 0.0
     }
   },
-  "parting_z_mm": 75.94923306371,
+  "parting_z_mm": 79.93517935471506,
   "finish_allowance_mm": 0.3,
   "rod_support": {
     "engagement_mm": 26.549999999999997,
@@ -86,7 +86,7 @@
       270,
       315
     ],
-    "minimum_silicone_clearance_mm": 2.1556213291787207,
+    "minimum_silicone_clearance_mm": 2.1556213291787216,
     "minimum_end_clearance_mm": 5.903966542756486,
     "minimum_required_wall_mm": 2.0,
     "scope": "Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial."
@@ -201,8 +201,8 @@
       56.44923306371
     ],
     "core": [
-      24.5,
-      38.69923306371
+      28.485946291005064,
+      42.68517935471506
     ]
   },
   "nominal_chamber_diameter_mm": 299.72,
@@ -213,8 +213,8 @@
     "assumed_modulus_mpa": 1000.0,
     "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 74.94923306371,
-    "head_pressure_kpa": 0.8308347332811445,
+    "maximum_silicone_head_mm": 78.93517935471506,
+    "head_pressure_kpa": 0.8750201437008229,
     "screen_deflection_mm": 0.24266789870400002,
     "pressure_force_n": 27.225,
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",

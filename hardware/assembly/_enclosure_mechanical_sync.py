@@ -97,7 +97,7 @@ def main():
     _co2_hole_d = _F.wall_ports["co2"][3]
 
     # Funnel corridor — `fluid-4` falls from the funnel's spout to V-B's own inlet, passing
-    # between the two source coils on the way. That run exists only once the funnel is placed
+    # west of the source valves on the way. That run exists only once the funnel is placed
     # and its lines drawn, past what `build_pack` reaches.
     _funnel_runs = list(_F.runs)
     _funnel_run = next((r for r in _funnel_runs if r.id == "fluid-4"), None)

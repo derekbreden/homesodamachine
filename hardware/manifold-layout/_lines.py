@@ -736,132 +736,47 @@ def _fluid_2(F, solids):
 
 # --- the funnel's gravity drain ---------------------------------------------
 #
-# `fluid-4` carries HEAD and not pressure. The funnel's own column is what moves it: the brim
-# stands at the machine's ceiling and V-B's inlet is most of the box's height under it, so the
-# line runs full and climbs whatever it is given on the way. What it may not do is END high —
-# the last leg into the collet falls, and the funnel empties to the collet's own plane.
-#
-# NOTHING ON THE LINE IS LOWER THAN ITS OWN END. The elbow hands the drain aft on the storey the
-# spout's exit face leaves it, and every leg from there stands over V-B's collet — so the run has
-# no dip to hold concentrate and no pocket for the pump's draw to pull air out of. The one thing
-# it does spend height on is the climb over the source pair, and that crest stands well under the
-# spout, so a full line still siphons the funnel down to the collet's own plane.
+# The spout exit and every tube segment stand above V-B's inlet. The line has
+# a local rise below the spout, so its physical drain and purge behaviour must
+# be checked with the assembled tubing and concentrate.
 
-
-# The straight the drain leaves the elbow on, along the fitting's own +Y leg, before the run
-# starts to climb. It is one `TUBE_BEND`, which is what the first corner needs as tangent and
-# what `port-leads` reads the collet's own reach against — no more, because every millimetre of
-# it is spent aft in the bay between the funnel's spout and the source pair's fore faces.
-FLUID_4_LEAD = TUBE_BEND
-# WHERE THE CLIMB TOPS OUT. The run comes up the column on the spout's own X — the slot the
-# source pair leaves between their coils — and it has to be ON the crossing storey before the
-# pair closes that slot under it: V-A's body swells into the lane a little aft of this plane,
-# and from there only the band over its crown is open. So the climb is spent forward of the
-# pair and the crossing is level over them.
-FLUID_4_LANE_Y = 200.0
-# WHERE IT LEAVES THAT COLUMN AND GOES WEST. Aft of both coils — they stand off the valves'
-# crowns and would take the crossing storey back off the run — and far enough fore of the
-# come-about for that column to seat both of its own corners. The two fences meet within a
-# millimetre or two of each other here, and what stands between them is the ARC and not the
-# corner: a square turn reaches a whole radius back down the leg it came in on, so the coil is
-# measured against the sweep west of the vertex rather than against the vertex itself.
-FLUID_4_CROSS_Y = 246.5
-# THE COLUMN IT COMES ABOUT IN, and it is west of V-B rather than on the mirror line. A REVERSAL
-# COSTS 2·R14 BETWEEN ITS COLUMNS, and the collet faces the way the run arrives from, so the
-# turn into V-B is a reversal whichever way it is drawn: the run has to stand two bend radii off
-# the collet's own column before it can come back down onto it. The spout's column is nothing
-# like that far. This one is, and everything the run then has to clear on the way aft is inboard
-# of it — the source pair, both their coils, and the slot between them.
-#
-# WHAT FENCES IT is the pair of reservoir lines that cross the drain's own bay below this
-# storey: reservoir B's draw is inboard of the column and its fill outboard, and the daylight
-# between them is where this stands. `clearance-floor` reads it against both.
-FLUID_4_LOOP_X = -60.0
-# WHAT THE CROSSING STANDS OFF THE CROWN IT RIDES. The pair's crown is a plane and the run is a
-# tube, so the storey is that plane, the line's own half-section, and this — the same millimetre
-# `_scorecard.CLEARANCE_FLOOR` reads every pair of unseated bodies against, spent here so the
-# crossing is drawn where the card would pass it rather than measured after the fact.
-FLUID_4_CROWN_CLEAR = 1.0
-# WHERE THE COME-ABOUT COLUMN HANDS THE LEAN OVER, and it is under the crossing storey rather
-# than on it. `fluid-2` comes down its own lane just west of V-B and turns level on
-# `FLUID_2_CROSS_Z` to cross this bay; this run's lean east passes through that same band, so the
-# column eases down as it goes aft and hands the lean over a whole tube and a clearance BELOW
-# `fluid-2`'s storey. The descent is spent in a leg that is already there — the two corners on
-# the come-about column open by a few degrees for it and seat their radius either way.
-FLUID_4_LEAN_Z = FLUID_2_CROSS_Z - _split.TUBE_D - FLUID_4_CROWN_CLEAR
-# HOW FAR AFT OF V-B THE RUN COMES ABOUT. The lean onto the collet's column and the straight
-# into the collet meet SQUARE — one is across the machine and the other along it — so a square
-# corner spends its whole radius as tangent in each, and the straight it leaves is this figure
-# less nothing. Under `TUBE_BEND` the corner cannot be built and `bend-radius` says so. What
-# caps it is the water pump's front face, which the run comes about forward of.
+# The drain leaves the elbow forward and rounds the west side of the source pair.
+# Its low crossing stays above V-B's inlet; the aft rise clears the reservoir lines.
+FLUID_4_FORE_Y = 148.0
+FLUID_4_LOOP_X = -52.0
+FLUID_4_LOW_Z = 272.0
+FLUID_4_RISE_START_Y = 193.0
+FLUID_4_RISE_END_Y = 223.0
+FLUID_4_LANE_Z = 282.0
 FLUID_4_COMEABOUT = 17.0
 
 
-def _fluid_4_lane_z(solids) -> float:
-    """The storey the drain crosses the source pair on.
-
-    THE PAIR IS A WALL AND THE RUN GOES OVER ITS CROWN. V-A and V-B lie coil-up on the cold
-    core's cap, and the highest either body reaches — the crown their coils stand on — is one
-    plane. This is that plane with the line's own half-section and one clearance over it, so the
-    crossing rides the pair rather than threading it: the slot between the two bodies is the
-    manifold's own inner-limb gap and a quarter-inch line stands in it with under a millimetre
-    either side, which is a lane and not a berth.
-
-    IT IS READ OFF THE PLACED VALVE and not stated, because what sets it is the pack —
-    `manifold_layout.SOURCE_JOG` is a millimetre of this storey for every millimetre of itself,
-    and the cradles under the pair carry the difference."""
-    return solids["valve-v-a"].BoundingBox().zmax + _split.TUBE_D / 2.0 + FLUID_4_CROWN_CLEAR
-
-
 def _fluid_4_turn_y(F, solids) -> float:
-    """The plane the drain comes about in — where it leaves its own column and leans onto V-B's.
-
-    IT HAS TO COME ABOUT AFT OF V-B, because V-B's inlet is the AFT collet: the line runs the
-    valve's whole length past its own mouth and turns back into it. IT IS A REACH OFF THAT BACK
-    FACE and not a plane — the valve rides `enclosure_assembly.PACK_Y`, and what the reach buys
-    is the straight the square corner into the collet stands in."""
+    """Aft tangent plane, leaving a full R14 corner into V-B's inlet."""
     return solids["valve-v-b"].BoundingBox().ymax + FLUID_4_COMEABOUT
 
 
 def _fluid_4(F, solids):
-    """fluid-4 — the funnel's disconnect to V-B's inlet, and the machine's only gravity feed.
+    """The funnel's gravity feed, forward off the elbow and aft around V-B.
 
-    IT LEAVES THE JOINT ALREADY POINTING WHERE IT IS GOING. The elbow turns the spout's fall aft
-    inside its own envelope, so the run starts on the storey the drain stands at, heading down
-    the machine — and everything after it is spent getting across the source pair and back onto
-    V-B's own column, not getting out from under a fitting.
-
-    ONE CLIMB, ONE CROSSING, ONE REVERSAL. The column it comes up is the spout's own, in the slot
-    the source pair leaves between their coils; it tops out on `_fluid_4_lane_z` forward of the
-    pair, holds that storey over their crowns, goes west aft of both coils onto the come-about
-    column, and eases down that column to pass under `fluid-2`'s own crossing. Nothing on the run
-    is lower than the collet it ends at.
-
-    THE LEAN INTO V-B IS ONE LEG AND NOT TWO CORNERS. V-B's collet faces the way the run arrives
-    from, so the come-about is a full 180° — and a 180° built of two stock arcs wants 2 × R14
-    between its straights. Spending the descent in the same leg is what makes it: the lean drops
-    off the crossing storey while it steps east, so both of its corners seat R14 where a flat
-    dogleg would seat less.
-
-    THE DROP FROM THE ELBOW TO THE COLLET IS WHAT THE FUNNEL'S DEPTH IS PAID FOR OUT OF —
-    `enclosure_assembly.build_enclosure_assembly` records it against the funnel's own seat, and
-    `room-holds` is where it reads."""
+    The west lane rises below the spout exit and stays above the destination inlet.
+    Each corner holds the stock's R14 minimum; the final lean meets the valve axially.
+    """
     drain = F["funnel-drain-union"].at("outlet")
     inlet = F["valve-v-b"].at("inlet")
-    lane = _fluid_4_lane_z(solids)
     turn = _fluid_4_turn_y(F, solids)
     return R.bent(
         "fluid-4", "funnel-drain-union.outlet",
-        (drain[0], FLUID_4_LANE_Y, lane),                     # up the pair's own slot, fore of them
-        (drain[0], FLUID_4_CROSS_Y, lane),                    # aft on that storey, over both crowns
-        (FLUID_4_LOOP_X, FLUID_4_CROSS_Y, lane),              # west across the bay, aft of both coils
-        (FLUID_4_LOOP_X, turn, FLUID_4_LEAN_Z),               # aft on the come-about column, easing down
-        (inlet[0], turn, inlet[2]),                           # one lean east and down onto the collet's column
-        "valve-v-b.inlet",                                    # and forward into the mouth
-        kind="fluid", bend=TUBE_BEND, lead=(FLUID_4_LEAD, None),
-        note="funnel: the funnel's disconnect → V-B inlet, aft off the elbow, up the slot between "
-             "the source coils, level east to west over the pair's crowns, and one lean east and "
-             "down onto V-B's own column under `fluid-2`'s crossing")
+        (drain[0], FLUID_4_FORE_Y, drain[2]),
+        (FLUID_4_LOOP_X, FLUID_4_FORE_Y, FLUID_4_LOW_Z),
+        (FLUID_4_LOOP_X, FLUID_4_RISE_START_Y, FLUID_4_LOW_Z),
+        (FLUID_4_LOOP_X, FLUID_4_RISE_END_Y, FLUID_4_LANE_Z),
+        (FLUID_4_LOOP_X, turn, FLUID_4_LANE_Z),
+        (inlet[0], turn, inlet[2]),
+        "valve-v-b.inlet",
+        kind="fluid", bend=TUBE_BEND,
+        note="funnel disconnect → V-B inlet, forward off the elbow, west around the source "
+             "pair and aft along the reservoir-line gap, then east and down into V-B")
 
 
 # --- the carb-water riser, and the two flavour gates' lines to the panel ----

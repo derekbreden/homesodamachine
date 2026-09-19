@@ -1,0 +1,38 @@
+{
+  "project": "funnel-mold.3mf",
+  "project_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+  "mesh_sha256": {
+    "cavity": "b0c21d72c28b4d5a3adb2d491bb53e822196d4bdab537ac8ba215180efea7ec0",
+    "core": "a03a7eab80f182ad7f7a23338bf9938dde14328a5ab683542e528ffca9ed2a78"
+  },
+  "embedded_mesh_checks": {
+    "cavity": {
+      "matches_stl": true,
+      "triangles": 259834,
+      "maximum_vertex_distance_mm": 1.9560378084838446e-06
+    },
+    "core": {
+      "matches_stl": true,
+      "triangles": 66578,
+      "maximum_vertex_distance_mm": 4.99734356375202e-07
+    }
+  },
+  "slice_return_code": 0,
+  "slicer_saved_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "scope": "Saved source project and fresh Bambu Studio slice; physical printing and casting are untested."
+}

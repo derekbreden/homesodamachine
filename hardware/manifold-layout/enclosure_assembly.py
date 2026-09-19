@@ -4754,9 +4754,9 @@ BOWL_CLEAR = 1.0
 # the run that step's two corners and the lean between them take.
 WATER_2 = 42.0
 # THE SPLIT AND REGULATOR SHARE THE SHALLOWEST COLUMN THEIR WALL ANCHORS CAN CLOSE ON. The
-# regulator's square hub is the pair's widest wallward profile after `FLOWREG_TURN`; one body-
-# anchor slip between that profile and back-top's nominal flank face leaves both purchased
-# solids in air while their round sections lie in the ribs. `water-2` already leans across from
+# unrolled regulator hub sets the shared column, with one body-anchor slip to the
+# nominal flank. The rolled hub's corner occupies its own shallow wall pocket.
+# `water-2` already leans across from
 # the union column above, and every line leaving this pair is struck from its carried ports.
 SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP
 SPLIT_COLUMN = (_enc.back_top_flank_face()[0] + _flowreg.HUB / 2.0
@@ -4781,20 +4781,11 @@ def build_split(asse_carry):
 
 # --- the flow regulator, inline on the flavour tap -------------------------
 #
-# The needle valve that throttles the flavour side. Its own frame runs the flow down ±X with the
-# adjuster on +Z. The YAW lays that flow fore and aft along the lane; the ROLL then lays the stem
-# over onto +X, so the valve reads 14.72 mm tall and 40.85 mm across the lane rather than the
-# other way round, and the knurled head faces the machine's centre where a hand comes in over the
-# cold core's cap. `design-pressures.md` sets it once on the bench.
-#
-# THE STEM IS THE ONLY PART OF THIS BODY UNDER THE FUNNEL. The valve stands west of the funnel's
-# collar and its run and hub stand there with it; what reaches east past the collar's wall is the
-# nut, the barrel and the adjuster, and the bowl's cone comes down over exactly that reach. It
-# runs LEVEL under it, on the pair's own storey — the cone stands clear of the whole reach at this
-# height, so nothing has to be tipped out of its way and the adjuster faces the machine's centre
-# square, where a hand comes in over the cold core's cap.
+# The regulator runs fore–aft on the split's column. Its adjuster points inboard
+# and 15 degrees down beneath the funnel. The two ports stay on their shared axis;
+# the square hub has a shallow clearance pocket in back-top's thick west flank.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
-                ((1.0, 0.0, 0.0), 180.0))
+                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 15.0))
 # `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
 # inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
 # and comes back into the other — two stock quarter-turns, no straight between them or at either
@@ -5118,12 +5109,13 @@ def build_pack() -> cq.Assembly:
     clamp, clamp_carry = build_fuse_clamp(comp_carry, fuse)
     a.add(clamp, name="fuse-clamp", color=C_CLAMP)
 
-    # The release hairpins define the fold's vertical datum. Their tee-side drop is
-    # below that datum; the fixed valves and pump bodies retain their own elevations.
+    # The outer release hairpins define the pack's fixed vertical datum. The inner
+    # source limbs and their loops sit lower without changing the pump stations.
     datum_posed = posed_manifold(ml.CARRIER_RELEASE)
     squeeze_posed = posed_manifold(ml.CARRIER_SQUEEZE)
     lift = (PACK_CROWN + _enc._interface.manifold_rise - ml.CARRIER_DROP
-            - min(box(s).zmin for _n, s, _c in datum_posed))
+            - min(box(s).zmin for n, s, _c in datum_posed
+                  if n in ("tube-fluid-17", "tube-fluid-27")))
     state_offset = ml.CARRIER_STATES[CARRIER_ASSEMBLY_STATE]
     posed = posed_manifold(state_offset)
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
@@ -5146,11 +5138,12 @@ def build_pack() -> cq.Assembly:
             continue
         a.add(solid, name=name, color=color)
         in_pack.append(name)
-    # The released hairpins extend CARRIER_DROP below the fixed fold datum. The eight
-    # valves bear in front-top's trays and the moving tees are tied to their guided carrier.
+    # The lowest released hairpins follow the lower of the tee and inner-valve
+    # elevations. The fixed valves bear in trays; the tees ride their guided carrier.
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
-                planes={"z0": PACK_CROWN + _enc._interface.manifold_rise - ml.CARRIER_DROP},
+                planes={"z0": PACK_CROWN + _enc._interface.manifold_rise
+                        - max(ml.CARRIER_DROP, ml.INNER_LIMB_DROP)},
                 got=_whole([s for _n, s, _c in datum_stood]),
                 members=tuple(in_pack))
     # THE TWO VALVE TRAYS' STATIONS, on the planes the fold left the manifold's eight non-cap
@@ -6100,6 +6093,29 @@ def wedge_fills(placed, authored_rooms=()) -> Bound:
         "goal"))
 
 
+def flank_reliefs(placed):
+    """The regulator hub's clearance pocket in back-top's west flank.
+
+    Only the solid entering the added flank stock determines the pocket. The
+    barrel seat and its two supporting columns keep their full working sections.
+    """
+    shape = placed["flow-regulator"][0]
+    face = _enc.back_top_flank_face()[0]
+    b = box(shape)
+    if b.xmin >= face:
+        return ()
+    intruding = shape.intersect(cq.Solid.makeBox(
+        face - b.xmin, b.ylen + 2.0, b.zlen + 2.0,
+        cq.Vector(b.xmin, b.ymin - 1.0, b.zmin - 1.0)))
+    hit = box(intruding)
+    air = BODY_ANCHOR_SLIP
+    floor = hit.xmin - air
+    if floor < _enc.interior_x()[0]:
+        raise ValueError("flow-regulator pocket would enter the enclosure's nominal wall")
+    return (("flow-regulator", floor, face, hit.ymin - air, hit.ymax + air,
+             hit.zmin - air, hit.zmax + air),)
+
+
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
@@ -6130,6 +6146,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors),
                      ceiling_reliefs=ceiling_reliefs(placed),
+                     flank_reliefs=flank_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      keystone=a.keystone_station,
@@ -6160,7 +6177,7 @@ def funnel_centre(box):
     (`funnel-brim-lands`). What the housing then leaves the throat is `funnel-collar-frame`.
 
     THE DRAIN RIDES THE FUNNEL WHEREVER THAT PUTS IT, and the elbow under the spout turns the
-    fall aft inside its own envelope — so nothing under the top wall has to be a berth wide
+    fall forward inside its own envelope — so nothing under the top wall has to be a berth wide
     enough for a fitting to hang in, and `drain-over-deck` is the reading that says the foot
     of it stands over the folded deck rather than in it."""
     ix0, ix1 = box.inner[0], box.inner[1]
@@ -6192,16 +6209,9 @@ def build_drain_joint(funnel_carry):
       * the worm clamp, closed on the spout's land above the exit face;
       * the union ELBOW, its +Z collet face ON that exit face.
 
-    THE FITTING IS WHAT TURNS THE FALL. The elbow turns inside its own envelope, so it stands
-    one `elbow_connector.LEG` under the spout's exit face and hands `fluid-4` out along +Y —
-    aft, on the storey the cap's open air is, heading the way the run is going. What that keeps
-    the joint out of is the bay under the spout: the folded deck's two anchor tees crown one
-    storey down there and the cold core packs the column in from behind, and `drain-over-deck`
-    is the reading that says the fitting's foot stands over them.
-
-    The funnel is turned about Z alone, so the spout's axis is still the world's, and the joint
-    frame differs from the world by the drain's own position. Both of the elbow's legs lie on
-    world axes there: +Z takes the stub the funnel carries, +Y hands the drain aft.
+    The elbow takes the stub through its +Z collet and hands the drain forward
+    along world −Y. The tube then turns west around the lowered source valves.
+    Its vertical leg stands one `elbow_connector.LEG` below the spout exit.
 
     Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
     anchors on now that it starts at a collet rather than at silicone."""
@@ -6213,6 +6223,7 @@ def build_drain_joint(funnel_carry):
     clamp, _ = seat_body(_stub.build_clamp().val(), seat="funnel-drain-clamp",
                          station=(origin, drain))
     union, union_carry = seat_body(_elbow.build_elbow_connector().val(),
+                                   (((0.0, 0.0, 1.0), 180.0),),
                                    seat="funnel-drain-union",
                                    station=(_elbow.port("z"), drain))
     return (("funnel-drain-stub", stub, C_STUB, None),
@@ -6475,7 +6486,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The funnel's
     # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the elbow
-    # hands the line aft one leg below that — and what is left is the HEAD the gravity feed runs
+    # hands the line forward one leg below that — and what is left is the HEAD the gravity feed runs
     # on, the drop from that mouth to V-B's own collet. Every millimetre off
     # `enclosure.appliance_height`, and every millimetre `funnel.chute_h` takes for
     # capacity, comes out of this one.
