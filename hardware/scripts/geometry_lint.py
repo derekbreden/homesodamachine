@@ -429,14 +429,14 @@ def find_slivers(planes, q_min, s=1.0):
             if whole.soft_frac() > 0.75:
                 continue  # chords of a curved surface, not authored planes
             for p in whole.components():
-                if _banded(p, whole, neighbours):
-                    continue
                 w = p.uv_hi - p.uv_lo
                 minor, major = float(w.min()), float(w.max())
                 if minor > _SLIVER_MINOR or major < _SLIVER_MAJOR or major < 4 * minor:
                     continue
                 if p.area < 0.8 * minor * major:  # holes/annuli: bbox is not the strip
                     continue
+                if _banded(p, whole, neighbours):
+                    continue  # only a plausible strip needs the all-plane comparison
                 axis = p.u if w[0] >= w[1] else p.v
                 c = p.thru()
                 a, b = c - axis * major / 2.0, c + axis * major / 2.0
