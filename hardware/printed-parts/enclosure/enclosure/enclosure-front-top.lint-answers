@@ -1,10 +1,3 @@
-[sliver] The four strips bound the 0.25 mm running-fit relief between the Y-seam tongue's ceiling and each upper socket collar. The collar's fore face is Y196.75 and the fusion shoulder is Y197.00. These are exposed edges of the top wall and its full-section tongue; the 0.25 mm measure is the clearance slot, not a printed ligament. The tongue's Z348.75 underside keeps its full 3 mm section to its Z351.75 sliding face.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-89.125 y=196.875 z=352.000
-click: x=89.125 y=196.875 z=352.000
-click: x=-89.125 y=196.875 z=348.750
-click: x=89.125 y=196.875 z=348.750
-
 [sliver] The fore-facing flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 10 mm deep at Y167.56..177.56 and finishes on the flank's 45-degree bedding plane. The reported 0.5 mm strip is the end of that intersection; the full plate depth and wall back it.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=98.500 y=172.560 z=180.550
@@ -13,10 +6,6 @@ click: x=-98.551 y=172.560 z=180.550
 [ceiling] The pump-bay lintel is the complete fixed roof at Z283.745, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. Support reaches the roof from the bed and leaves through the empty cartridge bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=42.259 z=283.745
-
-[slope] The display PCB end-wall/ridge-support face spans the bay from the tee wall's crown. `_ridge_wall` supplies its complete starting line, and the 45-degree face lays each following line on that support. The adjacent X wall selected by the lint is not its supporting wall.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=47.825 z=309.085
 
 [sliver] The pump jack's two snap catches are the module's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper. Both retain their complete sections, backed by the receptacle boss on the ridge wall. The upper catch translates upward by the 0.25 mm supported-face allowance; it is not thinned.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -60,3 +49,24 @@ click: x=103.722 y=93.509 z=171.875
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-103.750 y=93.509 z=171.875
 click: x=103.722 y=93.509 z=171.875
+
+[step] The Y-seam socket entry relief at Y196.75 runs beside the fusion shoulder at Y197.00. Their 0.25 mm offset is the running-fit clearance of the pin passage. Both faces join the complete collar and forward wall stock.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-87.917 y=197.028 z=340.483
+
+[sliver] These four faces expose the ends of the 0.25 mm Y-seam running-fit relief beside the upper socket passages. Each is backed by the socket collar or the full 3 mm ceiling tongue; its 0.25 mm plan width is the clearance margin, not a freestanding ligament. The ceiling tongue occupies Z339.75..342.75 beneath the funnel bearing.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-94.500 y=196.875 z=341.950
+click: x=94.500 y=196.875 z=341.950
+click: x=-86.625 y=196.875 z=339.750
+click: x=86.625 y=196.875 z=339.750
+
+[sliver] These are the short exposed end faces where the socket passage meets the Z343 underside of the filled funnel surround. They connect the complete socket, flank and roof stock. The 1.05 mm measure is the exposed height at that junction, not the thickness of a separate printed strip.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-95.125 y=196.750 z=342.475
+click: x=95.125 y=196.750 z=342.475
+
+[ceiling] These flat undersides carry the continuous 6 mm funnel bearing at Z343..349 and join the surrounding roof and side walls. Their full section supports the silicone brim. Supports enter from the print bed and are removed through the open shell before assembly.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-80.500 y=151.875 z=343.000
+click: x=80.500 y=151.875 z=343.000
