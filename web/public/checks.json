@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2308 tracked, 455 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2319 tracked, 455 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -87,12 +87,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 3 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 2 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 58 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 455 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 1 of 36 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 456 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 130 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at be6adb30c4663382fbc371136920d1a1 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 130 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 2dd8754eae8ec0bb7adbeeff460041f6 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -158,25 +158,25 @@
       "BUILD.bazel is not what the graph would write now:",
       "  --- BUILD.bazel",
       "  +++ what gen_build.py writes now",
-      "  @@ -4171,7 +4171,9 @@",
+      "  @@ -247,7 +247,10 @@",
       "           \"pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py\",",
       "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py\",",
+      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py\",",
       "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py\",",
-      "           \":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step\",",
-      "  @@ -5399,8 +5401,10 @@",
-      "       srcs = [",
-      "           \"pysrc/hardware/printed-parts/cadlib/fits.py\",",
-      "           \"hardware/printed-parts/enclosure/display-cover/README.md\",",
-      "  -        \"hardware/printed-parts/enclosure/display-cover/display_cover.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py\",",
+      "           \"pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py\",",
+      "  @@ -396,7 +399,10 @@",
+      "           \"pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py\",",
+      "           \"pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py\",",
+      "           \"pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py\",",
       "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py\",",
-      "  … 337 more line(s)",
+      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py\",",
+      "  … 1377 more line(s)",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ]
   },
