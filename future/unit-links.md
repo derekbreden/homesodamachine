@@ -1,24 +1,21 @@
 # Unit links
 
-Every plate carries the unit's own address twice: lettered for a person, coded for a phone.
-The lettered one is on the plate and opens the unit's machine page. The QR code is not on the
-plate.
+Every nameplate carries a unit-specific QR beside the faucet and name. The plate has no
+lettered domain or separate serial. Printed instructions can use the full-domain URL.
 
 ## The two strings
 
 | Reader | String | Where it comes from |
 |---|---|---|
-| A person | `homesodamachine.com/0001` | `_nameplate_dimensions.unit_url_plain` |
-| A scanner | `HTTPS://HOSM.US/0001` | owed — no generator emits it |
-
-`hosm.us` is registered. HOme Soda Machine.
+| Written instructions | `homesodamachine.com/0001` | `_nameplate_dimensions.unit_url_plain` |
+| Nameplate QR | `HTTPS://HOSM.US/0001` | `_nameplate_dimensions.unit_url` |
 
 ## Twenty characters
 
 A QR's size is a version, and each version is four modules wider per side than the last:
 Version 1 is 21×21, Version 2 is 25×25, Version 3 is 29×29. Within a fixed footprint a lower
 version is a wider module, and a module on this plate is extrusions of a
-[0.2 mm](NAMEPLATE_NOZZLE_D) nozzle.
+0.4 mm nozzle.
 
 Length and mode set the version. QR alphanumeric mode packs 5.5 bits per character and covers
 `0-9 A-Z space $ % * + - . / :`. One lowercase letter puts the whole payload in byte mode at 8
@@ -89,51 +86,18 @@ The checklist's checkmarks are stored in the browser under the serial. Unregiste
 return 404. `web/tests/unit.test.js` checks the route and its links, and
 `web/tests/browser/unit.browser.js` checks navigation, the checklist, and phone layouts.
 
-## What is owed
+## The code on the plate
 
-### The code on the plate
+The production [nameplate](/hardware/printed-parts/enclosure/nameplate/README.md) is
+104.53 × 38 mm. Its code has 21 × 21 active modules at 1.1 mm, making a 23.1 mm active
+square within a 31.9 mm quiet-zone square. White modules are flush in the black PET-GF face.
+The artwork prints face-down in two colours through the first 0.72 mm. The QR has 0.02 mm
+joins at diagonal-only white contacts to keep the CAD colour interface manifold.
 
-The lettering stands [78.63 mm](LOCKUP_W) × [57.32 mm](STACK_H) on a plate
-[104.53 mm](PLATE_W) × [66.07 mm](PLATE_H), and two Ø[5.8 mm](CBORE_D) screw counterbores
-stand in what is left at each side, at mid-height.
-
-A Version 1 code is 21 modules of ink, and the standard carries four modules of clear field
-around it. The clear field is bare plate and costs no ink:
-
-| Module | Extrusions | Ink | With its clear field |
-|---|---|---|---|
-| 0.6 mm | 3 | 12.6 mm | 17.4 mm |
-| 0.8 mm | 4 | 16.8 mm | 23.2 mm |
-| 1.0 mm | 5 | 21.0 mm | 29.0 mm |
-
-The lettering gives up room, or the plate grows.
-
-Two things the geometry answers:
-
-- **Polarity.** A QR is dark modules on a light field, and an inverted code is not read by
-  every scanner. On a black plate with white lettering the code inverts the plate's own
-  scheme: the dark modules are plate-black, the field around them a white recess — the
-  opposite assignment from the type. The print settings put the filament change at the recess
-  floor, and a single change there puts white above black across the whole band. Whether both
-  filaments are live per-layer through [3.5 mm](INK_FLOOR)–[4.5 mm](NAMEPLATE_T) is read at the
-  slicer.
-- **Diagonal modules.** Two dark modules that meet at a corner and nowhere else share no
-  edge. Each module carries a bleed so diagonal neighbours do.
-
-### The encoder and its check
-
-`qrcode` is in `tools/cad-venv`; `segno` is not. `qrcode.util.optimal_mode()` takes bytes, not
-a string.
-
-The check reads three things: the payload is at most twenty characters, every character is in
-the QR alphanumeric set, and the code the encoder built reports version 1. A payload that
-drifts to lowercase, or to twenty-one characters, still scans.
-
-## What is Derek's
-
-The plate layout that makes room.
+`nameplate.py` explicitly selects version 1, error correction M and alphanumeric mode;
+serials outside 0001–9999 are rejected. Its self-test checks the code size and clear field.
+A finished physical plate must scan to its own unit before and after installation.
 
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py`
-- `/hardware/printed-parts/enclosure/nameplate/nameplate.py`

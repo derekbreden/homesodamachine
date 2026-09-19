@@ -2627,60 +2627,29 @@ def build_bulkhead_rings(stations):
     return out
 
 
-# --- the nameplate, in the field the port row leaves east of the flavour chips ---
-#
-# A plate lying flush in a pocket of this same wall, held by two M3 cap screws. The pocket and
-# the plate are `bulkhead_ring`'s construction at another size; what the screws need is depth behind
-# the wall, and that is the one thing this face is short of.
-#
-# WHAT THE WALL LEAVES IT is a rectangle on three struck edges: the flavour pair's own pocket
-# edge west, the flat rear face's tangent east, and the top row's pockets north. The fourth is
-# the back column's Z seam, which the box searches — so the plate is stood off the other three
-# and `nameplate-field` reads it back against the seam once the box is standing.
+# --- the nameplate in the field east of the flavour rings -------------------
+
 NAMEPLATE_MARGIN = 5.0
-# What the lowest point of a boss's corbel keeps off the cold core's cap. One millimetre is the
-# enclosure's assembly-clearance floor; the pump's rounded aft disc leaves more above the other
-# side of this same station, and `nameplate-support-clearance` reads both exact solids back.
-NAMEPLATE_BOSS_CLEAR = 1.0
-# The two bodies the plate goes into the assembly under — the part and the filament lying in it.
 NAMEPLATE = "nameplate"
 NAMEPLATE_INK = "nameplate-ink"
+
+
 def nameplate_field() -> tuple:
-    """The rectangle the wall leaves the plate, as `(west, east, north)`.
-
-    West is the flavour pair's own POCKET edge, not its chip's — what stands on the wall there is
-    the pocket. East is the flat rear face's tangent, the plane the C14 tunnel follows from
-    `c14_station_x`. North is the top row's pockets, read on the deck's own storey."""
-    return (PANEL_X["bulkhead-flavor-a"] + port_pocket_d() / 2.0,
-            _enc.interior_x()[1] - (_enc.corner_round - _enc.wall),
-            deck_storey() - port_pocket_d() / 2.0)
-
-
-def nameplate_screw_line(foam) -> float:
-    """The Z both screws stand on: the lowest a corbelled boss can, over the cold core's cap.
-
-    The plate's boss reaches `nameplate.boss_reach` inboard and the core's foam stands
-    `enclosure.wall` off this wall for the whole of the field below — so a boss over the cap is a
-    boss in the core. Its corbel falls one `boss_reach` below the stem's lower tangent; this is
-    the cap's face, that fall, half a stem, and the air past it."""
-    return (cap_face(foam) + _np.boss_reach() + _np.boss_stem_d() / 2.0
-            + NAMEPLATE_BOSS_CLEAR)
+    """The field bounded by the flavour pocket, rear tangent and top port row."""
+    return (PANEL_X["bulkhead-flavor-a"]+port_pocket_d()/2,
+            _enc.interior_x()[1]-(_enc.corner_round-_enc.wall),
+            deck_storey()-port_pocket_d()/2)
 
 
 def nameplate_station(foam) -> tuple:
-    """The plate's own centre on the wall, as `(x, z)` — centred across the field, and standing
-    ON the screw line, which is what puts its two screws at mid-height."""
+    """Centre on the rear field, with the retained pump ledge above the cap."""
     west, east, _north = nameplate_field()
-    return ((west + east) / 2.0, nameplate_screw_line(foam))
+    return ((west+east)/2, cap_face(foam)+_np.interface.CENTRE_ABOVE_CAP)
 
 
 def nameplate_cut(foam) -> _enc.Nameplate:
-    """Everything the wall does for the plate, as `enclosure.Pack.nameplate`."""
-    x, z = nameplate_station(foam)
-    return _enc.Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.BEVEL, _np.SLIP,
-                          _np.THICK, _np.WALL, _np.screw_stations(),
-                          _np.boss_stem_d(), _np.boss_reach(),
-                          _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
+    """The production snap-fit pocket at the plate's assembly datum."""
+    return _np.interface.station(*nameplate_station(foam))
 
 
 def build_nameplate(foam, unit: int = 1):
