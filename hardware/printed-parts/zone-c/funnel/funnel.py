@@ -48,10 +48,10 @@ brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
 bottle_ml = 440.0  # one SodaStream concentrate bottle
-capacity_bottles = 1.15  # minimum capacity to the brim, checked in build()
-chute_h = 19.5  # brim top to inner ramp start
+capacity_bottles = 600.0 / bottle_ml  # minimum capacity to the brim, checked in build()
+chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 1.85  # outlet offset in X from the collar center
-neck_dy = -26.0  # outlet forward of the collar center
+neck_dy = 0.0  # outlet centered fore–aft
 spout_id = 6.35  # 1/4-inch outlet bore
 spout_wall = 4.5  # radial wall on the straight clamp land
 neck_blend_drop = 6.25  # inner ramp tip to the top of the straight clamp land
@@ -62,7 +62,7 @@ spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder  # straight clamp land, below 
 # outlet. The drain drop includes the chute, ramp, throat transition and clamp land.
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
-drop = 45.94923306371  # brim underside to the drain mating face
+drop = 49.93517935471506  # brim underside to the drain mating face
 _ramp_rise = drop - (chute_h - brim_thickness) - neck_blend_drop - spout_tube
 ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
 
@@ -177,7 +177,7 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     top_z = brim_thickness                              # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
-    ncy = cy + neck_dy                                  # forward, over the drain connection
+    ncy = cy + neck_dy                                  # fore–aft outlet station
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
     end_z = -drop                                       # spout exit (the drain)
     spout_land_z = end_z + spout_tube
@@ -188,12 +188,13 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
         _rounded_box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang,
                      brim_corner_r, 0.0, top_z, cx, cy),
         _rounded_box(w, d, collar_corner_r, ramp_top_z, 0.0, cx, cy),
-        _loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, ncy, neck_z, collar_corner_r),
         _cyl(spout_or, neck_z, end_z, ncx, ncy),
     ]
+    if not ramp_wall:
+        bases.append(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or,
+                              ncx, ncy, neck_z, collar_corner_r))
     if outer_air:
         bases = [normal_envelope(base, outer_air) for base in bases]
-    solid = fuse_shapes(*bases, tol=0.0001).clean()
     # The inner forming surface runs from the mouth through the ramp and outlet.
     ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
                     ncx, ncy, neck_z, mouth_corner_r)
@@ -206,8 +207,15 @@ def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     assert ramp_faces, "inner ramp faces must carry the normal wall"
     # Each inner ramp face carries a 6 mm normal skin with round edge joins.
     if ramp_wall:
-        solid = fuse_shapes(solid, normal_envelope(ramp, ramp_wall + outer_air),
-                            tol=0.0001).clean()
+        bases.insert(0, normal_envelope(ramp, ramp_wall + outer_air))
+    # The normal ramp envelope supplies the complete floor. Fuse it directly with
+    # the collar, brim and spout, without an overlapping thin loft inside the skin.
+    solid = fuse_shapes(*[base.toNURBS() for base in bases])
+    assert solid.isValid() and len(solid.Solids()) == 1
+    bounds = solid.BoundingBox()
+    assert bounds.zmax >= top_z - 0.0001, "the complete brim must survive the union"
+    assert bounds.xlen >= w + 2.0 * brim_overhang - 0.0001
+    if ramp_wall:
         ramp_boundary = cq.Compound.makeCompound(ramp_faces)
         outer_boundary = cq.Compound.makeCompound(solid.Faces())
         minimum_wall = ramp_boundary.distance(outer_boundary)
@@ -248,7 +256,10 @@ def build(drop=drop):
             f"the funnel holds {fill / 1000.0:.1f} mL, short of the "
             f"{capacity_bottles:g} × {bottle_ml:g} mL = {want / 1000.0:.1f} mL target — "
             f"set chute_h to {chute_h + (want - fill) / bore_area:.2f} mm")
-    return cq.Workplane(obj=solid.cut(cavity)), (
+    part = solid.cut(cavity.toNURBS())
+    assert part.isValid() and len(part.Solids()) == 1
+    assert abs(part.BoundingBox().zmax - brim_thickness) < 0.0001
+    return cq.Workplane(obj=part), (
         m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill,
     )
 

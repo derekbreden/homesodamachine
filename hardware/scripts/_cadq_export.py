@@ -971,15 +971,16 @@ def _per_solid_color(assembly):
     return out
 
 
-def export_assembly(assembly, target_path):
+def export_assembly(assembly, target_path, **kwargs):
     """cq.Assembly.export with atomic write. (Assembly.save is its deprecated
     alias — it just delegates to .export — and warns on every call.)
 
     What is written is the per-solid-color restatement, and the tessellation
     handed over beside it is taken from that same assembly — the two routes into
-    the viewer have to agree, and agreeing on the uncolored one is not the way."""
+    the viewer have to agree, and agreeing on the uncolored one is not the way.
+    Keyword arguments pass through to CadQuery's exporter, including STEP precision."""
     colored = _per_solid_color(assembly)
-    _atomic_write(target_path, lambda p: colored.export(p))
+    _atomic_write(target_path, lambda p: colored.export(p, **kwargs))
     _write_payload_beside(target_path, colored)
 
 

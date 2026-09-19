@@ -1,7 +1,7 @@
 # Funnel
 
 The removable dishwasher-safe silicone funnel seats in the top-wall opening,
-directly behind the display facet. It holds [516 mL](FUNNEL_CAP), including a
+directly behind the display facet. It holds [600 mL](FUNNEL_CAP), including a
 full 440 mL SodaStream flavor bottle. Its brim, collar and ramp are 6 mm thick;
 the outlet has a [4.5 mm](FUNNEL_SPOUT_WALL) radial wall.
 Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
@@ -16,9 +16,9 @@ collar has R20 corners, and the 179 × 165 mm brim has R27 corners.
 The brim is 6 mm thick and overhangs the collar by 7 mm. It bears on 6 mm of
 printed enclosure stock, filled outward to the walls. The collar and sloping
 floor have 6 mm silicone walls; floor thickness is measured normal to its surface.
-The straight chute is [19.5 mm](FUNNEL_CHUTE) deep from the brim's upper face.
-The floor falls continuously toward the outlet, which is offset 1.85 mm in X and
-26 mm toward the front. The brim underside is [45.9492 mm](FUNNEL_DROP_UNDER) above
+The straight chute is [23.4859 mm](FUNNEL_CHUTE) deep from the brim's upper face.
+The floor falls continuously toward the outlet, centered fore–aft and offset
+1.85 mm in X. The brim underside is [49.9352 mm](FUNNEL_DROP_UNDER) above
 the drain's mating face.
 
 A 6.25 mm transition below the inner floor joins the straight outlet. The outlet
@@ -42,7 +42,8 @@ tools/cad-venv/bin/python tools/funnel-mold-print/review_funnel_wall.py --grid 9
 
 The funnel's drain stub seats in the JG PP0308E union elbow below it
 ([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)).
-The elbow turns `fluid-4` aft toward V-B. The funnel stays captive until this
+The elbow turns `fluid-4` forward; the tube then passes west of the source valves
+and returns to V-B. The funnel stays captive until this
 elbow's collet releases the stub.
 
 The 1/4" jaw of the printed [`collet press`](../../collet-press/) drops over

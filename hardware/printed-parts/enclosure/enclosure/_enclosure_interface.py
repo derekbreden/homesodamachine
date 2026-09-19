@@ -35,6 +35,8 @@ pump_station_lead = -0.124
 # own independent rise, carried by its tees, valve seats and stationary tube endpoints.
 pump_station_drop = 3.0
 manifold_rise = 2.0
+# The two source limbs, including their tees and aft valves, sit below the outer limbs.
+inner_limb_drop = 6.0
 
 # Aft travel available beyond the connected tee-carrier datum, for elastic bending.
 # The connected pose, tube projections and moving carrier dimensions stay independent.
