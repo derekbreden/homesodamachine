@@ -89,12 +89,12 @@ destroyed is a part that comes out by being destroyed.
   16 mm.
 - **The front-top assembly order follows the moving mechanism.** Insert the bare tees from
   aft into the fixed body's cavities and move them to the fore stop. With both valve rows
-  absent, feed the left carrier half through the open rear, lower it through the outer tee
-  well and seat its bar outward at the fore stop. Seat the right half at the aft stop and
-  bring it fore to close the lap. Two M3 screws enter through the empty cartridge bay.
-  Raise the aft valves through the underside and press their posts into the tray. Tie each
-  tee twice; feed each compressed spring through an inner tee well, outward below the upper
-  guide and down to its seat. Install the fore valves and bowed stubs. After the chassis
+  absent, feed the left carrier half through the open rear, lower it behind the fixed body
+  and seat its bar outward on the aft stop. Slide the right half onto the left half's tongue
+  on the same stop and seat it. Two M3 screws enter from the open rear. Move the carrier to
+  release, raise the aft valves through the underside and press their posts into the tray.
+  Tie each tee twice; feed each compressed spring down an outer tee well and through the
+  window into its bar's channel. Install the fore valves and bowed stubs. After the chassis
   closes, squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and
   relax to the aft stop.
 - **The collet action is physically established.** Derek's checks with a tube-tight collar

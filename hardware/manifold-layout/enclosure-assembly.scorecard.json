@@ -806,7 +806,7 @@
    "label": "Tee carrier clears front-top through installation, nominal states and aft overtravel, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "414 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/aft overshoots 0.105029/0.018000 mm\u00b3; 50 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.100066 mm\u00b3; 4.65 mm total travel, nominal rest 2.15 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 118.750 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
+   "value": "396 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/aft overshoots 0.105029/0.018000 mm\u00b3; 50 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.100066 mm\u00b3; 4.65 mm total travel, nominal rest 2.15 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 356.394 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
@@ -856,7 +856,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 150.75..218.89",
+   "value": "seam at 160.00, lane 150.75..192.31, 217.84..218.89",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1068,6 +1068,36 @@
    "status": "pass",
    "value": "brim front at y 100.00, facet arris at 95.34",
    "target": "a 3 mm landing, so at or aft of 98.34",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "connected-pieces",
+   "label": "Each printed enclosure piece is one valid connected solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6 connected pieces",
+   "target": "one valid solid per printed piece",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
+   "kind": "gate",
+   "status": "pass",
+   "value": "walls inside `outer`; disposal letters raised 0.6 mm",
+   "target": "only the disposal letters extend past the box's exterior",
    "detail": [],
    "active": true
   },
