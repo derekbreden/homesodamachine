@@ -56,7 +56,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 
 ## What is on the front face
 
-- The enclosure display — a 4.3" touchscreen let into the 45° facet, centred, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
+- The machine display — a 4.3" touchscreen let into the rounded 30° top, centred, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
 - The pump cartridge's face — the flat front under the facet, jamb to jamb, filling the bay it slides out of with both peristaltic pumps aboard. A pull carries the four tied tees to the fixed release face; after the tubes clear, two springs return the empty carrier to park beyond connection reach. Each hand squeezes between a cartridge pocket and the integral carrier tab on that side until all four tubes bottom, then relaxes so the carrier settles at connected. The carrier halves enter separately and are joined by two M3 screws before springs and tees are fitted. Detail: [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md) "The pump cartridge and its bay".
 - Nothing else. Every fluid connection the customer makes is on the +Y wall of back-top: the water inlet, the CO2 inlet, and the umbilical that carries carbonated water and both flavours up to the faucet.
 

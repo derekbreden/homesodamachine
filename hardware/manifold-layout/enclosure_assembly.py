@@ -3283,7 +3283,7 @@ def interior_ceiling() -> float:
     The height is struck from the floor slab's underside, so the cavity is what the stated
     number leaves once the slab and the top wall are both out of it — and the slab is the
     thicker of the two (`enclosure.floor_t`)."""
-    return _enc.appliance_height - _enc.floor_t - _enc.wall
+    return _enc.appliance_height - _enc.floor_t - _enc.ceiling_skin
 
 
 def asse_crown_over_axis() -> float:
@@ -3559,7 +3559,7 @@ def _keystone_clearances(station: tuple, flavor: float, placed: dict) -> tuple:
 
     ix0, ix1 = _enc.interior_x()
     inner = (ix0, ix1, _enc.front_plane_y, _enc.rear_plane_y, 0.0,
-             _enc.appliance_height - _enc.floor_t - _enc.wall)
+             interior_ceiling())
     outer = (-_enc.appliance_width / 2.0, _enc.appliance_width / 2.0,
              _enc.front_plane_y - _enc.front_wall, _enc.rear_plane_y + _enc.wall,
              -_enc.floor_t, _enc.appliance_height - _enc.floor_t)
@@ -6168,26 +6168,17 @@ def funnel_centre(box):
 
 
 def build_funnel(box):
-    """The static funnel (`funnel.py`, its own frame: collar-centre origin, z 0 the
-    brim underside) seated in the top-wall opening — turned `FUNNEL_ROT` about its own Z,
-    then set at `funnel_centre` with that underside on the box's outer top. `enclosure.py`
-    cuts the opening from the same centre, so funnel and hole cannot drift apart.
+    """Seat the funnel's brim underside on the recessed bearing plane.
 
-    THE BRIM RIDES THE CEILING, AND SO DOES THE DRAIN. The funnel's underside bears on the top
-    wall's outer face and `funnel.drop` is fixed, so every millimetre off
-    `enclosure.appliance_height` is a millimetre off the drain's own height — and what that comes
-    out of is the HEAD the gravity feed runs on. The elbow turns the fall itself, so no corner of
-    the run is waiting on that height; what is left of it is the drop from the elbow's own mouth
-    to V-B's collet, and `room-holds` on the card is where a ceiling that took one more millimetre
-    would show up.
-
-    Returns `(placed, carry)` like every other seated body, so the drain the funnel empties
-    through rides the funnel."""
+    The brim top is flush with the enclosure roof. The drain follows the funnel's
+    local outlet datum, maintaining the gravity-feed joint's assembled position.
+    `enclosure.py` cuts the opening from this same centre and bearing height.
+    """
     cx, cy = funnel_centre(box)
     return seat_body(import_step(str(FUNNEL_STEP)).val(),
                      (((0.0, 0.0, 1.0), FUNNEL_ROT),), seat="funnel",
                      station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
-                              (cx, cy, box.outer[5])))
+                              (cx, cy, _enc.funnel_seat_z(box.outer))))
 
 
 def build_drain_joint(funnel_carry):
@@ -6232,7 +6223,7 @@ def build_drain_joint(funnel_carry):
 # The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
 # up-and-forward at `enclosure.display_facet_angle_deg`. One turn about X carries the screen
 # normal onto the facet's and the up-screen axis up the slope with it.
-DISPLAY_TILT = ((1.0, 0.0, 0.0), -45.0)
+DISPLAY_TILT = ((1.0, 0.0, 0.0), _enc.display_facet_angle_deg - 90.0)
 
 
 def build_display(box):
@@ -6241,13 +6232,13 @@ def build_display(box):
     on two different centres.
 
     The glass is the datum. It sits in the bezel counterbore, `display_bezel_depth` deep, so the
-    cover glass's own face lies that depth less its own thickness below the 45° surface. The
+    cover glass's own face lies that depth less its own thickness below the display surface. The
     BODY hangs behind it, offset on the glass by `display_body_offset_*` because the glass
     overhangs the body unevenly."""
     a, normal, origin, _dy, _dz = _enc._facet_geom(box.outer)
     n = cq.Vector(*normal)                                  # out of the facet, up-and-forward
     x_dir = cq.Vector(1.0, 0.0, 0.0)
-    up = cq.Vector(0.0, math.cos(a), math.sin(a))            # up the 45° slope
+    up = cq.Vector(0.0, math.cos(a), math.sin(a))            # up the display slope
     glass = (cq.Vector(_enc.display_centre_x(box.outer), origin[1], origin[2])
              - n * (_enc.display_bezel_depth - _disp.bezel_depth))
     seat_pt = (glass
@@ -6267,9 +6258,9 @@ def build_display(box):
 # slope, +Z out at the user — so one turn about X lays its +Z on the facet's normal and its +Y
 # up the slope. The display faces the user along its own −Y and the plate along its +Z, so the
 # two tilts are the same quarter opposite ways about.
-COVER_TILT = ((1.0, 0.0, 0.0), +45.0)
+COVER_TILT = ((1.0, 0.0, 0.0), _enc.display_facet_angle_deg)
 
-# The plate's origin is the centre of its TOP face, and its top face IS the 45° plane — so the
+# The plate's origin is the centre of its TOP face, and its top face IS the display plane — so the
 # point that origin lands on is `display_plane`'s own, and the seat has no offset of its own to
 # state. `display_plane` is what the facet's own cuts are struck on, so the pocket and the pad
 # that drops into it cannot land on two different frames.
@@ -6277,16 +6268,9 @@ COVER_ORIGIN = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
 
 
 def build_display_cover(box):
-    """The printed border that fills the display inset and closes the 45° face flat.
-
-    Its top face lies IN that face, and its back is one plane either side of a single step: the
-    lap, one `display_inset_depth` down where the glass is under it, and the seat, one
-    `display_cover_seat` down everywhere else, bearing on the land `_display_cuts` sinks to meet
-    it. No pad stands off it. Two DIN 912 M3s come down through that seat into ruthex inserts in
-    `enclosure-front-top`, each head landing in a flat counterbore under the 45° plane, so the
-    glass under the border is captured between the bezel it sits in and the plate over it."""
+    """The rounded bezel seated flush, with its two skirts flexed into their pockets."""
     plane = _enc.display_plane(box.outer)
-    return seat_body(_cover.build_display_cover().val(), turns=(COVER_TILT,),
+    return seat_body(_cover.build_display_cover(seated=True).val(), turns=(COVER_TILT,),
                      seat="display-cover",
                      station=(COVER_ORIGIN, plane.origin.toTuple()))
 
@@ -6392,8 +6376,12 @@ def _pump_jack_service_bound(display, front_top, enclosure_box) -> Bound:
     if cap_air < 0.0:
         failures.append(f"the pulled plug still stands {-cap_air:.3f} mm over the bay bulkhead")
 
-    wall_air = service_path.distance(wall)
-    display_air = service_path.distance(glass)
+    # The solid intersections above settle the complete motion. Its reported air
+    # uses the same bounded mesh-distance query as the other clearance readings.
+    horizon = PUMP_PLUG_PULL + PUMP_PLUG_FINGER
+    wall_air = _clearing.gap(service_path, wall, horizon)
+    display_air = _clearing.gap(service_path, glass, horizon)
+    air_text = lambda value: (f"≥{horizon:.3f}" if value == horizon else f"{value:.3f}")
     return record_bound(Bound(
         "pump-jack-service",
         "Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path "
@@ -6402,7 +6390,8 @@ def _pump_jack_service_bound(display, front_top, enclosure_box) -> Bound:
         f"{PUMP_PLUG_PULL:.3f} mm pull; {overlaps['enclosure-front-top'][0]:.6f}/"
         f"{overlaps['display'][0]:.6f} mm³ path overlap; "
         f"{overlaps['enclosure-front-top'][1]:.6f}/{overlaps['display'][1]:.6f} mm³ finger "
-        f"overlap; {wall_air:.3f}/{display_air:.3f} mm path air; {cap_air:.3f} mm past the bulkhead",
+        f"overlap; {air_text(wall_air)}/{air_text(display_air)} mm path air; "
+        f"{cap_air:.3f} mm past the bulkhead",
         f"0 mm³ overlap; clip down; {PUMP_PLUG_FINGER:.3g} mm finger room; pulled plug fore of "
         f"the bay bulkhead",
         tuple(failures),

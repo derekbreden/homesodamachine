@@ -14,6 +14,7 @@ sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
 import fits  # noqa: E402
 
 wall = 3.0
+ceiling_skin = 3.0
 rear_seam_clear = 3.0
 co2_axis_drop = fits.supported_surface
 
@@ -76,16 +77,12 @@ display_bezel_x = 113.5
 display_bezel_slope = 77.0
 display_corner_r = 2.5
 display_inset_lap = 3.0
-display_inset_reach = 20.0
+display_inset_reach = 6.3
 display_inset_depth = 2.0
 display_inset_x = display_bezel_x + 2 * display_inset_reach
-display_inset_slope = display_bezel_slope + 2 * display_inset_lap
+display_inset_slope = 83.6
+display_inset_corner_r = 6.3
+display_cover_corner_r = 6.0
 display_bezel_depth = 4.0
 display_cover_thickness = 2.0
-display_cover_slip = fits.slip      # per side, plate edge into the inset it drops in
-display_cover_head_h = 3.0
-display_cover_seat_recess = 0.2
-display_cover_cbore_depth = (display_cover_head_h + display_cover_seat_recess
-                             + fits.supported_surface)
-display_cover_seat = display_cover_cbore_depth + display_cover_thickness
-display_screw_x = (display_bezel_x + display_inset_x) / 4.0
+display_cover_slip = 0.3

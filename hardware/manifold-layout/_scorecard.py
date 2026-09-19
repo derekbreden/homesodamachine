@@ -262,17 +262,9 @@ MOUNTS = (
     ("funnel-drain-stub", None, "tube-clamp"),
     ("funnel-drain-clamp", None, "tube-clamp"),
     ("funnel-drain-union", None, "tube-hung"),
-    # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
-    # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
-    # four sides, drawn down by two DIN 912 M3s into ruthex inserts in the facet's own inset
-    # floor (`enclosure._display_cuts`, `printed-parts/enclosure/display-cover/`). Neither part
-    # holds it alone: lift the plate off and the display comes out of its hole by hand.
+    # The glass is captured between its housing seat and the rounded snap bezel.
     ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
-    # And the plate itself on those same two screws, which are the whole of what holds it — it
-    # drops into the inset on a slip fit and bears on the floor.
-    ("display-cover", "enclosure-front-top", "bosses"),
-    # The soft ring between the two. It is what the plate closes onto, so the screws reach the
-    # glass through it rather than standing over it.
+    ("display-cover", "enclosure-front-top", "snap-capture"),
     ("display-gasket", ("display-cover", "display"), "gap-press"),
     # The pump jack snaps into front-top's ridge wall: the keystone's tang and latch close over
     # the receptacle's two catches behind the rib.
@@ -509,7 +501,7 @@ NEVER = {
     # union stays behind on its two collets. A printed feature closing on any of the four would be
     # a feature the customer has to work past every time the funnel is washed.
     "funnel":
-        "The brim bears on the top wall's outer face, the collar runs in "
+        "The brim bears on the inset 6 mm seat, the collar runs in "
         "`enclosure._funnel_cut_plan`, "
         "and the elbow's own collet grips the stub the spout carries — so the funnel is held down by "
         "the joint it releases from. It is a dishwasher part and comes out by hand.",
@@ -682,9 +674,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
-    # THE COVER PLATE ON THE INSET IT FILLS. Its underside lies on the inset floor and each of
-    # its two pads bottoms in the pocket sunk for it, so the plate reads 0 against the piece on
-    # three faces at once — which is the seat, and what puts its own top face in the 45° plane.
+    # The bezel bears on the inset seat, with its skirts flexed into the side recesses.
     ("enclosure-front-top", "display-cover"),
     # AND THE SOFT RING BETWEEN PLATE AND GLASS. It fills what the lap passes over, so it reads
     # 0 against both of them — which is the whole of why it is there.

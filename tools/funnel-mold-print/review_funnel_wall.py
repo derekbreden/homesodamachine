@@ -81,8 +81,17 @@ def sample_points(bore, metadata, grid, edge_margin):
         coverage[str(index)] = {"surface": face.geomType(), "grid_samples": count}
     for index, direction in enumerate(DIRECTIONS):
         angle = math.radians(index * 45.0)
-        for radius in (metadata["spout_id"] / 2 + 0.5,
-                       metadata["spout_id"] / 2 + 2.0, 10.0, 25.0, 45.0, 65.0):
+        dx, dy = math.cos(angle), math.sin(angle)
+        mouth_hits = intersections(bore,
+            (metadata['ncx'], metadata['ncy'], metadata['ramp_top_z'] + 1.0),
+            (dx, dy, 0), 0.001, 300.0)
+        if not mouth_hits:
+            raise ValueError(f'{direction}: no mouth boundary from the offset outlet')
+        reach = mouth_hits[0][0]
+        radii = (metadata["spout_id"] / 2 + 0.5,
+                 metadata["spout_id"] / 2 + 2.0,
+                 *(reach * fraction for fraction in (0.2, 0.45, 0.7, 0.9)))
+        for radius in radii:
             x = metadata["ncx"] + radius * math.cos(angle)
             y = metadata["ncy"] + radius * math.sin(angle)
             hits = intersections(bore, (x, y, 0), (0, 0, -1))
@@ -105,10 +114,19 @@ def wall_reading(shape, point, normal):
     if not inside or not hits:
         return {"thickness_mm": None, "enters_silicone": inside,
                 "exit_surface": None}
-    distance, exit_point, face = hits[0]
-    return {"thickness_mm": round(distance, 6), "enters_silicone": True,
-            "exit_surface": face.geomType(),
-            "exit_mm": [round(value, 6) for value in exit_point.toTuple()]}
+    # An OFFSET surface can report a continuation beyond its trimmed face.
+    # Count the boundary the ray actually crosses out of the solid, not that
+    # underlying surface: the same B-rep may otherwise read differently after STEP.
+    probe = RAY_EPS * 10
+    for distance, exit_point, face in hits:
+        before = shape.isInside(exit_point - normal * probe, 1e-7)
+        after = shape.isInside(exit_point + normal * probe, 1e-7)
+        if before and not after:
+            return {"thickness_mm": round(distance, 6), "enters_silicone": True,
+                    "exit_surface": face.geomType(),
+                    "exit_mm": [round(value, 6) for value in exit_point.toTuple()]}
+    return {"thickness_mm": None, "enters_silicone": True,
+            "exit_surface": None}
 
 
 def region_readings(cast, exported, metadata, brim_thickness, spout_wall, tolerance):

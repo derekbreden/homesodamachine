@@ -1,115 +1,29 @@
-# Display cover plate
+# Machine display cover
 
-The printed border that fills the display inset in the enclosure's 45° facet, laps
-the Waveshare 4.3B's cover glass on all four sides, and closes that face flat. What a
-hand meets on the top-front arris is one unbroken 45° plane with a border let into
-it: the plate's top face lies in the plane, and both screws are counterbored into
-their own lands, so nothing stands proud of the face anywhere.
+A PET-GF bezel with a smooth, rounded face, let into the enclosure's 30° display plane.
+The cover measures [125.5 mm](COVER_X) across by [83 mm](COVER_SLOPE) up the slope,
+with [6 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
+Its [107.5 mm](WINDOW_X) window laps the display glass on the TPU gasket.
+The reveal has [0.3 mm](COVER_SLIP) clearance per side.
 
-The plate is also what fastens the display. The glass sits in the bezel counterbore
-of `enclosure-front-top`; this border laps it all round and two screws draw the plate
-down into that same piece, closing on the glass through the TPU ring between them, so
-the display is captured between the two printed parts.
+Two broad side skirts flex inward during insertion. Each has [2 mm](SKIRT_WALL) walls,
+a [24 mm](SKIRT_LENGTH) run and [34 mm](SKIRT_DEPTH) reach below the face.
+A gradual lead-in carries each [3 mm](LIP_HEIGHT) lip through the opening; its flat
+shoulder engages the rigid housing by [1.8 mm](LIP_ENGAGEMENT). The nominal inward
+preload at the retaining shoulder is [0.35 mm](PRELOAD). The groove leaves
+[0.48 mm](ROOF_AIR) above the lip for the supported surface.
 
-## Frame
+The printed STEP and STL contain the relaxed cover. The enclosure assembly shows the
+skirts in their seated positions. Place the display and gasket in the housing, then
+press the cover normal to the screen until both lips engage. The cover carries no screws.
 
-`enclosure.display_plane`'s own — +X the box's lateral axis, +Y up the 45° slope, +Z
-out of the face at the user, origin on the glass's centre in the 45° plane. The
-plate's top face lies on Z = 0 and the whole body hangs below it, so every figure
-here is a depth below the face and reads directly against the depths
-`enclosure._display_cuts` cuts the facet to.
+Print with the visible face upward and both skirts on the bed. Supports carry the
+bezel's hidden underside. Physical seating, retention and repeated-use measurements
+remain to be recorded for this geometry.
 
-## Outline
-
-- Outer [153.2 mm](COVER_X) lateral × [82.7 mm](COVER_SLOPE) up the slope,
-  corners r[2.35 mm](COVER_CORNER_R). That is the inset less
-  [0.15 mm](COVER_SLIP) per side, corner radius included, so the plate's round and
-  the inset's stay concentric and the fit is one figure the whole way round.
-- [2 mm](COVER_T) thick **where it laps the glass** — the inset's own depth, which is
-  what puts the top face in the 45° plane. Everywhere else it is [5.45 mm](COVER_SEAT);
-  see *Two sections* below.
-- Window [107.5 mm](WINDOW_X) × [71 mm](WINDOW_SLOPE), corners
-  r[2.5 mm](WINDOW_CORNER_R) — the glass less [3 mm](INSET_LAP) of lap per side.
-  The corners carry the glass's own radius, since a constant lap round a corner
-  needs both outlines to share it.
-- Border [22.85 mm](BORDER_X) either side laterally, [5.85 mm](BORDER_SLOPE) top and
-  bottom. The lateral land is wide because the inset reaches past the glass for the
-  two screws to stand in; up the slope the border is the lap twice over.
-
-## Screws
-
-One at each of x = ±[66.75 mm](PAD_X), y = 0 — the middle of the lateral land, the
-widest material the plate has.
-
-- **Seat** — no pad. The plate is already [5.45 mm](COVER_SEAT) thick everywhere the
-  glass is not under it, so a head's counterbore is sunk into the plate's own
-  section and nothing stands off its back.
-- **Head seat** — a flat-bottomed ⌀[5.8 mm](CBORE_D) counterbore struck
-  [3.45 mm](COVER_CBORE_DEPTH) down from the top face over a ⌀[3.3 mm](SHANK_D) shank
-  clearance. The depth includes [0.2 mm](SEAT_RECESS) of head recess and
-  [0.25 mm](SUPPORT_AIR) for the supported annular seat. Under the
-  head is [2 mm](COVER_LAND) of land — the lap's own section. Counterbore plus land is
-  what *sets* the [5.45 mm](COVER_SEAT) seat; the plate is not thickened to some figure
-  and then bored, it is exactly as thick as a buried M3 needs.
-- **Fastener** — M3 × [8 mm](COVER_SCREW_LEN) DIN 912 socket head cap, into a ruthex M3
-  of [5.7 mm](HEATSET_LEN) body under each seat, the screw taking [5.7 mm](THREAD_ENGAGED)
-  of it in thread — the whole insert. DIN 912 states a length under the head, and what it
-  has to stand in is [8.7 mm](COVER_SCREW_REACH): the land, the insert, and the relief the
-  box bores under the insert so a tip that runs past it finds air rather than a floor.
-  These two screws are the display's entire fastening, and the facet they land in carries
-  19 mm of section, so the long body goes in rather than the short one.
-
-## Two sections
-
-Over the glass the plate is [2 mm](COVER_T) and can be nothing else — what stands in
-that step is the gasket, and under it the cover glass. Everywhere else it is
-[5.45 mm](COVER_SEAT), and `enclosure._display_cuts` sinks the inset's land to meet it.
-The two meet on the **bezel's own outline one slip out**,
-[113.8 mm](SEAT_INNER_X) × [77.3 mm](SEAT_INNER_SLOPE) with corners
-r[2.65 mm](SEAT_INNER_R), so the deeper section drops past the bezel counterbore's wall
-on the same figure the plate's edge takes at the outline.
-
-| | |
-|---|---|
-| Seat band, laterally | [19.7 mm](SEAT_BAND_X) each side — the whole land the inset reaches out for the screws |
-| Seat band, up the slope | [2.7 mm](SEAT_BAND_SLOPE) each side — there the border is nearly all lap |
-| Lap that stays thin | [3.15 mm](LAP_BAND) from the window out: the gasket's own footprint and one slip more |
-
-**What it buys.** The plate used to stand two ⌀12 circles off an otherwise flat back
-and rest on them, with the whole of its area [3.45 mm](COVER_CBORE_DEPTH) in the air.
-Now the back is one plane either side of a single step. Across the lateral land — the
-span the two screws bridge, and the only place this plate is asked to be stiff — the
-section goes 2 mm → 5.2 mm, which is [20.2×](SEAT_STIFFNESS) the bending stiffness,
-since that goes as the cube of the section.
-
-**It prints face down.** The top face has to come out flat and lie in the 45° plane,
-and a face printed against the bed is flat because the bed is. It is also what makes
-the step free: build upward from that face and every step in the back faces *up* — the
-lap stops at its own depth, the seat carries on, and nothing hangs. The bed takes
-[4985 mm²](BED_AREA) of top face in one plane. The only feature on the whole plate that
-hangs is the annular ledge at each counterbore, [1.25 mm](CBORE_LEDGE) wide.
-Its counterbore and outer seat section each include [0.25 mm](SUPPORT_AIR) of depth
-for the supported surface. The head land remains [2 mm](COVER_LAND) thick; the
-glass lap, gasket compression and screw engagement retain their dimensions.
-
-## The lap
-
-The plate's underside sits [2 mm](COVER_T) below the 45° face and the glass's front
-face [3 mm](GLASS_FACE_DEPTH) below it. What stands in that step all the way round is
-the display gasket
-([`display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)) — a
-TPU 90A ring cut to the glass's own outline outside and to this plate's window inside,
-so it lands under the border and nowhere else, and its thickness is the step itself.
-The border bears on the glass through that ring, which is what makes the two screws
-hold the display rather than the plate alone.
-
-## Regenerate
-
-```
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py
-```
+`tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py`
+exports the complete cover and checks its solid, glass clearance and seated skirt pockets.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/<stdin>`
 - `/hardware/printed-parts/enclosure/display-cover/display_cover.py`

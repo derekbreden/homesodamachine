@@ -1,8 +1,8 @@
 # Funnel mold
 
 Two PETG shells follow the [funnel](../funnel/README.md), with
-[5 mm](SKIN) forming walls and [5 mm](FLANGE) clamping flanges. The cavity
-stands on three small feet. The core has a [136.4 mm](DRY_MOUTH) square opening
+[5 mm](SKIN) minimum forming walls and [5 mm](FLANGE) clamping flanges. The cavity
+stands on three small feet. The core has a [142.4 × 128.4 mm](DRY_MOUTH) rounded rectangular opening
 in its dry back. Both halves print with automatic normal supports in Snug style.
 
 ![Cavity and core in their print orientations](overview.png)
@@ -34,7 +34,7 @@ The [6.35 mm](ROD_D) × [50.8 mm](ROD_LEN) steel dowel passes freely through an
 [8.35 mm](ROD_GUIDE_D) opening, with [2 mm](ROD_CLEARANCE) diametral clearance.
 An open V cradle on the dry back centres it. Its upper end meets a visible
 stop; two zip ties in [4.4 mm](ROD_TIE_WIDTH) grooves hold it in the cradle.
-Engagement is [27.5 mm](ROD_ENGAGEMENT), leaving [23.3 mm](ROD_EXPOSED) below the
+Engagement is [26.5 mm](ROD_ENGAGEMENT), leaving [24.25 mm](ROD_EXPOSED) below the
 core's neck. The rod stays clear of the cavity during closure.
 
 Pack a small removable seal around the rod at the forming-face entry, flush
@@ -58,7 +58,7 @@ offset, [2°](ROD_TILT) tilt and axial error in eight directions. The rod may
 project [6 mm](ROD_EXTRA) farther when not fully seated, or [3 mm](ROD_AXIAL)
 less than nominal. The minimum depth beneath its tip in these cases is
 [5.90 mm](ROD_MIN_END).
-The minimum silicone clearance in that envelope is [2.19 mm](ROD_MIN_WALL),
+The minimum silicone clearance in that envelope is [2.16 mm](ROD_MIN_WALL),
 including the sacrificial end. These checks describe geometry; the first
 physical trial establishes retention, sealing and casting quality.
 
@@ -68,8 +68,8 @@ physical trial establishes retention, sealing and casting quality.
 
 Teal is the cavity, gold the core, grey the nominal silicone, light grey the
 steel dowel and blue the removable entry seal. The nominal casting, including its sacrificial spout tip, is
-[262 mL](CAST_VOLUME). The two halves fit inside a [276.7 mm](ENVELOPE) circle,
-leaving [11.5 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
+[244 mL](CAST_VOLUME). The two halves fit inside a [278.5 mm](ENVELOPE) circle,
+leaving [10.6 mm](CHAMBER_GAP) radial clearance in the recorded chamber. Check
 the actual opening, clamp/bolt envelope and catch tray before pouring.
 
 ## Load and vacuum
@@ -83,11 +83,11 @@ pressure with the flanges held together. The tooling is not rated for a sealed
 one-atmosphere differential or pressure injection.
 
 [design.json](design.json) records a sizing calculation: a simply supported
-[159 mm](LOAD_SPAN) flat square, [5 mm](SKIN) thick, under a uniform
+[165 mm](LOAD_SPAN) flat square, [5 mm](SKIN) thick, under a uniform
 [1.00 kPa](LOAD_PRESSURE), using an assumed PETG modulus of
 [1000 MPa](LOAD_MODULUS) and Poisson ratio 0.4. Its calculated deflection is
-[0.209 mm](LOAD_DEFLECTION); the maximum static silicone head is
-[0.897 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
+[0.243 mm](LOAD_DEFLECTION); the maximum static silicone head is
+[0.831 kPa](HEAD_PRESSURE). This flat-plate model is a screening approximation;
 it does not establish the printed shell's stiffness, creep, release force or
 transient pressure during degassing.
 
@@ -142,8 +142,8 @@ With the 0.4 mm nozzle and Textured PEI, the emitted command is `G29.1 Z0.16`.
 Open and slice this project in Bambu Studio for the current
 toolpaths, print time and material estimate; the saved project contains no G-code.
 
-The core's envelope is [205 × 205 × 45.2 mm](CORE_DIMS); the cavity is
-[205 × 205 × 84.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
+The core's envelope is [211 × 211 × 38.3 mm](CORE_DIMS); the cavity is
+[211 × 211 × 78.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
 Inspect and remove every branch before finishing. Sand and finish the layer
 steps on the forming slopes before casting.
 

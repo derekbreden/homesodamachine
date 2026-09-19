@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from cadquery.occ_impl.shapes import fuse as fuse_shapes
 import numpy as np
 import trimesh
 
@@ -27,9 +28,10 @@ from flute_payload import cut as write_print_payload
 
 finish_allowance = 0.30
 shell_thickness = 5.0
+dry_ramp_lift = 6.0
 flange_thickness = 5.0
 flange_margin = 16.0
-flange_radius = 16.0
+flange_radius = 24.0
 bolt_diameter = 5.0
 bolt_edge_margin = 6.0
 bolt_station = 50.0
@@ -81,9 +83,23 @@ def rounded(width, radius, bottom, top):
     return cq.Workplane(obj=box(width, width, bottom, top)).edges('|Z').fillet(radius).val()
 
 
+def cleaned_shape(shape):
+    """Unify faces when OCCT can preserve the boolean result's validity."""
+    # Unifying coincident NURBS faces can lose a trim around the rod passage.
+    # Keep the valid boolean result when OCCT's optional cleanup cannot preserve it.
+    try:
+        cleaned = shape.clean()
+        if cleaned.isValid():
+            shape = cleaned
+    except Exception:
+        if not shape.isValid():
+            raise
+    return shape
+
+
 def single(shape, name):
     """The one valid solid in `shape`, or None with the reading on stderr."""
-    shape = shape.clean()
+    shape = cleaned_shape(shape)
     solids = shape.Solids()
     if shape.isValid() and len(solids) == 1:
         return solids[0]
@@ -113,10 +129,10 @@ def contraction_attempts(shape, faces, distance):
     def sequential(tool):
         return functools.reduce(lambda s, f: s.cut(tool(f, distance), tol=tolerance),
                                 faces, shape)
-    yield 'faces at once', lambda: shape.cut(
-        *[f.thicken(-distance) for f in faces], tol=tolerance)
     yield 'planes as slabs', lambda: shape.cut(
         *[slab(f, distance) for f in faces], tol=tolerance)
+    yield 'faces at once', lambda: shape.cut(
+        *[f.thicken(-distance) for f in faces], tol=tolerance)
     yield 'faces one at a time', lambda: sequential(lambda f, d: f.thicken(-d))
     yield 'slabs one at a time', lambda: sequential(slab)
 
@@ -127,6 +143,7 @@ def expanded(shape, distance):
 
 def contracted(shape, distance, top):
     faces = [face for face in shape.Faces() if face.Center().z < top]
+    boundary = cq.Compound.makeCompound(faces)
     for label, attempt in contraction_attempts(shape, faces, distance):
         try:
             solid = single(attempt(), f'core offset, {label}')
@@ -134,7 +151,11 @@ def contracted(shape, distance, top):
             print(f'core offset, {label}: {error!r}', file=sys.stderr, flush=True)
             continue
         if solid is not None:
-            return solid
+            clearance = boundary.distance(solid)
+            if clearance >= distance - 0.001:
+                return solid
+            print(f'core offset, {label}: {clearance:g} mm minimum, '
+                  f'wants {distance:g} mm', file=sys.stderr, flush=True)
     raise AssertionError('core offset')
 
 
@@ -152,7 +173,7 @@ def liquid_containment(cavity, core, rod, cast, seal, floor, top, back, width,
     readings = {}
     for label, tools in [('cavity', [cavity, mouth_cap]),
                          ('assembled', [cavity, core, rod, seal, *caps])]:
-        remainder = surrounding.cut(*tools).clean()
+        remainder = cleaned_shape(surrounding.cut(*tools))
         assert remainder.isValid(), f'{label}: invalid liquid complement'
         retained = [s for s in remainder.Solids()
                     if s.isInside(witness, 1e-6) and not s.isInside(outside, 1e-6)]
@@ -182,21 +203,27 @@ def build():
     tip = cylinder(m['spout_or'], tip_bottom, end, x, y)
     nominal_exterior = one(exterior.fuse(tip), 'casting envelope')
     print('Offsetting cavity forming face and dry back', flush=True)
-    forming_void = expanded(nominal_exterior, finish_allowance)
+    forming_void = one(fuse_shapes(
+        funnel.build_solids(outer_air=finish_allowance)[0],
+        expanded(tip, finish_allowance), tol=tolerance), 'forming void')
     backing_allowance = finish_allowance+shell_thickness
-    # Dilation distributes over this union: the base grows by the backing
-    # allowance and the inner ramp's normal skin grows by wall + allowance.
-    base, _, _ = funnel.build_solids(ramp_wall=0)
-    base = one(base.fuse(tip), 'cavity backing base')
-    ramp_faces = [face for face in bore.Faces() if face.geomType() == 'BSPLINE']
-    cavity_outer = funnel.normal_envelope(expanded(base, backing_allowance),
-                                         funnel.collar_wall+backing_allowance, ramp_faces,
-                                         rounds_first=True)
+    ramp = funnel._loft_rc(m['bore_w'], m['bore_d'], 0, 0, m['ramp_top_z'],
+        m['spout_id']/2, x, y, neck, funnel.mouth_corner_r)
+    cavity_outer = expanded(ramp, funnel.collar_wall + backing_allowance)
+    backing_bodies = (
+        funnel._rounded_box(m['w'], m['d'], funnel.collar_corner_r, m['ramp_top_z'], 0),
+        funnel._rounded_box(m['out_w'], m['out_d'], funnel.brim_corner_r, 0, top),
+        cylinder(m['spout_or'], tip_bottom, neck, x, y),
+    )
+    for body in backing_bodies:
+        cavity_outer = cavity_outer.fuse(expanded(body, backing_allowance),
+                                         tol=tolerance).clean()
+    cavity_outer = one(cavity_outer, 'cavity backing')
     assert forming_void.cut(cavity_outer, tol=tolerance).Volume() < tolerance
     forming_boundary = cq.Compound.makeCompound(forming_void.Faces())
     backing_boundary = cq.Compound.makeCompound(cavity_outer.Faces())
     minimum_backing = forming_boundary.distance(backing_boundary)
-    assert minimum_backing >= shell_thickness-tolerance, minimum_backing
+    assert minimum_backing >= shell_thickness-0.001, minimum_backing
     cavity_flange = rounded(flange_width, flange_radius, top-flange_thickness, top)
     feet = [cylinder(foot_diameter/2, floor, m['ramp_top_z'], *xy) for xy in feet_xy]
     cavity = one(cavity_outer.fuse(cavity_flange, *feet).cut(forming_void)
@@ -204,13 +231,26 @@ def build():
 
     back = top+flange_thickness
     nominal_plug = one(bore.intersect(box(flange_width, flange_width, neck, top))
-        .fuse(box(m['bore_w'], m['bore_d'], top, back+1)), 'core envelope')
-    plug = contracted(nominal_plug, finish_allowance, back+1)
-    dry_void = contracted(nominal_plug, finish_allowance+shell_thickness, back+1)
+        .fuse(funnel._rounded_box(m['bore_w'], m['bore_d'], funnel.mouth_corner_r,
+                                 top, back+1)), 'core envelope')
+    # Explicit spline surfaces let the small rod/cradle booleans trim these
+    # contracted lofts without relying on an OFFSET surface's continuation.
+    plug = contracted(nominal_plug, finish_allowance, back+1).toNURBS()
+    inset = finish_allowance + shell_thickness
+    dry_w, dry_d = m['bore_w'] - 2*inset, m['bore_d'] - 2*inset
+    dry_r = funnel.mouth_corner_r - inset
+    dry_ramp_top = m['ramp_top_z'] + dry_ramp_lift
+    # The dry back has its own simple loft. Its complete boundary is checked
+    # against the casting below; its sides and floor retain at least 5 mm.
+    dry_void = one(funnel._loft_rc(dry_w, dry_d, 0, 0, dry_ramp_top,
+        m['spout_id']/2, x, y, neck+dry_ramp_lift, dry_r).fuse(
+        funnel._rounded_box(dry_w, dry_d, dry_r, dry_ramp_top, back+1)),
+        'core dry opening')
     plate = rounded(flange_width, flange_radius, top, back)
     # The brim's top face grows downward by the measured finishing thickness.
-    plate = plate.cut(box(m['out_w']+2*finish_allowance,
-                         m['out_d']+2*finish_allowance, top-1, top+finish_allowance))
+    plate = plate.cut(funnel._rounded_box(m['out_w']+2*finish_allowance,
+        m['out_d']+2*finish_allowance, funnel.brim_corner_r+finish_allowance,
+        top-1, top+finish_allowance))
     core = one(plug.fuse(plate).cut(dry_void)
                .intersect(box(flange_width+2, flange_width+2, neck, back)), 'core shell')
 
@@ -233,7 +273,9 @@ def build():
               .wire().extrude(rod_top-cradle_start).val())
     open_front = box(2*cradle_radius, 2*cradle_radius, cradle_start,
                      rod_top, x+cradle_radius, y)
-    core = one(core.fuse(boss.intersect(plug).cut(v_slot, open_front)).cut(guide),
+    retained = boss.cut(v_slot, open_front)
+    core = one(plug.fuse(plate).cut(dry_void.cut(retained), guide)
+               .intersect(box(flange_width+2, flange_width+2, neck, back)),
                'core with loose rod passage and open V cradle')
     for station in rod_tie_stations:
         lower = neck+station-rod_tie_width/2
@@ -269,9 +311,12 @@ def build():
     cavity = one(cavity.cut(*bolts), 'cavity clamp holes')
     core = one(core.cut(*bolts), 'core clamp holes')
     port_radius = m['out_w']/2-m['rim_ring']/2
-    pour = (-port_radius, -port_radius)
-    vents = [(port_radius, -port_radius), (port_radius, port_radius),
-             (-port_radius, port_radius), (-port_radius, 0), (port_radius, 0)]
+    arc_radius = funnel.brim_corner_r - m['rim_ring']/2
+    corner_x = m['out_w']/2-funnel.brim_corner_r+arc_radius/math.sqrt(2)
+    corner_y = m['out_d']/2-funnel.brim_corner_r+arc_radius/math.sqrt(2)
+    pour = (-corner_x, -corner_y)
+    vents = [(corner_x, -corner_y), (corner_x, corner_y),
+             (-corner_x, corner_y), (-port_radius, 0), (port_radius, 0)]
     ports = [cylinder(pour_diameter/2, top-1, back+1, *pour)]
     ports += [cylinder(vent_diameter/2, top-1, back+1, *xy) for xy in vents]
     core = one(core.cut(*ports), 'core fill and vents')
@@ -318,7 +363,8 @@ def build():
     assert min(end_clearances) > funnel.spout_wall
     assert abs(rod.BoundingBox().zlen-rod_length) < tolerance
     assert rod_below-rod_axial_allowance > neck-end
-    assert dry_void.distance(cast) >= shell_thickness+finish_allowance-tolerance
+    minimum_core_backing = dry_void.distance(cast) - finish_allowance
+    assert minimum_core_backing >= shell_thickness-0.001, minimum_core_backing
     assert (forming_void.cut(nominal_exterior).Volume() > 0)
     for xy in bolt_xy:
         # M4 washers, 9 mm OD, sit directly on both flat flange backs.
@@ -327,8 +373,9 @@ def build():
     for xy in [pour, *vents]:
         assert core.intersect(cylinder(0.5, top-0.5, back+1, *xy)).Volume() < tolerance
     # A straight lift through the large dry opening keeps support removal accessible.
-    dry_mouth = box(m['bore_w']-2*(shell_thickness+finish_allowance),
-                    m['bore_d']-2*(shell_thickness+finish_allowance), back-1, back+1)
+    dry_mouth = funnel._rounded_box(m['bore_w']-2*(shell_thickness+finish_allowance),
+                    m['bore_d']-2*(shell_thickness+finish_allowance),
+                    funnel.mouth_corner_r-shell_thickness-finish_allowance, back-1, back+1)
     assert core.intersect(dry_mouth).Volume() < tolerance
     shift = (0, 0, -floor)
     parts = {name: shape.translate(shift) for name, shape in
@@ -339,6 +386,7 @@ def build():
         'volume_ml': {n: s.Volume()/1000 for n, s in parts.items()},
         'shell_thickness_mm': shell_thickness, 'flange_thickness_mm': flange_thickness,
         'minimum_cavity_backing_mm': minimum_backing,
+        'minimum_core_backing_mm': minimum_core_backing,
         'liquid_containment': containment,
         'parting_z_mm': top-floor, 'finish_allowance_mm': finish_allowance,
         'rod_support': {'engagement_mm': rod_engagement, 'guide_diameter_mm': 2*guide_radius,
@@ -368,11 +416,12 @@ def build():
         'feet': {'diameter_mm': foot_diameter, 'centres_xy_mm': feet_xy,
                  'spout_back_clearance_mm': foot_clearance},
         'dry_opening_mm': m['bore_w']-2*(shell_thickness+finish_allowance),
+        'dry_opening_depth_mm': m['bore_d']-2*(shell_thickness+finish_allowance),
         'ramp_print_z_mm': {'cavity': [neck-floor, m['ramp_top_z']-floor],
                             'core': [back-m['ramp_top_z'], back-neck]},
         'nominal_chamber_diameter_mm': chamber_diameter,
         'load_screen': load_screen(m, tip_bottom),
-        'status': 'CAD and slice verification; coated closure, vacuum cycle and casting untested'}
+        'status': 'CAD geometry verified; print, coated closure, vacuum cycle and casting untested'}
     return parts, info
 
 
@@ -411,7 +460,8 @@ def write_parts(parts, info, output):
             export_assembly(single, str(output/f'{name}.step'))
         if name in ('cavity', 'core'):
             path = output/f'{name}.stl'
-            cq.exporters.export(shape, str(path), tolerance=0.02, angularTolerance=0.08)
+            shape.copy(mesh=False).exportStl(str(path), tolerance=0.02,
+                angularTolerance=0.08, relative=False)
             mesh = trimesh.load(path, force='mesh', process=True)
             mesh.update_faces(mesh.nondegenerate_faces())
             mesh.remove_unreferenced_vertices()
