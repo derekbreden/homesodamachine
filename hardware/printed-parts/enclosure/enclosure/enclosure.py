@@ -5586,14 +5586,14 @@ def _tee_wall(inner, y_joint, plate, bay):
 def _tee_carrier_clearances(inner, plate, carrier):
     """Four continuous hardware wells and common faces behind the moving carrier.
 
-    One face ends the spring bores and clears the ties and complete lap's lateral entry.
-    The lower and upper web bearings remain broad flat lands between wells. The common
-    clearance ends on the flank interior, preserving the service opening's full wall section.
+    One face clears the tie heads and the complete lap's lateral entry. The lower and upper
+    web bearings remain broad flat lands between wells. The common clearance ends on the
+    flank interior, preserving the service opening's full wall section.
     """
     if not carrier:
         return ()
     air = carrier["guide_slide_air"]
-    fixed_y = carrier["fixed_spring_bearing_y"]
+    fixed_y = carrier["body_fore_y"]
     aft = carrier["body_aft_y"]
     web_z0, web_z1 = carrier["web_z"]
     backing_room = _ybox(
@@ -5604,9 +5604,6 @@ def _tee_carrier_clearances(inner, plate, carrier):
     cuts = [backing_room.cut(fore_guide, fore_guide.mirror("YZ"))]
     for x, z in plate["holes"]:
         cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
-    for x, z in carrier["spring_guide_xz"]:
-        radius = carrier["spring_guide_d"] / 2.0
-        cuts.append(_supported_cut(_ycyl(radius, x, z, fixed_y, aft + 1.0)))
     for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"],
                        *carrier["floor_cavities"]):
         cuts.append(_supported_cut(_ybox(*xs, *ys, *zs)))
@@ -5627,10 +5624,10 @@ def _tee_carrier_fixed_features(inner, plate, carrier):
     """Filled guide body and common floor joining the tee wall, valve trays and flanks."""
     if not carrier:
         return None
-    body = _ybox(inner[0], inner[1], carrier["fixed_spring_bearing_y"],
+    body = _ybox(inner[0], inner[1], carrier["body_fore_y"],
                  carrier["body_aft_y"], plate["z0"], carrier["body_top_z"])
     body = body.fuse(_ybox(
-        inner[0], inner[1], carrier["fixed_spring_bearing_y"],
+        inner[0], inner[1], carrier["body_fore_y"],
         carrier["body_floor_aft_y"], plate["z0"],
         carrier["web_z"][0] - carrier["guide_slide_air"]))
     for cutter in _tee_carrier_clearances(inner, plate, carrier):
@@ -5639,15 +5636,21 @@ def _tee_carrier_fixed_features(inner, plate, carrier):
 
 
 def _tee_carrier_service_slots(carrier):
-    """Open finger slots, bar guides and internal recesses for inside-out assembly.
+    """Open finger slots, bar guides, internal recesses for inside-out assembly, and the two
+    spring seats in the recesses' fore walls.
 
     Above each bar, the outer strip of its retaining tongue runs in a short channel whose
     aft end is the travel limit beyond nominal rest. The full-height entry passage sits inboard of that strip.
+    Each return spring rides in its bar's fore face and bears on a blind seat bored into the
+    recess's fore wall, on the bar's own axis.
     """
     if not carrier:
         return ()
     slot_roof = carrier["service_slot_z"][1] + fits.supported_surface
     cuts = []
+    for station in carrier["spring_stations"]:
+        cuts.append(_teardrop_y(carrier["spring_bore_d"] / 2.0, station["x"], station["z"],
+                                station["seat_floor_y"], station["seat_mouth_y"] + 1.0))
     for name in ("service_slot", "service_recess"):
         x0, x1 = carrier[name + "_x"]
         y0, y1 = carrier[name + "_y"]
@@ -8891,13 +8894,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # Flat guide openings continue through every wall, bearing body and seam feature.
         for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
             piece = piece.cut(slot)
-        if box.pack.tee_carrier:
-            # Both M3 heads and the straight driver enter through the empty cartridge bay.
-            carrier = box.pack.tee_carrier
-            for x, _seat_y, z in carrier["joint_sites"]:
-                piece = piece.cut(_teardrop_y(
-                    head_cbore_dia / 2.0, x, z,
-                    plate["fore_y"] - 1.0, carrier["joint_work_fore_y"] + 1.0, up=up))
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box, up=up)

@@ -96,7 +96,7 @@ tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 # each of four tee sites give eight 4-inch ties; its two spring stations take one catalog spring
 # apiece. Each of the two shipped halves includes its grip; two M3 screws close the center lap.
 carrier_ties_per_build = len(_ea._carrier.tie_sites(_ea._carrier.DEFAULT_SPEC))
-carrier_springs_per_build = len(_ea._carrier.DEFAULT_SPEC.spring_xs)
+carrier_springs_per_build = len(_ea._carrier.spring_stations())
 carrier_prints_per_build = len(_ea._carrier.interface()["printed_parts"])
 carrier_joint_screws_per_build = len(_ea._carrier.joint_sites())
 general_four_inch_ties_per_build = 24
@@ -294,16 +294,17 @@ enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
 enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 
 # Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's,
-# the display cover plate's, the C14 inlet's and the tee carrier's. The inlet's two suit it for
-# the same reason the
+# the display cover plate's and the C14 inlet's. The inlet's two suit it for the same reason the
 # condenser's do — a 2 mm flange under the head and the tunnel's own bore past it.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
-                  + carrier_joint_screws_per_build + touchflo_screws_per_build)
+                  + touchflo_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one and the enclosure's six seam screws.
-m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
+# And every M3 x 10: the ground-stack clamp's one, the enclosure's six seam screws and the tee
+# carrier's two lap screws, through a 6 mm web into 4 mm inserts.
+m3x10_per_build = (shelf_long_screws_per_build + enclosure_seam_screws_per_build
+                   + carrier_joint_screws_per_build)
 
 # And every M3 x 60: the pump clamp's two, the one station whose screw is as long as the field
 # it crosses.

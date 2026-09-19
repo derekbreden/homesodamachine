@@ -1213,8 +1213,6 @@ TEE_WALL_BODY_AIR = 1.454
 CARRIER_ASSEMBLY_STATE = "connected"  # nominal seated cartridge; aft flex travel remains free
 CARRIER_AFT_OVERTRAVEL = _enc._interface.tee_carrier_aft_overtravel
 CARRIER_TUBE_AIR = 0.3
-CARRIER_SPRING_LOAD_ABOVE_SOLID = 1.0
-CARRIER_SPRING_LOAD_END_AIR = 1.0
 CARRIER_MOTION_AUDIT_STEP = 0.7
 CARRIER_MOTION_OVERLAP_TOL = 1e-5
 
@@ -1309,12 +1307,34 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     if max(tee_zs) - min(tee_zs) > 1e-6:
         raise ValueError(f"carrier tees do not share one run-axis elevation: {tee_zs}")
     tee_axis_z = sum(tee_zs) / len(tee_zs)
-    web_fore_y = max(box(solids[name]).ymax for name in tee_names)
+    bearing_y = max(box(solids[name]).ymax for name in tee_names)
     aft_coils = tuple(f"coil-{name.lower()}" for name in ("V-C", "V-D", "V-G", "V-J"))
     aft_coil_fore_y = min(box(solids[name]).ymin for name in aft_coils)
     base = _carrier.DEFAULT_SPEC
-    spring_xs = ((tee_xs[0] + tee_xs[1]) / 2.0,
-                 (tee_xs[2] + tee_xs[3]) / 2.0)
+    # The shelf on the web's aft face stands over the two inner aft coils and ends short of
+    # the two outer ones, whose cases rise above the web's top.
+    inner_coils = tuple(f"coil-{name.lower()}" for name in ("V-C", "V-D"))
+    outer_coils = tuple(f"coil-{name.lower()}" for name in ("V-G", "V-J"))
+    flange_z0 = max(box(solids[name]).zmax for name in inner_coils) + base.slide_air
+    flange_x = min(min(abs(box(solids[name]).xmin), abs(box(solids[name]).xmax))
+                   for name in outer_coils) - base.slide_air
+    # Each aft coil rises past the web's aft face on its entry offset, so the station web is
+    # the whole of what stands behind the bearing line there.
+    aft_valve_entry_y = -(_enc._valve_tray.grip() + base.slide_air)
+    if bearing_y + base.station_t >= aft_coil_fore_y + aft_valve_entry_y:
+        raise ValueError(
+            f"the station web reaches Y{bearing_y + base.station_t:.3f}, into the aft coils' "
+            f"entry at Y{aft_coil_fore_y + aft_valve_entry_y:.3f}")
+    # The bowed stubs above the tees: their closest approach to the bearing line over the
+    # carrier's states, in the carrier's own frame, floors the relief above each arm.
+    lift = tee_axis_z - ml.branch_port(sorted(ml.CARRIER_TEES)[0])[0][1]
+    offsets = [row["offset_y"] for row in plate["carrier_states"].values()]
+    stub_reach = max(
+        box(pose_manifold(ml.bowed(*ends)).translate((0, PACK_Y, lift))).ymax - offset
+        for offset in offsets for ends in ml.fore_stubs(offset).values())
+    stub_gap = bearing_y - stub_reach
+    if stub_gap - CARRIER_TUBE_AIR < 0.0:
+        raise ValueError(f"a bowed stub stands {stub_gap:.3f} mm off the bearing line")
     flange_abs_x = min(abs(x) for x in _enc.front_top_flank_face())
     aft_coil_outer_x = max(max(abs(box(solids[name]).xmin), abs(box(solids[name]).xmax))
                           for name in aft_coils)
@@ -1330,11 +1350,13 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
         tee_xs=tee_xs,
         tee_axis_z=tee_axis_z,
         web_x=base.web_x,
-        web_fore_y=web_fore_y,
+        bearing_y=bearing_y,
         web_z=(tee_axis_z + base.web_z[0] - base.tee_axis_z,
                fore_valve_bottom - base.slide_air),
-        spring_xs=spring_xs,
-        spring_axis_z=tee_axis_z,
+        stub_relief_depth=round(stub_gap - CARRIER_TUBE_AIR, 6),
+        stub_air=CARRIER_TUBE_AIR,
+        flange_x=round(flange_x, 6),
+        flange_z0=round(flange_z0, 6),
         tab_outer_x=_enc.appliance_width / 2.0,
         tab_z=tab_z,
         grip_back_x=round(aft_coil_outer_x + base.slide_air + base.finger_air, 6),
@@ -1356,11 +1378,18 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
 
 def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> dict:
     """Plain fixed/moving stations consumed by the enclosure and documentation."""
+    moved = _carrier.placement_mismatches(spec)
+    if moved:
+        raise ValueError(
+            "the derived tee carrier is not the printed one: "
+            + "; ".join(f"{name} derived {got!r} against printed {printed!r}"
+                        for name, got, printed in moved)
+            + " — carry the derived figures into tee_carrier.DEFAULT_SPEC")
     data = _carrier.interface(spec)
     fixed_y = plate["wall_aft_y"]
     states = plate["carrier_states"]
     bearing = {
-        name: round(spec.web_fore_y + row["offset_y"] + spec.spring_seat_depth - fixed_y, 6)
+        name: round(spec.spring_bore_floor_y + row["offset_y"] - spec.fixed_seat_floor_y, 6)
         for name, row in states.items()
     }
     if min(bearing.values()) <= _carrier_spring.SOLID_HEIGHT:
@@ -1381,14 +1410,18 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
     body_floor_aft_y = min(plane - sign * _vtray.SEAT
                           for plane, sign, _seats in trays if sign < 0)
     tee_boxes = [box(solids[ml.body_name(name)]) for name in sorted(ml.CARRIER_TEES)]
-    tee_run_y = spec.web_fore_y - ml.tee.BARREL_R
-    load_length = _carrier_spring.SOLID_HEIGHT + CARRIER_SPRING_LOAD_ABOVE_SOLID
-    load_fore_y = (spec.web_fore_y + spec.park_offset_y
-                   - load_length - 2.0 * CARRIER_SPRING_LOAD_END_AIR)
-    # The spring-loading room, tie heads and complete lap share one clearance face.
+    tee_run_y = spec.bearing_y - ml.tee.BARREL_R
+    # The tie heads and the complete lap share one clearance face.
     # Carry that plane through the full web height between the two bearing lands.
-    body_face_y = min(load_fore_y, spec.web_fore_y + spec.release_offset_y
+    body_face_y = min(spec.web_fore_y + spec.release_offset_y
                       - spec.tie_head[1] - spec.slide_air, data["joint_work_fore_y"])
+    inner_coil_x = min(min(abs(box(solids[f"coil-v-{name}"]).xmin),
+                           abs(box(solids[f"coil-v-{name}"]).xmax)) for name in "cd")
+    head_reach = abs(spec.joint_screw_x) + _gnd.head_d / 2.0 + spec.slide_air
+    if head_reach > inner_coil_x:
+        raise ValueError(
+            f"the lap screws' heads reach X{head_reach:.3f}, into the inner aft coils at "
+            f"X{inner_coil_x:.3f}")
     tube_boxes = collections.defaultdict(list)
     lift = spec.tee_axis_z - ml.branch_port(sorted(ml.CARRIER_TEES)[0])[0][1]
     for row in states.values():
@@ -1468,23 +1501,14 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "finger_run_at_aft_limit": spec.finger_run - plate["aft_overtravel"],
         "fore_overlap_at_aft_limit": spec.grip_overlap - plate["aft_overtravel"],
         "connected_release_travel": plate["connected_release_travel"],
-        "fixed_spring_bearing_y": fixed_y,
+        "body_fore_y": fixed_y,
         "spring_bearing_lengths": bearing,
         "spring_nominal_pair_forces_n": pair_force,
         "spring_part_number": _carrier_spring.PART_NUMBER,
         "spring_od": _carrier_spring.OUTSIDE_DIAMETER,
+        "spring_free_length": _carrier_spring.FREE_LENGTH,
         "spring_clearance_d": (_carrier_spring.OUTSIDE_DIAMETER
                                 + max(_carrier_spring.OUTSIDE_DIAMETER_TOLERANCE)),
-        "spring_seat_d": spec.spring_seat_d,
-        "spring_seat_depth": spec.spring_seat_depth,
-        "spring_guide_d": spec.spring_seat_d,
-        "spring_guide_length": body_face_y - fixed_y,
-        "spring_guide_xz": tuple((x, spec.spring_axis_z) for x in spec.spring_xs),
-        "spring_load_length": load_length,
-        "spring_load_fore_y": load_fore_y,
-        "spring_entry_xs": spec.tee_xs[1:-1],
-        "spring_transfer_z": (max(b.zmax for b in tee_boxes) + spec.web_z[1]) / 2.0,
-        "spring_load_end_air": CARRIER_SPRING_LOAD_END_AIR,
         "body_aft_y": body_aft_y,
         "body_top_z": body_top_z,
         "body_floor_aft_y": body_floor_aft_y,
@@ -1516,7 +1540,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "exterior_abs_x": _enc.appliance_width / 2.0,
         "ties_per_tee": len(spec.tie_band_offsets_z),
         "tee_count": len(spec.tee_xs),
-        "spring_count": len(spec.spring_xs),
+        "spring_count": len(data["spring_stations"]),
         "tab_count": 2,
         "joint_screw_count": len(_carrier.joint_sites(spec)),
     })
@@ -1723,12 +1747,12 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             read(f"{state} tie {index} aft strap", strap.translate((0, dy, 0)),
                  wall_and_fixed)
         spring_length = interface["spring_bearing_lengths"][state]
-        for side, x in zip(("west", "east"), spec.spring_xs):
-            fixed_y = interface["fixed_spring_bearing_y"]
+        for side, station in zip(("west", "east"), interface["spring_stations"]):
             read(
                 f"{state} spring-{side} maximum OD plus running air",
-                _enc._ycyl(interface["spring_clearance_d"] / 2.0 + spec.slide_air, x, spec.spring_axis_z,
-                            fixed_y, fixed_y + spring_length),
+                _enc._ycyl(interface["spring_clearance_d"] / 2.0 + spec.slide_air,
+                           station["x"], station["z"],
+                           station["seat_floor_y"], station["seat_floor_y"] + spring_length),
                 (("enclosure-front-top", wall),),
             )
         for name in sorted(ml.CARRIER_TEES):
@@ -1778,8 +1802,9 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         read(f"tee X{x:g} axial loading envelope", run.fuse(branch),
              (("enclosure-front-top", wall),))
 
-    # With the tees and joined carrier at release, each aft valve rises from the open underside
-    # with its posts clear of the tray, then presses its full post length into the sockets.
+    # With the tees and joined carrier at release and the springs not yet loaded, each aft
+    # valve rises from the open underside with its posts clear of the tray, then presses its
+    # full post length into the sockets.
     entry_dy = interface["aft_valve_entry_y"]
     release_carrier = carrier.translate((0, spec.release_offset_y, 0))
     for valve in "cdgj":
@@ -1802,15 +1827,14 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                      (*carrier_installation, ("joined carrier at release", release_carrier)))
 
     # Each half enters through the loose front-top's open rear above the valve supports,
-    # lowers through its outer tee well and seats from inside into the flank recess.
-    # The left half seats at release first. The right seats at park, then comes forward
-    # onto the left half's fore lap. Both valve rows are absent during this route.
+    # lowers behind the fixed body, slides fore to the aft stop and seats from inside into the
+    # flank recess. The left half seats first; the right slides onto the left half's tongue on
+    # the same stop. Both valve rows and both springs are absent during this route.
     release = interface["states"]["release"]["offset_y"]
-    park = interface["states"]["park"]["offset_y"]  # unchanged half-assembly station
     aft_limit = interface["aft_limit_offset_y"]
-    left_release = halves[-1].translate((0.0, release, 0.0))
+    left_parked = halves[-1].translate((0.0, aft_limit, 0.0))
     for side, entry_y in zip(interface["half_install_order"], interface["half_entry_offsets_y"]):
-        blockers = carrier_installation + ((("left half at release", left_release),) if side > 0 else ())
+        blockers = carrier_installation + ((("left half on the aft stop", left_parked),) if side > 0 else ())
         envelopes = _carrier.insertion_envelopes(spec, side)
         outside = halves[side].cut(*(shape for _name, shape in envelopes)).Volume()
         if outside > CARRIER_MOTION_OVERLAP_TOL:
@@ -1826,13 +1850,42 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                                   bb.zmin, bb.zmax).val()
             read(f"half {side:+d} full working {name} sweep with {spec.slide_air:g} mm X/Z air",
                  sweep, wall_and_fixed)
+    # Each compressed spring comes down the outer tee well on its own side with the joined
+    # carrier at release, moves outward through its bar's loading window into the channel, and
+    # expands fore against the fixed seat. The fore valves are absent.
+    radius = interface["spring_clearance_d"] / 2.0 + spec.slide_air
+    for side, station in zip((-1, 1), interface["spring_stations"]):
+        x, z = station["x"], station["z"]
+        y0 = spec.spring_window_y[0] + release + spec.slide_air
+        y1 = y0 + spec.spring_load_length
+        # Down the outer tee's own port channel and well, above the seated arm's top collet,
+        # then outward over that collet to the window; the spring's centre reaches the
+        # channel axis and its outboard half is inside the channel the part's selftest proves.
+        entry_x = side * max(abs(tx) for tx in spec.tee_xs)
+        port_y0 = min(cavity[1][0] for cavity in interface["valve_cavities"]) + spec.slide_air
+        route = (
+            ("outer-well descent", _carrier._box(
+                entry_x - radius, entry_x + radius, port_y0, port_y0 + spec.spring_load_length,
+                z - radius, interface["body_top_z"] + 2.0 * radius)),
+            ("fore to the window", _carrier._box(
+                entry_x - radius, entry_x + radius, min(y0, port_y0),
+                max(y1, port_y0 + spec.spring_load_length), z - radius, z + radius)),
+            ("outward through the loading window", _carrier._box(
+                *sorted((entry_x - side * radius, x)), y0, y1, z - radius, z + radius)),
+        )
+        blockers = (*installation, ("joined carrier at release", release_carrier))
+        for stage, sweep in route:
+            read(f"spring X{x:g} {stage}", sweep.val(), blockers)
+        read(f"spring X{x:g} seating and expansion envelope",
+             _enc._ycyl(radius, x, z, station["seat_floor_y"],
+                        station["bore_floor_y"] + release),
+             (("enclosure-front-top", wall),))
+    lap_contact = halves[1].translate((0.0, aft_limit, 0.0)).intersect(left_parked).Volume()
+    if lap_contact > CARRIER_MOTION_OVERLAP_TOL:
+        failures.append(f"the two halves overlap on the aft stop by {lap_contact:.6f} mm³")
     count = sample_count(aft_limit - release)
     for i in range(count):
         dy = aft_limit + (release - aft_limit) * i / (count - 1)
-        lap_dy = park + (release - park) * i / (count - 1)
-        read(f"right half lap closure {i + 1}/{count}",
-             halves[1].translate((0.0, lap_dy, 0.0)),
-             (*carrier_installation, ("left half at release", left_release)))
         for side, shape in halves.items():
             read(f"half {side:+d} working travel {i + 1}/{count}",
                  shape.translate((0.0, dy, 0.0)), wall_and_fixed)
@@ -1840,41 +1893,22 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             read(f'{name} sleeve and body travel {i + 1}/{count}', tee_pose(name, dy),
                  (("enclosure-front-top", wall),))
 
-    # Both M3 heads and the driver pass through the empty cartridge bay and fixed body.
+    # Both M3 heads and the driver enter from the open rear, with the joined carrier on the
+    # aft stop and both valve rows absent: straight aft from each head to the aft tray, and up
+    # out of the loose piece from there.
+    parked_carrier = carrier.translate((0, aft_limit, 0))
     for x, seat_y, z in _carrier.joint_sites(spec):
-        fore = box.inner[2] - 1.0
-        reach = seat_y + release - fore
+        radius = _gnd.head_d / 2.0 + fits.slip
+        aft_reach = interface["body_floor_aft_y"] - 1.0
         access = cq.Solid.makeCylinder(
-            _gnd.head_d / 2.0 + fits.slip, reach,
-            cq.Vector(x, fore, z), cq.Vector(0.0, 1.0, 0.0))
-        read(f"M3 screw and driver at X{x:g} Z{z:g}", access, installation)
-
-    # Each compressed spring enters through an inner tee well above the seated run end,
-    # crosses below the upper bearing, then lowers into its seat. The fore valves are absent.
-    parked_carrier = carrier.translate((0, park, 0))
-    for x, entry_x in zip(spec.spring_xs, interface["spring_entry_xs"]):
-        radius = interface["spring_clearance_d"] / 2.0 + spec.slide_air
-        load_y = interface["spring_load_fore_y"] + interface["spring_load_end_air"]
-        end_y = load_y + interface["spring_load_length"]
-        transfer_z = interface["spring_transfer_z"]
-        route = (
-            ("tee-well entry", _carrier._box(
-                entry_x - radius, entry_x + radius, load_y, end_y,
-                transfer_z - radius, interface["body_top_z"] + 2 * radius)),
-            ("transfer below upper bearing", _carrier._box(
-                min(entry_x, x) - radius, max(entry_x, x) + radius, load_y, end_y,
-                transfer_z - radius, transfer_z + radius)),
-            ("lower to seat", _carrier._box(
-                x - radius, x + radius, load_y, end_y,
-                spec.spring_axis_z - radius, transfer_z + radius)),
-        )
-        blockers = (*installation, ("parked carrier", parked_carrier))
-        for stage, sweep in route:
-            read(f"spring X{x:g} {stage}", sweep, blockers)
-        extension = _enc._ycyl(radius, x, spec.spring_axis_z,
-                               interface["fixed_spring_bearing_y"],
-                               spec.web_fore_y + park + spec.spring_seat_depth)
-        read(f"spring X{x:g} seating and expansion envelope", extension, blockers)
+            radius, aft_reach - (seat_y + aft_limit),
+            cq.Vector(x, seat_y + aft_limit, z), cq.Vector(0.0, 1.0, 0.0))
+        read(f"M3 screw and driver at X{x:g} Z{z:g}", access,
+             (*carrier_installation, ("joined carrier on the aft stop", parked_carrier)))
+        column = _carrier._box(x - radius, x + radius, aft_reach - 2.0 * radius, aft_reach,
+                               z - radius, wall_box.zmax + 1.0)
+        read(f"driver lift above the screw at X{x:g} Z{z:g}", column.val(),
+             (*carrier_installation, ("joined carrier on the aft stop", parked_carrier)))
 
     # A real stop is air at its datum and material immediately beyond it.
     release_hit = carrier.translate(cq.Vector(0.0, release - 0.001, 0.0)).intersect(wall).Volume()
@@ -5170,21 +5204,16 @@ def build_pack() -> cq.Assembly:
         name = f"enclosure-tee-carrier-{handed}"
         a.add(half, name=name, color=M_PETGF_BLACK)
         a.carrier_parts[handed] = half
-        station = (0.0, a.tee_carrier_spec.web_fore_y + state_offset,
+        station = (0.0, a.tee_carrier_spec.bearing_y + state_offset,
                    a.tee_carrier_spec.tee_axis_z)
         record_seat(name, station=station, got=station)
     spring_length = a.tee_carrier["spring_bearing_lengths"][CARRIER_ASSEMBLY_STATE]
-    fixed_y = a.tee_carrier["fixed_spring_bearing_y"]
-    for side, x in zip(("west", "east"), a.tee_carrier_spec.spring_xs):
-        spring = build_carrier_spring(
-            x, a.tee_carrier_spec.spring_axis_z, fixed_y, spring_length)
+    for side, station in zip(("west", "east"), a.tee_carrier["spring_stations"]):
+        x, z, fixed_y = station["x"], station["z"], station["seat_floor_y"]
+        spring = build_carrier_spring(x, z, fixed_y, spring_length)
         name = f"tee-carrier-spring-{side}"
         a.add(spring, name=name, color=M_ZINC_PLATED_STEEL)
-        record_seat(
-            name,
-            station=(x, fixed_y, a.tee_carrier_spec.spring_axis_z),
-            got=(x, fixed_y, a.tee_carrier_spec.spring_axis_z),
-        )
+        record_seat(name, station=(x, fixed_y, z), got=(x, fixed_y, z))
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
     # the +Y wall of back-top — so its aft face stands that one number inside `rear_plane_y`, which is the

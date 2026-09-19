@@ -1,8 +1,30 @@
+[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot's width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them.
+click: x=-11.570 y=107.468 z=176.245
+click: x=-28.570 y=107.468 z=176.245
+click: x=-71.320 y=107.468 z=176.245
+click: x=-88.320 y=107.468 z=176.245
+click: x=-11.570 y=107.468 z=200.245
+click: x=-28.570 y=107.468 z=200.245
+click: x=-71.320 y=107.468 z=200.245
+click: x=-88.320 y=107.468 z=200.245
+click: x=-11.570 y=107.468 z=172.495
+click: x=-28.570 y=107.468 z=172.495
+click: x=-71.320 y=107.468 z=172.495
+click: x=-88.320 y=107.468 z=172.495
+click: x=-11.570 y=107.468 z=196.495
+click: x=-28.570 y=107.468 z=196.495
+click: x=-71.320 y=107.468 z=196.495
+click: x=-88.320 y=107.468 z=196.495
+
 [ceiling] The solid bar's flat underside clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including 0.25 mm for the supported surface. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before inside-out assembly.
 click: x=-98.947 y=102.468 z=175.300
 
 [ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before assembly.
 click: x=-98.822 y=127.968 z=175.300
 
-[ceiling] Flat underside of the fore lap, above the tee run ends. The lap keeps its full 6 mm section and takes removable support exposed from the fore side before assembly.
-click: x=0.000 y=103.218 z=206.815
+[ceiling] The underside of the aft shelf, 14 mm deep along the web's top aft edge over the inner aft coils' cases. Nothing may stand under it — the coils rise through that room when the aft valves go in — so it takes removable support, exposed on the loose half's open aft face and rooted on the bed below.
+click: x=-31.472 y=117.468 z=205.925
+
+[slope] The spring channel's tangent 45° roof, meeting the bar's fore face at the channel mouth and the channel floor at its end; the loading window's own 45° roof rises inboard from the spring's crown on the channel axis. It is the teardrop the tree cuts on every horizontal bore of a piece bedded on Z.
+click: x=-98.091 y=100.018 z=213.584
+click: x=-95.769 y=100.018 z=213.584
