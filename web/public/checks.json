@@ -62,18 +62,18 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2319 tracked, 456 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2320 tracked, 458 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 446 of 1000 free, the next cut wants 257, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 446 of 1000 free, the next cut wants 261, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 55 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 456 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 3 of 44 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 456 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 133 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at b39ee3420c00e09e671ddceab3a1dc0a here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 95b5b0cbda3890fca7f9c600b457e2c3 for the 133 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c9dc23dc34f599b2e0d26edee175ce2a here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -135,12 +135,11 @@
       "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
     ],
     "hardware/scripts/check_payloads.py": [
-      "6 solid(s) whose surface is not in the payload beside them:",
+      "5 solid(s) whose surface is not in the payload beside them:",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh — cut from other bytes than the solid holds",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh — cut from other bytes than the solid holds",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
       "  the run that cuts a solid writes the payload beside it:",
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
@@ -176,8 +175,17 @@
       "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py\",",
       "           \"pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py\",",
       "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py\",",
-      "  … 1377 more line(s)",
+      "  … 1628 more line(s)",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_web_tests.py": [
+      "5 test(s) in web/ fail:",
+      "    the facts card's STEP identity is not a reverse enclosure dependency",
+      "    build order puts a producer before the scripts that load its STEP",
+      "    every runnable generator appears exactly once in the build order",
+      "    the build order respects every STEP-load edge (producers before consumers)",
+      "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
+      "  cd web && npm test"
     ]
   },
   "green": false
