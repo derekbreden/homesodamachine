@@ -3,11 +3,11 @@
   "piece": "nameplate-and-receiver",
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "5683fcca05e25bd5e2ce66de3a0381ed09cf691cc5e10a4abe3fe8d4f37e9a15",
+    "gcode_sha256": "8deacd525c94e6f43e4bf7a40fb3b2753fec246e94cb279596a3adf921b10138",
     "model": null,
     "model_sha256": null,
     "profile": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
-    "profile_sha256": "3920f0bb57cdcc18692489b5f53880d0a7ac857a234ec8020e901a89359853d5"
+    "profile_sha256": "3e5ce0990b0d6cee43636a298baeb94adaa2911f8d7593ce53b808b7acd3f464"
   },
   "slicer": "BambuStudio 02.08.02.61",
   "first_layer_z_mm": 0.2,
@@ -22,95 +22,219 @@
     "support_on_build_plate_only": "0",
     "support_style": "default",
     "support_threshold_angle": "35",
-    "support_top_z_distance": "0.45",
+    "support_top_z_distance": "0.24",
     "support_type": "tree(auto)"
   },
   "summary": {
-    "support_bodies": 2,
-    "interface_islands": 2,
-    "bed_rooted_bodies": 2,
+    "support_bodies": 5,
+    "interface_islands": null,
+    "bed_rooted_bodies": 5,
     "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 18.48,
-    "bodies_without_interface_labels": 0,
-    "explicit_interface_islands": 2,
-    "shortest_labelled_build_up_mm": 18.48
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 6,
+    "shortest_labelled_build_up_mm": 10.32
   },
   "trees": [
     {
       "id": "tree-1",
       "root": "bed",
       "base_z_mm": 0.2,
-      "first_interface_z_mm": 18.68,
-      "shortest_build_up_mm": 18.48,
-      "top_z_mm": 19.16,
+      "first_interface_z_mm": 10.52,
+      "shortest_build_up_mm": 10.32,
+      "top_z_mm": 10.76,
       "bbox_xy_mm": [
-        114.4,
-        206.0,
-        214.0,
-        217.2
+        106.4,
+        118.4,
+        118.8,
+        126.4
       ],
       "interfaces": [
         "interface-1"
       ],
       "interface_reading": "explicit_feature",
-      "part": "receiver coupon",
-      "contact": "Pump-bearing ledge underside in the back-top print orientation",
-      "reason": "Flat bearing datum preserved; exposed support removes from the coupon rear."
+      "part": "nameplate",
+      "contacts": [
+        "Nameplate lip bearing face"
+      ],
+      "removal_access": "Open beside the tab"
     },
     {
       "id": "tree-2",
       "root": "bed",
       "base_z_mm": 0.2,
-      "first_interface_z_mm": 41.48,
-      "shortest_build_up_mm": 41.28,
-      "top_z_mm": 41.96,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 2.36,
       "bbox_xy_mm": [
-        115.6,
+        108.8,
+        206.0,
+        116.0,
+        210.0
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "part": "receiver coupon",
+      "contacts": [],
+      "removal_access": "Open from receiver front and rear"
+    },
+    {
+      "id": "tree-3",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 18.92,
+      "shortest_build_up_mm": 18.72,
+      "top_z_mm": 42.2,
+      "bbox_xy_mm": [
+        114.4,
         190.4,
         215.6,
-        204.4
+        218.8
+      ],
+      "interfaces": [
+        "interface-3",
+        "interface-4",
+        "interface-5",
+        "interface-6"
+      ],
+      "interface_reading": "explicit_feature",
+      "part": "receiver coupon",
+      "contacts": [
+        "Receiver pump ledge and retaining shoulders",
+        "Receiver lower pocket rim"
+      ],
+      "removal_access": "Open from receiver front and rear"
+    },
+    {
+      "id": "tree-4",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 10.52,
+      "shortest_build_up_mm": 10.32,
+      "top_z_mm": 10.76,
+      "bbox_xy_mm": [
+        211.2,
+        118.8,
+        223.2,
+        126.4
       ],
       "interfaces": [
         "interface-2"
       ],
       "interface_reading": "explicit_feature",
+      "part": "nameplate",
+      "contacts": [
+        "Nameplate lip bearing face"
+      ],
+      "removal_access": "Open beside the tab"
+    },
+    {
+      "id": "tree-5",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 2.36,
+      "bbox_xy_mm": [
+        213.6,
+        206.0,
+        222.0,
+        211.2
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
       "part": "receiver coupon",
-      "contact": "Lower pocket rim in the back-top print orientation",
-      "reason": "Flat edge bounds the flush plate pocket; support is exposed from the front."
+      "contacts": [],
+      "removal_access": "Open from receiver front and rear"
     }
   ],
   "interfaces": [
     {
       "id": "interface-1",
-      "first_z_mm": 18.68,
-      "last_z_mm": 19.16,
+      "first_z_mm": 10.52,
+      "last_z_mm": 10.76,
+      "bbox_xy_mm": [
+        117.6,
+        118.4,
+        118.8,
+        126.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.32,
+      "contact": "Nameplate lip bearing face"
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 10.52,
+      "last_z_mm": 10.76,
+      "bbox_xy_mm": [
+        211.2,
+        118.8,
+        212.4,
+        126.4
+      ],
+      "tree": "tree-4",
+      "build_up_mm": 10.32,
+      "contact": "Nameplate lip bearing face"
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 18.92,
+      "last_z_mm": 19.4,
       "bbox_xy_mm": [
         116.0,
         209.2,
         214.0,
-        213.6
+        216.0
       ],
-      "tree": "tree-1",
-      "build_up_mm": 18.48
+      "tree": "tree-3",
+      "build_up_mm": 18.72,
+      "contact": "Receiver pump ledge and retaining shoulders"
     },
     {
-      "id": "interface-2",
-      "first_z_mm": 41.48,
-      "last_z_mm": 41.96,
+      "id": "interface-4",
+      "first_z_mm": 29.24,
+      "last_z_mm": 29.72,
       "bbox_xy_mm": [
-        115.6,
+        116.4,
+        205.2,
+        122.0,
+        214.8
+      ],
+      "tree": "tree-3",
+      "build_up_mm": 29.04,
+      "contact": "Receiver pump ledge and retaining shoulders"
+    },
+    {
+      "id": "interface-5",
+      "first_z_mm": 29.24,
+      "last_z_mm": 29.72,
+      "bbox_xy_mm": [
+        208.0,
+        204.0,
+        213.6,
+        215.2
+      ],
+      "tree": "tree-3",
+      "build_up_mm": 29.04,
+      "contact": "Receiver pump ledge and retaining shoulders"
+    },
+    {
+      "id": "interface-6",
+      "first_z_mm": 41.72,
+      "last_z_mm": 42.2,
+      "bbox_xy_mm": [
+        114.4,
         202.0,
-        215.2,
+        215.6,
         204.4
       ],
-      "tree": "tree-2",
-      "build_up_mm": 41.28
+      "tree": "tree-3",
+      "build_up_mm": 41.52,
+      "contact": "Receiver lower pocket rim"
     }
   ],
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
-  "nameplate": {
-    "support_bodies": 0,
-    "lip_overhang_mm": 0.6,
-    "physical_removal_tested": false
-  }
+  "nameplate_support_bodies": 2,
+  "physical_removal_tested": false
 }

@@ -49,6 +49,9 @@ def prepare(unit=1):
                     filament_map_2=["1","1"], filament_prime_volume=["45","45"],
                     flush_volumes_vector=["140"]*4,
                     flush_volumes_matrix=["0","140","140","0"]*2)
+    # Accessible supports preserve the square bearing faces below the catches.
+    settings["support_top_z_distance"] = "0.24"
+    settings["support_remove_small_overhang"] = "0"
     model = ET.Element(Q("model"),unit="millimeter")
     ET.SubElement(model,Q("metadata"),name="Application").text="BambuStudio-02.08.02.61"
     ET.SubElement(model,Q("metadata"),name="BambuStudio:3mfVersion").text="1"
