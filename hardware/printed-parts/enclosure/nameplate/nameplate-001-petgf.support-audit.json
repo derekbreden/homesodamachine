@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "piece": "nameplate-and-receiver",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "5683fcca05e25bd5e2ce66de3a0381ed09cf691cc5e10a4abe3fe8d4f37e9a15",
+    "model": null,
+    "model_sha256": null,
+    "profile": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
+    "profile_sha256": "3920f0bb57cdcc18692489b5f53880d0a7ac857a234ec8020e901a89359853d5"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": null,
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 18.48,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 18.48
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 18.68,
+      "shortest_build_up_mm": 18.48,
+      "top_z_mm": 19.16,
+      "bbox_xy_mm": [
+        114.4,
+        206.0,
+        214.0,
+        217.2
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "part": "receiver coupon",
+      "contact": "Pump-bearing ledge underside in the back-top print orientation",
+      "reason": "Flat bearing datum preserved; exposed support removes from the coupon rear."
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 41.48,
+      "shortest_build_up_mm": 41.28,
+      "top_z_mm": 41.96,
+      "bbox_xy_mm": [
+        115.6,
+        190.4,
+        215.6,
+        204.4
+      ],
+      "interfaces": [
+        "interface-2"
+      ],
+      "interface_reading": "explicit_feature",
+      "part": "receiver coupon",
+      "contact": "Lower pocket rim in the back-top print orientation",
+      "reason": "Flat edge bounds the flush plate pocket; support is exposed from the front."
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 18.68,
+      "last_z_mm": 19.16,
+      "bbox_xy_mm": [
+        116.0,
+        209.2,
+        214.0,
+        213.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 18.48
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 41.48,
+      "last_z_mm": 41.96,
+      "bbox_xy_mm": [
+        115.6,
+        202.0,
+        215.2,
+        204.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 41.28
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "nameplate": {
+    "support_bodies": 0,
+    "lip_overhang_mm": 0.6,
+    "physical_removal_tested": false
+  }
+}

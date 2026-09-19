@@ -1,14 +1,14 @@
 # Finish, Pack, Ship
 
-The production procedure for the final stage of the soda machine's assembly — the bench between a unit that passed [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) and a tracked carton sitting on a carrier's truck. Cosmetic inspection, identity-marking with the per-unit signed nameplate, fluid-drain confirmation for transit, install-kit pack-out, customer documentation, outer label, and carrier handoff. This document is the repeatable last-touch procedure; everything downstream is the customer's countertop install, supported by the two printed documents in the box — the quick start on top of the packing and the install guide in the kit ([`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)).
+The production procedure for the final stage of the soda machine's assembly — the bench between a unit that passed [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) and a tracked carton sitting on a carrier's truck. Cosmetic inspection, identity-marking with the per-unit QR nameplate, fluid-drain confirmation for transit, install-kit pack-out, customer documentation, outer label, and carrier handoff. This document is the repeatable last-touch procedure; everything downstream is the customer's countertop install, supported by the two printed documents in the box — the quick start on top of the packing and the install guide in the kit ([`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)).
 
 Design intent for the Founder Edition shipping experience lives in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md), [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", and [`/marketing/target-market.md`](/marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`/hardware/assembly/handwork.md`](/hardware/assembly/handwork.md); this doc is the per-unit repeatable bench across the [50](FOUNDER_EDITION_COUNT)-unit Founder Edition run.
 
 ## Scope
 
-In: one soda machine that has passed acceptance + burn-in per [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) with its per-serial log archive intact under `logs/<serial>/`; the pre-generated per-unit nameplate plate (printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with serial and link in the inlay, signature still to be applied at this bench) and its two M3×8 cap screws; the bagged faucet-and-umbilical sub-assembly (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)); the install kit's contents — the customer's plumbing from [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §4 (both under-sink tees, the short jumper, the white run with the Waterdrop filter inline, the red tether with its gray acetal flare connector and stem reducer, the Wellbom CGA-320 regulator), the collet press from §7, the NEMA 5-15P → C13 line cord from §5, the `TAP` and `CO2` tube collars, and the customer documentation packet — and the cold kit from §14 (Mudder PTFE tubing cutter, CARGEN nitrile foam segments, its own guide); the machine carton with molded foam end-caps; tracking + labeling supplies.
+In: one soda machine that has passed acceptance + burn-in per [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) with its per-serial log archive intact under `logs/<serial>/`; the pre-generated per-unit nameplate plate (printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with the unit identity encoded in its QR); the bagged faucet-and-umbilical sub-assembly (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)); the install kit's contents — the customer's plumbing from [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §4 (both under-sink tees, the short jumper, the white run with the Waterdrop filter inline, the red tether with its gray acetal flare connector and stem reducer, the Wellbom CGA-320 regulator), the collet press from §7, the NEMA 5-15P → C13 line cord from §5, the `TAP` and `CO2` tube collars, and the customer documentation packet — and the cold kit from §14 (Mudder PTFE tubing cutter, CARGEN nitrile foam segments, its own guide); the machine carton with molded foam end-caps; tracking + labeling supplies.
 
-Out: a sealed machine carton sitting on the loading-out shelf, ready for carrier pickup: cosmetic wipe-down complete; every exposed surface visually inspected and passed; the per-unit serialized nameplate applied to the +Y wall of back-top with signature in place; the system fluid-drained and air-purged dry (no water in any line, no flavor in any reservoir) and the +Y wall's inlets capped for transit; install kit packed; printed customer documentation included; outer shipping label affixed; shipping weight + dimensions recorded against the order; carrier tracking number assigned and emailed to the customer.
+Out: a sealed machine carton sitting on the loading-out shelf, ready for carrier pickup: cosmetic wipe-down complete; every exposed surface visually inspected and passed; the per-unit serialized nameplate applied to the +Y wall of back-top with its QR verified; the system fluid-drained and air-purged dry (no water in any line, no flavor in any reservoir) and the +Y wall's inlets capped for transit; install kit packed; printed customer documentation included; outer shipping label affixed; shipping weight + dimensions recorded against the order; carrier tracking number assigned and emailed to the customer.
 
 Not in scope: the customer-side countertop install at the kitchen — that's the customer's (or their installer's) job, supported by the printed quick start that lies on top of the packing. International shipping is out of scope for Founder Edition; the run ships to lower 48 US states only (see Open items).
 
@@ -18,7 +18,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 
 | Item | Source | Notes |
 |---|---|---|
-| Per-unit nameplate plate, pre-printed with serial and link | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | One per machine, generated ahead of time per the unit's serial. Signature applied at step 3 below — not pre-applied at print time. |
+| Per-unit nameplate, printed with its QR | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | One per machine, generated for its four-digit unit number. Scan and snap into place at step 3. |
 | Bagged faucet-and-umbilical sub-assembly | Output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) | One permanently-attached faucet + umbilical unit, drops into the carton alongside the machine. Its donor washer and nut are already captive on the shank above the permanent blue-tube connection. The bag also holds the one loose part the countertop mount needs: the under-counter plate. (TPU gasket is already on the shank from the factory; not in the install kit.) |
 | The customer's plumbing | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3, §4 | Made up at step 6: **one tee subassembly** — the John Guest PP0208E tee, the short jumper in its run port, and the white tap-water run with the Waterdrop 15UC-UF filter inline in its branch, `tube-collar-water` on that run's `TAP` end; the John Guest ASVPP1LF angle stop adapter valve loose in its own bag for the scenario-B kitchen; the ~12 in red tether with the PM4508F4S flare connector and PI061008S stem reducer at its regulator end and `tube-collar-co2` on its `CO2` end. The ends at the machine are bare, square-cut push-fit tails; the tether's gray connector threads onto the regulator. |
 | Collet press | [`/hardware/printed-parts/collet-press/`](/hardware/printed-parts/collet-press/README.md); [`bom.md`](/hardware/ledger/bom.md) §7 | One PET-GF 1/4-inch release tool. It stays with the customer for the installation and for later disconnection or reconnection of any accessible 1/4-inch push fitting. |
@@ -28,10 +28,9 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 | Customer documentation packet | Printed in-house | (a) Printed quick start, which lies on top of the packed carton at step 7 rather than in the kit; (b) the bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (c) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) specifies the integral exterior disposal warning, compressor-area service panel, and remaining rating fields. |
 | Transit inlet caps | TBD per Open items | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
 | Soda machine carton + molded foam end-caps | TBD per Open items | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
-| Archival pen (signature application) | TBD per Open items | Pigment-ink, fade-resistant, kitchen-wipe-resistant. Used if the signature is applied handwritten rather than laser-engraved (decision pending per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "Signature fidelity"). |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
 
-Tooling (amortized per machine only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): microfiber wipe-down rag, isopropyl + lint-free wipes for fingerprint removal on stainless and printed surfaces, foam-tip swab for the funnel's interior, the laser-engraver (if the signature path lands on engrave) or the archival pen (if it lands on handwritten), kitchen scale or platform scale for the shipping-weight measurement.
+Tooling (amortized per machine only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): microfiber wipe-down rag, isopropyl + lint-free wipes for fingerprint removal on stainless and printed surfaces, foam-tip swab for the funnel's interior, kitchen scale or platform scale for the shipping-weight measurement.
 
 ## Procedure
 
@@ -61,18 +60,16 @@ Carton-weight references: ~[20 kg](SLOSH_CARTON_W) full carton; emptied reservoi
 
 Confirm dry at this bench by: (a) listening at the gooseneck while gently tilting the machine [~15°](TILT_ANGLE) side-to-side and front-to-back — no liquid splash, no pooled-water "thunk"; (b) opening each reservoir cap and visually inspecting the sump for residual flavor (must be zero — the air-purge sequence pumps the reservoirs dry, so any residual flavor at this bench means the purge cycle didn't complete); (c) opening the faucet lever with the system de-pressurized and the rear CO2 line disconnected — no liquid discharge at the gooseneck, no audible CO2 vent (the system should already be at atmospheric pressure off the burn-in bench). Any wet finding sends the unit back to the burn-in bench for a re-purge cycle, not corrected at this bench.
 
-### 3. Apply the per-unit nameplate plate with signature
+### 3. Apply the per-unit nameplate
 
-Confirm the plate pulled for this unit matches the serial assigned to the order. The plate was pre-printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with the unit's serial in the contrast inlay — `SERIAL NNNN`, the input rating `120V 60Hz 5A 600W`, the 120 V 60 Hz ONLY warning, and the unit's own link `homesodamachine.com/NNNN`. The serial on the plate must match the serial in the per-unit log archive at `logs/<serial>/` and the one in the link beneath it; a plate whose two numbers disagree is scrap, and a plate whose number is not this unit's does not go on.
+Scan the printed plate's QR and compare its four-digit unit number with the order and the
+per-unit archive at `logs/<serial>/`. The [nameplate](/hardware/printed-parts/enclosure/nameplate/README.md)
+carries the faucet mark, `HOME / SODA / MACHINE` and the QR. Ratings and refrigerant warnings
+have their own marking locations. Reject an unreadable code or a plate for another unit.
 
-The signature is not printed — it lands here, at the final-stage bench, on the actual plate about to ship with the actual machine. The plate carries no signature field of its own yet; the path is the open item [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) states, and the bench works whichever of these is in service:
-
-- **Handwritten path (working default until the first plate prints):** sign the plate's face with the archival pigment-ink pen, in the clear band under the link. Let the ink set for the manufacturer's specified dry time before mounting — typical pigment ink is touch-dry inside 30 seconds and abrasion-resistant after a few minutes.
-- **Laser-engrave path (alternative pending the test-print review):** load the plate into the engraver's fixture, register against its own outline, run the per-unit pen-trace vector. Vacuum any engrave dust off the face before mounting.
-
-Whichever path is in service, the signature is applied to *this* plate for *this* unit — the builder is signing this specific machine, not pre-signing a batch of blank plates. The signature is the physical proof per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" that a specific person built this specific machine.
-
-Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap screws down into the heat-sets in the wall's own bosses, one at each end of the plate on its horizontal centreline. Those two are full-length ruthex, pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1 and standing empty until now; each takes the whole of the screw's reach in thread. The heads land in the plate's counterbores and come out flush with the wall. Apply the signature first and mount second — a plate in its pocket cannot be signed in place.
+Clean the two exposed retaining lips and the enclosure's receiving slots. Push the plate
+straight into the rear pocket until both tabs engage and its face seats. Check retention and
+scan the installed QR again. No screws or inserts are used at this joint.
 
 ### 3a. Refrigerant markings and unit record
 
@@ -81,7 +78,7 @@ disposal warning in raised lettering on the smooth area low on enclosure back-bo
 exterior +Y wall. The combined service/tubing panel belongs near the compressor
 compartment, with W021 flame and R-600a visible at compressor access. Use a permanent
 service-panel carrier, retaining the specified warning-letter height and service-opening
-red color. The brand/serial/QR plate remains separate.
+red color. The brand/QR plate remains separate.
 
 Complete the appliance rating information with manufacturer/model, voltage/frequency,
 established rated current, manufacturing date/date code, R-600a, the actual weighed
@@ -110,7 +107,7 @@ Cap specifications and source are TBD (see Open items); working assumption is a 
 
 Two photos minimum:
 
-- **+Y wall.** Full-face framing, the signed plate centred in frame, its serial and its link readable from the photo. Good light at the plate face so the contrast-inlay text reads cleanly; the signature must be legible.
+- **+Y wall.** Full-face framing with the nameplate QR readable in the photograph. Confirm that scanning the photograph identifies this unit.
 - **3/4 front.** User-facing surfaces — front face, top funnel, and one side. Establishes that the user-facing aesthetic is what the customer's photo at unboxing will compare against.
 
 Both go into the unit's archive at `logs/<serial>/finish/` — the burn-in bench's archive directory already has the test logs under `logs/<serial>/burn-in/`, and the finish photos sit alongside as the visual confirmation of the unit's ship-state. The photos exist for two reasons: customer-support reference if the unit arrives with damage and a "what it looked like leaving the shop" comparison shot is needed for the claim, and a record of the as-shipped state for the run that the founder can look back on.
@@ -173,7 +170,7 @@ A finished, ship-ready unit is:
 
 - Cosmetically wiped and visually inspected on every exposed surface, no known cosmetic defects
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
-- Nameplate on the +Y wall, screwed on with this unit's serial, its link, and this unit's hand-applied (or laser-engraved) signature
+- Nameplate snapped into the +Y wall, retained and scanned to confirm this unit
 - Water + CO2 inlets, both on the +Y wall, capped for transit
 - Carton sealed with the machine + bagged faucet-and-umbilical sub-assembly + install kit (the collet press, the regulator and the cold kit inside it) + customer documentation packet with the install guide face up, the quick start lying on top of all of it
 - Shipping weight + dimensions recorded against the order in the per-serial run log
@@ -192,9 +189,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 5. **International shipping — scoped out for Founder Edition.** Currently lower-48-only. Flagged here as a future-work item because the Founder Edition demand pipeline already includes inbound interest from outside the US, and the answer needs a separate set of carrier, customs, and regulatory marking workstreams (every marking this unit wears is written against US-only requirements).
 6. **Carton + foam end-cap + transit-cap source.** No SKU committed yet for the outer carton, the molded foam end-caps, or the two transit caps. Working assumption is a custom-cut carton + custom-poured foam from a local packaging house; the per-unit cost lands in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) once the source is committed. The box the customer opens is an inner box with a lift-off top inside the shipping carton, the quick start lying on top of the packing in it.
 7. **Shipping weight — precise number.** The [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH) working envelope is an estimate; the first-unit measurement at step 8 calibrates the run, and the cost model for the carrier-selection decision (Open item 1) depends on the precise number landing.
-8. **Signature path — handwritten vs laser-engrave.** Per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "Per-unit generation", the decision between handwritten archival pen and laser-engraved vector waits on the first plate off the bed, and the plate carries no signature field until it lands. Step 3 of this procedure runs whichever path lands; the bench's tooling list and the per-unit time both shift with the answer.
-9. **Founder Edition welcome letter.** Named in the documentation packet above and hand-signed at this bench, but no letterhead, no copy and no generator for it exists in the tree. The install guide and the quick start are both built and published; this third printed piece is not, and the packet is incomplete until it is.
-10. **Kit run lengths.** The white tap-water run and the short jumper ship at lengths the tree does not yet state; the red tether is ~12 in ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4). Both install uncut, so their lengths are what every kitchen gets.
+8. **Founder Edition signature carrier.** The horizontal brand-and-QR nameplate has no signature field. The physical signature carrier remains to be specified with the Founder Edition presentation.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -1,7 +1,5 @@
 {
-  "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
-    "NAMEPLATE_NOZZLE_D": "0.2 mm"
-  },
+  "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {},
   "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {
     "CBORE_D": "5.8 mm",
     "INK_FLOOR": "3.5 mm",

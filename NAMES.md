@@ -60,7 +60,7 @@ they became.
 | **above-counter plate** | the printed disc between the faucet shell and the countertop | mounting plate |
 | **above-counter gasket** | the TPU disc between the above-counter plate and the countertop | mounting gasket |
 | **ASSE drip pan** | the printed basin under the ASSE 1022 vent tip, moisture probe lying flat in it | drip pan, drip tray, basin |
-| **nameplate** | the plate the machine is named and rated on | |
+| **nameplate** | the rear plate carrying the machine name, faucet mark and unit QR | |
 | **foam shell** | the printed PETG shell around the cold core | |
 | **PRV shroud** | the printed cup over the pressure-relief valve, keeping the pour off it | |
 | **funnel** | the part flavor concentrate is poured into, with its own spout | hopper |

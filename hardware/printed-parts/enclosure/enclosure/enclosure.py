@@ -1647,9 +1647,9 @@ pull_edge_r = handhold_edge_r
 # than with the placement pass so a serialized Box can be restored without importing the whole
 # machine that produced it.
 PortField = namedtuple("PortField", "proud rim pockets")
-Nameplate = namedtuple(
-    "Nameplate", "x z width height corner bevel slip thick wall screws "
-                 "stem_d reach bore_d bore_depth")
+from _nameplate_interface import Nameplate
+import _nameplate_interface as _nameplate_fit
+
 
 Box = namedtuple(
     "Box", "pack inner outer y_joint splits y_bosses z_seam_passes column_reliefs pump_bay")
@@ -3396,96 +3396,18 @@ def disposal_figures(outer):
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
-    """The nameplate's pocket, cut into a ±Y wall's outer face, and the two screw bosses standing
-    behind it on the inner one.
+    """Flush pocket, two rigid snap shoulders and the pump's rear bearing ledge.
 
-    THE POCKET TAKES THE PLATE'S WHOLE THICKNESS, and the plate is a screw seat thick — deeper
-    than this wall's own stock. So THE WALL THICKENS BEHIND IT: a plateau on the inner face
-    standing to `plate.wall`, which is one `wall` and one `rear_seam_clear`. That second figure is
-    the band the pack already stands off this face, so the plateau reaches exactly the plane the
-    rear Z seam's lip presents the core and stops — it takes nothing the pack was using, and what
-    it buys is a floor under the WHOLE pocket instead of a pad pocket punched clean through the
-    wall at each screw. Nothing then stands off the plate's own back, which is the face the plate
-    prints on.
-
-    ITS PRINT-DOWN EDGE IS STRUCK AT 45°. `up` is the piece's print-up in the machine's frame,
-    and the wall stands vertical on the bed either way, so the plateau's edge that looks
-    print-down — its machine-bottom edge for `up > 0`, its machine-top edge for `up < 0`
-    (`BACK_TOP_UP`) — is the plate's whole width of ceiling starting in air. Cut back at 45° it
-    is a ramp the wall reaches under instead — the relief every hanging face on this box gets.
-
-    AND SO IS THE POCKET'S OWN CEILING, for the same reason and by the same figure. The pocket is
-    the plate's whole SILHOUETTE and not just its outline: the plate's back edge is chamfered
-    `plate.bevel` at 45° and the pocket answers it, its floor that much in from the outline all
-    round and opening out to full size at 45°. The bevel runs all four edges, so the pocket
-    reads no `up`: whichever edge looks print-down hangs `plate.thick - plate.bevel` of rim and
-    no more — this is `_front_relief_cuts`' bargain, a ceiling rising at `relief_chamfer` to the
-    mouth, taken as far as an inlay can take it. It stops short of the mouth where that one runs
-    past it, because THE RIM HAS TO STAY SQUARE: a 45° opening at the face would read as a
-    V-groove round the plate instead of the flush inlay this face is.
-
-    WHAT IS LEFT STANDING IS ONE BAR AND A 45° CORBEL ON ITS PRINT-DOWN SIDE. The plateau carries
-    the first `nameplate.floor_under` of the depth an insert's bore wants and the bar stands for
-    the rest, one standard M3 section tall, from one screw to the other and flat on its print-up
-    side. Its whole print-down face is one plane, and a full-length wedge carries that face back
-    to the plateau, falling one millimetre for every millimetre of reach — under the bar for
-    `up > 0`, over it for `up < 0`. There is no collar: a collar closes a pad pocket and there is
-    no pad.
-
-    The plate lies wholly on one piece — `nameplate-field` is the reading that keeps it off the
-    seam — so the station's own Z decides which piece carries all of it."""
+    The compliant tabs belong to the face-down nameplate. The wall receives
+    them through straight slots opening into the enclosure. The lower end of
+    each slot gets the print-direction allowance; the retaining shoulders
+    keep their flat bearing faces. The full pump-bearing top stays at its
+    placement datum and receives the enclosure's supported-face compensation.
+    """
     if plate is None or not (zlo <= plate.z <= zhi):
         return solid
-    y_inner = y_outer - wall
-    y_pad = y_outer - plate.wall
-    floor = y_outer - plate.thick
-    rise = y_inner - y_pad
-    # The pocket's own outline, and the plateau one `wall` proud of it all round, so the pocket is
-    # walled for the whole of a depth the wall's own stock could not have walled.
-    pw = plate.width + 2.0 * plate.slip
-    ph = plate.height + 2.0 * plate.slip
-    pr = plate.corner + plate.slip
-    pad = _rect_cut_y(plate.x, plate.z, pw + 2.0 * wall, ph + 2.0 * wall, pr + wall,
-                      y_pad, y_inner)
-    # The plateau's print-down edge, and the 45° ramp struck off it: the plateau's face there
-    # runs from the wall out to its free face, `rise` toward print-up over `rise` of reach.
-    zedge = plate.z - up * ph / 2.0 - up * wall
-    xhalf = pw / 2.0 + wall
-    pad = pad.cut(_yz_prism(plate.x - xhalf - 1.0, plate.x + xhalf + 1.0,
-                            [(y_pad, zedge), (y_pad, zedge + up * rise), (y_inner, zedge)]))
-    solid = solid.fuse(_supported_cut(pad, up))
-    # ONE BAR FROM SCREW TO SCREW: the stems' own section run between the two stations, flat
-    # top and bottom. Printed mouth-down (`up > 0`) one full-length 45° wedge carries its
-    # underside back to the plateau. Printed ceiling-down its top looks print-down and stays a
-    # flat: the water pump stands on that very plane, so nothing may rise off it, and the bar's
-    # top is a supported face reached from the slab.
-    r = plate.stem_d / 2.0
-    y_tip = y_pad - plate.reach
-    xs = [plate.x + dx for dx, _dz in plate.screws]
-    zs = [plate.z + dz for _dx, dz in plate.screws]
-    # The ceiling-bedded bar presents its top to support. Keep its complete
-    # section below the compensated surface; the pump and screw axes stay fixed.
-    bar_drop = fits.supported_surface if up < 0.0 else 0.0
-    bar = _ybox(min(xs) - r, max(xs) + r, y_tip, y_pad,
-                min(zs) - r - bar_drop, max(zs) + r - bar_drop)
-    if up > 0:
-        zsoffit = min(zs) - r
-        bar = bar.fuse(_yz_prism(
-            min(xs) - r, max(xs) + r,
-            [(y_tip, zsoffit), (y_pad, zsoffit), (y_pad, zsoffit - plate.reach)]))
-    solid = solid.fuse(bar)
-    # The 45° bevel stands one slip from the plate along its face normal.
-    pocket_bevel = plate.bevel - (math.sqrt(2.0) - 1.0) * plate.slip
-    mouth = (cq.Workplane("XY").rect(pw, ph).extrude(plate.thick + 1.0)
-             .edges("|Z").fillet(pr).faces("<Z").chamfer(pocket_bevel).val()
-             .rotate((0, 0, 0), (1, 0, 0), -90.0)
-             .translate(cq.Vector(plate.x, floor, plate.z)))
-    solid = solid.cut(_supported_cut(mouth, up))
-    for dx, dz in plate.screws:
-        sx, sz = plate.x + dx, plate.z + dz
-        solid = solid.cut(_supported_cut(
-            _ycyl(plate.bore_d / 2.0, sx, sz, floor - plate.bore_depth, floor), up))
-    return solid
+    return _nameplate_fit.apply(solid, plate, y_outer, wall=wall,
+                                supported=fits.supported_surface, up=up)
 
 
 def _port_chip(px, pz, width, rise, y0, y1):

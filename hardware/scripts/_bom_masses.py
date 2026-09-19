@@ -182,7 +182,7 @@ PARTS = {
     ],
     # ONE ROW AND ONE FILE, holding both bodies the way a bulkhead ring's does: the plate, and the
     # lettering standing in the recess cut into it. The file is unit 0001's; every unit's is the
-    # same plate with four different figures in it, so one mass prices the run.
+    # same plate with a unit-specific QR, so one mass estimates the run.
     "Nameplate — one per unit, serialized": [
         "enclosure/nameplate/nameplate-001.step",
     ],
@@ -231,7 +231,7 @@ GROUP_OF = [
     ("Bulkhead ring",               "small"),
     ("Tube collar",                 "small"),
     ("Collet press",                "tool"),
-    ("Nameplate",                   "small"),
+    ("Nameplate",                   "petgf"),
 ]
 
 PRINTED = "<!--@printed-->"

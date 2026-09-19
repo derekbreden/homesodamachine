@@ -1,17 +1,7 @@
-[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
-click: x=0.000 y=3.750 z=33.035
+[sliver] These are the ends of the two integral 0.8 mm PET-GF snap tabs. Each is 8 mm wide, 9 mm long and rooted to the 2.4 mm plate with a 0.6 mm inner fillet. The tabs print upright above the artwork-down face. The native slice contains both complete 0.8 mm stems; these are intentional flexures, not loose wall fragments.
+click: x=-45.000 y=-9.000 z=-2.500
+click: x=45.000 y=-9.000 z=-2.500
 
-[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
-click: x=0.000 y=3.750 z=-33.035
-
-[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
-click: x=-52.265 y=3.750 z=0.000
-
-[sliver] The 1.5 mm straight band is the exposed edge above the nameplate's 3 mm rear chamfer. It is backed by the full 4.5 mm plate, with the chamfer growing from the bed when the lettering faces upward; it is not a separate thin wall.
-click: x=52.265 y=3.750 z=0.000
-
-[sliver] The round corner meets the 3 mm back chamfer at an apex. The STEP tessellator emits zero-area triangles there (eight triangles totaling 2.3e-15 mm² across the four corners), whose zero normals give the lint undefined strip dimensions. The analytic STEP is valid; these triangles carry no physical strip.
-click: x=-49.417 y=0.429 z=-30.462
-click: x=49.417 y=0.429 z=30.462
-click: x=-49.417 y=0.429 z=30.462
-click: x=49.417 y=0.429 z=-30.462
+[sliver] These are the 0.6 mm retaining lips on the two tabs. The receiving slots leave 0.45 mm nominal engagement. Their square catches retain the plate, and the noses taper toward the free ends. The face-down native slice retains approximately 0.607 mm of lip projection and generates no support on the plate; catch finish and force remain physical-print readings.
+click: x=-45.700 y=-7.500 z=-2.500
+click: x=45.700 y=-7.500 z=-2.500

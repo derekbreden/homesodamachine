@@ -382,12 +382,8 @@ MOUNTS = (
     ("bulkhead-ring-co2-word", "bulkhead-ring-co2", "well"),
     ("bulkhead-ring-flavor-a-word", "bulkhead-ring-flavor-a", "well"),
     ("bulkhead-ring-flavor-b-word", "bulkhead-ring-flavor-b", "well"),
-    # AND THE NAMEPLATE LIES IN A POCKET OF THAT SAME WALL, by the same bargain with one
-    # difference: nothing places a flange over it, so two M3 cap screws do what a fitting's nut
-    # does for a chip. Each lands in a counterbore sunk into the plate's own local thickening and
-    # pulls down into a ruthex M3 short, set in a boss the wall stands behind the pocket
-    # (`enclosure._nameplate`) — so the head, the plate and the wall come out one plane.
-    ("nameplate", "enclosure-back-top", "screw"),
+    # Two plate-owned PET-GF tabs catch the rear wall's rigid shoulders.
+    ("nameplate", "enclosure-back-top", "snap"),
     ("nameplate-ink", "nameplate", "well"),
     # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._flow_meter_anchors` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
