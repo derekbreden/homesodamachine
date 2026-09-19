@@ -1,0 +1,8 @@
+[sliver] Each 1.2 mm vertical land is the full-projection end of a 3 mm retaining lip. A 45-degree lead-in builds from the bed up to this land, and the lip joins the complete 2 mm skirt over its 24 mm run. The measurement is the land height, not the skirt thickness.
+file: hardware/printed-parts/enclosure/display-cover/display-cover.step
+click: x=-64.550 y=0.000 z=-31.600
+click: x=64.550 y=0.000 z=-31.600
+
+[ceiling] The bezel prints with its visible face upward and both skirts on the bed. Supports carry this hidden underside of the 2 mm face. The open window and the space between the skirts provide access for removing them before the display is installed.
+file: hardware/printed-parts/enclosure/display-cover/display-cover.step
+click: x=0.000 y=0.000 z=-2.000
