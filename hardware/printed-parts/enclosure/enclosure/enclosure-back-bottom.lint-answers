@@ -6,13 +6,24 @@ click: x=-100.875 y=388.750 z=169.450
 
 [ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-99.000 y=224.500 z=29.250
-click: x=99.000 y=224.500 z=29.250
+click: x=-99.000 y=224.000 z=29.250
+click: x=99.000 y=224.000 z=29.250
 
 [sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-90.375 y=212.800 z=-3.000
 click: x=90.375 y=212.800 z=-3.000
+
+[sliver] These diagnostics are collinear STL triangles on the integral disposal lettering. Each has zero area and a zero normal, so its strip dimensions are undefined. They contribute no surface area or volume and do not describe a physical thin section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-46.478 y=467.400 z=47.621
+click: x=-43.843 y=467.400 z=50.323
+click: x=29.562 y=467.475 z=40.714
+click: x=48.586 y=467.450 z=40.660
+click: x=53.376 y=467.400 z=47.621
+click: x=61.409 y=467.000 z=24.060
+click: x=53.885 y=467.425 z=48.111
+click: x=56.011 y=467.400 z=50.323
 
 [sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The accepted STL is one watertight body, and its production-profile slice adds no support contacts beneath the lettering.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
