@@ -117,6 +117,8 @@ the same-color text. The paper proof establishes the wording and a full-size typ
 reference; its panel dimensions and left alignment are not the enclosure layout.
 The service panel's physical carrier is not modeled in this proof.
 
+![Raised disposal lettering on enclosure back-bottom](../../output/renders/disposal-warning-shaded.png)
+
 ## Ordinary appliance information
 
 Reserve a separate, legible rating block on or near the nameplate. UL Part 1's
