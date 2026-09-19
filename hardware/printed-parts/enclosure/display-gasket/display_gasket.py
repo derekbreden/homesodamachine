@@ -1,18 +1,7 @@
-"""Display gasket — the TPU ring under the cover plate's lap, between the plate and the glass.
+"""The 1 mm TPU ring between the machine display glass and its snap-retained cover.
 
-Material: Bambu TPU 90A (black), from the same per-unit-trivial stock as the foam-cap and
-reservoir gaskets.
-
-The plate's underside lies one `display_inset_depth` below the 45° face and the display's cover
-glass stands `display_bezel_depth` less its own 1 mm below it, so the lap passes over the glass
-with air under it. This is what fills that: the plate draws down onto this and this onto the
-glass, so the two screws hold the display and not just the plate, and the 45° face a customer
-wipes has no opening at its edge.
-
-Frame: the cover plate's own, so every figure here reads against the depths the facet is cut to
-— +X lateral, +Y up the 45° slope, origin on the glass's centre in the 45° plane, and Z a depth
-below that face. `enclosure_assembly.build_display_gasket` turns it onto the facet and moves it
-by nothing else.
+The ring lies in the cover's local frame: X across, Y up the display plane and Z
+out of the face. Its outer outline matches the glass and its inner outline the window.
 """
 
 import sys
@@ -50,7 +39,7 @@ inner_slope = display_bezel_slope - 2.0 * display_inset_lap   # [71 mm](INNER_SL
 corner_r = display_corner_r
 
 # THE THICKNESS IS THE GAP, so it is derived and not chosen: the glass's front face down from
-# the 45° plane, less where the plate's underside sits. `glass_thickness` is the cover glass
+# the display plane, less where the plate's underside sits. `glass_thickness` is the cover glass
 # standing proud of the display's own front face inside the bezel counterbore.
 glass_thickness = 1.0
 glass_face_depth = display_bezel_depth - glass_thickness      # [3 mm](GLASS_FACE_DEPTH)

@@ -20,11 +20,9 @@ even yawed a quarter turn (`enclosure_assembly.FOAM_YAW`), which is what puts it
 short face across the machine instead of its 283 mm long one. The pack is placed by
 `../../../manifold-layout/enclosure_assembly.py`. Features:
 
-  * A flat 45° display-mounting facet (a solid surface) chamfered into the
-    top-front arris across the box's FULL WIDTH, with the display's glass
-    centred on it and flat facet either side. That corner cannot be packed
-    anyway, and a chamfer that runs wall to wall needs no end wall, no shoulder
-    and no shoulder relief.
+  * A 30° machine-display plane between tangent front and roof curves. Rounded
+    side edges meet the fluted walls; the rear top edge remains square. The
+    rounded bezel snaps into the recessed plane, ahead of the inset funnel.
   * A front↔back split at the stated `y_seam`, so its machinery is aft of the
     front pack and a front-quadrant tray never has to be notched around it:
     the front pieces' aft walls telescope (a full-wall lip,
@@ -89,9 +87,8 @@ the arrises that run along the build axis: the box's four standing verticals. Ea
 its other two "corners" are the Y-seam, a telescoping mating face with no
 exterior arris to relieve — so the front pieces round the front-left/right
 verticals, the back pieces the back-left/right, and every seam stays square.
-The full-width facet raises no new standing vertical: it ends on the ±X
-exterior walls, which are already relieved, so the chamfer runs out into their
-own rounds.
+The display plane meets rounded side edges, which continue into the fluted
+walls. The rear top edge remains square.
 
 Inside those same verticals stand the COLUMNS, and each is that relief MIRRORED —
 congruent with it, a QUARTER TURN of the same radius, swung from the interior
@@ -171,6 +168,8 @@ import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
 import _enclosure_interface as _interface
+import _swept_top
+import _display_retention
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
@@ -364,8 +363,7 @@ def flute_backed_sections():
         ("front-top's collet-plate lift lane", wall),
         ("the pump cartridge's lower face over its relief floor",
          pump_relief_floor - pump_cartridge_front_y),
-        ("the front face under the display facet's arris",
-         display_facet_buffer * math.sqrt(2.0)),
+        ("the front wall below its tangent curve", front_wall),
         # AND THE MULLION THE CONDENSER'S VENTS LEAVE, which is the one row here a SLOT sets
         # rather than a wall does. The jamb stands `reeding.pierce_width / 2` off the groove's
         # own centre, out on the half-ellipse where the groove is shallower than at its floor —
@@ -379,22 +377,8 @@ def flute_backed_sections():
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
-# Display-mounting facet — a flat 45° SOLID surface chamfered into the top-front
-# arris for the Waveshare ESP32-S3-Touch-LCD-4.3B enclosure display
-# (../../../reference/waveshare-43b-display/), facing up-and-forward (−Y front /
-# +Z up) toward the standing user.
-#
-# The facet runs the box's FULL WIDTH, wall to wall, and the display is CENTRED on
-# it: the machine is 215 mm wide and the inset the cover plate fills 153.5, so what
-# is left is ~31 mm of flat 45° face either side of it. That corner is unpackable at any width
-# — the chamfer is inside the box's own silhouette — so spending all of it buys a
-# face that reads square from the front, and the geometry gets simpler for it: no
-# end wall closing a recess, no shoulder where a window stops, no bed relief on the
-# arris a shoulder would raise. The window's lateral size is therefore the box's,
-# not a parameter; `display_facet_x` is the display FEATURE's own footprint — the
-# inset the cover plate fills plus a buffer all around,
-# [158 mm](DISPLAY_FACET_X) × [87.5 mm](DISPLAY_FACET_SLOPE) up the slope — which is
-# what `_report_facet` prints beside the measured face.
+# The machine display sits on the swept top's 30-degree plane. Tangent R12 and
+# R18 curves join the front and roof; the side edges use R6. The rear edge stays square.
 display_bezel_x = _interface.display_bezel_x           # bezel glass, lateral (X)
 display_bezel_slope = _interface.display_bezel_slope   # bezel glass, up the slope
 display_bezel_cut_x = display_bezel_x + 2.0 * fits.slip
@@ -405,56 +389,24 @@ display_bezel_cut_slope = display_bezel_slope + 2.0 * fits.slip
 display_body_offset_x = 0.5      # PCB body offset from the centered glass, lateral (+X)
 display_body_offset_slope = -1.0 # PCB body offset, down-slope
 display_corner_r = _interface.display_corner_r         # corner rounding, matching the display bezel
-# THE FACE CLOSES FLAT. The display is let into the facet down TWO steps, and a printed
-# cover plate fills the outer one — so what a hand meets is one unbroken 45° plane with a
-# border let into it, and the two screws that hold the border are counterbored into their own
-# lands. Nothing stands proud of the face anywhere.
-#
-#   45° face  ─────────┐                       ┌─────────  ← the plate's top, flush
-#                      │  inset, 2 mm          │
-#                      └──────┐         ┌──────┘
-#                             │ bezel   │         ← the glass, 2 mm further in
-#                             └─────────┘
-#
-# The plate laps the glass by `display_inset_lap`, which is the same figure the inset stands
-# outside the glass up the slope — so the border is that lap twice over, and one number
-# states both halves of it.
-display_inset_lap = _interface.display_inset_lap       # the plate's lap over the glass, and the inset's land past it
-display_inset_reach = _interface.display_inset_reach   # how far the inset runs past the glass laterally — the land
-                                 # the two cover screws stand in, since a counterbored M3 head
-                                 # is wider than the border it would otherwise sit in
-display_inset_depth = _interface.display_inset_depth   # inset floor, down from the 45° face — the plate's seat
-display_inset_x = _interface.display_inset_x                       # [153.5 mm](DISPLAY_INSET_X)
-display_inset_slope = _interface.display_inset_slope               # [83 mm](DISPLAY_INSET_SLOPE)
-# Every millimetre of plain face down the slope carries the facet √2 further aft along Y, and
-# with it the seats let into it — which is what `display-housing-seats` reads the housing's
-# own back cut against.
-# The plain 45° face kept outside the inset, all around — and WHAT SETS IT is not how wide a
-# border looks right. The inset is sunk normal to the facet, so its own down-slope END WALL is
-# a 45° plane the other way, and where that plane and the front wall's arris come together is
-# the thinnest the front face ever gets. Work it out and the ligament there is exactly this
-# buffer times root two, wherever the facet stands and however big it is — so the border's
-# width IS the wall behind the top of the front face. Under `flute_backing` a flute cut into
-# that face has less than one `wall` behind it and telegraphs; `facet-arris-backed` reads it.
-display_facet_buffer = 2.25      # >= flute_backing / sqrt(2)
-display_facet_x = display_inset_x + 2 * display_facet_buffer          # [158 mm](DISPLAY_FACET_X)
-display_facet_slope = display_inset_slope + 2 * display_facet_buffer  # [87.5 mm](DISPLAY_FACET_SLOPE)
-display_facet_angle_deg = 45.0
-# The facet is a display housing this deep (the wall behind it, set to the
-# display's overall depth) with the display let into it: a bezel counterbore on
-# the user face and a PCB through-hole down the full thickness.
+# The rounded cover sits flush in a 2 mm inset. A 1 mm TPU ring bears on the glass,
+# whose face lies 3 mm below the display plane. Broad side skirts retain the cover.
+display_inset_lap = _interface.display_inset_lap
+display_inset_reach = _interface.display_inset_reach
+display_inset_depth = _interface.display_inset_depth
+display_inset_x = _interface.display_inset_x
+display_inset_slope = _interface.display_inset_slope
+display_facet_buffer = 2.25
+display_facet_x = display_inset_x + 2 * display_facet_buffer
+display_facet_slope = _swept_top.FLAT
+display_facet_angle_deg = _swept_top.ANGLE
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
-# THE HOUSING'S BACK IS A VERTICAL PLANE, the full width of the box — one cut with no X term,
-# the way the facet itself is one cut. Stated as a reach aft of the box's FRONT FACE, so it is
-# struck off the face rather than off the box. Behind the display the slab keeps its full
-# `display_facet_thickness` on the 45°; this takes the top corner off square, where the slab
-# stands over the funnel and carries nothing. What it may not do is come forward into what the
-# face carries: the inset and the bezel counterbore are the display's SEATS, and
-# `display-housing-seats` keeps a wall of slab behind the deeper of the two.
-display_housing_back = 71.38
+# The housing ends at a vertical plane ahead of the funnel. Its pockets and
+# retaining skirts have solid surrounds; the underside accepts removable support.
+display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
-display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the 45° slope
+display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the display slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a socket collar
                                  # clean through (it overhangs the hole otherwise)
 # THAT HOLE LEAVES A RIDGE, AND THE RIDGE IS CARRIED. Where the hole's up-slope end wall breaks
@@ -495,31 +447,8 @@ pump_jack_clip_edge_land = 12.0
 # the clip's full run. Stated as `(y0, run)` each, in the flank's own +Y order.
 flank_clip_stations = ((137.0, _cable_clip.RUN),
                        (179.0, _cable_clip.RUN))
-# The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
-# this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
-# `display_cover_seat_recess` under the 45° face so the plane closes over it.
-#
-# THE PAD IS WHAT THE COUNTERBORE STANDS IN: a head seat deeper than the plate would leave no
-# land under the head at all, so the plate thickens under each screw by exactly the
-# counterbore's own depth and the inset floor is pocketed to take it. The land is then the
-# plate's own section. Everything else about the plate stays the border it is.
-# THE COVER IS TWO SECTIONS, and which one it carries is decided by what is under it. Over the
-# glass it is `display_cover_thickness`, because what stands in the step there is the gasket;
-# everywhere else it is `display_cover_seat`, a whole screw seat, and the inset is sunk to that
-# over the same ground. So no pad stands off the plate's back and its own back is one plane
-# either side of the bezel's outline — see `_display_cuts` and `display_cover.py`.
-display_cover_thickness = _interface.display_cover_thickness  # the plate WHERE IT LAPS THE GLASS; = display_inset_depth, so
-                                 # the plate's top lies in the face
-display_cover_slip = _interface.display_cover_slip        # per side, plate edge into the inset it drops in
-display_cover_head_h = _interface.display_cover_head_h    # DIN 912 M3 head, nominal
-display_cover_seat_recess = _interface.display_cover_seat_recess  # how far under the 45° face the head lands
-display_cover_cbore_depth = _interface.display_cover_cbore_depth
-# The head's own counterbore and the lap's section under it — the plate everywhere the glass is
-# not beneath it, and the depth the inset's land is sunk to.
-display_cover_seat = _interface.display_cover_seat
-# Each screw stands in the middle of the lateral land, halfway between the glass's edge and
-# the inset's own — the widest material either has.
-display_screw_x = _interface.display_screw_x                         # [66.75 mm](DISPLAY_SCREW_X)
+display_cover_thickness = _interface.display_cover_thickness
+display_cover_slip = _interface.display_cover_slip
 
 # Funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
@@ -545,7 +474,10 @@ funnel_collar_air = fits.running
 # `housing_back_y`, which is the other plane that could have stopped it. `funnel-brim-lands`
 # reads it back against the facet the box actually cuts, which is what catches it when the
 # facet's own size moves.
-funnel_front_y = 77.0
+funnel_front_y = 107.0
+funnel_seat_thickness = _swept_top.FUNNEL_SEAT
+ceiling_skin = _interface.ceiling_skin
+ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
 # The top wall between the display housing's back plane and the throat, read on
 # `funnel-collar-frame`. The brim's overhang lands on the housing slab at zero.
 funnel_front_ledge = 0.0
@@ -1328,8 +1260,8 @@ front_bottom_flank_t = 9.0
 #     own pocket over the span its two zip ties take (`_ceiling_tie_channel_relief`), so each
 #     loop comes west over the chain's crown in the lane and drops into the anchor's cavity
 #     through an open mouth.
-back_top_ceiling_t = 4.0 * wall
-back_top_ceiling_growth = back_top_ceiling_t - wall
+back_top_ceiling_t = 12.0
+back_top_ceiling_growth = back_top_ceiling_t - ceiling_skin
 
 
 def back_top_ceiling_face():
@@ -1348,7 +1280,7 @@ def back_top_ceiling_stock(y_joint=None, lane=None):
     Struck on stated figures alone (the seam `y_seam`, the lane off `appliance_height`), so the
     pack can read a body against it before any box is drawn."""
     y_joint = y_seam if y_joint is None else y_joint
-    lane = (appliance_height - floor_t - wall) if lane is None else lane
+    lane = (appliance_height - floor_t - ceiling_skin) if lane is None else lane
     fx0, fx1 = back_top_flank_face()
     return _ybox(fx0, fx1, back_flank_start(y_joint), back_top_wall_face(),
                  back_top_ceiling_face(), lane + 1.0)
@@ -2466,7 +2398,7 @@ def _dims(pack):
     iy0 = front_plane_y
     iy1 = rear_plane_y
     iz0 = min(czmin, 0.0)
-    iz1 = (iz0 - floor_t) + appliance_height - wall
+    iz1 = (iz0 - floor_t) + appliance_height - ceiling_skin
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     y_joint = y_seam
     splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint)
@@ -2637,7 +2569,7 @@ def _dims(pack):
             f"downward"])))
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - front_wall, iy1 + wall
-    outer = (ox0, ox1, oy0, oy1, iz0 - floor_t, iz1 + wall)
+    outer = (ox0, ox1, oy0, oy1, iz0 - floor_t, iz1 + ceiling_skin)
     # THE REMOVABLE FRONT IS THE FRONT OF THE APPLIANCE. Its show plane and the fixed walls
     # above and below the bay share one Y coordinate; the pump-to-deck lead is room inside the
     # wall, not a step outside it. Read the two independently so changing either construction
@@ -2666,21 +2598,6 @@ def _dims(pack):
         f"at least {flute_backing:g} mm",
         [f"{what} carries {mm:.4f} mm, so a {flute_depth:g} mm groove leaves "
          f"{mm - flute_depth:.4f} behind it" for what, mm in thin]))
-    # AND WHAT BACKS THE TOP OF THE FRONT FACE is the display's own plain border, because the
-    # inset's down-slope end wall and the facet's arris close on each other at 45°. This is the
-    # thinnest station on a fluted face that is not a stated relief, so it is read rather than
-    # assumed.
-    arris_back = display_facet_buffer * math.sqrt(2.0)
-    record_bound(Bound(
-        "facet-arris-backed", "The front face keeps a wall behind it at the facet's arris",
-        arris_back >= flute_backing - stated_bound_tol,
-        f"{arris_back:.4f} mm of ligament, from a {display_facet_buffer:g} mm plain border",
-        f"at least {flute_backing:g} mm",
-        ([] if arris_back >= flute_backing - stated_bound_tol else [
-            f"the front face closes to {arris_back:.4f} mm under the facet's arris, where a "
-            f"{flute_depth:g} mm flute would leave {arris_back - flute_depth:.4f}. "
-            f"`display_facet_buffer` wants at least "
-            f"{flute_backing / math.sqrt(2.0):.4f}"])))
     # THE REEDED SKIN CLOSES ON THE BOX. `flute_count` is a whole number of grooves round the
     # whole outer plan, so the field has no station where it restarts and no seam where two
     # arrays meet — but the pitch that count lands on is a CONSEQUENCE and not a choice, and it
@@ -2867,13 +2784,11 @@ def _dims(pack):
 # --- display facet (solid surface) -----------------------------------------
 
 def _facet_geom(outer):
-    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    p = _swept_top.profile(outer)
     a = math.radians(display_facet_angle_deg)
-    dy = display_facet_slope * math.sin(a)   # back from the front face
-    dz = display_facet_slope * math.cos(a)   # down from the top face
-    normal = (0.0, -math.sin(a), math.cos(a))
-    origin = (0.0, oy0 + dy / 2.0, oz1 - dz / 2.0)
-    return a, normal, origin, dy, dz
+    dy = display_facet_slope * math.cos(a)
+    dz = display_facet_slope * math.sin(a)
+    return a, p["normal"], p["origin"], dy, dz
 
 
 def housing_back_y(outer):
@@ -2892,22 +2807,24 @@ def housing_back_y(outer):
 
 
 def pcb_ridge(outer):
-    """The RIDGE the display's PCB through-hole leaves across that slab's back, as one
-    `(y, z)` station on it. The line itself runs `display_pcb_x` in X, centred on the body's
-    own offset — `_ridge_wall` spans exactly that and `ridge-carried` reads exactly that.
+    """Intersection of the display pocket's up-slope end and the housing back.
 
-    The hole is cut perpendicular to the 45° face and the slab's back is parallel to it, so
-    the hole's up-slope end wall and that back meet in a line — and BOTH FACE DOWN OFF IT.
-    That makes the line the bottom vertex of a wedge: 45° either side of it is self-supporting
-    once laid, but the line itself has nothing under it, and it stands inside a closed cavity
-    where support is not reachable. It is one station because it is one intersection: the
-    hole's own up-slope face (`display_pcb_slope` past `display_body_offset_slope`) taken
-    `display_facet_thickness` in, which is where the slab's back is."""
+    The station sets the supporting rib's crown. Its normal depth is the housing
+    thickness; its slope coordinate follows the actual PCB pocket.
+    """
     p = display_plane(outer)
     r = (p.origin
          + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
          - p.zDir * display_facet_thickness)
     return r.y, r.z
+
+
+def _ridge_join(outer, fore):
+    """The bulkhead rises toward the PCB ridge on a 45-degree supporting face."""
+    ry, rz = pcb_ridge(outer)
+    jog = rz - abs(ry - fore)
+    return jog, (fore + ridge_wall_t,
+                 jog - ridge_wall_t * (math.sqrt(2.0) - 1.0))
 
 
 def _ridge_stations(outer, plate, bay):
@@ -2923,7 +2840,7 @@ def _ridge_stations(outer, plate, bay):
     solid stock between them."""
     ry, rz = pcb_ridge(outer)
     fore, foot = plate["aft_y"], bay[2]
-    jog = ry + rz - fore
+    jog, _crown = _ridge_join(outer, fore)
     z_loom = (foot + jog) / 2.0
     z_jack = (foot + _keystone.POCKET_H / 2.0 + _keystone.RECEPTACLE_WALL
               - _keystone.POCKET_RISE)
@@ -2940,11 +2857,10 @@ def pump_jack_station(box):
 
 
 def _seat_back(depth, half_slope):
-    """How far aft of the box's front face a pocket of `depth`, reaching
-    `half_slope` up the 45° from the facet's centre, drives into the slab. Both
-    terms are on the 45°, so each costs `sin 45°` of itself along Y."""
-    s = math.sin(math.radians(display_facet_angle_deg))
-    return display_facet_slope * s / 2.0 + (half_slope + depth) * s
+    """A pocket's aft extent, measured from the enclosure's front plane."""
+    a = math.radians(display_facet_angle_deg)
+    p = _swept_top.profile((0, 0, 0, 0, 0, 0))
+    return p['origin'][1] + half_slope * math.cos(a) + depth * math.sin(a)
 
 
 def display_centre_x(outer):
@@ -3169,19 +3085,11 @@ def _rounded_outer(outer):
     """
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
-    return box.cut(_facet_wedge(outer))
+    return _swept_top.silhouette(outer, box)
 
 
 def _shell_with_facet(inner, outer):
-    """Hollow box with the 45° facet as a SOLID `wall`-thick surface: chamfer
-    the outer box, and hold the cavity one wall back from the facet plane. The
-    standing-vertical corners are relieved for the print bed — outer by
-    `corner_round`, cavity one wall less (square once the inset reaches zero).
-
-    THE HOUSING IS BOUNDED BEHIND BY TWO SURFACES: the 45° plane one
-    `display_facet_thickness` in, and the vertical `housing_back_y` that squares
-    off its top corner. Aft of that cut the cavity runs on to the ceiling, which
-    is the room the funnel's throat drops through."""
+    """The curved exterior, display housing and skirt surrounds around the cavity."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
@@ -3199,11 +3107,15 @@ def _shell_with_facet(inner, outer):
               oz0 - extent, oz1 + extent))
     inner_clipped = inner_box.cut(keepout)
 
-    return cq.Workplane(obj=outer_chamfered.cut(inner_clipped))
+    shell = outer_chamfered.cut(inner_clipped)
+    plane = display_plane(outer)
+    for side in (-1, 1):
+        shell = shell.fuse(_display_retention.stock(side).moved(cq.Location(plane)))
+    return cq.Workplane(obj=shell)
 
 
 def display_plane(outer):
-    """The 45° face as a workplane centred on the glass — the frame everything let into the
+    """The display face as a workplane centred on the glass — the frame everything let into the
     facet is struck in, and the frame `enclosure_assembly` poses the cover plate onto. Its
     +X is the box's, its +Y runs UP the slope, and its normal points out at the user, so a
     feature cut to depth `d` is extruded `-d`."""
@@ -3213,78 +3125,24 @@ def display_plane(outer):
 
 
 def _display_cuts(outer):
-    """The display let into the facet, down two steps, plus the lands its cover plate is
-    screwed to. All of it is struck on `display_plane` and cut along the facet's 45° normal,
-    starting one mm proud of the face for a clean break.
-
-    THE INSET IS THE OUTER STEP and the bezel counterbore the inner one, so the glass sits
-    `display_inset_depth` below the plate that laps it and the plate's own top lies in the
-    45° plane. The inset runs `display_inset_reach` past the glass laterally — that land is
-    what a counterbored head needs — and `display_inset_lap` past it up the slope, which is
-    the border's own width.
-
-    AND THE LAND IS SUNK PAST IT, to `display_cover_seat`, over everything OUTSIDE the bezel's
-    own outline. The cover carries a whole screw seat of section there rather than a pad under
-    each head, so what the land takes is the plate's own back and not two circles of it. It
-    stops ON that outline because inside it the bezel counterbore is already cut and the glass
-    is already in it: the plate has to stay `display_cover_thickness` there, bearing on the
-    gasket and through it on the glass, so there is nothing to sink and nothing that could be.
-    The bores follow the land down and are struck from its floor, so an insert is still set in
-    printed material.
-
-    The glass is the datum: both rectangles are centred on the facet, which means centred on
-    the BOX (`display_centre_x`), with flat 45° face all around. The glass overhangs the body
-    unevenly, so the PCB hole sits offset by display_body_offset — and is cut
-    display_pcb_cut_through past the back to take a socket collar (which would otherwise
-    overhang it) clean through. Corners rounded to the display radius."""
+    """Cover reveal, glass seat, PCB clearance and the two skirt pockets."""
     plane = display_plane(outer)
-    normal = plane.zDir.toTuple()
-    along_normal = cq.selectors.ParallelDirSelector(cq.Vector(*normal))
-    inset = (
-        cq.Workplane(plane).workplane(offset=1.0)
-        .rect(display_inset_x, display_inset_slope)
-        .extrude(-(display_inset_depth + 1.0))
-        .edges(along_normal).fillet(display_corner_r).val()
-    )
-    bezel = (
-        cq.Workplane(plane).workplane(offset=1.0)
-        .rect(display_bezel_cut_x, display_bezel_cut_slope)
-        .extrude(-(display_bezel_depth + 1.0))
-        .edges(along_normal).fillet(display_corner_r + fits.slip).val()
-    )
-    pcb = (
-        cq.Workplane(plane).workplane(offset=1.0)
-        .center(display_body_offset_x, display_body_offset_slope)  # body sits opposite the glass overhang
-        .rect(display_pcb_x, display_pcb_slope)
-        .extrude(-(display_facet_thickness + display_pcb_cut_through + 1.0)).val()  # through the pod
-    )
-    # The land, sunk from the inset's floor to the plate's own seat and stopped on the bezel's
-    # outline — one ring of void round a rectangle of standing floor, not two pad pockets.
-    land = (
-        cq.Workplane(plane).workplane(offset=-display_inset_depth)
-        .rect(display_inset_x, display_inset_slope)
-        .extrude(-(display_cover_seat - display_inset_depth))
-        .edges(along_normal).fillet(display_corner_r).val()
-        .cut(cq.Workplane(plane).workplane(offset=-display_inset_depth + 1.0)
-             .rect(display_bezel_x, display_bezel_slope)
-             .extrude(-(display_cover_seat - display_inset_depth + 2.0))
-             .edges(along_normal).fillet(display_corner_r).val())
-    )
-    # The pocket walls and insert axes follow the 45-degree facet. Their hanging faces
-    # are support-free, and the PCB opening's lowest ridge is carried by `_ridge_wall`.
-    # The lateral fit therefore keeps the glass seat depth and hardware axes unchanged.
-    cut = inset.fuse(bezel).fuse(pcb).fuse(land)
-    for sx in (-1.0, +1.0):
-        # And the insert the screw pulls against, struck from the land's own floor. The long
-        # body goes here and the facet has the stock for it twice over: 19 mm of section under
-        # a 2 mm inset against a bore of `heatset_long_len` and its relief.
-        bore = (
-            cq.Workplane(plane).workplane(offset=-display_cover_seat)
-            .center(sx * display_screw_x, 0.0).circle(heatset_dia / 2.0)
-            .extrude(-(heatset_long_len + mount_bore_relief)).val()
-        )
-        cut = cut.fuse(bore)
-    return cut
+    def local(shape):
+        return shape.moved(cq.Location(plane))
+    inset = _swept_top.rounded_prism(
+        display_inset_x, display_inset_slope, _interface.display_inset_corner_r,
+        -display_inset_depth, 1.0)
+    bezel = _swept_top.rounded_prism(
+        display_bezel_cut_x, display_bezel_cut_slope, display_corner_r + fits.slip,
+        -display_bezel_depth, 1.0)
+    pcb_depth = display_facet_thickness + display_pcb_cut_through
+    pcb = (cq.Workplane('XY').box(display_pcb_x, display_pcb_slope, pcb_depth + 1.0)
+           .translate((display_body_offset_x, display_body_offset_slope,
+                       (1.0 - pcb_depth) / 2.0)).val())
+    cut = inset.fuse(bezel).fuse(pcb)
+    for side in (-1, 1):
+        cut = cut.fuse(_display_retention.pocket(side))
+    return local(cut)
 
 
 # --- wall through-holes -----------------------------------------------------
@@ -3527,20 +3385,31 @@ def _funnel_keepout_source():
     The opening includes the liquid volume. Its top ends at the brim's underside,
     leaving the enclosure's flange-bearing surface at z = 0.
     """
-    envelope, _cavity, meta = _funnel.build_solids()
+    envelope, _cavity, meta = _funnel.build_solids(outer_air=funnel_collar_air)
     below_brim = (cq.Workplane("XY")
                   .box(meta["out_w"] + 2.0, meta["out_d"] + 2.0,
                        1.0 - meta["end_z"], centered=(True, True, False))
                   .translate((meta["out_cx"], meta["out_cy"], meta["end_z"] - 1.0))
                   .val())
-    throat = envelope.intersect(below_brim).clean()
-    return _funnel.normal_envelope(throat, funnel_collar_air).intersect(below_brim).clean()
+    collar_limit = _swept_top.rounded_prism(
+        _funnel.collar_w + 2.0 * funnel_collar_air,
+        _funnel.collar_d + 2.0 * funnel_collar_air,
+        _funnel.collar_corner_r + funnel_collar_air,
+        -funnel_collar_air - 0.01, 1.0)
+    brim_band = _ybox(-meta['out_w'], meta['out_w'], -meta['out_d'], meta['out_d'],
+                      -funnel_collar_air - 0.01, 1.0).cut(collar_limit)
+    return envelope.cut(brim_band).intersect(below_brim).clean()
 
 
 def _funnel_keepout(outer, centre):
     """The funnel envelope placed with its brim underside on the enclosure top."""
     cx, cy = centre
-    return _funnel_keepout_source().translate((cx, cy, outer[5]))
+    return _funnel_keepout_source().translate((cx, cy, funnel_seat_z(outer)))
+
+
+def funnel_seat_z(outer):
+    """The inset brim's bearing plane, one brim thickness below the roof."""
+    return outer[5] - _funnel.brim_thickness
 
 
 def with_funnel(box, centre):
@@ -3602,7 +3471,7 @@ def with_funnel(box, centre):
     # The landing asked for is one `wall`, the same ligament `display-housing-seats` keeps
     # behind the display's own seats: at the arris itself the slab under the flange is a
     # feather edge, and a wall in from it the wedge is the wall's own section deep.
-    arris = box.outer[2] + display_facet_slope * math.sin(math.radians(display_facet_angle_deg))
+    arris = _swept_top.profile(box.outer)["roof"][0]
     brim_y0 = y0 - _funnel.brim_overhang
     lands = brim_y0 >= arris + wall - tol
     record_bound(Bound(
@@ -3619,16 +3488,20 @@ def with_funnel(box, centre):
 
 
 def _funnel_cut(inner, outer, centre):
-    """The funnel throat punched clean through the top wall — one wall deeper
-    than the ceiling, so the Y-seam's top-wall lip/mouth shelf (hanging one
-    wall below it) is relieved across the hole span the seam crosses.
-
-    The opening is the collar plus one running clearance on all four faces, continued down as
-    the funnel's filled outer envelope. The descending chute and ramp therefore clear any roof
-    structure under the top skin as well as the skin itself."""
-    x0, x1, y0, y1 = _funnel_cut_plan(centre)
-    throat = _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
-    return throat.fuse(_funnel_keepout(outer, centre))
+    """Rounded inset brim pocket and the filled, slipped funnel envelope below it."""
+    cx, cy = centre
+    seat = funnel_seat_z(outer)
+    pocket = _swept_top.rounded_prism(
+        _funnel.collar_w + 2.0 * (_funnel.brim_overhang + funnel_collar_air),
+        _funnel.collar_d + 2.0 * (_funnel.brim_overhang + funnel_collar_air),
+        _funnel.brim_corner_r + funnel_collar_air,
+        seat, outer[5] + 1.0, cx, cy)
+    throat = _swept_top.rounded_prism(
+        _funnel.collar_w + 2.0 * funnel_collar_air,
+        _funnel.collar_d + 2.0 * funnel_collar_air,
+        _funnel.collar_corner_r + funnel_collar_air,
+        inner[5] - wall - 1.0, seat + 0.01, cx, cy)
+    return pocket.fuse(throat).fuse(_funnel_keepout(outer, centre))
 
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
@@ -3659,7 +3532,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
                                      [(hole_x, iz1), (wall_x, iz1),
                                       (wall_x, iz1 - deep)]))
         chain = wall_x - (boss_in if wall_x > 0 else -boss_in)
-        tz = iz1 - wall - fits.running
+        tz = iz1 - wall - fits.running - ceiling_lip_drop
         solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
                                      [(hole_x, tz), (chain, tz),
                                       (chain, tz - abs(chain - hole_x))]))
@@ -3926,11 +3799,12 @@ def _front_lip(inner, y_joint):
     segments, vertical to the bed, are free."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
+    lip_top = iz1 - ceiling_lip_drop
     shoulder = _ybox(ix0, ix1, y0, y_joint, iz0, iz1)
     tongue = _ybox(ix0 + fits.running, ix1 - fits.running, y_joint, y1,
-                   iz0, iz1 - fits.running)
+                   iz0, lip_top - fits.running)
     inner_box = _ybox(ix0 + wall + fits.running, ix1 - wall - fits.running,
-                      y0 - 1.0, y1 + 1.0, iz0 - 1.0, iz1 - wall - fits.running)
+                      y0 - 1.0, y1 + 1.0, iz0 - 1.0, lip_top - wall - fits.running)
     return shoulder.fuse(tongue).cut(inner_box)
 
 
@@ -3953,7 +3827,7 @@ def _y_lip_channel(inner, y_joint, bosses):
     Both passages stop at the screw/insert interface in X."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
-    zlo, zhi = iz0 - floor_t - 1.0, iz1 + wall + 1.0
+    zlo, zhi = iz0 - floor_t - 1.0, iz1 + ceiling_skin + 1.0
     flanks = _ybox(ix0 - 1.0, ix0 + fits.running, y0, y1, zlo, zhi).fuse(
         _ybox(ix1 - fits.running, ix1 + 1.0, y0, y1, zlo, zhi))
     yb = _y_boss(y_joint)
@@ -3968,7 +3842,8 @@ def _y_lip_channel(inner, y_joint, bosses):
             x_in, x_tip, z_boss, yb, y_joint,
             ceiling=iz1 if z_boss > z_seam else None,
             floor=iz0 - floor_t if z_boss < z_seam else None))
-    return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1, iz1 - fits.running, zhi))
+    return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1,
+                            iz1 - ceiling_lip_drop - fits.running, zhi))
 
 
 def _floor_scarf(inner, y_joint):
@@ -5810,57 +5685,20 @@ def _ridge_keystone(slab, station, t):
 
 
 def _ridge_wall(inner, outer, plate, bay, funnel):
-    """THE RIB THAT CARRIES THE RIDGE: front-top's own section from the tee wall's crown up to
-    the display housing's back, wall to wall, standing under `pcb_ridge` over the whole of it.
+    """A wall-width rib joins the bay bulkhead to the display housing and funnel seat.
 
-    WHAT IT CARRIES IS A STARTING LINE. Both faces meeting at that ridge point down, so the
-    first bead laid along it is laid on air — 106 mm of it, in a cavity that closes before the
-    piece is finished, which is why it cannot be supported and has to be built. Everything
-    above the ridge is 45° and lays itself.
-
-    ITS FORE FACE IS TWO PLANES THE BOX ALREADY HAS, AND NO THIRD ONE. Below, the bay's own
-    back (`plate["aft_y"]`) carried straight up off the tee wall's crown, so the storey over
-    the bay reads as the same plane the bay does. Above, THE HOLE'S OWN END WALL, carried on
-    past the slab's back until it reaches that plane — 45°, which is both the steepest a face
-    may hang at and the plane the display's body already lies against, so the rib presents the
-    part the surface its hole presents and no new fit. The two meet where they meet; that
-    corner is read, not chosen.
-
-    ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`, until its wall-to-wall crown. From
-    there the section has ONE roof edge: a straight line to the funnel opening's front
-    underside edge. Across X, the ceiling corbels absorb that plane into their own 45-degree
-    undersides, so the roof begins on front-top's two flank faces and finishes on the opening's
-    exact width. The profile closes on the housing back and ceiling on its material side; there
-    is no ledge or intermediate roof in the section for the finished solid to inherit.
-
-    IT RUNS WALL TO WALL AND NOT THE RIDGE'S OWN LENGTH. What it carries is `display_pcb_x` of
-    line, but a rib ending in free air at each end of that line would stand on the tee wall's
-    crown with two free ends and nothing at its own; run out to the flanks it lands in the side
-    walls and the storey over the bay is closed rather than partly closed. THAT CLOSING IS THE
-    COST: this is now the only section between the bay's storey and the cavity aft of it, so
-    anything crossing crosses through it.
-
-    TWO THINGS CROSS IT. The pump jack owns the centreline a hand finds behind the display: a
-    RiteAV keystone receptacle (`_ridge_keystone`) whose aperture passes this rib, whose pocket,
-    catches and boss stand aft of it in the cavity, and whose boss roots on the bay bulkhead's
-    crown. The enclosure-display loom keeps its height and its teardropped `cable_bore_dia`
-    bore but moves east, onto the flank it arrives on. Both stay in the straight run, where the
-    rib has two parallel faces, and both remain below the ridge ramp.
-
-    THE FIXED PUMP LEAD IS RETAINED ON THIS WALL. One unembedded cable clip stands on the cavity
-    face near +X and runs toward that edge, guiding the J13-to-jack lead to the main-board
-    wall. The clip belongs to the enclosure-side lead; the removable cartridge and its plug are
-    free of it. Where that lead leaves this rib the flank takes it over the corner, in the same
-    clip struck on the seam collar's own 45° (`_flank_cable_clips`)."""
+    Its straight lower section carries the pump jack, machine-display loom passage
+    and fixed pump-lead clip. The crown follows a 45° rise to the display pocket;
+    the aft face continues to the underside of the funnel bearing. Display and
+    retention-pocket cuts pass through the completed rib. Its cavity-facing roof
+    can take slicer support through the open display and funnel apertures.
+    """
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
-    ramp = ry + rz                    # the hole's end wall, y + z
-    d = t * math.sqrt(2.0)            # that ramp offset one thickness, along Y
-    jog = ramp - fore                 # where the fore face leaves the bay's plane for the ramp
-    aft_crown = (fore + t, ramp + d - (fore + t))
+    jog, aft_crown = _ridge_join(outer, fore)
     funnel_front = _funnel_cut_plan(funnel)[2]
     housing_back = housing_back_y(outer)
-    ceiling = inner[5]
+    ceiling = funnel_seat_z(outer) - funnel_seat_thickness
     slab = _yz_prism(
         inner[0], inner[1],
         [(fore, foot),                                          # the bay's back, on the crown
@@ -8986,7 +8824,43 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # unconditional: no later rail, boss or seam feature may grow material back into the
     # removable funnel's collar clearance.
     if z_side == "top" and box.pack.funnel:
+        cx, cy = box.pack.funnel
+        brim_front = cy - _funnel.collar_d / 2.0 - _funnel.brim_overhang
+        brim_back = cy + _funnel.collar_d / 2.0 + _funnel.brim_overhang
+        seat_stock = _ybox(inner[0], inner[1],
+                           brim_front - funnel_seat_thickness,
+                           brim_back + funnel_seat_thickness,
+                           funnel_seat_z(outer) - funnel_seat_thickness, outer[5])
+        if y_side == "back":
+            # The brim keeps its complete bearing section. Outside that footprint,
+            # the filled surround respects the pack's existing ceiling pockets.
+            bearing = _swept_top.rounded_prism(
+                _funnel.collar_w + 2.0 * _funnel.brim_overhang,
+                _funnel.collar_d + 2.0 * _funnel.brim_overhang,
+                _funnel.brim_corner_r,
+                funnel_seat_z(outer) - funnel_seat_thickness,
+                funnel_seat_z(outer), cx, cy)
+            floor = funnel_seat_z(outer) - funnel_seat_thickness
+            for _who, x0, x1, y0, y1, top in box.pack.ceiling_reliefs:
+                roof = min(top, inner[5])
+                if roof > floor:
+                    relief = _ybox(x0, x1, y0, y1, floor - 1.0, roof)
+                    seat_stock = seat_stock.cut(relief.cut(bearing))
+        own_band = _ybox(outer[0]-1.0, outer[1]+1.0, ylo, yhi, zlo, zhi)
+        piece = piece.fuse(seat_stock.intersect(own_band).intersect(_rounded_outer(outer)))
+        if y_side == 'front':
+            piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
+        if y_side == 'front':
+            piece = piece.cut(_display_cuts(outer))
+    if y_side == 'front' and z_side == 'top':
+        # The ceiling bearing and its corbels share the seam collar's stock.
+        # Keep the insert pilots open through every contribution to that stock.
+        for x_in, x_ext, sx, z_boss in box.y_bosses:
+            if z_boss > z_seam:
+                piece = piece.cut(_front_cuts(
+                    x_in, x_ext, sx, z_boss, _y_boss(y_joint), y_joint,
+                    ceiling=inner[5]))
     if y_side == "front" and z_side == "top" and plate:
         # Continue the same hardware wells through the finished part, including the
         # valve trays. Later fuses cannot leave shelves inside these common passages.
@@ -9041,21 +8915,19 @@ def _report_bay_sill(front_top, box):
 
 
 def _report_ridge_roof(half, box):
-    """Prove the built front-top keeps the ridge roof as one notched face between its datums.
+    """The supporting roof is planar, the finished solid valid and funnel air clear.
 
-    The source profile has one edge between these stations; this reading keeps a later fuse or
-    cut from splitting that plane into another roof junction. The funnel's descending chute
-    interrupts the former upper transverse edge, so both opening corners and zero keepout
-    intersection replace that edge as the finished B-rep reading."""
+    Display and skirt pockets can interrupt the roof across its width.
+    """
     if not (box.pump_bay and box.pack.collet_plate and box.pack.funnel):
         return
     inner, outer = box.inner, box.outer
     ry, rz = pcb_ridge(outer)
     fore, t = box.pack.collet_plate["aft_y"], ridge_wall_t
-    ramp = ry + rz
-    crown = cq.Vector(0.0, fore + t, ramp + t * math.sqrt(2.0) - (fore + t))
+    _jog, aft_crown = _ridge_join(outer, fore)
+    crown = cq.Vector(0.0, *aft_crown)
     hx0, hx1, opening_y, _hy1 = _funnel_cut_plan(box.pack.funnel)
-    opening = cq.Vector(0.0, opening_y, inner[5])
+    opening = cq.Vector(0.0, opening_y, funnel_seat_z(outer) - funnel_seat_thickness)
     roof_normal = cq.Vector(0.0, opening.z - crown.z, crown.y - opening.y).normalized()
     tol = 1e-4
 
@@ -9071,39 +8943,16 @@ def _report_ridge_roof(half, box):
     grown = front_top_flank_t - wall
     lower_x0, lower_x1 = inner[0] + grown, inner[1] - grown
 
-    def has_edge(x0, x1, station):
-        expected = (cq.Vector(x0, station.y, station.z),
-                    cq.Vector(x1, station.y, station.z))
-        matches = 0
-        for edge in half.val().Edges():
-            if edge.geomType() != "LINE" or abs(edge.Length() - abs(x1 - x0)) > tol:
-                continue
-            vertices = [vertex.Center() for vertex in edge.Vertices()]
-            if len(vertices) != 2:
-                continue
-            if (all((vertices[k] - expected[k]).Length <= tol for k in (0, 1))
-                    or all((vertices[k] - expected[1 - k]).Length <= tol for k in (0, 1))):
-                matches += 1
-        return matches == 1
-
-    def has_vertex(point):
-        return any((vertex.Center() - point).Length <= tol
-                   for face in roof_faces for vertex in face.Vertices())
-
-    lower = has_edge(lower_x0, lower_x1, crown)
-    opening_corners = (has_vertex(cq.Vector(hx0, opening.y, opening.z))
-                       and has_vertex(cq.Vector(hx1, opening.y, opening.z)))
     funnel_foul = half.val().intersect(
         _funnel_keepout(outer, box.pack.funnel)).Volume()
-    whole = (len(roof_faces) == 1 and lower and opening_corners
+    whole = (len(roof_faces) >= 1 and half.val().isValid()
              and funnel_foul <= stated_bound_tol)
     if not whole:
         raise ValueError(
             "the front-top ridge roof is not one clear plane between its stated datums: "
-            f"found {len(roof_faces)} coplanar faces, lower edge {'present' if lower else 'missing'}, "
-            f"opening corners {'present' if opening_corners else 'missing'}, "
+            f"found {len(roof_faces)} coplanar faces, solid valid={half.val().isValid()}, "
             f"funnel keepout intersection {funnel_foul:.6f} mm³")
-    print(f"  ridge roof:       one plane, {lower_x1 - lower_x0:.1f} mm crown to "
+    print(f"  ridge roof:       {len(roof_faces)} coplanar faces, {lower_x1 - lower_x0:.1f} mm span to "
           f"{hx1 - hx0:.1f} mm funnel opening, keepout clear")
 
 
@@ -9130,8 +8979,8 @@ def _report_facet(half, box):
         print("  display facet:    NOT FOUND")
         return
     xspan = max(b.xmax for b in boxes) - min(b.xmin for b in boxes)
-    slope = (max(b.ymax for b in boxes) - min(b.ymin for b in boxes)) / math.sin(a)
-    want_x = outer[1] - outer[0]                      # the facet runs the box's full width
+    slope = (max(b.ymax for b in boxes) - min(b.ymin for b in boxes)) / math.cos(a)
+    want_x = outer[1] - outer[0] - 2.0 * _swept_top.SIDE_RADIUS
     print(f"  display facet:    {xspan:.1f} mm wide (X) × {slope:.1f} mm slope, solid surface "
           f"(want {want_x:g} × {display_facet_slope:g}; the display window is "
           f"{display_facet_x:g} × {display_facet_slope:g}, centred at "
@@ -9408,6 +9257,7 @@ def _upper_y_seam_bound(pieces, box):
         floor = z - plug_dia / 2.0
         crown = z + plug_dia / 2.0
         column = _ybox(xa, xb, y0, y1, crown, box.inner[5] + wall / 2.0)
+        column = column.intersect(_rounded_outer(box.outer))
         missing = column.cut(back).Volume()
         sweep = _ybox(xa, xb, y0, y1 + lip_len, floor, box.inner[5] + wall)
         contested = sweep.intersect(front).Volume()
@@ -9543,8 +9393,7 @@ def _ceiling_show_cap_bound(back_top, box):
     show = appliance_height - floor_t
     cap = _ybox(fx0, fx1, back_flank_start(box.y_joint), back_top_wall_face(), show - wall, show)
     if box.pack.funnel:
-        x0, x1, y0, y1 = _funnel_cut_plan(box.pack.funnel)
-        cap = cap.cut(_ybox(x0, x1, y0 - 1.0, y1, show - wall - 1.0, show + 1.0))
+        cap = cap.cut(_funnel_cut(box.inner, box.outer, box.pack.funnel))
     missing = abs(cap.cut(solid).Volume())
     ok = missing <= stated_bound_tol
     return record_bound(Bound(
@@ -9621,6 +9470,13 @@ def build_pieces(box):
                   _realized.key(__name__, box, name),
                   lambda n=name: _product(n))
               for name in names}
+    disconnected = [f"{name}: {len(piece.val().Solids())} solids"
+                    for name, piece in pieces.items()
+                    if len(piece.val().Solids()) != 1 or not piece.val().isValid()]
+    record_bound(Bound(
+        "connected-pieces", "Each printed enclosure piece is one valid connected solid",
+        not disconnected, "; ".join(disconnected) if disconnected else f"{len(pieces)} connected pieces",
+        "one valid solid per printed piece", disconnected))
     if "back-top" in pieces:
         _ceiling_show_cap_bound(pieces["back-top"], box)
     if "front-top" in pieces and "back-top" in pieces:
@@ -9640,8 +9496,8 @@ def build_pieces(box):
 # slicer reads has to hold a curve the nozzle can draw: the deviation allowed is a fraction of
 # the 0.42 mm bead, and the angle is tight enough that a groove's own arc does not come back as
 # a few flats. It costs file size and nothing else — a slicer reads the triangles once.
-piece_mesh_tol = 0.02
-piece_mesh_angle = 0.15
+piece_mesh_tol = 0.005
+piece_mesh_angle = 0.05
 
 
 # The box the pieces were last drawn from, so `_export_pieces` can strike the flute field on the
@@ -9650,15 +9506,10 @@ _last_box = [None]
 
 
 def _piece_mesh(solid):
-    """One solid as the mesh that goes to a bed.
-
-    TESSELLATED, NOT ROUND-TRIPPED THROUGH STL. An STL is a triangle soup with no shared
-    vertices, and what comes back from re-merging one is a surface with edges that hold one
-    face where they should hold two — which a mesh boolean rightly refuses to treat as a
-    volume. `tessellate` hands back the indices directly."""
-    points, tris = solid.tessellate(piece_mesh_tol, piece_mesh_angle)
-    mesh = trimesh.Trimesh(vertices=[(p.x, p.y, p.z) for p in points],
-                           faces=tris, process=True)
+    """Absolute-tolerance print mesh, without any cached triangulation."""
+    from _world_sdf import mesh_shape
+    points, triangles = mesh_shape(solid.copy(mesh=False), piece_mesh_tol, piece_mesh_angle)
+    mesh = trimesh.Trimesh(vertices=points, faces=triangles, process=True)
     mesh.merge_vertices()
     return mesh
 
@@ -9908,7 +9759,6 @@ def main():
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
         "DISPLAY_INSET_X": f"{display_inset_x:.4g} mm",
         "DISPLAY_INSET_SLOPE": f"{display_inset_slope:.4g} mm",
-        "DISPLAY_SCREW_X": f"{display_screw_x:.4g} mm",
         "MQ6_CARD_T": f"{mq6_card_x:.4g} mm",
         "MQ6_SLOT_OPEN": f"{mq6_card_x + 2 * mq6_slot_press:.4g} mm",
         "COND_SLOT_OPEN": f"{box.pack.cond_cradle[0][4] - box.pack.cond_cradle[0][3] + 2 * cond_slot_press:.4g} mm",

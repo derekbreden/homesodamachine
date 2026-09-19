@@ -124,7 +124,8 @@ def geometry_figures(info):
     return {
         'SKIN': f"{info['shell_thickness_mm']:g} mm",
         'FLANGE': f"{info['flange_thickness_mm']:g} mm",
-        'DRY_MOUTH': f"{info['dry_opening_mm']:.1f} mm",
+        'DRY_MOUTH': (f"{info['dry_opening_mm']:.1f} × "
+                      f"{info.get('dry_opening_depth_mm', info['dry_opening_mm']):.1f} mm"),
         'BOLT_D': f"{info['clamping']['hole_diameter_mm']:g} mm",
         'LOCATOR_HEIGHT': f"{info['locators']['height_mm']:g} mm",
         'LOCATOR_CLEARANCE': f"{info['locators']['radial_clearance_mm']:.2f} mm",

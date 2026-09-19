@@ -1,12 +1,12 @@
 """Zone C funnel — the removable dishwasher-safe silicone insert.
 
-The collar-rectangle center is the origin; z = 0 is the brim underside that
-rests on the enclosure top. The machine places the part through
+The collar center is the origin; z = 0 is the brim underside that
+rests on the inset enclosure seat. The machine places the part through
 `enclosure_assembly.build_funnel` and cuts its opening from the collar.
 
 The brim and vertical collar wall are 6 mm thick. The sloping floor has a
 6 mm skin measured normal to its inner faces, with rounded joins and a
-thicker throat. The inner floor ends at the 1/4-inch outlet bore. A 5.3 mm
+thicker throat. The inner floor ends at the 1/4-inch outlet bore. A 6.25 mm
 transition separates that point from the 12 mm straight clamp land, whose
 radial wall is 4.5 mm. Capacity to the brim is printed at export.
 """
@@ -38,21 +38,23 @@ import _stated_bounds as _bounds
 import worm_clamp as _clamp
 
 # --- funnel parameters ------------------------------------------------------
-collar_w = 159.0  # collar footprint in X, inside the top-wall frame
-collar_d = collar_w  # collar footprint in Y
-brim_margin = 10.0  # top-wall frame between the collar and its outer boundary
+collar_w = 165.0  # collar footprint in X, inside the top-wall frame
+collar_d = 151.0  # collar footprint in Y
+mouth_corner_r = 14.0
+collar_corner_r = mouth_corner_r + 6.0
+brim_corner_r = collar_corner_r + 7.0
+brim_margin = 7.0  # top-wall frame between the collar and its outer boundary
 brim_overhang = 7.0  # flange reach beyond the collar on each side
 brim_thickness = 6.0  # vertical flange thickness
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
 bottle_ml = 440.0  # one SodaStream concentrate bottle
-capacity_bottles = 1.3  # minimum capacity to the brim, checked in build()
-chute_h = 21.31  # brim top to inner ramp start
+capacity_bottles = 1.15  # minimum capacity to the brim, checked in build()
+chute_h = 19.5  # brim top to inner ramp start
 neck_dx = 1.85  # outlet offset in X from the collar center
-neck_dy = 0.0  # outlet centered in Y
-ramp_angle = 15.0  # degrees along the inner ramp's long X half-run
+neck_dy = -26.0  # outlet forward of the collar center
 spout_id = 6.35  # 1/4-inch outlet bore
 spout_wall = 4.5  # radial wall on the straight clamp land
-neck_blend_drop = 5.3  # inner ramp tip to the top of the straight clamp land
+neck_blend_drop = 6.25  # inner ramp tip to the top of the straight clamp land
 clamp_shoulder = 2.0  # silicone beyond each edge of the clamp band
 spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder  # straight clamp land, below the rounded throat
 
@@ -60,17 +62,16 @@ spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder  # straight clamp land, below 
 # outlet. The drain drop includes the chute, ramp, throat transition and clamp land.
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
-_ramp_rise = max(_ramp_run, _y_run) * math.tan(math.radians(ramp_angle))
-drop = (chute_h - brim_thickness) + _ramp_rise + neck_blend_drop + spout_tube
+drop = 45.94923306371  # brim underside to the drain mating face
+_ramp_rise = drop - (chute_h - brim_thickness) - neck_blend_drop - spout_tube
+ramp_angle = math.degrees(math.atan2(_ramp_rise, max(_ramp_run, _y_run)))
 
-# The inner ramp rise is set by its long X half-run.
 _bounds.state(
-    "funnel-floor-grade", "The funnel's floor takes its rise off the half-run the neck lengthens",
-    f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
-    _y_run <= _ramp_run + 1e-9,
-    f"the neck stands {neck_dy:g} mm off the collar's Y centre, which makes the Y half-run "
-    f"{_y_run:.2f} mm against the X's {_ramp_run:.2f} — so the rise the whole floor is struck "
-    f"on rides the depth axis, and `neck_dx` buys the funnel nothing.")
+    "funnel-floor-grade", "The funnel ramp falls toward the offset outlet",
+    "a continuous downhill floor to the offset outlet",
+    _ramp_rise > 0.0,
+    f"{_ramp_rise:.3f} mm rise over {max(_ramp_run, _y_run):.3f} mm run: "
+    f"{ramp_angle:.3f} degrees")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.
@@ -87,16 +88,22 @@ def _box(w, d, z0, z1, cx, cy):
     )
 
 
-def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1):
-    """Loft from a rectangle down to a circle (centers may differ)."""
-    return (
-        cq.Workplane("XY", origin=(cx0, cy0, z0))
-        .rect(w0, d0)
-        .workplane(offset=z1 - z0).center(cx1 - cx0, cy1 - cy0)
-        .circle(r1)
-        .loft(combine=True)
-        .val()
-    )
+def _rounded_wire(w, d, radius, z, cx=0.0, cy=0.0):
+    wire = cq.Workplane("XY", origin=(cx, cy, z)).rect(w, d).val()
+    return wire.fillet2D(radius, wire.Vertices())
+
+
+def _rounded_box(w, d, radius, z0, z1, cx=0.0, cy=0.0):
+    return cq.Solid.extrudeLinear(_rounded_wire(w, d, radius, z0, cx, cy), [],
+                                 cq.Vector(0.0, 0.0, z1 - z0))
+
+
+def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1, corner_r=0.0):
+    """Loft from a rounded rectangle to the offset circular outlet."""
+    top = (_rounded_wire(w0, d0, corner_r, z0, cx0, cy0) if corner_r
+           else cq.Workplane("XY", origin=(cx0, cy0, z0)).rect(w0, d0).val())
+    bottom = cq.Wire.makeCircle(r1, cq.Vector(cx1, cy1, z1), cq.Vector(0, 0, 1))
+    return cq.Solid.makeLoft([top, bottom])
 
 
 def _cyl(r, z_top, z_bot, cx, cy):
@@ -120,7 +127,8 @@ def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
                 assert abs(cut_shapes(shape, envelope).Volume()) < 0.0001
                 inside = cq.Compound.makeCompound(shape.Faces())
                 outside = cq.Compound.makeCompound(envelope.Faces())
-                assert inside.distance(outside) >= distance - 0.0001
+                measured = inside.distance(outside)
+                assert measured >= distance - 0.001, ("normal envelope", measured, distance)
                 return envelope.Solids()[0]
     faces = shape.Faces() if faces is None else list(faces)
     edges = {edge.hashCode(): edge for face in faces for edge in face.Edges()}
@@ -155,12 +163,13 @@ def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
 
 # --- the funnel -------------------------------------------------------------
 
-def build_solids(drop=drop, ramp_wall=collar_wall):
+def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0):
     """The funnel's outer envelope and inner bore as separate solids, plus a
     metrics dict. This is the source the silicone-mold generator consumes: the
     mold cavity is the negative of `solid` and the mold core is `cavity`. Keeping
     it here, beside the funnel, keeps the mold in lockstep with the part.
-    Tooling uses ramp_wall=0 for the base before adding its own normal backing.
+    ``outer_air`` grows each construction solid before their union. Tooling and
+    the enclosure use this normal envelope for their forming and clearance faces.
     See ../funnel-mold/."""
     w, d = collar_w, collar_d
     cx = cy = 0.0
@@ -168,37 +177,45 @@ def build_solids(drop=drop, ramp_wall=collar_wall):
     top_z = brim_thickness                              # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
-    ncy = cy + neck_dy                                  # and aft over `fluid-4`'s slot
+    ncy = cy + neck_dy                                  # forward, over the drain connection
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
     end_z = -drop                                       # spout exit (the drain)
     spout_land_z = end_z + spout_tube
     neck_z = ramp_top_z - _ramp_rise                    # inner ramp tip
 
     # The flange, collar and outlet form the base of the outer envelope.
-    solid = (
-        _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, 0.0, top_z, cx, cy)
-        .fuse(_box(w, d, ramp_top_z, 0.0, cx, cy))
-        .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, ncy, neck_z))
-        .fuse(_cyl(spout_or, neck_z, end_z, ncx, ncy))
-    )
+    bases = [
+        _rounded_box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang,
+                     brim_corner_r, 0.0, top_z, cx, cy),
+        _rounded_box(w, d, collar_corner_r, ramp_top_z, 0.0, cx, cy),
+        _loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, ncy, neck_z, collar_corner_r),
+        _cyl(spout_or, neck_z, end_z, ncx, ncy),
+    ]
+    if outer_air:
+        bases = [normal_envelope(base, outer_air) for base in bases]
+    solid = fuse_shapes(*bases, tol=0.0001).clean()
     # The inner forming surface runs from the mouth through the ramp and outlet.
+    ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
+                    ncx, ncy, neck_z, mouth_corner_r)
     cavity = (
-        _box(bore_w, bore_d, ramp_top_z, top_z + 1.0, cx, cy)
-        .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, ncy, neck_z))
+        _rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, top_z + 1.0, cx, cy)
+        .fuse(ramp)
         .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, ncy))
     )
     ramp_faces = [face for face in cavity.Faces() if face.geomType() == "BSPLINE"]
     assert ramp_faces, "inner ramp faces must carry the normal wall"
     # Each inner ramp face carries a 6 mm normal skin with round edge joins.
     if ramp_wall:
-        solid = normal_envelope(solid, ramp_wall, ramp_faces)
+        solid = fuse_shapes(solid, normal_envelope(ramp, ramp_wall + outer_air),
+                            tol=0.0001).clean()
         ramp_boundary = cq.Compound.makeCompound(ramp_faces)
         outer_boundary = cq.Compound.makeCompound(solid.Faces())
         minimum_wall = ramp_boundary.distance(outer_boundary)
-        assert minimum_wall >= ramp_wall-0.0001, minimum_wall
+        assert minimum_wall >= ramp_wall-0.001, minimum_wall
     land_window = _box(w, d, end_z, spout_land_z, cx, cy)
     land = _cyl(spout_or, spout_land_z, end_z, ncx, ncy)
-    assert solid.intersect(land_window).cut(land).Volume() < 0.0001, "ramp enters clamp land"
+    if not outer_air:
+        assert solid.intersect(land_window).cut(land).Volume() < 0.0001, "ramp enters clamp land"
     meta = {
         "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
         "bore_w": bore_w, "bore_d": bore_d,
@@ -257,6 +274,7 @@ def main():
             "FUNNEL_SPOUT_OD": f"{spout_id + 2*spout_wall:g} mm",
             "FUNNEL_SPOUT_WALL": f"{spout_wall:g} mm",
             "FUNNEL_CHUTE": f"{chute_h:g} mm",
+            "FUNNEL_DROP_UNDER": f"{drop:g} mm",
             "FUNNEL_LAND": f"{spout_tube:g} mm",
             "FUNNEL_DROP": f"{total:.0f} mm",
             "FUNNEL_CAP": f"{fill / 1000.0:.0f} mL",

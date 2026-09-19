@@ -1,55 +1,56 @@
 {
   "dimensions_mm": {
     "cavity": [
-      205.0,
-      205.0,
-      84.94923306371626
+      211.0,
+      211.0,
+      78.94923316370999
     ],
     "core": [
-      205.0,
-      205.0,
-      45.154273277631034
+      211.0,
+      211.0,
+      38.27194211303167
     ],
     "funnel": [
-      173.0,
-      173.0,
-      75.94923306371626
+      179.0,
+      165.0,
+      69.94923316370999
     ],
     "rod": [
       6.35,
-      6.35,
+      6.350000000000001,
       50.8
     ],
     "seal": [
-      8.350000200023775,
-      8.3500002,
-      1.6946630011561439
+      8.387714512024655,
+      8.350257811765545,
+      1.6976532440466556
     ]
   },
   "volume_ml": {
-    "cavity": 307.2507906230849,
-    "core": 271.2176310937886,
-    "funnel": 262.35801059379077,
+    "cavity": 306.29964942469536,
+    "core": 295.9767997161195,
+    "funnel": 244.19093962718807,
     "rod": 1.6087962461345553,
-    "seal": 0.03612236822145955
+    "seal": 0.03673543470378883
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 4.999998469696665,
+  "minimum_cavity_backing_mm": 4.99986305734002,
+  "minimum_core_backing_mm": 4.999999999999988,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 882.4104223281869,
+      "retained_volume_ml": 773.1906365303538,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 290.6271679979392,
+      "retained_volume_ml": 270.5519355011097,
       "casting_outside_retained_mm3": 0.0
     }
   },
-  "parting_z_mm": 81.94923296371627,
+  "parting_z_mm": 75.94923306371,
   "finish_allowance_mm": 0.3,
   "rod_support": {
-    "engagement_mm": 27.500000000000007,
+    "engagement_mm": 26.549999999999997,
     "guide_diameter_mm": 8.35,
     "guide_diametral_clearance_mm": 2.0,
     "guide_length_mm": 10.0,
@@ -85,8 +86,8 @@
       270,
       315
     ],
-    "minimum_silicone_clearance_mm": 2.188775851046098,
-    "minimum_end_clearance_mm": 5.903387828424627,
+    "minimum_silicone_clearance_mm": 2.1556213291787207,
+    "minimum_end_clearance_mm": 5.903966542756486,
     "minimum_required_wall_mm": 2.0,
     "scope": "Simultaneous rod offset, tilt and axial error against the cavity; cradle retention and sealing need a physical trial."
   },
@@ -97,11 +98,11 @@
     "slot_travel_each_way_mm": 1.5,
     "centres_xy_mm": [
       [
-        96.5,
+        99.5,
         22.0
       ],
       [
-        -96.5,
+        -99.5,
         -12.0
       ]
     ]
@@ -110,36 +111,36 @@
     "hole_diameter_mm": 5.0,
     "centres_xy_mm": [
       [
-        -96.5,
+        -99.5,
         -50.0
       ],
       [
-        -96.5,
+        -99.5,
         50.0
       ],
       [
-        96.5,
+        99.5,
         -50.0
       ],
       [
-        96.5,
+        99.5,
         50.0
       ],
       [
         -50.0,
-        -96.5
+        -99.5
       ],
       [
         50.0,
-        -96.5
+        -99.5
       ],
       [
         -50.0,
-        96.5
+        99.5
       ],
       [
         50.0,
-        96.5
+        99.5
       ]
     ],
     "fastener": "M4 x 20 with 9 mm OD washers and nuts; or small clamps on flange"
@@ -148,28 +149,28 @@
     "fill_diameter_mm": 11.0,
     "vent_diameter_mm": 4.0,
     "fill_xy_mm": [
-      -80.0,
-      -80.0
+      -76.99568901432423,
+      -69.99568901432423
     ],
     "vent_xy_mm": [
       [
-        80.0,
-        -80.0
+        76.99568901432423,
+        -69.99568901432423
       ],
       [
-        80.0,
-        80.0
+        76.99568901432423,
+        69.99568901432423
       ],
       [
-        -80.0,
-        80.0
+        -76.99568901432423,
+        69.99568901432423
       ],
       [
-        -80.0,
+        -83.0,
         0
       ],
       [
-        80.0,
+        83.0,
         0
       ]
     ]
@@ -192,33 +193,34 @@
     ],
     "spout_back_clearance_mm": 0.7
   },
-  "dry_opening_mm": 136.4,
+  "dry_opening_mm": 142.4,
+  "dry_opening_depth_mm": 128.4,
   "ramp_print_z_mm": {
     "cavity": [
-      41.29999999999999,
-      60.63923296371627
+      42.25,
+      56.44923306371
     ],
     "core": [
-      26.31,
-      45.64923296371628
+      24.5,
+      38.69923306371
     ]
   },
   "nominal_chamber_diameter_mm": 299.72,
   "load_screen": {
     "model": "simply supported flat square under uniform load; screening, not FEA or a pressure rating",
-    "span_mm": 159.0,
+    "span_mm": 165.0,
     "pressure_kpa": 1.0,
     "assumed_modulus_mpa": 1000.0,
     "assumed_poisson_ratio": 0.4,
     "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 80.94923296371627,
-    "head_pressure_kpa": 0.8973465321726841,
-    "screen_deflection_mm": 0.2092497992250624,
-    "pressure_force_n": 25.281,
+    "maximum_silicone_head_mm": 74.94923306371,
+    "head_pressure_kpa": 0.8308347332811445,
+    "screen_deflection_mm": 0.24266789870400002,
+    "pressure_force_n": 27.225,
     "condition": "fill, vents and both dry backs open to the same chamber; no sealed pressure differential",
     "material_reference": "https://store.bblcdn.eu/s8/default/71ca815e70e74afc96ff5883f003235f/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf"
   },
-  "status": "CAD and slice verification; coated closure, vacuum cycle and casting untested",
-  "enclosing_diameter_mm": 276.6589376506939,
-  "chamber_radial_clearance_mm": 11.530531174653078
+  "status": "CAD geometry verified; print, coated closure, vacuum cycle and casting untested",
+  "enclosing_diameter_mm": 278.51681928622355,
+  "chamber_radial_clearance_mm": 10.601590356888238
 }

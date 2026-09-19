@@ -84,6 +84,13 @@ IMPLICIT_SOLIDS = {
     ),
     # These STL exports are written by OCCT below Python's filesystem audit.
     # Their generators still own them in a clean action.
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": (
+        "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+    ),
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": (
+        "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
+        "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
+    ),
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": (
         "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
     ),
