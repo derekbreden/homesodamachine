@@ -284,6 +284,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
       "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
@@ -1065,8 +1067,10 @@
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step": "eac6b743eda3c8f22475d9b33ed421339fb55e26448f4c1fd2b05eb905655282",
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.step.mesh": "069a86e67db0e4ebb7c73348fba01f5c4d696fbbcebab9d1474d7eed62e548bd",
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-f.stl": "9cab2b46182ff8b883567f34f48843e4fac7ee970a770c00c18b2a3a1f6596de",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "ec252a452050a9ccf8733cc8f8395dcb258b5e5affa45e4afafa5eadfa294a2f",
-    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "badd64ceae8ec9612951a922ccdac8d2f722cf20a1f2f430e697b114f4bb1a6f"
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "8c2df89a86b98d1c2cbe99abdc96d59b7416672cd14b028c42259eb71b0f36aa",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "badd64ceae8ec9612951a922ccdac8d2f722cf20a1f2f430e697b114f4bb1a6f",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "4adb8dd736730bd70d3adb3ed091f1e4335b27e6f947a1d6e9f54421ecdea08b",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "251de87994a18ad30104c2cfcf6a5f260d2286fa809bdfd33255d352d1d403b4"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
