@@ -25,7 +25,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 | CGA-320 primary regulator | [`bom.md`](/hardware/ledger/bom.md) §4 | The Wellbom dual-gauge regulator ships with the machine and mounts on the customer's own 5 lb cylinder — the tank is the one thing on the water-and-gas path the customer brings. Packed in the install kit at step 6, in its factory box. |
 | Cold kit | Its own bag, with its own guide | The Mudder PTFE tubing cutter (B08VW15TK8, 1 of 3 pk, [`bom.md`](/hardware/ledger/bom.md) §14) and loose 1-ft CARGEN nitrile foam segments (B0D2XFK337, [`bom.md`](/hardware/ledger/bom.md) §9) **on top of the 84"/build §9 allocates** — 60" to the umbilical's five segments and ~24" to the cabinet-internal riser. The umbilical ships at its factory length and installs uncut; the kit is for the buyer who trims it to the cabinet's own length and foams the whole run. The segment count per machine is open until the first real install. |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per machine | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5. Standard US wall outlet to C14 inlet. |
-| Customer documentation packet | Printed in-house | (a) Printed quick start, which lies on top of the packed carton at step 7 rather than in the kit; (b) the bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (c) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) records the separate unit/carton warning proof and unresolved end-use/standard requirements. The small nameplate flame/footer does not complete them. |
+| Customer documentation packet | Printed in-house | (a) Printed quick start, which lies on top of the packed carton at step 7 rather than in the kit; (b) the bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (c) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) specifies the integral exterior disposal warning, compressor-area service panel, and remaining rating fields. |
 | Transit inlet caps | TBD per Open items | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
 | Soda machine carton + molded foam end-caps | TBD per Open items | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Archival pen (signature application) | TBD per Open items | Pigment-ink, fade-resistant, kitchen-wipe-resistant. Used if the signature is applied handwritten rather than laser-engraved (decision pending per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "Signature fidelity"). |
@@ -76,11 +76,12 @@ Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap
 
 ### 3a. Refrigerant markings and unit record
 
-The [household marking specification](/hardware/markings/README.md) supplies the
-full-size proof: an exterior disposal panel and a combined service/tubing panel near
-the compressor compartment, with W021 flame and R-600a visible at compressor access.
-Use permanent production labels/carriers, retaining the specified warning-letter
-height and service-opening red color. The brand/serial/QR plate remains separate.
+The [household marking specification](/hardware/markings/README.md) places the full
+disposal warning in raised lettering on the smooth area low on enclosure back-bottom's
+exterior +Y wall. The combined service/tubing panel belongs near the compressor
+compartment, with W021 flame and R-600a visible at compressor access. Use a permanent
+service-panel carrier, retaining the specified warning-letter height and service-opening
+red color. The brand/serial/QR plate remains separate.
 
 Complete the appliance rating information with manufacturer/model, voltage/frequency,
 established rated current, manufacturing date/date code, R-600a, the actual weighed

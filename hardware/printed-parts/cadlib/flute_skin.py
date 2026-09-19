@@ -115,7 +115,9 @@ class Rail(NamedTuple):
     `closed` says whether the two ends are the same station. `band` is the height the run
     exists over, or None for the whole piece. `berthed` are the bodies fitted into the room
     it runs round, and `mouth` is the plan direction that room opens on — the two together
-    are what `_shadow_mask` reads."""
+    are what `_shadow_mask` reads. `plain` contains world-coordinate boxes
+    `(x0, x1, y0, y1, z0, z1)` whose surface stays smooth; the flutes fade at
+    their edges just as they do at the edge of a pocket."""
     at: object
     length: float
     start: float = 0.0
@@ -123,6 +125,7 @@ class Rail(NamedTuple):
     band: object = None
     berthed: tuple = ()
     mouth: tuple = (0.0, -1.0)
+    plain: tuple = ()
 
 
 def _rail_frames(rail):
@@ -430,6 +433,11 @@ def _rail_cutter(mesh, rail):
     if rail.berthed:
         mask &= ~_shadow_mask(rail.berthed, point, rows, rail.mouth)
     mask = _bridge_grooves(mask, s, rail.closed)
+    for x0, x1, y0, y1, z0, z1 in rail.plain:
+        across = ((point[:, 0] >= x0) & (point[:, 0] <= x1)
+                  & (point[:, 1] >= y0) & (point[:, 1] <= y1))
+        height = (rows >= z0) & (rows <= z1)
+        mask[np.ix_(across, height)] = False
     if not mask.any():
         return None
     depth = _depth_field(s, mask, rail.closed)

@@ -210,7 +210,7 @@ def refresh_enclosure_viewer() -> None:
         expected = {flute_payload.fluted_key(name, fluted)
                     for name in flute_payload.payload_names(host)} - {None}
         carried = {name: fluted[name] for name in expected}
-        landed = flute_payload.graft(host, carried)
+        landed = flute_payload.graft(host, carried, same_frame=True)
         print(f"  {host.relative_to(ROOT)}: {landed} of {len(expected)} piece surface(s) landed")
 
 

@@ -6,8 +6,9 @@ April 28, 2017. This is the best-supported classification of the described produ
 not an individual agency determination. It supplies a usable marking specification
 without making an outside inquiry a dependency.
 
-The required warning content is arranged into **two permanent panels**: one exterior
-disposal warning and one service panel near the compressor and exposed tubing. The
+The required warning content occupies **two permanent locations**: integral raised
+disposal lettering low on the exterior +Y wall of enclosure back-bottom, and one
+service panel near the compressor and exposed tubing. The
 brand/serial/QR plate and ordinary appliance ratings can occupy separate surfaces.
 The preferred nameplate study is [L](../../future/nameplate-qr-studies/l-big-faucet.svg),
 for its balanced interlocking composition. No visible short domain is specified.
@@ -99,17 +100,22 @@ Print the [two-page proof](../../output/pdf/refrigerant-warning-proof.pdf) at
 
 | Panel | Artwork | Size | Position |
 | --- | --- | --- | --- |
-| Exterior disposal | [SVG](artwork/household-exterior-disposal.svg) | 190 x 71 mm | Exterior rear or side face |
+| Exterior disposal wording proof | [SVG](artwork/household-exterior-disposal.svg) | 190 x 71 mm | Integral raised lettering on enclosure back-bottom; the CAD defines its centered layout |
 | Combined service | [SVG](artwork/household-service.svg) | 190 x 163 mm | At compressor access, near the exposed tubing; includes W021 and R-600a |
 
 These are artwork dimensions, not mandated label dimensions. Width, line breaks and
 panel shape can change while preserving the warning content, letter height and
 location. The 215 x 462 x 361 mm enclosure provides substantially more marking area
-than the 104.53 x 66.07 mm brand plate. Physical carriers are not modeled in this
-proof. The fluted walls need an attachment that retains the label permanently;
-keep all condenser vents, screws, wiring and tubing clear. The lettering exceeds the
-4.951 mm capitals already demonstrated on the collars. A durable printed or engraved
-label is also an option; the warnings do not have to be made by filament inlay.
+than the 104.53 x 66.07 mm brand plate.
+
+The exterior implementation is owned by the [enclosure CAD](../printed-parts/enclosure/enclosure/README.md#exterior-disposal-warning).
+The full disposal wording is centered low on back-bottom, raised in the enclosure's
+own material. Fluting is omitted beneath the letters and their surrounding margin;
+the flat field has no border or separate carrier. The CAD measures actual warning
+letter heights against the minimum, and the relief supplies the visible edges of
+the same-color text. The paper proof establishes the wording and a full-size type
+reference; its panel dimensions and left alignment are not the enclosure layout.
+The service panel's physical carrier is not modeled in this proof.
 
 ## Ordinary appliance information
 
