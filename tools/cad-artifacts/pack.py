@@ -149,6 +149,7 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # (`faucet_shell.write_bed_file`) — the one piece of this machine that stands on a counter.
 BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/enclosure/display-cover",
+    "hardware/printed-parts/enclosure/nameplate",
     "hardware/printed-parts/faucet/industrial",
     "hardware/printed-parts/cold-core/magnetic-float",
     "hardware/printed-parts/zone-c/funnel-mold",
@@ -215,6 +216,8 @@ BUNDLED_PAYLOAD_DIRS = (
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
 )
 
 #: Generated sheets, assembly cards and the shared installation scene renders. The owner

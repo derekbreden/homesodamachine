@@ -33,7 +33,7 @@ def profile(outer):
     }
 
 
-def silhouette(outer, rounded_box):
+def silhouette(outer, rounded_box, vertical_radius):
     """Rounded front and side edges with the rear top edge left square."""
     p = profile(outer)
     x0, x1, y0, y1, z0, z1 = outer
@@ -43,11 +43,22 @@ def silhouette(outer, rounded_box):
             .threePointArc(p["top_mid"], p["roof"])
             .lineTo(y1, z1).lineTo(y1, z0).close().val())
     envelope = cq.Solid.extrudeLinear(wire, [], cq.Vector(x1 - x0, 0, 0))
-    side_edges = [edge for edge in envelope.Edges()
-                  if abs(abs(edge.Center().x) - x1) < 1e-5
-                  and edge.BoundingBox().zmin >= p["start"][1] - 1e-5
+    # The front standing rounds participate in the side blend. Its rolling radius
+    # follows their intersection with the front curve, joining all three surfaces
+    # tangentially. The rear standing corners are applied after this blend, keeping
+    # the rear top edge square.
+    fore_end = y0 + vertical_radius
+    rear_fill = (cq.Workplane("XY")
+                 .box(x1 - x0, y1 - fore_end, z1 - z0)
+                 .translate(((x0 + x1) / 2.0, (fore_end + y1) / 2.0,
+                             (z0 + z1) / 2.0)).val())
+    body = envelope.intersect(rounded_box.fuse(rear_fill)).clean()
+    side_edges = [edge for edge in body.Edges()
+                  if (edge.BoundingBox().xmin >= x1 - vertical_radius - 1e-5
+                      or edge.BoundingBox().xmax <= x0 + vertical_radius + 1e-5)
+                  and edge.BoundingBox().zmin >= p["foot"][1] - 1e-5
                   and edge.BoundingBox().ymin < y1 - 1.0]
-    return envelope.fillet(SIDE_RADIUS, side_edges).intersect(rounded_box).clean()
+    return body.fillet(SIDE_RADIUS, side_edges).intersect(rounded_box).clean()
 
 
 def rounded_prism(width, depth, radius, z0, z1, cx=0.0, cy=0.0):

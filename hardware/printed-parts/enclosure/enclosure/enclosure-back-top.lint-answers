@@ -1,6 +1,6 @@
 [step] The CO2 nut land at Y462 stands 1 mm inside the Y461 wall field. `port_clamp_stack` retains 5 mm of wall plus chip at this station, and `station_land_draft` joins the two planes. The offset is the bulkhead fitting's clamp land, backed by the rear wall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=13.212 y=462.000 z=331.187
+click: x=13.216 y=462.000 z=331.384
 
 [step] The PRV duct's seam-storey jamb meets the Z-slide channel wall. The skin at X-104.5 and channel at X-103.75 leave a 0.75 mm step between these two clearance datums; the full exterior wall backs both. `_vent_chase` and `_back_top_flanks` supply the faces.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -53,8 +53,8 @@ click: x=-74.850 y=391.350 z=303.211
 
 [ceiling] The nameplate bar's two exposed crowns lie below the pump and remain flat. The complete bar translates 0.25 mm toward print-up for supported-face clearance while the pump and screw axes stay fixed; its original section is retained. Support is accessible from the open enclosure before hardware installation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=23.648 y=458.500 z=266.150
-click: x=77.013 y=458.500 z=266.150
+click: x=23.648 y=457.790 z=266.150
+click: x=77.013 y=457.790 z=266.150
 
 [ceiling] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -124,3 +124,16 @@ click: x=97.375 y=335.500 z=327.200
 [sliver] This diagnostic is one zero-area STL triangle on X-107.5/Z325, with all three vertices collinear along Y207.495758..208.295883. Its zero normal produces NaN strip dimensions; it does not represent a physical face or thin section. Removing only that collapsed triangle in an analysis copy changes computed volume by 2.33e-10 mm³ and leaves 42 finite lint findings. The canonical STL remains unchanged; the witness is `.cache/support-clearance/lint/back-top-filled-pocket/evidence.json`.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-107.500 y=207.896 z=325.000
+
+[ceiling] The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.160 y=465.969 z=243.500
+
+[ceiling] The funnel brim rests on this Z349 plane, with a complete 6 mm bearing section behind it. Back-top prints with its Z355 roof on the bed, so supports carry the inset seat 6 mm above the bed. The open funnel recess gives direct access for support removal.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=0.000 y=232.625 z=349.000
+
+[ceiling] These two flat shoulders engage the nameplate snap tabs. Each is part of the full receiver block rooted in the rear wall; the receiving passages preserve the tab approach and engagement. Supports are removed through those open passages before the plate is installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=83.868 y=459.590 z=255.850
+click: x=-7.547 y=459.590 z=255.850

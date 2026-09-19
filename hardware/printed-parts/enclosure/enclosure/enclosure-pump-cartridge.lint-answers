@@ -1,4 +1,4 @@
-[ceiling] Each flat pull roof joins the fore and aft ends of a rounded grip pocket. Its underside spans 15 by 18 mm at Z272.865, including the 0.25 mm supported-face allowance from `pull_z_span`. The surrounding cartridge body carries the roof, and removable support leaves through the open side before the pumps are installed.
+[ceiling] Each flat pull roof joins the fore and aft ends of a rounded grip pocket. Its underside spans 15 by 16 mm at Z272.865, including the 0.25 mm supported-face allowance from `pull_z_span`. The surrounding cartridge body carries the roof, and removable support leaves through the open side before the pumps are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step
 click: x=-97.000 y=42.134 z=272.865
 click: x=97.000 y=42.134 z=272.865

@@ -169,9 +169,11 @@ The production slice adds no support contacts beneath the lettering.
 One handhold in each ±X flank opens through the standing floor. The recesses are
 [80 mm](HANDHOLD_LENGTH) long in Y, centered at **Y[214 mm](HANDHOLD_Y)**, and
 [35.25 mm](HANDHOLD_HEIGHT) high from the slab's underside to the flat lifting ceiling.
-The upper corners have [5 mm](HANDHOLD_CORNER_R) radii and the exterior lifting edges
+The upper corners have [6 mm](HANDHOLD_CORNER_R) radii and the exterior lifting edges
 [3 mm](HANDHOLD_EDGE_R) radii. Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
 joined to the floor by the opening's end walls and to the seam jamb above it.
+The rounded opening and its complete rim join tangentially. The flutes fade over the
+same 5 mm field used around the display surround and cartridge hand pockets.
 
 The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
@@ -1292,7 +1294,7 @@ The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
 deep and [28 mm](PULL_RUN) long in Y, from z [176.25 mm](PULL_FLOOR_Z)
 to z [272.865 mm](PULL_TOP_Z), a [96.62 mm](PULL_RISE) height. The cartridge keeps
 [10.63 mm](PULL_FLOOR_LIGAMENT) below each pocket and [10.38 mm](PULL_ROOF_LIGAMENT)
-above it. The four corners have [5 mm](PULL_CORNER_R) radii, and the complete exposed
+above it. The four corners have [6 mm](PULL_CORNER_R) radii, and the complete exposed
 perimeter has [3 mm](PULL_EDGE_R) rounds, leaving [7.63 mm](PULL_RIM_FLOOR_LIGAMENT)
 at the lower rim and [7.38 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
 The fore face at y [28.13 mm](PULL_LEDGE)
@@ -1465,6 +1467,8 @@ outside dimensions. An R12 tangent curve joins that plane to the front wall, and
 an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
 top edge remains square. The flat display plane is 87 mm long along its slope;
 the front curve begins about 15.5 mm above the pump cartridge.
+The side rounds blend through the junction with the R12 standing front corners,
+forming one continuous surface around each top-front corner.
 
 The rounded PET-GF display cover measures 125.5 × 83 mm with R6 corners. It seats
 flush in a 126.1 × 83.6 mm rounded inset, with 0.3 mm clearance around its edge.

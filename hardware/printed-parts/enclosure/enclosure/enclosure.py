@@ -525,7 +525,7 @@ handhold_length = 80.0
 handhold_height = 35.0
 handhold_wall = wall
 handhold_roof = 4.0 * wall
-handhold_corner_r = 5.0
+handhold_corner_r = 6.0
 handhold_edge_r = 3.0
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
@@ -3085,7 +3085,7 @@ def _rounded_outer(outer):
     """
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
-    return _swept_top.silhouette(outer, box)
+    return _swept_top.silhouette(outer, box, corner_round)
 
 
 def _shell_with_facet(inner, outer):
