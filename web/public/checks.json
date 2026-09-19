@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 446 of 1000 free, the next cut wants 264, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 445 of 1000 free, the next cut wants 263, and the whole pointer file reads by name in 33.9 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 461 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 21 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 461 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 8694da7d63e7399c862c6eef77a88961 for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 6201f80684248a82f9c0fc7daeb5eb12 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 81b6222847d550a8ef2de63f283bf9ca for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 83b6d029ce783b54ce3dcfcb01f54ba4 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
