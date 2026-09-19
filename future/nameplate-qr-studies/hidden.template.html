@@ -1,0 +1,49 @@
+<div id="nameplate-hidden-study" aria-label="Nameplate compositions with concealed retention">
+  <div class="viz-row" role="group" aria-label="Enlarge a composition">
+    <button type="button" class="btn" data-show="all" aria-pressed="true">All four</button>
+    <button type="button" class="btn" data-show="O" aria-pressed="false">O</button>
+    <button type="button" class="btn" data-show="P" aria-pressed="false">P</button>
+    <button type="button" class="btn" data-show="Q" aria-pressed="false">Q</button>
+    <button type="button" class="btn" data-show="R" aria-pressed="false">R</button>
+  </div>
+  <div class="nameplate-gallery" aria-live="polite">
+    <!-- PLATES -->
+  </div>
+  <div class="viz-row text-small text-muted">
+    <span>104.53 × 66.07 mm</span><span>21 × 21 QR · 0.9 mm modules</span><span>Ratings on a separate field</span>
+  </div>
+</div>
+<style>
+  #nameplate-hidden-study .nameplate-gallery {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px;margin:20px 0 16px}
+  #nameplate-hidden-study .nameplate-gallery.single {grid-template-columns:1fr}
+  #nameplate-hidden-study figure {margin:0;min-width:0}
+  #nameplate-hidden-study figure[hidden] {display:none}
+  #nameplate-hidden-study figcaption {margin-bottom:8px;color:var(--foreground)}
+  #nameplate-hidden-study .nameplate {display:block;width:100%;height:auto}
+  #nameplate-hidden-study.white-field .qr-ground {fill:#dededb}
+  #nameplate-hidden-study.white-field .qr-modules {fill:#1c1e21}
+  @media (max-width:580px) {#nameplate-hidden-study .nameplate-gallery {grid-template-columns:1fr}}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('nameplate-hidden-study');
+    const gallery = root.querySelector('.nameplate-gallery');
+    const figures = [...gallery.querySelectorAll('figure')];
+    const buttons = [...root.querySelectorAll('[data-show]')];
+    const state = {treatment:'as-drawn'};
+    const renderTreatment = () => root.classList.toggle('white-field', state.treatment === 'white');
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const value = button.dataset.show;
+      gallery.classList.toggle('single', value !== 'all');
+      figures.forEach(figure => {figure.hidden = value !== 'all' && figure.dataset.layout !== value;});
+      buttons.forEach(peer => peer.setAttribute('aria-pressed', String(peer === button)));
+    }));
+    renderTreatment();
+    if (globalThis.Tweak) {
+      const tweak = new Tweak({container:root,onChange:renderTreatment});
+      tweak.addSelect(state,'treatment',{label:'QR treatment',options:[
+        {label:'As drawn',value:'as-drawn'}, {label:'Black on white',value:'white'}
+      ]});
+    }
+  })();
+</script>

@@ -1,0 +1,68 @@
+<div id="nameplate-retention-study" aria-label="Concealed nameplate retention concept">
+  <div class="viz-grid">
+    <figure>
+      <figcaption>Rear of plate</figcaption>
+      <svg class="rear-view" role="img" aria-label="Two long spring rails behind the side edges, each attached at the top with a broad catch near the bottom."></svg>
+    </figure>
+    <figure>
+      <figcaption>Section through one catch</figcaption>
+      <svg class="section-view" role="img" aria-label="A catch projects into a rigid pocket shoulder behind the flush face. The plate rests on the pocket floor. Gaps are exaggerated."></svg>
+    </figure>
+  </div>
+  <div class="viz-row text-small">
+    <span><i class="rail-swatch" aria-hidden="true"></i>Plate spring</span>
+    <span><i class="wall-swatch" aria-hidden="true"></i>Rigid enclosure</span>
+    <span>Concept · gaps exaggerated</span>
+  </div>
+</div>
+<style>
+  #nameplate-retention-study figure {margin:0;min-width:0}
+  #nameplate-retention-study figcaption {margin-bottom:8px}
+  #nameplate-retention-study svg {display:block;width:100%;height:260px}
+  #nameplate-retention-study svg text {font:inherit;fill:var(--foreground)}
+  #nameplate-retention-study .rail-swatch,#nameplate-retention-study .wall-swatch {display:inline-block;width:12px;height:12px;margin-right:6px;background:var(--viz-series-1)}
+  #nameplate-retention-study .wall-swatch {background:var(--muted-foreground)}
+  #nameplate-retention-study .rail {fill:var(--viz-series-1)}
+  #nameplate-retention-study .rigid {fill:var(--muted-foreground);opacity:.28}
+  #nameplate-retention-study .plate {fill:var(--foreground);opacity:.10;stroke:var(--foreground);stroke-width:1}
+  #nameplate-retention-study .lead {fill:none;stroke:var(--foreground);stroke-width:1}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('nameplate-retention-study');
+    const rear = root.querySelector('.rear-view');
+    const section = root.querySelector('.section-view');
+    function draw() {
+      const w = Math.max(280, rear.clientWidth);
+      const x = v => (v*w/360).toFixed(2);
+      rear.setAttribute('viewBox', `0 0 ${w} 260`);
+      rear.innerHTML = `
+        <rect class="plate" x="${x(20)}" y="30" width="${x(320)}" height="178" rx="8"/>
+        <path class="rail" d="M${x(37)},46 H${x(68)} V66 H${x(57)} V170 H${x(26)} V150 H${x(43)} V66 H${x(37)}Z"/>
+        <path class="rail" d="M${x(323)},46 H${x(292)} V66 H${x(303)} V170 H${x(334)} V150 H${x(317)} V66 H${x(323)}Z"/>
+        <path class="lead" d="M${x(43)},126 H${x(96)} m-7,-4 7,4 -7,4 M${x(317)},126 H${x(264)} m7,-4 -7,4 7,4"/>
+        <text x="${x(180)}" y="72" text-anchor="middle">Fixed roots</text>
+        <path class="lead" d="M${x(122)},66 L${x(67)},56 M${x(238)},66 L${x(293)},56"/>
+        <text x="${x(180)}" y="132" text-anchor="middle">Flex inward</text>
+        <text x="${x(180)}" y="188" text-anchor="middle">Broad catches</text>
+        <path class="lead" d="M${x(119)},182 L${x(44)},160 M${x(241)},182 L${x(316)},160"/>
+        <text x="${x(180)}" y="244" text-anchor="middle">The front stays continuous</text>`;
+      const sw = Math.max(280, section.clientWidth);
+      const sx = v => (v*sw/360).toFixed(2);
+      section.setAttribute('viewBox', `0 0 ${sw} 260`);
+      section.innerHTML = `
+        <path class="rigid" d="M${sx(20)},58 H${sx(112)} V105 H${sx(94)} V170 H${sx(112)} V207 H${sx(339)} V229 H${sx(20)}Z"/>
+        <path class="plate" d="M${sx(119)},58 H${sx(339)} V207 H${sx(184)} V89 H${sx(119)}Z"/>
+        <path class="rail" d="M${sx(124)},112 H${sx(159)} V164 H${sx(124)} L${sx(103)},133 V112Z"/>
+        <text x="${sx(230)}" y="30" text-anchor="middle">Flush face</text>
+        <path class="lead" d="M${sx(230)},36 V56"/>
+        <text x="${sx(205)}" y="119">Shoulder</text>
+        <path class="lead" d="M${sx(200)},115 L${sx(103)},105"/>
+        <text x="${sx(205)}" y="162">Entry ramp</text>
+        <path class="lead" d="M${sx(200)},158 L${sx(114)},150"/>
+        <text x="${sx(230)}" y="253" text-anchor="middle">Continuous pocket floor</text>`;
+    }
+    draw();
+    new ResizeObserver(draw).observe(root);
+  })();
+</script>

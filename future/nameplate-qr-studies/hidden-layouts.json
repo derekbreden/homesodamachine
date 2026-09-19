@@ -1,0 +1,211 @@
+{
+  "payload": "HTTPS://HOSM.US/0001",
+  "width_mm": 104.53,
+  "height_mm": 66.07,
+  "retention": "concealed spring-rail concept; not production CAD",
+  "qr_version": 1,
+  "qr_mode": "alphanumeric",
+  "error_correction": "M",
+  "active_modules": 21,
+  "quiet_zone_modules": 4,
+  "module_mm": 0.9,
+  "active_qr_mm": 18.9,
+  "qr_with_margin_mm": 26.1,
+  "visible_domain": false,
+  "ratings": "separate permanent appliance-rating block",
+  "layouts": [
+    {
+      "key": "O",
+      "title": "Tall name",
+      "serial_copy": "NO. 0001",
+      "serial_cap_mm": 4.951171875,
+      "bounds_mm": [
+        [
+          "faucet mark",
+          8.6,
+          4,
+          28.6046511627907,
+          30
+        ],
+        [
+          "QR including quiet zone",
+          9.8,
+          36,
+          26.1,
+          26.1
+        ],
+        [
+          "HOME",
+          44,
+          5,
+          34.60546875,
+          9.140625
+        ],
+        [
+          "SODA",
+          44,
+          19,
+          33.990234375,
+          9.140625
+        ],
+        [
+          "MACHINE",
+          44,
+          33,
+          54.62109375,
+          9.041015625
+        ],
+        [
+          "NO. 0001",
+          44,
+          54,
+          26.187255859375,
+          4.951171875
+        ]
+      ]
+    },
+    {
+      "key": "P",
+      "title": "Across the plate",
+      "serial_copy": "NO. 0001",
+      "serial_cap_mm": 4.951171875,
+      "bounds_mm": [
+        [
+          "faucet mark",
+          5,
+          5,
+          32.41860465116279,
+          34
+        ],
+        [
+          "HOME",
+          41.5,
+          6,
+          30.27978515625,
+          7.998046875
+        ],
+        [
+          "SODA",
+          41.5,
+          20,
+          29.741455078125,
+          7.998046875
+        ],
+        [
+          "QR including quiet zone",
+          75.8,
+          4.5,
+          26.1,
+          26.1
+        ],
+        [
+          "NO. 0001",
+          41.5,
+          34,
+          26.187255859375,
+          4.951171875
+        ],
+        [
+          "MACHINE",
+          5,
+          44,
+          93.76621093749999,
+          15.52041015625
+        ]
+      ]
+    },
+    {
+      "key": "Q",
+      "title": "Interlocking blocks",
+      "serial_copy": "0001",
+      "serial_cap_mm": 5.259375,
+      "bounds_mm": [
+        [
+          "faucet mark",
+          5,
+          5,
+          41.0,
+          43
+        ],
+        [
+          "HOME",
+          51,
+          6,
+          46.140625,
+          12.1875
+        ],
+        [
+          "SODA",
+          51,
+          22,
+          45.3203125,
+          12.1875
+        ],
+        [
+          "0001",
+          51,
+          42,
+          14.512500000000001,
+          5.259375
+        ],
+        [
+          "QR including quiet zone",
+          74,
+          36,
+          26.1,
+          26.1
+        ],
+        [
+          "MACHINE",
+          5,
+          53,
+          61.44873046875,
+          10.171142578125
+        ]
+      ]
+    },
+    {
+      "key": "R",
+      "title": "Light lower field",
+      "serial_copy": "SERIAL 0001",
+      "serial_cap_mm": 5.694580078125,
+      "bounds_mm": [
+        [
+          "faucet mark",
+          5,
+          4.5,
+          28.6046511627907,
+          30
+        ],
+        [
+          "HOME SODA",
+          38,
+          5,
+          58.94360351562499,
+          7.388671875
+        ],
+        [
+          "MACHINE",
+          38,
+          19,
+          58.717675781250016,
+          9.719091796875
+        ],
+        [
+          "QR including quiet zone",
+          4,
+          36,
+          26.1,
+          26.1
+        ],
+        [
+          "SERIAL 0001",
+          42.986767578125,
+          46.2,
+          44.62646484375,
+          5.694580078125
+        ]
+      ]
+    }
+  ]
+}
