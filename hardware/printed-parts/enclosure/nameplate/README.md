@@ -28,9 +28,9 @@ rear enclosure.
 ## Retention
 
 Two straight PET-GF tabs are integral to the plate. Each is 8 mm wide, **1.3 mm thick and
-11.5 mm long**, with a 1 mm inner-root radius. A **1.8 mm outward lip** starts 8.5 mm from the
-root. The hook has a 1.2 mm tall full-depth land followed by a 1.8 mm, 45° lead-in;
-its total height is 3 mm. Pushing the plate into its pocket bends the
+11.3 mm long**, with a 1 mm inner-root radius. A **1.8 mm outward lip** starts 8.5 mm from the
+root. The hook has a 1.2 mm tall full-depth land followed by a 1.6 mm lead-in;
+its total height is 2.8 mm. Pushing the plate into its pocket bends the
 tabs inward; they return behind the enclosure's rigid shoulders. The 0.60 mm shank clearance
 leaves 1.2 mm nominal catch engagement. The square retaining face has 0.48 mm axial clearance.
 
@@ -47,7 +47,7 @@ No screws or heat-set inserts are used at this joint.
 
 The [faucet trials](/hardware/printed-parts/faucet/faucet-display-petgf.md) establish the useful
 scale of PET-GF features: 1.3 mm cover stock, 3 mm lips and generous receiving clearance.
-The nameplate carries this stock and lip height into straight tabs with supported bearing
+The nameplate uses this stock in straight tabs with broad, supported bearing
 faces. Its CAD fit and swept insertion are checked; force, edge finish and retention are
 read from a physical plate-and-receiver print.
 
@@ -108,7 +108,7 @@ serving its ledge, shoulders and rim, plus two small bodies without labelled int
 the pad corners. Those two bodies' contact area and build-up are unmeasured. Support count
 is an observation; preserve the working faces when removing them.
 
-The local slice estimates 1 h 25 min and 35.33 g, including the coupon, purge and supports,
+The local slice estimates 1 h 25 min and 35.32 g, including the coupon, purge and supports,
 using the saved profile's 1.29 g/cm³ density. Its native log notices are retained in the slice
 reading. Physical catch finish, insertion force and retention are established with the
 included receiver coupon.
