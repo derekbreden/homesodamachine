@@ -1,4 +1,4 @@
-"""Dimensioned refrigerant warning proofs with outlined Helvetica Bold lettering."""
+"""Household R-600a warning proofs with outlined, measured Helvetica Bold lettering."""
 
 from __future__ import annotations
 
@@ -31,9 +31,9 @@ CAP = 6.5
 WIDTH = 190.0
 MARGIN = 6.0
 LEADING = 9.0
-SYMBOL_HEIGHT = 21.0
-SAFETY_CLASS_CAP = 7.2
-SYMBOL = ET.parse(HERE / 'ghs02.svg').getroot()
+SYMBOL_HEIGHT = 18.0
+SYMBOL_SOURCE_HEIGHT = 523.6
+SYMBOL = ET.parse(HERE / 'w021.svg').getroot()
 
 
 def text_paths(value, cap, x=0.0, y=0.0):
@@ -93,7 +93,7 @@ class Label:
         self.height = math.ceil(self.body_top + (len(self.lines) - 1) * LEADING + CAP + MARGIN)
         self.text = [(signal, MARGIN, 9.0, 9.0)]
         if symbol:
-            self.text.append(('A3', 165.0, 12.9, SAFETY_CLASS_CAP))
+            self.text.append(('R-600a', 137.0, 12.9, 6.5))
         self.text += [(line, MARGIN, self.body_top + i * LEADING, CAP)
                       for i, line in enumerate(self.lines)]
         self.audit()
@@ -108,8 +108,8 @@ class Label:
             assert cap >= 6.4
             boxes.append((value, x, y, w, h))
         if self.symbol:
-            boxes.append(('GHS02', 138, 6, SYMBOL_HEIGHT, SYMBOL_HEIGHT))
-            assert SAFETY_CLASS_CAP >= SYMBOL_HEIGHT / 3
+            boxes.append(('ISO 7010 W021', 108, 6, 600 * SYMBOL_HEIGHT / SYMBOL_SOURCE_HEIGHT, SYMBOL_HEIGHT))
+            assert SYMBOL_HEIGHT >= 15
         for i, a in enumerate(boxes):
             for b in boxes[i + 1:]:
                 assert (a[1] + a[3] <= b[1] or b[1] + b[3] <= a[1]
@@ -124,10 +124,10 @@ class Label:
             content.append(f'<path aria-label="{html.escape(value, quote=True)}" '
                            f'transform="translate({offset[0]} {offset[1]})" d="{path}"/>')
         if self.symbol:
-            content.append(symbol_svg(138, 6))
+            content.append(symbol_svg(108, 6))
         return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}mm" '
                 f'height="{self.height}mm" viewBox="0 0 {WIDTH} {self.height}">'
-                f'<title>{self.title}</title><desc>Provisional warning artwork. '
+                f'<title>{self.title}</title><desc>Household R-600a warning artwork. '
                 f'Uppercase body letters have a {CAP} mm H cap height. '
                 'See README.md for applicability and installation status.</desc>'
                 + ''.join(content) + '</svg>')
@@ -143,7 +143,7 @@ class Label:
         for value, tx, ty, cap in self.text:
             draw_text(canvas, value, tx, ty, cap)
         if self.symbol:
-            draw_symbol(canvas, 138, 6)
+            draw_symbol(canvas, 108, 6)
         canvas.restoreState()
 
 
@@ -162,10 +162,10 @@ def draw_text(canvas, value, x, y, cap):
 
 
 def symbol_svg(x, y):
-    # The source diamond spans 6..573 in its 579-unit viewBox.
-    content = ''.join(ET.tostring(child, encoding='unicode') for child in SYMBOL)
-    return (f'<g transform="translate({x} {y}) scale({SYMBOL_HEIGHT/567}) '
-            f'translate(-6 -6)">{content}</g>')
+    content = ''.join(ET.tostring(child, encoding='unicode') for child in SYMBOL
+                      if child.tag.rsplit('}', 1)[-1] in ('path', 'polygon'))
+    return (f'<g transform="translate({x} {y}) scale({SYMBOL_HEIGHT/SYMBOL_SOURCE_HEIGHT})">'
+            f'{content}</g>')
 
 
 def draw_symbol(canvas, x, y):
@@ -173,13 +173,28 @@ def draw_symbol(canvas, x, y):
     from reportlab.graphics.shapes import Drawing
     canvas.saveState()
     canvas.translate(x, y)
-    canvas.scale(SYMBOL_HEIGHT/567, SYMBOL_HEIGHT/567)
-    canvas.translate(-6, -6)
+    canvas.scale(SYMBOL_HEIGHT/SYMBOL_SOURCE_HEIGHT, SYMBOL_HEIGHT/SYMBOL_SOURCE_HEIGHT)
     for element in SYMBOL:
+        kind = element.tag.rsplit('}', 1)[-1]
+        if kind not in ('path', 'polygon'):
+            continue
         pen = ReportLabPen(None)
-        parse_path(element.attrib['d'], pen)
+        target = pen
+        if 'transform' in element.attrib:
+            matrix = element.attrib['transform'].removeprefix('matrix(').removesuffix(')')
+            target = TransformPen(pen, tuple(float(n) for n in matrix.split(',')))
+        if kind == 'path':
+            parse_path(element.attrib['d'], target)
+        else:
+            points = [tuple(float(n) for n in p.split(','))
+                      for p in element.attrib['points'].split()]
+            target.moveTo(points[0])
+            for point in points[1:]:
+                target.lineTo(point)
+            target.closePath()
+        style = dict(pair.split(':', 1) for pair in element.get('style', '').split(';') if ':' in pair)
         fill = element.get('fill', '#000000')
-        fill = {'red': '#ff0000', '#fff': '#ffffff'}.get(fill, fill)
+        fill = style.get('fill', fill)
         pen.path.fillColor = HexColor(fill)
         pen.path.strokeColor = None
         drawing = Drawing()
@@ -190,31 +205,20 @@ def draw_symbol(canvas, x, y):
 
 def labels():
     return [
-        Label('a-exterior-service', 'A / Exterior - service and puncture', 'DANGER', [
+        Label('household-exterior-disposal', 'Exterior / disposal', 'CAUTION', [
             'Risk of Fire Or Explosion.',
-            'Flammable Refrigerant Used.',
-            'To Be Repaired Only By\nTrained Service Personnel.',
-            'Do Not Puncture\nRefrigerant Tubing.'
-        ], symbol=True),
-        Label('b-exterior-disposal', 'B / Exterior - disposal', 'WARNING', [
-            'Risk of Fire Or Explosion.',
-            'Dispose of Properly In Accordance With Federal Or Local Regulations.',
+            'Dispose of Properly In Accordance With The Applicable Federal Or Local Regulations.',
             'Flammable Refrigerant Used.'
         ]),
-        Label('c-compressor-service', 'C / Inside - near compressor', 'DANGER', [
-            'Risk Of Fire Or Explosion.',
+        Label('household-service', 'Compressor compartment / service and tubing', 'DANGER', [
+            'Risk Of Fire Or Explosion Due To Puncture Of Refrigerant Tubing.',
             'Flammable Refrigerant Used.',
+            'To Be Repaired Only By\nTrained Service Personnel.',
+            'Do Not Puncture\nRefrigerant Tubing.',
             "Consult Repair Manual/Owner's Guide Before Attempting To Service This Product.",
-            'All Safety Precautions\nMust Be Followed.'
-        ]),
-        Label('d-package-handling', 'D / Packaging - factory-charged unit', 'DANGER', [
-            'Risk of Fire or Explosion Due To Flammable Refrigerant Used.',
-            'Follow Handling Instructions Carefully In Compliance With National Regulations.'
+            'All Safety Precautions\nMust Be Followed.',
+            'Follow Handling Instructions Carefully.'
         ], symbol=True),
-        Label('f-exterior-storage', 'F / Exterior - non-fixed unit storage', 'WARNING', [
-            'Risk of Fire or Explosion.',
-            'Store In A Well-Ventilated Room\nWithout Continuously Operating\nFlames Or Other\nPotential Ignition.'
-        ]),
     ]
 
 
@@ -225,9 +229,9 @@ def page_heading(canvas, page, title):
     canvas.setFont('Helvetica', 9)
     canvas.drawString(13 * mm, letter[1] - 23 * mm, 'FULL-SIZE FIT PROOF  /  US LETTER  /  PRINT AT 100%, ACTUAL SIZE')
     canvas.setFont('Helvetica', 8)
-    canvas.drawString(13 * mm, 17 * mm, 'Provisional marking set. End-use / R-600a acceptance and physical installation remain open.')
-    canvas.drawString(13 * mm, 12 * mm, 'Source: EPA SNAP Rule 26, 89 FR 50482-50484. See hardware/markings/README.md.')
-    canvas.drawRightString(203 * mm, 7 * mm, f'{page} / 3')
+    canvas.drawString(13 * mm, 17 * mm, 'Household design specification. Paper is a fit template; use permanent production markings.')
+    canvas.drawString(13 * mm, 12 * mm, 'EPA Rule 22 / UL 60335-2-24 (April 28, 2017). Sources: hardware/markings/README.md.')
+    canvas.drawRightString(203 * mm, 7 * mm, f'{page} / 2')
 
 
 def proof_label(canvas, label, top):
@@ -239,15 +243,22 @@ def proof_label(canvas, label, top):
     return top + 4 + label.height
 
 
-def service_tag_svg():
-    texts = []
-    for value, x, y, cap in [('A3', 33, 6, 7.2), ('R-600a', 33, 19, 6.5)]:
-        path, _, offset, _ = text_paths(value, cap, x, y)
-        texts.append(f'<path aria-label="{value}" transform="translate({offset[0]} {offset[1]})" d="{path}"/>')
-    return ('<svg xmlns="http://www.w3.org/2000/svg" width="82mm" height="33mm" viewBox="0 0 82 33">'
-            '<title>Service port refrigerant identification</title>'
-            '<rect x=".25" y=".25" width="81.5" height="32.5" rx="2" fill="white" stroke="black" stroke-width=".5"/>'
-            + symbol_svg(6, 6) + ''.join(texts) + '</svg>')
+def notes(canvas, top, lines):
+    canvas.setFillColor(HexColor('#333333'))
+    canvas.setFont('Helvetica', 9)
+    for line in lines:
+        canvas.drawString(13 * mm, letter[1] - top * mm, line)
+        top += 5
+    return top
+
+
+def scale_bar(canvas, y):
+    canvas.setStrokeColor(HexColor('#161616'))
+    canvas.setLineWidth(.5)
+    canvas.line(13 * mm, letter[1] - y * mm, 63 * mm, letter[1] - y * mm)
+    for x in (13, 63):
+        canvas.line(x * mm, letter[1] - (y-2) * mm, x * mm, letter[1] - (y+2) * mm)
+    canvas.drawString(13 * mm, letter[1] - (y+7) * mm, '50 mm at actual size. Do not use Fit or Shrink to page.')
 
 
 def main():
@@ -256,68 +267,55 @@ def main():
     items = labels()
     for item in items:
         (drawings / f'{item.key}.svg').write_text(item.svg())
-    (drawings / 'service-port-id.svg').write_text(service_tag_svg())
     output = ROOT / 'output/pdf'
     output.mkdir(parents=True, exist_ok=True)
     pdf_path = output / 'refrigerant-warning-proof.pdf'
     canvas = Canvas(str(pdf_path), pagesize=letter, invariant=1)
-    canvas.setTitle('Home Soda Machine - refrigerant warning fit proof')
+    canvas.setTitle('Home Soda Machine - household R-600a warning fit proof')
     canvas.setAuthor('Derek Bredensteiner')
-    a, b, c, d, f = items
-    page_heading(canvas, 1, 'Refrigerant warnings / exterior')
-    bottom = proof_label(canvas, a, 34)
-    bottom = proof_label(canvas, b, bottom + 15)
-    assert bottom < 249
+    exterior, service = items
+    page_heading(canvas, 1, 'Household R-600a / exterior disposal warning')
+    bottom = proof_label(canvas, exterior, 34)
+    notes(canvas, bottom + 12, [
+        'Placement: on the outside of the enclosure; a rear or side face can carry this label.',
+        'This warning does not need to occupy the brand / serial / QR nameplate.',
+        'Wording: UL 60335-2-24 (2017), 7.1DV.4.1(d). Body capitals: at least 6.4 mm.',
+        '',
+        'Separate appliance information: manufacturer / model, voltage, AC frequency, rated current,',
+        'manufacturing date or date code, R-600a, actual charge in grams, and foam blowing-agent ID.',
+        'Use established unit values. The study text 5A / 600W is not a measured appliance rating.',
+        '',
+        'The disposal warning plus the service panel on page 2 cover the four applicable messages.',
+        'The enclosed, foam-embedded evaporator has no user-contact defrost-warning location.',
+        'No commercial storage paragraph, packaging paragraph, or A3 diamond is specified here.'
+    ])
+    scale_bar(canvas, 230)
     canvas.showPage()
-    page_heading(canvas, 2, 'Refrigerant warnings / storage and service')
-    bottom = proof_label(canvas, f, 34)
-    bottom = proof_label(canvas, c, bottom + 15)
-    assert bottom < 249
-    canvas.showPage()
-    page_heading(canvas, 3, 'Refrigerant warnings / packaging and service port')
-    bottom = proof_label(canvas, d, 34)
-    top = bottom + 20
-    canvas.setFont('Helvetica', 9)
-    canvas.drawString(13 * mm, letter[1] - top * mm, 'SERVICE PORT ID  /  82 x 33 mm  /  21 mm diamond + 7.2 mm A3 capitals')
-    canvas.saveState()
-    canvas.translate(13 * mm, letter[1] - (top + 4) * mm)
-    canvas.scale(mm, -mm)
-    canvas.setStrokeColor(HexColor('#161616'))
-    canvas.setFillColor(HexColor('#ffffff'))
-    canvas.setLineWidth(.5)
-    canvas.roundRect(.25, .25, 81.5, 32.5, 2, fill=1, stroke=1)
-    draw_symbol(canvas, 6, 6)
-    draw_text(canvas, 'A3', 33, 6, 7.2)
-    draw_text(canvas, 'R-600a', 33, 19, 6.5)
-    canvas.restoreState()
-    y = top + 49
-    canvas.setFont('Helvetica', 9)
-    for line in [
-        'Service ports / process tube: PMS 185 or RAL 3020; at least 25 mm each direction.',
-        'Actual charge mass needs its own completed, permanent unit marking.',
-        'Minimum room area / installation height: determine from the applicable standard.',
-        'Ordinary paper is for fit checking. Permanent label material and attachment are unverified.'
-    ]:
-        canvas.drawString(13 * mm, letter[1] - y * mm, line)
-        y += 5
-    y += 13
-    canvas.setLineWidth(.5)
-    canvas.line(13 * mm, letter[1] - y * mm, 63 * mm, letter[1] - y * mm)
-    for x in (13, 63):
-        canvas.line(x * mm, letter[1] - (y-2) * mm, x * mm, letter[1] - (y+2) * mm)
-    canvas.drawString(13 * mm, letter[1] - (y+7) * mm, 'This line must measure 50 mm. Do not use Fit or Shrink to page.')
-    assert y + 7 < 249
+    page_heading(canvas, 2, 'Household R-600a / compressor compartment')
+    bottom = proof_label(canvas, service, 34)
+    y = notes(canvas, bottom + 10, [
+        'Place near the compressor compartment and its exposed tubing, visible on gaining access.',
+        'Combined equivalent wording for 7.1DV.4.1(b), (c), (e); all instructions retained.',
+        'ISO 7010 W021 triangle: 18 mm high. R-600a identification visible at compressor access.',
+        'Service-opening locations: PMS 185 red; process tube red at least 25 mm from compressor.'
+    ])
+    assert y < 249
+    scale_bar(canvas, 243)
     canvas.save()
     audit = {
-        'status': 'provisional artwork; physical print and placement unverified',
+        'status': 'household design specification; dimensioned fit proof; physical attachment not implemented',
+        'standard': 'UL 60335-2-24, second edition, April 28, 2017; EPA SNAP Rule 22',
+        'warning_clauses': {'household-exterior-disposal': ['7.1DV.4.1(d)'],
+                            'household-service': ['7.1DV.4.1(b)', '7.1DV.4.1(c)', '7.1DV.4.1(e)']},
+        'service_wording': 'Combined equivalent warning; DANGER heading and all substantive instructions retained',
         'body_cap_height_mm': CAP,
         'minimum_body_letter_ink_height_mm': round(min(
             minimum_letter_height(item.lines) for item in items), 6),
         'minimum_target_mm': 6.4,
         'font': 'Helvetica Bold, macOS Helvetica.ttc face 1; outlined',
         'font_em_mm': round(CAP * FONT['head'].unitsPerEm / CAP_UNITS, 6),
-        'symbol_diamond_height_mm': SYMBOL_HEIGHT,
-        'safety_class_cap_height_mm': SAFETY_CLASS_CAP,
+        'symbol': 'ISO 7010 W021',
+        'symbol_triangle_height_mm': SYMBOL_HEIGHT,
         'labels': [{'file': f'artwork/{item.key}.svg', 'width_mm': WIDTH,
                     'height_mm': item.height, 'body_lines': item.lines,
                     'glyph_bounds': item.audit()} for item in items]

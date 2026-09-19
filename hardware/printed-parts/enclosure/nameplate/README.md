@@ -30,12 +30,13 @@ The [install guide](/hardware/install-guide/README.md) records the refrigerant a
 Product marking requirements are recorded in
 [`/business/regulatory.md`](/business/regulatory.md).
 
-[The refrigerant marking specification](/hardware/markings/README.md) contains a
-separate warning-label proof with 6.5 mm capitals against the current commercial A3
-rule's 6.4 mm target. The small nameplate footer is an informational notice.
-The finished machine's SNAP category, R-600a acceptability and complete standard
-conformance remain open. The separate labels preserve space for the brand and serial;
-they do not by themselves establish compliance.
+[The household refrigerant marking specification](/hardware/markings/README.md)
+provides a separate exterior disposal panel and compressor service/tubing panel. Its
+6.5 mm capitals satisfy the incorporated household standard's 6.4 mm warning-letter
+target. The small nameplate footer is informational and does not replace those panels.
+The separate warnings and an adjacent appliance-rating block preserve space for the
+brand, serial and QR. The generated plate's `5A 600W` text is unverified study copy;
+the household rating specification calls for established input current in amperes.
 
 The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
 the same wall. The link opens the machine overview, included-equipment list, preparation
