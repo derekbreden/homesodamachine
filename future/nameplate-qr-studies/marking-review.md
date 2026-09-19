@@ -1,7 +1,7 @@
 # Marking review
 
-The G–N drawings explore the plate's composition. Their electrical copy is the current
-`120V 60Hz 5A 600W` rating, arranged on one or two lines. M places those ratings on a
+The G–N drawings explore the plate's composition. Their electrical copy is the
+unverified `120V 60Hz 5A 600W` study text, arranged on one or two lines. M places those ratings on a
 separate label. The complete refrigerant markings and their positions are outside these
 drawings. The drawings are not a completed product marking specification.
 
@@ -12,31 +12,33 @@ The nameplate documentation identifies the adjacent C14 inlet's moulded `250V 10
 component rating as their purpose. No exact-wording requirement for these two sentences
 is established in the repository. The G–N layouts keep the input rating together.
 
-The applicable complete-appliance marking standard, model/type reference, and measured
-input current/power remain to be established. The existing `5A 600W` text is layout copy;
-this review supplies no measurement validating it. A fuse's current rating is not a
-measurement of appliance input power.
+The household design specification uses UL 60335-2-24, second edition dated April 28,
+2017. Ordinary appliance information comprises manufacturer/model, voltage and AC
+frequency, rated input current, R-600a and actual charge, date/date code, and the
+actual insulation blowing-gas identity. These fields can live on a separate adjacent
+rating label. Compression-appliance input is marked in amperes rather than ordinary
+input watts. The existing `5A 600W` text is layout copy; a fuse rating does not establish
+appliance input current. A model designation and actual unit values complete the data.
 
 ## Refrigerant copy
 
-[The refrigerant marking specification](../../hardware/markings/README.md) contains
-the current-source review, dimensioned warning artwork and proposed locations. Its
-separate labels use 6.5 mm capitals against the current commercial A3 rule's 6.4 mm
-target. They leave the brand/serial composition intact.
+[The household marking specification](../../hardware/markings/README.md) contains
+the source review and a two-panel warning proof. One exterior panel covers disposal;
+one panel near the compressor covers trained service, the repair manual and exposed
+tubing. The service header includes the household flame triangle and R-600a.
+The enclosed evaporator has no consumer-contact defrost-warning location.
 
-Household refrigeration is the working starting point for this residential-only
-machine. EPA includes household beverage centers and household ice makers there and
-lists R-600a with use conditions. The commercial dispensing category concerns goods
-for commercial sale; its lack of a pure R-600a entry does not establish a restriction
-on this household product. The commercial warning proof and its 6.4 mm target are
-not an established minimum for this machine. The applicable household provisions
-remain to be reviewed.
+The incorporated 2017 standard sets **6.4 mm minimum warning letters in the U.S.**;
+the artwork uses 6.5 mm capitals. This does not set ordinary rating or serial-letter
+size. Later UL revisions permit smaller warnings, but the current EPA R-600a listing
+incorporates the 2017 edition. The commercial packaging/storage paragraphs, GHS/A3
+tag and minimum-room-area marking are not part of this household specification.
 
-The 2015 household entry does not state the current household conditions; those were
-replaced in 2018 by reference to UL 60335-2-24. The current commercial A3 dispensing
-conditions are in the 2024 rule. Sources and the exact branch distinctions are in the
-marking specification. The small `FLAMMABLE REFRIGERANT` footer is informational and
-does not constitute a complete permanent warning set.
+The small `FLAMMABLE REFRIGERANT` footer is informational; the full warnings belong
+on their own surfaces. The design can omit that footer and the repeated voltage
+sentences from the brand plate when the separate permanent markings are provided.
+Study L's balanced composition is the design reference, with the existing 21 x 21 QR,
+large brand, and small SERIAL above large 0001. No visible short domain is specified.
 
 ## Print evidence
 

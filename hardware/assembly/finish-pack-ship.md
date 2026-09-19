@@ -76,18 +76,21 @@ Mount the signed plate into its pocket on the +Y wall and draw the two M3×8 cap
 
 ### 3a. Refrigerant markings and unit record
 
-The [refrigerant marking specification](/hardware/markings/README.md) supplies a
-provisional full-size proof and attachment proposals. The finished machine's category,
-R-600a listing, applicable standard and physical label attachments remain open. The
-paper proof is not a permanent production label.
+The [household marking specification](/hardware/markings/README.md) supplies the
+full-size proof: an exterior disposal panel and a combined service/tubing panel near
+the compressor compartment, with W021 flame and R-600a visible at compressor access.
+Use permanent production labels/carriers, retaining the specified warning-letter
+height and service-opening red color. The brand/serial/QR plate remains separate.
 
-The completed marking record includes the applicable warning set on the exterior,
-inside near the compressor, at the service port and on the outer carton; the actual
-charge in grams on the unit and in the delivered documentation; any required
-calculated room-area/installation-height marking; and the service-port color and
-extent. Photograph the permanent markings and record their measured letter/symbol
-sizes and locations with the per-unit finish photos. The brand/serial plate remains
-a separate part.
+Complete the appliance rating information with manufacturer/model, voltage/frequency,
+established rated current, manufacturing date/date code, R-600a, the actual weighed
+charge in grams and the actual insulation blowing-gas identity. Match these values to
+the unit record and delivered instructions. The `5A 600W` study copy is not a measured
+rating. No commercial storage, carton or room-area warning is in this household set.
+
+Photograph the permanent markings with the per-unit finish photos, recording their
+measured letter/symbol sizes and locations and the process-tube red extent. Check
+that labels remain readable and attached and do not cover a vent, connector or screw.
 
 ### 4. Cap the +Y wall's inlets for transit
 
