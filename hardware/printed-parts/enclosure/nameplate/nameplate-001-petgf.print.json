@@ -1,7 +1,7 @@
 {
   "project": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
-  "project_sha256": "3e5ce0990b0d6cee43636a298baeb94adaa2911f8d7593ce53b808b7acd3f464",
-  "source_step_sha256": "4e50e9e4ca4f78ac9b3c7f751787be1a3babfe7edcae1df25e98e2cd9e8a1631",
+  "project_sha256": "e80189a2d95e948fffcf05ce359067ba4f4583f60a47a436a1ccda02b815f04d",
+  "source_step_sha256": "74964b0ab4a4e4ec0d8f27dc10eeaf110bead3e81812f4cf714d9045f6b4469b",
   "receiver_step_sha256": "8c2df89a86b98d1c2cbe99abdc96d59b7416672cd14b028c42259eb71b0f36aa",
   "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
   "profile_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
@@ -1770,10 +1770,10 @@
         [
           52.265,
           19.0,
-          13.9
+          13.700000000000001
         ]
       ],
-      "volume_mm3": 9231.898121889775,
+      "volume_mm3": 9224.858121889776,
       "watertight": true
     },
     {
@@ -1819,10 +1819,10 @@
   "offline_slice": {
     "completed": true,
     "exit_code": 0,
-    "gcode_sha256": "8deacd525c94e6f43e4bf7a40fb3b2753fec246e94cb279596a3adf921b10138",
-    "gcode_path": ".cache/prints/2026-09-19-nameplate-horizontal/slice-7/plate_1.gcode",
+    "gcode_sha256": "2dece6861bda876310e3e530ab0f3b0358656261b56285f84a39b493c6232ea4",
+    "gcode_path": ".cache/prints/2026-09-19-nameplate-horizontal/slice-8/plate_1.gcode",
     "estimated_time": "1h 24m 25s",
-    "estimated_mass_g": 35.33,
+    "estimated_mass_g": 35.32,
     "filament_density_g_cm3": 1.29,
     "first_layer_mm": 0.2,
     "subsequent_layer_mm": 0.24,
@@ -1945,13 +1945,13 @@
   "neighbour_clearances": [
     {
       "part": "pump",
-      "tab_distance_mm": 0.9,
+      "tab_distance_mm": 1.1,
       "tab_interference_mm3": 0.0,
       "receiver_interference_mm3": 0.0
     },
     {
       "part": "psu",
-      "tab_distance_mm": 5.6,
+      "tab_distance_mm": 5.8,
       "tab_interference_mm3": 0.0,
       "receiver_interference_mm3": 0.0
     }
