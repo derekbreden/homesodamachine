@@ -82,11 +82,11 @@
     "WR1110_LOOP": "83.7 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,406.03",
+    "BOM_GRAND": "$1,406.74",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$36.38",
     "BOM_SEC12": "$37.50",
-    "BOM_SEC13": "$16.54",
+    "BOM_SEC13": "$17.25",
     "BOM_SEC14": "$4.29",
     "BOM_SEC2": "$197.07",
     "BOM_SEC3": "$227.96",

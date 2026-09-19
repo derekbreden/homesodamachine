@@ -1,14 +1,50 @@
 {
   "_meta": {
     "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-18; latest invoice and shipment-banner verification 2026-09-18 (the 3P and 5P 22 AWG ribbon spools, and the two 2026-09-02 ruthex insert orders)",
-    "orders": 360,
-    "ordered/total": "ordered present for all 360; total present for 360 — the three cancelled orders were never charged",
+    "orders": 363,
+    "ordered/total": "ordered present for all 360; total present for 363 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the three September 18 fastener orders (M3 × 60, M3 × 20, M3 washers) read from their own invoices",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-5107616-8144245": {
+      "ordered": "2026-09-18",
+      "subtotal": 9.49,
+      "shipping": 0.0,
+      "tax": 0.69,
+      "total": 10.18,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-18",
+      "expected_delivery": "2026-09-20",
+      "tax_estimated": true
+    },
+    "112-0416491-0117835": {
+      "ordered": "2026-09-18",
+      "subtotal": 7.59,
+      "shipping": 0.0,
+      "tax": 0.55,
+      "total": 8.14,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-18",
+      "expected_delivery": "2026-09-20",
+      "tax_estimated": true
+    },
+    "112-2270140-6656239": {
+      "ordered": "2026-09-18",
+      "subtotal": 5.99,
+      "shipping": 0.0,
+      "tax": 0.43,
+      "total": 6.42,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-18",
+      "expected_delivery": "2026-09-20",
+      "tax_estimated": true
+    },
     "112-4810974-5145053": {
       "ordered": "2026-09-17",
       "subtotal": 18.98,
