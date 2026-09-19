@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,12 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "relay-1 \u2229 enclosure-back-top   270.1 mm\u00b3, x[   84.75,   98.25] y[  252.50,  322.50] z[  328.70,  345.70]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -108,12 +106,11 @@
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 under, tightest 0.900 mm",
+   "status": "pass",
+   "value": "0 under, tightest 1.001 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "seaflo-pump \u2014 nameplate: 0.900 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -157,6 +154,7 @@
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "keystone-jack \u2014 bulkhead-ring-carb: 1.001 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
+    "seaflo-pump \u2014 nameplate: 1.100 mm",
     "carb-1 \u2014 suction-chain: 1.113 mm",
     "fluid-4 \u2014 coil-v-b: 1.226 mm",
     "water-3 \u2014 enclosure-front-top: 1.326 mm",

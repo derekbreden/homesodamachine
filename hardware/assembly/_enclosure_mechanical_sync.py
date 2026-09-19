@@ -263,10 +263,6 @@ def main():
         # between the two seats, taken off the same two depths the facet is cut to, so the
         # doc quotes the gap the ring fills rather than a figure typed beside it.
         "DISPLAY_GASKET_T": f"{_dgasket.thickness:g} mm",
-        # The head seat the plate's two screws land in — the same counterbore every seam screw
-        # in the box takes, recessed the way the cold core's cap lids recess theirs.
-        "DISPLAY_CBORE_D": f"{_enc.head_cbore_dia:g}",
-        "DISPLAY_SEAT_RECESS": f"{_enc.display_cover_seat_recess:g} mm",
         # The funnel corridor `fluid-4` falls down, and the gate it stands in.
         "FUNNEL_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm",
         "FUNNEL_NEAR_A": _coil_a,

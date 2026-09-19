@@ -465,15 +465,15 @@ neither can drift from the other while they read one function.
 fade is what makes the texture look made rather than applied, and the fade is a FIELD OVER THE
 SURFACE — how far a station stands from the nearest place the show face ends. A boundary
 representation can carry a fade that runs level, because a level fade is a loft; it cannot carry
-one that follows an opening's rim, a pocket's edge and the display facet's diagonal arris all at
-once. So the STEP is a plain box and [flute_skin.py](/hardware/printed-parts/cadlib/flute_skin.py) cuts the flutes into the
+one that follows an opening's rim, a pocket's edge and the rounded display surround all at
+once. So the STEP is a smooth body and [flute_skin.py](/hardware/printed-parts/cadlib/flute_skin.py) cuts the flutes into the
 mesh on the way to the bed. Everywhere else on the machine the STEP is the whole of the part;
 here it is not, and the `.stl` beside it is.
 
 **Nothing tells it where an edge is.** At every station it asks the piece whether it has
 material AT the nominal plan — by level cut, not by naming features — and takes a distance
 transform of the answer. A flank opening, a port chip's seat, the nameplate's pocket, the bay's
-own mouth, the seam a piece simply ends on, the bed, the top arris and the facet's 45° arris are
+own mouth, the seam a piece simply ends on, the bed, the rounded top and display surround are
 one fact to it, and every one of them gets the same ramp over [5 mm](FLUTE_RISE), on the same
 smoothstep the coupon fades on. There is no list of edges anywhere, because there is nothing to
 list.
@@ -528,7 +528,7 @@ four walls, and the change in what it lays under the groove reads THROUGH to the
 mark you can find with a fingertip. What a groove leaves is [1.8 mm](FLUTE_LEFT), and
 **`flute-backed`** reads every stated section on a fluted face against the rule — with two of
 them computed rather than typed, because the survey that measured this found them and the file
-had not stated them: `facet-arris-backed` for the ligament under the display facet's arris, and
+had not stated them: the measured backing below the front curve, and
 `east_boss_bore_end` for an insert bore behind a corner round, where the turn carries the
 surface inboard of the plane the bore was struck on.
 
@@ -1460,63 +1460,34 @@ the print's top surface.
 
 ## Display housing
 
-A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries
-the [Waveshare ESP32-S3-Touch-LCD-4.3B enclosure display](/hardware/reference/waveshare-43b-display/)
-facing up-and-forward (−Y front / +Z up) toward the standing user. The display is
-**centred** on it: the box is 223 mm wide and the glass 113.5, so what is left is
-roughly 55 mm of flat 45° face either side of the window.
+The machine display sits on a 30° plane within the enclosure's 215 × 462 × 361 mm
+outside dimensions. An R12 tangent curve joins that plane to the front wall, and
+an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
+top edge remains square. The flat display plane is 87 mm long along its slope;
+the front curve begins about 15.5 mm above the pump cartridge.
 
-Spending the whole width on it costs nothing — the chamfer is inside the box's own
-silhouette, so that corner is unpackable at any width — and the geometry gets
-simpler for it. There is no end wall closing a recess, no shoulder where a window
-stops, and no bed relief on the arris a shoulder would raise. The window's lateral
-size is the box's; `display_facet_x` is what the *glass plus its buffer* needs —
-[158 mm](DISPLAY_FACET_X) × [87.5 mm](DISPLAY_FACET_SLOPE) up the slope — which is
-what `main()` prints beside the measured face.
+The rounded PET-GF display cover measures 125.5 × 83 mm with R6 corners. It seats
+flush in a 126.1 × 83.6 mm rounded inset, with 0.3 mm clearance around its edge.
+Its 107.5 × 71 mm window laps the Waveshare 4.3B glass through the 1 mm TPU gasket.
+The glass face sits 3 mm below the display plane; its back sits at 4 mm. The PCB
+passes through the housing behind it, offset 0.5 mm laterally and 1 mm down the slope.
 
-The facet is thickened into a 19 mm housing (the display's overall depth) with
-the display let in. The glass is the datum: a shallow 2 mm bezel counterbore,
-centred on the box (corners rounded 2.5 mm to match the glass), recesses the
-glass with the 3 mm buffer uniform all around. The glass overhangs the body
-unevenly (further up-and-left), so the 106 × 69 mm PCB through-hole sits offset
-the opposite way; where a socket collar sits behind the facet, the hole takes it
-clean through.
+Two broad flexible skirts on the cover engage rigid recesses inside the housing.
+The visible cover face is 2 mm thick; each skirt is 2 mm thick, runs 24 mm along
+the display and reaches 34 mm below the face. A gradual lead-in and 3 mm retaining
+lip engage the housing by 1.8 mm, with 0.35 mm nominal inward preload and 0.48 mm
+clearance above the shoulder. The bezel prints face upward with supports on its hidden
+underside. Seating and retention still require a physical print check.
 
-The whole housing is cut into the box itself, flush with the front wall: the
-facet chamfers the top-front corner away and the back plane stands one housing
-depth behind it. Both are the housing's own 45° planes — the facet above, the back
-plane as its soffit — so the frame holds one constant thickness through the
-corner. The display reference is seated in the housing by
-[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py), on the same
-`display_centre_x` the counterbore reads, so the housing and the part in it cannot
-land on two different centres.
+The 19 mm housing and its internal ridge join the side walls and the pump-bay
+bulkhead. The ridge's cavity-side roof is one plane around the funnel's rounded
+clearance envelope. Supports carry the housing underside and the hidden retaining
+surfaces; their geometry preserves the display seats and the snap shoulders.
 
-Printed Z−-down the housing's two planes are the facet, facing up, and its back
-plane as the soffit, facing down — both at 45° to the bed, which is the angle
-everything else on this box is relieved to, so the soffit lays on itself and
-neither takes support.
-
-**One line in that soffit is not a face and does not lay on itself.** The PCB
-through-hole's up-slope end wall breaks out of the back plane, and the two surfaces
-meeting there both point *down* — so the line is the bottom vertex of a wedge. Either
-side of it is 45° and lays itself once the line exists; the line is the one bead on this
-piece with nothing under it, and it runs the hole's full [106.3 mm](RIDGE_LEN). It stands
-in the cavity behind the housing, which is closed on five sides by the time the piece
-leaves the bed, so it cannot be reached with support and is built instead.
-
-A [3 mm](RIDGE_WALL_T) rib (`_ridge_wall`) carries it — from the tee wall's crown up to
-that same back plane, **wall to wall**, under the line over the whole of it. **Its fore face
-is two planes the box already has and no third one**: below the jog, the bay's own back
-carried straight up off the crown, so the storey over the bay reads as the same plane the
-bay does; above it, the hole's own end wall carried on past the soffit, which is 45° and is
-the plane the display's body already lies against. Where the two meet is read, not chosen.
-
-The rib's cavity-side roof is **one flat plane** from its wall-to-wall aft crown toward the
-funnel opening. At the crown it spans front-top's two flank faces; toward the opening the
-ceiling corbels absorb its sides. The descending funnel chute takes one body-shaped notch from
-that plane with [0.25 mm](FUNNEL_COLLAR_AIR) of running air in plan. The roof remains one
-connected planar face around the notch, reaches both front opening corners, and has zero volume
-inside the funnel keepout.
+The vertical flutes fade over their existing 5 mm end field as the front and sides
+turn into the smooth top curves. The rounded display bezel and funnel rim remain
+smooth. Print meshes use a 0.005 mm absolute surface tolerance and 0.05 radian
+angular tolerance before the flute field is cut.
 
 **Running it to the flanks closes the storey, and two electrical paths cross.** The **pump jack**
 owns the centreline a hand finds behind the display, directly above the valves: a RiteAV RJ11
@@ -1568,46 +1539,25 @@ sloped face from the clip's fore end through the seam rather than three with ste
 
 ## Funnel opening
 
-One rectangular opening spans the top wall **directly behind the display
-housing**, where the removable silicone funnel
-([`../../zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/))
-drops in — its straight chute running clear in the opening, its whole floor one
-ramp falling to the centred spout, its flat brim resting on the wall frame left
-around the cut.
+The removable silicone funnel sits in a rounded recess behind the display. Its
+6 mm brim is flush with the roof at Z355 and bears on a seat at Z349. A continuous
+6 mm section supports the brim, filling outward to the enclosure walls. Outside
+the brim's footprint, the surround keeps the existing ceiling pockets for the
+internal hardware. Both top quadrants carry their portion of the bearing. The ceiling tongue runs below the
+bearing section with 0.25 mm running clearance, and the six enclosure seam screws
+retain their existing axes.
 
-The funnel is a static placed part: `_funnel_hole` reads the funnel's own collar at
-`enclosure_assembly.funnel_centre()`, and `_funnel_cut_plan` adds
-[0.25 mm](FUNNEL_COLLAR_AIR) on each plan face. That opening continues downward as the
-funnel's filled outer chute, ramp and spout envelope, so neither printed shell nor roof stock
-can occupy the silicone or liquid volume. The frame that cut leaves is bounded by the
-facet's own back plane ahead (the collar's front edge stands on it), the ±X
-boss chains either side, and the +Y wall of back-top behind — and the collar is measured
-one `brim_margin` inside it on all four sides at once, so a placement that crowds an
-edge is a red row naming the edge and the margin it is short. That margin
-is the brim's landing: it is wider than the flange's overhang, so a full
-overhang's width of wall remains outboard of the brim edge the whole way around.
-
-The funnel stands on the box's own stated **`funnel_front_y`** and takes the top
-wall's full width, because the facet in front of it spans the machine and there is
-nothing beside it to leave room for. The frame's two side strips on the front top are
-corbelled (`_ceiling_corbels`): a 45° underside off each ±X wall to nothing at the
-opening's edge. Over the seam's ceiling tongue a funnel-side ramp rises from the top
-collar's chain face and a wall-side ramp rises from the plug tip to the socket cap, so
-the complete tongue and every ceiling layer land on the one below. THE FUNNEL IS WHERE
-THE USER POURS, so that
-plane stands as far forward as the wall lets it — which is the display housing's own
-back cut — and what fences THAT is the brim rather than the throat: the flange
-overhangs the collar and has to land on top wall, and the top wall begins at the
-facet's own arris. `funnel-brim-lands` is the reading, and the ledge the facet
-leaves the throat is read back as a bound on the frame above. The funnel reaches aft for the plan area its
-capacity needs — which puts it **across the Y seam**. Both halves take their share
-of the cut and the collar bridges it; what the seam gives up there is its top-wall
-lip over the hole's span, which the mouth shelf's own relief already accounts for.
+The opening follows the funnel's rounded collar, ramp and outlet with
+[0.25 mm](FUNNEL_COLLAR_AIR) running clearance. The drain remains at
+X1.85, Y156.5, Z303.0508. The inlet basin is wider than its depth and falls toward
+that forward outlet; its whole rounded brim is inset. The silicone funnel and its
+casting molds share the same source geometry in
+[`zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/).
 
 ## back-top's ceiling
 
 back-top's ceiling is **one slab, and it is the face the piece prints on.** The exterior
-top stays at z 355 and the rear storey's established pack lane at z [352](CEILING_LANE):
+top is at z 355 and the rear storey's established pack lane at z [352](CEILING_LANE):
 every body, port and anchor station under the ceiling is struck on that lane. The slab
 carries [12 mm](BACK_TOP_CEILING_T) of section from the show face inward, to z
 [343](BACK_TOP_CEILING_FACE), between the grown flanks and from the Y telescope's end to

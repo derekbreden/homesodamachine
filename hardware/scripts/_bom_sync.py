@@ -245,17 +245,10 @@ cond_screws_per_build = cond_inserts_per_build
 nameplate_inserts_per_build = 0
 nameplate_screws_per_build = 0
 
-# Display cover-plate hardware (assembly/enclosure-mechanical.md §8). THE PLATE IS THE
-# DISPLAY'S ONLY FASTENING, so this pair of stations is what holds the screen in the facet.
-# They are a mirrored pair on the facet's centreline at ±`enclosure.display_screw_x`:
-# `enclosure._display_cuts` sinks a pad pocket at each and bores a ruthex short under its
-# floor, and `display_cover` stands one pad on each — so the plate and the inset are cut for
-# the same stations or neither drops into the other.
-display_cover_stations = tuple(s * _enc.display_screw_x for s in (-1.0, +1.0))
-display_cover_inserts_per_build = len(display_cover_stations)
-# One M3 × 8 down each — the same screw the shelf's sixteen, the condenser's two and the
-# nameplate's two are, reaching the land, the insert and the relief bored under it.
-display_cover_screws_per_build = display_cover_inserts_per_build
+# The machine display cover is retained by its two printed skirts.
+display_cover_stations = ()
+display_cover_inserts_per_build = 0
+display_cover_screws_per_build = 0
 
 # The pump clamp's two, read off its centre lane. ONE TOP CLAMP CLOSES ON BOTH STAMPED
 # BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
@@ -286,7 +279,7 @@ c14_screws_per_build = c14_inserts_per_build
 _display_stack = {"display-cover", "display-gasket"} - set(_f.bodies)
 assert not _display_stack, (
     f"the machine no longer stands {sorted(_display_stack)} — bom.md §7 bills the display's "
-    f"cover plate and its gasket, and §13 bills the plate's two inserts and two M3 × 8")
+    f"snap-retained cover and its gasket")
 
 # The enclosure's own SEAM SCREWS — the Y seam's cross-pins, the box's ONLY screws, and
 # the heat-sets they land in. Every one drives from a ±X EXTERIOR face, so the bench

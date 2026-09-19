@@ -6,9 +6,9 @@ cover glass.
 Material: Bambu TPU 90A (black), from the same per-unit-trivial stock as the
 foam-cap and reservoir gaskets.
 
-The plate's underside lies [2 mm](PLATE_UNDERSIDE) below the 45° face and the glass's
+The plate's underside lies [2 mm](PLATE_UNDERSIDE) below the display plane and the glass's
 front face [3 mm](GLASS_FACE_DEPTH) below it. This fills what is between them, so the
-two screws in the plate draw down onto the glass rather than over it, and the face a
+snap-retained cover bears on the glass through the soft ring, and the face a
 customer wipes closes at its edge.
 
 ## The ring
