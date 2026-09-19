@@ -2,12 +2,13 @@
 
 import math
 import cadquery as cq
+import _enclosure_interface as dims
 
 ANGLE = 30.0
 FLAT = 87.0
-FRONT_RADIUS = 12.0
-TOP_RADIUS = 18.0
-SIDE_RADIUS = 6.0
+FRONT_RADIUS = dims.show_corner_r
+TOP_RADIUS = 3.0 * dims.show_edge_r
+SIDE_RADIUS = dims.show_edge_r
 FUNNEL_SEAT = 6.0
 
 
