@@ -680,8 +680,21 @@ readings are recorded per body: its build-up, the vertical distance from its own
 first model interface, and its root, the print bed or model material.
 
 **These are measurements of one slice, and none of them ranks a design.** Connected bodies and
-interface islands describe the support topology. Removal effort, trapped branches and contact
-finish are observations from the physical print.
+interface islands describe the support topology. Neither build-up nor root kind says anything
+about what it costs to get the support off. Removal effort, trapped branches and contact finish
+are read on the physical print and nowhere else.
+
+**What decides removal is the lane, not the reading.** A body comes away easily when its faces
+stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
+It fights when it is walled on several sides, when a branch re-enters a pocket behind its own
+interface, or when the hardware goes in first. The Z-seam catches are the case that separates
+the two: model-rooted, with the shortest build-up on their pieces — the two marks a reader
+scanning the table would stop on — and among the easiest supports on the enclosure to remove.
+The groove beneath a catch is open air from the arm's sliding face out past the exterior plane,
+so what stands in it is a ribbon running the whole rail with one face fully exposed, nothing
+over it and no branch turning back into anything. It peels off the flank in a single pull. A
+stub of the same build-up inside a 3 mm tie channel is a different job entirely. The ledger
+records each body's lane, and what removing it took where the piece has been printed and pulled.
 
 What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
 the bed — the bottoms on their floors, front-top on its mouth — the bed and the model are two
@@ -719,11 +732,14 @@ solid, passage, clearance and motion checks read the assembled geometry.
 component, shorten a guide, narrow a bearing, reduce retention or alter a working envelope merely
 because the other numeric gates still pass. Those are design changes reviewed on their own. If an
 independent design change moves a component, the support audit measures the consequence; support
-count is never the reason that makes the move valid. Preserve the feature and add the smallest
-printed support geometry that carries it, or accept slicer support. Every support which remains in a production slice is named with its
-piece, contact region, root kind, build-up and the geometric or functional reason it cannot be
-removed. This policy applies to every printable part in the enclosure assembly, not only the
-four shell quadrants.
+count is never the reason that makes the move valid. Preserve the feature. Where the support
+leaves cleanly, take the support: an accessible body is not a debt and is not designed away.
+Where the lane is bad — walled, re-entrant, or under hardware that goes in first — add the
+smallest printed geometry that carries the face, a corbel or a column, never a slope across a
+working face. Every support which remains in a production slice is named with its piece, contact
+region, root kind, build-up, the reason the face keeps the shape it has, and the lane the support
+leaves through. This policy applies to every printable part in the enclosure assembly, not only
+the four shell quadrants.
 
 [`support-audit.json`](support-audit.json) associates each piece with its production profile and
 retained slice reading. Each reading identifies its model, profile and G-code by digest. It is
@@ -765,14 +781,18 @@ build item carries a half turn about X, the crown on the bed.
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 105.40 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
-| `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.60 mm** |
-| `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
-| `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
+| `enclosure-back-bottom` | 4 | 5 | 3 bed, 1 model | 8.60 mm |
+| `enclosure-front-bottom` | 4 | 4 | 2 bed, 2 model | 8.00 mm |
+| `enclosure-back-top` | 12 | 35 | 5 bed, 7 model | 1.20 mm |
+
+None of these columns orders the pieces by what their supports cost to remove. Each body's own
+lane, and the bench reading where one has been pulled, are in
+[`support-audit.json`](support-audit.json).
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
-reaches one interface after **105.40 mm** and leaves directly through its open side pocket.
+reaches one interface after 105.40 mm and leaves directly through its open side pocket.
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
-clamp-screw counterbore under its head seat after **8.80 mm**; each leaves through the
+clamp-screw counterbore under its head seat after 8.80 mm; each leaves through the
 counterbore's mouth on the bed face. On front-top every body roots on the print bed and stands
 32 mm or more before it touches the model. Front-top has one tree under the pump-bay lintel, one joining
 both spring bores, the upper web bearings, all four well crowns and the pump-jack roof, and one
@@ -781,15 +801,19 @@ Remove those branches through the empty cartridge bay, tee wells and aft carrier
 before installing the hardware. Each carrier half exposes the flat undersides of its fore shoulder, seam-rail relief and
 central lap. Their removable support is accessible from the loose half's underside before assembly.
 Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
-Each has **34.20 mm** of build-up and comes out through the open bottom. The other bottom-quadrant supports carry one feature
+Each has 34.20 mm of build-up and comes out through the open bottom. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
-into two interface islands. The other three have no such lane and root on the arm's own 45°
-under-flare below the catch they carry: **8.00 mm** for front-bottom's pair and **8.60 mm**
-for back-bottom's east catch. These are the material-rooted bodies on the two bottoms.
+into two interface islands. The other three have no lane to the bed and root on the arm's own 45°
+under-flare below the catch they carry: 8.00 mm for front-bottom's pair and 8.60 mm
+for back-bottom's east catch. These are the material-rooted bodies on the two bottoms, and the
+reading says nothing about what they cost: the groove under a catch is open air from the arm's
+sliding face out past the exterior plane, so each of the four stands on the outside of its flank
+with a face exposed down the whole run. Front-bottom's pair is printed and pulled — the easiest
+support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **12 bodies** over **35 islands**, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.60 mm** below.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with 12 bodies over 35 islands, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is 1.20 mm, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with 28.32 mm of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with 185.28 mm of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.60 mm below.
 
 ## Print orientation + corner relief
 
