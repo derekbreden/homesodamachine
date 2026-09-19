@@ -137,3 +137,9 @@ click: x=0.000 y=232.625 z=349.000
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=83.868 y=459.590 z=255.850
 click: x=-7.547 y=459.590 z=255.850
+
+[sliver] These narrow faces bound the regulator hub's 1.573 mm-deep clearance pocket; they are edges of a recess in the thick flank. The pocket retains 7.427 mm of nominal wall and 6.227 mm at the deepest exterior flute. Its lower return is 45 degrees, and the locating barrel seat and both supporting columns retain their complete sections.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-99.287 y=240.140 z=319.322
+click: x=-99.287 y=247.290 z=315.539
+click: x=-99.287 y=232.990 z=315.539

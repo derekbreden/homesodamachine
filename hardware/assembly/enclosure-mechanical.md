@@ -217,9 +217,9 @@ so the silicone sits flush with the roof.
 
 The centered 600 mL funnel feeds V-B through `fluid-4`. The elbow points forward;
 the tube turns west, passes around the lowered source valves and returns to V-B.
-Its nearest bodies are [coil-v-b](FUNNEL_NEAR_A) and [coil-v-a](FUNNEL_NEAR_B),
-with **[1.226 mm](FUNNEL_LANE_SIDE)** minimum air around the
-[Ø6.35](FUNNEL_TUBE_D) tube. The assembly's `clearance-floor` check
+The [Ø6.35](FUNNEL_TUBE_D) tube's nearest unconnected hardware body is
+[discharge-chain](FUNNEL_NEAR_A), with **[4.621 mm](FUNNEL_LANE_SIDE)** air.
+The assembly's `clearance-floor` check also includes other tubes and printed pieces and
 [currently passes](FUNNEL_GATE_STATUS). Keep the tube on its drawn route and
 remove any support nibs intruding into that air. The line includes a rise below
 the spout; prove drain and purge behaviour during the assembled fluid trial.

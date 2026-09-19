@@ -105,12 +105,10 @@ def main():
         raise ValueError(
             "no `fluid-4` is drawn — the funnel-corridor paragraph in enclosure-mechanical.md "
             "describes a tube the machine no longer has, so it needs rewriting, not resyncing.")
-    # THE CORRIDOR'S TWO PINS ARE WHATEVER THE FALL RUNS NEAREST, off the same rows
-    # `clearance-floor` grades — `lane_notes`' own reading of a lane, without its floor. The two
-    # are read here and named into the paragraph, so a fall that changes lanes rewrites its own
-    # sentence rather than needing one.
+    # The nearest unconnected hardware body is read from the placed run. Other
+    # tubes and printed pieces remain covered by the complete clearance gate.
     _funnel_near = [(g, other) for other, g in _F.near("fluid-4")]
-    (_side_a, _coil_a), (_side_b, _coil_b) = _funnel_near[:2]
+    _side, _neighbour = _funnel_near[0]
     _funnel_gate = _F.check("clearance-floor")
 
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box["outer"]
@@ -264,9 +262,8 @@ def main():
         # doc quotes the gap the ring fills rather than a figure typed beside it.
         "DISPLAY_GASKET_T": f"{_dgasket.thickness:g} mm",
         # The funnel corridor `fluid-4` falls down, and the gate it stands in.
-        "FUNNEL_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm",
-        "FUNNEL_NEAR_A": _coil_a,
-        "FUNNEL_NEAR_B": _coil_b,
+        "FUNNEL_LANE_SIDE": f"{_side:.3f} mm",
+        "FUNNEL_NEAR_A": _neighbour,
         "FUNNEL_TUBE_D": f"Ø{_funnel_run.diam:g}",
         "FUNNEL_GATE_STATUS": (
             "currently reports red" if _funnel_gate.status == "fail" else "currently passes"),

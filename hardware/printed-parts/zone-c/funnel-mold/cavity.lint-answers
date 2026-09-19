@@ -1,26 +1,26 @@
 [step] The opening notch is recessed 1 mm into the parting land and opens through the flange edge. Its 4 mm floor carries a blunt opening tool.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-103.000 y=0.000 z=74.949
+click: x=-103.000 y=0.000 z=78.935
 
 [sliver] These are the vertical backs and sides of the four 1 mm high, 16 mm wide opening notches. Each notch retains a 4 mm flange floor and opens through the outer edge.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=-100.500 y=0.000 z=75.449
-click: x=0.000 y=-100.502 z=75.449
-click: x=0.000 y=100.501 z=75.449
-click: x=100.500 y=0.000 z=75.449
-click: x=8.000 y=-103.000 z=75.449
-click: x=8.000 y=103.000 z=75.449
-click: x=-103.000 y=7.998 z=75.449
-click: x=103.000 y=7.998 z=75.449
-click: x=-103.000 y=-7.999 z=75.449
-click: x=103.000 y=-7.999 z=75.449
-click: x=-8.000 y=-103.000 z=75.449
-click: x=-8.000 y=103.000 z=75.449
+click: x=-100.500 y=0.000 z=79.435
+click: x=0.000 y=-100.501 z=79.435
+click: x=0.000 y=100.501 z=79.435
+click: x=100.500 y=0.000 z=79.435
+click: x=8.000 y=-103.000 z=79.435
+click: x=8.000 y=103.000 z=79.435
+click: x=-103.000 y=7.999 z=79.435
+click: x=103.000 y=7.999 z=79.435
+click: x=-103.000 y=-7.999 z=79.435
+click: x=103.000 y=-7.999 z=79.435
+click: x=-8.000 y=-103.000 z=79.435
+click: x=-8.000 y=103.000 z=79.435
 
 [ceiling] The 5 mm clamping flange overhangs the mold shell. Supports carry its flat underside and remain exposed around the outside for removal before finishing the mold.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=70.949
+click: x=0.000 y=0.000 z=74.935
 
 [ceiling] The flat underside of the brim shell is backed by 5 mm of mold stock. Supports carry this annular face and are accessible from the open dry back before finishing the forming surfaces.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
-click: x=0.000 y=0.000 z=64.649
+click: x=0.000 y=0.000 z=68.635
