@@ -1,0 +1,75 @@
+<div id="nameplate-cohesive-study" aria-label="Nameplate compositions with a continuous reading order">
+  <div class="viz-row" role="group" aria-label="Composition">
+    <button type="button" class="btn" data-show="all" aria-pressed="true">All six</button>
+    <button type="button" class="btn" data-show="O" aria-pressed="false">O · reference</button>
+    <button type="button" class="btn" data-show="S" aria-pressed="false">S</button>
+    <button type="button" class="btn" data-show="T" aria-pressed="false">T</button>
+    <button type="button" class="btn" data-show="U" aria-pressed="false">U</button>
+    <button type="button" class="btn" data-show="V" aria-pressed="false">V</button>
+    <button type="button" class="btn" data-show="W" aria-pressed="false">W</button>
+    <button type="button" class="btn" data-show="X" aria-pressed="false">X</button>
+  </div>
+  <div class="viz-row comparison-control">
+    <label class="form-check">
+      <input class="form-check-input" type="checkbox" name="compare">
+      <span class="form-check-label">Compare with O</span>
+    </label>
+  </div>
+  <div class="nameplate-gallery" aria-live="polite">
+    <!-- PLATES -->
+  </div>
+  <div class="viz-row text-small text-muted">
+    <span>104.53 × 66.07 mm</span><span>21 × 21 QR · 0.9 mm modules</span>
+  </div>
+</div>
+<style>
+  #nameplate-cohesive-study .nameplate-gallery {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px;margin:16px 0}
+  #nameplate-cohesive-study .nameplate-gallery.single {grid-template-columns:1fr}
+  #nameplate-cohesive-study .comparison-control {margin-top:10px}
+  #nameplate-cohesive-study figure {margin:0;min-width:0}
+  #nameplate-cohesive-study figure[hidden] {display:none}
+  #nameplate-cohesive-study figcaption {margin-bottom:8px;color:var(--foreground)}
+  #nameplate-cohesive-study .nameplate {display:block;width:100%;height:auto}
+  @media (max-width:580px) {#nameplate-cohesive-study .nameplate-gallery {grid-template-columns:1fr}}
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('nameplate-cohesive-study');
+    const gallery = root.querySelector('.nameplate-gallery');
+    const figures = [...gallery.querySelectorAll('figure')];
+    const buttons = [...root.querySelectorAll('[data-show]')];
+    const compare = root.querySelector('input[name="compare"]');
+    const state = {layout:'all', unit:'drawn'};
+    function render() {
+      const paired = compare.checked && state.layout !== 'all' && state.layout !== 'O';
+      gallery.classList.toggle('single', state.layout !== 'all' && !paired);
+      figures.forEach(figure => {
+        const key = figure.dataset.layout;
+        figure.hidden = !(state.layout === 'all' ? key !== 'O' :
+          key === state.layout || paired && key === 'O');
+      });
+      buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.show === state.layout)));
+      root.querySelectorAll('.unit-option').forEach(group => {
+        const form = state.unit === 'drawn' ? group.dataset.default : state.unit;
+        group.style.display = group.dataset.unit === form ? 'inline' : 'none';
+      });
+    }
+    buttons.forEach(button => button.addEventListener('click', () => {
+      state.layout = button.dataset.show;
+      if (state.layout === 'all' || state.layout === 'O') compare.checked = false;
+      render();
+    }));
+    compare.addEventListener('change', () => {
+      if (compare.checked && (state.layout === 'all' || state.layout === 'O')) state.layout = 'S';
+      render();
+    });
+    render();
+    if (globalThis.Tweak) {
+      const tweak = new Tweak({container:root,onChange:render});
+      tweak.addSelect(state,'unit',{label:'Unit wording',options:[
+        {label:'As drawn',value:'drawn'}, {label:'0001',value:'number'},
+        {label:'NO. 0001',value:'prefix'}
+      ]});
+    }
+  })();
+</script>

@@ -1,5 +1,44 @@
 # Nameplate QR studies
 
+## Design brief
+
+O · Tall name is the preferred reference. The name reads as a continuous
+`HOME SODA MACHINE`, followed by `NO. 0001` or `0001`. All three words share one
+font size within each composition. The mark and code fit around that reading
+sequence. White artwork sits on the black plate; no inverted identification field
+or lettered domain is specified. The nameplate uses concealed retention in these
+studies, with ordinary ratings on a separate permanent field.
+
+## S–X · Name and number
+
+[Six compositions](nameplate-cohesive.html) explore the reading sequence at the
+existing 104.53 × 66.07 mm size. The comparison can show any candidate beside O.
+Its design control switches the unit wording between `0001` and `NO. 0001`;
+both versions have checked artwork bounds and QR quiet zones.
+
+| Layout | Arrangement | Name em |
+| --- | --- | --- |
+| [S · Four-line name](s-four-line-name.svg) | Number continues the right-hand name column; mark and code at left | 12.4 |
+| [T · Name first](t-name-first.svg) | Name and number at left; mark and code at right | 12.4 |
+| [U · Two lines](u-two-lines.svg) | HOME SODA above MACHINE 0001; mark and code above the wording | 13.2 |
+| [V · One continuous phrase](v-one-continuous-phrase.svg) | Complete name on one line, with identification directly below | 8.4 |
+| [W · Full-height mark](w-full-height-mark.svg) | Large mark beside a compact, unbroken three-line name | 11.4 |
+| [X · Number on the last line](x-number-on-the-last-line.svg) | Three-line name under the mark, ending in MACHINE 0001 | 13.0 |
+
+The name uses outlined Helvetica Bold. The smallest alternate serial is em 6.5.
+Every QR is white on black, with 21 × 21 active modules, 0.9 mm pitch and a
+four-module quiet zone (26.1 mm overall). Apple Vision decodes all twelve
+1254 × 793 renders, covering both unit wordings, to `HTTPS://HOSM.US/0001`.
+The artwork and browser checks do not establish physical print or scan results.
+
+```sh
+tools/cad-venv/bin/python future/nameplate-qr-studies/cohesive.py
+```
+
+`--fragment-dir` writes the conversation comparison to a supplied directory;
+`--png-dir` renders both wordings of each composition. The generator rejects
+unequal brand-word sizes, overlaps, insufficient edge margins and visible domains.
+
 ## O–R · Concealed retention
 
 [Four compositions](nameplate-hidden.html) use the complete face, with no screw
