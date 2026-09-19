@@ -117,90 +117,100 @@
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "ASSE round seats and drip-pan sleeve and berth",
+          "name": "funnel brim seat, ASSE seats and pan berth, connector and identification pockets, west anchors and rail catches",
           "first_contacts_cad_xyz_mm": [
             [
-              -81.8,
-              341.1,
-              325.52,
-              -77.0,
-              355.5,
-              326.24
+              -89.0,
+              199.9,
+              349.52,
+              89.0,
+              264.7,
+              350.0
+            ],
+            [
+              55.8,
+              457.9,
+              327.2,
+              77.4,
+              467.1,
+              327.68
             ],
             [
               -81.4,
-              393.5,
-              323.6,
+              341.1,
+              325.28,
               -77.0,
+              354.7,
+              326.0
+            ],
+            [
+              55.0,
+              452.7,
+              325.28,
+              78.6,
+              458.3,
+              325.76
+            ],
+            [
+              -82.2,
+              393.1,
+              323.6,
+              -77.8,
               407.5,
               324.32
             ],
             [
-              -97.8,
-              346.3,
-              303.68,
-              -51.0,
-              436.3,
-              304.16
-            ],
-            [
-              -108.2,
-              349.5,
-              297.68,
-              -55.0,
-              433.1,
-              298.16
-            ],
-            [
-              -107.4,
-              353.9,
-              285.2,
-              -58.6,
-              429.1,
-              285.68
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 28.56,
-          "interface_islands": 5,
-          "rationale": "The two round seats locate the ASSE fitting; the sleeve lid, rim-rebate shoulders and berth floor retain and support the removable pan. Their working sections remain round or flat as required.",
-          "removal": {
-            "lane": "This bed-rooted tree reaches them through the open quadrant and pan openings.",
-            "bench": null
-          }
-        },
-        {
-          "tree": "tree-2",
-          "name": "west anchor faces, PRV mouth, rail catches and identification pockets",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -82.2,
+              -1.0,
               465.5,
               318.08,
-              -73.8,
+              7.0,
               467.9,
               318.8
             ],
             [
               -93.4,
-              219.9,
-              312.32,
-              -91.0,
+              220.3,
+              312.08,
+              -91.4,
               229.9,
-              312.8
+              312.56
             ],
             [
-              -102.2,
-              251.1,
+              -97.8,
+              345.9,
+              303.68,
+              -51.0,
+              436.7,
+              304.16
+            ],
+            [
+              -101.4,
+              250.3,
               301.28,
-              -91.4,
-              253.1,
+              -90.2,
+              253.9,
               301.76
             ],
             [
-              -93.4,
+              -107.8,
+              349.5,
+              296.72,
+              -55.0,
+              433.1,
+              297.2
+            ],
+            [
+              -107.4,
+              353.5,
+              284.96,
+              -59.0,
+              429.1,
+              285.44
+            ],
+            [
+              -94.2,
               246.3,
-              284.24,
+              284.0,
               -90.2,
               257.1,
               284.72
@@ -208,166 +218,264 @@
             [
               -97.8,
               281.9,
-              279.92,
+              275.84,
               -77.0,
               293.1,
-              280.4
+              276.32
             ],
             [
-              -103.8,
-              251.1,
-              279.2,
-              -98.2,
-              253.5,
-              279.68
+              -10.6,
+              453.5,
+              266.72,
+              57.4,
+              460.3,
+              267.2
             ],
             [
-              -82.2,
-              465.5,
-              255.68,
-              -73.8,
-              467.5,
-              256.4
+              67.8,
+              453.5,
+              266.72,
+              87.0,
+              460.3,
+              267.2
             ],
             [
-              -94.6,
+              -10.6,
+              454.7,
+              256.4,
+              -5.0,
+              464.3,
+              256.88
+            ],
+            [
+              81.4,
+              454.3,
+              256.4,
+              87.0,
+              465.1,
+              256.88
+            ],
+            [
+              -11.4,
+              465.1,
+              243.92,
+              88.6,
+              467.1,
+              244.4
+            ],
+            [
+              -93.4,
               314.3,
-              186.32,
+              186.08,
               -90.6,
               324.7,
-              186.8
+              186.56
             ],
             [
               -103.0,
-              219.1,
+              325.5,
+              169.28,
+              -98.6,
+              451.5,
+              169.52
+            ],
+            [
+              -103.0,
+              218.7,
               169.28,
               -98.6,
               313.5,
               169.52
             ],
             [
-              -102.6,
-              325.5,
+              98.6,
+              218.7,
               169.28,
-              -98.6,
-              451.5,
+              103.0,
+              451.1,
               169.52
             ]
           ],
           "root": "bed",
-          "build_up_mm": 36.0,
-          "interface_islands": 10,
-          "rationale": "The water-split seat lip, flow-regulator crown, seat lip and tie-band flank, and flavour-line anchor flank retain their tube and tie clearances. The PRV mouth keeps its passage floor, the two west Z-seam foot faces bear against lift, and the identification pockets keep their locating arcs.",
+          "build_up_mm": 4.8,
+          "interface_islands": 22,
+          "rationale": "The funnel brim bears on its recessed flat seat. The ASSE round seats, pan sleeve and berth, connector and identification pockets, anchor tie faces and rail catches retain their complete locating, retaining or bearing sections.",
           "removal": {
-            "lane": "This bed-rooted tree reaches the ten contact islands through the open quadrant and its wall passages.",
+            "lane": "The connected branches are accessible through the funnel opening, open quadrant, pan openings and exposed rail grooves. Remove them before installing the funnel or internal hardware; the rail ribbons pull outward along the open flank grooves.",
+            "bench": null
+          }
+        },
+        {
+          "tree": "tree-2",
+          "name": "water-split anchor tie-band flank",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -104.2,
+              251.1,
+              279.2,
+              -98.2,
+              253.5,
+              279.68
+            ]
+          ],
+          "root": "model",
+          "build_up_mm": 22.32,
+          "interface_islands": 1,
+          "rationale": "The anchor keeps its round locating seat and the complete flank of its tie-band passage.",
+          "removal": {
+            "lane": "The tie passage opens into the empty quadrant; remove its support before placing the fitting and zip tie.",
             "bench": null
           }
         },
         {
           "tree": "tree-3",
-          "name": "the water-split rib's tie-band crown; the water-split rib's tie-band flank",
+          "name": "flow-regulator anchor tie-band flank",
           "first_contacts_cad_xyz_mm": [
-            [
-              -102.2,
-              223.9,
-              329.36,
-              -91.4,
-              226.3,
-              329.84
-            ],
             [
               -103.8,
               223.9,
               307.28,
-              -98.2,
+              -98.6,
               226.3,
               307.76
             ]
           ],
           "root": "model",
-          "build_up_mm": 12.48,
-          "interface_islands": 2,
-          "rationale": "Roots on the ceiling slab's interior face and reaches 2 interface island(s): the water-split rib's tie-band crown; the water-split rib's tie-band flank.",
+          "build_up_mm": 22.32,
+          "interface_islands": 1,
+          "rationale": "The regulator anchor keeps its round locating seat, full supporting columns and tie-band passage.",
           "removal": {
-            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "lane": "The tie passage opens into the empty quadrant; remove its support before placing the fitting and zip tie.",
             "bench": null
           }
         },
         {
           "tree": "tree-4",
-          "name": "the ASSE tie cavity's lower threshold",
+          "name": "ASSE tie-cavity lower threshold",
           "first_contacts_cad_xyz_mm": [
             [
               -101.0,
               359.1,
-              322.4,
+              322.16,
               -98.2,
               389.5,
-              322.88
+              322.64
             ]
           ],
           "root": "model",
-          "build_up_mm": 28.32,
+          "build_up_mm": 28.56,
           "interface_islands": 1,
-          "rationale": "Roots on the ceiling slab's interior face and reaches 1 interface island(s): the ASSE tie cavity's lower threshold.",
+          "rationale": "The rectangular threshold retains the complete lower section of the ASSE tie cavity.",
           "removal": {
-            "lane": null,
+            "lane": "The tie cavity is open across the loose quadrant; remove the support before installing the ASSE assembly.",
             "bench": null
           }
         },
         {
           "tree": "tree-5",
-          "name": "an identification-chip pocket's lower arc; the keystone pocket's floor; the keystone snap catch",
+          "name": "flow-regulator anchor tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
-              -41.8,
-              465.5,
-              318.08,
-              -33.4,
-              467.5,
-              318.8
-            ],
-            [
-              -44.6,
-              463.1,
-              296.24,
-              -31.0,
-              467.9,
-              296.72
-            ],
-            [
-              -44.6,
-              459.1,
-              293.84,
-              -31.0,
-              463.5,
-              294.32
-            ],
-            [
-              -41.8,
-              465.5,
-              255.68,
-              -33.8,
-              467.9,
-              256.4
+              -101.0,
+              223.9,
+              329.36,
+              -91.4,
+              226.3,
+              329.84
             ]
           ],
-          "root": "bed",
-          "build_up_mm": 36.0,
-          "interface_islands": 4,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): an identification-chip pocket's lower arc; the keystone pocket's floor; the keystone snap catch.",
+          "root": "model",
+          "build_up_mm": 12.48,
+          "interface_islands": 1,
+          "rationale": "The flat crown bridges the regulator anchor tie-band passage without changing its locating seat.",
           "removal": {
-            "lane": null,
+            "lane": "The narrow support leaves through the open tie-band passage before the fitting and tie are installed.",
             "bench": null
           }
         },
         {
           "tree": "tree-6",
-          "name": "a flow-meter anchor's tie-band crown",
+          "name": "west identification-chip pocket lower arcs",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -82.2,
+              465.5,
+              317.84,
+              -73.8,
+              467.9,
+              318.56
+            ],
+            [
+              -82.2,
+              465.5,
+              255.44,
+              -73.8,
+              467.5,
+              256.16
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 36.24,
+          "interface_islands": 2,
+          "rationale": "The rounded pocket arcs locate and retain the identification chips.",
+          "removal": {
+            "lane": "Both pockets open on the exposed rear face; their support branches leave through those mouths before the chips are fitted.",
+            "bench": null
+          }
+        },
+        {
+          "tree": "tree-7",
+          "name": "identification-chip pockets and keystone pocket floor and snap catch",
+          "first_contacts_cad_xyz_mm": [
+            [
+              -42.2,
+              465.5,
+              317.84,
+              -33.4,
+              467.9,
+              318.56
+            ],
+            [
+              -44.6,
+              463.1,
+              296.0,
+              -31.0,
+              467.9,
+              296.48
+            ],
+            [
+              -44.6,
+              459.1,
+              293.6,
+              -31.0,
+              463.5,
+              294.08
+            ],
+            [
+              -42.2,
+              465.5,
+              255.44,
+              -33.4,
+              467.9,
+              256.16
+            ]
+          ],
+          "root": "bed",
+          "build_up_mm": 36.24,
+          "interface_islands": 4,
+          "rationale": "The pocket floors and snap catch retain their locating and retention profiles.",
+          "removal": {
+            "lane": "The rear-facing mouths expose these branches before the keystone and chips are installed.",
+            "bench": null
+          }
+        },
+        {
+          "tree": "tree-8",
+          "name": "aft flow-meter anchor tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
               -47.0,
-              407.9,
+              408.3,
               345.92,
               -28.6,
               410.3,
@@ -375,17 +483,17 @@
             ]
           ],
           "root": "model",
-          "build_up_mm": 1.2,
+          "build_up_mm": 1.44,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a flow-meter anchor's tie-band crown.",
+          "rationale": "The flat crown retains the complete tie-band passage above the round meter seat.",
           "removal": {
-            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "lane": "The tie-band passage is open on the loose quadrant; remove its support before fitting the meter.",
             "bench": null
           }
         },
         {
-          "tree": "tree-7",
-          "name": "a flow-meter anchor's tie-band crown",
+          "tree": "tree-9",
+          "name": "fore flow-meter anchor tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
               -47.0,
@@ -397,169 +505,99 @@
             ]
           ],
           "root": "model",
-          "build_up_mm": 1.2,
-          "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a flow-meter anchor's tie-band crown.",
-          "removal": {
-            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
-            "bench": null
-          }
-        },
-        {
-          "tree": "tree-8",
-          "name": "an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim …",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -1.8,
-              465.5,
-              318.56,
-              6.6,
-              467.5,
-              319.28
-            ],
-            [
-              -10.6,
-              455.1,
-              266.96,
-              57.4,
-              460.3,
-              267.44
-            ],
-            [
-              -11.4,
-              465.5,
-              230.24,
-              89.0,
-              467.1,
-              230.72
-            ],
-            [
-              98.6,
-              219.1,
-              169.28,
-              103.0,
-              451.1,
-              169.52
-            ]
-          ],
-          "root": "bed",
-          "build_up_mm": 35.52,
-          "interface_islands": 4,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): an identification-chip pocket's lower arc; the nameplate bar's top; the nameplate pocket's lower rim; the east Z-seam foot's catch face.",
-          "removal": {
-            "lane": null,
-            "bench": null
-          }
-        },
-        {
-          "tree": "tree-9",
-          "name": "a ceiling tube anchor's tie-band crown",
-          "first_contacts_cad_xyz_mm": [
-            [
-              -9.8,
-              361.9,
-              349.28,
-              15.0,
-              364.3,
-              349.76
-            ]
-          ],
-          "root": "model",
           "build_up_mm": 1.44,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown.",
+          "rationale": "The flat crown retains the complete tie-band passage above the round meter seat.",
           "removal": {
-            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "lane": "The tie-band passage is open on the loose quadrant; remove its support before fitting the meter.",
             "bench": null
           }
         },
         {
           "tree": "tree-10",
-          "name": "a ceiling tube anchor's tie-band crown",
+          "name": "WR1110 regulator anchor tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
-              18.6,
-              259.9,
-              343.04,
-              21.0,
-              272.7,
-              343.52
+              -9.8,
+              361.9,
+              349.04,
+              15.0,
+              364.3,
+              349.52
             ]
           ],
           "root": "model",
-          "build_up_mm": 1.44,
+          "build_up_mm": 1.68,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown.",
+          "rationale": "The flat crown retains the tie-band passage above the regulator barrel seat.",
           "removal": {
-            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "lane": "The tie-band passage is open on the loose quadrant; remove its support before fitting the regulator.",
             "bench": null
           }
         },
         {
           "tree": "tree-11",
-          "name": "a ceiling tube anchor's tie-band crown",
+          "name": "carb-1 ceiling anchor tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
-              39.0,
-              311.5,
+              18.6,
+              271.5,
               343.04,
-              41.0,
-              324.3,
+              21.0,
+              273.1,
               343.52
             ]
           ],
           "root": "model",
           "build_up_mm": 1.44,
           "interface_islands": 1,
-          "rationale": "Roots on the backing inside a rib tie channel and reaches 1 interface island(s): a ceiling tube anchor's tie-band crown.",
+          "rationale": "The crown retains the complete tie-band passage above the tube seat.",
           "removal": {
-            "lane": "Inside the rib's 3 mm tie channel, walled by the channel's own flanks, with the tube and its tie band going in over it.",
+            "lane": "Remove the support through the open tie passage before placing the tube and tie.",
             "bench": null
           }
         },
         {
           "tree": "tree-12",
-          "name": "the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top …",
+          "name": "gasher CO2 check anchor tie-band crown",
           "first_contacts_cad_xyz_mm": [
             [
-              55.0,
-              457.9,
-              327.2,
-              78.2,
-              467.1,
-              327.68
-            ],
-            [
-              55.0,
-              452.7,
-              325.04,
-              78.6,
-              458.3,
-              325.52
-            ],
-            [
-              67.8,
-              455.9,
-              266.96,
-              87.0,
-              460.3,
-              267.44
-            ],
-            [
-              97.4,
-              453.9,
-              261.44,
-              103.8,
-              455.5,
-              261.92
+              27.4,
+              327.5,
+              347.36,
+              49.4,
+              329.9,
+              347.84
             ]
           ],
-          "root": "bed",
-          "build_up_mm": 27.12,
-          "interface_islands": 4,
-          "rationale": "Roots on the plate around the bedded piece or through its openings and reaches 4 interface island(s): the C14 aperture floor; the C14 flange-pocket floor; the nameplate bar's top; the PSU aft-lower insert bore's lower arc.",
+          "root": "model",
+          "build_up_mm": 1.44,
+          "interface_islands": 1,
+          "rationale": "The crown retains the complete tie-band passage above the check-valve seat.",
           "removal": {
-            "lane": null,
+            "lane": "Remove the support through the open tie passage before placing the check valve and tie.",
+            "bench": null
+          }
+        },
+        {
+          "tree": "tree-13",
+          "name": "co2-2 ceiling anchor tie-band crown",
+          "first_contacts_cad_xyz_mm": [
+            [
+              57.0,
+              417.9,
+              342.8,
+              59.0,
+              431.1,
+              343.28
+            ]
+          ],
+          "root": "model",
+          "build_up_mm": 3.36,
+          "interface_islands": 1,
+          "rationale": "The crown retains the complete tie-band passage above the tube seat.",
+          "removal": {
+            "lane": "Remove the support through the open tie passage before placing the tube and tie.",
             "bench": null
           }
         }
@@ -662,168 +700,200 @@
     },
     "enclosure-front-top": {
       "status": "audited",
-      "profile": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top-current.3mf",
+      "profile": "git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf",
       "result": "enclosure-front-top.support-audit.json",
       "support_bodies": [
         {
           "tree": "tree-1",
-          "name": "pump-bay lintel",
+          "name": "pump-bay lintel and cartridge-facing recess ceilings",
           "first_contacts_cad_xyz_mm": [
             [
-              -107.4,
-              5.025,
-              282.84,
+              -107.8,
+              4.775,
+              283.2,
               107.4,
-              79.025,
-              283.32
+              78.775,
+              283.6
+            ],
+            [
+              -67.8,
+              53.175,
+              291.6,
+              -57.8,
+              55.975,
+              292.0
+            ],
+            [
+              57.0,
+              53.175,
+              291.6,
+              68.2,
+              55.975,
+              292.0
             ]
           ],
           "root": "bed",
-          "build_up_mm": 122.64,
-          "interface_islands": 1,
-          "rationale": "The fixed roof carries the display and ridge wall above the cartridge withdrawal envelope.",
+          "build_up_mm": 123.0,
+          "interface_islands": 3,
+          "rationale": "The flat lintel and recess ceilings retain their bearing and cartridge-clearance sections.",
           "removal": {
-            "lane": "Its flat underside runs to the bay bulkhead and is accessible through the empty cartridge bay for support removal.",
+            "lane": "Remove the branches downward through the empty cartridge bay before installing the cartridge.",
             "bench": null
           }
         },
         {
           "tree": "tree-2",
-          "name": "west carrier bearing ceilings and outer hardware well crown",
+          "name": "west carrier spring bore, guide and rim recesses, well crowns, pump-jack roof and funnel seat",
           "first_contacts_cad_xyz_mm": [
             [
-              -107.4,
-              95.025,
-              225.72,
+              -51.0,
+              93.175,
+              189.2,
+              -49.4,
+              98.775,
+              189.6
+            ],
+            [
+              -65.4,
+              98.775,
+              220.0,
+              -28.6,
+              116.775,
+              220.4
+            ],
+            [
+              -107.8,
+              95.175,
+              225.6,
               -100.2,
-              167.025,
-              226.2
+              166.775,
+              226.0
             ],
             [
               -103.8,
-              88.625,
-              229.08,
+              88.375,
+              229.0,
               -87.4,
-              167.025,
-              229.56
+              166.775,
+              229.4
             ],
             [
               -88.6,
-              93.425,
-              231.96,
+              93.175,
+              232.4,
               -66.2,
-              97.425,
-              232.44
+              97.575,
+              232.8
+            ],
+            [
+              -29.0,
+              93.175,
+              232.4,
+              -11.4,
+              98.375,
+              232.8
+            ],
+            [
+              -7.0,
+              86.375,
+              310.6,
+              7.0,
+              90.375,
+              311.0
+            ],
+            [
+              -91.4,
+              106.775,
+              342.4,
+              -65.4,
+              196.375,
+              342.8
             ]
           ],
           "root": "bed",
-          "build_up_mm": 65.52,
-          "interface_islands": 3,
-          "rationale": "The square ceilings carry the moving carrier retaining rim and close its guide opening. The hardware well crown retains its locating face.",
+          "build_up_mm": 29.0,
+          "interface_islands": 8,
+          "rationale": "The spring bore, carrier bearing and guide faces, well crowns, jack roof and funnel bearing keep the shapes their locating and retention functions require.",
           "removal": {
-            "lane": "The bed-rooted tree leaves through the open bay and side opening before the carrier is installed.",
+            "lane": "Remove the branches through the open cartridge bay, carrier recess and funnel opening before installing the carrier, jack or funnel.",
             "bench": null
           }
         },
         {
           "tree": "tree-3",
-          "name": "spring bores, carrier bearings, hardware well crowns and pump-jack roof",
+          "name": "east carrier spring bore, guide and rim recesses, well crowns and funnel seat",
           "first_contacts_cad_xyz_mm": [
             [
-              -51.4,
-              93.025,
-              188.76,
-              -49.4,
-              98.225,
-              189.24
+              49.0,
+              93.175,
+              189.2,
+              50.2,
+              98.375,
+              189.6
             ],
             [
-              48.2,
-              93.425,
-              188.76,
-              50.6,
-              98.625,
-              189.24
-            ],
-            [
-              -65.4,
-              98.625,
-              219.48,
-              -29.4,
-              116.625,
-              219.96
-            ],
-            [
-              -11.8,
-              99.025,
-              219.48,
+              -10.6,
+              98.775,
+              220.0,
               10.6,
-              116.625,
-              219.96
+              116.775,
+              220.4
             ],
             [
               29.4,
-              99.025,
-              219.48,
+              98.775,
+              220.0,
               65.4,
-              116.625,
-              219.96
+              116.775,
+              220.4
             ],
             [
               100.2,
-              95.025,
-              225.72,
-              107.4,
-              167.025,
-              226.2
+              95.175,
+              225.6,
+              107.8,
+              166.775,
+              226.0
             ],
             [
-              87.8,
-              88.625,
-              229.08,
+              87.4,
+              88.775,
+              229.0,
               103.8,
-              167.025,
-              229.56
-            ],
-            [
-              -29.0,
-              93.425,
-              231.96,
-              -11.4,
-              98.625,
-              232.44
+              166.775,
+              229.4
             ],
             [
               11.4,
-              93.425,
-              231.96,
+              93.175,
+              232.4,
               29.0,
-              97.425,
-              232.44
+              97.575,
+              232.8
             ],
             [
               66.2,
-              93.425,
-              231.96,
+              93.175,
+              232.4,
               88.6,
-              97.425,
-              232.44
+              97.575,
+              232.8
             ],
             [
-              -7.0,
-              86.225,
-              310.44,
-              7.0,
-              90.225,
-              310.68
+              65.4,
+              106.775,
+              342.4,
+              91.4,
+              196.375,
+              342.8
             ]
           ],
           "root": "bed",
-          "build_up_mm": 28.56,
-          "interface_islands": 11,
-          "rationale": "The spring guides locate the carrier on its lowered tee axis. The upper bearing planes retain the carrier through its full Y travel, and the fixed well crowns and jack roof retain their hardware.",
+          "build_up_mm": 29.0,
+          "interface_islands": 8,
+          "rationale": "The spring bore, carrier bearing and guide faces, well crowns and funnel bearing keep their locating and retention sections.",
           "removal": {
-            "lane": "Their flat locating and retaining faces share one support body, accessible from the empty bay and open interior before assembly.",
+            "lane": "Remove the branches through the open cartridge bay, carrier recess and funnel opening before installing the carrier or funnel.",
             "bench": null
           }
         }
