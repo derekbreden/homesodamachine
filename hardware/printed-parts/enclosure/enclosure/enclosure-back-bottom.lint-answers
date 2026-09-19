@@ -6,8 +6,8 @@ click: x=-100.875 y=388.750 z=169.450
 
 [ceiling] The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-99.000 y=224.000 z=29.250
-click: x=99.000 y=224.000 z=29.250
+click: x=-97.500 y=224.000 z=29.250
+click: x=97.500 y=224.000 z=29.250
 
 [sliver] The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step

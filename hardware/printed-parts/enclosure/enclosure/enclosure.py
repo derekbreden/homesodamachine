@@ -191,7 +191,7 @@ rear_seam_clear = _interface.rear_seam_clear
 # The same standoff at the front, so the front column's Z lip keeps a full-width
 # front segment behind the compressor bay instead of giving it up.
 front_seam_clear = 3.0
-corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
+corner_round = _interface.show_corner_r  # standing body corners
 
 # --- which face each piece prints on ------------------------------------------
 #
@@ -525,8 +525,8 @@ handhold_length = 80.0
 handhold_height = 35.0
 handhold_wall = wall
 handhold_roof = 4.0 * wall
-handhold_corner_r = 6.0
-handhold_edge_r = 3.0
+handhold_corner_r = _interface.show_edge_r
+handhold_edge_r = _interface.show_edge_r
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
@@ -3071,7 +3071,7 @@ def flute_centres(outer):
 
 @functools.lru_cache(maxsize=8)
 def _rounded_outer(outer):
-    """The outer box with rounded standing-vertical corners and the facet chamfered in — the
+    """The outer box with rounded standing corners and the swept display top — the
     print silhouette the half is clipped to so nothing pokes past it. A full-width facet raises
     no new standing vertical: it runs out into the ±X walls' own rounds, which are already
     relieved.

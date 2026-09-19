@@ -18,6 +18,12 @@ ceiling_skin = 3.0
 rear_seam_clear = 3.0
 co2_axis_drop = fits.supported_surface
 
+# The visible enclosure rounds. Broad body corners use twice the shoulder radius;
+# hand openings keep an R6 inside corner and roll onto the wall with the same R6
+# shoulder as the top, making their outside outline R12.
+show_edge_r = 6.0
+show_corner_r = 2.0 * show_edge_r
+
 # Signed pump-to-deck offset. The manifold subtracts it from the pump-outlet station and adds
 # it to the placement span, leaving the fixed tee deck on its own plane. The pump skirt's
 # slipped opening leaves 3 mm of cradle behind it at the common cartridge back.
@@ -81,8 +87,8 @@ display_inset_reach = 6.3
 display_inset_depth = 2.0
 display_inset_x = display_bezel_x + 2 * display_inset_reach
 display_inset_slope = 83.6
-display_inset_corner_r = 6.3
-display_cover_corner_r = 6.0
+display_cover_corner_r = show_edge_r
+display_cover_slip = 0.3
+display_inset_corner_r = display_cover_corner_r + display_cover_slip
 display_bezel_depth = 4.0
 display_cover_thickness = 2.0
-display_cover_slip = 0.3

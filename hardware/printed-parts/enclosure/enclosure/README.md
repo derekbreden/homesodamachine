@@ -164,16 +164,36 @@ separate carrier. The raised text is fused into the STEP body and retained on th
 STL and viewer payload after the mesh flute cut.
 The production slice adds no support contacts beneath the lettering.
 
+## Exterior form
+
+The top shoulders, lower handhold rims and cartridge hand-pocket rims use the
+same R6 roll from a fluted wall into a smooth surface. The roll continues around
+each opening's complete perimeter. R6 inside corners make R12 outside corners
+at the hand openings, matching the enclosure's R12 standing corners. The top's
+front roll is R12 and its longer turn onto the roof is R18.
+
+The flutes use the same pitch, depth and 5 mm runout on these surfaces. Their
+ends taper into the rounded shoulder; the smooth shoulder continues through
+the corner and onto the lifting ceiling or pocket wall. The broad standing
+corners carry the flutes around them at constant arc-length spacing.
+
+The display's flush cover has R6 outline corners, with an offset R6.3 seat.
+Its optical opening follows the glass. The funnel's mouth, collar and brim
+are concentric rounded rectangles with constant-width bands; the supporting
+recess follows the brim. The thin rear nameplate uses a smaller R3 outline.
+Hardware openings follow their mating parts. The rear top edge remains square.
+
 ## Handholds
 
 One handhold in each ±X flank opens through the standing floor. The recesses are
 [80 mm](HANDHOLD_LENGTH) long in Y, centered at **Y[214 mm](HANDHOLD_Y)**, and
 [35.25 mm](HANDHOLD_HEIGHT) high from the slab's underside to the flat lifting ceiling.
 The upper corners have [6 mm](HANDHOLD_CORNER_R) radii and the exterior lifting edges
-[3 mm](HANDHOLD_EDGE_R) radii. Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
+[6 mm](HANDHOLD_EDGE_R) radii. Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
 joined to the floor by the opening's end walls and to the seam jamb above it.
-The rounded opening and its complete rim join tangentially. The flutes fade over the
-same 5 mm field used around the display surround and cartridge hand pockets.
+The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
+tangentially, including the two corner blends. Its full section and flute
+runout follow the top's side shoulder and both cartridge hand pockets.
 
 The [3 mm](HANDHOLD_WALL) inner wall stands on the cold core's flank plane. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
@@ -1295,8 +1315,10 @@ deep and [28 mm](PULL_RUN) long in Y, from z [176.25 mm](PULL_FLOOR_Z)
 to z [272.865 mm](PULL_TOP_Z), a [96.62 mm](PULL_RISE) height. The cartridge keeps
 [10.63 mm](PULL_FLOOR_LIGAMENT) below each pocket and [10.38 mm](PULL_ROOF_LIGAMENT)
 above it. The four corners have [6 mm](PULL_CORNER_R) radii, and the complete exposed
-perimeter has [3 mm](PULL_EDGE_R) rounds, leaving [7.63 mm](PULL_RIM_FLOOR_LIGAMENT)
-at the lower rim and [7.38 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
+perimeter has [6 mm](PULL_EDGE_R) rounds, leaving [4.63 mm](PULL_RIM_FLOOR_LIGAMENT)
+at the lower rim and [4.38 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
+The rim's roll and corner blends follow the top shoulder and lower handholds;
+the flutes taper into the same broad smooth edge.
 The fore face at y [28.13 mm](PULL_LEDGE)
 carries cartridge extraction; the aft face at y [56.13 mm](PULL_AFT_LEDGE) takes the thumb's
 push during insertion. The cradle keeps [23.13 mm](PULL_FORE_STOCK) of stock fore
