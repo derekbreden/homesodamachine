@@ -478,6 +478,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | BNUOK M3 × 60 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the pump clamp's two, and the whole of what fastens either pump: each drops through the clamp crown's counterbore, runs the filled field and the bracket-height gap under it, and takes the full-length ruthex in the lower cradle's centre lane. Head Ø5.5 × 3, 2.5 mm hex, the same BNUOK black-oxide family as the M3×8/10/25 | [B0DJQHNL3H](https://www.amazon.com/dp/B0DJQHNL3H) | 1 pk (60) | $10.18 | 112-5107616-8144245 | 2026-09-18 | — | ON-ORDER |
 | BNUOK M3 × 20 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide, full thread — the water pump's four bracket screws, one down each Ø6 bore in the SEAFLO's rubber foot pad, through the top cap lid, into a deck-mount column's ruthex. Same family and same 2.5 mm hex as the rest of the box's M3 | [B0DJR2Q5LP](https://www.amazon.com/dp/B0DJR2Q5LP) | 1 pk (60) | $8.14 | 112-0416491-0117835 | 2026-09-18 | — | ON-ORDER |
 | binifiMux M3 flat washers, Ø12 mm OD × 1.0 mm, 100 pc, 304 stainless steel — one under each water-pump bracket screw. **This washer is what holds the pump down**: the M3 head is Ø5.5 and the pad's bore is Ø6.0, so the head would pass through it. Ø12 lands 3 mm of annulus on stiff rubber, where a Ø7 plain washer lands half a millimetre | [B0DDTRPSPH](https://www.amazon.com/dp/B0DDTRPSPH) | 1 pk (100) | $6.42 | 112-2270140-6656239 | 2026-09-18 | — | ON-ORDER |
+| uxcell M3 flat washers, Ø9 mm OD × 0.8 mm, 200 pc, 304 stainless steel — the DIN 9021 size, and the widest washer the water-pump bracket station takes on its own numbers: over an 8 mm pad it leaves the M3 × 20 a 5.8 mm reach onto a 5.7 mm insert. Bought beside the Ø12 and the Ø7 to be tried against the pump's own casting | [B0FB45MN93](https://www.amazon.com/dp/B0FB45MN93) | 1 pk (200) | $9.00 | 112-4339967-8873055 | 2026-09-18 | — | ON-ORDER |
+| uxcell M3 flat washers, Ø7 mm OD × 0.5 mm, 200 pc, 304 stainless steel — the DIN 125A size, and the 0.5 mm `deck_mounts["seaflo-pump"]` strikes its `seat` from. Ø7 over the pad's Ø6 bore is half a millimetre of annulus, which is what the wider two are bought to beat | [B0F9KKJ22M](https://www.amazon.com/dp/B0F9KKJ22M) | 1 pk (200) | $7.82 | 112-4954529-1422668 | 2026-09-18 | — | ON-ORDER |
 | Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black) | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | 112-8598924-2300214 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | uxcell 304 stainless compression spring, 6 mm OD × 0.8 mm wire × 30 mm free length, 5 pc — **the tee-carrier return pair** ([bom.md §8](/hardware/ledger/bom.md)), two per build. Two packs, $5.19 ea + $0.76 NE tax. Amazon estimates 2026-09-20 | [B0C33FQDB6](https://www.amazon.com/dp/B0C33FQDB6) | 2 pk (5) | $11.14 | 112-3782386-8113829 | 2026-09-16 | — | ON-ORDER |
 | uxcell 304 stainless compression spring, 6 mm OD × 0.6 mm wire × 30 mm free length, 20 pc — the softer rate on the same carrier seat, and the dimensional match to the Lee LCM060C12M the seats are cut to ([inventory.md](/hardware/ledger/inventory.md), Diagnostic). $8.89 + $0.64 NE tax. Amazon estimates 2026-09-18 | [B076LRZHP5](https://www.amazon.com/dp/B076LRZHP5) | 1 pk (20) | $9.53 | 112-5383652-4465062 | 2026-09-16 | — | ON-ORDER |
@@ -722,13 +724,13 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$34,100.35](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$34,121.77](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$39,537.89](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,359.70](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$39,559.31](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,379.84](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$41,950.66](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$41,992.22](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -744,7 +746,7 @@ ACQUIRED hardware by section:
 | 8 | Electronics — controllers | [$1,924.39](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$1,553.42](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
-| 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
+| 11 | Enclosure hardware | [$220.57](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$1,372.31](LEDGER_SEC12) |
 | 13 | Printing consumables | [$2,194.54](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
