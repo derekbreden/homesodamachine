@@ -1,8 +1,8 @@
 {
   "/hardware/printed-parts/zone-c/funnel/funnel.py": {
-    "FUNNEL_CAP": "516 mL",
-    "FUNNEL_CHUTE": "19.5 mm",
-    "FUNNEL_DROP_UNDER": "45.9492 mm",
+    "FUNNEL_CAP": "600 mL",
+    "FUNNEL_CHUTE": "23.4859 mm",
+    "FUNNEL_DROP_UNDER": "49.9352 mm",
     "FUNNEL_LAND": "12 mm",
     "FUNNEL_SPOUT_ID": "6.35 mm",
     "FUNNEL_SPOUT_WALL": "4.5 mm"

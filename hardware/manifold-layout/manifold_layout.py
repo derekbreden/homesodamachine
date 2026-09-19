@@ -169,6 +169,7 @@ BUTT = 0.0            # tube left outside a pair of butted quick-connects
 # In the enclosure pose the limb's +Y is world +Z. The carrier tees sit below the
 # fold datum; the four fore valves retain their own elevation above that datum.
 CARRIER_DROP = 4.0
+INNER_LIMB_DROP = _enc_if.inner_limb_drop
 FORE_VALVE_RISE = 10.0
 FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 # EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
@@ -465,7 +466,7 @@ SPINE_DRAWN_R = min(SPINE_R, SPINE_MIN_SEP / 2.0)
 # These figures describe the inner hairpins at release. The outer pair lean toward
 # their inset valves and derive their own cut lengths in `spine_tube_length`.
 SPINE_MIDDLE_LEN = SPINE_RELEASE_SEP - 2.0 * SPINE_DRAWN_R
-SPINE_LEN = math.pi * SPINE_DRAWN_R + SPINE_MIDDLE_LEN + CARRIER_DROP
+SPINE_LEN = math.pi * SPINE_DRAWN_R + SPINE_MIDDLE_LEN + abs(CARRIER_DROP - INNER_LIMB_DROP)
 SPINE_STRAIGHT = DECK_SEP - CARRIER_DATUM_SHIFT - 2.0 * SPINE_DRAWN_R
 
 
@@ -639,6 +640,9 @@ SHIFT.update({n: (0.0, FORE_VALVE_RISE, 0.0) for n in FORE_VALVES})
 SHIFT.update({n: (0.0, -CARRIER_DROP, 0.0) for n in CARRIER_TEES})
 SHIFT.update({n: (-math.copysign(OUTER_AFT_INSET, P[n]["x"]), 0.0, 0.0)
               for n in ("V-G", "V-J")})
+for _name in ("V-A", "V-B", "Y-A", "Y-B", "V-C", "V-D"):
+    _dx, _dy, _dz = SHIFT.get(_name, (0.0, 0.0, 0.0))
+    SHIFT[_name] = (_dx, _dy - INNER_LIMB_DROP, _dz)
 
 
 def bend_pt(p, z0: float) -> tuple:
@@ -850,17 +854,32 @@ def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> flo
     """Quarter radius preserving the full tube length as its collets approach.
 
     A pair of quarter circles and their tangent middle has length
-    separation + (pi - 2) * radius; the fixed valve's axial leg adds CARRIER_DROP.
+    separation + (pi - 2) * radius; the higher mouth supplies the axial leg.
     Release sets the cut at the stock's minimum
     radius; the bends open as the carrier moves aft. Both port tangents remain axial.
     """
     separation = math.hypot(DECK_SEP - CARRIER_DATUM_SHIFT - carrier_offset, spine_offset_x(x))
-    return (spine_tube_length(x) - CARRIER_DROP - separation) / (math.pi - 2.0)
+    return (spine_tube_length(x) - spine_axial_length(x) - separation) / (math.pi - 2.0)
 
 
 def spine_offset_x(x: float) -> float:
     """The fixed valve's cross-axis offset from its carried tee."""
     return -math.copysign(OUTER_AFT_INSET, x) if abs(abs(x) - OUTER_X) < 1e-6 else 0.0
+
+
+def spine_fixed_drop(x: float) -> float:
+    """Inner fixed valves share the source limbs' lowered elevation."""
+    return 0.0 if abs(abs(x) - OUTER_X) < 1e-6 else INNER_LIMB_DROP
+
+
+def spine_axial_length(x: float) -> float:
+    """Straight at whichever mouth is higher than the common turn plane."""
+    return abs(CARRIER_DROP - spine_fixed_drop(x))
+
+
+def spine_turn_ends(a, d):
+    y = min(a.y, d.y)
+    return cq.Vector(a.x, y, a.z), cq.Vector(d.x, y, d.z)
 
 
 def spine_middle_length(x: float) -> float:
@@ -870,18 +889,18 @@ def spine_middle_length(x: float) -> float:
 
 def spine_tube_length(x: float) -> float:
     """Full developed length, shared by every state of one hairpin."""
-    return math.pi * SPINE_DRAWN_R + spine_middle_length(x) + CARRIER_DROP
+    return math.pi * SPINE_DRAWN_R + spine_middle_length(x) + spine_axial_length(x)
 
 
 def spine_stations(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     """Collet and quarter-tangent points on the plane joining the two actual axes."""
     r = spine_radius(carrier_offset, x)
     a = cq.Vector(x, HINGE_Y - CARRIER_DROP, DECK_Z + CARRIER_DATUM_SHIFT + carrier_offset)
-    d = cq.Vector(x + spine_offset_x(x), HINGE_Y, UPPER_Z)
-    turn_end = d - cq.Vector(0.0, CARRIER_DROP, 0.0)
-    along = (turn_end - a).normalized()
+    d = cq.Vector(x + spine_offset_x(x), HINGE_Y - spine_fixed_drop(x), UPPER_Z)
+    turn_start, turn_end = spine_turn_ends(a, d)
+    along = (turn_end - turn_start).normalized()
     back = cq.Vector(0.0, -r, 0.0)
-    return a, a + back + along * r, turn_end + back - along * r, d, along
+    return a, turn_start + back + along * r, turn_end + back - along * r, d, along
 
 
 def spine_middle(x: float, a: cq.Vector, b: cq.Vector):
@@ -892,8 +911,8 @@ def spine_middle(x: float, a: cq.Vector, b: cq.Vector):
 def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     """A constant-length hairpin joining the carried tee and fixed valve on their axes.
 
-    The two quarter circles lie at the lowered tee's elevation. A straight axial leg
-    reaches the higher fixed valve from the second quarter circle.
+    The two quarter circles lie at the lower mouth's elevation. A straight axial leg
+    joins the higher mouth to that plane.
     Their radius grows as that separation closes, taking length from the tangent middle.
     The outer pair lean across X to meet their inset valves. The complete operating
     envelope, including the increasing reach past the hinge, sizes the enclosure wells.
@@ -912,14 +931,17 @@ def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     k = r * (1.0 - math.sqrt(0.5))                       # a quarter-turn's own 45° offset
     a, b, c, d, along = spine_stations(x, carrier_offset)
     arc_back = cq.Vector(0.0, -r * math.sqrt(0.5), 0.0)
-    edges = [cq.Edge.makeThreePointArc(
-        a, a + arc_back + along * k, b)]
+    turn_start, turn_end = spine_turn_ends(a, d)
+    edges = []
+    if (turn_start - a).Length > 1e-9:
+        edges.append(cq.Edge.makeLine(a, turn_start))
+    edges.append(cq.Edge.makeThreePointArc(
+        turn_start, turn_start + arc_back + along * k, b))
     if middle_chord > 1e-9:
         edges.append(spine_middle(x, b, c))
-    turn_end = d - cq.Vector(0.0, CARRIER_DROP, 0.0)
     edges.append(cq.Edge.makeThreePointArc(
         c, turn_end + arc_back - along * k, turn_end))
-    if CARRIER_DROP > 1e-9:
+    if (d - turn_end).Length > 1e-9:
         edges.append(cq.Edge.makeLine(turn_end, d))
     prof = cq.Wire.makeCircle(TUBE_D / 2.0, a, cq.Vector(0.0, -1.0, 0.0))
     return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges),
@@ -1065,7 +1087,7 @@ def turns_meet() -> list:
     lands = {3: port("V-A", "back"), 5: port("V-B", "back")}
     out = []
     for cid, (x, z0) in sorted(QUARTERS.items()):
-        end = (x, BEND_Y + BEND_R, z0 + BEND_R)
+        end = (x, BEND_Y + BEND_R - INNER_LIMB_DROP, z0 + BEND_R)
         if cid in SBENDS:                                  # the step carries on from the quarter
             dx, dy = source_cross(SBENDS[cid])
             end = (end[0] + dx, end[1] + dy, end[2] + SOURCE_TRAVEL)
@@ -1202,10 +1224,11 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE) -> cq.Assembly:
         a.add(uturn(x, carrier_offset), name=f"tube-fluid-{cid}",
               color=_routing.tube_color(f"fluid-{cid}"))
     for cid, (x, z0) in QUARTERS.items():
-        a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
+        a.add(quarter(x, z0).translate((0.0, -INNER_LIMB_DROP, 0.0)),
+              name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     for cid, name in SBENDS.items():
         x, z0 = QUARTERS[cid]
-        a.add(source_run(name, (x, BEND_Y + BEND_R, z0 + BEND_R), SOURCE_TRAVEL),
+        a.add(source_run(name, (x, BEND_Y + BEND_R - INNER_LIMB_DROP, z0 + BEND_R), SOURCE_TRAVEL),
               name=f"step-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     # A mouth's stub is the first bend radius of the run that leaves on it, and carries that
     # run's own colour.
@@ -1447,7 +1470,7 @@ def report(assy: cq.Assembly) -> dict:
                       + (f", spread {SOURCE_SPREAD[v]:g} outboard" if SOURCE_SPREAD[v] else "")
                       for v, th, s, ln in steps))
     print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
-          f"all on the plane y {BEND_Y:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
+          f"all on the plane y {BEND_Y - INNER_LIMB_DROP:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
           f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
     print(f"corners: {2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS) + 2 * hairpins} — "
           f"every one of them at "
@@ -1533,7 +1556,7 @@ def selftest() -> int:
                     or dist(d.toTuple(), port(gate, 'back', offset)) > 1e-8):
                 failures.append(f"{state} fluid-{cid} spine misses its placed collet")
             middle = spine_middle(x, b, c)
-            developed = middle.Length() + math.pi * spine_radius(offset, x) + CARRIER_DROP
+            developed = middle.Length() + math.pi * spine_radius(offset, x) + spine_axial_length(x)
             if abs(developed - spine_tube_length(x)) > 1e-6:
                 failures.append(
                     f"{state} fluid-{cid} is {developed:.6f} mm, "
@@ -1601,7 +1624,7 @@ def main():
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
             "QUARTER_COUNT4": str(len(QUARTERS)), "MOUTH_COUNT2": str(len(MOUTHS)),
-            "BEND_Y": f"{BEND_Y:.2f}",
+            "BEND_Y": f"{BEND_Y - INNER_LIMB_DROP:.2f}",
             "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)
                                 + 2 * hairpins_drawn()),
             "STEP_ANGLE": f"{math.degrees(source_step('V-B')[0]):.3f}",

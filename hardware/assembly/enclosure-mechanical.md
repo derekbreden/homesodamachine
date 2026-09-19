@@ -211,7 +211,19 @@ teardrop is shifted to +X for the display loom; and the cable clip near +X is re
 fixed J13-to-jack ribbon. Deburr all three without rounding the receptacle's catches or opening
 the clip throat. The cartridge's cord never enters that clip.
 
-The **funnel opening is an opening, not a part.** `enclosure._funnel_hole` cuts it in the top wall behind the display facet, sized off the placed funnel's own collar, and the opening crosses the Y seam — so both top pieces carry their share of it and there is no screw pattern to land. Deburr and wipe the collar seat: the removable silicone funnel's 6 mm brim rests in its 6 mm-deep recess on a continuous 6 mm bearing section, and brim residue or a stray support nib holds the funnel proud and crooked in its frame. Then sight straight down the opening and confirm the fall corridor is clear: what stands under it is the flavour manifold's two valve decks and, behind them, the cold core's cap. What drops through it is `fluid-4`, drawn 1/4" LLDPE from the funnel's spout down to the inlet of V-B, the funnel gate in its cradle on that cap — the machine's one gravity feed, so what the corridor owes it is a clear fall. It falls west of the source pair rather than between them, and the two bodies it runs nearest on the way down are [coil-v-b](FUNNEL_NEAR_A) and [coil-v-a](FUNNEL_NEAR_B), which the [Ø6.35](FUNNEL_TUBE_D) tube clears by **[1.226 mm](FUNNEL_LANE_SIDE)** at its tightest, and `clearance-floor` — which holds every drawn run off everything its own line does not join it to — [currently passes](FUNNEL_GATE_STATUS) with this corridor in the count. Nothing holds it open: the coils are placed bodies and the tube is drawn between them, so that air is what the arrangement leaves rather than a feature anyone cut. Treat a stray nib or a tube off its drawn line as a defect, not a tolerance. The funnel itself ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)) is seated at finish-and-pack, after the wipe-down, not here.
+The funnel seats behind the display, across the Y seam. Both top pieces carry the
+continuous 6 mm bearing beneath its recessed 6 mm brim. Deburr and wipe that seat
+so the silicone sits flush with the roof.
+
+The centered 600 mL funnel feeds V-B through `fluid-4`. The elbow points forward;
+the tube turns west, passes around the lowered source valves and returns to V-B.
+Its nearest bodies are [coil-v-b](FUNNEL_NEAR_A) and [coil-v-a](FUNNEL_NEAR_B),
+with **[1.226 mm](FUNNEL_LANE_SIDE)** minimum air around the
+[Ø6.35](FUNNEL_TUBE_D) tube. The assembly's `clearance-floor` check
+[currently passes](FUNNEL_GATE_STATUS). Keep the tube on its drawn route and
+remove any support nibs intruding into that air. The line includes a rise below
+the spout; prove drain and purge behaviour during the assembled fluid trial.
+The funnel itself is fitted after the final wipe-down during finish-and-pack.
 
 ## Output condition
 

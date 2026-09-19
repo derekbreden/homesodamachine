@@ -51,16 +51,17 @@ the pump's axis and draws the leaning tube each barb then needs to reach its tee
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [88.38](DECK_Z2), [14.25](DECK_GAP) mm over the pump heads'
+The lower deck's port axes sit at z [88.38](DECK_Z2), [14.35](DECK_GAP) mm over the pump heads'
 crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
 ## The fold
 
 The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
-with two quarter circles, a tangent straight between them, and a 4 mm axial leg to the
-higher fixed valve. Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
-[81.13](SPINE_LEN) mm for each inner hairpin and [81.43](OUTER_SPINE_LEN) mm for each outer one.
+with two quarter circles and a tangent straight between them. The inner pair has
+a 2 mm axial leg at the tee; the outer pair has a 4 mm axial leg at the fixed valve.
+Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
+[79.13](SPINE_LEN) mm for each inner hairpin and [81.43](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
@@ -86,7 +87,7 @@ radius on its own.
 
 [2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
 [21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
-[79.07](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
+[73.07](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
 +Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
 axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 
@@ -95,6 +96,10 @@ axis runs along X, so the pair shares one transform and still faces itself acros
 | fluid-3, fluid-5 | V-A and V-B off Y-A and Y-B, up on the folded deck — the two source valves come off the deck's own plane and lie along +Z, then STEP once more (below) |
 
 ### The source valves' step
+
+V-A/B, Y-A/B and V-C/D sit 6 mm below the outer limbs in the enclosure. Both
+source bends move with that group. The source valve cradles stand 5.615 mm
+above the cap lid, leaving room for the centered 600 mL funnel.
 
 Once they are round, V-A and V-B go [19.72](STEP_TRAVEL) mm further along their run and
 [7](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
@@ -128,10 +133,8 @@ that holds the run and the way it steps, so leaning that plane about the run cos
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
 only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
 [7.41](STEP_CROSS_A) mm across in the same [19.72](STEP_TRAVEL3) along, θ = [32.878](STEP_ANGLE_A)° either side of
-s = [5.38](STEP_STRAIGHT_A) mm, [21.45](STEP_LEN_A) mm of tube. What the spread buys is the slot
-on the mirror line — the pair stands a valve's half-width either side of x 0 and the funnel's
-gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
-one for one.
+s = [5.38](STEP_STRAIGHT_A) mm, [21.45](STEP_LEN_A) mm of tube. V-A retains this
+outboard offset; the funnel drain runs around the west side of the pair.
 
 **Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs, branch down, at
 the hinge. **Y-A and Y-B** stand on the
@@ -161,19 +164,19 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [173](ENV_Y) × [242](ENV_Z) mm — [8.11](ENV_L) L of bounding box over the
+[194](ENV_X) × [169](ENV_Y) × [243](ENV_Z) mm — [7.93](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[194](REACH_X) × [173](REACH_Y) × [256](REACH_Z).
+[194](REACH_X) × [169](REACH_Y) × [257](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the [5.476](BARB_STANDOFF) mm pump-to-deck placement span, referenced
+`BARB_STANDOFF` is the [5.576](BARB_STANDOFF) mm pump-to-deck placement span, referenced
 to the extended branch nose at the nominal fore-deck plane. The pump station uses a
 [3](PUMP_DROP) mm downward world-Z datum, while the stationary manifold stands 2 mm above
 its nominal datum. The fitted pump outlets meet the tee plane. At the fore stop the sleeve
-is depressed and the exposed tube is [7.53](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
+is depressed and the exposed tube is [7.63](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
 with the cartridge 2.15 mm short of seating. The full tube projection includes its insertion
 to the internal body stop.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what
@@ -200,8 +203,9 @@ enclosure's printed geometry. The pump cartridge's aft notches clear the cheeks.
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
-read from the release-state fold datum over the pair's crown. The tee ends and hairpins extend
-4 mm below that datum. The eight fixed valves bear in front-top's two trays and the
+read from the outer release-state hairpins over the pair's crown. The tee ends
+and outer hairpins extend 4 mm below the fold datum; the inner hairpins extend 6 mm below it.
+The eight fixed valves bear in front-top's two trays and the
 four moving tees are retained by the guided carrier. The cold core is not one of the pair — it
 is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.

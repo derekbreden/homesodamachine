@@ -2,7 +2,7 @@
 
 Frame: funnel brim centred in XY, cavity feet at Z=0, +Z is closure lift.
 The cavity prints upright; the core prints inverted, open dry back on the bed.
-Slicer tree supports carry the dry faces. Both modeled skins print solid.
+Slicer normal supports carry the dry faces. Both modeled skins print solid.
 """
 
 import argparse
@@ -22,7 +22,7 @@ ROOT = next(p for p in Path(__file__).resolve().parents
 sys.path[:0] = [str(ROOT/'hardware/printed-parts/zone-c/funnel'),
                 str(ROOT/'hardware/scripts')]
 import funnel
-from _cadq_export import export_assembly
+from _cadq_export import export_assembly, import_step
 from _materials import one_body
 from flute_payload import cut as write_print_payload
 
@@ -215,10 +215,12 @@ def build():
         funnel._rounded_box(m['out_w'], m['out_d'], funnel.brim_corner_r, 0, top),
         cylinder(m['spout_or'], tip_bottom, neck, x, y),
     )
-    for body in backing_bodies:
-        cavity_outer = cavity_outer.fuse(expanded(body, backing_allowance),
-                                         tol=tolerance).clean()
-    cavity_outer = one(cavity_outer, 'cavity backing')
+    # Explicit spline surfaces allow OCCT to trim the coincident offset joins
+    # around the collar. Fuse the complete backing in one operation.
+    backing = [cavity_outer, *[expanded(body, backing_allowance)
+                               for body in backing_bodies]]
+    cavity_outer = one(fuse_shapes(*[body.toNURBS() for body in backing],
+                                    tol=tolerance), 'cavity backing')
     assert forming_void.cut(cavity_outer, tol=tolerance).Volume() < tolerance
     forming_boundary = cq.Compound.makeCompound(forming_void.Faces())
     backing_boundary = cq.Compound.makeCompound(cavity_outer.Faces())
@@ -325,7 +327,8 @@ def build():
                     flange_width/2-pry_depth/2+0.5)
         cavity = cavity.cut(notch.rotate((0, 0, 0), (0, 0, 1), angle))
     cavity = one(cavity, 'cavity opening notches')
-    cast = one(exterior.cut(bore).fuse(tip.cut(rod)), 'silicone casting')
+    cast = one(exterior.cut(bore.toNURBS()).fuse(tip.cut(rod).toNURBS()),
+               'silicone casting')
 
     print('Checking closure, release, passages and wall backing', flush=True)
     containment = liquid_containment(cavity, core, rod, cast, seal, floor, top, back,
@@ -457,10 +460,23 @@ def write_parts(parts, info, output):
         assembly.add(shape, name=name, color=colors[name])
         if name != 'seal':
             single = one_body(cq.Workplane(obj=shape), name, colors[name])
-            export_assembly(single, str(output/f'{name}.step'))
+            # The casting's joined spline faces need a fixed STEP uncertainty;
+            # the averaged default can leave an untriangulated face on import.
+            export_assembly(single, str(output/f'{name}.step'),
+                            **({'precision_mode': 1} if name == 'funnel' else {}))
+            if name == 'funnel':
+                saved = import_step(str(output/f'{name}.step')).val()
+                vertices, faces = saved.tessellate(0.005, 0.05)
+                cast_mesh = trimesh.Trimesh(vertices=[v.toTuple() for v in vertices],
+                                            faces=faces, process=True)
+                cast_mesh.update_faces(cast_mesh.nondegenerate_faces())
+                assert cast_mesh.is_watertight and cast_mesh.is_winding_consistent
         if name in ('cavity', 'core'):
             path = output/f'{name}.stl'
-            shape.copy(mesh=False).exportStl(str(path), tolerance=0.02,
+            # Tessellate the exported STEP's normalized face trims, so the print
+            # mesh and the exact tooling file share the same closed boundaries.
+            print_shape = import_step(str(output/f'{name}.step')).val()
+            print_shape.exportStl(str(path), tolerance=0.02,
                 angularTolerance=0.08, relative=False)
             mesh = trimesh.load(path, force='mesh', process=True)
             mesh.update_faces(mesh.nondegenerate_faces())
@@ -469,7 +485,7 @@ def write_parts(parts, info, output):
             mesh.export(path)
             write_print_payload(output/f'{name}.step', path)
             radii.append(float(np.linalg.norm(mesh.vertices[:, :2], axis=1).max()))
-    export_assembly(assembly, str(output/'assembly.step'))
+    export_assembly(assembly, str(output/'assembly.step'), precision_mode=1)
     overview = cq.Assembly()
     spacing = (parts['cavity'].BoundingBox().xlen+parts['core'].BoundingBox().xlen)/4+22
     overview.add(parts['cavity'].translate((-spacing, 0, 0)), name='cavity', color=colors['cavity'])
