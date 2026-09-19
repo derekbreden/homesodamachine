@@ -1,0 +1,8 @@
+[ceiling] This STL is stored in the installed frame. The prepared coupon rotates 180 degrees about X, matching the back-top print direction, so these -Z faces point upward when printed. They bound the pocket, pump ledge, catch blocks, receiving slots and pad. Preserve their functional flat surfaces. The opposite, downward faces have exposed supports recorded in nameplate-001-petgf.support-audit.json; support removal and bearing finish remain physical print readings.
+click: x=0.000 y=1.369 z=19.150
+click: x=0.000 y=-6.100 z=-3.750
+click: x=45.183 y=-6.810 z=-8.300
+click: x=-45.183 y=-6.810 z=-8.300
+click: x=-45.708 y=-5.010 z=1.800
+click: x=45.708 y=-5.010 z=1.800
+click: x=0.000 y=-2.100 z=-22.400
