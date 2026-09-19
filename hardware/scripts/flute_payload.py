@@ -627,13 +627,16 @@ def _placement_drift(entry, surface):
     return float(max(np.abs(a.min(0) - b.min(0)).max(), np.abs(a.max(0) - b.max(0)).max()))
 
 
-def graft(path: Path, fluted: dict):
+def graft(path: Path, fluted: dict, *, same_frame=False):
     """Put the fluted surfaces into the payload at `path`, in place. Returns how many landed.
 
     A PIECE IS THE SAME BODY WHEREVER IT IS PLACED. `enclosure.py` cuts the printed mesh off the
     piece as the assembly stands it, so the triangles here are already in the coordinates every
     payload that holds that piece places it at — the assembled box, the whole appliance, and each
     bench scene agree with the piece's own solid to within a tessellation's deflection.
+
+    `same_frame` preserves those coordinates when the caller knows the host and pieces
+    share a frame. Added raised lettering changes a bounding box, not a placement.
 
     THE HOST KEEPS ITS OWN NAME AND COLOUR. A body is coloured by the assembly that places it,
     and swapping the surface is not swapping which part it is.
@@ -665,7 +668,7 @@ def graft(path: Path, fluted: dict):
         # alias before considering placement. A changed part may have new
         # extents, so failure to recover a carry does not reject that edit.
         drift = _placement_drift(entry, surface)
-        if drift > PLACEMENT_TOL:
+        if drift > PLACEMENT_TOL and not same_frame:
             placement = placement_onto(entry, surface)
             if placement is not None:
                 surface = carried(surface, placement)
@@ -1041,6 +1044,15 @@ def selftest(matching_only=False, exact_only=False):
         was = host.stat().st_mtime_ns
         graft(host, {"some-piece": surface})
         check("a graft that changes nothing leaves the mtime alone", host.stat().st_mtime_ns, was)
+
+        grown = np.asarray(flutes).reshape(-1, 3).copy()
+        grown[grown[:, 1] == 10.0, 1] += 0.6
+        check("a raised feature in a shared frame lands without recentering",
+              graft(host, {"some-piece": {**surface, "pos": grown.ravel().tolist()}},
+                    same_frame=True), 1)
+        placed_grown = np.asarray(read_payload(host)[0]["pos"]).reshape(-1, 3)
+        check("both the wall and its raised feature keep their coordinates",
+              bool(np.allclose(placed_grown, grown, atol=1e-6, rtol=0.0)), True)
 
         # AND A PIECE CUT IN ITS OWN FRAME IS CARRIED ONTO THE BODY IT REPLACES. The box's six
         # are cut in the machine's own coordinates and drop straight in; the cold core's three
