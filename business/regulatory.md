@@ -31,25 +31,29 @@ does not itself authorize intentional venting.
 
 SNAP (Significant New Alternatives Policy, Clean Air Act §612) approves refrigerants for specific product categories. Natural refrigerants are not blanket-exempt from SNAP — approval is granted per end-use.
 
-The closest functional match is **refrigerated food processing and dispensing
-equipment**: [EPA's definition](https://www.epa.gov/snap/retail-food-refrigeration)
-explicitly includes chilled carbonated beverages and holding tanks that dispense
-chilled product. A self-contained refrigeration circuit does not by itself make the
-machine a stand-alone refrigerator.
+**Household refrigeration is the working starting point** for this residential-only
+machine. [EPA's end-use definitions](https://www.epa.gov/snap/substitutes-refrigeration-and-air-conditioning)
+include household beverage centers and stand-alone household ice makers in that
+category. [R-600a is listed as acceptable with use conditions](https://www.epa.gov/snap/substitutes-household-refrigerators-and-freezers).
+This is a working classification, not a completed evaluation of the finished machine
+against those conditions.
 
-[The current dispensing table](https://www.epa.gov/snap/substitutes-refrigerated-food-processing-and-dispensing-equipment)
-lists R-290 with use conditions and has no pure R-600a entry. Household refrigeration
-does list R-600a with use conditions. Whether this residential-only plumbed dispenser
-qualifies for that household category requires confirmation. The R-600a approval for
-the finished machine is therefore **not established**. The [prepared EPA inquiry](/hardware/markings/epa-inquiry.md)
-describes the actual product and asks for the applicable listing; it has not been sent.
+EPA's retail-food category concerns goods for commercial sale. Its processing and
+dispensing subcategory includes carbonated beverages, but that functional similarity
+does not establish its applicability to this home appliance. The absence of pure
+R-600a from [the commercial dispensing table](https://www.epa.gov/snap/substitutes-refrigerated-food-processing-and-dispensing-equipment)
+does not establish that R-600a is unavailable here. No reviewed source says that
+replacing the household donor's evaporator, by itself, changes the finished product
+to a commercial end-use. The final design still needs evaluation under the applicable
+household conditions. The [prepared EPA inquiry](/hardware/markings/epa-inquiry.md)
+is available for classification clarification and has not been sent.
 
-[The marking specification](/hardware/markings/README.md) uses the current A3
-dispensing warnings as a provisional design target: complete exterior, compressor and
+[The marking review](/hardware/markings/README.md) contains a commercial A3
+dispensing comparison proof: complete exterior, compressor and
 packaging warnings; 6.5 mm capital letters against a 6.4 mm target; GHS flame with A3;
-and red service-port markings. The actual charge and any applicable calculated
-room-area/installation-height marks remain open. A small flame and `FLAMMABLE
-REFRIGERANT` footer are not a complete warning set.
+and red service-port markings. That commercial set and its dimensions are not an
+established minimum for this household machine. The household marking provisions,
+actual charge and any applicable installation markings remain to be established.
 
 ## Applicable refrigeration safety standard
 
