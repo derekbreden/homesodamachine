@@ -32,8 +32,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 51 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2320 tracked, 460 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2322 tracked, 461 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 446 of 1000 free, the next cut wants 263, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 446 of 1000 free, the next cut wants 264, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -87,12 +87,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 2 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 220 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 3 of 49 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 456 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 461 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 8694da7d63e7399c862c6eef77a88961 for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ed6ce4ff74a6cbfce46f7cd3decfa2b5 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 8694da7d63e7399c862c6eef77a88961 for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 6201f80684248a82f9c0fc7daeb5eb12 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -134,36 +134,20 @@
       "PASS seat:plate-gasket",
       "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
     ],
+    "hardware/scripts/check_payloads.py": [
+      "2 solid(s) the bundle serves a payload for that no rule produces:",
+      "    hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh — declared by nobody",
+      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/enclosure/nameplate/nameplate.py,",
+      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
+      "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh — declared by nobody",
+      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/enclosure/nameplate/nameplate.py,",
+      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py"
+    ],
     "hardware/scripts/check_step_colours.py": [
       "step colours: 200/201 carry the colour of what they are made of",
       "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -247,7 +247,10 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py\",",
-      "  @@ -396,7 +399,10 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py\",",
-      "  … 2458 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
       "5 test(s) in web/ fail:",
