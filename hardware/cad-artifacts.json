@@ -273,6 +273,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
       "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
@@ -820,7 +822,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a9e818172dde7581d84d02dac6e78ee95bfce9ae7c9869cdca27f4e9c0e074dc",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "3b6de711c1d73b0cd762e05bc6af94b903ec62eb8e445c3c39b66207073ecc4c",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "416645449ccd695395dda4979690522cb0be1f12310144f722b400a77fc6d07a",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "4e50e9e4ca4f78ac9b3c7f751787be1a3babfe7edcae1df25e98e2cd9e8a1631",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "74964b0ab4a4e4ec0d8f27dc10eeaf110bead3e81812f4cf714d9045f6b4469b",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "cb40ab138e2600a6f8cb8c97ae8b03e666dc0b74763a1cca44e9bc10136c69b8",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh": "1c8e42bfd19999fdc2a1c36704f86063f61df24afc49b597dc5e6097424ebfca",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "fba0ccdc767bb9c14a41d27868cc19a8112b93b397c4acc265f60d561e4302e0",
@@ -1058,7 +1060,9 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "8c2df89a86b98d1c2cbe99abdc96d59b7416672cd14b028c42259eb71b0f36aa",
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "4adb8dd736730bd70d3adb3ed091f1e4335b27e6f947a1d6e9f54421ecdea08b",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "251de87994a18ad30104c2cfcf6a5f260d2286fa809bdfd33255d352d1d403b4"
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "251de87994a18ad30104c2cfcf6a5f260d2286fa809bdfd33255d352d1d403b4",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "5008bbeb73bb1a9f7134e5d7ff5d859978b29f823ca20c4d175c5dcbfa558aa5",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "76772edbffcb28df7a06123299497d313c0169f2d3252c6f9e1e5a11d324ae91"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
