@@ -3,11 +3,11 @@
   "piece": "nameplate-and-receiver",
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "8deacd525c94e6f43e4bf7a40fb3b2753fec246e94cb279596a3adf921b10138",
+    "gcode_sha256": "2dece6861bda876310e3e530ab0f3b0358656261b56285f84a39b493c6232ea4",
     "model": null,
     "model_sha256": null,
     "profile": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
-    "profile_sha256": "3e5ce0990b0d6cee43636a298baeb94adaa2911f8d7593ce53b808b7acd3f464"
+    "profile_sha256": "e80189a2d95e948fffcf05ce359067ba4f4583f60a47a436a1ccda02b815f04d"
   },
   "slicer": "BambuStudio 02.08.02.61",
   "first_layer_z_mm": 0.2,
