@@ -1,9 +1,11 @@
 {
   "project": "faucet-industrial-petgf.3mf",
-  "settings_source": ".cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.3mf",
-  "settings_source_sha256": "8abcdcc0cbd54f5bd9bc1717c0a64d52e1915aafe030af1d31a72f1a8bb2c090",
-  "settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
-  "printer": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+  "settings_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "settings_source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "settings_changes": {},
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
   "process": "0.24mm PET-GF faucet",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
@@ -106,7 +108,7 @@
       "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
       "stl_sha256": "470a496f5d53b09cd4e2e83f050f8e01e7bf18e882760956de5f3eddf5c76afd",
       "triangles": 261874,
-      "rotation_x_degrees": 40.00000000000001,
+      "rotation_x_degrees": -105.0,
       "source_center_mm": [
         0.0,
         -80.49366807937622,
@@ -117,19 +119,19 @@
         0.0,
         0.0,
         0.0,
-        0.766044443118978,
-        0.6427876096865394,
+        -0.25881904510252085,
+        -0.9659258262890683,
         0.0,
-        -0.6427876096865394,
-        0.766044443118978,
+        0.9659258262890683,
+        -0.25881904510252085,
         195.0,
-        205.77196631199865,
-        55.689483750823356
+        201.75852044194053,
+        68.36063931345514
       ],
       "plate_translation_mm": [
         195.0,
-        205.77196631199865,
-        55.689483750823356
+        201.75852044194053,
+        68.36063931345514
       ],
       "plate_origin_mm": [
         0.0,
@@ -139,13 +141,13 @@
       "plate_bounds_mm": [
         [
           181.98754501342773,
-          165.8952963458312,
+          181.16304674877563,
           0.0
         ],
         [
           208.01245498657227,
-          248.10470365416876,
-          110.99469297324961
+          232.83695325122434,
+          136.8511107208395
         ]
       ],
       "watertight": true,
@@ -162,7 +164,7 @@
       "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
       "stl_sha256": "4e214bdab1847b67fb6156c4c2d66346b6046001856e884e31b297dcb69c6781",
       "triangles": 4310,
-      "rotation_x_degrees": 40.00000000000001,
+      "rotation_x_degrees": -50.0,
       "source_center_mm": [
         0.0,
         -127.64038467407227,
@@ -173,19 +175,19 @@
         0.0,
         0.0,
         0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
         0.766044443118978,
         0.6427876096865394,
-        0.0,
-        -0.6427876096865394,
-        0.766044443118978,
         264.0,
-        270.00000531899445,
-        24.875011778185893
+        270.0000036726506,
+        9.275002975578207
       ],
       "plate_translation_mm": [
         264.0,
-        270.00000531899445,
-        24.875011778185893
+        270.0000036726506,
+        9.275002975578207
       ],
       "plate_origin_mm": [
         0.0,
@@ -195,13 +197,13 @@
       "plate_bounds_mm": [
         [
           249.5,
-          260.7249917054273,
+          245.12499189446473,
           0.0
         ],
         [
           278.5,
-          279.2750082945727,
-          49.750016211070545
+          294.87500810553524,
+          18.550016589145322
         ]
       ],
       "watertight": true,
@@ -265,22 +267,35 @@
       "embedded_vertex_error_mm": 4.99755792304768e-10
     }
   ],
-  "project_sha256": "17532d5a12ff552db47e4dab7e80af77eae81a21f450729981a91136f3718297",
+  "project_sha256": "7f5bb67798a9920dd2f5843121b664a827efcb749bbfeb4e0b7b38e7d05d3a5a",
   "settings_preserved_byte_for_byte": true,
   "project_title": "Industrial faucet PET-GF",
-  "profile_source": ".cache/prints/2026-09-18-faucet-display-mark2/baseline-faucet-petgf.3mf",
+  "profile_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
   "all_profile_members_preserved_byte_for_byte": true,
   "profile_member_sha256": {
     "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
-    "Metadata/project_settings.config": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e"
+    "Metadata/project_settings.config": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f"
   },
   "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "775ebd194b780e16df6e507c903a33fee8357e3a7bd104e193b7405ce6089bb7",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "11fb89c67f45834216a7aa55162836a6349cc182e6c006a171663439fef4782f",
-    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
-    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "5223e1dcbb3d1af3a204fa469aaf42d0f584e8b80a5d48a30b3d85eac202b6c4"
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "44c86d7b257885456979eb20cc3822d42673d4cdb821194270eaa2d6fa214600",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "d7493c39ea92813cae211077efd7ad038e09df513676c07e7eba6b9c77a749bc",
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "74a76a1eabf39e103a8ebed81aa92275ac4a559df0722fc40ab2f3905e515995"
   },
   "shared_tip_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
   "gasket_included": false,
-  "color_independent_geometry": true
+  "color_independent_geometry": true,
+  "successful_profile": {
+    "record": "hardware/printed-parts/faucet/faucet-petgf.readiness.json",
+    "record_sha256": "74a76a1eabf39e103a8ebed81aa92275ac4a559df0722fc40ab2f3905e515995",
+    "native_archive": ".cache/prints/2026-09-18-sculpted-white-z018-mark2/ready/sculpted-white-z018-mark2.gcode.3mf",
+    "native_archive_sha256": "bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0",
+    "actual_trim_commands_mm": [
+      0.0,
+      0.16
+    ],
+    "physical_result": "User reported the full white Sculpted print came out great."
+  },
+  "physical_filament_color": "black; loaded by user, existing PET-CF printer mapping retained",
+  "native_preparation_script_sha256": "c7a3c010205f27219e2b2e7bf5d2ec6db96ee19a28153bae02b768f5c00740c0"
 }

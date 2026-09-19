@@ -1,0 +1,5365 @@
+{
+  "gcode_sha256": "1dee2cbc820662ac84b7f9d6a6b30448cbff8f35b7c635b5002f74a217871d83",
+  "native_archive_sha256": "e3abe2fe5eaf94d0c40a0c1fea98f7bac52f1fe052eb0a28154087b11ab5a3c3",
+  "method": "Upward rays from actual Support, Support transition and Support interface extrusion midpoint bins; top midpoint in each 0.8 x 0.8 x 1.0 mm bin, capped at 16000 rays per body. Hits 0.10 to 2.0 mm above the path are retained. Shared bbox membership may overlap where bodies meet.",
+  "limitation": "Bounded support-proximity samples locate contacted or nearby down-facing surfaces. They do not establish complete contact boundaries, removal effort, finish or absence of every small contact. Unlabelled interfaces remain unlabelled in the topology audit.",
+  "parts": [
+    {
+      "part": "industrial-display-cover",
+      "rotation_x_degrees": -50.0,
+      "source_stl_sha256": "4e214bdab1847b67fb6156c4c2d66346b6046001856e884e31b297dcb69c6781",
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 12.24,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 12.24
+      },
+      "bodies": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "top_z_mm": 16.76,
+          "explicit_interface_reading": "explicit_feature",
+          "rays": 5229,
+          "face_counts": {
+            "front-inner-neck-clearance": 70,
+            "planar-inner-bezel": 575,
+            "rear-inner-neck-clearance": 74
+          },
+          "outer_skin_arc_range_mm": null,
+          "samples": [
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                -4.79200000000003,
+                -146.08126433157253,
+                190.6280881718737
+              ],
+              "display_x_s_n_mm": [
+                -4.79200000000003,
+                0.07599909368800883,
+                15.839020453139835
+              ],
+              "normal_x_s_n": [
+                0.40385121065167473,
+                2.5485812252812323e-06,
+                -0.9148246824658162
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 10.76,
+              "gap_above_path_centerline_mm": 1.7790268668932172,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                -6.0190000000000055,
+                -145.0213295800125,
+                190.8998570966288
+              ],
+              "display_x_s_n_mm": [
+                -6.0190000000000055,
+                0.965499093688039,
+                15.201753024168983
+              ],
+              "normal_x_s_n": [
+                0.5076490342796437,
+                2.4002038607195963e-06,
+                -0.8615639604748937
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 10.76,
+              "gap_above_path_centerline_mm": 1.1417594379223872,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                4.726999999999975,
+                -145.94327835726187,
+                190.83735060676574
+              ],
+              "display_x_s_n_mm": [
+                4.726999999999975,
+                0.32499909368800495,
+                15.867828364612233
+              ],
+              "normal_x_s_n": [
+                -0.4102014165023432,
+                2.5406979774489358e-06,
+                -0.9119949549712523
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 10.76,
+              "gap_above_path_centerline_mm": 1.80783477836563,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                -5.237500000000011,
+                -145.39503013138682,
+                191.11878706298114
+              ],
+              "display_x_s_n_mm": [
+                -5.237500000000011,
+                0.8929990936880241,
+                15.628749724700153
+              ],
+              "normal_x_s_n": [
+                0.4387810124382398,
+                -2.748425460386006e-06,
+                -0.8985940257514067
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.72,
+              "gap_above_path_centerline_mm": 0.6087561384535457,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                6.027000000000044,
+                -145.31975689748043,
+                190.53607321901853
+              ],
+              "display_x_s_n_mm": [
+                6.027000000000044,
+                0.4949990936880315,
+                15.196525843258591
+              ],
+              "normal_x_s_n": [
+                -0.5151799392578562,
+                2.3877178295106383e-06,
+                -0.8570820440194569
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 10.76,
+              "gap_above_path_centerline_mm": 1.136532257011981,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                5.399999999999977,
+                -145.59320294893817,
+                190.7537730343396
+              ],
+              "display_x_s_n_mm": [
+                5.399999999999977,
+                0.48599909368801075,
+                15.545932415390041
+              ],
+              "normal_x_s_n": [
+                -0.4526055342378604,
+                -2.727372671484929e-06,
+                -0.8917108445958378
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.72,
+              "gap_above_path_centerline_mm": 0.5259388291434407,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                -0.6654999999999518,
+                -146.90303769175628,
+                191.2601999745846
+              ],
+              "display_x_s_n_mm": [
+                -0.6654999999999518,
+                0.03199909368800746,
+                16.874849003930986
+              ],
+              "normal_x_s_n": [
+                0.07558936534112833,
+                -3.0498336542339466e-06,
+                -0.9971390313481987
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 12.68,
+              "gap_above_path_centerline_mm": 0.8948554176843851,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                2.2579999999999814,
+                -146.05035850367398,
+                191.93040701997845
+              ],
+              "display_x_s_n_mm": [
+                2.2579999999999814,
+                1.0934990936880418,
+                16.65245963484113
+              ],
+              "normal_x_s_n": [
+                -0.19720204968460234,
+                -2.998522344588306e-06,
+                -0.980362867305367
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.96,
+              "gap_above_path_centerline_mm": 1.3924660485945197,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                4.798999999999978,
+                -145.848085380267,
+                190.9004163130606
+              ],
+              "display_x_s_n_mm": [
+                4.798999999999978,
+                0.4344990936880242,
+                15.835444168163821
+              ],
+              "normal_x_s_n": [
+                -0.4102014165023432,
+                2.5406979774489358e-06,
+                -0.9119949549712523
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.96,
+              "gap_above_path_centerline_mm": 0.5754505819172261,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                2.6200000000000045,
+                -146.50216201876563,
+                191.26845286961392
+              ],
+              "display_x_s_n_mm": [
+                2.6200000000000045,
+                0.29599909368801214,
+                16.573065280923814
+              ],
+              "normal_x_s_n": [
+                -0.23943495380614147,
+                -2.969617317494233e-06,
+                -0.9709124074225399
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 12.68,
+              "gap_above_path_centerline_mm": 0.5930716946771947,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                0.3865000000000123,
+                -145.76583840545092,
+                192.64330822442017
+              ],
+              "display_x_s_n_mm": [
+                0.3865000000000123,
+                1.822499093688025,
+                16.892748655787436
+              ],
+              "normal_x_s_n": [
+                -0.053883711895913344,
+                -3.054140710112563e-06,
+                -0.9985472175030035
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 12.92,
+              "gap_above_path_centerline_mm": 0.6727550695408292,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                -3.615000000000009,
+                -145.56949212534397,
+                191.9446425518625
+              ],
+              "display_x_s_n_mm": [
+                -3.615000000000009,
+                1.4134990936880323,
+                16.293245041351046
+              ],
+              "normal_x_s_n": [
+                0.31603332883067303,
+                2.643087372355968e-06,
+                -0.9487480883043814
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 12.44,
+              "gap_above_path_centerline_mm": 0.5532514551044413,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                2.9979999999999905,
+                -146.36543940465123,
+                191.2816588888915
+              ],
+              "display_x_s_n_mm": [
+                2.9979999999999905,
+                0.3939990936880253,
+                16.47681834769769
+              ],
+              "normal_x_s_n": [
+                -0.26064251631240076,
+                2.6895759793754692e-06,
+                -0.9654353829662066
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.96,
+              "gap_above_path_centerline_mm": 1.2168247614510688,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                2.379000000000019,
+                -145.4483996891685,
+                192.60865530852266
+              ],
+              "display_x_s_n_mm": [
+                2.379000000000019,
+                1.99999909368801,
+                16.627302026170035
+              ],
+              "normal_x_s_n": [
+                -0.21830981845648026,
+                -2.9848096268492164e-06,
+                -0.9758795126226341
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 12.68,
+              "gap_above_path_centerline_mm": 0.6473084399234322,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                0.18899999999996453,
+                -146.37431168151534,
+                191.9326694067767
+              ],
+              "display_x_s_n_mm": [
+                0.18899999999996453,
+                0.886999093688031,
+                16.90207640075948
+              ],
+              "normal_x_s_n": [
+                -0.03415940215739479,
+                -3.0567991698426944e-06,
+                -0.9994163973214096
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 13.16,
+              "gap_above_path_centerline_mm": 0.44208281451288,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-inner-neck-clearance",
+              "world_xyz_mm": [
+                2.6030000000000086,
+                -145.47557771688963,
+                192.49830883804768
+              ],
+              "display_x_s_n_mm": [
+                2.6030000000000086,
+                1.8979990936879974,
+                16.577192259286786
+              ],
+              "normal_x_s_n": [
+                -0.21830981845648026,
+                -2.9848096268492164e-06,
+                -0.9758795126226341
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 12.68,
+              "gap_above_path_centerline_mm": 0.597198673040174,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                10.801000000000045,
+                -106.95615343586456,
+                220.95970104021265
+              ],
+              "display_x_s_n_mm": [
+                10.801000000000045,
+                48.460499093688036,
+                5.36423159864604
+              ],
+              "normal_x_s_n": [
+                -0.9492197307012229,
+                -0.11372597826057139,
+                -0.29333991326816394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.2,
+              "gap_above_path_centerline_mm": 1.8642380123994227,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                7.303999999999974,
+                -147.6984014301284,
+                196.02983180083118
+              ],
+              "display_x_s_n_mm": [
+                7.303999999999974,
+                3.174499093688059,
+                20.549993216647167
+              ],
+              "normal_x_s_n": [
+                0.0,
+                1.5378389850995156e-06,
+                -0.9999999999988176
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4499996304005554,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                10.126499999999965,
+                -120.1915970674042,
+                228.8111765375998
+              ],
+              "display_x_s_n_mm": [
+                10.126499999999965,
+                45.967499093687984,
+                20.550000812279368
+              ],
+              "normal_x_s_n": [
+                2.9666916745164265e-05,
+                -3.8719261002850835e-05,
+                -0.9999999988103465
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500072260327497,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                11.291500000000042,
+                -124.51562932275971,
+                223.65799557292908
+              ],
+              "display_x_s_n_mm": [
+                11.291500000000042,
+                39.24049909368802,
+                20.5500008187988
+              ],
+              "normal_x_s_n": [
+                1.2869107028532705e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999991719
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500072325521889,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -7.782000000000039,
+                -120.77910413763769,
+                228.1110112410971
+              ],
+              "display_x_s_n_mm": [
+                -7.782000000000039,
+                45.053499093688,
+                20.549999761400393
+              ],
+              "normal_x_s_n": [
+                3.6761529504323133e-07,
+                1.5511464923623208e-06,
+                -0.9999999999987293
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.76,
+              "gap_above_path_centerline_mm": 0.49000617515376865,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -10.545000000000016,
+                -137.05802093618013,
+                208.7105520167351
+              ],
+              "display_x_s_n_mm": [
+                -10.545000000000016,
+                19.72799909368804,
+                20.5499987032712
+              ],
+              "normal_x_s_n": [
+                3.905503014578823e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999923732
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500051170245887,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -11.635999999999996,
+                -127.36574794634467,
+                220.26135313789143
+              ],
+              "display_x_s_n_mm": [
+                -11.635999999999996,
+                34.806499093688046,
+                20.549998680848255
+              ],
+              "normal_x_s_n": [
+                -5.480553584925835e-07,
+                2.3604811172361906e-07,
+                -0.9999999999998221
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500050946016398,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -10.942999999999984,
+                -136.14654689393006,
+                209.79680202032858
+              ],
+              "display_x_s_n_mm": [
+                -10.942999999999984,
+                21.14599909368804,
+                20.54999712149019
+              ],
+              "normal_x_s_n": [
+                3.905503014578823e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999923732
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500035352435856,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                11.213999999999999,
+                -124.14634775609186,
+                224.09808803425892
+              ],
+              "display_x_s_n_mm": [
+                11.213999999999999,
+                39.81499909368803,
+                20.5500007079659
+              ],
+              "normal_x_s_n": [
+                1.2869107028532705e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999991719
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.32,
+              "gap_above_path_centerline_mm": 1.9300071217192785,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                11.468500000000006,
+                -137.5700012687049,
+                208.10039761897352
+              ],
+              "display_x_s_n_mm": [
+                11.468500000000006,
+                18.931499093688043,
+                20.549998705111115
+              ],
+              "normal_x_s_n": [
+                -3.197292116992473e-06,
+                2.360481117791302e-07,
+                -0.9999999999948609
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500051188645178,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -10.454499999999996,
+                -144.16982348422624,
+                200.2350366626339
+              ],
+              "display_x_s_n_mm": [
+                -10.454499999999996,
+                8.663999093688023,
+                20.549999270437024
+              ],
+              "normal_x_s_n": [
+                3.905503014578823e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999923732
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.4500056841904123,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                11.067499999999995,
+                -140.2337133560704,
+                204.9259096420514
+              ],
+              "display_x_s_n_mm": [
+                11.067499999999995,
+                14.787499093688044,
+                20.549999009041883
+              ],
+              "normal_x_s_n": [
+                -3.197292116992473e-06,
+                2.360481117791302e-07,
+                -0.9999999999948609
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.76,
+              "gap_above_path_centerline_mm": 0.4900054227952767,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -6.031499999999994,
+                -147.03536722589845,
+                196.8200076635501
+              ],
+              "display_x_s_n_mm": [
+                -6.031499999999994,
+                4.205999093688009,
+                20.549994802928094
+              ],
+              "normal_x_s_n": [
+                0.0,
+                1.5378389850440044e-06,
+                -0.9999999999988174
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.76,
+              "gap_above_path_centerline_mm": 0.4900012166814657,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                -11.3065,
+                -119.64844240308607,
+                229.45848481858405
+              ],
+              "display_x_s_n_mm": [
+                -11.3065,
+                46.81249909368802,
+                20.550001942588473
+              ],
+              "normal_x_s_n": [
+                5.991145418174871e-06,
+                7.91200742189524e-06,
+                -0.9999999999507532
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.76,
+              "gap_above_path_centerline_mm": 0.49000835634185924,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                11.600999999999999,
+                -124.20901993099557,
+                224.02339902239575
+              ],
+              "display_x_s_n_mm": [
+                11.600999999999999,
+                39.717499093687984,
+                20.55000120788369
+              ],
+              "normal_x_s_n": [
+                1.2869107028532705e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999991719
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.52,
+              "gap_above_path_centerline_mm": 0.7300076216370807,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                10.533999999999992,
+                -138.14851130367066,
+                207.41095861554652
+              ],
+              "display_x_s_n_mm": [
+                10.533999999999992,
+                18.031499093687998,
+                20.550000253647678
+              ],
+              "normal_x_s_n": [
+                1.2869107028532705e-06,
+                -1.9316503896416037e-08,
+                -0.9999999999991719
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.76,
+              "gap_above_path_centerline_mm": 0.490006667401064,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "planar-inner-bezel",
+              "world_xyz_mm": [
+                0.06550000000004275,
+                -147.87548909204347,
+                195.81878628441905
+              ],
+              "display_x_s_n_mm": [
+                0.06550000000004275,
+                2.89899909368801,
+                20.549992792972525
+              ],
+              "normal_x_s_n": [
+                0.0,
+                1.5378389850440044e-06,
+                -0.9999999999988174
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 16.52,
+              "gap_above_path_centerline_mm": 0.7299992067259128,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                10.705500000000029,
+                -106.26587711750571,
+                221.64543009943023
+              ],
+              "display_x_s_n_mm": [
+                10.705500000000029,
+                49.42949909368798,
+                5.276227403617682
+              ],
+              "normal_x_s_n": [
+                -0.9379591499501639,
+                -0.12653428185371196,
+                -0.3228338714269794
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.2,
+              "gap_above_path_centerline_mm": 1.7762338173710512,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                5.754000000000019,
+                -111.83273403488414,
+                225.32512084937136
+              ],
+              "display_x_s_n_mm": [
+                5.754000000000019,
+                48.669999093688034,
+                11.9059468323542
+              ],
+              "normal_x_s_n": [
+                -0.5127342682225577,
+                -0.24460934487510722,
+                -0.8229640566817295
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 6.92,
+              "gap_above_path_centerline_mm": 1.6859532461075797,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                5.6614999999999895,
+                -111.8534326824832,
+                225.37708237010492
+              ],
+              "display_x_s_n_mm": [
+                5.6614999999999895,
+                48.69649909368804,
+                11.95520313803554
+              ],
+              "normal_x_s_n": [
+                -0.5040576523405961,
+                -0.24534238091823396,
+                -0.8280899704997391
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 7.88,
+              "gap_above_path_centerline_mm": 0.775209551788914,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                0.40800000000001546,
+                -113.36035135754605,
+                226.31910167409922
+              ],
+              "display_x_s_n_mm": [
+                0.40800000000001546,
+                48.44949909368802,
+                13.71508815199272
+              ],
+              "normal_x_s_n": [
+                -0.0715538750681157,
+                -0.273800023731047,
+                -0.9591212592616298
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.84,
+              "gap_above_path_centerline_mm": 1.5750945657460922,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                -4.004500000000007,
+                -112.13479084890182,
+                226.15621933613764
+              ],
+              "display_x_s_n_mm": [
+                -4.004500000000007,
+                49.11249909368797,
+                12.671555585961258
+              ],
+              "normal_x_s_n": [
+                0.3636208239632908,
+                -0.26670439621015796,
+                -0.8925517696035522
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 7.88,
+              "gap_above_path_centerline_mm": 1.4915619997146288,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                -4.927500000000009,
+                -112.53885219058645,
+                225.39480871401116
+              ],
+              "display_x_s_n_mm": [
+                -4.927500000000009,
+                48.26949909368802,
+                12.491659217651357
+              ],
+              "normal_x_s_n": [
+                0.4382830475437949,
+                -0.2476855302071555,
+                -0.8640369484933639
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.6,
+              "gap_above_path_centerline_mm": 0.5916656314047254,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                -1.7355000000000018,
+                -113.33381244552284,
+                226.12908804612954
+              ],
+              "display_x_s_n_mm": [
+                -1.7355000000000018,
+                48.32099909368805,
+                13.57261976018042
+              ],
+              "normal_x_s_n": [
+                0.18547136177848755,
+                -0.2613642006665216,
+                -0.9472534658527167
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.84,
+              "gap_above_path_centerline_mm": 1.4326261739338002,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                -4.893500000000017,
+                -112.37117023845664,
+                225.5275896769391
+              ],
+              "display_x_s_n_mm": [
+                -4.893500000000017,
+                48.478999093688046,
+                12.448557347783296
+              ],
+              "normal_x_s_n": [
+                0.43783113395247486,
+                -0.25156240162005916,
+                -0.8631455591225838
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.6,
+              "gap_above_path_centerline_mm": 0.5485637615366828,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                -0.20699999999999363,
+                -112.77998171904248,
+                226.7334974577683
+              ],
+              "display_x_s_n_mm": [
+                -0.20699999999999363,
+                49.139999093688004,
+                13.53686769071092
+              ],
+              "normal_x_s_n": [
+                0.053560311092939863,
+                -0.2740993104321576,
+                -0.96020875912285
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.84,
+              "gap_above_path_centerline_mm": 1.396874104464294,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                0.7754999999999654,
+                -112.50328474383008,
+                226.8596554288414
+              ],
+              "display_x_s_n_mm": [
+                0.7754999999999654,
+                49.41449909368799,
+                13.405998291090608
+              ],
+              "normal_x_s_n": [
+                -0.11331839437329354,
+                -0.2727177165992535,
+                -0.9553972935640692
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.84,
+              "gap_above_path_centerline_mm": 1.2660047048439957,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                4.180499999999995,
+                -112.40536788324515,
+                225.8917745814266
+              ],
+              "display_x_s_n_mm": [
+                4.180499999999995,
+                48.735999093688,
+                12.708847807780732
+              ],
+              "normal_x_s_n": [
+                -0.3769137474804499,
+                -0.2577898579394193,
+                -0.8896518510652455
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.84,
+              "gap_above_path_centerline_mm": 0.5688542215341142,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                1.1825000000000045,
+                -113.8657154771904,
+                225.86918234029503
+              ],
+              "display_x_s_n_mm": [
+                1.1825000000000045,
+                47.77999909368799,
+                13.813016954470237
+              ],
+              "normal_x_s_n": [
+                -0.13114805038400434,
+                -0.26036987420232965,
+                -0.9565603574727201
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 10.04,
+              "gap_above_path_centerline_mm": 0.4730233682236259,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                3.225999999999999,
+                -113.50364068404261,
+                225.56340740397218
+              ],
+              "display_x_s_n_mm": [
+                3.225999999999999,
+                47.77849909368804,
+                13.339103230764895
+              ],
+              "normal_x_s_n": [
+                -0.3044727373506017,
+                -0.2554405856255418,
+                -0.9176308949820247
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 9.56,
+              "gap_above_path_centerline_mm": 0.4791096445182804,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                3.6825000000000045,
+                -112.63598615233366,
+                225.9684523335663
+              ],
+              "display_x_s_n_mm": [
+                3.6825000000000045,
+                48.646499093688014,
+                12.934799160311705
+              ],
+              "normal_x_s_n": [
+                -0.33938874510338,
+                -0.2602783327403859,
+                -0.9039195037186873
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 9.08,
+              "gap_above_path_centerline_mm": 0.5548055740651036,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                0.8940000000000055,
+                -112.47744243610225,
+                226.86081578552157
+              ],
+              "display_x_s_n_mm": [
+                0.8940000000000055,
+                49.43199909368803,
+                13.38694779775517
+              ],
+              "normal_x_s_n": [
+                -0.11331839437329354,
+                -0.2727177165992535,
+                -0.9553972935640692
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 9.56,
+              "gap_above_path_centerline_mm": 0.5269542115085569,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "rear-inner-neck-clearance",
+              "world_xyz_mm": [
+                -2.038499999999999,
+                -113.12909708334799,
+                226.19750640246937
+              ],
+              "display_x_s_n_mm": [
+                -2.038499999999999,
+                48.504999093688,
+                13.459777166295646
+              ],
+              "normal_x_s_n": [
+                0.2022468750474305,
+                -0.26489756256968333,
+                -0.9428284482758196
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 9.56,
+              "gap_above_path_centerline_mm": 0.5997835800490355,
+              "outer_skin_arc_from_joint_mm": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "industrial-shell-base",
+      "rotation_x_degrees": -14.999999999999998,
+      "source_stl_sha256": "5d58d45db8438ec8b9b4dffe27f24984e89a7c03b17db88c29b52a96ca4827ad",
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 9,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 2.4,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 9,
+        "shortest_labelled_build_up_mm": 2.4
+      },
+      "bodies": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "top_z_mm": 62.6,
+          "explicit_interface_reading": "explicit_feature",
+          "rays": 16000,
+          "face_counts": {
+            "counter-end-face-and-fastener-pockets": 3028,
+            "donor-and-lever-opening": 700,
+            "lower-tube-and-signal-transition": 81
+          },
+          "outer_skin_arc_range_mm": null,
+          "samples": [
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -7.872,
+                27.371375192963896,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                -7.872,
+                -34.46038099897264,
+                -239.5667833340641
+              ],
+              "normal_x_s_n": [
+                -6.877561706081988e-16,
+                -0.7660444431189787,
+                -0.6427876096865389
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.2,
+              "gap_above_path_centerline_mm": 0.35092863993862816,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                14.516500000000008,
+                19.29829153812607,
+                1.4210854715202004e-14
+              ],
+              "display_x_s_n_mm": [
+                14.516500000000008,
+                -39.64965914426533,
+                -233.38244246144092
+              ],
+              "normal_x_s_n": [
+                3.5970320133408705e-15,
+                -0.7660444431189819,
+                -0.6427876096865345
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.92,
+              "gap_above_path_centerline_mm": 1.7203964425165268,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -19.484499999999997,
+                19.508970240839513,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                -19.484499999999997,
+                -39.514237484536295,
+                -233.54383171093806
+              ],
+              "normal_x_s_n": [
+                5.575560827842778e-15,
+                -0.7660444431189765,
+                -0.6427876096865413
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.12,
+              "gap_above_path_centerline_mm": 0.46586878185679004,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -15.802500000000009,
+                10.773309830539247,
+                -1.4210854715202004e-14
+              ],
+              "display_x_s_n_mm": [
+                -15.802500000000009,
+                -45.12941175870654,
+                -226.85192759665307
+              ],
+              "normal_x_s_n": [
+                7.071874209772809e-15,
+                -0.7660444431189654,
+                -0.6427876096865542
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 3.8,
+              "gap_above_path_centerline_mm": 1.0468240675905935,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -15.939999999999998,
+                5.56897647161777,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                -15.939999999999998,
+                -48.4746927584996,
+                -222.86517694691256
+              ],
+              "normal_x_s_n": [
+                1.2041483152262071e-14,
+                -0.7660444431189674,
+                -0.642787609686552
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 4.76,
+              "gap_above_path_centerline_mm": 1.4338046579418502,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -25.212500000000006,
+                1.071219105826156,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                -25.212500000000006,
+                -51.36579546460682,
+                -219.41969491035044
+              ],
+              "normal_x_s_n": [
+                -3.4844058081653064e-16,
+                -0.7660444431189788,
+                -0.6427876096865385
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 5.96,
+              "gap_above_path_centerline_mm": 1.3979099244588675,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                28.929500000000004,
+                -4.300311356231564,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                28.929500000000004,
+                -54.81854869067132,
+                -215.30486384884682
+              ],
+              "normal_x_s_n": [
+                1.5097045546572043e-15,
+                -0.7660444431189691,
+                -0.64278760968655
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 6.92,
+              "gap_above_path_centerline_mm": 1.8281643093877427,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -19.064999999999998,
+                -6.744598418179759,
+                -1.4210854715202004e-14
+              ],
+              "display_x_s_n_mm": [
+                -19.064999999999998,
+                -56.389706128608736,
+                -213.43243132765377
+              ],
+              "normal_x_s_n": [
+                -4.931715027005348e-15,
+                -0.766044443118969,
+                -0.6427876096865501
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 7.88,
+              "gap_above_path_centerline_mm": 1.500792352717618,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                28.135500000000008,
+                -5.740898161272202,
+                -1.4210854715202004e-14
+              ],
+              "display_x_s_n_mm": [
+                28.135500000000008,
+                -55.74454003962937,
+                -214.2013103320149
+              ],
+              "normal_x_s_n": [
+                -3.925231892016611e-15,
+                -0.7660444431189899,
+                -0.6427876096865249
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 8.6,
+              "gap_above_path_centerline_mm": 0.5210156106556495,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                24.909000000000006,
+                -8.739057979739787,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                24.909000000000006,
+                -57.67172002280037,
+                -211.90458666349522
+              ],
+              "normal_x_s_n": [
+                4.730411302302407e-15,
+                -0.7660444431189691,
+                -0.6427876096865502
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 9.08,
+              "gap_above_path_centerline_mm": 0.8169964719361792,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                9.917000000000002,
+                -14.080565432565624,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                9.917000000000002,
+                -61.10517483052513,
+                -207.8127545613794
+              ],
+              "normal_x_s_n": [
+                9.249888869241693e-15,
+                -0.7660444431189739,
+                -0.6427876096865442
+              ],
+              "feature": "Support interface",
+              "support_print_z_mm": 10.76,
+              "gap_above_path_centerline_mm": 0.5194803302845644,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -16.616,
+                -20.257023124892175,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                -16.616,
+                -65.07532530690575,
+                -203.08131346801315
+              ],
+              "normal_x_s_n": [
+                -3.757507039128817e-15,
+                -0.7660444431189758,
+                -0.6427876096865419
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.96,
+              "gap_above_path_centerline_mm": 0.9180652123286409,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -8.222499999999997,
+                -20.181447963722242,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                -8.222499999999997,
+                -65.02674652970565,
+                -203.1392074002652
+              ],
+              "normal_x_s_n": [
+                5.180701399190616e-16,
+                -0.7660444431189786,
+                -0.642787609686539
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 11.96,
+              "gap_above_path_centerline_mm": 0.8985049212811719,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                9.293999999999997,
+                -26.974930259573192,
+                0.0
+              ],
+              "display_x_s_n_mm": [
+                9.293999999999997,
+                -69.39351277610352,
+                -197.93509803810144
+              ],
+              "normal_x_s_n": [
+                -5.2165223831746715e-15,
+                -0.7660444431189806,
+                -0.6427876096865361
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 12.92,
+              "gap_above_path_centerline_mm": 1.6967875220141928,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                -18.967,
+                10.4999753005321,
+                8.449999809265137
+              ],
+              "display_x_s_n_mm": [
+                -18.967,
+                -38.832032409650665,
+                -221.2109860195793
+              ],
+              "normal_x_s_n": [
+                -6.349995312980048e-15,
+                -0.7660444431189836,
+                -0.6427876096865325
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 12.44,
+              "gap_above_path_centerline_mm": 0.6396412975474958,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "counter-end-face-and-fastener-pockets",
+              "world_xyz_mm": [
+                1.0054999999999978,
+                -22.77897751875002,
+                8.449999809265123
+              ],
+              "display_x_s_n_mm": [
+                1.0054999999999978,
+                -60.22333094522814,
+                -195.71782913954962
+              ],
+              "normal_x_s_n": [
+                1.5650849819158524e-16,
+                -0.7660444431189782,
+                -0.6427876096865388
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 21.08,
+              "gap_above_path_centerline_mm": 0.6128680882459344,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                11.424000000000007,
+                7.2990569696023915,
+                14.256565099280081
+              ],
+              "display_x_s_n_mm": [
+                11.424000000000007,
+                -36.441455978367316,
+                -215.02655209603543
+              ],
+              "normal_x_s_n": [
+                -0.5526897290321605,
+                -0.6384048100104271,
+                -0.5356989471502699
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 18.68,
+              "gap_above_path_centerline_mm": 0.8368112990689754,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -10.959000000000003,
+                8.460883666693343,
+                14.599513538691
+              ],
+              "display_x_s_n_mm": [
+                -10.959000000000003,
+                -35.43193442658715,
+                -215.69611997359456
+              ],
+              "normal_x_s_n": [
+                0.6365258911621142,
+                -0.5908137719166899,
+                -0.49575586410434946
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 18.68,
+              "gap_above_path_centerline_mm": 0.8673711774658331,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                9.831999999999994,
+                3.840788419866996,
+                15.813370574213536
+              ],
+              "display_x_s_n_mm": [
+                9.831999999999994,
+                -37.471805970015865,
+                -211.37666942071812
+              ],
+              "normal_x_s_n": [
+                -0.8214286529438083,
+                -0.4368820913105451,
+                -0.36659106155912363
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 20.6,
+              "gap_above_path_centerline_mm": 1.3156356775660343,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -13.549999999999997,
+                3.527138239424744,
+                13.371366393106058
+              ],
+              "display_x_s_n_mm": [
+                -13.549999999999997,
+                -39.54410015279079,
+                -212.70608947332568
+              ],
+              "normal_x_s_n": [
+                0.19864225257256451,
+                -0.7507946058455487,
+                -0.62995929656298
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 19.16,
+              "gap_above_path_centerline_mm": 0.47801941132671877,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -15.180000000000007,
+                -0.048279222283362344,
+                13.25
+              ],
+              "display_x_s_n_mm": [
+                -15.180000000000007,
+                -41.93530624765394,
+                -210.04517360867453
+              ],
+              "normal_x_s_n": [
+                -5.3316292661110674e-14,
+                -0.7660444431189805,
+                -0.6427876096865365
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 18.92,
+              "gap_above_path_centerline_mm": 1.526174611064191,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -11.224500000000006,
+                4.519992834351555,
+                14.395155445822226
+              ],
+              "display_x_s_n_mm": [
+                -11.224500000000006,
+                -38.12163760619221,
+                -212.8085813005758
+              ],
+              "normal_x_s_n": [
+                0.5876548018350162,
+                -0.6198251490018927,
+                -0.5200755892608588
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 18.92,
+              "gap_above_path_centerline_mm": 1.4499540198326728,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                13.787000000000006,
+                -2.457537070121969,
+                13.327909171672246
+              ],
+              "display_x_s_n_mm": [
+                13.787000000000006,
+                -43.42426545275714,
+                -208.14949597206513
+              ],
+              "normal_x_s_n": [
+                -0.16104363972464017,
+                -0.7560530015504485,
+                -0.6343885283883984
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 19.88,
+              "gap_above_path_centerline_mm": 1.2649909076705463,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -14.351499999999987,
+                -5.09053251407418,
+                13.263301483399204
+              ],
+              "display_x_s_n_mm": [
+                -14.351499999999987,
+                -45.166214661075074,
+                -206.17403346498034
+              ],
+              "normal_x_s_n": [
+                0.0650913993103079,
+                -0.7644067838132932,
+                -0.6414400818440045
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 21.32,
+              "gap_above_path_centerline_mm": 0.444054039553779,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                4.474000000000004,
+                11.489780207628616,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                4.474000000000004,
+                -14.793140195965918,
+                -202.33205896990674
+              ],
+              "normal_x_s_n": [
+                -4.5269231755851045e-14,
+                -0.7660444431189563,
+                -0.6427876096865652
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.72,
+              "gap_above_path_centerline_mm": 0.6124951140217499,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                7.110500000000002,
+                6.315968688754467,
+                45.672685797709846
+              ],
+              "display_x_s_n_mm": [
+                7.110500000000002,
+                -13.00722825913715,
+                -194.07956965202902
+              ],
+              "normal_x_s_n": [
+                -9.05667103073638e-06,
+                -0.8740278114593174,
+                -0.48587589435329365
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 49.64,
+              "gap_above_path_centerline_mm": 0.47689561359739463,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -8.153000000000006,
+                2.5546661060070885,
+                46.15425509302233
+              ],
+              "display_x_s_n_mm": [
+                -8.153000000000006,
+                -15.056043472958308,
+                -190.88869793339398
+              ],
+              "normal_x_s_n": [
+                0.0005457285811842523,
+                -0.8100778422025132,
+                -0.5863220887471626
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 50.84,
+              "gap_above_path_centerline_mm": 0.7155525758958726,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -8.1875,
+                5.265483728367062,
+                45.84922053976621
+              ],
+              "display_x_s_n_mm": [
+                -8.1875,
+                -13.547233517666541,
+                -193.1613771406711
+              ],
+              "normal_x_s_n": [
+                -0.0001254275844822369,
+                -0.8504241655010105,
+                -0.5260976363754465
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 48.92,
+              "gap_above_path_centerline_mm": 1.6393005945289496,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                4.107500000000002,
+                2.3103462458503046,
+                57.5
+              ],
+              "display_x_s_n_mm": [
+                4.107500000000002,
+                -6.521744412831765,
+                -183.40863381330786
+              ],
+              "normal_x_s_n": [
+                8.770559308389694e-15,
+                -0.7660444431189751,
+                -0.6427876096865428
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 62.12,
+              "gap_above_path_centerline_mm": 0.45793523293863336,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                5.021500000000003,
+                7.749169659634706,
+                57.5
+              ],
+              "display_x_s_n_mm": [
+                5.021500000000003,
+                -3.025736111178105,
+                -187.57501426654278
+              ],
+              "normal_x_s_n": [
+                1.4286470986917688e-14,
+                -0.7660444431189841,
+                -0.6427876096865321
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 60.68,
+              "gap_above_path_centerline_mm": 0.4902641505017181,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -5.562000000000012,
+                7.831474115977304,
+                57.5
+              ],
+              "display_x_s_n_mm": [
+                -5.562000000000012,
+                -2.972831826419096,
+                -187.63806313796795
+              ],
+              "normal_x_s_n": [
+                9.43043702874813e-16,
+                -0.766044443118978,
+                -0.6427876096865393
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 59.96,
+              "gap_above_path_centerline_mm": 1.188962189703441,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "donor-and-lever-opening",
+              "world_xyz_mm": [
+                -5.558500000000009,
+                7.72121720276362,
+                57.49999999999999
+              ],
+              "display_x_s_n_mm": [
+                -5.558500000000009,
+                -3.043703604115123,
+                -187.55360144228518
+              ],
+              "normal_x_s_n": [
+                9.43043702874813e-16,
+                -0.766044443118978,
+                -0.6427876096865393
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 60.68,
+              "gap_above_path_centerline_mm": 0.49749877869735804,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                3.1119999999999948,
+                13.092387734903433,
+                38.999999999999986
+              ],
+              "display_x_s_n_mm": [
+                3.1119999999999948,
+                -13.763003934243287,
+                -203.55972756067627
+              ],
+              "normal_x_s_n": [
+                -2.5327140151852507e-14,
+                -0.7660444431189728,
+                -0.6427876096865459
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.24,
+              "gap_above_path_centerline_mm": 0.6777097641383657,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                4.960000000000008,
+                13.994113288040587,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                4.960000000000008,
+                -13.183385921348986,
+                -204.25048940987534
+              ],
+              "normal_x_s_n": [
+                -1.777194216598932e-15,
+                -0.7660444431189777,
+                -0.6427876096865401
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.24,
+              "gap_above_path_centerline_mm": 0.44432601753087175,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                2.214500000000001,
+                13.93147907912579,
+                38.999999999999986
+              ],
+              "display_x_s_n_mm": [
+                2.214500000000001,
+                -13.223646414781939,
+                -204.20250882218699
+              ],
+              "normal_x_s_n": [
+                -6.298211114408383e-14,
+                -0.7660444431189466,
+                -0.6427876096865766
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 40.76,
+              "gap_above_path_centerline_mm": 0.9405369436729553,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -3.0204999999999984,
+                14.691889433636991,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                -3.0204999999999984,
+                -12.734864060624787,
+                -204.78501694875047
+              ],
+              "normal_x_s_n": [
+                2.489599640670208e-14,
+                -0.7660444431189724,
+                -0.6427876096865461
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 39.8,
+              "gap_above_path_centerline_mm": 1.7037282618322984,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -5.846000000000004,
+                12.226379209990391,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                -5.846000000000004,
+                -14.319663483940303,
+                -202.89632654247293
+              ],
+              "normal_x_s_n": [
+                1.2463929456311368e-15,
+                -0.7660444431189775,
+                -0.6427876096865398
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.48,
+              "gap_above_path_centerline_mm": 0.6618492636070125,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -6.215499999999992,
+                16.601456348403403,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                -6.215499999999992,
+                -11.507418107945568,
+                -206.2478300725711
+              ],
+              "normal_x_s_n": [
+                4.100450675937381e-14,
+                -0.7660444431189845,
+                -0.6427876096865317
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 40.52,
+              "gap_above_path_centerline_mm": 0.4894959763930823,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                3.2150000000000034,
+                13.334124723029177,
+                38.999999999999986
+              ],
+              "display_x_s_n_mm": [
+                3.2150000000000034,
+                -13.607618393473132,
+                -203.74490883712627
+              ],
+              "normal_x_s_n": [
+                -2.5327140151852507e-14,
+                -0.7660444431189728,
+                -0.6427876096865459
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 40.76,
+              "gap_above_path_centerline_mm": 1.095143627705705,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -6.08250000000001,
+                15.454370340509026,
+                39.000000000000014
+              ],
+              "display_x_s_n_mm": [
+                -6.08250000000001,
+                -12.24475078106488,
+                -205.3691112104441
+              ],
+              "normal_x_s_n": [
+                7.203145296894885e-14,
+                -0.7660444431190072,
+                -0.6427876096865046
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 40.76,
+              "gap_above_path_centerline_mm": 0.5463836816067721,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -2.8760000000000048,
+                14.684642500374146,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                -2.8760000000000048,
+                -12.739522299534372,
+                -204.77946547579478
+              ],
+              "normal_x_s_n": [
+                -3.154928147095776e-15,
+                -0.7660444431189773,
+                -0.6427876096865401
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 40.76,
+              "gap_above_path_centerline_mm": 0.7456039061793073,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                6.242500000000007,
+                14.833204632262984,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                6.242500000000007,
+                -12.64402840188761,
+                -204.89327067138615
+              ],
+              "normal_x_s_n": [
+                7.635912269638926e-15,
+                -0.7660444431189668,
+                -0.6427876096865525
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.0,
+              "gap_above_path_centerline_mm": 0.4671531970654451,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -2.503,
+                14.547468406469818,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                -2.503,
+                -12.827696107466053,
+                -204.67438402341952
+              ],
+              "normal_x_s_n": [
+                9.141080085788895e-15,
+                -0.7660444431189716,
+                -0.6427876096865475
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.0,
+              "gap_above_path_centerline_mm": 0.541107174176427,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                3.6075000000000017,
+                13.985313440507142,
+                38.999999999999986
+              ],
+              "display_x_s_n_mm": [
+                3.6075000000000017,
+                -13.18904235431063,
+                -204.24374833557204
+              ],
+              "normal_x_s_n": [
+                6.617387163877604e-14,
+                -0.7660444431189863,
+                -0.6427876096865298
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 39.8,
+              "gap_above_path_centerline_mm": 1.8866035856665229,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                4.287499999999994,
+                12.38529410368335,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                4.287499999999994,
+                -14.217514959279825,
+                -203.01806241371528
+              ],
+              "normal_x_s_n": [
+                9.874801843437187e-15,
+                -0.7660444431189848,
+                -0.6427876096865313
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.24,
+              "gap_above_path_centerline_mm": 0.8607190625688214,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -6.217999999999989,
+                13.811387042198241,
+                38.999999999999986
+              ],
+              "display_x_s_n_mm": [
+                -6.217999999999989,
+                -13.300840088140973,
+                -204.11051298463582
+              ],
+              "normal_x_s_n": [
+                4.5269231755851045e-14,
+                -0.7660444431189563,
+                -0.6427876096865652
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.24,
+              "gap_above_path_centerline_mm": 0.49161904999495454,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                -6.243500000000012,
+                15.232303599811075,
+                39.0
+              ],
+              "display_x_s_n_mm": [
+                -6.243500000000012,
+                -12.387492530509007,
+                -205.1989982177309
+              ],
+              "normal_x_s_n": [
+                7.203145296894885e-14,
+                -0.7660444431190072,
+                -0.6427876096865046
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 40.76,
+              "gap_above_path_centerline_mm": 0.6038587833832475,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "lower-tube-and-signal-transition",
+              "world_xyz_mm": [
+                7.345500000000001,
+                12.007943994435095,
+                44.1174449529061
+              ],
+              "display_x_s_n_mm": [
+                7.345500000000001,
+                -10.539880664877472,
+                -199.43956525043433
+              ],
+              "normal_x_s_n": [
+                0.0008594099294485081,
+                -0.9403876467971567,
+                -0.3401034183390096
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 46.52,
+              "gap_above_path_centerline_mm": 0.6214567021384335,
+              "outer_skin_arc_from_joint_mm": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "rotation_x_degrees": 0.0,
+      "source_stl_sha256": "83e1fdb395136686205422ac91fe585010f64615146d4228ad2a0bacc501694c",
+      "summary": {
+        "support_bodies": 3,
+        "interface_islands": null,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 3,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "bodies": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "top_z_mm": 2.84,
+          "explicit_interface_reading": "unlabelled",
+          "rays": 95,
+          "face_counts": {
+            "screw-counterbore-seat": 33
+          },
+          "outer_skin_arc_range_mm": null,
+          "samples": [
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -21.911999999999978,
+                9.403000000000006,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -21.911999999999978,
+                -46.62306550283597,
+                -226.31643946102906
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -20.391999999999996,
+                11.997500000000002,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -20.391999999999996,
+                -44.955353049504254,
+                -228.30394176870124
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.4,
+              "gap_above_path_centerline_mm": 1.7999999880790711,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -20.625499999999988,
+                7.974999999999994,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -20.625499999999988,
+                -47.540966209468365,
+                -225.22252799625517
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -19.643,
+                12.168999999999997,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -19.643,
+                -44.84511497444302,
+                -228.43531839069612
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -17.999500000000012,
+                9.850499999999997,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -17.999500000000012,
+                -46.33541804750125,
+                -226.6592443493248
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.6,
+              "gap_above_path_centerline_mm": 0.5999999880790711,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -20.12100000000001,
+                7.845499999999987,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -20.12100000000001,
+                -47.62420720492278,
+                -225.12332524087122
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -21.465000000000003,
+                11.316000000000003,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -21.465000000000003,
+                -45.39341280550563,
+                -227.78188248071567
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -19.634500000000003,
+                12.472000000000008,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -19.634500000000003,
+                -44.65035032870799,
+                -228.6674298569612
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -19.45350000000002,
+                8.03049999999999,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -19.45350000000002,
+                -47.50529149713077,
+                -225.26504346284827
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -18.136500000000012,
+                10.765,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -18.136500000000012,
+                -45.74758877844293,
+                -227.3597919925571
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -19.896500000000003,
+                7.6299999999999955,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -19.896500000000003,
+                -47.762727934810215,
+                -224.9582426633791
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -18.18599999999998,
+                8.724999999999994,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -18.18599999999998,
+                -47.05887550220346,
+                -225.7970613285944
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -17.92349999999999,
+                8.881500000000003,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -17.92349999999999,
+                -46.9582792412875,
+                -225.91694728394253
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -17.92500000000001,
+                9.237500000000011,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -17.92500000000001,
+                -46.72944685223909,
+                -226.18965910569287
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -18.028999999999996,
+                9.10499999999999,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -18.028999999999996,
+                -46.81461621052257,
+                -226.0881582169796
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -17.973000000000013,
+                10.414000000000001,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -17.973000000000013,
+                -45.973207229442906,
+                -227.09091039302234
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            }
+          ]
+        },
+        {
+          "id": "tree-2",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "top_z_mm": 2.84,
+          "explicit_interface_reading": "unlabelled",
+          "rays": 97,
+          "face_counts": {
+            "screw-counterbore-seat": 27
+          },
+          "outer_skin_arc_range_mm": null,
+          "samples": [
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -1.5600000000000023,
+                -20.851,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -1.5600000000000023,
+                -66.06996184629254,
+                -203.1405308789075
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                1.8944999999999936,
+                -23.789500000000004,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                1.8944999999999936,
+                -67.95879323735645,
+                -200.88950928280238
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -2.3085000000000093,
+                -22.4405,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -2.3085000000000093,
+                -67.0916727518893,
+                -201.92290323656988
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -1.3899999999999864,
+                -20.792,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -1.3899999999999864,
+                -66.03203737732105,
+                -203.18572750105153
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -2.055499999999995,
+                -22.521500000000003,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -2.055499999999995,
+                -67.14373854827392,
+                -201.86085363667723
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                1.8629999999999995,
+                -21.460499999999996,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                1.8629999999999995,
+                -66.4617408943965,
+                -202.6736267908265
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -1.752999999999986,
+                -20.95750000000001,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -1.752999999999986,
+                -66.13841872672417,
+                -203.0589471457153
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -2.0904999999999916,
+                -21.813500000000005,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -2.0904999999999916,
+                -66.68864492061584,
+                -202.40321310240546
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                1.4184999999999945,
+                -20.639499999999998,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                1.4184999999999945,
+                -65.93401226684385,
+                -203.30254927862717
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -1.3829999999999814,
+                -20.569999999999993,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -1.3829999999999814,
+                -65.88933852797062,
+                -203.35578936742394
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                2.0250000000000057,
+                -21.56649999999999,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                2.0250000000000057,
+                -66.52987638102326,
+                -202.59242607985587
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                0.9834999999999923,
+                -20.476499999999987,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                0.9834999999999923,
+                -65.82923788646494,
+                -203.42741452285557
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                2.039500000000004,
+                -23.742999999999995,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                2.039500000000004,
+                -67.92890361350602,
+                -200.92513034940743
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                0.3835000000000264,
+                -19.977499999999992,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                0.3835000000000264,
+                -65.50848686923135,
+                -203.80967069997195
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                -0.7249999999999943,
+                -24.111500000000007,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                -0.7249999999999943,
+                -68.16577084767552,
+                -200.64284297211805
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                1.0254999999999939,
+                -20.448999999999998,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                1.0254999999999939,
+                -65.81156122719855,
+                -203.4484807450413
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            }
+          ]
+        },
+        {
+          "id": "tree-3",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "top_z_mm": 2.84,
+          "explicit_interface_reading": "unlabelled",
+          "rays": 96,
+          "face_counts": {
+            "screw-counterbore-seat": 33
+          },
+          "outer_skin_arc_range_mm": null,
+          "samples": [
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                18.048000000000002,
+                9.538499999999999,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                18.048000000000002,
+                -46.53596778172346,
+                -226.42023848307167
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                18.168000000000006,
+                11.128,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                18.168000000000006,
+                -45.51425687612671,
+                -227.6378661254093
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.430499999999995,
+                7.8785000000000025,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.430499999999995,
+                -47.60299521380311,
+                -225.14860470749417
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.12,
+              "gap_above_path_centerline_mm": 1.079999988079071,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                21.622500000000002,
+                8.579499999999996,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                21.622500000000002,
+                -47.152401099412856,
+                -225.68560186212056
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                21.755499999999984,
+                11.250500000000002,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                21.755499999999984,
+                -45.43551539394011,
+                -227.73170656969137
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                21.689999999999998,
+                11.317499999999995,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                21.689999999999998,
+                -45.3924486240911,
+                -227.78303154738035
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.38300000000001,
+                12.475499999999997,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.38300000000001,
+                -44.648100572074085,
+                -228.6701110125121
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                17.759000000000015,
+                9.713499999999996,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                17.759000000000015,
+                -46.42347995002831,
+                -226.5542962606175
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                21.797500000000014,
+                10.775499999999994,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                21.797500000000014,
+                -45.740839508541214,
+                -227.36783545920986
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                17.819999999999993,
+                10.223500000000001,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                17.819999999999993,
+                -46.095658269088176,
+                -226.94497892660817
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.30000000000001,
+                7.781499999999994,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.30000000000001,
+                -47.66534561194271,
+                -225.0742983965116
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                17.953000000000003,
+                10.471999999999994,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                17.953000000000003,
+                -45.93592554808109,
+                -227.13534097072323
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.36,
+              "gap_above_path_centerline_mm": 0.8399999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.359499999999997,
+                11.995499999999993,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.359499999999997,
+                -44.95663862472364,
+                -228.302409679815
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189778,
+                -0.6427876096865394
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.236500000000007,
+                7.808500000000009,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.236500000000007,
+                -47.647990346481166,
+                -225.09498159647586
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.56450000000001,
+                8.092500000000001,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.56450000000001,
+                -47.4654386653302,
+                -225.31253821832163
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.84,
+              "gap_above_path_centerline_mm": 0.3599999880790713,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "screw-counterbore-seat",
+              "world_xyz_mm": [
+                20.825500000000005,
+                8.070999999999998,
+                -0.800000011920929
+              ],
+              "display_x_s_n_mm": [
+                20.825500000000005,
+                -47.47925859893846,
+                -225.29606826279456
+              ],
+              "normal_x_s_n": [
+                0.0,
+                -0.7660444431189779,
+                -0.6427876096865395
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.3199999880790712,
+              "outer_skin_arc_from_joint_mm": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "part": "faucet-shell-tip",
+      "rotation_x_degrees": -105.0,
+      "source_stl_sha256": "470a496f5d53b09cd4e2e83f050f8e01e7bf18e882760956de5f3eddf5c76afd",
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": null,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "bodies": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "top_z_mm": 134.6,
+          "explicit_interface_reading": "unlabelled",
+          "rays": 16000,
+          "face_counts": {
+            "flavor-pill-passage": 10,
+            "front-display-pocket-wall": 158,
+            "neck-joint-end-and-shoulder": 276,
+            "neck-joint-plug-exterior": 93,
+            "outer-neck-skin-at-joint-rim": 54,
+            "signal-lane": 1,
+            "soda-bore": 26
+          },
+          "outer_skin_arc_range_mm": [
+            0.011824311683197392,
+            1.3601426817537932
+          ],
+          "samples": [
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                4.9184999999999945,
+                -140.89042666977767,
+                188.43473812153582
+              ],
+              "display_x_s_n_mm": [
+                4.9184999999999945,
+                1.7324016087079155,
+                10.452749871126626
+              ],
+              "normal_x_s_n": [
+                -0.48393582570165977,
+                -8.744198524751612e-05,
+                -0.8751034847127237
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.0,
+              "gap_above_path_centerline_mm": 0.8129309457495092,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                3.454499999999996,
+                -141.29829034858108,
+                188.62723438476803
+              ],
+              "display_x_s_n_mm": [
+                3.454499999999996,
+                1.6176925823021202,
+                10.888925788740668
+              ],
+              "normal_x_s_n": [
+                -0.08622270556736536,
+                -1.2163148492505549e-05,
+                -0.9962758879430442
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 1.3970753076754314,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                5.697999999999979,
+                -140.77519666524688,
+                187.6772510968114
+              ],
+              "display_x_s_n_mm": [
+                5.697999999999979,
+                1.2262013018595646,
+                9.877575292484067
+              ],
+              "normal_x_s_n": [
+                -0.7005314289360391,
+                -0.00011650437280702475,
+                -0.713621540804061
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.04,
+              "gap_above_path_centerline_mm": 1.8576793768265483,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                -3.281000000000006,
+                -141.43369086501937,
+                188.48017937442972
+              ],
+              "display_x_s_n_mm": [
+                -3.281000000000006,
+                1.4180081344879607,
+                10.898123463365874
+              ],
+              "normal_x_s_n": [
+                0.03685656400867347,
+                -8.347660712504368e-06,
+                -0.9993205659946118
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.48,
+              "gap_above_path_centerline_mm": 0.845922800749373,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                5.613499999999988,
+                -140.3945578756768,
+                188.2544347198929
+              ],
+              "display_x_s_n_mm": [
+                5.613499999999988,
+                1.9130195066821578,
+                9.95699554432916
+              ],
+              "normal_x_s_n": [
+                -0.6645871975660983,
+                -0.00011107993018272255,
+                -0.7472107095675815
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 0.6206244253186194,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                3.6359999999999957,
+                -141.52965983375327,
+                188.32246685375674
+              ],
+              "display_x_s_n_mm": [
+                3.6359999999999957,
+                1.2355056703995873,
+                10.870264304395308
+              ],
+              "normal_x_s_n": [
+                -0.1351958436499552,
+                -2.6824464434804796e-05,
+                -0.9908188952276925
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.48,
+              "gap_above_path_centerline_mm": 0.9794407101730608,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                5.986499999999978,
+                -140.17381782189224,
+                187.9046477477797
+              ],
+              "display_x_s_n_mm": [
+                5.986499999999978,
+                1.7869561119536819,
+                9.563060121049569
+              ],
+              "normal_x_s_n": [
+                -0.7727962480019632,
+                0.00012765542453008205,
+                -0.6346541914918558
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 129.8,
+              "gap_above_path_centerline_mm": 1.4579374365833027,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                6.152999999999992,
+                -139.95547293126825,
+                187.82028497199727
+              ],
+              "display_x_s_n_mm": [
+                6.152999999999992,
+                1.8626798666909208,
+                9.34157088391192
+              ],
+              "normal_x_s_n": [
+                -0.8267109526918067,
+                -0.0001281189633138835,
+                -0.5626268606145074
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.28,
+              "gap_above_path_centerline_mm": 0.7888671607615502,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                -3.264499999999998,
+                -141.0732930004254,
+                188.9106242593838
+              ],
+              "display_x_s_n_mm": [
+                -3.264499999999998,
+                1.9794073285945215,
+                10.898727320583145
+              ],
+              "normal_x_s_n": [
+                0.03685656400867347,
+                -8.347660712504368e-06,
+                -0.9993205659946118
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 1.106397861505537,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "flavor-pill-passage",
+              "world_xyz_mm": [
+                3.708500000000015,
+                -141.37958339455417,
+                188.4858775799119
+              ],
+              "display_x_s_n_mm": [
+                3.708500000000015,
+                1.4571528247398309,
+                10.860337472166167
+              ],
+              "normal_x_s_n": [
+                -0.13642666638796314,
+                2.5956047906283697e-05,
+                -0.9906501723739574
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.48,
+              "gap_above_path_centerline_mm": 0.7921841935301709,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                3.695999999999998,
+                -141.87523682899183,
+                189.61041056353665
+              ],
+              "display_x_s_n_mm": [
+                3.695999999999998,
+                1.9999951815944774,
+                11.962865899887802
+              ],
+              "normal_x_s_n": [
+                -9.432355248730486e-05,
+                0.9999999953425261,
+                2.0445417813819144e-05
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 1.6998980937343284,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                3.4560000000000173,
+                -143.58284732625688,
+                191.04327201523637
+              ],
+              "display_x_s_n_mm": [
+                3.4560000000000173,
+                1.9999998646157975,
+                14.191997019879379
+              ],
+              "normal_x_s_n": [
+                -4.9419314069991296e-05,
+                0.9999999987766882,
+                2.0868097005966035e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 133.16,
+              "gap_above_path_centerline_mm": 0.5784713415918029,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                3.2624999999999886,
+                -144.67513197377644,
+                191.95979780474758
+              ],
+              "display_x_s_n_mm": [
+                3.2624999999999886,
+                1.999992314969691,
+                15.617867025871892
+              ],
+              "normal_x_s_n": [
+                9.91851503745355e-06,
+                0.9999999999508091,
+                -7.099331272852893e-08
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 132.92,
+              "gap_above_path_centerline_mm": 1.6363229626369056,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -5.115000000000009,
+                -144.30433372600137,
+                191.64866589026119
+              ],
+              "display_x_s_n_mm": [
+                -5.115000000000009,
+                1.9999959601637123,
+                15.133827349035638
+              ],
+              "normal_x_s_n": [
+                -1.620449209752222e-05,
+                0.9999999998638704,
+                -3.1102449418174416e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 132.92,
+              "gap_above_path_centerline_mm": 1.3586862237765112,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -1.2060000000000173,
+                -142.09172723421887,
+                189.7920685700519
+              ],
+              "display_x_s_n_mm": [
+                -1.2060000000000173,
+                1.9999959379375998,
+                12.245474687588906
+              ],
+              "normal_x_s_n": [
+                0.0,
+                0.9999999999973634,
+                -2.2963478218951394e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 1.8619952155053974,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                7.040500000000009,
+                -141.97809939387966,
+                189.69672900218865
+              ],
+              "display_x_s_n_mm": [
+                7.040500000000009,
+                2.0000001596520756,
+                12.09714761897808
+              ],
+              "normal_x_s_n": [
+                -1.3338422201328e-06,
+                0.9999999999955911,
+                2.6531392965933875e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.96,
+              "gap_above_path_centerline_mm": 0.5769148458511447,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -0.08899999999999864,
+                -143.91903824595764,
+                191.32537171665732
+              ],
+              "display_x_s_n_mm": [
+                -0.08899999999999864,
+                2.0000014156220685,
+                14.630864398512857
+              ],
+              "normal_x_s_n": [
+                0.0,
+                0.9999999999973634,
+                -2.2963478218951394e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 132.92,
+              "gap_above_path_centerline_mm": 1.0701940581491791,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -5.186499999999995,
+                -142.82162565517166,
+                190.40452593641092
+              ],
+              "display_x_s_n_mm": [
+                -5.186499999999995,
+                1.9999958387659893,
+                13.19828932355794
+              ],
+              "normal_x_s_n": [
+                -1.2235063838111515e-05,
+                0.9999999999035304,
+                -6.5758915969160725e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.96,
+              "gap_above_path_centerline_mm": 1.208507320144259,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                3.6759999999999877,
+                -142.54995025486664,
+                190.17657341011693
+              ],
+              "display_x_s_n_mm": [
+                3.6759999999999877,
+                2.000003653876239,
+                12.843648833323638
+              ],
+              "normal_x_s_n": [
+                7.129488482347993e-05,
+                0.9999999973504763,
+                -1.4699894038239236e-05
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.96,
+              "gap_above_path_centerline_mm": 1.0050874898063236,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -1.4454999999999814,
+                -143.60014722497354,
+                191.0577891306837
+              ],
+              "display_x_s_n_mm": [
+                -1.4454999999999814,
+                2.0000004596904324,
+                14.214580933095721
+              ],
+              "normal_x_s_n": [
+                0.0,
+                0.9999999999973634,
+                -2.2963478218951394e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.96,
+              "gap_above_path_centerline_mm": 1.7914244545966889,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                1.8410000000000082,
+                -144.3903655657226,
+                191.72085913688227
+              ],
+              "display_x_s_n_mm": [
+                1.8410000000000082,
+                1.999998994957175,
+                15.246136486216454
+              ],
+              "normal_x_s_n": [
+                -1.4175004527740102e-05,
+                0.999999999882917,
+                -5.765027668525047e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 133.64,
+              "gap_above_path_centerline_mm": 0.7031016124930668,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                6.20750000000001,
+                -142.22732298059344,
+                189.9058508454732
+              ],
+              "display_x_s_n_mm": [
+                6.20750000000001,
+                1.999998952053744,
+                12.422484892452474
+              ],
+              "normal_x_s_n": [
+                1.6799667543415255e-05,
+                0.9999999997960398,
+                -1.121121762548416e-05
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 1.9635216289894069,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                0.5914999999999964,
+                -143.88163167458123,
+                191.29398373003283
+              ],
+              "display_x_s_n_mm": [
+                0.5914999999999964,
+                2.0000013034893014,
+                14.582033493478603
+              ],
+              "normal_x_s_n": [
+                0.0,
+                0.9999999999973634,
+                -2.2963478218951394e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 133.4,
+              "gap_above_path_centerline_mm": 0.5621858935095881,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -1.3714999999999975,
+                -142.04029319857628,
+                189.74891008844324
+              ],
+              "display_x_s_n_mm": [
+                -1.3714999999999975,
+                1.9999957837550664,
+                12.17833219316679
+              ],
+              "normal_x_s_n": [
+                0.0,
+                0.9999999999973634,
+                -2.2963478218951394e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 131.96,
+              "gap_above_path_centerline_mm": 0.6234839891259535,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                -2.9890000000000043,
+                -141.6830621793714,
+                189.4491543506339
+              ],
+              "display_x_s_n_mm": [
+                -2.9890000000000043,
+                1.9999932394537838,
+                11.71199808179888
+              ],
+              "normal_x_s_n": [
+                1.3965500721768921e-05,
+                0.9999999998957096,
+                -3.6804948675417393e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 130.76,
+              "gap_above_path_centerline_mm": 1.5560078155482366,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "front-display-pocket-wall",
+              "world_xyz_mm": [
+                1.9454999999999814,
+                -143.00304636202574,
+                190.55675798351865
+              ],
+              "display_x_s_n_mm": [
+                1.9454999999999814,
+                1.9999973700111138,
+                13.435118521588295
+              ],
+              "normal_x_s_n": [
+                1.7679046944988435e-05,
+                0.9999999998206743,
+                6.7898917462394515e-06
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 132.68,
+              "gap_above_path_centerline_mm": 0.6243457132518083,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                1.103999999999985,
+                -14.894878941879739,
+                223.62900089501102
+              ],
+              "display_x_s_n_mm": [
+                1.103999999999985,
+                109.68114799115952,
+                -63.443003280719466
+              ],
+              "normal_x_s_n": [
+                2.8178010721399158e-05,
+                0.09822624759999204,
+                -0.9951641088224721
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.2,
+              "gap_above_path_centerline_mm": 0.8016319138179374,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -6.135499999999979,
+                -15.995594225391827,
+                222.01926437457658
+              ],
+              "display_x_s_n_mm": [
+                -6.135499999999979,
+                107.74049212876086,
+                -63.634525144524076
+              ],
+              "normal_x_s_n": [
+                -8.562698161775142e-07,
+                0.09821190634165006,
+                -0.9951655246500481
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.4,
+              "gap_above_path_centerline_mm": 1.0814717026388352,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -4.9739999999999895,
+                -33.144613629419524,
+                235.20869033945633
+              ],
+              "display_x_s_n_mm": [
+                -4.9739999999999895,
+                106.8210014059031,
+                -42.0196145360265
+              ],
+              "normal_x_s_n": [
+                8.71055409126196e-06,
+                0.3420239579952262,
+                -0.9396912323105957
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 14.6,
+              "gap_above_path_centerline_mm": 1.032477806840991,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -1.083500000000015,
+                -33.26026705046135,
+                234.89092959671265
+              ],
+              "display_x_s_n_mm": [
+                -1.083500000000015,
+                106.50324196861939,
+                -42.13527154379014
+              ],
+              "normal_x_s_n": [
+                1.1148672369879771e-05,
+                0.34202182332735664,
+                -0.9396920092474647
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 13.88,
+              "gap_above_path_centerline_mm": 1.9464329651319514,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -4.724500000000006,
+                -33.30243988047978,
+                234.77506652674526
+              ],
+              "display_x_s_n_mm": [
+                -4.724500000000006,
+                106.3873775351069,
+                -42.1774406274992
+              ],
+              "normal_x_s_n": [
+                -4.842530450025962e-06,
+                0.3420176454886413,
+                -0.9396935299079993
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.32,
+              "gap_above_path_centerline_mm": 0.5771563599460686,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                7.733499999999992,
+                -33.94836057778406,
+                233.00042034643366
+              ],
+              "display_x_s_n_mm": [
+                7.733499999999992,
+                104.61272986910961,
+                -42.82335724291556
+              ],
+              "normal_x_s_n": [
+                1.246046372687018e-05,
+                0.3420105395540481,
+                -0.9396961161347246
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.32,
+              "gap_above_path_centerline_mm": 1.6603800729900056,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                6.601499999999987,
+                -34.05524617383036,
+                232.70674973510555
+              ],
+              "display_x_s_n_mm": [
+                6.601499999999987,
+                104.31906039240184,
+                -42.930245956305605
+              ],
+              "normal_x_s_n": [
+                -4.58542093961616e-06,
+                0.34202479138426156,
+                -0.9396909290067275
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.3596311778680392,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -11.933999999999997,
+                -35.8748390468887,
+                227.707457699989
+              ],
+              "display_x_s_n_mm": [
+                -11.933999999999997,
+                99.319768755896,
+                -44.74983992453791
+              ],
+              "normal_x_s_n": [
+                1.538463420100135e-06,
+                0.34202367437649883,
+                -0.9396913355797382
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 18.92,
+              "gap_above_path_centerline_mm": 1.2911349180041136,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                10.603000000000009,
+                -35.85834439271509,
+                227.75277083838043
+              ],
+              "display_x_s_n_mm": [
+                10.603000000000009,
+                99.3650831930899,
+                -44.73334883879474
+              ],
+              "normal_x_s_n": [
+                -4.294686495335813e-06,
+                0.3420310329775074,
+                -0.9396886571955072
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 18.2,
+              "gap_above_path_centerline_mm": 1.9834744023330537,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                11.490000000000009,
+                -37.359784926996504,
+                223.62760791498172
+              ],
+              "display_x_s_n_mm": [
+                11.490000000000009,
+                95.23991768654267,
+                -46.23478227593387
+              ],
+              "normal_x_s_n": [
+                -2.799347279422446e-07,
+                0.34201510115571054,
+                -0.9396944559703282
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 20.84,
+              "gap_above_path_centerline_mm": 1.861425319759102,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                11.926499999999976,
+                -38.55600347076918,
+                220.3410158653318
+              ],
+              "display_x_s_n_mm": [
+                11.926499999999976,
+                91.95332765169496,
+                -47.4310063553302
+              ],
+              "normal_x_s_n": [
+                -4.112626176770571e-06,
+                0.34201196017560803,
+                -0.9396955991596028
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 23.96,
+              "gap_above_path_centerline_mm": 0.7475163210069612,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -12.736499999999978,
+                -37.26897118027789,
+                223.8771139543158
+              ],
+              "display_x_s_n_mm": [
+                -12.736499999999978,
+                95.4894243526791,
+                -46.143970251340576
+              ],
+              "normal_x_s_n": [
+                -1.3970115951909695e-07,
+                0.34202800789109117,
+                -0.9396897582809085
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 21.8,
+              "gap_above_path_centerline_mm": 0.7491290615737564,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                10.333500000000015,
+                -39.313196413655774,
+                218.2606532745971
+              ],
+              "display_x_s_n_mm": [
+                10.333500000000015,
+                89.87296320756046,
+                -48.18819420604267
+              ],
+              "normal_x_s_n": [
+                -6.400337407662039e-06,
+                0.34200850742979627,
+                -0.9396968558022735
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 25.4,
+              "gap_above_path_centerline_mm": 0.5773459992259108,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                -3.6990000000000123,
+                -40.965985122701646,
+                213.71964911459568
+              ],
+              "display_x_s_n_mm": [
+                -3.6990000000000123,
+                85.33196010100671,
+                -49.84098580941222
+              ],
+              "normal_x_s_n": [
+                7.738505552608412e-06,
+                0.34201736923005266,
+                -0.9396936304376388
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 28.04,
+              "gap_above_path_centerline_mm": 0.709115659190419,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                3.36099999999999,
+                -41.08644095476498,
+                213.38869589362238
+              ],
+              "display_x_s_n_mm": [
+                3.36099999999999,
+                85.00100770878299,
+                -49.96144391844633
+              ],
+              "normal_x_s_n": [
+                -8.679793850786952e-06,
+                0.3420180024104141,
+                -0.9396933999724864
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 27.8,
+              "gap_above_path_centerline_mm": 1.1511240549334496,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-end-and-shoulder",
+              "world_xyz_mm": [
+                1.593500000000006,
+                -41.337377430045095,
+                212.6992566832931
+              ],
+              "display_x_s_n_mm": [
+                1.593500000000006,
+                84.31156777571344,
+                -50.21237840801387
+              ],
+              "normal_x_s_n": [
+                -3.2262995092982244e-06,
+                0.3420206622966027,
+                -0.9396924318902353
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 28.76,
+              "gap_above_path_centerline_mm": 0.6119500752381152,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -3.8400000000000034,
+                -14.56197006758913,
+                224.14939608817116
+              ],
+              "display_x_s_n_mm": [
+                -3.8400000000000034,
+                110.29378353665436,
+                -63.363522691631
+              ],
+              "normal_x_s_n": [
+                -0.35368730889615385,
+                0.9300938374099308,
+                0.09915009398818736
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.2,
+              "gap_above_path_centerline_mm": 0.3453784473701655,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -2.962999999999994,
+                -16.62559761000402,
+                225.86111539934953
+              ],
+              "display_x_s_n_mm": [
+                -2.962999999999994,
+                110.27856238788982,
+                -60.68242031561017
+              ],
+              "normal_x_s_n": [
+                -0.28279163874927454,
+                0.9520677721146839,
+                0.1166012279269919
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.68,
+              "gap_above_path_centerline_mm": 1.4156640288274072,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                4.8419999999999845,
+                -15.339550609512585,
+                224.1449934174534
+              ],
+              "display_x_s_n_mm": [
+                4.8419999999999845,
+                109.7905917573344,
+                -62.7706914206
+              ],
+              "normal_x_s_n": [
+                0.4450690474325604,
+                0.8904501617192304,
+                0.09493183086652285
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.44,
+              "gap_above_path_centerline_mm": 0.8576030698649434,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -3.3064999999999998,
+                -17.581050814998775,
+                226.33807802039576
+              ],
+              "display_x_s_n_mm": [
+                -3.3064999999999998,
+                110.02978347151182,
+                -59.643915034171584
+              ],
+              "normal_x_s_n": [
+                -0.3066307349474582,
+                0.9428399574741675,
+                0.13050060143804487
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.92,
+              "gap_above_path_centerline_mm": 1.9751139452137216,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -5.177999999999997,
+                -17.10061586275406,
+                225.09455160073188
+              ],
+              "display_x_s_n_mm": [
+                -5.177999999999997,
+                109.38600460241992,
+                -60.81127293449658
+              ],
+              "normal_x_s_n": [
+                -0.4672419453973254,
+                0.877571822148765,
+                0.10748330768923708
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.92,
+              "gap_above_path_centerline_mm": 1.8328977374857638,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -3.7665000000000077,
+                -15.386235449135057,
+                224.7370855417373
+              ],
+              "display_x_s_n_mm": [
+                -3.7665000000000077,
+                110.21415220248706,
+                -62.35433927734665
+              ],
+              "normal_x_s_n": [
+                -0.35368730889615385,
+                0.9300938374099308,
+                0.09915009398818736
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.2,
+              "gap_above_path_centerline_mm": 0.9894524439325786,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                5.4435,
+                -17.548870893160682,
+                225.20064987275083
+              ],
+              "display_x_s_n_mm": [
+                5.4435,
+                109.17914781459952,
+                -60.39969100469053
+              ],
+              "normal_x_s_n": [
+                0.5107660942350032,
+                0.8516006601313761,
+                0.11787413899462457
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.2784185946685276,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                8.000499999999988,
+                -16.157030303122227,
+                221.83158668075222
+              ],
+              "display_x_s_n_mm": [
+                8.000499999999988,
+                107.49295356378784,
+                -63.63149483046462
+              ],
+              "normal_x_s_n": [
+                0.7414731695431224,
+                0.6672023549452633,
+                0.07112352918107367
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 0.8059815409161076,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                6.344999999999999,
+                -17.93916709313948,
+                224.75701737207328
+              ],
+              "display_x_s_n_mm": [
+                6.344999999999999,
+                108.5884280412144,
+                -60.385868244216105
+              ],
+              "normal_x_s_n": [
+                0.5938026015211122,
+                0.7970118287056354,
+                0.11032051182830133
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.7702363143323474,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                4.868499999999983,
+                -18.071776060610254,
+                225.89445281873498
+              ],
+              "display_x_s_n_mm": [
+                4.868499999999983,
+                109.3745147433126,
+                -59.55315446964496
+              ],
+              "normal_x_s_n": [
+                0.44505897903377517,
+                0.8870439949824536,
+                0.12278214913814867
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.603936784639159,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -6.606499999999983,
+                -16.85890026027551,
+                223.8320950379283
+              ],
+              "display_x_s_n_mm": [
+                -6.606499999999983,
+                108.57427856214628,
+                -61.807929264928035
+              ],
+              "normal_x_s_n": [
+                -0.6136628368408462,
+                0.7837115609903642,
+                0.09599016538422916
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 0.92,
+              "gap_above_path_centerline_mm": 1.9261661965029535,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                2.5249999999999773,
+                -18.736685847217167,
+                227.29871042013093
+              ],
+              "display_x_s_n_mm": [
+                2.5249999999999773,
+                110.02284270317932,
+                -58.14116463545385
+              ],
+              "normal_x_s_n": [
+                0.23466976975650014,
+                0.9606895323807401,
+                0.14834325578369217
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.882741708203881,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -7.640999999999991,
+                -17.11061465463969,
+                222.91986300602045
+              ],
+              "display_x_s_n_mm": [
+                -7.640999999999991,
+                107.7136693893911,
+                -62.201476299141845
+              ],
+              "normal_x_s_n": [
+                -0.7071008452924644,
+                0.7018675969995574,
+                0.08596668464439855
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.36,
+              "gap_above_path_centerline_mm": 0.9654066542783363,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                -6.134999999999991,
+                -17.347861024045237,
+                224.55776943543503
+              ],
+              "display_x_s_n_mm": [
+                -6.134999999999991,
+                108.81587948129598,
+                -60.966909077554945
+              ],
+              "normal_x_s_n": [
+                -0.5735741745777212,
+                0.8130776313730212,
+                0.09958630236293975
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.36,
+              "gap_above_path_centerline_mm": 0.7706476716521161,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                0.6764999999999759,
+                -18.095030818905812,
+                227.2330454833822
+              ],
+              "display_x_s_n_mm": [
+                0.6764999999999759,
+                110.38498834516679,
+                -58.67490951202405
+              ],
+              "normal_x_s_n": [
+                0.0622914220896033,
+                0.9863668714317,
+                0.15231603223592366
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 2.36,
+              "gap_above_path_centerline_mm": 0.7999458810157104,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "neck-joint-plug-exterior",
+              "world_xyz_mm": [
+                5.447499999999991,
+                -33.84524624392761,
+                233.20249378531764
+              ],
+              "display_x_s_n_mm": [
+                5.447499999999991,
+                104.83380772025264,
+                -42.772457102610836
+              ],
+              "normal_x_s_n": [
+                0.5107146551313876,
+                0.8101810018489572,
+                0.28771041913188977
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.0284788203649176,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -4.896000000000015,
+                -33.44129538270591,
+                235.88028757214164
+              ],
+              "display_x_s_n_mm": [
+                -4.896000000000015,
+                107.1447713789832,
+                -41.36064874767679
+              ],
+              "normal_x_s_n": [
+                -0.37059618848210646,
+                0.8701934012601129,
+                0.3246874027212807
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 13.88,
+              "gap_above_path_centerline_mm": 1.8652282200719221,
+              "outer_skin_arc_from_joint_mm": 0.4167624882064699
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -1.4749999999999943,
+                -33.398382488733844,
+                236.79092341011255
+              ],
+              "display_x_s_n_mm": [
+                -1.4749999999999943,
+                107.86994277890685,
+                -40.80817649805802
+              ],
+              "normal_x_s_n": [
+                -0.1050348229249723,
+                0.9317246378693362,
+                0.3476447686365695
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 14.36,
+              "gap_above_path_centerline_mm": 1.108087649483743,
+              "outer_skin_arc_from_joint_mm": 0.6326883443385961
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                1.7509999999999764,
+                -33.43020495487596,
+                236.76531454903184
+              ],
+              "display_x_s_n_mm": [
+                1.7509999999999764,
+                107.82987016623554,
+                -40.80026013330436
+              ],
+              "normal_x_s_n": [
+                0.12966848700126535,
+                0.928995284995965,
+                0.34663214498091344
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 14.36,
+              "gap_above_path_centerline_mm": 1.1454538523576905,
+              "outer_skin_arc_from_joint_mm": 0.650103773961474
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -8.15300000000002,
+                -33.66337858489207,
+                233.92726042349335
+              ],
+              "display_x_s_n_mm": [
+                -8.15300000000002,
+                105.50591345381591,
+                -42.445904797264554
+              ],
+              "normal_x_s_n": [
+                -0.6238624310606055,
+                0.732222849482631,
+                0.27321304106262434
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 14.84,
+              "gap_above_path_centerline_mm": 1.6252247423209742,
+              "outer_skin_arc_from_joint_mm": 0.04122822425868623
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                3.3160000000000025,
+                -32.89838029356497,
+                236.2467926963532
+              ],
+              "display_x_s_n_mm": [
+                3.3160000000000025,
+                107.77450968517175,
+                -41.54096088206882
+              ],
+              "normal_x_s_n": [
+                0.2640621369937885,
+                0.9036491403432318,
+                0.3371786158154331
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 13.88,
+              "gap_above_path_centerline_mm": 1.2459540077150373,
+              "outer_skin_arc_from_joint_mm": 0.10075073435264972
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -0.5109999999999957,
+                -33.350105177136285,
+                236.8519996191569
+              ],
+              "display_x_s_n_mm": [
+                -0.5109999999999957,
+                107.94776192717595,
+                -40.805900033915705
+              ],
+              "normal_x_s_n": [
+                -0.046405099305715965,
+                0.9358931090869839,
+                0.34921433979996547
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 13.88,
+              "gap_above_path_centerline_mm": 1.525647661284506,
+              "outer_skin_arc_from_joint_mm": 0.6123143010395988
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                2.4989999999999952,
+                -33.50583197219651,
+                236.6606753421114
+              ],
+              "display_x_s_n_mm": [
+                2.4989999999999952,
+                107.70109977355057,
+                -40.809587262632185
+              ],
+              "normal_x_s_n": [
+                0.18767190517464635,
+                0.9202563608975465,
+                0.34337659535227927
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 13.88,
+              "gap_above_path_centerline_mm": 1.7255865611682553,
+              "outer_skin_arc_from_joint_mm": 0.6796966876607792
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -9.695999999999998,
+                -34.410100034392784,
+                232.64013702469805
+              ],
+              "display_x_s_n_mm": [
+                -9.695999999999998,
+                104.03993643093412,
+                -42.70122995320003
+              ],
+              "normal_x_s_n": [
+                -0.7513302967851958,
+                0.6182891608284733,
+                0.23069741813616298
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.7196343244430143,
+              "outer_skin_arc_from_joint_mm": 0.264837094940143
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -5.634999999999991,
+                -33.75624905344445,
+                235.6452633061644
+              ],
+              "display_x_s_n_mm": [
+                -5.634999999999991,
+                106.76228402885718,
+                -41.27045092451345
+              ],
+              "normal_x_s_n": [
+                -0.4245266181281996,
+                0.8482898365474913,
+                0.3165146184789324
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 14.84,
+              "gap_above_path_centerline_mm": 1.2702788608189732,
+              "outer_skin_arc_from_joint_mm": 0.5956784533446415
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                5.554000000000002,
+                -33.76134453482306,
+                235.68737957562118
+              ],
+              "display_x_s_n_mm": [
+                5.554000000000002,
+                106.79127165074391,
+                -41.239475743145306
+              ],
+              "normal_x_s_n": [
+                0.42921408758416263,
+                0.8462125725281922,
+                0.3157523540918008
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.08,
+              "gap_above_path_centerline_mm": 1.0243002252358608,
+              "outer_skin_arc_from_joint_mm": 0.6112023945151508
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                8.877499999999998,
+                -33.844837329484186,
+                233.32580121908134
+              ],
+              "display_x_s_n_mm": [
+                8.877499999999998,
+                104.92852953982023,
+                -42.69350985864237
+              ],
+              "normal_x_s_n": [
+                0.6869441367357947,
+                0.6808583906259029,
+                0.25404646212576776
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 16.28,
+              "gap_above_path_centerline_mm": 0.5161695270825165,
+              "outer_skin_arc_from_joint_mm": 0.011824311683197392
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                8.111499999999978,
+                -34.13755664184373,
+                234.1309755357056
+              ],
+              "display_x_s_n_mm": [
+                8.111499999999978,
+                105.3571725037117,
+                -41.95171778165185
+              ],
+              "normal_x_s_n": [
+                0.6279036677404723,
+                0.7291838446866508,
+                0.2720806951734305
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.0705202229744022,
+              "outer_skin_arc_from_joint_mm": 0.4727929040014602
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -8.995499999999993,
+                -34.75492634913393,
+                233.53073582543354
+              ],
+              "display_x_s_n_mm": [
+                -8.995499999999993,
+                104.50052461067648,
+                -41.86461179663691
+              ],
+              "normal_x_s_n": [
+                -0.6973672733189179,
+                0.6714915115815696,
+                0.2505554548949923
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 15.8,
+              "gap_above_path_centerline_mm": 1.822207036259766,
+              "outer_skin_arc_from_joint_mm": 0.7939214770760582
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -10.264999999999986,
+                -34.788328356987165,
+                232.05065833204094
+              ],
+              "display_x_s_n_mm": [
+                -10.264999999999986,
+                103.34524907469091,
+                -42.79039984826061
+              ],
+              "normal_x_s_n": [
+                -0.7888248649622692,
+                0.5758388608983833,
+                0.21486027714891814
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 16.76,
+              "gap_above_path_centerline_mm": 1.2775431418127128,
+              "outer_skin_arc_from_joint_mm": 0.39918701087961855
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -11.990999999999985,
+                -35.50006679866931,
+                229.18065383646874
+              ],
+              "display_x_s_n_mm": [
+                -11.990999999999985,
+                100.68920142748044,
+                -44.089979899554315
+              ],
+              "normal_x_s_n": [
+                -0.9182952123776447,
+                0.37091661882736277,
+                0.13840073988954377
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 17.96,
+              "gap_above_path_centerline_mm": 1.50784150718018,
+              "outer_skin_arc_from_joint_mm": 0.1351262812524498
+            },
+            {
+              "surface": "outer-neck-skin-at-joint-rim",
+              "world_xyz_mm": [
+                -12.441000000000003,
+                -36.43586638412813,
+                228.1969315575373
+              ],
+              "display_x_s_n_mm": [
+                -12.441000000000003,
+                99.33410606344995,
+                -44.00544031951026
+              ],
+              "normal_x_s_n": [
+                -0.9584048566779308,
+                0.2674041663583784,
+                0.09977546046165593
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 19.4,
+              "gap_above_path_centerline_mm": 1.2263605558845634,
+              "outer_skin_arc_from_joint_mm": 0.6284371988189998
+            },
+            {
+              "surface": "signal-lane",
+              "world_xyz_mm": [
+                -2.233000000000004,
+                -16.576155166078145,
+                221.88906780578264
+              ],
+              "display_x_s_n_mm": [
+                -2.233000000000004,
+                107.26757839138199,
+                -63.27347840326384
+              ],
+              "normal_x_s_n": [
+                0.7072375132604116,
+                0.7030261515103309,
+                0.07462794469769574
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 1.88,
+              "gap_above_path_centerline_mm": 1.1959478605932983,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                -0.36099999999999,
+                -49.373054171016555,
+                218.69631532019062
+              ],
+              "display_x_s_n_mm": [
+                -0.36099999999999,
+                83.7403477750247,
+                -40.20185790753089
+              ],
+              "normal_x_s_n": [
+                0.0744554958848425,
+                0.8814561836062507,
+                0.46635970614413735
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 33.8,
+              "gap_above_path_centerline_mm": 1.7816647812271875,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.2400000000000091,
+                -51.08812420676939,
+                219.01995011962805
+              ],
+              "display_x_s_n_mm": [
+                0.2400000000000091,
+                82.88584064600708,
+                -38.680009597940796
+              ],
+              "normal_x_s_n": [
+                -0.039767176771486515,
+                0.8676205658869249,
+                0.4956340639036805
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 35.96,
+              "gap_above_path_centerline_mm": 1.1945323729030286,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.23849999999998772,
+                -52.08363155680152,
+                219.1916441915314
+              ],
+              "display_x_s_n_mm": [
+                0.23849999999998772,
+                82.37746614575258,
+                -37.80704390228848
+              ],
+              "normal_x_s_n": [
+                -0.039699522437416986,
+                0.8594823661355879,
+                0.5096214381481728
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 36.92,
+              "gap_above_path_centerline_mm": 1.1516809368198602,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                -0.08299999999999841,
+                -51.50379088828667,
+                219.09026353765694
+              ],
+              "display_x_s_n_mm": [
+                -0.08299999999999841,
+                82.67251845652599,
+                -38.316393852471094
+              ],
+              "normal_x_s_n": [
+                0.017740968639690727,
+                0.868171671239166,
+                0.49594677868650255
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 36.44,
+              "gap_above_path_centerline_mm": 1.0978371039963073,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.23550000000000182,
+                -53.153671468997814,
+                219.35889646629911
+              ],
+              "display_x_s_n_mm": [
+                0.23550000000000182,
+                81.81778042400755,
+                -36.87983808372242
+              ],
+              "normal_x_s_n": [
+                -0.039753721841877546,
+                0.8511227608764708,
+                0.5234593465759614
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 37.88,
+              "gap_above_path_centerline_mm": 1.1819720491237455,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.07400000000001228,
+                -52.767180973608845,
+                219.29681209355527
+              ],
+              "display_x_s_n_mm": [
+                0.07400000000001228,
+                82.01865233696026,
+                -37.21581404558833
+              ],
+              "normal_x_s_n": [
+                -0.020240035220957023,
+                0.8516188841995577,
+                0.5237705767308382
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 36.92,
+              "gap_above_path_centerline_mm": 1.784719516081625,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.242999999999995,
+                -50.016907221494094,
+                218.81781385050732
+              ],
+              "display_x_s_n_mm": [
+                0.242999999999995,
+                83.41956028571508,
+                -39.630540106144664
+              ],
+              "normal_x_s_n": [
+                -0.03976671394846661,
+                0.8755279475985019,
+                0.48152821457905864
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 34.76,
+              "gap_above_path_centerline_mm": 1.4121329374205183,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.6910000000000025,
+                -51.69199448472714,
+                219.16924405852933
+              ],
+              "display_x_s_n_mm": [
+                0.6910000000000025,
+                82.61204610576456,
+                -38.121453833019515
+              ],
+              "normal_x_s_n": [
+                -0.1334844782311252,
+                0.8524706231940105,
+                0.5054460709735309
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 35.96,
+              "gap_above_path_centerline_mm": 1.7391861554047474,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.23349999999999227,
+                -54.25635432645181,
+                219.51274334743465
+              ],
+              "display_x_s_n_mm": [
+                0.23349999999999227,
+                81.22684309420742,
+                -35.93624313926438
+              ],
+              "normal_x_s_n": [
+                -0.03975374027897885,
+                0.8425393679845427,
+                0.5371657598265538
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 38.84,
+              "gap_above_path_centerline_mm": 1.247263396477282,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.23199999999999932,
+                -55.37128314431615,
+                219.6493327049322
+              ],
+              "display_x_s_n_mm": [
+                0.23199999999999932,
+                80.61481418270196,
+                -34.99436016725173
+              ],
+              "normal_x_s_n": [
+                -0.03974261074726976,
+                0.8337392273704445,
+                0.5507262710591582
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 39.8,
+              "gap_above_path_centerline_mm": 1.3288500090477222,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                -0.367999999999995,
+                -60.265193733424255,
+                220.03483097444266
+              ],
+              "display_x_s_n_mm": [
+                -0.367999999999995,
+                77.76437790029999,
+                -30.997613644147414
+              ],
+              "normal_x_s_n": [
+                0.07455139628283995,
+                0.7849190634967098,
+                0.6150968647877559
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 43.88,
+              "gap_above_path_centerline_mm": 1.8762303446134063,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.23399999999998045,
+                -60.173049814395846,
+                220.0238038349096
+              ],
+              "display_x_s_n_mm": [
+                0.23399999999998045,
+                77.81515959079661,
+                -31.07528808994847
+              ],
+              "normal_x_s_n": [
+                -0.03984792166195398,
+                0.786480395755377,
+                0.6163284272461299
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 43.88,
+              "gap_above_path_centerline_mm": 1.7900801872125336,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.2324999999999875,
+                -57.61970112684533,
+                219.86732729524084
+              ],
+              "display_x_s_n_mm": [
+                0.2324999999999875,
+                79.33655250667175,
+                -33.13184784429737
+              ],
+              "normal_x_s_n": [
+                -0.039773865995616726,
+                0.8154687382310305,
+                0.577432919525423
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.72,
+              "gap_above_path_centerline_mm": 1.5242338549642107,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.2324999999999875,
+                -57.89912672029935,
+                219.89028903217903
+              ],
+              "display_x_s_n_mm": [
+                0.2324999999999875,
+                79.17453090835605,
+                -32.90303590116595
+              ],
+              "normal_x_s_n": [
+                -0.039773865995616726,
+                0.8154687382310305,
+                0.577432919525423
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 41.96,
+              "gap_above_path_centerline_mm": 1.5481953173793621,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                0.23349999999999227,
+                -59.030584027673086,
+                219.9665446805182
+              ],
+              "display_x_s_n_mm": [
+                0.23349999999999227,
+                78.50565938595358,
+                -31.9872731323049
+              ],
+              "normal_x_s_n": [
+                -0.03973311050570254,
+                0.8060169600032933,
+                0.590557313151392
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 42.92,
+              "gap_above_path_centerline_mm": 1.661362737828322,
+              "outer_skin_arc_from_joint_mm": null
+            },
+            {
+              "surface": "soda-bore",
+              "world_xyz_mm": [
+                -0.09050000000002001,
+                -60.366588630758976,
+                220.02577962674238
+              ],
+              "display_x_s_n_mm": [
+                -0.09050000000002001,
+                77.69226878199926,
+                -30.925758740636237
+              ],
+              "normal_x_s_n": [
+                0.017810535612639122,
+                0.7869808444024767,
+                0.6167203056205915
+              ],
+              "feature": "Support",
+              "support_print_z_mm": 44.12,
+              "gap_above_path_centerline_mm": 1.7365129557716252,
+              "outer_skin_arc_from_joint_mm": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
