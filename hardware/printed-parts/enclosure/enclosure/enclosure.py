@@ -321,6 +321,25 @@ flute_fade_steps = 12
 flute_pitch_drift = 0.15
 flute_seam_miss = 0.5
 
+# Integral disposal warning on the +Y wall of back-bottom. The height is the
+# actual H outline, not the font's em. Full wording: hardware/markings/README.md.
+disposal_lines = (
+    "CAUTION",
+    "RISK OF FIRE OR EXPLOSION.",
+    "DISPOSE OF PROPERLY IN",
+    "ACCORDANCE WITH THE APPLICABLE",
+    "FEDERAL OR LOCAL REGULATIONS.",
+    "FLAMMABLE REFRIGERANT USED.",
+)
+disposal_font = "Helvetica"
+disposal_kind = "bold"
+disposal_cap_height = 6.5
+disposal_raise = 0.6
+disposal_embed = 0.1
+disposal_line_gap = 2.5
+disposal_bottom = 14.0
+disposal_margin = 5.0
+
 
 def flute_backed_sections():
     """Every stated section a FLUTED face stands on, as (what, mm) — what a groove is cut into,
@@ -3103,7 +3122,8 @@ def flute_rails(box, berthed=()):
     (`flute_skin._shadow_mask`); which of them hides what is measured, not listed."""
     outer = box.outer
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
-                              length=plan_perimeter(outer))]
+                              length=plan_perimeter(outer),
+                              plain=(disposal_field(outer),))]
     if box.pump_bay and box.pack.collet_plate:
         segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
         run = sum(length for _kind, length, _data in segments)
@@ -3314,6 +3334,65 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     cut = (cq.Workplane("XY").box(x1 - x0, wy, wz)
            .translate(((x0 + x1) / 2.0, hy, hz)))
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
+
+
+@functools.lru_cache(maxsize=1)
+def _disposal_flat():
+    """Centered warning outlines in XY, with their bottom at zero and relief along +Z."""
+    def text(line, size):
+        return cq.Workplane("XY").text(
+            line, size, disposal_raise + disposal_embed,
+            font=disposal_font, kind=disposal_kind, combine=False,
+            halign="center", valign="center").val()
+
+    em = disposal_cap_height / text("H", 1.0).BoundingBox().ylen
+    for letter in set("".join(disposal_lines)) - set(" ."):
+        height = text(letter, em).BoundingBox().ylen
+        if height < 6.4:
+            raise ValueError(f"disposal warning {letter!r} is only {height:.3f} mm high")
+    rows = [text(line, em) for line in disposal_lines]
+    row_height = max(row.BoundingBox().ylen for row in rows)
+    leading = row_height + disposal_line_gap
+    letters = []
+    for index, row in enumerate(reversed(rows)):
+        bounds = row.BoundingBox()
+        letters.append(row.translate(cq.Vector(
+            -(bounds.xmin + bounds.xmax) / 2.0,
+            index * leading + (row_height - bounds.ylen) / 2.0 - bounds.ymin, 0.0)))
+    return cq.Compound.makeCompound(letters)
+
+
+def disposal_letters(outer):
+    """Raised letters facing +Y, reading left to right along -X with their caps along +Z."""
+    ox0, ox1, _oy0, oy1, oz0, _oz1 = outer
+    return (_disposal_flat()
+            .rotate((0, 0, 0), (1, 0, 0), 90.0)
+            .rotate((0, 0, 0), (0, 0, 1), 180.0)
+            .translate(cq.Vector((ox0 + ox1) / 2.0,
+                                 oy1 - disposal_embed, oz0 + disposal_bottom)))
+
+
+def disposal_field(outer):
+    """The flat wall under the warning, including a quiet margin on all four sides."""
+    bounds = disposal_letters(outer).BoundingBox()
+    field = (bounds.xmin - disposal_margin, bounds.xmax + disposal_margin,
+             outer[3] - wall, outer[3] + disposal_raise,
+             bounds.zmin - disposal_margin, bounds.zmax + disposal_margin)
+    if field[0] < outer[0] + corner_round or field[1] > outer[1] - corner_round:
+        raise ValueError("the disposal warning's flat field reaches a rounded rear corner")
+    return field
+
+
+def disposal_figures(outer):
+    field = disposal_field(outer)
+    return {
+        "DISPOSAL_CAP_HEIGHT": f"{disposal_cap_height:g} mm",
+        "DISPOSAL_RELIEF": f"{disposal_raise:g} mm",
+        "DISPOSAL_BOTTOM": f"{disposal_bottom:g} mm",
+        "DISPOSAL_FIELD_WIDTH": f"{field[1] - field[0]:.1f} mm",
+        "DISPOSAL_FIELD_HEIGHT": f"{field[5] - field[4]:.1f} mm",
+        "DISPOSAL_MARGIN": f"{disposal_margin:g} mm",
+    }
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
@@ -9006,6 +9085,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _pan_cable_clip(piece, box, up=up)
     if z_side == "bottom":
         piece = _handholds(piece, inner, y_joint, y_side)
+    if y_side == "back" and z_side == "bottom":
+        disposal_field(outer)
+        piece = piece.fuse(*disposal_letters(outer).Solids())
     return _unified(piece)
 
 
@@ -9555,17 +9637,21 @@ def _ceiling_show_cap_bound(back_top, box):
 
 
 def _silhouette_bound(pieces, box):
-    """Record that every quadrant lies inside the box's own exterior.
+    """Record that every quadrant wall lies inside the box's own exterior.
 
     `build_piece` clips each piece to the rounded silhouette before it fuses its furniture, so a
     feature fused after that clip and drawn past a face of the box would stand outside the
-    appliance. This reads the finished pieces against `outer` on every axis."""
+    machine. The integral disposal lettering stands `disposal_raise` off the rear
+    wall; subtracting only those letters leaves the wall subject to the same bound."""
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     over = []
     for name, piece in pieces.items():
         if name in ("pump-cartridge", "pump-cap"):
             continue
-        b = piece.val().BoundingBox()
+        solid = piece.val()
+        if name == "back-bottom":
+            solid = solid.cut(disposal_letters(box.outer))
+        b = solid.BoundingBox()
         for label, got, limit, sign in (("-X", b.xmin, ox0, -1.0), ("+X", b.xmax, ox1, 1.0),
                                         ("-Y", b.ymin, oy0, -1.0), ("+Y", b.ymax, oy1, 1.0),
                                         ("-Z", b.zmin, oz0, -1.0), ("+Z", b.zmax, oz1, 1.0)):
@@ -9575,10 +9661,10 @@ def _silhouette_bound(pieces, box):
     ok = not over
     return record_bound(Bound(
         "pieces-in-silhouette",
-        "Every quadrant lies inside the appliance's own exterior",
+        "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
         ok,
-        "all four inside `outer`" if ok else "; ".join(over),
-        "no face past the box's exterior on any axis",
+        f"walls inside `outer`; disposal letters raised {disposal_raise:g} mm" if ok else "; ".join(over),
+        "only the disposal letters extend past the box's exterior",
         ([] if ok else [
             "a feature fused after the silhouette clip stands outside the box; bound it to the "
             "interior lane or the wall it roots on"])))
@@ -9691,6 +9777,15 @@ def _export_pieces(pieces, assy):
                      _pump_cartridge_front_flute_rail(outer)]
         mesh = _flute_skin.flute(bodies[name], rails,
                                  flute_pitch(outer), flute_depth, flute_rise)
+        if name == "back-bottom":
+            # The flute cutter closes outside the wall even where its depth is zero.
+            # Carry the raised outlines onto the finished smooth field after that cut.
+            letters = _piece_mesh(disposal_letters(outer))
+            mesh = trimesh.boolean.union(
+                [_flute_skin.as_written(mesh), _flute_skin.as_written(letters)],
+                engine="manifold", check_volume=False)
+            mesh = trimesh.boolean.union(
+                [_flute_skin.as_written(mesh)], engine="manifold", check_volume=False)
         # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
         # carrying four faces rather than two — the solid touching itself along a line, which is
         # a fact about the solid — and refusing the cut for it would refuse every piece. The
@@ -10073,6 +10168,7 @@ def main():
         "BOX_SIZE": (f"{bo[1] - bo[0]:.6g} × {bo[3] - bo[2]:.6g} × "
                      f"{bo[5] - bo[4]:.6g} mm"),
         "FRONT_WALL": f"{front_wall:.4g} mm",
+        **disposal_figures(bo),
         **pump_cartridge_figures(box),
     }
     substitute_py_comments(

@@ -148,6 +148,22 @@ a telescoping lip does. Those two matings are the pair the overlap depth is stru
 from — it works out to (plug + bore)/2 + one wall. The lower and middle levels share
 one jamb per side.
 
+## Exterior disposal warning
+
+The +Y wall of back-bottom carries the full [household disposal warning](../../../markings/README.md)
+as integral raised lettering in the enclosure's own material. Each line is centered on the
+rear wall. The bottom of the lettering stands [14 mm](DISPOSAL_BOTTOM) above the enclosure's
+base. Its H capitals are [6.5 mm](DISPOSAL_CAP_HEIGHT) high, and the letters are raised
+[0.6 mm](DISPOSAL_RELIEF) from the wall.
+The generator measures every warning letter's outline against the 6.4 mm minimum.
+
+The wall stays flat beneath the text and its [5 mm](DISPOSAL_MARGIN) margin, over a
+[181.0 mm](DISPOSAL_FIELD_WIDTH) by [63.8 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
+flutes fade into this smooth area. It is the wall's own surface, without a border or a
+separate carrier. The raised text is fused into the STEP body and retained on the printable
+STL and viewer payload after the mesh flute cut.
+The production slice adds no support contacts beneath the lettering.
+
 ## Handholds
 
 One handhold in each ±X flank opens through the standing floor. The recesses are
@@ -727,7 +743,7 @@ build item carries a half turn about X, the crown on the bed.
 |---|---|---|---|---|
 | `enclosure-pump-cartridge` | 2 | 2 | bed | 105.40 mm |
 | `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
-| `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.00 mm** |
+| `enclosure-back-bottom` | 4 | 5 | 3 bed, **1 model** | **8.60 mm** |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, **2 model** | **8.00 mm** |
 | `enclosure-back-top` | 12 | 35 | 5 bed, **7 model** | **1.20 mm** |
 
@@ -748,10 +764,10 @@ standing on all four flanks: the **Z seam's slide-head catch**, the joint's one 
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
 into two interface islands. The other three have no such lane and root on the arm's own 45°
-under-flare **8.00 mm** below the catch they carry: front-bottom's pair and back-bottom's east
-catch are the material-rooted bodies on the two bottoms.
+under-flare below the catch they carry: **8.00 mm** for front-bottom's pair and **8.60 mm**
+for back-bottom's east catch. These are the material-rooted bodies on the two bottoms.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **12 bodies** over **35 islands**, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.00 mm** below.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate bar's top and the pocket's lower rim, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The slice reaches them with **12 bodies** over **35 islands**, 5 rooted on the plate around the bedded piece — fore of its mouth, behind its rear face, through the funnel's opening — and 7 on the piece itself: the slab's interior face, which is that piece's own first layers, and the backing over each rib's tie channel; the shortest build-up is **1.20 mm**, the stub under a crown strip inside its 3 mm channel. The ASSE threshold at x −101.5..−98.5 is reached by a model-rooted tree with **28.32 mm** of build-up. The joined east mounting pad is the separate 2.25 mm wall-rooted bridge described above and has no support interface. The three rail-face islands join the two large bed-rooted trees, with **185.28 mm** of build-up to their interfaces. The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's `slicer_settings`; a plate sliced with other support settings is audited again against that project. Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare **8.60 mm** below.
 
 ## Print orientation + corner relief
 

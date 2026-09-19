@@ -13,23 +13,23 @@
           "first_contacts_cad_xyz_mm": [
             [
               -103.4,
-              219.9,
-              168.4,
+              219.0,
+              169.0,
               -99.0,
-              313.5,
-              168.6
+              313.4,
+              169.2
             ],
             [
               -103.4,
-              325.5,
-              168.4,
+              325.4,
+              169.0,
               -99.0,
-              451.5,
-              168.6
+              451.8,
+              169.2
             ]
           ],
           "root": "bed",
-          "build_up_mm": 174.2,
+          "build_up_mm": 174.8,
           "interface_islands": 2,
           "rationale": "The -X rail's broad, flat slide-head underside is the Z seam's one down-looking face on this floor-down piece. Lifting a seated back-top lands that piece's flat foot on this complete bearing plane. Its two interface islands are the one run either side of the required 12 mm PRV passage; that opening also lets the support body root on the bed outside the flank instead of on the arm's under-flare."
         },
@@ -38,18 +38,18 @@
           "name": "west handhold lifting ceiling",
           "first_contacts_cad_xyz_mm": [
             [
-              -106.6,
-              199.5,
-              28.4,
-              -94.2,
-              250.7,
-              28.8
+              -106.2,
+              199.8,
+              28.6,
+              -93.8,
+              251.0,
+              29.0
             ]
           ],
           "root": "bed",
-          "build_up_mm": 34.2,
+          "build_up_mm": 34.4,
           "interface_islands": 1,
-          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.40 mm of build-up. The opening gives direct access to remove the complete body."
         },
         {
           "tree": "tree-3",
@@ -57,17 +57,17 @@
           "first_contacts_cad_xyz_mm": [
             [
               93.8,
-              199.9,
-              28.4,
-              106.6,
-              250.7,
-              28.8
+              199.8,
+              28.6,
+              106.2,
+              251.0,
+              29.0
             ]
           ],
           "root": "bed",
-          "build_up_mm": 34.2,
+          "build_up_mm": 34.4,
           "interface_islands": 1,
-          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.20 mm of build-up. The opening gives direct access to remove the complete body."
+          "rationale": "The handhold keeps a flat bearing ceiling for upward finger contact, with 12 mm of roof section above it. This support reaches the back half of that ceiling from the print bed through the open bottom, with 34.40 mm of build-up. The opening gives direct access to remove the complete body."
         },
         {
           "tree": "tree-4",
@@ -75,17 +75,17 @@
           "first_contacts_cad_xyz_mm": [
             [
               99.0,
-              219.5,
-              168.4,
+              219.4,
+              169.0,
               103.4,
-              451.5,
-              168.6
+              451.4,
+              169.2
             ]
           ],
           "root": "model",
-          "build_up_mm": 8.0,
+          "build_up_mm": 8.6,
           "interface_islands": 1,
-          "rationale": "The +X rail's broad, flat slide-head underside mirrors the west one and remains continuous because nothing crosses this flank. With no opening through the wall beside it, the support has no lane to the bed and roots on the arm's own 45 degree under-flare 8.00 mm below the bearing plane."
+          "rationale": "The +X rail's broad, flat slide-head underside mirrors the west one and remains continuous because nothing crosses this flank. With no opening through the wall beside it, the support has no lane to the bed and roots on the arm's own 45 degree under-flare 8.60 mm below the bearing plane."
         }
       ]
     },
