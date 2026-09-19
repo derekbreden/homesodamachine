@@ -796,7 +796,7 @@ reaches one interface after 105.40 mm and leaves directly through its open side 
 clamp-screw counterbore under its head seat after 8.80 mm; each leaves through the
 counterbore's mouth on the bed face. On front-top all three bodies root on the print bed. One reaches the pump-bay lintel and
 cartridge-facing recesses after 123 mm. The other two branch to the west and east carrier
-spring bores, guide and rim recesses, well crowns and funnel seat; the west body also reaches
+spring seats, guide and rim recesses, well crowns and funnel seat; the west body also reaches
 the pump-jack roof. Their shortest build-up is 29 mm. Remove these branches through the empty
 cartridge bay, carrier recess and funnel opening before installing the hardware.
 Each carrier half exposes the flat undersides of its fore shoulder, seam-rail relief and
@@ -1308,12 +1308,13 @@ relax the grasp so the two springs settle the carrier at connected. The plate is
 the tee wall behind it.
 
 The [`tee carrier`](/hardware/printed-parts/enclosure/tee-carrier/README.md) is two printed
-halves with closed finger cups, joined by two M3 screws at the center. Each half enters the
-loose front-top through its open rear above the valve supports, lowers through an outer tee
-well and seats outward into its side recess. The left half seats at release first; the
-right seats at park, then comes fore to close the lap. The four moving tees are already
-seated; both valve rows remain absent during carrier entry. Two access bores in the empty
-cartridge bay give straight access to the center screws.
+halves with closed finger cups, a 6 mm web and a full-height centre lap closed by two M3
+screws from the open rear. Each half enters the loose front-top through its open rear above
+the valve supports, lowers behind the fixed body and seats outward into its side recess on
+the aft stop; the right half slides onto the left half's tongue on that stop. The four moving
+tees are already seated; both valve rows and both springs remain absent during carrier entry.
+Each service tab carries its own return spring in a channel behind its fore face, bearing on
+a seat in the flank recess's fore wall.
 
 Each cup has a thick front bar, a closed back and a rounded mouth. Its rectangular body runs
 between the opening's flat upper and lower bearings; the fore and aft faces stop the stroke.
@@ -1367,11 +1368,12 @@ wells each carry a tee, both ties, the lower hairpin and the upper bowed tube an
 Their constant sections continue through the finished valve-tray junction. The upper land
 forms a continuous bridge into the fore valve tray, up to its valve-body clearance plane.
 The aft coils' cases pass below this land; their terminal pairs pass through the tee wells,
-leaving one flat underside beside the outer wells.
+leaving one flat underside beside the outer wells. The web's aft shelf runs under the land
+and over the inner coils' cases.
 The lower lands continue as a flat floor into the aft valve tray; four broad openings admit
 that row's valves from underneath and carry the moving hairpins. Branch journals
-continue forward to the fixed collet plate. One common full-width face clears the tie heads,
-ends the spring bores and clears the upper lap's lateral entry.
+continue forward to the fixed collet plate. One common full-width face clears the tie heads
+and the lap tongue's fore face.
 
 Each flank opening leaves 16 mm finger clearance behind its 16 mm solid bar at nominal
 rest, and 13.5 mm at the additional 2.5 mm aft flex limit. The current opening dimensions are in
@@ -1384,16 +1386,15 @@ above the finger space. The internal recess continues from the outer tee well to
 tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
 insertion and working sweeps include 0.25 mm clearance in X and 0.50 mm at supported Z faces.
 
-Two round spring bores terminate on the fixed wall and end on the body's common aft face.
-Each compressed spring enters through an inner tee well above the seated tee, moves outward
-below the upper guide, and lowers to its seat in the parked carrier. Its fore end extends
-into the fixed bore. The rear recesses admit the aft valves from the loose piece's open underside
-with the joined carrier at release. The carrier's upper lap clears the seated tees and
-fastens through two straight access bores in the empty cartridge bay.
+Each flank recess's fore wall carries a round spring seat on its service tab's channel axis.
+Each compressed spring comes down the outer tee well, passes outward through the window in
+the bar's inboard face into the channel, and expands fore into that seat. The rear recesses
+admit the aft valves from the loose piece's open underside with the joined carrier at
+release. The lap's two screws enter from the open rear before the aft valves; the fixed body
+carries no passage for them.
 
 The fixed guide ceilings and tee wells keep their working faces. Support
-leaves through the open aft cavities before hardware is installed. The spring bores open into
-the open bay for cleanup.
+leaves through the open aft cavities before hardware is installed.
 
 ## The full-width opening
 
