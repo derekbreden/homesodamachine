@@ -17,7 +17,7 @@ about the hinge the four barb tees' front collets stand on.
 
 | | |
 |---|---|
-| 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.3](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
+| 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59.5](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.05](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
 | 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
@@ -51,7 +51,7 @@ the pump's axis and draws the leaning tube each barb then needs to reach its tee
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [88.38](DECK_Z2), [14.35](DECK_GAP) mm over the pump heads'
+The lower deck's port axes sit at z [88.38](DECK_Z2), [14.60](DECK_GAP) mm over the pump heads'
 crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
@@ -87,7 +87,7 @@ radius on its own.
 
 [2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
 [21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
-[73.07](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
+[73.57](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
 +Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
 axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 
@@ -164,10 +164,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[194](ENV_X) × [169](ENV_Y) × [243](ENV_Z) mm — [7.93](ENV_L) L of bounding box over the
+[193](ENV_X) × [170](ENV_Y) × [243](ENV_Z) mm — [7.98](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[194](REACH_X) × [169](REACH_Y) × [257](REACH_Z).
+[193](REACH_X) × [170](REACH_Y) × [257](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

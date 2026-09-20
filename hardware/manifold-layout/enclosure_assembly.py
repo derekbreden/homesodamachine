@@ -956,10 +956,10 @@ def cradle_rows(foam, foam_carry, placed: dict) -> list:
     """Each cradle as `(name, has, wants)` — the row the cap carries and the row the placed
     valve asks for, both `(x, y, yaw, seat)` in the cap's own frame.
 
-    A valve is read off its own placed box: the Beduan is symmetric about both horizontal axes
-    of that box — its four posts, its port and its coil all are — so the box centre IS the seat
-    centre, its long horizontal span is the port axis, and its `zmin` is the mounting plane the
-    cradle has to put under it."""
+    The Beduan's symmetric cap and port extremes keep its horizontal bounding envelope centred
+    on the mounting datum, although its terminals and collet ears are asymmetric. The box
+    centre is therefore the seat centre, its long horizontal span is the port axis, and its
+    `zmin` is the four-foot mounting plane the cradle puts under it."""
     o, ex, ey = _core_frame(foam_carry)
     face = cap_face(foam)
     rows = []
@@ -1376,6 +1376,23 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     return replace(spec, entry_staging_y=aft_tray_fore_y - entry_aft_y - spec.slide_air)
 
 
+def carrier_joint_heads(spec: _carrier.CarrierSpec, offsets=(0.0, 0.0)) -> tuple:
+    """Native M3 head envelopes, swept continuously through the stated Y offsets."""
+    low, high = sorted(offsets)
+    return tuple(cq.Solid.makeCylinder(
+        _gnd.head_d / 2.0, _gnd.head_h + high - low,
+        cq.Vector(x, y + low, z), cq.Vector(0.0, 1.0, 0.0))
+        for x, y, z in _carrier.joint_sites(spec))
+
+
+def carrier_head_vertical_sweep(head, travel):
+    """The exact capsule a cylindrical head sweeps through a positive vertical travel."""
+    bb = head.BoundingBox()
+    middle = _carrier._box(bb.xmin, bb.xmax, bb.ymin, bb.ymax,
+                           bb.center.z, bb.center.z + travel).val()
+    return head.fuse(head.translate((0.0, 0.0, travel))).fuse(middle).clean()
+
+
 def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> dict:
     """Plain fixed/moving stations consumed by the enclosure and documentation."""
     moved = _carrier.placement_mismatches(spec)
@@ -1415,13 +1432,41 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
     # Carry that plane through the full web height between the two bearing lands.
     body_face_y = min(spec.web_fore_y + spec.release_offset_y
                       - spec.tie_head[1] - spec.slide_air, data["joint_work_fore_y"])
-    inner_coil_x = min(min(abs(box(solids[f"coil-v-{name}"]).xmin),
-                           abs(box(solids[f"coil-v-{name}"]).xmax)) for name in "cd")
-    head_reach = abs(spec.joint_screw_x) + _gnd.head_d / 2.0 + spec.slide_air
-    if head_reach > inner_coil_x:
-        raise ValueError(
-            f"the lap screws' heads reach X{head_reach:.3f}, into the inner aft coils at "
-            f"X{inner_coil_x:.3f}")
+    # The complete head travels past the local valve surface. The valve's body screw heads
+    # widen its overall X box at another Y, so the whole box cannot decide this clearance.
+    head_rooms = []
+
+    def head_room(stage, index, head, name, body):
+        gap = head.distance(body)
+        head_rooms.append((stage, index, name, round(gap, 6)))
+        if gap < spec.slide_air - 1e-6:
+            raise ValueError(
+                f"lap screw {index} {stage} leaves {gap:.3f} mm to {name}; "
+                f"it needs {spec.slide_air:g} mm running air")
+
+    sweep = (min(spec.state_offsets_y), max(spec.state_offsets_y))
+    for index, head in enumerate(carrier_joint_heads(spec, sweep), 1):
+        for kind in ("coil", "valve"):
+            for valve in "cd":
+                name = f"{kind}-v-{valve}"
+                head_room("working sweep", index, head, name, solids[name])
+    # The joined carrier stays at release while each aft valve rises, posts clear of the
+    # tray, then presses into its sockets. Sweeping a head oppositely gives the same relative
+    # motion and preserves the valve's curved local section throughout the complete path.
+    entry_y = -(_vtray.grip() + spec.slide_air)
+    seated_heads = carrier_joint_heads(spec, (spec.release_offset_y,) * 2)
+    insertion_heads = carrier_joint_heads(
+        spec, (spec.release_offset_y, spec.release_offset_y - entry_y))
+    for valve in "cd":
+        names = (f"coil-v-{valve}", f"valve-v-{valve}")
+        rise = max(box(solids[name]).zmax for name in names) - plate["z0"] + spec.slide_air
+        for index, (head, insertion_head) in enumerate(zip(seated_heads, insertion_heads), 1):
+            vertical = carrier_head_vertical_sweep(head, rise)
+            for name in names:
+                head_room("underside entry", index, vertical, name,
+                          solids[name].translate((0.0, entry_y, 0.0)))
+                head_room("post insertion", index, insertion_head, name, solids[name])
+    data["joint_head_clearances"] = tuple(head_rooms)
     tube_boxes = collections.defaultdict(list)
     lift = spec.tee_axis_z - ml.branch_port(sorted(ml.CARRIER_TEES)[0])[0][1]
     for row in states.values():
@@ -1657,6 +1702,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
 
     halves = {side: _carrier.build_half(spec, side).val() for side in (-1, 1)}
     carrier = cq.Compound.makeCompound(list(halves.values()))
+    joint_heads = carrier_joint_heads(spec)
     # These passages continue through the completed part, including its valve trays.
     # Clearance of the hardware alone would not find a thin shelf beside that hardware.
     for index, (xs, ys, zs) in enumerate(interface["tee_wells"], 1):
@@ -1738,6 +1784,9 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             bb = shape.BoundingBox()
             if max(abs(bb.xmin), abs(bb.xmax)) > spec.exterior_x + 1e-6:
                 failures.append(f"{state}: half {side:+d} exceeds the enclosure width")
+        for index, head in enumerate(joint_heads, 1):
+            read(f"{state} M3 lap head {index}", head.translate((0.0, dy, 0.0)),
+                 wall_and_fixed)
         # The visible opening and nominal 16 mm finger room stay fixed. At the flex
         # limit the bar uses part of that room; prove the remaining open passage.
         for side, finger in zip((-1, 1), _carrier.finger_probes(
@@ -1806,7 +1855,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     # valve rises from the open underside with its posts clear of the tray, then presses its
     # full post length into the sockets.
     entry_dy = interface["aft_valve_entry_y"]
-    release_carrier = carrier.translate((0, spec.release_offset_y, 0))
+    release_carrier = cq.Compound.makeCompound([carrier, *joint_heads]).translate(
+        (0, spec.release_offset_y, 0))
     for valve in "cdgj":
         parts = [(name, solid) for name, solid in fixed
                  if name in (f"coil-v-{valve}", f"valve-v-{valve}")]
@@ -2891,24 +2941,34 @@ def build_panel_bulkhead(name: str, x: float, z: float):
 # The Hall-effect turbine the faucet's flow is read on: the pulse train is what tells the machine
 # a glass is being poured, so the flavour pumps start with the water and stop with it.
 #
-# It lies FORE AND AFT on the panel deck, inlet forward and outlet aft, on the carb union's own
-# column and stratum — so `carb-2` is a length of tube between two mouths facing each other down
-# one line, and the riser's only route is on the other side of the meter.
+# It lies fore and aft, inlet forward and outlet aft, on the carb union's column. Its measured
+# cover sets the meter's own height below the deck; `carb-2` rises through a shallow S to the union.
 #
 # The YAW lays its flow axis along the machine; the ROLL then turns the wire boss off the ceiling
 # onto +X, which is both the room the top wall leaves and the way the pigtail has to go — the
 # main board it plugs into stands on the +X flank.
 DIGITEN_STEP = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
 DIGITEN_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 90.0))
-# The straight between the meter's outlet and the union's inboard collet — `carb-2`, which has no
-# corner in it for the same reason `water-2` has none: two collets facing each other down one
-# axis seat no arc, and what the gap has to be is enough tube for both to take hold of.
+# The fore/aft distance between the meter's outlet and the union's inboard collet.
 CARB_2 = 22.0
+DIGITEN_CEILING_CLEAR = 1.0
+
+
+def digiten_axis_drop(body) -> float:
+    """The meter's own drop below the panel deck, read off its turned cover.
+
+    The same drop applies to the trial deck and the final deck, so `deck_z` can measure the
+    body's descent without moving its height independently of the storey being tested.
+    """
+    turned, _carry = seat_body(body, DIGITEN_TURN,
+                               station=(_digiten.outlet(), (0.0, 0.0, 0.0)))
+    return max(0.0, deck_storey() + box(turned).zmax
+               + DIGITEN_CEILING_CLEAR - interior_ceiling())
 
 
 def build_digiten(carb_carry, seat: bool = True):
     """The meter seated on its OUTLET, one `CARB_2` forward of the carb union's inboard collet
-    and on that collet's own column and plane.
+    and on that collet's own column, with its cover one clearance below the ceiling.
 
     A fitting answers to its mouth: both ends of this body are collets, and the one that has to
     land in the right place is the one the union is waiting on. Where the inlet ends up is
@@ -2918,50 +2978,41 @@ def build_digiten(carb_carry, seat: bool = True):
     pos, axis = carb_carry(_jg.port(-1.0))
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
     body = import_step(str(DIGITEN_STEP)).val()
+    target = (target[0], target[1], target[2] - digiten_axis_drop(body))
     return seat_body(body, DIGITEN_TURN, seat="digiten-flow" if seat else None,
                      station=(_digiten.outlet(), target))
 
 
 # --- the anchors the meter hangs in ----------------------------------------
 #
-# TWO ANCHORS OFF THE TOP WALL, ONE PER ARM, AND NOTHING OVER THE BODY. The meter is a round
-# ⌀26 body with a ⌀12 collet barrel out of each rim, and the body is the part with no room: it
-# reaches to within `DECK_CEILING_CLEAR` and change of the top wall, while the barrels leave the
-# best part of a centimetre. So the arms are what a anchor can reach, and each takes the same 120°
-# V the ASSE anchor takes, read off a round section's tangent — apex up, opening down.
+# Two anchors off the top wall, one around each fixed port collar. The measured housing is
+# offset from the flow axis and reaches almost to the ceiling. Each collar takes a half-round
+# seat, opening down, over the widest radius of its slight moulding draft.
 #
-# WHAT THE ZIP TIE CARRIES HERE IS THE METER. A V that opens downward holds nothing on its own, so
+# WHAT THE ZIP TIE CARRIES HERE IS THE METER. A seat that opens downward holds nothing on its own, so
 # unlike the anchor's two ties these are the load path, and what they carry is a purchased part of
 # a few tens of grams on two nylon zip ties.
 DIGITEN_SEAT_SLIP = fits.slip
-# Off the body's own rim. The rim is a circle in plan, so it stands closest to a anchor at the
-# arm's own column and falls away either side of it; this is struck on the closest.
-DIGITEN_BODY_CLEAR = 1.0
-# HOW MUCH OF EACH BARREL IS LEFT ALONE at its outer end. That end is a push-fit collet: a tube
-# goes into it and the ring that lets the tube back out is on the face. A anchor over that ring is
-# a joint that cannot be broken without cutting the zip tie first.
-DIGITEN_COLLET_FREE = 6.0
+# Both movable collets remain outside the anchors, with the collar's own edge margin added by
+# the shorter printed rib. The body/neck shoulder is also outside each bearing band.
+DIGITEN_COLLET_FREE = _digiten.port_face - _digiten.port_collar_end
 
 
 def digiten_anchors(carry) -> tuple:
     """The station `enclosure._flow_meter_anchors` builds from — `(axis_x, axis_z, seat_r, bands)`.
 
-    `seat_r` is the barrel the V is struck on, one `DIGITEN_SEAT_SLIP` over its own radius, so the
-    anchor stands off the arm by that slip on the V's own normal. `bands` is the run of each arm a
-    anchor takes: from the body's rim out to where the collet's ring begins, which is the whole of
-    the barrel that is neither the body nor the joint."""
+    `seat_r` is one slip over the widest fixed collar radius. `bands` is that collar's own
+    measured axial extent, excluding the narrower neck, housing shoulder and movable collet.
+    """
     axis = carry(_digiten.inlet())[0]
-    rim = _digiten.body_dia / 2.0
-    r = _digiten.port_dia / 2.0
-    bands = []
-    for port in (_digiten.inlet, _digiten.outlet):
-        face, out = carry(port())
-        # `out` points out of the collet, so the barrel runs INBOARD from that face — both ends of
-        # the band are struck against it.
-        inner_end = face[1] - out[1] * (_digiten.port_face - rim - DIGITEN_BODY_CLEAR)
-        outer_end = face[1] - out[1] * DIGITEN_COLLET_FREE
-        bands.append(tuple(sorted((inner_end, outer_end))))
-    return (axis[0], axis[2], r + DIGITEN_SEAT_SLIP, tuple(bands))
+    bands, radii = [], []
+    for sign in (-1, 1):
+        start, end, r0, r1 = _digiten.mounting_profile(sign)[-1]
+        ends = [carry(((sign * x, 0.0, 0.0), (sign, 0.0, 0.0)))[0][1]
+                for x in (start, end)]
+        bands.append(tuple(sorted(ends)))
+        radii.extend((r0, r1))
+    return (axis[0], axis[2], max(radii) + DIGITEN_SEAT_SLIP, tuple(bands))
 
 
 # --- the tube anchors -------------------------------------------------------

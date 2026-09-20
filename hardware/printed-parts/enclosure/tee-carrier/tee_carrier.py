@@ -61,8 +61,8 @@ class CarrierSpec:
     stub_relief_depth: float = 1.608291
     stub_air: float = 0.3
     # The shelf on the aft face: it reaches to the outer aft coils and stands over the inner.
-    flange_x: float = 57.445
-    flange_z0: float = 205.925
+    flange_x: float = 56.820
+    flange_z0: float = 211.075
     flange_depth: float = 14.0
     tie_band_offsets_z: tuple[float, float] = (-12.0, 12.0)
     tie_slot_offset_x: float = 8.5
@@ -85,14 +85,14 @@ class CarrierSpec:
     park_offset_y: float = tee.CARRIER_PARK_OFFSET
     aft_overtravel_y: float = enclosure_interface.tee_carrier_aft_overtravel
     fixed_plate_aft_y: float = 82.694
-    aft_coil_fore_y: float = 116.960
+    aft_coil_fore_y: float = 116.010
     exterior_x: float = 107.5
     guide_inner_x: float = 98.5
     slide_air: float = fits.running
     finger_run: float = 16.0
     finger_air: float = 0.2
     grip_bar_t: float = 16.0
-    grip_back_x: float = 90.395
+    grip_back_x: float = 91.020
     grip_back_t: float = 3.0
     grip_aft_t: float = 3.0
     grip_rail_top_z: float = 175.05
@@ -109,7 +109,7 @@ class CarrierSpec:
     joint_lap_t: float = 6.0
     # The screw axis stands inside the coil-free band behind the web's centre; the right web
     # keeps this much beside the clearance hole, and the two webs part by the entry inset.
-    joint_screw_x: float = 0.9
+    joint_screw_x: float = 0.0
     joint_web_ligament: float = 1.0
     # The lower screw stands this far up the web; the upper one stands under the shelf with
     # its head and this much web between.

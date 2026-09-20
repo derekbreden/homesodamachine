@@ -63,8 +63,9 @@ seam in both columns.
 
 The plane stands where the seam's own machinery fits the pack: the seam ring's foot
 over the condenser's fin crown, and the rim under the forward valve tray's
-wall-to-wall span (`z-seam-under-deck` — a plate roots on a wall only above the rim;
-its foot runs below, inset on the lip's own face). The ring's front segment across
+wall roots (`z-seam-under-deck` — a plate roots on a wall only above the rim).
+Each root follows its outermost valve row. The staggered aft tray's lower band and
+its foot run below, inset on the lip's own face. The ring's front segment across
 the flat span is the bay's (`_front_flat_lip_drop`): the bay floor stands in that band
 and the pump heads run down through it on their way out, so the
 flat front carries no lip there at any height.
@@ -1085,46 +1086,43 @@ and extend inboard of the flank mouth before the slab opens that span to the lan
 
 ## Flow-meter anchors
 
-Two anchors off the **top wall**, one over each of the DIGITEN meter's collet
-barrels, and nothing over the round body between them (`_flow_meter_anchors`).
+Two anchors off the **top wall**, one over each of the DIGITEN meter's fixed port
+collars, with its offset housing between them (`_flow_meter_anchors`). The measured
+cover stands 1 mm below the nominal ceiling. The pigtail points toward the main
+board, and the meter's own axis sits below the rear union; `carb-2` rises to it
+through two shallow R14 bends.
 
-The meter is a ⌀26 body with a ⌀12 barrel out of each rim. The body reaches to
-within a hair of the top wall's inner face; the barrels leave the best part of a
-centimetre under it. So the arms are what a printed feature reaches here, and each
-takes a **bore concentric with its barrel** — half a cylinder at `seat_r`, opening
-down, so the seat and the barrel share a surface all the way round instead of
-touching on the two lines a V gives. The barrel comes straight up into it.
+The housing's physical flow arrow must agree with the route from `carb-1` to
+`carb-2` before the installation pose is accepted; the reference's port names alone
+do not establish that direction.
+
+Each fixed collar is 7.2 mm long and drafts from ⌀17.9 to ⌀18.3. Its anchor takes a
+**concentric half-round bore at R9.3**, opening down. The seat leaves at least the
+0.15 mm radial slip over the collar, and the barrel comes straight up into it.
 
 **The arc stops on the barrel's own axis plane, and the rib carries one
 `flow_meter_anchor_wall` past that.** The axis plane is where the arc is widest, so
 each lip comes out a **flat 3.000 mm strip**. Carried any further round, the arc
 runs out to nothing against the flank and leaves a feather.
 
-Each anchor runs the middle of its barrel: one `DIGITEN_BODY_CLEAR` off the body's
-rim, and clear of the outer `DIGITEN_COLLET_FREE`, which is the push-fit ring the
-tube comes back out of. The rib's length is its cavity's — `tie_cav_w` of zip tie and
-buffer with `tie_cav_wall` of itself at each end, centred in the band the barrel
-allows.
+Each anchor is 6.9 mm long, centred on the fixed collar with 0.15 mm at either end.
+The 3.5 mm tie passage has a 1.7 mm axial end web on each side. Those webs span four
+0.42 mm extrusion widths; the radial wall stays 3 mm. The narrower neck and the
+full 3.7 mm movable collet remain outside the bearing band.
 
 **The zip ties are the load path here.** A seat that opens downward carries nothing, so
 unlike the ASSE anchor's two zip ties these hold the meter up — a purchased part of a few tens
-of grams on two nylon zip ties. `enclosure_assembly.check_digiten_seated` reads the
-seats closed on the barrels at the slip itself, there being no angle in a bore to
-divide by; travel off the placed pack is 0.231 up into them, 0.400 either way across,
-and free downward.
+of grams on two nylon zip ties. Each requires a **6-inch, 18 lb tie**: the collar
+and anchor make an [81.2 mm](LOOP_DIGITEN) loop. Thread both empty passages before
+seating the meter, cinch on the fixed collars and tug-test both ties.
 
 Each anchor's zip tie runs through a window over its bore. No cavity is subtracted from the rib
 itself: its centre band is never fused, so the channel is the length the two solid ends do not
 span. The ceiling slab's own relief opens the tie route over that same band
 (`_ceiling_tie_reliefs`). The rib is one box up to one `wall` over the bore's crown, its two ends
 carried on up to the top wall, and one bore through all of it.
-On the built piece: seat R 6.2 crowning at 342.411, channel floor flat at 345.411,
-and 6.589 mm of it under the wall.
-
-**The rib is unified before it joins the wall.** A fuse imprints the seam of every
-solid that went into it, so a rib fused straight on carries its lip in as many pieces
-as it was laid down in. Cleaned first, the built piece reads one cylindrical seat face
-9.50 long, one channel floor of 64.40 mm², and each lip **one 9.500 edge**.
+**The rib is unified before it joins the wall**, leaving each bore and lip as one
+continuous bearing feature.
 
 Back-top prints on its ceiling, so the rib **stands up off the bed**: its two end webs rise
 from the slab, the seat is an upward-opening cradle in the print, its lips look print-up, and

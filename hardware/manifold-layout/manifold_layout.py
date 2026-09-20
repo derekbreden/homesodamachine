@@ -407,8 +407,8 @@ def flat_bodies() -> dict:
         if name.startswith("V-"):
             origin, (x_dir, z_dir) = (b["x"], b["y"], DECK_Z - VALVE_PORT_Z), valve_dirs(b["arg"])
             out[name] = [
-                ("valve", place(vlv.build_body().union(vlv.build_port())
-                                .union(vlv.build_arrow()).val(), origin, x_dir, z_dir), C_VALVE),
+                ("valve", place(vlv.build_body().union(vlv.build_port()).val(),
+                                origin, x_dir, z_dir), C_VALVE),
                 ("coil", place(cq.Compound.makeCompound(
                     [vlv.build_coil().val()] + [s.val() for s in vlv.build_spades()]),
                     origin, x_dir, z_dir), C_COIL)]

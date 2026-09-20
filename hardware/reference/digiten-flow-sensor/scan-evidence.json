@@ -1,0 +1,519 @@
+{
+  "schema_version": 1,
+  "part": "DIGITEN inline flow meter",
+  "units": "mm",
+  "purpose": "Purchased-part exterior for mounting, tube/lead routing and assembly clearance.",
+  "capture_date": "2026-09-20",
+  "capture_archive": "~/Documents/3D Scans/2026-09-20-flow-meter",
+  "scanner": {
+    "model": "Revopoint MINI 2",
+    "serial": "A26303035A6H01AB8",
+    "application": "Revo Scan 6.3.2",
+    "acquisition_mode": "High Accuracy / Feature / Normal / No Color",
+    "turntable_seconds_per_revolution": 35,
+    "base_removal": false
+  },
+  "surface_preparation": "Not recorded; visible white moulded housing, dark band and blue collet clips.",
+  "passes": [
+    {
+      "id": "pass-01",
+      "orientation": "label up",
+      "tilt_degrees": 0.0,
+      "depth_exposure": 1,
+      "frames": 1177,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 779084,
+      "fused_cloud": "passes/pass-01-cloud.ply",
+      "fused_cloud_sha256": "39eb9b9a13a70f65bee63e73f6b14d2bdfc2f94901545ce3929daf15c09c116b",
+      "native_project": "revo-project/pass-01/flow-meter-pass-01.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-01/cache/frames.dataset",
+        "bytes": 323424256,
+        "sha256": "26e95ca9abe6be90668555f3a6256b7f984a9d91b8a06677d8a3d088f6bf386d"
+      },
+      "native_files": 14,
+      "role": "Independent orientation/coverage confirmation; not added to the final model comparison cloud."
+    },
+    {
+      "id": "pass-02",
+      "orientation": "label up",
+      "tilt_degrees": 15.0,
+      "depth_exposure": 1,
+      "frames": 1049,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 634508,
+      "fused_cloud": "passes/pass-02-cloud.ply",
+      "fused_cloud_sha256": "609a746593cd634598d05ad42ad22b092f07b1901423d5368442bbed9c204b01",
+      "native_project": "revo-project/pass-02/flow-meter-pass-02.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-02/cache/frames.dataset",
+        "bytes": 322834432,
+        "sha256": "68721a50f5ffcfe0beeac0751a87e63763e2387d97ca7b62de2fa0529fe36e22"
+      },
+      "native_files": 14,
+      "role": "Primary fixed-body observations."
+    },
+    {
+      "id": "pass-03",
+      "orientation": "label down",
+      "tilt_degrees": 0.0,
+      "depth_exposure": 1,
+      "frames": 1033,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 799911,
+      "fused_cloud": "passes/pass-03-cloud.ply",
+      "fused_cloud_sha256": "74ce62901184b86602d87de526387ddd8c701f345072386c19f489b541899c2b",
+      "native_project": "revo-project/pass-03/flow-meter-pass-03.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-03/cache/frames.dataset",
+        "bytes": 275001344,
+        "sha256": "4f643e6d6b223f1ab636ec582c0c87b28b96b70bcaf3546b342eedd97a748506"
+      },
+      "native_files": 16,
+      "role": "Independent orientation/coverage confirmation; not added to the final model comparison cloud."
+    },
+    {
+      "id": "pass-04",
+      "orientation": "label down",
+      "tilt_degrees": 15.0,
+      "depth_exposure": 1,
+      "frames": 1110,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 601840,
+      "fused_cloud": "passes/pass-04-cloud.ply",
+      "fused_cloud_sha256": "3fb547c3fa881da6de4175b5aec9039064c7ad7133f90e297e4fff457297176d",
+      "native_project": "revo-project/pass-04/flow-meter-pass-04.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-04/cache/frames.dataset",
+        "bytes": 329912320,
+        "sha256": "80b594b5ea8dd5e6ac930ad0a0f5c192fd2bef1d1231a559fdfdfb14c9ec9f84"
+      },
+      "native_files": 14,
+      "role": "Primary fixed-body observations."
+    },
+    {
+      "id": "pass-05",
+      "orientation": "label down",
+      "tilt_degrees": 0.0,
+      "depth_exposure": 3,
+      "frames": 921,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 786884,
+      "fused_cloud": "passes/pass-05-cloud.ply",
+      "fused_cloud_sha256": "4e1ec5ec5e180a58026c40a9d9b5052c0a7b846885e17c567ba61e62dbd7949e",
+      "native_project": "revo-project/pass-05/flow-meter-pass-05.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-05/cache/frames.dataset",
+        "bytes": 256602112,
+        "sha256": "354b3cb63f7325afb43392d2ffd3820dd2f3407cc68ed0fe3901610d9d841d9c"
+      },
+      "native_files": 14,
+      "role": "Dark-band and collet supplement; white surfaces are saturated and not used for primary white-surface fits."
+    }
+  ],
+  "preservation": {
+    "status": "All 72 files in the five complete closed native project copies match the original project files byte for byte.",
+    "native_file_count": 72,
+    "native_bytes": 1607589960,
+    "full_native_file_manifest": "native-file-manifest.json",
+    "manifest_sha256": "249210e2e980a8790ab5aeb73e1f7d50a9c076f48d269a750e2b44577f4e139d",
+    "capture_time_journals": "capture-time-journals/manifest.json",
+    "capture_time_journals_note": "Transient application journals from live copying are separately retained with hashes; they are absent from the closed source projects. The main raw datasets are unchanged and match capture hashes."
+  },
+  "frame": {
+    "origin": "Midpoint of the collet faces on their common axis.",
+    "x": "Port axis; +X points left when viewing the label with the lead above it.",
+    "y": "+Y points toward the label.",
+    "z": "+Z points toward the lead exit.",
+    "body_center_xz_mm": [
+      0,
+      8.9
+    ],
+    "hydraulic_direction": {
+      "status": "Unconfirmed on the physical sample.",
+      "retained_repository_convention": "inlet at -X, outlet at +X; flow -X to +X.",
+      "confirmation_view": "Label toward viewer, lead at top; left arrow would confirm the retained convention.",
+      "scan_establishes": "Physical port locations only; the arrow is not resolved by these scans."
+    }
+  },
+  "registration": {
+    "kind": "Rigid rotation and translation; no rescaling.",
+    "scale_factor": 1,
+    "source_to_canonical": {
+      "pass-01": [
+        [
+          0.8669942409626276,
+          0.34847412119825105,
+          -0.3562116968780652,
+          42.523099635883966
+        ],
+        [
+          0.06665844157483891,
+          -0.7895049951884588,
+          -0.6101135261074627,
+          121.18595492562878
+        ],
+        [
+          -0.4938396888712565,
+          0.5052203968839508,
+          -0.7077250258878593,
+          153.6266075607611
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pass-02": [
+        [
+          0.9425724438816735,
+          -0.1762988000604765,
+          0.2836827825797078,
+          -81.91297508446328
+        ],
+        [
+          0.10761271673975176,
+          -0.643754478220434,
+          -0.7576276624879973,
+          147.02616292451538
+        ],
+        [
+          0.3161909094689782,
+          0.7446468323093659,
+          -0.5878132389635399,
+          91.3211019318307
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pass-03": [
+        [
+          0.928231216094292,
+          0.2428985127046768,
+          -0.2817572039788326,
+          26.50627020103468
+        ],
+        [
+          -0.052456108641827814,
+          0.8353001789757143,
+          0.547286001711448,
+          -98.65486418206933
+        ],
+        [
+          0.36828679875101544,
+          -0.49322806441746975,
+          0.7880932117057777,
+          -146.9844366648005
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pass-04": [
+        [
+          -0.3366591587065096,
+          0.7128502521734947,
+          -0.6152277048664203,
+          117.88599157141029
+        ],
+        [
+          -0.02606362401246476,
+          0.6460621375500687,
+          0.7628396960879577,
+          -140.00729274173221
+        ],
+        [
+          0.9412657958102779,
+          0.27285203389459267,
+          -0.19892327474989527,
+          26.862085186127672
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pass-05": [
+        [
+          -0.2460624077511823,
+          0.5440176602964009,
+          -0.8021833186855201,
+          165.9614080393502
+        ],
+        [
+          -0.02803523759000963,
+          0.8232886188125815,
+          0.5669302210915714,
+          -103.25041600852923
+        ],
+        [
+          0.9688484489046557,
+          0.16198961515879517,
+          -0.187328715459596,
+          28.312920103814413
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "overlap_agreement": {
+      "alignment-01-to-02": {
+        "source_points": 779084,
+        "overlap_pairs_within_0_5mm": 606512,
+        "nearest_distance_p50_p90_p95_mm": [
+          0.06130929653464785,
+          0.11000118573087349,
+          0.1806313560716702
+        ],
+        "plane_residual_p50_p90_p95_mm": [
+          0.037661902675306114,
+          0.08727865458149442,
+          0.1164612696177456
+        ]
+      },
+      "alignment-03-to-02": {
+        "source_points": 255450,
+        "overlap_pairs_within_0_5mm": 176445,
+        "nearest_distance_p50_p90_p95_mm": [
+          0.07436124020205251,
+          0.1881269580471771,
+          0.2854367406970769
+        ],
+        "plane_residual_p50_p90_p95_mm": [
+          0.0556708190303999,
+          0.16308424295563526,
+          0.21794645114566175
+        ]
+      },
+      "alignment-04-to-02": {
+        "source_points": 200230,
+        "overlap_pairs_within_0_5mm": 141509,
+        "nearest_distance_p50_p90_p95_mm": [
+          0.06692926801488448,
+          0.16659628721023373,
+          0.2611378669493594
+        ],
+        "plane_residual_p50_p90_p95_mm": [
+          0.04366029666963722,
+          0.12772446690571,
+          0.1840003182625743
+        ]
+      },
+      "alignment-05-to-04": {
+        "source_points": 750402,
+        "overlap_pairs_within_0_5mm": 614797,
+        "nearest_distance_p50_p90_p95_mm": [
+          0.05350776473857982,
+          0.09806975565861917,
+          0.1688349592324322
+        ],
+        "plane_residual_p50_p90_p95_mm": [
+          0.023402342666679607,
+          0.07331085327714432,
+          0.10606881166438827
+        ]
+      }
+    },
+    "overlap_interpretation": "Accepted overlap pairs within 0.5 mm after normal-consistent rigid alignment. These agreement statistics are not calibrated absolute accuracy.",
+    "selection": {
+      "pass-02": "Y > -1.5 and |X| < 26.8; excludes upright movable collet configuration.",
+      "pass-04": "Y < 14.5; underside and collets in their inverted configuration.",
+      "pass-05": "26.8 < |X| < 30.6 and hypot(Y,Z) < 8; supplementary collet observations only.",
+      "final_crop": "|X| < 31.5, -10 < Y < 19.5, -10 < Z < 27.2; temporary supports and flexible lead excluded."
+    },
+    "merged_voxel_mm": 0.1,
+    "merged_points": 642615,
+    "merged_cloud": "processing/measured-exterior.ply",
+    "merged_cloud_sha256": "463d3b2690d60d772e5d46f91cabb51a1677fc1c64c13ac483b768ad6eaf91b7",
+    "surface_smoothing": false,
+    "hole_filling": false,
+    "reproduction_script": "processing/prepare_model_observations.py",
+    "reproduction_check": "processing/observation-reproduction-check.json"
+  },
+  "fitted_features": {
+    "common_fixed_barrel_by_pass": {
+      "pass-02": {
+        "axis_y_at_x0": -8.888117654267194,
+        "axis_z_at_x0": -18.701553152663067,
+        "radius": 9.040561739067838,
+        "dy_dx": -0.025422002845752658,
+        "dz_dx": 0.0008068634894876532,
+        "points": 35207,
+        "residual_p50_p95_mm": [
+          0.03395840011183182,
+          0.09163125640942962
+        ]
+      },
+      "pass-04": {
+        "axis_y_at_x0": -8.898248458476314,
+        "axis_z_at_x0": -18.77864060372875,
+        "radius": 9.088279012896278,
+        "dy_dx": -0.0261331842107411,
+        "dz_dx": -0.001342547331427842,
+        "points": 23018,
+        "residual_p50_p95_mm": [
+          0.031781450239726894,
+          0.09789979636609471
+        ]
+      }
+    },
+    "fit_frame": "Intermediate label-plane frame; transform to canonical is in processing/canonical-frame.json.",
+    "fixed_barrel_model": "The cylindrical fit establishes the common axis; longitudinal sections establish the small collar draft.",
+    "boss_fits": "processing/boss-fits.json: stable lower boss-wall band is z_-19_-12 in the intermediate frame.",
+    "boss_radius_observed_range_mm": [
+      3.38926166974498,
+      3.462414534670074
+    ],
+    "boss_radius_chosen_mm": 3.45
+  },
+  "model_choices": {
+    "port_stations": {
+      "faces_x_mm": [
+        -30.5,
+        30.5
+      ],
+      "basis": "Observed nose extents rounded to a symmetric face-to-face span about the measured common axis."
+    },
+    "fixed_necks": {
+      "extent_abs_x_mm": [
+        15.5,
+        19.6
+      ],
+      "radius_mm": 7.95,
+      "fidelity": "Analytic cylinder for seating/routing."
+    },
+    "fixed_collars": {
+      "extent_abs_x_mm": [
+        19.6,
+        26.8
+      ],
+      "radii_inner_outer_mm": [
+        8.95,
+        9.15
+      ],
+      "fidelity": "Drafted cone; preserves the physical bearing band and its end before the collet."
+    },
+    "collets": {
+      "extent_abs_x_mm": [
+        26.8,
+        30.5
+      ],
+      "stem_radius_mm": 5.0,
+      "clip_radius_mm": 5.65,
+      "clip_ear_outer_radius_mm": 6.65,
+      "fidelity": "One observed position per end from passes 04/05; alternate upright rotations are not unioned."
+    },
+    "visible_mouth": {
+      "radius_mm": 3.25,
+      "visual_depth_mm": 6.0,
+      "limit": "Depth is only a visual recess, not a measured insertion stop or a hidden flow-path claim."
+    },
+    "housing": {
+      "flange_diameter_mm": 35,
+      "housing_axis_offset_z_mm": 8.9,
+      "label_y_mm": 18.7,
+      "opposite_rim_y_mm": -9.4,
+      "fidelity": "Drafted circular lower shell, flange, dark band and beveled cover."
+    },
+    "bosses_and_screws": {
+      "centres_relative_to_housing_xz_mm": [
+        [
+          -12.5,
+          -14
+        ],
+        [
+          -12.5,
+          14
+        ],
+        [
+          12.5,
+          -14
+        ],
+        [
+          12.5,
+          14
+        ]
+      ],
+      "boss_radius_mm": 3.45,
+      "boss_y_range_mm": [
+        0,
+        17.2
+      ],
+      "screw_head_radius_mm": 2.65,
+      "head_y_range_mm": [
+        17.2,
+        18.9
+      ],
+      "fidelity": "Boss and head envelopes retained; drive recesses omitted."
+    },
+    "underside": {
+      "radial_ribs": 6,
+      "recess_floor_y_mm": -8.45,
+      "outer_rim_y_mm": -9.4,
+      "fidelity": "Six shallow pockets retain the observed rim, radial ribs and central envelope; the small central depression is omitted."
+    },
+    "lead_root": {
+      "routing_station_mm": [
+        0,
+        14.8,
+        26.5
+      ],
+      "envelope_mm": [
+        6,
+        3,
+        1.5
+      ],
+      "fidelity": "Coarse rigid root envelope for lead routing; flexible pigtail omitted."
+    },
+    "omitted": [
+      "Lettering and label artwork",
+      "Screw-drive recesses",
+      "Fine moulding blends and surface texture",
+      "Flexible lead shape",
+      "Hidden turbine, electronics, seals and unobserved internal flow passages"
+    ]
+  },
+  "measurement_limits": {
+    "absolute_accuracy": "Not established; no independent scale calibration was made.",
+    "point_spacing": "0.10 mm fused spacing is a sampling setting, not accuracy.",
+    "interpretation": "Fit and model residuals describe the selected observations, registration, rounding and deliberate simplification; they are not tolerances or manufacturing specifications.",
+    "coverage": "Both cover faces, collar bearing surfaces, fixed necks, collet noses, screw bosses and lead root are observed. Invisible interiors are not reconstructed."
+  },
+  "model_validation": {
+    "report": "scan-model-check.json",
+    "script": "validate_scan.py",
+    "model_source_sha256": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513",
+    "hash_scope": "Full repository source bytes; generated model-check.json separately records the executed producer SHA, which can be Bazel-normalized.",
+    "validation_script_sha256": "0223882c33ad9c809a03d021234f2797da20fe17937e42a3fc05745313c48d75",
+    "sample_count": 98652,
+    "scope": "Deterministic 0.3 mm voxel selection over all retained exterior observations; physical feature masks without distance-based rejection.",
+    "review_image": "processing/evidence-cad-residuals.png"
+  },
+  "previews": {
+    "provenance": "processing/preview-provenance.json",
+    "label": "processing/model-label-view.png",
+    "underside": "processing/model-underside-view.png"
+  },
+  "review_images": [
+    "processing/model-overlay.png",
+    "processing/evidence-cad-residuals.png",
+    "processing/underside-detail.png",
+    "processing/nose-sections.png",
+    "processing/nose-profiles.png"
+  ]
+}

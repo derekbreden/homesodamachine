@@ -103,12 +103,10 @@ def internal_plumbing(m):
     assert split_branch == DOWN, (
         f"the water split's branch points {split_branch} — IP-02 drops `water-3` out of the west "
         f"lane and IP-05's caption is about that branch")
-    # The meter-to-bulkhead riser is a straight. Gas-line corner counts come
-    # from the actual adapter-to-adapter routes, without a straight-hop assumption.
-    for rid in ("carb-2",):
-        assert corners(rid) == 0, (
-            f"`{rid}` now turns {corners(rid)} time(s) — the cards cut it as a straight length "
-            f"between two mouths facing each other")
+    # The measured meter sits below the union; two shallow bends join their coaxial end leads.
+    assert corners("carb-2") == 2, (
+        f"`carb-2` turns {corners('carb-2')} time(s) — IP-07 carries a two-bend rise "
+        f"from the meter to the rear union")
     # AND `fluid-1` IS THE HAIRPIN. The regulator stands over the split on one column with both
     # mouths forward, so the run leaves one, turns through 180° in the room ahead of the pair
     # and comes back into the other — two stock quarter-turns with no straight in it.
@@ -187,14 +185,14 @@ def internal_plumbing(m):
     assert cols["bulkhead-carb"] == cols["bulkhead-flavor-a"] != cols["bulkhead-flavor-b"], (
         f"the three riser unions stand on columns {cols} — IP-07 sends the carb riser up the "
         f"nozzle-A union's own column and the nozzle-B riser up the one beside it")
-    # The meter splits the riser rather than hanging off it: both its mouths are
-    # the riser's, it lies on the carb union's own column and stratum, and it
-    # stands FORWARD of the union it feeds. WR-05 lands SIG-4 on it there.
+    # The meter lies on the carb union's column, forward and below it, with its lead toward
+    # the board. Its measured cover sets that lower storey and carb-2 rises to the union.
     meter_in, meter_out = port("digiten-flow", "inlet"), port("digiten-flow", "outlet")
     union_in = port("bulkhead-carb", "tube-in")
-    assert meter_out[0][0] == union_in[0][0] and meter_out[0][2] == union_in[0][2], (
-        "the DIGITEN no longer lies on the carb union's own column and stratum — WR-05 and IP-07 "
-        "both put it inline on the riser, and `carb-2` is a straight because of it")
+    assert (abs(meter_out[0][0] - union_in[0][0]) < 1e-6
+            and meter_out[0][2] < union_in[0][2]), (
+        "the DIGITEN must lie below the carb union on its own column — IP-07 joins the "
+        "two on-axis ends with a shallow rise")
     assert meter_out[0][1] < union_in[0][1] and meter_in[0][1] < meter_out[0][1], (
         "the DIGITEN no longer lies fore and aft forward of the carb union — IP-07 closes "
         "`carb-1` into its inlet from the deck and `carb-2` out of its outlet into the union")

@@ -2411,19 +2411,19 @@ def _dims(pack):
     # spans wall to wall whole above the rim, and its FOOT runs below it inset on the lip's
     # own face (`_valve_trays`). The lip's ring cannot read one: it is printed material,
     # not pack, and a plate standing ON the rim is a touch with no volume in it. This reads
-    # the wall-to-wall storeys off the same stations the pieces build them from. The bay's
+    # each wall root off the same outer valve row the pieces build it from. The lower band
+    # between staggered rows stays inset to the lip faces. The bay's
     # floor is the one span that does stand on the rim and answers elsewhere
     # (`enclosure_assembly.check_bay_floor`); the pump clamp's collar storey belongs to the
     # removable assembly, so no fixed wall carries it.
     rim = max(splits) + z_rise
-    decks = [mz - _valve_tray.height() / 2.0
-             for _plane, _sign, seats in pack.valve_trays
-             for mz in [(min(z for _x, z in seats) + max(z for _x, z in seats)) / 2.0]]
+    decks = [floor for _plane, _sign, seats in pack.valve_trays
+             for floor in _valve_tray.wall_root_floors(seats)]
     deck_floor = min(decks) if decks else iz1
     record_bound(Bound(
         "z-seam-under-deck", "The Z-seam rim stays under the flavour deck's lowest plate",
         rim < deck_floor - stated_bound_tol,
-        f"rim at {rim:.2f}, deck floor at {deck_floor:.2f}",
+        f"rim at {rim:.2f}, lowest wall root at {deck_floor:.2f}",
         "air between them",
         ([] if rim < deck_floor - stated_bound_tol else [
             f"the lip's rim at {rim:.2f} reaches the deck's lowest wall-rooted plate at "
@@ -7523,12 +7523,12 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # perimeter of the pair, and not of the wall the rib stands on:
 #
 #     carb-1 tube in its rib      [39.7 mm](LOOP_CARB_1)
-#     DIGITEN arm in its anchor   [59.2 mm](LOOP_DIGITEN)
+#     DIGITEN arm in its anchor   [81.2 mm](LOOP_DIGITEN)
 #     WR1110 barrel in its rib    [83.7 mm](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
 #
-# A 4" tie closes about 69 mm of loop, which takes the first two; the regulator's takes the 6",
-# which closes about 110. The ASSE barrel's passes both and takes the 8", and an 8" tie is a 50 lb
+# A 4" tie closes about 69 mm of loop and takes the tube rib; the meter and regulator take the
+# 6", which closes about 110. The ASSE barrel takes the 8", and an 8" tie is a 50 lb
 # tie at 0.19" where the rest are 18 lb at 0.1" — so that anchor's cavity, alone on this box, is
 # cut to the wider zip tie. Every other cavity here takes the same 0.1" section at any length.
 tie_w = 2.5           # the 18 lb zip tie, across its width — 0.1"
@@ -7739,10 +7739,12 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
 # and each lip comes out a flat strip one `wall` across. An arc carried past its widest point runs
 # out to nothing against the flank and leaves a feather no nozzle can lay down.
 flow_meter_anchor_wall = 3.0
-# ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One zip tie crosses each anchor, so the rib is that
-# zip tie's cavity with `tie_cav_wall` of itself at each end of it, and the band `flow_meter_anchors`
-# reads off the barrel is what that rib is centred in.
-flow_meter_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
+# The measured fixed collar is 7.2 mm long. Two 1.7 mm axial webs carry this light meter's
+# 3.5 mm tie cavity inside that collar, leaving the full movable collet exposed. Each end web
+# spans four 0.42 mm extrusion widths. The radial wall remains 3 mm, and the two ends each leave
+# 0.15 mm of axial room.
+flow_meter_anchor_end_wall = 1.7
+flow_meter_anchor_len = tie_cav_w + 2.0 * flow_meter_anchor_end_wall
 # The zip tie's cavity through each anchor, over the bore. Its floor is the SEAT'S OWN ARC offset out
 # by one `wall` — concentric, so the web reads `wall` all the way round — and ITS CEILING IS THE
 # TOP WALL'S OWN INNER FACE. The channel is everything left between them, deepest over the crown
@@ -7771,7 +7773,7 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 # on the deck it stands under. `valve_tray` states its thickness, its margin and its seat height
 # and draws one in its own frame; this turns that onto the deck's own plane and fuses the plate
 # into the piece, the way `_asse_cradle` fuses the ASSE anchor and `_flow_meter_anchors` the flow
-# meter's two Vs — and then cuts the seats and the ports' channels out of it.
+# meter's two half-round seats — and then cuts the sockets and port channels out of it.
 #
 # THE PLATE IS THE BOSS. A boss is material round a socket, and a plate one socket and one wall
 # thick is that material: a seat sunk into it leaves nothing standing off its face. Which is the
@@ -7801,8 +7803,8 @@ def _valve_socket_cutters(plane, sign, seat_x, seat_z):
     return tuple(
         _teardrop_y(_seat.socket_radius, seat_x + dx, seat_z - sign * dz,
                     along[0], along[1])
-        for dx in (-_seat.corner_inset, _seat.corner_inset)
-        for dz in (-_seat.corner_inset, _seat.corner_inset)
+        for dx in (-_seat.corner_inset_x, _seat.corner_inset_x)
+        for dz in (-_seat.corner_inset_y, _seat.corner_inset_y)
     )
 
 
@@ -7813,7 +7815,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
     faces on, which way their own +Z runs off it, and one `(x, z)` per valve. The plate's own
     extent is the seats' — wall to wall across, and one `valve_tray.reach` plus a margin either
-    way along — so nothing here is a dimension this module chose.
+    way along. Each wall root follows its outermost valve row; the lower band between staggered
+    rows stays inside the lip faces, continuous with the tray's bedded foot.
 
     THE SEATS ARE SUNK AND SO IS THE PORT'S OWN CHANNEL. The plate is a socket and a wall thick
     (`valve_tray.THICK`), which is the material a boss would have been, so nothing is fused onto
@@ -7856,7 +7859,7 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
-        half = _valve_tray.height() / 2.0
+        half = _valve_tray.height(seats) / 2.0
         if not (y0 <= plane <= y1 and z0 <= mid_z <= z1):
             continue
         # The plate: its valve-side face on the plane the valve lands on, its back one `THICK`
@@ -7886,6 +7889,14 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
         if footed:
             lx0, lx1 = lip_face_x()
             tray = tray.fuse(_ybox(lx0, lx1, near, far, foot_z0, mid_z - half))
+        # Each wall root carries its outer valve's full height. The inner seats' lower
+        # band keeps the foot's inset, leaving the complete seam lip free at the flanks.
+        for outside, inside, root in zip(
+                inner[:2], lip_face_x(), _valve_tray.wall_root_floors(seats)):
+            if root > floor + 1e-9:
+                tray = tray.cut(_ybox(
+                    min(outside, inside), max(outside, inside), near - 1.0, far + 1.0,
+                    min(foot_z0, floor - wedge_depth) - 1.0, root))
         if flank_bed_z is not None:
             tray = tray.cut(_front_top_flank_bedding_cut(
                 inner, near - 1.0, far + 1.0, flank_bed_z))
@@ -7897,8 +7908,10 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
             solid = solid.cut(_valve_tray.build_body_clearance().val().moved(turn).moved(at))
             for socket in _valve_socket_cutters(plane, sign, sx, sz):
                 solid = solid.cut(socket)
-            chan = (_valve_tray.height() if not footed else max(
-                _valve_tray.height(), 2.0 * (sz - foot_z0))) + 2.0 * wedge_depth
+            chan = 2.0 * (half + abs(sz - mid_z))
+            if footed:
+                chan = max(chan, 2.0 * (sz - foot_z0))
+            chan += 2.0 * wedge_depth
             solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))
     return solid
@@ -7911,9 +7924,8 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1, up=1.0):
     ends climb to the face it roots on and the zip tie's channel is the room left between them, so
     the plane handed in here is the one that piece actually presents.
 
-    ONE PER ARM AND NONE OVER THE BODY. The round body reaches to within a hair of the top wall
-    and the two collet barrels leave the best part of a centimetre under it, so the arms are the
-    only part of this meter a printed feature can reach without the storey moving.
+    One per fixed port collar and none over the body. The measured cover leaves one millimetre
+    under the nominal ceiling; the lower collar axes leave room for the seats and tie passages.
 
     THE SEAT IS A BORE AND NOT A V, because the thing it takes is round. Half a cylinder on the
     barrel's own axis, `seat_r` across, so the seat and the barrel share a surface all the way round
@@ -7941,10 +7953,10 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1, up=1.0):
             continue
         if by1 - by0 < flow_meter_anchor_len - 1e-6:
             raise ValueError(
-                f"_flow_meter_anchors: the barrel leaves {by1 - by0:.2f} mm between the body's rim "
-                f"and the collet's ring, and an anchor is {flow_meter_anchor_len:.2f} — one zip tie's "
-                f"cavity with `tie_cav_wall` at each end of it. Either the band gives way "
-                f"(`DIGITEN_BODY_CLEAR`, `DIGITEN_COLLET_FREE`) or the rib does.")
+                f"_flow_meter_anchors: the fixed collar is {by1 - by0:.2f} mm long and an anchor "
+                f"is {flow_meter_anchor_len:.2f} — one zip tie's cavity with "
+                f"`flow_meter_anchor_end_wall` at each end. The anchor must fit inside the "
+                f"measured collar without reaching the housing or movable collet.")
         mid = (by0 + by1) / 2.0
         sy0, sy1 = mid - flow_meter_anchor_len / 2.0, mid + flow_meter_anchor_len / 2.0
         z_crown = z_axis + seat_r + wall          # one `wall` over the bore's own crown
@@ -7997,8 +8009,7 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1, up=1.0):
 # THESE PIECES ARE POPULATED INVERTED ON THE BENCH. A seat hanging off the top wall is an
 # upward-opening cradle at the moment a tube is laid in it and its zip tie threaded.
 #
-# ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `flow_meter_anchor_len` strikes: one zip tie
-# crosses one anchor, so the rib is that zip tie's cavity with `tie_cav_wall` of itself at each end.
+# Its length along the run is one zip tie's cavity with `tie_cav_wall` at each end.
 tube_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
 # A 1 mm zip tie needs its own thickness plus routing air, not every millimetre between a small tube
 # and a distant wall. One structural section leaves 2 mm beyond the zip tie and keeps a deep anchor

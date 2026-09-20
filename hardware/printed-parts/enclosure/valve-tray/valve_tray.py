@@ -25,8 +25,7 @@ onto a deck and fuses it. The frame is `valve_seat`'s carried onto a plate:
       boss tops — `SEAT` is negative here, and that is the whole of the difference.
   X = across the plate. Y = along it. Origin is the plate's centre in both.
 
-A SEAT'S FOUR BOSSES ARE SQUARE, so a quarter turn carries one onto itself: a valve's yaw
-locates it and never turns the print.
+The rectangular socket pattern follows the valve: X across the plate and the port axis on Y.
 
 In the piece's own print orientation the plate stands vertical, wall to wall, and NOTHING
 stands off it: the port channel is a notch that runs up the plate's own section, while
@@ -89,19 +88,32 @@ PORT_SLIP = _seat.port_air
 
 
 def reach() -> float:
-    """How far a seat's material stands off the valve it holds, in plan — the corner post's
-    inset and the boss around it. The plate's height is struck on this."""
-    return _seat.corner_inset + _seat.boss_radius
+    """The seat's reach along its port axis, which sets the plate's height."""
+    return _seat.seat_half_y
 
 
-def height() -> float:
-    """The plate's height: what the seats reach, both ways, and one `MARGIN` past each."""
-    return 2.0 * (reach() + MARGIN)
+def height(seats=()) -> float:
+    """The seats' complete row span, their reach, and one `MARGIN` past each end."""
+    ys = [y for _x, y in seats]
+    span = max(ys) - min(ys) if ys else 0.0
+    return span + 2.0 * (reach() + MARGIN)
+
+
+def wall_root_floors(seats) -> tuple:
+    """The lower edge at each wall, following that side's outermost valve row.
+
+    The lower band between staggered rows stays inside the enclosure lip faces;
+    each full-width wall root carries its outer valve's complete reach and margin.
+    Coordinates are the seats' along-plate axis, world Z in the enclosure.
+    """
+    xs = [x for x, _y in seats]
+    return tuple(min(y for x, y in seats if abs(x - edge) < 1e-6)
+                 - reach() - MARGIN for edge in (min(xs), max(xs)))
 
 
 def seat_pitch_floor() -> float:
     """The closest two seats stand before their bosses meet."""
-    return 2.0 * reach()
+    return 2.0 * _seat.seat_half_x
 
 
 def port_drop() -> float:
@@ -134,7 +146,7 @@ def web() -> float:
     """The plate left between a corner socket and the port channel, MEASURED.
 
     The two features run at right angles — the sockets down the valve's own axis, the channel
-    across the plate on its Y. A socket's inner edge stands `corner_inset - socket_radius` off
+    across the plate on its Y. A socket's inner edge stands `corner_inset_x - socket_radius` off
     the centreline and the channel `port_radius + PORT_SLIP`, a tenth of a millimetre apart if
     they ever met at one height; the channel's widest station is above the sockets' mouths and
     never does. Anything that brings the two to one height spends that tenth at once, and
@@ -177,40 +189,37 @@ def build_port_channel(length: float):
             .extrude(length / 2.0, both=True))
 
 def build_body_clearance():
-    """The valve's own boss and top box (`beduan_solenoid.build_body`, less its four corner
-    posts), grown by `PORT_SLIP` — the air a plate's own LATER fuse (a corbel, a rib, anything
-    struck after the sockets and the port channel already answer for the posts and the port)
-    still owes the round body and the box behind it, neither of which either existing cut was
-    ever asked to clear.
+    """The stepped valve body with one millimetre of air above its bearing plane.
 
-    THE FOUR POSTS ARE LEFT OUT ON PURPOSE. They are exactly what `valve_seat.build_sockets`
-    cuts its sockets at the shared static `socket_clearance`, not this function's
-    `PORT_SLIP` (1.0 mm) — over the whole length `valve_seat.grip` reads off this same body. A
-    post-shaped cutter here, at any radius past the socket's own, reams every socket out to a
-    free hole along that whole grip length and a valve seated in it is no longer held by
-    anything. The boss and the box carry no such grip to protect, so growing them costs nothing
-    a socket needs.
-
-    Rebuilt from the same two primitives rather than a generic offset of their union — a grown
-    cylinder and a grown box, independent of where their faces meet, so there is no seam for an
-    offset to reason about. `PORT_SLIP` is reused rather than a second clearance figure: it is
-    already this file's own answer for how much air a fused feature owes the valve's real
-    geometry.
-
-    GROWN SIDEWAYS AND UPWARD ONLY. The boss stands on the landing plane, so the cylinder's
-    floor is that plane (`valve_seat.seat_top_z`) exactly: a slip carried back past it is a
-    disk of the plate's own face, and the plate is the one thing at a station that is meant to
-    be there."""
+    The lower post sockets retain their own radial fit below the bearing plane.
+    The physical cap dimensions are independent of the manifold's packing pitch.
+    """
     slip = PORT_SLIP
-    body = (cq.Workplane("XY")
-            .workplane(offset=_seat.seat_top_z)
-            .circle(_valve.body_radius + slip)
-            .extrude(_valve.boss_z_range[1] - _seat.seat_top_z + slip))
-    top_box = (cq.Workplane("XY")
-               .workplane(offset=_valve.top_box_z_range[0] - slip)
-               .box(_valve.body_width_x + 2.0 * slip, _valve.body_width + 2.0 * slip,
-                    _valve.top_box_height + 2.0 * slip, centered=(True, True, False)))
-    return body.union(top_box)
+
+    def cylinder(radius, z0, z1, x=0.0, y=0.0):
+        return (cq.Workplane("XY").workplane(offset=z0).center(x, y)
+                .circle(radius).extrude(z1 - z0))
+
+    body = cylinder(_valve.bearing_radius + slip, _seat.seat_top_z,
+                    _valve.bearing_z_range[1] + slip)
+    body = body.union(cylinder(_valve.body_radius + slip,
+                               _valve.body_main_z_range[0] - slip,
+                               _valve.body_main_z_range[1] + slip))
+    for sx in (-1.0, 1.0):
+        for sy in (-1.0, 1.0):
+            x, y = sx * _seat.corner_inset_x, sy * _seat.corner_inset_y
+            body = body.union(cylinder(_valve.corner_boss_radius + slip,
+                                       _seat.seat_top_z,
+                                       _valve.post_shoulder_z + slip, x, y))
+            body = body.union(cylinder(_valve.upper_corner_radius + slip,
+                                       _valve.post_shoulder_z - slip,
+                                       _valve.body_top_z + slip, x, y))
+    cap = (cq.Workplane("XY")
+           .workplane(offset=_valve.top_box_z_range[0] - slip)
+           .rect(_valve.cap_width_x + 2.0 * slip, _valve.cap_depth_y + 2.0 * slip)
+           .extrude(_valve.top_box_height + 2.0 * slip)
+           .edges("|Z").fillet(_valve.cap_corner_radius + slip))
+    return body.union(cap)
 
 
 def build_valve_tray(width: float, seats):
@@ -218,30 +227,30 @@ def build_valve_tray(width: float, seats):
     per station in `seats`.
 
     `seats` is `(x, y)` per valve in the plate's own frame — where that valve's footprint centre
-    lands. A station carries no yaw and no height: the seat is square, and every valve on one
-    tray stands on one plane by construction."""
+    lands. Every valve on one tray has its port axis on Y and stands on the same plane;
+    adjacent columns may have different Y positions."""
     if not seats:
         raise ValueError("a valve tray with no seats is a plate, and this machine prints none")
     ys = [y for _x, y in seats]
     for i, (xa, ya) in enumerate(seats):
         for xb, yb in seats[i + 1:]:
-            if max(abs(xa - xb), abs(ya - yb)) < seat_pitch_floor() - 1e-9:
+            if abs(xa - xb) < seat_pitch_floor() - 1e-9:
                 raise ValueError(
                     f"two seats stand ({abs(xa - xb):.3f}, {abs(ya - yb):.3f}) mm apart and a "
-                    f"seat reaches {reach():g} mm every way — their bosses meet, and four "
+                    f"seat reaches {_seat.seat_half_x:g} mm across the plate — their bosses meet, and four "
                     f"bosses that meet are a plate with scallops in it")
-    if max(ys) - min(ys) > 1e-9:
-        raise ValueError(
-            f"the seats span {max(ys) - min(ys):.3f} mm along the plate — `height` is struck on "
-            f"one row of seats, and these stand on more than one")
+    mid_y = (min(ys) + max(ys)) / 2.0
+    tray_height = height(seats)
     tray = (cq.Workplane("XY")
              .workplane(offset=-THICK)
-             .box(width, height(), THICK, centered=(True, True, False)))
+             .box(width, tray_height, THICK, centered=(True, True, False))
+             .translate((0.0, mid_y, 0.0)))
     # A station is where the valve's own frame lands: `SEAT` under the face, which is where the
     # sockets and the channel are both struck from. Cut, not fused — the plate is the boss.
     for x, y in seats:
         tray = tray.cut(_seat.build_sockets().translate((x, y, SEAT)))
-        tray = tray.cut(build_port_channel(height() + 2.0).translate((x, y, SEAT)))
+        channel_length = tray_height + 2.0 * abs(y - mid_y) + 2.0
+        tray = tray.cut(build_port_channel(channel_length).translate((x, y, SEAT)))
     return tray
 
 
@@ -253,7 +262,7 @@ def _segment_area(radius: float, over: float) -> float:
             - over * math.sqrt(radius ** 2 - over ** 2))
 
 
-def tray_volume(width: float, n_seats: int) -> float:
+def tray_volume(width: float, seats) -> float:
     """One tray's material, in closed form — the plate, less one seat's four sockets and one
     port channel apiece.
 
@@ -263,9 +272,9 @@ def tray_volume(width: float, n_seats: int) -> float:
     is a whole prism of known section, and a tray that measures anything else has a socket in
     its channel or a channel out of its back."""
     socket = math.pi * _seat.socket_radius ** 2 * _seat.socket_depth()
-    channel = height() * _segment_area(_valve.port_radius + PORT_SLIP,
+    channel = height(seats) * _segment_area(_valve.port_radius + PORT_SLIP,
                                        _valve.port_center_z - _seat.seat_top_z)
-    return width * height() * THICK - n_seats * (4.0 * socket + channel)
+    return width * height(seats) * THICK - len(seats) * (4.0 * socket + channel)
 
 
 def channel_floor() -> float:
@@ -300,32 +309,33 @@ def selftest() -> int:
     # The channel's own half-width where it opens on the face, against the nearest socket's.
     open_half = math.sqrt(max((_valve.port_radius + PORT_SLIP) ** 2
                               - (_valve.port_center_z - _seat.seat_top_z) ** 2, 0.0))
-    if open_half >= _seat.corner_inset - _seat.socket_radius - 1e-9:
+    if open_half >= _seat.corner_inset_x - _seat.socket_radius - 1e-9:
         fails.append(f"the port channel opens {open_half:.3f} mm either side of the valve's centre "
                      f"and the nearest socket wall stands at "
-                     f"{_seat.corner_inset - _seat.socket_radius:.3f} — the channel is in the "
+                     f"{_seat.corner_inset_x - _seat.socket_radius:.3f} — the channel is in the "
                      f"socket, and a socket open down its side holds no post")
     # A synthetic row of four at the closest pitch the part takes, so the construction is
     # measured here as well as where the machine stands its valves.
     pitch = seat_pitch_floor() + 1.0
-    seats = tuple((i * pitch, 0.0) for i in (-1.5, -0.5, 0.5, 1.5))
+    seats = tuple((i * pitch, y) for i, y in ((-1.5, -3.0), (-0.5, 3.0),
+                                            (0.5, -3.0), (1.5, 3.0)))
     width = pitch * 4.0
     try:
         built = build_valve_tray(width, seats).val()
-        closed = tray_volume(width, len(seats))
+        closed = tray_volume(width, seats)
         if abs(built.Volume() - closed) > 1e-6 * closed:
             fails.append(f"a four-seat tray measures {built.Volume():.3f} mm^3 against the "
                          f"{closed:.3f} its closed form says — a boss has met its neighbour or "
                          f"run off the plate")
         bb = built.BoundingBox()
-        if abs(bb.ylen - height()) > 1e-6:
-            fails.append(f"a tray stands {bb.ylen:.4f} mm high against the {height():.4f} "
+        if abs(bb.ylen - height(seats)) > 1e-6:
+            fails.append(f"a tray stands {bb.ylen:.4f} mm high against the {height(seats):.4f} "
                          f"`height` declares")
     except Exception as exc:                                     # noqa: BLE001
         fails.append(str(exc))
     for what, bad in (("two seats inside the boss pitch",
                        ((0.0, 0.0), (seat_pitch_floor() - 1.0, 0.0))),
-                      ("two rows of seats on one plate",
+                      ("two seats in one port column",
                        ((0.0, 0.0), (0.0, seat_pitch_floor() + 1.0)))):
         try:
             build_valve_tray(100.0, bad)
@@ -335,7 +345,7 @@ def selftest() -> int:
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print(f"ok  valve-tray  {height():g} mm high x {THICK:g} thick, seat {SEAT:g} (sunk), "
+        print(f"ok  valve-tray  {height(seats):g} mm high x {THICK:g} thick, seat {SEAT:g} (sunk), "
               f"reach {reach():g}, port channel {port_channel_depth():.3f} deep on "
               f"{channel_floor():.3f} of floor")
     return 1 if fails else 0
@@ -365,10 +375,10 @@ def main():
     for name, (width, seats) in sorted(trays.items()):
         solid = build_valve_tray(width, seats).val()
         total += solid.Volume()
-        print(f"  {name}: {width:g} x {height():g} x {THICK:g}, {len(seats)} seats at "
+        print(f"  {name}: {width:g} x {height(seats):g} x {THICK:g}, {len(seats)} seats at "
               + ", ".join(f"({x:.3f}, {y:.3f})" for x, y in seats))
         print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, closed form "
-              f"{tray_volume(width, len(seats)) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
+              f"{tray_volume(width, seats) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
     width, seats = next(iter(sorted(trays.values())))
     print(f"  a post stands {grip():.3f} mm in the plate of {_seat.seat_top_z:g} mm")
     _ext = extrusion(_ea.EXTRUSION_W)
@@ -379,7 +389,7 @@ def main():
         _here.parent / "README.md",
         variables={
             "TRAY_W": f"{width:g}",
-            "TRAY_H": f"{height():g}",
+            "TRAY_H": "/".join(f"{h:g}" for h in sorted({height(s) for _w, s in trays.values()})),
             "TRAY_T": f"{THICK:g}",
             "TRAY_D": f"{depth():g}",
             "TRAY_SEAT": f"{SEAT:g}",
