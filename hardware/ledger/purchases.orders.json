@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-19; latest invoice and shipment-banner verification 2026-09-19 (the 3P and 5P 22 AWG ribbon spools, and the two 2026-09-02 ruthex insert orders)",
-    "orders": 365,
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-19; latest invoice and shipment-banner verification 2026-09-19 (the 3P and 5P 22 AWG ribbon spools, and the two 2026-09-02 ruthex insert orders); the 2026-09-19 Revopoint AB6 order read from its own invoice, and the 2026-09-16 MINI 2 and AESUB Orange orders confirmed delivered 2026-09-18, all verified 2026-09-19",
+    "orders": 366,
     "ordered/total": "ordered present for all 360; total present for 365 — the three cancelled orders were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
     "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 × 60, M3 × 20 and the three washer ODs) read from their own invoices",
@@ -9,6 +9,17 @@
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "114-1317201-9708267": {
+      "ordered": "2026-09-19",
+      "subtotal": 71.98,
+      "shipping": 0.0,
+      "tax": 5.22,
+      "total": 77.2,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-19",
+      "expected_delivery": "2026-09-22"
+    },
     "112-4339967-8873055": {
       "ordered": "2026-09-18",
       "subtotal": 8.39,
@@ -93,25 +104,23 @@
     },
     "112-3768552-7755445": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-18",
       "subtotal": 929.0,
       "shipping": 0.0,
       "tax": 67.35,
       "total": 996.35,
-      "in_transit": true,
       "project": true,
-      "verified": "2026-09-16",
-      "expected_delivery": "2026-09-18"
+      "verified": "2026-09-16"
     },
     "112-7976233-8525838": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-18",
       "subtotal": 40.99,
       "shipping": 0.0,
       "tax": 2.97,
       "total": 43.96,
-      "in_transit": true,
       "project": true,
-      "verified": "2026-09-16",
-      "expected_delivery": "2026-09-18"
+      "verified": "2026-09-16"
     },
     "112-3782386-8113829": {
       "ordered": "2026-09-16",
