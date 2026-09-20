@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds b1fda868a001e315482cbed9e1407380 for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a64d11195a05861f53dfa3f7b214443c here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds b1fda868a001e315482cbed9e1407380 for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f31b6200539546e1d008701c2676fbeb here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
