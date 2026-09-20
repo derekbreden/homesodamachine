@@ -20,8 +20,12 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
-      "result.json"
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.lint-answers",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers",
+      "hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1046,10 +1050,10 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "5008bbeb73bb1a9f7134e5d7ff5d859978b29f823ca20c4d175c5dcbfa558aa5",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "76772edbffcb28df7a06123299497d313c0169f2d3252c6f9e1e5a11d324ae91",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "61f2c85441e0b67b19077b12b66728d3c4ff8ff4aa4cc808ee9db60e153df90d",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.step": "14d8802bb7d1997c9a7647909c8d424dcdd2a3e61f0e4db1644e7e5c853296bd",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "c56d9c5794cfc3f92ba79461b345fa778c56e7a67e77cb0d8a62bff4026358ca",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "158350c280f588c47e8881b0cfe33fc42da7503eca1b991ef654757cf2bf1239"
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.step": "820ec651141f7589e01afe2f5cbc9126fcad66d607ce87f5216642019d6ec559",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "e515d5ee2bd372352403fe1a8fb2c42f040a81250e44f0130fa6d2fca80e7c31",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "67f61d1cf0ba7e3e83a692635f9507c06935a7b5d284ae5451a2077c8723a6cb"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1321,10 +1325,10 @@
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1789713951,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1789713951,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1789713951,
-    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": 1789881123,
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.step": 1789881123,
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": 1789881123,
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": 1789881123,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": 1789923491,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.step": 1789923491,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": 1789923491,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": 1789923491,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": 1787578592,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": 1789013075,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": 1789013075,
