@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 146 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 22 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 465 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 465 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -101,11 +101,6 @@
       "lock-taking scripts scanned: 107",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
-    ],
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds b092657b3d8b5c8b4d68361a5432c6c3, enclosure-assembly.step here is 257e86beecad4b89f5c65260d90cb439",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_faucet_geometry.py": [
       "PASS fixture:complete-display-fit-trial",
@@ -154,13 +149,12 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
-      "6 test(s) in web/ fail:",
+      "5 test(s) in web/ fail:",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    build order puts a producer before the scripts that load its STEP",
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
