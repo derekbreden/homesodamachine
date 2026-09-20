@@ -407,11 +407,11 @@ MOUNTS = (
     ("tee-y-d", "enclosure-tee-carrier-right", "tie-capture"),
     ("tee-y-f", "enclosure-tee-carrier-left", "tie-capture"),
     ("tee-y-g", "enclosure-tee-carrier-left", "tie-capture"),
-    # Each spring is captive between front-top's bored guide/bearing face and the
-    # carrier's recessed seat. The pair pushes aft and travels with neither printed endpoint.
-    ("tee-carrier-spring-west",
+    # The measured spring envelopes touch the fixed and moving bearing faces. This
+    # establishes placement only; positive spring guidance and window retention remain open.
+    ("tee-carrier-spring-envelope-west",
      ("enclosure-front-top", "enclosure-tee-carrier-left"), "gap-press"),
-    ("tee-carrier-spring-east",
+    ("tee-carrier-spring-envelope-east",
      ("enclosure-front-top", "enclosure-tee-carrier-right"), "gap-press"),
     # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Three sides of each stamped bracket bear on
     # cradle lands; the +Y side stays open for the tube fittings. A small clamp screws down from
@@ -687,9 +687,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
-    # The two compression springs terminate on printed bearing faces at both ends. Zero
-    # distance is the captive mechanism working; the fixed bore surrounds the coil OD.
-    *((f"tee-carrier-spring-{side}", host)
+    # The measured envelopes end on the printed bearing faces. This allowed contact
+    # says nothing about spring material volume, force or positive lateral capture.
+    *((f"tee-carrier-spring-envelope-{side}", host)
       for side, half in (("west", "left"), ("east", "right"))
       for host in ("enclosure-front-top", f"enclosure-tee-carrier-{half}")),
     ("enclosure-tee-carrier-left", "enclosure-tee-carrier-right"),

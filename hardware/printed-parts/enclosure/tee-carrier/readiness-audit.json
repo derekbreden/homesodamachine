@@ -202,5 +202,14 @@
   },
   "current_path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
   "source_sha256": "b2605932b88e6396d9d233a6a44459a5fd210fb58fdf7a75378aba356f3a326e",
-  "upper_backing_check": "hardware/printed-parts/enclosure/tee-carrier/upper-backing-check.json"
+  "upper_backing_check": "hardware/printed-parts/enclosure/tee-carrier/upper-backing-check.json",
+  "current_source_equivalence": {
+    "evidence": "hardware/printed-parts/enclosure/tee-carrier/measured-spring-check.json",
+    "source_sha256": "4ea81c6c7ce646b8e36e21346a308ee54b5ef1073f5ebea30b6e879b3181912a",
+    "native_added_removed_mm3": [
+      0.0,
+      0.0
+    ],
+    "mesh_bytes_unchanged": true
+  }
 }

@@ -1,10 +1,10 @@
 # Lee Spring LCM060C12M compression spring
 
-This is the catalog part the carrier's spring seat, ⌀6.57 bore and loading
-well are cut to. The springs fitted are the uxcell 304 stainless product sold as
-6 mm OD and 30 mm free length, with nominal 0.8 mm wire
-([bom.md §8](/hardware/ledger/bom.md)). Each spring pushes between a fixed wall
-bearing plane and the moving carrier; the pair acts in parallel.
+This is a standalone catalog reference. The tee carrier uses the delivered spring's
+[measured envelope](/hardware/printed-parts/enclosure/tee-carrier/tee_carrier_spring.py)
+for fit checks. The installed uxcell 304 stainless product is sold as 6 mm OD and
+30 mm free length, with nominal 0.8 mm wire ([bom.md §8](/hardware/ledger/bom.md));
+its measured sample dimensions control the carrier.
 
 Derek's measured stiffer set is **6 mm OD, 27 mm uncompressed and approximately 7 mm
 fully compressed**, possibly slightly less. Those sample measurements are recorded in
@@ -66,8 +66,9 @@ pitch or volume.
 
 The committed [`lee-lcm060c12m.step`](lee-lcm060c12m.step) and
 [`lee-lcm060c12m.stl`](lee-lcm060c12m.stl) show one nominal **30 mm free-length**
-spring. Assembly CAD calls `build()` with its actual bearing-plane distance so a
-compressed state does not masquerade as free length.
+spring. A standalone compressed catalog reference uses `build()` with its requested
+bearing-plane distance. The production carrier does not consume this wire geometry
+or its catalog load function.
 
 Run the canonical export and its checks with:
 
@@ -98,10 +99,10 @@ spring-level force.
 The fixed body's round bores and the carrier's recessed seats locate the two springs.
 Each bore opens into a loading well that admits a compressed spring before the fore valve row
 and flexible links are installed.
-Installed lengths and nominal pair forces at release, squeeze, connected and park are in the
-enclosure facts. Those values use the actual bearing-plane separation, including seat depth.
-The assembly check exercises full travel, equal grip motion and empty return; recorded physical
-loads belong to that assembly's log. No measured force for this printed mechanism is recorded.
+The production spring facts use measured sample dimensions and the actual bearing-plane
+separations, including seat depth. Pair forces, rate, wire diameter, inside diameter and
+material volume remain unknown. The displayed spring cylinder is a clearance envelope.
+Geometry checks do not establish spring force, buckling resistance or positive capture.
 
 The springs occupy the dry enclosure cavity. The current guide bore is Ø6.57 mm and
 its loading window admits a spring compressed to 9.61 mm. Derek's measured 6 mm OD and

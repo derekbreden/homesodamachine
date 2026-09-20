@@ -495,10 +495,10 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # Captive between the fixed front-top bearings and the moving carrier seats. The springs
-    # are fitted after the carrier halves are joined and stay with the front-top bench unit.
-    "tee-carrier-spring-west": "enclosure-front-top",
-    "tee-carrier-spring-east": "enclosure-front-top",
+    # Clearance envelopes of the measured springs between fixed and moving bearing faces.
+    # The springs are fitted after the carrier halves and stay with the front-top bench unit.
+    "tee-carrier-spring-envelope-west": "enclosure-front-top",
+    "tee-carrier-spring-envelope-east": "enclosure-front-top",
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
