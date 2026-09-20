@@ -1,0 +1,29 @@
+{
+  "valid_solids": 11,
+  "faces": 333,
+  "bounds_mm": {
+    "x": [
+      -16.75,
+      16.75
+    ],
+    "y": [
+      -29.75,
+      29.75
+    ],
+    "z": [
+      0.0,
+      57.3000001
+    ]
+  },
+  "post_pitch_mm": [
+    24.4,
+    24.85
+  ],
+  "post_diameter_mm": 6.9,
+  "bearing_z_mm": 5.2,
+  "port_center_z_mm": 11.05,
+  "port_faces_y_mm": [
+    -29.75,
+    29.75
+  ]
+}

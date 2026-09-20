@@ -176,6 +176,8 @@ C_PLATE = cq.Color(0.63, 0.42, 0.24)
 C_MQ6 = cq.Color(0.25, 0.40, 0.70)           # the module's own blue board, under a steel can
 C_C14 = cq.Color(0.18, 0.18, 0.20)
 C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
+# The moulded blue retainers on the scanned DIGITEN push-fit collets.
+C_DIGITEN_CLIP = cq.Color(0.10, 0.29, 0.46)
 # The JHYOSSTHI pogo dock's black moulded pill, either half; its gold pins and pads and the
 # flush magnets are that face's own metal and are not drawn apart from it.
 C_DOCK = cq.Color(0.09, 0.09, 0.10)
@@ -280,6 +282,7 @@ FINISHES = [
     (C_MQ6,              0.50, _DIELECTRIC),   # "the module's own blue board"
     (C_C14,              0.45, _DIELECTRIC),
     (C_DIGITEN,          0.50, _DIELECTRIC),
+    (C_DIGITEN_CLIP,     0.45, _DIELECTRIC),
     (C_DOCK,             0.45, _DIELECTRIC),   # "the dock's black moulded pill"
     (C_VALVE,            0.50, _DIELECTRIC),   # "the Beduan solenoid's moulded white body"
     (C_COIL,             0.30, _DIELECTRIC),   # "the LACQUERED coil pack", and lacquer is glossy

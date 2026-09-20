@@ -64,12 +64,14 @@ from _cold_core_interface import (
     cap_conduit_boss_radius,
     cap_conduit_entry_relief_radius,
     cap_cradles,
-    cap_cradle_corner_inset,
+    cap_cradle_corner_inset_x,
+    cap_cradle_corner_inset_y,
     cap_cradle_boss_radius,
     cap_cradle_socket_radius,
     cap_cradle_wall,
     cap_cradle_room_gap,
-    cap_cradle_half,
+    cap_cradle_half_x,
+    cap_cradle_half_y,
     cap_cradle_corner_radius,
     cap_anchors,
     cap_anchor_axis_over_face,
@@ -202,10 +204,11 @@ def add_deck_mounts(cap):
 
 
 # The interface readings and the solid builder share one plinth footprint.
-assert (cap_cradle_corner_inset, cap_cradle_socket_radius, cap_cradle_wall,
-        cap_cradle_half, cap_cradle_corner_radius) == (
-        seat.corner_inset, seat.socket_radius, seat.wall,
-        seat.seat_half, seat.seat_corner_radius)
+assert (cap_cradle_corner_inset_x, cap_cradle_corner_inset_y,
+        cap_cradle_socket_radius, cap_cradle_wall,
+        cap_cradle_half_x, cap_cradle_half_y, cap_cradle_corner_radius) == (
+        seat.corner_inset_x, seat.corner_inset_y, seat.socket_radius, seat.wall,
+        seat.seat_half_x, seat.seat_half_y, seat.seat_corner_radius)
 
 
 def cradle_shape(name, face_z):

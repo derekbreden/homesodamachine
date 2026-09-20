@@ -1,15 +1,17 @@
 {
   "/hardware/printed-parts/valve-seat/valve_seat.py": {
-    "CORNER_INSET": "12.2 mm",
+    "CORNER_PITCH_X": "24.4",
+    "CORNER_PITCH_Y": "24.85",
     "PLINTH_CORNER": "3",
-    "PLINTH_WIDTH": "37.5",
+    "PLINTH_DEPTH": "38.05",
+    "PLINTH_WIDTH": "37.6",
     "PORT_CLEARANCE": "1.000 mm",
-    "PORT_DIA": "15",
-    "POST_DIA": "6.8",
-    "SEAT_TOP_Z": "6",
+    "PORT_DIA": "15.2",
+    "POST_DIA": "6.9",
+    "SEAT_TOP_Z": "5.2",
     "SOCKET_CLEAR": "0.15 mm",
-    "SOCKET_DEPTH": "7",
-    "SOCKET_DIA": "7.1",
+    "SOCKET_DEPTH": "6.2",
+    "SOCKET_DIA": "7.2",
     "SOCKET_FLOOR_Z": "-1",
     "WALL": "3 mm"
   }

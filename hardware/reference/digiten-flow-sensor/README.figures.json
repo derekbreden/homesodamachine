@@ -1,10 +1,17 @@
 {
   "/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
-    "BODY_LEN": "22",
-    "FLOW_BODY_DIA": "26",
-    "FLOW_PORT_DIA": "12",
-    "PORT_FACE": "30",
-    "WIRE_BOSS_DIA": "8",
-    "WIRE_BOSS_LEN": "3"
+    "BODY_LEN": "28.3",
+    "BODY_OFFSET": "8.9",
+    "COLLAR_END": "26.8",
+    "COLLAR_LEN": "7.2",
+    "COLLAR_START": "19.6",
+    "COLLET_LEN": "3.7",
+    "FLOW_BODY_DIA": "35",
+    "FLOW_PORT_DIA": "18.3",
+    "NECK_DIA": "15.9",
+    "PORT_SPAN": "61",
+    "WIRE_BOSS_LEN": "1.5",
+    "WIRE_ROOT_DEPTH": "3",
+    "WIRE_ROOT_WIDTH": "6"
   }
 }

@@ -1,0 +1,104 @@
+{
+  "units": "mm",
+  "method": "Observed exterior points to closest tessellated surface of the fused analytic exterior.",
+  "model_source_sha256": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513",
+  "hash_scope": "Exact full repository digiten_flow_sensor.py bytes; not Bazel-normalized producer bytes.",
+  "validation_script_sha256": "0223882c33ad9c809a03d021234f2797da20fe17937e42a3fc05745313c48d75",
+  "observations_sha256": "463d3b2690d60d772e5d46f91cabb51a1677fc1c64c13ac483b768ad6eaf91b7",
+  "observation_count": 642615,
+  "observation_voxel_mm": 0.3,
+  "cad_tessellation_tolerance_mm": 0.05,
+  "cad_triangles": 17104,
+  "sampling": "Deterministic first observation per voxel; physical feature masks, with no distance-based exclusion.",
+  "all_retained_observations": {
+    "samples": 98652,
+    "distance_p50_p90_p95_p99_max_mm": [
+      0.08928787467405905,
+      0.4447193595672956,
+      0.6299228925730813,
+      1.1440274069990253,
+      2.18753567353786
+    ],
+    "fraction_over_0_25mm": 0.17132952195596643,
+    "fraction_over_0_5mm": 0.08298868750760248,
+    "fraction_over_1mm": 0.012326156590844585
+  },
+  "features": {
+    "mounting_collars": {
+      "samples": 10306,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.046205625754425064,
+        0.13344715922142136,
+        0.15500308704823598,
+        0.21005132706800536,
+        0.3156226250351201
+      ],
+      "fraction_over_0_25mm": 0.002619833106928003,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "rotor_shell": {
+      "samples": 8725,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.09857421550894979,
+        0.2517817265348628,
+        0.5112628622417149,
+        0.8457630899237211,
+        1.2534494400024414
+      ],
+      "fraction_over_0_25mm": 0.10269340974212035,
+      "fraction_over_0_5mm": 0.05191977077363897,
+      "fraction_over_1mm": 0.004355300859598854
+    },
+    "label_cover": {
+      "samples": 16823,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.12475852966308665,
+        0.598782948895134,
+        0.7088850197343547,
+        1.1891387557983366,
+        1.674694442749022
+      ],
+      "fraction_over_0_25mm": 0.3218213160554003,
+      "fraction_over_0_5mm": 0.1554419544670986,
+      "fraction_over_1mm": 0.01563335909171967
+    },
+    "underside": {
+      "samples": 13084,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.09705610576418179,
+        0.6457728385680548,
+        0.7086970842712663,
+        0.7789655857527858,
+        0.8237950426399632
+      ],
+      "fraction_over_0_25mm": 0.28026597370834605,
+      "fraction_over_0_5mm": 0.17968511158667075,
+      "fraction_over_1mm": 0.0
+    },
+    "collet_configuration_04_05": {
+      "samples": 9116,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.11488132476806534,
+        0.3804685479131798,
+        0.5101848555411774,
+        0.7853825953850802,
+        1.0023777008056634
+      ],
+      "fraction_over_0_25mm": 0.18637560333479597,
+      "fraction_over_0_5mm": 0.05342255375164546,
+      "fraction_over_1mm": 0.00010969723562966213
+    }
+  },
+  "collet_configuration": "Passes 04/05 only beyond the fixed collar; upright clip positions are excluded.",
+  "intentional_simplifications": [
+    "Small moulding blends, lettering, screw-drive recesses, surface texture and the underside centre recess.",
+    "Hidden turbine, seals, electronics and unobserved bore depths are not reconstructed.",
+    "The lead root is a routing envelope; the flexible pigtail is excluded."
+  ],
+  "limits": [
+    "Discrepancy includes registration disagreement, measurement noise, rounded dimensions and analytic simplifications.",
+    "Neither fusion spacing nor residuals establish absolute dimensional accuracy or manufacturing tolerances.",
+    "The scan does not establish the molded arrow direction or correctness of unobserved model faces."
+  ]
+}

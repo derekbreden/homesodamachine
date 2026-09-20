@@ -28,7 +28,8 @@ from docgen import substitute_md
 
 
 # --- what the valve brings ---------------------------------------------------
-corner_inset = valve.corner_inset             # a corner post's centre off the footprint centre
+corner_inset_x = valve.corner_inset_x
+corner_inset_y = valve.corner_inset_y
 corner_post_radius = valve.corner_boss_radius
 # The valve's round body bears on this plane; the sockets hold its posts below it.
 seat_top_z = valve.boss_z_range[0]
@@ -42,7 +43,8 @@ socket_floor_z = -1.0    # the socket floor, under the post tips at z = 0, so a 
 socket_radius = corner_post_radius + socket_clearance
 boss_radius = socket_radius + wall
 
-seat_half = corner_inset + boss_radius
+seat_half_x = corner_inset_x + boss_radius
+seat_half_y = corner_inset_y + boss_radius
 seat_corner_radius = wall
 port_air = 1.0
 
@@ -61,7 +63,7 @@ def build_sockets():
             socket = (
                 cq.Workplane("XY")
                 .workplane(offset=socket_floor_z)
-                .center(sx * corner_inset, sy * corner_inset)
+                .center(sx * corner_inset_x, sy * corner_inset_y)
                 .circle(socket_radius)
                 .extrude(seat_top_z - socket_floor_z + 1.0)
             )
@@ -74,10 +76,10 @@ def build_seat(seat):
     assert seat >= -socket_floor_z - 1e-9, (
         f"seat {seat:g} leaves the socket floor below the supporting face")
     solid = (cq.Workplane("XY").workplane(offset=-seat)
-             .rect(2.0 * seat_half, 2.0 * seat_half)
+             .rect(2.0 * seat_half_x, 2.0 * seat_half_y)
              .extrude(seat + seat_top_z)
              .edges("|Z").fillet(seat_corner_radius))
-    return solid.cut(build_sockets()).cut(build_port_channel(2.0 * seat_half + 2.0))
+    return solid.cut(build_sockets()).cut(build_port_channel(2.0 * seat_half_y + 2.0))
 
 
 def build_port_channel(length):
@@ -88,13 +90,13 @@ def build_port_channel(length):
 
 def seat_volume(seat):
     """Plinth volume: rounded rectangle, four sockets and the circular port segment."""
-    area = (2.0 * seat_half) ** 2 - (4.0 - math.pi) * seat_corner_radius ** 2
+    area = 4.0 * seat_half_x * seat_half_y - (4.0 - math.pi) * seat_corner_radius ** 2
     r = valve.port_radius + port_air
     d = valve.port_center_z - seat_top_z
     channel_section = r * r * math.acos(d / r) - d * math.sqrt(r * r - d * d)
     return (area * (seat + seat_top_z)
             - 4.0 * math.pi * socket_radius ** 2 * socket_depth()
-            - 2.0 * seat_half * channel_section)
+            - 2.0 * seat_half_y * channel_section)
 
 
 def _distance(a, b):
@@ -129,12 +131,14 @@ def main():
         variables={
             "POST_DIA": f"{2 * corner_post_radius:.4g}",
             "SOCKET_DIA": f"{2 * socket_radius:.4g}",
-            "PLINTH_WIDTH": f"{2.0 * seat_half:.4g}",
+            "PLINTH_WIDTH": f"{2.0 * seat_half_x:.4g}",
+            "PLINTH_DEPTH": f"{2.0 * seat_half_y:.4g}",
             "PLINTH_CORNER": f"{seat_corner_radius:.4g}",
             "BOSS_DIA": f"{2 * boss_radius:.4g}",
             "SOCKET_CLEAR": f"{socket_clearance:.4g} mm",
             "WALL": f"{wall:.4g} mm",
-            "CORNER_INSET": f"{corner_inset:.4g} mm",
+            "CORNER_PITCH_X": f"{2.0 * corner_inset_x:g}",
+            "CORNER_PITCH_Y": f"{2.0 * corner_inset_y:g}",
             "SEAT_TOP_Z": f"{seat_top_z:.4g}",
             "SOCKET_FLOOR_Z": f"{socket_floor_z:.4g}",
             "SOCKET_DEPTH": f"{socket_depth():.4g}",

@@ -29,6 +29,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "hardware/reference/tee-connector/tee-connector.step",
@@ -149,6 +150,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -636,6 +639,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "hardware/reference/tee-connector/tee-connector.step",
@@ -714,6 +718,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -921,7 +927,12 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -1070,8 +1081,13 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -3128,6 +3144,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         ":out/jg-pp010822e/hardware/reference/jg-pp010822e/jg-pp010822e.step",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -3200,6 +3218,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4405,6 +4425,13 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ],
@@ -4444,6 +4471,8 @@ genrule(
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4491,6 +4520,8 @@ genrule(
         "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4578,6 +4609,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4736,6 +4769,8 @@ genrule(
         "hardware/printed-parts/cold-core/reservoir/vent.md",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4972,6 +5007,8 @@ genrule(
         "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -6862,6 +6899,54 @@ cp hardware/printed-parts/faucet/lever-replica/lever-replica.stl $$O4
 )
 
 genrule(
+    name = "prepare-print",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+        "pysrc/hardware/printed-parts/faucet/lever-replica/prepare_print.py",
+        "pysrc/hardware/printed-parts/faucet/refresh_print_project.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/enclosure_support_audit.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/prepare-print/hardware/printed-parts/faucet/lever-replica/lever-replica-white-petgf.print.json",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/prepare-print/hardware/printed-parts/faucet/lever-replica/lever-replica-white-petgf.print.json)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/prepare_print.py > /dev/null
+cp hardware/printed-parts/faucet/lever-replica/lever-replica-white-petgf.print.json $$O0
+""",
+)
+
+genrule(
     name = "tpu-o-ring",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -8236,7 +8321,7 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/reference/beduan-solenoid/README.md",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -8252,16 +8337,16 @@ genrule(
     ),
     outs = [
         "out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan-solenoid.step",
+        "out/beduan-solenoid/hardware/reference/beduan-solenoid/model-check.json",
         "out/beduan-solenoid/hardware/reference/beduan-solenoid/README.figures.json",
         "out/beduan-solenoid/hardware/reference/beduan-solenoid/README.md",
-        "out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan_solenoid.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan-solenoid.step)
-O1=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/README.figures.json)
-O2=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/README.md)
-O3=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan_solenoid.py)
+O1=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/model-check.json)
+O2=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/README.figures.json)
+O3=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8279,9 +8364,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py > /dev/null
 cp hardware/reference/beduan-solenoid/beduan-solenoid.step $$O0
-cp hardware/reference/beduan-solenoid/README.figures.json $$O1
-cp hardware/reference/beduan-solenoid/README.md $$O2
-cp hardware/reference/beduan-solenoid/beduan_solenoid.py $$O3
+cp hardware/reference/beduan-solenoid/model-check.json $$O1
+cp hardware/reference/beduan-solenoid/README.figures.json $$O2
+cp hardware/reference/beduan-solenoid/README.md $$O3
 """,
 )
 
@@ -8344,7 +8429,7 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/reference/digiten-flow-sensor/README.md",
-        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+        "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -8360,16 +8445,16 @@ genrule(
     ),
     outs = [
         "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/model-check.json",
         "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.figures.json",
         "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.md",
-        "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step)
-O1=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.figures.json)
-O2=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.md)
-O3=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py)
+O1=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/model-check.json)
+O2=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.figures.json)
+O3=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -8387,9 +8472,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
 cp hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step $$O0
-cp hardware/reference/digiten-flow-sensor/README.figures.json $$O1
-cp hardware/reference/digiten-flow-sensor/README.md $$O2
-cp hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py $$O3
+cp hardware/reference/digiten-flow-sensor/model-check.json $$O1
+cp hardware/reference/digiten-flow-sensor/README.figures.json $$O2
+cp hardware/reference/digiten-flow-sensor/README.md $$O3
 """,
 )
 
@@ -11709,6 +11794,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-611042913325",
+    srcs = ["hardware/printed-parts/faucet/lever-replica/prepare_print.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/lever-replica/prepare_print.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-071ced609c47",
     srcs = ["hardware/printed-parts/faucet/refresh_print_project.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/refresh_print_project.py"],
@@ -12448,6 +12541,14 @@ genrule(
     name = "pysrc-f5728631098a",
     srcs = ["hardware/scripts/_world_sdf.py"],
     outs = ["pysrc/hardware/scripts/_world_sdf.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-906c84d49f5d",
+    srcs = ["hardware/scripts/enclosure_support_audit.py"],
+    outs = ["pysrc/hardware/scripts/enclosure_support_audit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -24086,6 +24187,7 @@ filegroup(
         ":industrial-faucet",
         ":check-replica",
         ":lever-replica",
+        ":prepare-print",
         ":tpu-o-ring",
         ":tube-collar",
         ":cover-retention-trial",

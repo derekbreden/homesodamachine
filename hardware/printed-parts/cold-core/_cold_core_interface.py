@@ -21,11 +21,13 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(_here.parent / "enclosure" / "enclosure"))
+sys.path.insert(0, str(_here.parent / "valve-seat"))
 
 import cadquery as cq
 
 import reeding
 import fits
+import valve_seat as _valve_seat
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
 from _enclosure_interface import manifold_rise, inner_limb_drop
@@ -811,18 +813,20 @@ for _name in deck_mounts:
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
-    "vk-solenoid": Cradle(( 94.020,  65.050), 0.0, 3.4000),
-    "valve-v-a":   Cradle(( 94.020,  22.490), 0.0, 9.6150 + manifold_rise - inner_limb_drop),
-    "valve-v-b":   Cradle(( 94.020, -20.070), 0.0, 9.6150 + manifold_rise - inner_limb_drop),
+    "vk-solenoid": Cradle(( 93.770,  65.050), 0.0, 3.6500),
+    "valve-v-a":   Cradle(( 93.770,  22.490), 0.0, 10.3650 + manifold_rise - inner_limb_drop),
+    "valve-v-b":   Cradle(( 93.770, -20.070), 0.0, 10.3650 + manifold_rise - inner_limb_drop),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
-cap_cradle_corner_inset = 12.2       # `beduan_solenoid.corner_inset`
-cap_cradle_socket_radius = 3.4 + fits.slip  # `valve_seat.socket_radius`
-cap_cradle_wall = 3.0                # `valve_seat.wall`
+cap_cradle_corner_inset_x = _valve_seat.corner_inset_x
+cap_cradle_corner_inset_y = _valve_seat.corner_inset_y
+cap_cradle_socket_radius = _valve_seat.socket_radius
+cap_cradle_wall = _valve_seat.wall
 cap_cradle_boss_radius = cap_cradle_socket_radius + cap_cradle_wall
-cap_cradle_half = cap_cradle_corner_inset + cap_cradle_boss_radius
-cap_cradle_corner_radius = cap_cradle_wall
+cap_cradle_half_x = _valve_seat.seat_half_x
+cap_cradle_half_y = _valve_seat.seat_half_y
+cap_cradle_corner_radius = _valve_seat.seat_corner_radius
 
 # What a cradle holds off every other thing cut in the lid's outer face. Nothing is poured
 # between them — this face is the machine's room, not the cup's — so the fence is the
@@ -833,22 +837,30 @@ cap_cradle_room_gap = 1.0
 def cap_cradle_xy(name):
     """A cradle's four socket centres, in the cap's own frame."""
     (cx, cy) = cap_cradles[name].centre
-    th = math.radians(cap_cradles[name].yaw)
+    th = math.radians(cap_cradles[name].yaw + 90.0)
     c, s = math.cos(th), math.sin(th)
-    return tuple((cx + c * sx * cap_cradle_corner_inset - s * sy * cap_cradle_corner_inset,
-                  cy + s * sx * cap_cradle_corner_inset + c * sy * cap_cradle_corner_inset)
+    return tuple((cx + c * sx * cap_cradle_corner_inset_x - s * sy * cap_cradle_corner_inset_y,
+                  cy + s * sx * cap_cradle_corner_inset_x + c * sy * cap_cradle_corner_inset_y)
                  for sx in (-1, 1) for sy in (-1, 1))
+
+
+def cap_cradle_half_extents(name):
+    """Axis-aligned half extents of the plinth in the cap's frame."""
+    th = math.radians(cap_cradles[name].yaw + 90.0)
+    c, s = abs(math.cos(th)), abs(math.sin(th))
+    return (c * cap_cradle_half_x + s * cap_cradle_half_y,
+            s * cap_cradle_half_x + c * cap_cradle_half_y)
 
 
 def cap_cradle_circle_gap(name, x, y, radius):
     """Plan clearance from a circular opening to the rounded plinth outline."""
     (cx, cy), yaw, _seat = cap_cradles[name]
-    th = math.radians(yaw)
+    th = math.radians(yaw + 90.0)
     dx, dy = x - cx, y - cy
     px = abs(math.cos(th) * dx + math.sin(th) * dy)
     py = abs(-math.sin(th) * dx + math.cos(th) * dy)
-    core = cap_cradle_half - cap_cradle_corner_radius
-    qx, qy = px - core, py - core
+    qx = px - (cap_cradle_half_x - cap_cradle_corner_radius)
+    qy = py - (cap_cradle_half_y - cap_cradle_corner_radius)
     return (math.hypot(max(qx, 0.0), max(qy, 0.0))
             + min(max(qx, qy), 0.0) - cap_cradle_corner_radius - radius)
 
@@ -857,9 +869,10 @@ def cap_cradle_rectangle_gap(name, x0, x1, y0, y1):
     """Plan clearance to an axis-aligned rectangle at these cap stations."""
     (cx, cy), yaw, _seat = cap_cradles[name]
     assert math.isclose(yaw % 90.0, 0.0), "plinth rectangle reading needs an axial station"
-    core = cap_cradle_half - cap_cradle_corner_radius
-    dx = max(x0 - (cx + core), (cx - core) - x1, 0.0)
-    dy = max(y0 - (cy + core), (cy - core) - y1, 0.0)
+    hx, hy = cap_cradle_half_extents(name)
+    core_x, core_y = hx - cap_cradle_corner_radius, hy - cap_cradle_corner_radius
+    dx = max(x0 - (cx + core_x), (cx - core_x) - x1, 0.0)
+    dy = max(y0 - (cy + core_y), (cy - core_y) - y1, 0.0)
     return math.hypot(dx, dy) - cap_cradle_corner_radius
 
 
@@ -878,16 +891,17 @@ def cap_cradle_room(name):
             room.append((cap_cradle_circle_gap(name, x, y, deck_lid_hole_radius(dname)),
                          f"the {dname} mount's lid hole"))
     cx, cy = cap_cradles[name].centre
-    room.append((min(outer_shell_x_length / 2.0 - abs(cx),
-                     outer_shell_y_length / 2.0 - abs(cy)) - cap_cradle_half,
+    hx, hy = cap_cradle_half_extents(name)
+    room.append((min(outer_shell_x_length / 2.0 - abs(cx) - hx,
+                     outer_shell_y_length / 2.0 - abs(cy) - hy),
                  "the lid's own edge"))
     for other, station in cap_cradles.items():
         if other == name:
             continue
         ox, oy = station.centre
+        ohx, ohy = cap_cradle_half_extents(other)
         # The rectangle includes the other plinth's rounded corners.
-        room.append((cap_cradle_rectangle_gap(name, ox-cap_cradle_half, ox+cap_cradle_half,
-                                              oy-cap_cradle_half, oy+cap_cradle_half),
+        room.append((cap_cradle_rectangle_gap(name, ox-ohx, ox+ohx, oy-ohy, oy+ohy),
                      f"the {other} plinth"))
     return min(room)
 
@@ -1212,11 +1226,12 @@ def foam_cap_lid_pour_xy():
     for name, station in cap_cradles.items():
         assert math.isclose(station.yaw % 90.0, 0.0)
         cx, cy = station.centre
-        core = cap_cradle_half - cap_cradle_corner_radius
+        hx, hy = cap_cradle_half_extents(name)
+        core_x, core_y = hx - cap_cradle_corner_radius, hy - cap_cradle_corner_radius
         reach = foam_cap_lid_pour_radius + deck_mount_cap_gap + cap_cradle_corner_radius
-        dx = max(abs(x - cx) - core, 0.0)
+        dx = max(abs(x - cx) - core_x, 0.0)
         if dx < reach:
-            half = core + math.sqrt(reach * reach - dx * dx)
+            half = core_y + math.sqrt(reach * reach - dx * dx)
             bands.append((cy - half, cy + half))
     # MERGE FIRST, THEN STEP. Two stations near each other throw overlapping bands, and a
     # hole stepped off one lands inside the next — so the bands are run together into the
