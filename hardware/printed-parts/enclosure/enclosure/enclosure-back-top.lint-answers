@@ -58,7 +58,7 @@ click: x=77.013 y=457.790 z=266.150
 
 [ceiling] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-88.285 y=287.580 z=275.290
+click: x=-88.285 y=287.580 z=275.790
 
 [ceiling] The ASSE tie cavity's lower threshold spans 31.6 mm with a full 3 mm wall at X-101.5..-98.5. The closed tie loop passes over this flat threshold. Its Z321.671 face includes the 0.25 mm supported allowance, with the surrounding anchor stock retained. Support is accessible before the ASSE chain is installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -98,11 +98,11 @@ click: x=-80.850 y=391.350 z=296.211
 [ceiling] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=2.450 y=363.203 z=348.611
-click: x=-37.810 y=371.210 z=345.361
-click: x=-37.810 y=409.210 z=345.361
+click: x=-40.810 y=366.510 z=344.400
+click: x=-40.810 y=412.910 z=344.400
 click: x=38.450 y=328.703 z=346.861
 click: x=57.975 y=424.103 z=342.286
-click: x=19.845 y=266.300 z=342.536
+click: x=18.345 y=266.300 z=338.425
 
 [sliver] These shoulders join the narrower inlet-adapter pocket to the wider gas-check body pocket. The 1.184 mm width is their plan step, not a remaining wall thickness. Their common pocket roof at Z347.961 leaves 7.039 mm of continuous ceiling stock to Z355; the material beside each shoulder also joins the surrounding slab.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -143,3 +143,8 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-99.287 y=240.140 z=319.322
 click: x=-99.287 y=247.290 z=315.539
 click: x=-99.287 y=232.990 z=315.539
+
+[sliver] These two vertical returns join the flow-meter housing pocket at X-12.41 to its lead-root pocket at X-12.31. Their 0.10 mm exposed width is the difference between the two overlapping clearance envelopes. Native sections confirm continuous material toward +X behind each return and the complete 3 mm ceiling at Z352..355 above them. Both pockets remain open from below before meter installation.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-12.360 y=384.710 z=347.500
+click: x=-12.360 y=394.710 z=347.500

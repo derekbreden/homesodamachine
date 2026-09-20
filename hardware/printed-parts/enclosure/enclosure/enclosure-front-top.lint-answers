@@ -1,9 +1,9 @@
-[sliver] The fore-facing flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 10 mm deep at Y167.56..177.56 and finishes on the flank's 45-degree bedding plane. The reported 0.5 mm strip is the end of that intersection; the full plate depth and wall back it.
+[sliver] The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y168.11..177.31 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.500 y=172.560 z=180.550
-click: x=-98.551 y=172.560 z=180.550
+click: x=98.500 y=172.710 z=180.550
+click: x=-98.551 y=172.710 z=180.550
 
-[ceiling] The pump-bay lintel is the complete fixed roof at Z283.745, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. Support reaches the roof from the bed and leaves through the empty cartridge bay before assembly.
+[ceiling] The pump-bay lintel is the complete fixed roof at Z283.745, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. The bay floor remains below this roof. Support is exposed in the empty cartridge bay and leaves through the front opening before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=42.259 z=283.745
 
@@ -19,26 +19,26 @@ click: x=0.000 y=91.694 z=309.145
 
 [ceiling] The internal aft-stop undersides and outer finger-opening roofs share Z226.19, leaving 0.50 mm above the moving grip bar's Z225.69 crown: 0.25 mm running fit plus 0.25 mm supported-face allowance. The retaining rim reaches Z229.19, preserving 3 mm overlap above the opening, and the fixed recess roof retains its full 3 mm section. Flat guides retain the carrier through its stroke; removable support leaves through the flank opening and internal recess.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.375 y=131.014 z=226.190
-click: x=104.375 y=131.014 z=226.190
+click: x=-104.375 y=131.289 z=226.190
+click: x=104.375 y=131.289 z=226.190
 
-[ceiling] The internal grip-recess ceiling keeps 0.25 mm running clearance plus 0.25 mm supported-face allowance above the printed retaining rim. The moving rim's top retreats to preserve this fixed ceiling and the full 3 mm roof above it. Support leaves through the open recess before hardware installation.
+[ceiling] The internal grip-recess roof at Z229.690 clears the printed retaining rim at Z229.190 by 0.50 mm: 0.25 mm running fit plus 0.25 mm supported-face allowance. It joins the filled guide body and flank above the full-height inside-out entry passage. Support is accessible through that passage and the flank opening before hardware installation. The reported anchors are the centres of these concave roof groups; the native roof faces surround their open centres.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-95.697 y=127.814 z=229.690
-click: x=95.697 y=127.814 z=229.690
+click: x=-96.000 y=128.089 z=229.690
+click: x=96.000 y=128.089 z=229.690
 
 [ceiling] The upper web-bearing lands stand 0.50 mm above the carrier: 0.25 mm running fit plus 0.25 mm supported-face allowance. They retain the moving web through its stroke and join the filled body and flank guides. The flat undersides preserve the sliding bearing; support is accessible through the open aft bay before assembly.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-47.495 y=107.464 z=220.565
-click: x=0.000 y=107.464 z=220.565
-click: x=47.495 y=107.464 z=220.565
+click: x=-48.935 y=106.989 z=220.565
+click: x=0.000 y=106.989 z=220.565
+click: x=48.935 y=106.989 z=220.565
 
-[ceiling] The four constant-section tee wells end at their hardware-clearance plane plus the 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation.
+[ceiling] The four constant-section tee wells end at Z233.815: the measured valve's body-clearance plane at Z233.565 plus 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-77.370 y=95.085 z=232.940
-click: x=-20.070 y=95.085 z=232.940
-click: x=20.070 y=95.085 z=232.940
-click: x=77.370 y=95.085 z=232.940
+click: x=-78.810 y=94.760 z=233.815
+click: x=-20.070 y=94.760 z=233.815
+click: x=20.070 y=94.760 z=233.815
+click: x=78.810 y=94.760 z=233.815
 
 [step] The standing Z-seam rail-channel walls at nominal |X|103.75 lie 0.75 mm inward from the |X|104.5 flank face. `_rail_channel_span` derives them from the rail head and 0.25 mm running clearance. The common floor and continuous exterior wall back the channel; this offset is the rail's sliding passage.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -70,3 +70,8 @@ click: x=95.125 y=196.750 z=342.475
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-80.500 y=151.875 z=343.000
 click: x=80.500 y=151.875 z=343.000
+
+[sliver] These are the exposed ends of the carrier floor between the tee wells' front plane at Y92.51 and the rail mouth at Y92.8. The floor runs from Z160 to Z166.995 and joins the outer flank. Native probes retain the complete 9.83 mm-wide section outboard of each face; the 0.29 mm reading is the exposed Y length of that backed floor end.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-94.650 y=92.655 z=163.497
+click: x=94.622 y=92.655 z=163.497
