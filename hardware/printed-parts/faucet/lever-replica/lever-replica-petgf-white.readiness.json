@@ -1,79 +1,79 @@
 {
   "status": "offline slice complete; physical fit, strength and support removal unvalidated",
-  "project_sha256": "37de1165f06bc4badf1af066741cb016d45c7186ac9f842b0149cb2f25edb0bc",
+  "project_sha256": "1f99c33dbfd699c283b47729be54fbd3923cf3246cdb13b682e91198c36c946d",
   "printer_submission": false,
   "support_summary": {
     "support_bodies": 1,
-    "interface_islands": 3,
+    "interface_islands": 4,
     "bed_rooted_bodies": 1,
     "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 6.72,
+    "shortest_build_up_mm": 6.48,
     "bodies_without_interface_labels": 0,
-    "explicit_interface_islands": 3,
-    "shortest_labelled_build_up_mm": 6.72
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 6.48
   },
-  "support_audit_sha256": "f593c7e2d1be9e7ee225d3be72cdacd00911bd2056eab6860a66971e4aeebdd0",
+  "support_audit_sha256": "2b4ae4cae23d4b2673313ae85c0a98f406385352499fb1aab2705deb05461db8",
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 1506,
+    "export_time": 926,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 29,
+    "prepare_time": 26,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 10.3818941116333,
-          "Bridge": 71.8825912475586,
-          "Custom": 305.07879638671875,
+          "Bottom surface": 21.175167083740234,
+          "Bridge": 39.48379135131836,
+          "Custom": 305.1008605957031,
           "Flush": 15.0,
-          "Gap infill": 2.079692840576172,
-          "Inner wall": 50.57411575317383,
-          "Internal solid infill": 94.9390869140625,
-          "Outer wall": 62.86039733886719,
-          "Overhang wall": 30.574127197265625,
-          "Sparse infill": 39.91203689575195,
-          "Support": 195.99737548828125,
-          "Support interface": 13.128227233886719,
-          "Top surface": 19.885334014892578,
-          "Travel": 179.95806884765625,
-          "Undefined": 170.6381072998047
+          "Gap infill": 2.3051130771636963,
+          "Inner wall": 49.100467681884766,
+          "Internal solid infill": 91.5172119140625,
+          "Outer wall": 61.38254165649414,
+          "Overhang wall": 19.998628616333008,
+          "Sparse infill": 38.03833770751953,
+          "Support": 193.45445251464844,
+          "Support interface": 13.250487327575684,
+          "Top surface": 22.256240844726562,
+          "Travel": 168.67123413085938,
+          "Undefined": 159.3272705078125
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFT01",
             "id": 1,
-            "main_used_g": 4.3021626472473145,
-            "total_used_g": 4.3021626472473145
+            "main_used_g": 4.147561073303223,
+            "total_used_g": 4.147561073303223
           }
         ],
-        "generate_support_material_time": 216,
+        "generate_support_material_time": 112,
         "id": 1,
-        "infill_time": 45,
+        "infill_time": 29,
         "layer_filament_change": 0,
-        "main_predication": 757.1922607421875,
-        "make_perimeters_time": 27,
+        "main_predication": 705.650634765625,
+        "make_perimeters_time": 21,
         "obj_cached_cnt": 0,
         "objects": [
           {
             "bbox": {
-              "depth": 53.0345458984375,
-              "height": 12.936574935913086,
+              "depth": 53.03470230102539,
+              "height": 12.40000057220459,
               "width": 14.664939880371094,
               "x": 167.6675262451172,
-              "y": 133.48272705078125,
-              "z": -4.9956543790585783e-08
+              "y": 133.48265075683594,
+              "z": -5.0102293869258574e-08
             },
             "id": 5,
             "name": "lever-replica",
-            "triangle_count": 4588
+            "triangle_count": 4504
           }
         ],
-        "sliced_time": 621,
-        "sliced_time_with_cache": 313,
-        "total_predication": 1082.9510498046875,
-        "triangle_count": 4588,
+        "sliced_time": 378,
+        "sliced_time_with_cache": 202,
+        "total_predication": 1031.407470703125,
+        "triangle_count": 4504,
         "warning_message": ""
       }
     ],
@@ -87,8 +87,8 @@
     "wall_loops": 2
   },
   "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
-  "archive_sha256": "26a84dbacbc276a04b93620a012db1c82d47266123e8f07fe022780710238bbc",
+  "archive_sha256": "6f5ec1ffc6abdfff6583c97da91cdc10b62ef945c2d38e0c360367eb7b784987",
   "gcode": {
-    "plate_1.gcode": "8022ea21f327a292903a4c026b94b0360eb03826afccb7ede0acec10397270e6"
+    "plate_1.gcode": "2d53cc629ccac6f3bc19add54fbeb0a08647da09ef7f0dc6c93e0f40987c3a65"
   }
 }
