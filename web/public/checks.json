@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 2 of 25 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 465 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 29 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 465 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,8 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds f8736f9095493b44ab81f8d78a47387a for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 43a8df3d7943ec6672033e1ef20ce197 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 42303cf8749063f6940ebb069236d956, enclosure-assembly.step here is b092657b3d8b5c8b4d68361a5432c6c3",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds f8736f9095493b44ab81f8d78a47387a for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 46655f0103c7dc43f183a09a25c24af7 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
