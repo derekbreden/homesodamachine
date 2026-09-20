@@ -164,8 +164,16 @@ def status_summary(printer, timeout):
     fields = ("gcode_state", "subtask_name", "mc_percent", "layer_num", "total_layer_num",
               "mc_remaining_time", "print_error", "hms", "nozzle_temper", "nozzle_target_temper",
               "bed_temper", "bed_target_temper", "lights_report")
+    # vir_slot 254 is the left external spool and 255 the right; the device page shows
+    # only the right one. The nozzle list is every nozzle the machine knows, racked or
+    # mounted; the top-level nozzle_type names one of them, not necessarily the printing head.
+    spools = {tray["id"]: {"type": tray.get("tray_type"), "colour": tray.get("tray_color")}
+              for tray in status.get("vir_slot", [])}
+    nozzles = [{key: nozzle.get(key) for key in ("id", "type", "diameter", "sn")}
+               for nozzle in status.get("device", {}).get("nozzle", {}).get("info", [])]
     return {"printer": printer.name, "observed_at": datetime.now(timezone.utc).isoformat(),
-            **{key: status[key] for key in fields if key in status}}
+            **{key: status[key] for key in fields if key in status},
+            "external_spools": spools, "nozzle_type": status.get("nozzle_type"), "nozzles": nozzles}
 
 
 def main():
