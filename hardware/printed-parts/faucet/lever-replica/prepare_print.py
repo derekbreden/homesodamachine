@@ -11,27 +11,40 @@ sys.path.insert(0, str(HERE.parent))
 import refresh_print_project as writer
 
 SOURCE_PROFILE = HERE.parents[1] / "petgf.3mf"
-PROJECT = HERE / "lever-replica-petgf.3mf"
-ARCHIVE = HERE / "lever-black-petgf-z018-h2c.gcode.3mf"
+
+# One comparison lever per machine. The filament colour is physical; the shared
+# settings and the Z trim are what differ here.
+VARIANTS = {
+    "black-h2c": {"project": "lever-replica-petgf.3mf",
+                  "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
+                  "z_trim": 0.18, "title": "Lever comparison black PET-GF H2C"},
+    "white-mark2": {"project": "lever-replica-petgf-white.3mf",
+                    "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
+                    "z_trim": 0.04, "title": "Lever comparison white PET-GF Mark2"},
+}
 
 
-def prepare():
+def prepare(variant):
+    spec = VARIANTS[variant]
+    project = HERE / spec["project"]
     report = writer.refresh(
-        SOURCE_PROFILE, PROJECT,
+        SOURCE_PROFILE, project,
         parts=(("lever-replica", HERE / "lever-replica-side-down.stl", 0.0),),
-        offsets=((0.0, 0.0),), title="Lever comparison black PET-GF H2C", z_trim=0.18)
+        offsets=((0.0, 0.0),), title=spec["title"], z_trim=spec["z_trim"])
     report["status"] = "offline project preparation; submissions are recorded in print-jobs.json"
     report["fit_and_strength_validated"] = False
     report["pose"] = "local CAD +X side on bed; broad show face vertical"
-    PROJECT.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
-    return report
+    report["variant"] = variant
+    project.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
+    return report, project, HERE / spec["archive"]
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slice-output", type=Path)
+    parser.add_argument("--variant", choices=sorted(VARIANTS), default="black-h2c")
     args = parser.parse_args()
-    report = prepare()
+    report, PROJECT, ARCHIVE = prepare(args.variant)
     print(PROJECT)
     if args.slice_output:
         directory = args.slice_output.resolve()
