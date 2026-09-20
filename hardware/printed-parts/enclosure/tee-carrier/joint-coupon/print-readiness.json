@@ -1,5 +1,5 @@
 {
-  "status": "submitted_and_running",
+  "status": "print_completed_bench_qualification_pending",
   "production_carrier_ready": false,
   "coupon_only": true,
   "submitted": true,
@@ -299,5 +299,16 @@
     "auto_bed_leveling": "On",
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
-  }
+  },
+  "printer_completion": {
+    "observed_at": "2026-09-20T23:23:54.363978+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 220,
+    "total_layer_num": 220,
+    "print_error": 0,
+    "hms": []
+  },
+  "bench_fit_qualified": false
 }
