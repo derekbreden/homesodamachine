@@ -28,18 +28,14 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path[:0] = [str(_hw / "scripts"), str(_hw / "reference" / "tee-connector"),
-               str(_hw / "reference" / "lee-lcm060c12m"),
+sys.path[:0] = [str(_here.parent), str(_hw / "scripts"), str(_hw / "reference" / "tee-connector"),
                str(_here.parent.parent / "enclosure")]
 from _cadq_export import export_assembly
 from _material_base import M_PETGF_BLACK, one_body
 import _enclosure_interface as enclosure_interface
 import fits
 import tee_connector as tee
-import lee_lcm060c12m as spring
-
-_SPRING_GUIDE_D = max(spring.HOLE_DIAMETER, spring.OUTSIDE_DIAMETER
-                      + max(spring.OUTSIDE_DIAMETER_TOLERANCE) + 2.0 * fits.running)
+import tee_carrier_spring as spring
 
 
 @dataclass(frozen=True)
@@ -71,11 +67,12 @@ class CarrierSpec:
     tie_stock_w: float = 2.5
     tie_stock_t: float = 1.0
     tie_head: tuple[float, float, float] = (5.0, 3.6, 2.8)
-    spring_bore_d: float = _SPRING_GUIDE_D
-    # The spring enters its bar sideways, compressed to this much above solid, through a
-    # window in the bar's inboard face that ends on the web's fore plane; the channel runs on
-    # past the window by one ring.
-    spring_load_above_solid: float = 1.0
+    # Established printed guide and loading route. Replacement spring measurements check
+    # these dimensions; they do not move the fixed/moving bearing planes or guide axes.
+    spring_bore_d: float = 6.57
+    # The spring enters its bar sideways at this compressed length, through a window in the
+    # inboard face that ends on the web's fore plane; the channel runs past it by one ring.
+    spring_load_length: float = 9.61
     spring_window_air: float = 2.0 * fits.slip
     spring_ring: float = 1.1
     spring_roof_angle_deg: float = 45.0
@@ -241,10 +238,6 @@ class CarrierSpec:
         the outer well past the seated tee and cross to the window over the arm's top."""
         return (self.tee_axis_z + tee.RUN_HALF + 2.0 * self.slide_air
                 + self.spring_bore_d / 2.0)
-
-    @property
-    def spring_load_length(self):
-        return spring.SOLID_HEIGHT + self.spring_load_above_solid
 
     @property
     def spring_window_y(self):
@@ -983,6 +976,14 @@ def selftest(spec=DEFAULT_SPEC):
         errors.append('the stub relief leaves less than the station web')
     if spec.spring_ring < 1.0:
         errors.append('the spring channel keeps less than 1 mm of ring behind its window')
+    try:
+        spring.fit_facts(
+            {str(offset): spec.spring_bore_floor_y + offset - spec.fixed_seat_floor_y
+             for offset in spec.state_offsets_y},
+            bore_diameter=spec.spring_bore_d, loading_length=spec.spring_load_length,
+            required_radial_air=spec.slide_air)
+    except ValueError as exc:
+        errors.append(str(exc))
     if (spec.spring_window_y[1] - spec.spring_window_y[0]
             < spec.spring_load_length + spec.spring_window_air):
         errors.append('the loading window is shorter than the compressed spring and its air')
@@ -1060,7 +1061,8 @@ def sync_readme(spec=DEFAULT_SPEC):
         'SPLIT_X': spec.joint_split_x,
         'SCREW_X': spec.joint_screw_x,
         'INSERT_BACKING': spec.joint_lap_t - enclosure_interface.heatset_len,
-        'SPRING_LOAD_ABOVE_SOLID': spec.spring_load_above_solid,
+        'SPRING_LOAD_ABOVE_COMPRESSED': (spec.spring_load_length
+                                        - spring.COMPRESSED_LENGTH_UPPER_ESTIMATE),
         'LAP_WIDTH': spec.joint_reach_x - spec.joint_right_x0,
         'TONGUE_WIDTH': spec.joint_tongue_x[1] - spec.joint_tongue_x[0],
         'TONGUE_ROOT': spec.joint_split_x - spec.joint_tongue_x[0],
@@ -1081,7 +1083,8 @@ def sync_readme(spec=DEFAULT_SPEC):
         'SPRING_LOAD_LENGTH': spec.spring_load_length,
         'SPRING_WINDOW_LENGTH': spec.spring_window_y[1] - spec.spring_window_y[0],
         'SPRING_RING': spec.spring_ring,
-        'SPRING_SOLID': spring.SOLID_HEIGHT,
+        'SPRING_COMPRESSED_ESTIMATE': spring.COMPRESSED_LENGTH_UPPER_ESTIMATE,
+        'SPRING_OD': spring.OUTSIDE_DIAMETER,
         'SPRING_FREE': spring.FREE_LENGTH,
         'GRIP_BAR_T': spec.grip_bar_t, 'FINGER_RUN': spec.finger_run,
         'FINGER_HEIGHT': spec.printed_grip_z[1] - spec.printed_grip_z[0],
