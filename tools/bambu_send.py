@@ -1,0 +1,255 @@
+#!/usr/bin/env python3
+"""Submit a sliced .gcode.3mf to H2C or Mark2 through Bambu Connect and verify the printer took it.
+
+The steps are the ones a hand performs in the application, each one read back before
+the next: the target's device page (which is what the send dialog offers as its
+printer), the import, the dialog, the filament mapping, the print options, Send, and
+the printer's own report over MQTT. `tools/bambu-ax` presses the controls in place;
+the one popover the accessibility tree cannot show is clicked by position and judged
+by the tile it fills in.
+"""
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import bambu_printer  # noqa: E402
+
+AX = Path(__file__).resolve().parent / "bambu-ax" / "bambu-ax"
+PRINTERS = ("H2C", "Mark2")
+STANDING_OPTIONS = {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+}
+# The filament tile's centre, and the External spool tile in the popover that opens
+# under it, both from the tile's own origin. Measured on H2C with one AMS unit; the
+# popover lists AMS trays above the external spool, so more units push it down.
+TILE_CENTRE = (47, 30)
+EXTERNAL_SPOOL = (-245, 282)
+BUSY = ("PREPARE", "RUNNING", "PAUSE")
+
+NODE = re.compile(
+    r'^#(?P<idx>\d+) (?P<indent> *)(?P<role>\S+)(?: "(?P<label>.*?)")?'
+    r"(?: \[(?P<acts>[^\]]*)\])?(?: @(?P<x>-?\d+),(?P<y>-?\d+) (?P<w>\d+)x(?P<h>\d+))?$"
+)
+
+
+def fail(message):
+    sys.exit(f"bambu_send: {message}")
+
+
+def ax(*args, check=True):
+    result = subprocess.run([str(AX), *args], capture_output=True, text=True)
+    output = (result.stdout + result.stderr).strip()
+    if check and result.returncode != 0:
+        fail(f"bambu-ax {' '.join(args)} failed:\n{output}")
+    return output
+
+
+def tree():
+    nodes = []
+    for line in ax("tree").splitlines():
+        match = NODE.match(line)
+        if not match:
+            continue
+        node = match.groupdict()
+        node["idx"] = int(node["idx"])
+        node["depth"] = len(node["indent"]) // 2
+        node["acts"] = (node["acts"] or "").split(",") if node["acts"] else []
+        for key in ("x", "y", "w", "h"):
+            node[key] = int(node[key]) if node[key] is not None else None
+        nodes.append(node)
+    return nodes
+
+
+def find(nodes, role=None, label=None, starts=None, ends=None):
+    return [
+        n for n in nodes
+        if (role is None or n["role"] == role)
+        and (label is None or n["label"] == label)
+        and (starts is None or (n["label"] or "").startswith(starts))
+        and (ends is None or (n["label"] or "").endswith(ends))
+    ]
+
+
+def wait_for(seconds, predicate):
+    deadline = time.monotonic() + seconds
+    while time.monotonic() < deadline:
+        nodes = tree()
+        found = predicate(nodes)
+        if found:
+            return found
+        time.sleep(0.5)
+    return None
+
+
+def dialog(nodes):
+    return find(nodes, role="AXGroup", label="Send to print")
+
+
+def selector(nodes):
+    groups = find(nodes, role="AXGroup", ends=" chevron_down")
+    names = [g["label"].rsplit(" ", 1)[0] for g in groups if g["label"].rsplit(" ", 1)[0] in PRINTERS]
+    return names[0] if names else None
+
+
+def tile(nodes):
+    for n in find(nodes, role="AXGroup"):
+        if n["label"] == "? ?" or (n["label"] or "").startswith("Ext "):
+            return n
+    return None
+
+
+def options(nodes):
+    """Each option row is a label and a run of radio buttons; the chosen one carries an
+    AXImage "radio" as its first child."""
+    chosen = {}
+    by_idx = {n["idx"]: n for n in nodes}
+    for name in STANDING_OPTIONS:
+        labels = find(nodes, role="AXStaticText", label=name)
+        if not labels:
+            continue
+        row = labels[0]
+        buttons = [
+            n for n in find(nodes, role="AXRadioButton")
+            if n["y"] is not None and abs(n["y"] - row["y"]) <= 12 and n["x"] > row["x"]
+            and n["x"] - row["x"] < 700
+        ]
+        buttons.sort(key=lambda n: n["x"])
+        picked = None
+        for b in buttons:
+            child = by_idx.get(b["idx"] + 1)
+            if child and child["role"] == "AXImage" and child["label"] == "radio":
+                picked = b
+        chosen[name] = (picked["label"] if picked else None, buttons)
+    return chosen
+
+
+def status(printer, timeout=12):
+    with bambu_printer.Connection(printer, timeout) as connection:
+        return connection.status()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("archive", help="a sliced .gcode.3mf")
+    parser.add_argument("printer", choices=PRINTERS)
+    parser.add_argument("--dry-run", action="store_true", help="stop at the Send button and cancel the dialog")
+    parser.add_argument("--timelapse", choices=("On", "Off"), default=STANDING_OPTIONS["Timelapse"])
+    parser.add_argument("--accept-timeout", type=float, default=120, help="seconds to wait for PREPARE or RUNNING")
+    args = parser.parse_args()
+
+    archive = Path(args.archive).expanduser().resolve()
+    if not archive.is_file() or not archive.name.endswith(".gcode.3mf"):
+        fail(f"{archive} is not a sliced .gcode.3mf")
+    wanted = dict(STANDING_OPTIONS, Timelapse=args.timelapse)
+    printer = bambu_printer.configured_printers()[args.printer]
+
+    before = status(printer)
+    if before.get("gcode_state") in BUSY:
+        note = f"{args.printer} is {before['gcode_state']} on {before.get('subtask_name')}; Send is disabled while it runs"
+        if not args.dry_run:
+            fail(note)
+        print(note + " (dry run continues to the dialog)")
+    spools = {t["id"]: t["tray_type"] for t in before.get("vir_slot", [])}
+    print(f"{args.printer}: {before.get('gcode_state')} after {before.get('subtask_name')}; external spools {spools}")
+
+    # 1. The send dialog offers the device page last viewed as its printer.
+    ax("press", "Devices", "--role", "AXLink")
+    time.sleep(1.5)
+    ax("press", args.printer, "--role", "AXLink")
+    if not wait_for(8, lambda n: find(n, role="AXStaticText", label="Printing Progress")
+                    and find(n, role="AXStaticText", label=args.printer)):
+        fail(f"could not open {args.printer}'s device page")
+    print(f"device page: {args.printer}")
+
+    # 2. Import, and read the file summary back.
+    output = ax("import", str(archive))
+    if "-> loaded" not in output:
+        fail(f"import did not load {archive.name}:\n{output}")
+    summary = ax("state")
+    if archive.name not in summary or "Compatible Printer" not in summary:
+        fail(f"the Print tab does not show {archive.name}:\n{summary}")
+    print("import: " + summary.split("Import Gcode 3MF | ", 1)[-1][:160])
+
+    # 3. The dialog.
+    ax("press", "Print", "--role", "AXButton")
+    nodes = wait_for(10, lambda n: dialog(n) and selector(n) and n)
+    if not nodes:
+        fail("the Send to print dialog did not open")
+    name = selector(nodes)
+    if name != args.printer:
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail(f"the dialog offers {name}, not {args.printer}; its device page was not the last one viewed")
+    print(f"dialog: printer {name}")
+
+    # 4. The filament mapping, by the tile it fills in.
+    t = tile(nodes)
+    if t is None:
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail("no filament tile in the dialog")
+    if t["label"] == "? ?":
+        x, y = t["x"], t["y"]
+        click = ax("click", str(x + TILE_CENTRE[0]), str(y + TILE_CENTRE[1]),
+                   str(x + EXTERNAL_SPOOL[0]), str(y + EXTERNAL_SPOOL[1]))
+        print("mapping: " + click.splitlines()[-1])
+        time.sleep(1.0)
+        nodes = tree()
+        if not dialog(nodes):
+            fail("the dialog closed under the mapping clicks: the popover did not open, so the "
+                 "second click landed outside the dialog (a busy printer's tile does not open one)")
+        t = tile(nodes)
+    if t is None or not t["label"].startswith("Ext "):
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail(f"the filament tile reads {t['label'] if t else 'nothing'}; it must read the external spool")
+    print(f"mapping: {t['label']}")
+
+    # 5. The print options, read by which button carries the radio mark.
+    for name, want in wanted.items():
+        current, buttons = options(nodes).get(name, (None, []))
+        if current == want:
+            continue
+        target = next((b for b in buttons if b["label"] == want), None)
+        if target is None:
+            ax("press", "cancel", "--role", "AXButton", check=False)
+            fail(f"{name}: no {want} button")
+        ax("press", f"#{target['idx']}", "--expect", want)
+        time.sleep(0.6)
+        nodes = tree()
+    settled = {name: chosen for name, (chosen, _) in options(nodes).items()}
+    if settled != wanted:
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail(f"print options read {settled}, wanted {wanted}")
+    print("options: " + ", ".join(f"{k} {v}" for k, v in settled.items()))
+
+    if args.dry_run:
+        ax("press", "cancel", "--role", "AXButton")
+        print("dry run: dialog cancelled, nothing sent")
+        return
+
+    # 6. Send, and 7. the printer's own word.
+    ax("press", "confirm", "--role", "AXButton")
+    deadline = time.monotonic() + args.accept_timeout
+    reading = None
+    while time.monotonic() < deadline:
+        time.sleep(5)
+        reading = status(printer)
+        if reading.get("subtask_name") == archive.name and reading.get("gcode_state") in ("PREPARE", "RUNNING"):
+            break
+    else:
+        fail(f"{args.printer} did not report {archive.name} within {args.accept_timeout:g}s; "
+             f"last reading {reading.get('gcode_state') if reading else None} on {reading.get('subtask_name') if reading else None}")
+    fields = ("gcode_state", "subtask_name", "layer_num", "total_layer_num", "mc_remaining_time", "print_error")
+    print(json.dumps({"printer": args.printer, "observed_at": bambu_printer.datetime.now(bambu_printer.timezone.utc).isoformat(),
+                      **{k: reading.get(k) for k in fields}}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

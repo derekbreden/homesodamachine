@@ -339,3 +339,27 @@ Mark2 reported `RUNNING`, layer 0 of 258, with no print error at
 
 The source mesh, profile, sliced archive and G-code hashes are recorded in
 [print-jobs.json](print-jobs.json).
+
+## 2026-09-20 — front-top on H2C
+
+The current `enclosure-front-top` was submitted through Bambu Connect, driven by
+`tools/bambu-ax` with the screen borrowed for one second. H2C reported `RUNNING`,
+layer 0 of 813, with no print error at 2026-09-20T18:49:48.281882+00:00.
+
+- Profile: `hardware/printed-parts/petgf.3mf`; support settings from specimen 10:
+  tree(auto), default style, 0.45 mm requested top gap, two interface layers,
+  0.5 mm interface spacing, automatic pattern, interface loops off, 0.4 mm XY gap,
+  zero support expansion.
+- Left 0.4 mm nozzle, sliced as Standard; the head carries the 0.4 mm diamond PCD.
+  PET-GF on the left external spool, mapped as PET-CF.
+- Textured PEI; 0.24 mm layers, 0.20 mm first layer; 265 °C first nozzle temperature,
+  280 °C thereafter; 80 °C bed.
+- Requested Z trim +0.18 mm. Stock textured-plate compensation −0.02 mm gives
+  the emitted `G29.1 Z0.16`.
+- Bed leveling on, timelapse on, flow and nozzle-offset calibration Auto.
+- Slicer estimate: 24 h 9 min, 807.36 g, 813 layers.
+
+The archive was sliced from the tree's STL at 13:07; a concurrent build regenerated
+that STL before the send, so the tree's copy no longer matches the recorded hash.
+The source mesh, profile, sliced archive and G-code hashes are recorded in
+[print-jobs.json](print-jobs.json).
