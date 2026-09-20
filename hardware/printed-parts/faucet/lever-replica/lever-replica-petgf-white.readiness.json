@@ -1,6 +1,6 @@
 {
   "status": "offline slice complete; physical fit, strength and support removal unvalidated",
-  "project_sha256": "339c1e12dae53e215b901047de0e778affef23b9a9e263cbef76a6eecb8fb2fa",
+  "project_sha256": "37de1165f06bc4badf1af066741cb016d45c7186ac9f842b0149cb2f25edb0bc",
   "printer_submission": false,
   "support_summary": {
     "support_bodies": 1,
@@ -12,48 +12,48 @@
     "explicit_interface_islands": 3,
     "shortest_labelled_build_up_mm": 6.72
   },
-  "support_audit_sha256": "0cc85bffa86d4ad113511d062a816a7311b242d425a521b74a1b4dccf8e11e72",
+  "support_audit_sha256": "f593c7e2d1be9e7ee225d3be72cdacd00911bd2056eab6860a66971e4aeebdd0",
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 3102,
+    "export_time": 1506,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 70,
+    "prepare_time": 29,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 10.381896018981934,
-          "Bridge": 75.27394104003906,
-          "Custom": 305.0772399902344,
+          "Bottom surface": 10.3818941116333,
+          "Bridge": 71.8825912475586,
+          "Custom": 305.07879638671875,
           "Flush": 15.0,
-          "Gap infill": 2.552577257156372,
-          "Inner wall": 51.06570053100586,
-          "Internal solid infill": 96.15265655517578,
-          "Outer wall": 63.49079895019531,
-          "Overhang wall": 31.59781265258789,
-          "Sparse infill": 39.742713928222656,
-          "Support": 196.9327392578125,
-          "Support interface": 13.318543434143066,
-          "Top surface": 20.8048095703125,
-          "Travel": 181.32415771484375,
-          "Undefined": 172.0041961669922
+          "Gap infill": 2.079692840576172,
+          "Inner wall": 50.57411575317383,
+          "Internal solid infill": 94.9390869140625,
+          "Outer wall": 62.86039733886719,
+          "Overhang wall": 30.574127197265625,
+          "Sparse infill": 39.91203689575195,
+          "Support": 195.99737548828125,
+          "Support interface": 13.128227233886719,
+          "Top surface": 19.885334014892578,
+          "Travel": 179.95806884765625,
+          "Undefined": 170.6381072998047
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFT01",
             "id": 1,
-            "main_used_g": 4.357600212097168,
-            "total_used_g": 4.357600212097168
+            "main_used_g": 4.3021626472473145,
+            "total_used_g": 4.3021626472473145
           }
         ],
-        "generate_support_material_time": 556,
+        "generate_support_material_time": 216,
         "id": 1,
-        "infill_time": 73,
+        "infill_time": 45,
         "layer_filament_change": 0,
-        "main_predication": 767.6535034179688,
-        "make_perimeters_time": 34,
+        "main_predication": 757.1922607421875,
+        "make_perimeters_time": 27,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -67,13 +67,13 @@
             },
             "id": 5,
             "name": "lever-replica",
-            "triangle_count": 7078
+            "triangle_count": 4588
           }
         ],
-        "sliced_time": 1382,
-        "sliced_time_with_cache": 673,
-        "total_predication": 1093.4107666015625,
-        "triangle_count": 7078,
+        "sliced_time": 621,
+        "sliced_time_with_cache": 313,
+        "total_predication": 1082.9510498046875,
+        "triangle_count": 4588,
         "warning_message": ""
       }
     ],
@@ -87,8 +87,8 @@
     "wall_loops": 2
   },
   "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
-  "archive_sha256": "5512217edbdea44b3b9e01c05579105be1f60625f2a412b9d11e930c60fa5a39",
+  "archive_sha256": "26a84dbacbc276a04b93620a012db1c82d47266123e8f07fe022780710238bbc",
   "gcode": {
-    "plate_1.gcode": "23ebd4552a486a784d0229fd82bba824b221033f8170279804673c8be535226f"
+    "plate_1.gcode": "8022ea21f327a292903a4c026b94b0360eb03826afccb7ede0acec10397270e6"
   }
 }

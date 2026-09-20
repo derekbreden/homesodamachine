@@ -60,8 +60,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-      "stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
-      "triangles": 7078,
+      "stl_sha256": "a570fe06f9ee0bfeb7f8ab2978d0b4a24fcb94dff5044f1b3a3f52d4c2053231",
+      "triangles": 4588,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         -2.9024665355682373,
@@ -109,7 +109,7 @@
       "embedded_vertex_error_mm": 4.99968955125496e-10
     }
   ],
-  "project_sha256": "339c1e12dae53e215b901047de0e778affef23b9a9e263cbef76a6eecb8fb2fa",
+  "project_sha256": "37de1165f06bc4badf1af066741cb016d45c7186ac9f842b0149cb2f25edb0bc",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; submissions are recorded in print-jobs.json",
   "fit_and_strength_validated": false,

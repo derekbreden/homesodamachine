@@ -21,9 +21,9 @@
     "channel convergence read at one height, applied at all",
     "unobserved transitions between relief sections"
   ],
-  "channel_print_allowance_mm": 0.2,
-  "allowance_applies_to": "lever-replica-side-down.stl only; the STEP, the payload and the assembly pose are the donor",
-  "printable_volume_mm3": 3167.0891429301323,
+  "printed_channel_mm": 9.0,
+  "printed_channel_applies_to": "lever-replica-side-down.stl only; the STEP, the payload and the assembly pose are the donor",
+  "printable_volume_mm3": 3155.698051616396,
   "widths_mm": {
     "z=0.0": {
       "channel": 8.859,
