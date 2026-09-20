@@ -1,4 +1,4 @@
-"""Compare the printable solid with retained observed points and render both.
+"""Compare the donor reference with observed points; preview the accepted lever.
 
 Distances measure reconstruction agreement, not scanner accuracy or valve fit.
 The cylinder reading is a robust fit to part of the observed transverse bar;
@@ -15,6 +15,7 @@ from matplotlib.collections import LineCollection
 import numpy as np
 from scipy.optimize import least_squares
 import trimesh
+from physical_acceptance import for_printed_model
 
 HERE = Path(__file__).resolve().parent
 EVIDENCE = HERE / "evidence"
@@ -137,7 +138,9 @@ def render(mesh, look, crop=None, width=700, height=700):
 
 
 def main():
-    mesh = trimesh.load(HERE / "lever-replica.stl", force="mesh")
+    reference = HERE / "lever-donor-reference.stl"
+    mesh = trimesh.load(reference, force="mesh")
+    printable = trimesh.load(HERE / "lever-replica.stl", force="mesh")
     scan = np.load(EVIDENCE / "lever-points.npz")
     p, n = scan["points"], scan["normals"]
     selected = np.load(EVIDENCE / "selected-patches.npz")
@@ -145,14 +148,16 @@ def main():
     agreement = np.sum(mesh.face_normals[faces] * selected["normals"], axis=1)
     indices = np.linspace(0, len(p) - 1, 24000, dtype=int)
     all_distances, _ = closest(mesh, p[indices])
-    report = {"stl_sha256": hashlib.sha256((HERE / "lever-replica.stl").read_bytes()).hexdigest(),
+    report = {"subject": "donor scan reconstruction", "stl": reference.name,
+              "stl_sha256": hashlib.sha256(reference.read_bytes()).hexdigest(),
               "selected_patch_to_CAD_mm": reading(distances),
               "selected_normal_agreement_fraction_dot_above_0_7": float(np.mean(agreement > .7)),
               "whole_observed_cloud_sample_to_CAD_mm": reading(all_distances),
               "watertight": bool(mesh.is_watertight),
               "winding_consistent": bool(mesh.is_winding_consistent),
               "mesh_volume_mm3": float(mesh.volume), "mesh_bounds_mm": mesh.bounds.tolist(),
-              "physical_fit_or_strength_validation": False,
+              "validation_scope": "donor scan/model agreement only",
+              "printed_model_physical_acceptance": for_printed_model(),
               "meaning": "one-sided distance from observed points to CAD; does not validate inferred or unobserved surfaces"}
     (HERE / "scan-fit.json").write_text(json.dumps(report, indent=2) + "\n")
     assert mesh.is_watertight and mesh.is_winding_consistent and mesh.volume > 0
@@ -173,17 +178,17 @@ def main():
     for ax in axes.flat:
         ax.set_aspect("equal")
         ax.grid(alpha=.15)
-    fig.suptitle("Lever comparison: observed points (blue), CAD sections (orange)")
+    fig.suptitle("Donor reference: observed points (blue), CAD sections (orange)")
     fig.tight_layout()
     fig.savefig(HERE / "scan-comparison.png", dpi=140)
     plt.close(fig)
     fig, axes = plt.subplots(1, 3, figsize=(14, 6))
     for ax, look, crop, title in zip(axes, [(1, -1, 2), (1, -.6, -2), (.3, -1, -.2)],
                                    [None, None, 35], ["Outer face", "Underbelly", "Attachment opening"]):
-        ax.imshow(render(mesh, look, crop))
+        ax.imshow(render(printable, look, crop))
         ax.set_title(title)
         ax.axis("off")
-    fig.suptitle("Scan-derived faucet lever · comparison prototype", fontsize=17)
+    fig.suptitle("Accepted faucet lever · flat sides and 9 mm cylinder channel", fontsize=17)
     fig.tight_layout()
     fig.savefig(HERE / "lever-replica-preview.png", dpi=150)
     plt.close(fig)

@@ -1,33 +1,49 @@
 {
-  "stl_sha256": "67f61d1cf0ba7e3e83a692635f9507c06935a7b5d284ae5451a2077c8723a6cb",
+  "subject": "donor scan reconstruction",
+  "stl": "lever-donor-reference.stl",
+  "stl_sha256": "757aac09d5b8255ddd63ed00998ad9f0517a713e204ac4d357526332b60b7cd5",
   "selected_patch_to_CAD_mm": {
     "count": 1702,
-    "median": 0.07938902011994073,
-    "p95": 0.24920961926114868,
+    "median": 0.0757698682012555,
+    "p95": 0.2109643869609759,
     "max": 0.7873196601867676
   },
-  "selected_normal_agreement_fraction_dot_above_0_7": 0.9800235017626322,
+  "selected_normal_agreement_fraction_dot_above_0_7": 0.9764982373678026,
   "whole_observed_cloud_sample_to_CAD_mm": {
     "count": 24000,
-    "median": 0.11649012565612793,
-    "p95": 0.3683075591534759,
+    "median": 0.06971300744628474,
+    "p95": 0.3565626615745311,
     "max": 1.5013106002019865
   },
   "watertight": true,
   "winding_consistent": true,
-  "mesh_volume_mm3": 3022.556025257585,
+  "mesh_volume_mm3": 3202.7019534939864,
   "mesh_bounds_mm": [
     [
-      -6.199999809265137,
-      -0.1777585744857788,
+      -6.468287467956543,
+      -0.17760826647281647,
       -10.234932899475098
     ],
     [
-      6.199999809265137,
-      52.85694885253906,
+      6.468287467956543,
+      52.856937408447266,
       4.429999828338623
     ]
   ],
-  "physical_fit_or_strength_validation": false,
+  "validation_scope": "donor scan/model agreement only",
+  "printed_model_physical_acceptance": {
+    "record": "physical-acceptance.json",
+    "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+    "observed_date": "2026-09-20",
+    "authority": "Derek's direct observation of the completed Mark2 print",
+    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
+    "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "matches_accepted_geometry": true,
+    "physical_fit": "confirmed",
+    "functional_operation": "confirmed",
+    "quantified_strength": null,
+    "quantified_endurance": null
+  },
   "meaning": "one-sided distance from observed points to CAD; does not validate inferred or unobserved surfaces"
 }
