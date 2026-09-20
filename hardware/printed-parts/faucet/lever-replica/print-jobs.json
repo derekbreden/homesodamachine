@@ -406,13 +406,13 @@
       },
       "submission": {
         "application": "Bambu Connect, driven through tools/bambu-ax",
-        "printer_selection": "the dialog offered Mark2 because its device page was the one last viewed",
+        "printer_selection": "the dialog offered Mark2; its device page was the one last opened",
         "filament_mapping": "left nozzle, external PET-CF (vir_slot 254) for PET-GF, resolved by the dialog itself",
         "timelapse": "On",
         "auto_bed_leveling": "On",
         "flow_dynamic_calibration": "Auto",
         "nozzle_offset_calibration": "Auto",
-        "screen": "borrowed twice, about 1 s and about 4 s, for selector clicks the device-page rule made unnecessary"
+        "screen": "borrowed twice, about 1 s and about 4 s, on selector clicks"
       },
       "acceptance": {
         "printer": "Mark2",
@@ -424,8 +424,14 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
-      "physical_fit": null,
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "layer_num": 54,
+        "total_layer_num": 54,
+        "observed_at": "2026-09-20T19:08:40+00:00",
+        "print_error": 0
+      },
+      "physical_fit": "Derek: the drafted side faces make it unprintable for all practical purposes; see superseded_by.",
       "physical_strength": null,
       "estimate": {
         "seconds": 1082,
