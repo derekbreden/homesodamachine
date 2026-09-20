@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2421 tracked, 491 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2427 tracked, 498 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 294, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 301, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 1 of 80 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 498 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 80 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 502 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -139,16 +139,19 @@
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ],
     "hardware/scripts/check_payloads.py": [
-      "17 solid(s) the bundle serves a payload for that no rule produces:",
-      "    hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh — declared by nobody",
-      "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/enclosure/nameplate/nameplate.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh — declared by nobody",
       "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/enclosure/nameplate/nameplate.py,",
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/integral-coupon-left.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/integral-coupon-right.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-closed-moving-seat-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-fixed-seat-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-seated-reference.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-unqualified-example.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-spring-capture-study.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/inputs/cap.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/inputs/cartridge.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/inputs/front_top.step.mesh — declared by nobody",
@@ -163,12 +166,16 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 209/219 carry the colour of what they are made of",
-      "  10 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 210/224 carry the colour of what they are made of",
+      "  14 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-closed-moving-seat-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-fixed-seat-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-seated-reference.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-unqualified-example.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/seated-guide-head-retainer-reference.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-fixed-seat-coupon.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-guide-head-retainer.step",
