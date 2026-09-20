@@ -39,26 +39,38 @@ heads on the completed faucet.
    of supports and stringing. Dry-fit the printed pieces before heat setting.
 2. Heat-set the three short M3 inserts into the shell's bottom-facing Ø4 mm
    pilots, with their mouths at Z = [3.2 mm](BASE_INSERT_Z). Let them cool without disturbing their alignment.
-3. With the lever detached and the base plate separate, fit the fresh TPU
-   thimble and soda tube to the bare donor. Feed the tube's free end through
-   the lower neck and seat the donor from below, with its lever pivot aligned
-   to the front opening.
-4. Route the soda tube, both flavor tubes and the unterminated signal ribbon
+3. With the lever detached, soda tube removed and base plate separate, seat
+   the donor from below with its lever interface facing the front opening.
+   Keep the shell tip separate for access to the soda tube's top-port entry.
+4. Position the retained lever aft of its working position, lower it onto
+   the valve, then slide it forward so it wraps and lightly snaps around the
+   valve's metal cylinder. Keep the soda tube out throughout this motion.
+5. Fit the fresh TPU thimble cap-down into the donor's top water port. Feed
+   the soda tube through the lower neck and push it into the thimble until
+   it bottoms on the cap. The installed tube retains the lever's working
+   position by blocking its aft disengagement motion.
+6. Route the soda tube, both flavor tubes and the unterminated signal ribbon
    through the open neck pieces. Feed their ends into the tip, then close its
-   curved lap. Confirm the soda tube remains seated in its donor port.
-5. Bring the retained lever through the front opening and reattach it using
-   the donor's original hardware. Set the tube outlets at the tip.
-6. Thread the tube tails and ribbon through the plate's matching openings and
+   curved lap. Confirm the soda tube remains seated in its donor port and set
+   the tube outlets at the tip.
+7. Thread the tube tails and ribbon through the plate's matching openings and
    pass the shank through its centre hole. The three pedestals enter their
    sockets; the donor and shell foot seat on the plate.
-7. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
+8. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
    progressively so the plate closes evenly. Verify the donor lever through
    its full travel and confirm the flavor tubes stay in position and pass flow
    before adding the gasket.
 
-The nominal body and lever insertion paths are clear. The donor's attachment
-hardware is not dimensioned in the reference model; verify access for its actual
-fastening operation on the bench.
+The lever's light snap resists shaking loose while the soda tube is absent,
+but the lever remains easy to remove. Pressing it without the tube can slide
+it aft off the metal cylinder. Remove the soda tube before removing the lever;
+the tube blocks that disengagement path while installed.
+
+The assembly model's fixed-axis rotation and straight insertion corridor are
+nominal clearance approximations. They do not establish a pin hinge or verify
+the actual aft/down/forward seating path. Check that path on the physical
+donor and shell before closing the base. The measured assembled pose and
+operating contact motion are not yet established in CAD.
 
 The central lever opening is open above the handle up to the rounded front
 of the neck cap. The arched clearance farther aft leaves room for the rear
