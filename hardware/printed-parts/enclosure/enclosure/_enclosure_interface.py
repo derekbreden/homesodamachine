@@ -36,7 +36,11 @@ pump_station_lead = -0.124
 pump_station_drop = 3.0
 manifold_rise = 2.0
 # The two source limbs, including their tees and aft valves, sit below the outer limbs.
-inner_limb_drop = 6.0
+# WHAT THE FIGURE IS FOR is the funnel: V-A and V-B stand coil-up directly under its sloping
+# floor, and the drop is what the bowl needs to come down to 600 mL over them. It is struck on
+# the measured Beduan's own height — the coil reaches 52.1 mm above the bearing face its posts
+# are pressed to — and `clearance-floor` reads what is left between the two.
+inner_limb_drop = 8.0
 
 # Aft travel available beyond the connected tee-carrier datum, for elastic bending.
 # The connected pose, tube projections and moving carrier dimensions stay independent.

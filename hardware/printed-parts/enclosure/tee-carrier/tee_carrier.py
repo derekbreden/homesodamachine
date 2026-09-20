@@ -62,7 +62,7 @@ class CarrierSpec:
     stub_air: float = 0.3
     # The shelf on the aft face: it reaches to the outer aft coils and stands over the inner.
     flange_x: float = 56.820
-    flange_z0: float = 211.075
+    flange_z0: float = 209.075
     flange_depth: float = 14.0
     tie_band_offsets_z: tuple[float, float] = (-12.0, 12.0)
     tie_slot_offset_x: float = 8.5
@@ -92,7 +92,7 @@ class CarrierSpec:
     finger_run: float = 16.0
     finger_air: float = 0.2
     grip_bar_t: float = 16.0
-    grip_back_x: float = 91.020
+    grip_back_x: float = 91.000
     grip_back_t: float = 3.0
     grip_aft_t: float = 3.0
     grip_rail_top_z: float = 175.05

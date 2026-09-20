@@ -974,10 +974,26 @@ def cradle_rows(foam, foam_carry, placed: dict) -> list:
     return rows
 
 
-# How far a cap valve may stand off the row before the row is not one. The three are placed by
-# three different rules — two ride the pack, one is stood on the chain's column — so this is what
-# those three rules agree to within.
-ROW_TOL = 1e-3
+# How far a placed cap valve may stand off the plinth the cap prints for it. The three are
+# placed by three different rules — two ride the pack, one is stood on the suction chain's
+# own mouth — and the cap's table is a stated one, so nothing carries a valve that moves
+# onto its sockets. This is what `cradles_land` holds the two sides to.
+CRADLE_TOL = 0.01
+
+
+def cradles_land(rows) -> list:
+    """The cradles whose printed station is not where the placed valve asks for one.
+
+    `cradle_rows` reads both sides and nothing else did; without this the cap would go on
+    printing a plinth at the old station while the valve stood beside it, and no gate on
+    this card would say so — the sockets are a press fit, and a valve off one of them is
+    off all four."""
+    out = []
+    for name, station, wants, _long, _short in rows:
+        has = (station.centre[0], station.centre[1], station.yaw, station.seat)
+        if any(abs(h - w) > CRADLE_TOL for h, w in zip(has, wants)):
+            out.append((name, has, wants))
+    return out
 
 
 # --- the flavour manifold's valve trays ------------------------------------
@@ -1338,6 +1354,20 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     flange_abs_x = min(abs(x) for x in _enc.front_top_flank_face())
     aft_coil_outer_x = max(max(abs(box(solids[name]).xmin), abs(box(solids[name]).xmax))
                           for name in aft_coils)
+    # THE BAR'S BACKING ANSWERS TO TWO WALLS AND THE OUTER ONE IS FIXED. Inboard it stands off
+    # the aft coils, which is what the finger air is for. Outboard it runs down past the Z seam
+    # into the hooked rail's own band — `enclosure.rail_reach_in` is the deepest plane that
+    # joint reaches inboard, and a moving part sliding past a fixed wall cannot spend less than
+    # its running air on it. The rail does not move for a purchased valve that grew, so where
+    # the two bands meet the rail takes the millimetre and the finger air gives it up.
+    rail_back_x = min(abs(x) for x in _enc.interior_x()) - _enc.rail_reach_in
+    grip_back_x = min(aft_coil_outer_x + base.slide_air + base.finger_air,
+                      rail_back_x - base.slide_air - base.grip_back_t)
+    if grip_back_x < aft_coil_outer_x + base.slide_air - 1e-6:
+        raise ValueError(
+            f"the seam rail's back at X{rail_back_x:.3f} leaves the grip's backing "
+            f"X{grip_back_x:.3f}, inside the aft coils' running air at "
+            f"X{aft_coil_outer_x + base.slide_air:.3f}")
     fore_valve_bottom = min(box(solids[f"valve-v-{name}"]).zmin for name in "efhi")
     states = plate["carrier_states"]
     trays = valve_tray_stations(solids)
@@ -1359,7 +1389,7 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
         flange_z0=round(flange_z0, 6),
         tab_outer_x=_enc.appliance_width / 2.0,
         tab_z=tab_z,
-        grip_back_x=round(aft_coil_outer_x + base.slide_air + base.finger_air, 6),
+        grip_back_x=round(grip_back_x, 6),
         grip_rail_top_z=_enc.z_seam + _enc.z_rise + base.slide_air,
         release_offset_y=states["release"]["offset_y"],
         connected_offset_y=states["connected"]["offset_y"],
@@ -2398,7 +2428,7 @@ def build_suction_chain(foam_carry, suction):
     WHAT FOLLOWS THIS PLANE IS V-K. `build_vk` seats the valve on this chain's own collet, so the
     two mouths stay on one plane and the joint stays a butt — there is tube in both grips and
     none between them. `cap_cradles["vk-solenoid"].seat` is
-    what carries the valve up to meet it, and `cradles-land` is where the two are held together.
+    what carries the valve up to meet it, and `pack-closes` is what reads the butt.
 
     What holds it off the pump's own casting is `clearance-floor`, the reading every other pair
     on this card answers to."""
@@ -2941,8 +2971,9 @@ def build_panel_bulkhead(name: str, x: float, z: float):
 # The Hall-effect turbine the faucet's flow is read on: the pulse train is what tells the machine
 # a glass is being poured, so the flavour pumps start with the water and stop with it.
 #
-# It lies fore and aft, inlet forward and outlet aft, on the carb union's column. Its measured
-# cover sets the meter's own height below the deck; `carb-2` rises through a shallow S to the union.
+# It lies fore and aft, inlet forward and outlet aft, one west set off the carb union's column.
+# Its measured cover sets the meter's own height below the deck; `carb-2` crosses that set and
+# rises to the union in one shallow S.
 #
 # The YAW lays its flow axis along the machine; the ROLL then turns the wire boss off the ceiling
 # onto +X, which is both the room the top wall leaves and the way the pigtail has to go — the
@@ -2952,6 +2983,13 @@ DIGITEN_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 90.0))
 # The fore/aft distance between the meter's outlet and the union's inboard collet.
 CARB_2 = 22.0
 DIGITEN_CEILING_CLEAR = 1.0
+# HOW FAR WEST OF THAT COLLET'S COLUMN THE METER STANDS. Its cover reaches to one
+# `DIGITEN_CEILING_CLEAR` of the top wall, so the height it gives up under the ceiling comes
+# straight out of the fall it has left over the water pump — and what a body on this storey owes
+# there is `DECK_CLEAR`, the room to bring it down onto its anchors at all. The pump's motor is
+# what it would land on; west of its crown the fall is back. `room-holds` reads what this buys,
+# and `carb-2` spends the set in the same two corners it was already spending on the rise.
+DIGITEN_WEST_SET = 3.0
 
 
 def digiten_axis_drop(body) -> float:
@@ -2968,7 +3006,8 @@ def digiten_axis_drop(body) -> float:
 
 def build_digiten(carb_carry, seat: bool = True):
     """The meter seated on its OUTLET, one `CARB_2` forward of the carb union's inboard collet
-    and on that collet's own column, with its cover one clearance below the ceiling.
+    and one `DIGITEN_WEST_SET` west of that collet's column, with its cover one clearance below
+    the ceiling.
 
     A fitting answers to its mouth: both ends of this body are collets, and the one that has to
     land in the right place is the one the union is waiting on. Where the inlet ends up is
@@ -2978,7 +3017,8 @@ def build_digiten(carb_carry, seat: bool = True):
     pos, axis = carb_carry(_jg.port(-1.0))
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
     body = import_step(str(DIGITEN_STEP)).val()
-    target = (target[0], target[1], target[2] - digiten_axis_drop(body))
+    target = (target[0] - DIGITEN_WEST_SET, target[1],
+              target[2] - digiten_axis_drop(body))
     return seat_body(body, DIGITEN_TURN, seat="digiten-flow" if seat else None,
                      station=(_digiten.outlet(), target))
 
@@ -4905,41 +4945,28 @@ def build_flowreg(split_carry):
 # and that is already the direction the water goes here, so it takes NO TURN AT ALL: it stands
 # forward of the suction chain, firing aft into the collet that feeds the pump.
 #
-# V-K STANDS IN THE ROW THE SOURCE PAIR MAKES. Three Beduans sit on this cap — V-A, V-B and this
-# one — and the two the pack carries land on one plane facing one way. V-K's depth is theirs,
-# and what is left between its outlet and the chain's collet is nothing: both mouths lie on that
-# plane and on one column and meet face to face, so the joint is a butt. The cap prints its
-# three cradles on that same row (`_cold_core_interface.cap_cradles`), and `cap-valve-row`
-# measures it.
+# V-K STANDS ON THE CHAIN'S OWN MOUTH AND NOTHING ELSE DECIDES ITS DEPTH. Three Beduans sit on
+# this cap — V-A, V-B and this one — all the same way up. The two the pack carries stand where
+# the flavour chain's butted layout puts them, which is a plane this valve does not share: the
+# chain behind V-K is stood off the pump's suction mouth (`SUCT_CORNER_ROOM`), and what is left
+# between its collet and V-K's outlet has to be nothing, because that joint is a butt with tube
+# in both grips and none between them. So the chain's plane is the one V-K answers to, and the
+# millimetres between its end and the source pair's are whatever the pack's own body lengths
+# leave. `pack-closes` is what reads the butt.
 # THE VALVE'S SEAT is the cradle's. The cap prints a socketed plinth (`valve_seat`) at this
 # valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
-# Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed
+# Beduan's Z = 0 — the plane its four post ends stand on — lands once those posts are pressed
 # home. So the seat is read off the part that carries it rather than stated here, and a cradle
 # that moves takes the valve and the chain behind it with it.
 
 
-def source_row_y(stood) -> float:
-    """The aft face of the row the two source valves make, in world.
+def build_vk(chain_carry):
+    """V-K seated on its OUTLET, on the suction chain's own mouth — its column, its plane and
+    the elevation its rib lays the chain on, so the valve comes back down onto its own seat.
 
-    Both stand the same Beduan the same way up on the same plane. The face is a body's end,
-    `_beduan.port_length` from its other one; on a source valve it is the inlet's — the collet
-    `fluid-2` and `fluid-4` come at — and on V-K it is the outlet's."""
-    faces = [box(s).ymax for n, s, _c in stood if n in ("valve-v-a", "valve-v-b")]
-    assert len(faces) == 2 and abs(faces[0] - faces[1]) < 1e-6, (
-        f"the two source valves are not on one plane ({faces}), so there is no row for V-K to "
-        f"stand in — `manifold_layout.SHIFT` carries them and it carries them together.")
-    return faces[0]
-
-
-def build_vk(chain_carry, row_y: float):
-    """V-K seated on its OUTLET, on the suction chain's own column and plane — which is
-    the plane its rib lays the chain on, so the valve comes back down onto its own
-    seat — and on `row_y`, the face the source pair stands its own ends on.
-
-    The outlet is this valve's aft collet, so the whole body stands in the pair's own depth and
-    the outlet lands on the chain's own collet."""
-    pos, _axis = chain_carry(_suct.tube_port())
-    target = (pos[0], row_y, pos[2])
+    The outlet is this valve's aft collet, so the whole body stands forward of that mouth and
+    the two collets meet face to face."""
+    target, _axis = chain_carry(_suct.tube_port())
     body = _beduan.build_beduan_solenoid()
     body = body.val() if hasattr(body, "val") else body
     return seat_body(body, (), seat="vk-solenoid", station=(_beduan.outlet(), target))
@@ -5364,12 +5391,19 @@ def build_pack() -> cq.Assembly:
     a.east_bosses, a.east_mount_fills = wall_mounts(
         *power_mounts,
         blockers=tuple((name, solid) for name, (solid, _colour) in _solids(a).items()))
-    vk, vk_carry = build_vk(chain_carry, source_row_y(stood))
+    vk, vk_carry = build_vk(chain_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
     # The cradles, measured the moment the last valve standing on the cap is placed. The other
     # two came up with the pack, so this is the first point at which all three are in world.
     on_cap = {**{n: s for n, s, _c in stood}, "vk-solenoid": vk}
     a.cradles = cradle_rows(foam, foam_carry, on_cap)
+    adrift = cradles_land(a.cradles)
+    if adrift:
+        raise ValueError(
+            "the cap prints a cradle where its valve does not stand: "
+            + "; ".join(f"{name} has {has!r} against {wants!r}"
+                         for name, has, wants in adrift)
+            + " — carry the placed stations into _cold_core_interface.cap_cradles")
     # The pump's own joint, read the same way: the four cap columns against the four bores in
     # the bracket's pad, both taken back into the frame the cap is authored in.
     a.pump_mount = pump_mount_rows(foam_carry, seaflo_carry)

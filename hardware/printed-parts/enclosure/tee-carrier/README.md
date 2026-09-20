@@ -13,7 +13,7 @@ joined carrier couples their Y motion.
 The web is [188 mm](WEB_WIDTH) wide, [52.82 mm](WEB_HEIGHT) tall and [6 mm](WEB_T) thick. Its
 aft face is the plane the aft coils rise past when the aft valves go in, so it does not move;
 the thickness is spent fore of the old plate. Along the top of the aft face, between the two
-inner aft coils' cases and the fixed body's ceiling, a shelf [8.99 mm](FLANGE_HEIGHT) tall runs
+inner aft coils' cases and the fixed body's ceiling, a shelf [10.99 mm](FLANGE_HEIGHT) tall runs
 [14 mm](FLANGE_DEPTH) aft over the middle [113.64 mm](FLANGE_REACH) of the carrier. It stands
 clear of the outer aft coils, whose cases rise past the web's top.
 
@@ -39,7 +39,7 @@ the left inner tee's inboard tie slot to just short of the right inner tee. The 
 web starts [3.75 mm](WEB_GAP) inboard of the left web's end and lies against the tongue's aft
 face over [12.11 mm](LAP_WIDTH) of its width. The two screws stand on one line
 [0 mm](SCREW_X) off the machine centre, inside the coil-free band behind the web,
-[30.93 mm](SCREW_SPACING) apart in Z; each passes through the right web and takes
+[28.93 mm](SCREW_SPACING) apart in Z; each passes through the right web and takes
 [4 mm](INSERT_LENGTH) of insert in the tongue's aft face, with [2 mm](INSERT_BACKING) of
 tongue behind it. The lap stack is [12 mm](LAP_STACK) fore to aft. The tongue's fore face is
 the fixed body's common clearance face at release.
@@ -47,7 +47,7 @@ the fixed body's common clearance face at release.
 ## The springs
 
 Each service tab carries a [6.57 mm](SPRING_BORE_D) channel bored [11.1 mm](SPRING_BORE_DEPTH)
-into its fore face at X [97.555 mm](SPRING_X) and Z [210.1 mm](SPRING_Z), just above the tee
+into its fore face at X [97.535 mm](SPRING_X) and Z [210.1 mm](SPRING_Z), just above the tee
 arms' top collets, leaving [4.9 mm](SPRING_BAR_WALL) of bar behind the floor. A window in the bar's inboard face
 opens the channel's inboard half over its first [10 mm](SPRING_WINDOW_LENGTH), and the last
 [1.1 mm](SPRING_RING) of the channel is a full ring. The spring bears fore in a
@@ -73,7 +73,7 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 Each service tab is one [16 mm](GRIP_BAR_T) bar in Y. Its aft face lies on the web's aft
 plane, and the root overlaps the web's full thickness. The bar presents
-[50.39 mm](FINGER_HEIGHT) of vertical contact over its full [13.48 mm](FINGER_DEPTH)
+[50.39 mm](FINGER_HEIGHT) of vertical contact over its full [13.5 mm](FINGER_DEPTH)
 depth, with [2 mm](GRIP_EDGE_R) rounds on its exposed vertical edges. The fingers bear on
 that aft face, opposing the thumb on the cartridge pocket's aft wall.
 
