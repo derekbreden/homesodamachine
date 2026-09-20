@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "4 reference(s) name a path nothing holds.",
-      "status": "red"
+      "note": "paths: every reference lands — 2421 tracked, 490 fetched solids, 55 tags, 41 site routes",
+      "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 281, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 291, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 35 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 490 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 65 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 491 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 148 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at d333b15eeb226360a663ca6ec8689023 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 4e40f7466ea5ea6e7cbf5da27abdd9cc here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -162,20 +162,23 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 208/212 carry the colour of what they are made of",
-      "  4 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 209/218 carry the colour of what they are made of",
+      "  9 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-fixed-seat-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-guide-head-retainer.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
-    "tools/check_paths.py": [
-      "hardware/printed-parts/enclosure/enclosure/README.md:1486 — hardware/reference/kamoer-kphm400/scan-review.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/pump-tray/README.md:39 — hardware/reference/kamoer-kphm400/scan-review.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/pump-tray/README.md:40 — hardware/reference/kamoer-kphm400/check_pump_contacts.py is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/pump-tray/pump_tray.py:10 — hardware/reference/kamoer-kphm400/scan-review.md is held nowhere, and no tag is named for it",
-      "4 reference(s) name a path nothing holds."
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  selftests.json names hardware/reference/kamoer-kphm400/register_scan.py, which answers to no selftest",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
       "5 test(s) in web/ fail:",
