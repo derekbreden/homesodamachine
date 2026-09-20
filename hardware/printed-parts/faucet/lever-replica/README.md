@@ -40,23 +40,26 @@ is between the fitted side planes. Matrices use homogeneous column vectors:
 
 | Feature | Observation | Replica construction |
 |---|---|---|
-| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.40 × 14.66 mm mesh bounds |
+| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.85 × 14.66 mm mesh bounds |
 | Paddle floor thickness | Approximately 2.75–2.95 mm | Measured outer profile over the inner Z=0 plane |
-| Outside width | 12.6–13.0 mm through the scanning coating; Derek's calipers read 1.70 mm side struts on the bare donor | Parallel 12.40 mm sides |
-| Main inner channel | 8.6 mm scanned; 8.8 mm on the bare donor, clearing the ~8.5 mm metal cylinder | 9.00 mm: 8.80 mm plus a 0.20 mm print allowance |
-| Selected rear-stop patches | Two observed curved walls near Y=45.4 mm, X≈±3.3 mm | Editable mirrored `STOP_PROFILE` |
+| Outside width | Drafted: 12.77 mm at Z=0, 12.64 mm at the cylinder's seat, 12.55 mm at the ledge | `OUTER_HALF_AT_Z0` and `OUTER_DRAFT`, 1.11° per side |
+| Main inner channel | Drafted: 8.86 mm at Z=0, 8.69 mm at the cylinder's seat, 8.56 mm at the ledge | `CHANNEL_HALF_AT_Z0` and `CHANNEL_DRAFT`, 1.53° per side, plus a 0.20 mm print allowance |
+| Side wall | 1.95 mm at Z=0, 1.99 mm at the ledge | A consequence of the two drafts, not an imposed figure |
+| Channel convergence | Straight to Y≈40, then in to 8.06 mm by Y=44.75; reaches the cylinder's 8.5 mm span at Y=42.3 | Measured `CHANNEL_CONVERGENCE` offsets |
+| Selected rear-stop patches | Two observed curved walls near Y=45.4 mm, X≈±3.3 mm | Editable mirrored `STOP_TAIL` |
 | Lower central slot | Narrower than the upper pocket; widens with Z | 2.9–4.4 mm across the loft stations |
 | Ledge's forward lip | Observed curved surface near Y=37–40.5 mm | Three-point arc |
 | Ledge's rear upper face | Occluded behind the forward lip | Inferred `LEDGE_TOP = -5.55` mm |
 | Transverse metal cylinder | Partial coated surface, robust fit Ø≈4.59 mm | Evidence datum only; no fixed hinge introduced |
 
-Bilateral symmetry, parallel outer sides, sharp side-perimeter edges and the
-transitions between measured relief sections are deliberate simplifications.
-`CHANNEL_NOMINAL`, `STRUT_WALL` and `CHANNEL_PRINT_ALLOWANCE` set the channel the
-metal cylinder passes along; `LEDGE_TOP`, the stop curve and relief stations are
-exposed for the remaining fit adjustments. The stop curve's observed stations are
-unchanged by the widened channel, so the cylinder's forward travel still ends where
-the taper reaches its span.
+Bilateral symmetry, sharp side-perimeter edges and the transitions between
+measured relief sections are deliberate simplifications. Both drafts are read
+from the scan's pooled left and right surfaces over the straight run and are
+applied symmetrically; the left and right draft angles differ by about half a
+degree in the scan, which is not reproduced. The channel's convergence is read
+at the cylinder's seat height and applied at every height, though the scan shows
+it is stronger low in the channel than high. `LEDGE_TOP`, the stop tail and the
+relief stations remain exposed for fit adjustments.
 
 The cylinder fit accepts 6,099 of 7,151 candidate points after residual trimming;
 its accepted radial residual is about 0.14 mm at the 95th percentile. It does not
@@ -127,11 +130,14 @@ hashes and slice are recorded in [the print report](lever-replica-petgf.print.js
 [support audit](lever-replica-petgf.support-audit.json) and
 [print job record](print-jobs.json).
 
-The first print, at a modelled 8.60 mm channel, measured 8.4 mm across the struts
-and 2.15 mm across each wall; the donor reads 8.8 mm and 1.70 mm, and the cylinder
-would not enter. The channel is now built at 9.00 mm so the printed part, not the
-solid, lands on the donor's reading. Confirm that with calipers on the new print
-before trusting any other fit observation.
+Two prints preceded this geometry. The first, at a modelled parallel 8.60 mm
+channel, measured 8.4 mm and the cylinder would not enter. The second widened the
+channel but narrowed the outside to 12.40 mm on a mistaken reading of the donor,
+and is 0.4 mm narrow with 1.70 mm walls. Neither is a width comparison; the
+second is still a usable check of whether the cylinder enters at all.
+
+A caliper across this part reads a different number at every height. Compare a
+width to the table above at the height it was taken, not to a single figure.
 
 For the first complete-part comparison, check the aft/down/forward insertion with
 the tube absent, the light retention, the tube's ability to seat, free operating

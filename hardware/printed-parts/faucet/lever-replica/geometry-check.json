@@ -1,16 +1,16 @@
 {
   "valid_brep": true,
   "solids": 1,
-  "volume_mm3": 3021.5265942552687,
+  "volume_mm3": 3167.0891429301323,
   "mesh_bounds_mm": [
     [
-      -6.199999809265137,
-      -0.1777585744857788,
+      -6.468287467956543,
+      -0.17760826647281647,
       -10.234932899475098
     ],
     [
-      6.199999809265137,
-      52.85694885253906,
+      6.468287467956543,
+      52.856937408447266,
       4.429999828338623
     ]
   ],
@@ -18,12 +18,25 @@
   "inferred": [
     "ledge upper continuation",
     "bilateral symmetry",
-    "parallel outer sides",
+    "channel convergence read at one height, applied at all",
     "unobserved transitions between relief sections"
   ],
-  "donor_channel_mm": 8.8,
-  "donor_strut_wall_mm": 1.7,
   "channel_print_allowance_mm": 0.2,
-  "modelled_channel_mm": 9.0,
-  "modelled_outside_width_mm": 12.4
+  "widths_mm": {
+    "z=0.0": {
+      "channel": 8.859,
+      "outside": 12.765,
+      "wall": 1.953
+    },
+    "z=-3.25": {
+      "channel": 8.686,
+      "outside": 12.64,
+      "wall": 1.977
+    },
+    "z=-5.55": {
+      "channel": 8.563,
+      "outside": 12.551,
+      "wall": 1.994
+    }
+  }
 }
