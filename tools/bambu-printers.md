@@ -64,8 +64,17 @@ Steps 1 to 3 and the dialog's own controls go through `bambu-ax`. Its **Send** b
 labelled `confirm`. Two things in step 4 do not: the printer selector's popup and the AMS
 filament-mapping panel are drawn outside the accessibility tree, and `find` returns no
 match with either open. The selector defaults to **Mark2** on every send and changing it
-clears the filament mapping, so those two clicks are a coordinate click and cost the
-screen. Do both in one takeover, then return to `bambu-ax` for the options and **Send**.
+clears the filament mapping.
+
+`bambu-ax click <x> <y> ...` reaches them without a permission prompt. Those controls are
+plain `AXGroup` divs — Chromium synthesizes a click only for button and link roles, so
+`AXPress` is a no-op on them, and an event sent with `postToPid` never arrives. The global
+tap is the only delivery and it follows the frontmost application, so `click` brings the
+window forward, clicks every coordinate given, then restores both the previous application
+and the pointer. One borrow measures about 0.7 s, so pass both coordinates to one call.
+
+A busy printer is absent from the selector, which is why it will not drop down while the
+other machine is mid-job.
 
 `#n` indices renumber whenever the tree changes, so `press` and `act` refuse a bare `#n`
 and require `--expect <label or role>`, checked against the element found there. A number

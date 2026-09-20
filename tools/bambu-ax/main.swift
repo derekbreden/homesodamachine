@@ -24,6 +24,7 @@ usage: bambu-ax <command>
   act <text|#n> <AXAction>   any action the element advertises
   value <text|#n> <new>      set an element's value
   import <path>              Print tab, file chooser, chosen file, no keystrokes
+  click <x> <y> [x y ...]    real clicks for controls the tree cannot reach
   front                      name the frontmost application
 
   --role <AXRole>   restrict matches      --nth <n>     pick among matches
@@ -167,16 +168,58 @@ func settle(_ s: Double = 0.9) { Thread.sleep(forTimeInterval: s) }
 
 // The chooser and the importer both arrive on their own schedule. Wait on the
 // element rather than on a guessed duration.
+// Spin the runloop rather than sleeping: NSWorkspace's frontmost application
+// only updates when this process handles the notification, so a sleeping poll
+// reads its own stale answer forever.
 func waitFor(_ seconds: Double, _ found: () -> Bool) -> Bool {
     let deadline = Date().addingTimeInterval(seconds)
     while Date() < deadline {
         if found() { return true }
-        Thread.sleep(forTimeInterval: 0.25)
+        RunLoop.current.run(until: Date().addingTimeInterval(0.1))
     }
     return found()
 }
 
 switch cmd {
+case "click":
+    // A few controls are plain divs. Chromium synthesizes clicks only for
+    // button and link roles, so AXPress is a no-op on them, and an event sent
+    // with postToPid never arrives. The global tap is the only delivery, and it
+    // follows the frontmost application — so borrow the front, click, and give
+    // it back. Every coordinate in one call shares the one borrow.
+    let nums = args.dropFirst().compactMap { Double($0) }
+    guard nums.count >= 2, nums.count % 2 == 0 else { fail("click needs x y pairs") }
+    let points = stride(from: 0, to: nums.count, by: 2).map { CGPoint(x: nums[$0], y: nums[$0 + 1]) }
+    let started = Date()
+    let previous = NSWorkspace.shared.frontmostApplication
+    let cursor = CGEvent(source: nil)?.location
+
+    app.activate()
+    guard waitFor(3, { NSWorkspace.shared.frontmostApplication?.bundleIdentifier == BUNDLE }) else {
+        fail("Bambu Connect would not come forward; nothing was clicked")
+    }
+    let source = CGEventSource(stateID: .hidSystemState)
+    for p in points {
+        for type in [CGEventType.mouseMoved, .leftMouseDown, .leftMouseUp] {
+            CGEvent(mouseEventSource: source, mouseType: type, mouseCursorPosition: p, mouseButton: .left)?
+                .post(tap: .cghidEventTap)
+            Thread.sleep(forTimeInterval: 0.05)
+        }
+        Thread.sleep(forTimeInterval: 0.25)
+    }
+    if let cursor { CGWarpMouseCursorPosition(cursor) }
+    if args.contains("--keep") {
+        print("clicked \(points.map { "(\(Int($0.x)),\(Int($0.y)))" }.joined(separator: " ")) — front held")
+        exit(0)
+    }
+    previous?.activate()
+    _ = waitFor(3, { NSWorkspace.shared.frontmostApplication?.processIdentifier == previous?.processIdentifier })
+    let back = NSWorkspace.shared.frontmostApplication?.localizedName ?? "?"
+    let held = Date().timeIntervalSince(started)
+    print("clicked \(points.map { "(\(Int($0.x)),\(Int($0.y)))" }.joined(separator: " "))")
+    print(String(format: "front borrowed %.2fs, returned to %@%@", held, back,
+                 back == frontBefore ? "" : "  *** NOT RESTORED ***"))
+
 case "front":
     print(frontBefore)
 
