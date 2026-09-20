@@ -414,6 +414,31 @@
     },
     "connect_observation": "H2C Devices shows the correct 0.88 full cavity file, cooling chamber, 0/642 layers and left nozzle heating toward 165 C.",
     "authorization": "User reports bed clean and H2C ready for the next attempt; asks to choose the strongest hypothesis and proceed.",
-    "trial_hypothesis": "Accumulating excess extrusion in the fully packed ramp, followed by nozzle contact and buildup. Physical outcome pending."
+    "trial_hypothesis": "Accumulating excess extrusion in the fully packed ramp, followed by nozzle contact and buildup. Physical outcome pending.",
+    "outcome": {
+      "result": "worked okay; overflow reduced, still present",
+      "reported_date": "2026-09-20",
+      "source": "User report and three supplied photographs.",
+      "user_report": "Last print worked okay. Certainly less of \u201cthe problem\u201d that I refer to as \u201coverflow\u201d.",
+      "observation": "Completed-looking cavity with its rim and walls present. Rough, irregular patches remain near the upper ramp and a corner; broad areas of the ramp are more regular. The user reports the result is still not perfect.",
+      "photos": [
+        {
+          "file": "print-photos/2026-09-20-flow088/photo-1.jpg",
+          "source_name": "Photo 1.jpg",
+          "sha256": "9b57005829a7cef8c61782231b3e4e3503bc4b3bc7648477fb2b205dcf2c5a36"
+        },
+        {
+          "file": "print-photos/2026-09-20-flow088/photo-2.jpg",
+          "source_name": "Photo 2.jpg",
+          "sha256": "348bf6ef64082d5a514f1d5a88941f802f7ef3a92072612ac8f2e8917bf8a8b6"
+        },
+        {
+          "file": "print-photos/2026-09-20-flow088/photo-3.jpg",
+          "source_name": "Photo 3.jpg",
+          "sha256": "471cae76e9912b1254228f537ce2eae1b9e23e0dba006276b178bf4d1c3b4106"
+        }
+      ],
+      "scope": "This is the square-mouth cavity submitted on 2026-09-18, identified by this job\u2019s file hashes. The current 600 mL rounded-mouth mold is a separate, unprinted geometry."
+    }
   }
 ]
