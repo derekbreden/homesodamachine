@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "finishes: 60 materials, and every colour this tree draws has one",
-      "status": "ok"
+      "note": "fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2323 tracked, 461 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2359 tracked, 465 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 263, and the whole pointer file reads by name in 31.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 271, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,23 +87,23 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 220 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 224 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 461 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 465 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 106",
+      "lock-taking scripts scanned: 107",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds f8736f9095493b44ab81f8d78a47387a for the 144 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c03ee6839e9ce22f68262f8579d00530 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds f8736f9095493b44ab81f8d78a47387a for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c5047b97b5ecf632c1c60d87425485c6 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -134,6 +134,10 @@
       "PASS seat:plate-gasket",
       "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
     ],
+    "hardware/scripts/check_finishes.py": [
+      "web/public/finishes.json is not the table this tree states.",
+      "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
+    ],
     "hardware/scripts/check_payloads.py": [
       "2 solid(s) the bundle serves a payload for that no rule produces:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh — declared by nobody",
@@ -144,7 +148,7 @@
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 200/201 carry the colour of what they are made of",
+      "step colours: 201/202 carry the colour of what they are made of",
       "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
