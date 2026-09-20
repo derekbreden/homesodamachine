@@ -29,15 +29,16 @@ STANDING_OPTIONS = {
     "Nozzle Offset Calibration": "Auto",
 }
 # The filament tile's centre, and the External spool tile in the popover that opens
-# under it, both from the tile's own origin. Measured on H2C with one AMS unit; the
-# popover lists AMS trays above the external spool, so more units push it down.
+# under it, both from the tile's own origin. H2C's popover: one AMS unit's trays
+# above the External spool.
 TILE_CENTRE = (47, 30)
 EXTERNAL_SPOOL = (-245, 282)
 BUSY = ("PREPARE", "RUNNING", "PAUSE")
 
 NODE = re.compile(
     r'^#(?P<idx>\d+) (?P<indent> *)(?P<role>\S+)(?: "(?P<label>.*?)")?'
-    r"(?: \[(?P<acts>[^\]]*)\])?(?: @(?P<x>-?\d+),(?P<y>-?\d+) (?P<w>\d+)x(?P<h>\d+))?$"
+    r"(?: \[(?P<acts>[^\]]*)\])?(?: @(?P<x>-?\d+),(?P<y>-?\d+) (?P<w>\d+)x(?P<h>\d+))?"
+    r"(?P<disabled> \(disabled\))?$"
 )
 
 
@@ -63,6 +64,7 @@ def tree():
         node["idx"] = int(node["idx"])
         node["depth"] = len(node["indent"]) // 2
         node["acts"] = (node["acts"] or "").split(",") if node["acts"] else []
+        node["enabled"] = node.pop("disabled") is None
         for key in ("x", "y", "w", "h"):
             node[key] = int(node[key]) if node[key] is not None else None
         nodes.append(node)
@@ -239,13 +241,37 @@ def main():
         fail(f"print options read {settled}, wanted {wanted}")
     print("options: " + ", ".join(f"{k} {v}" for k, v in settled.items()))
 
+    # The Send button is disabled until the dialog has finished loading the printer,
+    # and a disabled button takes an AXPress that does nothing; `tree` marks it.
+    def send_button(n):
+        buttons = find(n, role="AXButton", label="confirm")
+        return buttons[0] if buttons else None
+    ready = wait_for(15, lambda n: (b := send_button(n)) is not None and b["enabled"] and n)
     if args.dry_run:
+        state = "enabled" if ready else "disabled"
         ax("press", "cancel", "--role", "AXButton")
-        print("dry run: dialog cancelled, nothing sent")
+        print(f"send: {state}; dry run: dialog cancelled, nothing sent")
         return
+    if not ready:
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail("Send stayed disabled for 15 s: the printer is busy, or the dialog never finished loading it")
 
-    # 6. Send, and 7. the printer's own word.
-    ax("press", "confirm", "--role", "AXButton")
+    # 6. Send. The dialog closes when the application has taken the job; press again
+    # if it has not, and give up rather than leave a dialog open.
+    closed = False
+    for attempt in range(3):
+        ax("press", "confirm", "--role", "AXButton")
+        if wait_for(8, lambda n: not dialog(n) and n):
+            closed = True
+            break
+        print(f"send: dialog still open after press {attempt + 1}")
+    if not closed:
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail("the Send press did not close the dialog three times; nothing was sent")
+    print("send: dialog closed")
+
+    # 7. The printer's own word: PREPARE or RUNNING under this name. The name alone
+    # is not it; the earlier job can carry the same one.
     deadline = time.monotonic() + args.accept_timeout
     reading = None
     while time.monotonic() < deadline:
@@ -254,10 +280,13 @@ def main():
         if reading.get("subtask_name") == archive.name and reading.get("gcode_state") in ("PREPARE", "RUNNING"):
             break
     else:
-        fail(f"{args.printer} did not report {archive.name} within {args.accept_timeout:g}s; "
-             f"last reading {reading.get('gcode_state') if reading else None} on {reading.get('subtask_name') if reading else None}")
-    fields = ("gcode_state", "subtask_name", "layer_num", "total_layer_num", "mc_remaining_time", "print_error")
+        fail(f"{args.printer} did not report {archive.name} as PREPARE or RUNNING within {args.accept_timeout:g}s; "
+             f"before the send it was {before.get('gcode_state')} on {before.get('subtask_name')}, and the last "
+             f"reading is {reading.get('gcode_state') if reading else None} on {reading.get('subtask_name') if reading else None}, "
+             f"which is the earlier job if those match")
+    fields = ("gcode_state", "subtask_name", "layer_num", "total_layer_num", "mc_percent", "mc_remaining_time", "print_error")
     print(json.dumps({"printer": args.printer, "observed_at": bambu_printer.datetime.now(bambu_printer.timezone.utc).isoformat(),
+                      "before_send": {k: before.get(k) for k in ("gcode_state", "subtask_name", "layer_num", "mc_percent")},
                       **{k: reading.get(k) for k in fields}}, indent=2))
 
 

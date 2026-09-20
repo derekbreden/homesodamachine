@@ -29,14 +29,12 @@ nozzle it knows.
   `FAILED` (a cancelled print) are both idle: the machine takes a job and the send dialog
   offers it. `PREPARE`, `RUNNING` and `PAUSE` are busy, and Send is disabled.
 - `external_spools` are the MQTT `vir_slot` trays: `254` is the left external spool and
-  `255` the right. Every job here maps the left nozzle's PET-GF to `254`, declared
-  PET-CF because there is no PET-GF preset; `255` has carried TPU. The device page's
-  Filaments panel shows the AMS trays and the right spool, so a `TPU` there says nothing
-  about `254`. The spool's colour is never reported; it is the loader's word.
-- `nozzles` lists every nozzle, racked or mounted, and `nozzle_type` names one of them,
-  which on H2C has been the 0.6 mm while the left head printed at 0.4 mm. The dialog is
-  the authority on compatibility: the file summary states the sliced diameter and a
-  mismatch appears on the filament tile.
+  `255` the right. `254` is declared PET-CF and carries the PET-GF; every job maps the
+  left nozzle to it. The device page's Filaments panel shows the AMS trays and `255`.
+  No colour is reported for either spool.
+- `nozzles` lists every nozzle the machine knows, racked or mounted; `nozzle_type` names
+  one of them, not the printing head. The send dialog checks the sliced diameter against
+  the head and shows a mismatch on the filament tile.
 
 ## Print submission
 
@@ -77,11 +75,7 @@ that costs the screen says so. Accessibility trust comes from the calling proces
 
 1. **Open the target's device page.** `press "Devices" --role AXLink`, then
    `press "<name>" --role AXLink`. The send dialog offers, as its printer, the machine
-   whose device page was opened last, as long as that machine is not printing; while it
-   prints it cannot be sent to at all and the dialog falls back to H2C, the first in
-   the list. It does not default to Mark2, to the free machine, or to the last machine
-   sent to. This step replaces the printer selector, whose popup is drawn outside the
-   accessibility tree.
+   whose device page was opened last while that machine was idle.
 2. **Import.** `import <file.gcode.3mf>` opens the Print tab, walks the chooser to the
    file and opens it. `state` then reads the summary: compatible printer, bed type,
    filament, nozzle diameter, time and weight. A path through a hidden directory is
@@ -93,15 +87,19 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    `? ?` when it did not (H2C, with an AMS, does not). A `? ?` tile is one call:
    `click <x+47> <y+30> <x-245> <y+282>` from the tile's `@x,y` — its centre, then the
    External spool tile in the popover that opens under it. The popover is not in the
-   tree; the tile afterwards is, and it must read `Ext PET-CF`. The offsets are H2C's,
-   with one AMS unit; the popover lists AMS trays above the external spool.
+   tree; the tile afterwards is, and it must read `Ext PET-CF`. The offsets are H2C's
+   popover: one AMS unit's trays above the External spool.
 5. **Read the print options.** Each option is a row of `AXRadioButton`s and the chosen
    one carries an `AXImage "radio"` as its first child in `tree`. The standing settings
    are Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto and Nozzle
    Offset Calibration Auto; the dialog remembers the last send. `press "#n" --expect On`
    changes one.
-6. **Send.** `press "confirm" --role AXButton` — the button is labelled `confirm`. It does
-   nothing while the tile reads `? ?` or the target is busy; the dialog stays open.
+6. **Send.** `press "confirm" --role AXButton` — the button is labelled `confirm`. It is
+   disabled until the dialog has finished loading the printer, while the tile reads
+   `? ?`, and while the target is busy; `tree` and `find` mark a disabled control
+   `(disabled)`, and an `AXPress` on one does nothing. The dialog closes when the
+   application has taken the job, so a dialog still open after the press is a press
+   that did not land.
 7. **Verify with the printer.** `bambu_printer.py status <name>` reports `PREPARE` within
    seconds and then `RUNNING` with the archive's name as `subtask_name`. A 47 MB archive
    took under ten seconds to land. Record the reading with the job.
@@ -114,12 +112,11 @@ accessibility tree: `find` returns nothing with either open, and an `AXPress` on
 roles. An event sent with `postToPid` never arrives either. The global tap is the only
 delivery and it follows the frontmost application, so `click` brings the window forward,
 clicks every coordinate given, then restores both the previous application and the
-pointer. One borrow measures about a second, so pass both coordinates to one call; the
-popover under the tile survives the 0.25 s between them. Nothing verifies a popover
-except the control it changes, so read the tile, not the popover.
+pointer. One borrow measures about a second; both coordinates go in one call, and the
+popover under the tile survives the 0.25 s between them. A popover's only reading is
+the control it changes.
 
-The procedure never opens the selector. Changing the printer there clears the filament
-mapping, and the device-page rule makes the click unnecessary.
+Changing the printer in the selector clears the filament mapping.
 
 `#n` indices renumber whenever the tree changes, so `press` and `act` refuse a bare `#n`
 and require `--expect <label or role>`, checked against the element found there. A number
@@ -140,13 +137,13 @@ Synthesized keyboard input cannot reach the application at all. `CGEvent` delive
 front and takes the screen for every step after it. `open -g -j -a 'Bambu Connect'`
 starts the application without the screen if it is not already running.
 
-Two sessions in the application at once cancel each other's dialogs. One session sends.
+Two sessions in the application at once cancel each other's dialogs.
 
 The signed printer-control application handles protected operations. Bambu's network
 library checks the calling application's signature for those operations; loading the
 library in a standalone helper does not provide print-start authorization
 ([Bambu authorization controls](https://blog.bambulab.com/firmware-update-introducing-new-authorization-control-system-2/)).
-MQTT `stop` from an unsigned client is ignored for the same reason.
+The printer ignores MQTT `stop` from an unsigned client.
 
 The `.gcode.3mf` carries the sliced machine G-code, including Z trim: the shared
 `petgf.3mf` start G-code subtracts a fixed 0.02 mm Textured PEI compensation from the

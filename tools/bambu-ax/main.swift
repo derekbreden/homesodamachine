@@ -65,13 +65,14 @@ func actionNames(_ e: AXUIElement) -> [String] {
     return arr.filter { $0 != "AXScrollToVisible" && $0 != "AXShowMenu" }
 }
 
-struct Node { let el: AXUIElement; let role: String; let label: String?; let acts: [String]; let rect: CGRect; let idx: Int; let depth: Int }
+struct Node { let el: AXUIElement; let role: String; let label: String?; let acts: [String]; let rect: CGRect; let idx: Int; let depth: Int; let enabled: Bool }
 var nodes: [Node] = []
 func collect(_ e: AXUIElement, _ depth: Int) {
     if depth > 24 || nodes.count > 6000 { return }
     nodes.append(Node(el: e, role: attr(e, kAXRoleAttribute) ?? "?",
                       label: attr(e, kAXTitleAttribute) ?? attr(e, kAXDescriptionAttribute) ?? attr(e, kAXValueAttribute),
-                      acts: actionNames(e), rect: frame(e), idx: nodes.count, depth: depth))
+                      acts: actionNames(e), rect: frame(e), idx: nodes.count, depth: depth,
+                      enabled: attr(e, kAXEnabledAttribute) != "0"))
     var kids: CFTypeRef?
     if AXUIElementCopyAttributeValue(e, kAXChildrenAttribute as CFString, &kids) == .success,
        let cs = kids as? [AXUIElement] { for c in cs { collect(c, depth + 1) } }
@@ -82,11 +83,14 @@ func build() {
     AXUIElementCopyAttributeValue(axApp, kAXWindowsAttribute as CFString, &wr)
     for w in (wr as? [AXUIElement] ?? []) { collect(w, 0) }
 }
+// A disabled control still advertises its actions and takes an AXPress that does
+// nothing, so the line says when it is disabled.
 func describe(_ n: Node) -> String {
     let t = n.label.map { " \"\($0.prefix(70))\"" } ?? ""
     let a = n.acts.isEmpty ? "" : " [\(n.acts.joined(separator: ","))]"
     let r = n.rect.size == .zero ? "" : " @\(Int(n.rect.minX)),\(Int(n.rect.minY)) \(Int(n.rect.width))x\(Int(n.rect.height))"
-    return "#\(n.idx) \(String(repeating: "  ", count: n.depth))\(n.role)\(t)\(a)\(r)"
+    let d = n.enabled ? "" : " (disabled)"
+    return "#\(n.idx) \(String(repeating: "  ", count: n.depth))\(n.role)\(t)\(a)\(r)\(d)"
 }
 
 let args = Array(CommandLine.arguments.dropFirst())
