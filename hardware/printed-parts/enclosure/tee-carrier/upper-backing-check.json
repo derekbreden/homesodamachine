@@ -1,0 +1,107 @@
+{
+  "status": "pass",
+  "errors": [],
+  "source_sha256": "b2605932b88e6396d9d233a6a44459a5fd210fb58fdf7a75378aba356f3a326e",
+  "inputs": {
+    "left": {
+      "step_sha256": "45dad55a6ceda8a263a228b10829755455ce8c34c6562784683843f40d9c4ced",
+      "stl_sha256": "dbe19c9733361a3883aa042d50c260d2e3e6bdfdc88882cebf07e67c49e877b2"
+    },
+    "right": {
+      "step_sha256": "038e1e37d3040662d1b625dc5c2a54a618ecf595d622c0cbfec953012a66d6de",
+      "stl_sha256": "21cf24ca1e1c8438ac13e6a8c93e7aadfd04ada0bdaaa46a7067ba77879219e1"
+    }
+  },
+  "current_trough_top_z_mm": 206.615,
+  "current_retained_upper_backing_mm": 4.108290999999994,
+  "current_retained_upper_height_mm": 13.449999999999989,
+  "native_stock_readings": [
+    {
+      "side": "left",
+      "stations": [
+        {
+          "x_mm": -79.82,
+          "required_stock_mm3": 807.1144975109966,
+          "missing_stock_mm3": 0.0,
+          "continued_trough_missing_stock_mm3": 134.20662002508038
+        },
+        {
+          "x_mm": -20.07,
+          "required_stock_mm3": 807.1144975109971,
+          "missing_stock_mm3": 0.0,
+          "continued_trough_missing_stock_mm3": 134.20662002508053
+        }
+      ],
+      "native_comparison": {
+        "baseline_step_sha256": "ef042d40cdbc9b613bb15a2e99314e804a4dc775b762d022a202a4b468049a63",
+        "added_mm3": 271.2801410029758,
+        "removed_mm3": 0.0,
+        "added_outside_web_envelope_mm3": 0.0,
+        "added_arm_overlap_mm3": 0.0,
+        "added_outside_upper_trough_regions_mm3": 0.0
+      }
+    },
+    {
+      "side": "right",
+      "stations": [
+        {
+          "x_mm": 20.07,
+          "required_stock_mm3": 807.1144975109971,
+          "missing_stock_mm3": 0.0,
+          "continued_trough_missing_stock_mm3": 134.2066200250805
+        },
+        {
+          "x_mm": 79.82,
+          "required_stock_mm3": 807.1144975109966,
+          "missing_stock_mm3": 0.0,
+          "continued_trough_missing_stock_mm3": 134.20662002509616
+        }
+      ],
+      "native_comparison": {
+        "baseline_step_sha256": "7f6d6c888d152fa2556a25e8c4e6d52d6dfc930aa1b6131403ff5b7a78538c3a",
+        "added_mm3": 271.28014100265455,
+        "removed_mm3": 0.0,
+        "added_outside_web_envelope_mm3": 0.0,
+        "added_arm_overlap_mm3": 0.0,
+        "added_outside_upper_trough_regions_mm3": 0.0
+      }
+    }
+  ],
+  "pre_spring_move_baseline_commit": "583b5e2a32ed9c6b7a546e954510b3aa0a5cd71f",
+  "pre_spring_move_mesh_sha256": "06a37899492d49aed8f82789812848b24fe3df98f6aec4dabf9cb9c83356c9e4",
+  "printed_sections": [
+    {
+      "section": "inner tee centre",
+      "x_mm": 20.07,
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799469999993,
+        "Izz_mm4": 68.77605116856284
+      },
+      "corrected_print": {
+        "area_mm2": 307.5415100643222,
+        "centroid_y_mm": 113.20090951791892,
+        "Izz_mm4": 8271.14310609689
+      },
+      "Izz_ratio": 120.26196569246453
+    },
+    {
+      "section": "outer tee centre",
+      "x_mm": 79.82,
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799470000003,
+        "Izz_mm4": 68.7760511667002
+      },
+      "corrected_print": {
+        "area_mm2": 153.68143306432103,
+        "centroid_y_mm": 108.92886414724832,
+        "Izz_mm4": 151.86517650610767
+      },
+      "Izz_ratio": 2.208111310985492
+    }
+  ],
+  "section_scope": "Mesh sections normal to X, centroidal Izz at equal material modulus. No whole-carrier compliance, joint preload, infill or layer adhesion result.",
+  "clearance_scope": "Added material is entirely within the already-declared rectangular web entry envelope and outside current arm probes. Carrier selftest separately checks tube relief and retained backing. The actual production tee remains unqualified.",
+  "production_ready": false
+}

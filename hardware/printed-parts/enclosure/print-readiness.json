@@ -15,13 +15,13 @@
     },
     {
       "part": "enclosure-tee-carrier-left",
-      "current_stl_sha256": "ab7bf35e0651f14534f0da64265a2b37f79e0c5d2245c6de909b3eda04756a19",
+      "current_stl_sha256": "dbe19c9733361a3883aa042d50c260d2e3e6bdfdc88882cebf07e67c49e877b2",
       "support_audit_stl_sha256": "e554aec8bb063bf893a7af7d4e848b93555c93b7920f33db0a4de662f99cad20",
       "support_audit_current": false
     },
     {
       "part": "enclosure-tee-carrier-right",
-      "current_stl_sha256": "2c9a8ddc26f9784e874a9ad41aa8e8d78f9bc00f1fc7a98812bb6142ef8b7fe9",
+      "current_stl_sha256": "21cf24ca1e1c8438ac13e6a8c93e7aadfd04ada0bdaaa46a7067ba77879219e1",
       "support_audit_stl_sha256": "4f76907f513ee5dd355aac947404245ef5927dbbb22fbad5e0fd8b9667820a27",
       "support_audit_current": false
     }
@@ -51,19 +51,36 @@
     "facts_current_check": "pass: card, solid and all 146 source files agree",
     "carrier_selftest": "pass",
     "valve_tray_selftest": "pass",
-    "meaning": "Current stand-in tee and catalog spring model passes its own checks; production hardware and retention remain unqualified.",
-    "recorded_at_utc": "2026-09-20T22:15:58.245969+00:00"
+    "meaning": "The baseline stand-in tee and catalog spring assembly passed its own checks before the bounded carrier backing correction. Targeted native checks qualify the added stock; a final assembly rebuild remains required after production references and retention are settled.",
+    "recorded_at_utc": "2026-09-20T22:15:58.245969+00:00",
+    "current_after_carrier_correction": false
   },
   "printer_availability": {
     "Mark2": {
       "physical_filament": "black PET-GF",
       "authority": "Derek reports spool switched back to black PET-GF and printer ready for new prints in this task",
       "date": "2026-09-20",
-      "ready_for_prepared_job": true
+      "ready_for_prepared_job": false,
+      "active_job": "carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
+      "observed_at": "2026-09-20T22:42:37.892000+00:00",
+      "job_purpose": "Interlocking carrier joint fit and capture coupon; production carrier remains held."
     },
     "H2C": {
       "cancelled_object_removal_confirmed": false,
       "replacement_started": false
     }
+  },
+  "carrier_upper_backing": {
+    "geometry_check": "pass",
+    "evidence": "hardware/printed-parts/enclosure/tee-carrier/upper-backing-check.json",
+    "outer_tee_section_Izz_ratio_to_pre_spring_move": 2.208111310985492,
+    "whole_carrier_stiffness_qualified": false
+  },
+  "tee_registration": {
+    "status": "six fixed external surfaces rigidly registered at scale 1; held-out residuals retained",
+    "evidence": "hardware/reference/jg-pp0208e-tee/scan-registration.json",
+    "absolute_branch_sleeve_station_known": false,
+    "fixed_small_barrel_and_moving_sleeve_boundary_qualified": false,
+    "production_consumers_updated": false
   }
 }

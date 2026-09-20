@@ -1,0 +1,284 @@
+{
+  "part": "John Guest PP0208E",
+  "mesh_sha256": "c25584adca577ac559a11117579a8c65f0340413d2ddfa3e05e9e4555790942e",
+  "mesh_archive_path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-19-jg-pp0208e-tee/tee-merged5.ply",
+  "vertices": 120928,
+  "faces": 236524,
+  "watertight": false,
+  "frame": {
+    "run_axis": "+/-Z",
+    "branch_axis": "+Y",
+    "units": "mm",
+    "scale": 1.0,
+    "origin_in_scan_mm": [
+      20.35170036019783,
+      -12.607048979111962,
+      232.25938046000465
+    ],
+    "reference_axes_in_scan_columns": [
+      [
+        -0.1339238718553697,
+        0.9115567007403984,
+        -0.3887528493561769
+      ],
+      [
+        -0.8816599081201658,
+        -0.2887143762833601,
+        -0.3732556969971803
+      ],
+      [
+        -0.45248226811755526,
+        0.2927599533108822,
+        0.8423487441532768
+      ]
+    ],
+    "scan_to_reference_column_vector_4x4": [
+      [
+        -0.1339238718553697,
+        -0.8816599081201658,
+        -0.45248226811755526,
+        96.70370012860883
+      ],
+      [
+        0.9115567007403984,
+        -0.2887143762833601,
+        0.2927599533108822,
+        -90.18781049706259
+      ],
+      [
+        -0.3887528493561769,
+        -0.3732556969971803,
+        0.8423487441532768,
+        -192.43726879780903
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rotation_determinant": 0.9999999999999999
+  },
+  "method": {
+    "surfaces": "Six root/collar outer-wall patches; radius selection +/-0.3 mm, normal axial component below 0.35.",
+    "fit": "Rigid common orthogonal frame; independent linear radial taper for each patch; area-weighted soft-L1 residuals.",
+    "validation": "Every other selected triangle held out. Training outliers over 0.22 mm excluded after first robust fit. Reported holdout residuals are untrimmed.",
+    "not_measured": [
+      "Internal tube stop",
+      "Teeth or O-ring geometry",
+      "Collet free/pressed state during scan",
+      "Manufacturing tolerance",
+      "Print fit"
+    ]
+  },
+  "patches": [
+    {
+      "name": "run_plus_root",
+      "axis": "z",
+      "outward_sign": 1,
+      "axial_band_mm": [
+        6.9,
+        9.8
+      ],
+      "mid_station_mm": 8.350000000000001,
+      "diameter_at_mid_station_mm": 13.753668183860547,
+      "radius_taper_per_axial_mm": 0.008428912053974148,
+      "angular_bins_10_degrees_present": 29,
+      "all_selected_surface_residual": {
+        "count": 8382,
+        "signed_median_mm": -0.000989669886497957,
+        "rms_mm": 0.05101240312516762,
+        "absolute_p95_mm": 0.10699114607644544,
+        "absolute_max_mm": 0.2890946494705471
+      },
+      "held_out_surface_residual": {
+        "count": 4191,
+        "signed_median_mm": -0.00102272715175733,
+        "rms_mm": 0.051227640152312195,
+        "absolute_p95_mm": 0.10744562289722337,
+        "absolute_max_mm": 0.2890946494705471
+      },
+      "training_points_excluded_over_0_22_mm": 32
+    },
+    {
+      "name": "run_minus_root",
+      "axis": "z",
+      "outward_sign": -1,
+      "axial_band_mm": [
+        6.9,
+        9.8
+      ],
+      "mid_station_mm": 8.350000000000001,
+      "diameter_at_mid_station_mm": 13.788876415614448,
+      "radius_taper_per_axial_mm": 0.014587283917047786,
+      "angular_bins_10_degrees_present": 28,
+      "all_selected_surface_residual": {
+        "count": 7949,
+        "signed_median_mm": 0.003986131530897552,
+        "rms_mm": 0.03696704398340736,
+        "absolute_p95_mm": 0.07443452923132554,
+        "absolute_max_mm": 0.2100472890627021
+      },
+      "held_out_surface_residual": {
+        "count": 3974,
+        "signed_median_mm": 0.0038342942830698057,
+        "rms_mm": 0.03708974109138125,
+        "absolute_p95_mm": 0.07443426690367039,
+        "absolute_max_mm": 0.2100472890627021
+      },
+      "training_points_excluded_over_0_22_mm": 0
+    },
+    {
+      "name": "branch_root",
+      "axis": "y",
+      "outward_sign": 1,
+      "axial_band_mm": [
+        8.7,
+        11.7
+      ],
+      "mid_station_mm": 10.2,
+      "diameter_at_mid_station_mm": 13.858744199360492,
+      "radius_taper_per_axial_mm": 0.014439085313985368,
+      "angular_bins_10_degrees_present": 27,
+      "all_selected_surface_residual": {
+        "count": 8153,
+        "signed_median_mm": -0.00014332720560528145,
+        "rms_mm": 0.03899876058447846,
+        "absolute_p95_mm": 0.09241627246742076,
+        "absolute_max_mm": 0.21331687505729402
+      },
+      "held_out_surface_residual": {
+        "count": 4076,
+        "signed_median_mm": -2.148240175792182e-05,
+        "rms_mm": 0.03892004817773022,
+        "absolute_p95_mm": 0.09201085059673608,
+        "absolute_max_mm": 0.21331687505729402
+      },
+      "training_points_excluded_over_0_22_mm": 0
+    },
+    {
+      "name": "run_plus_collar",
+      "axis": "z",
+      "outward_sign": 1,
+      "axial_band_mm": [
+        12.0,
+        15.1
+      ],
+      "mid_station_mm": 13.55,
+      "diameter_at_mid_station_mm": 16.22431217487288,
+      "radius_taper_per_axial_mm": 0.02640566200197354,
+      "angular_bins_10_degrees_present": 32,
+      "all_selected_surface_residual": {
+        "count": 11403,
+        "signed_median_mm": -0.0027104773833794837,
+        "rms_mm": 0.051010270158645725,
+        "absolute_p95_mm": 0.09317102196342168,
+        "absolute_max_mm": 0.3545412183800458
+      },
+      "held_out_surface_residual": {
+        "count": 5701,
+        "signed_median_mm": -0.00264081011732209,
+        "rms_mm": 0.051167001079886455,
+        "absolute_p95_mm": 0.09562523171542381,
+        "absolute_max_mm": 0.3545412183800458
+      },
+      "training_points_excluded_over_0_22_mm": 38
+    },
+    {
+      "name": "run_minus_collar",
+      "axis": "z",
+      "outward_sign": -1,
+      "axial_band_mm": [
+        12.0,
+        15.1
+      ],
+      "mid_station_mm": 13.55,
+      "diameter_at_mid_station_mm": 16.2922079133289,
+      "radius_taper_per_axial_mm": 0.03209629788373097,
+      "angular_bins_10_degrees_present": 28,
+      "all_selected_surface_residual": {
+        "count": 10265,
+        "signed_median_mm": 0.005603000011342729,
+        "rms_mm": 0.03928795795373634,
+        "absolute_p95_mm": 0.06617828543204317,
+        "absolute_max_mm": 0.2077751205858771
+      },
+      "held_out_surface_residual": {
+        "count": 5132,
+        "signed_median_mm": 0.005638777129511219,
+        "rms_mm": 0.03945267247771799,
+        "absolute_p95_mm": 0.0660210640368664,
+        "absolute_max_mm": 0.2077751205858771
+      },
+      "training_points_excluded_over_0_22_mm": 0
+    },
+    {
+      "name": "branch_collar",
+      "axis": "y",
+      "outward_sign": 1,
+      "axial_band_mm": [
+        13.8,
+        16.6
+      ],
+      "mid_station_mm": 15.200000000000001,
+      "diameter_at_mid_station_mm": 16.32980890632553,
+      "radius_taper_per_axial_mm": 0.029254818169328626,
+      "angular_bins_10_degrees_present": 27,
+      "all_selected_surface_residual": {
+        "count": 9093,
+        "signed_median_mm": 0.0020691931867631297,
+        "rms_mm": 0.0294674697097606,
+        "absolute_p95_mm": 0.06093884262884505,
+        "absolute_max_mm": 0.17716099967149468
+      },
+      "held_out_surface_residual": {
+        "count": 4546,
+        "signed_median_mm": 0.002190493996163667,
+        "rms_mm": 0.029456263871756216,
+        "absolute_p95_mm": 0.061140918409937406,
+        "absolute_max_mm": 0.17437384073984852
+      },
+      "training_points_excluded_over_0_22_mm": 0
+    }
+  ],
+  "independent_branch_axis": {
+    "direction_in_reference": [
+      0.012534413968317504,
+      0.999921330228864,
+      -0.0004709775046719402
+    ],
+    "offset_at_y_zero_mm": [
+      -0.17373340247213231,
+      0.0,
+      0.007412505800583743
+    ],
+    "angle_to_run_degrees": 90.02698502426094,
+    "closest_axis_separation_mm": 0.17371975417236366,
+    "residual": {
+      "count": 5750,
+      "signed_median_mm": 0.001296749553759757,
+      "rms_mm": 0.02846721887899054,
+      "absolute_p95_mm": 0.05347637960697993,
+      "absolute_max_mm": 0.18414096099556532
+    }
+  },
+  "current_journal": {
+    "diameter_mm": 14.216,
+    "nominal_production_collar_diameter_mm": 16.3,
+    "radial_interference_before_clearance_mm": 1.0420000000000007,
+    "scan_sample_outer_envelope_diameter_mm": 16.5,
+    "note": "The fitted collar is slightly tapered. 16.3 is the documented nominal; 16.5 is a rounded sampled outer envelope, not a production tolerance bound."
+  },
+  "bench_authority": {
+    "run_span_extended_mm": 42.5,
+    "run_span_pressed_mm": 39.2,
+    "one_sleeve_stroke_mm": 1.65,
+    "carrier_nose_gap_mm": 0.5,
+    "tube_insertion_from_pressed_sleeve_face_mm": 10.0
+  },
+  "open_interfaces": [
+    "Absolute fully extended branch sleeve face station pending caliper width.",
+    "Release sleeve/collar edge details must remain explicit when constructing the moving sleeve."
+  ]
+}
