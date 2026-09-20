@@ -1,0 +1,110 @@
+{
+  "units": "mm",
+  "frame": "pass-01 scanner coordinates, independent of lever assembly",
+  "voxel_mm": 0.1,
+  "points": 202391,
+  "inputs": [
+    {
+      "pass": "pass-01",
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/fcf4b264-a89f-41e1-b85d-708f34e8fbeb/20260919225912.revox",
+      "source_to_assembly": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "retained_head_points": 163106,
+      "raw_points": 409549
+    },
+    {
+      "pass": "pass-02",
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/66db9d2a-cca8-4373-a845-248d52050f49/20260919231105.revox",
+      "source_to_assembly": [
+        [
+          -0.9569672386240891,
+          0.25513017246288555,
+          -0.1382834021104476,
+          82.3480979133337
+        ],
+        [
+          -0.2109398258946407,
+          -0.2843024723405183,
+          0.9352414095155334,
+          -155.15064135474424
+        ],
+        [
+          0.19929398900047546,
+          0.9241648658762798,
+          0.3258852660494942,
+          110.36956190652589
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "retained_head_points": 162363,
+      "raw_points": 448080
+    }
+  ],
+  "crop_frame_center": [
+    34.67861644778795,
+    -23.130619509365378,
+    169.96736106177335
+  ],
+  "crop_frame_basis_columns": [
+    [
+      -0.6697345217941244,
+      0.7299082634031975,
+      -0.13670990210267922
+    ],
+    [
+      -0.4926008061204868,
+      -0.5744337058238028,
+      -0.6537356984462291
+    ],
+    [
+      0.555697864065215,
+      0.3704859573982007,
+      -0.7442714822187507
+    ]
+  ],
+  "crop_bounds_mm": [
+    [
+      -20,
+      10
+    ],
+    [
+      -17,
+      19
+    ],
+    [
+      -15,
+      11
+    ]
+  ],
+  "crop_purpose": "Contact head and adjacent upper body; excludes mounting shank, lower body and support. Full fused observations remain in passes.",
+  "automatic_hole_filling": false
+}

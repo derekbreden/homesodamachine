@@ -1,0 +1,64 @@
+{
+  "feature": "observed transverse metal-cylinder surface, central protrusion excluded by robust residual",
+  "radius_mm": 2.295520914102124,
+  "diameter_mm": 4.591041828204248,
+  "candidate_points": 7151,
+  "accepted_points": 6099,
+  "accepted_radial_residual_mm": {
+    "count": 6099,
+    "median": 0.04897365736531745,
+    "p95": 0.14309242231008526,
+    "max": 0.1799361321211932
+  },
+  "all_candidate_radial_residual_mm": {
+    "count": 7151,
+    "median": 0.06139725988392941,
+    "p95": 0.6774045974853211,
+    "max": 0.9595611622821711
+  },
+  "centre_in_touch_flo_scan_mm": [
+    41.4222945362842,
+    -13.344698424861837,
+    160.1331356463534
+  ],
+  "axis_in_touch_flo_scan": [
+    0.13904771844759226,
+    0.8437023568691193,
+    0.5184901783139308
+  ],
+  "touch_flo_scan_to_bar_frame_column_4x4": [
+    [
+      0.13904771844759226,
+      0.8437023568691193,
+      0.5184901783139308,
+      -77.52818009061758
+    ],
+    [
+      0.7425470143084981,
+      -0.43524272197541847,
+      0.5091048069984835,
+      -118.09073311740171
+    ],
+    [
+      0.6552020020848943,
+      0.3142134719914495,
+      -0.6870081735198095,
+      87.06588675403222
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "bar_frame": "origin on fitted cylinder axis at inspection-PCA3=0; X along bar, Y toward tube opening, Z toward contact opening",
+  "origin_along_bar_is_not_an_end_or_midpoint_datum": true,
+  "assembled_lever_transform": null,
+  "limitations": [
+    "partial surface fit; no measured end-to-end span",
+    "coating included",
+    "residual-trimmed candidates are not all observed bar points",
+    "bar centre is not a fixed operating hinge"
+  ]
+}

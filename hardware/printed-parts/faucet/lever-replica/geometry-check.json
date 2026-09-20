@@ -1,0 +1,25 @@
+{
+  "valid_brep": true,
+  "solids": 1,
+  "volume_mm3": 3260.3613401869193,
+  "mesh_bounds_mm": [
+    [
+      -6.400000095367432,
+      -0.1777585744857788,
+      -10.234932899475098
+    ],
+    [
+      6.400000095367432,
+      52.85694885253906,
+      4.429999828338623
+    ]
+  ],
+  "status": "comparison prototype; physical attachment and travel unvalidated",
+  "inferred": [
+    "ledge upper continuation",
+    "bilateral symmetry",
+    "parallel outer sides",
+    "unobserved transitions between relief sections"
+  ],
+  "coating_or_print_shrinkage_correction_mm": 0.0
+}

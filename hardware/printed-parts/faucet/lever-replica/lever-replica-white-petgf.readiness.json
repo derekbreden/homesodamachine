@@ -1,0 +1,93 @@
+{
+  "status": "offline slice complete; physical fit, strength and support removal unvalidated",
+  "project_sha256": "be551fc620f05b081ce3c95aceefde08d486939ff856552959f00f6bd8ad834e",
+  "printer_submission": false,
+  "slice_result": {
+    "error_string": "Success.",
+    "export_time": 0,
+    "layer_height": 0.1599999964237213,
+    "plate_index": 0,
+    "prepare_time": 30,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 15.807145118713379,
+          "Bridge": 20.819944381713867,
+          "Brim": 16.559850692749023,
+          "Custom": 305.0832214355469,
+          "Flush": 15.0,
+          "Gap infill": 21.64590835571289,
+          "Inner wall": 165.4781036376953,
+          "Internal solid infill": 117.3409423828125,
+          "Outer wall": 91.62118530273438,
+          "Overhang wall": 27.221445083618164,
+          "Sparse infill": 42.327125549316406,
+          "Support": 274.8382873535156,
+          "Support interface": 12.782723426818848,
+          "Top surface": 17.244522094726562,
+          "Travel": 249.35824584960938,
+          "Undefined": 240.03428649902344
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 5.224329471588135,
+            "total_used_g": 5.224329948425293
+          }
+        ],
+        "generate_support_material_time": 599,
+        "id": 1,
+        "infill_time": 45,
+        "layer_filament_change": 0,
+        "main_predication": 1058.028076171875,
+        "make_perimeters_time": 53,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 53.03470230102539,
+              "height": 12.800000190734863,
+              "width": 14.664939880371094,
+              "x": 167.6675262451172,
+              "y": 133.48265075683594,
+              "z": -3.674314186241645e-10
+            },
+            "id": 5,
+            "name": "lever-replica",
+            "triangle_count": 5218
+          }
+        ],
+        "sliced_time": 1456,
+        "sliced_time_with_cache": 669,
+        "total_predication": 1383.787353515625,
+        "triangle_count": 5218,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 100.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 4
+  },
+  "gcode": {
+    "plate_1.gcode": "2eb63a2a3c5fee25325096669bbbef49ce8bc63236111b9ead152e0a81e70d26"
+  },
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 6.88,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 6.88
+  },
+  "support_audit_sha256": "e07420d17de1fc50cfc869784cadaef8d17ef22a8f28f20be9d9085d25cb2e64"
+}

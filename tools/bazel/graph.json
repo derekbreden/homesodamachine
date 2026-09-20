@@ -6446,6 +6446,65 @@
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl"
     ]
   },
+  "hardware/printed-parts/faucet/lever-replica/check_replica.py": {
+    "reads": [
+      "hardware/printed-parts/faucet/lever-replica/check_replica.py",
+      "hardware/printed-parts/faucet/lever-replica/evidence/lever-points.npz",
+      "hardware/printed-parts/faucet/lever-replica/evidence/selected-patches.npz",
+      "hardware/printed-parts/faucet/lever-replica/evidence/touch-flo-inspection-frame.json",
+      "hardware/printed-parts/faucet/lever-replica/evidence/touch-flo-points.npz",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.stl"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/faucet/lever-replica/contact-datums.json",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica-preview.png",
+      "hardware/printed-parts/faucet/lever-replica/scan-comparison.png",
+      "hardware/printed-parts/faucet/lever-replica/scan-fit.json"
+    ]
+  },
+  "hardware/printed-parts/faucet/lever-replica/lever_replica.py": {
+    "reads": [
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+      "hardware/printed-parts/faucet/lever-replica/lever_replica.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/flute_payload.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/faucet/lever-replica/geometry-check.json",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh"
+    ]
+  },
+  "hardware/printed-parts/faucet/lever-replica/prepare_print.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/faucet/_display_snap.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "hardware/printed-parts/faucet/lever-replica/prepare_print.py",
+      "hardware/printed-parts/faucet/refresh_print_project.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_stated_bounds.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/faucet/lever-replica/lever-replica-white-petgf.print.json"
+    ]
+  },
   "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",

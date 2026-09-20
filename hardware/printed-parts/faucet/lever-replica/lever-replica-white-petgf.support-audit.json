@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "piece": "lever-replica",
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "2eb63a2a3c5fee25325096669bbbef49ce8bc63236111b9ead152e0a81e70d26",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+    "model_sha256": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/lever-replica/lever-replica-white-petgf.3mf",
+    "profile_sha256": "be551fc620f05b081ce3c95aceefde08d486939ff856552959f00f6bd8ad834e"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -177.902466536,
+      -133.660404861,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -177.902467,
+      -133.660405,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.16",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 6.88,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 6.88
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 7.08,
+      "shortest_build_up_mm": 6.88,
+      "top_z_mm": 11.24,
+      "bbox_xy_mm": [
+        159.2,
+        134.0,
+        186.4,
+        192.0
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3",
+        "interface-4"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -18.702,
+        0.34,
+        0.2,
+        8.498,
+        58.34,
+        11.24
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 7.08,
+      "last_z_mm": 7.88,
+      "bbox_xy_mm": [
+        167.6,
+        169.6,
+        176.8,
+        182.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 6.88,
+      "bbox_cad_xyz_mm": [
+        -10.302,
+        35.94,
+        7.08,
+        -1.102,
+        48.74,
+        7.88
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 9.96,
+      "last_z_mm": 10.28,
+      "bbox_xy_mm": [
+        169.2,
+        136.4,
+        177.6,
+        178.8
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 9.76,
+      "bbox_cad_xyz_mm": [
+        -8.702,
+        2.74,
+        9.96,
+        -0.302,
+        45.14,
+        10.28
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 10.92,
+      "last_z_mm": 11.08,
+      "bbox_xy_mm": [
+        173.2,
+        185.2,
+        173.6,
+        185.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.72,
+      "bbox_cad_xyz_mm": [
+        -4.702,
+        51.54,
+        10.92,
+        -4.302,
+        51.94,
+        11.08
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 10.92,
+      "last_z_mm": 11.24,
+      "bbox_xy_mm": [
+        174.8,
+        184.4,
+        178.4,
+        186.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 10.72,
+      "bbox_cad_xyz_mm": [
+        -3.102,
+        50.74,
+        10.92,
+        0.498,
+        52.74,
+        11.24
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "source_frame_note": "CAD coordinates in this audit are the side-down STL print frame."
+}
