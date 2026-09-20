@@ -6498,6 +6498,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/enclosure_support_audit.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [],
