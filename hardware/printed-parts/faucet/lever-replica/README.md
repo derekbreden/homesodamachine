@@ -45,7 +45,7 @@ is between the fitted side planes. Matrices use homogeneous column vectors:
 | Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.85 × 14.66 mm mesh bounds |
 | Paddle floor thickness | Approximately 2.75–2.95 mm | Measured outer profile over the inner Z=0 plane |
 | Outside width | Drafted: 12.77 mm at Z=0, 12.64 mm at the cylinder's seat, 12.55 mm at the ledge | `OUTER_HALF_AT_Z0` and `OUTER_DRAFT`, 1.11° per side |
-| Main inner channel | Drafted: 8.86 mm at Z=0, 8.69 mm at the cylinder's seat, 8.56 mm at the ledge | `CHANNEL_HALF_AT_Z0` and `CHANNEL_DRAFT`, 1.53° per side, plus a 0.20 mm print allowance |
+| Main inner channel | Drafted: 8.86 mm at Z=0, 8.69 mm at the cylinder's seat, 8.56 mm at the ledge | `CHANNEL_HALF_AT_Z0` and `CHANNEL_DRAFT`, 1.53° per side. The printable body departs here: parallel `CHANNEL_PRINTED_WIDTH` |
 | Side wall | 1.95 mm at Z=0, 1.99 mm at the ledge | A consequence of the two drafts, not an imposed figure |
 | Channel convergence | Straight to Y≈40, then in to 8.06 mm by Y=44.75; reaches the cylinder's 8.5 mm span at Y=42.3 | Measured `CHANNEL_CONVERGENCE` offsets |
 | Selected rear-stop patches | Two observed curved walls near Y=45.4 mm, X≈±3.3 mm | Editable mirrored `STOP_TAIL` |
@@ -138,8 +138,22 @@ channel but narrowed the outside to 12.40 mm on a mistaken reading of the donor,
 and is 0.4 mm narrow with 1.70 mm walls. Neither is a width comparison; the
 second is still a usable check of whether the cylinder enters at all.
 
-A caliper across this part reads a different number at every height. Compare a
-width to the table above at the height it was taken, not to a single figure.
+A caliper across this part reads a different number at every height on the
+outside. Compare a width to the table above at the height it was taken, not to a
+single figure.
+
+## The channel is the one place the print departs from the donor
+
+The part prints on its side, so the channel's width is a Z dimension: its walls
+are bridged, a layer at a time, and the printer does not hold the donor's 1.53°
+draft across them. The drafted body came off at 8.47 mm where the donor reads
+8.8, and the cylinder would not enter. The channel-fix print before it, a
+parallel 9.00 mm, came off at 8.8 and took the cylinder.
+
+So `lever-replica-side-down.stl` carries a parallel `CHANNEL_PRINTED_WIDTH`
+channel and the STEP, the viewer payload and any assembled pose carry the
+donor's drafted one. Narrow that width only against a print measured on the
+cylinder, not against the solid.
 
 For the first complete-part comparison, check the aft/down/forward insertion with
 the tube absent, the light retention, the tube's ability to seat, free operating
