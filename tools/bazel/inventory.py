@@ -36,9 +36,9 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 BUILD_INERT_BASENAMES = frozenset({
     "print-profile.json",
     "faucet-petgf.print.json",
-    "lever-replica-white-petgf.print.json",
-    "lever-replica-white-petgf.readiness.json",
-    "lever-replica-white-petgf.support-audit.json",
+    "lever-replica-petgf.print.json",
+    "lever-replica-petgf.readiness.json",
+    "lever-replica-petgf.support-audit.json",
     "corner-trial-profile.json",
     "layer-review.json",
     "toolpath-review.json",
