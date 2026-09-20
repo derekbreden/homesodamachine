@@ -93,6 +93,10 @@ STOP_TAIL = [
     (3.80, 45.31), (3.50, 45.40), (3.00, 45.48),
     (2.70, 45.53), (2.50, 45.60), (2.30, 45.72), (2.20, 45.92),
 ]
+PRINTED_STOP_PROFILE = [
+    (CHANNEL_PRINTED_WIDTH / 2, 44.30), (4.20, 44.90), (4.00, 45.18),
+    *STOP_TAIL,
+]
 POCKET_START_Y = 1.2
 POCKET_FRONT_RADIUS = 0.5
 POCKET_STOP_JOIN_Y = 46.1
@@ -165,7 +169,8 @@ def side_face(sign, printed):
 
 def outer_envelope(printed):
     """Side silhouette, extruded wide and then cut back to the side faces."""
-    plane = cq.Plane(origin=(-OUTSIDE_REACH, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
+    reach = PRINTED_OUTSIDE_WIDTH / 2 if printed else OUTSIDE_REACH
+    plane = cq.Plane(origin=(-reach, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
     wire = cq.Workplane(plane).moveTo(0.0, 0.8).threePointArc((0.1, 2.4), SHOW_PROFILE[0])
     wire = shape_preserving_curve(wire, SHOW_PROFILE)
     wire = (wire
@@ -178,7 +183,9 @@ def outer_envelope(printed):
     wire = (wire
             .threePointArc((0.35, -0.2), (0.0, 0.8))
             .wire())
-    body = wire.extrude(2 * OUTSIDE_REACH)
+    body = wire.extrude(2 * reach)
+    if printed:
+        return body
     return body.cut(side_face(+1, printed)).cut(side_face(-1, printed))
 
 
@@ -208,14 +215,30 @@ def pocket_outline(printed):
     Half-width is linear in Z, so a ruled loft reproduces the drafted walls
     exactly; the stop throat is the same curve at both ends and stays upright.
     """
+    if printed:
+        front, r = POCKET_START_Y, POCKET_FRONT_RADIUS
+        half = CHANNEL_PRINTED_WIDTH / 2
+        stop = PRINTED_STOP_PROFILE
+        wire = (cq.Workplane("XY", origin=(0, 0, CUT_BELOW))
+                .moveTo(-half + r, front).lineTo(half - r, front)
+                .radiusArc((half, front + r), -r)
+                .lineTo(*stop[0])
+                .spline(stop[1:], includeCurrent=True)
+                .lineTo(0.0, POCKET_STOP_JOIN_Y)
+                .lineTo(-stop[-1][0], stop[-1][1])
+                .spline([(-x, y) for x, y in reversed(stop[:-1])], includeCurrent=True)
+                .lineTo(-half, front + r)
+                .radiusArc((-half + r, front), -r).wire())
+        return wire.extrude(CUT_ABOVE - CUT_BELOW)
     return cq.Workplane("XY").add(cq.Solid.makeLoft(
         [pocket_footprint(CUT_BELOW, printed),
          pocket_footprint(CUT_ABOVE, printed)], ruled=True))
 
 
-def pocket_height():
+def pocket_height(printed=False):
     """The ledge lip is observed; its unseen horizontal continuation is inferred."""
-    plane = cq.Plane(origin=(-OUTSIDE_REACH, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
+    reach = PRINTED_OUTSIDE_WIDTH / 2 + 1 if printed else OUTSIDE_REACH
+    plane = cq.Plane(origin=(-reach, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
     wire = (cq.Workplane(plane).moveTo(CUT_FRONT, FLOOR_Z)
             .lineTo(30.0, FLOOR_Z)
             .spline(POCKET_CEILING, includeCurrent=True)
@@ -224,29 +247,31 @@ def pocket_height():
             .threePointArc(LEDGE_LIP_MID, LEDGE_LIP_START)
             .lineTo(36.0, CUT_BELOW).lineTo(CUT_FRONT, CUT_BELOW)
             .lineTo(CUT_FRONT, FLOOR_Z).wire())
-    return wire.extrude(2 * OUTSIDE_REACH)
+    return wire.extrude(2 * reach)
 
 
-def relief_wire(z, right):
+def relief_wire(z, right, printed=False):
     """A symmetric open-ended slot, closed outside the part for the boolean."""
     first = right[0]
     wire = cq.Workplane("XY", origin=(0, 0, z)).moveTo(-first[0], first[1]).lineTo(*first)
     # Each station has the same edge topology, so the ruled loft cannot twist.
     wire = wire.lineTo(*right[1]).spline(right[2:], includeCurrent=True)
-    wire = wire.lineTo(OUTSIDE_REACH, CUT_REAR).lineTo(-OUTSIDE_REACH, CUT_REAR)
+    reach = PRINTED_OUTSIDE_WIDTH / 2 + 3 if printed else OUTSIDE_REACH
+    wire = wire.lineTo(reach, CUT_REAR).lineTo(-reach, CUT_REAR)
     wire = wire.lineTo(-right[-1][0], right[-1][1])
     wire = wire.spline([(-x, y) for x, y in reversed(right[1:-1])], includeCurrent=True)
     return wire.lineTo(-first[0], first[1]).wire().val()
 
 
-def relief(stations):
-    return cq.Workplane("XY").add(cq.Solid.makeLoft([relief_wire(z, p) for z, p in stations], ruled=True))
+def relief(stations, printed=False):
+    return cq.Workplane("XY").add(cq.Solid.makeLoft(
+        [relief_wire(z, p, printed) for z, p in stations], ruled=True))
 
 
 def build(printed=False):
     body = outer_envelope(printed)
-    body = body.cut(pocket_outline(printed).intersect(pocket_height()))
-    body = body.cut(relief(LOWER_RELIEF)).cut(relief(UPPER_RELIEF)).clean()
+    body = body.cut(pocket_outline(printed).intersect(pocket_height(printed)))
+    body = body.cut(relief(LOWER_RELIEF, printed)).cut(relief(UPPER_RELIEF, printed)).clean()
     if not body.val().isValid() or len(body.solids().vals()) != 1:
         raise RuntimeError("Comparison lever must be one valid solid")
     return body
@@ -255,7 +280,7 @@ def build(printed=False):
 def print_pose(body):
     """Right side on the bed; long fibres/roads can run tip to attachment."""
     turned = body.rotate((0, 0, 0), (0, 1, 0), 90)
-    return turned.translate((0, 0, -turned.val().BoundingBox().zmin))
+    return turned.translate((0, 0, PRINTED_OUTSIDE_WIDTH / 2))
 
 
 def main():
