@@ -1,0 +1,94 @@
+{
+  "status": "offline slice complete; physical fit, strength and support removal unvalidated",
+  "project_sha256": "339c1e12dae53e215b901047de0e778affef23b9a9e263cbef76a6eecb8fb2fa",
+  "printer_submission": false,
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 3,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 6.72,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 3,
+    "shortest_labelled_build_up_mm": 6.72
+  },
+  "support_audit_sha256": "0cc85bffa86d4ad113511d062a816a7311b242d425a521b74a1b4dccf8e11e72",
+  "slice_result": {
+    "error_string": "Success.",
+    "export_time": 3102,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 70,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 10.381896018981934,
+          "Bridge": 75.27394104003906,
+          "Custom": 305.0772399902344,
+          "Flush": 15.0,
+          "Gap infill": 2.552577257156372,
+          "Inner wall": 51.06570053100586,
+          "Internal solid infill": 96.15265655517578,
+          "Outer wall": 63.49079895019531,
+          "Overhang wall": 31.59781265258789,
+          "Sparse infill": 39.742713928222656,
+          "Support": 196.9327392578125,
+          "Support interface": 13.318543434143066,
+          "Top surface": 20.8048095703125,
+          "Travel": 181.32415771484375,
+          "Undefined": 172.0041961669922
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 4.357600212097168,
+            "total_used_g": 4.357600212097168
+          }
+        ],
+        "generate_support_material_time": 556,
+        "id": 1,
+        "infill_time": 73,
+        "layer_filament_change": 0,
+        "main_predication": 767.6535034179688,
+        "make_perimeters_time": 34,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 53.0345458984375,
+              "height": 12.936574935913086,
+              "width": 14.664939880371094,
+              "x": 167.6675262451172,
+              "y": 133.48272705078125,
+              "z": -4.9956543790585783e-08
+            },
+            "id": 5,
+            "name": "lever-replica",
+            "triangle_count": 7078
+          }
+        ],
+        "sliced_time": 1382,
+        "sliced_time_with_cache": 673,
+        "total_predication": 1093.4107666015625,
+        "triangle_count": 7078,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+  },
+  "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
+  "archive_sha256": "5512217edbdea44b3b9e01c05579105be1f60625f2a412b9d11e930c60fa5a39",
+  "gcode": {
+    "plate_1.gcode": "23ebd4552a486a784d0229fd82bba824b221033f8170279804673c8be535226f"
+  }
+}

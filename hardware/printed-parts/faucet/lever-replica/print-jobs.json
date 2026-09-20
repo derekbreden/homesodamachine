@@ -246,7 +246,12 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 54,
+        "observed_at": "2026-09-20T18:05:00+00:00"
+      },
       "physical_fit": null,
       "physical_strength": null,
       "estimate": {

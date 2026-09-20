@@ -40,8 +40,9 @@ OUTER_DRAFT = 0.01932          # 1.11 deg per side
 # consequence of the two drafts, not a figure imposed on them.
 
 # The 2026-09-20 black PET-GF print measured 8.4 mm across a modelled 8.60 mm
-# channel. The channel carries that difference so the printed part, not the
-# solid, matches the donor. Zero it once a print measures at the donor's width.
+# channel. The printable body carries that difference so the printed part lands
+# on the donor's width; the STEP, the payload and the assembly pose carry the
+# donor itself. Zero it once a print measures at the donor's width.
 CHANNEL_PRINT_ALLOWANCE = 0.20
 
 OUTSIDE_REACH = 20.0           # clears the part, for construction solids
@@ -119,9 +120,9 @@ def half_outer(z):
     return OUTER_HALF_AT_Z0 + OUTER_DRAFT * z
 
 
-def half_channel(z):
+def half_channel(z, allowance=0.0):
     """Channel half-width at a height, along the drafted inner wall."""
-    return CHANNEL_HALF_AT_Z0 + CHANNEL_DRAFT * z + CHANNEL_PRINT_ALLOWANCE / 2
+    return CHANNEL_HALF_AT_Z0 + CHANNEL_DRAFT * z + allowance / 2
 
 
 def shape_preserving_curve(wire, points):
@@ -169,9 +170,9 @@ def outer_envelope():
     return body.cut(side_face(+1)).cut(side_face(-1))
 
 
-def pocket_footprint(z):
+def pocket_footprint(z, allowance):
     """Channel footprint at one height: drafted walls into the measured stops."""
-    half = half_channel(z)
+    half = half_channel(z, allowance)
     r = POCKET_FRONT_RADIUS
     front = POCKET_START_Y
     wall = [(half + delta, y) for y, delta in CHANNEL_CONVERGENCE]
@@ -189,14 +190,15 @@ def pocket_footprint(z):
             .radiusArc((-half + r, front), -r).wire().val())
 
 
-def pocket_outline():
+def pocket_outline(allowance):
     """The channel, lofted between its lowest and highest footprints.
 
     Half-width is linear in Z, so a ruled loft reproduces the drafted walls
     exactly; the stop throat is the same curve at both ends and stays upright.
     """
     return cq.Workplane("XY").add(cq.Solid.makeLoft(
-        [pocket_footprint(CUT_BELOW), pocket_footprint(CUT_ABOVE)], ruled=True))
+        [pocket_footprint(CUT_BELOW, allowance),
+         pocket_footprint(CUT_ABOVE, allowance)], ruled=True))
 
 
 def pocket_height():
@@ -229,9 +231,9 @@ def relief(stations):
     return cq.Workplane("XY").add(cq.Solid.makeLoft([relief_wire(z, p) for z, p in stations], ruled=True))
 
 
-def build():
+def build(channel_allowance=0.0):
     body = outer_envelope()
-    body = body.cut(pocket_outline().intersect(pocket_height()))
+    body = body.cut(pocket_outline(channel_allowance).intersect(pocket_height()))
     body = body.cut(relief(LOWER_RELIEF)).cut(relief(UPPER_RELIEF)).clean()
     if not body.val().isValid() or len(body.solids().vals()) != 1:
         raise RuntimeError("Comparison lever must be one valid solid")
@@ -246,12 +248,13 @@ def print_pose(body):
 
 def main():
     body = build()
+    printable = build(CHANNEL_PRINT_ALLOWANCE)
     step = HERE / "lever-replica.step"
     stl = HERE / "lever-replica.stl"
     export_assembly(cq.Assembly(body, name="lever-replica", color=cq.Color(0.91, 0.91, 0.87)), str(step))
     cq.exporters.export(body, str(stl), tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)
     export_payload(step, stl, preserve_print_triangles=True)
-    cq.exporters.export(print_pose(body), str(HERE / "lever-replica-side-down.stl"),
+    cq.exporters.export(print_pose(printable), str(HERE / "lever-replica-side-down.stl"),
                         tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)
     printed = trimesh.load(stl, force="mesh")
     result = {"valid_brep": body.val().isValid(), "solids": len(body.solids().vals()),
@@ -262,10 +265,12 @@ def main():
                            "channel convergence read at one height, applied at all",
                            "unobserved transitions between relief sections"],
               "channel_print_allowance_mm": CHANNEL_PRINT_ALLOWANCE,
-              "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z) - CHANNEL_PRINT_ALLOWANCE, 3),
+              "allowance_applies_to": "lever-replica-side-down.stl only; the STEP, the "
+                                      "payload and the assembly pose are the donor",
+              "printable_volume_mm3": printable.val().Volume(),
+              "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z), 3),
                                        "outside": round(2 * half_outer(z), 3),
-                                       "wall": round(half_outer(z) - half_channel(z)
-                                                     + CHANNEL_PRINT_ALLOWANCE / 2, 3)}
+                                       "wall": round(half_outer(z) - half_channel(z), 3)}
                             for z in (0.0, -3.25, -5.55)}}
     (HERE / "geometry-check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
