@@ -24,7 +24,7 @@
   "printed_channel_mm": 9.0,
   "printed_outside_mm": 12.4,
   "printed_channel_applies_to": "lever-replica-side-down.stl only; the STEP, the payload and the assembly pose are the donor",
-  "printable_volume_mm3": 3026.9808812017004,
+  "printable_volume_mm3": 3021.5265942552687,
   "widths_mm": {
     "z=0.0": {
       "channel": 8.859,

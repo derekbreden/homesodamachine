@@ -3,11 +3,11 @@
   "piece": "lever-replica",
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "fb6c685889a3e9fb07fcec9aa7385c6a97a2cb2db382ba0870a87821559eeeeb",
+    "gcode_sha256": "25b17d4c3c05acfd9efa158dc3e87d529d3d0864f5f3c78d31752666ab3ce1d7",
     "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-    "model_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
+    "model_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
     "profile": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf",
-    "profile_sha256": "82f8deda058aa23a0d5bdef6d4933d10cb2a0de5867af5100bf7463f694e927c"
+    "profile_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e"
   },
   "slicer": "BambuStudio 02.08.02.61",
   "first_layer_z_mm": 0.2,
@@ -23,12 +23,12 @@
       0.0,
       1.0,
       -177.902466536,
-      -133.660335429,
-      1e-07
+      -133.660404861,
+      0.0
     ],
     "plate_to_cad_translation_mm": [
       -177.902467,
-      -133.660335,
+      -133.660405,
       0.0
     ]
   },
@@ -47,70 +47,71 @@
   },
   "summary": {
     "support_bodies": 1,
-    "interface_islands": 3,
+    "interface_islands": 4,
     "bed_rooted_bodies": 1,
     "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 6.72,
+    "shortest_build_up_mm": 6.48,
     "bodies_without_interface_labels": 0,
-    "explicit_interface_islands": 3,
-    "shortest_labelled_build_up_mm": 6.72
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 6.48
   },
   "trees": [
     {
       "id": "tree-1",
       "root": "bed",
       "base_z_mm": 0.2,
-      "first_interface_z_mm": 6.92,
-      "shortest_build_up_mm": 6.72,
-      "top_z_mm": 11.48,
+      "first_interface_z_mm": 6.68,
+      "shortest_build_up_mm": 6.48,
+      "top_z_mm": 11.0,
       "bbox_xy_mm": [
-        160.4,
-        131.2,
-        186.8,
-        194.0
+        160.0,
+        134.4,
+        186.4,
+        191.6
       ],
       "interfaces": [
         "interface-1",
         "interface-2",
-        "interface-3"
+        "interface-3",
+        "interface-4"
       ],
       "interface_reading": "explicit_feature",
       "bbox_cad_xyz_mm": [
-        -17.502,
-        -2.46,
+        -17.902,
+        0.74,
         0.2,
-        8.898,
-        60.34,
-        11.48
+        8.498,
+        57.94,
+        11.0
       ]
     }
   ],
   "interfaces": [
     {
       "id": "interface-1",
-      "first_z_mm": 6.92,
-      "last_z_mm": 8.12,
+      "first_z_mm": 6.68,
+      "last_z_mm": 7.64,
       "bbox_xy_mm": [
-        167.2,
-        169.6,
-        177.6,
+        167.6,
+        170.0,
+        176.4,
         182.8
       ],
       "tree": "tree-1",
-      "build_up_mm": 6.72,
+      "build_up_mm": 6.48,
       "bbox_cad_xyz_mm": [
-        -10.702,
-        35.94,
-        6.92,
-        -0.302,
+        -10.302,
+        36.34,
+        6.68,
+        -1.502,
         49.14,
-        8.12
+        7.64
       ]
     },
     {
       "id": "interface-2",
       "first_z_mm": 9.8,
-      "last_z_mm": 10.52,
+      "last_z_mm": 10.28,
       "bbox_xy_mm": [
         169.6,
         136.4,
@@ -125,28 +126,49 @@
         9.8,
         -0.702,
         45.14,
-        10.52
+        10.28
       ]
     },
     {
       "id": "interface-3",
-      "first_z_mm": 10.04,
-      "last_z_mm": 10.76,
+      "first_z_mm": 9.8,
+      "last_z_mm": 11.0,
       "bbox_xy_mm": [
-        176.8,
+        172.8,
+        182.0,
         180.8,
-        181.2,
-        185.6
+        186.4
       ],
       "tree": "tree-1",
-      "build_up_mm": 9.84,
+      "build_up_mm": 9.6,
       "bbox_cad_xyz_mm": [
-        -1.102,
-        47.14,
-        10.04,
+        -5.102,
+        48.34,
+        9.8,
+        2.898,
+        52.74,
+        11.0
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 9.8,
+      "last_z_mm": 10.04,
+      "bbox_xy_mm": [
+        180.4,
+        180.4,
+        181.2,
+        181.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 9.6,
+      "bbox_cad_xyz_mm": [
+        2.498,
+        46.74,
+        9.8,
         3.298,
-        51.94,
-        10.76
+        47.54,
+        10.04
       ]
     }
   ],

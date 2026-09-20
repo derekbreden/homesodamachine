@@ -480,8 +480,100 @@
         "hms": []
       },
       "print_completion": null,
+      "physical_fit": {
+        "measured_by": "Derek",
+        "result": "rejected",
+        "note": "The latest Mark2 lever still shows sloped sides and a broken print."
+      },
+      "physical_strength": null,
+      "observed_completion": {
+        "observed_at": "2026-09-20T21:17:27.134211+00:00",
+        "gcode_state": "FINISH",
+        "total_layer_num": 54,
+        "print_error": 0,
+        "note": "The printer reported 54 layers under this reused job name; the saved no-slope archive contains 52. This reading does not establish which archive bytes printed."
+      }
+    },
+    {
+      "job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+      "archive": "lever-original-wide-white-z004-mark2.gcode.3mf",
+      "archive_sha256": "9a0605695a0ebed921949a4fb8dd12f623d5dd6bc79e0c7368f015eb64204c3e",
+      "gcode_sha256": "74643d682eeb7cf0f533e92501745732ed842716dfeca9193f976071d7470225",
+      "source_project": "lever-original-wide-white-z004-mark2.3mf",
+      "source_project_sha256": "f85b7b9063cf038ef28262d2a0dc659ebc8268d0b3d2ff9439ccb2e0f32cfca4",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "physical_filament": "white PET-GF",
+      "physical_nozzle": "0.4 mm",
+      "physical_setup_authority": "Derek requested a replacement on the Mark2 already loaded with white PET-GF.",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "geometry": {
+        "outside_width_mm": 12.4,
+        "channel_width_mm": 9.0,
+        "side_wall_mm": 1.7,
+        "parallel_channel_end_y_mm": 44.3,
+        "source_commit": "a4efffcd0",
+        "source_project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
+        "embedded_mesh_sha256": "7e273968a7998c45c19ea8d80b728ba378ddba52fce10535b28283ba9f738a84",
+        "geometry_and_placement_byte_identical": true,
+        "executed_commands_except_trim_and_progress_identical": true,
+        "source_solid_comparison": {
+          "accepted_volume_mm3": 3021.5265942552687,
+          "restored_volume_mm3": 3021.5265942552687,
+          "removed_mm3": 0.0,
+          "added_mm3": 0.0,
+          "same_solid": true
+        },
+        "regenerated_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+        "regenerated_stl_byte_identical_to_accepted": true
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "printer_selection": "Mark2 device page opened after importing the uniquely named archive",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto",
+        "screen": "never taken"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-20T21:25:21.592745+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-original-wide-white-z004-mark2.gcode.3mf",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 52,
+        "mc_remaining_time": 16,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
       "physical_fit": null,
-      "physical_strength": null
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 998.3109741210938,
+        "grams": 4.042119026184082
+      }
     }
   ]
 }
