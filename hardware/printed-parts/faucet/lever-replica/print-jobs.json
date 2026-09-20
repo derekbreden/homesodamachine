@@ -567,13 +567,36 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
-      "physical_fit": null,
+      "print_completion": {
+        "observed_at": "2026-09-20T21:47:04.850663+00:00",
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 52,
+        "total_layer_num": 52,
+        "print_error": 0,
+        "hms": []
+      },
+      "physical_fit": {
+        "result": "confirmed",
+        "observed_by": "Derek",
+        "observed_date": "2026-09-20",
+        "observation": "The lever you printed turned out great, fits and works functionally. Please ensure that's what we have on record and in our models.",
+        "record": "physical-acceptance.json"
+      },
       "physical_strength": null,
       "estimate": {
         "seconds": 998.3109741210938,
         "grams": 4.042119026184082
-      }
+      },
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "functional_operation": {
+        "result": "confirmed",
+        "observed_by": "Derek",
+        "observed_date": "2026-09-20",
+        "record": "physical-acceptance.json"
+      },
+      "physical_endurance": null
     }
   ]
 }

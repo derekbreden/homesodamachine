@@ -1,13 +1,12 @@
-"""Scan-derived comparison faucet lever, in millimetres.
+"""Physically accepted scan-derived faucet lever, in millimetres.
 
 X is lateral; +Y runs from the paddle tip toward the attachment; +Z faces the
 customer-visible outer surface. The inner paddle plane is Z=0. This is a local
 part frame, not an assembled faucet pose. evidence/datums.json maps the scans.
 
-The side faces and the channel walls are both drafted, so a width here is only
-meaningful with the height it was read at, and the channel converges into the
-rear stops over its last four millimetres. Those are what the transverse metal
-cylinder runs along.
+The primary model has parallel lateral faces and a 9 mm cylinder channel.
+`build(printed=False)` retains the separately named donor scan reconstruction,
+whose outside and channel are drafted and converge into the rear stops.
 
 The rear portion of each ledge's upper face is occluded: LEDGE_TOP is a
 fit-trial parameter, not a measurement.
@@ -30,6 +29,7 @@ HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_assembly
 from flute_payload import cut as export_payload
+from physical_acceptance import for_printed_model
 
 # Both side faces and both channel walls are drafted. Each figure is a least
 # squares line through 0.5 mm Z bins of the scan's pooled left and right
@@ -48,8 +48,9 @@ OUTER_DRAFT = 0.01932          # 1.11 deg per side
 # contact and the top surface, where a 1.1 deg slope rests the part on a line
 # instead of a face; the channel becomes a bridged gap, where the draft closed it
 # to 8.47 mm against a cylinder of 8.42. The 2026-09-20 channel-fix print was
-# flat at both of these widths, printed well, and works on the valve. The STEP,
-# the viewer payload and any assembled pose keep the donor's drafted faces.
+# flat at both of these widths, printed well, and works on the valve. The primary
+# STEP, STL and viewer payload carry that accepted body. The drafted donor is
+# exported separately for comparison with the retained scan evidence.
 PRINTED_OUTSIDE_WIDTH = 12.40
 CHANNEL_PRINTED_WIDTH = 9.00
 
@@ -268,7 +269,7 @@ def relief(stations, printed=False):
         [relief_wire(z, p, printed) for z, p in stations], ruled=True))
 
 
-def build(printed=False):
+def build(printed=True):
     body = outer_envelope(printed)
     body = body.cut(pocket_outline(printed).intersect(pocket_height(printed)))
     body = body.cut(relief(LOWER_RELIEF, printed)).cut(relief(UPPER_RELIEF, printed)).clean()
@@ -284,32 +285,51 @@ def print_pose(body):
 
 
 def main():
-    body = build()
+    donor = build(printed=False)
     printable = build(printed=True)
     step = HERE / "lever-replica.step"
     stl = HERE / "lever-replica.stl"
-    export_assembly(cq.Assembly(body, name="lever-replica", color=cq.Color(0.91, 0.91, 0.87)), str(step))
-    cq.exporters.export(body, str(stl), tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)
-    export_payload(step, stl, preserve_print_triangles=True)
-    cq.exporters.export(print_pose(printable), str(HERE / "lever-replica-side-down.stl"),
+    export_assembly(cq.Assembly(printable, name="lever-replica", color=cq.Color(0.91, 0.91, 0.87)), str(step))
+    print_stl = HERE / "lever-replica-side-down.stl"
+    cq.exporters.export(print_pose(printable), str(print_stl),
                         tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)
-    donor_mesh = trimesh.load(stl, force="mesh")
-    result = {"valid_brep": body.val().isValid(), "solids": len(body.solids().vals()),
-              "volume_mm3": body.val().Volume(),
-              "mesh_bounds_mm": donor_mesh.bounds.tolist(),
-              "status": "comparison prototype; physical attachment and travel unvalidated",
+    # One tessellation serves the printer and the viewer. OCCT may triangulate the
+    # same analytic face differently after rotation; undo the print pose on its
+    # accepted triangles instead of asking for a second local-frame tessellation.
+    local_mesh = trimesh.load(print_stl, force="mesh", process=False)
+    local_mesh.apply_transform([[0, 0, -1, PRINTED_OUTSIDE_WIDTH / 2],
+                                [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1]])
+    local_mesh.export(stl)
+    export_payload(step, stl, preserve_print_triangles=True)
+    donor_step = HERE / "lever-donor-reference.step"
+    donor_stl = HERE / "lever-donor-reference.stl"
+    export_assembly(cq.Assembly(donor, name="lever-donor-reference", color=cq.Color(0.91, 0.91, 0.87)),
+                    str(donor_step))
+    cq.exporters.export(donor, str(donor_stl), tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)
+    export_payload(donor_step, donor_stl, preserve_print_triangles=True)
+    mesh = trimesh.load(stl, force="mesh")
+    acceptance = for_printed_model()
+    result = {"valid_brep": printable.val().isValid(), "solids": len(printable.solids().vals()),
+              "volume_mm3": printable.val().Volume(),
+              "mesh_bounds_mm": mesh.bounds.tolist(),
+              "status": ("physical fit and functional operation confirmed by Derek"
+                         if acceptance["matches_accepted_geometry"]
+                         else "current geometry has no matching physical acceptance"),
+              "physical_acceptance": acceptance,
               "inferred": ["ledge upper continuation", "bilateral symmetry",
-                           "channel convergence read at one height, applied at all",
                            "unobserved transitions between relief sections"],
               "printed_channel_mm": CHANNEL_PRINTED_WIDTH,
               "printed_outside_mm": PRINTED_OUTSIDE_WIDTH,
-              "printed_channel_applies_to": "lever-replica-side-down.stl only; the STEP, "
-                                            "the payload and the assembly pose are the donor",
+              "printed_channel_applies_to": "primary lever-replica STEP, STL, viewer payload and side-down print STL",
               "printable_volume_mm3": printable.val().Volume(),
-              "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z), 3),
-                                       "outside": round(2 * half_outer(z), 3),
-                                       "wall": round(half_outer(z) - half_channel(z), 3)}
-                            for z in (0.0, -3.25, -5.55)}}
+              "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z, True), 3),
+                                       "outside": round(2 * half_outer(z, True), 3),
+                                       "wall": round(half_outer(z, True) - half_channel(z, True), 3)}
+                            for z in (0.0, -3.25, -5.55)},
+              "donor_reference": {"step": donor_step.name, "stl": donor_stl.name,
+                                   "volume_mm3": donor.val().Volume(),
+                                   "physical_acceptance_applies": False,
+                                   "purpose": "drafted reconstruction for scan comparison"}}
     (HERE / "geometry-check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
 

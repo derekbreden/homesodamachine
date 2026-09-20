@@ -9,6 +9,7 @@ import sys
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import refresh_print_project as writer
+from physical_acceptance import for_printed_model
 
 SOURCE_PROFILE = HERE.parents[1] / "petgf.3mf"
 
@@ -32,7 +33,7 @@ def prepare(variant):
         parts=(("lever-replica", HERE / "lever-replica-side-down.stl", 0.0),),
         offsets=((0.0, 0.0),), title=spec["title"], z_trim=spec["z_trim"])
     report["status"] = "offline project preparation; submissions are recorded in print-jobs.json"
-    report["fit_and_strength_validated"] = False
+    report["physical_acceptance"] = for_printed_model(report["parts"][0]["stl_sha256"])
     report["pose"] = "local CAD +X side on bed; broad show face vertical"
     report["variant"] = variant
     project.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -70,7 +71,8 @@ def main():
         support_path = PROJECT.with_suffix(".support-audit.json")
         support_path.write_text(json.dumps(support, indent=2) + "\n")
         ARCHIVE.write_bytes((directory / ARCHIVE.name).read_bytes())
-        readiness = {"status": "offline slice complete; physical fit, strength and support removal unvalidated",
+        readiness = {"status": "offline slice complete; physical observations are recorded separately",
+                     "physical_acceptance": report["physical_acceptance"],
                      "project_sha256": report["project_sha256"], "printer_submission": False,
                      "support_summary": support["summary"],
                      "support_audit_sha256": writer.digest(support_path.read_bytes()),

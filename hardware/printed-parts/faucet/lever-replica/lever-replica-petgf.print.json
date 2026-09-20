@@ -112,7 +112,20 @@
   "project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; submissions are recorded in print-jobs.json",
-  "fit_and_strength_validated": false,
+  "physical_acceptance": {
+    "record": "physical-acceptance.json",
+    "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+    "observed_date": "2026-09-20",
+    "authority": "Derek's direct observation of the completed Mark2 print",
+    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
+    "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "matches_accepted_geometry": true,
+    "physical_fit": "confirmed",
+    "functional_operation": "confirmed",
+    "quantified_strength": null,
+    "quantified_endurance": null
+  },
   "pose": "local CAD +X side on bed; broad show face vertical",
   "variant": "black-h2c"
 }

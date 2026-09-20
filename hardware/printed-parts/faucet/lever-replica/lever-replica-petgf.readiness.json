@@ -1,5 +1,5 @@
 {
-  "status": "offline slice complete; physical fit, strength and support removal unvalidated",
+  "status": "offline slice complete; physical observations are recorded separately",
   "project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
   "printer_submission": false,
   "support_summary": {
@@ -90,5 +90,19 @@
   "archive_sha256": "38879ba598824a88615dbd1d01dfdae906c53a68f3175c958a1fe20f3d057606",
   "gcode": {
     "plate_1.gcode": "25b17d4c3c05acfd9efa158dc3e87d529d3d0864f5f3c78d31752666ab3ce1d7"
+  },
+  "physical_acceptance": {
+    "record": "physical-acceptance.json",
+    "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+    "observed_date": "2026-09-20",
+    "authority": "Derek's direct observation of the completed Mark2 print",
+    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
+    "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "matches_accepted_geometry": true,
+    "physical_fit": "confirmed",
+    "functional_operation": "confirmed",
+    "quantified_strength": null,
+    "quantified_endurance": null
   }
 }

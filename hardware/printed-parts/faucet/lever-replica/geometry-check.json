@@ -1,45 +1,65 @@
 {
   "valid_brep": true,
   "solids": 1,
-  "volume_mm3": 3202.0680649664523,
+  "volume_mm3": 3021.5265942552687,
   "mesh_bounds_mm": [
     [
-      -6.468287467956543,
-      -0.17760826647281647,
+      -6.199999809265137,
+      -0.1777585744857788,
       -10.234932899475098
     ],
     [
-      6.468287467956543,
-      52.856937408447266,
+      6.199999809265137,
+      52.85694885253906,
       4.429999828338623
     ]
   ],
-  "status": "comparison prototype; physical attachment and travel unvalidated",
+  "status": "physical fit and functional operation confirmed by Derek",
+  "physical_acceptance": {
+    "record": "physical-acceptance.json",
+    "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+    "observed_date": "2026-09-20",
+    "authority": "Derek's direct observation of the completed Mark2 print",
+    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
+    "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "matches_accepted_geometry": true,
+    "physical_fit": "confirmed",
+    "functional_operation": "confirmed",
+    "quantified_strength": null,
+    "quantified_endurance": null
+  },
   "inferred": [
     "ledge upper continuation",
     "bilateral symmetry",
-    "channel convergence read at one height, applied at all",
     "unobserved transitions between relief sections"
   ],
   "printed_channel_mm": 9.0,
   "printed_outside_mm": 12.4,
-  "printed_channel_applies_to": "lever-replica-side-down.stl only; the STEP, the payload and the assembly pose are the donor",
+  "printed_channel_applies_to": "primary lever-replica STEP, STL, viewer payload and side-down print STL",
   "printable_volume_mm3": 3021.5265942552687,
   "widths_mm": {
     "z=0.0": {
-      "channel": 8.859,
-      "outside": 12.765,
-      "wall": 1.953
+      "channel": 9.0,
+      "outside": 12.4,
+      "wall": 1.7
     },
     "z=-3.25": {
-      "channel": 8.686,
-      "outside": 12.64,
-      "wall": 1.977
+      "channel": 9.0,
+      "outside": 12.4,
+      "wall": 1.7
     },
     "z=-5.55": {
-      "channel": 8.563,
-      "outside": 12.551,
-      "wall": 1.994
+      "channel": 9.0,
+      "outside": 12.4,
+      "wall": 1.7
     }
+  },
+  "donor_reference": {
+    "step": "lever-donor-reference.step",
+    "stl": "lever-donor-reference.stl",
+    "volume_mm3": 3202.0680649664523,
+    "physical_acceptance_applies": false,
+    "purpose": "drafted reconstruction for scan comparison"
   }
 }
