@@ -16,7 +16,9 @@ print reading. It is separate from the production faucet assembly.
 | [lever-replica.stl](lever-replica.stl) | Closed printable mesh in that same frame |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Right side on the print bed |
 | [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
+| [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever at +0.04 mm Z trim, for Mark2 |
 | [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Exact native sliced archive submitted to H2C |
+| [lever-white-petgf-z004-mark2.gcode.3mf](lever-white-petgf-z004-mark2.gcode.3mf) | The same, submitted to Mark2 |
 | [print-jobs.json](print-jobs.json) | Printer acceptance, physical material/nozzle and job hashes |
 | [scan-fit.json](scan-fit.json) | Observed-point/CAD distances, normals and mesh validity |
 | [contact-datums.json](contact-datums.json) | Partial metal-cylinder fit and its scan-frame transform |
@@ -160,6 +162,9 @@ tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/prepare_pr
 ```
 
 `prepare_print.py --slice-output /tmp/lever-comparison-slice` also runs an offline
-Bambu Studio slice into an empty directory and writes the submittable
-`lever-black-petgf-z018-h2c.gcode.3mf` beside the project. It does not connect to a
-printer; submission goes through Bambu Connect and is recorded in `print-jobs.json`.
+Bambu Studio slice into an empty directory and writes the submittable archive beside
+the project. `--variant` picks the machine: `black-h2c` takes Derek's +0.18 mm Z trim,
+`white-mark2` takes +0.04 mm. Both take their process and filament settings from the
+shared `petgf.3mf`; the filament colour is physical, on the spool. Neither connects to
+a printer — submission goes through Bambu Connect, driven by `tools/bambu-ax`, and is
+recorded in `print-jobs.json`.

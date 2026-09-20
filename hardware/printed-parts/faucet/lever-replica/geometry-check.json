@@ -1,7 +1,7 @@
 {
   "valid_brep": true,
   "solids": 1,
-  "volume_mm3": 3167.0891429301323,
+  "volume_mm3": 3202.0680649664523,
   "mesh_bounds_mm": [
     [
       -6.468287467956543,
@@ -22,6 +22,8 @@
     "unobserved transitions between relief sections"
   ],
   "channel_print_allowance_mm": 0.2,
+  "allowance_applies_to": "lever-replica-side-down.stl only; the STEP, the payload and the assembly pose are the donor",
+  "printable_volume_mm3": 3167.0891429301323,
   "widths_mm": {
     "z=0.0": {
       "channel": 8.859,
