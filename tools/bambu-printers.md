@@ -59,9 +59,19 @@ The steps below are the same sequence performed by hand.
 
 Both names are selectable in the device list and the send dialog. A busy printer disables
 **Send**. Nozzle mismatches appear alongside the installed and sliced nozzle specifications.
-The selector's popup can be visible in a screenshot while absent from the accessibility
-tree; its visible row accepts a coordinate click. Accessibility element numbers and screen
-coordinates come from the current UI observation.
+
+Steps 1 to 3 and the dialog's own controls go through `bambu-ax`. Its **Send** button is
+labelled `confirm`. Two things in step 4 do not: the printer selector's popup and the AMS
+filament-mapping panel are drawn outside the accessibility tree, and `find` returns no
+match with either open. The selector defaults to **Mark2** on every send and changing it
+clears the filament mapping, so those two clicks are a coordinate click and cost the
+screen. Do both in one takeover, then return to `bambu-ax` for the options and **Send**.
+
+`#n` indices renumber whenever the tree changes. Read the tree and press in the same
+command, or match by label with `--role`; a number carried over from an earlier dump
+presses whatever now holds it. `import` walks the chooser by path component and reaches
+paths inside the working tree, so stage an archive there rather than in a scratch
+directory.
 
 The signed printer-control application handles protected operations. Bambu's network
 library checks the calling application's signature for those operations; loading the
