@@ -1,9 +1,12 @@
-# Faucet lever comparison replica
+# Accepted faucet lever replica
 
-A scan-derived, editable close-copy prototype of the donor lever for comparing
-PET-GF fit and strength with Faucet's replacement design. The part is one
-closed solid. Its attachment, operating travel and strength require a physical
-print reading. It is separate from the production faucet assembly.
+A scan-derived, editable lever with **flat lateral faces and a 9.00 mm cylinder
+channel**. Derek confirmed the completed white PET-GF Mark2 print on 2026-09-20:
+"The lever you printed turned out great, fits and works functionally."
+The primary STEP, STL, viewer payload and preview represent this accepted shape.
+The [physical acceptance record](physical-acceptance.json) binds the observation
+to the exact printed mesh and uniquely named job. Quantitative strength and
+endurance have not been measured.
 
 ![Comparison lever](lever-replica-preview.png)
 
@@ -11,16 +14,19 @@ print reading. It is separate from the production faucet assembly.
 
 | File | Use |
 |---|---|
-| [lever_replica.py](lever_replica.py) | Editable CadQuery construction and fit-trial parameters |
-| [lever-replica.step](lever-replica.step) | Analytic solid in the local part frame |
-| [lever-replica.stl](lever-replica.stl) | Donor reference mesh in that same frame |
-| [lever-replica-side-down.stl](lever-replica-side-down.stl) | Right side on the print bed |
+| [lever_replica.py](lever_replica.py) | Editable CadQuery construction; `build()` returns the accepted shape |
+| [lever-replica.step](lever-replica.step) | Accepted analytic solid in the local part frame |
+| [lever-replica.stl](lever-replica.stl) | Accepted mesh in that same frame; source of the viewer payload |
+| [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
+| [lever-donor-reference.step](lever-donor-reference.step) | Drafted donor reconstruction for scan comparison |
+| [lever-donor-reference.stl](lever-donor-reference.stl) | Donor comparison mesh in the local part frame |
 | [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
 | [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever at +0.04 mm Z trim, for Mark2 |
-| [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Exact native sliced archive submitted to H2C |
-| [lever-original-wide-white-z004-mark2.gcode.3mf](lever-original-wide-white-z004-mark2.gcode.3mf) | Submitted white comparison lever, flat sides and widened cylinder pocket, at +0.04 mm on Mark2 |
-| [print-jobs.json](print-jobs.json) | Printer acceptance, physical material/nozzle and job hashes |
-| [scan-fit.json](scan-fit.json) | Observed-point/CAD distances, normals and mesh validity |
+| [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
+| [lever-original-wide-white-z004-mark2.gcode.3mf](lever-original-wide-white-z004-mark2.gcode.3mf) | Completed and physically accepted white lever at +0.04 mm on Mark2 |
+| [print-jobs.json](print-jobs.json) | Printer completion, physical observations, material/nozzle and job hashes |
+| [physical-acceptance.json](physical-acceptance.json) | Derek's fit/function confirmation for the exact accepted mesh |
+| [scan-fit.json](scan-fit.json) | Donor-reference/observed-point distances, normals and mesh validity |
 | [contact-datums.json](contact-datums.json) | Partial metal-cylinder fit and its scan-frame transform |
 | [evidence/datums.json](evidence/datums.json) | Rigid transform from lever scan coordinates to CAD |
 | [evidence/sources.json](evidence/sources.json) | Source hashes, point counts and coordinate frames |
@@ -40,12 +46,20 @@ inner paddle plane. The Y origin is the measured forward-tip tangent and X=0
 is between the fitted side planes. Matrices use homogeneous column vectors:
 `local = T @ [scan_x, scan_y, scan_z, 1]`. Normals use only the rotation.
 
-| Feature | Observation | Replica construction |
+The accepted body is 12.40 mm across its parallel outer faces, with a 9.00 mm
+straight channel and 1.70 mm walls. The straight channel reaches Y=44.30 mm
+before `PRINTED_STOP_PROFILE` forms the cylinder pocket. It is one closed solid.
+Its side-down print mesh is SHA-256
+`7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb`.
+
+The separate donor reconstruction records the observed drafted shape:
+
+| Feature | Observation | Donor-reference construction |
 |---|---|---|
-| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.85 × 14.66 mm mesh bounds |
+| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.94 × 14.66 mm mesh bounds |
 | Paddle floor thickness | Approximately 2.75–2.95 mm | Measured outer profile over the inner Z=0 plane |
 | Outside width | Drafted: 12.77 mm at Z=0, 12.64 mm at the cylinder's seat, 12.55 mm at the ledge | `OUTER_HALF_AT_Z0` and `OUTER_DRAFT`, 1.11° per side |
-| Main inner channel | Drafted: 8.86 mm at Z=0, 8.69 mm at the cylinder's seat, 8.56 mm at the ledge | `CHANNEL_HALF_AT_Z0` and `CHANNEL_DRAFT`, 1.53° per side. The printable body departs here: parallel `CHANNEL_PRINTED_WIDTH` |
+| Main inner channel | Drafted: 8.86 mm at Z=0, 8.69 mm at the cylinder's seat, 8.56 mm at the ledge | `CHANNEL_HALF_AT_Z0` and `CHANNEL_DRAFT`, 1.53° per side |
 | Side wall | 1.95 mm at Z=0, 1.99 mm at the ledge | A consequence of the two drafts, not an imposed figure |
 | Channel convergence | Straight to Y≈40, then in to 8.06 mm by Y=44.75; reaches the cylinder's 8.5 mm span at Y=42.3 | Measured `CHANNEL_CONVERGENCE` offsets |
 | Selected rear-stop patches | Two observed curved walls near Y=45.4 mm, X≈±3.3 mm | Editable mirrored `STOP_TAIL` |
@@ -70,16 +84,20 @@ at an inspection-plane station, **not a measured lateral midpoint**. The central
 protrusion is not represented by that cylinder primitive; retain the complete
 Touch-Flo cloud when checking clearance.
 
-## Agreement with the scans
+## Donor-reference agreement with the scans
 
-The selected critical patches have a median point-to-CAD distance of 0.079 mm,
-95th percentile 0.224 mm and maximum 0.787 mm. 98.0% of their nearest CAD normals
+The selected critical patches have a median point-to-CAD distance of 0.076 mm,
+95th percentile 0.211 mm and maximum 0.787 mm. 97.6% of their nearest CAD normals
 agree within the dot-product threshold 0.7. A deterministic 24,000-point sample
-of the complete observed lever has a median distance of 0.085 mm and 95th
-percentile 0.362 mm. These are one-sided surface distances: they cannot validate
+of the complete observed lever has a median distance of 0.070 mm and 95th
+percentile 0.357 mm. These are one-sided surface distances: they cannot validate
 the inferred ledge surface or other geometry absent from the scan.
 
-![Observed points and CAD sections](scan-comparison.png)
+These readings concern `lever-donor-reference.stl`. Physical acceptance concerns
+the separately identified printed lever, whose flat faces and wider channel are
+intentional fit geometry.
+
+![Observed points and donor-reference sections](scan-comparison.png)
 
 The selected patches were independently captured twice: their aligned nearest
 point distances have 95th percentiles 0.097 and 0.094 mm. This is repeat consistency,
@@ -100,12 +118,14 @@ Derek's observed assembly sequence is the mechanism authority:
    pivot/contact arrangement. With the tube absent, pressing the lever makes it
    slide aft off the metal cylinder.
 
-The two separately scanned parts do **not** establish an assembled rigid pose,
+The physical print fits and operates. The two separately scanned parts do **not** establish an assembled rigid pose,
 the tube-contact location, plunger stroke or force. `assembled_lever_transform`
 is explicitly null. The production model's nominal pivot and 18° animation are
 not measurement datums for this replica. Inserting the production nominal pose
-would conceal this uncertainty. Faucet can use the local solid, retained surfaces
-and transforms for its next placement/fit check.
+would conceal this uncertainty. The full faucet assembly still uses its
+dimensioned lever stand-in; it does not yet place this accepted local solid.
+A measured installed rest/pressed pose is needed to integrate that assembly
+without inventing a pivot or cylinder height.
 
 ## PET-GF comparison print
 
@@ -125,8 +145,9 @@ through the open channel and attachment mouths with the tube absent. Physical
 support removal and mating-surface finish remain print checks.
 
 Bambu Studio's native slice estimates **16 min 38 s and 4.04 g**, including the
-saved startup sequence and supports; grams use its saved density. Printer acceptance
-does not establish successful printing, fit or strength. The exact project/STL
+saved startup sequence and supports; grams use its saved density. The accepted
+Mark2 job finished all 52 layers without a printer error and has Derek's physical
+fit/function confirmation. The exact project/STL
 hashes and slice are recorded in [the print report](lever-replica-petgf.print.json),
 [readiness record](lever-replica-petgf.readiness.json),
 [support audit](lever-replica-petgf.support-audit.json) and
@@ -136,42 +157,33 @@ A caliper across the donor reference reads a different width at every height.
 The printable comparison has parallel sides: 12.40 mm outside, a 9.00 mm
 channel and 1.70 mm walls along the straight portion.
 
-## What goes to the printer has no draft on either lateral face
+## Accepted model and print
 
 The part prints on its side: local X is the print's Z. So the two side faces are
 the bed contact and the top surface, and the channel between them is a bridged
 gap. A slope survives on none of the three.
-
-- On the channel, the draft closed the gap to 8.47 mm against a cylinder of
-  8.42, and it would not enter. A parallel 9.00 mm comes off at 8.8 and does.
-- On the outside, a 1.11° draft rests the part on a line rather than a face.
-  Derek, on the print it produced: it "makes it unprintable, for all practical
-  purposes".
 
 `lever-replica-side-down.stl` is built flat at `PRINTED_OUTSIDE_WIDTH`
 and `CHANNEL_PRINTED_WIDTH`. Its channel stays parallel to Y=44.30 mm, then
 follows `PRINTED_STOP_PROFILE` into the cylinder pocket. This complete geometry
 has Derek's physical confirmation: the cylinder seats fully, the rod passes
 through the bottom slot, and the arms lift the cylinder during operation.
-The STEP and viewer payload retain the donor's drafted faces and measured
-channel convergence. The printed body has its own pocket construction.
+The primary STEP, STL, viewer payload and preview carry the same accepted body
+in the local part frame. `lever-donor-reference` retains the drafted scan
+reconstruction. Generators read `physical-acceptance.json`; they preserve its
+observation and report acceptance only when the printed mesh hash matches it.
 
 The uniquely named white archive and its project preserve the accepted
 channel-fix project's mesh and placement byte for byte. Its executed machine
 commands match that print except for Mark2's Z trim. The source comparison and
 archive hashes are recorded in `print-jobs.json`.
 
-For the first complete-part comparison, check the aft/down/forward insertion with
-the tube absent, the light retention, the tube's ability to seat, free operating
-travel and valve return, and the rising rear arm's shell clearance. Do not infer
-strength equivalence from equal shape. Compare both candidate
-levers under the same dispensing and repeated-load conditions. An interference
-reading should identify the contact face before changing a fit parameter.
-Record the tube-installed rest and fully pressed poses relative to the donor's
-top-port axis and mounting datum, and identify the bearing surfaces on both the
-tube and cylinder. Keep those readings distinct from any apparent hinge axis.
-Preserve this close-copy and the intact donor as the comparison controls; fit
-adjustments belong to named contact parameters rather than a global scan scale.
+Strength/endurance comparison remains separate from the confirmed functional
+fit. Record any future load/cycle measurements against the exact print. For full
+faucet-model integration, measure tube-installed rest and fully pressed poses
+relative to the top-port axis and mounting datum, including the bearing surfaces
+on the tube and cylinder. Preserve the accepted body and intact donor as controls;
+fit changes belong to named contact parameters rather than global scan scaling.
 
 ## Rebuild
 

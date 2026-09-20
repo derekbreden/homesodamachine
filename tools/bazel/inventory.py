@@ -100,6 +100,7 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
         "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
         "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+        "hardware/printed-parts/faucet/lever-replica/lever-donor-reference.stl",
     ),
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": (
         "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",

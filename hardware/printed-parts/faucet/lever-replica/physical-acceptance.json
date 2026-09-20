@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "part": "lever-replica",
+  "status": "accepted for physical fit and functional operation",
+  "authority": "Derek's direct observation of the completed Mark2 print",
+  "observed_date": "2026-09-20",
+  "observation": "The lever you printed turned out great, fits and works functionally. Please ensure that's what we have on record and in our models.",
+  "job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+  "archive": "lever-original-wide-white-z004-mark2.gcode.3mf",
+  "archive_sha256": "9a0605695a0ebed921949a4fb8dd12f623d5dd6bc79e0c7368f015eb64204c3e",
+  "printed_stl": "lever-replica-side-down.stl",
+  "printed_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+  "geometry": {
+    "outside_width_mm": 12.4,
+    "channel_width_mm": 9.0,
+    "side_wall_mm": 1.7,
+    "parallel_channel_end_y_mm": 44.3,
+    "lateral_face_draft": "none"
+  },
+  "physical_fit": "confirmed",
+  "functional_operation": "confirmed",
+  "quantified_strength": null,
+  "quantified_endurance": null,
+  "assembled_faucet_pose": null,
+  "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement."
+}
