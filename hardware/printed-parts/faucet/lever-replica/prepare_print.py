@@ -1,50 +1,25 @@
-"""Prepare one white PET-GF comparison lever; optional offline slicing only."""
+"""Prepare one comparison lever from the shared PET-GF settings; offline only."""
 import argparse
 import hashlib
 import json
 from pathlib import Path
 import subprocess
 import sys
-import tempfile
-import zipfile
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 import refresh_print_project as writer
 
-SOURCE_PROFILE = HERE.parent / "faucet-petgf.3mf"
-PROJECT = HERE / "lever-replica-white-petgf.3mf"
-OVERRIDES = {
-    "layer_height": "0.16",
-    "wall_loops": "4",
-    "sparse_infill_density": "100%",
-    "sparse_infill_pattern": "zig-zag",
-    "print_settings_id": "0.16mm PET-GF comparison lever, four walls, solid",
-    "filament_colour": ["#FFFFFF"],
-    "enable_prime_tower": "0",
-    "brim_type": "outer_only",
-    "brim_width": "5",
-}
+SOURCE_PROFILE = HERE.parents[1] / "petgf.3mf"
+PROJECT = HERE / "lever-replica-petgf.3mf"
 
 
 def prepare():
-    with zipfile.ZipFile(SOURCE_PROFILE) as archive:
-        members = {name: archive.read(name) for name in archive.namelist()}
-    settings = json.loads(members[writer.SETTINGS_MEMBER])
-    changes = {key: {"from": settings.get(key), "to": value} for key, value in OVERRIDES.items()}
-    settings.update(OVERRIDES)
-    members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
-    with tempfile.TemporaryDirectory(prefix="lever-print-") as directory:
-        profile = Path(directory) / "comparison-profile.3mf"
-        writer.archive_write(profile, members)
-        report = writer.refresh(profile, PROJECT,
-                                parts=(("lever-replica", HERE / "lever-replica-side-down.stl", 0.0),),
-                                offsets=((0.0, 0.0),), title="White PET-GF comparison lever")
-    report["settings_source"] = str(SOURCE_PROFILE.relative_to(writer.ROOT))
-    report["settings_source_sha256"] = writer.digest(SOURCE_PROFILE.read_bytes())
-    report["settings_changes"] = changes
-    report["settings_preserved_byte_for_byte"] = False
-    report["status"] = "prepared comparison prototype; no printer submission"
+    report = writer.refresh(
+        SOURCE_PROFILE, PROJECT,
+        parts=(("lever-replica", HERE / "lever-replica-side-down.stl", 0.0),),
+        offsets=((0.0, 0.0),), title="Lever comparison black PET-GF H2C", z_trim=0.18)
+    report["status"] = "offline project preparation; submissions are recorded in print-jobs.json"
     report["fit_and_strength_validated"] = False
     report["pose"] = "local CAD +X side on bed; broad show face vertical"
     PROJECT.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
