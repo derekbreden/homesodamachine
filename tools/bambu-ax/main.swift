@@ -291,9 +291,24 @@ case "state":
 
 case "import":
     guard args.count > 1 else { fail("import needs a file path") }
-    let path = (args[1] as NSString).expandingTildeInPath
+    var path = (args[1] as NSString).expandingTildeInPath
+    if !path.hasPrefix("/") { path = FileManager.default.currentDirectoryPath + "/" + path }
     guard FileManager.default.fileExists(atPath: path) else { fail("no such file: \(path)") }
     let name = (path as NSString).lastPathComponent
+
+    // The chooser lists no hidden directory and offers no way to reveal one
+    // without a keystroke, so a path through .cache or any other dotted folder
+    // cannot be walked. Stage a visible copy and import that instead.
+    if path.split(separator: "/").dropLast().contains(where: { $0.hasPrefix(".") }) {
+        let staging = NSHomeDirectory() + "/bambu-ax-staging"
+        try? FileManager.default.createDirectory(atPath: staging, withIntermediateDirectories: true)
+        let visible = staging + "/" + name
+        try? FileManager.default.removeItem(atPath: visible)
+        do { try FileManager.default.copyItem(atPath: path, toPath: visible) }
+        catch { fail("could not stage a visible copy of \(name): \(error)") }
+        print("staged \(visible) — the chooser cannot enter a hidden directory")
+        path = visible
+    }
 
     // The Print tab carries the importer; pressing it while already there is harmless.
     if let tab = matches("Print", role: "AXLink").first { perform(tab, "AXPress"); settle() }
