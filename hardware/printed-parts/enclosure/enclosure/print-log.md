@@ -359,7 +359,5 @@ layer 0 of 813, with no print error at 2026-09-20T18:49:48.281882+00:00.
 - Bed leveling on, timelapse on, flow and nozzle-offset calibration Auto.
 - Slicer estimate: 24 h 9 min, 807.36 g, 813 layers.
 
-The archive was sliced from the tree's STL at 13:07; a concurrent build regenerated
-that STL before the send, so the tree's copy no longer matches the recorded hash.
-The source mesh, profile, sliced archive and G-code hashes are recorded in
-[print-jobs.json](print-jobs.json).
+The STL in the tree hashes differently from the sliced copy; both hashes are in
+[print-jobs.json](print-jobs.json), with the profile, archive and G-code hashes.
