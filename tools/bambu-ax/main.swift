@@ -20,13 +20,14 @@ usage: bambu-ax <command>
   state                      printer name, job, progress and temperatures
   tree                       every labelled or actionable element, numbered
   find <text>                elements whose label contains <text>
-  press <text|#n>            AXPress a control
+  press <text|#n>            AXPress a control (a #n needs --expect)
   act <text|#n> <AXAction>   any action the element advertises
   value <text|#n> <new>      set an element's value
   import <path>              Print tab, file chooser, chosen file, no keystrokes
   front                      name the frontmost application
 
-  --role <AXRole>   restrict matches      --nth <n>   pick among matches
+  --role <AXRole>   restrict matches      --nth <n>     pick among matches
+  --expect <text>   what a #n must hold; positions renumber when the tree does
 """
 
 func fail(_ m: String) -> Never { fputs("bambu-ax: " + m + "\n", stderr); exit(1) }
@@ -103,7 +104,25 @@ func matches(_ query: String, role: String? = nil) -> [Node] {
         return true
     }
 }
+// A #n is a position in the last tree, and the tree renumbers whenever the
+// screen changes. Acting on a carried-over number presses whatever now holds
+// it, silently and wrongly, so a #n must say what it expects to find there.
 func resolve(_ query: String, role: String? = nil, preferring action: String? = nil) -> Node {
+    if query.hasPrefix("#") {
+        guard let expect = opt("--expect") else {
+            fail("""
+                \(query) is a position, not an identity, and positions renumber whenever \
+                the tree changes. Say what belongs there: --expect "<label or role>". \
+                Matching by label needs no --expect.
+                """)
+        }
+        guard let n = matches(query, role: role).first else { fail("no element at \(query)") }
+        let found = "\(n.role) \(n.label ?? "")"
+        guard found.lowercased().contains(expect.lowercased()) else {
+            fail("\(query) now holds \(describe(n)) — expected \(expect); re-read the tree")
+        }
+        return n
+    }
     var ms = matches(query, role: role)
     if let action { let p = ms.filter { $0.acts.contains(action) }; if !p.isEmpty { ms = p } }
     if let nth = opt("--nth"), let n = Int(nth) {
