@@ -1,0 +1,621 @@
+{
+  "what": "rigid transform from the Touch-Flo scan frame into the repo world frame, and what the registered cloud measures at the lever-mating features",
+  "analysis_only": true,
+  "units": "mm",
+  "inputs": {
+    "scan_npz": "hardware/printed-parts/faucet/lever-replica/evidence/touch-flo-points.npz",
+    "scan_npz_sha256": "8212a5de9f0bcca9e68ce6643bd29e037eb9bfb4314e338d8b44c61d74a038f0",
+    "scan_points": 202391,
+    "inspection_frame": "hardware/printed-parts/faucet/lever-replica/evidence/touch-flo-inspection-frame.json",
+    "contact_datums": "hardware/printed-parts/faucet/lever-replica/contact-datums.json",
+    "contact_datums_sha256": "137932729b77e3976134ac84cd37d295804e3f2ed803cfc81438cb6c0c7b09e7",
+    "reference_source": "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py",
+    "reference_step_present": true,
+    "reference_geometry": "tessellated in memory from westbrass_reference.build_valve_body; shank below z=0 dropped, the scan never observes it",
+    "reference_mesh_faces": 3092
+  },
+  "coarse_alignment": {
+    "prismatic_normal_points": 145360,
+    "envelope_vote_support": 52789,
+    "column_flat_points": 44105,
+    "column_flat_normal_concentration": 0.9989655352763253,
+    "port_bore_votes": 366,
+    "port_bore_centre_local_before_icp_mm": [
+      -8.872825240798482,
+      -0.057473807275431193
+    ],
+    "port_bore_radius_before_icp_mm": {
+      "count": 366,
+      "min": 4.704803288399555,
+      "median": 4.948293303622835,
+      "mean": 4.948782032840768,
+      "p95": 5.051148973909501,
+      "p99": 5.154101628143857,
+      "max": 5.659004950131047,
+      "std": 0.08689013923457349
+    },
+    "port_flipped_coarse_frame": true,
+    "coarse_plateau_height_scan_units": 4.396763611086692
+  },
+  "icp": {
+    "method": "trimmed point-to-plane ICP, exact closest point on the reference solid; a pair counts when it is inside the iteration's distance gate and the scan normal agrees with the face normal (dot > 0.8)",
+    "icp_sample_points": 18000,
+    "distance_gate_schedule_mm": [
+      3.0,
+      3.0,
+      2.0,
+      1.5,
+      1.2,
+      1.0,
+      0.8,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6,
+      0.6
+    ],
+    "iterations": [
+      {
+        "gate": 3.0,
+        "pairs": 15320,
+        "rms_before_mm": 0.24247899052632227,
+        "step_rotation_deg": 0.6257076797327659,
+        "step_translation_mm": 0.2862047627287912
+      },
+      {
+        "gate": 3.0,
+        "pairs": 15288,
+        "rms_before_mm": 0.22346544576003158,
+        "step_rotation_deg": 0.01722427442982386,
+        "step_translation_mm": 0.008063427909056163
+      },
+      {
+        "gate": 2.0,
+        "pairs": 15282,
+        "rms_before_mm": 0.22339138650347953,
+        "step_rotation_deg": 0.0008272553298521392,
+        "step_translation_mm": 0.0006043003066824311
+      },
+      {
+        "gate": 1.5,
+        "pairs": 15281,
+        "rms_before_mm": 0.22339267621679063,
+        "step_rotation_deg": 0.00016623920434611869,
+        "step_translation_mm": 0.00012706514192549584
+      },
+      {
+        "gate": 1.2,
+        "pairs": 15281,
+        "rms_before_mm": 0.22339267293812548,
+        "step_rotation_deg": 5.92024815063129e-06,
+        "step_translation_mm": 2.6668158471251813e-06
+      },
+      {
+        "gate": 1.0,
+        "pairs": 15281,
+        "rms_before_mm": 0.22339267293768503,
+        "step_rotation_deg": 4.089461082518886e-07,
+        "step_translation_mm": 1.9627049986535309e-07
+      },
+      {
+        "gate": 0.8,
+        "pairs": 15142,
+        "rms_before_mm": 0.2076000035669896,
+        "step_rotation_deg": 0.04259677692506192,
+        "step_translation_mm": 0.012218003017081154
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14986,
+        "rms_before_mm": 0.19677075615564205,
+        "step_rotation_deg": 0.021951592440853776,
+        "step_translation_mm": 0.011602769355314372
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14981,
+        "rms_before_mm": 0.19629409977106668,
+        "step_rotation_deg": 0.00414400329960535,
+        "step_translation_mm": 0.0010906009731403794
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.19611554730997174,
+        "step_rotation_deg": 0.0016707196480124967,
+        "step_translation_mm": 0.0003469181385680964
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.19608445672170227,
+        "step_rotation_deg": 0.0005898074188996074,
+        "step_translation_mm": 0.0003015961593616629
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.1960844288748495,
+        "step_rotation_deg": 2.5241758890435472e-05,
+        "step_translation_mm": 1.3250736443649009e-05
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.19608442886617214,
+        "step_rotation_deg": 1.6260749158484555e-06,
+        "step_translation_mm": 8.62207032593283e-07
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.1960844288661366,
+        "step_rotation_deg": 1.0547898813312437e-07,
+        "step_translation_mm": 5.6239566036371575e-08
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.1960844288661362,
+        "step_rotation_deg": 6.860471032548638e-09,
+        "step_translation_mm": 3.669389695884834e-09
+      },
+      {
+        "gate": 0.6,
+        "pairs": 14979,
+        "rms_before_mm": 0.19608442886613608,
+        "step_rotation_deg": 4.469623860123532e-10,
+        "step_translation_mm": 2.394744824316145e-10
+      }
+    ],
+    "status": "measured"
+  },
+  "transform": {
+    "convention": "p_world = R @ p_scan + t, points as column vectors; row-major 4x4 with R in [:3,:3] and t in [:3,3]",
+    "touch_flo_scan_to_world_4x4": [
+      [
+        0.12857573920301846,
+        0.8485886404469631,
+        0.5131915807890588,
+        -75.04462665531292
+      ],
+      [
+        0.8956866435416387,
+        -0.32150307092828107,
+        0.30721525347026596,
+        -92.5620814362255
+      ],
+      [
+        0.4256920434651229,
+        0.42015841618139693,
+        -0.8014070061101465,
+        161.55287301470344
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "world_to_touch_flo_scan_4x4": [
+      [
+        0.1285757392030183,
+        0.8956866435416372,
+        0.42569204346512285,
+        23.78376574497128
+      ],
+      [
+        0.8485886404469626,
+        -0.3215030709282806,
+        0.42015841618139693,
+        -33.95477498239035
+      ],
+      [
+        0.5131915807890578,
+        0.30721525347026507,
+        -0.8014070061101458,
+        196.41835818433609
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rotation_rows_world_axes_in_scan_frame": [
+      [
+        0.12857573920301846,
+        0.8485886404469631,
+        0.5131915807890588
+      ],
+      [
+        0.8956866435416387,
+        -0.32150307092828107,
+        0.30721525347026596
+      ],
+      [
+        0.4256920434651229,
+        0.42015841618139693,
+        -0.8014070061101465
+      ]
+    ],
+    "translation_mm": [
+      -75.04462665531292,
+      -92.5620814362255,
+      161.55287301470344
+    ],
+    "status": "measured",
+    "depends_on": "world Z is set by matching the scan's top face to the reference's plateau_z = 39; the scan contains no observation of the deck plane (z = 0) or of the \u00d831.5 cylindrical base, so the height of the whole registration is only as good as that reference dimension"
+  },
+  "registration_residual_mm": {
+    "what": "one-sided distance from every observed point to the reference solid",
+    "all_points": {
+      "count": 202391,
+      "min": 3.408320026218795e-08,
+      "median": 0.14388854457001782,
+      "mean": 0.4958147662627506,
+      "p95": 3.577026329499068,
+      "p99": 6.390217904441815,
+      "max": 7.433182431844429,
+      "std": 1.210488946009412
+    },
+    "inliers_only": {
+      "count": 171353,
+      "min": 3.408320026218795e-08,
+      "median": 0.13144354927131108,
+      "mean": 0.169360945032797,
+      "p95": 0.44930628727781935,
+      "p99": 0.7747599464046666,
+      "max": 0.9976473188631747,
+      "std": 0.144217184005464
+    },
+    "inlier_fraction": 0.8466433784110954,
+    "inlier_definition": "distance < 1.0 mm and normal agreement dot > 0.8",
+    "normal_agreement_fraction_dot_above_0_8": 0.8470930031473731,
+    "note": "a real scanned part against a dimensioned idealisation; the tail is geometry the reference does not carry (the actuator above the plateau, the cove, coating thickness), not registration error",
+    "status": "measured"
+  },
+  "rotation_about_vertical_ambiguity": {
+    "question": "does the fit pin the turn about the body axis, or not",
+    "answer": "pinned, but not by the bulk of the surface. The rounded 31.5 x 17 outline and both arches are invariant under a half turn about the body axis, so whole-cloud residuals barely separate the two poses (median 0.1439 vs 0.1531 mm, inliers 84.7% vs 80.6%). The \u00d810 water port is the only feature that is not invariant, and it settles the turn outright - see port_decides_it",
+    "best_fit": {
+      "median_residual_mm": 0.14388854457001782,
+      "inlier_fraction": 0.8466433784110954
+    },
+    "half_turn_of_the_accepted_pose": {
+      "what": "the accepted pose turned exactly 180 deg about the body axis - the operation the body's own shape is almost invariant under",
+      "median_residual_mm": 0.1531458965646877,
+      "inlier_fraction": 0.806275,
+      "evaluated_on_points": 40000
+    },
+    "flipped_start_reconverged": {
+      "what": "ICP restarted from the coarse frame turned 180 deg",
+      "median_residual_mm": 0.15273990659952624,
+      "inlier_fraction": 0.80655,
+      "rotation_from_accepted_pose_deg": 179.9951993417032,
+      "reading": "near 0 deg means ICP climbed back to the accepted pose and the run is not an independent alternative; near 180 deg means it settled in the flipped basin and the two poses compete"
+    },
+    "what_breaks_it": "the \u00d810 water port bore, observed at local +X. The rounded 31.5 x 17 outline and both arches are invariant under the half turn and break nothing; the port test below is the whole of it",
+    "status": "measured",
+    "port_decides_it": {
+      "what": "the observed bore-wall points, scored against the reference under the accepted pose and under its half turn",
+      "points": 492,
+      "accepted_pose_median_mm": 0.11737212167767819,
+      "accepted_pose_within_0_5mm_fraction": 1.0,
+      "half_turn_median_mm": 0.7830347626332781,
+      "half_turn_within_0_5mm_fraction": 0.09146341463414634,
+      "reading": "under the half turn the bore falls on solid plateau; the accepted pose is the one that puts observed bore wall on modelled bore wall"
+    }
+  },
+  "plateau_as_observed": {
+    "what": "the flat top face the reference puts at z = 39",
+    "points": 16367,
+    "z_mm": {
+      "count": 16367,
+      "min": 37.93385981651463,
+      "median": 39.09295387483601,
+      "mean": 39.02165584340862,
+      "p95": 39.18324121962984,
+      "p99": 39.241510465160914,
+      "max": 39.77169286816965,
+      "std": 0.191957683657749
+    },
+    "best_fit_plane_normal_world": [
+      -0.012709138535935928,
+      0.00015832557450824042,
+      0.9999192231028902
+    ],
+    "tilt_from_world_Z_deg": 0.7282561099563742,
+    "flatness_residual_mm": {
+      "count": 16367,
+      "min": 0.00010535191707897185,
+      "median": 0.09002996417332113,
+      "mean": 0.13299620424541217,
+      "p95": 0.44167183710839236,
+      "p99": 0.5210629484617625,
+      "max": 0.9737149517284014,
+      "std": 0.13135169560694215
+    },
+    "status": "measured",
+    "note": "the scan's own flatness, after registration; the reference has no tolerance on this face"
+  },
+  "observed_body_extent": {
+    "world_z_min_mm": 15.087380992916735,
+    "world_z_max_mm": 48.4395855964797,
+    "cylindrical_base_observed": false,
+    "points_below_cylinder_top_z13": 0,
+    "status": "measured",
+    "note": "the cloud is the contact head and the upper body only; it does not reach the \u00d831.5 cylindrical base, the cylinder/column cove, the deck plane or the shank"
+  },
+  "water_port_as_registered": {
+    "what": "an independent check: the bore the registration was told to expect",
+    "wall_points": 492,
+    "observed_centre_world_mm": [
+      0.033630498965448105,
+      8.800165888915707
+    ],
+    "reference_centre_world_mm": [
+      0.0,
+      8.75
+    ],
+    "centre_offset_mm": 0.060395586522262255,
+    "observed_radius_mm": 5.039230628301306,
+    "reference_radius_mm": 5.0,
+    "radius_difference_mm": 0.03923062830130597,
+    "circle_fit_residual_mm": {
+      "count": 492,
+      "min": 0.00037733504745407487,
+      "median": 0.05902182326983629,
+      "mean": 0.08557037752536595,
+      "p95": 0.21951373674289834,
+      "p99": 0.455313038100871,
+      "max": 0.5922465920347708,
+      "std": 0.09114658310579543
+    },
+    "observed_z_range_mm": [
+      37.54326350801898,
+      38.75049622449832
+    ],
+    "status": "measured"
+  },
+  "transverse_contact_bar": {
+    "what": "the metal cross bar the lever snaps around, in world coordinates",
+    "axis_direction_world": [
+      0.9999191933738838,
+      0.01257837709815401,
+      -0.0018415081043238182
+    ],
+    "angle_to_world_X_deg": 0.7283901125683174,
+    "point_on_axis_world_mm": [
+      0.25715784008511,
+      -1.986038565884618,
+      45.24892874592555
+    ],
+    "point_on_axis_is": "the mid-point of the observed run, not a part datum",
+    "radius_mm": 2.295520914102124,
+    "diameter_mm": 4.591041828204248,
+    "radius_status": "measured (robust cylinder fit, carried over unchanged)",
+    "axis_status": "measured",
+    "observed_wall_extent": {
+      "points": 9013,
+      "along_axis_from_mm": -5.127744947979134,
+      "along_axis_to_mm": 3.3697325496835617,
+      "span_mm": 8.497477497662697,
+      "status": "bounded-below",
+      "note": "this is how much of the cylindrical wall the scanner saw. It is a lower bound on the bar's span, not its end-to-end length"
+    },
+    "end_faces": {
+      "plus_x_end": {
+        "points": 87,
+        "along_axis_mm": {
+          "count": 87,
+          "min": 2.7691928435859032,
+          "median": 3.155368584290864,
+          "mean": 3.15228010934137,
+          "p95": 3.3520752806704253,
+          "p99": 3.5571561668976734,
+          "max": 3.6235373681564873,
+          "std": 0.15050977606720792
+        },
+        "max_radius_observed_mm": 2.4162624843743643
+      },
+      "minus_x_end": {
+        "points": 1248,
+        "along_axis_mm": {
+          "count": 1248,
+          "min": -5.373858421004706,
+          "median": -5.26101847373808,
+          "mean": -5.231895213364049,
+          "p95": -5.150381930691552,
+          "p99": -5.095066299004611,
+          "max": 2.3824871761249646,
+          "std": 0.37845589274743086
+        },
+        "max_radius_observed_mm": 2.4920151642468498
+      }
+    },
+    "end_to_end_span_mm": 8.416387058028944,
+    "end_to_end_status": "measured (both end faces observed)",
+    "height_above_observed_plateau_mm": 6.2489287459255465,
+    "height_above_observed_plateau_status": "measured - both the bar and the plateau are observed, and the registration puts the observed plateau at z = 39 by construction",
+    "world_z_of_axis_mm": 45.24892874592555,
+    "world_z_status": "inferred - the height above the deck carries the reference's plateau_z = 39, which the scan never observes"
+  },
+  "actuator_plunger": {
+    "what": "the scan's points above the plateau on the body axis - the post the lever rides",
+    "points": 1092,
+    "observed_z_range_mm": [
+      39.55528027766363,
+      42.60963943389676
+    ],
+    "cylinder_fit": {
+      "supported_by_the_cloud": true,
+      "caveat": "the observed silhouette narrows with height, so one radius over the whole observed run is a compromise; read observed_width_by_height beside it",
+      "axis_direction_world": [
+        -0.0792400888228598,
+        -0.0175587497836235,
+        0.9967009073083969
+      ],
+      "tilt_from_world_Z_deg": 4.655371671395293,
+      "tilt_status": "weakly determined - a stub this short, seen over partial arcs, does not fix a direction; read it as 'near vertical', not as a number to build to",
+      "point_on_axis_world_mm": [
+        0.31080464338315394,
+        -1.8159537090012128,
+        40.879277313485545
+      ],
+      "radius_mm": 1.4733090000855886,
+      "diameter_mm": 2.9466180001711773,
+      "radial_residual_mm": {
+        "count": 1092,
+        "min": 0.00013783940944223083,
+        "median": 0.08084109588799349,
+        "mean": 0.10893054374736968,
+        "p95": 0.21856465621876875,
+        "p99": 0.803746818191729,
+        "max": 1.4810264871091048,
+        "std": 0.13276349143221414
+      },
+      "surface_azimuth_coverage_fraction": 0.7777777777777778,
+      "coverage_note": "fraction of the post's circumference the scanner saw; well under 1 means the diameter rests on partial arcs",
+      "status": "measured"
+    },
+    "offset_from_body_axis_mm": {
+      "x": 0.31080464338315394,
+      "y": -1.8159537090012128,
+      "note": "the reference puts the plunger on the body axis (local x = y = 0); this is where the scan puts it"
+    },
+    "observed_width_by_height": [
+      {
+        "z_mm": 39.804143701751364,
+        "points": 245,
+        "lateral_x_silhouette_mm": 4.373244968813182,
+        "front_back_y_silhouette_mm": 3.122465729843512
+      },
+      {
+        "z_mm": 40.304143701751364,
+        "points": 211,
+        "lateral_x_silhouette_mm": 2.840757482933043,
+        "front_back_y_silhouette_mm": 3.0710845582426884
+      },
+      {
+        "z_mm": 40.804143701751364,
+        "points": 198,
+        "lateral_x_silhouette_mm": 2.6609043287720766,
+        "front_back_y_silhouette_mm": 2.99095822721182
+      },
+      {
+        "z_mm": 41.304143701751364,
+        "points": 165,
+        "lateral_x_silhouette_mm": 2.215705356307936,
+        "front_back_y_silhouette_mm": 2.8576845445273733
+      },
+      {
+        "z_mm": 41.804143701751364,
+        "points": 150,
+        "lateral_x_silhouette_mm": 1.9338179827722257,
+        "front_back_y_silhouette_mm": 2.80647390151168
+      },
+      {
+        "z_mm": 42.304143701751364,
+        "points": 120,
+        "lateral_x_silhouette_mm": 1.6837416501783338,
+        "front_back_y_silhouette_mm": 2.7047011661383067
+      }
+    ],
+    "observed_width_note": "silhouette extents of the observed points in each world direction, not diameters; the scanner saw the post from one side, so the smaller of the two in any band is the more cut off. They narrow with height, which is the post's own shape, not noise",
+    "reference_says": {
+      "plunger_od_mm": 5.5,
+      "how": "inferred in the reference from a 1 mm gap to the port wall at local x = 3.75; it is an estimate, never a measurement"
+    },
+    "status": "measured"
+  },
+  "above_the_plateau": {
+    "what": "what the scan shows over the top face, against what the reference models",
+    "points_above_plateau": 50262,
+    "reference_models_here": "two \u00d8-clipped arch rails at world x = +-7.75, 1.5 mm thick, rising from z = 41 to z = 46, and the \u00d810 water port bore; nothing else",
+    "arch_band_points": 35829,
+    "arch_band_residual_mm": {
+      "count": 35829,
+      "min": 3.408320026218795e-08,
+      "median": 0.09396543310035099,
+      "mean": 0.1414236214451487,
+      "p95": 0.47225697160514674,
+      "p99": 0.6781182139788872,
+      "max": 0.9976473188631747,
+      "std": 0.1422279904110209
+    },
+    "central_column_points": 14317,
+    "central_column_residual_mm": {
+      "count": 14317,
+      "min": 0.4564287494229404,
+      "median": 4.642437241289973,
+      "mean": 4.583986586414967,
+      "p95": 6.876432347957047,
+      "p99": 7.201399359406102,
+      "max": 7.433182431844429,
+      "std": 1.5422721144299774
+    },
+    "unmodelled_in_the_reference": [
+      {
+        "feature": "actuator post rising from the plateau",
+        "observed_wall_z_range_mm": [
+          39.55528027766363,
+          42.60963943389676
+        ],
+        "observed_diameter_mm": 2.9466180001711773,
+        "status": "measured"
+      },
+      {
+        "feature": "transverse contact bar on top of the post",
+        "world_z_axis_mm": 45.24892874592555,
+        "diameter_mm": 4.591041828204248,
+        "status": "measured"
+      },
+      {
+        "feature": "highest observed point of the whole scan",
+        "world_z_mm": 48.4395855964797,
+        "above_arch_peak_by_mm": 2.439585596479702,
+        "status": "measured"
+      }
+    ],
+    "status": "measured",
+    "plus_x_arch_crest_z_mm": {
+      "count": 4435,
+      "min": 39.4546309900566,
+      "median": 43.07021686938505,
+      "mean": 42.98846806936131,
+      "p95": 45.94629293276708,
+      "p99": 46.07648847528573,
+      "max": 46.17446158451263,
+      "std": 1.9619398690524528
+    },
+    "minus_x_arch_crest_z_mm": {
+      "count": 5058,
+      "min": 39.45538388485065,
+      "median": 43.663083298046594,
+      "mean": 43.47841195361727,
+      "p95": 46.261517175390104,
+      "p99": 46.472790823517734,
+      "max": 46.55230027300709,
+      "std": 2.1916494727162217
+    }
+  },
+  "not_determined_by_this_data": [
+    "the deck plane (z = 0) and the \u00d831.5 cylindrical base: no observations",
+    "the threaded shank and its length: no observations",
+    "the cylinder-to-column cove radius: below the scanned region",
+    "absolute scale: the scanner was not calibrated against a length standard",
+    "coating thickness: the scanned surfaces carry AESUB, never measured",
+    "the bar's rest angle under load: the lever was off and nothing held it",
+    "the actuator post's axis direction: 3 mm of partial arc will not fix it",
+    "the post's stroke, its shape below the plateau, and how far it sinks",
+    "the far end face of the bar rests on 87 points; the near end on 1248",
+    "which local Y side is which: the reference is symmetric about local Y = 0, so world +X vs -X follows from handedness, not from a feature"
+  ]
+}
