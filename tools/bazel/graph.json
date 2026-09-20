@@ -6756,6 +6756,29 @@
       "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step"
     ]
   },
+  "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
+      "hardware/printed-parts/fixtures/tube-miter-box/README.md",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
+      "hardware/printed-parts/fixtures/tube-miter-box/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
+      "hardware/printed-parts/fixtures/tube-miter-box/README.md",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl"
+    ]
+  },
   "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": {
     "reads": [
       "hardware/cold-core-layout/_water_inlet_jet.py",

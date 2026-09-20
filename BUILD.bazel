@@ -7328,6 +7328,58 @@ cp hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge
 )
 
 genrule(
+    name = "tube-miter-box",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/fixtures/tube-miter-box/README.md",
+        "pysrc/hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step",
+        "out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl",
+        "out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
+        "out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/README.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step)
+O1=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl)
+O2=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/README.figures.json)
+O3=$$PWD/$(location out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/README.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py > /dev/null
+cp hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step $$O0
+cp hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl $$O1
+cp hardware/printed-parts/fixtures/tube-miter-box/README.figures.json $$O2
+cp hardware/printed-parts/fixtures/tube-miter-box/README.md $$O3
+""",
+)
+
+genrule(
     name = "water-inlet-jet-fixture",
     srcs = [
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
@@ -11910,6 +11962,14 @@ genrule(
     name = "pysrc-f7dfc4f1f955",
     srcs = ["hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py"],
     outs = ["pysrc/hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-1220b855a771",
+    srcs = ["hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py"],
+    outs = ["pysrc/hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -17831,6 +17891,25 @@ sh_test(
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
+    name = "tube-miter-box-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/fixtures/tube-miter-box/README.figures.json",
+        "hardware/printed-parts/fixtures/tube-miter-box/README.md",
+        "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_material_base.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    args = ["hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py"],
     size = "large",
     tags = ["local"],
 )
@@ -24314,6 +24393,7 @@ filegroup(
         ":cover-retention-trial",
         ":faucet-display-snap-trial",
         ":tee-valve-bow-trial",
+        ":tube-miter-box",
         ":water-inlet-jet-fixture",
         ":weld-rotator",
         ":fuse-clamp",
