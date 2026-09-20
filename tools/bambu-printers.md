@@ -67,9 +67,10 @@ match with either open. The selector defaults to **Mark2** on every send and cha
 clears the filament mapping, so those two clicks are a coordinate click and cost the
 screen. Do both in one takeover, then return to `bambu-ax` for the options and **Send**.
 
-`#n` indices renumber whenever the tree changes. Read the tree and press in the same
-command, or match by label with `--role`; a number carried over from an earlier dump
-presses whatever now holds it. `import` walks the chooser by path component and reaches
+`#n` indices renumber whenever the tree changes, so `press` and `act` refuse a bare `#n`
+and require `--expect <label or role>`, checked against the element found there. A number
+carried over from an earlier dump then reports what now holds it instead of pressing it.
+Matching by label, narrowed with `--role`, needs no `--expect`. `import` walks the chooser by path component and reaches
 paths inside the working tree, so stage an archive there rather than in a scratch
 directory.
 
