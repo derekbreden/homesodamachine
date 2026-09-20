@@ -25,6 +25,31 @@ Chamber illumination supports the printer's camera-based detection during a prin
 Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to the account
 holding both printers. Its application identifier is `com.bambulab.bambu-connect`.
 
+`bambu-ax` drives it in place, leaving the screen to whatever is using it. Bambu Connect is
+an Electron application: setting `AXManualAccessibility` on it exposes the Chromium
+accessibility tree, and `AXUIElementPerformAction` presses a control where it stands. The
+window never comes forward, and the file chooser — an `AXSheet` on the main window — is
+driven the same way, by selecting a row and pressing **Open**. No keystroke is involved.
+
+```sh
+tools/bambu-ax/build.sh                     # once, writes the binary beside the script
+tools/bambu-ax/bambu-ax state               # job, progress, temperatures, AMS slots
+tools/bambu-ax/bambu-ax import <file.gcode.3mf>
+tools/bambu-ax/bambu-ax tree                # every labelled or actionable element
+tools/bambu-ax/bambu-ax press "Print" --role AXButton
+```
+
+`press`, `act` and `value` take a label substring or a `#n` from `tree`, narrowed with
+`--role` and `--nth`. Each one reports whether the frontmost application changed, so a step
+that costs the screen says so. Accessibility trust comes from the calling process.
+
+Synthesized mouse and keyboard input cannot do this. `CGEvent` delivery to `.cghidEventTap`
+follows the frontmost application, so a click requires the window in front and takes the
+screen for every step after it. `open -g -j -a 'Bambu Connect'` starts the application
+without the screen if it is not already running.
+
+The steps below are the same sequence performed by hand.
+
 1. Open **Print → Import Gcode 3MF** and choose the sliced `.gcode.3mf` file.
 2. Check the material, nozzle diameter, bed type, duration and mass.
 3. Click **Print** to open **Send to print**.
