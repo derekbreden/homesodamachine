@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2485 tracked, 507 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2486 tracked, 513 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 308, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 314, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 16 of 69 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 510 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 23 of 81 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 512 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fff0edd604f232bfecbc81768da44e87 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at fdcea371417ee966383f5aaa1941a1d1 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -139,8 +139,6 @@
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ],
     "hardware/scripts/check_payloads.py": [
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-fixed-seat-coupon.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-seated-reference.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-unqualified-example.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-spring-capture-study.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/inputs/cap.step.mesh — declared by nobody",
@@ -154,6 +152,7 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-guide-head-retainer.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/arc-pair-at-aft-stop.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/assembly-clash.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-fixed-native-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-moving-native-coupon.step.mesh — declared by nobody",
@@ -162,12 +161,11 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-inputs/carrier-left.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-inputs/carrier-right.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/fixed-sleeve-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/frozen-front-top/current-front-top.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/moving-closed-bore-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 212/231 carry the colour of what they are made of",
-      "  19 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step",
@@ -183,7 +181,12 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-guide-head-retainer.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/arc-pair-at-aft-stop.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/assembly-clash.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-fixed-native-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-moving-native-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-closed-cup-fixed-native-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-closed-cup-moving-native-coupon.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/fixed-sleeve-coupon.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/moving-closed-bore-coupon.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step",
