@@ -629,16 +629,17 @@ def build_flavor_tube(x_sign, bottom_z=None):
     return tube.union(tail)
 
 
-# Lever pivot — axis parallel to world X at (Y = lever_pivot_y, Z = lever_pivot_z).
-# The lever swings between rest (0°) and pressed (+lever_press_angle_deg)
-# around this axis, sweeping the clearance volume the shell must avoid.
+# Nominal clearance-animation axis, parallel to world X. This is not a measured
+# pin hinge: the donor lever seats down and forward around the valve cylinder,
+# and the installed soda tube blocks its aft disengagement. The assembled
+# contact motion is not yet measured; see faucet-shell/ASSEMBLY.md.
 lever_pivot_y = +1.5
 lever_pivot_z = plateau_z + 7.0
 lever_press_angle_deg = 18.0
 
 
 def build_lever_at(angle_deg=0.0):
-    """Dimensioned donor-lever stand-in at a position in its measured travel.
+    """Dimensioned donor-lever stand-in at a nominal clearance pose.
 
     Geometry:
       - The lever's body is a 13 (X) × 15 (Y) × 12 (Z) box,
