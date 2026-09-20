@@ -1004,3 +1004,27 @@ what should be smooth surfaces) are showing through in the final print."
 Derek reported: "Came out great" and loaded black filament for the Industrial
 print. Mark2 telemetry at 2026-09-19 02:13:16 UTC shows this white Sculpted job
 FINISH at 1,019/1,019 layers, with no print error or HMS entries.
+
+## Black Sculpted faucet — 2026-09-19, Mark2
+
+- Complete shell base, shell tip, display cover and above-counter plate in
+  black Polymaker PET-GF, loaded by Derek.
+- Current production STL and project hashes match the successful white
+  Sculpted print. The identical sliced archive was sent as
+  `sculpted-black-z018-mark2.gcode.3mf`.
+- Left 0.4 mm nozzle, external PET-CF mapping; right nozzle unused.
+  0.24 mm layers, 0.20 mm first layer, +0.18 mm Z trim
+  (`G29.1 Z0.16` with the textured-plate compensation).
+- CAD X rotations: base −15°, tip −105°, cover −50° bezel-up, plate 0°.
+  Saved cooling, temperatures, walls, infill and supports are unchanged.
+- Bambu Connect estimate: 4 h 31 min, 126.31 g. Sent once with bed leveling
+  On, timelapse Off, flow dynamic calibration Auto and nozzle-offset
+  calibration Auto.
+- Telemetry at 2026-09-20 02:05:42 UTC confirms the exact job RUNNING,
+  0/1,019 layers, 270 minutes remaining, no print error and no HMS entries.
+  Bambu Connect shows Homing toolhead.
+- Archive SHA-256:
+  `bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0`.
+  Submission and startup readings are recorded in
+  [`faucet-petgf.readiness.json`](../faucet-petgf.readiness.json) and
+  `.cache/prints/2026-09-19-sculpted-black-z018-mark2/readiness.json`.
