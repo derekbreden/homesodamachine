@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2475 tracked, 502 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2485 tracked, 507 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 305, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 308, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 13 of 49 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 505 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 16 of 69 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 510 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -139,12 +139,6 @@
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ],
     "hardware/scripts/check_payloads.py": [
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
-      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/integral-coupon-right.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-closed-moving-seat-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-fixed-seat-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-seated-reference.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/axial-guide-seat-plug-unqualified-example.step.mesh — declared by nobody",
@@ -161,13 +155,19 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/assembly-clash.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-fixed-native-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-moving-native-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-closed-cup-fixed-native-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-closed-cup-moving-native-coupon.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-inputs/carrier-left.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-inputs/carrier-right.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/fixed-sleeve-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/moving-closed-bore-coupon.step.mesh — declared by nobody",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 210/226 carry the colour of what they are made of",
-      "  16 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 212/231 carry the colour of what they are made of",
+      "  19 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step",
       "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step",
@@ -183,6 +183,9 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-guide-head-retainer.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/assembly-clash.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/fixed-sleeve-coupon.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/moving-closed-bore-coupon.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
