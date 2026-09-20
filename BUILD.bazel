@@ -6770,6 +6770,98 @@ cp hardware/printed-parts/faucet/industrial/industrial-shell-base.stl $$O11
 )
 
 genrule(
+    name = "check-replica",
+    srcs = [
+        "pysrc/hardware/printed-parts/faucet/lever-replica/check_replica.py",
+        "hardware/printed-parts/faucet/lever-replica/evidence/lever-points.npz",
+        "hardware/printed-parts/faucet/lever-replica/evidence/selected-patches.npz",
+        "hardware/printed-parts/faucet/lever-replica/evidence/touch-flo-inspection-frame.json",
+        "hardware/printed-parts/faucet/lever-replica/evidence/touch-flo-points.npz",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+    ],
+    outs = [
+        "out/check-replica/hardware/printed-parts/faucet/lever-replica/contact-datums.json",
+        "out/check-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-preview.png",
+        "out/check-replica/hardware/printed-parts/faucet/lever-replica/scan-comparison.png",
+        "out/check-replica/hardware/printed-parts/faucet/lever-replica/scan-fit.json",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/check-replica/hardware/printed-parts/faucet/lever-replica/contact-datums.json)
+O1=$$PWD/$(location out/check-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-preview.png)
+O2=$$PWD/$(location out/check-replica/hardware/printed-parts/faucet/lever-replica/scan-comparison.png)
+O3=$$PWD/$(location out/check-replica/hardware/printed-parts/faucet/lever-replica/scan-fit.json)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/check_replica.py > /dev/null
+cp hardware/printed-parts/faucet/lever-replica/contact-datums.json $$O0
+cp hardware/printed-parts/faucet/lever-replica/lever-replica-preview.png $$O1
+cp hardware/printed-parts/faucet/lever-replica/scan-comparison.png $$O2
+cp hardware/printed-parts/faucet/lever-replica/scan-fit.json $$O3
+""",
+)
+
+genrule(
+    name = "lever-replica",
+    srcs = [
+        "pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+    ],
+    outs = [
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json)
+O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
+O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
+O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
+O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
+cp hardware/printed-parts/faucet/lever-replica/geometry-check.json $$O0
+cp hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl $$O1
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.step $$O2
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh $$O3
+cp hardware/printed-parts/faucet/lever-replica/lever-replica.stl $$O4
+""",
+)
+
+genrule(
     name = "tpu-o-ring",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -11596,6 +11688,22 @@ genrule(
     name = "pysrc-e53f266a744e",
     srcs = ["hardware/printed-parts/faucet/industrial/industrial_faucet.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/industrial/industrial_faucet.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-912a6d27a555",
+    srcs = ["hardware/printed-parts/faucet/lever-replica/check_replica.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/lever-replica/check_replica.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-c94c152b3326",
+    srcs = ["hardware/printed-parts/faucet/lever-replica/lever_replica.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -23976,6 +24084,8 @@ filegroup(
         ":above-counter-plate",
         ":faucet-display-cover",
         ":industrial-faucet",
+        ":check-replica",
+        ":lever-replica",
         ":tpu-o-ring",
         ":tube-collar",
         ":cover-retention-trial",

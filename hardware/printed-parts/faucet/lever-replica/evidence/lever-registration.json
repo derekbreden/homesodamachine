@@ -1,0 +1,170 @@
+{
+  "unit": "mm",
+  "voxel_mm": 0.1,
+  "merged_points": 369385,
+  "inputs": [
+    {
+      "pass": "pass-01",
+      "cloud": "passes/pass-01-trimmed-cloud.ply",
+      "points": 164544,
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/3d873a96-8aaf-4051-90af-f055e516443b/20260919210615.revox",
+      "source_to_assembly": [
+        [
+          0.941150612278917,
+          0.11429544668500062,
+          0.31807558201489355,
+          -78.43161579958601
+        ],
+        [
+          -0.09109702709831688,
+          -0.820478750226443,
+          0.5643721751474922,
+          -93.04362502501816
+        ],
+        [
+          0.32547942586419,
+          -0.5601349581073649,
+          -0.761782102733575,
+          302.28660939666855
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "pass": "pass-02",
+      "cloud": "passes/pass-02-trimmed-cloud.ply",
+      "points": 188472,
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/e057d9fe-eae9-4fbe-bf62-af43e2204393/20260919211439.revox",
+      "source_to_assembly": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "pass": "pass-06",
+      "cloud": "passes/pass-06-cleaned-cloud.ply",
+      "points": 105153,
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/a9822229-e5ee-4dea-8215-0bf3fbc18899/20260919222019.revox",
+      "source_to_assembly": [
+        [
+          0.970187016823546,
+          0.24013966413489965,
+          -0.03271229273870916,
+          -9.010522117253947
+        ],
+        [
+          0.20413580134999168,
+          -0.8824574180765699,
+          -0.4237894287129358,
+          62.81515739459521
+        ],
+        [
+          -0.13063585646461368,
+          0.40447725151214425,
+          -0.9051698326916062,
+          341.64832378971306
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "pass": "pass-07",
+      "cloud": "passes/pass-07-cleaned-cloud.ply",
+      "points": 130857,
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/657e986e-6826-4bb7-b302-e3cbfb108839/20260919223152.revox",
+      "source_to_assembly": [
+        [
+          -0.9510011838908036,
+          -0.25366745066469293,
+          0.1767754867384148,
+          20.66856318519514
+        ],
+        [
+          -0.2956802662604508,
+          0.5790051309653788,
+          -0.7598198723776111,
+          148.46778312937747
+        ],
+        [
+          0.090387656139964,
+          -0.774858621161991,
+          -0.6256390243810628,
+          277.6501144256549
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "pass": "pass-09",
+      "cloud": "passes/pass-09-cleaned-cloud.ply",
+      "points": 138480,
+      "source_project": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/92a5c44e-d8d8-4c1e-8314-bf1f9ad72cca/20260919225004.revox",
+      "source_to_assembly": [
+        [
+          -0.2614055095098026,
+          0.5726473164363379,
+          0.7770085009677946,
+          -102.96265946672222
+        ],
+        [
+          -0.960122492892487,
+          -0.07156905539177587,
+          -0.2702640726257764,
+          77.41591383302793
+        ],
+        [
+          -0.09915623147266434,
+          -0.8166718565547784,
+          0.5685201143948525,
+          65.95577357183076
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "automatic_hole_filling": false,
+  "surface_completion": "Measured points only; unseen surfaces remain absent.",
+  "validation": "See interior-repeat-check.json for repeated inner-patch observations."
+}

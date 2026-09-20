@@ -1,0 +1,39 @@
+{
+  "comparison": "pass-07 exposure 1 against pass-06 exposure 2",
+  "registration": "alignment-pass07-to-pass06.json",
+  "patches": [
+    {
+      "patch": 1,
+      "original_points": 910,
+      "points_matched_within_0_25mm_and_normals_agree": 902,
+      "coverage_fraction": 0.9912087912087912,
+      "nearest_distance_quantiles_all_mm": [
+        0.059571009855760255,
+        0.08800646961340344,
+        0.09735941879314793
+      ],
+      "plane_residual_quantiles_matched_mm": [
+        0.03512451827023594,
+        0.06940804881920339,
+        0.07654060056647702
+      ]
+    },
+    {
+      "patch": 2,
+      "original_points": 792,
+      "points_matched_within_0_25mm_and_normals_agree": 785,
+      "coverage_fraction": 0.9911616161616161,
+      "nearest_distance_quantiles_all_mm": [
+        0.055897943000792844,
+        0.0803771516827499,
+        0.09399110039948137
+      ],
+      "plane_residual_quantiles_matched_mm": [
+        0.02666904960384471,
+        0.056005436148797307,
+        0.07395770239230424
+      ]
+    }
+  ],
+  "interpretation": "Repeatability of two coated scans; residuals do not establish absolute measurement accuracy."
+}

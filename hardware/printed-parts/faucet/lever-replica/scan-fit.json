@@ -1,0 +1,33 @@
+{
+  "stl_sha256": "158350c280f588c47e8881b0cfe33fc42da7503eca1b991ef654757cf2bf1239",
+  "selected_patch_to_CAD_mm": {
+    "count": 1702,
+    "median": 0.07948569401078426,
+    "p95": 0.22429449290634312,
+    "max": 0.7873196601867676
+  },
+  "selected_normal_agreement_fraction_dot_above_0_7": 0.9800235017626322,
+  "whole_observed_cloud_sample_to_CAD_mm": {
+    "count": 24000,
+    "median": 0.0854096920167958,
+    "p95": 0.36228365588401146,
+    "max": 1.5013106002019865
+  },
+  "watertight": true,
+  "winding_consistent": true,
+  "mesh_volume_mm3": 3261.073824565768,
+  "mesh_bounds_mm": [
+    [
+      -6.400000095367432,
+      -0.1777585744857788,
+      -10.234932899475098
+    ],
+    [
+      6.400000095367432,
+      52.85694885253906,
+      4.429999828338623
+    ]
+  ],
+  "physical_fit_or_strength_validation": false,
+  "meaning": "one-sided distance from observed points to CAD; does not validate inferred or unobserved surfaces"
+}

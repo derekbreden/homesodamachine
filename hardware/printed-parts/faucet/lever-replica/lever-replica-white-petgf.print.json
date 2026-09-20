@@ -1,0 +1,148 @@
+{
+  "project": "lever-replica-white-petgf.3mf",
+  "settings_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "settings_source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+  "settings_sha256": "5e02529df6f3913f4dd9d3a610d27871f78ea51d0de6a3d98a73bd153d44bd40",
+  "source_settings_sha256": "5e02529df6f3913f4dd9d3a610d27871f78ea51d0de6a3d98a73bd153d44bd40",
+  "settings_changes": {
+    "layer_height": {
+      "from": "0.24",
+      "to": "0.16"
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "4"
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "100%"
+    },
+    "sparse_infill_pattern": {
+      "from": "grid",
+      "to": "zig-zag"
+    },
+    "print_settings_id": {
+      "from": "0.24mm PET-GF faucet",
+      "to": "0.16mm PET-GF comparison lever, four walls, solid"
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#FFFFFF"
+      ]
+    },
+    "enable_prime_tower": {
+      "from": "1",
+      "to": "0"
+    },
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "outer_only"
+    },
+    "brim_width": {
+      "from": "5",
+      "to": "5"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.16mm PET-GF comparison lever, four walls, solid",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.16,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 4,
+  "sparse_infill_percent": 100.0,
+  "sparse_infill_pattern": "zig-zag",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "lever-replica",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "stl_sha256": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
+      "triangles": 5218,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        -2.9024665355682373,
+        26.339595139026642,
+        6.400000095367431
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        175.0,
+        160.0,
+        6.400000095367432
+      ],
+      "plate_translation_mm": [
+        175.0,
+        160.0,
+        6.400000095367432
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          167.66753363609314,
+          133.48264628648758,
+          0.0
+        ],
+        [
+          182.33246636390686,
+          186.51735371351242,
+          12.800000190734863
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.995106550609307e-10
+    }
+  ],
+  "project_sha256": "be551fc620f05b081ce3c95aceefde08d486939ff856552959f00f6bd8ad834e",
+  "settings_preserved_byte_for_byte": false,
+  "status": "prepared comparison prototype; no printer submission",
+  "fit_and_strength_validated": false,
+  "pose": "local CAD +X side on bed; broad show face vertical"
+}

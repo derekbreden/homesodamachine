@@ -36,6 +36,9 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 BUILD_INERT_BASENAMES = frozenset({
     "print-profile.json",
     "faucet-petgf.print.json",
+    "lever-replica-white-petgf.print.json",
+    "lever-replica-white-petgf.readiness.json",
+    "lever-replica-white-petgf.support-audit.json",
     "corner-trial-profile.json",
     "layer-review.json",
     "toolpath-review.json",
@@ -93,6 +96,10 @@ IMPLICIT_SOLIDS = {
     ),
     "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": (
         "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl",
+    ),
+    "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
+        "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+        "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
     ),
     "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": (
         "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl",

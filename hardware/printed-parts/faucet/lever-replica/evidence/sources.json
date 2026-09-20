@@ -1,0 +1,30 @@
+{
+  "capture_date": "2026-09-19",
+  "scanner": "Revopoint MINI 2",
+  "fusion_spacing_mm": 0.1,
+  "absolute_accuracy_calibrated": false,
+  "coating_thickness_measured": false,
+  "files": {
+    "lever-points.npz": {
+      "source": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-19-faucet-lever/faucet-lever-interior-cloud.ply",
+      "source_sha256": "379b01cde0f4e843c1506f09ca75b4c521a5634bb982b3c3087f28a318cbbe8e",
+      "count": 369385,
+      "frame": "lever local CAD",
+      "source_kind": "observed fused points; no hole filling"
+    },
+    "selected-patches.npz": {
+      "source": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-19-faucet-lever/lever-interior-patches.ply",
+      "source_sha256": "09b8ddf70a1ae41a9e3af8dedd89dfc12087f864a5357756df4083d29cf6a44e",
+      "count": 1702,
+      "frame": "lever local CAD",
+      "source_kind": "observed fused points; no hole filling"
+    },
+    "touch-flo-points.npz": {
+      "source": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-19-touch-flo-interface/touch-flo-contact-cloud.ply",
+      "source_sha256": "db2044f5e4f54bc28320e2539a352e5bbfd1dfaa65879f76e2a6e113b07058e3",
+      "count": 202391,
+      "frame": "Touch-Flo scan pass01",
+      "source_kind": "observed fused points; no hole filling"
+    }
+  }
+}
