@@ -1,433 +1,433 @@
 {
- "schema": 1,
- "jobs": [
-  {
-   "job_id": "2026-09-20-lever-black-z018-h2c",
-   "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
-   "archive_sha256": "edfb566cdd39799b03e7e4063640e2dd8c84c5ac1af2ce2beddf6f490ebe3ff5",
-   "gcode_sha256": "1e4e0eeb8bd8e4ee54cbe3c4a9184960e8909a41a587024bfb52a4d4276ab3bf",
-   "source_project": "lever-replica-petgf.3mf",
-   "source_project_sha256": "05efbbd1a0932d80f90071fde574e269d5636c29523910a0652ccc52cf298cb0",
-   "source_stl": "lever-replica-side-down.stl",
-   "source_stl_sha256": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
-   "source_profile": "hardware/printed-parts/petgf.3mf",
-   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-   "printer": "H2C",
-   "physical_filament": "black PET-GF",
-   "physical_nozzle": "0.4 mm diamond PCD",
-   "physical_setup_authority": "Derek explicitly confirmed the material and nozzle before submission.",
-   "requested_z_trim_mm": 0.18,
-   "gcode_plate_trim_mm": 0.16,
-   "process": {
-    "layer_height": "0.24",
-    "initial_layer_print_height": "0.2",
-    "wall_loops": "2",
-    "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "grid",
-    "filament_flow_ratio": [
-     "0.9555",
-     "1",
-     "1"
-    ],
-    "nozzle_diameter": [
-     "0.4",
-     "0.4"
-    ],
-    "filament_colour": [
-     "#000000"
-    ]
-   },
-   "submission": {
-    "application": "Bambu Connect",
-    "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
-    "timelapse": "Off",
-    "auto_bed_leveling": "On",
-    "flow_dynamic_calibration": "Auto",
-    "nozzle_offset_calibration": "Auto"
-   },
-   "acceptance": {
-    "printer": "H2C",
-    "observed_at": "2026-09-20T06:11:20.696756+00:00",
-    "gcode_state": "RUNNING",
-    "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
-    "mc_percent": 0,
-    "layer_num": 0,
-    "total_layer_num": 54,
-    "mc_remaining_time": 17,
-    "print_error": 0,
-    "hms": []
-   },
-   "print_completion": {
-    "gcode_state": "FINISH",
-    "mc_percent": 100,
-    "layer_num": 54,
-    "observed_at": "2026-09-20T16:49:38+00:00"
-   },
-   "physical_fit": {
-    "result": "does not fit",
-    "measured_by": "Derek, calipers",
-    "side_strut_wall_mm": 2.15,
-    "channel_between_struts_mm": 8.4,
-    "donor_side_strut_wall_mm": 1.7,
-    "donor_channel_mm": 8.8,
-    "metal_cylinder_span_mm": 8.5,
-    "note": "The channel is narrower than the transverse metal cylinder it must clear."
-   },
-   "physical_strength": null,
-   "estimate": {
-    "seconds": 1068.8270263671875,
-    "grams": 4.443390846252441
-   }
-  },
-  {
-   "job_id": "2026-09-20-lever-channel-fix-z018-h2c",
-   "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
-   "archive_sha256": "6d1e633a5f7c8d4f8f79da3bbff8c063d84514794889f0a8b7a0a8c6a4c9f679",
-   "submitted_as": "lever-channel-fix-z018-h2c.gcode.3mf",
-   "source_project": "lever-replica-petgf.3mf",
-   "source_project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
-   "source_stl": "lever-replica-side-down.stl",
-   "source_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-   "source_profile": "hardware/printed-parts/petgf.3mf",
-   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-   "printer": "H2C",
-   "physical_filament": "black PET-GF",
-   "physical_nozzle": "0.4 mm diamond PCD",
-   "physical_setup_authority": "Same spool and nozzle as the preceding job; unchanged on the machine.",
-   "requested_z_trim_mm": 0.18,
-   "gcode_plate_trim_mm": 0.16,
-   "change_from_previous_job": {
-    "channel_between_struts_mm": [
-     8.6,
-     9.0
-    ],
-    "side_strut_wall_mm": [
-     2.1,
-     1.7
-    ],
-    "outside_width_mm": [
-     12.8,
-     12.4
-    ],
-    "reason": "Derek's donor calipers: 1.70 mm struts and an ~8.8 mm channel for the ~8.5 mm cylinder. The channel carries a 0.20 mm allowance for the narrowing this printer showed on the first job."
-   },
-   "process": {
-    "layer_height": "0.24",
-    "initial_layer_print_height": "0.2",
-    "wall_loops": "2",
-    "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "grid",
-    "filament_flow_ratio": [
-     "0.9555",
-     "1",
-     "1"
-    ],
-    "nozzle_diameter": [
-     "0.4",
-     "0.4"
-    ],
-    "filament_colour": [
-     "#000000"
-    ]
-   },
-   "submission": {
-    "application": "Bambu Connect",
-    "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
-    "timelapse": "On",
-    "auto_bed_leveling": "On",
-    "flow_dynamic_calibration": "Auto",
-    "nozzle_offset_calibration": "Auto"
-   },
-   "acceptance": {
-    "printer": "H2C",
-    "observed_at": "2026-09-20T16:56:43+00:00",
-    "gcode_state": "RUNNING",
-    "subtask_name": "lever-channel-fix-z018-h2c.gcode.3mf",
-    "total_layer_num": 52,
-    "mc_remaining_time": 16,
-    "print_error": 0,
-    "hms": []
-   },
-   "print_completion": {
-    "gcode_state": "FINISH",
-    "mc_percent": 100,
-    "layer_num": 52,
-    "observed_at": "2026-09-20T17:21:00+00:00",
-    "note": "Paused and resumed once at layer 4 by an agent misclick; the pause is in the part."
-   },
-   "physical_fit": {
-    "result": "cylinder seats",
-    "measured_by": "Derek",
-    "note": "Fit good. Width and wall thickness are not comparable on this part."
-   },
-   "physical_strength": null,
-   "estimate": {
-    "seconds": 998.3109741210938,
-    "grams_reported_by_bambu_connect": 4.04
-   },
-   "superseded_by": {
-    "reason": "Built from a parallel-sided simplification taken at inconsistent heights. The donor's sides and channel are both drafted; the scan reads the outside at 12.77 mm at Z=0 and 12.60 mm at the cylinder's seat, and the channel at 8.86 mm and 8.69 mm. This job's 12.40 mm outside is 0.4 mm narrow and its 1.70 mm walls are 0.25 mm thin.",
-    "authority": "Derek: the coating is far thinner than 0.1 mm, the donor is ~12.8 mm wide, and the 1.70 mm caliper reading was confounded by the draft angle."
-   }
-  },
-  {
-   "job_id": "2026-09-20-lever-drafted-z018-h2c",
-   "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
-   "archive_sha256": "f3a7d599ae5868836e6f44c2f425b6f08aa24ed4c82d2cb2d1e7c0074bc7b1d5",
-   "source_project": "lever-replica-petgf.3mf",
-   "source_project_sha256": "82f8deda058aa23a0d5bdef6d4933d10cb2a0de5867af5100bf7463f694e927c",
-   "source_stl": "lever-replica-side-down.stl",
-   "source_stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
-   "source_profile": "hardware/printed-parts/petgf.3mf",
-   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-   "printer": "H2C",
-   "physical_filament": "black PET-GF",
-   "physical_nozzle": "0.4 mm diamond PCD",
-   "physical_setup_authority": "Same spool and nozzle as the two preceding jobs; unchanged on the machine.",
-   "requested_z_trim_mm": 0.18,
-   "gcode_plate_trim_mm": 0.16,
-   "geometry": {
-    "read_from": "evidence/lever-points.npz, pooled left and right side surfaces",
-    "outside_width_mm": {
-     "z=0": 12.765,
-     "z=-3.25": 12.64,
-     "z=-5.55": 12.551
+  "schema": 1,
+  "jobs": [
+    {
+      "job_id": "2026-09-20-lever-black-z018-h2c",
+      "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
+      "archive_sha256": "edfb566cdd39799b03e7e4063640e2dd8c84c5ac1af2ce2beddf6f490ebe3ff5",
+      "gcode_sha256": "1e4e0eeb8bd8e4ee54cbe3c4a9184960e8909a41a587024bfb52a4d4276ab3bf",
+      "source_project": "lever-replica-petgf.3mf",
+      "source_project_sha256": "05efbbd1a0932d80f90071fde574e269d5636c29523910a0652ccc52cf298cb0",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "H2C",
+      "physical_filament": "black PET-GF",
+      "physical_nozzle": "0.4 mm diamond PCD",
+      "physical_setup_authority": "Derek explicitly confirmed the material and nozzle before submission.",
+      "requested_z_trim_mm": 0.18,
+      "gcode_plate_trim_mm": 0.16,
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "Off",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "acceptance": {
+        "printer": "H2C",
+        "observed_at": "2026-09-20T06:11:20.696756+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 54,
+        "mc_remaining_time": 17,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 54,
+        "observed_at": "2026-09-20T16:49:38+00:00"
+      },
+      "physical_fit": {
+        "result": "does not fit",
+        "measured_by": "Derek, calipers",
+        "side_strut_wall_mm": 2.15,
+        "channel_between_struts_mm": 8.4,
+        "donor_side_strut_wall_mm": 1.7,
+        "donor_channel_mm": 8.8,
+        "metal_cylinder_span_mm": 8.5,
+        "note": "The channel is narrower than the transverse metal cylinder it must clear."
+      },
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 1068.8270263671875,
+        "grams": 4.443390846252441
+      }
     },
-    "channel_width_mm": {
-     "z=0": 8.859,
-     "z=-3.25": 8.686,
-     "z=-5.55": 8.563
+    {
+      "job_id": "2026-09-20-lever-channel-fix-z018-h2c",
+      "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
+      "archive_sha256": "6d1e633a5f7c8d4f8f79da3bbff8c063d84514794889f0a8b7a0a8c6a4c9f679",
+      "submitted_as": "lever-channel-fix-z018-h2c.gcode.3mf",
+      "source_project": "lever-replica-petgf.3mf",
+      "source_project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "H2C",
+      "physical_filament": "black PET-GF",
+      "physical_nozzle": "0.4 mm diamond PCD",
+      "physical_setup_authority": "Same spool and nozzle as the preceding job; unchanged on the machine.",
+      "requested_z_trim_mm": 0.18,
+      "gcode_plate_trim_mm": 0.16,
+      "change_from_previous_job": {
+        "channel_between_struts_mm": [
+          8.6,
+          9.0
+        ],
+        "side_strut_wall_mm": [
+          2.1,
+          1.7
+        ],
+        "outside_width_mm": [
+          12.8,
+          12.4
+        ],
+        "reason": "Derek's donor calipers: 1.70 mm struts and an ~8.8 mm channel for the ~8.5 mm cylinder. The channel carries a 0.20 mm allowance for the narrowing this printer showed on the first job."
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "acceptance": {
+        "printer": "H2C",
+        "observed_at": "2026-09-20T16:56:43+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-channel-fix-z018-h2c.gcode.3mf",
+        "total_layer_num": 52,
+        "mc_remaining_time": 16,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 52,
+        "observed_at": "2026-09-20T17:21:00+00:00",
+        "note": "Paused and resumed once at layer 4 by an agent misclick; the pause is in the part."
+      },
+      "physical_fit": {
+        "result": "cylinder seats",
+        "measured_by": "Derek",
+        "note": "Fit good. Width and wall thickness are not comparable on this part."
+      },
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 998.3109741210938,
+        "grams_reported_by_bambu_connect": 4.04
+      },
+      "superseded_by": {
+        "reason": "Built from a parallel-sided simplification taken at inconsistent heights. The donor's sides and channel are both drafted; the scan reads the outside at 12.77 mm at Z=0 and 12.60 mm at the cylinder's seat, and the channel at 8.86 mm and 8.69 mm. This job's 12.40 mm outside is 0.4 mm narrow and its 1.70 mm walls are 0.25 mm thin.",
+        "authority": "Derek: the coating is far thinner than 0.1 mm, the donor is ~12.8 mm wide, and the 1.70 mm caliper reading was confounded by the draft angle."
+      }
     },
-    "side_wall_mm": {
-     "z=0": 1.953,
-     "z=-3.25": 1.977,
-     "z=-5.55": 1.994
+    {
+      "job_id": "2026-09-20-lever-drafted-z018-h2c",
+      "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
+      "archive_sha256": "f3a7d599ae5868836e6f44c2f425b6f08aa24ed4c82d2cb2d1e7c0074bc7b1d5",
+      "source_project": "lever-replica-petgf.3mf",
+      "source_project_sha256": "82f8deda058aa23a0d5bdef6d4933d10cb2a0de5867af5100bf7463f694e927c",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "H2C",
+      "physical_filament": "black PET-GF",
+      "physical_nozzle": "0.4 mm diamond PCD",
+      "physical_setup_authority": "Same spool and nozzle as the two preceding jobs; unchanged on the machine.",
+      "requested_z_trim_mm": 0.18,
+      "gcode_plate_trim_mm": 0.16,
+      "geometry": {
+        "read_from": "evidence/lever-points.npz, pooled left and right side surfaces",
+        "outside_width_mm": {
+          "z=0": 12.765,
+          "z=-3.25": 12.64,
+          "z=-5.55": 12.551
+        },
+        "channel_width_mm": {
+          "z=0": 8.859,
+          "z=-3.25": 8.686,
+          "z=-5.55": 8.563
+        },
+        "side_wall_mm": {
+          "z=0": 1.953,
+          "z=-3.25": 1.977,
+          "z=-5.55": 1.994
+        },
+        "channel_reaches_cylinder_span_at_y_mm": {
+          "built": 42.5,
+          "scan": 42.3
+        },
+        "note": "Both side faces and both channel walls are drafted. The two preceding jobs were built parallel-sided from widths read at different heights."
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "acceptance": {
+        "printer": "H2C",
+        "observed_at": "2026-09-20T17:35:37+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
+        "total_layer_num": 54,
+        "mc_remaining_time": 17,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 54,
+        "observed_at": "2026-09-20T18:05:00+00:00"
+      },
+      "physical_fit": null,
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 1093.4107666015625,
+        "grams_reported_by_bambu_connect": 4.44
+      }
     },
-    "channel_reaches_cylinder_span_at_y_mm": {
-     "built": 42.5,
-     "scan": 42.3
+    {
+      "job_id": "2026-09-20-lever-white-z004-mark2",
+      "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "5512217edbdea44b3b9e01c05579105be1f60625f2a412b9d11e930c60fa5a39",
+      "source_project": "lever-replica-petgf-white.3mf",
+      "source_project_sha256": "339c1e12dae53e215b901047de0e778affef23b9a9e263cbef76a6eecb8fb2fa",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "physical_filament": "white PET-GF",
+      "physical_nozzle": "0.4 mm",
+      "physical_setup_authority": "Derek loaded Mark2 with white PET-GF; relayed by the Scanner 7 session. No tray colour is readable over MQTT or in the application, so the spool is his word, not a reading.",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "same_geometry_as": "2026-09-20-lever-drafted-z018-h2c",
+      "geometry": {
+        "read_from": "evidence/lever-points.npz, pooled left and right side surfaces",
+        "outside_width_mm": {
+          "z=0": 12.765,
+          "z=-3.25": 12.64,
+          "z=-5.55": 12.551
+        },
+        "channel_width_mm": {
+          "z=0": 8.859,
+          "z=-3.25": 8.686,
+          "z=-5.55": 8.563
+        },
+        "side_wall_mm": {
+          "z=0": 1.953,
+          "z=-3.25": 1.977,
+          "z=-5.55": 1.994
+        },
+        "channel_reaches_cylinder_span_at_y_mm": {
+          "built": 42.5,
+          "scan": 42.3
+        },
+        "note": "Both side faces and both channel walls are drafted. The two preceding jobs were built parallel-sided from widths read at different heights."
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto",
+        "screen": "never taken"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-20T18:00:08+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-white-petgf-z004-mark2.gcode.3mf",
+        "total_layer_num": 54,
+        "mc_remaining_time": 18,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": {
+        "gcode_state": "FAILED",
+        "layer_num": 0,
+        "fail_reason": "50348044",
+        "detail": "Cancelled by Derek before the first layer: the same drafted geometry, printed black on H2C, measured 8.47 mm across the channel and the cylinder would not enter."
+      },
+      "physical_fit": "not printed",
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 1093.4107666015625
+      },
+      "superseded_by": "2026-09-20-lever-white-flat-z004-mark2"
     },
-    "note": "Both side faces and both channel walls are drafted. The two preceding jobs were built parallel-sided from widths read at different heights."
-   },
-   "process": {
-    "layer_height": "0.24",
-    "initial_layer_print_height": "0.2",
-    "wall_loops": "2",
-    "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "grid",
-    "filament_flow_ratio": [
-     "0.9555",
-     "1",
-     "1"
-    ],
-    "nozzle_diameter": [
-     "0.4",
-     "0.4"
-    ],
-    "filament_colour": [
-     "#000000"
-    ]
-   },
-   "submission": {
-    "application": "Bambu Connect, driven through tools/bambu-ax",
-    "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
-    "timelapse": "On",
-    "auto_bed_leveling": "On",
-    "flow_dynamic_calibration": "Auto",
-    "nozzle_offset_calibration": "Auto"
-   },
-   "acceptance": {
-    "printer": "H2C",
-    "observed_at": "2026-09-20T17:35:37+00:00",
-    "gcode_state": "RUNNING",
-    "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
-    "total_layer_num": 54,
-    "mc_remaining_time": 17,
-    "print_error": 0,
-    "hms": []
-   },
-   "print_completion": {
-    "gcode_state": "FINISH",
-    "mc_percent": 100,
-    "layer_num": 54,
-    "observed_at": "2026-09-20T18:05:00+00:00"
-   },
-   "physical_fit": null,
-   "physical_strength": null,
-   "estimate": {
-    "seconds": 1093.4107666015625,
-    "grams_reported_by_bambu_connect": 4.44
-   }
-  },
-  {
-   "job_id": "2026-09-20-lever-white-z004-mark2",
-   "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
-   "archive_sha256": "5512217edbdea44b3b9e01c05579105be1f60625f2a412b9d11e930c60fa5a39",
-   "source_project": "lever-replica-petgf-white.3mf",
-   "source_project_sha256": "339c1e12dae53e215b901047de0e778affef23b9a9e263cbef76a6eecb8fb2fa",
-   "source_stl": "lever-replica-side-down.stl",
-   "source_stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
-   "source_profile": "hardware/printed-parts/petgf.3mf",
-   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-   "printer": "Mark2",
-   "physical_filament": "white PET-GF",
-   "physical_nozzle": "0.4 mm",
-   "physical_setup_authority": "Derek loaded Mark2 with white PET-GF; relayed by the Scanner 7 session. No tray colour is readable over MQTT or in the application, so the spool is his word, not a reading.",
-   "requested_z_trim_mm": 0.04,
-   "gcode_plate_trim_mm": 0.02,
-   "same_geometry_as": "2026-09-20-lever-drafted-z018-h2c",
-   "geometry": {
-    "read_from": "evidence/lever-points.npz, pooled left and right side surfaces",
-    "outside_width_mm": {
-     "z=0": 12.765,
-     "z=-3.25": 12.64,
-     "z=-5.55": 12.551
-    },
-    "channel_width_mm": {
-     "z=0": 8.859,
-     "z=-3.25": 8.686,
-     "z=-5.55": 8.563
-    },
-    "side_wall_mm": {
-     "z=0": 1.953,
-     "z=-3.25": 1.977,
-     "z=-5.55": 1.994
-    },
-    "channel_reaches_cylinder_span_at_y_mm": {
-     "built": 42.5,
-     "scan": 42.3
-    },
-    "note": "Both side faces and both channel walls are drafted. The two preceding jobs were built parallel-sided from widths read at different heights."
-   },
-   "process": {
-    "layer_height": "0.24",
-    "initial_layer_print_height": "0.2",
-    "wall_loops": "2",
-    "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "grid",
-    "filament_flow_ratio": [
-     "0.9555",
-     "1",
-     "1"
-    ],
-    "nozzle_diameter": [
-     "0.4",
-     "0.4"
-    ],
-    "filament_colour": [
-     "#000000"
-    ]
-   },
-   "submission": {
-    "application": "Bambu Connect, driven through tools/bambu-ax",
-    "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
-    "timelapse": "On",
-    "auto_bed_leveling": "On",
-    "flow_dynamic_calibration": "Auto",
-    "nozzle_offset_calibration": "Auto",
-    "screen": "never taken"
-   },
-   "acceptance": {
-    "printer": "Mark2",
-    "observed_at": "2026-09-20T18:00:08+00:00",
-    "gcode_state": "RUNNING",
-    "subtask_name": "lever-white-petgf-z004-mark2.gcode.3mf",
-    "total_layer_num": 54,
-    "mc_remaining_time": 18,
-    "print_error": 0,
-    "hms": []
-   },
-   "print_completion": {
-    "gcode_state": "FAILED",
-    "layer_num": 0,
-    "fail_reason": "50348044",
-    "detail": "Cancelled by Derek before the first layer: the same drafted geometry, printed black on H2C, measured 8.47 mm across the channel and the cylinder would not enter."
-   },
-   "physical_fit": "not printed",
-   "physical_strength": null,
-   "estimate": {
-    "seconds": 1093.4107666015625
-   },
-   "superseded_by": "2026-09-20-lever-white-flat-z004-mark2"
-  },
-  {
-   "job_id": "2026-09-20-lever-white-flat-z004-mark2",
-   "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
-   "archive_sha256": "26a84dbacbc276a04b93620a012db1c82d47266123e8f07fe022780710238bbc",
-   "source_project": "lever-replica-petgf-white.3mf",
-   "source_project_sha256": "37de1165f06bc4badf1af066741cb016d45c7186ac9f842b0149cb2f25edb0bc",
-   "source_stl": "lever-replica-side-down.stl",
-   "source_stl_sha256": "a570fe06f9ee0bfeb7f8ab2978d0b4a24fcb94dff5044f1b3a3f52d4c2053231",
-   "source_profile": "hardware/printed-parts/petgf.3mf",
-   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-   "printer": "Mark2",
-   "printer_serial": "31B8AP612801351",
-   "physical_filament": "white PET-GF",
-   "physical_nozzle": "0.4 mm",
-   "physical_setup_authority": "Derek: both printers ready, Mark2 loaded with white PET-GF. MQTT reports the left external spool (vir_slot 254) declared PET-CF; no colour is readable.",
-   "requested_z_trim_mm": 0.04,
-   "gcode_plate_trim_mm": 0.02,
-   "geometry": {
-    "printed_channel_mm": 9.0,
-    "printed_channel_note": "Parallel, the channel-fix geometry that took the cylinder at a printed 8.8 mm; the drafted channel came off at 8.47 mm. Outside and walls keep the donor's draft.",
-    "outside_width_mm": {
-     "z=0": 12.765,
-     "z=-3.25": 12.64,
-     "z=-5.55": 12.551
-    },
-    "side_wall_mm": {
-     "z=0": 1.953,
-     "z=-3.25": 1.977,
-     "z=-5.55": 1.994
-    },
-    "read_from": "geometry-check.json at source_stl_sha256"
-   },
-   "process": {
-    "layer_height": "0.24",
-    "initial_layer_print_height": "0.2",
-    "wall_loops": "2",
-    "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "grid",
-    "filament_flow_ratio": [
-     "0.9555",
-     "1",
-     "1"
-    ],
-    "nozzle_diameter": [
-     "0.4",
-     "0.4"
-    ],
-    "filament_colour": [
-     "#000000"
-    ]
-   },
-   "submission": {
-    "application": "Bambu Connect, driven through tools/bambu-ax",
-    "printer_selection": "the dialog offered Mark2 because its device page was the one last viewed",
-    "filament_mapping": "left nozzle, external PET-CF (vir_slot 254) for PET-GF, resolved by the dialog itself",
-    "timelapse": "On",
-    "auto_bed_leveling": "On",
-    "flow_dynamic_calibration": "Auto",
-    "nozzle_offset_calibration": "Auto",
-    "screen": "borrowed twice, about 1 s and about 4 s, for selector clicks the device-page rule made unnecessary"
-   },
-   "acceptance": {
-    "printer": "Mark2",
-    "observed_at": "2026-09-20T18:49:49.134636+00:00",
-    "gcode_state": "RUNNING",
-    "subtask_name": "lever-white-petgf-z004-mark2.gcode.3mf",
-    "total_layer_num": 54,
-    "mc_remaining_time": 18,
-    "print_error": 0,
-    "hms": []
-   },
-   "print_completion": null,
-   "physical_fit": null,
-   "physical_strength": null,
-   "estimate": {
-    "seconds": 1082,
-    "grams": 4.3
-   }
-  }
- ]
+    {
+      "job_id": "2026-09-20-lever-white-flat-z004-mark2",
+      "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "26a84dbacbc276a04b93620a012db1c82d47266123e8f07fe022780710238bbc",
+      "source_project": "lever-replica-petgf-white.3mf",
+      "source_project_sha256": "37de1165f06bc4badf1af066741cb016d45c7186ac9f842b0149cb2f25edb0bc",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "a570fe06f9ee0bfeb7f8ab2978d0b4a24fcb94dff5044f1b3a3f52d4c2053231",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "printer_serial": "31B8AP612801351",
+      "physical_filament": "white PET-GF",
+      "physical_nozzle": "0.4 mm",
+      "physical_setup_authority": "Derek: both printers ready, Mark2 loaded with white PET-GF. MQTT reports the left external spool (vir_slot 254) declared PET-CF; no colour is readable.",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "geometry": {
+        "printed_channel_mm": 9.0,
+        "printed_channel_note": "Parallel, the channel-fix geometry that took the cylinder at a printed 8.8 mm; the drafted channel came off at 8.47 mm. Outside and walls keep the donor's draft.",
+        "outside_width_mm": {
+          "z=0": 12.765,
+          "z=-3.25": 12.64,
+          "z=-5.55": 12.551
+        },
+        "side_wall_mm": {
+          "z=0": 1.953,
+          "z=-3.25": 1.977,
+          "z=-5.55": 1.994
+        },
+        "read_from": "geometry-check.json at source_stl_sha256"
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "printer_selection": "the dialog offered Mark2 because its device page was the one last viewed",
+        "filament_mapping": "left nozzle, external PET-CF (vir_slot 254) for PET-GF, resolved by the dialog itself",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto",
+        "screen": "borrowed twice, about 1 s and about 4 s, for selector clicks the device-page rule made unnecessary"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-20T18:49:49.134636+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-white-petgf-z004-mark2.gcode.3mf",
+        "total_layer_num": 54,
+        "mc_remaining_time": 18,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
+      "physical_fit": null,
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 1082,
+        "grams": 4.3
+      }
+    }
+  ]
 }
