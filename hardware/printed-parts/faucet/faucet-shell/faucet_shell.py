@@ -1421,7 +1421,8 @@ def build_lever_clearance() -> cq.Workplane:
         poses.append([(pivot_y + c * (y - pivot_y) - s * (z - pivot_z),
                        pivot_z + s * (y - pivot_y) + c * (z - pivot_z))
                       for y, z in profile])
-    # The complete lever body enters from the front before its donor attachment closes.
+    # Nominal front-entry corridor. The donor's actual aft/down/forward seating
+    # motion with the soda tube absent still needs a measured assembly pose.
     regions = [Polygon(pose) for pose in poses]
     regions.append(box(lever_insertion_front_y, zone2_z_top + 1.0, -5.9, lever_rest_top_z))
     # Sweep each edge between adjacent poses in the planar profile before extruding.
