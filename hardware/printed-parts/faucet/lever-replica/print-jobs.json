@@ -148,12 +148,110 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
-      "physical_fit": null,
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 52,
+        "observed_at": "2026-09-20T17:21:00+00:00",
+        "note": "Paused and resumed once at layer 4 by an agent misclick; the pause is in the part."
+      },
+      "physical_fit": {
+        "result": "cylinder seats",
+        "measured_by": "Derek",
+        "note": "Fit good. Width and wall thickness are not comparable on this part."
+      },
       "physical_strength": null,
       "estimate": {
         "seconds": 998.3109741210938,
         "grams_reported_by_bambu_connect": 4.04
+      },
+      "superseded_by": {
+        "reason": "Built from a parallel-sided simplification taken at inconsistent heights. The donor's sides and channel are both drafted; the scan reads the outside at 12.77 mm at Z=0 and 12.60 mm at the cylinder's seat, and the channel at 8.86 mm and 8.69 mm. This job's 12.40 mm outside is 0.4 mm narrow and its 1.70 mm walls are 0.25 mm thin.",
+        "authority": "Derek: the coating is far thinner than 0.1 mm, the donor is ~12.8 mm wide, and the 1.70 mm caliper reading was confounded by the draft angle."
+      }
+    },
+    {
+      "job_id": "2026-09-20-lever-drafted-z018-h2c",
+      "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
+      "archive_sha256": "f3a7d599ae5868836e6f44c2f425b6f08aa24ed4c82d2cb2d1e7c0074bc7b1d5",
+      "source_project": "lever-replica-petgf.3mf",
+      "source_project_sha256": "82f8deda058aa23a0d5bdef6d4933d10cb2a0de5867af5100bf7463f694e927c",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "H2C",
+      "physical_filament": "black PET-GF",
+      "physical_nozzle": "0.4 mm diamond PCD",
+      "physical_setup_authority": "Same spool and nozzle as the two preceding jobs; unchanged on the machine.",
+      "requested_z_trim_mm": 0.18,
+      "gcode_plate_trim_mm": 0.16,
+      "geometry": {
+        "read_from": "evidence/lever-points.npz, pooled left and right side surfaces",
+        "outside_width_mm": {
+          "z=0": 12.765,
+          "z=-3.25": 12.64,
+          "z=-5.55": 12.551
+        },
+        "channel_width_mm": {
+          "z=0": 8.859,
+          "z=-3.25": 8.686,
+          "z=-5.55": 8.563
+        },
+        "side_wall_mm": {
+          "z=0": 1.953,
+          "z=-3.25": 1.977,
+          "z=-5.55": 1.994
+        },
+        "channel_reaches_cylinder_span_at_y_mm": {
+          "built": 42.5,
+          "scan": 42.3
+        },
+        "note": "Both side faces and both channel walls are drafted. The two preceding jobs were built parallel-sided from widths read at different heights."
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "acceptance": {
+        "printer": "H2C",
+        "observed_at": "2026-09-20T17:35:37+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
+        "total_layer_num": 54,
+        "mc_remaining_time": 17,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
+      "physical_fit": null,
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 1093.4107666015625,
+        "grams_reported_by_bambu_connect": 4.44
       }
     }
   ]

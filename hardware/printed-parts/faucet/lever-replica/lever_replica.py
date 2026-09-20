@@ -4,10 +4,13 @@ X is lateral; +Y runs from the paddle tip toward the attachment; +Z faces the
 customer-visible outer surface. The inner paddle plane is Z=0. This is a local
 part frame, not an assembled faucet pose. evidence/datums.json maps the scans.
 
-The curved rear stops follow observed points. The rear portion of each ledge's
-upper face is occluded: LEDGE_TOP is a fit-trial parameter, not a measurement.
-The channel between the side struts carries a named print allowance so the
-printed part, not the solid, matches the donor's caliper reading.
+The side faces and the channel walls are both drafted, so a width here is only
+meaningful with the height it was read at, and the channel converges into the
+rear stops over its last four millimetres. Those are what the transverse metal
+cylinder runs along.
+
+The rear portion of each ledge's upper face is occluded: LEDGE_TOP is a
+fit-trial parameter, not a measurement.
 """
 
 import json
@@ -24,17 +27,24 @@ sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_assembly
 from flute_payload import cut as export_payload
 
-# Derek's calipers on the donor, 2026-09-20: 1.70 mm side struts and an ~8.8 mm
-# channel for the ~8.5 mm transverse metal cylinder. The scanned 12.6–13.0 mm
-# envelope was measured through the scanning coating and reads wide.
-CHANNEL_NOMINAL = 8.80
-STRUT_WALL = 1.70
+# Both side faces and both channel walls are drafted. Each figure is a least
+# squares line through 0.5 mm Z bins of the scan's pooled left and right
+# surfaces over the straight run, y 6 to 37 — the channel to 0.024 mm, the
+# outside to 0.031 mm. Half-width grows with Z: the part is widest at the show
+# face and narrowest down at the ledge.
+CHANNEL_HALF_AT_Z0 = 4.4297
+CHANNEL_DRAFT = 0.02672        # mm of half-width per mm of Z; 1.53 deg per side
+OUTER_HALF_AT_Z0 = 6.3827
+OUTER_DRAFT = 0.01932          # 1.11 deg per side
+# The wall between them runs 1.95 mm at Z=0 and 1.99 mm at the ledge. That is a
+# consequence of the two drafts, not a figure imposed on them.
+
 # The 2026-09-20 black PET-GF print measured 8.4 mm across a modelled 8.60 mm
-# channel and 2.15 mm across modelled 2.10 mm walls. The channel carries that
-# difference so the printed part, not the solid, matches the donor.
+# channel. The channel carries that difference so the printed part, not the
+# solid, matches the donor. Zero it once a print measures at the donor's width.
 CHANNEL_PRINT_ALLOWANCE = 0.20
-INNER_HALF_WIDTH = (CHANNEL_NOMINAL + CHANNEL_PRINT_ALLOWANCE) / 2
-HALF_WIDTH = INNER_HALF_WIDTH + STRUT_WALL
+
+OUTSIDE_REACH = 20.0           # clears the part, for construction solids
 FLOOR_Z = 0.0
 LEDGE_TOP = -5.55
 LOWER_SLOT_HALF_WIDTH = 1.45
@@ -58,12 +68,21 @@ RAIL_BOTTOM_PROFILE = [
     (5.0, -1.88), (1.1, -0.75),
 ]
 
-# Mean of the two observed stop patches; X is the lateral magnitude.
-# Values across unobserved portions of the curve are explicit continuations.
-STOP_PROFILE = [
-    (INNER_HALF_WIDTH, 44.30), (4.20, 44.90), (4.00, 45.18), (3.80, 45.31),
-    (3.50, 45.40), (3.00, 45.48), (2.70, 45.53), (2.50, 45.60),
-    (2.30, 45.72), (2.20, 45.92),
+# The channel's straight run ends near y = 40 and converges into the stops.
+# These are the scan's own half-widths at the cylinder's seat height, given as
+# an offset from the straight wall; they replace a drawn continuation. The
+# convergence is read at one height and applied at every height — the scan
+# shows it is stronger low in the channel than high.
+CHANNEL_CONVERGENCE = [
+    (40.25, +0.000), (40.75, -0.012), (41.25, -0.042), (41.75, -0.067),
+    (42.25, -0.092), (42.75, -0.124), (43.25, -0.166), (43.75, -0.204),
+    (44.25, -0.259), (44.75, -0.312),
+]
+# The throat, from the two independently captured stop patches inward. X is the
+# lateral magnitude; these carry no draft.
+STOP_TAIL = [
+    (3.80, 45.31), (3.50, 45.40), (3.00, 45.48),
+    (2.70, 45.53), (2.50, 45.60), (2.30, 45.72), (2.20, 45.92),
 ]
 POCKET_START_Y = 1.2
 POCKET_FRONT_RADIUS = 0.5
@@ -95,6 +114,16 @@ UPPER_RELIEF = [
 ]
 
 
+def half_outer(z):
+    """Outside half-width at a height, along the drafted side face."""
+    return OUTER_HALF_AT_Z0 + OUTER_DRAFT * z
+
+
+def half_channel(z):
+    """Channel half-width at a height, along the drafted inner wall."""
+    return CHANNEL_HALF_AT_Z0 + CHANNEL_DRAFT * z + CHANNEL_PRINT_ALLOWANCE / 2
+
+
 def shape_preserving_curve(wire, points):
     """Cubic Hermite edges through measured stations, with no spline overshoot."""
     increasing = sorted(points)
@@ -108,9 +137,22 @@ def shape_preserving_curve(wire, points):
     return wire
 
 
+def side_face(sign):
+    """One drafted side face, as the solid outside it."""
+    z_low, z_high = CUT_BELOW - 2, CUT_ABOVE + 2
+    plane = cq.Plane(origin=(0, CUT_REAR + 5, 0), xDir=(1, 0, 0), normal=(0, -1, 0))
+    outside = sign * (OUTSIDE_REACH + 5)   # past the silhouette, so no coincident face
+    return (cq.Workplane(plane)
+            .polyline([(sign * half_outer(z_low), z_low),
+                       (sign * half_outer(z_high), z_high),
+                       (outside, z_high), (outside, z_low)])
+            .close()
+            .extrude(CUT_REAR + 5 - (CUT_FRONT - 5)))
+
+
 def outer_envelope():
-    """Side silhouette extruded between parallel bed-compatible side faces."""
-    plane = cq.Plane(origin=(-HALF_WIDTH, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
+    """Side silhouette, extruded wide and then cut back to the drafted sides."""
+    plane = cq.Plane(origin=(-OUTSIDE_REACH, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
     wire = cq.Workplane(plane).moveTo(0.0, 0.8).threePointArc((0.1, 2.4), SHOW_PROFILE[0])
     wire = shape_preserving_curve(wire, SHOW_PROFILE)
     wire = (wire
@@ -123,30 +165,43 @@ def outer_envelope():
     wire = (wire
             .threePointArc((0.35, -0.2), (0.0, 0.8))
             .wire())
-    return wire.extrude(2 * HALF_WIDTH)
+    body = wire.extrude(2 * OUTSIDE_REACH)
+    return body.cut(side_face(+1)).cut(side_face(-1))
+
+
+def pocket_footprint(z):
+    """Channel footprint at one height: drafted walls into the measured stops."""
+    half = half_channel(z)
+    r = POCKET_FRONT_RADIUS
+    front = POCKET_START_Y
+    wall = [(half + delta, y) for y, delta in CHANNEL_CONVERGENCE]
+    return (cq.Workplane("XY", origin=(0, 0, z))
+            .moveTo(-half + r, front).lineTo(half - r, front)
+            .radiusArc((half, front + r), -r)
+            .polyline(wall, includeCurrent=True)
+            .spline(STOP_TAIL, includeCurrent=True)
+            .lineTo(0.0, POCKET_STOP_JOIN_Y)
+            .lineTo(-STOP_TAIL[-1][0], STOP_TAIL[-1][1])
+            .spline([(-x, y) for x, y in reversed(STOP_TAIL[:-1])], includeCurrent=True)
+            .polyline([(-(half + delta), y) for y, delta in reversed(CHANNEL_CONVERGENCE)],
+                      includeCurrent=True)
+            .lineTo(-half, front + r)
+            .radiusArc((-half + r, front), -r).wire().val())
 
 
 def pocket_outline():
-    """Upper channel footprint; the observed rear-stop curves remain editable."""
-    front = POCKET_START_Y
-    r = POCKET_FRONT_RADIUS
-    half = INNER_HALF_WIDTH
-    wire = (cq.Workplane("XY", origin=(0, 0, CUT_BELOW))
-            .moveTo(-half + r, front).lineTo(half - r, front)
-            .radiusArc((half, front + r), -r)
-            .lineTo(*STOP_PROFILE[0])
-            .spline(STOP_PROFILE[1:], includeCurrent=True)
-            .lineTo(0.0, POCKET_STOP_JOIN_Y)
-            .lineTo(-STOP_PROFILE[-1][0], STOP_PROFILE[-1][1])
-            .spline([(-x, y) for x, y in reversed(STOP_PROFILE[:-1])], includeCurrent=True)
-            .lineTo(-half, front + r)
-            .radiusArc((-half + r, front), -r).wire())
-    return wire.extrude(CUT_ABOVE - CUT_BELOW)
+    """The channel, lofted between its lowest and highest footprints.
+
+    Half-width is linear in Z, so a ruled loft reproduces the drafted walls
+    exactly; the stop throat is the same curve at both ends and stays upright.
+    """
+    return cq.Workplane("XY").add(cq.Solid.makeLoft(
+        [pocket_footprint(CUT_BELOW), pocket_footprint(CUT_ABOVE)], ruled=True))
 
 
 def pocket_height():
     """The ledge lip is observed; its unseen horizontal continuation is inferred."""
-    plane = cq.Plane(origin=(-HALF_WIDTH - 1, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
+    plane = cq.Plane(origin=(-OUTSIDE_REACH, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
     wire = (cq.Workplane(plane).moveTo(CUT_FRONT, FLOOR_Z)
             .lineTo(30.0, FLOOR_Z)
             .spline(POCKET_CEILING, includeCurrent=True)
@@ -155,7 +210,7 @@ def pocket_height():
             .threePointArc(LEDGE_LIP_MID, LEDGE_LIP_START)
             .lineTo(36.0, CUT_BELOW).lineTo(CUT_FRONT, CUT_BELOW)
             .lineTo(CUT_FRONT, FLOOR_Z).wire())
-    return wire.extrude(2 * (HALF_WIDTH + 1))
+    return wire.extrude(2 * OUTSIDE_REACH)
 
 
 def relief_wire(z, right):
@@ -164,7 +219,7 @@ def relief_wire(z, right):
     wire = cq.Workplane("XY", origin=(0, 0, z)).moveTo(-first[0], first[1]).lineTo(*first)
     # Each station has the same edge topology, so the ruled loft cannot twist.
     wire = wire.lineTo(*right[1]).spline(right[2:], includeCurrent=True)
-    wire = wire.lineTo(HALF_WIDTH + 3, CUT_REAR).lineTo(-HALF_WIDTH - 3, CUT_REAR)
+    wire = wire.lineTo(OUTSIDE_REACH, CUT_REAR).lineTo(-OUTSIDE_REACH, CUT_REAR)
     wire = wire.lineTo(-right[-1][0], right[-1][1])
     wire = wire.spline([(-x, y) for x, y in reversed(right[1:-1])], includeCurrent=True)
     return wire.lineTo(-first[0], first[1]).wire().val()
@@ -185,7 +240,8 @@ def build():
 
 def print_pose(body):
     """Right side on the bed; long fibres/roads can run tip to attachment."""
-    return body.rotate((0, 0, 0), (0, 1, 0), 90).translate((0, 0, HALF_WIDTH))
+    turned = body.rotate((0, 0, 0), (0, 1, 0), 90)
+    return turned.translate((0, 0, -turned.val().BoundingBox().zmin))
 
 
 def main():
@@ -202,12 +258,15 @@ def main():
               "volume_mm3": body.val().Volume(),
               "mesh_bounds_mm": printed.bounds.tolist(),
               "status": "comparison prototype; physical attachment and travel unvalidated",
-              "inferred": ["ledge upper continuation", "bilateral symmetry", "parallel outer sides",
+              "inferred": ["ledge upper continuation", "bilateral symmetry",
+                           "channel convergence read at one height, applied at all",
                            "unobserved transitions between relief sections"],
-              "donor_channel_mm": CHANNEL_NOMINAL, "donor_strut_wall_mm": STRUT_WALL,
               "channel_print_allowance_mm": CHANNEL_PRINT_ALLOWANCE,
-              "modelled_channel_mm": 2 * INNER_HALF_WIDTH,
-              "modelled_outside_width_mm": 2 * HALF_WIDTH}
+              "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z) - CHANNEL_PRINT_ALLOWANCE, 3),
+                                       "outside": round(2 * half_outer(z), 3),
+                                       "wall": round(half_outer(z) - half_channel(z)
+                                                     + CHANNEL_PRINT_ALLOWANCE / 2, 3)}
+                            for z in (0.0, -3.25, -5.55)}}
     (HERE / "geometry-check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
 
