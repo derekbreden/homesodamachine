@@ -109,19 +109,24 @@ def tile(nodes):
 
 def options(nodes):
     """Each option row is a label and a run of radio buttons; the chosen one carries an
-    AXImage "radio" as its first child."""
-    chosen = {}
+    AXImage "radio" as its first child. Two options share a row, so a button belongs
+    to the nearest label on its left."""
     by_idx = {n["idx"]: n for n in nodes}
+    labels = {}
     for name in STANDING_OPTIONS:
-        labels = find(nodes, role="AXStaticText", label=name)
-        if not labels:
+        found = find(nodes, role="AXStaticText", label=name)
+        if found and found[0]["x"] is not None:
+            labels[name] = found[0]
+    owned = {name: [] for name in labels}
+    for b in find(nodes, role="AXRadioButton"):
+        if b["x"] is None:
             continue
-        row = labels[0]
-        buttons = [
-            n for n in find(nodes, role="AXRadioButton")
-            if n["y"] is not None and abs(n["y"] - row["y"]) <= 12 and n["x"] > row["x"]
-            and n["x"] - row["x"] < 700
-        ]
+        left = [(row["x"], name) for name, row in labels.items()
+                if abs(b["y"] - row["y"]) <= 12 and row["x"] < b["x"]]
+        if left:
+            owned[max(left)[1]].append(b)
+    chosen = {}
+    for name, buttons in owned.items():
         buttons.sort(key=lambda n: n["x"])
         picked = None
         for b in buttons:
@@ -211,7 +216,12 @@ def main():
         fail(f"the filament tile reads {t['label'] if t else 'nothing'}; it must read the external spool")
     print(f"mapping: {t['label']}")
 
-    # 5. The print options, read by which button carries the radio mark.
+    # 5. The print options, read by which button carries the radio mark. The rows
+    # render a moment after the dialog's frame, so wait for every label.
+    nodes = wait_for(10, lambda n: len(options(n)) == len(STANDING_OPTIONS) and n)
+    if not nodes:
+        ax("press", "cancel", "--role", "AXButton", check=False)
+        fail("the dialog's print options did not appear")
     for name, want in wanted.items():
         current, buttons = options(nodes).get(name, (None, []))
         if current == want:
