@@ -142,18 +142,23 @@ A caliper across this part reads a different number at every height on the
 outside. Compare a width to the table above at the height it was taken, not to a
 single figure.
 
-## The channel is the one place the print departs from the donor
+## What goes to the printer has no draft on either lateral face
 
-The part prints on its side, so the channel's width is a Z dimension: its walls
-are bridged, a layer at a time, and the printer does not hold the donor's 1.53°
-draft across them. The drafted body came off at 8.47 mm where the donor reads
-8.8, and the cylinder would not enter. The channel-fix print before it, a
-parallel 9.00 mm, came off at 8.8 and took the cylinder.
+The part prints on its side: local X is the print's Z. So the two side faces are
+the bed contact and the top surface, and the channel between them is a bridged
+gap. A slope survives on none of the three.
 
-So `lever-replica-side-down.stl` carries a parallel `CHANNEL_PRINTED_WIDTH`
-channel and the STEP, the viewer payload and any assembled pose carry the
-donor's drafted one. Narrow that width only against a print measured on the
-cylinder, not against the solid.
+- On the channel, the draft closed the gap to 8.47 mm against a cylinder of
+  8.42, and it would not enter. A parallel 9.00 mm comes off at 8.8 and does.
+- On the outside, a 1.11° draft rests the part on a line rather than a face.
+  Derek, on the print it produced: it "makes it unprintable, for all practical
+  purposes".
+
+`lever-replica-side-down.stl` is therefore built flat at `PRINTED_OUTSIDE_WIDTH`
+and `CHANNEL_PRINTED_WIDTH` — the two widths of the 2026-09-20 channel-fix
+print, which printed well and works on the valve. The STEP, the viewer payload
+and any assembled pose keep the donor's drafted faces, which is what the scan
+reads. Change either printed width only against a print, not against the solid.
 
 For the first complete-part comparison, check the aft/down/forward insertion with
 the tube absent, the light retention, the tube's ability to seat, free operating

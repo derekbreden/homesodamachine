@@ -60,13 +60,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-      "stl_sha256": "a570fe06f9ee0bfeb7f8ab2978d0b4a24fcb94dff5044f1b3a3f52d4c2053231",
-      "triangles": 4588,
+      "stl_sha256": "eef333ecc8d31c04525c9367d0ad87a8af610763b8b365f01efea23bf7721eb2",
+      "triangles": 4504,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         -2.9024665355682373,
-        26.339664570987225,
-        6.4682875179565436
+        26.339595139026642,
+        6.2000003361022955
       ],
       "build_transform": [
         1.0,
@@ -80,12 +80,12 @@
         1.0,
         175.0,
         160.0,
-        6.468287417956542
+        6.200000236102294
       ],
       "plate_translation_mm": [
         175.0,
         160.0,
-        6.468287417956542
+        6.200000236102294
       ],
       "plate_origin_mm": [
         0.0,
@@ -95,21 +95,21 @@
       "plate_bounds_mm": [
         [
           167.66753363609314,
-          133.48272716253996,
+          133.48264628648758,
           0.0
         ],
         [
           182.33246636390686,
-          186.51727283746004,
-          12.936574835913085
+          186.51735371351242,
+          12.400000472204589
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.99968955125496e-10
+      "embedded_vertex_error_mm": 4.992983804186224e-10
     }
   ],
-  "project_sha256": "37de1165f06bc4badf1af066741cb016d45c7186ac9f842b0149cb2f25edb0bc",
+  "project_sha256": "1f99c33dbfd699c283b47729be54fbd3923cf3246cdb13b682e91198c36c946d",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; submissions are recorded in print-jobs.json",
   "fit_and_strength_validated": false,

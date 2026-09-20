@@ -12,9 +12,9 @@ cylinder runs along.
 The rear portion of each ledge's upper face is occluded: LEDGE_TOP is a
 fit-trial parameter, not a measurement.
 
-The printable body departs from the donor in one place: its channel is parallel
-at the width that prints to the donor's, because the printer does not hold the
-draft across a bridged Z dimension.
+The printable body has no draft on either lateral face. The part lies on its
+side to print, so those faces are the bed contact and the top surface and the
+channel is a bridged gap; a slope on any of them does not survive.
 """
 
 import json
@@ -43,13 +43,14 @@ OUTER_DRAFT = 0.01932          # 1.11 deg per side
 # The wall between them runs 1.95 mm at Z=0 and 1.99 mm at the ledge. That is a
 # consequence of the two drafts, not a figure imposed on them.
 
-# Printed, the channel is a Z dimension: the part lies on its side, so the walls
-# are bridged at 0.24 mm layers and this printer does not hold the donor's draft
-# across them. The drafted body came off at 8.47 mm where the donor reads 8.8 and
-# the cylinder would not enter. The 2026-09-20 channel-fix print was a parallel
-# 9.00 mm and came off at 8.8, which took the cylinder. The printable body is
-# built parallel at that width; the STEP, the payload and the assembly pose keep
-# the donor's drafted channel.
+# What goes to the printer has no draft on any lateral face, because the part
+# lies on its side: local X is the print's Z. The side faces become the bed
+# contact and the top surface, where a 1.1 deg slope rests the part on a line
+# instead of a face; the channel becomes a bridged gap, where the draft closed it
+# to 8.47 mm against a cylinder of 8.42. The 2026-09-20 channel-fix print was
+# flat at both of these widths, printed well, and works on the valve. The STEP,
+# the viewer payload and any assembled pose keep the donor's drafted faces.
+PRINTED_OUTSIDE_WIDTH = 12.40
 CHANNEL_PRINTED_WIDTH = 9.00
 
 OUTSIDE_REACH = 20.0           # clears the part, for construction solids
@@ -122,8 +123,10 @@ UPPER_RELIEF = [
 ]
 
 
-def half_outer(z):
-    """Outside half-width at a height, along the drafted side face."""
+def half_outer(z, printed=False):
+    """Outside half-width: the donor's drafted face, or the width that prints."""
+    if printed:
+        return PRINTED_OUTSIDE_WIDTH / 2
     return OUTER_HALF_AT_Z0 + OUTER_DRAFT * z
 
 
@@ -147,21 +150,21 @@ def shape_preserving_curve(wire, points):
     return wire
 
 
-def side_face(sign):
-    """One drafted side face, as the solid outside it."""
+def side_face(sign, printed):
+    """One side face, as the solid outside it."""
     z_low, z_high = CUT_BELOW - 2, CUT_ABOVE + 2
     plane = cq.Plane(origin=(0, CUT_REAR + 5, 0), xDir=(1, 0, 0), normal=(0, -1, 0))
     outside = sign * (OUTSIDE_REACH + 5)   # past the silhouette, so no coincident face
     return (cq.Workplane(plane)
-            .polyline([(sign * half_outer(z_low), z_low),
-                       (sign * half_outer(z_high), z_high),
+            .polyline([(sign * half_outer(z_low, printed), z_low),
+                       (sign * half_outer(z_high, printed), z_high),
                        (outside, z_high), (outside, z_low)])
             .close()
             .extrude(CUT_REAR + 5 - (CUT_FRONT - 5)))
 
 
-def outer_envelope():
-    """Side silhouette, extruded wide and then cut back to the drafted sides."""
+def outer_envelope(printed):
+    """Side silhouette, extruded wide and then cut back to the side faces."""
     plane = cq.Plane(origin=(-OUTSIDE_REACH, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
     wire = cq.Workplane(plane).moveTo(0.0, 0.8).threePointArc((0.1, 2.4), SHOW_PROFILE[0])
     wire = shape_preserving_curve(wire, SHOW_PROFILE)
@@ -176,7 +179,7 @@ def outer_envelope():
             .threePointArc((0.35, -0.2), (0.0, 0.8))
             .wire())
     body = wire.extrude(2 * OUTSIDE_REACH)
-    return body.cut(side_face(+1)).cut(side_face(-1))
+    return body.cut(side_face(+1, printed)).cut(side_face(-1, printed))
 
 
 def pocket_footprint(z, printed):
@@ -241,7 +244,7 @@ def relief(stations):
 
 
 def build(printed=False):
-    body = outer_envelope()
+    body = outer_envelope(printed)
     body = body.cut(pocket_outline(printed).intersect(pocket_height()))
     body = body.cut(relief(LOWER_RELIEF)).cut(relief(UPPER_RELIEF)).clean()
     if not body.val().isValid() or len(body.solids().vals()) != 1:
@@ -274,6 +277,7 @@ def main():
                            "channel convergence read at one height, applied at all",
                            "unobserved transitions between relief sections"],
               "printed_channel_mm": CHANNEL_PRINTED_WIDTH,
+              "printed_outside_mm": PRINTED_OUTSIDE_WIDTH,
               "printed_channel_applies_to": "lever-replica-side-down.stl only; the STEP, "
                                             "the payload and the assembly pose are the donor",
               "printable_volume_mm3": printable.val().Volume(),
