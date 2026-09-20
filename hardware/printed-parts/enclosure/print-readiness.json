@@ -1,0 +1,69 @@
+{
+  "date": "2026-09-20",
+  "ready_to_print": false,
+  "report": "hardware/printed-parts/enclosure/print-readiness.md",
+  "cancelled_job": "enclosure-front-top-petgf-z018-h2c.gcode.3mf",
+  "cancelled_job_source_sha256": "0d15e6177dc405b0631415cc331a4e43acbf1a4cf627012e38a766964a3cb216",
+  "replacement_started": false,
+  "plate_clearance_confirmed": false,
+  "parts": [
+    {
+      "part": "enclosure-front-top",
+      "current_stl_sha256": "9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3",
+      "support_audit_stl_sha256": "84a422f53577e960f830e932ea26481cb3d68729655c985d2e84ef571196f2a3",
+      "support_audit_current": false
+    },
+    {
+      "part": "enclosure-tee-carrier-left",
+      "current_stl_sha256": "ab7bf35e0651f14534f0da64265a2b37f79e0c5d2245c6de909b3eda04756a19",
+      "support_audit_stl_sha256": "e554aec8bb063bf893a7af7d4e848b93555c93b7920f33db0a4de662f99cad20",
+      "support_audit_current": false
+    },
+    {
+      "part": "enclosure-tee-carrier-right",
+      "current_stl_sha256": "2c9a8ddc26f9784e874a9ad41aa8e8d78f9bc00f1fc7a98812bb6142ef8b7fe9",
+      "support_audit_stl_sha256": "4f76907f513ee5dd355aac947404245ef5927dbbb22fbad5e0fd8b9667820a27",
+      "support_audit_current": false
+    }
+  ],
+  "tee_journal_diameter_mm": 14.216,
+  "production_tee_collar_diameter_mm": 16.3,
+  "nominal_radial_interference_mm": 1.042,
+  "open_release_conditions": [
+    "Replace stand-in tee with actual scanned production geometry and propagate all consumers.",
+    "Qualify carrier stiffness, retained backing and interlocking joint.",
+    "Provide positive capture and guidance at both spring ends, including closure of the loading window.",
+    "Use measured 6 mm OD, 27 mm free and approximately 7 mm compressed spring data; actual force remains unmeasured.",
+    "Obtain independent Kamoer pump interface evidence through scan or equivalent direct fit measurements.",
+    "Verify actual-part and display-retention coupons in the production print profile.",
+    "Rebuild affected models and checks; reslice exact final geometry and refresh support evidence.",
+    "Confirm physical plate clearance before sending a unique replacement job."
+  ],
+  "baseline_verification": {
+    "assembly_generator_exit_code": 0,
+    "gates_pass": true,
+    "check_counts": {
+      "pass": 107,
+      "warn": 1
+    },
+    "facts_sources_digest": "5e8e76178ae6b27ac9673b726aed7da8",
+    "facts_step_digest": "ef3ef39c9210bc2a695268ea08278adb",
+    "facts_current_check": "pass: card, solid and all 146 source files agree",
+    "carrier_selftest": "pass",
+    "valve_tray_selftest": "pass",
+    "meaning": "Current stand-in tee and catalog spring model passes its own checks; production hardware and retention remain unqualified.",
+    "recorded_at_utc": "2026-09-20T22:15:58.245969+00:00"
+  },
+  "printer_availability": {
+    "Mark2": {
+      "physical_filament": "black PET-GF",
+      "authority": "Derek reports spool switched back to black PET-GF and printer ready for new prints in this task",
+      "date": "2026-09-20",
+      "ready_for_prepared_job": true
+    },
+    "H2C": {
+      "cancelled_object_removal_confirmed": false,
+      "replacement_started": false
+    }
+  }
+}

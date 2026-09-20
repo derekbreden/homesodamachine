@@ -1,0 +1,204 @@
+{
+  "baseline_commit": "583b5e2a32ed9c6b7a546e954510b3aa0a5cd71f",
+  "current_commit": "d83ac032349262a94461c5e9cd388bdfefe6fbe2",
+  "method": "Native printed STL cross-sections normal to X; area moment about each section centroid parallel to Z. Izz compares local fore/aft bending resistance at equal elastic modulus. It does not model joint slip, whole-carrier compliance, anisotropy or print infill.",
+  "sections": [
+    {
+      "x_mm": 20.07,
+      "section": "inner tee centre",
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799469999993,
+        "Izz_mm4": 68.77605116856284
+      },
+      "current": {
+        "area_mm2": 285.9100952500012,
+        "centroid_y_mm": 113.65766177135691,
+        "Izz_mm4": 7418.453447333071
+      },
+      "Izz_ratio": 107.86390496818761
+    },
+    {
+      "x_mm": 28.57,
+      "section": "inner tie slot",
+      "before_spring_move": {
+        "area_mm2": 113.30001824999636,
+        "centroid_y_mm": 109.21799470000109,
+        "Izz_mm4": 59.010426164837554
+      },
+      "current": {
+        "area_mm2": 425.7801208000019,
+        "centroid_y_mm": 111.0815987525073,
+        "Izz_mm4": 13154.921778069809
+      },
+      "Izz_ratio": 222.92538171683992
+    },
+    {
+      "x_mm": 40,
+      "section": "inner web and shelf",
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799469999999,
+        "Izz_mm4": 68.77605117065832
+      },
+      "current": {
+        "area_mm2": 470.7801208000019,
+        "centroid_y_mm": 110.73618870824598,
+        "Izz_mm4": 13821.36993815191
+      },
+      "Izz_ratio": 200.96195845638303
+    },
+    {
+      "x_mm": 49.945,
+      "section": "previous spring station",
+      "before_spring_move": {
+        "area_mm2": 179.40574709999782,
+        "centroid_y_mm": 110.12095054641867,
+        "Izz_mm4": 344.2260185163468
+      },
+      "current": {
+        "area_mm2": 470.7801208000019,
+        "centroid_y_mm": 110.73618870824598,
+        "Izz_mm4": 13821.369938146323
+      },
+      "Izz_ratio": 40.15201987844497
+    },
+    {
+      "x_mm": 60,
+      "section": "outer web",
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799469999993,
+        "Izz_mm4": 68.77605116856284
+      },
+      "current": {
+        "area_mm2": 316.9200438000007,
+        "centroid_y_mm": 107.46799469999989,
+        "Izz_mm4": 950.7601313982159
+      },
+      "Izz_ratio": 13.824000000639803
+    },
+    {
+      "x_mm": 71.32,
+      "section": "outer tie slot",
+      "before_spring_move": {
+        "area_mm2": 113.30001824999636,
+        "centroid_y_mm": 109.21799470000104,
+        "Izz_mm4": 59.01042616576888
+      },
+      "current": {
+        "area_mm2": 271.9200438000007,
+        "centroid_y_mm": 107.46799469999986,
+        "Izz_mm4": 815.7601313996129
+      },
+      "Izz_ratio": 13.824000001423883
+    },
+    {
+      "x_mm": 79.82,
+      "section": "outer tee centre",
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799470000003,
+        "Izz_mm4": 68.7760511667002
+      },
+      "current": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799469999993,
+        "Izz_mm4": 68.77605117182247
+      },
+      "Izz_ratio": 1.0000000000744775
+    },
+    {
+      "x_mm": 90,
+      "section": "web beside grip",
+      "before_spring_move": {
+        "area_mm2": 132.05001825,
+        "centroid_y_mm": 109.21799469999996,
+        "Izz_mm4": 68.77605116926134
+      },
+      "current": {
+        "area_mm2": 316.9200438000007,
+        "centroid_y_mm": 107.46799469999986,
+        "Izz_mm4": 950.7601313996129
+      },
+      "Izz_ratio": 13.824000000519717
+    },
+    {
+      "x_mm": 92,
+      "section": "grip root",
+      "before_spring_move": {
+        "area_mm2": 2004.0331077820556,
+        "centroid_y_mm": 112.81621985453299,
+        "Izz_mm4": 199417.65122656152
+      },
+      "current": {
+        "area_mm2": 1911.1756647820548,
+        "centroid_y_mm": 113.56433613017704,
+        "Izz_mm4": 177027.35207818076
+      },
+      "Izz_ratio": 0.8877215782521539
+    }
+  ],
+  "before_spring_move_mesh_sha256": "06a37899492d49aed8f82789812848b24fe3df98f6aec4dabf9cb9c83356c9e4",
+  "current_mesh_sha256": "2c9a8ddc26f9784e874a9ad41aa8e8d78f9bc00f1fc7a98812bb6142ef8b7fe9",
+  "spring_sample": {
+    "part": "Tee-carrier return springs, recently delivered stiffer set",
+    "recorded_date": "2026-09-20",
+    "authority": "Derek, direct measurement reported in this task",
+    "outside_diameter_mm": 6.0,
+    "free_length_mm": 27.0,
+    "compressed_length_upper_estimate_mm": 7.0,
+    "compressed_length_note": "Derek reports 7 mm compressed, possibly slightly less.",
+    "wire_diameter_mm": null,
+    "rate_n_per_mm": null,
+    "manufacturing_tolerances": null,
+    "nominal_catalog_identity": "BOM: uxcell 304 stainless, nominal 6 mm OD x 0.8 mm wire x 30 mm free; measured sample dimensions above control fit.",
+    "measured_force_note": "No force or spring-rate measurement supplied; Lee catalog force arithmetic does not describe this pair."
+  },
+  "spring_states": {
+    "aft_limit": {
+      "bearing_length_mm": 24.15,
+      "compression_from_measured_free_mm": 2.85,
+      "margin_above_compressed_upper_estimate_mm": 17.15,
+      "gap_between_closed_seats_mm": 11.05
+    },
+    "connected": {
+      "bearing_length_mm": 21.65,
+      "compression_from_measured_free_mm": 5.35,
+      "margin_above_compressed_upper_estimate_mm": 14.65,
+      "gap_between_closed_seats_mm": 8.55
+    },
+    "park": {
+      "bearing_length_mm": 21.65,
+      "compression_from_measured_free_mm": 5.35,
+      "margin_above_compressed_upper_estimate_mm": 14.65,
+      "gap_between_closed_seats_mm": 8.55
+    },
+    "release": {
+      "bearing_length_mm": 19.5,
+      "compression_from_measured_free_mm": 7.5,
+      "margin_above_compressed_upper_estimate_mm": 12.5,
+      "gap_between_closed_seats_mm": 6.4
+    },
+    "squeeze": {
+      "bearing_length_mm": 19.5,
+      "compression_from_measured_free_mm": 7.5,
+      "margin_above_compressed_upper_estimate_mm": 12.5,
+      "gap_between_closed_seats_mm": 6.4
+    }
+  },
+  "spring_capture": {
+    "fixed_seat_depth_mm": 2.0,
+    "moving_bore_depth_mm": 11.1,
+    "moving_loading_window_length_mm": 10.0,
+    "moving_closed_ring_length_mm": 1.1,
+    "loading_length_mm": 9.61,
+    "loading_margin_above_measured_compressed_mm": 2.61,
+    "side_window_has_keeper": false,
+    "continuous_internal_guide": false
+  },
+  "release_readiness": {
+    "ready": false,
+    "reason": "Known tee dimensional conflict, incomplete spring capture, and no validated assembled stiffness result."
+  }
+}

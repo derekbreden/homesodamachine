@@ -342,7 +342,7 @@ The source mesh, profile, sliced archive and G-code hashes are recorded in
 
 ## 2026-09-20 — front-top on H2C
 
-The current `enclosure-front-top` was submitted through Bambu Connect, driven by
+The `enclosure-front-top-petgf-z018-h2c.gcode.3mf` job was submitted through Bambu Connect, driven by
 `tools/bambu-ax` with the screen borrowed for one second. H2C reported `RUNNING`,
 layer 0 of 813, with no print error at 2026-09-20T18:49:48.281882+00:00.
 
@@ -361,3 +361,8 @@ layer 0 of 813, with no print error at 2026-09-20T18:49:48.281882+00:00.
 
 The STL in the tree hashes differently from the sliced copy; both hashes are in
 [print-jobs.json](print-jobs.json), with the profile, archive and G-code hashes.
+
+The job is **cancelled**, confirmed by Bambu Connect and printer status at
+2026-09-20T21:34:13.528173+00:00, after the last observed running layer 51/813.
+The sliced valve-tray region is 2 mm above the corrected model. Both heater targets
+are zero. The replacement is held for the [front-top and tee-carrier readiness audit](../print-readiness.md).
