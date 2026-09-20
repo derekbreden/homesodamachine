@@ -6,7 +6,8 @@ part frame, not an assembled faucet pose. evidence/datums.json maps the scans.
 
 The curved rear stops follow observed points. The rear portion of each ledge's
 upper face is occluded: LEDGE_TOP is a fit-trial parameter, not a measurement.
-No print shrinkage or coating correction is baked into the source dimensions.
+The channel between the side struts carries a named print allowance so the
+printed part, not the solid, matches the donor's caliper reading.
 """
 
 import json
@@ -23,9 +24,17 @@ sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_assembly
 from flute_payload import cut as export_payload
 
-# A parallel-sided simplification of the measured 12.6–13.0 mm envelope.
-HALF_WIDTH = 6.40
-INNER_HALF_WIDTH = 4.30
+# Derek's calipers on the donor, 2026-09-20: 1.70 mm side struts and an ~8.8 mm
+# channel for the ~8.5 mm transverse metal cylinder. The scanned 12.6–13.0 mm
+# envelope was measured through the scanning coating and reads wide.
+CHANNEL_NOMINAL = 8.80
+STRUT_WALL = 1.70
+# The 2026-09-20 black PET-GF print measured 8.4 mm across a modelled 8.60 mm
+# channel and 2.15 mm across modelled 2.10 mm walls. The channel carries that
+# difference so the printed part, not the solid, matches the donor.
+CHANNEL_PRINT_ALLOWANCE = 0.20
+INNER_HALF_WIDTH = (CHANNEL_NOMINAL + CHANNEL_PRINT_ALLOWANCE) / 2
+HALF_WIDTH = INNER_HALF_WIDTH + STRUT_WALL
 FLOOR_Z = 0.0
 LEDGE_TOP = -5.55
 LOWER_SLOT_HALF_WIDTH = 1.45
@@ -52,7 +61,7 @@ RAIL_BOTTOM_PROFILE = [
 # Mean of the two observed stop patches; X is the lateral magnitude.
 # Values across unobserved portions of the curve are explicit continuations.
 STOP_PROFILE = [
-    (4.30, 44.30), (4.20, 44.90), (4.00, 45.18), (3.80, 45.31),
+    (INNER_HALF_WIDTH, 44.30), (4.20, 44.90), (4.00, 45.18), (3.80, 45.31),
     (3.50, 45.40), (3.00, 45.48), (2.70, 45.53), (2.50, 45.60),
     (2.30, 45.72), (2.20, 45.92),
 ]
@@ -195,7 +204,10 @@ def main():
               "status": "comparison prototype; physical attachment and travel unvalidated",
               "inferred": ["ledge upper continuation", "bilateral symmetry", "parallel outer sides",
                            "unobserved transitions between relief sections"],
-              "coating_or_print_shrinkage_correction_mm": 0.0}
+              "donor_channel_mm": CHANNEL_NOMINAL, "donor_strut_wall_mm": STRUT_WALL,
+              "channel_print_allowance_mm": CHANNEL_PRINT_ALLOWANCE,
+              "modelled_channel_mm": 2 * INNER_HALF_WIDTH,
+              "modelled_outside_width_mm": 2 * HALF_WIDTH}
     (HERE / "geometry-check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
 

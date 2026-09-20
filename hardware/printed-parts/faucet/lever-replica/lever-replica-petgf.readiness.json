@@ -1,120 +1,79 @@
 {
-  "project_sha256": "05efbbd1a0932d80f90071fde574e269d5636c29523910a0652ccc52cf298cb0",
-  "source_profile": "hardware/printed-parts/petgf.3mf",
-  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "native_archive": "hardware/printed-parts/faucet/lever-replica/lever-black-petgf-z018-h2c.gcode.3mf",
-  "native_archive_sha256": "edfb566cdd39799b03e7e4063640e2dd8c84c5ac1af2ce2beddf6f490ebe3ff5",
-  "gcode_sha256": "1e4e0eeb8bd8e4ee54cbe3c4a9184960e8909a41a587024bfb52a4d4276ab3bf",
-  "source_stl_sha256": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
-  "requested_printer": "H2C",
-  "physical_filament": "black PET-GF, confirmed by Derek",
-  "physical_nozzle": "0.4 mm diamond PCD, confirmed by Derek",
-  "requested_z_trim_mm": 0.18,
-  "actual_z_trim_commands_mm": [
-    0.0,
-    0.16
-  ],
-  "intentional_settings_changed": [
-    "extruder_ams_count",
-    "printer_settings_id",
-    "machine_start_gcode"
-  ],
-  "native_normalizations": {
-    "filament_map_2": [
-      null,
-      [
-        "1"
-      ]
-    ],
-    "filament_prime_volume": [
-      [
-        "30"
-      ],
-      [
-        "45"
-      ]
-    ]
+  "status": "offline slice complete; physical fit, strength and support removal unvalidated",
+  "project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
+  "printer_submission": false,
+  "support_summary": {
+    "support_bodies": 1,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 6.48,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 6.48
   },
-  "process": {
-    "layer_height": "0.24",
-    "initial_layer_print_height": "0.2",
-    "wall_loops": "2",
-    "sparse_infill_density": "15%",
-    "sparse_infill_pattern": "grid",
-    "filament_flow_ratio": [
-      "0.9555",
-      "1",
-      "1"
-    ],
-    "nozzle_diameter": [
-      "0.4",
-      "0.4"
-    ],
-    "filament_colour": [
-      "#000000"
-    ]
-  },
-  "native_slice": {
+  "support_audit_sha256": "e28538f6556152a0a5d2f63b0698f43a3da1b7ef49027701cbe0adcc6fc610bc",
+  "slice_result": {
     "error_string": "Success.",
-    "export_time": 1148,
+    "export_time": 1136,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 28,
+    "prepare_time": 30,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 21.172155380249023,
-          "Bridge": 86.18134307861328,
-          "Custom": 305.07745361328125,
+          "Bottom surface": 21.271587371826172,
+          "Bridge": 38.03752517700195,
+          "Custom": 305.1034240722656,
           "Flush": 15.0,
-          "Gap infill": 1.678809642791748,
-          "Inner wall": 49.13507080078125,
-          "Internal solid infill": 90.4054946899414,
-          "Outer wall": 63.751102447509766,
-          "Overhang wall": 19.77311134338379,
-          "Sparse infill": 39.40055847167969,
-          "Support": 190.31118774414062,
-          "Support interface": 12.949352264404297,
-          "Top surface": 17.270200729370117,
-          "Travel": 166.03619384765625,
-          "Undefined": 156.7162322998047
+          "Gap infill": 2.155757188796997,
+          "Inner wall": 47.77482604980469,
+          "Internal solid infill": 90.72682189941406,
+          "Outer wall": 62.06747817993164,
+          "Overhang wall": 19.37989616394043,
+          "Sparse infill": 38.1905403137207,
+          "Support": 175.1813201904297,
+          "Support interface": 12.831588745117188,
+          "Top surface": 17.0859432220459,
+          "Travel": 162.8389892578125,
+          "Undefined": 153.49502563476562
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFT01",
             "id": 1,
-            "main_used_g": 4.443390846252441,
-            "total_used_g": 4.443390846252441
+            "main_used_g": 4.04211950302124,
+            "total_used_g": 4.042119026184082
           }
         ],
-        "generate_support_material_time": 104,
+        "generate_support_material_time": 125,
         "id": 1,
-        "infill_time": 35,
+        "infill_time": 36,
         "layer_filament_change": 0,
-        "main_predication": 743.069580078125,
-        "make_perimeters_time": 22,
+        "main_predication": 672.551513671875,
+        "make_perimeters_time": 21,
         "obj_cached_cnt": 0,
         "objects": [
           {
             "bbox": {
               "depth": 53.03470230102539,
-              "height": 12.800000190734863,
+              "height": 12.399999618530273,
               "width": 14.664939880371094,
               "x": 167.6675262451172,
               "y": 133.48265075683594,
-              "z": -3.674314186241645e-10
+              "z": -2.651363573136223e-10
             },
             "id": 5,
             "name": "lever-replica",
-            "triangle_count": 5218
+            "triangle_count": 5072
           }
         ],
-        "sliced_time": 375,
-        "sliced_time_with_cache": 199,
-        "total_predication": 1068.8270263671875,
-        "triangle_count": 5218,
+        "sliced_time": 414,
+        "sliced_time_with_cache": 217,
+        "total_predication": 998.3109741210938,
+        "triangle_count": 5072,
         "warning_message": ""
       }
     ],
@@ -127,19 +86,9 @@
     ],
     "wall_loops": 2
   },
-  "submitted": true,
-  "acceptance": {
-    "printer": "H2C",
-    "observed_at": "2026-09-20T06:11:20.696756+00:00",
-    "gcode_state": "RUNNING",
-    "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
-    "mc_percent": 0,
-    "layer_num": 0,
-    "total_layer_num": 54,
-    "mc_remaining_time": 17,
-    "print_error": 0,
-    "hms": []
-  },
-  "submission_record": "print-jobs.json",
-  "support_audit_sha256": "777fceee745ba19a751f9cca35387fdc8cb2f78a4be655843816fddb2f6146da"
+  "archive": "lever-black-petgf-z018-h2c.gcode.3mf",
+  "archive_sha256": "6d1e633a5f7c8d4f8f79da3bbff8c063d84514794889f0a8b7a0a8c6a4c9f679",
+  "gcode": {
+    "plate_1.gcode": "25b17d4c3c05acfd9efa158dc3e87d529d3d0864f5f3c78d31752666ab3ce1d7"
+  }
 }
