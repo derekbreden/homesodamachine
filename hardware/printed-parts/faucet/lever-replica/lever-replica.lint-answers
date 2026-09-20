@@ -1,0 +1,3 @@
+[ceiling] This is the observed inner paddle datum plane in the local measurement frame. The print rotates the part +90 degrees about Y and rests its +X side on the bed, so this face is vertical in the actual print. The opposite inner side wall and attachment relief use the accessible bed-rooted support tree recorded in lever-replica-white-petgf.support-audit.json. The working paddle plane is retained from the scan.
+file: hardware/printed-parts/faucet/lever-replica/lever-replica.step
+click: x=0.000 y=15.600 z=0.000
