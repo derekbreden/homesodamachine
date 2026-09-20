@@ -32,7 +32,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
+      "note": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step.mesh — declared by nobody",
       "status": "red"
     },
     {
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2369 tracked, 465 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2407 tracked, 474 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 271, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 280, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,12 +87,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 224 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 226 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 465 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 474 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds b1fda868a001e315482cbed9e1407380 for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f31b6200539546e1d008701c2676fbeb here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 146 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3b5892ffd7de6e4894861ae928409826 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -139,18 +139,24 @@
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
     ],
     "hardware/scripts/check_payloads.py": [
-      "2 solid(s) the bundle serves a payload for that no rule produces:",
+      "5 solid(s) the bundle serves a payload for that no rule produces:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh — declared by nobody",
       "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/enclosure/nameplate/nameplate.py,",
       "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh — declared by nobody",
       "      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under hardware/printed-parts/enclosure/nameplate/nameplate.py,",
-      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py"
+      "      re-run tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/nameplate/nameplate.py, then gen_build.py",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step.mesh — declared by nobody",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 201/202 carry the colour of what they are made of",
-      "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 202/206 carry the colour of what they are made of",
+      "  4 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
       "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step",
+      "    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
