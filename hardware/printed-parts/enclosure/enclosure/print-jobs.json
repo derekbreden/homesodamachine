@@ -470,13 +470,27 @@
       },
       "sent_via": "Bambu Connect, driven through tools/bambu-ax; the screen borrowed once, 1.08 s, for the filament-mapping popover",
       "started_by": "agent",
-      "status": "started",
+      "status": "cancelled",
       "job_name": "enclosure-front-top-petgf-z018-h2c.gcode.3mf",
       "observed_state": "RUNNING",
       "observed_at_utc": "2026-09-20T18:49:48.281882+00:00",
       "observed_print_error": 0,
       "observed_layers": "0 / 813",
-      "observed_remaining_minutes": 1444
+      "observed_remaining_minutes": 1444,
+      "cancelled_at_utc": "2026-09-20T21:34:13.528173+00:00",
+      "cancellation": {
+        "requested_by": "Derek",
+        "reason": "Sliced valve-tray region is 2 mm above the corrected assembly; replacement held for scan and tee-carrier readiness audit.",
+        "confirmed_by": "Bambu Connect: The task was canceled; printer MQTT status",
+        "observed_state": "FAILED",
+        "observed_print_error": 50348044,
+        "observed_nozzle_target_c": 0,
+        "observed_bed_target_c": 0,
+        "last_running_layer": 51,
+        "total_layers": 813,
+        "plate_clearance": "Derek will remove the cancelled print; clearance not yet confirmed",
+        "replacement_started": false
+      }
     }
   ]
 }

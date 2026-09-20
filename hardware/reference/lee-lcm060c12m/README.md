@@ -1,10 +1,15 @@
 # Lee Spring LCM060C12M compression spring
 
 This is the catalog part the carrier's spring seat, ⌀6.57 bore and loading
-well are cut to. The springs fitted are the uxcell 304 stainless equivalent of
-that envelope — same 6 mm OD and 30 mm free length, heavier 0.8 mm wire
+well are cut to. The springs fitted are the uxcell 304 stainless product sold as
+6 mm OD and 30 mm free length, with nominal 0.8 mm wire
 ([bom.md §8](/hardware/ledger/bom.md)). Each spring pushes between a fixed wall
 bearing plane and the moving carrier; the pair acts in parallel.
+
+Derek's measured stiffer set is **6 mm OD, 27 mm uncompressed and approximately 7 mm
+fully compressed**, possibly slightly less. Those sample measurements are recorded in
+[spring-measurements.json](/hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json)
+and govern its fit. The Lee catalog rate below does not establish the actual pair's force.
 
 Source: [Lee Spring, LCM060C 12 M product page](https://www.leespring.com/product/compression-spring-lcm060c12m-music-wire),
 accessed 2026-09-05. The product page is the authority for the values below.
@@ -98,8 +103,9 @@ enclosure facts. Those values use the actual bearing-plane separation, including
 The assembly check exercises full travel, equal grip motion and empty return; recorded physical
 loads belong to that assembly's log. No measured force for this printed mechanism is recorded.
 
-The springs occupy the dry enclosure cavity. This part's 5.99 mm OD tolerance, 4.78 mm nominal ID
-and the printed seat/guide clearances are the dimensions the bores were cut to. A spring is threaded
-in compressed, so its solid height is bounded by the room between the fixed body face and the parked
-carrier: 11.90 mm, or 14.40 mm with the carrier held at its aft limit. The fitted spring's solid
-height is not measured.
+The springs occupy the dry enclosure cavity. The current guide bore is Ø6.57 mm and
+its loading window admits a spring compressed to 9.61 mm. Derek's measured 6 mm OD and
+approximately 7 mm compressed length leave 0.285 mm nominal radial air and at least
+approximately 2.61 mm axial loading margin. The actual 27 mm free length leaves 2.85 mm
+compression at the 24.15 mm aft-limit separation. Capture at both ends remains open in the
+[readiness audit](/hardware/printed-parts/enclosure/print-readiness.md).
