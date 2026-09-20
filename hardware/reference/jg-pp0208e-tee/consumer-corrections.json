@@ -1,0 +1,132 @@
+{
+  "part": "John Guest PP0208E",
+  "production_reference_ready": false,
+  "scan_registration": "scan-registration.json",
+  "verified_corrections": {
+    "run_half_extended_mm": 21.25,
+    "run_half_pressed_mm": 19.6,
+    "widest_collar_nominal_diameter_mm": 16.3,
+    "widest_collar_sample_envelope_diameter_mm": 16.5,
+    "branch_collar_fitted_band_mm": [
+      13.8,
+      16.6
+    ],
+    "run_collar_fitted_band_mm": [
+      12.0,
+      15.1
+    ],
+    "branch_root_fitted_band_mm": [
+      8.7,
+      11.7
+    ],
+    "run_root_fitted_band_mm": [
+      6.9,
+      9.8
+    ],
+    "caution": "Fitted bands are interior measurement patches, not exact shoulder/edge stations. Sample envelope is not a production tolerance limit."
+  },
+  "preserved_measured_operating_inputs": {
+    "sleeve_stroke_mm": 1.65,
+    "connected_nose_air_mm": 0.5,
+    "carrier_release_to_connected_mm": 2.15,
+    "tube_bottom_from_pressed_sleeve_mm": 10.0,
+    "tube_bottom_from_extended_sleeve_mm": 11.65
+  },
+  "open_production_datums": [
+    "Absolute fully extended branch sleeve reach, from the requested external caliper width.",
+    "Exact division between fixed small barrel and moving terminal sleeve; merged rims do not establish one common sleeve state."
+  ],
+  "consumers": [
+    {
+      "path": "hardware/reference/tee-connector/tee_connector.py",
+      "symbols": [
+        "STEP",
+        "RUN_HALF",
+        "BRANCH_REACH",
+        "HALF_W",
+        "BARREL_NEAR",
+        "BARREL_FAR",
+        "BARREL_R",
+        "CAP_NEAR",
+        "CAP_FAR",
+        "BODY_FACE",
+        "COLLET_PROUD",
+        "ARM_ROOT",
+        "ARM_R",
+        "depress_branch",
+        "stations_hold"
+      ],
+      "change": "Use the measured production fitting and distinct run/branch profiles. Preserve bench operating inputs. Move only identified sleeve geometry for depression. Validate declared surfaces against the produced solid."
+    },
+    {
+      "path": "hardware/manifold-layout/manifold_layout.py",
+      "symbols": [
+        "TEE_STEP",
+        "TEE_RUN",
+        "TEE_BRANCH"
+      ],
+      "change": "Recompute fitted tee placements and adjacent tubes from one production reference. Run-half change is +1.18 mm from the stand-in; branch change remains pending the absolute reading."
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure_assembly.py",
+      "symbols": [
+        "collet_plate_spec",
+        "tee wall bore and root relief",
+        "tee_run_y",
+        "tie_radius",
+        "tee_run_clear_r",
+        "tee entry cavity"
+      ],
+      "change": "Journal and entry pass must clear the actual slightly tapered collar. Recompute journal axial contact band, fixed release face, bearing depths, insertion route, ties and nearby hardware."
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+      "symbols": [
+        "tee.RUN_HALF",
+        "tee.HALF_W",
+        "tee troughs",
+        "stub relief",
+        "retained backing",
+        "tie routes"
+      ],
+      "change": "Use actual run length and collar radius in seated troughs and tube reliefs. Recheck backing and ties after that increase; preserve measured release/connected motion."
+    },
+    {
+      "path": "hardware/reference/water-split/water_split.py",
+      "symbols": [
+        "tee.STEP",
+        "REACH",
+        "tee.BARREL_R"
+      ],
+      "change": "Use distinct branch and run stations; rebuild the ASSE chain and its fitting envelope."
+    },
+    {
+      "path": "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py",
+      "symbols": [
+        "tee reference",
+        "tee stations"
+      ],
+      "change": "Keep fixture fitting seats and tube-depth marks consistent with the production reference."
+    },
+    {
+      "path": "hardware/assembly/scenes/_scenes.py",
+      "symbols": [
+        "hardware/reference/tee-connector/tee-connector.step"
+      ],
+      "change": "Regenerate placed views from the qualified production solid."
+    },
+    {
+      "path": "hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
+      "symbols": [
+        "build_jg_pp0208e_tee",
+        "ARM_D",
+        "COLLAR_NEAR",
+        "COLLAR_FAR",
+        "COLLET_D",
+        "REACH",
+        "INSERTION"
+      ],
+      "change": "The illustration remains an approximate drawing. Its eventual measured implementation must preserve the no-argument install-art interface or update its caller coherently; operating insertion must remain the bench value."
+    }
+  ]
+}
