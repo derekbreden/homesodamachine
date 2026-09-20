@@ -24,6 +24,7 @@ usage: bambu-ax <command>
   act <text|#n> <AXAction>   any action the element advertises
   value <text|#n> <new>      set an element's value
   import <path>              Print tab, file chooser, chosen file, no keystrokes
+  select <name>              choose a row in an already-open file chooser
   click <x> <y> [x y ...]    real clicks for controls the tree cannot reach
   front                      name the frontmost application
 
@@ -153,6 +154,22 @@ func ancestor(_ e: AXUIElement, role wanted: String) -> AXUIElement? {
     return nil
 }
 
+// Selecting a chooser row is the only route that takes. AXOpen on the cell is
+// refused (-25205), AXConfirm reports success and does nothing, and a click
+// lands without the panel acting on it: the panel reads its selection, so set
+// that and press Open.
+func selectRow(_ e: AXUIElement) -> Bool {
+    guard let r = ancestor(e, role: "AXRow") else { return false }
+    return AXUIElementSetAttributeValue(r, kAXSelectedAttribute as CFString, kCFBooleanTrue) == .success
+}
+// A sidebar row navigates on AXOpen, but the action lives on its AXCell, not on
+// the AXStaticText that carries the name.
+func openCell(_ e: AXUIElement) -> Bool {
+    if let c = ancestor(e, role: "AXCell"),
+       AXUIElementPerformAction(c, "AXOpen" as CFString) == .success { return true }
+    return selectRow(e)
+}
+
 let frontBefore = NSWorkspace.shared.frontmostApplication?.localizedName ?? "?"
 func reportFocus() {
     let after = NSWorkspace.shared.frontmostApplication?.localizedName ?? "?"
@@ -220,6 +237,21 @@ case "click":
     print(String(format: "front borrowed %.2fs, returned to %@%@", held, back,
                  back == frontBefore ? "" : "  *** NOT RESTORED ***"))
 
+case "select":
+    guard args.count > 1 else { fail("select needs the name of a row in the open chooser") }
+    let want = args[1]
+    guard !matches("Open", role: "AXButton").isEmpty else { fail("no file chooser is open") }
+    guard let target = matches(want, role: "AXTextField").first else {
+        fail("no chooser row matching \(want)")
+    }
+    guard selectRow(target.el) else { fail("\(target.label ?? want) is not a selectable chooser row") }
+    guard let openButton = matches("Open", role: "AXButton").first else { fail("no Open button") }
+    perform(openButton, "AXPress")
+    let closed = waitFor(20, { matches("Open", role: "AXButton").isEmpty })
+    print("select \(target.label ?? want) -> \(closed ? "chooser closed" : "chooser still open")")
+    reportFocus()
+    if !closed { exit(1) }
+
 case "front":
     print(frontBefore)
 
@@ -278,13 +310,13 @@ case "import":
     func row(_ label: String) -> Node? {
         matches(label, role: "AXTextField").first { $0.label == label }
     }
-    func choose(_ n: Node) -> Bool {
-        guard let r = ancestor(n.el, role: "AXRow") else { return false }
-        return AXUIElementSetAttributeValue(r, kAXSelectedAttribute as CFString, kCFBooleanTrue) == .success
-    }
+    func choose(_ n: Node) -> Bool { selectRow(n.el) }
     if row(name) == nil {
         let home = (NSHomeDirectory() as NSString).lastPathComponent
-        if let side = matches(home, role: "AXStaticText").first { perform(side, "AXOpen"); settle() }
+        if let side = matches(home, role: "AXStaticText").first {
+            guard openCell(side.el) else { fail("could not open the home row in the chooser sidebar") }
+            settle()
+        }
         let rel = path.hasPrefix(NSHomeDirectory() + "/")
             ? String(path.dropFirst(NSHomeDirectory().count + 1))
             : path

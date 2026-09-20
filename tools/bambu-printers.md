@@ -81,7 +81,13 @@ and require `--expect <label or role>`, checked against the element found there.
 carried over from an earlier dump then reports what now holds it instead of pressing it.
 Matching by label, narrowed with `--role`, needs no `--expect`. `import` walks the chooser by path component and reaches
 paths inside the working tree, so stage an archive there rather than in a scratch
-directory.
+directory. `select "<row name>"` chooses a row in a chooser that is already open.
+
+A chooser acts on its selection, not on a click. `AXOpen` on the row's cell is refused
+with -25205, `AXConfirm` reports success and does nothing, and a click lands without the
+panel taking it; setting `AXSelected` on the row's `AXRow` and pressing **Open** works with
+the application in the background. A sidebar row is the exception — it navigates on
+`AXOpen`, and that action sits on its `AXCell`, not on the `AXStaticText` holding the name.
 
 The signed printer-control application handles protected operations. Bambu's network
 library checks the calling application's signature for those operations; loading the
