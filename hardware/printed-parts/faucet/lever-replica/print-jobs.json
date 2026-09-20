@@ -258,6 +258,91 @@
         "seconds": 1093.4107666015625,
         "grams_reported_by_bambu_connect": 4.44
       }
+    },
+    {
+      "job_id": "2026-09-20-lever-white-z004-mark2",
+      "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "5512217edbdea44b3b9e01c05579105be1f60625f2a412b9d11e930c60fa5a39",
+      "source_project": "lever-replica-petgf-white.3mf",
+      "source_project_sha256": "339c1e12dae53e215b901047de0e778affef23b9a9e263cbef76a6eecb8fb2fa",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "a7665f34c4e7980a5e368cfc78c74450252db89b9bb3cd21df5a005f5139fc8b",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "physical_filament": "white PET-GF",
+      "physical_nozzle": "0.4 mm",
+      "physical_setup_authority": "Derek loaded Mark2 with white PET-GF; relayed by the Scanner 7 session. No tray colour is readable over MQTT or in the application, so the spool is his word, not a reading.",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "same_geometry_as": "2026-09-20-lever-drafted-z018-h2c",
+      "geometry": {
+        "read_from": "evidence/lever-points.npz, pooled left and right side surfaces",
+        "outside_width_mm": {
+          "z=0": 12.765,
+          "z=-3.25": 12.64,
+          "z=-5.55": 12.551
+        },
+        "channel_width_mm": {
+          "z=0": 8.859,
+          "z=-3.25": 8.686,
+          "z=-5.55": 8.563
+        },
+        "side_wall_mm": {
+          "z=0": 1.953,
+          "z=-3.25": 1.977,
+          "z=-5.55": 1.994
+        },
+        "channel_reaches_cylinder_span_at_y_mm": {
+          "built": 42.5,
+          "scan": 42.3
+        },
+        "note": "Both side faces and both channel walls are drafted. The two preceding jobs were built parallel-sided from widths read at different heights."
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto",
+        "screen": "never taken"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-20T18:00:08+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "lever-white-petgf-z004-mark2.gcode.3mf",
+        "total_layer_num": 54,
+        "mc_remaining_time": 18,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
+      "physical_fit": null,
+      "physical_strength": null,
+      "estimate": {
+        "seconds": 1093.4107666015625
+      }
     }
   ]
 }
