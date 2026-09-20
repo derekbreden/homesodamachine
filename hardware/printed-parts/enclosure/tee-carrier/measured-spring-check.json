@@ -1,0 +1,214 @@
+{
+  "scope": "Measured spring consumer and printed-geometry invariance only; no whole-appliance regeneration or spring-retention qualification.",
+  "status": "pass",
+  "failures": [],
+  "measured_sample_fit": {
+    "spring_bearing_lengths": {
+      "release": 19.5,
+      "connected": 21.65,
+      "aft_limit": 24.15
+    },
+    "spring_pair_forces_n": {
+      "release": null,
+      "connected": null,
+      "aft_limit": null
+    },
+    "spring_rate_n_per_mm": null,
+    "spring_force_status": "No force or spring-rate measurement supplied; Lee catalog force arithmetic does not describe this pair.",
+    "spring_sample": "Tee-carrier return springs, recently delivered stiffer set",
+    "spring_measurement_source": {
+      "path": "hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json",
+      "sha256": "f61aafb8513359040688f99b1ef79b63ec3b12af58bf9d35dd3ff3ef426bb2ea",
+      "authority": "Derek, direct measurement reported in this task",
+      "recorded_date": "2026-09-20"
+    },
+    "spring_od": 6.0,
+    "spring_free_length": 27.0,
+    "spring_compressed_length_upper_estimate": 7.0,
+    "spring_wire_diameter": null,
+    "spring_inside_diameter": null,
+    "spring_manufacturing_tolerances": null,
+    "spring_clearance_d": 6.0,
+    "spring_clearance_basis": "measured sample OD; manufacturing tolerance unmeasured",
+    "spring_radial_air_in_bore": 0.285,
+    "spring_required_radial_air": 0.25,
+    "spring_compression_from_free": {
+      "release": 7.5,
+      "connected": 5.35,
+      "aft_limit": 2.85
+    },
+    "spring_clearance_above_compressed_estimate": {
+      "release": 12.5,
+      "connected": 14.65,
+      "aft_limit": 17.15
+    },
+    "spring_loading_clearance_above_compressed_estimate": 2.61,
+    "spring_representation": {
+      "representation": "measured spring clearance envelope",
+      "use": "fit and collision checks only",
+      "material_volume_mm3": null,
+      "mass_g": null,
+      "force_model": null
+    }
+  },
+  "rejected_invalid_fits": [
+    "at compressed upper estimate",
+    "below compressed upper estimate",
+    "no compression at free length",
+    "too little running air",
+    "loading at compressed upper estimate",
+    "nonfinite length"
+  ],
+  "nullable_serializers_checked": [
+    "facts JSON and accessor",
+    "box_spec JSON and accessor"
+  ],
+  "native_carrier_comparison": [
+    {
+      "side": "left",
+      "source_added_mm3": 0.0,
+      "source_removed_mm3": 0.0
+    },
+    {
+      "side": "right",
+      "source_added_mm3": 0.0,
+      "source_removed_mm3": 0.0
+    }
+  ],
+  "published_artifact_sha256": {
+    "enclosure-tee-carrier-left.step": "45dad55a6ceda8a263a228b10829755455ce8c34c6562784683843f40d9c4ced",
+    "enclosure-tee-carrier-left.stl": "dbe19c9733361a3883aa042d50c260d2e3e6bdfdc88882cebf07e67c49e877b2",
+    "enclosure-tee-carrier-left.step.mesh": "2f7c4c6b681ba42227154f4fe366c828b7acbf2f73f15d560ddb82c6e725045a",
+    "enclosure-tee-carrier-right.step": "038e1e37d3040662d1b625dc5c2a54a618ecf595d622c0cbfec953012a66d6de",
+    "enclosure-tee-carrier-right.stl": "21cf24ca1e1c8438ac13e6a8c93e7aadfd04ada0bdaaa46a7067ba77879219e1",
+    "enclosure-tee-carrier-right.step.mesh": "4cc49c0d41d7064430461f59def54b3f6b2879dd879bf56f3dbd7658cfb01635"
+  },
+  "pre_edit_invariance": {
+    "baseline_sha256": "58a998bd05e32af0560d653229c8ebc302519a1014c1e380d27f65901fc85c67",
+    "changed_interface_fields": [],
+    "changed_artifact_bytes": []
+  },
+  "envelopes": [
+    {
+      "body": "tee-carrier-spring-envelope-west",
+      "state": "release",
+      "bounds_mm": [
+        -100.535,
+        -94.535,
+        86.06800000000001,
+        105.56800000000001,
+        207.1,
+        213.1
+      ],
+      "representation": {
+        "representation": "measured spring clearance envelope",
+        "use": "fit and collision checks only",
+        "material_volume_mm3": null,
+        "mass_g": null,
+        "force_model": null
+      }
+    },
+    {
+      "body": "tee-carrier-spring-envelope-east",
+      "state": "release",
+      "bounds_mm": [
+        94.535,
+        100.535,
+        86.06800000000001,
+        105.56800000000001,
+        207.1,
+        213.1
+      ],
+      "representation": {
+        "representation": "measured spring clearance envelope",
+        "use": "fit and collision checks only",
+        "material_volume_mm3": null,
+        "mass_g": null,
+        "force_model": null
+      }
+    },
+    {
+      "body": "tee-carrier-spring-envelope-west",
+      "state": "connected",
+      "bounds_mm": [
+        -100.535,
+        -94.535,
+        86.06800000000001,
+        107.71800000000002,
+        207.1,
+        213.1
+      ],
+      "representation": {
+        "representation": "measured spring clearance envelope",
+        "use": "fit and collision checks only",
+        "material_volume_mm3": null,
+        "mass_g": null,
+        "force_model": null
+      }
+    },
+    {
+      "body": "tee-carrier-spring-envelope-east",
+      "state": "connected",
+      "bounds_mm": [
+        94.535,
+        100.535,
+        86.06800000000001,
+        107.71800000000002,
+        207.1,
+        213.1
+      ],
+      "representation": {
+        "representation": "measured spring clearance envelope",
+        "use": "fit and collision checks only",
+        "material_volume_mm3": null,
+        "mass_g": null,
+        "force_model": null
+      }
+    },
+    {
+      "body": "tee-carrier-spring-envelope-west",
+      "state": "aft_limit",
+      "bounds_mm": [
+        -100.535,
+        -94.535,
+        86.06800000000001,
+        110.21800000000002,
+        207.1,
+        213.1
+      ],
+      "representation": {
+        "representation": "measured spring clearance envelope",
+        "use": "fit and collision checks only",
+        "material_volume_mm3": null,
+        "mass_g": null,
+        "force_model": null
+      }
+    },
+    {
+      "body": "tee-carrier-spring-envelope-east",
+      "state": "aft_limit",
+      "bounds_mm": [
+        94.535,
+        100.535,
+        86.06800000000001,
+        110.21800000000002,
+        207.1,
+        213.1
+      ],
+      "representation": {
+        "representation": "measured spring clearance envelope",
+        "use": "fit and collision checks only",
+        "material_volume_mm3": null,
+        "mass_g": null,
+        "force_model": null
+      }
+    }
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "4ea81c6c7ce646b8e36e21346a308ee54b5ef1073f5ebea30b6e879b3181912a",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier_spring.py": "9fc8a45e1daf4ef1d92333ce88beeb1f1f46aa8cc5c7076511e7cfb766ff768d",
+    "hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json": "f61aafb8513359040688f99b1ef79b63ec3b12af58bf9d35dd3ff3ef426bb2ea",
+    "hardware/manifold-layout/enclosure_assembly.py": "f1f3ff92a1c9e4ac1222cdf5cb205194b7fbae7006d55561f0bdc4b50a1ddfb1"
+  },
+  "assembly_facts_status": "Retained baseline; full assembly rebuild intentionally pending."
+}

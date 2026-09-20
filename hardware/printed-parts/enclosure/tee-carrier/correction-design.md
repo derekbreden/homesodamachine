@@ -56,7 +56,9 @@ does not replace a full-width comparative deflection test.
 
 The delivered pair measures **6 mm OD, 27 mm free and approximately 7 mm compressed**.
 Its current bearing separations, 19.50–24.15 mm, give 2.85 mm minimum nominal compression.
-The source's Lee spring-rate arithmetic is not an actual force measurement of this pair.
+The [measured sample model](tee_carrier_spring.py) provides its occupied envelope and
+compression ranges. Rate, wire, inside diameter and forces remain unknown; its displayed
+cylinder is not spring material and supplies no mass or stiffness result.
 
 The moving end needs a positively retained closure of its 10 mm side-loading opening.
 Both end guides must remain engaged throughout the 4.65 mm mechanism travel and under

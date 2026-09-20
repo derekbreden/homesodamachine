@@ -128,7 +128,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "valve-tray",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
            _hw / "printed-parts" / "enclosure" / "tee-carrier",
-           _hw / "reference" / "lee-lcm060c12m",
            _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "printed-parts" / "enclosure" / "display-cover",
            _hw / "printed-parts" / "enclosure" / "display-gasket",
@@ -187,7 +186,7 @@ import nameplate as _np                               # noqa: E402
 import valve_tray as _vtray                           # noqa: E402
 import pump_tray as _tray                             # noqa: E402
 import tee_carrier as _carrier                        # noqa: E402
-import lee_lcm060c12m as _carrier_spring              # noqa: E402
+import tee_carrier_spring as _carrier_spring           # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
@@ -313,8 +312,7 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
                         C_PSU, C_RELAY, C_SEAFLO,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
-                        M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK,
-                        M_ZINC_PLATED_STEEL)
+                        M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
 # carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
@@ -1439,16 +1437,9 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         name: round(spec.spring_bore_floor_y + row["offset_y"] - spec.fixed_seat_floor_y, 6)
         for name, row in states.items()
     }
-    if min(bearing.values()) <= _carrier_spring.SOLID_HEIGHT:
-        raise ValueError(
-            f"carrier spring reaches solid height: {bearing}, solid "
-            f"{_carrier_spring.SOLID_HEIGHT:g}")
-    pair_force = {
-        name: round(2.0 * _carrier_spring.catalog_load_estimate(length), 6)
-        for name, length in bearing.items()
-    }
-    if max(bearing.values()) >= _carrier_spring.FREE_LENGTH - _carrier_spring.FREE_LENGTH_TOLERANCE:
-        raise ValueError("carrier spring loses preload at its minimum catalog free length")
+    spring_facts = _carrier_spring.fit_facts(
+        bearing, bore_diameter=spec.spring_bore_d, loading_length=spec.spring_load_length,
+        required_radial_air=spec.slide_air)
     body_aft_y = spec.aft_coil_fore_y - spec.slide_air
     solids = {name: solid for name, solid, _color in squeeze_stood}
     trays = valve_tray_stations(solids)
@@ -1577,13 +1568,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
         "fore_overlap_at_aft_limit": spec.grip_overlap - plate["aft_overtravel"],
         "connected_release_travel": plate["connected_release_travel"],
         "body_fore_y": fixed_y,
-        "spring_bearing_lengths": bearing,
-        "spring_nominal_pair_forces_n": pair_force,
-        "spring_part_number": _carrier_spring.PART_NUMBER,
-        "spring_od": _carrier_spring.OUTSIDE_DIAMETER,
-        "spring_free_length": _carrier_spring.FREE_LENGTH,
-        "spring_clearance_d": (_carrier_spring.OUTSIDE_DIAMETER
-                                + max(_carrier_spring.OUTSIDE_DIAMETER_TOLERANCE)),
+        **spring_facts,
         "body_aft_y": body_aft_y,
         "body_top_z": body_top_z,
         "body_floor_aft_y": body_floor_aft_y,
@@ -1663,11 +1648,23 @@ def recess_socket_wall(carrier: dict, trays) -> tuple:
     return least, where
 
 
-def build_carrier_spring(x: float, z: float, fixed_y: float, length: float):
-    """One catalog spring with its local bearing planes carried onto enclosure +Y."""
-    return (_carrier_spring.build(length)
+def build_carrier_spring_envelope(x: float, z: float, fixed_y: float, length: float):
+    """Measured occupied envelope along +Y; the solid does not represent spring material."""
+    return (_carrier_spring.build_envelope(length)
             .rotate(cq.Vector(0.0, 0.0, 0.0), cq.Vector(1.0, 0.0, 0.0), -90.0)
             .translate(cq.Vector(x, fixed_y, z)))
+
+
+def add_carrier_spring_envelopes(a: cq.Assembly, interface: dict, *, state: str):
+    """Name and mark the display/clearance volumes independently of unmeasured spring stock."""
+    length = interface["spring_bearing_lengths"][state]
+    for side, station in zip(("west", "east"), interface["spring_stations"]):
+        x, z, fixed_y = station["x"], station["z"], station["seat_floor_y"]
+        envelope = build_carrier_spring_envelope(x, z, fixed_y, length)
+        name = f"tee-carrier-spring-envelope-{side}"
+        a.add(envelope, name=name, color=M_STAINLESS,
+              metadata=dict(_carrier_spring.ENVELOPE_METADATA))
+        record_seat(name, station=(x, fixed_y, z), got=(x, fixed_y, z))
 
 
 def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
@@ -1828,7 +1825,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         spring_length = interface["spring_bearing_lengths"][state]
         for side, station in zip(("west", "east"), interface["spring_stations"]):
             read(
-                f"{state} spring-{side} maximum OD plus running air",
+                f"{state} spring-{side} measured OD plus running air",
                 _enc._ycyl(interface["spring_clearance_d"] / 2.0 + spec.slide_air,
                            station["x"], station["z"],
                            station["seat_floor_y"], station["seat_floor_y"] + spring_length),
@@ -5270,8 +5267,8 @@ def build_pack() -> cq.Assembly:
     # The four anchor tees are a second moving group inside the posed manifold. Their web is
     # struck on the squeezed tee faces, then translated to the connected state shown by the
     # finished assembly. Both carrier halves and their integral service tabs travel on that
-    # datum. Both springs use the actual fixed wall and
-    # recessed carrier bearing planes; their CAD pitch depicts that installed envelope only.
+    # datum. The measured spring envelopes span the actual fixed wall and recessed carrier
+    # bearing planes. They are clearance volumes, with no assumed wire, mass or load model.
     a.tee_carrier_spec = tee_carrier_spec(mcarry, squeeze_stood, a.collet_plate)
     a.tee_carrier = tee_carrier_interface(
         a.tee_carrier_spec, a.collet_plate, squeeze_stood)
@@ -5285,13 +5282,7 @@ def build_pack() -> cq.Assembly:
         station = (0.0, a.tee_carrier_spec.bearing_y + state_offset,
                    a.tee_carrier_spec.tee_axis_z)
         record_seat(name, station=station, got=station)
-    spring_length = a.tee_carrier["spring_bearing_lengths"][CARRIER_ASSEMBLY_STATE]
-    for side, station in zip(("west", "east"), a.tee_carrier["spring_stations"]):
-        x, z, fixed_y = station["x"], station["z"], station["seat_floor_y"]
-        spring = build_carrier_spring(x, z, fixed_y, spring_length)
-        name = f"tee-carrier-spring-{side}"
-        a.add(spring, name=name, color=M_ZINC_PLATED_STEEL)
-        record_seat(name, station=(x, fixed_y, z), got=(x, fixed_y, z))
+    add_carrier_spring_envelopes(a, a.tee_carrier, state=CARRIER_ASSEMBLY_STATE)
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
     # the +Y wall of back-top — so its aft face stands that one number inside `rear_plane_y`, which is the

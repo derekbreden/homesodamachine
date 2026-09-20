@@ -59,16 +59,24 @@ arms' top collets, leaving [4.9 mm](SPRING_BAR_WALL) of bar behind the floor. A 
 opens the channel's inboard half over its first [10 mm](SPRING_WINDOW_LENGTH), and the last
 [1.1 mm](SPRING_RING) of the channel is a full ring. The spring bears fore in a
 [2 mm](FIXED_SEAT_DEPTH) seat bored into the flank recess's fore wall on the same axis. It is
-compressed to [9.61 mm](SPRING_LOAD_LENGTH), [1 mm](SPRING_LOAD_ABOVE_SOLID) above the catalog
-solid height, to pass the window. Installed it runs [19.5 mm](SPRING_LENGTH_RELEASE) at
+compressed to [9.61 mm](SPRING_LOAD_LENGTH), [2.61 mm](SPRING_LOAD_ABOVE_COMPRESSED) above the
+measured compressed upper estimate, to pass the window. Installed it runs [19.5 mm](SPRING_LENGTH_RELEASE) at
 release, [21.65 mm](SPRING_LENGTH_CONNECTED) at connected and [24.15 mm](SPRING_LENGTH_LIMIT)
-on the aft stop, against a [30 mm](SPRING_FREE) free length. The spring's load goes from the
-fixed seat straight into the bar the fingers pull; none of it crosses the web. The return pair
-is the uxcell nominal 6 mm OD × 0.8 mm wire × 30 mm product. Derek measures the
-recently delivered stiffer pair at **6 mm OD, 27 mm free and approximately 7 mm fully
-compressed**. The current CAD still reads the
-[Lee LCM060C12M](/hardware/reference/lee-lcm060c12m/) catalog envelope and force estimate;
-the readiness audit carries the measured pair's compression and the remaining capture work.
+on the aft stop, against a measured [27 mm](SPRING_FREE) free length. The spring's load goes
+from the fixed seat straight into the bar the fingers pull; none of it crosses the web.
+The [direct measurements](spring-measurements.json) control the production envelope:
+[6 mm](SPRING_OD) OD and approximately [7 mm](SPRING_COMPRESSED_ESTIMATE) fully compressed,
+possibly slightly less. Wire diameter, ID, rate, force and manufacturing tolerances remain
+unmeasured. The nominal uxcell product identity in that record is purchasing context.
+
+The assembly source displays these springs as named **clearance envelopes**, not wound-wire
+geometry. Their solid cylinder volume is not spring material volume and supplies no mass,
+force or stiffness estimate. The source's spring facts retain unknown loads as JSON null;
+the [measured spring check](measured-spring-check.json) verifies both serialization paths.
+The retained full-assembly facts are a baseline pending the held tee and pump integration.
+The established guide and seat geometry is checked against the measured sample without
+moving either bearing plane. Positive spring guidance and loading-window retention remain
+qualification work; the [readiness audit](../print-readiness.md) holds the production print.
 
 ## The grasp
 
@@ -159,8 +167,8 @@ The nominal seating stroke is the measured PP0208E sleeve travel plus the nose g
 the sleeves while their noses remain against the plate, then opens the small nose gap.
 Release the grips and push the cartridge through its final 2.15 mm to seat it with the tubes
 bottomed at nominal rest. The extra aft guide room accommodates bending without changing the
-modeled tube projection or pump position. The spring loads are catalog estimates; the assembled dry cycle checks return
-with the four actual tubes and flexible links installed.
+modeled tube projection or pump position. Spring loads are unmeasured; the assembled dry
+cycle checks return with the four actual tubes and flexible links installed.
 
 The opening's fore face and the upper tongue's aft channel end are travel stops. Their
 normal Y gap closes at the corresponding end of travel. The [0.25 mm](GUIDE_AIR) clearance
@@ -246,16 +254,16 @@ bodies. Both end stops must engage on a
 0.001 mm overshoot. At every state, a [0.251 mm](CAPTURE_PROBE_SHIFT) displacement in X,
 a [0.501 mm](CAPTURE_PROBE_SHIFT_Z) displacement in Z and a [6.29°](CAPTURE_PROBE_ANGLE)
 rotation in either sense about every axis must encounter the flank guides alone. These are
-rigid-body contact readings. Spring clearance uses the maximum catalog outside diameter
-from the fixed seat to the channel floor at every state. The reading also checks the complete
+rigid-body contact readings. Spring clearance uses the measured sample outside diameter
+plus running air from the fixed seat to the channel floor at every state. No manufacturing
+tolerance has been measured. The reading also checks the complete
 hardware wells for internal shelves and measures upper and lower web bearing at every state.
 
 The [observed collet action](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
 establishes release under continuous restraint, locking after a short separating tug and
 insertion against spring-level collet tension. The printed assembly's checks are equal tab
 motion, positive capture, empty return to the aft stop and leak-free release/reconnection with all
-eight flexible tube ends present. The spring loads in the enclosure facts are catalog
-estimates; the assembly record holds any measured loads.
+eight flexible tube ends present. The spring forces remain unknown until measured.
 
 ## Sources
 [value](NAME) texts are updated by:
