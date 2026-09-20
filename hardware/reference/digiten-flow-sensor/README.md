@@ -1,66 +1,107 @@
-# DIGITEN G1/4" Hall-effect flow sensor — reference solid
+# DIGITEN flow sensor — measured reference
 
-A keep-out envelope for the DIGITEN G1/4" Hall-effect water-flow sensor
-(model FL-S402B / FL-S402BZJ, Amazon B07QRXLRTH) — the inline turbine flow meter
-between the rear-wall pass-through ports in the lite edition. Carbonated
-water spins the rotor; the Hall pulse train (F = 23·Q, ≈1380 pulses/L) triggers
-the flavor pumps. A purchased part, not a printed one — the model is for
-placement and tube routing, not a manufacturing drawing.
+The purchased DIGITEN inline flow meter is represented by an analytic exterior
+for mounting, tube routing, lead routing and enclosure clearance. The MINI 2
+capture records the actual sample. The STEP is a reference for integration;
+its hidden turbine, seals and electronics are not reconstructed.
 
-A round, coin-shaped body with two quick-connect ports on **opposite rims,
-coaxial along one diameter** — water enters one collet, spins the rotor, and
-exits the collet straight across the body. An **inline** (straight-through,
-180°) flow path, not an L. Reduced to coaxial/cylindrical keep-out:
+The ports are coaxial, but their axis is offset from the round housing centre.
+That offset, the fixed mounting collars and the complete cover envelope matter
+for placement. Dimensions below are millimetres.
 
-| Piece | Size | Part |
+| Feature | Model dimension |
+|---|---|
+| Collet face to face | [61](PORT_SPAN) |
+| Cover flange diameter | [35](FLOW_BODY_DIA) |
+| Overall depth, including screw heads | [28.3](BODY_LEN) |
+| Housing centre toward the lead, above the port axis | [8.9](BODY_OFFSET) |
+| Fixed port neck diameter | [15.9](NECK_DIA) |
+| Fixed collar maximum diameter | [18.3](FLOW_PORT_DIA) |
+| Fixed collar, measured outward along either port | [19.6](COLLAR_START) to [26.8](COLLAR_END), length [7.2](COLLAR_LEN) |
+| Separate collet beyond the fixed collar | [3.7](COLLET_LEN) long |
+| Lead-root envelope | [6](WIRE_ROOT_WIDTH) × [3](WIRE_ROOT_DEPTH) × [1.5](WIRE_BOSS_LEN) |
+
+The collar is gently drafted, with radius 8.95 mm at its inner end and 9.15 mm
+at its outer end. `mounting_profile(sign)` supplies the fixed neck and collar
+sections. Mounts must leave the separate collet free to move.
+
+## Frame and interfaces
+
+The origin is the midpoint of the two collet faces on the port axis. **X** is
+along that axis; **+Y** points toward the label; **+Z** points toward the lead
+exit. With the label facing the viewer and the lead above it, **+X is left**.
+The round housing centre is at `(0, 0, 8.9)` when projected into the XZ plane.
+
+| Function | Position | Outward direction |
 |---|---|---|
-| Disk | Ø[26](FLOW_BODY_DIA) × [22](BODY_LEN) deep | body — round rotor housing carrying the rotor and Hall sensor |
-| 2× barrel | Ø[12](FLOW_PORT_DIA) collet, face [30](PORT_FACE) from center | quick-connect ports, coaxial on opposite rims (one +X, one −X) |
-| Stub | Ø[8](WIRE_BOSS_DIA) × [3](WIRE_BOSS_LEN) proud | wire-exit boss where the 3-wire pigtail leaves the rim |
+| `inlet()` | `(−30.5, 0, 0)` | `−X` |
+| `outlet()` | `(+30.5, 0, 0)` | `+X` |
+| `wire_exit()` | `(0, 14.8, 26.5)` | `+Z` |
 
-The ports are 1/4" push-to-connect as sold — a 1/4" OD tube pushes in past the
-blue collet ring; there are no exposed threads. "G1/4" is the size class, not a
-BSP thread. The pigtail carries red VCC (DC 3.5–12 V), black GND, and yellow
-signal (square-wave, open-collector), leaving the rim perpendicular to the flow
-axis on a JST-XH 2.54 3-pin connector.
+The fluid function names currently retain the repository convention: flow from
+−X to +X. **The molded flow arrow has not yet been confirmed on the sample.**
+The scan establishes the two port stations, not their hydraulic handedness.
+The arrow must point left in the label-facing, lead-up view for those names to
+match this convention.
 
-## Coordinate convention (repo world frame)
+The complete rigid exterior bounds are X `−30.5…30.5`, Y `−9.4…18.9`,
+Z `−9.15…26.5`. The flexible pigtail needs routed space beyond `wire_exit()`.
+The modeled mouth is Ø6.5 mm with a 6 mm visual recess; this recess is not a
+measured tube insertion stop or a reconstruction of the flow passage.
 
-- **X** = flow axis — the two ports are coaxial along X, collet faces at
-  X = ±[30](PORT_FACE), opening +X and −X
-- **Y** = body depth — normal to the round label / rotor-cover faces; the body
-  is [22](BODY_LEN) deep, the rotor spinning about Y
-- **Z** = up — the wire-exit boss leaves the rim toward +Z
+## Capture and fidelity
 
-Origin is the body center: the two ports run out along ±X, and the wire-exit
-boss leaves +Z off the rim.
+Five passes on 20 September 2026 cover both cover faces, level and 15° tilted
+views, and a higher-exposure view of the dark band and collet noses. Revo Scan
+6.3.2 used MINI 2 High Accuracy / Feature / Normal, no colour capture, and
+0.10 mm fusion spacing. All native projects, raw frames, calibration files and
+original fused clouds are preserved with SHA-256 hashes in
+`~/Documents/3D Scans/2026-09-20-flow-meter`. The rigid registrations use no scale
+change. No hole filling or smoothing is applied to the recorded point clouds.
 
-Declared ports (`(position, outward axis)`, the convention `fit.py` reads):
-`inlet` on the −X collet face, `outlet` on the +X — the molded arrow runs −X to
-+X — and `wire_exit` at the boss tip, which is not a fluid port but the room the
-JST lead needs before it bends.
+The model retains the drafted rotor shell, cover flange and bevel, four screw
+bosses and head envelopes, six underside ribs/recesses, offset port necks,
+fixed collars, collet stems and visible mouths, one locking-clip position per
+end, and the lead root. Curved and planar primitives express the stable shape.
+Small moulding blends, lettering, screw-drive recesses, surface texture and the
+flexible lead are omitted. The underside centre recess is simplified to its
+outer envelope. Invisible interiors carry no asserted geometry.
 
-Overall envelope: a round body Ø[26](FLOW_BODY_DIA) with two ports reaching
-[30](PORT_FACE) along ±X (60 mm tip to tip).
+The locking clips can rotate. The modeled positions and the final collet
+observations come from underside passes 04/05; upright clip positions are
+excluded beyond the fixed collar. The reference does not combine different
+clip rotations into extra material.
 
-## Measured vs estimated
+The retained exterior contains 642,615 observations. At deterministic 0.3 mm
+comparison spacing, 98,652 observations have a median distance to the analytic
+exterior of 0.089 mm and a 95th-percentile distance of 0.630 mm. The fixed
+collars have a 0.046 mm median and 0.155 mm 95th percentile; the cover and
+underside reach about 0.71 mm at the 95th percentile because their smaller
+surface details are simplified. These are scan/model discrepancies, not
+manufacturing tolerances. Absolute scale accuracy has not been independently
+calibrated, and 0.10 mm point spacing does not establish accuracy. Surface
+preparation for this sample was not recorded.
 
-DIGITEN publishes no dimension drawing for this part, so **every dimension is
-photo-estimated** — read off the DIGITEN product photos (Amazon B07QRXLRTH and
-digit-en.com FL-S402B) and cross-checked against the published YF-S402B-family
-envelope (60 × 26 × 22 mm):
+[scan-evidence.json](scan-evidence.json) records captures, hashes, registration,
+measurements and modeling choices. [scan-model-check.json](scan-model-check.json)
+records feature residuals against the exact generator SHA.
+[model-check.json](model-check.json) is regenerated with the STEP and records
+valid native solids, bounds and interfaces. Its `executed_producer_sha256`
+hashes the source bytes actually executed, which Bazel normalizes. The scan
+comparison's `model_source_sha256` hashes the full repository source bytes;
+the two fields intentionally describe different inputs.
 
-- body diameter and depth, the **inline** (180°, coaxial) two-port arrangement,
-  the collet barrel OD, and the center-to-collet-face length;
-- the wire-exit boss diameter, stand-off, and +Z rim-exit direction. The
-  flexible ~15 cm pigtail itself is not enveloped.
+Generate from the repository root:
 
-The **port type** (1/4" push-to-connect, not a BSP thread) and the **F = 23·Q**
-constant are confirmed from the Amazon listing text, the part label, and the
-digit-en.com FL-S402B spec page.
+```sh
+tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py
+```
 
-Generated by `digiten_flow_sensor.py` → `digiten-flow-sensor.step`.
-Regenerate with `tools/cad-venv/bin/python digiten_flow_sensor.py`.
+Recheck the preserved observations:
+
+```sh
+tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/validate_scan.py
+```
 
 ## Sources
 [value](NAME) texts are updated by:

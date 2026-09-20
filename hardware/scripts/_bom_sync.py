@@ -99,9 +99,9 @@ carrier_ties_per_build = len(_ea._carrier.tie_sites(_ea._carrier.DEFAULT_SPEC))
 carrier_springs_per_build = len(_ea._carrier.spring_stations())
 carrier_prints_per_build = len(_ea._carrier.interface()["printed_parts"])
 carrier_joint_screws_per_build = len(_ea._carrier.joint_sites())
-general_four_inch_ties_per_build = 24
+general_four_inch_ties_per_build = 22
 four_inch_ties_per_build = general_four_inch_ties_per_build + carrier_ties_per_build
-six_inch_ties_per_build = 5
+six_inch_ties_per_build = 7
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and

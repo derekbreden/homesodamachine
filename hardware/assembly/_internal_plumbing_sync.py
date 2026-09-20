@@ -124,7 +124,7 @@ def main():
         "FLOWREG_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['flow-regulator']):.3g} mm",
         "CARB_1_LOOP": f"{_enc.tube_anchor_tie_loop(next(iter(_run_seats))):.3g} mm",
         # And the meter's, on the seat `enclosure_assembly.digiten_anchors` strikes: the
-        # barrel's own radius and the slip the V stands off it by. A flow-meter anchor
+        # fixed collar's own radius and the slip its bore stands off it by. A flow-meter anchor
         # reaches `flow_meter_anchor_wall` off that axis where a rib reaches `wall`, and
         # both are the box's three millimetres, so one hull answers for both families.
         "DIGITEN_LOOP": f"{_enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP):.3g} mm",

@@ -1,0 +1,814 @@
+{
+  "schema_version": 1,
+  "part": "Beduan solenoid valve",
+  "units": "mm",
+  "purpose": "Purchased-part reference geometry for mounting, tubing, terminal connection and assembly clearance.",
+  "capture_archive": "~/Documents/3D Scans/2026-09-19-beduan-valve",
+  "scanner": {
+    "model": "Revopoint MINI 2",
+    "serial": "A26303035A6H01AB8",
+    "application": "Revo Scan 6.3.2",
+    "acquisition_mode": "High Accuracy / Feature / Normal / No Color",
+    "turntable_seconds_per_revolution": 35
+  },
+  "sample_preparation": "User-applied scanning spray; temporary putty supports excluded geometrically.",
+  "passes": [
+    {
+      "id": "pass-01",
+      "orientation": "feet down",
+      "tilt_degrees": 0.0,
+      "depth_exposure": 1,
+      "frames": 1004,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 1057115,
+      "fused_cloud": "passes/pass-01-cloud.ply",
+      "fused_cloud_sha256": "b0fe6a183b026e97153ec3c276e0926c12f9edbb56f5cf2ec3c77f8a7d2dffae",
+      "native_project": "revo-project/pass-01/20260919234704.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-01/cache/frames.dataset",
+        "bytes": 341098496,
+        "sha256": "fc54e46fd5da14886b2c88c24884422bca16c537425a84045dedcbcb9a78dd27"
+      },
+      "native_files": 14
+    },
+    {
+      "id": "pass-02",
+      "orientation": "feet down",
+      "tilt_degrees": 15.0,
+      "depth_exposure": 2,
+      "frames": 1075,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 972416,
+      "fused_cloud": "passes/pass-02-cloud.ply",
+      "fused_cloud_sha256": "7b0b1f844e1abac234e07d64effb06ba888731c2130de46949e3cef31aaa78ed",
+      "native_project": "revo-project/pass-02/20260919235835.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-02/cache/frames.dataset",
+        "bytes": 411418624,
+        "sha256": "cfb934dd205904396a91fd32780e72632685ba0b95a7b8e079f0a078a986493a"
+      },
+      "native_files": 14
+    },
+    {
+      "id": "pass-03",
+      "orientation": "feet up",
+      "tilt_degrees": 0.0,
+      "depth_exposure": 1,
+      "frames": 1057,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 1094500,
+      "fused_cloud": "passes/pass-03-cloud.ply",
+      "fused_cloud_sha256": "32c4dfc7c23fea0b7e40b9c5cc8ef0f7fa1bdaffe72c55830b8fe4f562580885",
+      "native_project": "revo-project/pass-03/20260920000546.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-03/cache/frames.dataset",
+        "bytes": 337408000,
+        "sha256": "4b04d75a4004dca16a7fb4f2d1c2369dc7d6b5b98eeb175e2812b2467da0f86e"
+      },
+      "native_files": 14
+    },
+    {
+      "id": "pass-04",
+      "orientation": "feet up",
+      "tilt_degrees": 15.0,
+      "depth_exposure": 1,
+      "frames": 1067,
+      "fusion_spacing_mm": 0.1,
+      "fused_points": 872283,
+      "fused_cloud": "passes/pass-04-cloud.ply",
+      "fused_cloud_sha256": "f8f078af676f2a80e22c5a85a646aaa5b5ac66f2ded061a2bebb7f70c58c633a",
+      "native_project": "revo-project/pass-04/20260920000902.revox",
+      "raw_dataset": {
+        "path": "revo-project/pass-04/cache/frames.dataset",
+        "bytes": 365637632,
+        "sha256": "a5288d77fd53c26aacca583f9bcc2c3d5c69ccd17da18ee343db97dd35472fd5"
+      },
+      "native_files": 14
+    }
+  ],
+  "preservation": {
+    "status": "Verified all four complete native project copies against original SHA-256 values, including raw frames, calibration, metadata and fused clouds.",
+    "full_native_file_manifest": "capture.json",
+    "verification_report": "processing/evidence-archive-verification.json"
+  },
+  "registration": {
+    "kind": "Rigid rotation and translation",
+    "scale_factor": 1,
+    "datum": "Z=0 robust plane of four annular post end faces; X along post pairs; Y toward terminals; origin mean post centers.",
+    "source_to_canonical": {
+      "1": [
+        [
+          0.8025425329635328,
+          -0.29078997420324715,
+          0.5209286646819811,
+          -128.00066822356
+        ],
+        [
+          -0.591882861405093,
+          -0.4976091550730225,
+          0.6340818615623951,
+          -110.30881404228587
+        ],
+        [
+          0.07483422451924263,
+          -0.8172064119244218,
+          -0.571466113737478,
+          122.02151201043648
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "2": [
+        [
+          0.8948163513026834,
+          -0.3056806803529162,
+          0.32536597717083504,
+          -85.25212484890612
+        ],
+        [
+          -0.4415144095065481,
+          -0.7138456568891741,
+          0.5435893710684082,
+          -84.0523020857746
+        ],
+        [
+          0.06609632092209872,
+          -0.6300664249104574,
+          -0.7737231911744175,
+          159.99044362766043
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "3": [
+        [
+          0.26286033153481975,
+          -0.5709035915746195,
+          0.7778004469223417,
+          -162.8546677559528
+        ],
+        [
+          0.9648323968340677,
+          0.1569582421797075,
+          -0.2108614621766597,
+          3.2556896546324765
+        ],
+        [
+          -0.0017006248341931984,
+          0.8058741833183705,
+          0.5920843761965997,
+          -72.42981432795443
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "4": [
+        [
+          0.9860024846465733,
+          -0.1437924060205958,
+          0.08439694450377806,
+          -44.843861449898625
+        ],
+        [
+          0.1634037522992117,
+          0.7327699745359859,
+          -0.660565952916937,
+          102.87939514175184
+        ],
+        [
+          0.03314082083026498,
+          0.6651104482635455,
+          0.7460092342627955,
+          -102.19121465454
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "support_exclusion": {
+      "feet_down": "keep Z >= 11 mm; exclude |Y| > 26.5 and Z < 20.5 to use only the inverted collet state",
+      "feet_up": "keep Z <= 28 mm"
+    },
+    "merged_voxel_mm": 0.1,
+    "hole_filling": false,
+    "surface_smoothing": false,
+    "merged_points": 1405446,
+    "merged_cloud": "beduan-valve-measured-cloud.ply",
+    "merged_cloud_sha256": "cc84aa269642bfd7748adb16b94b6109333ab180da3fc8af06918bad98931c78"
+  },
+  "measurement_limits": {
+    "absolute_accuracy": "Not established; coated sample without independent scale calibration.",
+    "underside_overlap_agreement": {
+      "normal_matched_pairs_within_0_5mm": 141187,
+      "nearest_distance_p50_p90_p95_mm": [
+        0.07873141940430743,
+        0.13208724646926742,
+        0.1747256124846314
+      ],
+      "note": "Rigid pass registration, no scale correction; overlap agreement is not absolute accuracy."
+    },
+    "interpretation": "Fit residuals describe agreement with the selected coated surfaces. They are not tolerances, scale calibration, manufacturing specifications or confidence intervals.",
+    "observable_scope": "Exterior features and visible bore mouths; hidden flow paths, valve internals and unobserved bore depth are not reconstructed."
+  },
+  "mounting": {
+    "post_pitch_by_pass_mm": {
+      "pass-03": [
+        24.42639484766636,
+        24.881603690639942
+      ],
+      "pass-04": [
+        24.387263237340722,
+        24.834603878075697
+      ]
+    },
+    "post_pitch_mean_xy_mm": [
+      24.40682904250354,
+      24.85810378435782
+    ],
+    "post_diameter_observed_range_mm": [
+      6.889271847982831,
+      6.977955935962385
+    ],
+    "post_fits_by_pass": {
+      "pass-03": [
+        {
+          "side": [
+            -1,
+            -1
+          ],
+          "center_xy_mm": [
+            -12.191575406548925,
+            -12.453861975704651
+          ],
+          "diameter_mm": 6.931512330455855,
+          "points": 16598,
+          "absolute_residual_p50_p95_mm": [
+            0.019746401479536324,
+            0.06342184045469694
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.045124760397444647,
+            0.015498786021749063,
+            0.07469999371395324
+          ]
+        },
+        {
+          "side": [
+            -1,
+            1
+          ],
+          "center_xy_mm": [
+            -12.215787832702532,
+            12.461107747318616
+          ],
+          "diameter_mm": 6.963244603264866,
+          "points": 16683,
+          "absolute_residual_p50_p95_mm": [
+            0.02828069803052813,
+            0.07722418077460283
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.06798884193684959,
+            0.021124158967211232,
+            0.13899555816725576
+          ]
+        },
+        {
+          "side": [
+            1,
+            -1
+          ],
+          "center_xy_mm": [
+            12.21006009725726,
+            -12.412692284172584
+          ],
+          "diameter_mm": 6.9776827375927315,
+          "points": 16881,
+          "absolute_residual_p50_p95_mm": [
+            0.024977262703797187,
+            0.06665600163973284
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.042086054295516706,
+            0.03803602073882188,
+            0.10893090053958987
+          ]
+        },
+        {
+          "side": [
+            1,
+            1
+          ],
+          "center_xy_mm": [
+            12.235366358823999,
+            12.435545374084029
+          ],
+          "diameter_mm": 6.977955935962385,
+          "points": 16759,
+          "absolute_residual_p50_p95_mm": [
+            0.03093682276330245,
+            0.07333121781298166
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.03487589677766633,
+            0.01558565908876875,
+            0.0822874808521644
+          ]
+        }
+      ],
+      "pass-04": [
+        {
+          "side": [
+            -1,
+            -1
+          ],
+          "center_xy_mm": [
+            -12.189452181511825,
+            -12.435182614445619
+          ],
+          "diameter_mm": 6.889271847982831,
+          "points": 16901,
+          "absolute_residual_p50_p95_mm": [
+            0.01800176406857945,
+            0.059269372569835
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.04690072843553258,
+            -0.014149146939128289,
+            0.0168373419612384
+          ]
+        },
+        {
+          "side": [
+            -1,
+            1
+          ],
+          "center_xy_mm": [
+            -12.212302884254306,
+            12.424191522094889
+          ],
+          "diameter_mm": 6.914117276754134,
+          "points": 16959,
+          "absolute_residual_p50_p95_mm": [
+            0.02472829302845314,
+            0.0824610819732277
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.037231479437088155,
+            0.0006105171376361756,
+            0.04252334748780844
+          ]
+        },
+        {
+          "side": [
+            1,
+            -1
+          ],
+          "center_xy_mm": [
+            12.166247337091086,
+            -12.418212200777267
+          ],
+          "diameter_mm": 6.912865473293382,
+          "points": 17006,
+          "absolute_residual_p50_p95_mm": [
+            0.019026909466341335,
+            0.05146973436789515
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.04789710804070535,
+            -0.015322146688529884,
+            0.024062303083101158
+          ]
+        },
+        {
+          "side": [
+            1,
+            1
+          ],
+          "center_xy_mm": [
+            12.206524071824225,
+            12.39162141883362
+          ],
+          "diameter_mm": 6.904288184275023,
+          "points": 16976,
+          "absolute_residual_p50_p95_mm": [
+            0.025949590601165307,
+            0.06638510608405179
+          ],
+          "end_z_p05_p50_p95_mm": [
+            -0.04133176987987821,
+            -0.01758924344538484,
+            0.02650248239043322
+          ]
+        }
+      ]
+    },
+    "interpretation": "Independent underside captures support a rectangular X/Y pattern. Mounts use separate axis pitches."
+  },
+  "selected_fits": {
+    "port_-1_barrel": {
+      "count": 36561,
+      "center_mm": [
+        0.07545695493382525,
+        11.112804186106066
+      ],
+      "diameter_mm": 15.232911298012619,
+      "absolute_residual_p50_p95_mm": [
+        0.027109957976199084,
+        0.0869144579278256
+      ]
+    },
+    "port_1_barrel": {
+      "count": 41240,
+      "center_mm": [
+        -0.012863606616465234,
+        10.935172686155969
+      ],
+      "diameter_mm": 15.150959908941047,
+      "absolute_residual_p50_p95_mm": [
+        0.04210846959456793,
+        0.1228905659397699
+      ]
+    },
+    "port_-1_neck": {
+      "count": 6103,
+      "center_mm": [
+        0.03185878302507972,
+        11.012159009272382
+      ],
+      "diameter_mm": 12.310479243345663,
+      "absolute_residual_p50_p95_mm": [
+        0.02641430050290694,
+        0.10404789268460587
+      ]
+    },
+    "port_1_neck": {
+      "count": 6708,
+      "center_mm": [
+        0.02516050285692488,
+        11.0164015102027
+      ],
+      "diameter_mm": 12.195460229814785,
+      "absolute_residual_p50_p95_mm": [
+        0.03229131657576234,
+        0.13996270882646833
+      ]
+    },
+    "port_-1_nose_face": {
+      "count": 5323,
+      "coordinate_mm": -29.678955078125,
+      "coordinate_p05_p95_mm": [
+        -29.838945960998537,
+        -29.533463287353516
+      ]
+    },
+    "port_1_nose_face": {
+      "count": 5693,
+      "coordinate_mm": 29.72420883178711,
+      "coordinate_p05_p95_mm": [
+        29.446365356445312,
+        29.86035614013672
+      ]
+    },
+    "body_z_8": {
+      "count": 1561,
+      "center_mm": [
+        0.03657245301498455,
+        0.025247189003937232
+      ],
+      "diameter_mm": 24.30340854071168,
+      "absolute_residual_p50_p95_mm": [
+        0.020325110806542313,
+        0.05634091471745961
+      ]
+    },
+    "body_z_10": {
+      "count": 1558,
+      "center_mm": [
+        0.04164880197705545,
+        0.05753742656650608
+      ],
+      "diameter_mm": 24.225325237458687,
+      "absolute_residual_p50_p95_mm": [
+        0.03505808376983399,
+        0.08516775940752133
+      ]
+    },
+    "body_z_15": {
+      "count": 2048,
+      "center_mm": [
+        -0.024185282580496608,
+        0.03794049993470578
+      ],
+      "diameter_mm": 31.03869489023759,
+      "absolute_residual_p50_p95_mm": [
+        0.03327275749286507,
+        0.0674300560184724
+      ]
+    },
+    "body_z_20": {
+      "count": 1921,
+      "center_mm": [
+        -0.009838587421783427,
+        -0.05108495551036612
+      ],
+      "diameter_mm": 30.938820102990924,
+      "absolute_residual_p50_p95_mm": [
+        0.04992039139113302,
+        0.1270442871232369
+      ]
+    },
+    "body_z_23": {
+      "count": 1847,
+      "center_mm": [
+        0.010324079414290008,
+        -0.020478174772315717
+      ],
+      "diameter_mm": 31.067980089884983,
+      "absolute_residual_p50_p95_mm": [
+        0.04652503435739774,
+        0.11447882596829341
+      ]
+    },
+    "cap_bottom": {
+      "count": 1104,
+      "coordinate_mm": 25.8228759765625,
+      "coordinate_p05_p95_mm": [
+        25.736980819702147,
+        25.932550048828126
+      ]
+    },
+    "bracket_plate_top": {
+      "count": 1819,
+      "coordinate_mm": 27.853303909301758,
+      "coordinate_p05_p95_mm": [
+        27.786669540405274,
+        27.93850612640381
+      ]
+    },
+    "bracket_top": {
+      "count": 13008,
+      "coordinate_mm": 56.353023529052734,
+      "coordinate_p05_p95_mm": [
+        56.342298126220705,
+        56.38915882110596
+      ]
+    },
+    "bracket_-1_outer": {
+      "count": 19823,
+      "coordinate_mm": -16.06592559814453,
+      "coordinate_p05_p95_mm": [
+        -16.15263442993164,
+        -15.974778652191162
+      ]
+    },
+    "bracket_1_outer": {
+      "count": 18690,
+      "coordinate_mm": 16.28425121307373,
+      "coordinate_p05_p95_mm": [
+        16.183010864257813,
+        16.39563226699829
+      ]
+    },
+    "bracket_-1_inner": {
+      "count": 4588,
+      "coordinate_mm": -14.344417095184326,
+      "coordinate_p05_p95_mm": [
+        -14.41339750289917,
+        -14.304204988479615
+      ]
+    },
+    "bracket_1_inner": {
+      "count": 7148,
+      "coordinate_mm": 14.636669158935547,
+      "coordinate_p05_p95_mm": [
+        14.516984272003175,
+        14.746919631958008
+      ]
+    },
+    "bracket_-1_y_edge": {
+      "count": 3203,
+      "coordinate_mm": -8.496800422668457,
+      "coordinate_p05_p95_mm": [
+        -8.623747634887696,
+        -8.38851194381714
+      ]
+    },
+    "bracket_1_y_edge": {
+      "count": 3453,
+      "coordinate_mm": 8.751991271972656,
+      "coordinate_p05_p95_mm": [
+        8.607448387145997,
+        8.881896209716796
+      ]
+    },
+    "spade_-1_tip": {
+      "count": 232,
+      "coordinate_mm": 27.002151489257812,
+      "coordinate_p05_p95_mm": [
+        26.8504337310791,
+        27.06311616897583
+      ]
+    },
+    "spade_1_tip": {
+      "count": 207,
+      "coordinate_mm": 27.112483978271484,
+      "coordinate_p05_p95_mm": [
+        26.984324264526368,
+        27.166506195068358
+      ]
+    },
+    "spade_-1_top": {
+      "count": 2379,
+      "coordinate_mm": 52.389678955078125,
+      "coordinate_p05_p95_mm": [
+        52.228719329833986,
+        52.55387878417969
+      ]
+    },
+    "spade_1_top": {
+      "count": 2451,
+      "coordinate_mm": 52.62840270996094,
+      "coordinate_p05_p95_mm": [
+        52.53605079650879,
+        52.70457077026367
+      ]
+    }
+  },
+  "collet_fits": {
+    "port_-1_outer_ring": {
+      "count": 2723,
+      "center_xz_mm": [
+        0.07289553722469357,
+        11.158649299843384
+      ],
+      "diameter_mm": 10.11438368375121,
+      "absolute_residual_p50_p95_mm": [
+        0.03761687795740798,
+        0.10500336540258264
+      ]
+    },
+    "port_-1_visible_bore": {
+      "count": 998,
+      "center_xz_mm": [
+        0.010564838202630858,
+        11.142116628583848
+      ],
+      "diameter_mm": 6.3984868463528874,
+      "absolute_residual_p50_p95_mm": [
+        0.02582405585196912,
+        0.26397500841211136
+      ]
+    },
+    "port_-1_ear_top": {
+      "count": 503,
+      "angle_p05_p95_degrees": [
+        74.15722894920032,
+        111.57824756516165
+      ],
+      "radius_p05_p50_p95_mm": [
+        6.7833102978204325,
+        6.885840865677319,
+        6.941213189011618
+      ],
+      "x_p05_p95_mm": [
+        -2.4358237743377686,
+        1.9331121683120727
+      ],
+      "z_p05_p95_mm": [
+        17.507495880126953,
+        18.095965003967287
+      ]
+    },
+    "port_-1_ear_right": {
+      "count": 378,
+      "angle_p05_p95_degrees": [
+        2.3567308553527377,
+        32.97839688944391
+      ],
+      "radius_p05_p50_p95_mm": [
+        6.735862583486522,
+        6.806532384658178,
+        6.840647047064719
+      ],
+      "x_p05_p95_mm": [
+        5.798412418365478,
+        6.832411432266236
+      ],
+      "z_p05_p95_mm": [
+        11.434939241409301,
+        14.877018308639526
+      ]
+    },
+    "port_1_outer_ring": {
+      "count": 2566,
+      "center_xz_mm": [
+        -0.041731171182765536,
+        11.095446842365691
+      ],
+      "diameter_mm": 10.162783138284286,
+      "absolute_residual_p50_p95_mm": [
+        0.04013238744384173,
+        0.19820462325394428
+      ]
+    },
+    "port_1_visible_bore": {
+      "count": 1354,
+      "center_xz_mm": [
+        -0.07532139742623295,
+        11.16450475705459
+      ],
+      "diameter_mm": 6.474243438496733,
+      "absolute_residual_p50_p95_mm": [
+        0.05393065571267264,
+        0.19540880548512105
+      ]
+    },
+    "port_1_ear_bottom": {
+      "count": 546,
+      "angle_p05_p95_degrees": [
+        -115.41406982724746,
+        -76.04026927273405
+      ],
+      "radius_p05_p50_p95_mm": [
+        6.708665750189743,
+        6.787097376104915,
+        6.833773121535261
+      ],
+      "x_p05_p95_mm": [
+        -2.935106337070465,
+        1.5857329964637756
+      ],
+      "z_p05_p95_mm": [
+        4.286119699478149,
+        4.97980272769928
+      ]
+    }
+  },
+  "movable_features": {
+    "collet_release_ears": {
+      "evidence": "Individual passes show one ear per collet at different angles between feet-down and feet-up captures. Combining their angular states would introduce extra geometry.",
+      "chosen_configuration": "Feet-up passes 03/04: inlet ear approximately 18 degrees, outlet ear approximately -95 degrees in the XZ plane; 0 degrees is +X.",
+      "other_observed_configuration": "Feet-down passes 01/02: inlet ear approximately 90 degrees.",
+      "cloud_configuration_selection": "Upright nose observations with abs(Y) > 26.5 and Z < 20.5 are omitted from the canonical merged cloud. All original clouds remain intact.",
+      "fit_annotations": {
+        "port_-1_ear_top": "Feet-down state, excluded from the chosen CAD configuration.",
+        "port_-1_ear_right": "Feet-up state, chosen configuration.",
+        "port_1_ear_bottom": "Feet-up state, chosen configuration."
+      },
+      "evidence_view": "processing/evidence-collet-pass-views.png"
+    }
+  },
+  "feature_interpretation": {
+    "ports": "The main barrels are approximately diameter 15.2 and the body-side necks diameter 12.2. Each nose is an approximately diameter 10.2 ring with a local release ear reaching radius 6.8\u20136.9. A C-shaped retaining collar approximately radius 6.75 occupies abs(Y) 26.8\u201328.2, with its opening opposite the ear. A full diameter 14 nose would add unobserved material.",
+    "body": "The lower bearing boss is approximately diameter 24.3; the upper body is approximately diameter 31 with four larger corner lobes. Lower mounting posts have shoulders near Z 11.0. A visible annular underside relief lies between the central boss and outer shell, with a sloping roof reaching about Z 14.4. The lower face has an inward recess near X 0, Y 7 rather than a raised glyph.",
+    "cap": "The cap and bracket base have rounded corner lobes and central edge recesses. Broad base-plate top is near Z 27.85; the exposed lower plate face is near Z 25.82.",
+    "bracket": "The measured coated outer and inner X planes resolve sidewalls approximately 1.7 thick, a 17.25 Y span and a top face near Z 56.35. The CAD may use nominal steel thickness 1.6 with rounded exterior dimensions.",
+    "hood": "The front moulded hood reaches approximately Z 57.3. The rounded top roof extends beyond the straight yoke sidewall depth, while the straight steel bridge face is near Z 56.35.",
+    "terminals": "Observed straight blade edges imply approximately 6.4\u20136.55 coated width, centers near X \u00b17.4 and tips near Y 27.0. The existing nominal 6.3 \u00d7 0.8 blade section is retained as connector intent; the blades have slight individual bend.",
+    "fidelity": "Analytic surfaces, stepped ports, foot shoulders, external bracket gaps, terminal positions and visible connector ears carry functional geometry. Coating texture, lettering, screw-drive recesses and hidden interiors are outside the reference-model scope."
+  },
+  "evidence_scripts": [
+    "processing/evidence_features.py",
+    "processing/evidence_collet.py",
+    "processing/evidence_collet_passes.py",
+    "processing/evidence_connector_transition.py",
+    "processing/evidence_hood.py",
+    "processing/evidence_underside.py",
+    "processing/evidence_archive.py",
+    "processing/evidence_report.py"
+  ],
+  "evidence_views": [
+    "processing/evidence-feature-sections.png",
+    "processing/evidence-rim-sections.png",
+    "processing/evidence-connector-transition.png",
+    "processing/evidence-hood-sections.png",
+    "processing/evidence-underside-sections.png",
+    "processing/evidence-bearing-face.png",
+    "processing/measured-cloud-views.png"
+  ],
+  "model_validation": {
+    "report": "scan-model-check.json",
+    "script": "validate_scan.py",
+    "model_source_sha256": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "sample_count": 95278,
+    "scope": "Deterministic 0.4 mm voxel selection over every retained canonical observation; regional errors include every point selected geometrically, with no distance-based inlier filtering.",
+    "review_image": "processing/evidence-cad-residuals.png"
+  }
+}

@@ -378,10 +378,8 @@ MOUNTS = (
     ("nameplate", "enclosure-back-top", "snap"),
     ("nameplate-ink", "nameplate", "well"),
     # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._flow_meter_anchors` puts the
-    # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
-    # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
-    # feature can reach. A zip tie through each anchor's own cavity closes it, and here the zip ties
-    # are the load path: a V that opens downward carries nothing.
+    # half-round seat over each fixed collar, clear of its shoulder and movable collet. A zip tie
+    # through each anchor's own cavity closes it; the two ties carry the meter's weight.
     ("digiten-flow", "enclosure-back-top", "anchor"),
     # THE CAP LID PRINTS A CRADLE UNDER EACH VALVE THAT STANDS ON IT
     # (`_cold_core_interface.cap_cradles`) — four bosses, and the valve's own corner posts press
@@ -430,10 +428,10 @@ MOUNTS = (
 # part and closed on the part. The warm gas adapters also ride their threaded host: their
 # threads are the load path, with made-up reach retained as a physical qualification gate.
 #   These are one purchased thing apiece drawn as several. `manifold_layout.flat_bodies` gives a
-# Beduan two solids so the coil takes its own colour, and `build_pump` gives a Kamoer the three
+# Beduan two placed bodies so the coil takes its own colour, and `build_pump` gives a Kamoer the three
 # its STEP carries — head, rear boss and motor can. `hardware/ledger/bom.md` bills one row for
-# each of those, and `hardware/reference/beduan-solenoid` fuses body, coil and port into one
-# solid. A rider takes its host's row, so a colour never reads as an open joint.
+# each purchased assembly. The Beduan reference keeps material components as a compound;
+# a rider takes its host's fastening row so a material split never reads as an open joint.
 RIDES = {
     **{f"coil-v-{v}": f"valve-v-{v}" for v in "abcdefghij"},
     **{f"pump-{p}-{part}": f"pump-{p}-head"

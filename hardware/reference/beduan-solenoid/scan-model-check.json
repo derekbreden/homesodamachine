@@ -1,0 +1,255 @@
+{
+  "units": "mm",
+  "method": "Observed scan points to closest tessellated CAD component surface.",
+  "model_source_sha256": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+  "observations_sha256": "cc84aa269642bfd7748adb16b94b6109333ab180da3fc8af06918bad98931c78",
+  "observation_voxel_mm": 0.4,
+  "cad_tessellation_tolerance_mm": 0.04,
+  "cad_triangles": 207330,
+  "sampling": "Deterministic first observation in each voxel; regional geometry and normal masks, with no distance-based exclusion.",
+  "all_retained_observations": {
+    "samples": 95278,
+    "distance_p50_p90_p95_p99_max_mm": [
+      0.09823423374645013,
+      0.34904862017320143,
+      0.5042252987672944,
+      0.8431637900021962,
+      2.0033621500372005
+    ],
+    "fraction_over_0_25mm": 0.17267364974075863,
+    "fraction_over_0_5mm": 0.050935158168727304,
+    "fraction_over_1mm": 0.00458657822372426
+  },
+  "features": {
+    "mounting_post_walls": {
+      "samples": 6632,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.0343472981563837,
+        0.09318381521149846,
+        0.11299719606255874,
+        0.15481229306803632,
+        0.33773229227580487
+      ],
+      "fraction_over_0_25mm": 0.0004523522316043426,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "mounting_post_end_annuli": {
+      "samples": 535,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.022899581119418144,
+        0.06756016165018083,
+        0.08068890869617461,
+        0.10210818648338303,
+        0.22433486580848694
+      ],
+      "fraction_over_0_25mm": 0.0,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "lower_bearing_boss": {
+      "samples": 5838,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.08414744355816962,
+        0.412632557809574,
+        0.6091720676422129,
+        1.036713056745519,
+        1.5165579677237127
+      ],
+      "fraction_over_0_25mm": 0.18465227817745802,
+      "fraction_over_0_5mm": 0.07536827680712573,
+      "fraction_over_1mm": 0.013189448441247002
+    },
+    "upper_moulded_body": {
+      "samples": 12253,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.11876721850093132,
+        0.32198162006977626,
+        0.3749487904032738,
+        0.4781401290709016,
+        1.0123458073312452
+      ],
+      "fraction_over_0_25mm": 0.21668162898881907,
+      "fraction_over_0_5mm": 0.0086509426262956,
+      "fraction_over_1mm": 8.161266628580756e-05
+    },
+    "cap_and_base_plate": {
+      "samples": 8334,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.20315074920654297,
+        0.6169603729248042,
+        0.7452624320983886,
+        0.8424996719360349,
+        1.0901107332374431
+      ],
+      "fraction_over_0_25mm": 0.44204463642908565,
+      "fraction_over_0_5mm": 0.17338612910967122,
+      "fraction_over_1mm": 0.0005999520038396928
+    },
+    "port_barrel_walls": {
+      "samples": 5802,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.07313988810118568,
+        0.14548495731870567,
+        0.1647538765615409,
+        0.18757847662020433,
+        0.28493728721072076
+      ],
+      "fraction_over_0_25mm": 0.000517063081695967,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "port_necks": {
+      "samples": 988,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.058462150775066335,
+        0.12841582843821742,
+        0.15041379500951818,
+        0.18717541945272295,
+        0.33625723356415277
+      ],
+      "fraction_over_0_25mm": 0.003036437246963563,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "collet_ring_and_visible_mouths": {
+      "samples": 1916,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.1100208064421857,
+        0.22627390203509756,
+        0.2870893572826344,
+        0.4146265654315577,
+        0.5605378376073112
+      ],
+      "fraction_over_0_25mm": 0.07411273486430063,
+      "fraction_over_0_5mm": 0.0005219206680584551,
+      "fraction_over_1mm": 0.0
+    },
+    "coil_cylinder": {
+      "samples": 6765,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.07456513777135468,
+        0.1731442831246219,
+        0.19171698351882946,
+        0.2226512703565656,
+        0.4671577169382173
+      ],
+      "fraction_over_0_25mm": 0.0022172949002217295,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "yoke_outer_walls": {
+      "samples": 4442,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.07306051254272461,
+        0.15285053253173617,
+        0.17698650360107207,
+        0.20960531234741,
+        0.2650142669677713
+      ],
+      "fraction_over_0_25mm": 0.002026114362899595,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "yoke_inner_walls": {
+      "samples": 1844,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.11527128219604421,
+        0.20779714584350586,
+        0.24235711097717286,
+        0.2643953037261963,
+        0.31256675720214844
+      ],
+      "fraction_over_0_25mm": 0.044468546637744036,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "yoke_top": {
+      "samples": 905,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.047464752197264204,
+        0.0563697814941392,
+        0.05733261108398295,
+        0.05915252685546733,
+        0.061281585693357954
+      ],
+      "fraction_over_0_25mm": 0.0,
+      "fraction_over_0_5mm": 0.0,
+      "fraction_over_1mm": 0.0
+    },
+    "terminal_blades": {
+      "samples": 553,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.09849858625407446,
+        0.3541000366210952,
+        0.3859185791015605,
+        0.5734934997558648,
+        0.7851090657952798
+      ],
+      "fraction_over_0_25mm": 0.21518987341772153,
+      "fraction_over_0_5mm": 0.0162748643761302,
+      "fraction_over_1mm": 0.0
+    },
+    "terminal_block_and_roots": {
+      "samples": 3896,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.16366599108696583,
+        0.4631130789635616,
+        0.64115219525926,
+        0.891630720906815,
+        2.0033621500372005
+      ],
+      "fraction_over_0_25mm": 0.31365503080082136,
+      "fraction_over_0_5mm": 0.07879876796714579,
+      "fraction_over_1mm": 0.002566735112936345
+    },
+    "rounded_roof_extension": {
+      "samples": 1204,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.13270120517700626,
+        0.45998667624784884,
+        0.8303070735931382,
+        1.402248878479005,
+        1.6104377746581946
+      ],
+      "fraction_over_0_25mm": 0.24003322259136212,
+      "fraction_over_0_5mm": 0.08803986710963455,
+      "fraction_over_1mm": 0.03986710963455149
+    },
+    "screw_head_envelopes": {
+      "samples": 2757,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.21912943592541567,
+        0.6500255584716826,
+        0.9223403930664074,
+        1.0554383850097686,
+        1.140653228759767
+      ],
+      "fraction_over_0_25mm": 0.4134929270946681,
+      "fraction_over_0_5mm": 0.16104461371055495,
+      "fraction_over_1mm": 0.023213638012332245
+    },
+    "collet_collar_and_release_ears": {
+      "samples": 550,
+      "distance_p50_p90_p95_p99_max_mm": [
+        0.1396239033091481,
+        0.5149021352782955,
+        0.6488372802734367,
+        1.0307898475841384,
+        1.155858208381369
+      ],
+      "fraction_over_0_25mm": 0.22545454545454546,
+      "fraction_over_0_5mm": 0.10909090909090909,
+      "fraction_over_1mm": 0.012727272727272728
+    }
+  },
+  "limits": [
+    "Distances include coating, scan registration disagreement, rounding and chosen analytical simplifications.",
+    "The check establishes agreement with observations, not absolute dimensional accuracy.",
+    "Scan-to-model distance does not establish that all unobserved model faces are correct.",
+    "Selected regions are named exterior features, not a filtered global inlier population."
+  ],
+  "intentional_simplifications": [
+    "Screw-drive recesses, stamped markings, coating texture and hidden interiors are not represented. Their observed points remain in the distance report."
+  ]
+}

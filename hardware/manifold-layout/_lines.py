@@ -167,8 +167,7 @@ STATIONS = {
                     "to-flavor": (_split.to_flavor, _split.TUBE_D)},
     # The meter inline on the carb riser. Its two collets are coaxial on its own flow axis and
     # the machine lays that axis fore and aft, so `inlet` faces forward and `outlet` aft. The
-    # bore is the TUBE'S, not the barrel's: `digiten_flow_sensor.port_dia` is the Ø12 collet
-    # moulding, and what pushes into it is the same 1/4" LLDPE the rest of the water side runs.
+    # bore takes the same 1/4" LLDPE the rest of the water side runs.
     "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
     # The funnel's gravity drain — the spout's exit annulus, on the collar centre, facing the
@@ -818,15 +817,15 @@ def _carb_1(F):
 
 
 def _carb_2(F):
-    """carb-2 — the meter's outlet to the carb union's inboard collet, and it is ONE LENGTH OF
-    TUBE.
+    """carb-2 — a shallow rise from the meter's outlet to the carb union's inboard collet.
 
-    `enclosure_assembly.build_digiten` seats the meter ON THIS RUN: its outlet is placed one
-    `CARB_2` forward of the union's collet and on that collet's own column and plane, so the two
-    mouths face each other down one line with nothing between them to turn around."""
+    The meter's cover sets its axis below the panel deck. Four-millimetre waypoint leads leave
+    both collets on-axis while the two tangent R14 bends take that height difference.
+    """
     return R.bent(
         "carb-2", "digiten-flow.outlet", "bulkhead-carb.tube-in",
-        kind="water", note="carb water: DIGITEN outlet → rear union, one straight down the deck")
+        kind="water", lead=4.0, bend=TUBE_BEND,
+        note="carb water: DIGITEN outlet → rear union, a shallow rise between two on-axis ends")
 
 
 # How high the WEST gate's line climbs on its own column before it steps outboard. That gate has

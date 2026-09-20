@@ -70,7 +70,7 @@ TEE_JOURNAL_RADIUS = tee.BARREL_R + TEE_COLLAR_RADIAL_SLIP
 FRAME_X = 70.0
 FRAME_Z_MIN = -45.0
 FRAME_Z_MAX = 66.5
-VALVE_TRAY_FRAME_Y = -10.0
+VALVE_TRAY_FRAME_Y = -tray.THICK
 VALVE_TRAY_FRAME_Z = SLEEVE_FACE_SEPARATION + valve.port_length / 2.0
 
 # After the valve-seat offset and the quarter turn, this is the Y axis shared by the valve port
@@ -365,7 +365,7 @@ def main():
 
 if __name__ == "__main__":
     if sys.argv[1:] == ["selftest"]:
-        sys.exit(selftest())
+        selftest()
     elif sys.argv[1:]:
         sys.exit("usage: tee_valve_bow_trial.py [selftest]")
     else:
