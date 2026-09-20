@@ -1,0 +1,16 @@
+{
+  "/hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py": {
+    "TMB_BLOCK": "50 \u00d7 24.8 \u00d7 18 mm",
+    "TMB_KEEP_SIDE": "19 mm",
+    "TMB_OFFCUT_SIDE": "5 mm",
+    "TMB_RAZOR_PAST_FLOOR": "1.55 mm",
+    "TMB_RUNNING": "0.25 mm",
+    "TMB_SLOT_L": "40 mm",
+    "TMB_SLOT_W": "0.8 mm",
+    "TMB_TROUGH_1_4": "6.85 mm",
+    "TMB_TROUGH_3_8": "10.02 mm",
+    "TMB_TROUGH_FLOOR_ABOVE_SLOT_FLOOR": "2.5 mm",
+    "TMB_TROUGH_PITCH": "20 mm",
+    "TMB_WALL_ABOVE_3_8": "2.98 mm"
+  }
+}
