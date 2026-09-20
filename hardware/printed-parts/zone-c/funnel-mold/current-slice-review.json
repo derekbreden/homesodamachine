@@ -1,24 +1,168 @@
 {
-  "project": "funnel-mold.3mf",
-  "project_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+  "build_transforms": {
+    "2": "1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 149.500000000 160.000000000 41.467590332",
+    "4": "1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 545.500000000 160.000000000 21.116830826"
+  },
+  "checked_date": "2026-09-20",
+  "containment_review_sha256": "fb515154fce70e46ec4a363ae59d41847f4023195714bfe6a858420017736802",
+  "embedded_mesh_checks": {
+    "cavity": {
+      "matches_stl": true,
+      "maximum_vertex_distance_mm": 8.581794553635084e-10,
+      "triangles": 259834
+    },
+    "core": {
+      "matches_stl": true,
+      "maximum_vertex_distance_mm": 8.480118491166228e-10,
+      "triangles": 66578
+    }
+  },
+  "funnel_match": {
+    "capacity_ml": 600.0000028119312,
+    "finished_cast_symmetric_difference_mm3": 0.0,
+    "matches": true,
+    "method": "Build current funnel source; unshift mold casting STEP and trim sacrificial spout at the finished outlet plane; compare exact solid differences.",
+    "mold_cast_sha256": "64ddc73e5019164b72cb2fbecf8004af89a60bce2162206abc6abfb7c4b3989f",
+    "source": "../funnel/funnel.py",
+    "source_sha256": "b5c9728cb8f963e5d60328d4068e1d4f87e0bd49742fbf375eb05c36cd8f393d"
+  },
+  "geometry_commit": "953dbfa6867105141ef69ddc2c9c5c8e54dac12d",
   "mesh_sha256": {
     "cavity": "b0c21d72c28b4d5a3adb2d491bb53e822196d4bdab537ac8ba215180efea7ec0",
     "core": "a03a7eab80f182ad7f7a23338bf9938dde14328a5ab683542e528ffca9ed2a78"
   },
-  "embedded_mesh_checks": {
-    "cavity": {
-      "matches_stl": true,
-      "triangles": 259834,
-      "maximum_vertex_distance_mm": 1.9560378084838446e-06
-    },
-    "core": {
-      "matches_stl": true,
-      "triangles": 66578,
-      "maximum_vertex_distance_mm": 4.99734356375202e-07
-    }
+  "next_print": {
+    "material": "Bambu PETG Translucent",
+    "nozzle": "left 0.4 mm Standard",
+    "printer": "H2C",
+    "setup_note": "User is printing PET-GF for other work. Mold project retains PETG Translucent; nozzle and spool mapping are checked when the user resumes mold printing.",
+    "state": "prepared, not submitted",
+    "z_trim_mm": 0.18
   },
+  "plate_settings": [
+    {
+      "bed_type": "Textured PEI Plate",
+      "filament_map_mode": "Auto For Flush",
+      "filament_maps": "1",
+      "filament_volume_maps": "0",
+      "locked": "false",
+      "plater_id": "1",
+      "plater_name": "Funnel mold cavity"
+    },
+    {
+      "bed_type": "Textured PEI Plate",
+      "filament_map_mode": "Manual",
+      "filament_maps": "1",
+      "filament_volume_maps": "0",
+      "locked": "false",
+      "plater_id": "2",
+      "plater_name": "Funnel mold core"
+    }
+  ],
+  "plates": [
+    {
+      "estimated_filament_g": 708.06,
+      "estimated_seconds": 127784,
+      "filament_flow_ratio": 0.88,
+      "gcode_sha256": "bbe92a9f4a374fe0490acad609200a6af0725c258220730a8cbd893c8a0411a2",
+      "layers": 623,
+      "nozzle": {
+        "extruder_id": "1",
+        "id": "0",
+        "nozzle_diameter": "0.4",
+        "volume_type": "Standard"
+      },
+      "orientation": "upright",
+      "part": "cavity",
+      "plate": 1,
+      "slice_warning_message": "",
+      "supports_present": true,
+      "within_bed": true,
+      "z_commands": [
+        "G29.1 Z0 ; clear z-trim value first",
+        "G29.1 Z0.16"
+      ]
+    },
+    {
+      "estimated_filament_g": 420.97,
+      "estimated_seconds": 76777,
+      "filament_flow_ratio": 0.88,
+      "gcode_sha256": "263b44fa8ab357264847be168356c190f88dab5892d71b6b3de57e6fbae3828d",
+      "layers": 313,
+      "nozzle": {
+        "extruder_id": "1",
+        "id": "0",
+        "nozzle_diameter": "0.4",
+        "volume_type": "Standard"
+      },
+      "orientation": "inverted",
+      "part": "core",
+      "plate": 2,
+      "slice_warning_message": "",
+      "supports_present": true,
+      "within_bed": true,
+      "z_commands": [
+        "G29.1 Z0 ; clear z-trim value first",
+        "G29.1 Z0.16"
+      ]
+    }
+  ],
+  "project": "funnel-mold.3mf",
+  "project_sha256": "da09a13449d6ce902eb929e8dec0ab64e1c8cfb434498aab72dbf79d2527df2a",
+  "scope": "Current 600 mL funnel source matches the finished mold casting. Saved cavity/core meshes, orientations, retained 0.88 PETG settings and freshly emitted toolpaths verified. This geometry has not been physically printed or cast.",
+  "settings": {
+    "filament_flow_ratio": [
+      "0.88",
+      "0.97",
+      "0.97"
+    ],
+    "filament_max_volumetric_speed": [
+      "5.61702",
+      "6",
+      "6"
+    ],
+    "filament_volume_map": [
+      "0"
+    ],
+    "initial_layer_print_height": "0.2",
+    "layer_height": "0.24",
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "nozzle_volume_type": [
+      "Standard",
+      "Standard"
+    ],
+    "sparse_infill_density": "100%",
+    "support_style": "snug",
+    "support_type": "normal(auto)"
+  },
+  "settings_changes_from_printed_088_project": {},
+  "slice_file": ".cache/prints/2026-09-20-funnel-ready/funnel-mold-600ml-flow088-z018.gcode.3mf",
   "slice_return_code": 0,
+  "slice_sha256": "ef04a2da2a12999e35942d331b0ce2c82562e3ac64bafcefd7f25299e4861994",
   "slicer_saved_normalizations": {
+    "extruder_nozzle_stats": [
+      [
+        "Standard#1",
+        "Standard#0|High Flow#0"
+      ],
+      [
+        "Standard#1",
+        "Standard#0"
+      ]
+    ],
+    "extruder_nozzle_stats_new": [
+      [
+        "Standard#1",
+        "Standard#0|High Flow#0"
+      ],
+      [
+        "Standard#1",
+        "Standard#0"
+      ]
+    ],
     "filament_map_2": [
       null,
       [
@@ -34,5 +178,5 @@
       ]
     ]
   },
-  "scope": "Saved source project and fresh Bambu Studio slice; physical printing and casting are untested."
+  "slicer_version": "02.08.02.61"
 }

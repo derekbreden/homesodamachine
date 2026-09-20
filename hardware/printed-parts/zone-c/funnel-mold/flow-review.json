@@ -195,5 +195,10 @@
   "verified": true,
   "scope": "Archive, active flow/nozzle/Z trim and emitted model extrusion verified against the submitted 0.94 failure. Original model meshes and placement entries are byte-identical. G-code model motion matching allows small slicer differences; exact toolpath identity is not claimed. Physical success remains untested.",
   "comparison_method": "Positive or zero XY extrusion after layer markers, excluding wipe moves. Model extrusion sums exclude Support features. Model motion matching uses layer, feature, command and XYZ/IJ endpoint fields; feed rates are compared only for matched entries. This is a command-level audit, not a measurement of deposited plastic.",
-  "physical_status": "Submitted full-size 0.88 cavity to H2C through Bambu Connect; RUNNING verified 2026-09-18T18:43:18.785347+00:00. Physical result pending."
+  "physical_status": "User reports 2026-09-20: worked okay, certainly less overflow, still not perfect. Three photographs show remaining rough patches near the upper ramp and a corner. This observation belongs to the 2026-09-18 submitted 0.88 cavity, not the current 600 mL geometry.",
+  "physical_evidence": [
+    "print-photos/2026-09-20-flow088/photo-1.jpg",
+    "print-photos/2026-09-20-flow088/photo-2.jpg",
+    "print-photos/2026-09-20-flow088/photo-3.jpg"
+  ]
 }

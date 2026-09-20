@@ -1,5 +1,50 @@
 # Funnel mold print log
 
+## 0.88-flow print result and 600 mL mold readiness — 2026-09-20
+
+Derek reports: “Last print worked okay. Certainly less of ‘the problem’ that
+I refer to as ‘overflow’.” He reports that it is still not perfect. The photos
+show the complete-looking cavity, with remaining rough, irregular patches
+near the upper ramp and a corner. Broad areas of the ramp have more regular
+surface lines. No surface-height, density or strength measurements accompany
+this report.
+
+This result belongs to the square-mouth cavity submitted on September 18 as
+`funnel-mold-04-standard-flow088-z018.gcode.3mf`, source commit `59e088d8d`.
+The print used 0.88 flow and a 5.61702 mm³/s volumetric limit. Both settings
+changed from the 0.94 trial, and the emitted speeds differed. The result
+establishes an improvement for that combination; it does not isolate flow
+from speed or establish the cause of the remaining defect.
+
+![Completed cavity](print-photos/2026-09-20-flow088/photo-3.jpg)
+
+[Corner view](print-photos/2026-09-20-flow088/photo-2.jpg) ·
+[Close-up of remaining roughness](print-photos/2026-09-20-flow088/photo-1.jpg).
+The original supplied JPEG bytes are preserved; their hashes are in
+[print-jobs.json](print-jobs.json).
+
+The saved [funnel-mold.3mf](funnel-mold.3mf) contains the current **600 mL**
+rounded-mouth funnel's cavity and core from geometry commit `953dbfa68`.
+The finished casting solid matches a fresh build of `../funnel/funnel.py`,
+with zero symmetric-difference volume after trimming the sacrificial tip.
+Both embedded meshes match the current STL files and retain their print
+orientations. The complete process, filament and machine settings equal
+those of the printed 0.88 project. Both plates freshly slice successfully;
+[current-slice-review.json](current-slice-review.json) records hashes,
+nozzle/flow/Z-trim checks and the estimates:
+
+| Plate | Part | Layers | Estimated time | PETG |
+| --- | --- | ---: | ---: | ---: |
+| 1 | Cavity, upright | 623 | 35 h 29 min 44 s | 708.06 g |
+| 2 | Core, inverted | 313 | 21 h 19 min 37 s | 420.97 g |
+
+The project selects **PETG Translucent**, the **left 0.4 mm Standard nozzle**,
+**0.88 flow**, **5.61702 mm³/s**, **100% infill**, Snug normal supports and
+**+0.18 mm Z trim**. On Textured PEI the emitted trim is `G29.1 Z0.16`.
+The current geometry's physical print and casting results are untested.
+Derek is using PET-GF for other work; this mold project remains prepared for
+PETG Translucent. No mold print was submitted in this update.
+
 ## Full cavity at 0.88 flow — 2026-09-18
 
 Derek authorized the next full-size cavity attempt on H2C after the 0.94
@@ -45,7 +90,7 @@ use Auto. At **2026-09-18 18:43:18 UTC** (13:43 CDT), the printer reports
 **RUNNING**, the correct `funnel-mold-04-standard-flow088-z018.gcode.3mf`
 filename, 642 layers, no print error and no HMS entry. Connect shows chamber
 cooling and the left nozzle heating toward 165 °C. The saved source is commit
-`59e088d8d`. The physical result is pending.
+`59e088d8d`. The September 20 result is recorded above.
 
 ## Reduced-flow 0.4 mm Standard trial — 2026-09-17
 

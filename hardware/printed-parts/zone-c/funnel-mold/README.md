@@ -142,8 +142,10 @@ With the 0.4 mm nozzle and Textured PEI, the emitted command is `G29.1 Z0.16`.
 Open and slice this project in Bambu Studio for the current
 toolpaths, print time and material estimate; the saved project contains no G-code.
 
-[current-slice-review.json](current-slice-review.json) records a successful slice
-of these meshes and verifies that the saved project contains the current STL geometry.
+[current-slice-review.json](current-slice-review.json) verifies both saved meshes
+against the current STLs and the finished casting against the current funnel
+source. Both plates slice successfully with the settings above; their toolpath
+hashes, layer counts, time and material estimates are in that reading.
 
 The core's envelope is [211 × 211 × 42.2 mm](CORE_DIMS); the cavity is
 [211 × 211 × 82.9 mm](CAVITY_DIMS). Supports are accessible from the dry backs.
