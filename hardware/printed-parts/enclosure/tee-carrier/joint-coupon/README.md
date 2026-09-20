@@ -66,8 +66,9 @@ emitted compensation commands are `G29.1 Z0` and `G29.1 Z0.02`. The slicer estim
 **36 min 29 sec, 14.74 g and 220 layers**. The five keeper beam layers retain **0.80 mm**
 material width and **0.65 mm** open space beside the beam in the commanded road envelopes.
 [print-readiness.json](print-readiness.json) records exact source/profile/archive hashes.
-Mark2 acknowledged this exact job as running at **2026-09-20 22:42:37 UTC**, with
-220 layers and no printer error; [print-status.json](print-status.json) retains that reading.
+Mark2 completed this exact job at the **2026-09-20 23:23:54 UTC** status reading, with
+**220/220 layers, 100% progress and no printer error**; [print-status.json](print-status.json)
+retains that reading. Physical support removal, fit and keeper retention remain unverified.
 The left external spool is mapped as PET-CF in Bambu Connect and carries Derek's black
 PET-GF. Timelapse and bed leveling are On; flow and nozzle-offset calibration are Auto.
 This coupon does not release the production carrier or enclosure.
@@ -98,8 +99,9 @@ the screwless engagement and keeper work in the actual material, and how much pl
 
 ## Remaining carrier work
 
-The production carrier still needs its upper trough overcut corrected, both spring ends
-positively captured, and all dimensions propagated from the actual PP0208E tee. The
+The production carrier retains backing above its tee troughs, verified in the
+[native backing check](../upper-backing-check.json). Both spring ends still need positive
+capture, and all dimensions must follow the actual PP0208E tee. The
 delivered springs' 27 mm free length, approximately 7 mm compressed length and 6 mm OD
 control their envelope. No catalog spring rate is treated as a measurement of that pair.
 An internal guide remains conditional on the measured inner diameter; an external guide
