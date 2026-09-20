@@ -12,8 +12,8 @@ four to a plane. Each plane gets a tray: [2](TRAY_COUNT) per machine.
 | | |
 |---|---|
 | plate | [209](TRAY_W) mm wide × [9.2](TRAY_T) mm thick |
-| height, fore / aft | [44.05/50.05](TRAY_H) mm |
-| seats | [4](TRAY_SEATS); one fore row, aft outer columns 6 mm above the inner columns |
+| height, fore / aft | [44.05/52.05](TRAY_H) mm |
+| seats | [4](TRAY_SEATS); one fore row, aft outer columns [8](TRAY_AFT_STEP) mm above the inner columns |
 | socket | Ø[7.2](SOCKET_DIA) × [6.2](SOCKET_DEPTH) deep — a corner post presses in |
 | behind a socket | [3](SOCKET_FLOOR) mm of plate, one wall |
 | port channel | Ø[17.2](CHANNEL_DIA), [2.75](CHANNEL_DEPTH) deep, out both ends of the plate |
@@ -24,7 +24,7 @@ four to a plane. Each plane gets a tray: [2](TRAY_COUNT) per machine.
 | post in the plate | [5.200](TRAY_GRIP) mm, all of it |
 | air round the port | [1](TRAY_PORT_SLIP) mm, the box's own figure for air round a body |
 | socket to port channel | [1.273](TRAY_WEB) mm — **measured**, [303](TRAY_WEB_PCT)% of a [0.42](TRAY_EXTRUSION) mm bead |
-| nominal seat plates, both | [163.83](TRAY_VOL) cm³ before enclosure feet and root reliefs |
+| nominal seat plates, both | [167.49](TRAY_VOL) cm³ before enclosure feet and root reliefs |
 
 ## What holds a valve
 

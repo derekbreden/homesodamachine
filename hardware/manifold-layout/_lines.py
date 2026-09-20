@@ -85,6 +85,9 @@ import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
 import _gas_chain                                      # noqa: E402
 import digiten_flow_sensor as _digiten                  # noqa: E402
+# The one floor every pair on the card answers to, so a run drawn against a casting
+# and the reading taken of it afterwards cannot come off two different millimetres.
+import _scorecard as _card                             # noqa: E402
 
 BLOCKED = R.BLOCKED
 
@@ -269,7 +272,7 @@ def build_runs(placed, carries):
     if {"gasher-co2", "foam-assembly"} <= set(F):
         runs.append(_co2_2(F))
     if ({"flow-regulator", "valve-v-a", "bulkhead-flavor-a"} <= set(F)
-            and "coil-v-a" in placed):
+            and {"coil-v-a", "seaflo-pump"} <= set(placed)):
         runs.append(_fluid_2(F, placed))
     if {"foam-assembly", "digiten-flow"} <= set(F):
         runs.append(_carb_1(F))
@@ -675,6 +678,11 @@ FLUID_2_LEVEL_CLEAR = 6.0
 # How far past the pack's own stub this run turns onto V-A's column. A square corner spends its
 # whole radius as tangent in each leg it touches, so a turn planted ON the stub's far end has
 # exactly the stub to seat in and no more — this is what the leg carries over that.
+#
+# IT IS A SET AND NOT A PLANE. Aft of the stub stands the water pump's casting, and the crossing
+# is a run passing a body nothing seats it against: what it owes there is `clearance-floor`, the
+# same millimetre every other such pair holds. The set is what the leg takes when the casting is
+# further off than that, and the casting is what decides the plane when it is not.
 FLUID_2_CROSS_SET = 0.5
 # The column the run goes forward and down in: the strip WEST of the flavour-A line's own aft
 # lane. `fluid-18` holds that lane over the whole depth this run crosses it in, so the strip is
@@ -710,15 +718,24 @@ def _fluid_2(F, solids):
     column it stops holding: the fall onto V-A's port plane is spent in the same leg that carries
     the run the rest of the way east, which is what keeps both of that leg's corners off square.
 
-    The last leg is `manifold_layout.STUB` and `FLUID_2_CROSS_SET` over it — the straight that
-    pack draws on every mouth that leaves it, which is what its first corner needs before it can
-    turn at all. Drawing this run is what makes that stub a real line, so
-    `enclosure_assembly.build_pack` stops adding the placeholder once the run exists."""
+    The last leg is `manifold_layout.STUB` and up to `FLUID_2_CROSS_SET` over it — the straight
+    that pack draws on every mouth that leaves it, which is what its first corner needs before it
+    can turn at all. Drawing this run is what makes that stub a real line, so
+    `enclosure_assembly.build_pack` stops adding the placeholder once the run exists. What caps
+    the set is the water pump: the crossing passes its casting and holds `clearance-floor` off
+    it, and a casting near enough to close the stub itself raises here."""
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
     lane = out[1] + FLUID_2_LEAD
     lane_x = F["bulkhead-flavor-a"].at("tube-in")[0] - FLUID_2_LANE_CLEAR
-    cross = inlet[1] + _ml.STUB + FLUID_2_CROSS_SET
+    stub_end = inlet[1] + _ml.STUB
+    pump_fore = solids["seaflo-pump"].BoundingBox().ymin
+    cross = min(stub_end + FLUID_2_CROSS_SET,
+                pump_fore - _card.CLEARANCE_FLOOR - _split.TUBE_D / 2.0)
+    if cross < stub_end - 1e-6:
+        raise ValueError(
+            f"the pump's fore face at Y{pump_fore:.3f} puts fluid-2's crossing at "
+            f"Y{cross:.3f}, inside the stub V-A's inlet ends at Y{stub_end:.3f}")
     level_end = F["valve-v-b"].at("inlet")[0] + FLUID_2_LEVEL_CLEAR
     return R.bent(
         "fluid-2", "flow-regulator.outlet",

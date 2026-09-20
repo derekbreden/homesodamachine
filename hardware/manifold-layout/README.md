@@ -58,10 +58,11 @@ crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
 ## The fold
 
 The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° hairpin
-with two quarter circles and a tangent straight between them. The inner pair has
-a 2 mm axial leg at the tee; the outer pair has a 4 mm axial leg at the fixed valve.
+with two quarter circles and a tangent straight between them. Each pair turns on whichever of
+its two mouths is lower and reaches the other with a 4 mm axial leg: at the tee on the inner
+pair, whose fixed valve rides the source limbs' drop, and at the fixed valve on the outer pair.
 Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
-[79.13](SPINE_LEN) mm for each inner hairpin and [81.43](OUTER_SPINE_LEN) mm for each outer one.
+[81.13](SPINE_LEN) mm for each inner hairpin and [81.43](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
@@ -87,7 +88,7 @@ radius on its own.
 
 [2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
 [21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
-[73.57](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
+[71.57](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
 +Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
 axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 

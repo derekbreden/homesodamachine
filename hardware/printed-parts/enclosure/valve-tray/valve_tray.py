@@ -396,6 +396,12 @@ def main():
             "TRAY_MARGIN": f"{MARGIN:g}",
             "TRAY_REACH": f"{reach():g}",
             "TRAY_SEATS": f"{len(seats)}",
+            # The aft plate carries two elevations: its outer columns stand this far
+            # above its inner pair, which ride the source limbs down.
+            "TRAY_AFT_STEP": "/".join(
+                f"{max(y for _x, y in s) - min(y for _x, y in s):g}"
+                for _n, (_w, s) in sorted(trays.items())
+                if max(y for _x, y in s) - min(y for _x, y in s) > 1e-9),
             "TRAY_COUNT": f"{len(trays)}",
             "TRAY_VOL": f"{total / 1000.0:.2f}",
             "SOCKET_DIA": f"{2 * _seat.socket_radius:.4g}",
