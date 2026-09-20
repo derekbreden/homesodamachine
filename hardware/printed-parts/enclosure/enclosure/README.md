@@ -1,5 +1,7 @@
 # Enclosure
 
+Production release of front-top is held for the [scan and tee-carrier readiness audit](../print-readiness.md).
+
 What the pieces have actually been printed in, and at what settings:
 [print-log.md](print-log.md).
 
