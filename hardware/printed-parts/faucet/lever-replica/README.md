@@ -13,12 +13,12 @@ print reading. It is separate from the production faucet assembly.
 |---|---|
 | [lever_replica.py](lever_replica.py) | Editable CadQuery construction and fit-trial parameters |
 | [lever-replica.step](lever-replica.step) | Analytic solid in the local part frame |
-| [lever-replica.stl](lever-replica.stl) | Closed printable mesh in that same frame |
+| [lever-replica.stl](lever-replica.stl) | Donor reference mesh in that same frame |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Right side on the print bed |
 | [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
 | [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever at +0.04 mm Z trim, for Mark2 |
 | [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Exact native sliced archive submitted to H2C |
-| [lever-white-petgf-z004-mark2.gcode.3mf](lever-white-petgf-z004-mark2.gcode.3mf) | The same, submitted to Mark2 |
+| [lever-original-wide-white-z004-mark2.gcode.3mf](lever-original-wide-white-z004-mark2.gcode.3mf) | Submitted white comparison lever, flat sides and widened cylinder pocket, at +0.04 mm on Mark2 |
 | [print-jobs.json](print-jobs.json) | Printer acceptance, physical material/nozzle and job hashes |
 | [scan-fit.json](scan-fit.json) | Observed-point/CAD distances, normals and mesh validity |
 | [contact-datums.json](contact-datums.json) | Partial metal-cylinder fit and its scan-frame transform |
@@ -132,15 +132,9 @@ hashes and slice are recorded in [the print report](lever-replica-petgf.print.js
 [support audit](lever-replica-petgf.support-audit.json) and
 [print job record](print-jobs.json).
 
-Two prints preceded this geometry. The first, at a modelled parallel 8.60 mm
-channel, measured 8.4 mm and the cylinder would not enter. The second widened the
-channel but narrowed the outside to 12.40 mm on a mistaken reading of the donor,
-and is 0.4 mm narrow with 1.70 mm walls. Neither is a width comparison; the
-second is still a usable check of whether the cylinder enters at all.
-
-A caliper across this part reads a different number at every height on the
-outside. Compare a width to the table above at the height it was taken, not to a
-single figure.
+A caliper across the donor reference reads a different width at every height.
+The printable comparison has parallel sides: 12.40 mm outside, a 9.00 mm
+channel and 1.70 mm walls along the straight portion.
 
 ## What goes to the printer has no draft on either lateral face
 
@@ -154,11 +148,18 @@ gap. A slope survives on none of the three.
   Derek, on the print it produced: it "makes it unprintable, for all practical
   purposes".
 
-`lever-replica-side-down.stl` is therefore built flat at `PRINTED_OUTSIDE_WIDTH`
-and `CHANNEL_PRINTED_WIDTH` — the two widths of the 2026-09-20 channel-fix
-print, which printed well and works on the valve. The STEP, the viewer payload
-and any assembled pose keep the donor's drafted faces, which is what the scan
-reads. Change either printed width only against a print, not against the solid.
+`lever-replica-side-down.stl` is built flat at `PRINTED_OUTSIDE_WIDTH`
+and `CHANNEL_PRINTED_WIDTH`. Its channel stays parallel to Y=44.30 mm, then
+follows `PRINTED_STOP_PROFILE` into the cylinder pocket. This complete geometry
+has Derek's physical confirmation: the cylinder seats fully, the rod passes
+through the bottom slot, and the arms lift the cylinder during operation.
+The STEP and viewer payload retain the donor's drafted faces and measured
+channel convergence. The printed body has its own pocket construction.
+
+The uniquely named white archive and its project preserve the accepted
+channel-fix project's mesh and placement byte for byte. Its executed machine
+commands match that print except for Mark2's Z trim. The source comparison and
+archive hashes are recorded in `print-jobs.json`.
 
 For the first complete-part comparison, check the aft/down/forward insertion with
 the tube absent, the light retention, the tube's ability to seat, free operating
