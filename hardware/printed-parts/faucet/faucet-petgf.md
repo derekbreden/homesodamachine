@@ -2,7 +2,7 @@
 
 [`faucet-petgf.3mf`](faucet-petgf.3mf) contains the shell base, shell tip,
 display cover and above-counter plate on one plate. The current Mark2 job
-uses white Polymaker PET-GF with a left 0.4 mm nozzle.
+uses black Polymaker PET-GF with a left 0.4 mm nozzle.
 
 | Position | Part | CAD X rotation |
 |---|---|---:|
@@ -25,7 +25,7 @@ The process uses **0.24 mm layers**, a **0.20 mm first layer**, two walls and
 280 °C thereafter, with an 80 °C Textured PEI plate. Part cooling is 0–70%,
 off for the first three layers. Automatic tree supports use a 0.45 mm top
 gap, 0.30 mm bottom gap, 0.40 mm XY gap, two top interface layers and 0.50 mm
-interface spacing. The external white PET-GF uses the printer's existing
+interface spacing. The external PET-GF uses the printer's existing
 PET-CF material mapping; the right nozzle is unused.
 
 **+0.18 mm Z trim** is added to the stock plate compensation. On Textured

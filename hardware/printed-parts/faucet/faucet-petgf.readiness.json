@@ -49,11 +49,11 @@
       0.0,
       0.16
     ],
-    "physical_filament": "white Polymaker PET-GF; loaded by user",
+    "physical_filament": "black Polymaker PET-GF; loaded by user",
     "printer_filament_label": "PET-CF"
   },
   "native": {
-    "archive": ".cache/prints/2026-09-18-sculpted-white-z018-mark2/ready/sculpted-white-z018-mark2.gcode.3mf",
+    "archive": ".cache/prints/2026-09-19-sculpted-black-z018-mark2/sculpted-black-z018-mark2.gcode.3mf",
     "archive_sha256": "bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0",
     "gcode_sha256": "e9a115f3fbbf30ea37afc119d2536aa914e3d11be6d1d7393b348ac797493056",
     "layers": 1019,
@@ -217,13 +217,13 @@
   "scope": "Complete Sculpted faucet: shell base, shell tip, display cover and above-counter plate.",
   "submission": {
     "method": "Bambu Connect signed-in desktop UI",
-    "user_authorization": "Full Sculpted faucet on Mark2 with 0.18 Z; white filament loaded. Earlier tip pose and upward-facing visible cover bezel.",
-    "archive": ".cache/prints/2026-09-18-sculpted-white-z018-mark2/ready/sculpted-white-z018-mark2.gcode.3mf",
+    "user_authorization": "Please print a sculpted faucet on Mark2; black PET-GF remains loaded.",
+    "archive": ".cache/prints/2026-09-19-sculpted-black-z018-mark2/sculpted-black-z018-mark2.gcode.3mf",
     "archive_sha256": "bb09c1a20c773197b7aa93abc9d9d9c2c15ab82f04d8181ecec46ee91edd8dc0",
     "send_clicks": 1,
     "send_observed_between_utc": [
-      "2026-09-18T21:03:40Z",
-      "2026-09-18T21:05:14Z"
+      "2026-09-20T02:04:01.459836+00:00",
+      "2026-09-20T02:05:42.827550+00:00"
     ],
     "options": {
       "printer": "Mark2",
@@ -232,7 +232,7 @@
       "nozzle": "left",
       "filament_source": "external",
       "material": "Polymaker PET-GF",
-      "physical_color": "white",
+      "physical_color": "black",
       "printer_filament_label": "PET-CF",
       "right_nozzle": "unused",
       "timelapse": "off",
@@ -242,38 +242,66 @@
     },
     "preflight": {
       "printer": "Mark2",
-      "observed_at": "2026-09-18T20:59:35.277139+00:00",
+      "observed_at": "2026-09-20T02:03:35.143952+00:00",
       "gcode_state": "FINISH",
-      "subtask_name": "faucet-display-mark2.gcode.3mf",
+      "subtask_name": "industrial-black-z018-mark2.gcode.3mf",
       "mc_percent": 100,
-      "layer_num": 462,
-      "total_layer_num": 462,
+      "layer_num": 1019,
+      "total_layer_num": 1019,
       "mc_remaining_time": 0,
       "print_error": 0,
       "hms": [],
-      "nozzle_temper": 45.0,
+      "nozzle_temper": 25.0,
       "nozzle_target_temper": 0.0,
-      "bed_temper": 35.0,
-      "bed_target_temper": 0.0
+      "bed_temper": 22.0,
+      "bed_target_temper": 0.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
     },
     "startup": {
       "printer": "Mark2",
-      "observed_at": "2026-09-18T21:05:14.720489+00:00",
+      "observed_at": "2026-09-20T02:05:42.827550+00:00",
       "gcode_state": "RUNNING",
-      "subtask_name": "sculpted-white-z018-mark2.gcode.3mf",
+      "subtask_name": "sculpted-black-z018-mark2.gcode.3mf",
       "mc_percent": 0,
       "layer_num": 0,
       "total_layer_num": 1019,
       "mc_remaining_time": 270,
       "print_error": 0,
       "hms": [],
-      "nozzle_temper": 52.0,
+      "nozzle_temper": 155.0,
       "nozzle_target_temper": 200.0,
-      "bed_temper": 34.0,
-      "bed_target_temper": 34.0
+      "bed_temper": 22.0,
+      "bed_target_temper": 22.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ]
     },
     "startup_ui_stage": "Homing toolhead",
     "startup_confirmed": true,
-    "observation_scope": "Exact job accepted and startup observed. Completion, support removal and full white assembly fit are not yet observed."
+    "observation_scope": "Exact job accepted and startup observed. This run is not yet complete."
   }
 }
