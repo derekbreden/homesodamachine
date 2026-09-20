@@ -1,0 +1,99 @@
+{
+  "status": "offline slice complete; a submission is recorded in print-jobs.json",
+  "printer_submission": false,
+  "slice_result": {
+    "error_string": "Success.",
+    "export_time": 1724,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 18,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 44.36602020263672,
+          "Bridge": 112.2000503540039,
+          "Custom": 304.8437805175781,
+          "Flush": 15.0,
+          "Gap infill": 0.06108971685171127,
+          "Inner wall": 120.67377471923828,
+          "Internal solid infill": 136.9570770263672,
+          "Outer wall": 153.9381103515625,
+          "Sparse infill": 208.4922637939453,
+          "Top surface": 29.947341918945312,
+          "Travel": 135.82789611816406,
+          "Undefined": 126.75993347167969
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 9.222639083862305,
+            "total_used_g": 9.222639083862305
+          }
+        ],
+        "generate_support_material_time": 9,
+        "id": 1,
+        "infill_time": 34,
+        "layer_filament_change": 0,
+        "main_predication": 927.4578857421875,
+        "make_perimeters_time": 23,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 24.79999351501465,
+              "height": 18.0,
+              "width": 50.0,
+              "x": 150.0,
+              "y": 147.60000610351562,
+              "z": 0.0
+            },
+            "id": 5,
+            "name": "tube-miter-box",
+            "triangle_count": 748
+          }
+        ],
+        "sliced_time": 322,
+        "sliced_time_with_cache": 239,
+        "total_predication": 1253.233642578125,
+        "triangle_count": 748,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+  },
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "layers": 75,
+  "estimated_seconds": 1253.233642578125,
+  "estimated_filament_g": 9.222639083862305,
+  "plate_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "archive": "tube-miter-box-petgf-z004-mark2.gcode.3mf",
+  "archive_sha256": "7a8def865a4fd5ff93f8d0d43b037b9f649323f78e1e840a2eb6dcd0209610de",
+  "gcode_sha256": "ef4af35e1a289ab11acfb21f0181055504224d58aa844328d0f60b971c34076e",
+  "project_sha256": "82b4a29759bcb882ca4d94a473271321da2e73723f85ac16d8570a0f6aeb9c33",
+  "source_stl_sha256": "d9a43dbeb8c3f151e3e4bbcb1763e0f324dc93b269d36fc99c529372dcdff27b",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+}
