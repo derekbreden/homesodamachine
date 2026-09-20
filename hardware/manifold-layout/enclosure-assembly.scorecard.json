@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,14 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "3 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "valve-v-a \u2229 foam-assembly   521.5 mm\u00b3, x[    6.84,   38.14] y[  206.71,  244.76] z[  257.77,  264.96]",
-    "valve-v-b \u2229 foam-assembly   521.5 mm\u00b3, x[  -35.72,   -4.42] y[  206.71,  244.76] z[  257.77,  264.96]",
-    "vk-solenoid \u2229 foam-assembly   40.8 mm\u00b3, x[   49.50,   80.60] y[  209.36,  236.85] z[  257.06,  262.25]"
-   ],
+   "detail": [],
    "active": true
   },
   {
