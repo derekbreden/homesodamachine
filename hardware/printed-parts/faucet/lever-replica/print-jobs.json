@@ -348,7 +348,10 @@
       "estimate": {
         "seconds": 1093.4107666015625
       },
-      "superseded_by": "2026-09-20-lever-white-flat-z004-mark2"
+      "superseded_by": {
+        "reason": "Drafted channel closed to 8.47 mm in the print against a cylinder of 8.42; Derek cancelled it at layer 0.",
+        "superseded_by_job": "2026-09-20-lever-white-flat-z004-mark2"
+      }
     },
     {
       "job_id": "2026-09-20-lever-white-flat-z004-mark2",
@@ -427,7 +430,52 @@
       "estimate": {
         "seconds": 1082,
         "grams": 4.3
+      },
+      "superseded_by": {
+        "reason": "Derek: the drafted side faces make it unprintable. The part lies on its side, so those faces are the bed contact and the top surface, and a 1.11 deg slope rests it on a line instead of a face. Its channel was already flat at 9.00; the outside was not.",
+        "superseded_by_job": "2026-09-20-lever-white-noslope-z004-mark2"
       }
+    },
+    {
+      "job_id": "2026-09-20-lever-white-noslope-z004-mark2",
+      "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "6f5ec1ffc6abdfff6583c97da91cdc10b62ef945c2d38e0c360367eb7b784987",
+      "source_project": "lever-replica-petgf-white.3mf",
+      "source_project_sha256": "1f99c33dbfd699c283b47729be54fbd3923cf3246cdb13b682e91198c36c946d",
+      "source_stl": "lever-replica-side-down.stl",
+      "source_stl_sha256": "eef333ecc8d31c04525c9367d0ad87a8af610763b8b365f01efea23bf7721eb2",
+      "printer": "Mark2",
+      "physical_filament": "white PET-GF",
+      "physical_nozzle": "0.4 mm",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "geometry": {
+        "outside_width_mm": 12.4,
+        "channel_width_mm": 9.0,
+        "side_wall_mm": 1.7,
+        "draft": "none on either lateral face",
+        "note": "The geometry of the 2026-09-20 channel-fix print, which printed well and works on the valve. Derek: go back to that one."
+      },
+      "submission": {
+        "application": "Bambu Connect, driven through tools/bambu-ax",
+        "filament_mapping": "left nozzle, external PET-CF mapping for PET-GF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto",
+        "screen": "never taken"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-20T20:58:00+00:00",
+        "gcode_state": "RUNNING",
+        "total_layer_num": 54,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
+      "physical_fit": null,
+      "physical_strength": null
     }
   ]
 }
