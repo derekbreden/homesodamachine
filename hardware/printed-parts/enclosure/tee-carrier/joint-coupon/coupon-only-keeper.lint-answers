@@ -1,0 +1,11 @@
+[step] The 0.45 mm projecting hook cams the keeper beam inward during installation and provides the square withdrawal stop when released. Its full deflected envelope clears the receiver in checks.json; the physical coupon tests whether the printed hook survives and engages.
+file: hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.stl
+click: x=0.000 y=16.750 z=2.000
+
+[sliver] This 1.15 mm tall side of the keeper spine joins its two rigid blocking ends on the print bed. The spine is separate from the flexible beam and leaves the stated bending gap; it does not carry the carrier joint's bending load.
+file: hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.stl
+click: x=1.900 y=21.315 z=0.575
+
+[sliver] This 0.8 mm beam is the intentional keeper flexure. It prints flat with bending in the layer plane. Actual toolpaths retain 0.80 mm material width and at least 0.65 mm clear space across all five beam layers, as recorded in toolpath-review.json. Its strength and repeated use remain physical coupon questions.
+file: hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.stl
+click: x=0.850 y=23.590 z=1.150

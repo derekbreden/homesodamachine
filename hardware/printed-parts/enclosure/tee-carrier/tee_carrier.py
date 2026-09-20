@@ -145,6 +145,11 @@ class CarrierSpec:
         return self.tee_axis_z + tee.RUN_HALF - self.stub_air
 
     @property
+    def trough_top_z(self):
+        """The tee's upper run end plus axial air; the shallower tube relief continues above."""
+        return self.tee_axis_z + tee.RUN_HALF + self.stub_air
+
+    @property
     def flange_y(self):
         return self.web_aft_y, self.web_aft_y + self.flange_depth
 
@@ -473,7 +478,7 @@ def _station_cutters(spec: CarrierSpec):
     cutters = []
     for x in spec.tee_xs:
         cutters.append(cq.Workplane(obj=cq.Solid.makeCylinder(
-            spec.trough_r, spec.web_z[1] - spec.web_z[0] + 2.0,
+            spec.trough_r, spec.trough_top_z - (spec.web_z[0] - 1.0),
             cq.Vector(x, spec.trough_axis_y, spec.web_z[0] - 1.0), cq.Vector(0.0, 0.0, 1.0))))
         cutters.append(_box(x - spec.trough_r, x + spec.trough_r,
                             spec.web_fore_y - 1.0, spec.stub_relief_y,
@@ -731,6 +736,7 @@ def interface(spec=DEFAULT_SPEC):
         'web_z': spec.web_z,
         'station_trough_r': spec.trough_r,
         'station_trough_axis_y': spec.trough_axis_y,
+        'station_trough_top_z': spec.trough_top_z,
         'stub_relief_y': spec.stub_relief_y,
         'stub_relief_z0': spec.stub_relief_z0,
         'flange_x': spec.flange_x,
@@ -879,6 +885,15 @@ def selftest(spec=DEFAULT_SPEC):
                         spec.stub_relief_z0 + 0.001, spec.web_z[1]).val()
             if stub.intersect(solid).Volume() > 1e-5:
                 errors.append(f'half {side:+d} stands inside the stub relief at X{x:g}')
+            # The tube's air alone cannot establish a reinforced section. This positive
+            # stock probe rejects a trough cut that continues above the tee through the
+            # material the shallower relief is meant to retain.
+            upper_backing = _box(
+                x - spec.trough_r + 0.01, x + spec.trough_r - 0.01,
+                spec.stub_relief_y + 0.01, spec.web_aft_y - 0.01,
+                spec.trough_top_z + 0.01, spec.web_z[1] - 0.01).val()
+            if upper_backing.cut(solid).Volume() > 1e-5:
+                errors.append(f'half {side:+d} lacks retained upper backing at X{x:g}')
         flange = _box(*sorted((side * (spec.flange_x - 0.5), side * (abs(spec.joint_right_x0) + 0.5))),
                       spec.flange_y[0] + 0.1, spec.flange_y[1] - 0.1,
                       spec.flange_z[0] + 0.1, spec.flange_z[1] - 0.1).val()
@@ -1032,6 +1047,7 @@ def sync_readme(spec=DEFAULT_SPEC):
         'STATION_AIR': spec.station_air,
         'TROUGH_D': 2.0 * spec.trough_r,
         'TROUGH_DEPTH': spec.bearing_y - spec.web_fore_y,
+        'TROUGH_TOP_Z': spec.trough_top_z,
         'STUB_RELIEF_WEB': spec.web_aft_y - spec.stub_relief_y,
         'STUB_RELIEF_DEPTH': spec.stub_relief_y - spec.web_fore_y,
         'STUB_AIR': spec.stub_air,

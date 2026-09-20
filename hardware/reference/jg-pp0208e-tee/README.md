@@ -1,67 +1,102 @@
-# John Guest PP0208E — 1/4" union tee, black polypropylene
+# John Guest PP0208E — 1/4" union tee
 
-The tee in the install kit — the **black tee** the customer pushes into an existing 1/4" line
-under the sink (`hardware/ledger/bom.md` §3, install-kit tee, scenario A). The same SKU is the
-water split on the ASSE 1022's outlet (`../water-split/`) and the six manifold junctions the
-topology calls Tees.
+The production black polypropylene tee in the install kit, the water split and the six
+manifold tee stations. The scan reference is the five-view capture in
+`~/Documents/3D Scans/2026-09-19-jg-pp0208e-tee/`. Its raw scale is retained at **1.0**.
 
-Three identical ports: a straight **run** of two in line and a **branch** off the middle at a
-right angle. Every one takes 1/4" OD LLDPE by push — no ferrule, no nut, no tool. Black PP body
-and collet, EPDM O-ring, 301 stainless collet teeth, NSF 51 + 61, 10 bar at 20 °C.
+## Measured external reference
 
-The other tee in the kit is the John Guest ASVPP1LF angle stop adapter valve — white body, brass
-run threads, a blue lever, and one 1/4" push port. Beside it this one is small, all black, and
-identical on all three ends.
+[`scan-registration.json`](scan-registration.json) registers that scan into the production
+frame: run on **±Z**, branch on **+Y**, origin at the common orthogonal-axis intersection.
+It names the source PLY by SHA-256 and stores the full rigid transform. The registration fits
+six external surface patches with separate radius/taper parameters. Alternate triangles are
+held out of the fit; the table reports their untrimmed residuals.
 
-## Geometry
+| External surface | Axial interval from origin, mm | Diameter at interval midpoint, mm | Radius taper, mm/mm | Held-out absolute residual, 95th percentile |
+|---|---:|---:|---:|---:|
+| +Z run root | 6.9–9.8 | 13.754 | 0.0084 | 0.107 mm |
+| −Z run root | 6.9–9.8 | 13.789 | 0.0146 | 0.074 mm |
+| +Y branch root | 8.7–11.7 | 13.859 | 0.0144 | 0.092 mm |
+| +Z run widest collar | 12.0–15.1 | 16.224 | 0.0264 | 0.096 mm |
+| −Z run widest collar | 12.0–15.1 | 16.292 | 0.0321 | 0.066 mm |
+| +Y branch widest collar | 13.8–16.6 | 16.330 | 0.0293 | 0.061 mm |
 
-John Guest's own figures, off the **Polypropylene Equal Tee data sheet Pp4608_01/23**, 1/4" row
-— the row `PP0208W`, `PP0208W-B` and `PP0208E` share.
+The independently fitted branch axis lies at **90.027°** to the run axis. Its closest approach
+to that axis is about **0.18 mm**. The production frame retains orthogonal intersecting axes;
+that constraint does not warp or rescale the scan. The surface residuals describe this sample
+and reconstruction, not manufacturing tolerances or printed-part clearance.
 
-| | | |
-|---|---|---|
-| A | 6.35 mm (+0.03 / −0.10) | tube OD |
-| B | 39.0 mm | collet face to collet face along the run |
-| C | 19.5 mm | body centre to any one of the three collet faces |
-| D | 15.7 mm | collet face to the internal tube stop |
-| E | Ø16.3 mm | the collar on each arm — the fitting's widest section |
-| F | Ø4.3 mm | through bore |
-| G | 27.7 mm | branch collet face to the far side of the run body |
+The widest collars have slight draft: their diameters increase toward their outer ends.
+**Ø16.3 mm** is the documented nominal. **Ø16.5 mm** is a rounded envelope of the sampled
+collar surfaces, not a guaranteed maximum across production parts. The branch's fixed
+external steps are approximately **1.5 mm farther outward** than the corresponding run
+steps. The fixed and moving surfaces at each nose remain separate interface questions.
 
-**B, C and G are dimensioned with the collets in the release position**, pressed home against
-the collar, and that is the state the solid here is cut in. At rest each collet stands 1.65 mm
-further out and the run measures 42.5 mm across — calipered on the fitting in hand, with the
-rest of the bench reading, at [`../tee-connector/README.md`](../tee-connector/README.md).
+The current production journal is **Ø14.216 mm**. Even the nominal Ø16.3 collar has
+**1.042 mm radial interference** there before any running clearance. The carrier troughs,
+branch journals, insertion route and release plate need a common measured reference.
+The approximate JG illustration in `jg_pp0208e_tee.py` and the McMaster stand-in in
+[`../tee-connector/`](../tee-connector/) are not that completed production reference.
 
-Not on the data sheet: the steps along each arm. Outward from the hub every arm carries a
-Ø10.6 barrel to 8.2, then the Ø16.3 collar to 16.3, then the release collet — Ø9.7 outside,
-Ø6.70 bore — standing the last 3.2 mm out to the port face. Those are the tree's one drawing of
-a John Guest 1/4" push-fit port, shared with the Quick Start's plumbing scenes
-([`../../quickstart/plumbing/`](../../quickstart/plumbing/)), so the collet the customer pushes
-a tube into is the same collet wherever this repository draws one.
+![Registered external profiles](scan-profiles.svg)
 
-Frame: the **run on Z**, its two collet faces at ±19.5; the **branch on +Y**, its face at the
-same 19.5. Origin at the body centre. The same frame [`../tee-connector/`](../tee-connector/)
-states, so a turn written for one tee turns the other.
+## Operating datums
 
-Ports: `run(+1)`, `run(-1)` and `branch()`, each `(position, outward axis)`, the position being
-the collet's own outer face.
+Derek's measurements on the production tee control the mechanism:
 
-## Not the tee-connector
+| Datum | Value |
+|---|---:|
+| Run span, sleeves extended | 42.5 mm |
+| Run span, both sleeves pressed | 39.2 mm |
+| One sleeve's stroke | 1.65 mm |
+| Carrier nose gap at connected | 0.5 mm |
+| Tube first meets resistance, from pressed sleeve face | 7.0 mm |
+| Tube held, from pressed sleeve face | 8.5 mm |
+| Tube bottoms, from pressed sleeve face | 10.0 mm |
 
-[`../tee-connector/`](../tee-connector/) is McMaster 51175K143, a **stand-in** its own README
-says is close but not this part, kept because the manifold's layout and the pump cartridge's
-carrier are built on its solid and on the PP0208E bench measurements filed beside it. This
-directory is the PP0208E itself, drawn from the manufacturer's data sheet, and it is what a
-picture of the customer's own fitting is drawn from.
+Their complete context and observed release/relocking action are in
+[`../tee-connector/README.md`](../tee-connector/README.md#measured-on-the-pp0208e-in-hand).
+These internal operating measurements are not inferred from the scan.
 
-Where the two disagree: the stand-in's run spans 40.14 mm against this tee's published 39.0 in
-the release position, and its tube-bottom station is the bench's 10.0 mm against the data
-sheet's 15.7 mm insertion depth. The bench figure is what the cartridge's tube lengths are cut
-to.
+The **absolute fully extended branch sleeve station remains open** pending the width in
+[`branch-measurement.svg`](branch-measurement.svg). Subtract approximately 8.15 mm from that
+width to reach the run axis. Its pressed station is then 1.65 mm inward. The existing sleeve
+stroke does not establish that absolute branch location.
 
-## Regenerate
+The thin terminal rims occupy different positions in the merged surface, especially at the
+−Z end. The capture does not encode a qualified common collet state. Derek also identifies
+both a collet and a small fixed barrel near an open end. Moving the entire small-diameter
+nose as one sleeve does not preserve that distinction. The fixed-body seam and the actual
+moving sleeve remain explicit inputs to a production solid.
 
+## Production consumers
+
+[`consumer-corrections.json`](consumer-corrections.json) lists the source locations and
+dimensions affected by this reference. They include the manifold, the water split, the tee
+carrier, the enclosure's branch journals/release face and the tee–valve bow fixture. Their
+placed solids, tube projections and motion checks require one coherent change. No consumer
+is qualified merely by enlarging its bore.
+
+## Published drawing and illustration
+
+John Guest's [Equal Tee drawing, Pp4608_01/23](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Equal%20Tee%20Data%20Sheet.pdf)
+lists the 1/4" row's tube OD 6.35 mm, pressed run span 39.0 mm, reach 19.5 mm,
+insertion dimension 15.7 mm, widest collar Ø16.3 mm, flow bore Ø4.3 mm and total branch
+envelope 27.7 mm. Derek's measured operating depths and run spans remain the mechanism's
+inputs.
+
+`jg_pp0208e_tee.py` is the current illustration builder. Its assumed Ø10.6 root, 8.2–16.3 mm
+collar interval, identical arm steps and Ø9.7 collet are not the measured exterior above.
+Its no-argument interface is consumed by the install-guide artwork. It does not qualify
+production enclosure fit or sleeve motion.
+
+## Reproduce the registration
+
+```sh
+tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/fit_scan.py
 ```
-tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py
-```
+
+The script rejects a different input digest. It reads the retained PLY directly, selects the
+six stated outer-wall patches, fits an area-weighted robust rigid frame, and writes the
+registration and held-out residuals. It does not infer internal bores, repair the open mesh,
+move a collet or produce a manufacturing tolerance.

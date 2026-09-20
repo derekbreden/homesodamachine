@@ -1,5 +1,8 @@
 # Tee carrier
 
+Production release is held for the [enclosure and carrier readiness audit](../print-readiness.md).
+The installed spring measurements are recorded in [spring-measurements.json](spring-measurements.json).
+
 Two PET-GF halves joined at a full-height centre lap by two M3 × 10 socket-head screws driven
 from the open rear into two short M3 heat-set inserts. Each half is one [6 mm](WEB_T) web with
 a shelf along its top aft edge, two tee stations cut into its fore face, and a solid service
@@ -19,11 +22,15 @@ clear of the outer aft coils, whose cases rise past the web's top.
 
 Each tee bears on the floor line of a vertical trough in the fore face: a [14.72 mm](TROUGH_D)
 cylinder about the arm's own run axis, [0.5 mm](STATION_AIR) larger than the arm in radius,
-[3.5 mm](TROUGH_DEPTH) deep at its floor. Behind that line the web keeps its
-[2.5 mm](STATION_T) station thickness, which is what the rising aft coils leave. Above the
-arm's top collet the trough opens into a flat-floored relief of the same width,
-[1.89171 mm](STUB_RELIEF_DEPTH) deep, standing [0.3 mm](STUB_AIR) off the bowed stub's aft face
-at release; the web behind it is [4.10829 mm](STUB_RELIEF_WEB).
+[3.5 mm](TROUGH_DEPTH) deep at its floor. Behind the tee the web keeps its
+[2.5 mm](STATION_T) station thickness, which is what the rising aft coils leave. The trough
+ends at Z [206.615 mm](TROUGH_TOP_Z), [0.3 mm](STUB_AIR) above the upper run end.
+Above it, the flat-floored bowed-tube relief retains [4.10829 mm](STUB_RELIEF_WEB) of backing.
+The part selftest checks that complete retained section as well as the tube's open space.
+[upper-backing-check.json](upper-backing-check.json) verifies the generated solids and
+measures the actual printed-mesh sections.
+The [readiness audit](../print-readiness.md#carrier-stiffness-and-joint) still holds production
+for the actual tee reference, spring capture and assembled stiffness qualification.
 
 Each tie crosses the web through two 1.5 × [3.75 mm](TIE_SLOT_HEIGHT) slots outside the
 trough's mouth and bears across the station section between them. Its strap lies on the
@@ -57,8 +64,11 @@ solid height, to pass the window. Installed it runs [19.5 mm](SPRING_LENGTH_RELE
 release, [21.65 mm](SPRING_LENGTH_CONNECTED) at connected and [24.15 mm](SPRING_LENGTH_LIMIT)
 on the aft stop, against a [30 mm](SPRING_FREE) free length. The spring's load goes from the
 fixed seat straight into the bar the fingers pull; none of it crosses the web. The return pair
-is uxcell 6 mm OD × 0.8 mm wire × 30 mm free length, on the
-[Lee LCM060C12M](/hardware/reference/lee-lcm060c12m/) envelope the channel is cut to.
+is the uxcell nominal 6 mm OD × 0.8 mm wire × 30 mm product. Derek measures the
+recently delivered stiffer pair at **6 mm OD, 27 mm free and approximately 7 mm fully
+compressed**. The current CAD still reads the
+[Lee LCM060C12M](/hardware/reference/lee-lcm060c12m/) catalog envelope and force estimate;
+the readiness audit carries the measured pair's compression and the remaining capture work.
 
 ## The grasp
 
@@ -196,8 +206,10 @@ Print both halves upright, +Z up, with the web and backing wall on the bed. The 
 wall's flat undersides and the shelf's underside take removable support exposed below the
 loose half. The internal
 shoulder begins [14.055 mm](RIM_BED_GAP) above the bed; its extension takes removable support
-accessible from the loose half's underside. The station troughs and stub reliefs are vertical
-and print clean; the spring channel and the lap's fastener passages carry tangent roofs. The
+accessible from the loose half's underside. The station troughs and stub reliefs are vertical.
+The short flat ledge where each trough ends takes removable support that leaves through the
+loose half's open fore trough before the tee is fitted. The spring channel and the lap's
+fastener passages carry tangent roofs. The
 fixed body's guide ceilings take support, removed through the open aft cavities before
 assembly. Its spring seats open into the flank recesses. All guide and hand-contact faces
 retain their bearing sections.

@@ -16,8 +16,8 @@ slice and cancellation are recorded in [print-jobs.json](enclosure/print-jobs.js
 |---|---|---|
 | Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. The valve sockets, trays and cold-core cradles consume these dimensions. | Fit actual posts in a production-profile socket coupon; check the other valves against the captured sample. No new full scan is indicated. |
 | DIGITEN flow meter | Measured offset body and fixed mounting collars are in the reference. Its placement, collar anchors, ties and nearby tubing account for that shape. | Confirm the molded flow arrow and installed orientation on the actual part. A surface scan does not establish hydraulic direction. No new full scan is indicated. |
-| John Guest PP0208E tee | Five-view scan exists. The production manifold, carrier and enclosure still consume the McMaster `tee-connector` stand-in. The separate JG reference is also not a completed fit of this scan. | Fit and register the existing scan, model the actual collar/collet steps and propagate one production reference to all consumers. Preserve Derek's measured collet travel and tube-depth datums. |
-| Faucet lever | The original accepted flat-sided shape with the 9.0 mm cylinder channel is restored. Its printed STL is byte-identical to the accepted wider-gap artifact. The unique Mark2 job completed 52/52 layers with no printer error. Derek confirms this print fits and works functionally. | Keep this exact accepted geometry in the primary model and print artifacts. Quantitative strength and repeated-load endurance remain unmeasured. |
+| John Guest PP0208E tee | Six fixed exterior patches from the five-view scan are rigidly registered at scale 1.0. Widest collar midpoints measure 16.224–16.330 mm; the sampled drafted collar envelope rounds to 16.5 mm. Production consumers still use the McMaster stand-in. | Establish the absolute extended branch-sleeve station and fixed-barrel/moving-sleeve boundary, then propagate one measured reference to all consumers. Preserve Derek's collet travel and tube-depth datums. |
+| Faucet lever | The primary STEP, STL and viewer carry the accepted flat-sided shape with the 9.0 mm cylinder channel. Its printed STL is byte-identical to the successful Mark2 artifact. Derek's fit/function confirmation is linked to those exact bytes in the physical-acceptance record. | Quantitative strength and repeated-load endurance remain unmeasured. The full faucet assembly's placeholder requires an actual assembled pose before integration. |
 | Touch-Flo interface | Scan archive and reference registration exist. | The complete faucet assembly still has its placeholder lever/actuator representation; that integration is separate from enclosure release. |
 
 The measured valve and meter also affect the surrounding assembly: the inner valve/tee
@@ -31,6 +31,10 @@ The tee scan is preserved at
 the native merged mesh/cloud and `Merge_04.revox`. The native and session PLY hashes agree.
 The PLY has 236,524 faces; the session's STL/render describe a cleaned 234,357-face surface.
 Neither mesh is treated as a closed manufactured solid or an internal bore measurement.
+The [registered surface evidence](../../reference/jg-pp0208e-tee/scan-registration.json)
+reports held-out 95th-percentile residuals of 0.061–0.107 mm. These are scan-fit residuals,
+not manufacturing tolerances. The [branch-width diagram](../../reference/jg-pp0208e-tee/branch-measurement.svg)
+identifies the remaining absolute sleeve measurement.
 
 ## Tee dimensions block the enclosure
 
@@ -61,15 +65,18 @@ The calculation is reproducible with
 | Section | Current / earlier local Izz |
 |---|---:|
 | Ordinary outer web, X=60 | 13.82× |
-| Outer tee trough centre, X=79.82 | **1.00×** |
+| Outer tee trough centre, X=79.82 | **2.21×** |
 | Inner web and shelf, X=40 | 200.96× |
 | Sample through grip root, X=92 | 0.89× |
 
 The grip's location and cutouts differ, so the last sample is not a claim of an 11% reduction
-in the entire grip's stiffness. The outer tee trough is a definite unreinforced section:
-`_station_cutters()` sends its cylindrical cut through the entire web height. This removes
-material above the tee that the documented flat stub relief otherwise leaves. The checks
-verify air for the tube, but do not verify that this backing remains.
+in the entire grip's stiffness. Each station trough ends 0.3 mm above the current reference
+tee. The shallower tube relief retains 4.108 mm backing over the upper 13.45 mm.
+[Native verification](tee-carrier/upper-backing-check.json) records 271.28 mm³ added per half,
+no removed material, and no addition outside the existing web insertion envelope. All four
+positive retained-stock checks pass and reject a reconstructed full-height overcut.
+The outer tee centre has Izz 151.865 mm⁴. Final section values still depend on integrating
+the larger actual tee and its operating stations.
 
 The 6 mm web and inner shelf improve substantial portions of the carrier, and placing spring
 reaction in each grip removes the spring's direct bending load from the middle web. Hand
@@ -81,12 +88,15 @@ screws clamp the face; they contribute to its connection, but the model contains
 force or slip result. Replacing them with small flexible clips on the same flat lap would
 not establish a rigid connection.
 
-The preferred revision is a broad interlocking joint with separated bearing surfaces that
-transfer bending and shear, plus a snap feature that retains the joint after engagement.
-The spring loading openings can likewise have snap-in keepers. The flexible latch should
-retain the rigid load-carrying geometry. This is a design direction, not a validated CAD
-revision. The larger production tee, insertion path, valve access and supported-face
-clearances must be included before that revision is released.
+A [three-piece interlocking joint coupon](tee-carrier/joint-coupon/README.md) tests broad
+headed keys, their receiving shoulders and a separate snap keeper. The keys transfer
+bending and shear; the keeper blocks the reverse assembly movement. Its unique Mark2
+job is running in black PET-GF, with the exact source and archive hashes retained.
+The nominal 0.15 mm fore/aft and 0.40 mm supported vertical clearance does not preload
+the joint. Measure its play before claiming stiffness; a production screwless joint needs
+a demonstrated draw-in fit. The production carrier still uses the screw-clamped lap.
+The larger actual tee, full-half entry path, valve access and keeper access remain
+integration requirements.
 
 ## Actual spring measurements and capture
 
@@ -120,13 +130,21 @@ entire 4.65 mm travel. Verify the keeper's own capture and an assembly route bef
 The source still consumes the Lee catalog spring for its drawing/force arithmetic; reconcile
 that consumer with the measured pair and do not label the Lee forces as actual pair forces.
 
+A [native access study](tee-carrier/spring-guide-access.json) supports an axial guide
+installed from the fore pump bay before the cartridge. A 19 mm projection from the fixed
+spring floor leaves 0.50 mm tip clearance at release and 5.95 mm moving-bore engagement
+at the aft limit. The head must be flush or recessed: the installed cartridge passes only
+0.250 mm ahead of the fixed wall. Spring inside diameter, positive head retention and the
+loading-window keeper remain design inputs. The study's Ø3 mm pin is an example, not a
+released guide size.
+
 ![Current tee mismatch, carrier sections and spring capture](tee-carrier/readiness-audit.svg)
 
 ## Additional scans and physical checks
 
 | Priority | Part / interface | Needed evidence |
 |---|---|---|
-| First, existing capture | PP0208E tee | Register and fit the existing scan. Add a targeted end view only if the actual collar, release rim or axial steps cannot be resolved. A whole new tee capture is not the starting point. |
+| Targeted remaining measurement | PP0208E tee | Fixed exterior registration is complete. Measure the fully extended branch width shown in the diagram; resolve the small fixed barrel versus moving sleeve boundary at the nose. Add a targeted end view only if that seam cannot be identified directly. |
 | Capture in progress for front-top | Installed Kamoer pump (BOM: KPHM600; reference name: KPHM400) | Capture the complete head, skirt, bracket, rear boss and tube exits in a common frame. The existing seats carry Derek's physical-fit work and remain established inputs. The legacy reference name does not establish a variant mismatch; the capture resolves the remaining envelope and variant evidence independently of holder-derived head/boss surfaces. Confirm both actual pumps at their seating faces. The pump-side tube joint also needs a tug test: the BOM records 6.35 mm LLDPE in a nominal 6.4 mm pump-tube bore, with its tie carrying release tension. |
 | Before wider enclosure release | SEAFLO pump | Capture head/casting, switch envelope and port axes relative to its measured mounting feet. Much of this model is scaled drawing linework; the current nearby route and bulkhead gaps are only 1.001 and 1.004 mm. |
 | Before back-top/gas-chain release | Actual gas adapters, coupling and check valve | Caliper made-up lengths, seat diameters and thread engagement. The assembly explicitly marks these provisional. Scan awkward external forms if calipers cannot resolve them; scan geometry does not qualify thread sealing. |
@@ -168,10 +186,12 @@ the retained numerical results. Beduan post walls have a 0.113 mm 95th-percentil
 discrepancy; DIGITEN mounting collars have 0.155 mm. These describe agreement with the scan,
 not guaranteed manufacturing tolerance or physical print fit.
 
-The fresh source assembly build completed successfully with 107 passing checks and one
+The baseline source assembly build completed successfully with 107 passing checks and one
 inactive gas-chain qualification warning, including 398 carrier solid/envelope checks and
-zero unintended carrier overlap. Its facts match the written card, assembly solid and all
-146 source files. The carrier and valve-tray self-tests also pass.
+zero unintended carrier overlap. At that baseline its facts matched the written card,
+assembly solid and all 146 source files. The carrier's bounded backing correction has its
+own regenerated solids, passing selftest and native difference checks; a fresh complete
+assembly build remains required after the production references and retention are settled.
 The retained support audits for front-top and both carrier halves name earlier STL hashes,
 as recorded in [print-readiness.json](print-readiness.json). They also use the earlier 0.20 mm
 layer and support-gap settings, rather than the current 0.24 mm layers and requested 0.45 mm

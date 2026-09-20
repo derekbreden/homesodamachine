@@ -1,0 +1,423 @@
+{
+  "status": "pass",
+  "errors": [],
+  "gcode_sha256": "fe1f070a4f295c92804268cb945bdc02ed2fa81885ccc864a5a0b1b56dcfa7e7",
+  "method": "Actual extrusion segments buffered by half commanded line width in each layer. No extrusion sag, shrinkage, adhesion or material strength is simulated.",
+  "keeper_beam": [
+    {
+      "layer_z_mm": 0.2,
+      "probe_y_mm": 19.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615815346,
+        1.2499999761581364
+      ],
+      "beam_road_width_mm": 0.799999999999983,
+      "open_gap_to_spine_mm": 0.8000000000000114
+    },
+    {
+      "layer_z_mm": 0.2,
+      "probe_y_mm": 22.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615815346,
+        1.2499999761581364
+      ],
+      "beam_road_width_mm": 0.799999999999983,
+      "open_gap_to_spine_mm": 0.8000000000000114
+    },
+    {
+      "layer_z_mm": 0.2,
+      "probe_y_mm": 25.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615815346,
+        1.2499999761581364
+      ],
+      "beam_road_width_mm": 0.799999999999983,
+      "open_gap_to_spine_mm": 0.8000000000000114
+    },
+    {
+      "layer_z_mm": 0.2,
+      "probe_y_mm": 28.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615815346,
+        1.2499999761581364
+      ],
+      "beam_road_width_mm": 0.799999999999983,
+      "open_gap_to_spine_mm": 0.7938994644878647
+    },
+    {
+      "layer_z_mm": 0.44,
+      "probe_y_mm": 19.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.44,
+      "probe_y_mm": 22.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.44,
+      "probe_y_mm": 25.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.44,
+      "probe_y_mm": 28.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.68,
+      "probe_y_mm": 19.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.68,
+      "probe_y_mm": 22.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.68,
+      "probe_y_mm": 25.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.68,
+      "probe_y_mm": 28.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.92,
+      "probe_y_mm": 19.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.92,
+      "probe_y_mm": 22.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.92,
+      "probe_y_mm": 25.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 0.92,
+      "probe_y_mm": 28.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 1.16,
+      "probe_y_mm": 19.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 1.16,
+      "probe_y_mm": 22.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 1.16,
+      "probe_y_mm": 25.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    },
+    {
+      "layer_z_mm": 1.16,
+      "probe_y_mm": 28.0,
+      "beam_road_bounds_x_mm": [
+        0.44999997615813303,
+        1.2499999761581284
+      ],
+      "beam_road_width_mm": 0.7999999999999954,
+      "open_gap_to_spine_mm": 0.6500000000000217
+    }
+  ],
+  "actual_model_nozzle_bed_c": {
+    "first_layer": [
+      265.0,
+      80.0
+    ],
+    "subsequent_layers": [
+      280.0,
+      80.0
+    ],
+    "model_layers_read": 220
+  },
+  "native_stock_template_parser_diagnostics": [
+    "Invalid T command (T1001).",
+    "Invalid T command (T65535).",
+    "Invalid T command (T65279)."
+  ],
+  "diagnostic_scope": "These three unrecognized H2C template T commands also occur in retained successful jobs. Native slicing reports Success with no geometry warning; no command was removed.",
+  "minimum_keeper_beam_road_width_mm": 0.799999999999983,
+  "minimum_keeper_open_gap_mm": 0.6500000000000217,
+  "support_lanes": {
+    "joint-coupon-left": {
+      "contacts": "Undersides of the two headed keys.",
+      "reason": "Square head faces transfer joint load; the neck is a complete rigid section.",
+      "removal_lane": "Open rear face of the loose left coupon, directly away from the lap in +Y.",
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 0.96,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 0.96
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 1.16,
+          "shortest_build_up_mm": 0.96,
+          "top_z_mm": 30.44,
+          "bbox_xy_mm": [
+            123.6,
+            160.4,
+            135.2,
+            172.4
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            20.831,
+            6.4,
+            0.2,
+            32.431,
+            18.4,
+            30.44
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 1.16,
+          "last_z_mm": 1.64,
+          "bbox_xy_mm": [
+            125.6,
+            161.2,
+            132.8,
+            165.2
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 0.96,
+          "bbox_cad_xyz_mm": [
+            22.831,
+            7.2,
+            1.16,
+            30.031,
+            11.2,
+            1.64
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 30.2,
+          "last_z_mm": 30.44,
+          "bbox_xy_mm": [
+            125.6,
+            162.0,
+            131.6,
+            164.0
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 30.0,
+          "bbox_cad_xyz_mm": [
+            22.831,
+            8.0,
+            30.2,
+            28.831,
+            10.0,
+            30.44
+          ]
+        }
+      ]
+    },
+    "joint-coupon-right": {
+      "contacts": "Crowns of the two key receiving pockets.",
+      "reason": "Flat pocket boundaries retain the keyed section and its supported clearance.",
+      "removal_lane": "The emitted tree has fore and aft legs. Separate them at the accessible bed/root branches; the fore leg leaves in -Y and the opened rear pockets expose the aft leg for +Y removal. No keeper or mating half is installed during cleanup.",
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 15.36,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 15.36
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 15.56,
+          "shortest_build_up_mm": 15.36,
+          "top_z_mm": 44.84,
+          "bbox_xy_mm": [
+            160.4,
+            144.4,
+            173.6,
+            174.8
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -0.775,
+            -12.6,
+            0.2,
+            12.425,
+            17.8,
+            44.84
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 15.56,
+          "last_z_mm": 16.04,
+          "bbox_xy_mm": [
+            162.4,
+            157.2,
+            170.4,
+            164.0
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 15.36,
+          "bbox_cad_xyz_mm": [
+            1.225,
+            0.2,
+            15.56,
+            9.225,
+            7.0,
+            16.04
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 44.6,
+          "last_z_mm": 44.84,
+          "bbox_xy_mm": [
+            162.8,
+            157.2,
+            170.4,
+            162.8
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 44.4,
+          "bbox_cad_xyz_mm": [
+            1.625,
+            0.2,
+            44.6,
+            9.225,
+            5.8,
+            44.84
+          ]
+        }
+      ]
+    },
+    "joint-coupon-keeper": {
+      "contacts": "Small catch shoulder if support is emitted; beam and blocks start on the rear face.",
+      "reason": "Square catch shoulder positively retains the keeper.",
+      "removal_lane": "Loose keeper has an exposed catch and beam gap; no hardware or mating part covers them.",
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": []
+    }
+  },
+  "physical_removal_and_fit": "Not yet observed; remove supports and examine actual bearing finish before assembly."
+}

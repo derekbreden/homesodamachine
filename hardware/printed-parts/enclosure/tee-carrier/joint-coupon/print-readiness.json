@@ -1,0 +1,303 @@
+{
+  "status": "submitted_and_running",
+  "production_carrier_ready": false,
+  "coupon_only": true,
+  "submitted": true,
+  "printer": "Mark2",
+  "physical_filament": "Black Polymaker PET-GF",
+  "filament_metadata": [
+    "PET-CF"
+  ],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "source_parts": [
+    {
+      "name": "joint-coupon-left",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.stl",
+      "stl_sha256": "d0afd35f18df2a34753d04c91184e6f60c4eafd369c5f486042e402c6707f734",
+      "triangles": 92,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        17.231000900268555,
+        6.0,
+        26.40999984741211
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        120.0,
+        160.0,
+        26.40999984741211
+      ],
+      "plate_translation_mm": [
+        120.0,
+        160.0,
+        26.40999984741211
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          102.76899909973145,
+          154.0,
+          0.0
+        ],
+        [
+          137.23100090026855,
+          166.0,
+          52.81999969482422
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.121094576703399e-10
+    },
+    {
+      "name": "joint-coupon-right",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.stl",
+      "stl_sha256": "0d8a10c9478f478da9c65cd4cf3b3c1ce30b8ea4f5bbd2bdf34d1bfc4babf090",
+      "triangles": 132,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        13.824999809265137,
+        3.0,
+        26.40999984741211
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        175.0,
+        160.0,
+        26.40999984741211
+      ],
+      "plate_translation_mm": [
+        175.0,
+        160.0,
+        26.40999984741211
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          161.17500019073486,
+          157.0,
+          0.0
+        ],
+        [
+          188.82499980926514,
+          163.0,
+          52.81999969482422
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.29746904728745e-10
+    },
+    {
+      "name": "joint-coupon-keeper",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.stl",
+      "stl_sha256": "9646eabf1b8d72d70b4779670b29d579c74329878d1d4af6574364ac1c6c7324",
+      "triangles": 68,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        1.774999976158142,
+        21.315000534057617,
+        2.924999952316284
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        223.0,
+        160.0,
+        2.924999952316284
+      ],
+      "plate_translation_mm": [
+        223.0,
+        160.0,
+        2.924999952316284
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          221.22500002384186,
+          138.68499946594238,
+          0.0
+        ],
+        [
+          224.77499997615814,
+          181.31500053405762,
+          5.849999904632568
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 3.1628433205810325e-10
+    }
+  ],
+  "geometry_checks_sha256": "0b31f561aaed9a190e0633c57798fda81b9989e4a5c464998a3bea51ca28cb97",
+  "staged_input": ".cache/prints/2026-09-20-carrier-joint-coupon-black-z004-mark2-v1/carrier-joint-coupon-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "d4caeaf5e35aadc08541f6803e205a425debfe586a6e32d6ac10b2ff11f69405",
+  "native_archive": ".cache/prints/2026-09-20-carrier-joint-coupon-black-z004-mark2-v1/ready/carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "16f7a517536f1fc88b7c39546f03f2cdb26c52d02f61f9db01c3ef44c457a380",
+  "gcode_sha256": "fe1f070a4f295c92804268cb945bdc02ed2fa81885ccc864a5a0b1b56dcfa7e7",
+  "process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_arc_fitting": "0",
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_map": [
+      "1"
+    ]
+  },
+  "intentional_settings_changed": [
+    "extruder_ams_count",
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "layers": 220,
+  "estimated_seconds": 2189.07177734375,
+  "estimated_filament_g": 14.736312866210938,
+  "slicer_warning": "",
+  "toolpath_fit": {
+    "minimum_shared_bed_margin_mm": 77.569,
+    "minimum_toolpath_separation_mm": 17.976407999999992,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "joint-coupon-left",
+          "joint-coupon-right"
+        ],
+        "separation_mm": 17.976407999999992
+      },
+      {
+        "parts": [
+          "joint-coupon-left",
+          "joint-coupon-keeper"
+        ],
+        "separation_mm": 83.60400000000001
+      },
+      {
+        "parts": [
+          "joint-coupon-right",
+          "joint-coupon-keeper"
+        ],
+        "separation_mm": 26.442407999999972
+      }
+    ]
+  },
+  "support_audit": ".cache/prints/2026-09-20-carrier-joint-coupon-black-z004-mark2-v1/carrier-joint-coupon-black-z004-mark2-v1-input.support-audit.json",
+  "support_audit_sha256": "ee2139038f295aaa53db02343f7c95dc4400c5f4a7078d5c2ef78bda98c80a39",
+  "live_printer_mapping_and_empty_plate_still_required": false,
+  "toolpath_review": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/toolpath-review.json",
+  "toolpath_review_sha256": "01118e13243737eb90f12ca80416ada0268dee7f20f0b78594c9b26d46d562d6",
+  "geometry_not_strength_qualification": true,
+  "plate_ready_authority": "Derek reports Mark2 ready for a new print after fitting the completed lever and switching back to black PET-GF.",
+  "printer_acknowledgment": {
+    "observed_at": "2026-09-20T22:42:37.892000+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 220,
+    "print_error": 0,
+    "hms": []
+  },
+  "send_options": {
+    "left_nozzle": "Ext PET-CF, physical black PET-GF",
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  }
+}

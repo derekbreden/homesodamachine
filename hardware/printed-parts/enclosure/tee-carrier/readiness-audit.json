@@ -1,7 +1,6 @@
 {
   "baseline_commit": "583b5e2a32ed9c6b7a546e954510b3aa0a5cd71f",
-  "current_commit": "d83ac032349262a94461c5e9cd388bdfefe6fbe2",
-  "method": "Native printed STL cross-sections normal to X; area moment about each section centroid parallel to Z. Izz compares local fore/aft bending resistance at equal elastic modulus. It does not model joint slip, whole-carrier compliance, anisotropy or print infill.",
+  "method": "Native printed STL sections normal to X; centroidal Izz at equal modulus. Does not model whole-carrier compliance, joint slip, anisotropy or infill.",
   "sections": [
     {
       "x_mm": 20.07,
@@ -12,11 +11,11 @@
         "Izz_mm4": 68.77605116856284
       },
       "current": {
-        "area_mm2": 285.9100952500012,
-        "centroid_y_mm": 113.65766177135691,
-        "Izz_mm4": 7418.453447333071
+        "area_mm2": 307.5415100643222,
+        "centroid_y_mm": 113.20090951791892,
+        "Izz_mm4": 8271.14310609689
       },
-      "Izz_ratio": 107.86390496818761
+      "Izz_ratio": 120.26196569246453
     },
     {
       "x_mm": 28.57,
@@ -28,13 +27,13 @@
       },
       "current": {
         "area_mm2": 425.7801208000019,
-        "centroid_y_mm": 111.0815987525073,
-        "Izz_mm4": 13154.921778069809
+        "centroid_y_mm": 111.08159875250723,
+        "Izz_mm4": 13154.921778074466
       },
-      "Izz_ratio": 222.92538171683992
+      "Izz_ratio": 222.92538171691882
     },
     {
-      "x_mm": 40,
+      "x_mm": 40.0,
       "section": "inner web and shelf",
       "before_spring_move": {
         "area_mm2": 132.05001825,
@@ -43,10 +42,10 @@
       },
       "current": {
         "area_mm2": 470.7801208000019,
-        "centroid_y_mm": 110.73618870824598,
-        "Izz_mm4": 13821.36993815191
+        "centroid_y_mm": 110.73618870824603,
+        "Izz_mm4": 13821.369938141666
       },
-      "Izz_ratio": 200.96195845638303
+      "Izz_ratio": 200.96195845623407
     },
     {
       "x_mm": 49.945,
@@ -58,13 +57,13 @@
       },
       "current": {
         "area_mm2": 470.7801208000019,
-        "centroid_y_mm": 110.73618870824598,
-        "Izz_mm4": 13821.369938146323
+        "centroid_y_mm": 110.73618870824595,
+        "Izz_mm4": 13821.369938145392
       },
-      "Izz_ratio": 40.15201987844497
+      "Izz_ratio": 40.15201987844226
     },
     {
-      "x_mm": 60,
+      "x_mm": 60.0,
       "section": "outer web",
       "before_spring_move": {
         "area_mm2": 132.05001825,
@@ -73,10 +72,10 @@
       },
       "current": {
         "area_mm2": 316.9200438000007,
-        "centroid_y_mm": 107.46799469999989,
-        "Izz_mm4": 950.7601313982159
+        "centroid_y_mm": 107.46799469999992,
+        "Izz_mm4": 950.7601313963532
       },
-      "Izz_ratio": 13.824000000639803
+      "Izz_ratio": 13.82400000061272
     },
     {
       "x_mm": 71.32,
@@ -88,10 +87,10 @@
       },
       "current": {
         "area_mm2": 271.9200438000007,
-        "centroid_y_mm": 107.46799469999986,
-        "Izz_mm4": 815.7601313996129
+        "centroid_y_mm": 107.46799469999985,
+        "Izz_mm4": 815.7601314019412
       },
-      "Izz_ratio": 13.824000001423883
+      "Izz_ratio": 13.824000001463338
     },
     {
       "x_mm": 79.82,
@@ -102,14 +101,14 @@
         "Izz_mm4": 68.7760511667002
       },
       "current": {
-        "area_mm2": 132.05001825,
-        "centroid_y_mm": 109.21799469999993,
-        "Izz_mm4": 68.77605117182247
+        "area_mm2": 153.68143306432103,
+        "centroid_y_mm": 108.92886414724832,
+        "Izz_mm4": 151.86517650610767
       },
-      "Izz_ratio": 1.0000000000744775
+      "Izz_ratio": 2.208111310985492
     },
     {
-      "x_mm": 90,
+      "x_mm": 90.0,
       "section": "web beside grip",
       "before_spring_move": {
         "area_mm2": 132.05001825,
@@ -118,13 +117,13 @@
       },
       "current": {
         "area_mm2": 316.9200438000007,
-        "centroid_y_mm": 107.46799469999986,
-        "Izz_mm4": 950.7601313996129
+        "centroid_y_mm": 107.46799469999985,
+        "Izz_mm4": 950.7601313991472
       },
-      "Izz_ratio": 13.824000000519717
+      "Izz_ratio": 13.824000000512948
     },
     {
-      "x_mm": 92,
+      "x_mm": 92.0,
       "section": "grip root",
       "before_spring_move": {
         "area_mm2": 2004.0331077820556,
@@ -140,7 +139,7 @@
     }
   ],
   "before_spring_move_mesh_sha256": "06a37899492d49aed8f82789812848b24fe3df98f6aec4dabf9cb9c83356c9e4",
-  "current_mesh_sha256": "2c9a8ddc26f9784e874a9ad41aa8e8d78f9bc00f1fc7a98812bb6142ef8b7fe9",
+  "current_mesh_sha256": "21cf24ca1e1c8438ac13e6a8c93e7aadfd04ada0bdaaa46a7067ba77879219e1",
   "spring_sample": {
     "part": "Tee-carrier return springs, recently delivered stiffer set",
     "recorded_date": "2026-09-20",
@@ -200,5 +199,8 @@
   "release_readiness": {
     "ready": false,
     "reason": "Known tee dimensional conflict, incomplete spring capture, and no validated assembled stiffness result."
-  }
+  },
+  "current_path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+  "source_sha256": "b2605932b88e6396d9d233a6a44459a5fd210fb58fdf7a75378aba356f3a326e",
+  "upper_backing_check": "hardware/printed-parts/enclosure/tee-carrier/upper-backing-check.json"
 }
