@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -60,10 +60,10 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
+    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 8.142",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 8.589",
-    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 9.192",
+    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 10.692",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
-    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
    ],
@@ -73,10 +73,14 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "3 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "valve-v-a \u2229 foam-assembly   521.5 mm\u00b3, x[    6.84,   38.14] y[  206.71,  244.76] z[  257.77,  264.96]",
+    "valve-v-b \u2229 foam-assembly   521.5 mm\u00b3, x[  -35.72,   -4.42] y[  206.71,  244.76] z[  257.77,  264.96]",
+    "vk-solenoid \u2229 foam-assembly   40.8 mm\u00b3, x[   49.50,   80.60] y[  209.36,  236.85] z[  257.06,  262.25]"
+   ],
    "active": true
   },
   {
@@ -153,32 +157,31 @@
     "fluid-18 \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "keystone-jack \u2014 bulkhead-ring-carb: 1.001 mm",
+    "fluid-2 \u2014 seaflo-pump: 1.001 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "seaflo-pump \u2014 nameplate: 1.100 mm",
-    "carb-1 \u2014 suction-chain: 1.113 mm",
+    "carb-1 \u2014 suction-chain: 1.114 mm",
+    "coil-v-a \u2014 funnel: 1.225 mm",
+    "coil-v-b \u2014 funnel: 1.227 mm",
     "water-3 \u2014 enclosure-front-top: 1.326 mm",
     "water-3 \u2014 enclosure-back-top: 1.326 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
-    "fluid-2 \u2014 seaflo-pump: 1.346 mm",
     "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.363 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.366 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
     "water-5 \u2014 fluid-4: 1.383 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
-    "carb-1 \u2014 pcba: 1.421 mm",
-    "coil-v-b \u2014 funnel: 1.487 mm",
-    "coil-v-a \u2014 funnel: 1.487 mm",
+    "carb-1 \u2014 pcba: 1.453 mm",
     "co2-inlet \u2014 bulkhead-ring-co2-word: 1.571 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
-    "water-3 \u2014 fluid-28: 1.615 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
-    "fluid-14 \u2014 valve-v-a: 1.711 mm",
-    "fluid-18 \u2014 coil-v-a: 1.711 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
+    "fluid-18 \u2014 coil-v-a: 1.786 mm",
+    "fluid-14 \u2014 valve-v-a: 1.836 mm",
     "fluid-1 \u2014 enclosure-front-top: 1.849 mm",
     "co2-2 \u2014 pcba: 1.875 mm",
-    "co2-1 \u2014 enclosure-back-top: 1.910 mm",
+    "co2-1 \u2014 enclosure-back-top: 1.904 mm",
     "water-7 \u2014 co2-2: 1.933 mm"
    ],
    "active": true
@@ -806,7 +809,7 @@
    "label": "Tee carrier clears front-top through installation, nominal states and aft overtravel, and both end stops and all five transverse constraints engage",
    "kind": "gate",
    "status": "pass",
-   "value": "396 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/aft overshoots 0.105029/0.018000 mm\u00b3; 50 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.100066 mm\u00b3; 4.65 mm total travel, nominal rest 2.15 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 356.394 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
+   "value": "398 solid/envelope checks including 0.25 mm X/Z air through every carrier insertion and working sweep; maximum unintended overlap 0.000000 mm\u00b3; release/aft overshoots 0.105029/0.018000 mm\u00b3; 50 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.100066 mm\u00b3; 4.65 mm total travel, nominal rest 2.15 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 298.850 mm\u00b2; minimum depressed-collet bearing 27.613 mm\u00b2; fore tube bottom 92.694 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.844 mm Y, 2.15 mm final cartridge seating travel",
    "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
    "detail": [],
    "active": true
@@ -856,7 +859,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 150.75..192.31, 217.84..218.89",
+   "value": "seam at 160.00, lane 150.75..192.31, 217.84..218.93",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -876,7 +879,7 @@
    "label": "The Z-seam rim stays under the flavour deck's lowest plate",
    "kind": "gate",
    "status": "pass",
-   "value": "rim at 174.80, deck floor at 174.93",
+   "value": "rim at 174.80, lowest wall root at 177.90",
    "target": "air between them",
    "detail": [],
    "active": true
@@ -936,7 +939,7 @@
    "label": "The pack stands under the appliance's stated ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches z 350.50, ceiling at 352.00",
+   "value": "pack reaches z 351.00, ceiling at 352.00",
    "target": "under a 361 mm appliance",
    "detail": [],
    "active": true
@@ -1156,11 +1159,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 63/63 corners at spec",
+   "value": "B \u2014 65/65 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:19",
+    "runs by grade: B:20",
     "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
    ],
    "active": true
@@ -1242,11 +1245,11 @@
    "value": "20/20 within span, 2 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "carb-1: 145.6 mm, held at its anchor",
+    "carb-1: 146.1 mm, held at its anchor",
     "co2-2: 196.2 mm, held at its anchor",
     "fluid-28: 159.5 mm, held at its anchor",
     "fluid-18: 245.4 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.",
-    "fluid-4: 221.8 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 222.8 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   },
