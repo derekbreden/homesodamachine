@@ -16,15 +16,14 @@ click: x=28.570 y=107.468 z=196.495
 click: x=71.320 y=107.468 z=196.495
 click: x=88.320 y=107.468 z=196.495
 
-[ceiling] The solid bar's flat underside clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including 0.25 mm for the supported surface. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before inside-out assembly.
-click: x=98.947 y=102.468 z=175.300
+[ceiling] The solid bar's flat underside at Z175.300 clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including 0.25 mm for the supported surface. The full 16 mm Y section rises from this face to the bar's top. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before inside-out assembly.
+click: x=99.250 y=102.468 z=175.300
 
 [ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Removable support reaches the bed 8.055 mm below and is exposed beneath the loose half before assembly.
-click: x=98.822 y=127.968 z=175.300
+click: x=99.125 y=127.968 z=175.300
 
-[ceiling] The underside of the aft shelf, 14 mm deep along the web's top aft edge over the inner aft coils' cases. Nothing may stand under it — the coils rise through that room when the aft valves go in — so it takes removable support, exposed on the loose half's open aft face and rooted on the bed below.
-click: x=27.847 y=117.468 z=205.925
+[ceiling] The aft shelf's flat underside at Z209.075 runs 14 mm behind the web and clears the measured inner aft coil cases. The coils rise through the room beneath it during valve insertion. Removable support stands 41.830 mm up from the bed and leaves through the loose half's open aft face before hardware assembly.
+click: x=27.085 y=117.468 z=209.075
 
-[slope] The spring channel's tangent 45° roof, meeting the bar's fore face at the channel mouth and the channel floor at its end; the loading window's own 45° roof rises inboard from the spring's crown on the channel axis. It is the teardrop the tree cuts on every horizontal bore of a piece bedded on Z.
-click: x=98.091 y=100.018 z=213.584
-click: x=95.769 y=100.018 z=213.584
+[slope] This is the spring channel's tangent 45-degree roof, crossing the bore and running along its Y axis. It preserves the complete 6.57 mm round spring passage and builds without interior support on the Z-up print. The roof keeps the guide path clear from the side loading window along the spring axis.
+click: x=98.716 y=100.018 z=213.604
