@@ -1,15 +1,15 @@
 {
   "valid_brep": true,
   "solids": 1,
-  "volume_mm3": 3260.3613401869193,
+  "volume_mm3": 3021.5265942552687,
   "mesh_bounds_mm": [
     [
-      -6.400000095367432,
+      -6.199999809265137,
       -0.1777585744857788,
       -10.234932899475098
     ],
     [
-      6.400000095367432,
+      6.199999809265137,
       52.85694885253906,
       4.429999828338623
     ]
@@ -21,5 +21,9 @@
     "parallel outer sides",
     "unobserved transitions between relief sections"
   ],
-  "coating_or_print_shrinkage_correction_mm": 0.0
+  "donor_channel_mm": 8.8,
+  "donor_strut_wall_mm": 1.7,
+  "channel_print_allowance_mm": 0.2,
+  "modelled_channel_mm": 9.0,
+  "modelled_outside_width_mm": 12.4
 }

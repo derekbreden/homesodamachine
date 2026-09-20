@@ -40,10 +40,10 @@ is between the fitted side planes. Matrices use homogeneous column vectors:
 
 | Feature | Observation | Replica construction |
 |---|---|---|
-| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.80 × 14.66 mm mesh bounds |
+| Overall envelope | About 53 × 13 × 15 mm | 53.03 × 12.40 × 14.66 mm mesh bounds |
 | Paddle floor thickness | Approximately 2.75–2.95 mm | Measured outer profile over the inner Z=0 plane |
-| Outside width | Approximately 12.6–13.0 mm; slight draft/asymmetry | Parallel 12.80 mm sides |
-| Main inner channel | Approximately 8.6 mm wide | 8.60 mm |
+| Outside width | 12.6–13.0 mm through the scanning coating; Derek's calipers read 1.70 mm side struts on the bare donor | Parallel 12.40 mm sides |
+| Main inner channel | 8.6 mm scanned; 8.8 mm on the bare donor, clearing the ~8.5 mm metal cylinder | 9.00 mm: 8.80 mm plus a 0.20 mm print allowance |
 | Selected rear-stop patches | Two observed curved walls near Y=45.4 mm, X≈±3.3 mm | Editable mirrored `STOP_PROFILE` |
 | Lower central slot | Narrower than the upper pocket; widens with Z | 2.9–4.4 mm across the loft stations |
 | Ledge's forward lip | Observed curved surface near Y=37–40.5 mm | Three-point arc |
@@ -52,8 +52,11 @@ is between the fitted side planes. Matrices use homogeneous column vectors:
 
 Bilateral symmetry, parallel outer sides, sharp side-perimeter edges and the
 transitions between measured relief sections are deliberate simplifications.
-No coating-thickness or printer-shrinkage correction is applied. `LEDGE_TOP`,
-the stop curve and relief stations are exposed for fit adjustments.
+`CHANNEL_NOMINAL`, `STRUT_WALL` and `CHANNEL_PRINT_ALLOWANCE` set the channel the
+metal cylinder passes along; `LEDGE_TOP`, the stop curve and relief stations are
+exposed for the remaining fit adjustments. The stop curve's observed stations are
+unchanged by the widened channel, so the cylinder's forward travel still ends where
+the taper reaches its span.
 
 The cylinder fit accepts 6,099 of 7,151 candidate points after residual trimming;
 its accepted radial residual is about 0.14 mm at the 95th percentile. It does not
@@ -116,14 +119,19 @@ and three labelled contact islands, in the channel/head/rear relief. Remove thes
 through the open channel and attachment mouths with the tube absent. Physical
 support removal and mating-surface finish remain print checks.
 
-Bambu Studio's native slice estimates **17 min 49 s and 4.44 g**, including the
-saved startup sequence and supports; grams use its saved density. H2C accepted
-`lever-black-petgf-z018-h2c.gcode.3mf` at 2026-09-20 06:11 UTC. Printer acceptance
+Bambu Studio's native slice estimates **16 min 38 s and 4.04 g**, including the
+saved startup sequence and supports; grams use its saved density. Printer acceptance
 does not establish successful printing, fit or strength. The exact project/STL
 hashes and slice are recorded in [the print report](lever-replica-petgf.print.json),
 [readiness record](lever-replica-petgf.readiness.json),
 [support audit](lever-replica-petgf.support-audit.json) and
 [print job record](print-jobs.json).
+
+The first print, at a modelled 8.60 mm channel, measured 8.4 mm across the struts
+and 2.15 mm across each wall; the donor reads 8.8 mm and 1.70 mm, and the cylinder
+would not enter. The channel is now built at 9.00 mm so the printed part, not the
+solid, lands on the donor's reading. Confirm that with calipers on the new print
+before trusting any other fit observation.
 
 For the first complete-part comparison, check the aft/down/forward insertion with
 the tube absent, the light retention, the tube's ability to seat, free operating
@@ -146,4 +154,6 @@ tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/prepare_pr
 ```
 
 `prepare_print.py --slice-output /tmp/lever-comparison-slice` also runs an offline
-Bambu Studio slice into an empty directory. It does not connect to a printer.
+Bambu Studio slice into an empty directory and writes the submittable
+`lever-black-petgf-z018-h2c.gcode.3mf` beside the project. It does not connect to a
+printer; submission goes through Bambu Connect and is recorded in `print-jobs.json`.

@@ -12,6 +12,7 @@ import refresh_print_project as writer
 
 SOURCE_PROFILE = HERE.parents[1] / "petgf.3mf"
 PROJECT = HERE / "lever-replica-petgf.3mf"
+ARCHIVE = HERE / "lever-black-petgf-z018-h2c.gcode.3mf"
 
 
 def prepare():
@@ -38,7 +39,8 @@ def main():
             raise ValueError("Use an empty slice directory")
         directory.mkdir(parents=True, exist_ok=True)
         command = ["/Applications/BambuStudio.app/Contents/MacOS/BambuStudio", "--slice", "0",
-                   "--arrange", "0", "--orient", "0", "--outputdir", str(directory), str(PROJECT)]
+                   "--arrange", "0", "--orient", "0", "--export-3mf", ARCHIVE.name,
+                   "--outputdir", str(directory), str(PROJECT)]
         with (directory / "bambu-cli.log").open("w") as log:
             completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
         if completed.returncode:
@@ -54,11 +56,14 @@ def main():
         support["source_frame_note"] = "CAD coordinates in this audit are the side-down STL print frame."
         support_path = PROJECT.with_suffix(".support-audit.json")
         support_path.write_text(json.dumps(support, indent=2) + "\n")
+        ARCHIVE.write_bytes((directory / ARCHIVE.name).read_bytes())
         readiness = {"status": "offline slice complete; physical fit, strength and support removal unvalidated",
                      "project_sha256": report["project_sha256"], "printer_submission": False,
                      "support_summary": support["summary"],
                      "support_audit_sha256": writer.digest(support_path.read_bytes()),
                      "slice_result": result,
+                     "archive": ARCHIVE.name,
+                     "archive_sha256": hashlib.sha256(ARCHIVE.read_bytes()).hexdigest(),
                      "gcode": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                for p in directory.glob("*.gcode")}}
         PROJECT.with_suffix(".readiness.json").write_text(json.dumps(readiness, indent=2) + "\n")
