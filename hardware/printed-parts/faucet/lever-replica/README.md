@@ -1,7 +1,7 @@
 # Faucet lever comparison replica
 
 A scan-derived, editable close-copy prototype of the donor lever for comparing
-white PET-GF fit and strength with Faucet's replacement design. The part is one
+PET-GF fit and strength with Faucet's replacement design. The part is one
 closed solid. Its attachment, operating travel and strength require a physical
 print reading. It is separate from the production faucet assembly.
 
@@ -15,7 +15,9 @@ print reading. It is separate from the production faucet assembly.
 | [lever-replica.step](lever-replica.step) | Analytic solid in the local part frame |
 | [lever-replica.stl](lever-replica.stl) | Closed printable mesh in that same frame |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Right side on the print bed |
-| [lever-replica-white-petgf.3mf](lever-replica-white-petgf.3mf) | One white PET-GF lever on the H2C plate |
+| [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
+| [lever-black-petgf-z018-h2c.gcode.3mf](lever-black-petgf-z018-h2c.gcode.3mf) | Exact native sliced archive submitted to H2C |
+| [print-jobs.json](print-jobs.json) | Printer acceptance, physical material/nozzle and job hashes |
 | [scan-fit.json](scan-fit.json) | Observed-point/CAD distances, normals and mesh validity |
 | [contact-datums.json](contact-datums.json) | Partial metal-cylinder fit and its scan-frame transform |
 | [evidence/datums.json](evidence/datums.json) | Rigid transform from lever scan coordinates to CAD |
@@ -99,29 +101,34 @@ and transforms for its next placement/fit check.
 
 ## PET-GF comparison print
 
-The project uses the saved H2C left 0.4 mm PET-GF profile, including 265 °C first
-layer / 280 °C later, 80 °C Textured PEI and the existing +0.18 mm trim. The
-comparison process specifies 0.16 mm layers, a 0.20 mm first layer, four walls,
-100% zig-zag infill and a 5 mm outside brim. White is assigned to the single
-filament. Material mapping remains the saved PET-CF mapping used for PET-GF.
+The project takes its process and filament settings directly from the shared
+[`petgf.3mf`](../../petgf.3mf), with Derek's +0.18 mm Z trim. Its H2C left
+0.4 mm profile uses 265 °C first layer / 280 °C later, 80 °C Textured PEI,
+0.24 mm layers, a 0.20 mm first layer, two walls, 15% grid infill and 0.9555
+flow ratio. The physical setup is black PET-GF and a 0.4 mm diamond PCD nozzle.
+The single external spool uses the saved PET-CF mapping for PET-GF. The trim
+adds to the stock Textured PEI compensation, producing `G29.1 Z0.16` in the
+submitted G-code.
 
 The right side is on the bed. The broad outer face is vertical and has no labelled
 support-interface contact. The offline slice has one bed-rooted support body
-and four labelled contact islands, in the channel/head/rear relief. Remove these
+and three labelled contact islands, in the channel/head/rear relief. Remove these
 through the open channel and attachment mouths with the tube absent. Physical
 support removal and mating-surface finish remain print checks.
 
-Bambu Studio's offline slice estimates **23 min 4 s and 5.22 g**, including the
-saved startup sequence and supports; grams use its saved density. No print has
-been submitted. The exact project/STL hashes, overrides and slice are recorded in
-[the print report](lever-replica-white-petgf.print.json),
-[readiness record](lever-replica-white-petgf.readiness.json) and
-[support audit](lever-replica-white-petgf.support-audit.json).
+Bambu Studio's native slice estimates **17 min 49 s and 4.44 g**, including the
+saved startup sequence and supports; grams use its saved density. H2C accepted
+`lever-black-petgf-z018-h2c.gcode.3mf` at 2026-09-20 06:11 UTC. Printer acceptance
+does not establish successful printing, fit or strength. The exact project/STL
+hashes and slice are recorded in [the print report](lever-replica-petgf.print.json),
+[readiness record](lever-replica-petgf.readiness.json),
+[support audit](lever-replica-petgf.support-audit.json) and
+[print job record](print-jobs.json).
 
 For the first complete-part comparison, check the aft/down/forward insertion with
 the tube absent, the light retention, the tube's ability to seat, free operating
 travel and valve return, and the rising rear arm's shell clearance. Do not infer
-strength equivalence from equal shape or solid infill. Compare both candidate
+strength equivalence from equal shape. Compare both candidate
 levers under the same dispensing and repeated-load conditions. An interference
 reading should identify the contact face before changing a fit parameter.
 Record the tube-installed rest and fully pressed poses relative to the donor's

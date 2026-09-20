@@ -1,0 +1,145 @@
+{
+  "project_sha256": "05efbbd1a0932d80f90071fde574e269d5636c29523910a0652ccc52cf298cb0",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "native_archive": "hardware/printed-parts/faucet/lever-replica/lever-black-petgf-z018-h2c.gcode.3mf",
+  "native_archive_sha256": "edfb566cdd39799b03e7e4063640e2dd8c84c5ac1af2ce2beddf6f490ebe3ff5",
+  "gcode_sha256": "1e4e0eeb8bd8e4ee54cbe3c4a9184960e8909a41a587024bfb52a4d4276ab3bf",
+  "source_stl_sha256": "530067cd355b391a0b288ecb3535285fbdad0b2f440c51c5348f328f3a64d41d",
+  "requested_printer": "H2C",
+  "physical_filament": "black PET-GF, confirmed by Derek",
+  "physical_nozzle": "0.4 mm diamond PCD, confirmed by Derek",
+  "requested_z_trim_mm": 0.18,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "intentional_settings_changed": [
+    "extruder_ams_count",
+    "printer_settings_id",
+    "machine_start_gcode"
+  ],
+  "native_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_colour": [
+      "#000000"
+    ]
+  },
+  "native_slice": {
+    "error_string": "Success.",
+    "export_time": 1148,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 28,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 21.172155380249023,
+          "Bridge": 86.18134307861328,
+          "Custom": 305.07745361328125,
+          "Flush": 15.0,
+          "Gap infill": 1.678809642791748,
+          "Inner wall": 49.13507080078125,
+          "Internal solid infill": 90.4054946899414,
+          "Outer wall": 63.751102447509766,
+          "Overhang wall": 19.77311134338379,
+          "Sparse infill": 39.40055847167969,
+          "Support": 190.31118774414062,
+          "Support interface": 12.949352264404297,
+          "Top surface": 17.270200729370117,
+          "Travel": 166.03619384765625,
+          "Undefined": 156.7162322998047
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 4.443390846252441,
+            "total_used_g": 4.443390846252441
+          }
+        ],
+        "generate_support_material_time": 104,
+        "id": 1,
+        "infill_time": 35,
+        "layer_filament_change": 0,
+        "main_predication": 743.069580078125,
+        "make_perimeters_time": 22,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 53.03470230102539,
+              "height": 12.800000190734863,
+              "width": 14.664939880371094,
+              "x": 167.6675262451172,
+              "y": 133.48265075683594,
+              "z": -3.674314186241645e-10
+            },
+            "id": 5,
+            "name": "lever-replica",
+            "triangle_count": 5218
+          }
+        ],
+        "sliced_time": 375,
+        "sliced_time_with_cache": 199,
+        "total_predication": 1068.8270263671875,
+        "triangle_count": 5218,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+  },
+  "submitted": true,
+  "acceptance": {
+    "printer": "H2C",
+    "observed_at": "2026-09-20T06:11:20.696756+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "lever-black-petgf-z018-h2c.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 54,
+    "mc_remaining_time": 17,
+    "print_error": 0,
+    "hms": []
+  },
+  "submission_record": "print-jobs.json",
+  "support_audit_sha256": "777fceee745ba19a751f9cca35387fdc8cb2f78a4be655843816fddb2f6146da"
+}

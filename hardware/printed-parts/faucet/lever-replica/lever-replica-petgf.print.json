@@ -1,57 +1,26 @@
 {
-  "project": "lever-replica-white-petgf.3mf",
-  "settings_source": "hardware/printed-parts/faucet/faucet-petgf.3mf",
-  "settings_source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
-  "settings_sha256": "5e02529df6f3913f4dd9d3a610d27871f78ea51d0de6a3d98a73bd153d44bd40",
-  "source_settings_sha256": "5e02529df6f3913f4dd9d3a610d27871f78ea51d0de6a3d98a73bd153d44bd40",
+  "project": "lever-replica-petgf.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
   "settings_changes": {
-    "layer_height": {
-      "from": "0.24",
-      "to": "0.16"
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
     },
-    "wall_loops": {
-      "from": "2",
-      "to": "4"
-    },
-    "sparse_infill_density": {
-      "from": "15%",
-      "to": "100%"
-    },
-    "sparse_infill_pattern": {
-      "from": "grid",
-      "to": "zig-zag"
-    },
-    "print_settings_id": {
-      "from": "0.24mm PET-GF faucet",
-      "to": "0.16mm PET-GF comparison lever, four walls, solid"
-    },
-    "filament_colour": {
-      "from": [
-        "#000000"
-      ],
-      "to": [
-        "#FFFFFF"
-      ]
-    },
-    "enable_prime_tower": {
-      "from": "1",
-      "to": "0"
-    },
-    "brim_type": {
-      "from": "auto_brim",
-      "to": "outer_only"
-    },
-    "brim_width": {
-      "from": "5",
-      "to": "5"
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
     }
   },
   "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
-  "process": "0.16mm PET-GF comparison lever, four walls, solid",
+  "process": "0.24mm PET-GF faucet",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
   ],
-  "layer_height_mm": 0.16,
+  "layer_height_mm": 0.24,
   "nozzle_diameter_mm": [
     0.4,
     0.4
@@ -64,9 +33,9 @@
     "top_surface_line_width": 0.45,
     "support_line_width": 0.62
   },
-  "wall_loops": 4,
-  "sparse_infill_percent": 100.0,
-  "sparse_infill_pattern": "zig-zag",
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
   "saved_profile_filament_density_g_cm3": [
     1.29
   ],
@@ -140,9 +109,9 @@
       "embedded_vertex_error_mm": 4.995106550609307e-10
     }
   ],
-  "project_sha256": "be551fc620f05b081ce3c95aceefde08d486939ff856552959f00f6bd8ad834e",
+  "project_sha256": "05efbbd1a0932d80f90071fde574e269d5636c29523910a0652ccc52cf298cb0",
   "settings_preserved_byte_for_byte": false,
-  "status": "prepared comparison prototype; no printer submission",
+  "status": "offline project preparation; submissions are recorded in print-jobs.json",
   "fit_and_strength_validated": false,
   "pose": "local CAD +X side on bed; broad show face vertical"
 }
