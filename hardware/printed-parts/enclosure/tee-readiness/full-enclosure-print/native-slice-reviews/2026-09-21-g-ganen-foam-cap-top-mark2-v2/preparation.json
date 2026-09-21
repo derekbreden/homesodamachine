@@ -1,0 +1,81 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/g-ganen-foam-cap-top-black-z004-mark2-v2-input.3mf",
+  "staged_input_sha256": "159c52fc0b986287ca99ce7212a53f516189aa1bf81b2442abc03664f6a632af",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "foam-cap-top",
+      "source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+      "source_stl_sha256": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+      "source_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "source_step_sha256": "b84ed5c8545a4bfc02e4e3dd91cc87a49e8979ce9aae89d94d7f00bc6b7a5186",
+      "original_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          14.600000381469727
+        ]
+      ],
+      "original_mesh_triangles": 196166,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/oriented-meshes/foam-cap-top.stl",
+      "oriented_stl_sha256": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+      "oriented_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          14.600000381469727
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "foam-cap-top": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "22c80d7756b70139fe6ede97a4c9d3f70b782629171f8cd850a342acfffa36e6"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "scope": "The earlier bare selftest CLI alias changes only argument dispatch. All registration algorithms/imports and the configuration-file path are byte-identical. Existing registration reports retain their original tool hashes.",
+  "source": "register_scan.py",
+  "before_source": "common-foot/prior-evidence/register_scan.py.txt",
+  "before_sha256": "579de2761b7d8107a0ff509a80d4ebfc074d5ec094f2c158cfb0fe5823fca27e",
+  "after_sha256": "aba1151e7c52562666e75cbb52e0cac2fce560cec6ca3883f6cb4c15ef63dba0",
+  "before_line": "    if args.selftest:\n",
+  "after_line": "    if args.selftest or (args.configuration == 'selftest' and args.out is None):\n"
+}

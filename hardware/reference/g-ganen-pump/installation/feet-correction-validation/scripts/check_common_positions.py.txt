@@ -1,0 +1,93 @@
+"""Read-only native check of a common foot at the rail-engagement extremes.
+
+Input JSON names one native foot in a local frame: slot center X/Y=0,
+bearing plane Z=0, +X axial, +Y outward. It supplies independently selected
+clip axial interval, visible rail interval and pump-local lateral offset.
+This script never infers clip engagement from the full pad outline.
+"""
+from pathlib import Path
+from argparse import ArgumentParser
+import json,hashlib,math,time
+import cadquery as cq
+
+O=Path('/tmp/scanner-review/g-ganen-feet-correction')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def bounds(s):
+ b=s.BoundingBox();return[b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax]
+def bg(a,b):
+ aa=bounds(a);bb=bounds(b)
+ return math.sqrt(sum(max(aa[i]-bb[i+3],bb[i]-aa[i+3],0)**2 for i in range(3)))
+def iv(a,b):return a.intersect(b).Volume() if bg(a,b)<1e-6 else 0.
+def native_gap(a,b):
+ # Every component whose box could improve the known minimum is retained.
+ best=math.inf
+ for s in sorted(b.Solids(),key=lambda s:bg(a,s)):
+  lower=bg(a,s)
+  if lower>=best:continue
+  best=min(best,a.distance(s))
+ return best
+
+def run(spec_path,out):
+ start=time.monotonic();spec_path=Path(spec_path);spec=json.loads(spec_path.read_text())
+ foot_path=Path(spec['native_foot']);foot=(cq.Shape.importBrep(str(foot_path)) if foot_path.suffix=='.brep' else cq.importers.importStep(str(foot_path)).val())
+ man=json.loads((O/'current-native.json').read_text());observed=json.loads((O/'observed-envelope-probe.json').read_text())
+ inputs={str(spec_path):sha(spec_path),str(foot_path):sha(foot_path),str(O/'current-native.json'):sha(O/'current-native.json'),str(O/'observed-envelope-probe.json'):sha(O/'observed-envelope-probe.json')}
+ N={}
+ for name,row in man['bodies'].items():
+  p=Path(row['path']);assert sha(p)==row['sha256'];inputs[str(p)]=sha(p);N[name]=cq.Shape.importBrep(str(p))
+ oldfeet=[r['observed_envelope_bounds_world_mm'] for r in observed['readings'] if r['candidate_slot_station_x_mm']==(12 if r['id'].startswith('head') else 50)]
+ rigid_parts=[];matched=[]
+ for s in N['g-ganen-pump'].Solids():
+  b=bounds(s);hit=[i for i,t in enumerate(oldfeet) if max(abs(x-y) for x,y in zip(b,t))<1e-5]
+  if hit:matched.extend(hit)
+  else:rigid_parts.append(s)
+ assert sorted(matched)==list(range(4)),matched
+ rigid=cq.Compound.makeCompound(rigid_parts)
+ origin=observed['pump_origin_world_mm'];z=origin[2]
+ cup_current=N['cold-core/foam-cap-top']; cb=cup_current.BoundingBox()
+ old_post_cuts=[]
+ for r in observed['readings']:
+  if r['candidate_slot_station_x_mm']!=(12 if r['id'].startswith('head') else 50):continue
+  q=r['station_world_mm'];old_post_cuts.append(cq.Solid.makeCylinder(3.50001,cb.zmax-(cb.zmin+3)+.01,cq.Vector(q[0],q[1],cb.zmin+3+1e-5)))
+ cup_non_mount=cup_current.cut(cq.Compound.makeCompound(old_post_cuts))
+ pose=lambda s:s.rotate((0,0,0),(0,0,1),90).translate(origin)
+ lo,hi=spec['rail_axial_interval_mm'];cl,ch=spec['clip_axial_interval_mm']
+ # Opposite-side foot is rotated180deg aboutZ, reversing its local axial span.
+ queries=[]
+ for side in (-1,1):
+  clip=(cl,ch) if side>0 else(-ch,-cl)
+  for end,x in [('head',lo-clip[0]),('rear',hi-clip[1])]:
+   local=foot if side>0 else foot.rotate((0,0,0),(0,0,1),180)
+   local=local.translate((x,side*spec['lateral_slot_center_abs_y_mm'],0))
+   placed=pose(local);station=[origin[0]-side*spec['lateral_slot_center_abs_y_mm'],origin[1]+x,z]
+   near={}
+   for name,s in N.items():
+    if name=='g-ganen-pump' or name.startswith('cold-core/foam-cap'):continue
+    lower=bg(placed,s)
+    if lower>=3:near[name]={'bbox_clearance_lower_bound_mm':lower};continue
+    near[name]={'native_gap_mm':native_gap(placed,s),'native_overlap_mm3':iv(placed,s)}
+   upper=placed.intersect(cq.Solid.makeBox(220,320,80,cq.Vector(-110,180,z+1e-5)))
+   lid=N['cold-core/foam-cap-lid-top'];cup=N['cold-core/foam-cap-top']
+   cupb=cup.BoundingBox();post_start=cupb.zmin+3+.01;post_top=cupb.zmax
+   post=cq.Solid.makeCylinder(3.5,post_top-post_start,cq.Vector(station[0],station[1],post_start))
+   h=spec['pad_thickness_mm'];washer=cq.Solid.makeCylinder(4.5,.8-1e-5,cq.Vector(station[0],station[1],z+h+1e-5))
+   driver=cq.Solid.makeCylinder(4.5,45,cq.Vector(station[0],station[1],z+h+.8))
+   screw=cq.Solid.makeCylinder(1.5,h+1e-4,cq.Vector(station[0],station[1],z-5e-5))
+   tools={}
+   for name,s in N.items():
+    if name=='g-ganen-pump' or name.startswith('cold-core/foam-cap'):continue
+    if bg(driver,s)<1:tools[name]={'native_gap_mm':native_gap(driver,s),'overlap_mm3':iv(driver,s)}
+   r={'id':end+('_yplus' if side>0 else'_yminus'),'local_slot_station_mm':[x,side*spec['lateral_slot_center_abs_y_mm'],0],'clip_world_axial_interval_mm':[x+clip[0],x+clip[1]],'world_slot_station_mm':station,'cap_local_slot_station_mm':[323.8-station[1],station[0]],'foot_bounds_world_mm':bounds(placed),'foot_volume_mm3':placed.Volume(),'neighbors':near,'above_bearing_lid_overlap_mm3':iv(upper,lid),'post_overlap_with_current_cup_mm3':iv(post,cup),'post_overlap_with_non_mount_cup_stock_mm3':iv(post,cup_non_mount),'washer_foot_overlap_mm3':iv(washer,placed),'M3_foot_overlap_mm3':iv(screw,placed),'driver_rigid_native_gap_mm':native_gap(driver,rigid),'driver_neighbors':tools}
+   queries.append(r);print(r['id'],r['local_slot_station_mm'],'near',[(n,v) for n,v in near.items() if v.get('native_gap_mm',3)<3],'lid',r['above_bearing_lid_overlap_mm3'],'post',r['post_overlap_with_current_cup_mm3'],'washer',r['washer_foot_overlap_mm3'],'M3',r['M3_foot_overlap_mm3'],flush=True)
+ # Exact union comparison, no assumption that its largest diameter fills all axial stations.
+ rear=next(r for r in queries if r['id']=='rear_yplus');x=rear['local_slot_station_mm'][0]
+ selected=pose(foot.translate((x,spec['lateral_slot_center_abs_y_mm'],0)))
+ union=N['bulkhead-flavor-a'];union_options=[]
+ for dz in spec.get('union_raise_candidates_mm',[0.]):
+  shifted=union.translate((0,0,dz))
+  union_options.append({'raise_z_mm':dz,'foot_air_mm':native_gap(selected,shifted),'foot_overlap_mm3':iv(selected,shifted),'rigid_pump_air_mm':native_gap(shifted,rigid),'rigid_pump_overlap_mm3':sum(iv(shifted,s) for s in rigid_parts)})
+ report={'status':'bounded_native_extreme_station_feasibility','spec':spec,'inputs_sha256':inputs,'aggregate_sha256':man['source_sha256'],'body_port_pose_unchanged':True,'origin_world_mm':origin,'rail_interval_scope':spec.get('rail_scope'),'clip_interval_scope':spec.get('clip_scope'),'readings':queries,'rear_union_candidates':union_options,'stable_inputs':{p:sha(p)==digest for p,digest in inputs.items()},'elapsed_seconds':time.monotonic()-start,'limits':['Visible rail interval and common clip geometry have the qualifications in their source ledger; this is not a measured hard stop or retention-force test.','Cup post overlap is measured against existing cup including old posts; a near old station must be attributed before treating stock as obstacle.','Rigid pump is the exact current aggregate with the four old foot solids removed; unchanged body/ports are intentional.','Floor-plane contact is excluded only below the independently fixed bearing plane253.4mm; lid upstands above it remain tested.','No production source or geometry was changed.']}
+ Path(out).write_text(json.dumps(report,indent=2)+'\n');print('report',out,'seconds',report['elapsed_seconds'],flush=True)
+
+if __name__=='__main__':
+ p=ArgumentParser();p.add_argument('spec');p.add_argument('--output',default=str(O/'common-extremes.json'));a=p.parse_args();run(a.spec,a.output)

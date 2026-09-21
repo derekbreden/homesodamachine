@@ -6,20 +6,19 @@ H2C is printing the complete Kamoer cartridge and raised open cap. Mark2 is prin
 countertop under the **Tube miter box** task. No additional coupons or scans are required
 before this full assembly trial.
 
-**Current geometry is qualified and the exact print receipt is accepted.** The assembly
+**G Ganen feet and mounts are corrected.** Four copies of the shared 7 mm foot sit at the fully engaged rail ends, 58 mm apart. Matching cap and lid archives are freshly reviewed. The pump is 1 mm forward to clear the rear fitting.
+
+**The current enclosure qualification binds the geometry recorded below.** The assembly
 scorecard has 105 checks: 104 pass and one inactive physical gas-fit goal warning. There
 are zero clashes or unanswered overlaps, 67/67 clear port leads, and no pair below its
 required clearance. The carrier passes 638 native solid/sweep checks. The canonical 2 mm
 pusher separately passes 38 checks and 19 continuous sweeps against matching inputs.
 
 The assembly STEP SHA-256 is
-`0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67`.
-The [accepted receipt](tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json), SHA-256
-`42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4`, binds current sources, native solids, print meshes,
-profile and supporting proofs. The [readiness record](print-readiness.json) and
-[queue](tee-readiness/full-enclosure-print/queue.json) track the exact slice/review stages.
+`c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a`.
+The [current geometry receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json) binds the completed assembly, unchanged independent print geometry and corrected mounts. Back-top has zero native added/removed volume; its mesh differs only by at most 0.000016 mm. The two mounting archives use their [mount input receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/current-geometry.json). Original archive and support-review provenance remains intact. The [queue](tee-readiness/full-enclosure-print/queue.json) records current eligibility.
 
-**7/7 native slices and 7/7 offline reviews are complete.** None of these
+**All seven production plates are offline ready.** None of these
 seven jobs is submitted. Full-enclosure printing is already authorized; an offline-ready
 job awaits machine availability, removal of that machine’s latest print, adequate
 filament and the normal verified handoff. `print_released=false` and `submitted=false`
@@ -34,24 +33,24 @@ record execution, not a request for another approval.
 | Back-bottom | Mark2 | 17 h 59 min | 709.45 | Offline ready; not submitted |
 | Back-top | H2C | 27 h 51 min | 962.13 | Offline ready; not submitted |
 | Complete carrier pair | Mark2 | 3 h 43 min | 112.86 | Offline ready; not submitted |
-| G Ganen foam-cap-top | Mark2 | 5 h 10 min | 182.62 | Offline ready; not submitted |
-| Matching foam-cap-lid-top | Mark2 | 4 h 28 min | 202.90 | Offline ready; not submitted |
+| G Ganen foam-cap-top | Mark2 | 5 h 09 min | 182.63 | Offline ready; not submitted |
+| Matching foam-cap-lid-top | Mark2 | 4 h 28 min | 202.92 | Offline ready; not submitted |
 
 H2C order: **front-top + pusher → back-top** after the current cartridge/cap.
 Mark2 order: **front-bottom → back-bottom → carrier pair** after Tube miter box releases
 the machine. These are serial queues on each printer; the two printers can work in parallel.
 
 Both G Ganen mounting plates are assigned to **Mark2**, after the bottoms and carrier.
-Their H2C variants are preserved as unsubmitted alternatives, not additional required
-prints. Only the separately reviewed Mark2 archives with +0.04 mm requested trim belong
-to the active seven-job totals and printer handoff.
+The reviewed Mark2 v2 mounting archives use +0.04 mm requested trim and belong to the
+active seven-job queue. Earlier H2C variants have superseded mounting geometry and
+are ineligible for submission.
 
 | Queued lane | Slicer time | PET-GF estimate |
 | --- | ---: | ---: |
 | H2C | 52 h 09 min | 1865.15 g |
-| Mark2 | 48 h 46 min | 1829.10 g |
+| Mark2 | 48 h 46 min | 1829.12 g |
 
-All seven jobs total 100 h 55 min of printer time and 3694.25 g PET-GF.
+All seven jobs total 100 h 54 min of printer time and 3694.27 g PET-GF.
 These estimates exclude running jobs, plate changes, support cleanup and assembly; they
 are not promised completion times.
 
@@ -66,8 +65,8 @@ records the selected printer, material mapping, archive and observed start.
 
 | Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
 | --- | --- | ---: | ---: | ---: | --- |
-| H2C | 2026-09-21T14:49:32.201757+00:00 | 69% | 253/496 | 187 | None |
-| Mark2 | 2026-09-21T14:49:31.478998+00:00 | 44% | 50/917 | 544 | None |
+| H2C | 2026-09-21T17:06:30.288739+00:00 | 93% | 440/496 | 42 | None |
+| Mark2 | 2026-09-21T17:06:30.297997+00:00 | 58% | 246/917 | 407 | None |
 
 These are timestamped readings, not live remaining-time promises. Both jobs were running;
 Mark2 remains owned by Tube miter box. The active `finish-the-enclosure-print-queue`
@@ -104,7 +103,7 @@ reviewed archive after its assigned machine is available and its latest plate is
 | Machine display cover | Derek confirms the existing cover was already test fit. Reuse that cover; its shell interface belongs in the final generated assembly checks. |
 | Nameplate | Appearance, QR readability and snap fit are accepted. Reuse the print. Its complexity is not the preferred design example. [Physical record](nameplate/physical-acceptance.json). |
 | C14 inlet and cord | Derek accepts the printed inlet/C13-cord station. Its fitted pocket and screw stations are preserved; the reference uses the measured flange outline and R6 corners. [Native interface evidence](tee-readiness/full-enclosure-print/hard-contact-review/README.md). |
-| G Ganen feet and flow | Derek identifies flexible rubber feet that slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
+| G Ganen feet and flow | Derek identifies four identical flexible rubber feet with approximately 7 mm pads; they slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
 
 ## Tee, carrier and springs
 

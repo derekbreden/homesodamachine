@@ -1,0 +1,40 @@
+{
+  "source_sha256": {
+    "/tmp/scanner-review/g-ganen-feet-correction/back-top-native-delta/compare_mesh.py": "04774701a0cfbd8a7bbf781a5af5a98193380aafae13c15d1f3b8cd8d61c3e0b"
+  },
+  "input_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/oriented-meshes/enclosure-back-top.stl": "4dc284096450ecf764446d66c3bda56ac4d40f2682e594a929f32f123b3ec91d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "0bfacdd733469ad3966a0b193d23eff669308567d254c20814c2b2f2dc68897a",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.print.json": "2375484980f375d0eda6aa501c52af90d9ed0657befeb48dc6f7f21c700d1f14",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/job-config.json": "648f36b96657d51b6ba57b76bef3fd5cb918e20c1d4f722e4944fe6ae7e869ea"
+  },
+  "prior_original_stl_sha256": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5",
+  "comparison": "Undo the declared 180-degree X print orientation of the exact prior staged mesh; preserve native triangle and corner correspondence.",
+  "old_triangle_count": 1124732,
+  "new_triangle_count": 1124732,
+  "same_triangle_count": true,
+  "max_axis_delta_mm": 1.52587890625e-05,
+  "max_vertex_distance_mm": 1.52587890625e-05,
+  "differing_triangles": 43,
+  "differing_corners": 47,
+  "corner_counts_over_threshold_mm": {
+    "0": 47,
+    "1e-07": 47,
+    "1e-06": 47,
+    "1e-05": 20,
+    "0.0001": 0,
+    "0.001": 0,
+    "0.01": 0,
+    "0.1": 0,
+    "1.0": 0
+  },
+  "changed_triangle_bounds_mm": [
+    44.278839111328125,
+    244.62379455566406,
+    343.0,
+    83.6366958618164,
+    307.0025939941406,
+    348.0
+  ],
+  "status": "equal_at_1_micron_vertex_correspondence"
+}

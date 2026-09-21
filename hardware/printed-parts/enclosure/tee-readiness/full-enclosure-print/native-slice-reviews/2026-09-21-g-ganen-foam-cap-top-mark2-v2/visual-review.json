@@ -1,0 +1,18 @@
+{
+  "status": "visual_review_pass",
+  "recorded_at_utc": "2026-09-21T16:46:48.459008+00:00",
+  "reviewer": "coordinating_task",
+  "review_authority": "Explicit coordinating-task message: complete upright cup, columns/holes visible, expected +Z orientation.",
+  "preview": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/ready/native-previews/plate_1.png",
+  "preview_sha256": "750ad33526a6f995a05ae162119ed720350acf7d31ef27d210d8a63a3fad6150",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/ready/g-ganen-foam-cap-top-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "6b0d82014961bf7f247da9a451bd9466dbe64ecd75043f527534d891d9d6f259",
+  "observations": [
+    "Complete upright cup.",
+    "Columns and holes visible.",
+    "Expected native +Z print orientation."
+  ],
+  "scope": "Overall native preview shape/orientation; exact emitted paths, supports and geometry are reviewed separately.",
+  "print_released": false,
+  "submitted": false
+}

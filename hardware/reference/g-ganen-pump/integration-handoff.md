@@ -1,86 +1,78 @@
 # G Ganen integration boundary
 
-The standalone reference, measured interfaces and native comparison belong to
-this folder. Production consumers and shared cap/Box sources are unchanged.
-[The consumer map](../pump-comparison/g-ganen-integration.md) identifies their
-owners. One agent should own the coupled assembly/cap/route edit after the
-current tee correction releases that source lane.
+The measured G Ganen reference supplies the rigid housing, independent port
+profiles and one shared purchased rubber-foot shape. Production placement uses
+[`installation/g_ganen_installation.py`](installation/g_ganen_installation.py).
+The [installation record](installation/README.md) carries the selected mounting
+stations and native checks. Current enclosure generation and print status belong
+to [print readiness](../../printed-parts/enclosure/print-readiness.md).
 
-## Placement
+## Placement and flow
 
-`hardware/manifold-layout/enclosure_assembly.py:build_seaflo` uses a positive
-90° Z rotation, a rear-face rule and `z0=cap_face(foam)`. That `z0` reads the whole
-native bounding box. It cannot directly stand in for this reference's average
-bearing datum: the free rubber-foot envelope contains individually inclined and
-bent faces below Z=0. Use an explicit bearing-datum translation and keep the
-mounted rubber/contact qualification visible. Do not silently lift the ports
-by the free-foot bounding-box minimum.
+The reference has X=0 at the motor/head junction, +X toward the motor rear, and
+Z=0 at its retained bearing datum. Production places that datum directly on the
+cap lid and uses the rigid motor rear for the fore/aft placement rule. Moving a
+foot along its rail does not move the rigid pump or either port.
 
-Use the **rigid motor rear** for the rear placement rule; moving a rubber slider
-must not reposition the entire pump. Keep the intended rotation: local +X goes
-toward enclosure +Y, and local +Y discharge goes toward enclosure −X. Resolve X
-from the actual native tray/flavor-lane section clearances, as the current
-placement already does. These are independent of the fitted Kamoer cartridge
-seats.
+The installed +90° Z rotation maps local +Y discharge to **enclosure −X**.
+Suction faces east and discharge faces west. `build_water_pump` resolves lateral
+room against the pan and rear-fitting lanes, and uses the installation module's
+rear-clearance value. Pump/foot, cap, rear unions and hose clearances use the same
+placed native geometry.
 
-`FOOT_T` currently has two roles in `build_seaflo`, `flavor_storey` and the fluid-14
-route: clamp/pad stack and height of outboard pump obstruction. They are distinct
-for this pump. Pad top observations are around 6.4–7.2 mm in the feet-down view;
-the rubber upstands and fixed rails extend higher. Read the actual native bodies
-in each neighboring height band rather than carrying SeaFlo's 8 mm scalar into
-both uses. A room section with no intersecting pump body needs an explicit empty
-case rather than a bounding box of an empty solid.
+## Common feet and cap mounts
 
-## Cap mount
+Derek confirms four identical removable sliding rubber feet with approximately
+7 mm pads. `common-foot/g_ganen_foot.py` builds their shared nominal installed
+shape, including visible slots, underside reliefs and the exposed clip mouth.
+The raw scan poses remain measurement evidence, not four different foot shapes.
 
-Retain the purchased sliding rubber feet. Choose four actual slider positions
-that clear the cap's pour/vent/conduit/boss stock, then carry each measured slot
-and pad with its own fore/aft translation. A rectangle is a design option if the
-chosen foot poses and slot engagement support it; the captured poses do not
-impose one. The current `DeckMount(centre, pitch_x, pitch_y, ...)` and
-`pump_mount_rows` only compare sorted center pairs. They need explicit selected
-mount stations and checks for the complete screw path, pad/washer bearing and
-upstand clearance. `mount_slots()` supplies per-foot observations; a compatibility
-`mount_holes()` must refer to a separately chosen, qualified mounting pose.
+The selected slot centres are reference X=9.5 and 67.5 mm, Y=±38.5 mm, Z=0.
+Their ±9 mm axial clip spans fit wholly within the visible rail interval
+X=0.5–76.5 mm. These are outermost full-engagement positions, not claimed hard
+travel stops or a retention rating for partial overhang.
 
-The smallest remaining physical observation is a real M3 screw passing freely
-through the full depth of each of the four slots, followed by the selected
-washer seating flat without touching an upstand. The purchase ledger offers
-M3 washer design candidates Ø7 × 0.5, Ø9 × 0.8 and Ø12 × 1.0 mm, but receipt and
-seating are not established by the ledger. A removed-foot scan is unnecessary
-for retaining the stock feet; it is needed only if a new hidden rail clip is to
-be designed from that shape.
+Each M3 × 20 screw axis is 1.5 mm outward within its slot, at Y=±40 mm. This
+leaves the Ø9 × 0.8 mm washer flat on the nominal 7 mm pad and clear of the raised
+shoulder. `CAP_MOUNT_XY`, `mount_stations()` and `mount_holes()` carry those screw
+axes into the printed cap. `_cold_core_interface.deck_mounts['g-ganen-pump']`
+derives the four columns, lid holes and screw stack from that installation.
+The insert is ruthex M3 × 5.7; the blind screw bore is at least 8.5 mm deep.
 
-No native filled foot envelope qualifies screw passage or predicts rubber
-compression. Final screw reach must include the actual mounted pad/washer stack,
-lid crossing, insert length and bottoming clearance. Any intentional rubber
-contact/deformation must be distinguished from rigid casing interference.
+The native model checks screw passage, washer contact, column stock and adjacent
+parts. Actual rubber compression, tightening feel and retention are checked
+while assembling the printed enclosure. Hidden rail grip surfaces are not a
+replacement-foot manufacturing specification.
 
-## Ports, routes and build order
+## Ports, routes and contact
 
-Use each port's own axis, terminal tip and profile. `pan_front_y` currently reads
-`PORT_D / 2`; it should read the placed discharge envelope in the direction
-bounding the pan. `_tube_export` currently treats `PORT_L` as barb engagement;
-this reference's approximately 13.2 mm exterior profile is not an observed hose
-insertion/retention test. Do not silently make one common diameter/length from
-the two measured profiles. Flow identity is already resolved by direct user
-authority and the intended rigid rotation.
+Use each port's own tip, axis and exterior profile. `suction()`, `discharge()`
+and `port_profile()` retain the separate measured ports. `profiled_barb_length()`
+provides the observed exterior length; it does not certify completed hose
+insertion or clamp retention. The two reinforced-PVC hoses preserve the measured terminal axes and their
+R15.9 minimum bend requirement.
 
-Resolve pump pose, selected foot poses and cap stations together; then derive
-suction/discharge-chain anchors and check V-K and neighboring routes. Preserve
-the independently fitted valve/Kamoer bearing geometry while updating actual
-placement dependencies. Regenerate the cap and foam assembly, Box, affected
-enclosure parts, combined assembly, tube cut schedule and BOM in that order.
-Check pump/printed-cap contact, all rigid neighbors, hose lead/tangent/bend paths,
-ASSE pan landing/withdrawal and flavor-port clearance against the same current
-native bodies. The full enclosure print remains a separate release decision.
+`pan_front_y` reads the placed discharge envelope. The pan has its own clearance
+span and service path. Suction/discharge chains remain seated on their cap
+anchors; pump placement and both hoses are checked together without treating the
+chain mounts as pump-foot stations.
 
-## Query cost
+The fixed casing reference fills reentrant rail/cradle regions. Attributed
+foot/rail overlap inside that filled envelope is distinct from a collision with
+an external neighbor. Cap bearing checks keep the complete rigid body separate
+from the four named foot masks and retain every unrelated contact.
 
-This is a detailed native reference, including shallow facets on measured convex
-hulls. [native-query-cost.json](native-query-cost.json) records a native distance
-and a room-section query, including current solid/face counts. The exact
-reference should remain preserved if a faster integration shape is needed. A
-separately named conservative envelope can be derived, with native containment
-and maximum excess checked per component; unqualified smoothing or scale changes
-must not alter the measured inputs or remove lug/port/rail constraints.
+## Generation and evidence
+
+Generate the cap, foam assembly and cold-core assembly before Box, shell pieces
+and the combined assembly. Freeze the resulting STEP/STL/payload inputs and
+current assembly gates before native slicing and support review. Print records
+remain bound to their exact input and toolpath hashes.
+
+The detailed reference and conservative integration envelope have separate
+manifests. The integration envelope retains native component containment and
+round-trip evidence; the four feet are exact shared-shape copies. Historical
+query timings keep their original native STEP identity and are not a current
+performance guarantee. For occupied sections, `native_queries.intersect_components`
+checks native components individually, and `occupied_bounds` returns `None` for
+an empty section.

@@ -1,0 +1,842 @@
+{
+  "status": "retained_per_foot_envelope_diagnostic_only_not_final_identical_foot",
+  "source_inputs": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "873e54986455e94d286ac5a1649e0ad0f7ae4cf127097aa23c14c82a8c7718c9",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": "7e86285e8991d6cde45830d7997cb30eb026d4998f3d54948d4dd480c32e0236",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/reference-parameters.json": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
+    "/tmp/scanner-review/g-ganen-feet-correction/current-native.json": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a"
+  },
+  "aggregate_source_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "pump_origin_world_mm": [
+    2.0711351519419985,
+    374.235458276122,
+    253.4
+  ],
+  "current_pump_placed_bbox_max_error_mm": 9.00968188943807e-12,
+  "readings": [
+    {
+      "id": "rear_yminus",
+      "candidate_slot_station_x_mm": 50.0,
+      "station_world_mm": [
+        40.58788186266551,
+        424.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.071139804481156,
+        414.6106380077228,
+        252.407360040457,
+        49.791411834813125,
+        433.76487925665674,
+        271.7977979674622
+      ],
+      "nearby": {
+        "cold-core/line-reservoir-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 222.5469738891524,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 62.08630204946294,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 63.70613980448201,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-14": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 4.745532244298127,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 24.24020640002231,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 339.04219045878887,
+      "washer_driver_to_rigid_native_gap_mm": 6.616928021528915
+    },
+    {
+      "id": "rear_yminus",
+      "candidate_slot_station_x_mm": 65.0,
+      "station_world_mm": [
+        40.58788186266551,
+        439.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.071139804481156,
+        429.6106380077228,
+        252.407360040457,
+        49.791411834813125,
+        448.76487925665674,
+        271.7977979674622
+      ],
+      "nearby": {
+        "cold-core/line-reservoir-a": {
+          "bbox_lower_bound_mm": 1.7028654291079306,
+          "native_gap_mm": 223.39744847979622,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 64.06105808418046,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 63.70613980448201,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-14": {
+          "bbox_lower_bound_mm": 0.13563800772277546,
+          "native_gap_mm": 8.621205166444485,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 11.803318161586759,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.613643206303507
+    },
+    {
+      "id": "rear_yminus",
+      "candidate_slot_station_x_mm": 68.0,
+      "station_world_mm": [
+        40.58788186266551,
+        442.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.071139804481156,
+        432.6106380077228,
+        252.407360040457,
+        49.791411834813125,
+        451.76487925665674,
+        271.7977979674622
+      ],
+      "nearby": {
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 1.0330379077227576,
+          "native_gap_mm": 63.36582922091785,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 63.70613980448201,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 8.807616579679106,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.613643206303504
+    },
+    {
+      "id": "rear_yminus",
+      "candidate_slot_station_x_mm": 70.0,
+      "station_world_mm": [
+        40.58788186266551,
+        444.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.071139804481156,
+        434.6106380077228,
+        252.407360040457,
+        49.791411834813125,
+        453.76487925665674,
+        271.7977979674622
+      ],
+      "nearby": {
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 63.70613980448201,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 6.810482191740723,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.613643206303504
+    },
+    {
+      "id": "rear_yminus",
+      "candidate_slot_station_x_mm": 72.0,
+      "station_world_mm": [
+        40.58788186266551,
+        446.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.07113980448116,
+        436.6106380077228,
+        252.407360040457,
+        49.791411834813125,
+        455.76487925665674,
+        271.7977979674622
+      ],
+      "nearby": {
+        "nameplate": {
+          "bbox_lower_bound_mm": 1.835120743343282,
+          "native_gap_mm": 13.135120743343862,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 63.70613980448201,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 4.813347803802287,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.730911540558028
+    },
+    {
+      "id": "rear_yminus",
+      "candidate_slot_station_x_mm": 74.0,
+      "station_world_mm": [
+        40.58788186266551,
+        448.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.07113980448116,
+        438.61063800772274,
+        252.407360040457,
+        49.791411834813125,
+        457.76487925665674,
+        271.7977979674622
+      ],
+      "nearby": {
+        "nameplate": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 11.135120743343862,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 63.70613980448201,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.816213415863908,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.897979238353043
+    },
+    {
+      "id": "rear_yplus",
+      "candidate_slot_station_x_mm": 50.0,
+      "station_world_mm": [
+        -36.709856852001835,
+        424.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.05426250306341,
+        414.1991310522828,
+        252.56269988052884,
+        -24.928874424251564,
+        433.2492976651488,
+        271.89272800630215
+      ],
+      "nearby": {
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.3627285996051968,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 21.805226292228262,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 339.04219045878887,
+      "washer_driver_to_rigid_native_gap_mm": 6.980399992253329
+    },
+    {
+      "id": "rear_yplus",
+      "candidate_slot_station_x_mm": 65.0,
+      "station_world_mm": [
+        -36.709856852001835,
+        439.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.05426250306341,
+        429.1991310522828,
+        252.56269988052884,
+        -24.928874424251564,
+        448.2492976651488,
+        271.89272800630215
+      ],
+      "nearby": {
+        "bulkhead-flavor-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 1.6742214711188776,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.3627285996051968,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 15.849808348862025,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.893438465469477
+    },
+    {
+      "id": "rear_yplus",
+      "candidate_slot_station_x_mm": 68.0,
+      "station_world_mm": [
+        -36.709856852001835,
+        442.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.05426250306341,
+        432.1991310522828,
+        252.56269988052884,
+        -24.928874424251564,
+        451.2492976651488,
+        271.89272800630215
+      ],
+      "nearby": {
+        "bulkhead-flavor-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 0.31462919610023427,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.3627285996051968,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 14.050702334851223,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.876046160112708
+    },
+    {
+      "id": "rear_yplus",
+      "candidate_slot_station_x_mm": 70.0,
+      "station_world_mm": [
+        -36.709856852001835,
+        444.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.05426250306341,
+        434.1991310522828,
+        252.56269988052884,
+        -24.928874424251564,
+        453.2492976651488,
+        271.89272800630215
+      ],
+      "nearby": {
+        "bulkhead-flavor-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 0.0,
+          "native_overlap_mm3": 46.90359990770381
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.3627285996051968,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 12.050702334851223,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.864451289874859
+    },
+    {
+      "id": "rear_yplus",
+      "candidate_slot_station_x_mm": 72.0,
+      "station_world_mm": [
+        -36.709856852001835,
+        446.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.05426250306341,
+        436.1991310522828,
+        252.56269988052884,
+        -24.928874424251564,
+        455.2492976651488,
+        271.89272800630215
+      ],
+      "nearby": {
+        "bulkhead-flavor-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 0.0,
+          "native_overlap_mm3": 163.68985056078685
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.3627285996051968,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 10.050702334851223,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.852856419637013
+    },
+    {
+      "id": "rear_yplus",
+      "candidate_slot_station_x_mm": 74.0,
+      "station_world_mm": [
+        -36.709856852001835,
+        448.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.05426250306341,
+        438.1991310522828,
+        252.56269988052884,
+        -24.928874424251564,
+        457.2492976651488,
+        271.89272800630215
+      ],
+      "nearby": {
+        "bulkhead-flavor-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 0.0,
+          "native_overlap_mm3": 305.2664482222971
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 2.385165725197757,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 8.050702334851223,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 6.841261549399165
+    },
+    {
+      "id": "head_yminus",
+      "candidate_slot_station_x_mm": 5.0,
+      "station_world_mm": [
+        41.3245656192112,
+        379.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.81902198516487,
+        368.939530450652,
+        251.61545406513835,
+        49.89457775083624,
+        388.45221254981124,
+        270.24625003932204
+      ],
+      "nearby": {
+        "cold-core/line-co2-in": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 54.72502226175436,
+          "native_overlap_mm3": 0.0
+        },
+        "cold-core/line-reservoir-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 177.1425009038744,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 54.69924611075151,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 64.454021985172,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-14": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 3.1144068287129274,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 48.605422249168,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 4.014292520045446
+    },
+    {
+      "id": "head_yminus",
+      "candidate_slot_station_x_mm": 8.0,
+      "station_world_mm": [
+        41.3245656192112,
+        382.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.81902198516487,
+        371.939530450652,
+        251.61545406513835,
+        49.89457775083624,
+        391.45221254981124,
+        270.24625003932204
+      ],
+      "nearby": {
+        "cold-core/line-co2-in": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 57.26485898895184,
+          "native_overlap_mm3": 0.0
+        },
+        "cold-core/line-reservoir-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 180.1379493919263,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 57.24022657676673,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 64.454021985172,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-14": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 3.4105738898583975,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 48.605422249168,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 108.87510784886807,
+      "washer_driver_to_rigid_native_gap_mm": 6.070291242171618
+    },
+    {
+      "id": "head_yminus",
+      "candidate_slot_station_x_mm": 10.0,
+      "station_world_mm": [
+        41.3245656192112,
+        384.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.81902198516487,
+        373.939530450652,
+        251.61545406513835,
+        49.89457775083624,
+        393.45221254981124,
+        270.24625003932204
+      ],
+      "nearby": {
+        "cold-core/line-co2-in": {
+          "bbox_lower_bound_mm": 0.13568655617194736,
+          "native_gap_mm": 58.98087525075674,
+          "native_overlap_mm3": 0.0
+        },
+        "cold-core/line-reservoir-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 182.13499690489547,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 58.9569598001829,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 64.454021985172,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-14": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 3.608018597288739,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 48.605422249168,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 189.58451894612426,
+      "washer_driver_to_rigid_native_gap_mm": 7.621379557648453
+    },
+    {
+      "id": "head_yminus",
+      "candidate_slot_station_x_mm": 12.0,
+      "station_world_mm": [
+        41.3245656192112,
+        386.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        29.81902198516487,
+        375.939530450652,
+        251.61545406513835,
+        49.89457775083624,
+        395.45221254981124,
+        270.24625003932204
+      ],
+      "nearby": {
+        "cold-core/line-co2-in": {
+          "bbox_lower_bound_mm": 2.1356865561719474,
+          "native_gap_mm": 60.71341302754723,
+          "native_overlap_mm3": 0.0
+        },
+        "cold-core/line-reservoir-a": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 184.13210745634197,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-co2-2": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 60.6901803011706,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 64.454021985172,
+          "native_overlap_mm3": 0.0
+        },
+        "tube-fluid-14": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 3.805463304719084,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 48.605422249168,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 339.04219045878943,
+      "washer_driver_to_rigid_native_gap_mm": 7.60559150105959
+    },
+    {
+      "id": "head_yplus",
+      "candidate_slot_station_x_mm": 5.0,
+      "station_world_mm": [
+        -36.268487963022125,
+        379.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.2822231900712,
+        369.3080719014769,
+        252.52511576950002,
+        -24.929075963900956,
+        388.48363133018864,
+        271.89769575478454
+      ],
+      "nearby": {
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 0.006123695459016746,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 21.143959599275114,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 0.0,
+      "washer_driver_to_rigid_native_gap_mm": 3.4446090546573216
+    },
+    {
+      "id": "head_yplus",
+      "candidate_slot_station_x_mm": 8.0,
+      "station_world_mm": [
+        -36.268487963022125,
+        382.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.2822231900712,
+        372.3080719014769,
+        252.52511576950002,
+        -24.929075963900953,
+        391.48363133018864,
+        271.89769575478454
+      ],
+      "nearby": {
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 0.6250160699317098,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 21.14395959927512,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 108.87510784881229,
+      "washer_driver_to_rigid_native_gap_mm": 5.608734307454267
+    },
+    {
+      "id": "head_yplus",
+      "candidate_slot_station_x_mm": 10.0,
+      "station_world_mm": [
+        -36.268487963022125,
+        384.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.2822231900712,
+        374.3080719014769,
+        252.52511576950002,
+        -24.929075963900953,
+        393.48363133018864,
+        271.89769575478454
+      ],
+      "nearby": {
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 1.0376109862468597,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 21.14395959927512,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 189.584518946124,
+      "washer_driver_to_rigid_native_gap_mm": 6.770935925353112
+    },
+    {
+      "id": "head_yplus",
+      "candidate_slot_station_x_mm": 12.0,
+      "station_world_mm": [
+        -36.268487963022125,
+        386.235458276122,
+        253.4
+      ],
+      "observed_envelope_bounds_world_mm": [
+        -45.2822231900712,
+        376.3080719014769,
+        252.52511576950002,
+        -24.929075963900953,
+        395.48363133018864,
+        271.89769575478454
+      ],
+      "nearby": {
+        "tube-fluid-18": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 1.0472210692364363,
+          "native_overlap_mm3": 0.0
+        },
+        "enclosure-back-top": {
+          "bbox_lower_bound_mm": 0.0,
+          "native_gap_mm": 21.14395959927512,
+          "native_overlap_mm3": 0.0
+        }
+      },
+      "observed_envelope_above_lid_overlap_mm3": 0.0,
+      "observed_envelope_above_lid_gap_mm": 9.980000001519329e-05,
+      "new_post_overlap_with_current_cup_mm3": 339.042190458789,
+      "washer_driver_to_rigid_native_gap_mm": 6.759341055115266
+    }
+  ],
+  "limits": [
+    "Per-foot free envelopes differ; user confirms identical stock feet, so these are diagnostics only.",
+    "No rail-engagement interval is inferred from exterior pad bounds.",
+    "Current cap contains current posts; positive post overlap at the old station is expected, and shifted overlap needs attribution.",
+    "No physical clip/pad compression or screw passage proof."
+  ],
+  "stable_inputs": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/reference-parameters.json": true,
+    "/tmp/scanner-review/g-ganen-feet-correction/current-native.json": true
+  }
+}

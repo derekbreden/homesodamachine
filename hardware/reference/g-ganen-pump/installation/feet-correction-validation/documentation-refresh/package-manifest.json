@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "files_sha256": {
+    "before/artifact-manifest.json": "80c5f771d41257f314d74b2ccc4e99c01080b383c6f770b7de1510d3e3f2e27f",
+    "before/hardware/ledger/bom.md": "8297743659b371d74366d14c8e5363f664c2e9d34ea278efcfbad588335ed557",
+    "before/hardware/ledger/inventory.md": "0abb9c582ce6571e722f89347e0be8eb142ed017a4ce169cc050cc26107cb0c1",
+    "before/integration-envelope/artifact-manifest.json": "480c414b18d221325d647af4f4de6a7fe57cb2e2b4d9175a66a7640e2b680ddc",
+    "before/integration-envelope/containment.json": "c08419cee266bce275035aab5485c10bfdb6162b275128e8357afe7b4c1267b5",
+    "before/integration-envelope/envelope-parameters.json": "08e09d45e192cc4f867616daf9b99b47ac6f7ee4a94e68ff0d8c3de4cd11be18",
+    "before/integration-envelope/native-validation.json": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+    "before/integration-handoff.md": "f1a57e42e908b993973d4c6c8635ed8420164e5e9a777c1ea97cfd5bd249c9ff",
+    "documentation-envelope-check.log": "2c11df6f27124562eca7ac1501b1b5f03fc0680ea497237019e91def43afe5ca",
+    "documentation-reference-check.log": "21feefc6dc0b74fe4af0cb15d1d4d63cd3ba382bf62ad198daefa010cee98b54",
+    "refresh-documentation-metadata.py.txt": "722d1baeb35772e1f5c7ff169f1bf0914d3de63b738bbc29547ff7e71e0d76de",
+    "unchanged-geometry-inputs.json": "e02e838111f1a0e37b75c383a6467ce062f7b4a2f6c52c7a469dd05257a890de",
+    "validation.json": "429f735cb7262f70fec2bfafd163fd348855f43aa5f8a8b92413fa960df6ac3d"
+  }
+}

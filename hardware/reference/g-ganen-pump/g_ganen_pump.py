@@ -74,10 +74,11 @@ def _barb(row):
 
 
 def _foot(row):
-    # The purchased slider's visible external envelope remains separate from
-    # the rigid housing. The separately measured slot interface does not qualify
-    # a hidden throat or a replacement foot's rail-gripping profile.
-    return _hull(row['external_envelope'])
+    # All four purchased rubber feet are identical. Observed free-foot poses
+    # remain individual, but their geometry comes from one shared reference.
+    sys.path.insert(0, str(HERE/'common-foot'))
+    from g_ganen_foot import observed_foot
+    return observed_foot(row)
 
 
 def _hull(row):

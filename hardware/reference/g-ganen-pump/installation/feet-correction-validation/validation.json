@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "status": "bounded_geometry_validation_pass",
+  "scope": "Common-foot installation and its four changed assembly bodies (pump, water-6, water-7, fluid-14), with fresh cap top/lid replacing their prior bodies in the exact complete 210-body baseline. Full production generation and printing are separate.",
+  "reports": {
+    "neighbor-check.json": {
+      "path": "reports/neighbor-check.json",
+      "sha256": "add8afda2e745618a91c41e0c698be5830099a3b7a1ab13a393c2e5d0a618601"
+    },
+    "installed-mount-check.json": {
+      "path": "reports/installed-mount-check.json",
+      "sha256": "8f92e96f980fbdf07c779376a71bcb7b5cdef8e4de55c4902f18130d2c2878cc"
+    },
+    "washer-check.json": {
+      "path": "reports/washer-check.json",
+      "sha256": "9c75f618781956eb777814a9cebe12190fc1093504ee268c037d63fb2ec4bf98"
+    },
+    "reference-clip-attribution.json": {
+      "path": "reports/reference-clip-attribution.json",
+      "sha256": "40ba959e0e402aef67f705f4f20f46b578b2473a30a6524e2b9fecfa04acc6f6"
+    },
+    "reference-handoff.json": {
+      "path": "reports/reference-handoff.json",
+      "sha256": "308d45048f07aef90216e03f968e1245a46a089bc958b9318cab0c5c3a8af398"
+    },
+    "final-input-audit.json": {
+      "path": "reports/final-input-audit.json",
+      "sha256": "3966d7a99fe1e2b64dcaa417b8ad9d0a11039b955435e8ea9fb517deb9c9527e"
+    }
+  },
+  "baseline": {
+    "path": "fixtures/baseline-assembly.json",
+    "sha256": "5fed2d19b9b6f6db8a058ab49193635e8b31be3ffe965482686aca8c54edf77e"
+  },
+  "native_rows": 830,
+  "all_native_rows_pass": true,
+  "baseline_body_count": 210,
+  "mount_rows": 53,
+  "all_mount_rows_pass": true,
+  "frozen_geometry_inputs_sha256": {
+    "hardware/manifold-layout/enclosure_assembly.py": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+    "hardware/manifold-layout/_lines.py": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40"
+  },
+  "pump_origin_world_mm": [
+    2.0711351519419985,
+    373.235458276122,
+    253.4
+  ],
+  "pump_rigid_pose_delta_from_prior_mm": [
+    0.0,
+    -1.0,
+    0.0
+  ],
+  "mount_parameters": {
+    "pad_thickness_mm": 7.0,
+    "rail_interval_mm": [
+      0.5,
+      76.5
+    ],
+    "clip_interval_about_slot_center_mm": [
+      -9.0,
+      9.0
+    ],
+    "full_engagement_stations_x_mm": [
+      9.5,
+      67.5
+    ],
+    "slot_center_abs_y_mm": 38.5,
+    "screw_offset_outward_mm": 1.5,
+    "rear_clearance_mm": 9.7,
+    "blind_bore_depth_mm": 8.5,
+    "remaining_floor_mm": 6.1,
+    "nominal_screw_tip_reserve_mm": 1.7
+  },
+  "washer": {
+    "outer_diameter_mm": 9.0,
+    "thickness_mm": 0.8,
+    "shoulder_air_mm": 0.5,
+    "screw_to_slot_gap_mm": 0.3999999999999999,
+    "supported_annular_area_mm2": 38.289338752840514,
+    "side_bearing_area_mm2": {
+      "axial_minus": 12.43724319841782,
+      "axial_plus": 12.437243198416803
+    },
+    "nominal_inner_diameter_witness_mm": 3.0,
+    "original_report_depth_mm": 8.514254735882211,
+    "original_report_depth_scope": "Preserved comparison arithmetic. Current round 8.5 mm depth is independently bound by the final installation validator."
+  },
+  "pump_lid_bearing": {
+    "plane_z_mm": 253.4,
+    "rigid_native_lid_gap_mm": 1.9609529419760179,
+    "feet": [
+      {
+        "foot": "rear_yminus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      },
+      {
+        "foot": "rear_yplus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      },
+      {
+        "foot": "head_yminus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      },
+      {
+        "foot": "head_yplus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      }
+    ],
+    "pass": true
+  },
+  "fluid14_bearing_required_mm": [
+    254.4,
+    263.2
+  ],
+  "fluid14_bearing_actual_straight_mm": [
+    253.7011627817986,
+    287.7099498312048
+  ],
+  "assembly_order": [
+    "Fasten the pump before fluid-18 and the rear keystone jack occupy straight driver access."
+  ],
+  "limitations": [
+    "Full current production regeneration/scorecard and fresh cap/lid slicing are independent downstream checks.",
+    "830 pair rows include conservative bounding-box lower bounds; near pairs retain actual production-mesh/native readings.",
+    "Own endpoints retain tiny numerical mesh-contact volumes below 0.0001 mm^3; unrelated pairs require at least 1 mm air.",
+    "Filled hidden rail/cradle reference volumes do not qualify actual rubber clip retention or manufacturing interference.",
+    "Rubber compression, tightening torque, clip retention and hose-clamp retention are physical trial observations."
+  ],
+  "reproduction": {
+    "script": "reproduce.py",
+    "exact_executed_neighbor_source": "scripts/verify_final_neighbors.py.txt",
+    "exact_executed_washer_source": "scripts/check_washer_15.py.txt",
+    "bootstrap_only_replay_changes": [
+      "Repository/output paths",
+      "Verified preserved baseline STEP/facts/foam and V-F fixture paths",
+      "Final metadata binding checked separately from the retained original probe"
+    ],
+    "production_generators_run_by_replay": false
+  }
+}

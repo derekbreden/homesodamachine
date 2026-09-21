@@ -1,0 +1,16 @@
+[2026-09-21 11:45:56.460253] [0x00000001f7ada180] [trace]   Initializing StaticPrintConfigs
+[2026-09-21 11:45:59.772146] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 327
+[2026-09-21 11:45:59.772296] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 330
+[2026-09-21 11:45:59.772314] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 332
+[2026-09-21 11:45:59.772326] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 337
+[2026-09-21 11:45:59.772336] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 341
+[2026-09-21 11:45:59.772345] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 343
+[2026-09-21 11:45:59.774306] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 705
+[2026-09-21 11:45:59.774327] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 709
+[2026-09-21 11:45:59.774336] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 713
+[2026-09-21 11:45:59.774345] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 718
+[2026-09-21 11:45:59.774353] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 672
+[2026-09-21 11:45:59.775204] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 907
+[2026-09-21 11:46:06.568558] [0x00000001f7ada180] [error]   Invalid T command (T1001).
+[2026-09-21 11:46:08.781529] [0x00000001f7ada180] [error]   Invalid T command (T65535).
+[2026-09-21 11:46:08.782136] [0x00000001f7ada180] [error]   Invalid T command (T65279).

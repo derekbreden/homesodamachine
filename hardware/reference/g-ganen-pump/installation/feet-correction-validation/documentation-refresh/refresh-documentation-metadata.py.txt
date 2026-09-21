@@ -1,0 +1,79 @@
+"""Refresh only documentation hash links; preserve geometry and native evidence."""
+from pathlib import Path
+import copy
+import hashlib
+import importlib.util
+import json
+
+ROOT=Path('/Users/derekbredensteiner/Developer/homesodamachine')
+REF=ROOT/'hardware/reference/g-ganen-pump'
+OUT=REF/'installation/feet-correction-validation/documentation-refresh'
+ENV=REF/'integration-envelope'
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def read(path):
+    return json.loads(path.read_text())
+
+def write(path,data):
+    path.write_text(json.dumps(data,indent=2)+'\n')
+
+def load(path,name):
+    spec=importlib.util.spec_from_file_location(name,path)
+    mod=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+guard=read(OUT/'unchanged-geometry-inputs.json')
+assert all(sha(ROOT/p)==h for p,h in guard.items()),'Geometry changed before metadata refresh'
+freezer=load(REF/'freeze_reference.py','doc_refresh_reference')
+manifest_path=REF/'artifact-manifest.json'
+before=read(OUT/'before/artifact-manifest.json')
+current=copy.deepcopy(before)
+files=freezer.current_files()
+assert set(files)==set(before['files'])
+changed=[n for n in files if files[n]!=before['files'][n]]
+assert changed==['integration-handoff.md'],changed
+current['files']=files
+write(manifest_path,current)
+
+changes=[]
+def relink(filename,key,value):
+    path=ENV/filename
+    old=read(OUT/'before/integration-envelope'/filename)
+    new=copy.deepcopy(old)
+    new[key]=value
+    write(path,new)
+    changes.append({'file':str(path.relative_to(ROOT)),'pointer':'/'+key,
+                    'before':old[key],'after':value,
+                    'before_sha256':sha(OUT/'before/integration-envelope'/filename),
+                    'after_sha256':sha(path),
+                    'all_other_fields_identical':{k:v for k,v in old.items() if k!=key}=={k:v for k,v in new.items() if k!=key}})
+
+relink('containment.json','frozen_reference_manifest_sha256',sha(manifest_path))
+relink('envelope-parameters.json','containment_sha256',sha(ENV/'containment.json'))
+relink('native-validation.json','native_containment_sha256',sha(ENV/'containment.json'))
+old=read(OUT/'before/integration-envelope/artifact-manifest.json')
+new=copy.deepcopy(old)
+new['frozen_detailed_manifest_sha256']=sha(manifest_path)
+for name in new['files']:
+    p=ENV/name
+    new['files'][name]={'sha256':sha(p),'bytes':p.stat().st_size}
+changed_env=[n for n in new['files'] if new['files'][n]!=old['files'][n]]
+assert changed_env==['containment.json','envelope-parameters.json','native-validation.json'],changed_env
+write(ENV/'artifact-manifest.json',new)
+unchanged={p:sha(ROOT/p)==h for p,h in guard.items()}
+assert all(unchanged.values())
+report={'status':'metadata_refreshed_pending_freeze_checks',
+        'scope':'Documentation and manifest dependency links only. No source, native geometry, payload, dimensions or native check results changed.',
+        'reference_manifest':{'before_sha256':sha(OUT/'before/artifact-manifest.json'),'after_sha256':sha(manifest_path),'changed_inventory_entries':changed,'all_other_fields_identical':{k:v for k,v in before.items() if k!='files'}=={k:v for k,v in current.items() if k!='files'}},
+        'metadata_changes':changes,
+        'integration_manifest':{'before_sha256':sha(OUT/'before/integration-envelope/artifact-manifest.json'),'after_sha256':sha(ENV/'artifact-manifest.json'),'changed_inventory_entries':changed_env,'other_fields_identical':{k:v for k,v in old.items() if k not in ('files','frozen_detailed_manifest_sha256')}=={k:v for k,v in new.items() if k not in ('files','frozen_detailed_manifest_sha256')}},
+        'geometry_source_native_payload_and_parameter_hashes_unchanged':unchanged,
+        'original_native_and_generation_evidence_preserved':True,
+        'current_metadata_sha256':{str(p.relative_to(ROOT)):sha(p) for p in [manifest_path,ENV/'containment.json',ENV/'envelope-parameters.json',ENV/'native-validation.json',ENV/'artifact-manifest.json']},
+        'documentation_sha256':{str(p.relative_to(ROOT)):sha(p) for p in [REF/'integration-handoff.md',ROOT/'hardware/ledger/bom.md',ROOT/'hardware/ledger/inventory.md']},
+        'executed_script_sha256':sha(Path(__file__))}
+write(OUT/'validation.json',report)
+print(json.dumps({'reference_manifest':sha(manifest_path),'integration_manifest':sha(ENV/'artifact-manifest.json'),'unchanged_geometry_files':len(unchanged)},indent=2))

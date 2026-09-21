@@ -1,0 +1,1350 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "scope": "Exactly four common-foot replacements. Twenty-two rigid native components are reused unchanged before export; round trips verify topology, vertices, volume and validity.",
+  "source_sha256": {
+    "g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "common-foot/update_native_reference.py": "c16557764ebc7d752a4d6f0a10d23081d69a0df382067e84c1c195494e843446"
+  },
+  "prior_evidence_sha256": {
+    "prior-evidence/baseline.json": "fc19ade64a4712fa38c3afcea728bc73c0346b565cfd523ccb249138f3d7e6b7",
+    "prior-evidence/native-validation.json": "3a8af6ae8c4f217b6a13a0a9b62325d3c37cc5d88fdab767ae893c27fa1a012b",
+    "prior-evidence/integration-envelope/native-validation.json": "7e86285e8991d6cde45830d7997cb30eb026d4998f3d54948d4dd480c32e0236",
+    "prior-evidence/g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e"
+  },
+  "unchanged_rigid_functions": true,
+  "unchanged_measured_parameter_values": true,
+  "unchanged_ports": true,
+  "common_foot_parameters": {
+    "frame": "slot centre; X rail, +Y outward, Z0 bearing",
+    "identical_feet": true,
+    "pad_thickness_mm": 7.0,
+    "axial_width_mm": 18.0,
+    "outward_nose_radius_mm": 9.0,
+    "slot_width_mm": 4.5,
+    "slot_length_mm": 6.8,
+    "slot_long_axis": "+Y",
+    "installed_slot_y_abs_mm": 38.5,
+    "clip_axial_interval_mm": [
+      -9.0,
+      9.0
+    ],
+    "visible_profile_yz_mm": [
+      [
+        -10.5,
+        0.0
+      ],
+      [
+        9.0,
+        0.0
+      ],
+      [
+        9.0,
+        7.0
+      ],
+      [
+        -3.5,
+        7.0
+      ],
+      [
+        -5.5,
+        9.4
+      ],
+      [
+        -10.0,
+        9.4
+      ],
+      [
+        -10.5,
+        10.0
+      ],
+      [
+        -10.5,
+        12.0
+      ],
+      [
+        -10.0,
+        15.4
+      ],
+      [
+        -10.9,
+        15.8
+      ],
+      [
+        -11.2,
+        16.2
+      ],
+      [
+        -13.5,
+        15.1
+      ],
+      [
+        -14.4,
+        15.6
+      ],
+      [
+        -14.5,
+        16.3
+      ],
+      [
+        -12.8,
+        17.8
+      ],
+      [
+        -13.5,
+        18.4
+      ],
+      [
+        -14.2,
+        18.4
+      ],
+      [
+        -14.9,
+        18.0
+      ],
+      [
+        -15.7,
+        17.9
+      ],
+      [
+        -16.0,
+        9.7
+      ],
+      [
+        -12.2,
+        8.4
+      ],
+      [
+        -12.2,
+        7.5
+      ],
+      [
+        -13.5,
+        4.2
+      ],
+      [
+        -12.2,
+        2.1
+      ]
+    ],
+    "undercuts": "two visible underside reliefs, separated by a central rib",
+    "qualification": "Purchased-part visible geometry reference. The hidden rail cavity and elastomer compliance are not qualified for manufacture.",
+    "travel_scope": "Full axial engagement is a chosen mounting datum; scan observations include partially overhanging feet and do not establish hard stops."
+  },
+  "common_foot_volume_mm3": 3076.786504101707,
+  "four_rigid_copies_same_geometry": true,
+  "rigid_components_reused": 22,
+  "detailed_roundtrip": [
+    {
+      "name": "rigid_casing_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 3962,
+      "bounds_mm": [
+        [
+          -77.69745347073,
+          -30.995935142551538,
+          1.9609650148909998
+        ],
+        [
+          82.36454172387799,
+          30.929374367366,
+          60.422089931628
+        ]
+      ],
+      "volume_mm3": 295005.2876665757,
+      "volume_roundtrip_delta_mm3": 1.7462298274040222e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "head_outer_shell_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1983,
+      "bounds_mm": [
+        [
+          -45.4999420089691,
+          -24.499981057323918,
+          14.000032410114514
+        ],
+        [
+          -0.40010109557855017,
+          24.499964321896,
+          60.53391690220148
+        ]
+      ],
+      "volume_mm3": 96302.4571552181,
+      "volume_roundtrip_delta_mm3": 4.656612873077393e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "switch_outer_shell_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 2498,
+      "bounds_mm": [
+        [
+          -77.89997331756443,
+          -22.999965555955793,
+          14.000111310010606
+        ],
+        [
+          -45.90004241092742,
+          22.999855250825,
+          50.18187862937612
+        ]
+      ],
+      "volume_mm3": 38423.3881677551,
+      "volume_roundtrip_delta_mm3": 2.764863893389702e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "head_side_yminus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 878,
+      "bounds_mm": [
+        [
+          -17.99922562259,
+          -32.40880368026046,
+          25.001010699379673
+        ],
+        [
+          -0.0007896438395413603,
+          -19.803716530894253,
+          41.99984868190311
+        ]
+      ],
+      "volume_mm3": 2309.0275270787347,
+      "volume_roundtrip_delta_mm3": 1.559783413540572e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "head_side_yplus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 858,
+      "bounds_mm": [
+        [
+          -17.998899243517208,
+          19.309670078126935,
+          25.00257905690147
+        ],
+        [
+          -0.00027304939785995395,
+          32.19009347911764,
+          41.999557622379186
+        ]
+      ],
+      "volume_mm3": 2297.5646330508744,
+      "volume_roundtrip_delta_mm3": 9.094947017729282e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "lower_cradle_occupied_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 88,
+      "bounds_mm": [
+        [
+          0.9999999999991952,
+          -27.40307724960676,
+          1.9609651148908767
+        ],
+        [
+          76.00000000000615,
+          27.45110639772,
+          23.97174185496744
+        ]
+      ],
+      "volume_mm3": 63630.59208577726,
+      "volume_roundtrip_delta_mm3": 3.637978807091713e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "motor_surface_yminus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 130,
+      "bounds_mm": [
+        [
+          5.503547879931308,
+          -26.59769695351508,
+          30.00417597011051
+        ],
+        [
+          10.799855797530546,
+          -23.91748241375537,
+          40.99862251822451
+        ]
+      ],
+      "volume_mm3": 75.80195016139734,
+      "volume_roundtrip_delta_mm3": 7.389644451905042e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "motor_surface_yplus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 148,
+      "bounds_mm": [
+        [
+          5.500556722779,
+          23.753699819889,
+          30.000585070914394
+        ],
+        [
+          10.799424532864,
+          26.59963006308,
+          40.99818898412525
+        ]
+      ],
+      "volume_mm3": 93.41464541586208,
+      "volume_roundtrip_delta_mm3": 1.5631940186722204e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "motor_can_vent_filled_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 3,
+      "bounds_mm": [
+        [
+          -0.07438680986634094,
+          -24.55512219327397,
+          9.439279805718439
+        ],
+        [
+          76.07438680986634,
+          24.555122193274027,
+          58.779532824943
+        ]
+      ],
+      "volume_mm3": 143962.591895482,
+      "volume_roundtrip_delta_mm3": 0.0,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_01_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1060,
+      "bounds_mm": [
+        [
+          -45.15760459657,
+          14.54272558233766,
+          56.80008444015123
+        ],
+        [
+          -38.75487185485473,
+          21.174485246800895,
+          58.753162517160455
+        ]
+      ],
+      "volume_mm3": 48.71894359323817,
+      "volume_roundtrip_delta_mm3": 4.263256414560601e-14,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_02_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1622,
+      "bounds_mm": [
+        [
+          -45.24913346626112,
+          -21.58087945229071,
+          56.800123446953
+        ],
+        [
+          -38.73389908926891,
+          -15.49065067956566,
+          58.67720991696471
+        ]
+      ],
+      "volume_mm3": 42.57437396396257,
+      "volume_roundtrip_delta_mm3": 9.947598300641403e-14,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_03_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 823,
+      "bounds_mm": [
+        [
+          -7.286448335268928,
+          15.021342494101,
+          56.80099345484843
+        ],
+        [
+          -0.389658941361594,
+          22.156712827831395,
+          59.16905191243554
+        ]
+      ],
+      "volume_mm3": 63.39545618014251,
+      "volume_roundtrip_delta_mm3": 0.0,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_04_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1012,
+      "bounds_mm": [
+        [
+          -7.228509246403258,
+          -22.249292840922298,
+          56.80012490494
+        ],
+        [
+          -0.4328845874929089,
+          -15.490642805433467,
+          59.03486891059528
+        ]
+      ],
+      "volume_mm3": 59.17156669017356,
+      "volume_roundtrip_delta_mm3": 1.1084466677857563e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_05_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1062,
+      "bounds_mm": [
+        [
+          -26.703643910337938,
+          12.515284719516394,
+          56.800324763857475
+        ],
+        [
+          -19.508379930374346,
+          19.119043724875365,
+          58.94551734381102
+        ]
+      ],
+      "volume_mm3": 56.716583631948346,
+      "volume_roundtrip_delta_mm3": 1.6342482922482304e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_06_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1072,
+      "bounds_mm": [
+        [
+          -26.51114637045,
+          -19.623819989726446,
+          56.800608076742336
+        ],
+        [
+          -19.552892997609717,
+          -13.029948859562747,
+          58.85803290896064
+        ]
+      ],
+      "volume_mm3": 52.84027219179856,
+      "volume_roundtrip_delta_mm3": 0.0,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_07_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 1160,
+      "bounds_mm": [
+        [
+          -43.40919030659272,
+          -3.569871442237526,
+          56.801066674721
+        ],
+        [
+          -36.94516622837,
+          2.927851919710751,
+          58.82015393459747
+        ]
+      ],
+      "volume_mm3": 51.68374829168238,
+      "volume_roundtrip_delta_mm3": 4.050093593832571e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_molded_boss_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 4502,
+      "bounds_mm": [
+        [
+          -39.572853767492866,
+          -15.811057184625453,
+          56.700265812474974
+        ],
+        [
+          -27.215129188443857,
+          -3.645437221795,
+          59.57086948113919
+        ]
+      ],
+      "volume_mm3": 309.0515787977482,
+      "volume_roundtrip_delta_mm3": 1.0800249583553523e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_long_molded_boss_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 2218,
+      "bounds_mm": [
+        [
+          -18.69872734902638,
+          -12.429296965884262,
+          57.1966658800189
+        ],
+        [
+          -5.302337695383247,
+          12.141701774920415,
+          59.936367781458536
+        ]
+      ],
+      "volume_mm3": 632.4359281248347,
+      "volume_roundtrip_delta_mm3": 1.1368683772161603e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yminus_barb_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 56,
+      "bounds_mm": [
+        [
+          -39.027843172995226,
+          -37.2820497413063,
+          21.01757749987396
+        ],
+        [
+          -27.67355481564477,
+          -23.845773271754116,
+          32.37196105194004
+        ]
+      ],
+      "volume_mm3": 1009.9923252625659,
+      "volume_roundtrip_delta_mm3": 1.1368683772161603e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yminus_root_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 478,
+      "bounds_mm": [
+        [
+          -41.99946402163,
+          -24.14997117504,
+          17.702588624226
+        ],
+        [
+          -26.235403027691937,
+          -20.30021313774269,
+          36.49961202393779
+        ]
+      ],
+      "volume_mm3": 721.9071874089922,
+      "volume_roundtrip_delta_mm3": 1.4551915228366852e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yplus_barb_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 53,
+      "bounds_mm": [
+        [
+          -38.86693389835395,
+          23.81505117012894,
+          21.057085356970347
+        ],
+        [
+          -27.717605730706055,
+          37.0614982910634,
+          32.205840405833655
+        ]
+      ],
+      "volume_mm3": 1018.0206343866333,
+      "volume_roundtrip_delta_mm3": 2.2737367544323206e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yplus_root_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 648,
+      "bounds_mm": [
+        [
+          -41.99969483465777,
+          20.300051533948746,
+          17.700257508385977
+        ],
+        [
+          -26.43547465368,
+          24.14976520756764,
+          36.49861582479841
+        ]
+      ],
+      "volume_mm3": 709.2978659161017,
+      "volume_roundtrip_delta_mm3": 1.7280399333685637e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "rear_yminus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          59.26355660514297,
+          -47.475784787435664,
+          -1.025737104491025
+        ],
+        [
+          77.613285119283,
+          -21.53004644112,
+          17.451995664821
+        ]
+      ],
+      "volume_mm3": 3076.7865041029913,
+      "volume_roundtrip_delta_mm3": 1.2832970242016017e-09,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    },
+    {
+      "name": "rear_yplus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          65.49693683998399,
+          21.98327339657481,
+          -0.5145717628193782
+        ],
+        [
+          83.61824940375202,
+          47.490231407410384,
+          17.845423150588
+        ]
+      ],
+      "volume_mm3": 3076.786504101397,
+      "volume_roundtrip_delta_mm3": 3.0968294595368207e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    },
+    {
+      "name": "head_yminus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          2.7615592760239918,
+          -47.39670812527659,
+          -1.5516143433265683
+        ],
+        [
+          21.219682429918,
+          -20.27604066836,
+          16.6491372107748
+        ]
+      ],
+      "volume_mm3": 3076.7865041023756,
+      "volume_roundtrip_delta_mm3": 6.689333531539887e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    },
+    {
+      "name": "head_yplus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          1.295191093492,
+          22.230943387688587,
+          -0.6724716400604049
+        ],
+        [
+          19.795865319757,
+          47.49636890718399,
+          18.126928874355194
+        ]
+      ],
+      "volume_mm3": 3076.786504101927,
+      "volume_roundtrip_delta_mm3": 2.1964297047816217e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    }
+  ],
+  "integration_roundtrip": [
+    {
+      "name": "rigid_casing_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 3962,
+      "bounds_mm": [
+        [
+          -77.69745347073,
+          -30.995935142551538,
+          1.9609650148909998
+        ],
+        [
+          82.36454172387799,
+          30.929374367366,
+          60.422089931628
+        ]
+      ],
+      "volume_mm3": 295005.28766657575,
+      "volume_roundtrip_delta_mm3": 5.820766091346741e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "head_outer_shell_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 114,
+      "bounds_mm": [
+        [
+          -45.49996401865056,
+          -24.50000626691447,
+          13.999991326998188
+        ],
+        [
+          -0.40007272999539745,
+          24.499993843853506,
+          60.533927796141704
+        ]
+      ],
+      "volume_mm3": 96349.6282152056,
+      "volume_roundtrip_delta_mm3": 2.0372681319713593e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "switch_outer_shell_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 109,
+      "bounds_mm": [
+        [
+          -77.89998374835923,
+          -22.999988351084554,
+          14.000092750465997
+        ],
+        [
+          -45.900023135039014,
+          22.99987515889593,
+          50.181893658619025
+        ]
+      ],
+      "volume_mm3": 38474.94349338234,
+      "volume_roundtrip_delta_mm3": 8.003553375601768e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "head_side_yminus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 64,
+      "bounds_mm": [
+        [
+          -17.999244262884595,
+          -32.40881458951,
+          25.000988307007997
+        ],
+        [
+          -0.0007574316125657765,
+          -19.803691825907205,
+          41.99987431773485
+        ]
+      ],
+      "volume_mm3": 2325.1865394315532,
+      "volume_roundtrip_delta_mm3": 2.9103830456733704e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "head_side_yplus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 68,
+      "bounds_mm": [
+        [
+          -17.99891719875091,
+          19.309645139419988,
+          25.00255505659556
+        ],
+        [
+          -0.00024115044542106443,
+          32.190104217775,
+          41.99958070185819
+        ]
+      ],
+      "volume_mm3": 2311.670204817694,
+      "volume_roundtrip_delta_mm3": 1.3642420526593924e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "lower_cradle_occupied_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 49,
+      "bounds_mm": [
+        [
+          0.9999641922814471,
+          -27.40310350442361,
+          1.9609530419759982
+        ],
+        [
+          76.00003940404932,
+          27.451135151942,
+          23.971751855
+        ]
+      ],
+      "volume_mm3": 63758.76958985329,
+      "volume_roundtrip_delta_mm3": 5.820766091346741e-11,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "motor_surface_yminus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 43,
+      "bounds_mm": [
+        [
+          5.503509285151333,
+          -26.59771412010076,
+          30.004108825539916
+        ],
+        [
+          10.799881043699456,
+          -23.91746727347,
+          40.99868789914013
+        ]
+      ],
+      "volume_mm3": 77.17887075091895,
+      "volume_roundtrip_delta_mm3": 3.268496584496461e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "motor_surface_yplus_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          5.500532065242987,
+          23.753688620572987,
+          30.000531984174643
+        ],
+        [
+          10.799445785853038,
+          26.599643521513695,
+          40.99823118293521
+        ]
+      ],
+      "volume_mm3": 95.93619626380556,
+      "volume_roundtrip_delta_mm3": 2.6574298317427747e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "motor_can_vent_filled_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 3,
+      "bounds_mm": [
+        [
+          -0.07438680986636549,
+          -24.55512219327397,
+          9.439279805718439
+        ],
+        [
+          76.07438680986637,
+          24.555122193274027,
+          58.779532824943
+        ]
+      ],
+      "volume_mm3": 143962.591895482,
+      "volume_roundtrip_delta_mm3": 0.0,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_01_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 61,
+      "bounds_mm": [
+        [
+          -45.15763420946414,
+          14.542677833677,
+          56.800071079995746
+        ],
+        [
+          -38.754824886525796,
+          21.174516818734503,
+          58.75317251720064
+        ]
+      ],
+      "volume_mm3": 50.374274872424714,
+      "volume_roundtrip_delta_mm3": 3.623767952376511e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_02_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 65,
+      "bounds_mm": [
+        [
+          -45.24915792668337,
+          -21.580908239094754,
+          56.80011344699895
+        ],
+        [
+          -38.73385370889,
+          -15.4906141815,
+          58.6772200386404
+        ]
+      ],
+      "volume_mm3": 44.531265630472895,
+      "volume_roundtrip_delta_mm3": 6.394884621840902e-14,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_03_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 62,
+      "bounds_mm": [
+        [
+          -7.286503017631007,
+          15.021281436179724,
+          56.800964277837
+        ],
+        [
+          -0.389596043179711,
+          22.156773417900236,
+          59.16906310750142
+        ]
+      ],
+      "volume_mm3": 64.78211834782158,
+      "volume_roundtrip_delta_mm3": 1.7053025658242404e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_04_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 56,
+      "bounds_mm": [
+        [
+          -7.228554692121046,
+          -22.24933063201,
+          56.80009990614772
+        ],
+        [
+          -0.4328236056465967,
+          -15.490574748,
+          59.034878910600476
+        ]
+      ],
+      "volume_mm3": 61.17826404500338,
+      "volume_roundtrip_delta_mm3": 4.263256414560601e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_05_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 61,
+      "bounds_mm": [
+        [
+          -26.70369683562,
+          12.515220997622993,
+          56.8003004944274
+        ],
+        [
+          -19.50831791131,
+          19.119085498137263,
+          58.94552734380032
+        ]
+      ],
+      "volume_mm3": 58.54132755868765,
+      "volume_roundtrip_delta_mm3": 7.105427357601002e-15,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_06_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 62,
+      "bounds_mm": [
+        [
+          -26.511194850522546,
+          -19.62386508129,
+          56.800582590067066
+        ],
+        [
+          -19.552817894606573,
+          -13.02987683974,
+          58.85804396357508
+        ]
+      ],
+      "volume_mm3": 54.37392087056905,
+      "volume_roundtrip_delta_mm3": 3.481659405224491e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_head_07_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 60,
+      "bounds_mm": [
+        [
+          -43.40923071214,
+          -3.5699291259756625,
+          56.801046865247855
+        ],
+        [
+          -36.94511120022,
+          2.9278901671765682,
+          58.82016393460032
+        ]
+      ],
+      "volume_mm3": 53.28898490420355,
+      "volume_roundtrip_delta_mm3": 9.237055564881302e-14,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_round_molded_boss_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 103,
+      "bounds_mm": [
+        [
+          -39.572916337950005,
+          -15.811130632862026,
+          56.700241147159055
+        ],
+        [
+          -27.215037936186746,
+          -3.6453592386304288,
+          59.57088054757338
+        ]
+      ],
+      "volume_mm3": 316.0081176607964,
+      "volume_roundtrip_delta_mm3": 9.663381206337363e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "crown_long_molded_boss_external_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 91,
+      "bounds_mm": [
+        [
+          -18.69887235779,
+          -12.429612130500004,
+          57.196608810112494
+        ],
+        [
+          -5.30215475086606,
+          12.141988126151315,
+          59.93637778150048
+        ]
+      ],
+      "volume_mm3": 644.8977686945365,
+      "volume_roundtrip_delta_mm3": 1.1368683772161603e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yminus_barb_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 56,
+      "bounds_mm": [
+        [
+          -39.027843172995226,
+          -37.282049741306295,
+          21.01757749987396
+        ],
+        [
+          -27.67355481564477,
+          -23.845773271754123,
+          32.37196105194004
+        ]
+      ],
+      "volume_mm3": 1009.9923252625657,
+      "volume_roundtrip_delta_mm3": 2.2737367544323206e-13,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yminus_root_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 67,
+      "bounds_mm": [
+        [
+          -41.999525932433535,
+          -24.149981175000054,
+          17.702509885153997
+        ],
+        [
+          -26.235347227035568,
+          -20.300194391342924,
+          36.4996736437175
+        ]
+      ],
+      "volume_mm3": 725.725577315761,
+      "volume_roundtrip_delta_mm3": 9.208633855450898e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yplus_barb_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 53,
+      "bounds_mm": [
+        [
+          -38.86693389835395,
+          23.81505117012894,
+          21.057085356970347
+        ],
+        [
+          -27.717605730706055,
+          37.0614982910634,
+          32.205840405833655
+        ]
+      ],
+      "volume_mm3": 1018.0206343866286,
+      "volume_roundtrip_delta_mm3": 4.774847184307873e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "port_yplus_root_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 67,
+      "bounds_mm": [
+        [
+          -41.99976595574543,
+          20.30003315135263,
+          17.70018755561772
+        ],
+        [
+          -26.43543102548844,
+          24.14977520760305,
+          36.49868446550534
+        ]
+      ],
+      "volume_mm3": 714.1316056805117,
+      "volume_roundtrip_delta_mm3": 5.115907697472721e-12,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": true
+    },
+    {
+      "name": "rear_yminus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          59.26355660514297,
+          -47.475784787435664,
+          -1.025737104491025
+        ],
+        [
+          77.613285119283,
+          -21.53004644112,
+          17.451995664821
+        ]
+      ],
+      "volume_mm3": 3076.7865041029913,
+      "volume_roundtrip_delta_mm3": 1.2832970242016017e-09,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    },
+    {
+      "name": "rear_yplus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          65.49693683998399,
+          21.98327339657481,
+          -0.5145717628193782
+        ],
+        [
+          83.61824940375202,
+          47.490231407410384,
+          17.845423150588
+        ]
+      ],
+      "volume_mm3": 3076.786504101397,
+      "volume_roundtrip_delta_mm3": 3.0968294595368207e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    },
+    {
+      "name": "head_yminus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          2.7615592760239918,
+          -47.39670812527659,
+          -1.5516143433265683
+        ],
+        [
+          21.219682429918,
+          -20.27604066836,
+          16.6491372107748
+        ]
+      ],
+      "volume_mm3": 3076.7865041023756,
+      "volume_roundtrip_delta_mm3": 6.689333531539887e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    },
+    {
+      "name": "head_yplus_observed_rubber_slider_envelope",
+      "pass": true,
+      "valid": true,
+      "solids": 1,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          1.295191093492,
+          22.230943387688587,
+          -0.6724716400604049
+        ],
+        [
+          19.795865319757,
+          47.49636890718399,
+          18.126928874355194
+        ]
+      ],
+      "volume_mm3": 3076.786504101927,
+      "volume_roundtrip_delta_mm3": 2.1964297047816217e-10,
+      "vertices_unchanged_within_mm": 2e-07,
+      "same_native_input_as_predecessor": false
+    }
+  ],
+  "output_sha256": {
+    "g-ganen-pump.step": "905710b0b79a803e9969bf9b8677e3cbd5cfe2b4c0fdcf15a7d62842a77f4388",
+    "g-ganen-pump.step.mesh": "0b02fb2bc7e11bc2ab282cde54cf00fd4249b78f4bf743517ca644603ed6f754",
+    "integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461"
+  },
+  "elapsed_seconds": 61.564741999987746,
+  "limits": [
+    "Reference shapes describe the purchased feet, not a printable replacement or rubber stiffness model.",
+    "The C-mouth is visibly observed; hidden rail contact and partial-overhang retention are not measured.",
+    "Prior rigid scan residuals remain attributed to their unchanged native components. Whole-pump benchmark timings are historical."
+  ]
+}

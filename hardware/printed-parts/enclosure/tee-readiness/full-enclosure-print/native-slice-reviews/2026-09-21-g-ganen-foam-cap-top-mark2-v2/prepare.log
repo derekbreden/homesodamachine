@@ -1,0 +1,21 @@
+{
+  "staged": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/g-ganen-foam-cap-top-black-z004-mark2-v2-input.3mf",
+  "sha256": "159c52fc0b986287ca99ce7212a53f516189aa1bf81b2442abc03664f6a632af",
+  "parts": [
+    {
+      "name": "foam-cap-top",
+      "plate_bounds_mm": [
+        [
+          21.0,
+          69.5,
+          0.0
+        ],
+        [
+          304.0,
+          250.5,
+          14.600000381469727
+        ]
+      ]
+    }
+  ]
+}

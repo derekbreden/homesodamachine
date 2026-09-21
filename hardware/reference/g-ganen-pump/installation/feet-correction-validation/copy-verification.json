@@ -1,0 +1,190 @@
+{
+  "schema": 1,
+  "all_copies_exact": true,
+  "files": [
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/final-neighbor-check.json",
+      "path": "reports/neighbor-check.json",
+      "sha256": "add8afda2e745618a91c41e0c698be5830099a3b7a1ab13a393c2e5d0a618601",
+      "bytes": 148755
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check.log",
+      "path": "reports/neighbor-check.log",
+      "sha256": "07871bebe25aa4c0cc95ddb5cd1e17e0188968d6ed2c5d035e9de08aa422b6fc",
+      "bytes": 10598
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/installed-mount-check.json",
+      "path": "reports/installed-mount-check.json",
+      "sha256": "8f92e96f980fbdf07c779376a71bcb7b5cdef8e4de55c4902f18130d2c2878cc",
+      "bytes": 17601
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/installed-mount-check.log",
+      "path": "reports/installed-mount-check.log",
+      "sha256": "23f9cd718467a4e69007cdd2b6363bdd5ec38cf64a25f08ae4e3c8eb24a86587",
+      "bytes": 2965
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/washer-15-check.json",
+      "path": "reports/washer-check.json",
+      "sha256": "9c75f618781956eb777814a9cebe12190fc1093504ee268c037d63fb2ec4bf98",
+      "bytes": 3298
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/washer-15-check.log",
+      "path": "reports/washer-check.log",
+      "sha256": "9c75f618781956eb777814a9cebe12190fc1093504ee268c037d63fb2ec4bf98",
+      "bytes": 3298
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/reference-clip-attribution.json",
+      "path": "reports/reference-clip-attribution.json",
+      "sha256": "40ba959e0e402aef67f705f4f20f46b578b2473a30a6524e2b9fecfa04acc6f6",
+      "bytes": 6703
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-reference-handoff.json",
+      "path": "reports/reference-handoff.json",
+      "sha256": "308d45048f07aef90216e03f968e1245a46a089bc958b9318cab0c5c3a8af398",
+      "bytes": 1275
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/verify_final_neighbors.py",
+      "path": "scripts/verify_final_neighbors.py.txt",
+      "sha256": "d7b311002628d26e7da342929fefe8b5d6df6f104eb41e31d35ab9e6c523717d",
+      "bytes": 8989
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/check_washer_15.py",
+      "path": "scripts/check_washer_15.py.txt",
+      "sha256": "17c6a915acb152c3b9098bed1101b821dd536b60f9179c18afc0a0014c7e4acb",
+      "bytes": 4023
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/check_common_positions.py",
+      "path": "scripts/check_common_positions.py.txt",
+      "sha256": "1d2ad8d7867f5285381181ce24aece3497d0197ec58f4a30baad4f96a5531844",
+      "bytes": 7492
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/current-native.json",
+      "path": "fixtures/prior-native-index.json",
+      "sha256": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a",
+      "bytes": 5403
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/observed-envelope-probe.json",
+      "path": "fixtures/prior-stations.json",
+      "sha256": "40ea09f3a21541068fb4291eeb761224ac87a3202e71e8b246e6328795810db8",
+      "bytes": 27218
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/before/hardware/manifold-layout/enclosure-assembly.facts.json",
+      "path": "fixtures/baseline-facts.json",
+      "sha256": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260",
+      "bytes": 70981
+    },
+    {
+      "source": "/tmp/scanner-review/integration-correction/route-pack/frames.json",
+      "path": "fixtures/retained-frames.json",
+      "sha256": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+      "bytes": 34572
+    },
+    {
+      "source": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/validate_installation.py",
+      "path": "scripts/validate_installation.py.txt",
+      "sha256": "e7a991aa5acca3592fb6aa678c089c4a11fee52283c2f8d1b3a1c428ab805a72",
+      "bytes": 11372
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/cap-top.brep",
+      "path": "native/cap-top.brep.gz",
+      "sha256": "2c3fc02543b8fb536b8f96f650501cc70a247b9ddb8c0dc196fbbc242dc7c486",
+      "uncompressed_sha256": "7354d266d29cc686b46a338c451bad2c4e8a96b208503b494eb56ea08da85e3c",
+      "bytes": 11181,
+      "uncompressed_bytes": 87527
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/cap-lid-top.brep",
+      "path": "native/cap-lid-top.brep.gz",
+      "sha256": "400dbc9975006eaca39b217fb215ccf87b6ff0fa8e7ca15490f0b644aaeb75bd",
+      "uncompressed_sha256": "bb124a210fc1f14e70df794f78be7881258832dfa1e79c603252c9c0e577f456",
+      "bytes": 20038,
+      "uncompressed_bytes": 158919
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/tube-fluid-14.brep",
+      "path": "native/tube-fluid-14.brep.gz",
+      "sha256": "3e4d66a5239772cfe503f5e6294c96d181ae931e61ebcc1768676e49e7edde92",
+      "uncompressed_sha256": "b951fc8aeb45930e6a3d9f1f3e3a74bc87e136c6923d5ddbcaaef67a43857762",
+      "bytes": 5512,
+      "uncompressed_bytes": 25493
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/g-ganen-pump.brep",
+      "path": "native/g-ganen-pump.brep.gz",
+      "sha256": "8424639ad2e02282bbe1f401084833a5c6e94dd96e865cf77366140fb4574ac2",
+      "uncompressed_sha256": "0eb2f7cff8e7476b527c23ee5aea508ef5fb2d018c1f7ce5fee575bb6153f691",
+      "bytes": 1282176,
+      "uncompressed_bytes": 5551167
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/tube-water-7.brep",
+      "path": "native/tube-water-7.brep.gz",
+      "sha256": "2a8aaf245619e901fafc8cf514cdd0ffe827738671d0f843fd459f0cb645275d",
+      "uncompressed_sha256": "52df97c78d4aba9e9e5ef2f03e913fb6109c5b4cab038cca38a7adf05a865968",
+      "bytes": 2011,
+      "uncompressed_bytes": 7527
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/tube-water-6.brep",
+      "path": "native/tube-water-6.brep.gz",
+      "sha256": "132e227858594420c7b548556e358d1d6c35a8a23d0e3861cd73f8ef6e46cb4c",
+      "uncompressed_sha256": "b5733b1274f81626d9578a7ffff48087ceb170f497d334ca4e59485f08214b4d",
+      "bytes": 2003,
+      "uncompressed_bytes": 7553
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/before/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "path": "fixtures/baseline-foam.step.gz",
+      "sha256": "a894e9e4e482d46989aa4ee06a5aa9570f85693c761c4479dd4e78b0954a1dff",
+      "uncompressed_sha256": "537930083b3bf8a248cb06b21dd5e1853253991f6a70b489766d9bef29a79d0a",
+      "bytes": 663721,
+      "uncompressed_bytes": 3554366
+    },
+    {
+      "source": "/tmp/scanner-review/integration-correction/route-pack/valve-v-f.brep",
+      "path": "fixtures/valve-v-f.brep.gz",
+      "sha256": "5d21a0c2edf55aba9f5bff361bc1475d7d3ae54ab2ff45560148d1fbd7e0c121",
+      "uncompressed_sha256": "81d22bdeb541097cbc4e34c17af1c7251c789b36c666474a7f0f6f00a4ca9e4d",
+      "bytes": 122361,
+      "uncompressed_bytes": 469747
+    },
+    {
+      "source": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/common-foot-candidate.step",
+      "path": "fixtures/common-foot.step.gz",
+      "sha256": "daca9079e3ad4238aa453a3763268b8c26c2a604d850096e3a478d3934665960",
+      "uncompressed_sha256": "c33337b41a2f56c8dba37123385d009a9ca14e420f0c898d15ea41339e67bbaf",
+      "bytes": 28241,
+      "uncompressed_bytes": 158345
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--foam-cap-top.brep",
+      "path": "fixtures/prior-cap-top.brep.gz",
+      "sha256": "c9d84b1661700b82007101a2a249ca7e6b7675d1a9a10b96cc808c7230350d19",
+      "uncompressed_sha256": "d083dcfc5704635f8b669819152d1729d9df50c1c0c79727aa0eef148ae275a9",
+      "bytes": 11813,
+      "uncompressed_bytes": 99384
+    },
+    {
+      "source": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--foam-cap-lid-top.brep",
+      "path": "fixtures/prior-cap-lid-top.brep.gz",
+      "sha256": "6978640d301d2cbac7cd5bf13037ffec1a4aaf5b2d0d237f1300756a7e84454e",
+      "uncompressed_sha256": "2ebdf0c28b8aea2b4edb080d21b85b08c8a1d5d2e9f8a96124cbeebbf1f85e0b",
+      "bytes": 20824,
+      "uncompressed_bytes": 173104
+    }
+  ]
+}

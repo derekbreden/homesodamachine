@@ -1,0 +1,11 @@
+{
+  "status": "offline_print_review_pass",
+  "native_archive": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/ready/g-ganen-foam-cap-top-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "6b0d82014961bf7f247da9a451bd9466dbe64ecd75043f527534d891d9d6f259",
+  "estimated_seconds": 18544.111328125,
+  "estimated_grams_petgf_density_1p43": 182.62849177870638,
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  }
+}

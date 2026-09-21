@@ -2,16 +2,17 @@
 
 Derek identifies the received sample as **G Ganen, ASIN B07F35PTFR**, and selects
 it for the enclosure. The reference uses three complementary native scans at
-**unit millimetre scale**. No caliper or independent scale calibration is
-available. The 0.10 mm fusion spacing is not a dimensional tolerance.
+**unit millimetre scale**. Derek measures the rubber pads at approximately 7 mm thick; no independent scan
+scale calibration is available. The 0.10 mm fusion spacing is not a dimensional tolerance.
 
 The native reference represents the occupied external envelope. Its rigid
 housing, two barbs, visible crown features and four removable rubber sliders are
 separate named bodies. Vent openings, shallow casing recesses, driver recesses
-and hidden foot cavities are filled for clearance. The lower-cradle envelope
+are filled for clearance. The common foot retains its visible slot, lower
+reliefs and exposed clip mouth. The lower-cradle envelope
 also fills its reentrant underside channels. These volumes are **not
-material, mass or strength inputs**. The foot solids cannot establish screw
-passage or clamp engagement.
+material, mass or strength inputs**. The foot model does not establish the hidden slot throat, clip retention or
+loaded rubber compliance.
 
 ## Evidence and frame
 
@@ -61,8 +62,10 @@ by averaging, symmetry or a fitted scale.
 
 ## Mounting
 
-Derek confirms that all four feet are **flexible rubber, slide fore/aft along the
-casing channels, and can be removed entirely**. Their captured X positions are
+Derek confirms that all four feet are **identical flexible rubber, slide fore/aft
+along the casing channels, and can be removed entirely**. One shared native
+shape uses the approximately **7 mm pad thickness**, rounded visible scan
+profiles and open slot/reliefs; see [common-foot/README.md](common-foot/README.md). Their captured X positions are
 independent poses, not a fixed bolt pattern. The visible upper rail faces
 continue across approximately X = 0.4–76.9 mm; this is observed face extent, not
 a certified hard travel stop or hidden clip engagement limit.
@@ -95,7 +98,7 @@ washer coverage, screw length and rubber compression are integration checks.
 `mount_seat_z()`. There is no invented common `HOLE_D`, fixed rectangle or single
 port diameter/length.
 
-The detailed STEP contains **26 valid solids and 29,636 faces**. Its source,
+The detailed STEP contains **26 valid solids and 26,490 faces**. Its source,
 reports, STEP and matching viewer payload are bound by
 [artifact-manifest.json](artifact-manifest.json).
 
@@ -103,8 +106,8 @@ reports, STEP and matching viewer payload are bound by
 port-root continuity, flow mapping, unit-scale inputs and disjoint native scan
 observations. Its residuals distinguish observations outside the envelope from
 surfaces inside filled openings. The casing, barbs and crown have separate
-readings. A mesh comparison does not qualify a screw passing through a filled
-foot envelope. [native-validation.png](native-validation.png) shows the retained
+readings. The visible foot model does not qualify an unseen minimum slot throat or
+compressed rubber stack. [native-validation.png](native-validation.png) shows the retained
 comparison regions.
 
 In the feet-down view, outside-distance p95 is 0.071 mm on the selected motor
@@ -120,8 +123,8 @@ wire path belongs in enclosure integration. Loose leads and scanning putty are
 excluded from rigid fitting. Absolute scanner accuracy, spray thickness, loaded
 rubber behavior, pump internals and hydraulic performance remain unmeasured.
 
-The production mount and tube routes remain separate from this reference. The
-existing SeaFlo consumer is not silently replaced by importing this module.
+Production placement, cap mounts and tube routes consume the separate installed
+G Ganen module; they retain their own current assembly checks.
 The bounded integration sequence and placement traps are in
 [integration-handoff.md](integration-handoff.md). Native query cost is recorded
 separately in [native-query-cost.json](native-query-cost.json).

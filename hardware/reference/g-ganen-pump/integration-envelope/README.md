@@ -2,16 +2,16 @@
 
 This is a separate clearance model of the [measured G Ganen reference](../README.md).
 Its 26 valid native solids contain the corresponding detailed native components.
-The model has 5,691 faces; the detailed reference has 29,636. The casing loft,
-motor cylinder and both measured barb profiles are exact native copies. Each
-other component is a convex outer polytope.
+The model has 5,496 faces; the detailed reference has 26,490. The casing loft,
+motor cylinder, both measured barb profiles and the four identical common feet
+are exact native copies. The other components are convex outer polytopes.
 
 The largest outward surface distance is **0.148580 mm**, bounded against the
 detailed native solid over the entire component. The largest increase of an
 individual axis-aligned component extent is **0.000316 mm**. These are reduction
 bounds, with a 0.000002 mm geometry comparison tolerance; they do not establish
 the scanner's absolute accuracy or the sprayed sample's dimensional tolerance.
-The raw scans and the detailed reference are unchanged.
+The raw scans retain their native scale and coordinates.
 
 ## Native evidence
 
@@ -47,8 +47,9 @@ detailed reference. There is no common invented barb diameter, fixed mounting
 rectangle or loaded rubber thickness.
 
 The four flexible rubber feet remain separate bodies at their observed poses.
-Each foot can move along local X independently. Their filled external envelopes
-do not certify screw passage, washer seating or the hidden rail clip. The port
+Each foot can move along local X independently. Their shared nominal 7 mm
+geometry retains visible slots and reliefs; hidden throat, rail retention and
+compression remain outside the reference scope. The port
 exterior does not certify hose insertion or retention. The intended +90° Z
 placement maps local +Y discharge to enclosure −X. The local Z=0 bearing datum
 remains distinct from the lowest point of a free rubber foot.
@@ -56,14 +57,17 @@ remains distinct from the lowest point of a free rubber foot.
 This model supports conservative rigid-neighbor clearance checks. A contact
 introduced by up to 0.15 mm of local outward envelope can be checked against the
 detailed component. Material mass, strength, rubber compression and mounting
-hardware passage are outside its scope. Production consumers and the coupled
-placement/cap/route integration are unchanged; their boundary is recorded in
+hardware passage are outside its scope. Production placement, cap and routes have independent current checks; the
+reference boundary is recorded in
 [integration-handoff.md](../integration-handoff.md).
 
 ## Query cost
 
-[native-query-cost.json](native-query-cost.json) runs the exact frozen detailed
-benchmark implementation with this STEP substituted. Both operations use a
+[native-query-cost.json](native-query-cost.json) records the exact predecessor
+STEP named in that file. These retained host timings are historical and do not
+claim current whole-pump performance. The rigid components are unchanged; the
+common-foot update has its own native round-trip and component-identity proof.
+The benchmark uses the detailed implementation with its named STEP substituted. Both operations use a
 fresh STEP import and the same 90-second total process budget. The distance
 probe is a 5 mm box beside the +Y head lug; the room-section probe intersects
 X −60..70, full Y and Z 20..58. These are host timings during shared local work,

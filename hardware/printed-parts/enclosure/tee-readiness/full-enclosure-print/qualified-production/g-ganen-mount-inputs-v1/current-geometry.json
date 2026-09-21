@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "status": "current_geometry_confirmed",
+  "authority": "Coordinating task: matching cap and lid source/native/mesh checks, mounted fastener checks, and 830 native pump/hose/neighbor checks; freshly regenerated unchanged enclosure Box",
+  "created_at_utc": "2026-09-21T16:41:45.029643+00:00",
+  "print_released": false,
+  "submitted": false,
+  "scope": "Only the two G Ganen mounting plates. Their current sources and exported print surfaces are verified. The complete assembly rebuild and unchanged-shell mesh comparison are separately in progress.",
+  "artifact_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "b84ed5c8545a4bfc02e4e3dd91cc87a49e8979ce9aae89d94d7f00bc6b7a5186",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "2a313e5291da45262032d8e4b02213de7177c0aa46f7e75e41791f9958d97682",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.stl": "6d73f9bd3cab919b9bc320eccdaa8b3f27c6e527a93db5bf0f870372242bfe3b",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "902e234ce80ccc395532e5f7910a4d3c068c1fb0ddfe1c913a1357e97a33399c",
+    "hardware/printed-parts/cold-core/_show_skin.py": "788a9ffc756cb1d08d09b2a3cc09d13f37859361435f9a94ea5f3509d02576bd",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "a601e8765e0c82ee6c1282f6ba2970c9cf0b653eccc913c55f2ad54695315eff",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb",
+    "hardware/manifold-layout/enclosure_assembly.py": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+    "hardware/manifold-layout/_lines.py": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d"
+  },
+  "evidence_sha256": {
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/foam-cap-generation.json": "e6025a566d7b0c5bdf80f4c21540190cb3641ea2aed766d5380582dc28354b7d",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/print-inputs.json": "ad167fd50e920e0ad45257f2a4aa7349591d7f8ee1505cf2a83d32723176cb76",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/installed-mount-check.json": "8f92e96f980fbdf07c779376a71bcb7b5cdef8e4de55c4902f18130d2c2878cc",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/neighbor-check.json": "add8afda2e745618a91c41e0c698be5830099a3b7a1ab13a393c2e5d0a618601",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/enclosure-box-generation.json": "95fb2d12e737a9d88ffedf52fb434e1b832e998c52825394cc489a8bca7d99a2"
+  },
+  "native_clearance_basis": "The neighbor proof places the corrected pump and current-source cap/lid plus rebuilt water6/7/fluid14 in the exact retained 210-body assembly frame. All 830 rows pass; its original input hashes are retained.",
+  "release_limits": [
+    "Authorizes offline preparation of matching mounting plates within the already authorized full enclosure print. Native slice/support review is required for each archive; no printer execution is recorded here."
+  ]
+}

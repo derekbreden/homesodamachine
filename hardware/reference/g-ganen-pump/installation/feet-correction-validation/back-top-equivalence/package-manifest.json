@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "files_sha256": {
+    "README.md": "0493b0cabe05713690beb47cf5961fb122354d40466f8c6344433c3f9085392f",
+    "compare.log": "dea8994616371580f277ff0e981616447e197041f8f8696e044fffd455877a66",
+    "compare.py.txt": "71ec0ad930a786c78798680639d616d776c7367149e5129a68ec606f04a9955e",
+    "compare_mesh.py.txt": "04774701a0cfbd8a7bbf781a5af5a98193380aafae13c15d1f3b8cd8d61c3e0b",
+    "mesh-corner-witness.json": "74c8efac237e5db165452f241208db4feea73a554081ca6482a6bcd28d5bb3a1",
+    "mesh-summary.json": "9696eed37bb91cdc6af87d33047d23c9622c54dcdbeaa1c105f999f17f515562",
+    "native-summary.json": "8ba72ee86da996836f09f876fa9e90220a08db34f8759867ace4df7b41433065",
+    "prior-back-top.brep": "453c9eddc32167f42c17c5e7508d9130218f5f068991d1662ad347c8a3f048ea",
+    "prior-native-extraction.json": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a",
+    "validation.json": "8f6594a3d64f267b496e07ee93a6a695ac693ecf3c783f9c259df69df8e706f3"
+  }
+}

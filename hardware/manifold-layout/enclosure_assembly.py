@@ -2382,16 +2382,17 @@ def build_water_pump(foam, gate: float):
         return seat_body(shape, turns, seat=seat,
                          station=(pump.bearing_datum(), (x, origin_y, bearing_z)))
     probe, probe_carry = at(0.0)
-    pb = box(probe)
-    west = pump_west_face(probe, bearing_z + pump.observed_pad_upper_z(), pb.zmax,
+    rigid_probe = pump.rigid_shape().moved(probe_carry.where)
+    pb = box(rigid_probe)
+    west = pump_west_face(rigid_probe, bearing_z + pump.observed_pad_upper_z(), pb.zmax,
                           pan_front_y(probe_carry), pb.ymax)
     storey = flavor_storey(gate, probe_carry)
-    lane = pump_west_face(probe, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
+    lane = pump_west_face(rigid_probe, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
                           bulkhead_mouth_y(), _enc.rear_plane_y)
     shift = max(0.0, water_pump_west_limit() - west if west is not None else 0.0,
                 water_pump_port_lane_limit() - lane if lane is not None else 0.0)
     placed, carry = at(shift, "g-ganen-pump")
-    # Foot selection clears the actual union band, including after lateral placement.
+    # The complete assembly checks each foot against the union's native profile.
     if abs(flavor_storey(gate, carry) - storey) > 1e-6:
         raise ValueError("Pump foot selection changed the rear fitting storey after placement")
     return placed, carry
@@ -2895,17 +2896,12 @@ PORT_FOOT_CLEAR = 1.0
 
 
 def flavor_storey(gate: float, pump_carry) -> float:
-    """Rear unions clear the actual rubber feet in their own X/Y passage."""
-    pump = _lines._pump
-    feet = cq.Compound.makeCompound(list(pump.feet_shapes(pump_carry).values()))
-    radius = _jg.BODY_D / 2.0
-    b = feet.BoundingBox()
-    slab = cq.Solid.makeBox(2.0 * radius, _enc.rear_plane_y - bulkhead_mouth_y(),
-                            b.zmax - b.zmin + 2.0,
-                            cq.Vector(PANEL_X["bulkhead-flavor-a"] - radius,
-                                      bulkhead_mouth_y(), b.zmin - 1.0))
-    band = pump.occupied_bounds(pump.intersect_components(feet, slab))
-    return max(gate, band[1][2] + PORT_FOOT_CLEAR + radius) if band else gate
+    """Rear flavor unions share the manifold gate's mounting height.
+
+    Foot clearance uses the union's actual stepped profile in the assembled
+    native check; its largest diameter does not occupy its whole axial length.
+    """
+    return gate
 
 
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")

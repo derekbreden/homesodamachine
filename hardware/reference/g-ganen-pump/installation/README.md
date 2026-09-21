@@ -1,139 +1,90 @@
-# Installed G Ganen candidate
+# Installed G Ganen pump
 
-The selected pump uses its four purchased sliding rubber feet, an M3 × 20 screw
-at each foot, and a candidate Ø9 × 0.8 mm washer. The cap has four explicit
-stations; there is no rectangular purchased hole-pattern assumption.
+The pump uses four identical purchased rubber feet with nominal **7 mm pads**.
+Each foot is an instance of the [shared scan-derived shape](../common-foot/g_ganen_foot.py),
+including its rounded pad, elongated screw opening, underside reliefs and raised
+rail clip. The feet slide independently along the casing rails and are removable.
 
-The front pair is selected at reference X = 12 mm and the rear pair at X = 50 mm.
-Each observed rubber component translates only along X. Their complete external
-axial envelopes remain within the observed fixed-rail region, and the rear pair
-clears the rear flavor-union passage. The hidden clip, exact rail hard stops and
-loaded rubber behavior remain physical qualification items.
+The full 18 mm clip spans the observed rail from reference X = **0.5–18.5 mm**
+at the front and **58.5–76.5 mm** at the rear. Slot centers are **X = 9.5 and
+67.5 mm**, **Y = ±38.5 mm**, giving a **58 mm fore/aft span**. These are the
+outermost positions with the complete visible clip engaged. The scans also show
+partial overhang; they do not establish its retention or a physical end stop.
 
-`g_ganen_installation.py` consumes the separately verified conservative native
-integration envelope. The frozen detailed scan reference remains separate.
-Occupied envelopes, including filled foot slots and clip cavities, are not
-material volumes, screw-passage evidence or a pump strength model.
+## Mount and assembly
 
-## Datums and connections
+Each foot uses one **M3 × 20 screw** and a **Ø9 × 0.8 mm washer**. The screw axis
+is **1.5 mm outward from the slot center**, within the elongated opening. At that
+position the nominal screw has **0.4 mm minimum slot clearance**, the washer
+clears the raised shoulder by **0.5 mm**, and **38.29 mm²** of its annulus bears
+on the flat pad, including solid material on both sides of the slot.
 
-`enclosure_assembly.build_water_pump()` rotates the reference +90° about Z,
-places its **Z = 0 bearing datum on the cap face**, and keeps its rigid rear
-8.7 mm forward of the core rear. The lowest free-rubber point does not set pump height.
-The native tray and flavor-union bands determine the lateral position.
+The matching cap columns and lid holes have these coordinates in the cap frame:
 
-At the current core placement, the reference-origin translation is
-**(2.071135, 374.235458, 253.400000) mm**. Local +Y discharge points toward
-**enclosure −X**, as Derek identifies. The independently measured suction and
-discharge axes remain distinct. The suction tip is
-(39.332171, 340.947023, 280.124302) mm and discharge tip is
-(−34.946262, 340.976488, 280.168822) mm.
+| Fore/aft pair | Cap X (mm) | Cap Y (mm) |
+| --- | ---: | ---: |
+| Front | −58.935458 | −37.928865, 42.071135 |
+| Rear | −116.935458 | −37.928865, 42.071135 |
 
-Both fitting chains seat their real hex midpoints on the existing cap anchors.
-Their positions and V-K follow the core. The rear flavor-A union keeps its gate
-storey; flavor B is 1.55 mm below it. `pan_front_y()` preserves the pan's core-relative station with 18.7 mm
-between its sleeve front and the placed native discharge barb/root envelope.
-The complete westward pan withdrawal clears the pump by at least 9.1678 mm;
-the sleeve's enclosing stock clears it by at least 5.9178 mm.
+The nominal pad, washer and 5.4 mm lid leave **6.8 mm screw reach** into the
+column, covering its **5.7 mm insert**. The **8.5 mm blind depth** leaves **1.7 mm
+of screw-tip reserve** and **6.1 mm of floor stock**. That reserve is geometry;
+actual rubber compression is read during assembly.
 
-The four cap mounting axes are (−100.435458, 40.587882),
-(−100.435458, −36.709857), (−62.435458, 41.324566), and
-(−62.435458, −36.268488) mm in the cap's own XY frame. Pump placement and these
-axes share `REAR_CLEARANCE`; `pump_mount_rows()` independently checks alignment.
+Place the pump on the lid, slide each foot to align its slot with the printed
+hole, and fasten all four washers and screws. Fasten the pump **before the rear
+keystone, flavor fittings and fluid-18 tube** occupy the driver approach. Check
+actual screw passage, flat washer seating and clamp engagement while the pump
+is accessible. The casing carries load through its rails and rubber feet into
+the lid and the four internal cap columns.
 
-Stable production interfaces are:
+The columns rise vertically from the cup floor. Their blind bores open at the
+top, and the lid holes pass straight through; both have open support-removal
+paths before assembly.
 
-- Scene/frame key: `g-ganen-pump`.
-- `suction()`, `discharge()` and `port_profile(name)`: independent measured ports.
-- `bearing_datum()`, `placed_bearing_z(carry)` and
-  `bearing_z_from_frame(frame)`: explicit cap-bearing datum; the frame accessor
-  applies to this yaw-only installation.
-- `mount_stations()` and `mount_holes()`: selected slider poses and screw axes.
-- `CAP_MOUNT_XY`: authored cap axes, checked against the placed feet each build.
-- `feet_shapes(carry)`, `rigid_shape()` and `discharge_shape(carry)`: independent
-  occupied components for checks in their actual rooms.
-- `cap_bearing_contact_parts(carry, cap_plane_z)`: the rigid pump and exactly four
-  native free-foot masks at or below the independently located cap plane. A
-  mismatched bearing height or tilt is rejected. Complete-pump overlaps outside
-  those masks remain interference; every other neighbor sees the complete pump.
-- `profiled_barb_length(port)`: observed external length. Tube-export metadata
-  names its use as a candidate insertion allowance; actual hose grip is unqualified.
+## Installed datums
 
-## Native checks and assembly test
+`enclosure_assembly.build_water_pump()` rotates the reference **+90° about Z**,
+puts the nominal bearing plane on the cap face, and leaves **9.7 mm** between
+the rigid motor rear and the core rear. The reference-origin translation is
+**(2.071135, 373.235458, 253.400000) mm**. Reference +Y discharge points toward
+**enclosure −X**, as Derek identifies.
 
-Run the bounded producer from the repository root:
+Rigid casing sections locate the pump laterally. Each complete foot is checked
+against the actual stepped rear fitting, tubes and shell. The rear +Y foot has
+**1.2745 mm** clearance to the flavor-A union. The pump's cap-bearing datum,
+rigid-body placement and sliding-foot positions are separate inputs.
+
+Both pump fitting chains retain their cap anchors. The pan retains its
+core-relative withdrawal station. The pump hoses and adjacent reservoir-A fill
+route follow the measured port axes and current pump placement.
+
+## Native interfaces and checks
+
+`g_ganen_installation.py` exposes the selected screw axes through
+`mount_stations()` and `mount_holes()`. Each row also records its distinct
+`slot_center_mm`, common pad thickness and rail engagement interval.
+`CAP_MOUNT_XY` supplies the matching printed columns; `pump_mount_rows()` checks
+them independently through the actual assembly transforms.
+
+`rigid_shape()`, `feet_shapes(carry)` and `discharge_shape(carry)` keep the casing,
+feet and port geometry independently queryable. `bearing_datum()` and
+`placed_bearing_z(carry)` establish the lid contact plane. Occupied casing
+volumes fill hidden cavities and are not material, mass or strength models.
+
+Run the bounded mount check from the repository root:
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/validate_installation.py --skip-hoses --output hardware/reference/g-ganen-pump/installation/corrected-mount-check.json
 ```
 
-It builds the selected pump, chains and V-K; the actual cap cup and lid are built
-in memory. It does not overwrite a production STEP/STL or alter a submitted print.
-`corrected-mount-check.json` binds source/native hashes to the placed datums,
-mount alignment, available rail stock, washer/straight-driver corridor, native
-print stock, screw passage and neighboring printed lid. All 45 checks pass. Hose
-routing is checked separately against the complete current route set. The gate
-fixture retains its Z from the facts reading; the chains' expected positions
-include the independently measured core translation. The complete assembly must
-read the regenerated cap and lid and check its final shell and routes.
+It builds the current cap and lid in memory and checks screw-axis alignment,
+rail-end placement, rigid clearance, insert reach, blind floor stock and screw
+passage. The complete native assembly additionally checks the updated hoses,
+reservoir fill route and surrounding components. Physical washer fit, loaded
+rubber behavior and hose retention remain full-assembly observations.
 
-`verify_cap_contact.py --pack <retained-pack-directory>` exercises the production
-contact classifier. `cap-contact-check.json` records the actual four-foot contact,
-then proves that a rigid intrusion, extra shared material outside the foot masks,
-and an incorrect bearing height are rejected. The positive test uses the retained
-placed foam; the separate mount check constructs the current cap/lid from source.
-Neither reading predicts loaded rubber deformation.
-
-The M3 shank envelopes have zero overlap with the printed cup/lid. The blind
-bores leave **6.0857 mm of stock** above the cup underside. The largest
-observed free-pad stack gives **5.7149 mm nominal screw reach** into a 5.7 mm
-insert. That 0.0149 mm nominal margin is not a manufacturing tolerance or proof of
-actual engagement. Washer seating, rubber compression and real screw length must
-be read at assembly; an apparently tight screw must not be treated as a qualified
-clamp merely because the scan-based calculation passes.
-
-The remaining physical observations are a freely passing M3 through each complete
-slot, flat washer seating clear of the rubber upstand, loaded screw engagement
-and compression, and hose insertion/clamp retention. Washer and screw receipt is
-not inferred from the purchase ledger. An underside foot scan is unnecessary for
-this stock-foot mount unless those direct checks expose a hidden obstruction.
-
-Assembly uses four stock feet, four washers and four screws. Slide each foot to
-its corresponding cap station, place the bearing plane on the lid, pass each
-screw and washer through its actual slot, then seat all four without forcing an
-unobserved compression target. The casing carries load through its existing
-rails and rubber feet into the broad lid and the four internal columns.
-
-The columns print vertically from the cup floor and their blind bores open
-at the top. The top lid holes pass straight through. The mounting bores have
-open vertical support-removal paths and no enclosed horizontal pockets.
-
-`corrected-placement-check.json` reads 97 native neighbors, including the current
-nameplate, the pan and its complete withdrawal envelope. Its nearest queried
-rigid component is the flavor-A bulkhead at **1.2651 mm**. The nameplate has a
-**1.0000 mm** enclosing-box clearance. The complete regenerated shell is a
-separate final assembly check.
-
-Both pump hoses leave and enter on their measured port axes and keep **R15.9 mm**
-bends. The nearby reservoir-A fill tube keeps **R14 mm** bends and its complete
-cap bearing at world Y **254.4–263.2 mm**. Its local valve-side descent clears
-V-A by **1.155 mm** and V-K by **1.125 mm**; its rear descent clears the suction
-hose by **1.3672 mm**. The cap anchor and fill conduit keep their declared datums.
-`corrected-pump-routes-check.json` contains the hose and complete-neighbor readings;
-`inner-valve-route-check.json` binds the valve-side route to the current lowered
-inner valves and complete native lid. The lid has zero fill-tube overlap and
-**0.15 mm** intended bearing air. Those reports identify their exact retained
-inputs; final regenerated routes and the complete shell remain assembly checks.
-
-## Production dependency handoff
-
-The printed mounting consumers are `foam-cap-top` and `foam-cap-lid-top`. Rebuild
-those, then `foam-assembly` and `cold-core-assembly`, before the enclosure Box and
-complete assembly. Generated facts, checks and viewer inventories must bind to
-those exact regenerated inputs.
-
-The shared dependency trace must include the installation module, the measured
-reference parameters, the conservative envelope module, its native STEP and
-native-validation proof, and `native_queries.py`. This bounded checker does not
-write the shared trace. Final enclosure pieces derive from the freshly checked
-Box; no submitted cartridge/cap artifact is repurposed as evidence for this pump.
+The printed consumers are `foam-cap-top` and `foam-cap-lid-top`; their producer
+feeds `foam-assembly`, `cold-core-assembly`, the enclosure Box and the complete
+assembly. Current printer archives and readiness are recorded in the
+[full enclosure queue](../../../printed-parts/enclosure/tee-readiness/full-enclosure-print/queue.json).

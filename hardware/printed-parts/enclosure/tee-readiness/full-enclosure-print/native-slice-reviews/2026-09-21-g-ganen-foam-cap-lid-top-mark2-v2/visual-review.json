@@ -1,0 +1,19 @@
+{
+  "status": "visual_review_pass",
+  "recorded_at_utc": "2026-09-21T16:49:43.005381+00:00",
+  "reviewer": "coordinating_task",
+  "review_authority": "Explicit coordinating-task message: complete upward lid with five expected tie-anchor features, mounting holes, tube-surface openings and correct flat-base orientation.",
+  "preview": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/native-previews/plate_1.png",
+  "preview_sha256": "19993c509b67f3974f609685f656d0fb73a194408a954b8b17e7fc079448f2c5",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "7fa3dbf1b31c4161365ff8f4d40c41eecd2e825def4f202ed3877165ff3ca6ce",
+  "observations": [
+    "Complete upward lid.",
+    "Five expected tie-anchor features visible.",
+    "Mounting holes and tube-surface openings visible.",
+    "Correct flat-base print orientation."
+  ],
+  "scope": "Overall native preview shape/orientation; exact emitted paths, supports and geometry are reviewed separately.",
+  "print_released": false,
+  "submitted": false
+}

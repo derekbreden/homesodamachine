@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""Snapshot one completed offline print review; never change its source evidence."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import shutil
+import zipfile
+
+ROOT = Path('/Users/derekbredensteiner/Developer/homesodamachine')
+BASE = ROOT / 'hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print'
+RECEIPT = BASE / 'qualified-production/g-ganen-mount-inputs-v1/current-geometry.json'
+RECEIPT_SHA = '22c80d7756b70139fe6ede97a4c9d3f70b782629171f8cd850a342acfffa36e6'
+
+def sha(path):
+    with Path(path).open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+def path(value):
+    p = Path(value)
+    return p if p.is_absolute() else ROOT / p
+
+def rel(p):
+    try:
+        return str(p.relative_to(ROOT))
+    except ValueError:
+        return str(p)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('job_directory')
+    parser.add_argument('--extra-script', action='append', default=[])
+    parser.add_argument('--extra-tree', action='append', default=[])
+    parser.add_argument('--extra-file', action='append', default=[])
+    args = parser.parse_args()
+    job = path(args.job_directory)
+    review = json.loads((job / 'offline-review.json').read_text())
+    handoff = json.loads((job / 'native-handoff.json').read_text())
+    ledger_path = path(review['support_removal_review'])
+    ledger = json.loads(ledger_path.read_text())
+    assert review['status'] == 'offline_print_review_pass'
+    assert ledger['status'] == 'current_support_contacts_and_removal_lanes_reviewed'
+    assert review['submitted'] is False and review['print_released'] is False
+    assert review['exact_receipt_inputs_verified'] is True
+    assert sha(RECEIPT) == RECEIPT_SHA == review['geometry_confirmation_sha256'] == handoff['receipt_sha256'] == ledger['geometry_confirmation_sha256']
+    archive = path(review['native_archive'])
+    assert sha(archive) == review['native_archive_sha256'] == handoff['native_archive_sha256'] == ledger['native_archive_sha256']
+    assert sha(ledger_path) == review['support_removal_review_sha256']
+    assert sha(path(review['support_audit'])) == review['support_audit_sha256'] == handoff['support_audit_sha256'] == ledger['support_audit_sha256']
+    with zipfile.ZipFile(archive) as z:
+        gcode_members = [n for n in z.namelist() if n.endswith('.gcode')]
+        assert len(gcode_members) == 1, gcode_members
+        with z.open(gcode_members[0]) as stream:
+            gcode_sha = hashlib.file_digest(stream, 'sha256').hexdigest()
+    assert gcode_sha == review['gcode_sha256'] == handoff['gcode_sha256'] == ledger['gcode_sha256']
+
+    dest = BASE / 'native-slice-reviews' / job.name
+    dest.mkdir(parents=True, exist_ok=True)
+    files = {}
+    def keep(source, target):
+        source = Path(source)
+        target = Path(target)
+        target = Path(*('python-cache' if part == '__pycache__' else part for part in target.parts))
+        if target.suffix == '.py': target = target.with_name(target.name + '.txt')
+        elif target.suffix == '.pyc': target = target.with_name(target.name + '.bin')
+        target = dest / target
+        digest = sha(source)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            assert sha(target) == digest, f'Completed snapshot would change: {target}'
+        else:
+            shutil.copyfile(source, target)
+        assert sha(target) == digest and sha(source) == digest, f'Copy changed: {source}'
+        files[str(target.relative_to(dest))] = {'source_path': rel(source), 'sha256': digest, 'bytes': source.stat().st_size}
+
+    for name in ['README.md', 'visual-review.json', 'predecessor.json', 'geometry-confirmation.json', 'prepare.log', 'native-handoff.json', 'offline-review.json', 'offline-review-before-diagnostic-mirror-fix.json', 'readiness.json', 'support-removal-review.json', 'preparation.json', 'job-config.json', 'slice-command.json', 'slice-input.json', 'native-review.log', 'slice.log', 'finalize.log', 'read-only-mesh-preflight.json', 'layout.json']:
+        p = job / name
+        if p.exists(): keep(p, name)
+    for p in sorted(job.glob('*.support-audit.json')): keep(p, p.name)
+    for p in sorted(job.glob('*.print.json')): keep(p, p.name)
+    for name in ['prepare.py', 'slice.py', 'print_workflow.py', 'review_native.py', 'finalize_review.py']:
+        p = job / name
+        if p.exists(): keep(p, 'workflow/' + name + '.txt')
+    for name in ['bambu-cli.log', 'result.json', 'path-bounds-checkpoint.json']:
+        p = job / 'ready' / name
+        if p.exists(): keep(p, 'native/' + name)
+    for p in sorted((job / 'ready').glob('support-*.json')): keep(p, 'native/' + p.name)
+    for p in sorted((job / 'ready' / 'native-previews').glob('*.png')): keep(p, 'previews/' + p.name)
+    for p in sorted((job / 'support-evidence').rglob('*')):
+        if p.is_file(): keep(p, 'support-evidence/' + str(p.relative_to(job / 'support-evidence')))
+    for folder in sorted(job.glob('functional-regions*')):
+        if folder.is_dir():
+            for p in sorted(folder.rglob('*.json')):
+                keep(p, str(p.relative_to(job)))
+    for p in sorted((job / 'inputs').glob('*.json')):
+        keep(p, 'inputs/' + p.name)
+    for source in args.extra_script:
+        p = Path(source)
+        keep(p, 'reproducers/' + p.name + '.txt')
+    for source in args.extra_file:
+        p = Path(source)
+        keep(p, 'additional-inputs/' + p.name)
+    for source in args.extra_tree:
+        folder = Path(source)
+        for p in sorted(folder.rglob('*')):
+            if p.is_file(): keep(p, 'diagnostic-evidence/' + folder.name + '/' + str(p.relative_to(folder)))
+
+    manifest = {
+        'schema': 1,
+        'status': 'offline_print_review_pass',
+        'job': review['job'],
+        'printer': review['printer'],
+        'source_job_directory': rel(job),
+        'geometry_receipt': {'path': rel(RECEIPT), 'sha256': RECEIPT_SHA},
+        'native_archive': {'path': rel(archive), 'sha256': review['native_archive_sha256']},
+        'gcode_member': gcode_members[0],
+        'gcode_sha256': gcode_sha,
+        'files': files,
+        'printing_authorized': True,
+        'submitted': False,
+        'print_released': False,
+        'execution_status': 'Await assigned printer availability, latest plate removal, adequate filament and the normal verified handoff; no new design or permission gate.',
+        'physical_cleanup_effort_measured': False,
+        'scope': 'Byte-identical completed native slice/support evidence. Large input and native archives remain at their exact hashed cache paths. The finalized ledger is authoritative for diagnostic disposition; the preliminary readiness record may retain pending mirror fields.',
+    }
+    text = json.dumps(manifest, indent=2) + '\n'
+    p = dest / 'manifest.json'
+    if p.exists(): assert p.read_text() == text, 'Completed manifest would change'
+    else: p.write_text(text)
+    print(json.dumps({'directory': rel(dest), 'manifest_sha256': sha(p), 'files': len(files), 'bytes': sum(v['bytes'] for v in files.values())}))
+
+if __name__ == '__main__': main()

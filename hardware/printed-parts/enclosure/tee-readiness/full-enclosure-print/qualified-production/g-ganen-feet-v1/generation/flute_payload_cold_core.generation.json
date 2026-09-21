@@ -1,0 +1,18 @@
+{
+  "producer": "hardware/scripts/flute_payload_cold_core.py",
+  "raised": null,
+  "loaded_source_sha256": {
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/flute_payload_cold_core.py": "409095d1bc36c51fd0debb7a6e1e986b1f6d03cfcdd1d8d739cc1a8ce72fd36b"
+  },
+  "loaded_source_drift": [],
+  "rewritten_sources": [],
+  "output_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "43c90869154141cb3065c6d7d17820aea6ada2083fdb1a6e82c3556ddaafcaea",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "009fafcdce5dbf0197d4b73815b4a4774ae1230b7cafbb906b3dd3025fe433b6",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "16b8a4efaac46b4c9f70551a2dd58bef325523a557a701bb8aa95e3949d07c99"
+  }
+}

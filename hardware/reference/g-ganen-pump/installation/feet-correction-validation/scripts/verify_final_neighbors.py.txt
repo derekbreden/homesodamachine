@@ -1,0 +1,83 @@
+"""Current-source installed pump and affected routes against exact complete prior assembly.
+
+No generator, production export or source mutation. Rebuilds only four changed
+bodies and the two mount-bearing cap pieces in memory. Prior210-body placement
+is the fixed surrounding context; complete production regeneration is separate.
+"""
+from pathlib import Path
+import os,sys,json,math,hashlib,time
+os.environ['HSM_NO_BUILD_LOCK']='1'
+R=Path('/Users/derekbredensteiner/Developer/homesodamachine');O=Path('/tmp/scanner-review/g-ganen-feet-correction')
+D=O/'final-neighbor-check';D.mkdir(exist_ok=True)
+sys.path[:0]=[str(R/'hardware/scripts'),str(R/'hardware/manifold-layout'),str(R/'hardware/printed-parts/cold-core/foam-cap')]
+import cadquery as cq
+import enclosure_assembly as ea
+import foam_cap as cap
+import _clearing,_overlap,_boxes
+from _cadq_export import import_assembly
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def bounds(s):
+ b=s.BoundingBox();return[b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax]
+start=time.monotonic();pump=ea._lines._pump
+step=O/'before/hardware/manifold-layout/enclosure-assembly.step';facts_path=O/'before/hardware/manifold-layout/enclosure-assembly.facts.json'
+paths=[Path(__file__),Path(ea.__file__),Path(ea._lines.__file__),Path(ea._cci.__file__),Path(pump.__file__),Path(pump.stock_foot.__file__),Path(cap.__file__),pump.envelope.NATIVE,pump.envelope.HERE/'native-validation.json',pump.REFERENCE/'reference-parameters.json',Path(ea.FOAM_STEP),step,facts_path]
+inputs={str(p):sha(p) for p in paths}
+print('LOAD',inputs[str(step)],flush=True);old={n:s for n,(s,c) in import_assembly(step).items()};print('LOADED',len(old),flush=True)
+facts=json.loads(facts_path.read_text());gate=sum(facts['bodies']['bulkhead-flavor-a'][i] for i in(2,5))/2
+f0,_=ea.build_foam(0.);foam,fc=ea.build_foam(ea._enc.rear_plane_y-ea._enc.rear_seam_clear-ea.box(f0).ylen)
+g,gc=ea.build_water_pump(foam,gate);su,sc=ea.build_suction_chain(fc);di,dc=ea.build_discharge_chain(fc);vk,vc=ea.build_vk(sc)
+current_pose=gc(pump.bearing_datum())[0];print('POSE',current_pose,flush=True)
+placed={'g-ganen-pump':g,'suction-chain':su,'discharge-chain':di,'vk-solenoid':vk,'foam-assembly':foam}
+carries={'g-ganen-pump':gc,'suction-chain':sc,'discharge-chain':dc,'vk-solenoid':vc,'foam-assembly':fc}
+F=ea._lines.frames(placed,carries);frame_checks=[]
+for name,s in [('suction-chain',su),('discharge-chain',di),('vk-solenoid',vk)]:
+ delta=[s.cut(old[name]).Volume(),old[name].cut(s).Volume()]
+ frame_checks.append({'body':name,'added_mm3':delta[0],'missing_mm3':delta[1],'pass':max(delta)<1e-5});print('FRAME',frame_checks[-1],flush=True)
+# V-F frame is retained only after exact native shape equality at this world pose.
+cache=Path('/tmp/scanner-review/integration-correction/route-pack');cache_frames=cache/'frames.json';seed=json.loads(cache_frames.read_text())['valve-v-f'];vfpath=cache/seed['brep'];inputs[str(cache_frames)]=sha(cache_frames);inputs[str(vfpath)]=sha(vfpath)
+prior_vf=cq.Shape.importBrep(str(vfpath));vf=old['valve-v-f'];delta=[vf.cut(prior_vf).Volume(),prior_vf.cut(vf).Volume()]
+frame_checks.append({'body':'valve-v-f','added_mm3':delta[0],'missing_mm3':delta[1],'pass':max(delta)<1e-5});assert frame_checks[-1]['pass'],frame_checks[-1]
+F['valve-v-f']=ea._routing.frame('valve-v-f',vf,{n:(tuple(v[0]),tuple(v[1]),v[2]) for n,v in seed['ports'].items()})
+for n in ('valve-v-a','valve-v-f'):placed[n]=old[n]
+ea._routing.BLOCKED.clear();runs=[ea._lines._water_6(F),ea._lines._water_7(F),ea._lines._fluid_14(F,placed)];changed={gname:shape for gname,shape in [('g-ganen-pump',g)]}
+route_info=[]
+for run in runs:
+ s=ea._routing.tube(run);changed['tube-'+run.id]=s;out=D/('tube-'+run.id+'.brep');s.exportBrep(str(out))
+ route_info.append({'id':run.id,'frm':run.frm,'to':run.to,'diameter_mm':run.diam,'minimum_radius_mm':run.tightest,'requested_radius_mm':run.bend,'waypoints_mm':run.pts,'radii_mm':run.radii,'length_mm':run.length,'brep':str(out),'sha256':sha(out),'valid':s.isValid()});print('ROUTE',run.id,run.tightest,len(run.pts),flush=True)
+# Fresh in-memorycap andlid: currentmount axes replace the old export's holes/posts.
+cup=cap.add_deck_mounts(cap.build_foam_cap()).val();lid=cap.add_side_anchors(cap.add_chain_anchors(cap.add_cradles(cap.cut_deck_mounts_lid(cap.build_foam_cap_lid()),cap.lid_total_height),cap.lid_total_height),cap.lid_total_height).val()
+cw=ea._foam._spin(cup).translate((0,0,ea._foam.cap_face_z-cap.lid_total_height-cap.top_cap_height)).moved(fc.where)
+lw=ea._foam._spin(lid).translate((0,0,ea._foam.cap_face_z-cap.lid_total_height)).moved(fc.where)
+world=dict(old);world.update(changed);world['cold-core/foam-cap-top']=cw;world['cold-core/foam-cap-lid-top']=lw
+for n,s in [('g-ganen-pump',g),('cap-top',cw),('cap-lid-top',lw)]:s.exportBrep(str(D/(n+'.brep')))
+# Same named contacts used by current assembly, with positive overlap still checked.
+owned={'tube-water-6':{'g-ganen-pump','discharge-chain'},'tube-water-7':{'g-ganen-pump','suction-chain'},'tube-fluid-14':{'valve-v-f','cold-core/reservoir-a-cap','cold-core/bulkhead-reservoir-a','cold-core/line-reservoir-a-fill'}}
+rows=[]
+for target,a in changed.items():
+ for name,b in world.items():
+  if name==target:continue
+  if name in changed and list(changed).index(name)<list(changed).index(target):continue
+  lower=_clearing.box_gap(_boxes.boxed(a),_boxes.boxed(b))
+  if lower>=2:
+   rows.append({'target':target,'neighbor':name,'bbox_clearance_lower_bound_mm':lower,'pass':True});continue
+  contact=None;required=1.
+  if target=='g-ganen-pump' and name=='cold-core/foam-cap-lid-top':contact='Four flat rubber pad bearing faces only';required=0.
+  if target=='g-ganen-pump' and name in('tube-water-6','tube-water-7'):contact='Own measured barb tip connection; allpump components also checked for positive overlap';required=0.
+  if name in owned.get(target,set()):contact='Own named endpoint';required=0.
+  if target=='tube-fluid-14' and name=='cold-core/foam-cap-lid-top':contact='Measured0.15mm cap bearing and own routed fill conduit';required=0.
+  if target=='tube-fluid-14' and name=='cold-core/foam-cap-top':contact='Own fillconduit throughcap';required=0.
+  gap=_clearing.gap(a,b,2.);overlap=_overlap.volume(a,b) if gap<1e-5 else 0.
+  row={'target':target,'neighbor':name,'production_mesh_gap_mm':gap,'mesh_overlap_mm3':overlap,'required_gap_mm':required,'intentional_contact':contact,'pass':gap>=required-1e-6 and overlap<1e-4}
+  if not row['pass'] or gap<1.3:row['native_gap_mm']=a.distance(b)
+  rows.append(row);print('PAIR',json.dumps(row),flush=True)
+# The pump/lid contact is bounded by actualflatbearingfaces, not a wholebodywaiver.
+rigid=pump.rigid_shape().moved(gc.where);bearing=[]
+for name,foot in pump.feet_shapes(gc).items():
+ q=foot.intersect(cq.Solid.makeBox(240,500,100,cq.Vector(-120,0,current_pose[2]+1e-5)))
+ bearing.append({'foot':name,'full_native_lid_overlap_mm3':foot.intersect(lw).Volume(),'above_bearing_native_lid_overlap_mm3':q.intersect(lw).Volume()})
+bearing_report={'plane_z_mm':current_pose[2],'rigid_native_lid_gap_mm':rigid.distance(lw),'feet':bearing,'pass':all(max(r['full_native_lid_overlap_mm3'],r['above_bearing_native_lid_overlap_mm3'])<1e-5 for r in bearing)}
+# Main bearing straight interval offluid14 is unchanged while aft hose-dependentpoints move.
+r14=next(r for r in runs if r.id=='fluid-14');t={i:r14.radii[i]*math.tan(math.radians(turn)/2) for i,turn,*_ in r14.bends};bearing_interval=[r14.pts[6][1]+t[6],r14.pts[7][1]-t[7]]
+reports={'source_frame_checks':frame_checks,'pump_origin_world_mm':current_pose,'rigid_body_pose_delta_from_prior_mm':[current_pose[0]-2.0711351519419985,current_pose[1]-374.235458276122,current_pose[2]-253.4],'runs':route_info,'native_route_blockers':list(ea._routing.BLOCKED),'pump_lid_bearing':bearing_report,'fluid14_bearing_required_mm':[254.4,263.2],'fluid14_bearing_actual_straight_mm':bearing_interval,'all210_neighbors_considered':len(old)==210,'readings':rows}
+report={'scope':'Current-source pump andwater6/7/fluid14 plus current-source cap/cup in completeexact210-body priorassembly frame. No fullgenerator/export.','baseline_assembly_step_sha256':inputs[str(step)],'inputs_sha256':inputs,**reports,'all_pass':all(r['pass'] for r in rows) and all(r['pass'] for r in frame_checks) and bearing_report['pass'] and not ea._routing.BLOCKED and bearing_interval[0]<=254.4 and bearing_interval[1]>=263.2,'elapsed_seconds':time.monotonic()-start,'stable_inputs':{p:sha(p)==d for p,d in inputs.items()},'limits':['Complete production rebuild/scorecard independently follows; thisprobe replaces only listedchangedbodies.','Rubber preload, retention force and screw torque remain physical observations.','Ownendpoint and bearingcontacts are named; every other neighbor retains1mmgapfloor.']}
+(D/'final-neighbor-check.json').write_text(json.dumps(report,indent=2)+'\n');print('FINAL',report['all_pass'],'stable',all(report['stable_inputs'].values()),'seconds',report['elapsed_seconds'],flush=True)

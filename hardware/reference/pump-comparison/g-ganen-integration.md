@@ -1,69 +1,59 @@
 # G Ganen enclosure integration map
 
-The selected received pump is G Ganen B07F35PTFR. Derek confirmed that no caliper measurements were recorded. The scan-reference agent owns its measured model; this map does not qualify dimensions, inlet/outlet identity, electrical demand or hydraulic performance. All current build results below use the SeaFlo reference.
+The selected received pump is **G Ganen B07F35PTFR**. Its three native scans,
+measured rigid housing and independent ports are in
+[the reference](../g-ganen-pump/README.md). Derek confirms that its four removable
+sliding rubber feet are identical and their pads are approximately 7 mm thick.
+The shared foot geometry and raw observed poses remain separate.
 
-Three complementary 0.10 mm fused clouds and their native projects are archived in
-`~/Documents/3D Scans/2026-09-20-g-ganen-pump/`. Derek identifies the feet as flexible rubber.
-Its flow arrow points right with `4002` upright and readable. Derek identifies installed flow toward enclosure −X. With the intended +90° Z rotation,
-local +Y is discharge and local −Y is suction. The feet are removable fore/aft sliders on
-fixed casing rails. Scan foot poses are individual positions; unloaded poses do not establish
-the compressed mounting stack or one mandatory hole pattern.
+Installed flow is **enclosure −X**: suction faces east and discharge faces west.
+A +90° Z rotation maps reference +Y discharge to world −X. Electrical demand and
+hydraulic performance have separate physical qualification; the geometric model
+does not supply those ratings.
 
-## Reference interface
+## Reference and installation
 
-Current source: `hardware/reference/seaflo-22-pump/seaflo_22_pump.py`.
+`hardware/reference/g-ganen-pump/installation/g_ganen_installation.py` is the
+production API. It supplies the conservative native components, selected foot
+poses, screw axes, bearing datum and separately measured ports. The production
+scene key is `g-ganen-pump`.
 
-- `build()` supplies the actual casing, pressure-switch, feet and barb envelope; assembly currently imports its generated STEP at `enclosure_assembly.SEAFLO_STEP`.
-- `suction()` / `discharge()` return port-tip `(position, outward_axis)` in the reference frame. The scan must establish tip station, centerline, usable barb and shoulder separately. IN/OUT needs a visible marking or user evidence.
-- `mount_holes()` returns mount-center XY coordinates; `mount_seat_z()` supplies the common bearing plane. The current consumer assumes parallel holes and one underside plane; a nonrectangular pattern or different foot levels requires a real interface change.
-- `FOOT_T` supplies pad-top height to casting sections, flavor-port storey and the reservoir-A fill route. It must be a measured mounting envelope, not an inherited SeaFlo number.
-- `PORT_D` sets discharge-port radial envelope beside the ASSE tray. `PORT_L` supplies hose engagement in the cut schedule. If ports differ, use per-port values and update these consumers.
-- Proposed scan-reference frame is motor/head joint X=0, +X toward motor rear, mounting underside Z=0, shaft centerline Y=0. This is the coordinate convention in the pump-comparison record. Do not mirror a model to force its port identity.
+The common foot's selected slot stations are X=9.5 and 67.5 mm, Y=±38.5 mm.
+Each clip is fully engaged at the corresponding end of the visible rail; these
+are chosen full-engagement positions, not claimed hard stops. The M3 × 20 screw
+axes sit 1.5 mm outward inside the slots, with Ø9 × 0.8 mm washers on the nominal
+7 mm pads. The [installation record](../g-ganen-pump/installation/README.md)
+contains the cap-frame mounting axes and current native checks.
 
-## Placement and manufactured interfaces
+## Consumers
 
-`hardware/manifold-layout/enclosure_assembly.py`:
+| Consumer | Current contract |
+| --- | --- |
+| `enclosure_assembly.build_water_pump` | Places the explicit bearing datum on the cap lid; uses the rigid motor rear and installed rear clearance for fore/aft position, then checks pan and rear-fitting lanes. |
+| `enclosure_assembly.pump_mount_rows` | Transforms every selected screw axis into the cap frame and compares it with the printed column. |
+| `_cold_core_interface.deck_mounts['g-ganen-pump']` | Four explicit cap stations, nominal pad/washer stack, M3 × 20 screw and blind-bore reserve; `_foam_cap` produces columns and lid passages. |
+| `build_suction_chain`, `build_discharge_chain`, `build_vk` | Retain the chains' cap anchor seats and the V-K connection. They are independent of the movable feet. |
+| `pan_front_y`, `build_pan`, `pump_west_face` | Use the actual placed discharge/casting envelope and the pan's own clearance span; preserve pan landing and withdrawal. |
+| `_lines._water_6`, `_lines._water_7` | Connect the measured discharge/suction tips to their chains with reinforced-PVC hoses, axial leads and R15.9 bends. |
+| `_lines` other routes and `_scorecard` | Use the current `g-ganen-pump` body/ports, native neighbor clearance, port leads, bend limits and exact cap contact classification. |
+| `_tube_export` | Uses per-port exterior profile lengths as geometric insertion allowances; actual hose insertion and retention remain assembly observations. |
+| `_bom_sync`, assembly instructions and cards | Carry the selected pump identity and four current mount screws consistently. |
 
-| Consumer | Required reevaluation |
-|---|---|
-| `SEAFLO_STEP`, `SEAFLO_YAW`, `build_seaflo` | Load the selected reference; resolve bearing plane and pose against the cap, rear plane, tray lane and flavor-port lane. `pump_west_face` intersects the native solid at two real neighboring height bands. |
-| `pump_mount_rows` | Inverse-transform every placed mounting hole to cap coordinates and compare with printed columns. |
-| `build_suction_chain`, `SUCT_CORNER_ROOM`, `build_vk` | Inlet barb location affects the suction chain Y and the V-K valve/cradle. X/Z currently belong to cap anchor stations. |
-| `build_discharge_chain`, `DISCH_CORNER_ROOM`, `anchor_rows` | Outlet barb changes hose turn room and the chain's axial section that bears in its cap anchor. |
-| `flavor_storey`, `deck_z` | Pump pad/casting can affect flavor unions and the supported deck, then ASSE/split/regulator/gas-chain heights. Measure resulting propagation rather than moving known fitted Kamoer seats. |
-| `pan_front_y`, `build_pan`, `pump_west_face` | Discharge barb bounds ASSE pan/sleeve Y; casting bounds its side clearance. Recheck vent-to-pan landing, wall slot and tray withdrawal. |
-| `build_pack`, `CORE_RIDERS`, solids/carry maps and scene IDs | Carry one consistently named diaphragm-pump component through placement, scorecard and viewer; avoid an unlabeled G Ganen model behind a SeaFlo identity. |
+The casing envelope intentionally fills its reentrant rail/cradle cavities.
+Native internal overlap at those classified regions does not describe the
+hidden rubber grip or material compression. External neighbor clearance uses
+the complete placed pump, including all four common feet.
 
-`hardware/printed-parts/cold-core/_cold_core_interface.py` owns the printed interfaces:
+## Generation and print status
 
-- `deck_mounts["seaflo-pump"]` is currently a 59 x 79 rectangular pattern centered (-93.20, 2.62) in the cap frame, zero standoff, 8.50 mm clamp stack, 20 mm screw. **None of those dimensions transfers automatically.** A different pattern requires measured positions and a suitable `DeckMount` representation.
-- `deck_mount_reach`, insert depth, lid clearance and cap-column spacing must follow the measured foot and actual selected fastener stack. Preserve the cap's pour passages and minimum stock.
-- `cap_anchors` for suction/discharge chains and `cap_cradles["vk-solenoid"]` are downstream if those chains move. V-A/V-B cradle bearing shapes are independent and remain applicable; their world stations must still agree with final assembly.
-- Consumers: `_foam_cap.py`, `foam-cap/foam_cap.py`, `foam-assembly/foam_assembly.py`, then `hardware/cold-core-layout/cold_core_assembly.py`.
+The dependency order is cap, foam assembly, cold-core assembly, Box, shell
+pieces and complete enclosure assembly. The resulting native geometry, current
+assembly gates and exact slice/support evidence determine the print inputs.
+[Print readiness](../../printed-parts/enclosure/print-readiness.md) records the
+current build and queue. The full enclosure is the intended assembly trial;
+physical spring feel, rubber tightening and plumbing commissioning follow on
+that complete printed assembly.
 
-## Tube and plumbing consumers
-
-`hardware/manifold-layout/_lines.py` imports the pump reference and registers its two ports in `STATIONS`.
-
-- `water-6` discharge and `water-7` suction currently use 3/8-inch reinforced PVC (`HOSE_OD`, `HOSE_BEND`, `BARB_SKEW`) into the existing MAACFLOW/JG suction and MAACFLOW/GASHER/JG discharge chains. Compatibility and clamp engagement depend on the scanned barb crest/root diameters and usable length, not pump naming.
-- `water-5` leaves the discharge-chain collet; `water-3` reaches V-K. Both need reevaluation if the chains move.
-- `_fluid_2` checks an actual tube sweep against the pump and a minimum R14 bend. Its present 1.473 mm native clearance describes SeaFlo only.
-- `_gate_a_deck_y` places the `fluid-18` cross-machine turn from pump front. `_fill_a_cap_z` and `_fill_a_turn_y` place `fluid-14` over the pad and behind suction hose. Other routes must pass a complete native neighbor check after the new placement; no manual copying of old route offsets establishes clearance.
-- `build_seated_runs` gates `fluid-4` on the pump's scene ID, even though its turn is struck from V-B. Keep that scene mapping consistent and check fluid-2/drain separation in the final enclosure assembly.
-- `hardware/scripts/_tube_export.py` imports the pump and uses `PORT_L` for barb engagement and total cut length. `_routing.py` and `_lines.py` own current hose stock/bend assumptions.
-- `hardware/manifold-layout/_scorecard.py` names water-6/7 endpoints and pump-to-cap deck-mount contact. Rename/update the selected reference consistently while retaining meaningful mount, port-lead, bend and clearance checks.
-
-## Remaining model and record consumers
-
-- `hardware/scripts/_bom_sync.py` derives pump screws from the deck mount count. Update the current selected pump identity, mounting hardware and tube cut list after the measured design is settled.
-- `_materials.py`, model scene labels and parts descriptions carry SeaFlo's identity/color. These are presentation changes, separate from measurement.
-- `hardware/wiring/_ac_wiring_schedule_sync.py` currently budgets a 5 A diaphragm peak; firmware documentation cites that figure for the refill/dispense interlock. Geometry does not measure the G Ganen current or justify removing the interlock. Label and powered measurements need their own evidence.
-- Readiness/slice/support records for a complete enclosure must bind to the resulting actual meshes. No old SeaFlo print provenance qualifies the replaced-pump enclosure.
-
-## Build handoff
-
-The completed baseline is `hardware/manifold-layout/enclosure-box.json`, SHA256 `a1468381b233f54a07cd491fefe3dabdc56da89bb46fa3bffb6d2181802427c9`. Direct Box, traced Box and traced cold-core assembly passed; all 20 source entries recorded in `hardware/manifold-layout/scan-consumer-checks.json` matched after completion. No complete enclosure piece producer or combined enclosure assembly was run in this sequence. Trace graph updates were sequential and have finished.
-
-For G Ganen: generate the measured reference, resolve native placement/chain interfaces, derive cap columns and any moved chain/V-K seats, regenerate the cap and foam assembly, then rebuild Box, cold-core model, affected enclosure pieces/payload, combined assembly and tube/BOM records. Re-run physical-fit and support-removal checks for affected production parts. The Kamoer cartridge and cap have an independent materializer and depend only on their documented Box subset; their dry-fit print does not require the G Ganen reference.
-
-The full enclosure remains unreleased until the selected reference and its consumers agree.
+The Kamoer cartridge and cap have a separate materializer and their own accepted
+local fit evidence. Pump-foot changes do not establish a need to alter those
+local bearing surfaces.
