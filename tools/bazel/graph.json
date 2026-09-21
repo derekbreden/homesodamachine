@@ -4716,6 +4716,7 @@
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+      "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/tee-connector/tee-connector.step",
@@ -4742,7 +4743,8 @@
     "writes": [
       "hardware/manifold-layout/README.figures.json",
       "hardware/manifold-layout/README.md",
-      "hardware/manifold-layout/manifold-layout.step"
+      "hardware/manifold-layout/manifold-layout.step",
+      "hardware/manifold-layout/manifold-layout.step.mesh"
     ]
   },
   "hardware/printed-parts/cold-core/_cold_core_interface.py": {
@@ -6112,7 +6114,12 @@
   },
   "hardware/printed-parts/enclosure/enclosure/enclosure.py": {
     "reads": [
+      "hardware/manifold-layout/_gas_chain.py",
+      "hardware/manifold-layout/_lines.py",
+      "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-box.json",
+      "hardware/manifold-layout/enclosure_assembly.py",
+      "hardware/manifold-layout/manifold_layout.py",
       "hardware/printed-parts/cadlib/cable_clip.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
@@ -6151,13 +6158,19 @@
       "hardware/scripts/_boxes.py",
       "hardware/scripts/_build_time.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_card.py",
+      "hardware/scripts/_clearing.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_meshes.py",
+      "hardware/scripts/_overlap.py",
       "hardware/scripts/_realized.py",
+      "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "hardware/scripts/_world_sdf.py",
+      "hardware/scripts/pick_text.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [

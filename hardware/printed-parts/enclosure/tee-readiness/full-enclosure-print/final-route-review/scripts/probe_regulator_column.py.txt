@@ -1,0 +1,37 @@
+from pathlib import Path
+import os, sys, json, hashlib
+os.environ['HSM_NO_BUILD_LOCK']='1'
+ROOT=Path('/Users/derekbredensteiner/Developer/homesodamachine')
+OUT=Path(__file__).resolve().parent
+sys.path[:0]=[str(ROOT/'hardware/manifold-layout'),str(ROOT/'hardware/scripts')]
+import cadquery as cq
+import enclosure_assembly as ea
+from _cadq_export import import_assembly
+import _clearing as C, _boxes
+L=ea._lines; R=ea._routing
+path=ROOT/'hardware/manifold-layout/enclosure-assembly.step'
+solids={n:s for n,(s,c) in import_assembly(path).items()}
+facts=json.loads((ROOT/'hardware/manifold-layout/enclosure-assembly.facts.json').read_text())
+rows=[]
+for dx in (0.0,0.6,0.75,1.0,1.5,2.0,3.0,4.0):
+    base=ea.SPLIT_COLUMN
+    ea.SPLIT_COLUMN=base+dx
+    ap=facts['card_ports']['asse1022-assembly']['tube-out']
+    split,sc=ea.build_split(lambda station:(ap['pos'],ap['axis']))
+    reg,rc=ea.build_flowreg(sc)
+    ea.SPLIT_COLUMN=base
+    ss={**solids,'water-split':split,'flow-regulator':reg}
+    F=L.frames(ss,{'water-split':sc,'flow-regulator':rc})
+    R.BLOCKED.clear()
+    run=L._fluid_1(F); tube=R.tube(run)
+    p,axis=rc(ea._flowreg.inlet())
+    lead=C.cast(p,axis,6.35,17.175,{n:s for n,s in ss.items() if not n.startswith('tube-')},skip=('flow-regulator','water-split'))
+    near=[]
+    for name,body in ss.items():
+        if name in {'water-split','flow-regulator','tube-fluid-1'}:continue
+        if C.box_gap(_boxes.loose(tube),_boxes.loose(body))>=2:continue
+        gap=C.gap(tube,body,2.)
+        if gap<2:near.append({'name':name,'mesh_gap':gap,'native_gap':tube.distance(body),'overlap':tube.intersect(body).Volume()})
+    row={'dx':dx,'lead':lead,'tube_neighbors':near,'reg_funnel_air':C.gap(reg,ss['funnel'],4.),'reg_funnel_native_air':reg.distance(ss['funnel']),'min_radius':run.tightest,'blocked':dict(R.BLOCKED)}
+    rows.append(row); print(json.dumps(row),flush=True)
+(OUT/'regulator-column-probe.json').write_text(json.dumps({'step_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'rows':rows},indent=2)+'\n')

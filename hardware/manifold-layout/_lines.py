@@ -1074,7 +1074,7 @@ FILL_A_DRAW_GATE_LEAD = 17.5
 FILL_A_LANE_RUN = TUBE_BEND
 # How much depth the fall onto the cap takes. Both its corners spend `TUBE_BEND` as tangent, so
 # what reaches the cap's plane is the fall plus those two arcs.
-FILL_A_FALL_RUN = 10.0
+FILL_A_FALL_RUN = 6.0
 # After the complete cap bearing, a shallow descent clears the suction hose
 # while both hoses leave their measured barb axes. The rear fill approach keeps
 # the cap anchor's storey; neither printed anchor nor conduit moves.
@@ -1151,9 +1151,11 @@ def _fluid_14(F, solids):
     radius = min(run.radii.values(), default=run.bend)
     if radius < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-14 seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
+    # Read the same complete placed surface meshes as the assembly clearance gate.
+    from _clearing import gap as clearance
     tube = R.tube(run)
     for name in ("valve-v-a", "vk-solenoid"):
-        gap = tube.distance(solids[name])
+        gap = clearance(tube, solids[name], _card.REPORT_NEAR)
         if gap < _card.CLEARANCE_FLOOR - 1e-6:
             raise ValueError(
                 f"fluid-14 clears {name} by {gap:.3f} mm, below "

@@ -193,3 +193,7 @@ fixture or pre-print physical spring acceptance gate is specified.
 
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py`
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py`

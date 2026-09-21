@@ -4862,12 +4862,13 @@ BOWL_CLEAR = 1.0
 # mouths face each other down one column with the step between them, so what this has to be is
 # the run that step's two corners and the lean between them take.
 WATER_2 = 42.0
-# THE SPLIT AND REGULATOR SHARE THE SHALLOWEST COLUMN THEIR WALL ANCHORS CAN CLOSE ON. The
-# unrolled regulator hub sets the shared column, with one body-anchor slip to the
-# nominal flank. The rolled hub's corner occupies its own shallow wall pocket.
+# The split and regulator share a column 1.5 mm inboard of the bare anchor-slip
+# station. This leaves the regulator inlet's full tube lead past the front shell
+# and keeps the hairpin at least 1.48 mm clear of that shell. Their complete wall
+# anchors follow the column; the rolled hub keeps its own shallow relief.
 # `water-2` already leans across from
 # the union column above, and every line leaving this pair is struck from its carried ports.
-SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP
+SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP + 1.5
 SPLIT_COLUMN = (_enc.back_top_flank_face()[0] + _flowreg.HUB / 2.0
                 + SPLIT_FLANK_CLEAR)
 
@@ -4891,10 +4892,10 @@ def build_split(asse_carry):
 # --- the flow regulator, inline on the flavour tap -------------------------
 #
 # The regulator runs fore–aft on the split's column. Its adjuster points inboard
-# and 25 degrees down beneath the funnel. The two ports stay on their shared axis;
+# and 30 degrees down beneath the funnel. The two ports stay on their shared axis;
 # the square hub has a shallow clearance pocket in back-top's thick west flank.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
-                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 25.0))
+                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 30.0))
 # `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
 # inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
 # and comes back into the other — two stock quarter-turns, no straight between them or at either

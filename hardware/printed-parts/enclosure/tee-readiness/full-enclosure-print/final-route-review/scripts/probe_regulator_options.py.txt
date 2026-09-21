@@ -1,0 +1,42 @@
+from pathlib import Path
+import os, sys, json, hashlib
+os.environ['HSM_NO_BUILD_LOCK']='1'
+ROOT=Path('/Users/derekbredensteiner/Developer/homesodamachine')
+OUT=Path(__file__).resolve().parent
+sys.path[:0]=[str(ROOT/'hardware/manifold-layout'),str(ROOT/'hardware/scripts')]
+import cadquery as cq
+import enclosure_assembly as ea
+from _cadq_export import import_assembly
+import _clearing as C, _boxes
+L=ea._lines; R=ea._routing
+path=ROOT/'hardware/manifold-layout/enclosure-assembly.step'
+solids={n:s for n,(s,c) in import_assembly(path).items()}
+facts=json.loads((ROOT/'hardware/manifold-layout/enclosure-assembly.facts.json').read_text())
+rows=[]
+options=[(1.5,0.,27.),(1.5,0.,30.),(1.5,0.,35.),(0.,10.,25.),(0.,11.,25.),(0.,12.,25.)]
+for dx,dy,angle in options:
+    base=ea.SPLIT_COLUMN; turns=ea.FLOWREG_TURN
+    ea.SPLIT_COLUMN=base+dx
+    ap=facts['card_ports']['asse1022-assembly']['tube-out']
+    split,sc=ea.build_split(lambda station:(ap['pos'],ap['axis']))
+    ea.FLOWREG_TURN=(*turns[:-1],(turns[-1][0],angle))
+    def shifted(station):
+        p,a=sc(station);return ((p[0],p[1]+dy,p[2]),a)
+    reg,rc=ea.build_flowreg(shifted)
+    ea.SPLIT_COLUMN=base;ea.FLOWREG_TURN=turns
+    ss={**solids,'water-split':split,'flow-regulator':reg}
+    F=L.frames(ss,{'water-split':sc,'flow-regulator':rc})
+    R.BLOCKED.clear()
+    run=L._fluid_1(F); tube=R.tube(run)
+    p,axis=rc(ea._flowreg.inlet())
+    lead=C.cast(p,axis,6.35,17.175,{n:s for n,s in ss.items() if not n.startswith('tube-')},skip=('flow-regulator','water-split'))
+    near=[]
+    for part,subject,skip in [('fluid-1',tube,{'water-split','flow-regulator','tube-fluid-1'}),('water-split',split,{'water-split','tube-fluid-1','tube-water-2','tube-water-3'}),('flow-regulator',reg,{'flow-regulator','tube-fluid-1','tube-fluid-2'})]:
+        for name,body in ss.items():
+            if name in skip:continue
+            if C.box_gap(_boxes.loose(subject),_boxes.loose(body))>=2:continue
+            gap=C.gap(subject,body,2.)
+            if gap<2:near.append({'part':part,'neighbor':name,'mesh_gap':gap,'native_gap':subject.distance(body),'overlap':subject.intersect(body).Volume()})
+    row={'dx':dx,'reg_aft':dy,'angle':angle,'lead':lead,'neighbors':near,'min_radius':run.tightest,'blocked':dict(R.BLOCKED)}
+    rows.append(row); print(json.dumps(row),flush=True)
+(OUT/'regulator-options.json').write_text(json.dumps({'step_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'rows':rows},indent=2)+'\n')
