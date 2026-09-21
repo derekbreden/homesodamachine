@@ -1,0 +1,240 @@
+{
+  "part": "White LLDPE tube samples",
+  "samples": [
+    {
+      "nominal_od_in": 0.25,
+      "nominal_od_mm": 6.35
+    },
+    {
+      "nominal_od_in": 0.375,
+      "nominal_od_mm": 9.525
+    }
+  ],
+  "identity_authority": "Derek, September 20, 2026",
+  "surface": "Bare; no scanning spray, confirmed by Derek.",
+  "scanner": "Revopoint MINI 2",
+  "scanner_sn": "A26303035A6H01AB8",
+  "application": "Revo Scan 6.3.2",
+  "capture_date": "2026-09-20",
+  "capture_complete": true,
+  "analysis_complete": true,
+  "passes": [
+    {
+      "name": "pass-01-side-wall",
+      "frames": 600,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object_type": "Normal",
+      "color": false,
+      "depth_exposure": 1,
+      "table_tilt_degrees": 0.0,
+      "table_seconds_per_revolution": null,
+      "turntable_sync": true,
+      "fusion_point_spacing_mm": 0.1,
+      "processing": "Native fusion only; no smoothing, isolation, meshing, hole filling or scale adjustment.",
+      "native_source": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/7ce4c94b-0887-411f-a579-9cc71faa87f3",
+      "native_scan_name": "20260920215029",
+      "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-lldpe-tubes/pass-01-side-wall/native-project",
+      "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-lldpe-tubes/pass-01-side-wall/Fused 0920_1 (0.10mm).ply",
+      "sha256": "5f8c5f802d1f4274ca1f54d3594b06e1f4de749ee6c38dbe1eb28542a1462d6a",
+      "bytes": 11157206,
+      "point_count": 464875,
+      "native_files": [
+        {
+          "file": "20260920215029.revox",
+          "sha256": "62f3a152dfac4320893ba69f5640f95845ef6dd72b42becc2708ee3ccdc704ac",
+          "bytes": 5486
+        },
+        {
+          "file": "cache/frames.dataset",
+          "sha256": "152bc650e72526503f447147efc0fc9e3374f1e6d535ed4a3f88579e1a0805de",
+          "bytes": 101900288
+        },
+        {
+          "file": "cache/frames.dataset-shm",
+          "sha256": "5c90e89404d39b971e5d3f5bd0b49e409e92923b79eac311be5c93f8d0c920af",
+          "bytes": 98304
+        },
+        {
+          "file": "cache/frames.dataset-wal",
+          "sha256": "dff2bc1302d5746ea015bcaae18fe6a7e7af33f4fb189750d2918325b04c1b4e",
+          "bytes": 41368952
+        },
+        {
+          "file": "param/Distort.bin",
+          "sha256": "82a669590aeebcf38cdc518cb5d96276c8f299b0df25acef0cedc0ff65470a64",
+          "bytes": 20
+        },
+        {
+          "file": "param/LC_RT.bin",
+          "sha256": "a3bc97cc0651722ec6111a839c61e6a992ec6690372d4b659c7cc4d7710aaf57",
+          "bytes": 48
+        },
+        {
+          "file": "param/Pl.bin",
+          "sha256": "7dc563c2877c2c18845edc9db604b6ea55255937cce7fcb794b63739102ad2ec",
+          "bytes": 40
+        },
+        {
+          "file": "param/Prgb.bin",
+          "sha256": "76660936a4839906a7d6ac4e556f398ad9557633b4225d5e51c6a7f87f7765a4",
+          "bytes": 40
+        },
+        {
+          "file": "param/Q.bin",
+          "sha256": "f69ec85b02f31444d5d4f45f9990713fc6fbe3364e08b3b20394d2788b1251a4",
+          "bytes": 64
+        },
+        {
+          "file": "param/Stream.bin",
+          "sha256": "924957bce5b723501b167aaf6b4da0257c3c3be1b20c20d9e8b1becca3857aaa",
+          "bytes": 48
+        },
+        {
+          "file": "param/camparam.bin",
+          "sha256": "eb0733850a06f7095926f5d7031727cbf2606fdc25a0311c2e2c44e472727127",
+          "bytes": 2058
+        },
+        {
+          "file": "param/mapparamL.bin",
+          "sha256": "e974e11de242115ee3307c14c9a507d540eca9846774c5b1c0ebd15f6f0cc1eb",
+          "bytes": 148
+        },
+        {
+          "file": "param/mapparamR.bin",
+          "sha256": "7ac34e87fb96fa7e62a60e489d20c02814f13b5719e05293983f19446691710b",
+          "bytes": 148
+        },
+        {
+          "file": "pointclouds/Fused 0920_1 (0.10mm).ply",
+          "sha256": "5f8c5f802d1f4274ca1f54d3594b06e1f4de749ee6c38dbe1eb28542a1462d6a",
+          "bytes": 11157206
+        },
+        {
+          "file": "preview.png",
+          "sha256": "ade107fe6055b100cd5de1f627be066d924499889e1c9d09eb3dc24fdc553fce",
+          "bytes": 386106
+        },
+        {
+          "file": "raw_preview.ply",
+          "sha256": "6d5f1a4e6ee2ca880ba799bc2a9543cbbec2c3738e633c907c6ec6dfeefc899c",
+          "bytes": 843013
+        }
+      ],
+      "archived_at_utc": "2026-09-21T03:07:24.482892+00:00",
+      "rotation_setting_evidence": "The settings reopened after this pass showed 52 s/rev. The earlier 35 s/rev preview was canceled, so 35 is not a verified capture setting for this pass."
+    },
+    {
+      "name": "pass-02-ends-30deg",
+      "frames": 668,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object_type": "Normal",
+      "color": false,
+      "depth_exposure": 1,
+      "table_tilt_degrees": 30.0,
+      "table_seconds_per_revolution": 35.0,
+      "turntable_sync": true,
+      "fusion_point_spacing_mm": 0.1,
+      "processing": "Native fusion only; no smoothing, isolation, meshing, hole filling or scale adjustment.",
+      "native_source": "/Users/derekbredensteiner/Library/Application Support/Revopoint/RevoScan6/Projects/8ec58231-9a77-4a54-9c90-9083030666ea",
+      "native_scan_name": "LLDPE-ends-30deg-20260920",
+      "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-lldpe-tubes/pass-02-ends-30deg/native-project",
+      "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-lldpe-tubes/pass-02-ends-30deg/Fused 0920_1 (0.10mm).ply",
+      "sha256": "8ba10c2cc6d9ad7b2d180bee95a531d33d7d0287791fae84beb0e94a015e1a79",
+      "bytes": 8593886,
+      "point_count": 358070,
+      "native_files": [
+        {
+          "file": "LLDPE-ends-30deg-20260920.revox",
+          "sha256": "10f3114591abd776131e3de9894db3f47db1f328d10be2a2b31b682292f8a7df",
+          "bytes": 5485
+        },
+        {
+          "file": "cache/frames.dataset",
+          "sha256": "7d29a2ad4ee77020923863a420bcc594f6a9f1f1fa4742cec3715753290d0845",
+          "bytes": 94871552
+        },
+        {
+          "file": "cache/frames.dataset-shm",
+          "sha256": "f34cca681be6e4f92a6524fb5d3800f9d1066f10888c7a7eaf0d84a679f68f3d",
+          "bytes": 98304
+        },
+        {
+          "file": "cache/frames.dataset-wal",
+          "sha256": "6bfee16f646887bc83352ed6a2cbbf9fac25ee86c5729f96a7d7e2027bb57efe",
+          "bytes": 41335992
+        },
+        {
+          "file": "param/Distort.bin",
+          "sha256": "82a669590aeebcf38cdc518cb5d96276c8f299b0df25acef0cedc0ff65470a64",
+          "bytes": 20
+        },
+        {
+          "file": "param/LC_RT.bin",
+          "sha256": "a3bc97cc0651722ec6111a839c61e6a992ec6690372d4b659c7cc4d7710aaf57",
+          "bytes": 48
+        },
+        {
+          "file": "param/Pl.bin",
+          "sha256": "7dc563c2877c2c18845edc9db604b6ea55255937cce7fcb794b63739102ad2ec",
+          "bytes": 40
+        },
+        {
+          "file": "param/Prgb.bin",
+          "sha256": "76660936a4839906a7d6ac4e556f398ad9557633b4225d5e51c6a7f87f7765a4",
+          "bytes": 40
+        },
+        {
+          "file": "param/Q.bin",
+          "sha256": "f69ec85b02f31444d5d4f45f9990713fc6fbe3364e08b3b20394d2788b1251a4",
+          "bytes": 64
+        },
+        {
+          "file": "param/Stream.bin",
+          "sha256": "924957bce5b723501b167aaf6b4da0257c3c3be1b20c20d9e8b1becca3857aaa",
+          "bytes": 48
+        },
+        {
+          "file": "param/camparam.bin",
+          "sha256": "eb0733850a06f7095926f5d7031727cbf2606fdc25a0311c2e2c44e472727127",
+          "bytes": 2058
+        },
+        {
+          "file": "param/mapparamL.bin",
+          "sha256": "e974e11de242115ee3307c14c9a507d540eca9846774c5b1c0ebd15f6f0cc1eb",
+          "bytes": 148
+        },
+        {
+          "file": "param/mapparamR.bin",
+          "sha256": "7ac34e87fb96fa7e62a60e489d20c02814f13b5719e05293983f19446691710b",
+          "bytes": 148
+        },
+        {
+          "file": "pointclouds/Fused 0920_1 (0.10mm).ply",
+          "sha256": "8ba10c2cc6d9ad7b2d180bee95a531d33d7d0287791fae84beb0e94a015e1a79",
+          "bytes": 8593886
+        },
+        {
+          "file": "preview.png",
+          "sha256": "b1d7b8abbab1bdaa70f1f7f9f1e0f6234e2a14d1828c1e55b50eb0d2124ff1ad",
+          "bytes": 348034
+        },
+        {
+          "file": "raw_preview.ply",
+          "sha256": "6d49c852257881863f499ebe3d5221ec316383ab30da8511f615e16b62c2ffeb",
+          "bytes": 1180477
+        }
+      ],
+      "archived_at_utc": "2026-09-21T03:22:24.044966+00:00"
+    }
+  ],
+  "notes": [
+    "Native optical observations are retained at scale 1.0; nominal tube sizes are identity labels, not a rescaling target.",
+    "Putty and turntable markers remain in the raw archive and must be excluded from tube measurement.",
+    "The first pass captured side walls at 0 degrees after closing the turntable settings reverted the preview tilt; tube ends were outside part of the camera view. The separate end-view pass is required for the requested end geometry."
+  ],
+  "analysis_scope": "Local optical outer barrel and shallow bore fits from the native end-view pass; no dimensional accuracy or manufacturing tolerance qualification.",
+  "analysis_record": "hardware/reference/lldpe-tubes/scan-measurements.json",
+  "analysis_record_sha256": "79218f33315e85c6054bc245ab359bc91f97a5cce480e5f307164f36d9f18171"
+}
