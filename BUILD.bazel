@@ -4283,7 +4283,6 @@ genrule(
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "pysrc/hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
         ":out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
@@ -20001,6 +20000,17 @@ sh_test(
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/reference/iec-c14-inlet/iec_c14_inlet.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
+    name = "register-scan-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/reference/kamoer-kphm400/register_scan.py",
+    ],
+    args = ["hardware/reference/kamoer-kphm400/register_scan.py"],
     size = "large",
     tags = ["local"],
 )
