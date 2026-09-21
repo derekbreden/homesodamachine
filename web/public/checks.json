@@ -17,7 +17,7 @@
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "note": "PASS seat:plate-gasket",
       "status": "red"
     },
     {
@@ -57,17 +57,17 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "64/64 artifacts have their record in the index",
+      "note": "65/65 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2565 tracked, 538 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2586 tracked, 539 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 338, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 337, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,33 +87,27 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 228 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 229 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 32 of 147 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 536 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 39 of 200 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 536 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 111",
+      "lock-taking scripts scanned: 112",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 413ad6aa10c57eca3a29abe593e9e4c2 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 01882dd0331c261597c39576149ac967 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_faucet_geometry.py": [
-      "PASS fixture:complete-display-fit-trial",
-      "PASS fixture:production-print-orientations",
-      "PASS solid:display_trial_housing",
-      "PASS mesh:display_trial_housing",
-      "PASS motion:lever",
-      "PASS position:signal-southwest",
       "PASS solid:display-ribbon-envelope",
       "PASS clearance:signal-shell_base",
       "PASS clearance:signal-shell_tip",
@@ -132,7 +126,13 @@
       "PASS fit:signal-lane-section",
       "PASS wall:neck-signal-lane",
       "PASS seat:plate-gasket",
-      "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
+      "Traceback (most recent call last):",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2161, in <module>",
+      "    sys.exit(main())",
+      "             ~~~~^^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2111, in main",
+      "    raise RuntimeError(\"a faucet source changed during the reading; rerun after its build settles\")",
+      "RuntimeError: a faucet source changed during the reading; rerun after its build settles"
     ],
     "hardware/scripts/check_finishes.py": [
       "web/public/finishes.json is not the table this tree states.",
@@ -193,8 +193,9 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "tools/check_web_tests.py": [
-      "5 test(s) in web/ fail:",
+      "6 test(s) in web/ fail:",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
+      "    a part's STEP consumers include the assembly that only _loads it (regression)",
       "    build order puts a producer before the scripts that load its STEP",
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
