@@ -1,0 +1,35 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "2e57cae3a9eed67fc85469b00820581860754216f22158c2f1bb671e5ec6798c",
+  "gcode_sha256": "2052371f8412b76c3057eb160866dc6899a8f6c5c847a51640d05aebfb4bc0b5",
+  "support_audit_sha256": "157b4f58e16b440f9253704526afb096aa4c82ace6b99f273d3eb55fd3e08f7f",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "parts": [
+    {
+      "name": "foam-cap-top",
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "model_overhangs_review": "This exact final Mark2 +Z/floor-down top-cup slice contains no support bodies or interface islands. The 14.6 mm cup walls, attachment/conduit columns and four G Ganen mount columns rise from the bedded floor. The cup mouth and insert bores face upward; screw/conduit bores pass vertically through the floor. There is no enclosed supported cavity to clean. The flat lid-bearing rim/column tops, complete floor and bores retain their exported profiles. Zero support is the new slice measurement, not a physical warping, insert-fit or strength claim.",
+      "trees": [],
+      "interfaces": []
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 09:41:08.702521] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:41:11.146668] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:41:11.146692] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The only three diagnostics name inherited profile commands: startup hotend-type detection T1001 and end-code control/unload T65535/T65279. These are recorded parser messages for those authored machine-code blocks. The native slice returned0, has no plate warning and retains the verified intended filament/nozzle mapping; it emits no separate geometry diagnostic.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "review_scope": "The exact final Mark2 top-cap archive only. Raw zero-support readings and null build-up fields are retained; no H2C alternative approval is inherited. Physical fit and cleanup remain unmeasured."
+}

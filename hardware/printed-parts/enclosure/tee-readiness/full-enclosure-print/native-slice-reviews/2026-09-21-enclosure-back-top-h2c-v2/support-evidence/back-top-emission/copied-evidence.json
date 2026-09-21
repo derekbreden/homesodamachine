@@ -1,0 +1,45 @@
+{
+  "status": "all_copies_byte_identical",
+  "copies": [
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/emission-presence.json",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/emission-presence.json",
+      "sha256": "acdd608ec8aff358a1476e60373c2c06baf10cdef663b3336cd0034e51f0eaef"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/printable-width-review.json",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/printable-width-review.json",
+      "sha256": "91de07e2e80a731a097ec0756200bd864b34ff0220827bef4853c5f165baf08b"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/verify_emission.py",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/verify_emission.py",
+      "sha256": "57341a2e0f75559736aa62a596e707fb854cf86345e702aa792562e30660995a"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/qualify_printable_sections.py",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/qualify_printable_sections.py",
+      "sha256": "8beba48129755964de90848bc5b8b102ed9a4ff0fc85fa2bcbef6f440a388f24"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/assess_diagnostic.py",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/assess_diagnostic.py",
+      "sha256": "dccce6a272d57f1bc745ec01bf20f3232209f02b9997b0cfefa4105d4c69d5e8"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/findings.png",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/findings.png",
+      "sha256": "39ca3006fc40b55737a7b5962163d086b5ae9d065b1dba51d98f210518f39055"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/plot_findings.py",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/plot_findings.py",
+      "sha256": "73a76236f3a5e88fc47d0659154f358d2d53037aec580fcf8fa3c9c7f01f08a8"
+    },
+    {
+      "original_path": "/tmp/scanner-review/support-review/back-top-emission/diagnostic-assessment.json",
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-evidence/back-top-emission/diagnostic-assessment.json",
+      "sha256": "e3652d8a9736f2d739510f12a233399e8d60ca978f341d9a901b71b8928f1da8"
+    }
+  ]
+}

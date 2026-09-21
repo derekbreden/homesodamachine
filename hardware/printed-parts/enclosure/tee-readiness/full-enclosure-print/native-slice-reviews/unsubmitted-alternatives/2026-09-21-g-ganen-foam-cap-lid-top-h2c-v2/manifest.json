@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "status": "native_slice_verified_offline_review_not_completed",
+  "job": "foam-cap-lid-top",
+  "printer": "H2C",
+  "queue_role": "unsubmitted_alternative",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/ready/g-ganen-foam-cap-lid-top-black-z018-h2c-v2.gcode.3mf",
+    "sha256": "b1232aa6c331dc8b8252146bb9d337b0477e92c6691258bca7e9493ea9ed5e2c"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "21349bafb33a3473ffd9f41c5a3dff2cdec82b6a206325de3be631a8aff687f3",
+  "geometry_receipt_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "files": {
+    "native-handoff.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/native-handoff.json",
+      "sha256": "fb31b0548c5fb7d1df18d8baa0097ceff309aab9196721aa98541c69769b5684",
+      "bytes": 4389
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/readiness.json",
+      "sha256": "8b5d2e98e40bd1de7771edbc46a9002ed1a096a45691a526ccb5315fe71037db",
+      "bytes": 7653
+    },
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/job-config.json",
+      "sha256": "3ab0a815445f32954fed228fc0d18477a6486f1c9e3e3593f0a7683b22e3c7ad",
+      "bytes": 1087
+    },
+    "g-ganen-foam-cap-lid-top-black-z018-h2c-v2-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/g-ganen-foam-cap-lid-top-black-z018-h2c-v2-input.support-audit.json",
+      "sha256": "6862812c48ef4294dfd255ea51d4eca8d11496909cf79ceefef88c3510dffe23",
+      "bytes": 11796
+    }
+  },
+  "submitted": false,
+  "print_released": false,
+  "offline_ready": false,
+  "additional_required_print": false,
+  "scope": "Preserved native H2C alternative only. Fresh support approval is performed on the selected Mark2 archive; this H2C archive has no offline support approval and is not eligible for handoff."
+}

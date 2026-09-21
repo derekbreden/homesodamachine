@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+"""Read current qualified mount exports; create only the missing top-lid mesh.
+
+No production generator, native STEP, canonical cap STL or printer is modified.
+The generated lid is one native STEP triangulation at the project print tolerance.
+Actual native slice supports and removal effort remain separate readings.
+"""
+from datetime import datetime,timezone
+from pathlib import Path
+import hashlib,json,os,sys,time
+ROOT=next(p for p in Path(__file__).resolve().parents if (p/'hardware/printed-parts/petgf.3mf').is_file())
+HERE=Path(__file__).resolve().parent
+SOURCE=ROOT/'hardware/printed-parts/cold-core/foam-cap'
+RECEIPT=Path('/tmp/scanner-review/integration-correction/generation/foam_cap.generation.json')
+MANIFEST=HERE/'print-inputs.json'
+LID=HERE/'foam-cap-lid-top.stl'
+if MANIFEST.exists() or LID.exists():raise SystemExit('Preserve existing inputs; use a newly named directory for any repeat')
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return h.hexdigest()
+def label(p):
+ p=Path(p).resolve();return str(p.relative_to(ROOT)) if p.is_relative_to(ROOT) else str(p)
+record=json.loads(RECEIPT.read_text())
+if record['producer']!='hardware/printed-parts/cold-core/foam-cap/foam_cap.py' or record['raised'] or record['loaded_source_drift']:
+ raise ValueError('Cold-core cap producer is not a completed stable run')
+loaded=record['loaded_source_sha256']
+for name,value in loaded.items():
+ if sha(ROOT/name)!=value:raise ValueError('Cold-core cap source changed: '+name)
+NAMES=('foam-cap-top.step','foam-cap-top.stl','foam-cap-lid-top.step')
+inputs={label(SOURCE/name):record['output_sha256'][label(SOURCE/name)] for name in NAMES}
+for name,value in inputs.items():
+ if sha(ROOT/name)!=value:raise ValueError('Qualified cold-core native input changed: '+name)
+script_hash=sha(__file__);receipt_hash=sha(RECEIPT)
+os.environ['HSM_NO_BUILD_LOCK']='1'
+sys.path[:0]=[str(ROOT/'hardware/printed-parts/cadlib'),str(ROOT/'hardware/printed-parts/cold-core')]
+import cadquery as cq
+import trimesh
+from print_mesh import write_print_stl,print_mesh_tol,print_mesh_angle
+from flute_skin import non_manifold_edges
+import _cold_core_interface as ci
+import _foam_cap as fc
+started=time.monotonic();parts={};shapes={}
+for stem in ('foam-cap-top','foam-cap-lid-top'):
+ step=SOURCE/(stem+'.step');stl=SOURCE/(stem+'.stl') if stem=='foam-cap-top' else LID
+ shape=cq.importers.importStep(str(step)).val();shapes[stem]=shape
+ if not shape.isValid() or len(shape.Solids())!=1:raise ValueError(stem+' is not one valid native solid')
+ if stem=='foam-cap-lid-top':write_print_stl(shape,stl)
+ mesh=trimesh.load_mesh(stl)
+ if not(mesh.is_watertight and mesh.is_winding_consistent and mesh.body_count==1 and mesh.volume>0 and non_manifold_edges(mesh)==0):
+  raise ValueError(stem+' mesh is not one closed oriented positive volume')
+ b=shape.BoundingBox();bounds=[[b.xmin,b.ymin,b.zmin],[b.xmax,b.ymax,b.zmax]]
+ error=max(abs(mesh.bounds[i][j]-bounds[i][j]) for i in range(2) for j in range(3))
+ if error>.001:raise ValueError(stem+' mesh/native bounds differ by '+str(error))
+ faces=[]
+ for f in shape.Faces():
+  if f.geomType()=='PLANE' and f.normalAt().z<-.999:
+   bb=f.BoundingBox();faces.append({'area_mm2':f.Area(),'centre_mm':f.Center().toTuple(),
+    'bounds_mm':[bb.xmin,bb.ymin,bb.zmin,bb.xmax,bb.ymax,bb.zmax],'bed_face':abs(bb.zmax)<1e-5})
+ if abs(b.zmin)>1e-5 or not any(f['bed_face'] for f in faces):raise ValueError(stem+' lacks declared native Z0 bed face')
+ parts[stem]={'native_source':label(step),'native_source_sha256':sha(step),'stl':label(stl),'stl_sha256':sha(stl),
+  'native_valid':True,'native_solids':1,'native_bounds_mm':bounds,'mesh_bounds_mm':mesh.bounds.tolist(),
+  'mesh_native_max_bound_error_mm':error,'native_volume_mm3':shape.Volume(),'mesh_volume_mm3':mesh.volume,
+  'triangles':len(mesh.faces),'watertight':True,'winding_consistent':True,'connected_bodies':1,'non_manifold_edges':0,
+  'downward_planar_faces':faces,'source':'Exact canonical fluted STL' if stem=='foam-cap-top' else 'Exact canonical STEP triangulated by project print_mesh.write_print_stl',
+  'print_orientation':{'native_up':[0,0,1],'rotation_deg':[0,0,0],'z_translation_mm':0,
+   'bed_face':'Broad native Z=0 underside','placement':'One part centered at X162.5/Y160 on the left-nozzle 325x320 mm area; inspect actual support and automatic brim bounds.'}}
+ print(stem,len(mesh.faces),'triangles',sha(stl),flush=True)
+lid=shapes['foam-cap-lid-top'];face=fc.lid_total_height;lanes=[]
+for name,a in ci.cap_anchors.items():
+ cx,cy=a.centre;reach=a.seat_r+ci.cap_anchor_wall
+ mouth=cq.Solid.makeBox(ci.cap_anchor_cav_w-.02,2*reach+6,ci.cap_anchor_wall-.02,
+  cq.Vector(cx-ci.cap_anchor_cav_w/2+.01,cy-reach-3,face+.01))
+ hit=mouth.intersect(lid).Volume()
+ lanes.append({'name':name,'axis':'native Y, either open end','centre_xy_mm':[cx,cy],
+  'width_mm':ci.cap_anchor_cav_w,'internal_height_mm':ci.cap_anchor_wall+ci.fits.supported_surface,
+  'mouth_height_mm':ci.cap_anchor_wall,'floor_lip_mm':ci.fits.supported_surface,
+  'mouth_probe_overlap_mm3':hit,'passed':hit<1e-5,
+  'removal':'Detach support, lift above the 0.25 mm floor lip and withdraw through an open Y mouth before fittings/ties.'})
+for name,a in ci.cap_side_anchors.items():
+ cx,cy=a.centre;roof=face+ci.cap_side_tunnel_roof(name)
+ floor=roof-ci.cap_side_tunnel_h(name)-ci.fits.supported_surface
+ mouth_floor=max(face,floor);height=roof-mouth_floor
+ mouth=cq.Solid.makeBox(a.depth+6,ci.cap_side_cav_w-.02,height-.02,
+  cq.Vector(cx-a.depth-3,cy-ci.cap_side_cav_w/2+.01,mouth_floor+.01))
+ hit=mouth.intersect(lid).Volume()
+ lanes.append({'name':name,'axis':'native X, front or rear mouth','centre_xy_mm':[cx,cy],
+  'width_mm':ci.cap_side_cav_w,'internal_height_mm':roof-floor,'mouth_height_mm':height,
+  'floor_lip_mm':max(0.,face-floor),'mouth_probe_overlap_mm3':hit,'passed':hit<1e-5,
+  'removal':'Detach support and withdraw through an X mouth before tubing/ties/pump, clearing the recorded floor lip.'})
+if not all(r['passed'] for r in lanes):raise ValueError('A native support mouth is obstructed')
+for name,value in {**loaded,**inputs}.items():
+ if sha(ROOT/name)!=value:raise ValueError('Source/input changed during triangulation: '+name)
+if sha(RECEIPT)!=receipt_hash or sha(__file__)!=script_hash:raise ValueError('Producer record or reproducer changed')
+result={'created_at_utc':datetime.now(timezone.utc).isoformat(),'status':'mesh-inputs-and-native-mouths-pass',
+ 'purpose':'Matching full production G Ganen installation cap/lid; no coupon or printer submission.',
+ 'production_artifacts_modified':False,'source_sha256':inputs,
+ 'producer_receipt':str(RECEIPT),'producer_receipt_sha256':receipt_hash,'producer_loaded_source_sha256':loaded,
+ 'mesh_convention':{'absolute_deflection_mm':print_mesh_tol,'angular_deflection_rad':print_mesh_angle,
+  'note':'Only the lid is triangulated here. The cap keeps its canonical fluted STL.'},
+ 'tool_sha256':{label(ROOT/'hardware/printed-parts/cadlib/print_mesh.py'):sha(ROOT/'hardware/printed-parts/cadlib/print_mesh.py'),
+  label(Path(ci.__file__)):sha(ci.__file__),label(Path(fc.__file__)):sha(fc.__file__),label(__file__):script_hash},
+ 'parts':parts,'native_support_mouths':lanes,'actual_slice_reviewed':False,'physical_cleanup_tested':False,
+ 'production_print_released':False,'elapsed_seconds':time.monotonic()-started,
+ 'remaining':['Stage exact inputs using the current saved PET-GF auto_brim profile.','Inspect each actual connected support and interface plus its removal lane before hardware.','Check native toolpaths, nozzle/material mapping and final release.']}
+write=lambda p,d:p.write_text(json.dumps(d,indent=2)+'\n')
+write(MANIFEST,result)
+print(json.dumps({'manifest':label(MANIFEST),'manifest_sha256':sha(MANIFEST),'native_mouths':lanes,'seconds':result['elapsed_seconds']},indent=2),flush=True)

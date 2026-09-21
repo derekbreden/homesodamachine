@@ -1,0 +1,337 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+  "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb",
+  "support_audit_sha256": "ff86201dd9b863d829d9278af08f32620ae30e080263e9c7f691b1da4cfdde21",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "parts": [
+    {
+      "name": "enclosure-front-bottom",
+      "support_summary": {
+        "support_bodies": 4,
+        "interface_islands": 4,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": 7.92,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 4,
+        "shortest_labelled_build_up_mm": 7.92
+      },
+      "model_overhangs_review": "Four actual support bodies and four labeled interfaces: two downward-open handhold lifting ceilings and two fully exposed Z-seam catch undersides. The square lifting/bearing surfaces are retained. No support reaches the condenser seat, core corner stops or printed collet-plate feet in this slice. Clean the loose shell before any equipment or top shell is fitted; physical effort remains unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.28,
+            "shortest_build_up_mm": 34.08,
+            "top_z_mm": 35.72,
+            "bbox_xy_mm": [
+              57.2,
+              228.0,
+              68.4,
+              264.0
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -105.3,
+              176.775,
+              -5.8,
+              -94.1,
+              212.775,
+              29.72
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -105.3,
+              176.775,
+              -5.8,
+              -94.1,
+              212.775,
+              29.72
+            ]
+          },
+          "contact_region": "West handhold lifting-ceiling tree, bed rooted, contacting its one labeled underside island.",
+          "removal_lane": "Detach from the lifting ceiling and pull down through the same fully downward-open handhold/finger aperture. Both end walls stop the pocket along Y, while its complete bottom remains open; no installed hardware is present.",
+          "removal_direction_original_cad": "\u2212Z through the open bottom of the handhold.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The broad flat handhold ceiling is the lifting surface and retains its full roof and backing stock.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "model",
+            "base_z_mm": 166.52,
+            "first_interface_z_mm": 174.44,
+            "shortest_build_up_mm": 7.92,
+            "top_z_mm": 174.68,
+            "bbox_xy_mm": [
+              59.2,
+              146.0,
+              63.6,
+              241.6
+            ],
+            "interfaces": [
+              "interface-3"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -103.3,
+              94.775,
+              160.52,
+              -98.9,
+              190.375,
+              168.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.3,
+              94.775,
+              160.52,
+              -98.9,
+              190.375,
+              168.68
+            ]
+          },
+          "contact_region": "West Z-seam catch ribbon, model rooted in the exposed groove and reaching the one catch-underside interface.",
+          "removal_lane": "Peel the narrow ribbon from the catch underside toward the exterior flank. The entire groove is exposed above the lower shell mouth, with no top shell or hardware over it; the run has no returning pocket branch.",
+          "removal_direction_original_cad": "\u2212X outboard through the exposed west groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The catch underside bears against the top shell foot along the complete rail; retain its flat square working face.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.28,
+            "shortest_build_up_mm": 34.08,
+            "top_z_mm": 35.72,
+            "bbox_xy_mm": [
+              256.0,
+              228.0,
+              267.6,
+              264.8
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              93.5,
+              176.775,
+              -5.8,
+              105.1,
+              213.575,
+              29.72
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.5,
+              176.775,
+              -5.8,
+              105.1,
+              213.575,
+              29.72
+            ]
+          },
+          "contact_region": "East handhold lifting-ceiling tree, bed rooted, contacting its one labeled underside island.",
+          "removal_lane": "Detach from the lifting ceiling and pull down through the same fully downward-open handhold/finger aperture. Both end walls stop the pocket along Y, while its complete bottom remains open; no installed hardware is present.",
+          "removal_direction_original_cad": "\u2212Z through the open bottom of the handhold.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The broad flat handhold ceiling is the lifting surface and retains its full roof and backing stock.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "model",
+            "base_z_mm": 166.52,
+            "first_interface_z_mm": 174.44,
+            "shortest_build_up_mm": 7.92,
+            "top_z_mm": 174.68,
+            "bbox_xy_mm": [
+              261.2,
+              145.6,
+              266.0,
+              241.6
+            ],
+            "interfaces": [
+              "interface-4"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              98.7,
+              94.375,
+              160.52,
+              103.5,
+              190.375,
+              168.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.7,
+              94.375,
+              160.52,
+              103.5,
+              190.375,
+              168.68
+            ]
+          },
+          "contact_region": "East Z-seam catch ribbon, model rooted in the exposed groove and reaching the one catch-underside interface.",
+          "removal_lane": "Peel the narrow ribbon from the catch underside toward the exterior flank. The entire groove is exposed above the lower shell mouth, with no top shell or hardware over it; the run has no returning pocket branch.",
+          "removal_direction_original_cad": "+X outboard through the exposed east groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The catch underside bears against the top shell foot along the complete rail; retain its flat square working face.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 34.28,
+            "last_z_mm": 34.76,
+            "bbox_xy_mm": [
+              57.6,
+              228.4,
+              68.4,
+              264.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 34.08,
+            "bbox_cad_xyz_mm": [
+              -104.9,
+              177.175,
+              28.28,
+              -94.1,
+              212.775,
+              28.76
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -104.9,
+              177.175,
+              28.28,
+              -94.1,
+              212.775,
+              28.76
+            ]
+          },
+          "contact_region": "West handhold lifting ceiling, flat face at Z29.25 over the downward-open finger pocket near Y174..214.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 34.28,
+            "last_z_mm": 34.76,
+            "bbox_xy_mm": [
+              256.0,
+              228.4,
+              267.2,
+              264.8
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 34.08,
+            "bbox_cad_xyz_mm": [
+              93.5,
+              177.175,
+              28.28,
+              104.7,
+              213.575,
+              28.76
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.5,
+              177.175,
+              28.28,
+              104.7,
+              213.575,
+              28.76
+            ]
+          },
+          "contact_region": "East handhold lifting ceiling, flat face at Z29.25 over the downward-open finger pocket near Y174..214.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 174.44,
+            "last_z_mm": 174.68,
+            "bbox_xy_mm": [
+              59.2,
+              146.0,
+              63.6,
+              241.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 7.92,
+            "bbox_cad_xyz_mm": [
+              -103.3,
+              94.775,
+              168.44,
+              -98.9,
+              190.375,
+              168.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.3,
+              94.775,
+              168.44,
+              -98.9,
+              190.375,
+              168.68
+            ]
+          },
+          "contact_region": "West full-length front Z-seam catch underside at Z169.20, over its flank groove near Y94..190.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 174.44,
+            "last_z_mm": 174.68,
+            "bbox_xy_mm": [
+              261.2,
+              145.6,
+              266.0,
+              241.6
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 7.92,
+            "bbox_cad_xyz_mm": [
+              98.7,
+              94.375,
+              168.44,
+              103.5,
+              190.375,
+              168.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.7,
+              94.375,
+              168.44,
+              103.5,
+              190.375,
+              168.68
+            ]
+          },
+          "contact_region": "East full-length front Z-seam catch underside at Z169.20, over its flank groove near Y94..190.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 09:14:48.273886] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:14:55.148362] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:14:55.148479] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "All three messages name the saved profile commands T1001 (startup hotend-type detection), T65535 and T65279 (end-code control/unload blocks). The exact inherited profile contains these tokens; native slicing returns0 with an empty plate warning and the verified intended filament/nozzle mapping. They are recorded parser diagnostics for the authored machine-code blocks, not evidence of missing support/model paths.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "review_scope": "This exact new front-bottom archive only. All four measured tree and interface rows are retained unchanged, including bed/model roots and build-ups."
+}

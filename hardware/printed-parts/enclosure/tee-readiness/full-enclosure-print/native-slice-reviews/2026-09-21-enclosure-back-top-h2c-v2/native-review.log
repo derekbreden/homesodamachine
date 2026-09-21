@@ -1,0 +1,39 @@
+Reading supports: enclosure-back-top
+  enclosure-back-top: {'support_bodies': 11, 'interface_islands': None, 'bed_rooted_bodies': 2, 'model_rooted_bodies': 9, 'shortest_build_up_mm': None, 'bodies_without_interface_labels': 1, 'explicit_interface_islands': 38, 'shortest_labelled_build_up_mm': 1.68}
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+  "layers": 813,
+  "estimated_seconds": 100238.8671875,
+  "estimated_grams_saved_profile_density": 867.9348754882812,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-back-top",
+        "side_margins_mm": [
+          38.854,
+          4.718,
+          54.89999999999998,
+          20.366999999999962
+        ],
+        "minimum_margin_mm": 4.718
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 4.718,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

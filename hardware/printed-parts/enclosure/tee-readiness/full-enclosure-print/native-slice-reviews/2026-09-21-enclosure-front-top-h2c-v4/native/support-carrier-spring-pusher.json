@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "piece": "carrier-spring-pusher",
+  "inputs": {
+    "gcode": "support-labels-carrier-spring-pusher.gcode",
+    "gcode_sha256": "3a5f797c716cc3118748539a7e33f853f88eb69b64c332bf570fb7b3322accbf",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/carrier-spring-pusher.stl",
+    "model_sha256": "5e99b1d0a06c2297ac895029b86d78c3c8a35f26976ab8f3dd896c0dade0c4c3",
+    "profile": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.3mf",
+    "profile_sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb",
+    "native_plate_gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+    "object_label": 1902,
+    "object_scope": "Native per-object labels",
+    "original_stl": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+    "original_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+    "pretransform_rotation_matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "feature_filter": "Other-object feature labels masked in analysis copy; every movement retained."
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -299.925078511,
+      -157.375,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -299.925079,
+      -157.375,
+      0.0
+    ],
+    "plate_to_original_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -299.925078511,
+      -157.375,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "toolpaths": {
+    "extrusion_bounds_xy_mm": [
+      [
+        289.825,
+        154.13
+      ],
+      [
+        303.174,
+        160.623
+      ]
+    ],
+    "segments": 1399,
+    "features": {
+      "Inner wall": 281,
+      "Outer wall": 334,
+      "Bottom surface": 47,
+      "Internal solid infill": 698,
+      "Top surface": 24,
+      "Gap infill": 15
+    },
+    "maximum_line_width_mm": 0.541744,
+    "arc_sampling_allowance_mm": 0.1,
+    "method": "Native non-custom layer extrusions, buffered by each emitted half-width plus arc allowance."
+  }
+}

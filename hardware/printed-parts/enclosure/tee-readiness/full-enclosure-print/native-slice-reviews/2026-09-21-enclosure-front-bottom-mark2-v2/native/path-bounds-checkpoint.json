@@ -1,0 +1,28 @@
+{
+  "1901": {
+    "low": [
+      54.9,
+      56.125
+    ],
+    "high": [
+      270.1,
+      265.38300000000004
+    ],
+    "segments": 2494984,
+    "maximum_width": 0.677234,
+    "features": {
+      "Support": 104858,
+      "Inner wall": 914548,
+      "Outer wall": 961780,
+      "Gap infill": 37767,
+      "Bottom surface": 1277,
+      "Internal solid infill": 64600,
+      "Sparse infill": 365807,
+      "Floating vertical shell": 18358,
+      "Bridge": 17378,
+      "Top surface": 6919,
+      "Support interface": 1220,
+      "Overhang wall": 472
+    }
+  }
+}

@@ -6,44 +6,74 @@ H2C is printing the complete Kamoer cartridge and raised open cap. Mark2 is prin
 countertop under the **Tube miter box** task. No additional coupons or scans are required
 before this full assembly trial.
 
-**The complete current assembly passes all active native gates.** Its scorecard has
-105 checks: 104 pass and one inactive physical gas-fit goal remains a warning. There are
-zero clashes or unanswered overlaps, 67/67 clear port leads, and no pair below the required
-clearance. The carrier passes 638 native solid/sweep checks. The actual canonical 2 mm
-pusher separately passes 38 checks and 19 continuous sweeps against matching current inputs.
+**Current geometry is qualified and the exact print receipt is accepted.** The assembly
+scorecard has 105 checks: 104 pass and one inactive physical gas-fit goal warning. There
+are zero clashes or unanswered overlaps, 67/67 clear port leads, and no pair below its
+required clearance. The carrier passes 638 native solid/sweep checks. The canonical 2 mm
+pusher separately passes 38 checks and 19 continuous sweeps against matching inputs.
 
-The verified assembly STEP SHA-256 is
+The assembly STEP SHA-256 is
 `0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67`.
-The [readiness record](print-readiness.json) binds the scorecard, Box, sources and focused
-pusher evidence. The seven fresh workflows still need the exact print receipt, staging,
-native slicing and support reviews; none is submitted. The
-[queue](tee-readiness/full-enclosure-print/queue.json) tracks those stages separately.
+The [accepted receipt](tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json), SHA-256
+`42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4`, binds current sources, native solids, print meshes,
+profile and supporting proofs. The [readiness record](print-readiness.json) and
+[queue](tee-readiness/full-enclosure-print/queue.json) track the exact slice/review stages.
 
-## Complete parts and printer plan
+**7/7 native slices and 7/7 offline reviews are complete.** None of these
+seven jobs is submitted. Full-enclosure printing is already authorized; an offline-ready
+job awaits machine availability, removal of that machine’s latest print, adequate
+filament and the normal verified handoff. `print_released=false` and `submitted=false`
+record execution, not a request for another approval.
 
-| Plate | Assigned printer | Print orientation | Current state |
-| --- | --- | --- | --- |
-| Front-top and one 2 mm spring pusher | H2C | Shell +Z up, Z90; pusher flat | Awaiting final receipt and fresh slice review |
-| Front-bottom | Mark2 | +Z up | Awaiting final receipt and fresh slice review |
-| Back-bottom | Mark2 | +Z up | Awaiting final receipt and fresh slice review |
-| Back-top | H2C | X180, ceiling down | Awaiting final receipt and fresh slice review |
-| Complete left and right carrier halves | Mark2 | +Z up, Z90 | Awaiting final receipt and fresh slice review |
-| G Ganen foam-cap-top | H2C | +Z up, flat underside on bed | Awaiting final receipt and fresh slice review |
-| Matching foam-cap-lid-top | H2C | +Z up, flat underside on bed | Awaiting final receipt and fresh slice review |
+## Complete parts and printer queue
+
+| Plate | Printer | Native time estimate | PET-GF at 1.43 g/cm³ (g) | Current state |
+| --- | --- | ---: | ---: | --- |
+| Front-top and one 2 mm pusher | H2C | 24 h 18 min | 903.02 | Offline ready; not submitted |
+| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Offline ready; not submitted |
+| Back-bottom | Mark2 | 17 h 59 min | 709.45 | Offline ready; not submitted |
+| Back-top | H2C | 27 h 51 min | 962.13 | Offline ready; not submitted |
+| Complete carrier pair | Mark2 | 3 h 43 min | 112.86 | Offline ready; not submitted |
+| G Ganen foam-cap-top | Mark2 | 5 h 10 min | 182.62 | Offline ready; not submitted |
+| Matching foam-cap-lid-top | Mark2 | 4 h 28 min | 202.90 | Offline ready; not submitted |
+
+H2C order: **front-top + pusher → back-top** after the current cartridge/cap.
+Mark2 order: **front-bottom → back-bottom → carrier pair** after Tube miter box releases
+the machine. These are serial queues on each printer; the two printers can work in parallel.
+
+Both G Ganen mounting plates are assigned to **Mark2**, after the bottoms and carrier.
+Their H2C variants are preserved as unsubmitted alternatives, not additional required
+prints. Only the separately reviewed Mark2 archives with +0.04 mm requested trim belong
+to the active seven-job totals and printer handoff.
+
+| Queued lane | Slicer time | PET-GF estimate |
+| --- | ---: | ---: |
+| H2C | 52 h 09 min | 1865.15 g |
+| Mark2 | 48 h 46 min | 1829.10 g |
+
+All seven jobs total 100 h 55 min of printer time and 3694.25 g PET-GF.
+These estimates exclude running jobs, plate changes, support cleanup and assembly; they
+are not promised completion times.
+
+Usable black PET-GF still needs physical confirmation at handoff. The next H2C plate
+is estimated at 903.02 g; the coordinating task has asked Derek about the available supply.
+This is an execution condition, not another design approval.
 
 The exact running H2C job is `pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`, archive
 SHA-256 `8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562`.
 Its [launch record](tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
 records the selected printer, material mapping, archive and observed start.
-The latest recorded observations are:
 
 | Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
 | --- | --- | ---: | ---: | ---: | --- |
-| H2C | 2026-09-21T13:43:23.192158+00:00 | 58% | 203/496 | 255 | None |
-| Mark2 | 2026-09-21T13:43:24.036245+00:00 | 37% | 46/917 | 611 | None |
+| H2C | 2026-09-21T14:49:32.201757+00:00 | 69% | 253/496 | 187 | None |
+| Mark2 | 2026-09-21T14:49:31.478998+00:00 | 44% | 50/917 | 544 | None |
 
-These are timestamped printer readings, not live remaining-time promises. Both jobs
-were running; Mark2 remains owned by Tube miter box.
+These are timestamped readings, not live remaining-time promises. Both jobs were running;
+Mark2 remains owned by Tube miter box. The active `finish-the-enclosure-print-queue`
+heartbeat checks every 15 minutes and advances reviewed jobs when normal physical handoff
+conditions are met, remaining quiet on unchanged running states.
+
 The running cartridge has 260 exterior divisions; the new shell uses 262, a pitch
 difference of 0.006324 mm per groove. A small exterior groove-phase difference is possible.
 Native fitted cartridge/cap geometry is unchanged and the cap is unfluted; this cosmetic
@@ -53,14 +83,15 @@ New jobs inherit the saved [PET-GF profile](../petgf.3mf): black PET-GF on the f
 0.4 mm nozzle, whole-layer printing and `auto_brim`. H2C uses +0.18 mm requested trim
 (+0.16 mm emitted for Textured PEI); Mark2 uses +0.04 mm (+0.02 mm emitted).
 Both configured printable areas are 325 × 320 mm, with at least 15 mm model border.
-Each actual slice reports its emitted brim and support paths. Every support contact needs
+Each actual slice reports emitted brim and support paths. Every support contact needs
 an accessible removal lane before hardware installation, following the
-[support-removal strategy](enclosure/README.md#support-removal-strategy).
+[support-removal strategy](enclosure/README.md#support-removal-strategy). Physical cleanup
+effort remains unmeasured; narrow support strips may require fragmentation.
 
 Derek's operating rule is to keep productive jobs running while checks proceed, or cancel
 a concretely defective job and switch to useful work. Do not pause a print for design
 analysis or hold an idle machine merely for an agent review. Printer handoff uses the exact
-reviewed archive after the assigned machine is available and its plate is cleared.
+reviewed archive after its assigned machine is available and its latest plate is cleared.
 
 ## Accepted physical evidence
 
@@ -111,10 +142,11 @@ rigidity over the carrier before the springs moved has not yet been demonstrated
 
 ## What remains before and during the trial
 
-Bind the verified source, native solids, meshes, profile and current carrier/pusher
-proofs in the fresh print receipt. For each plate, review its actual native slice, emitted
-working features and every support-contact removal lane before printer handoff. Earlier
-receipts and support approvals do not qualify new geometry or archives.
+All seven assigned archives pass their fresh native/support reviews. Printing is already
+authorized; each job awaits its available assigned printer, removal of that printer’s
+latest part, adequate usable black PET-GF and the normal exact-archive handoff.
+Offline ready is not submitted. The H2C mount alternatives are not additional required
+prints.
 
 The complete printed assembly establishes spring retention at both ends through every
 stop and unequal-hand motion; tension, feel, sideways deflection and full-span rigidity;

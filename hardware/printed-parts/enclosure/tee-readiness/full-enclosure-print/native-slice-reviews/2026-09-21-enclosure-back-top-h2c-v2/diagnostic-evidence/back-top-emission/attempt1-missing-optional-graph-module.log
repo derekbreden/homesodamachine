@@ -1,0 +1,46 @@
+{"layers": 813, "model_segments": 3633681, "mesh_faces": 1124732, "mesh_bounds_plate": [[55.0, 24.350006103031262, 0.0], [270.0, 295.649993896, 195.0]]}
+Traceback (most recent call last):
+  File "/tmp/scanner-review/support-review/back-top-emission/verify_emission.py", line 115, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/scanner-review/support-review/back-top-emission/verify_emission.py", line 70, in main
+    polys = path.polygons_full
+            ^^^^^^^^^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/caching.py", line 133, in get_cached
+    value = function(*args, **kwargs)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/path.py", line 1237, in polygons_full
+    full = [None] * len(self.root)
+                        ^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/caching.py", line 133, in get_cached
+    value = function(*args, **kwargs)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/path.py", line 1553, in root
+    populate = self.enclosure_directed  # NOQA
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/caching.py", line 133, in get_cached
+    value = function(*args, **kwargs)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/path.py", line 1581, in enclosure_directed
+    root, enclosure = polygons.enclosure_tree(self.polygons_closed)
+                                              ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/caching.py", line 133, in get_cached
+    value = function(*args, **kwargs)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/path.py", line 1220, in polygons_closed
+    return polygons.paths_to_polygons(self.discrete)
+                                      ^^^^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/caching.py", line 133, in get_cached
+    value = function(*args, **kwargs)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/path.py", line 710, in discrete
+    for path in self.paths
+                ^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/caching.py", line 133, in get_cached
+    value = function(*args, **kwargs)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/path.py", line 280, in paths
+    paths = traversal.closed_paths(self.entities, self.vertices)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/traversal.py", line 180, in closed_paths
+    graph, closed = vertex_graph(entities)
+                    ~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/path/traversal.py", line 37, in vertex_graph
+    graph = nx.Graph()
+            ^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/exceptions.py", line 35, in __getattribute__
+    raise exc_type(*exc_args)
+ModuleNotFoundError: No module named 'networkx'

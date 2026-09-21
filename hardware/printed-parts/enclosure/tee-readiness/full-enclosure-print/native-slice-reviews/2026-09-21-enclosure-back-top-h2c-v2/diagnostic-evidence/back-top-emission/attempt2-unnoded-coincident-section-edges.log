@@ -1,0 +1,12 @@
+{"layers": 813, "model_segments": 3633681, "mesh_faces": 1124732, "mesh_bounds_plate": [[55.0, 24.350006103031262, 0.0], [270.0, 295.649993896, 195.0]]}
+{"processed_layers": 1, "elapsed_seconds": 23.8}
+{"processed_layers": 51, "elapsed_seconds": 31.0}
+{"processed_layers": 101, "elapsed_seconds": 43.6}
+Traceback (most recent call last):
+  File "/tmp/scanner-review/support-review/back-top-emission/verify_emission.py", line 129, in <module>
+    main()
+    ~~~~^^
+  File "/tmp/scanner-review/support-review/back-top-emission/verify_emission.py", line 74, in main
+    assert invalid.length < 1e-4, ('invalid section rings', z, invalid.length)
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('invalid section rings', 29.72, 860.1362948254636)

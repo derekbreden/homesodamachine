@@ -1,0 +1,99 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "job_directory": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/enclosure-back-bottom-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "4c68142fd791fc922eba261b27834041be5f8cbeb3d92d11b7e1362975bfbe07",
+  "gcode_sha256": "3ef93d482b3bba7c4565109b3dfb86c8e3de1fbaa49c0766256a71b56bc95a6d",
+  "support_audit": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/enclosure-back-bottom-black-z004-mark2-v2-input.support-audit.json",
+  "support_audit_sha256": "7a7459e2f5e314c7acf57052abe5d7d9513e9f26e349ada5fc5d8eae6f8b84a6",
+  "support_ledger": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/support-removal-review.json",
+  "receipt_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "layers": 754,
+  "estimated_seconds": 64719.6015625,
+  "estimated_hours": 17.977667100694443,
+  "estimated_grams_saved_profile": 639.99560546875,
+  "estimated_grams_petgf_density_1p43": 709.4524928839631,
+  "brim_type": "auto_brim",
+  "brim_extrusion_segments": 0,
+  "parts": [
+    {
+      "name": "enclosure-back-bottom",
+      "support_summary": {
+        "support_bodies": 5,
+        "interface_islands": 5,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": 8.16,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 5,
+        "shortest_labelled_build_up_mm": 8.16
+      },
+      "tree_count": 5,
+      "interface_count": 5
+    }
+  ],
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-back-bottom",
+        "side_margins_mm": [
+          17.215,
+          23.203,
+          54.14299999999997,
+          23.935000000000002
+        ],
+        "minimum_margin_mm": 17.215
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 17.215,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "native_previews": [
+    {
+      "native_member": "Metadata/plate_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/plate_1.png",
+      "sha256": "f74ef79099ecf2ea1f4529a86a184b0d7b2aa9876026d6ed8bf34fa01a15133a",
+      "bytes": 8937
+    },
+    {
+      "native_member": "Metadata/plate_1_small.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/plate_1_small.png",
+      "sha256": "02461a7d254e5c13c3d9d6d24a4d891fdc4e8dad138ee9868ab843cde2cf2002",
+      "bytes": 2570
+    },
+    {
+      "native_member": "Metadata/plate_no_light_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/plate_no_light_1.png",
+      "sha256": "9eea745006be9b1622a3bb41cf0494b582c85618e168a5053b16f0d34a76b35c",
+      "bytes": 3045
+    },
+    {
+      "native_member": "Metadata/top_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/top_1.png",
+      "sha256": "0e77b5e642c3a5438cf16a25b5f363d1956905b289d4642feb4e6b77c8adf436",
+      "bytes": 5723
+    },
+    {
+      "native_member": "Metadata/pick_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/pick_1.png",
+      "sha256": "1ce4f172b3cf9159807a260daa308715f0a46de2f76ca4747621a35c07d3123a",
+      "bytes": 2617
+    }
+  ],
+  "print_released": false,
+  "submitted": false
+}

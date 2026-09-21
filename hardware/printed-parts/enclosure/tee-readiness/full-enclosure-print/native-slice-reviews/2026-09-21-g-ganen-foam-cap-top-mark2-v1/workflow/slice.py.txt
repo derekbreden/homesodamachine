@@ -1,0 +1,4 @@
+from print_workflow import slice_native
+
+if __name__ == "__main__":
+    slice_native()
