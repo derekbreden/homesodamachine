@@ -46,6 +46,8 @@ BUILD_INERT_BASENAMES = frozenset({
     "fake-countertop-petgf.readiness.json",
     "fake-countertop-petgf-mark2.print.json",
     "fake-countertop-petgf-mark2.readiness.json",
+    "fake-countertop-petgf-mark2-stock.print.json",
+    "fake-countertop-petgf-mark2-stock.readiness.json",
     "lever-replica-petgf.support-audit.json",
     "corner-trial-profile.json",
     "layer-review.json",
