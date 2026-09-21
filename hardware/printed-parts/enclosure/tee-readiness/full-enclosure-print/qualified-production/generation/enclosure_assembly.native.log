@@ -1,0 +1,366 @@
+-> enclosure-assembly.step
+-> enclosure-assembly.step.mesh  (11 fluted piece(s))
+
+bodies
+  compressor           x[  -76.10,   33.90] y[  11.00, 171.00] z[   0.00, 135.00]   110.00 × 160.00 × 135.00
+  condenser+fan        x[   41.50,   97.50] y[  14.00, 168.00] z[   9.00, 146.00]    56.00 × 154.00 × 137.00
+  manifold-layout      x[ -100.53,  100.53] y[  14.55, 536.19] z[ 141.75, 355.00]   201.07 × 521.64 × 213.25
+  foam-assembly        x[  -90.50,   90.50] y[ 182.30, 465.30] z[   0.00, 305.78]   181.00 × 283.00 × 305.78
+  g-ganen-pump         x[  -45.28,   49.89] y[ 296.34, 456.60] z[ 251.62, 313.93]    95.18 × 160.26 ×  62.32
+  funnel               x[  -89.50,   89.50] y[ 100.00, 265.00] z[ 299.06, 355.00]   179.00 × 165.00 ×  55.94
+  suction-chain        x[   56.55,   73.55] y[ 259.28, 313.68] z[ 259.60, 276.60]    17.00 ×  54.40 ×  17.00
+  display              x[  -56.75,   56.75] y[  16.83,  88.18] z[ 294.90, 347.49]   113.50 ×  71.35 ×  52.59
+  display-cover        x[  -64.19,   64.19] y[  12.73,  85.61] z[ 295.39, 351.59]   128.39 ×  72.88 ×  56.19
+  pump-jack            x[   -7.33,    7.33] y[  82.69, 112.69] z[ 287.55, 311.70]    14.65 ×  30.00 ×  24.15
+  psu                  x[   64.75,   98.25] y[ 355.80, 464.80] z[ 253.40, 305.40]    33.50 × 109.00 ×  52.00
+  pcba                 x[   77.15,   98.25] y[ 235.98, 326.80] z[ 253.40, 326.20]    21.10 ×  90.82 ×  72.80
+  relay-1              x[   79.25,   98.25] y[ 256.80, 326.80] z[ 328.70, 345.70]    19.00 ×  70.00 ×  17.00
+  relay-2              x[   79.25,   98.25] y[ 332.80, 349.80] z[ 253.40, 323.40]    19.00 ×  17.00 ×  70.00
+  wago-h               x[   85.90,  104.50] y[ 356.81, 365.21] z[ 312.85, 331.65]    18.60 ×   8.40 ×  18.80
+  wago-n               x[   85.90,  104.50] y[ 373.06, 381.46] z[ 312.85, 331.65]    18.60 ×   8.40 ×  18.80
+  wago-g               x[   85.90,  104.50] y[ 389.31, 397.71] z[ 312.85, 331.65]    18.60 ×   8.40 ×  18.80
+  wago-v12             x[   85.90,  104.50] y[ 405.56, 413.96] z[ 312.85, 331.65]    18.60 ×   8.40 ×  18.80
+  wago-gnd             x[   85.90,  104.50] y[ 421.81, 430.21] z[ 312.85, 331.65]    18.60 ×   8.40 ×  18.80
+  ground-stack         x[   84.45,   98.25] y[ 329.30, 347.30] z[ 328.70, 346.39]    13.80 ×  18.00 ×  17.69
+  asse1022-assembly    x[  -94.57,  -61.57] y[ 306.51, 446.51] z[ 307.21, 350.50]    33.00 × 140.00 ×  43.29
+  asse-drip-pan        x[ -113.45,  -54.45] y[ 369.75, 453.75] z[ 284.96, 299.96]    59.00 ×  84.00 ×  15.00
+  water-split          x[  -98.10,  -81.60] y[ 222.01, 264.51] z[ 271.66, 302.26]    16.50 ×  42.50 ×  30.60
+  flow-regulator       x[  -99.41,  -57.91] y[ 220.26, 266.26] z[ 300.68, 331.57]    41.51 ×  46.00 ×  30.89
+  vk-solenoid          x[   48.30,   81.80] y[ 199.78, 259.28] z[ 257.05, 314.35]    33.50 ×  59.50 ×  57.30
+  bulkhead-water       x[  -89.50,  -66.64] y[ 446.51, 480.80] z[ 324.78, 347.64]    22.86 ×  34.29 ×  22.86
+  c14-inlet            x[   42.02,   91.79] y[ 436.21, 463.05] z[ 325.15, 347.28]    49.77 ×  26.84 ×  22.13
+  discharge-chain      x[  -69.00,  -52.00] y[ 227.80, 311.20] z[ 259.60, 276.60]    17.00 ×  83.40 ×  17.00
+  co2-inlet            x[   -9.68,   14.58] y[ 454.00, 488.19] z[ 323.83, 348.09]    24.26 ×  34.19 ×  24.26
+  gasher-co2           x[   29.95,   46.95] y[ 327.50, 367.50] z[ 328.21, 343.71]    17.00 ×  40.00 ×  15.50
+  wr1110               x[   -8.05,   12.95] y[ 339.00, 396.00] z[ 326.46, 345.46]    21.00 ×  57.00 ×  19.00
+  bulkhead-flavor-b    x[  -89.50,  -66.64] y[ 446.51, 480.80] z[ 257.59, 280.45]    22.86 ×  34.29 ×  22.86
+  bulkhead-flavor-a    x[  -49.24,  -26.38] y[ 446.51, 480.80] z[ 259.14, 282.00]    22.86 ×  34.29 ×  22.86
+  bulkhead-carb        x[  -49.24,  -26.38] y[ 446.51, 480.80] z[ 324.78, 347.64]    22.86 ×  34.29 ×  22.86
+  digiten-flow         x[  -49.96,  -14.31] y[ 363.51, 424.51] z[ 322.70, 351.00]    35.65 ×  61.00 ×  28.30
+  enclosure            x[ -107.50,  107.50] y[   5.00, 471.90] z[  -6.00, 355.00]   215.00 × 466.90 × 361.00
+
+mates (0 by intent)
+  compressor tangent x 33.90   condenser intake face x 41.50   gap 7.60
+  base crown       z 146.00   spine hairpins       z 141.75   gap -4.25
+  the pump-head faces stand z 166.79, 20.79 mm over the crown — that band is what the hairpins reach, and they are aft of the pumps
+  the base's own two crowns differ by 11.00
+  base aft face    y 171.00   foam front face      y 182.30   gap 11.30
+  refrig-1         refrig-discharge drawn refrig-inlet     (  33.90, 101.00, 75.00)  off 0.000
+  refrig-2         refrig-outlet    drawn evap-inlet       (  74.50, 168.00, 47.75)  off 0.000
+  refrig-3         evap-outlet      drawn refrig-suction   ( -77.50, 182.30, 48.43)  off 0.000
+  core cap face    z 253.40   pump free rubber low z 251.62; bearing datum is the cap face
+  core aft face    y 465.30   water pump aft face      y 456.60   flush by -8.70; it clears the pack by -239.86 mm
+  26 pack bodies overhang the core by up to 353.89 mm, clearing its crown by -55.23: bulkhead-ring-carb, bulkhead-ring-carb-word, bulkhead-ring-co2, bulkhead-ring-co2-word, bulkhead-ring-flavor-a, bulkhead-ring-flavor-a-word, bulkhead-ring-flavor-b, bulkhead-ring-flavor-b-word, bulkhead-ring-water, bulkhead-ring-water-word, coil-v-a, coil-v-b, funnel-drain-clamp, funnel-drain-stub, funnel-drain-union, keystone-jack, step-fluid-3, step-fluid-5, tube-collar-co2, tube-collar-co2-word, tube-collar-water, tube-collar-water-word, tube-customer-co2, tube-customer-water, valve-v-a, valve-v-b
+  tube-fluid-19    x  -22.35 lies over the compressor crown z 135.00  envelope gap 6.75
+  tube-fluid-9     x   22.35 lies over the compressor crown z 135.00  envelope gap 6.75
+
+machine           220.95 × 531.19 × 361.00   (42.37 L)
+                  x[-113.45,107.50] y[5.00,536.19] z[-6.00,355.00]
+
+runs
+  refrig-3     compressor.refrig-suction    → foam-assembly.evap-outlet       94.6 mm  2 corner(s) at R12.7 (stock floor R12.7)
+  refrig-1     compressor.refrig-discharge  → condenser+fan.refrig-inlet       7.6 mm  0 corner(s) at R12.7 (stock floor R12.7)
+  refrig-2     condenser+fan.refrig-outlet  → foam-assembly.evap-inlet        14.7 mm  2 corner(s) at R12.7 (stock floor R12.7)
+  water-7      g-ganen-pump.suction         → suction-chain.barb-tip          48.2 mm  2 corner(s) at R15.9 (stock floor R15.9)
+  water-6      g-ganen-pump.discharge       → discharge-chain.barb-tip        49.8 mm  2 corner(s) at R15.9 (stock floor R15.9)
+  water-5      discharge-chain.tube-port    → foam-assembly.water-in          47.7 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  water-2      asse1022-assembly.tube-out   → water-split.supply              70.5 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  fluid-1      water-split.to-flavor        → flow-regulator.inlet            45.7 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  water-3      water-split.to-vk            → vk-solenoid.inlet              252.2 mm  8 corner(s) at R14.0 (stock floor R14.0)
+  co2-0        co2-inlet.inboard            → wr1110.inlet                    39.5 mm  0 corner(s) at R14.0 (stock floor R14.0)
+  co2-1        wr1110.outlet                → gasher-co2.inlet                89.5 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  co2-2        gasher-co2.outlet            → foam-assembly.co2-in           237.7 mm  3 corner(s) at R14.0 (stock floor R14.0)
+  fluid-2      flow-regulator.outlet        → valve-v-a.inlet                161.9 mm  5 corner(s) at R14.0 (stock floor R14.0)
+  carb-1       foam-assembly.carb-water-out → digiten-flow.inlet             277.9 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  carb-2       digiten-flow.outlet          → bulkhead-carb.tube-in           22.8 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  fluid-28     valve-v-j.outlet             → bulkhead-flavor-b.tube-in      315.7 mm  4 corner(s) at R14.0 (stock floor R14.0)
+  fluid-18     valve-v-g.outlet             → bulkhead-flavor-a.tube-in      460.0 mm  9 corner(s) at R14.0 (stock floor R14.0)
+  fluid-24     valve-v-i.outlet             → foam-assembly.reservoir-b-fill   191.7 mm  4 corner(s) at R14.0 (stock floor R14.0)
+  fluid-26     foam-assembly.reservoir-b    → valve-v-h.inlet                131.0 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  fluid-14     valve-v-f.outlet             → foam-assembly.reservoir-a-fill   359.6 mm  10 corner(s) at R14.0 (stock floor R14.0)
+  fluid-16     foam-assembly.reservoir-a    → valve-v-e.inlet                120.2 mm  2 corner(s) at R14.0 (stock floor R14.0)
+  fluid-4      funnel-drain-union.outlet    → valve-v-b.inlet                224.4 mm  6 corner(s) at R14.0 (stock floor R14.0)
+
+clash check: 0 pair(s) sharing volume, 0 the boolean would not answer for
+
+seats             65 rules covering 99 of 99 placed bodies
+  asse-drip-pan          x0 -113.45 y0 369.75 z0 284.96               off 2.27e-13  turns —
+  asse1022-assembly      mouth → -78.07, 446.51, 336.21               off 0.00e+00  turns -90°
+  bulkhead-carb          mouth → -37.81, 446.51, 336.21               off 0.00e+00  turns —
+      ✓ fall onto what stands under it: wants 6, has 10.217
+  bulkhead-flavor-a      mouth → -37.81, 446.51, 270.57               off 0.00e+00  turns —
+      ✓ fall onto what stands under it: wants 1, has 5.748
+  bulkhead-flavor-b      mouth → -78.07, 446.51, 269.02               off 0.00e+00  turns —
+      ✓ fall onto what stands under it: wants 1, has 4.198
+  bulkhead-ring-carb     mouth → -37.81, 469.30, 336.21               off 0.00e+00  turns —
+  bulkhead-ring-carb-word mouth → -37.81, 469.30, 336.21               off 0.00e+00  turns —
+  bulkhead-ring-co2      mouth → 2.45, 469.30, 335.96                 off 0.00e+00  turns —
+  bulkhead-ring-co2-word mouth → 2.45, 469.30, 335.96                 off 0.00e+00  turns —
+  bulkhead-ring-flavor-a mouth → -37.81, 469.30, 270.57               off 0.00e+00  turns —
+  bulkhead-ring-flavor-a-word mouth → -37.81, 469.30, 270.57               off 0.00e+00  turns —
+  bulkhead-ring-flavor-b mouth → -78.07, 469.30, 269.02               off 0.00e+00  turns —
+  bulkhead-ring-flavor-b-word mouth → -78.07, 469.30, 269.02               off 0.00e+00  turns —
+  bulkhead-ring-water    mouth → -78.07, 469.30, 336.21               off 0.00e+00  turns —
+  bulkhead-ring-water-word mouth → -78.07, 469.30, 336.21               off 0.00e+00  turns —
+  bulkhead-water         mouth → -78.07, 446.51, 336.21               off 0.00e+00  turns —
+  c14-inlet              mouth → 66.90, 461.21, 336.21                off 0.00e+00  turns —
+  co2-inlet              mouth → 2.45, 454.00, 335.96                 off 0.00e+00  turns —
+  digiten-flow           mouth → -40.81, 424.51, 332.10               off 0.00e+00  turns +90° +90°
+      ✓ fall onto what stands under it: wants 6, has 20.576
+  discharge-chain        mouth → -60.50, 262.80, 268.10               off 0.00e+00  turns -90°
+  display                mouth → 0.50, 49.31, 327.74                  off 0.00e+00  turns -60°
+  display-cover          mouth → 0.00, 48.67, 330.84                  off 0.00e+00  turns +30°
+  display-gasket         mouth → 0.00, 48.67, 330.84                  off 0.00e+00  turns +30°
+  enclosure-tee-carrier-left mouth → 0.00, 113.79, 186.17                 off 0.00e+00  turns —
+  enclosure-tee-carrier-right mouth → 0.00, 113.79, 186.17                 off 0.00e+00  turns —
+  flow-regulator         mouth → -89.85, 220.26, 322.01               off 0.00e+00  turns -90° +90° +180° +30°
+  foam-assembly          cx 0.00 y0 182.30 z0 0.00                    off 2.84e-14  turns +90°
+  funnel                 mouth → 0.00, 182.50, 349.00                 off 0.00e+00  turns +0°
+      ✓ the drop off the elbow `fluid-4` reaches V-B on: wants 6.35, has 9.832
+  funnel-drain-clamp     mouth → 1.85, 182.50, 299.06                 off 0.00e+00  turns —
+  funnel-drain-stub      mouth → 1.85, 182.50, 299.06                 off 0.00e+00  turns —
+  funnel-drain-union     mouth → 1.85, 182.50, 299.06                 off 0.00e+00  turns +180°
+  fuse-clamp             mouth → 1.40, 24.75, 52.50                   off 0.00e+00  turns +90° +90°
+  g-ganen-pump           mouth → 2.07, 374.24, 253.40                 off 0.00e+00  turns +90°
+  gasher-co2             mouth → 38.45, 347.50, 335.96                off 0.00e+00  turns —  (4 bodies)
+  ground-stack           x1 98.25 y0 329.30 z0 328.70                 off 5.68e-14  turns +270° +270°
+  keystone-jack          mouth → -37.81, 471.30, 302.32               off 0.00e+00  turns —
+  manifold-layout        z0 143.50                                    off 2.84e-14  turns +90° +180°  (48 bodies)
+  moisture-plate         mouth → -83.95, 411.75, 287.96               off 0.00e+00  turns +90°
+  mq6-sensor             x0 -101.50 y0 38.30 z0 3.00                  off 0.00e+00  turns -90° +90°
+  nameplate              mouth → 38.16, 468.90, 262.90                off 0.00e+00  turns —
+  nameplate-ink          mouth → 38.16, 468.90, 262.90                off 0.00e+00  turns —
+  pcba                   x1 98.25 y1 326.80 z0 253.40                 off 2.84e-14  turns -90° -90°
+  psu                    x1 98.25 y1 464.80 z0 253.40                 off 2.84e-14  turns -90°
+  pump-jack              mouth → 0.00, 82.69, 297.95                  off 0.00e+00  turns +180°
+  refrigeration-base     x0 -76.10 z0 0.00                            off 0.00e+00  turns -90°  (2 bodies)
+  refrigeration-base depth y0 11.00                                     off 0.00e+00  turns —
+  relay-1                x1 98.25 y1 326.80 z0 328.70                 off 0.00e+00  turns +270° +270°
+  relay-2                x1 98.25 y1 349.80 z0 253.40                 off 2.84e-14  turns +270° +270° +90°
+  suction-chain          mouth → 65.05, 288.68, 268.10                off 0.00e+00  turns -90°
+  tee-carrier-spring-envelope-east mouth → 97.53, 90.04, 211.21                 off 0.00e+00  turns —
+  tee-carrier-spring-envelope-west mouth → -97.53, 90.04, 211.21                off 0.00e+00  turns —
+  thermal-fuse           mouth → 1.40, 24.75, 52.50                   off 0.00e+00  turns +90° +90°
+      ✓ cover either side of the case: wants 0, has 5.250
+      ✓ cover above and below the case: wants 0, has 20.400
+  vk-solenoid            mouth → 65.05, 259.28, 268.10                off 0.00e+00  turns —
+  wago-g                 x1 104.50 y0 389.31 z0 312.85                off 5.68e-14  turns +90° -90°
+  wago-gnd               x1 104.50 y0 421.81 z0 312.85                off 5.68e-14  turns +90° -90°
+  wago-h                 x1 104.50 y0 356.81 z0 312.85                off 5.68e-14  turns +90° -90°
+  wago-mana              x1 104.50 y0 113.10 z0 285.10                off 0.00e+00  turns +90° -90°
+  wago-manb              x0 -104.50 y0 114.80 z0 276.00               off 0.00e+00  turns +90° +90°
+  wago-n                 x1 104.50 y0 373.06 z0 312.85                off 5.68e-14  turns +90° -90°
+  wago-reeds-a           x0 -104.50 y0 314.55 z0 255.00               off 5.68e-14  turns +90° +90°
+  wago-reeds-b           x0 -104.50 y0 294.60 z0 255.10               off 2.84e-14  turns +90° +90°
+  wago-sensors           x0 -104.50 y0 330.80 z0 255.00               off 5.68e-14  turns +90° +90°
+  wago-v12               x1 104.50 y0 405.56 z0 312.85                off 5.68e-14  turns +90° -90°
+  water-split            mouth → -89.85, 264.51, 294.01               off 0.00e+00  turns -90°
+  wr1110                 mouth → 2.45, 396.00, 335.96                 off 0.00e+00  turns +180°  (3 bodies)
+
+size                     width × depth × height
+  enclosure    215.0 × 466.9 × 361.0 mm   8.46 × 18.38 × 14.21 in   the printed box, outside face to outside face
+  assembly     220.9 × 531.2 × 361.0 mm   8.70 × 20.91 × 14.21 in   every placed body, the box around them included
+
+scorecard
+  OK   coverage       99/99 declared                     Every placed body is declared in the fastening table
+  OK   room-holds     7/7 bands held, tightest +3.198 mm Every derived pose has the room its own construction states
+         bulkhead-flavor-b: fall onto what stands under it — wants 1, has 4.198
+         funnel: the drop off the elbow `fluid-4` reaches V-B on — wants 6.35, has 9.832
+         bulkhead-carb: fall onto what stands under it — wants 6, has 10.217
+         bulkhead-flavor-a: fall onto what stands under it — wants 1, has 5.748
+         thermal-fuse: cover either side of the case — wants 0, has 5.250
+         digiten-flow: fall onto what stands under it — wants 6, has 20.576
+         thermal-fuse: cover above and below the case — wants 0, has 20.400
+  OK   pack-closes    0 clash, 0 unanswered              No two solids overlap (pack closes)
+         G Ganen cap bearing: 4 named free-rubber foot envelopes; 722.157 mm³ contact, 0.000000 mm³ rigid interference, 0.000055 mm³ outside the contact masks
+  OK   lines-clear    0 clash                            No routed tube intersects a body, a piece or another tube
+  OK   port-leads     67/67 clear                        Every tube port has the straight a run off it needs
+         a port needs the reach of a quarter turn off it — one bend radius of its line plus the tube's own half-diameter — clear of every body but the one its line joins it to
+         asse1022-assembly.vent-tip: 7.25 mm to asse-drip-pan — opens to atmosphere, not gated
+  OK   clearance-floor 0 under, tightest 1.000 mm         Two things the machine does not seat together stand a millimetre apart
+         every body pair, and every drawn run against what its own line does not join it to — the exact solid distance, with boxes only as a prefilter
+         compressor — thermal-fuse: 0.000 mm — seated against it
+         compressor — fuse-clamp: 0.000 mm — seated against it
+         thermal-fuse — fuse-clamp: 0.000 mm — seated against it
+         valve-v-a — foam-assembly: 0.000 mm — seated against it
+         valve-v-b — foam-assembly: 0.000 mm — seated against it
+         g-ganen-pump — foam-assembly: 0.000 mm — seated against it
+         suction-chain — vk-solenoid: 0.000 mm — seated against it
+         … 69 more
+  OK   bed-fit        8/8 on the bed                     Every printed piece fits the bed
+  OK   port-lane-width holds                              The port lane carries a bore with a wall either side of it
+  OK   flute-even     holds                              The flute count is even
+  OK   forward-band-takes-a-bore holds                              The forward band still passes a line
+  OK   boss-clears-lane 8/8 hold                           Every ±Y attachment boss stands clear of the port lane
+  OK   boss-clears-lane-x 2/2 hold                           Every ±X attachment boss stands clear of both lanes in y
+  OK   flute-reveal   6/6 hold                           A band on the run either carries the field or is a reveal
+  OK   cap-screw-reach holds                              The clamp screw reaches the whole of its insert
+  OK   cap-screw-bottom holds                              The clamp screw pulls its head down before it bottoms
+  OK   deck-mount-reach holds                              Every deck mount's screw reaches the whole of its insert
+  OK   deck-mount-room holds                              Every deck-mount column leaves the pour its gap in the cup
+  OK   forward-band-takes-a-tube holds                              A tube on the forward band's centre clears both its faces
+  OK   entry-skew-ceiling holds                              The countersink stands inside the boss its own column carries
+  OK   entry-passes-section holds                              The countersink's mouth passes the leaning tube's whole section
+  OK   fill-conduits-paired holds                              Every fill bore has a conduit over it and every conduit a bore
+  OK   fill-conduit-station 2/2 hold                           Every fill conduit stands on its own side's anchor
+  OK   cap-conduit-room 9/9 hold                           Every conduit column leaves the pour its gap in the cup
+  OK   cap-conduit-wall 9/9 hold                           Every conduit column stands the pour gap off the wall or merges in
+  OK   deck-mount-pour 4/4 hold                           Every deck mount's lid hole leaves a land under its screw head
+  OK   cradle-room    111/111 hold                       Every plinth clears the other openings on the lid
+  OK   cradle-pour    3/3 hold                           Every plinth leaves a land beside the pour hole
+  OK   cradle-vent    6/6 hold                           Every plinth clears both vents
+  OK   anchor-room    3/3 hold                           Every chain anchor stands its room off everything else the face opens
+  OK   cap-side-anchor-room 2/2 hold                           Every side post stands clear of what the lid's face opens
+  OK   cap-conduit-pair 36/36 hold                         Every pair of conduits stands apart or merges on a neck, never tangent
+  OK   funnel-floor-grade holds                              The funnel ramp falls toward the offset outlet
+  OK   kamoer-boss-leaves-motor holds                              The case-derived seams leave the part a motor
+  OK   kamoer-motor-clears-tower holds                              The case's tower bore is deep enough for the motor
+  OK   kamoer-notches-on-tube-casings holds                              The case's arch notches stand on the part's own tube casings
+  OK   crossbar-positive holds                              The crossbar leaves Y-A and Y-B their own tube
+  OK   inner-limb-pitch holds                              The inner limbs stand a valve body apart
+  OK   limb-pitch-floor holds                              The two lanes stand a valve body apart
+  OK   pump-motor-room holds                              The pump's three bodies are the part, end to end
+  OK   limb-pitch-ceiling holds                              The lanes step inboard of the barbs, never outboard
+  OK   spine-bend-radius holds                              The spine turn holds the corner this stock takes
+  OK   spine-straight holds                              The two quarter-turns leave straight tube between them
+  OK   source-step-room holds                              Both source runs step on two arcs alone
+  OK   plug-per-station holds                              Every station is one plug's bottom face and every plug is one station's
+  OK   plug-web       2/2 hold                           Every plug leaves a printable wall standing between its arches
+  OK   display-cover-reveal holds                              The display bezel is a smooth reveal in the curved top
+  OK   fuse-clamp-donor 6/6 hold                           The clamp closes on features the compressor actually has
+  OK   fuse-clamp-lead holds                              The clamp lets the cutoff's lead go where a bend becomes legal
+  OK   water-outlet-slot holds                              The carbonated-water outlet crosses the support ring in one slot
+  OK   co2-inlet-slot holds                              The CO2 reach in crosses the support ring in one slot
+  OK   co2-bore-meets-fall holds                              The CO2 bore is struck where its line falls down the lane
+  OK   reed-channel-clear 7/7 hold                           Every conduit's line falls clear of both reed channels
+  OK   reed-cable-conduit-stands-over-its-channel 2/2 hold                           Every reed-cable conduit opens on the channel its own cable climbs
+  OK   dry-seal-rim   holds                              The dry seal's counterbore leaves a PETG rim under the elbow flange
+  OK   reservoir-float-reaches-rod holds                              The capsule's bore has the slop the park spends
+  OK   reservoir-rod-boss-inboard holds                              The rod's anchor boss stands clear of the cavity wall
+  OK   stub-tails-billed 2/2 hold                           Each coil tail's in-shell run is the one its stub allowance bills
+  OK   collet-plate-stops-nose holds                              The printed collet plate stops the release noses
+  OK   port-field-web holds                              Two neighbouring pockets leave standing wall between them
+  OK   port-pocket-floor holds                              Every pocket leaves wall under the chip it holds
+  OK   port-clamp-stack 5/5 hold                           Every fitting's bare barrel takes the wall and the ring lying in it
+  OK   c14-surround   holds                              The C14 flange pockets into one block at its ceiling-clear mount
+  OK   co2-relief     holds                              The CO2 station's wall relief stands on the neoFit's own column and storey
+  OK   keystone-receptacle holds                              The wall carries the jack's lip and stands the rest of its pocket
+  OK   east-boss-corbels 17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar Every +X-wall electronics-bay boss has a flat D stem or shares a bar, and its candidate 45 degree corbel clears the installed bodies
+         `pcba` y 323.300, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 325.298..326.800 stand down, 1.50 of 7.00 mm; no wing
+         `relay-2` y 347.800, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 331.300..333.800, y 348.800..351.300
+  OK   east-boss-fills 4/4 clear                          The reviewed electronics-bay fills are rectangular and clear of the installed pack
+         `ground-stack ceiling column` x 92.250..98.500, y 334.800..341.800, z 341.044..348.500
+         `pcba/relay-2 upper pad union` x 96.250..98.500, y 319.800..351.300, z 317.900..327.200
+         `relay-1 y=258.8 ceiling column` x 96.250..98.500, y 255.300..262.300, z 327.200..348.500
+         `relay-1 y=324.8 ceiling column` x 96.250..98.500, y 321.300..328.300, z 327.200..348.500
+  OK   plate-lies-flat flat floor 42.00 x 67.00           The moisture plate lies flat on the pan's floor
+  OK   tee-carrier-motion 638 native solid/sweep checks including closed-cup preload and pusher removal; maximum unintended overlap 0.000000 mm³; release/aft overshoots 0.104881/0.018000 mm³; 50 independent flank-capture readings at 6.29° rotation, minimum contact 0.100066 mm³; 4.5 mm total travel, nominal rest 2 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 305.312 mm²; minimum depressed-collet bearing 45.863 mm²; fore tube bottom 92.690 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.690 mm Y, 2 mm final cartridge seating travel Tee carrier clears front-top through installation, nominal states and aft overtravel, and both end stops and all five transverse constraints engage
+  OK   pump-jack-service 17.000 mm pull; 0.000000/0.000000 mm³ path overlap; 0.000000/0.000000 mm³ finger overlap; 0.000/4.831 mm path air; 5.825 mm past the bulkhead Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path clears front-top and the display
+  OK   wedge-fills    39 print-down slope(s): 27 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns Every print-down slope on a ceiling-down piece has its stated carry
+  OK   z-seam-bed     seam at 160.00, band 35.00..299.20 The Z seam leaves every piece on the H2C's bed
+  OK   z-seam-two-pieces 361.00 mm column, band 35.00..299.20 A column splits into two pieces the H2C can print
+  OK   z-seam-front-lane seam at 160.00, lane 150.75..193.41, 218.96..220.72 The front column's lip ring is clear at the seam height
+  OK   z-seam-back-lane seam at 160.00, lane 35.00..299.20 The back column's lip ring is clear at the seam height
+  OK   z-seam-under-deck rim at 174.80, lowest wall root at 177.90 The Z-seam rim stays under the flavour deck's lowest plate
+  OK   plate-foot-condenser-envelope 2.00 mm air over the complete bounding box The collet-plate feet stay outside the condenser+fan envelope
+  OK   box-width      pack reaches x ±104.50 at foam-assembly, wall at ±104.50 The pack stands inside the appliance's stated width
+  OK   back-top-flank-clear least air 0.15 mm, at flow-regulator The pack stands clear of back-top's own flank face
+  OK   box-front      least air 0.00 mm, at compressor   The pack stands behind the front wall's relieved surface
+  OK   box-depth      pack reaches y 468.30 at foam-assembly, +Y wall at 468.30 The pack stands inside the appliance's stated depth
+  OK   box-height     pack reaches z 351.00, ceiling at 352.00 The pack stands under the appliance's stated ceiling
+  OK   pump-cartridge-flush cartridge y 5.000, fixed face y 5.000 The pump cartridge is flush with the fixed front face
+  OK   flute-backed   thinnest of 12 stated sections is 3.0000 mm Every fluted face keeps a whole wall behind its grooves
+  OK   flute-closes   262 grooves round 1342.00 mm, 5.1221 mm centres The reeded field closes on the box at the coupon's own pitch
+  OK   flute-hides-seam 0.2660 mm off a groove centre, in a groove 4 mm wide The Y seam runs down a groove, not across a land
+  OK   pump-bay-cavity-throat bay x -104.500..104.500, cavity x -104.500..104.500 The pump bay throat reaches both cavity side planes
+  OK   y-seam-clears-facet seam at 200.00, housing back plane at 101.00 The Y seam stands behind the display housing
+  OK   display-housing-seats cut at 96.00 aft of the front face, seats reach 80.87 The housing's back cut keeps a wall behind the display's seats
+  OK   wall-under-lip clear on all three sides of both pieces The pack stands clear of the wall under each Z-seam lip
+  OK   pump-bay-vertical-datums head floor air 0.33 mm, motor-to-lintel air 7.20 mm The pump bay keeps its fixed floor and roof datums around the lowered pumps
+  OK   funnel-collar-frame collar x -82.50..82.50, y 107.00..258.00 The funnel collar stands in the frame the top wall has left
+  OK   funnel-brim-overhang overhang 7.00 mm                   The funnel's brim overhang fits its top-wall margin
+  OK   funnel-brim-margin −X 7.00, +X 7.00, +Y 207.30 mm     The funnel collar keeps a brim margin at each free edge
+  OK   funnel-brim-lands brim front at y 100.00, facet arris at 95.34 The funnel's brim lands on top wall ahead of the throat
+  OK   y-seam-upper   2/2 corners clear                  Both upper seam blocks join the ceiling and pass their complete entry lanes
+         west: missing column 0.0000 mm³; entry overlap 0.0000 mm³; material below the flat end 0.0000 mm³; blocked bores 0.0000 mm³
+         east: missing column 0.0000 mm³; entry overlap 0.0000 mm³; material below the flat end 0.0000 mm³; blocked bores 0.0000 mm³
+  OK   y-seam-lower   four screw axes at Z 48.9 and 152.1 mm; middle collars end at Z 160 Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners
+         west: levels correct; missing jamb 0.0000 mm³; entry overlap 0.0000 mm³; blocked bores 0.0000 mm³
+         east: levels correct; missing jamb 0.0000 mm³; entry overlap 0.0000 mm³; blocked bores 0.0000 mm³
+         floor lap blocks a 0.5 mm upward shift: 145.3849 mm³ overlap
+  OK   handholds      two 80 × 35 mm bottom openings at Y 214 Both handholds open through the floor and keep their lifting sections and inner walls
+         west: blocked entry 0.0000 mm³; missing inner wall 0.0000 mm³; missing roof 0.0000 mm³; missing end posts 0.0000 mm³
+         east: blocked entry 0.0000 mm³; missing inner wall 0.0000 mm³; missing roof 0.0000 mm³; missing end posts 0.0000 mm³
+  OK   runs-drawn     22/22 as drawn                     Every authored run is drawn as its author asked
+  OK   bend-radius    B — 73/73 corners at spec          Every routed tube turns at or above its stock's minimum radius
+         grade = radius ÷ the stock's minimum — 1/4" LLDPE R14; 1/4" soft ACR copper R12.7; 3/8" braided PVC R15.9
+         runs by grade: A:1 B:19
+         each row ends with its need — path ÷ the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red
+  OK   mounted        67/67 mounted, 25 part of another body, 7 nothing fastens A printed feature of another placed part fastens every body
+         funnel: wall-capture — nothing fastens it; The brim bears on the inset 6 mm seat, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries — so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.
+         funnel-drain-clamp: tube-clamp — nothing fastens it; A worm clamp closes on itself — the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.
+         funnel-drain-stub: tube-clamp — nothing fastens it; The worm clamp closes the funnel's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the funnel every time it is washed.
+         funnel-drain-union: tube-hung — nothing fastens it; Both its collets land on held bodies — the +Z leg takes the stub the funnel carries, the other leg hands `fluid-4` forward to turn west and return to V-B's cap cradle — so the elbow hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.
+         fuse-clamp: gap-press — nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own — the air its power box hangs over its mounting plate — so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.
+         tee-y-a: pack — nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets — so what holds this tee is the seat under the valve it butts.
+         tee-y-b: pack — nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets — so what holds this tee is the seat under the valve it butts.
+  OK   placed         99/99 stated                       Every placement is stated as a rule, and the solid lands on it
+  OK   routed         39/39 made                         Every tube connection the machine owes, made as a real 3-D path
+         a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions — a butt between two collets, the fold's hairpin, a quarter turn and the step off it — or a joint made up across a plane two bodies already share
+         drawn 22, bowed 4, fold 4, straight 4, butt 3, turn 2 — 0 still to route
+         by circuit — co2 3/3, fluid 26/26, refrigerant 3/3, water 7/7
+         fluid-3 (fluid): V-A-O → Y-A-1 — made by a quarter turn and the step off it
+         fluid-5 (fluid): V-B-O → Y-B-1 — made by a quarter turn and the step off it
+         fluid-6 (fluid): Y-A-3 → Y-B-3 — made by a butt between two collets
+         fluid-7 (fluid): Y-A-2 → V-C-I — made by a butt between two collets
+         fluid-8 (fluid): Y-B-2 → V-D-I — made by a butt between two collets
+         … 12 more
+  OK   located        68/68 located                      Every port a placed body declares is carried into world
+  OK   tube-anchored  20/20 within span, 2 left loose    No run goes further than one span with nothing holding it
+         carb-1: 146.1 mm, held at its anchor
+         co2-2: 196.2 mm, held at its anchor
+         fluid-28: 164.6 mm, held at its anchor
+         fluid-18: 254.1 mm unheld — left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight — a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.
+         fluid-4: 224.4 mm unheld — left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length.
+       gas-chain-qualified physical measurements pending      Warm gas fitting dimensions and made-up fit qualified
+         PI010822S uses the shared nominal 1/4-inch PTC envelope.
+         Coupling Ø22 × 25.4 mm and 11 mm engagement are provisional layout allowances, not verified purchased-part dimensions.
+         Model clearance does not qualify NPT engagement, the check's pressure rating, or the printed cradle's physical fit.
+
+bend radii
+  run          grade   stock                R drawn    min   reach   need corners
+  fluid-1      B/B     1/4" LLDPE              14.0   14.0    14.0  1.63× B14.0 B14.0
+  fluid-14     B/B     1/4" LLDPE              14.0   14.0    14.4  1.11× B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0
+  fluid-18     B/B     1/4" LLDPE              14.0   14.0    15.0  1.51× B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0
+  water-3      B/B     1/4" LLDPE              14.0   14.0    15.4  1.57× B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0 B14.0
+  water-7      B/B     3/8" braided PVC        15.9   15.9    17.9  1.23× B15.9 B15.9
+  fluid-4      B/B     1/4" LLDPE              14.0   14.0    16.1  2.24× B14.0 B14.0 B14.0 B14.0 B14.0 B14.0
+  fluid-2      B/B     1/4" LLDPE              14.0   14.0    16.6  1.28× B14.0 B14.0 B14.0 B14.0 B14.0
+  water-6      B/B     3/8" braided PVC        15.9   15.9    19.7  1.21× B15.9 B15.9
+  co2-1        B/B     1/4" LLDPE              14.0   14.0    18.0  2.37× B14.0 B14.0
+  fluid-28     B/B     1/4" LLDPE              14.0   14.0    18.4  1.11× B14.0 B14.0 B14.0 B14.0
+  co2-2        B/B     1/4" LLDPE              14.0   14.0    19.5  1.98× B14.0 B14.0 B14.0
+  water-5      B/A     1/4" LLDPE              14.0   14.0    23.8  1.14× B14.0 B14.0
+  fluid-24     B/A     1/4" LLDPE              14.0   14.0    26.2  1.40× B14.0 B14.0 B14.0 B14.0
+  water-2      B/A     1/4" LLDPE              14.0   14.0    27.2  1.16× B14.0 B14.0
+  carb-2       B/A     1/4" LLDPE              14.0   14.0    42.3  1.01× B14.0 B14.0
+  fluid-26     B/A     1/4" LLDPE              14.0   14.0    43.1  1.44× B14.0 B14.0
+  fluid-16     B/A     1/4" LLDPE              14.0   14.0    43.1  1.32× B14.0 B14.0
+  refrig-3     B/A     1/4" soft ACR copper      12.7   12.7    43.0  1.15× B12.7 B12.7
+  carb-1       B/A     1/4" LLDPE              14.0   14.0    59.2  1.64× B14.0 B14.0
+  refrig-2     A/A     1/4" soft ACR copper      12.7    8.0    36.8  1.00× B12.7 B12.7
+  refrig-1     straight 1/4" soft ACR copper      12.7   12.7       —  1.00× —
+  co2-0        straight 1/4" LLDPE              14.0   14.0       —  1.00× —
+-> enclosure-assembly.scorecard.json
+-> enclosure-assembly.facts.json
+-> hardware/assembly/scenes/glb/back-top.glb
+-> hardware/assembly/scenes/glb/front-top.glb
+-> hardware/assembly/scenes/glb/pump-cartridge.glb
+-> hardware/assembly/scenes/glb/cap-lid-fill.glb
+-> hardware/assembly/scenes/glb/cap-lid.glb
+-> hardware/assembly/scenes/glb/cold-core.glb
+-> hardware/assembly/scenes/glb/cold-core-open.glb
+-> hardware/assembly/scenes/glb/funnel-drain.glb
+-> hardware/assembly/scenes/glb/back-half.glb
+-> hardware/assembly/scenes/glb/en04-compressor-bay.glb
+-> hardware/assembly/scenes/glb/en07-electronics-bay.glb

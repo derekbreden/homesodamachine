@@ -1,0 +1,24 @@
+{
+  "producer": "hardware/scripts/flute_payload_enclosure.py",
+  "raised": null,
+  "loaded_source_sha256": {
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/flute_payload_enclosure.py": "b87954eca93698e76e883e7e9a2a6abde32d316c20773dae219b22d41979499b"
+  },
+  "loaded_source_drift": [],
+  "rewritten_sources": [],
+  "output_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "60a4bd2efbbad9d713d2ff48c1810eda838ba80bf7c806afb393f309cb873875",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "34bba0b1a65192ba829548b6f752b3e918a35137fda20284494a51727eedae51",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "42163fbc8dcb4ad806d8a3dea806b662d8f923a51bc84e4e3276f2f92dba2bbc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "869f0f42f4a23f8eb6be81a51213923dfff43d178ec64e68d82aa6fba2b92ee5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1e0215464ee9bdd19179dff01acfdeb2b823bc4e5915714b44956102a70ad3c7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "0de74b2ba74bdf8dd9600f2737f7d3fcbf541a0ef09fd366da0cb5ffbd778f38",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "379abfdfce6260c29dbfd80de2b3eca7bd0e266d263b535890f9c65c092250c7",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh": "cfe5b8b1588ffe0594ffcd2a1e9559a12ec90601b84f0a2766214a01248a379b",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh": "bd5ece33c5b09acdb6fdaeee295e412c620f5ee70aff82a566c7d707feb6b822"
+  }
+}

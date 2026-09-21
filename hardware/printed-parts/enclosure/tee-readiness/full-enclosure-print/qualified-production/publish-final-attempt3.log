@@ -1,0 +1,40 @@
+537 generated solid(s), 1059.6 MB in the tree
+  69 bundled solid(s) no rule declares, recorded and shipped:
+    hardware/.cache/pump-roof/enclosure-pump-cartridge.step
+    hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh
+    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh
+    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.step
+    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.stl
+    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.step
+    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.stl
+    hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.step
+  9 declared publish output(s) are absent from the tree:
+    hardware/printed-parts/collet-press/collet-press.step.mesh
+    hardware/printed-parts/collet-press/collet-press.stl
+    hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step.mesh
+    hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl
+    hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl
+    hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl
+    hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl
+    hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl
+  hardware/printed-parts/enclosure/tee-readiness/branch-propagation/front-top/front-top.step carries the bytes hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/inputs/current-front-top/front-top.step carries — sha256 0fbd43ae69417c0e
+  hardware/printed-parts/enclosure/tee-readiness/current-front-top/current-front-top.step carries the bytes hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/frozen-front-top/current-front-top.step carries — sha256 63471e1fa49233b2
+  hardware/quickstart/art/mount-seated.png carries the bytes hardware/quickstart/art/mount-lowered-clean.png carries — sha256 fa6cc6a2c41437eb
+  hardware/quickstart/art/mount-slide.png carries the bytes hardware/quickstart/art/mount-slide-clean.png carries — sha256 44cff8af1350c4bb
+  hardware/quickstart/art/mount-tighten.png carries the bytes hardware/quickstart/art/mount-final-clean.png carries — sha256 962dd97e2b252aaf
+publishing held bytes; 89 producer target(s) stay owed
+3 member(s) main points at are not on this disk; their lines stand
+537 of 537 member(s) are outside fdf51cc1d78c, and the pointer file records them
+  uncommitted: firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png
+  uncommitted: firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png
+  uncommitted: firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png
+  uncommitted: hardware/printed-parts/cold-core/copper-plugs/clearance-check.json
+  uncommitted: hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/assembly/enclosure-assembly.facts.json
+  uncommitted: hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/assembly/enclosure-assembly.scorecard.json
+  uncommitted: hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/canonical-pusher-native-inputs.zip
+  uncommitted: hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/canonical-pusher-v4.log
+no unpublished bytes are held; leaving producer debt to reconciliation
+  a publish left its marker behind (pid 57244 is gone) — taking it
+  enclosure source is owed and no piece payload moved; the enclosure goes up as it stands, with the solids that did move
+  84 artifact target(s) owed since the pointer file's source; publishing the bytes held here
+  the cut is the one already published (9s)

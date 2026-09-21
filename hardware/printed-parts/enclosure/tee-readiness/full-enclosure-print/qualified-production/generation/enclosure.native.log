@@ -1,0 +1,51 @@
+enclosure:
+  bay sill:         one uninterrupted 0.25 mm witness band below the cartridge
+  ridge roof:       1 coplanar faces, 197.0 mm span to 165.5 mm funnel opening, keepout clear
+  Z slide front:  travel  102.2 mm, worst contested    0.0 mm³ at 0.00 mm out; catch    101.9 mm³ at a 1 mm lift
+    flat bearings:  2424.6 mm² bottom, 2433.4 mm² top (minimum 2121.9 each)
+    flat channel roof: 2532.4 mm² (minimum 2121.9)
+  Z slide back:   travel  242.8 mm, worst contested    0.0 mm³ at 0.00 mm out; catch    577.2 mm³ at a 1 mm lift
+-> enclosure-front-bottom.step
+-> enclosure-front-bottom.stl  (272394 facets, watertight)
+-> enclosure-front-top.step
+-> enclosure-front-top.stl  (557640 facets, watertight)
+-> enclosure-back-bottom.step
+-> enclosure-back-bottom.stl  (1291828 facets, watertight)
+-> enclosure-back-top.step
+-> enclosure-back-top.stl  (1124732 facets, watertight)
+-> enclosure-pump-cartridge.step
+-> enclosure-pump-cartridge.stl  (171096 facets, watertight)
+-> enclosure-pump-cap.step
+-> enclosure-pump-cap.stl  (8284 facets, watertight)
+-> enclosure.step (assembled pieces)
+  column X-/Y-:   whole
+  column X+/Y-:   relieved for condenser+fan (z 8.0..10.4), condenser+fan (z 144.6..147.0)
+  column X-/Y+:   whole
+  column X+/Y+:   relieved for psu (z 252.4..306.4)
+  display facet:    203.4 mm wide (X) × 87.0 mm slope, solid surface (want 203 × 87; the display window is 130.6 × 87, centred at x 0)
+  Z seam front:   160.0 mm  (runs through its column; the bed allows 35.0..299.2)
+  Z seam back:    160.0 mm  (runs through its column; the bed allows 35.0..299.2)
+  Y-seam levels −X wall: 3 — 49, 152, 334
+  Y-seam levels +X wall: 3 — 49, 152, 334
+  front-bottom:  X   215 × Y   208 × Z   181 mm  (Y[5,213] Z[-6,175])  H2C bed: fits
+  front-top:     X   215 × Y   208 × Z   195 mm  (Y[5,213] Z[160,355])  H2C bed: fits
+  back-bottom:   X   215 × Y   272 × Z   181 mm  (Y[200,472] Z[-6,175])  H2C bed: fits
+  back-top:      X   215 × Y   271 × Z   195 mm  (Y[200,471] Z[160,355])  H2C bed: fits
+  pump-cartridge: X   215 × Y    74 × Z   119 mm  (Y[5,79] Z[165,284])  H2C bed: fits
+  pump-cap:      X   174 × Y    68 × Z    67 mm  (Y[11,79] Z[217,284])  H2C bed: fits
+  front-bottom ∩ front-top: 0.0 mm³  (CLEAR slip-fit)
+  front-bottom ∩ back-bottom: 0.0 mm³  (CLEAR slip-fit)
+  front-bottom ∩ back-top: 0.0 mm³  (CLEAR slip-fit)
+  front-bottom ∩ pump-cartridge: 0.0 mm³  (CLEAR slip-fit)
+  front-bottom ∩ pump-cap: 0.0 mm³  (CLEAR slip-fit)
+  front-top ∩ back-bottom: 0.0 mm³  (CLEAR slip-fit)
+  front-top ∩ back-top: 0.0 mm³  (CLEAR slip-fit)
+  front-top ∩ pump-cartridge: 0.0 mm³  (CLEAR slip-fit)
+  front-top ∩ pump-cap: 0.0 mm³  (CLEAR slip-fit)
+  back-bottom ∩ back-top: 0.0 mm³  (CLEAR slip-fit)
+  back-bottom ∩ pump-cartridge: 0.0 mm³  (CLEAR slip-fit)
+  back-bottom ∩ pump-cap: 0.0 mm³  (CLEAR slip-fit)
+  back-top ∩ pump-cartridge: 0.0 mm³  (CLEAR slip-fit)
+  back-top ∩ pump-cap: 0.0 mm³  (CLEAR slip-fit)
+  pump-cartridge ∩ pump-cap: 0.0 mm³  (CLEAR slip-fit)
+-> README.md

@@ -1,0 +1,15 @@
+  [  1/1] hardware/manifold-layout/enclosure_assembly.py               516 read  15 written
+148 generator(s) in the graph
+
+7 member(s) this run wrote are no longer the pointer file's:
+    hardware/assembly/scenes/glb/back-half.glb
+    hardware/assembly/scenes/glb/cap-lid-fill.glb
+    hardware/assembly/scenes/glb/cap-lid.glb
+    hardware/assembly/scenes/glb/cold-core-open.glb
+    hardware/assembly/scenes/glb/cold-core.glb
+    hardware/assembly/scenes/glb/front-top.glb
+    hardware/manifold-layout/enclosure-assembly.step.mesh
+  A TRACE IS A CUT — the run rewrote them, and they are ignored, so
+  `git status` reads clean over a bundle that has moved. `pack.py --check`
+  is the only thing that sees this, and it reads rc=1 until someone publishes.
+PASS hardware/manifold-layout/enclosure_assembly.py 169 loaded sources stable 15 outputs

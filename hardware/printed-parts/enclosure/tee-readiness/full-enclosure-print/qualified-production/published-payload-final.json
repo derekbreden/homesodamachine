@@ -1,0 +1,616 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "created_at_utc": "2026-09-21T14:07:35.746182+00:00",
+  "scope": "Read-only publication transformation: six exact same-frame surfaces and two carrier surfaces at the exact facts-derived working pose. Before carrier pose is diagnostic and may be repaired; every other entry must remain unchanged. Not a CAD, print or physical-fit qualification.",
+  "before_payload": "/private/tmp/scanner-review/integration-correction/assembly-before-final-publication.step.mesh",
+  "after_payload": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "before_sha256": "450ab1f973a0295eb3527116c4fc61425f06b3e6bddb9f4af3523a8a34c50494",
+  "after_sha256": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137",
+  "source_step_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "checks": [
+    {
+      "check": "facts name a consistent connected carrier assembly state",
+      "pass": true,
+      "assembly_state": "connected",
+      "connected_offset_y_mm": 2.0,
+      "state_offset_y_mm": 2.0
+    },
+    {
+      "check": "before payload src is current aggregate STEP SHA256",
+      "pass": true,
+      "src": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67"
+    },
+    {
+      "check": "before uses the current payload version",
+      "pass": true,
+      "version": 3
+    },
+    {
+      "check": "after payload src is current aggregate STEP SHA256",
+      "pass": true,
+      "src": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67"
+    },
+    {
+      "check": "after uses the current payload version",
+      "pass": true,
+      "version": 3
+    },
+    {
+      "check": "canonical piece catalog is exactly the expected eight triplets",
+      "pass": true,
+      "piece_stems": [
+        "enclosure-back-bottom",
+        "enclosure-back-top",
+        "enclosure-front-bottom",
+        "enclosure-front-top",
+        "enclosure-pump-cap",
+        "enclosure-pump-cartridge",
+        "enclosure-tee-carrier-left",
+        "enclosure-tee-carrier-right"
+      ]
+    },
+    {
+      "check": "surfaces validates all eight canonical STEP stamps",
+      "pass": true
+    },
+    {
+      "check": "both payloads decode",
+      "pass": true
+    },
+    {
+      "check": "entry names and order identical",
+      "pass": true,
+      "before_count": 344,
+      "after_count": 344
+    },
+    {
+      "check": "all host colors identical in order",
+      "pass": true
+    },
+    {
+      "check": "before contains exactly the eight canonical enclosure/carrier entries",
+      "pass": true,
+      "mapped_entries": [
+        [
+          74,
+          "enclosure-tee-carrier-left",
+          "enclosure-tee-carrier-left"
+        ],
+        [
+          75,
+          "enclosure-tee-carrier-right",
+          "enclosure-tee-carrier-right"
+        ],
+        [
+          338,
+          "enclosure-front-bottom",
+          "enclosure-front-bottom"
+        ],
+        [
+          339,
+          "enclosure-front-top",
+          "enclosure-front-top"
+        ],
+        [
+          340,
+          "enclosure-back-bottom",
+          "enclosure-back-bottom"
+        ],
+        [
+          341,
+          "enclosure-back-top",
+          "enclosure-back-top"
+        ],
+        [
+          342,
+          "enclosure-pump-cartridge",
+          "enclosure-pump-cartridge"
+        ],
+        [
+          343,
+          "enclosure-pump-cap",
+          "enclosure-pump-cap"
+        ]
+      ]
+    },
+    {
+      "check": "after contains exactly the eight canonical enclosure/carrier entries",
+      "pass": true,
+      "mapped_entries": [
+        [
+          74,
+          "enclosure-tee-carrier-left",
+          "enclosure-tee-carrier-left"
+        ],
+        [
+          75,
+          "enclosure-tee-carrier-right",
+          "enclosure-tee-carrier-right"
+        ],
+        [
+          338,
+          "enclosure-front-bottom",
+          "enclosure-front-bottom"
+        ],
+        [
+          339,
+          "enclosure-front-top",
+          "enclosure-front-top"
+        ],
+        [
+          340,
+          "enclosure-back-bottom",
+          "enclosure-back-bottom"
+        ],
+        [
+          341,
+          "enclosure-back-top",
+          "enclosure-back-top"
+        ],
+        [
+          342,
+          "enclosure-pump-cartridge",
+          "enclosure-pump-cartridge"
+        ],
+        [
+          343,
+          "enclosure-pump-cap",
+          "enclosure-pump-cap"
+        ]
+      ]
+    },
+    {
+      "check": "moving placement recovered from after entry: enclosure-tee-carrier-left",
+      "pass": true
+    },
+    {
+      "check": "after moving carrier matches facts working pose: enclosure-tee-carrier-left",
+      "pass": true,
+      "identity_rotation": true,
+      "measured_translation_mm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "expected_translation_mm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "maximum_translation_error_mm": 0.0,
+      "tolerance_mm": 0.0001
+    },
+    {
+      "check": "carried moving canonical arrays: enclosure-tee-carrier-left",
+      "pass": true,
+      "canonical_piece": "enclosure-tee-carrier-left",
+      "differing_arrays": []
+    },
+    {
+      "check": "moving placement recovered from after entry: enclosure-tee-carrier-right",
+      "pass": true
+    },
+    {
+      "check": "after moving carrier matches facts working pose: enclosure-tee-carrier-right",
+      "pass": true,
+      "identity_rotation": true,
+      "measured_translation_mm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "expected_translation_mm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "maximum_translation_error_mm": 0.0,
+      "tolerance_mm": 0.0001
+    },
+    {
+      "check": "carried moving canonical arrays: enclosure-tee-carrier-right",
+      "pass": true,
+      "canonical_piece": "enclosure-tee-carrier-right",
+      "differing_arrays": []
+    },
+    {
+      "check": "same-frame static canonical arrays: enclosure-front-bottom",
+      "pass": true,
+      "canonical_piece": "enclosure-front-bottom",
+      "differing_arrays": []
+    },
+    {
+      "check": "same-frame static canonical arrays: enclosure-front-top",
+      "pass": true,
+      "canonical_piece": "enclosure-front-top",
+      "differing_arrays": []
+    },
+    {
+      "check": "same-frame static canonical arrays: enclosure-back-bottom",
+      "pass": true,
+      "canonical_piece": "enclosure-back-bottom",
+      "differing_arrays": []
+    },
+    {
+      "check": "same-frame static canonical arrays: enclosure-back-top",
+      "pass": true,
+      "canonical_piece": "enclosure-back-top",
+      "differing_arrays": []
+    },
+    {
+      "check": "same-frame static canonical arrays: enclosure-pump-cartridge",
+      "pass": true,
+      "canonical_piece": "enclosure-pump-cartridge",
+      "differing_arrays": []
+    },
+    {
+      "check": "same-frame static canonical arrays: enclosure-pump-cap",
+      "pass": true,
+      "canonical_piece": "enclosure-pump-cap",
+      "differing_arrays": []
+    },
+    {
+      "check": "every other entry's four arrays unchanged",
+      "pass": true,
+      "compared_noncanonical_entries": 336,
+      "unexpected_changes": []
+    },
+    {
+      "check": "only the eight allowed entries may change",
+      "pass": true,
+      "changed_entry_count": 2
+    },
+    {
+      "check": "current pointer names the exact after payload and aggregate STEP",
+      "pass": true,
+      "selected_entries": {
+        "hardware/manifold-layout/enclosure-assembly.step": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+        "hardware/manifold-layout/enclosure-assembly.step.mesh": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137"
+      }
+    },
+    {
+      "check": "after payload is the current canonical aggregate payload",
+      "pass": true
+    },
+    {
+      "check": "all bound source/input/payload bytes and selected pointer entries stable",
+      "pass": true,
+      "changed_during_verification": []
+    },
+    {
+      "check": "before payload is excluded from current input_sha256",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "source_sha256": {
+    "/private/tmp/scanner-review/integration-correction/verify-published-payload.py": "f36c71837a7b8afa33f809f90df26fcb96bebd3bd757e159b001c5aefa004743",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "tools/publish_now.py": "f04cb0abd7635c6a241569dd4b386e1e1226f2d23b0e586fa2ddcef2fe31a7ea",
+    "/private/tmp/scanner-review/integration-correction/repair-carrier-viewer-pose.py": "3679e42ba495bb8a1fdbaecc57046bc4e4f8eca0abacd9e9c7fc12ebf8be8e2f"
+  },
+  "input_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "7ffd112745203620884174253b19f437d03b560381efbf8ec9a01de5167e82dc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "60a4bd2efbbad9d713d2ff48c1810eda838ba80bf7c806afb393f309cb873875",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "73f21c065154de8532ccf2a69be35b79be45670ef04e59d1ce5e1dc8ed875b9b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "34bba0b1a65192ba829548b6f752b3e918a35137fda20284494a51727eedae51",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2fcd9a02a24c0e5393ec1227bf1aa1d9b3b6e849d35d043aee3bed1bfea96daf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "42163fbc8dcb4ad806d8a3dea806b662d8f923a51bc84e4e3276f2f92dba2bbc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "869f0f42f4a23f8eb6be81a51213923dfff43d178ec64e68d82aa6fba2b92ee5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1e0215464ee9bdd19179dff01acfdeb2b823bc4e5915714b44956102a70ad3c7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "04e77f4a7fd292444655a3ea4fdf2a79ca628ca22a4c4da34ce8e968a9e40aea",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a12e95027ceedcb95d5a197cda8a0a5716036e92e155b2244b1f64d2bd143c0d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "0de74b2ba74bdf8dd9600f2737f7d3fcbf541a0ef09fd366da0cb5ffbd778f38",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh": "cfe5b8b1588ffe0594ffcd2a1e9559a12ec90601b84f0a2766214a01248a379b",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh": "bd5ece33c5b09acdb6fdaeee295e412c620f5ee70aff82a566c7d707feb6b822"
+  },
+  "print_released": false,
+  "publication_repair_script": "/private/tmp/scanner-review/integration-correction/repair-carrier-viewer-pose.py",
+  "carrier_pose": {
+    "facts": "hardware/manifold-layout/enclosure-assembly.facts.json",
+    "assembly_state": "connected",
+    "expected_translation_mm": [
+      0.0,
+      2.0,
+      0.0
+    ],
+    "required_rotation": "identity",
+    "tolerance_mm": 0.0001
+  },
+  "input_relationship": "distinct_pre_post_payload_bytes",
+  "publication_invoked_by_verifier": false,
+  "canonical_triplets": [
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        "sha256": "7ffd112745203620884174253b19f437d03b560381efbf8ec9a01de5167e82dc"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        "sha256": "60a4bd2efbbad9d713d2ff48c1810eda838ba80bf7c806afb393f309cb873875"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "sha256": "73f21c065154de8532ccf2a69be35b79be45670ef04e59d1ce5e1dc8ed875b9b"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "sha256": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        "sha256": "34bba0b1a65192ba829548b6f752b3e918a35137fda20284494a51727eedae51"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+        "sha256": "2fcd9a02a24c0e5393ec1227bf1aa1d9b3b6e849d35d043aee3bed1bfea96daf"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        "sha256": "42163fbc8dcb4ad806d8a3dea806b662d8f923a51bc84e4e3276f2f92dba2bbc"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "sha256": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "sha256": "869f0f42f4a23f8eb6be81a51213923dfff43d178ec64e68d82aa6fba2b92ee5"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+        "sha256": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
+        "sha256": "1e0215464ee9bdd19179dff01acfdeb2b823bc4e5915714b44956102a70ad3c7"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+        "sha256": "04e77f4a7fd292444655a3ea4fdf2a79ca628ca22a4c4da34ce8e968a9e40aea"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        "sha256": "a12e95027ceedcb95d5a197cda8a0a5716036e92e155b2244b1f64d2bd143c0d"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+        "sha256": "0de74b2ba74bdf8dd9600f2737f7d3fcbf541a0ef09fd366da0cb5ffbd778f38"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+        "sha256": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+        "sha256": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh",
+        "sha256": "cfe5b8b1588ffe0594ffcd2a1e9559a12ec90601b84f0a2766214a01248a379b"
+      }
+    },
+    {
+      "step": {
+        "path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+        "sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16"
+      },
+      "stl": {
+        "path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+        "sha256": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4"
+      },
+      "payload": {
+        "path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh",
+        "sha256": "bd5ece33c5b09acdb6fdaeee295e412c620f5ee70aff82a566c7d707feb6b822"
+      }
+    }
+  ],
+  "comparison": {
+    "aggregate_owner": "enclosure-assembly",
+    "entry_count": 344,
+    "expected_canonical_entries": [
+      "enclosure-back-bottom",
+      "enclosure-back-top",
+      "enclosure-front-bottom",
+      "enclosure-front-top",
+      "enclosure-pump-cap",
+      "enclosure-pump-cartridge",
+      "enclosure-tee-carrier-left",
+      "enclosure-tee-carrier-right"
+    ],
+    "canonical_array_failures": [],
+    "changed_entries": [
+      {
+        "index": 74,
+        "name": "enclosure-tee-carrier-left",
+        "canonical_piece": "enclosure-tee-carrier-left",
+        "arrays": [
+          "pos"
+        ]
+      },
+      {
+        "index": 75,
+        "name": "enclosure-tee-carrier-right",
+        "canonical_piece": "enclosure-tee-carrier-right",
+        "arrays": [
+          "pos"
+        ]
+      }
+    ],
+    "same_frame_static_entries": [
+      "enclosure-back-bottom",
+      "enclosure-back-top",
+      "enclosure-front-bottom",
+      "enclosure-front-top",
+      "enclosure-pump-cap",
+      "enclosure-pump-cartridge"
+    ],
+    "carried_moving_entries": [
+      {
+        "name": "enclosure-tee-carrier-left",
+        "before_pose_is_diagnostic": true,
+        "before_pose_recovered": true,
+        "facts_translation_mm": [
+          0.0,
+          2.0,
+          0.0
+        ],
+        "before_rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "before_translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "after_rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "after_translation_mm": [
+          0.0,
+          2.0,
+          0.0
+        ]
+      },
+      {
+        "name": "enclosure-tee-carrier-right",
+        "before_pose_is_diagnostic": true,
+        "before_pose_recovered": true,
+        "facts_translation_mm": [
+          0.0,
+          2.0,
+          0.0
+        ],
+        "before_rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "before_translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "after_rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "after_translation_mm": [
+          0.0,
+          2.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "pointer": {
+    "path": "hardware/cad-artifacts.json",
+    "selected_entries": {
+      "hardware/manifold-layout/enclosure-assembly.step": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137"
+    },
+    "expected_entries": {
+      "hardware/manifold-layout/enclosure-assembly.step": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137"
+    },
+    "whole_file_hash_required": false
+  }
+}

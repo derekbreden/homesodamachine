@@ -1,0 +1,35 @@
+{
+  "status": "two_viewer_entries_restored_to_current_native_working_pose",
+  "before_payload": "/tmp/scanner-review/integration-correction/assembly-before-final-publication.step.mesh",
+  "before_sha256": "450ab1f973a0295eb3527116c4fc61425f06b3e6bddb9f4af3523a8a34c50494",
+  "after_payload": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "after_sha256": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137",
+  "source_step_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "changes": [
+    {
+      "name": "enclosure-tee-carrier-left",
+      "state": "connected",
+      "translation_mm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "maximum_native_bbox_error_mm": 0.0066070556640625,
+      "declared_viewer_deflection_bound_mm": 0.0779
+    },
+    {
+      "name": "enclosure-tee-carrier-right",
+      "state": "connected",
+      "translation_mm": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "maximum_native_bbox_error_mm": 4.1283202847353095e-06,
+      "declared_viewer_deflection_bound_mm": 0.0804
+    }
+  ],
+  "repair_script_sha256": "3679e42ba495bb8a1fdbaecc57046bc4e4f8eca0abacd9e9c7fc12ebf8be8e2f",
+  "facts_sha256": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260",
+  "scope": "Viewer payload only. No STEP, STL, model source, scorecard or print input changed. Exact whole-payload comparison is recorded separately."
+}
