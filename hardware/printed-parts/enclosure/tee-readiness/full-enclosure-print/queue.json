@@ -117,7 +117,7 @@
         "grams_saved_profile_density": 814.6126708984375,
         "grams_actual_petgf_density_1p43": 903.0202475850896,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/preparation.json",
@@ -211,7 +211,7 @@
         "grams_saved_profile_density": 560.4407958984375,
         "grams_actual_petgf_density_1p43": 621.2638280114462,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/preparation.json",
@@ -303,7 +303,7 @@
         "grams_saved_profile_density": 639.99560546875,
         "grams_actual_petgf_density_1p43": 709.4524928839631,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/preparation.json",
@@ -395,7 +395,7 @@
         "grams_saved_profile_density": 867.9348754882812,
         "grams_actual_petgf_density_1p43": 962.1293580994125,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/preparation.json",
@@ -488,7 +488,7 @@
         "grams_saved_profile_density": 101.80787658691406,
         "grams_actual_petgf_density_1p43": 112.85679342580396,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "handoff_conditions": [
         "Assigned machine available",
@@ -953,5 +953,9 @@
       "path": "hardware/reference/g-ganen-pump/installation/feet-correction-validation/validation.json",
       "sha256": "d69dd8505d7317a07697cbb2bbe01b605314d8436638225b50970aefd7951712"
     }
+  },
+  "publication_review": {
+    "path": "hardware/reference/g-ganen-pump/installation/publication-review/manifest.json",
+    "sha256": "235d8abf3aaf0bb8282b1f73730edcc315a85a00d91cf9ce707beb3c574a09d6"
   }
 }

@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "created_at_utc": "2026-09-21T17:19:08.706278+00:00",
+  "current_geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+    "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+  },
+  "current_geometry_hashes_checked": {
+    "artifact_sha256": 29,
+    "source_sha256": 177,
+    "evidence_sha256": 58
+  },
+  "publication_checks": 30,
+  "publication_failures": 0,
+  "file_sha256": {
+    "README.md": "f1ab8e03db55805951982ff62cc32a615544eb0350abdeefa78156c9fef4bdd1",
+    "carrier-placement/array-probe.json": "d08e73da01fe78af791705aff39310ca7f6d300dbb62211e4b9dae20b09f1241",
+    "carrier-placement/diagnosis.json": "5540367868801d5ef70ae80203a334333b444ff0f64218dca143b1b05a7d9043",
+    "carrier-placement/native-probe.json": "7433c595fdf039d3f122f658222d570dad06195527c73b91c7695b3af9061709",
+    "carrier-placement/native-probe.log": "0bbaef0daca714700155ed026d71711f3804152b7993ffc8829c1125893fc76e",
+    "carrier-placement/native_probe.py.txt": "76915d56625446bcd7e35a41af0450790aaeede262e393c2635ad1409a2ee31b",
+    "carrier-placement/probe.py.txt": "0faf4cba254fe8be5ed39e3a47da7c0bfff4efbf685ad944edb9ae3535a967c1",
+    "carrier-placement/published-payload.json": "e7de11f729484448ac94c99cd80bfdcebf84a4b9c4e37269e11a9fcf078ed764",
+    "carrier-placement/verify-published-payload.py.txt": "f36c71837a7b8afa33f809f90df26fcb96bebd3bd757e159b001c5aefa004743",
+    "foam-cap-lid-top.lint-answers.txt": "a4d2ac938ec2cd4a85928d733c9852649b3a2d403ec054da9b6973827714c05b",
+    "geometry-lint-answered.log": "4c749d38e6e25aea63a4a3b38411ef40849b40519a39c6a186613dde5d4f8211",
+    "geometry-lint.log": "1115f1d4de0db9326349e9fe512044ae8ed351bf0124f5d6139a2bf2a86123b7",
+    "mounts.json": "50c8259734b0a3ca9d54bab883a1cab16fb0fdf2260fc6f4320b084398afb10e"
+  }
+}

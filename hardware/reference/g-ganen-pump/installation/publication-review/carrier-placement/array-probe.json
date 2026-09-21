@@ -1,0 +1,111 @@
+{
+  "host_sha256": "1ce3e2e9dbdf94e4ed9191b845f18d7d895ead7b1bab1f57b39f5750175ac7c1",
+  "readings": [
+    {
+      "name": "enclosure-tee-carrier-left",
+      "canonical_bounds": [
+        [
+          -107.50660705566406,
+          92.29000091552734,
+          167.1739959716797
+        ],
+        [
+          20.5,
+          136.0,
+          229.11900329589844
+        ]
+      ],
+      "host_bounds": [
+        [
+          -107.50330352783203,
+          94.29000091552734,
+          167.1739959716797
+        ],
+        [
+          20.50330352783203,
+          138.0,
+          229.11900329589844
+        ]
+      ],
+      "inferred_translation": [
+        0.00330352783203125,
+        2.0,
+        0.0
+      ],
+      "vertex_delta_min": [
+        0.00330352783203125,
+        2.0,
+        0.0
+      ],
+      "vertex_delta_max": [
+        0.00330352783203125,
+        2.0,
+        0.0
+      ],
+      "vertex_delta_median": [
+        0.00330352783203125,
+        2.0,
+        0.0
+      ],
+      "array_sizes_equal": true,
+      "exact_corresponding_normals": true,
+      "exact_indices": true,
+      "exact_face_ranges": true,
+      "exact_float32_expected_pose": false,
+      "exact_float32_inferred_pose": true
+    },
+    {
+      "name": "enclosure-tee-carrier-right",
+      "canonical_bounds": [
+        [
+          -25.75,
+          92.29000091552734,
+          167.1739959716797
+        ],
+        [
+          107.5,
+          138.1999969482422,
+          229.11900329589844
+        ]
+      ],
+      "host_bounds": [
+        [
+          -25.75,
+          94.29000091552734,
+          167.1739959716797
+        ],
+        [
+          107.5,
+          140.1999969482422,
+          229.11900329589844
+        ]
+      ],
+      "inferred_translation": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "vertex_delta_min": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "vertex_delta_max": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "vertex_delta_median": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "array_sizes_equal": true,
+      "exact_corresponding_normals": true,
+      "exact_indices": true,
+      "exact_face_ranges": true,
+      "exact_float32_expected_pose": true,
+      "exact_float32_inferred_pose": true
+    }
+  ]
+}

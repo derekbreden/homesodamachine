@@ -50,7 +50,7 @@
       },
       "published_assembly_payload": {
         "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-        "sha256": "1ce3e2e9dbdf94e4ed9191b845f18d7d895ead7b1bab1f57b39f5750175ac7c1"
+        "sha256": "b3d26c604b2cccf3d058d0f0cd92b29c5cbadf5d024dc1f5bb433ac0a2dff473"
       },
       "geometry_receipt": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
@@ -150,7 +150,7 @@
         "grams_saved_profile_density": 814.6126708984375,
         "grams_actual_petgf_density_1p43": 903.0202475850896,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       }
     },
     {
@@ -173,7 +173,7 @@
         "grams_saved_profile_density": 560.4407958984375,
         "grams_actual_petgf_density_1p43": 621.2638280114462,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       }
     },
     {
@@ -196,7 +196,7 @@
         "grams_saved_profile_density": 639.99560546875,
         "grams_actual_petgf_density_1p43": 709.4524928839631,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       }
     },
     {
@@ -219,7 +219,7 @@
         "grams_saved_profile_density": 867.9348754882812,
         "grams_actual_petgf_density_1p43": 962.1293580994125,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       }
     },
     {
@@ -243,7 +243,7 @@
         "grams_saved_profile_density": 101.80787658691406,
         "grams_actual_petgf_density_1p43": 112.85679342580396,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       }
     },
     {
@@ -343,7 +343,7 @@
       "physical_acceptance": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
       "fit_and_retention_accepted": true,
       "material": "PET-GF",
-      "design_example": "Broad, substantial flexing walls and retaining lips; Derek’s accepted simple snap-fit example."
+      "design_example": "Broad, substantial flexing walls and retaining lips; Derek\u2019s accepted simple snap-fit example."
     },
     "machine_display_cover": {
       "physical_fit_accepted": true,
@@ -592,5 +592,9 @@
       "path": "hardware/reference/g-ganen-pump/installation/feet-correction-validation/validation.json",
       "sha256": "d69dd8505d7317a07697cbb2bbe01b605314d8436638225b50970aefd7951712"
     }
+  },
+  "publication_review": {
+    "path": "hardware/reference/g-ganen-pump/installation/publication-review/manifest.json",
+    "sha256": "235d8abf3aaf0bb8282b1f73730edcc315a85a00d91cf9ce707beb3c574a09d6"
   }
 }
