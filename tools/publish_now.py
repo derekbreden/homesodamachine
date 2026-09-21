@@ -181,13 +181,15 @@ def refresh_enclosure_viewer() -> None:
 
     `surfaces` admits a piece only when its payload names the exact STEP beside it.
     The six fixed pieces share the host frame. The carrier halves are cut at release
-    and displayed at the host's working state, so their graft recovers that placement.
+    and displayed at the facts' working state. Their exact carry comes from those
+    facts; a reduced surface's changed bounds do not define a rigid placement.
     The operation reads no CAD source and acquires no Bazel lock.
     """
     scripts = ROOT / "hardware" / "scripts"
     if str(scripts) not in sys.path:
         sys.path.insert(0, str(scripts))
     import flute_payload
+    import numpy as np
 
     pieces = flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)
     fluted = flute_payload.surfaces(flute_payload.ENCLOSURE_DIRS)
@@ -216,7 +218,15 @@ def refresh_enclosure_viewer() -> None:
         if static:
             landed += flute_payload.graft(host, static, same_frame=True)
         if moving:
-            landed += flute_payload.graft(host, moving, same_frame=False)
+            facts = json.loads((ROOT / "hardware/manifold-layout/enclosure-assembly.facts.json").read_text())
+            carrier = facts["box"]["tee_carrier"]
+            offset = float(carrier["states"][carrier["assembly_state"]]["offset_y"])
+            if not np.isfinite(offset):
+                raise ValueError("carrier assembly offset must be finite")
+            placement = (np.eye(3), np.array([0.0, offset, 0.0]))
+            placed = {name: flute_payload.carried(surface, placement)
+                      for name, surface in moving.items()}
+            landed += flute_payload.graft(host, placed, same_frame=True)
         print(f"  {host.relative_to(ROOT)}: {landed} of {len(expected)} piece surface(s) landed")
 
 
@@ -377,7 +387,8 @@ def selftest() -> int:
              enclosure_release_plan([], root), ("graft", [payload_rel]))
 
         # The appliance places the printable release-state carrier at its
-        # working offset. A fixed-frame graft would silently move it back.
+        # working offset. The known carry must not inherit small bound changes
+        # introduced by reducing a piece's surface.
         # Mock only the payload API: exercise the real refresh dispatch and
         # both hosts without importing CAD or publishing any files.
         from contextlib import redirect_stdout
@@ -392,7 +403,16 @@ def selftest() -> int:
         appliance = root / "hardware/manifold-layout/enclosure-assembly.step.mesh"
         appliance.parent.mkdir(parents=True)
         appliance.write_bytes(b"appliance host")
+        (appliance.parent / "enclosure-assembly.facts.json").write_text(json.dumps({
+            "box": {"tee_carrier": {"assembly_state": "connected",
+                     "states": {"connected": {"offset_y": 2.0}}}}}))
         calls = []
+        carries = []
+
+        def carried(surface, placement):
+            rotation, translation = placement
+            carries.append((rotation.tolist(), translation.tolist()))
+            return surface
 
         def graft(host, surfaces, *, same_frame):
             calls.append((host.relative_to(root).as_posix(), set(surfaces), same_frame))
@@ -404,19 +424,21 @@ def selftest() -> int:
             payload_names=lambda host: sorted(fixed | (moving if host == appliance else set()))
                                       + ["unrelated-component"],
             fluted_key=lambda name, surfaces: name if name in surfaces else None,
-            graft=graft,
+            graft=graft, carried=carried,
         )
         with patch.dict(sys.modules, {"flute_payload": fake}), \
                 patch.object(sys.modules[__name__], "ROOT", root), \
                 redirect_stdout(StringIO()):
             refresh_enclosure_viewer()
-        hold("both hosts graft fixed enclosure surfaces in their own frame",
+        hold("both hosts graft surfaces in their exact assembly frame",
              [(host, names) for host, names, same in calls if same],
              [(paths["host"].relative_to(root).as_posix(), fixed),
-              (appliance.relative_to(root).as_posix(), fixed)])
-        hold("only the appliance carries moving halves onto their host placement",
-             [(host, names) for host, names, same in calls if not same],
-             [(appliance.relative_to(root).as_posix(), moving)])
+              (appliance.relative_to(root).as_posix(), fixed),
+              (appliance.relative_to(root).as_posix(), moving)])
+        hold("both carrier halves use the facts' exact offset with no sideways drift",
+             carries,
+             [([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+               [0.0, 2.0, 0.0])] * 2)
         hold("refresh never passes an unrelated host entry to the graft",
              set().union(*(names for _host, names, _same in calls)), fixed | moving)
 
