@@ -746,7 +746,80 @@
       "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
       "completion_record_sha256": "a28dfd5f62bcaf8a15a622be62d3cb134a82d0d2031cce89176bc07047e22275",
       "physical_success_and_fit_confirmed": false,
-      "latest_print_removed_confirmed": false
+      "latest_print_removed_confirmed": true,
+      "removal_authority": "Derek: H2C is clear and ready for next print."
+    },
+    {
+      "date": "2026-09-21",
+      "printer": "H2C",
+      "printer_serial": "31B8AP612000452",
+      "job_name": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+      "status": "started",
+      "started_by": "agent",
+      "sent_via": "Bambu Connect; native UI verified H2C selector and left external PET-CF mapping",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+      },
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "project": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.3mf",
+      "project_sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb",
+      "sliced_file": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+      "sliced_file_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+      "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+      "nozzle": "Fixed left0.4mm diamond PCD; 0.4mm id1 reported, matching established H2C launch configuration",
+      "filament": "Black PET-GF, fixed left nozzle, external254, PET-CF metadata",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "brim_type": "auto_brim",
+      "emitted_brim_paths": 0,
+      "layers": 813,
+      "estimated_seconds": 87476.1328125,
+      "filament_grams_saved_profile_density": 814.6126708984375,
+      "filament_grams_petgf_density_1p43": 903.0202475850896,
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-21T19:47:45.218425+00:00",
+      "observed_layer": 0,
+      "observed_total_layers": 813,
+      "observed_remaining_minutes": 1457,
+      "observed_print_error": 0,
+      "hms": [],
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+      "launch_record_sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c",
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/offline-review.json",
+        "sha256": "b8a917de0e3cf63fa234b0e51160846089cf7b2e24ecf512814a7951460df83a"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+        "sha256": "e7eed1d88c3b3b3623503cb32ebdaa37e69398908f451ac30f97d14f812de225",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "current_geometry_revalidation": {
+        "receipt": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+          "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+        },
+        "basis": "Current print meshes are byte-identical, except back-top which has zero native added/removed volume and at most 0.000016 mm corresponding corner movement. Saved profile and original archive/support review are retained. Complete updated assembly checks pass.",
+        "print_mesh_sha256": {
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+          "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+        }
+      },
+      "physical_fit_and_support_removal_tested": false,
+      "complete_enclosure_trial": true,
+      "test_coupon": false
     }
   ]
 }
