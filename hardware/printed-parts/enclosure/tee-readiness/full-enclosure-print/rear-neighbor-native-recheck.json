@@ -1,0 +1,223 @@
+{
+  "status": "retained_native_recheck_pass",
+  "scope": "Frozen native correction evidence; no live-source regeneration or whole-shell release.",
+  "archive_sha256": "380c7fd7b547aa2804df1b03cc812f1b50a39d934f851a4bf4e4ac364f7c1867",
+  "reproducer_sha256": "1cbceb0226eebb41468072fd8418ea070a2f71bd920cb14c1fb6538bd7b52d80",
+  "pair_readings": [
+    {
+      "a": "anchor",
+      "b": "wago-tower",
+      "expected_air_mm": 4.699999999999989,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 4.699999999999989,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "anchor",
+      "b": "foam-assembly",
+      "expected_air_mm": 10.598999899999995,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 10.598999899999995,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "anchor",
+      "b": "tube-fluid-2",
+      "expected_air_mm": 32.01277703563344,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 32.012777035633384,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b",
+      "b": "pan-sleeve",
+      "expected_air_mm": 1.006580737556817,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 1.006580737556817,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b",
+      "b": "core-holds",
+      "expected_air_mm": 1.0439687216871962,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 1.0439687216871962,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b",
+      "b": "foam-assembly",
+      "expected_air_mm": 4.193999899999966,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 4.193999899999966,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "core-holds",
+      "b": "foam-assembly",
+      "expected_air_mm": 0.0,
+      "minimum_air_mm": 0,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 0.0,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "core-holds",
+      "b": "g-ganen-pump",
+      "expected_air_mm": 24.24020640002231,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 24.24020640002231,
+      "native_components_tested": 5,
+      "pass": true
+    },
+    {
+      "a": "core-holds",
+      "b": "bulkhead-flavor-a",
+      "expected_air_mm": 7.3866109474188795,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 7.3866109474188795,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "core-holds",
+      "b": "psu",
+      "expected_air_mm": 1.5,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 1.5,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "foam-assembly",
+      "expected_air_mm": 3.2411573848980337,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 3.2411573848980337,
+      "native_components_tested": 3,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "tube-water-3",
+      "expected_air_mm": 1.9264995039959862,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 1.9264995039959716,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "tube-fluid-2",
+      "expected_air_mm": 34.22027917645144,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 34.22027917645145,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "tube-fluid-24",
+      "expected_air_mm": 19.71414365950653,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 19.714143659506508,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "anchor",
+      "expected_air_mm": 0.14999999999997726,
+      "minimum_air_mm": 0.14999,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 0.14999999999997102,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "pan-sleeve",
+      "expected_air_mm": 7.711580737556801,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 7.711580737556801,
+      "native_components_tested": 1,
+      "pass": true
+    },
+    {
+      "a": "flavor-b-tube",
+      "b": "core-holds",
+      "expected_air_mm": 12.838553604156985,
+      "minimum_air_mm": 1,
+      "maximum_overlap_mm3": 1e-06,
+      "overlap_mm3": 0.0,
+      "air_mm": 12.838553604156985,
+      "native_components_tested": 1,
+      "pass": true
+    }
+  ],
+  "bearing_readings": [
+    {
+      "bounds_mm": [
+        -65.6,
+        454.3,
+        253.3,
+        -56.6,
+        465.2,
+        253.4
+      ],
+      "coverage_fraction": 1.0,
+      "pass": true
+    },
+    {
+      "bounds_mm": [
+        56.6,
+        454.3,
+        253.3,
+        65.6,
+        465.2,
+        253.4
+      ],
+      "coverage_fraction": 1.0,
+      "pass": true
+    }
+  ],
+  "c14_distance_lower_bound_mm": 117.39474184912012,
+  "elapsed_seconds": 8.029069584008539
+}

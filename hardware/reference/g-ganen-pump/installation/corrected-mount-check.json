@@ -1,0 +1,954 @@
+{
+  "schema": "g-ganen-installation/1",
+  "inputs": {
+    "hardware/manifold-layout/enclosure_assembly.py": "b4a791896ac706f02dda5e01bd3b25e3a36e8612b746f1c7417bb746dfe5f5b3",
+    "hardware/manifold-layout/_lines.py": "25ebc25e36b3aa68e46c38f03061be3654b19c31e77d9fd76e6832008ee93cee",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "873e54986455e94d286ac5a1649e0ad0f7ae4cf127097aa23c14c82a8c7718c9",
+    "hardware/reference/g-ganen-pump/installation/validate_installation.py": "3c133a2ec743f87f0146791ed2a9597c11ab769b15cba8c7a9ee910c4360849b",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+    "hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": "7e86285e8991d6cde45830d7997cb30eb026d4998f3d54948d4dd480c32e0236",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "17a733e4aeacd9cd6801bc1938924991a854707f37d1d6bd7661fa05072fdb9f",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b"
+  },
+  "gate_fixture": {
+    "source": "hardware/manifold-layout/enclosure-assembly.facts.json",
+    "sha256": "54daf9331130ea7d56c49a3486278426397592646906dbfb82c0fcd91f3d9c46",
+    "z_mm": 270.5740001,
+    "qualification": "retained baseline gate; complete candidate assembly still required"
+  },
+  "local_to_world": {
+    "z_rotation_degrees": 90.0,
+    "origin_mm": [
+      2.0711351519419985,
+      374.235458276122,
+      253.4
+    ]
+  },
+  "core_translation_from_retained_facts_y_mm": 4.2999999999999545,
+  "installed_bounds_mm": [
+    [
+      -45.2822231900712,
+      296.3354745277629,
+      251.61545406513835
+    ],
+    [
+      49.89457775083624,
+      456.6,
+      313.93392779614123
+    ]
+  ],
+  "suction": [
+    [
+      39.332170894531146,
+      340.9470234175444,
+      280.1243022039962
+    ],
+    [
+      0.999986748620726,
+      0.004651362946762391,
+      0.002206219772969168
+    ]
+  ],
+  "discharge": [
+    [
+      -34.946262427903676,
+      340.9764884721693,
+      280.1688222682448
+    ],
+    [
+      -0.9999421767690463,
+      0.0025336385440094433,
+      0.01045101880726016
+    ]
+  ],
+  "selected_feet": [
+    {
+      "id": "rear_yminus",
+      "station_mm": [
+        50.0,
+        -38.51674671072352,
+        0.0
+      ],
+      "observed_slot_center_xy_mm": [
+        68.67231283254691,
+        -38.51674671072352
+      ],
+      "slider_translation_x_mm": -18.672312832546908,
+      "slot_center_basis": "visible_complete_lower_sections",
+      "visible_sections": [
+        {
+          "depth_above_local_bearing_plane_mm": 0.5,
+          "points": 244,
+          "center_xy_mm": [
+            0.035369683280834265,
+            -0.09771308232114528
+          ],
+          "long_axis_xy": [
+            0.04842542493238108,
+            0.9988268009120091
+          ],
+          "width_mm": 4.393441937302033,
+          "total_length_mm": 6.861330463891986,
+          "residual_mm": {
+            "mean": -0.014082220829021113,
+            "median": -0.0034047403137515975,
+            "rms": 0.15170889254291742,
+            "p05": -0.23939450881796734,
+            "p95": 0.18273878938116292,
+            "abs_p95": 0.25293965734294194,
+            "min": -0.7837560240059303,
+            "max": 0.26958514542438383,
+            "n": 244
+          },
+          "fit_success": true,
+          "at_parameter_bound": false,
+          "observed_angular_sectors_of_12": 13,
+          "surface_coverage_points": {
+            "positive_flank": 47,
+            "negative_flank": 55,
+            "positive_end": 43,
+            "negative_end": 26
+          },
+          "status": "complete_section_observed",
+          "dimension_scope": "A partial profile fit does not qualify total opening width or screw passage.",
+          "center_reference_mm": [
+            68.62565032275597,
+            -38.560746191821856,
+            0.42555033252183816
+          ],
+          "long_axis_reference": [
+            0.0484162875213113,
+            0.9962073340903075,
+            -0.0722966846220229
+          ]
+        },
+        {
+          "depth_above_local_bearing_plane_mm": 1.5,
+          "points": 172,
+          "center_xy_mm": [
+            0.1481413550033762,
+            -0.08314254076594983
+          ],
+          "long_axis_xy": [
+            -0.016178609860369775,
+            0.9998691177264082
+          ],
+          "width_mm": 4.068746616166572,
+          "total_length_mm": 6.381579031309544,
+          "residual_mm": {
+            "mean": -0.002258764011275067,
+            "median": 0.005024632999027334,
+            "rms": 0.13192568044459427,
+            "p05": -0.2530332921512794,
+            "p95": 0.22371996564198282,
+            "abs_p95": 0.27293168018120884,
+            "min": -0.4005762734981788,
+            "max": 0.3983590003260913,
+            "n": 172
+          },
+          "fit_success": true,
+          "at_parameter_bound": false,
+          "observed_angular_sectors_of_12": 12,
+          "surface_coverage_points": {
+            "positive_flank": 35,
+            "negative_flank": 52,
+            "positive_end": 15,
+            "negative_end": 18
+          },
+          "status": "complete_section_observed",
+          "dimension_scope": "A partial profile fit does not qualify total opening width or screw passage.",
+          "center_reference_mm": [
+            68.71897534233783,
+            -38.47274722962518,
+            1.4237869647872858
+          ],
+          "long_axis_reference": [
+            -0.016175557112582055,
+            0.9971548308533006,
+            -0.07362468782971461
+          ]
+        }
+      ],
+      "observed_pad_top_mm": [
+        {
+          "pass": "pass-01-feet-up",
+          "at_screw_axis_mm": 6.745780841180683,
+          "over_washer_min_mm": 6.413699422638959,
+          "over_washer_max_mm": 7.077862259722408
+        },
+        {
+          "pass": "pass-03-feet-down",
+          "at_screw_axis_mm": 6.737154674584433,
+          "over_washer_min_mm": 6.386789985571666,
+          "over_washer_max_mm": 7.0875193635972
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          40.37517973160074,
+          -47.72027668287112,
+          -0.992639959543
+        ],
+        [
+          59.529420980534724,
+          -27.00000465253915,
+          18.397797967462175
+        ]
+      ],
+      "tool_rigid_gap_mm": 6.616928021528915
+    },
+    {
+      "id": "rear_yplus",
+      "station_mm": [
+        50.0,
+        38.78099200394384,
+        0.0
+      ],
+      "observed_slot_center_xy_mm": [
+        74.43728463507625,
+        38.78099200394384
+      ],
+      "slider_translation_x_mm": -24.437284635076253,
+      "slot_center_basis": "visible_partial_mouth_only",
+      "visible_sections": [
+        {
+          "depth_above_local_bearing_plane_mm": 0.5,
+          "points": 113,
+          "center_xy_mm": [
+            -0.06604959682669298,
+            0.30463276534813216
+          ],
+          "long_axis_xy": [
+            -0.043527458386238616,
+            0.999052231050226
+          ],
+          "width_mm": 5.002322264697711,
+          "total_length_mm": 6.70784406497865,
+          "residual_mm": {
+            "mean": -0.00023449782614554056,
+            "median": -0.005597199808818676,
+            "rms": 0.07982912191593698,
+            "p05": -0.14795524200428883,
+            "p95": 0.12000525127223587,
+            "abs_p95": 0.1825696641644417,
+            "min": -0.23205254215200766,
+            "max": 0.22742270324206615,
+            "n": 113
+          },
+          "fit_success": true,
+          "at_parameter_bound": false,
+          "observed_angular_sectors_of_12": 6,
+          "surface_coverage_points": {
+            "positive_flank": 0,
+            "negative_flank": 48,
+            "positive_end": 31,
+            "negative_end": 0
+          },
+          "status": "partial_profile_only",
+          "dimension_scope": "A partial profile fit does not qualify total opening width or screw passage.",
+          "center_reference_mm": [
+            74.43728463507625,
+            38.78099200394384,
+            0.5486295328489473
+          ],
+          "long_axis_reference": [
+            -0.04352649142867974,
+            0.9979542978914273,
+            0.04682588882164713
+          ]
+        }
+      ],
+      "observed_pad_top_mm": [
+        {
+          "pass": "pass-03-feet-down",
+          "at_screw_axis_mm": 6.81166376510386,
+          "over_washer_min_mm": 6.525589664601618,
+          "over_washer_max_mm": 7.097737865606101
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          39.963672776160735,
+          27.00000957619357,
+          -0.8373001194711783
+        ],
+        [
+          59.01383938902675,
+          47.12539765500542,
+          18.49272800630215
+        ]
+      ],
+      "tool_rigid_gap_mm": 6.980399992253329
+    },
+    {
+      "id": "head_yminus",
+      "station_mm": [
+        12.0,
+        -39.2534304672692,
+        0.0
+      ],
+      "observed_slot_center_xy_mm": [
+        11.86539368591102,
+        -39.2534304672692
+      ],
+      "slider_translation_x_mm": 0.13460631408898038,
+      "slot_center_basis": "visible_complete_lower_sections",
+      "visible_sections": [
+        {
+          "depth_above_local_bearing_plane_mm": 0.5,
+          "points": 223,
+          "center_xy_mm": [
+            0.05247222658072629,
+            -0.8383886432247666
+          ],
+          "long_axis_xy": [
+            -0.07668443334501696,
+            0.997055413546586
+          ],
+          "width_mm": 4.321962290860652,
+          "total_length_mm": 6.537401767063972,
+          "residual_mm": {
+            "mean": 0.013476638092406831,
+            "median": -0.005623798685544301,
+            "rms": 0.10908296360141695,
+            "p05": -0.1486433915273482,
+            "p95": 0.22242686166890846,
+            "abs_p95": 0.22242686166890846,
+            "min": -0.18115526247033387,
+            "max": 0.31356123878233566,
+            "n": 223
+          },
+          "fit_success": true,
+          "at_parameter_bound": false,
+          "observed_angular_sectors_of_12": 11,
+          "surface_coverage_points": {
+            "positive_flank": 46,
+            "negative_flank": 55,
+            "positive_end": 16,
+            "negative_end": 55
+          },
+          "status": "complete_section_observed",
+          "dimension_scope": "A partial profile fit does not qualify total opening width or screw passage.",
+          "center_reference_mm": [
+            11.86539368591102,
+            -39.2534304672692,
+            0.8891270569740702
+          ],
+          "long_axis_reference": [
+            -0.07665875225198272,
+            0.9859045101519249,
+            -0.14871359240251605
+          ]
+        }
+      ],
+      "observed_pad_top_mm": [
+        {
+          "pass": "pass-01-feet-up",
+          "at_screw_axis_mm": 7.39577251166675,
+          "over_washer_min_mm": 6.706433469562926,
+          "over_washer_max_mm": 8.085111553770574
+        },
+        {
+          "pass": "pass-03-feet-down",
+          "at_screw_axis_mm": 7.357998582443722,
+          "over_washer_min_mm": 6.705426539527634,
+          "over_washer_max_mm": 8.01057062535981
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          1.7040721745299803,
+          -47.82344259889424,
+          -1.7845459348616461
+        ],
+        [
+          21.216754273689233,
+          -27.74788683322287,
+          16.846250039322
+        ]
+      ],
+      "tool_rigid_gap_mm": 7.60559150105959
+    },
+    {
+      "id": "head_yplus",
+      "station_mm": [
+        12.0,
+        38.33962311496413,
+        0.0
+      ],
+      "observed_slot_center_xy_mm": [
+        10.31228260610309,
+        38.33962311496413
+      ],
+      "slider_translation_x_mm": 1.6877173938969108,
+      "slot_center_basis": "visible_complete_lower_sections",
+      "visible_sections": [
+        {
+          "depth_above_local_bearing_plane_mm": 0.5,
+          "points": 263,
+          "center_xy_mm": [
+            -0.017959784912005002,
+            -0.23860530876383482
+          ],
+          "long_axis_xy": [
+            0.012248997464263426,
+            0.9999249782164262
+          ],
+          "width_mm": 4.527671634730313,
+          "total_length_mm": 6.917965925270018,
+          "residual_mm": {
+            "mean": 0.002152977016775637,
+            "median": 0.004251942294438038,
+            "rms": 0.10871284311365341,
+            "p05": -0.15541346415705445,
+            "p95": 0.18724137758664766,
+            "abs_p95": 0.1995118688877226,
+            "min": -0.3599663649221463,
+            "max": 0.27410148198912276,
+            "n": 263
+          },
+          "fit_success": true,
+          "at_parameter_bound": false,
+          "observed_angular_sectors_of_12": 13,
+          "surface_coverage_points": {
+            "positive_flank": 46,
+            "negative_flank": 66,
+            "positive_end": 42,
+            "negative_end": 31
+          },
+          "status": "complete_section_observed",
+          "dimension_scope": "A partial profile fit does not qualify total opening width or screw passage.",
+          "center_reference_mm": [
+            10.295904635792404,
+            38.24727524462006,
+            0.3685081936397359
+          ],
+          "long_axis_reference": [
+            0.012244292188321354,
+            0.9995308896422093,
+            0.028072726263422117
+          ]
+        },
+        {
+          "depth_above_local_bearing_plane_mm": 1.5,
+          "points": 210,
+          "center_xy_mm": [
+            -0.012916950581913752,
+            -0.025424176773641848
+          ],
+          "long_axis_xy": [
+            -0.022174891727373996,
+            0.9997541068567206
+          ],
+          "width_mm": 4.665095525455197,
+          "total_length_mm": 6.773485871862757,
+          "residual_mm": {
+            "mean": 0.0035327639083875305,
+            "median": 0.0031521332389081724,
+            "rms": 0.11443157472735575,
+            "p05": -0.17322603561922628,
+            "p95": 0.21537172133980415,
+            "abs_p95": 0.22474820061611753,
+            "min": -0.2861925475695095,
+            "max": 0.24266411469600024,
+            "n": 210
+          },
+          "fit_success": true,
+          "at_parameter_bound": false,
+          "observed_angular_sectors_of_12": 12,
+          "surface_coverage_points": {
+            "positive_flank": 46,
+            "negative_flank": 53,
+            "positive_end": 22,
+            "negative_end": 11
+          },
+          "status": "complete_section_observed",
+          "dimension_scope": "A partial profile fit does not qualify total opening width or screw passage.",
+          "center_reference_mm": [
+            10.328660576413773,
+            38.43197098530819,
+            1.3736381140681213
+          ],
+          "long_axis_reference": [
+            -0.022166373562122737,
+            0.9993329784322825,
+            0.029021545457946944
+          ]
+        }
+      ],
+      "observed_pad_top_mm": [
+        {
+          "pass": "pass-03-feet-down",
+          "at_screw_axis_mm": 6.20931238349747,
+          "over_washer_min_mm": 5.885745264117789,
+          "over_washer_max_mm": 6.532879502877151
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          2.072613625354908,
+          27.000211115842955,
+          -0.8748842305
+        ],
+        [
+          21.248173054066623,
+          47.3533583420132,
+          18.49769575478454
+        ]
+      ],
+      "tool_rigid_gap_mm": 6.759341055115266
+    }
+  ],
+  "printed_cap_stations_mm": [
+    [
+      -100.43545827612205,
+      -36.70985685897666
+    ],
+    [
+      -100.43545827612205,
+      40.58788185569069
+    ],
+    [
+      -62.43545827612205,
+      -36.26848796999695
+    ],
+    [
+      -62.43545827612205,
+      41.32456561223638
+    ]
+  ],
+  "mount_rows": [
+    [
+      [
+        -100.43545827612205,
+        -36.70985685897666
+      ],
+      [
+        -100.43545827612206,
+        -36.70985685897666
+      ]
+    ],
+    [
+      [
+        -100.43545827612205,
+        40.58788185569069
+      ],
+      [
+        -100.43545827612206,
+        40.58788185569069
+      ]
+    ],
+    [
+      [
+        -62.43545827612205,
+        -36.26848796999695
+      ],
+      [
+        -62.43545827612206,
+        -36.26848796999695
+      ]
+    ],
+    [
+      [
+        -62.43545827612205,
+        41.32456561223638
+      ],
+      [
+        -62.43545827612206,
+        41.32456561223638
+      ]
+    ]
+  ],
+  "screw_stacks": [
+    {
+      "id": "rear_yminus",
+      "free_pad_stack_mm": [
+        6.386789985571666,
+        7.0875193635972
+      ],
+      "insert_reach_mm": [
+        6.7124806364028,
+        7.413210014428332
+      ],
+      "physical_loaded_stack_qualified": false
+    },
+    {
+      "id": "rear_yplus",
+      "free_pad_stack_mm": [
+        6.525589664601618,
+        7.097737865606101
+      ],
+      "insert_reach_mm": [
+        6.702262134393898,
+        7.274410335398381
+      ],
+      "physical_loaded_stack_qualified": false
+    },
+    {
+      "id": "head_yminus",
+      "free_pad_stack_mm": [
+        6.705426539527634,
+        8.085111553770574
+      ],
+      "insert_reach_mm": [
+        5.714888446229425,
+        7.094573460472365
+      ],
+      "physical_loaded_stack_qualified": false
+    },
+    {
+      "id": "head_yplus",
+      "free_pad_stack_mm": [
+        5.885745264117789,
+        6.532879502877151
+      ],
+      "insert_reach_mm": [
+        7.267120497122848,
+        7.91425473588221
+      ],
+      "physical_loaded_stack_qualified": false
+    }
+  ],
+  "washer_od_mm": 9.0,
+  "washer_t_mm": 0.8,
+  "bore_depth_mm": 8.514254735882211,
+  "remaining_floor_mm": 6.085745264117788,
+  "routes": [],
+  "routes_checked": false,
+  "route_blockers": [],
+  "checks": [
+    {
+      "check": "cap mount axis 0",
+      "value": 1.4210854715202004e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap mount axis 1",
+      "value": 1.4210854715202004e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap mount axis 2",
+      "value": 1.4210854715202004e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap mount axis 3",
+      "value": 1.4210854715202004e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "bearing datum on cap",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear rigid face has declared core-rear clearance",
+      "value": 1.0658141036401503e-14,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "flavor gate unchanged",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "flow local discharge maps enclosure -X",
+      "value": -0.9999421767690463,
+      "limit": -0.999,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "suction-chain cap-relative placed bounds",
+      "value": 5.684341886080802e-14,
+      "limit": 1e-05,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "suction-chain pump clearance",
+      "value": 32.18052891159307,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "discharge-chain cap-relative placed bounds",
+      "value": 5.684341886080802e-14,
+      "limit": 1e-05,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "discharge-chain pump clearance",
+      "value": 33.94583306473385,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "vk-solenoid cap-relative placed bounds",
+      "value": 1.0000000116860974e-07,
+      "limit": 1e-05,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "vk-solenoid pump clearance",
+      "value": 56.11660898611827,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus selected axial envelope above observed rail start",
+      "value": 40.37517973160074,
+      "limit": 0.4,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus selected axial envelope below observed rail end",
+      "value": 59.529420980534724,
+      "limit": 76.9,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus washer and straight driver corridor to rigid pump",
+      "value": 6.616928021528915,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus selected axial envelope above observed rail start",
+      "value": 39.963672776160735,
+      "limit": 0.4,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus selected axial envelope below observed rail end",
+      "value": 59.01383938902675,
+      "limit": 76.9,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus washer and straight driver corridor to rigid pump",
+      "value": 6.980399992253329,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus selected axial envelope above observed rail start",
+      "value": 1.7040721745299803,
+      "limit": 0.4,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus selected axial envelope below observed rail end",
+      "value": 21.216754273689233,
+      "limit": 76.9,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus washer and straight driver corridor to rigid pump",
+      "value": 7.60559150105959,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus selected axial envelope above observed rail start",
+      "value": 2.072613625354908,
+      "limit": 0.4,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus selected axial envelope below observed rail end",
+      "value": 21.248173054066623,
+      "limit": 76.9,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus washer and straight driver corridor to rigid pump",
+      "value": 6.759341055115266,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "cap cup native invalid",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap lid native invalid",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap cup solid count",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap lid solid count",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rigid pump to printed lid",
+      "value": 1.9609529419760179,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus nominal full insert engagement",
+      "value": 6.7124806364028,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus nominal full insert engagement",
+      "value": 6.702262134393898,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus nominal full insert engagement",
+      "value": 5.714888446229425,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus nominal full insert engagement",
+      "value": 7.267120497122848,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "blind bore remaining floor",
+      "value": 6.085745264117788,
+      "limit": 2.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "added four columns exact volume vs clear stock",
+      "value": 2.9626789910253137e-10,
+      "limit": 0.0001,
+      "relation": "<=",
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "physical_checks_open": [
+    "Actual M3 passes all four complete slots",
+    "Selected washer seats flat and clears rubber upstand",
+    "Loaded rubber compression and screw engagement",
+    "Hose insertion and clamp retention"
+  ],
+  "elapsed_seconds": 34.692832458007615
+}

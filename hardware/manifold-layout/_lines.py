@@ -352,7 +352,8 @@ def _co2_1(F):
 # The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
 # funnel, so the union is not there to measure against and this is a Y rather than a standoff.
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
-CROSS_Y = 176.5
+_CORE_FRONT_Y = _cc.rear_plane_y - _cc.rear_seam_clear - _cc.outer_shell_x_length
+CROSS_Y = _CORE_FRONT_Y - 1.5
 # THE DODGE ONTO THE LID. `CROSS_Y` runs one and a half millimetres FORWARD of the core's own
 # front face, so over that stretch the lane has no lid beneath it and nothing there can hold it.
 # Where the run has to be gripped, it steps aft onto the lid and comes back — two shallow plan
@@ -368,7 +369,7 @@ CROSS_Y = 176.5
 # falls under the stock's own bend radius. West of centre that leg is the whole crossing.
 #   Everywhere else the lane holds `CROSS_Y`: the reservoir draws and `water-5` cross this
 # storey on their own columns west of here, and the lane at `CROSS_Y` is what clears them.
-CROSS_DODGE_Y = 180.0
+CROSS_DODGE_Y = _CORE_FRONT_Y + 2.0
 CROSS_DODGE_SPAN = (-22.0, -5.5)
 CROSS_DODGE_RAMP = 8.0
 # And how far UNDER V-K's own inlet plane it runs. The funnel's disconnect hangs on the spout's
@@ -423,7 +424,7 @@ CROSS_RISE = 4.5
 #   IT IS FENCED BOTH WAYS. The leg into it has to seat corner 0's whole quarter-turn as tangent,
 # so it cannot be struck so near the branch that the fall has no room to turn; and the leg out of
 # it runs the channel to the crossing, which is what the run is in the strip FOR.
-CHANNEL_ENTRY_Y = 224.0
+CHANNEL_ENTRY_Y = _CORE_FRONT_Y + 44.0
 CROSS_LIFT_X = 20.0
 CROSS_APPROACH_Y = 164.0
 
@@ -1043,6 +1044,9 @@ RESERVOIR_CRUISE = TUBE_BEND
 # which is what buys that clearance.
 FILL_B_LEAN_Y = 170.0
 FILL_B_JOIN_Y = 192.0
+# The first rise leans 0.6 mm inboard, within the collet's 3-degree allowance.
+# This leaves 1.19 mm to the manifold-B Wago while retaining the full R14 bend.
+FILL_B_GATE_INBOARD = 0.6
 # What a line holds off a body it passes in a lane, where the lane is the whole of its room.
 LANE_CLEAR = 4.0
 # The high approach crosses over fluid-16. The long low leg's column and height belong to
@@ -1056,7 +1060,7 @@ FILL_A_GATE_LEAD = 17.0
 # plus this air apart at the fill line's lane plane, rather than making either established end
 # storey carry the other's valve lift.
 FILL_A_DRAW_CLEAR = 1.5
-FILL_A_DRAW_GATE_LEAD = 17.0
+FILL_A_DRAW_GATE_LEAD = 17.5
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
 # the diagonal and the corner into the fall take 11.2 between them. What is left is the only
 # straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
@@ -1071,6 +1075,16 @@ FILL_A_LANE_RUN = TUBE_BEND
 # How much depth the fall onto the cap takes. Both its corners spend `TUBE_BEND` as tangent, so
 # what reaches the cap's plane is the fall plus those two arcs.
 FILL_A_FALL_RUN = 10.0
+# After the complete cap bearing, a shallow descent clears the suction hose
+# while both hoses leave their measured barb axes. The rear fill approach keeps
+# the cap anchor's storey; neither printed anchor nor conduit moves.
+FILL_A_HOSE_DROP = 1.25
+FILL_A_HOSE_FALL_RUN = 20.0
+# The valve-side leg passes below the wide part of V-A, then returns to the
+# complete cap bearing before its fore edge. These gentle bends retain R14.
+FILL_A_VALVE_DROP = 1.5
+FILL_A_VALVE_RETURN_RUN = 8.0
+FILL_A_BEARING_LEAD = 2.0
 
 
 def _fill_a_lane_y(solids) -> float:
@@ -1097,9 +1111,10 @@ def _fluid_14(F, solids):
     """fluid-14 — the channel-A fill gate to the bore in reservoir A's own cap.
 
     Rise off V-F, cross above fluid-16, then fall into the round-body gap between V-A and V-K.
-    The long leg follows its cap anchor's column and height. It leaves that lane only aft of
-    the suction hose, reaching the fill bore along the bore's own vertical axis. Both the
-    route and its rib share one placement declaration; pump-foot thickness sets neither."""
+    The valve-side leg passes below V-A and returns to its anchor's height before the
+    complete cap bearing. It descends gently under the suction hose, leaves that lane
+    aft of the hose and returns to the anchor's storey on the fill-bore approach. Both
+    the route and its rib share one placement declaration."""
     gate = F["valve-v-f"].at("outlet")
     bore = F["foam-assembly"].at("reservoir-a-fill")
     # The installed cap maps local +Y to world +X. Reference its draw conduit so a translated
@@ -1108,13 +1123,25 @@ def _fluid_14(F, solids):
               + _cc.cap_anchors["fluid-14"].centre[1] - _cc.cap_conduits["reservoir-a"][1])
     fall = _fill_a_lane_y(solids) + FILL_A_LANE_RUN
     cap = _fill_a_cap_z(F)
+    bearing_y = (F["foam-assembly"].at("reservoir-a")[1]
+                 + _cc.cap_conduits["reservoir-a"][0]
+                 - _cc.cap_anchors["fluid-14"].centre[0])
+    valve_return = bearing_y - _cc.cap_anchor_len / 2.0 - FILL_A_BEARING_LEAD
+    valve_under = cap - FILL_A_VALVE_DROP
+    hose_fall_end = F["g-ganen-pump"].at("suction")[1] - 2.0 * HOSE_BEND
+    hose_fall_start = hose_fall_end - FILL_A_HOSE_FALL_RUN
+    hose_under = cap - FILL_A_HOSE_DROP
     run = R.bent(
         "fluid-14", "valve-v-f.outlet",
         (gate[0], gate[1], gate[2] + FILL_A_GATE_LEAD),     # a full-radius lead off lifted V-F
         (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),    # one diagonal aft, inboard and down
         (lane_x, fall, FILL_A_LANE_Z),                      # one stock radius of it, over that lean
-        (lane_x, fall + FILL_A_FALL_RUN, cap),              # one fall onto the cap's own plane
-        (lane_x, _fill_a_turn_y(F), cap),                   # aft down the lane and over the bracket
+        (lane_x, fall + FILL_A_FALL_RUN, valve_under),      # low through the V-A / V-K body gap
+        (lane_x, valve_return - FILL_A_VALVE_RETURN_RUN, valve_under),
+        (lane_x, valve_return, cap),                       # recover before the full cap bearing
+        (lane_x, hose_fall_start, cap),                    # complete straight bearing over the bracket
+        (lane_x, hose_fall_end, hose_under),               # shallow descent beneath the suction hose
+        (lane_x, _fill_a_turn_y(F), hose_under),            # hold low until aft of the braided hose
         (bore[0], bore[1], cap),                            # one lean east onto the bore's column
         "foam-assembly.reservoir-a-fill",                   # and straight down the strip into it
         kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
@@ -1165,10 +1192,11 @@ def _fluid_24(F):
     mouth = F["valve-v-i"].at("outlet")
     bore = F["foam-assembly"].at("reservoir-b-fill")
     cruise = mouth[2] + RESERVOIR_CRUISE
+    lane_x = mouth[0] + FILL_B_GATE_INBOARD
     return R.bent(
         "fluid-24", "valve-v-i.outlet",
-        (mouth[0], mouth[1], cruise),           # up off the collet, what a corner needs
-        (mouth[0], FILL_B_LEAN_Y, cruise),      # aft on the gate's own column, up the lane
+        (lane_x, mouth[1], cruise),            # a shallow inboard rise past the Wago's tip
+        (lane_x, FILL_B_LEAN_Y, cruise),       # aft along the cleared outboard lane
         (bore[0], FILL_B_JOIN_Y, cruise),       # one lean inboard onto the bore's column
         (bore[0], bore[1], cruise),             # aft on it, past what shuts the strip west
         "foam-assembly.reservoir-b-fill",       # and straight down into the bore

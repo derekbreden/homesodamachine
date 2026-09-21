@@ -1,0 +1,90 @@
+{
+  "scope": "Seated current C14 reference against exact current exported back-top. The physically accepted printed station is preserved; no station redesign or complete insertion-motion claim.",
+  "reference_commit": "6d89e8ae5",
+  "input_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ffbf2fd46c17a0f7f4d97b8959d70a8519675f8f3f753cadc46d27a926718dd0",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure_assembly.py": "5fef572a1535ceb4f724eb62a20abd28a8f4f78e5e3a56b59e050641481b120d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure.py": "6e97e190ee942b737a7d2c0a33d306816ee3be6bfe0a6c6e41f4dba7f56cc5f3",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "cea7f1ba0ca8733c4d44599265cbf1dc31719f9e9251d10b2bceb5d9d256cc43"
+  },
+  "station": {
+    "origin_mm": [
+      66.9,
+      461.21000000000004,
+      336.2105808375568
+    ],
+    "pocket_floor_y_mm": 463.05,
+    "rim_face_y_mm": 463.05,
+    "pocket_depth_mm": 5.0,
+    "bore_mm": [
+      24.3,
+      18.3,
+      1.5
+    ],
+    "screw_pitch_mm": 40.0,
+    "rear_plane_y_mm": 468.3,
+    "rear_boundary_translation_mm": 4.3
+  },
+  "native": {
+    "inlet_valid": true,
+    "wall_valid": true,
+    "overlap_mm3": 0.0,
+    "intersection_solids": 0,
+    "pass": true
+  },
+  "printed_profile_preservation": {
+    "report_sha256": "b1d4c0ea37ef599828e0c6edeb4195bd1c5a45b5ea3f7b1351905e64889f3479",
+    "all_pass": true,
+    "details": {
+      "scope": "Exact native printed-pocket profile equality; live C14 reference is neither imported nor tested.",
+      "baseline_git_commit": "12e17e4a0f786f3711fb4f685c7cd5c1cca814b5",
+      "baseline_reference_sha256": "3002f33a9b2c8978f56047832f2cb117678d42369f700383d17889fc61743a67",
+      "baseline_enclosure_sha256": "5e3ceafcce5cb2da4790fcb24514c5ac40cb7ad28e5ad6e4f2775da1f893341e",
+      "current_enclosure_sha256": "6e97e190ee942b737a7d2c0a33d306816ee3be6bfe0a6c6e41f4dba7f56cc5f3",
+      "clearances": [
+        {
+          "offset_mm": 0,
+          "depth_mm": 5,
+          "old_volume_mm3": 4341.911541203904,
+          "current_volume_mm3": 4341.911541203904,
+          "added_mm3": 0.0,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "offset_mm": 0.15,
+          "depth_mm": 5,
+          "old_volume_mm3": 4430.604363526847,
+          "current_volume_mm3": 4430.604363526847,
+          "added_mm3": 0.0,
+          "missing_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "offset_mm": 3.15,
+          "depth_mm": 5,
+          "old_volume_mm3": 6352.901062867817,
+          "current_volume_mm3": 6352.901062867817,
+          "added_mm3": 0.0,
+          "missing_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "physical_authority": "Derek reports the printed C14 station fits the actual inlet and mating C13 connector. This check does not reconsider that physical acceptance.",
+      "depth": {
+        "old_flange_plus_lip_mm": 5.0,
+        "current_mm": 5.0,
+        "pass": true
+      },
+      "landmarks_equal": true,
+      "all_pass": true,
+      "stable_current_source": true,
+      "reproducer_sha256": "6db5cf96c9f36255866cdf4bd6149046fd24cff1019ce377128b3c9f95e4b4f4"
+    }
+  },
+  "physical_authority": "Derek reports actual inlet and mating C13 connector fit the prior printed station; that accepted station controls. The full enclosure assembly remains the physical test for new coupled placement.",
+  "reproducer_sha256": "3ff55a43557672890dc69e53143f0cc2973f8c5950e86401d8bb388493f2d314",
+  "stable_inputs": true,
+  "all_pass": true
+}

@@ -18,21 +18,28 @@ material volumes, screw-passage evidence or a pump strength model.
 ## Datums and connections
 
 `enclosure_assembly.build_water_pump()` rotates the reference +90° about Z,
-places its **Z = 0 bearing datum on the cap face**, and strikes its rigid rear
-against the core rear. The lowest free-rubber point does not set pump height.
+places its **Z = 0 bearing datum on the cap face**, and keeps its rigid rear
+8.7 mm forward of the core rear. The lowest free-rubber point does not set pump height.
 The native tray and flavor-union bands determine the lateral position.
 
-For the retained cap and gate fixture, the reference-origin translation is
-**(2.071135, 378.635458, 253.400000) mm**. Local +Y discharge points toward
+At the current core placement, the reference-origin translation is
+**(2.071135, 374.235458, 253.400000) mm**. Local +Y discharge points toward
 **enclosure −X**, as Derek identifies. The independently measured suction and
 discharge axes remain distinct. The suction tip is
-(39.332171, 345.347023, 280.124302) mm and discharge tip is
-(−34.946262, 345.376488, 280.168822) mm.
+(39.332171, 340.947023, 280.124302) mm and discharge tip is
+(−34.946262, 340.976488, 280.168822) mm.
 
 Both fitting chains seat their real hex midpoints on the existing cap anchors.
-Their native bounds and V-K's native bounds match the retained fitted fixture
-exactly. The rear flavor unions keep their gate storey. `pan_front_y()` uses the
-placed native discharge barb/root envelope instead of a common nominal diameter.
+Their positions and V-K follow the core. The rear flavor-A union keeps its gate
+storey; flavor B is 1.55 mm below it. `pan_front_y()` preserves the pan's core-relative station with 18.7 mm
+between its sleeve front and the placed native discharge barb/root envelope.
+The complete westward pan withdrawal clears the pump by at least 9.1678 mm;
+the sleeve's enclosing stock clears it by at least 5.9178 mm.
+
+The four cap mounting axes are (−100.435458, 40.587882),
+(−100.435458, −36.709857), (−62.435458, 41.324566), and
+(−62.435458, −36.268488) mm in the cap's own XY frame. Pump placement and these
+axes share `REAR_CLEARANCE`; `pump_mount_rows()` independently checks alignment.
 
 Stable production interfaces are:
 
@@ -45,6 +52,10 @@ Stable production interfaces are:
 - `CAP_MOUNT_XY`: authored cap axes, checked against the placed feet each build.
 - `feet_shapes(carry)`, `rigid_shape()` and `discharge_shape(carry)`: independent
   occupied components for checks in their actual rooms.
+- `cap_bearing_contact_parts(carry, cap_plane_z)`: the rigid pump and exactly four
+  native free-foot masks at or below the independently located cap plane. A
+  mismatched bearing height or tilt is rejected. Complete-pump overlaps outside
+  those masks remain interference; every other neighbor sees the complete pump.
 - `profiled_barb_length(port)`: observed external length. Tube-export metadata
   names its use as a candidate insertion allowance; actual hose grip is unqualified.
 
@@ -53,19 +64,28 @@ Stable production interfaces are:
 Run the bounded producer from the repository root:
 
 ```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/validate_installation.py
+HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/reference/g-ganen-pump/installation/validate_installation.py --skip-hoses --output hardware/reference/g-ganen-pump/installation/corrected-mount-check.json
 ```
 
 It builds the selected pump, chains and V-K; the actual cap cup and lid are built
 in memory. It does not overwrite a production STEP/STL or alter a submitted print.
-`native-installation-check.json` binds source/native hashes to the placed datums,
+`corrected-mount-check.json` binds source/native hashes to the placed datums,
 mount alignment, available rail stock, washer/straight-driver corridor, native
-hose bends and overlaps, print stock, screw passage and neighboring printed lid.
-The gate fixture is explicitly the retained baseline facts reading. The complete
-candidate assembly must rebuild and check its own final routing and neighbors.
+print stock, screw passage and neighboring printed lid. All 45 checks pass. Hose
+routing is checked separately against the complete current route set. The gate
+fixture retains its Z from the facts reading; the chains' expected positions
+include the independently measured core translation. The complete assembly must
+read the regenerated cap and lid and check its final shell and routes.
 
-The M3 shank envelopes have zero overlap with the printed cup/lid. The deeper
-blind bores leave **6.0857 mm of stock** above the cup underside. The largest
+`verify_cap_contact.py --pack <retained-pack-directory>` exercises the production
+contact classifier. `cap-contact-check.json` records the actual four-foot contact,
+then proves that a rigid intrusion, extra shared material outside the foot masks,
+and an incorrect bearing height are rejected. The positive test uses the retained
+placed foam; the separate mount check constructs the current cap/lid from source.
+Neither reading predicts loaded rubber deformation.
+
+The M3 shank envelopes have zero overlap with the printed cup/lid. The blind
+bores leave **6.0857 mm of stock** above the cup underside. The largest
 observed free-pad stack gives **5.7149 mm nominal screw reach** into a 5.7 mm
 insert. That 0.0149 mm nominal margin is not a manufacturing tolerance or proof of
 actual engagement. Washer seating, rubber compression and real screw length must
@@ -84,17 +104,33 @@ screw and washer through its actual slot, then seat all four without forcing an
 unobserved compression target. The casing carries load through its existing
 rails and rubber feet into the broad lid and the four internal columns.
 
-The new columns print vertically from the cup floor and their blind bores open
-at the top. The top lid holes pass straight through. No new horizontal bearing
-face is sloped, and no new enclosed support-removal pocket is introduced.
+The columns print vertically from the cup floor and their blind bores open
+at the top. The top lid holes pass straight through. The mounting bores have
+open vertical support-removal paths and no enclosed horizontal pockets.
+
+`corrected-placement-check.json` reads 97 native neighbors, including the current
+nameplate, the pan and its complete withdrawal envelope. Its nearest queried
+rigid component is the flavor-A bulkhead at **1.2651 mm**. The nameplate has a
+**1.0000 mm** enclosing-box clearance. The complete regenerated shell is a
+separate final assembly check.
+
+Both pump hoses leave and enter on their measured port axes and keep **R15.9 mm**
+bends. The nearby reservoir-A fill tube keeps **R14 mm** bends and its complete
+cap bearing at world Y **254.4–263.2 mm**. Its local valve-side descent clears
+V-A by **1.155 mm** and V-K by **1.125 mm**; its rear descent clears the suction
+hose by **1.3672 mm**. The cap anchor and fill conduit keep their declared datums.
+`corrected-pump-routes-check.json` contains the hose and complete-neighbor readings;
+`inner-valve-route-check.json` binds the valve-side route to the current lowered
+inner valves and complete native lid. The lid has zero fill-tube overlap and
+**0.15 mm** intended bearing air. Those reports identify their exact retained
+inputs; final regenerated routes and the complete shell remain assembly checks.
 
 ## Production dependency handoff
 
-The changed printed consumers are `foam-cap-top` and `foam-cap-lid-top`. Rebuild
-those, then `foam-assembly`, before the complete enclosure assembly/Box producer.
-The G pump source replaces the selected pump scene identity throughout topology,
-assembly cards, BOM mount count and tube-export metadata. Generated facts, checks,
-viewer inventories and docs remain baseline until that coordinated regeneration.
+The printed mounting consumers are `foam-cap-top` and `foam-cap-lid-top`. Rebuild
+those, then `foam-assembly` and `cold-core-assembly`, before the enclosure Box and
+complete assembly. Generated facts, checks and viewer inventories must bind to
+those exact regenerated inputs.
 
 The shared dependency trace must include the installation module, the measured
 reference parameters, the conservative envelope module, its native STEP and

@@ -1,0 +1,123 @@
+{
+  "archive": "fit-correction-baseline.zip",
+  "sha256": "a08ad1e131927d2af37dbc218f70629fbdef1f584c16f402ea354474c720ba7c",
+  "bytes": 4325477,
+  "scope": "Frozen native inputs from the completed failing full-enclosure assembly; historical regression evidence, not current release geometry. Raw triage scripts retain original paths; current bounded reproducer accepts this archive.",
+  "files": {
+    "enclosure-box.json": {
+      "source_path": "hardware/manifold-layout/enclosure-box.json",
+      "sha256": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+      "bytes": 56830
+    },
+    "enclosure-assembly.scorecard.json": {
+      "source_path": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+      "sha256": "5c03244872e9cc5ab3ab424e7e5e13238c42b6bd54a8227ce5da693bd7ba0d39",
+      "bytes": 47421
+    },
+    "cold-core-foam-shell.brep": {
+      "source_path": "/tmp/scanner-review/front-top-triage/cold-core-foam-shell.brep",
+      "sha256": "5aae73b73c96054ba160bec0ddafc65d4f46858533f41badfab7b4e6898b254f",
+      "bytes": 699015
+    },
+    "tube-fluid-18.brep": {
+      "source_path": "/tmp/scanner-review/front-top-triage/tube-fluid-18.brep",
+      "sha256": "0317fa2e6525c8b18e11a70cc416e0573d50e38d2ed7b559acd12e995448ee23",
+      "bytes": 22603
+    },
+    "enclosure-front-top.step": {
+      "source_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "sha256": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+      "bytes": 2279875
+    },
+    "enclosure-pump-cartridge.step": {
+      "source_path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "sha256": "f1152a2862d3058fe21a4d567c4d4c29c35e0a63a2e359d4be11fa9553773795",
+      "bytes": 479903
+    },
+    "enclosure-pump-cap.step": {
+      "source_path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "sha256": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+      "bytes": 241921
+    },
+    "enclosure-tee-carrier-left.step": {
+      "source_path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+      "sha256": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+      "bytes": 461468
+    },
+    "enclosure-tee-carrier-right.step": {
+      "source_path": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+      "sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+      "bytes": 478229
+    },
+    "coil-v-f.brep": {
+      "source_path": "/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-f.brep",
+      "sha256": "d73d77c569d964494ee1f23e284685a32cd75e0bb4a3be06eef293b87a588eb8",
+      "bytes": 175492
+    },
+    "coil-v-i.brep": {
+      "source_path": "/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-i.brep",
+      "sha256": "61ab0e68a261f2e033a76ef825f33e4aca95485c3913c8a5b400d222b088a2ce",
+      "bytes": 177914
+    },
+    "coil-v-c.brep": {
+      "source_path": "/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-c.brep",
+      "sha256": "3a9f79117b2e1c49f7417408af8bc673417f9ada58a267d8655ec22b43b49ecd",
+      "bytes": 175936
+    },
+    "coil-v-d.brep": {
+      "source_path": "/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-d.brep",
+      "sha256": "a960e368a687df474082d9490d39ed9bd30dec6816e1436fdb49da5b565d7e85",
+      "bytes": 176825
+    },
+    "valve-v-c.brep": {
+      "source_path": "/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-c.brep",
+      "sha256": "02cc6a238a15196d8d3281b30bf61d14fa0de7ad3732028eefdb6b5070b3f850",
+      "bytes": 468123
+    },
+    "valve-v-d.brep": {
+      "source_path": "/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-d.brep",
+      "sha256": "e9672865b53bf84bc1597dbe3db6fad44ae26bedee7cb0113c05b1ebd8e6fe82",
+      "bytes": 470777
+    },
+    "native-triage.json": {
+      "source_path": "/tmp/scanner-review/front-top-triage/native-triage.json",
+      "sha256": "722a8925112f5bf67f4a786fe91fb9dc809e01adbc43ebff3329d5114a8e53d5",
+      "bytes": 12155
+    },
+    "carrier-envelope-triage.json": {
+      "source_path": "/tmp/scanner-review/front-top-triage/carrier-envelope-triage.json",
+      "sha256": "c04ec42504723e0a1e50f584c4bccc3b32632d69b4a6741a7ca379c6b01d8331",
+      "bytes": 5343
+    },
+    "aft-row-shift-probe.json": {
+      "source_path": "/tmp/scanner-review/front-top-triage/aft-row-shift-probe.json",
+      "sha256": "b0891db76b829c654af8614002071fd1f89f21dabbebb81fef034321670feb10",
+      "bytes": 12505
+    },
+    "front-top-triage.py": {
+      "source_path": "/tmp/scanner-review/front-top-triage.py",
+      "sha256": "358327e7f6a0d0b9aaddd3ce9a3f0fcb4c56a6c1b1c6ce080ec7d5f01f98b0fd",
+      "bytes": 3396
+    },
+    "front-top-carrier-triage.py": {
+      "source_path": "/tmp/scanner-review/front-top-carrier-triage.py",
+      "sha256": "19e455b94f559487022e4f595d9dfed88d22a0d4ee7a23515db089858edc9514",
+      "bytes": 4119
+    },
+    "front-top-shift-probe.py": {
+      "source_path": "/tmp/scanner-review/front-top-shift-probe.py",
+      "sha256": "a036ae3a06fc5a0b4134b6eb05e1bcd068a705178f2e25f1e59a470cd33de5d3",
+      "bytes": 2143
+    },
+    "enclosure-pump-cartridge.stl": {
+      "source_path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "sha256": "0c0371383599b007c6ed8750964b6a3bfc0a114548089ff6d6a9f5101b21f929",
+      "bytes": 8548884
+    },
+    "enclosure-pump-cap.stl": {
+      "source_path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+      "bytes": 414284
+    }
+  }
+}

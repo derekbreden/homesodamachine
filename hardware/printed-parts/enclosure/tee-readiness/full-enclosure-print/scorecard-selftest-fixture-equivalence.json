@@ -1,0 +1,7 @@
+{
+  "scope": "Only the cache selftest fixture uses a real Clash record; all production definitions are AST-identical. Earlier Box construction does not invoke selftest.",
+  "before_sha256": "07c71af3620dd87d5299921fc2e479932fe520aa7c984917d8f442ac5135a33d",
+  "after_sha256": "2e40ff0ed1e631b883d77bab34bf69a7a3a18fd596734c39c52cd255e689de8d",
+  "production_ast_sha256": "5d2c5e7b865e047d50ac45f62adcccbfba5e652c016ed1b433b8f2377165e0f2",
+  "production_ast_equal": true
+}

@@ -4,6 +4,7 @@ The cap frame comes from the retained foam assembly. The candidate gate cruise i
 explicit and is rechecked by the eventual complete production assembly build.
 """
 from pathlib import Path
+from argparse import ArgumentParser
 import hashlib
 import json
 import math
@@ -29,7 +30,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def run():
+def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
     started=time.monotonic()
     inputs=[Path(ea.__file__), Path(ea._lines.__file__), Path(ea._cci.__file__),
             HERE/'g_ganen_installation.py', HERE/'validate_installation.py',
@@ -44,6 +45,7 @@ def run():
     f0,_=ea.build_foam(0.)
     foam,fc=ea.build_foam(ea._enc.rear_plane_y-ea._enc.rear_seam_clear-ea.box(f0).ylen)
     shape,carry=ea.build_water_pump(foam,gate)
+    core_y_shift=ea.box(foam).ymax-facts['bodies']['foam-assembly'][4]
     print('placed pump',bounds(shape),flush=True)
     su,sc=ea.build_suction_chain(fc)
     di,dc=ea.build_discharge_chain(fc)
@@ -59,13 +61,15 @@ def run():
     mount_rows=ea.pump_mount_rows(fc,carry)
     for i,(got,want) in enumerate(mount_rows):check(f'cap mount axis {i}',math.dist(got,want),ea.MOUNT_TOL)
     check('bearing datum on cap',abs(pump.placed_bearing_z(carry)-ea.cap_face(foam)),1e-7)
-    check('rear rigid face on core rear',abs(pump.rigid_shape().moved(carry.where).BoundingBox().ymax-ea.box(foam).ymax),1e-6)
+    check('rear rigid face has declared core-rear clearance',
+          abs(ea.box(foam).ymax-pump.rigid_shape().moved(carry.where).BoundingBox().ymax-pump.REAR_CLEARANCE),1e-6)
     check('flavor gate unchanged',abs(ea.flavor_storey(gate,carry)-gate),1e-7)
     check('flow local discharge maps enclosure -X',carry(pump.discharge())[1][0],-.999)
     for name,s in [('suction-chain',su),('discharge-chain',di),('vk-solenoid',vk)]:
-        b=ea.box(s);wanted=facts['bodies'][name]
+        b=ea.box(s);wanted=list(facts['bodies'][name])
+        wanted[1]+=core_y_shift;wanted[4]+=core_y_shift
         got=[b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax]
-        check(name+' retained placed bounds',max(abs(x-y) for x,y in zip(got,wanted)),1e-5)
+        check(name+' cap-relative placed bounds',max(abs(x-y) for x,y in zip(got,wanted)),1e-5)
         check(name+' pump clearance',s.distance(shape),1.,'>=')
     # The rubber remains the purchased component; only its allowed axial pose changes.
     foot_rows=[]
@@ -83,7 +87,7 @@ def run():
     routes=[]
     hose_solids=[]
     ea._routing.BLOCKED.clear()
-    for fn in (ea._lines._water_7,ea._lines._water_6):
+    for fn in ((ea._lines._water_7,ea._lines._water_6) if include_hoses else ()):
         r=fn(F);tube=ea._routing.tube(r)
         check(r.id+' native invalid',int(not tube.isValid()),0)
         check(r.id+' smallest seated bend radius',min(r.radii.values()),ea._lines.HOSE_BEND,'>=')
@@ -109,7 +113,7 @@ def run():
                        'pump_component_overlap_mm3':dict(overlap)})
         hose_solids.append((r.id,tube))
     blocked=list(ea._routing.BLOCKED)
-    check('hose route blockers',len(blocked),0)
+    if include_hoses:check('hose route blockers',len(blocked),0)
     # Build the actual printed cap and lid, without calling their exporting main.
     cup=cap.add_deck_mounts(cap.build_foam_cap()).val()
     lid=cap.add_side_anchors(cap.add_chain_anchors(cap.add_cradles(
@@ -152,15 +156,23 @@ def run():
          'gate_fixture':{'source':str(facts_path.relative_to(ROOT)),'sha256':sha(facts_path),'z_mm':gate,
                          'qualification':'retained baseline gate; complete candidate assembly still required'},
          'local_to_world':{'z_rotation_degrees':pump.YAW,'origin_mm':carry(pump.bearing_datum())[0]},
+         'core_translation_from_retained_facts_y_mm':core_y_shift,
          'installed_bounds_mm':bounds(shape),'suction':carry(pump.suction()),'discharge':carry(pump.discharge()),
          'selected_feet':foot_rows,'printed_cap_stations_mm':ea._cci.deck_mount_xy('g-ganen-pump'),
          'mount_rows':mount_rows,'screw_stacks':screw_rows,'washer_od_mm':pump.WASHER_OD,'washer_t_mm':pump.WASHER_T,
          'bore_depth_mm':ea._cci.deck_mount_bore_depth,'remaining_floor_mm':floor,
-         'routes':routes,'route_blockers':blocked,'checks':checks,'all_pass':all(r['pass'] for r in checks),
+         'routes':routes,'routes_checked':include_hoses,'route_blockers':blocked,
+         'checks':checks,'all_pass':all(r['pass'] for r in checks),
          'physical_checks_open':['Actual M3 passes all four complete slots','Selected washer seats flat and clears rubber upstand','Loaded rubber compression and screw engagement','Hose insertion and clamp retention'],
          'elapsed_seconds':time.monotonic()-started}
-    (HERE/'native-installation-check.json').write_text(json.dumps(out,indent=2)+'\n')
+    output.write_text(json.dumps(out,indent=2)+'\n')
     print('All pass:',out['all_pass'],'seconds',out['elapsed_seconds'],flush=True)
     if not out['all_pass']:raise SystemExit(1)
 
-if __name__=='__main__':run()
+if __name__=='__main__':
+    parser=ArgumentParser(description=__doc__)
+    parser.add_argument('--skip-hoses',action='store_true',
+                        help='Check mounts and neighbors; hose qualification is a separate current route check')
+    parser.add_argument('--output',type=Path,default=HERE/'native-installation-check.json')
+    args=parser.parse_args()
+    run(include_hoses=not args.skip_hoses,output=args.output)

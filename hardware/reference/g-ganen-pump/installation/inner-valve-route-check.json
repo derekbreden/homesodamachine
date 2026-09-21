@@ -1,0 +1,228 @@
+{
+  "scope": "Current production fluid14 is exactly the fully queried candidate. V-A native is translated\u22121.5 mm by the current inner-row source change; its newly shortened/repositioned complete native lid replaces the explicitly stale captured lid for this check.",
+  "inputs_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/_lines.py": "2d5e9bf4e274b7dddf2e1cb7be9c22d13e92cd1aaf2b64db3d34b718b95415ce",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "/private/tmp/scanner-review/g-ganen-final-collision/valve-gap-probe.json": "7e42bb719fb7f847e61d03640f12b020132cdd0c76b892b9439164e0d4642e85",
+    "/private/tmp/scanner-review/g-ganen-final-collision/valve-gap-probe.brep": "03f2b28323e58f4b3a5e447260ea423d8b0216acdcdbe2fecb8eedff83d202ac",
+    "/private/tmp/scanner-review/g-ganen-final-collision/lowered-lid-probe.json": "b12ce226fbe8d0cc1b9fb291f3aec447d14ace616d8b0f990f4f4eb92d029976",
+    "/private/tmp/scanner-review/g-ganen-final-collision/candidate-lower-cradle-lid.brep": "47fc2cd54adceabc1daabf1d3caba10518108c35c113e3eec8f7002ba2bd1170"
+  },
+  "current_cradles": {
+    "valve-v-a": [
+      [
+        94.09,
+        24.77
+      ],
+      0.0,
+      5.225
+    ],
+    "valve-v-b": [
+      [
+        94.09,
+        -22.35
+      ],
+      0.0,
+      5.225
+    ]
+  },
+  "interface_diff_from_native_lid_fixture": "Exactly inner_limb_drop8.0\u21929.5; recovering8.0 reproduces the recorded source hash.",
+  "waypoints_mm": [
+    [
+      82.1,
+      105.29,
+      282.1750001
+    ],
+    [
+      82.1,
+      105.29,
+      299.1750001
+    ],
+    [
+      44.750000006974815,
+      189.43,
+      289.0
+    ],
+    [
+      44.750000006974815,
+      203.43,
+      289.0
+    ],
+    [
+      44.750000006974815,
+      213.43,
+      267.7940001
+    ],
+    [
+      44.750000006974815,
+      244.39999999999995,
+      267.7940001
+    ],
+    [
+      44.750000006974815,
+      252.39999999999995,
+      269.2940001
+    ],
+    [
+      44.750000006974815,
+      289.1470234175444,
+      269.2940001
+    ],
+    [
+      44.750000006974815,
+      309.1470234175444,
+      268.0440001
+    ],
+    [
+      44.750000006974815,
+      355.67202341754444,
+      268.0440001
+    ],
+    [
+      57.50000000697483,
+      426.29999999999995,
+      269.2940001
+    ],
+    [
+      57.50000000697483,
+      426.29999999999995,
+      253.4000001
+    ]
+  ],
+  "radii_mm": {
+    "1": 14.0,
+    "2": 14.0,
+    "3": 14.0,
+    "4": 14.0,
+    "5": 14.0,
+    "6": 14.0,
+    "7": 14.0,
+    "8": 14.0,
+    "9": 14.0,
+    "10": 14.0
+  },
+  "source_candidate_max_point_error_mm": 0.0,
+  "native_source_minus_candidate_mm3": 0.0,
+  "native_candidate_minus_source_mm3": 0.0,
+  "complete_bearing_required_y_mm": [
+    254.39999999999995,
+    263.19999999999993
+  ],
+  "complete_bearing_actual_y_mm": [
+    253.7011627817986,
+    288.7099498312048
+  ],
+  "native_checks": [
+    {
+      "neighbor": "g-ganen-pump",
+      "air": 3.8054633047244524,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "suction-chain",
+      "air": 8.651342988675692,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "vk-solenoid",
+      "air": 1.1250000000000069,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "valve-v-a",
+      "air": 1.155000006974788,
+      "overlap": 0,
+      "pass": true
+    },
+    {
+      "neighbor": "coil-v-a",
+      "air": 5.804670335594991,
+      "overlap": 0,
+      "pass": true
+    },
+    {
+      "neighbor": "coil-v-f",
+      "air": 13.531500795257395,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "psu",
+      "air": 4.074999993025152,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "relay-2",
+      "air": 33.64247863376222,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "pcba",
+      "air": 30.81499299302518,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "wago-mana",
+      "air": 3.7782738693686624,
+      "overlap": 0,
+      "pass": true
+    },
+    {
+      "neighbor": "funnel",
+      "air": 24.582548367939275,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "tube-water-7",
+      "air": 1.3672257544770652,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "tube-water-3",
+      "air": 17.78722360387343,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "tube-co2-2",
+      "air": 26.400000000000034,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "tube-carb-1",
+      "air": 26.40000000004293,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "tube-fluid-18",
+      "air": 11.620005630516756,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "tube-fluid-16",
+      "air": 3.1854365341827933,
+      "overlap": 0.0,
+      "pass": true
+    },
+    {
+      "neighbor": "current complete top lid",
+      "air": 0.14999999999999927,
+      "overlap": 0.0,
+      "pass": true
+    }
+  ],
+  "all_pass": true
+}

@@ -16,6 +16,8 @@ import fits  # noqa: E402
 wall = 3.0
 ceiling_skin = 3.0
 rear_seam_clear = 3.0
+# The rear inner face leaves the cold core 1.01 mm behind the full aft valve tray.
+rear_plane_y = 468.3
 co2_axis_drop = fits.supported_surface
 
 # The visible enclosure rounds. Broad body corners use twice the shoulder radius;
@@ -43,7 +45,7 @@ manifold_rise = 2.0
 # floor, and the drop is what the bowl needs to come down to 600 mL over them. It is struck on
 # the measured Beduan's own height — the coil reaches 52.1 mm above the bearing face its posts
 # are pressed to — and `clearance-floor` reads what is left between the two.
-inner_limb_drop = 8.0
+inner_limb_drop = 9.5
 
 # Aft travel available beyond the connected tee-carrier datum, for elastic bending.
 # The connected pose, tube projections and moving carrier dimensions stay independent.

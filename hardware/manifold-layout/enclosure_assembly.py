@@ -1333,7 +1333,10 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
     # the two outer ones, whose cases rise above the web's top.
     inner_coils = tuple(f"coil-{name.lower()}" for name in ("V-C", "V-D"))
     outer_coils = tuple(f"coil-{name.lower()}" for name in ("V-G", "V-J"))
-    flange_z0 = max(box(solids[name]).zmax for name in inner_coils) + base.slide_air
+    # A lower coil increases air below the existing structural shelf; it does not lower
+    # that shelf or change its section. A higher required plane still fails placement matching.
+    flange_z0 = max(base.flange_z0,
+                    max(box(solids[name]).zmax for name in inner_coils) + base.slide_air)
     flange_x = min(min(abs(box(solids[name]).xmin), abs(box(solids[name]).xmax))
                    for name in outer_coils) - base.slide_air
     # Each aft coil rises past the web's aft face on its entry offset, so the station web is
@@ -1419,7 +1422,8 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
                                cb.zmin-1, cb.zmax+1).val()
         forward_top.append(solids[name].intersect(region).BoundingBox().zmax)
     return replace(spec, entry_staging_y=base.entry_staging_y,
-                   side_web_z0=round(max(forward_top)+spec.slide_air, 6))
+                   side_web_z0=max(base.side_web_z0,
+                                   round(max(forward_top)+spec.slide_air, 6)))
 
 
 def carrier_joint_heads(spec: _carrier.CarrierSpec, offsets=(0.0, 0.0)) -> tuple:
@@ -1703,6 +1707,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
 
     spec = a.tee_carrier_spec
     interface = a.tee_carrier
+    from _carrier_motion import loading_checks, joint_checks, swept_overlap
     wall = front_top.val() if isinstance(front_top, cq.Workplane) else front_top
     wall_box = wall.BoundingBox()
     local_y = (box.pack.collet_plate["fore_y"] - 1.0,
@@ -1731,7 +1736,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                     and min(mb.ymax, wall_box.ymax) <= local_y[1]
                     and min(mb.zmax, wall_box.zmax) <= local_zmax):
                 blocker = local_wall
-            bb = blocker.BoundingBox()
+            bb = _boxes.boxed(blocker)
             if any(getattr(mb, axis + "max") < getattr(bb, axis + "min") or
                    getattr(bb, axis + "max") < getattr(mb, axis + "min")
                    for axis in "xyz"):
@@ -1748,10 +1753,20 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     halves = {side: _carrier.build_half(spec, side).val() for side in (-1, 1)}
     carrier = cq.Compound.makeCompound(list(halves.values()))
     joint_heads = carrier_joint_heads(spec)
-    # These passages continue through the completed part, including its valve trays.
-    # Clearance of the hardware alone would not find a thin shelf beside that hardware.
+    # The cups are occupied spring-retention boundaries inside the outer access wells.
+    # Their complete stock must exist. All remaining passage volume must be open, while
+    # the separate native tee, carrier and pusher sweeps prove the hardware's actual access.
+    fixed_cups = _enc._tee_carrier_fixed_cups(interface)
+    for index, cup in enumerate(fixed_cups, 1):
+        missing = cup.cut(wall).Volume()
+        readings += 1
+        if missing > CARRIER_MOTION_OVERLAP_TOL:
+            failures.append(f"fixed spring cup {index} lacks {missing:.6f} mm³ of capture stock")
     for index, (xs, ys, zs) in enumerate(interface["tee_wells"], 1):
-        read(f"continuous hardware well {index}", _carrier._box(*xs, *ys, *zs),
+        passage = _carrier._box(*xs, *ys, *zs).val()
+        if fixed_cups:
+            passage = passage.cut(*fixed_cups)
+        read(f"continuous hardware well {index} outside fixed spring cups", passage,
              (("enclosure-front-top", wall),))
     web_bearings = []
     for state, row in interface["states"].items():
@@ -1910,14 +1925,36 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                  if name in (f"coil-v-{valve}", f"valve-v-{valve}")]
         dz = plate["z0"] - max(s.BoundingBox().zmax for _n, s in parts) - spec.slide_air
         for name, shape in parts:
-            # Every constituent solid travels the complete rise. Keeping the coil case
-            # and terminals separate preserves the open space beside the terminal pair.
+            # A clear enclosing box proves this complete translation clear. A box which
+            # touches an obstacle needs the native boundary sweep: the coil's yoke is open,
+            # and its enclosing box fills air beside the actual forward metal strip.
             for index, component in enumerate(shape.Solids(), 1):
                 bb = component.translate((0, entry_dy, 0)).BoundingBox()
                 sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin, bb.ymax,
                                       bb.zmin + dz, bb.zmax).val()
-                read(f"{name} component {index} complete underside entry envelope", sweep,
-                     (*carrier_installation, ("joined carrier at release", release_carrier)))
+                sb = sweep.BoundingBox()
+                for blocker_name, blocker in (*carrier_installation,
+                                               ("joined carrier at release", release_carrier)):
+                    if blocker is wall:
+                        blocker = local_wall
+                    ob = _boxes.boxed(blocker)
+                    readings += 1
+                    if any(getattr(sb, axis + "max") < getattr(ob, axis + "min") or
+                           getattr(ob, axis + "max") < getattr(sb, axis + "min")
+                           for axis in "xyz"):
+                        continue
+                    if sweep.intersect(blocker).Volume() <= CARRIER_MOTION_OVERLAP_TOL:
+                        continue
+                    result = swept_overlap(component, (0.0, entry_dy, dz),
+                                           (0.0, entry_dy, 0.0), blocker)
+                    overlap = max(result["initial_overlap_mm3"], result["max_prism_overlap_mm3"])
+                    readings += result["tested_face_prisms"] + 1
+                    max_overlap = max(max_overlap, overlap)
+                    if overlap > CARRIER_MOTION_OVERLAP_TOL:
+                        failures.append(
+                            f"{name} component {index} native underside sweep crosses "
+                            f"`{blocker_name}` or its conservative curved-face bound by "
+                            f"{overlap:.6f} mm³")
             count = sample_count(entry_dy)
             for i in range(count):
                 read(f"{name} post insertion {i + 1}/{count}",
@@ -1927,7 +1964,6 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     # Both halves enter with axially held springs in closed moving cups.
     # The actual broad rail/shelf and flexible wall require native surfaces;
     # rectangular half boxes would fill their intended sliding spaces.
-    from _carrier_motion import loading_checks, joint_checks, swept_overlap
     release = interface["states"]["release"]["offset_y"]
     aft_limit = interface["aft_limit_offset_y"]
     left_parked = halves[-1].translate((0.0, aft_limit, 0.0))
@@ -2055,7 +2091,7 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 # water pump inboard of it, the electronics bay outboard on the +X flank, and the +Y wall of back-top's two
 # flavour unions run through the band on the −X one; this is the strip clear of all four, taken
 # on both flanks so the pair is a mirror.
-CORE_HOLD_LANE = (58.0, 67.0)
+CORE_HOLD_LANE = (56.6, 65.6)
 
 
 def core_stops(foam) -> tuple:
@@ -2330,7 +2366,7 @@ def water_pump_port_lane_limit() -> float:
 
 
 def build_water_pump(foam, gate: float):
-    """The measured pump on its bearing datum, with its rigid rear at the core rear.
+    """The measured pump on its bearing datum, clear of the rear shell and nameplate.
 
     Each selected rubber foot slides only along its casing rail. Free rubber can
     extend below the measured average bearing plane; its box does not set the
@@ -2339,7 +2375,7 @@ def build_water_pump(foam, gate: float):
     pump = _lines._pump
     shape = pump.build()
     rigid_rear = pump.rigid_shape().BoundingBox().xmax
-    origin_y = box(foam).ymax - rigid_rear
+    origin_y = box(foam).ymax - rigid_rear - pump.REAR_CLEARANCE
     bearing_z = cap_face(foam)
     turns = (((0, 0, 1), WATER_PUMP_YAW),)
     def at(x, seat=None):
@@ -2873,10 +2909,13 @@ def flavor_storey(gate: float, pump_carry) -> float:
 
 
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
+PANEL_FLAVOR_B_DROP = 1.55
 
 
 def panel_z(name: str, deck: float, gate: float) -> float:
     """The storey one union of the row crosses the wall on — the deck, or its own run's lane."""
+    if name == "bulkhead-flavor-b":
+        return gate - PANEL_FLAVOR_B_DROP
     return gate if name in PANEL_ON_GATE_LANE else deck
 
 
@@ -3007,10 +3046,8 @@ TUBE_ANCHOR_SITES = (
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # The downstream gas line's aft crossing, under the same back-top ceiling slab.
     ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
-    # Flavor B's cruise aft, off the −X wall it runs 26.4 mm inboard of. That leg is the run's
-    # longest and it is dead straight, so the wall lies one distance down the whole of it — and
-    # `_lines.GATE_B_STEP_Y` places its MIDDLE, which is where the rib goes, in the one band of
-    # that wall neither the tap-water split nor the cluster wells are in.
+    # Flavor B's straight cruise aft. Its rib stands ahead of the rear Wago row's
+    # complete tower and worked-lever envelope; the tube retains its authored route.
     ("fluid-28", 2, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
@@ -3025,16 +3062,47 @@ TUBE_ANCHOR_END_FORMS = {
     "fluid-28": ("corbel", "corbel"),
 }
 ANCHOR_END_FORMS = ("column", "corbel")
+FLAVOR_B_ANCHOR_WELL_CLEAR = 1.0
+
+
+def tube_anchor_midpoint(run, leg):
+    """The rib centre on its straight leg, with the flavour-B Wago working lane clear."""
+    p, q = run.pts[leg], run.pts[leg + 1]
+    mid = tuple((p[k] + q[k]) / 2.0 for k in range(3))
+    if run.id != "fluid-28":
+        return mid
+    if abs(p[0] - q[0]) > 1e-6 or abs(p[2] - q[2]) > 1e-6 or q[1] <= p[1]:
+        raise ValueError("fluid-28's wall anchor requires its aft-running straight Y leg")
+    wells = [(y, size) for side, y, z, size in CLUSTER_WAGOS.values()
+             if side < 0 and _enc.back_top_owns((0.0, y, z))]
+    if not wells:
+        raise ValueError("fluid-28's anchor has no rear Wago row to locate its working gap")
+    # The complete rib, including its two end webs/corbels, occupies tube_anchor_len
+    # along Y. The connector's levers also need their declared operating room.
+    well_fore = min(y - max(_enc.wago_half(size)[0], _enc.wago_swing(size) / 2.0)
+                    for y, size in wells)
+    y = well_fore - FLAVOR_B_ANCHOR_WELL_CLEAR - _enc.tube_anchor_len / 2.0
+    # Route vertices are square construction corners. The anchor must stand on
+    # the actual straight left between their rounded tangent stations.
+    tangents = {i: run.radii[i] * math.tan(math.radians(turn) / 2.0)
+                for i, turn, _incoming, _outgoing in run.bends}
+    straight_lo = p[1] + tangents.get(leg, 0.0)
+    straight_hi = q[1] - tangents.get(leg + 1, 0.0)
+    half = _enc.tube_anchor_len / 2.0
+    if y - half < straight_lo - 1e-6 or y + half > straight_hi + 1e-6:
+        raise ValueError(
+            f"fluid-28 anchor Y{y-half:.3f}..{y+half:.3f} leaves its actual "
+            f"straight Y{straight_lo:.3f}..{straight_hi:.3f}")
+    return (mid[0], y, mid[2])
 
 
 def tube_anchors(runs) -> tuple:
     """One station per anchor — `(mid, along, root, seat_r, end_forms)`, the first four read
     off the run itself and the end-web forms carried from `TUBE_ANCHOR_SITES`.
 
-    A LEG AND NOT A POINT. The rib is centred on the middle of the leg its row names, so the
-    anchor rides every move of the run that drew it and there is no coordinate here to go stale.
-    What the piece adds is the face: `enclosure._tube_anchors` stops the rib on the wall, and
-    nothing about the anchor's own height is stated on either side."""
+    The rib follows the named straight leg. Most use its midpoint; flavour B uses
+    the free band ahead of the rear Wago row, including its worked levers. The piece
+    supplies the root face, and the tube supplies the rib's X/Z and bore."""
     by_id = {r.id: r for r in runs}
     stations = []
     site_ids = {rid for rid, _leg, _root, _piece in TUBE_ANCHOR_SITES}
@@ -3071,7 +3139,7 @@ def tube_anchors(runs) -> tuple:
                 f"tube_anchors: {rid} leg {leg} is {length:.2f} mm and a rib is "
                 f"{_enc.tube_anchor_len:.2f}. A seat longer than the straight it stands on would "
                 f"close on the corners either side of it.")
-        stations.append((tuple((p[k] + q[k]) / 2.0 for k in range(3)), u, tuple(root),
+        stations.append((tube_anchor_midpoint(r, leg), u, tuple(root),
                          r.diam / 2.0 + TUBE_ANCHOR_SLIP, tuple(end_forms)))
     return tuple(stations)
 
@@ -4679,15 +4747,14 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
     return rows
 
 
-# THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
-# chain that hangs off it takes the lane's forward end, so the SLEEVE's forward face is struck on
-# the barb's own aft edge with this much daylight past it. That plane fixes the tray in Y — the
-# vent does not, and has only to fall inside the floor from wherever the chain leaves it.
-PAN_PORT_CLEAR = 10.0
+# The pan keeps its core-relative withdrawal station. The pump stands fore of
+# the core rear by REAR_CLEARANCE, leaving that same additional air after the
+# measured discharge root; its mount clearance does not pull the pan forward.
+PAN_PORT_CLEAR = 10.0 + _lines._pump.REAR_CLEARANCE
 
 
 def pan_front_y(water_pump_carry):
-    """The tray clears the measured discharge barb and root in their placed pose."""
+    """Core-relative pan station, with measured discharge-root running air."""
     return (_lines._pump.discharge_shape(water_pump_carry).BoundingBox().ymax
             + PAN_PORT_CLEAR)
 
@@ -4788,7 +4855,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # distance rather than a height. Re-read it —
 #
 #     w.gap(split, tube_fluid_28, 8.0, offset=(0, 0, -d))
-FLAVOR_STEP = 45.40
+FLAVOR_STEP = 42.20
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
@@ -4824,10 +4891,10 @@ def build_split(asse_carry):
 # --- the flow regulator, inline on the flavour tap -------------------------
 #
 # The regulator runs fore–aft on the split's column. Its adjuster points inboard
-# and 15 degrees down beneath the funnel. The two ports stay on their shared axis;
+# and 25 degrees down beneath the funnel. The two ports stay on their shared axis;
 # the square hub has a shallow clearance pocket in back-top's thick west flank.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
-                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 15.0))
+                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 25.0))
 # `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
 # inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
 # and comes back into the other — two stock quarter-turns, no straight between them or at either
@@ -6136,6 +6203,34 @@ def flank_reliefs(placed):
     return tuple(pockets)
 
 
+def front_flank_reliefs(placed):
+    """One-millimetre air around each outer coil's actual near-wall yoke surface."""
+    pockets = []
+    air = _card.CLEARANCE_FLOOR
+    for name in ("coil-v-f", "coil-v-i"):
+        shape = placed[name][0]
+        b = box(shape)
+        side = 1.0 if b.center.x > 0.0 else -1.0
+        face = _enc.front_top_flank_face()[1 if side > 0 else 0]
+        lo, hi = ((face - air, b.xmax + 1.0) if side > 0
+                  else (b.xmin - 1.0, face + air))
+        if hi <= lo:
+            continue
+        near = shape.intersect(cq.Solid.makeBox(
+            hi - lo, b.ylen + 2.0, b.zlen + 2.0,
+            cq.Vector(lo, b.ymin - 1.0, b.zmin - 1.0)))
+        if not near.Solids():
+            continue
+        hit = box(near)
+        floor = hit.xmax + air if side > 0 else hit.xmin - air
+        if abs(floor) > min(abs(x) for x in _enc.interior_x()):
+            raise ValueError(f"{name} clearance would enter the nominal enclosure wall")
+        pockets.append((name, min(face, floor), max(face, floor),
+                        hit.ymin - air, hit.ymax + air,
+                        hit.zmin - air, hit.zmax + air))
+    return tuple(pockets)
+
+
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
@@ -6167,6 +6262,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors),
                      ceiling_reliefs=ceiling_reliefs(placed),
                      flank_reliefs=flank_reliefs(placed),
+                     front_flank_reliefs=front_flank_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      keystone=a.keystone_station,

@@ -1,0 +1,79 @@
+{
+  "scope": "Retained native placed pump and foam; injected invalid test geometry is scratch only.",
+  "input_sha256": {
+    "/tmp/scanner-review/integration-correction/route-pack/frames.json": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+    "/tmp/scanner-review/integration-correction/route-pack/g-ganen-pump.brep": "a6dcdcfa1fe66642e3e04708308248c5e3cc7ce0622b3e720593bb7618e6b95e",
+    "/tmp/scanner-review/integration-correction/route-pack/foam-assembly.brep": "eb28ed6ac6a93b49c5f246b268d173482cf8752e8f8b045b615ead3d8d0eb3d8",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "873e54986455e94d286ac5a1649e0ad0f7ae4cf127097aa23c14c82a8c7718c9",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/verify_cap_contact.py": "4bbe21eedd1e19e0dc6203630aed2433eb9af413ec9dbcd1ee0c7b7f1ce1ce5b",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755"
+  },
+  "classifier_function_sha256": "1a5273c18e90b8328c0d65cd5887a7a16a1eee36e0f89318866e8f247b27dff6",
+  "origin_mm": [
+    2.071135151941995,
+    374.235458276122,
+    253.4
+  ],
+  "cap_plane_z_mm": 253.4,
+  "cases": [
+    {
+      "case": "Four exact unloaded rubber-foot bearing contacts",
+      "expected_classification_pass": true,
+      "reading": {
+        "rigid_overlap_mm3": 0.0,
+        "free_foot_contact_mm3": 734.8237389627271,
+        "outside_contact_masks_mm3": 4.4246954830975363e-05,
+        "feet": [
+          "head_yminus_observed_rubber_slider_envelope",
+          "head_yplus_observed_rubber_slider_envelope",
+          "rear_yminus_observed_rubber_slider_envelope",
+          "rear_yplus_observed_rubber_slider_envelope"
+        ],
+        "pass": true
+      },
+      "test_pass": true
+    },
+    {
+      "case": "Rigid cap addition above bearing plane",
+      "expected_classification_pass": false,
+      "reading": {
+        "rigid_overlap_mm3": 53.99999785423279,
+        "free_foot_contact_mm3": 788.8237368169601,
+        "outside_contact_masks_mm3": 54.00004141213693,
+        "feet": [
+          "head_yminus_observed_rubber_slider_envelope",
+          "head_yplus_observed_rubber_slider_envelope",
+          "rear_yminus_observed_rubber_slider_envelope",
+          "rear_yplus_observed_rubber_slider_envelope"
+        ],
+        "pass": false
+      },
+      "test_pass": true
+    },
+    {
+      "case": "Extra shared material outside every foot mask",
+      "expected_classification_pass": false,
+      "reading": {
+        "rigid_overlap_mm3": 0.0,
+        "free_foot_contact_mm3": 761.8237389627277,
+        "outside_contact_masks_mm3": 27.000044371393162,
+        "feet": [
+          "head_yminus_observed_rubber_slider_envelope",
+          "head_yplus_observed_rubber_slider_envelope",
+          "rear_yminus_observed_rubber_slider_envelope",
+          "rear_yplus_observed_rubber_slider_envelope"
+        ],
+        "pass": false
+      },
+      "test_pass": true
+    },
+    {
+      "case": "Bearing plane mismatch",
+      "rejected": "G Ganen bearing datum is not on the independent cap plane",
+      "test_pass": true
+    }
+  ],
+  "all_tests_pass": true,
+  "physical_compression_qualified": false,
+  "elapsed_seconds": 22.98742258400307
+}

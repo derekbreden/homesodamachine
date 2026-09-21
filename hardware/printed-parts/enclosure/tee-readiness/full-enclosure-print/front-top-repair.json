@@ -1,0 +1,263 @@
+{
+  "status": "bounded_native_repair_pass",
+  "created_at_utc": "2026-09-21T07:45:45.670223+00:00",
+  "scope": "Frozen failed native aggregate/Box versus bounded current local helpers. No completed regenerated full-shell/whole-appliance claim.",
+  "input_sha256": {
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/fit-correction-baseline.zip": "a08ad1e131927d2af37dbc218f70629fbdef1f584c16f402ea354474c720ba7c",
+    "fit-correction-baseline.zip::enclosure-box.json": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+    "fit-correction-baseline.zip::enclosure-front-top.step": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+    "fit-correction-baseline.zip::cold-core-foam-shell.brep": "5aae73b73c96054ba160bec0ddafc65d4f46858533f41badfab7b4e6898b254f",
+    "fit-correction-baseline.zip::coil-v-f.brep": "d73d77c569d964494ee1f23e284685a32cd75e0bb4a3be06eef293b87a588eb8",
+    "fit-correction-baseline.zip::coil-v-i.brep": "61ab0e68a261f2e033a76ef825f33e4aca95485c3913c8a5b400d222b088a2ce",
+    "fit-correction-baseline.zip::coil-v-c.brep": "3a9f79117b2e1c49f7417408af8bc673417f9ada58a267d8655ec22b43b49ecd",
+    "fit-correction-baseline.zip::coil-v-d.brep": "a960e368a687df474082d9490d39ed9bd30dec6816e1436fdb49da5b565d7e85",
+    "fit-correction-baseline.zip::tube-fluid-18.brep": "0317fa2e6525c8b18e11a70cc416e0573d50e38d2ed7b559acd12e995448ee23",
+    "fit-correction-baseline.zip::enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+    "fit-correction-baseline.zip::enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+    "fit-correction-baseline.zip::valve-v-c.brep": "02cc6a238a15196d8d3281b30bf61d14fa0de7ad3732028eefdb6b5070b3f850",
+    "fit-correction-baseline.zip::valve-v-d.brep": "e9672865b53bf84bc1597dbe3db6fad44ae26bedee7cb0113c05b1ebd8e6fe82"
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure_assembly.py": "b4a791896ac706f02dda5e01bd3b25e3a36e8612b746f1c7417bb746dfe5f5b3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "8f2006803cf5559e314a034beee48b11cffab22befdf40d348e944d604de5c6c",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "9a1fe40190daef90a0231767926126597e6c073690ef5d596cb03ff7ce4255fd",
+    "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f"
+  },
+  "checks": [
+    {
+      "name": "frozen foam shell and frozen wall overlap establishes regression",
+      "value": 30747.277932017,
+      "minimum": 1,
+      "pass": true
+    },
+    {
+      "name": "translated core shell vs unchanged tray native overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "rear inner plane matches selected complete core shift",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "full aft tray to new core front plane mm",
+      "value": 1.0100000000000193,
+      "minimum": 1,
+      "pass": true
+    },
+    {
+      "name": "coil-v-f shallow-pocket native overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "coil-v-f shallow-pocket native air mm",
+      "value": 0.9999999999999716,
+      "minimum": 1,
+      "pass": true
+    },
+    {
+      "name": "coil-v-i shallow-pocket native overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "coil-v-i shallow-pocket native air mm",
+      "value": 0.9999999999999716,
+      "minimum": 1,
+      "pass": true
+    },
+    {
+      "name": "coil-v-f residual wall stock mm",
+      "value": 7.649999999999977,
+      "minimum": 7.65,
+      "pass": true
+    },
+    {
+      "name": "coil-v-f stock behind maximum exterior fluting mm",
+      "value": 6.449999999999977,
+      "minimum": 3.0,
+      "pass": true
+    },
+    {
+      "name": "coil-v-i residual wall stock mm",
+      "value": 7.650000000000034,
+      "minimum": 7.65,
+      "pass": true
+    },
+    {
+      "name": "coil-v-i stock behind maximum exterior fluting mm",
+      "value": 6.450000000000034,
+      "minimum": 3.0,
+      "pass": true
+    },
+    {
+      "name": "pockets remove no lower seam/rail stock mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "clip at Y137 current tube native overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "clip at Y137 current tube air mm",
+      "value": 17.356681289838985,
+      "minimum": 1,
+      "pass": true
+    },
+    {
+      "name": "clip at Y179 current tube native overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "clip at Y179 current tube air mm",
+      "value": 1.049999893025003,
+      "minimum": 1,
+      "pass": true
+    },
+    {
+      "name": "clip full-grid arm section mm",
+      "value": 3.0,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "name": "clip host stock behind embedded channel mm",
+      "value": 7.8,
+      "minimum": 3.0,
+      "pass": true
+    },
+    {
+      "name": "fixed cup 1 missing native stock mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "fixed cup 2 missing native stock mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "well 1 unintended stock outside declared cups mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "well 2 unintended stock outside declared cups mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "well 3 unintended stock outside declared cups mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "well 4 unintended stock outside declared cups mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "coil c continuous native entry mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "name": "coil d continuous native entry mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "readings": {
+    "core_world_y": {
+      "front": 182.3,
+      "aft": 465.3,
+      "rear_inner": 468.3,
+      "tray_aft": 181.29,
+      "tray_air": 1.01
+    },
+    "native_yoke_pockets": [
+      [
+        "coil-v-f",
+        98.5,
+        99.85000000000002,
+        119.24,
+        150.88240677056572,
+        235.8113573071557,
+        269.03864289284434
+      ],
+      [
+        "coil-v-i",
+        -99.84999999999997,
+        -98.5,
+        119.24,
+        151.15245914989052,
+        235.81135730715576,
+        269.0386428928443
+      ]
+    ],
+    "flank_clip": {
+      "embed_mm": 1.2,
+      "projection_mm": 7.8,
+      "profile_grid_mm": 3.0,
+      "host_mm": 9.0,
+      "z_origin": 286.95000000000005,
+      "scope": "Existing 3 mm profile translated intact into host; production end ramps retained. Exact new route and completed shell remain to be checked."
+    },
+    "coil-c-full-rise": {
+      "start": [
+        0,
+        -5.45,
+        -61.92500009999998
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 54,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    "coil-d-full-rise": {
+      "start": [
+        0,
+        -5.45,
+        -61.92500009999998
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 54,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    }
+  },
+  "full_regenerated_shell_required": true
+}

@@ -1,0 +1,375 @@
+{
+  "status": "local_wall_anchor_pass",
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure_assembly.py": "5fef572a1535ceb4f724eb62a20abd28a8f4f78e5e3a56b59e050641481b120d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "9b92951b97461c9d8dd8fd85fbf48d7e7fc28e78471d5ec3819973139065367f",
+    "hardware/reference/water-split/water_split.py": "af59f438113242eb0ebbaf5eb762cddbffa285a5792a3a92c4085a626f9aded1",
+    "hardware/reference/neofit-flow-control/neofit_flow_control.py": "3b4d571d757042b8bafc7834246b52746acc0283533357d493a6c8c94c8e4fa9",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+    "hardware/manifold-layout/_lines.py": "2d5e9bf4e274b7dddf2e1cb7be9c22d13e92cd1aaf2b64db3d34b718b95415ce",
+    "/tmp/scanner-review/integration-correction/route-neighbors/funnel.brep": "1c2fb119b5199967fb89a1d8b87db3ad22d451af40ef86ea18509e6b5ffe1439",
+    "/tmp/scanner-review/integration-correction/route-pack/frames.json": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2"
+  },
+  "frames_sha256": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+  "scope": "Fresh current placement and complete native local wall/ceiling/anchor fixture; no full producer or native slice.",
+  "placement": {
+    "split_bounds_mm": [
+      -99.6,
+      222.01,
+      271.6605808375568,
+      -83.1,
+      264.51,
+      302.2605808375568
+    ],
+    "regulator_bounds_mm": [
+      -100.65248234144144,
+      220.26,
+      303.1100210031898,
+      -58.422443932050406,
+      266.26,
+      331.3130631789983
+    ],
+    "FLOWREG_TURN": [
+      [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        -90.0
+      ],
+      [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        90.0
+      ],
+      [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        180.0
+      ],
+      [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        25.0
+      ]
+    ],
+    "FLAVOR_STEP": 42.2
+  },
+  "pockets": [
+    [
+      "flow-regulator",
+      -100.80248234144145,
+      -98.5,
+      236.10999999999999,
+      250.41,
+      317.4010890119044,
+      323.7124434760574
+    ],
+    [
+      "water-split",
+      -99.85,
+      -98.5,
+      224.51,
+      262.01,
+      273.5105808375568,
+      298.7830248670612
+    ]
+  ],
+  "anchors": [
+    {
+      "name": "water-split",
+      "station": [
+        [
+          -91.35,
+          256.81,
+          294.0105808375568
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        8.4,
+        [
+          null,
+          null
+        ]
+      ],
+      "complete_length_mm": 9.5,
+      "web_thickness_mm": 3.0,
+      "end_web_length_mm": 3.0,
+      "tie_width_mm": 2.5,
+      "tie_thickness_mm": 1.0,
+      "tie_cavity_width_mm": 3.5,
+      "tie_cavity_depth_mm": 1.7500000000000053,
+      "side_air_mm_each": 0.5,
+      "depth_air_mm_total": 0.7500000000000053,
+      "threading_corridor_bounds_mm": [
+        -104.125,
+        255.56,
+        280.6105808375568,
+        -103.125,
+        258.06,
+        307.4105808375568
+      ],
+      "threading_corridor_print_overlap_mm3": 0.0,
+      "threading_corridor_hardware_overlap_mm3": 0.0,
+      "nominal_wall_probe_missing_mm3": 0.0,
+      "nominal_outer_backing_mm": 3.0,
+      "worst_groove_remaining_skin_mm": 1.8,
+      "minimum_tie_loop_mm": 74.93118736021145,
+      "end_forms": [
+        "corbel",
+        "corbel"
+      ],
+      "actual_column_bounds_mm": [
+        null,
+        null
+      ],
+      "closed_tie_witness": {
+        "width_mm": 2.5,
+        "thickness_mm": 1.0,
+        "band_length_mm": 90.98318530717953,
+        "inner_corner_radius_mm": 0.5,
+        "outer_corner_radius_mm": 1.5,
+        "valid": true,
+        "body_count": 1,
+        "bounds_mm": [
+          -104.25,
+          255.56,
+          281.1105808375568,
+          -81.69999999999999,
+          258.06,
+          306.9105808375568
+        ],
+        "native_checks": {
+          "printed_fixture": {
+            "overlap_mm3": 0.0,
+            "air_mm": 0.25
+          },
+          "funnel": {
+            "overlap_mm3": 0.0,
+            "air_mm": 21.79350675542826
+          },
+          "water-split": {
+            "overlap_mm3": 0.0,
+            "air_mm": 0.4000000000000057
+          },
+          "flow-regulator": {
+            "overlap_mm3": 0.0,
+            "air_mm": 7.855011839666335
+          }
+        },
+        "scope": "A continuous rounded closed band proves an available loop; tightening force and minimum physical bend radius remain unmeasured."
+      }
+    },
+    {
+      "name": "flow-regulator",
+      "station": [
+        [
+          -91.35,
+          228.26,
+          322.0105808375568
+        ],
+        [
+          2.587790507509829e-17,
+          -1.0,
+          5.549534652183772e-17
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        7.0,
+        [
+          [
+            343.0,
+            null
+          ],
+          [
+            343.0,
+            null
+          ]
+        ]
+      ],
+      "complete_length_mm": 9.5,
+      "web_thickness_mm": 3.0,
+      "end_web_length_mm": 3.0,
+      "tie_width_mm": 2.5,
+      "tie_thickness_mm": 1.0,
+      "tie_cavity_width_mm": 3.5,
+      "tie_cavity_depth_mm": 3.1500000000000057,
+      "side_air_mm_each": 0.5,
+      "depth_air_mm_total": 2.1500000000000057,
+      "threading_corridor_bounds_mm": [
+        -103.425,
+        227.01,
+        310.0105808375568,
+        -102.425,
+        229.51,
+        334.0105808375568
+      ],
+      "threading_corridor_print_overlap_mm3": 0.0,
+      "threading_corridor_hardware_overlap_mm3": 0.0,
+      "nominal_wall_probe_missing_mm3": 0.0,
+      "nominal_outer_backing_mm": 3.0,
+      "worst_groove_remaining_skin_mm": 1.8,
+      "minimum_tie_loop_mm": 65.13842180963624,
+      "end_forms": [
+        "column",
+        "column"
+      ],
+      "actual_column_bounds_mm": [
+        [
+          -104.5,
+          230.01,
+          332.0105808375568,
+          -91.35,
+          233.01,
+          343.0
+        ],
+        [
+          -104.5,
+          223.51,
+          332.0105808375568,
+          -91.35,
+          226.51,
+          343.0
+        ]
+      ],
+      "closed_tie_witness": {
+        "width_mm": 2.5,
+        "thickness_mm": 1.0,
+        "band_length_mm": 79.7831853071796,
+        "inner_corner_radius_mm": 0.5,
+        "outer_corner_radius_mm": 1.5,
+        "valid": true,
+        "body_count": 1,
+        "bounds_mm": [
+          -102.85,
+          227.01,
+          310.5105808375568,
+          -83.1,
+          229.51,
+          333.5105808375568
+        ],
+        "native_checks": {
+          "printed_fixture": {
+            "overlap_mm3": 0.0,
+            "air_mm": 0.25
+          },
+          "funnel": {
+            "overlap_mm3": 0.0,
+            "air_mm": 0.5999999999999943
+          },
+          "water-split": {
+            "overlap_mm3": 0.0,
+            "air_mm": 8.25
+          },
+          "flow-regulator": {
+            "overlap_mm3": 0.0,
+            "air_mm": 0.4000000000000057
+          }
+        },
+        "scope": "A continuous rounded closed band proves an available loop; tightening force and minimum physical bend radius remain unmeasured."
+      }
+    }
+  ],
+  "fixture_valid": true,
+  "fixture_solids": 1,
+  "complete_protruding_anchor_stock_missing_mm3": 0.0,
+  "body_checks": {
+    "water-split": {
+      "wall_and_anchor_overlap_mm3": 0.0,
+      "wall_and_anchor_air_mm": 0.14999999999997726
+    },
+    "flow-regulator": {
+      "wall_and_anchor_overlap_mm3": 0.0,
+      "wall_and_anchor_air_mm": 0.14999999999997726
+    }
+  },
+  "checks": [
+    {
+      "name": "water-split closed tie loop",
+      "pass": true
+    },
+    {
+      "name": "water-split full native backing",
+      "pass": true
+    },
+    {
+      "name": "water-split full-width tie threading",
+      "pass": true
+    },
+    {
+      "name": "flow-regulator closed tie loop",
+      "pass": true
+    },
+    {
+      "name": "flow-regulator full native backing",
+      "pass": true
+    },
+    {
+      "name": "flow-regulator full-width tie threading",
+      "pass": true
+    },
+    {
+      "name": "all complete anchors preserved",
+      "pass": true
+    },
+    {
+      "name": "one valid attached fixture",
+      "pass": true
+    },
+    {
+      "name": "placed body clearances",
+      "pass": true
+    }
+  ],
+  "pocket_stock": [
+    {
+      "name": "flow-regulator",
+      "depth_mm": 2.302482341441447,
+      "native_outer_stock_mm": 6.697517658558553,
+      "worst_groove_stock_mm": 5.497517658558553
+    },
+    {
+      "name": "water-split",
+      "depth_mm": 1.3499999999999943,
+      "native_outer_stock_mm": 7.650000000000006,
+      "worst_groove_stock_mm": 6.4500000000000055
+    }
+  ],
+  "support_access": {
+    "orientation": "Back-top ceiling-down, machine -Z up.",
+    "pocket_return": "45 degree lower return; native pocket cut precedes complete anchor fuses.",
+    "anchor_seats": "Half-round seats open toward +X into the empty enclosure; detach interfaces and withdraw through that open face before fittings and zip ties are installed.",
+    "tie_channel": "The quantified 2.5 x1 mm threading probe traverses each central channel through its upper and lower mouths. This is a tie threading reading, not proof that a whole support tree exits intact.",
+    "actual_support_topology": "Requires the production slice of the regenerated complete back-top; no support-road count or cleanup effort is claimed here."
+  },
+  "input_drift": [],
+  "elapsed_seconds": 1.9204945420206059,
+  "reference_limit": "Flow-regulator reference is the existing provisional catalogue-photo envelope; this reading verifies its current placed model, not new caliper or scan evidence.",
+  "reproducer_sha256": "968c75fd80206b7488197a83eab4c0f8a481231a25f2ff92b912e86a0b6b2593",
+  "retained_inputs": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/split-regulator-wall-inputs.zip",
+    "sha256": "e62932c7bf2e79a4a64005a53daee284c89d4016f64eefdf050c2f78489ae5c9"
+  }
+}
