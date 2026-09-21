@@ -1,0 +1,99 @@
+{
+  "status": "offline slice complete; a submission is recorded in print-jobs.json",
+  "printer_submission": false,
+  "slice_result": {
+    "error_string": "Success.",
+    "export_time": 6584,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 629,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 2205.7587890625,
+          "Bridge": 8262.380859375,
+          "Custom": 297.3392028808594,
+          "Flush": 15.0,
+          "Gap infill": 1.6264888048171997,
+          "Inner wall": 6469.501953125,
+          "Internal solid infill": 6830.3232421875,
+          "Outer wall": 6262.15869140625,
+          "Sparse infill": 25342.810546875,
+          "Top surface": 1305.983642578125,
+          "Travel": 1761.262939453125,
+          "Undefined": 1759.6939697265625
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFT01",
+            "id": 1,
+            "main_used_g": 931.5325927734375,
+            "total_used_g": 931.5325927734375
+          }
+        ],
+        "generate_support_material_time": 1513,
+        "id": 1,
+        "infill_time": 1895,
+        "layer_filament_change": 0,
+        "main_predication": 58411.6171875,
+        "make_perimeters_time": 1640,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 310.0,
+              "height": 220.0,
+              "width": 315.0,
+              "x": 5.0,
+              "y": 5.0,
+              "z": 0.0
+            },
+            "id": 5,
+            "name": "fake-countertop",
+            "triangle_count": 84060
+          }
+        ],
+        "sliced_time": 14261,
+        "sliced_time_with_cache": 8986,
+        "total_predication": 58737.38671875,
+        "triangle_count": 84060,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+      "Bambu Lab H2S 0.4 nozzle",
+      "Bambu Lab H2D 0.4 nozzle",
+      "Bambu Lab H2D Pro 0.4 nozzle",
+      "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+  },
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "layers": 917,
+  "estimated_seconds": 58737.38671875,
+  "estimated_filament_g": 931.5325927734375,
+  "plate_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+  "archive_sha256": "5ebbb688cd67fca874c28b4196a20d552bd9998a16b959e6bb130f0134031acc",
+  "gcode_sha256": "b2cae8acff0d1a6d506cb429c46b394ac1cb01fe2eff617ba4a1f6c0b37cc2bd",
+  "project_sha256": "17a5368f6e765f4a2fa30d0fb4e06e0bc36fbc57aa020fb814b67646dd806851",
+  "source_stl_sha256": "d1c6fe94e19db1ac8409d91f9b25462603c8054b3ea3d5151c7829a123fc15b6",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+}

@@ -74,7 +74,7 @@ def archive_write(path: Path, members: dict[str, bytes]):
 
 def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
             offsets: tuple | None = None, title: str = "Faucet PET-GF",
-            z_trim: float | None = None) -> dict:
+            z_trim: float | None = None, plate_border: float = 15.0) -> dict:
     parts = PARTS if parts is None else parts
     offsets = PART_OFFSETS if offsets is None else offsets
     if len(parts) != len(offsets):
@@ -120,8 +120,12 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
             settings["printer_settings_id"] = identity
             settings_payload = (json.dumps(settings, indent=2) + "\n").encode()
         bed_points = np.array([[float(value) for value in point.split("x")] for point in settings["printable_area"]])
-        extruder_areas = [np.array([[float(value) for value in point.split("x")] for point in area.split(",")])
-                          for area in settings.get("extruder_printable_area", [])]
+        # The plate is what the nozzles this job maps its filaments to can reach: the left
+        # nozzle's area alone for a one-filament job, both nozzles' intersection for two.
+        all_areas = [np.array([[float(value) for value in point.split("x")] for point in area.split(",")])
+                     for area in settings.get("extruder_printable_area", [])]
+        used = sorted({int(n) for n in settings.get("filament_nozzle_map", [])} & set(range(len(all_areas))))
+        extruder_areas = [all_areas[i] for i in used] if used else all_areas
         usable_low = np.max([area.min(axis=0) for area in extruder_areas], axis=0) if extruder_areas else bed_points.min(axis=0)
         usable_high = np.min([area.max(axis=0) for area in extruder_areas], axis=0) if extruder_areas else bed_points.max(axis=0)
         members = {SETTINGS_MEMBER: settings_payload}
@@ -159,6 +163,8 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
         "saved_profile_filament_density_g_cm3": [float(value) for value in settings["filament_density"]],
         "bed_type": settings["curr_bed_type"],
         "shared_printable_area_mm": [usable_low.tolist(), usable_high.tolist()],
+        "printable_area_extruders": used if used else list(range(len(all_areas))),
+        "plate_border_mm": plate_border,
         "plate_count": 1,
         "parts": [],
     }
@@ -182,7 +188,7 @@ def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
         local_translation = plate_center - (low + high) / 2.0
         local_translation[2] = -low[2]
         placed = rotated + local_translation
-        margin = 15.0
+        margin = plate_border
         if np.any(placed[:, :2].min(axis=0) < usable_low + margin) or np.any(placed[:, :2].max(axis=0) > usable_high - margin):
             raise ValueError(f"{name} extends into the {margin:g} mm plate border")
         if placed[:, 2].max() > float(settings["printable_height"]):

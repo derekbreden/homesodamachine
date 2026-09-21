@@ -7116,6 +7116,9 @@ cp hardware/printed-parts/faucet/tube-collar/README.md $$O6
 genrule(
     name = "fake-countertop",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/fixtures/fake-countertop/README.md",
         "pysrc/hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -11518,6 +11521,14 @@ genrule(
     name = "pysrc-318100a43946",
     srcs = ["hardware/printed-parts/cadlib/plan.py"],
     outs = ["pysrc/hardware/printed-parts/cadlib/plan.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-e38ca18eec26",
+    srcs = ["hardware/printed-parts/cadlib/print_mesh.py"],
+    outs = ["pysrc/hardware/printed-parts/cadlib/print_mesh.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -17617,6 +17628,9 @@ sh_test(
     name = "fake-countertop-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "hardware/printed-parts/cadlib/flute_skin.py",
+        "hardware/printed-parts/cadlib/print_mesh.py",
+        "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
         "hardware/printed-parts/fixtures/fake-countertop/README.md",
         "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
