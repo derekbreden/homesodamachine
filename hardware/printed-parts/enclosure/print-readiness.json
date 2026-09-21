@@ -194,12 +194,29 @@
     "asin": "B07F35PTFR",
     "authority": "Derek, September 20, 2026",
     "calipers_recorded": false,
-    "scan_status": "first 1033-frame native capture fused at 0.10 mm and fully archived; complementary orientation awaiting visual confirmation",
+    "scan_status": "First 1,033-frame native pass fused at 0.10 mm and archived; second pass captures the on-back angle identified by Derek. Feet-down view remains next.",
     "production_reference_integrated": false,
     "existing_seaflo_baseline_qualifies_selected_pump": false,
     "selection_record": "hardware/reference/pump-comparison/README.md",
     "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump",
     "pass_1_cloud_sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
     "pass_1_points": 3235134
+  },
+  "cartridge_print": {
+    "status": "prepared_for_bench_fit",
+    "submitted": false,
+    "readiness_record": "hardware/printed-parts/enclosure/enclosure/pump-print-readiness.json",
+    "estimated_seconds": 34978,
+    "physical_fit_tested": false,
+    "final_tee_axial_datums_qualified": false
+  },
+  "post_publish_geometry_lint_current_carrier": {
+    "remaining_findings": 0,
+    "answered_findings": {
+      "left": 28,
+      "right": 28,
+      "integral_right_coupon": 5
+    },
+    "scope": "Current mesh features and accessible support paths; no physical latch or complete assembly acceptance implied."
   }
 }

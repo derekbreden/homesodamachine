@@ -1,0 +1,276 @@
+{
+  "status": "ready_for_cartridge_and_cap_bench_fit",
+  "submitted": false,
+  "printer": "Mark2",
+  "purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly.",
+  "assembly_current": false,
+  "production_enclosure_released": false,
+  "physical_filament": "Black PET-GF, left external spool 254, PET-CF metadata",
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "source_parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "stl_sha256": "a3a1b380305a4bff980d49fdfa1bb033ae5f9ed9f47d7cdcef23a4be7e48758f",
+      "triangles": 171298,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        42.134498596191406,
+        224.68450927734375
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        175.0,
+        210.0,
+        59.489501953125
+      ],
+      "plate_translation_mm": [
+        175.0,
+        210.0,
+        59.489501953125
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          67.5,
+          172.8655014038086,
+          0.0
+        ],
+        [
+          282.5,
+          247.1344985961914,
+          118.97900390625
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "stl_sha256": "6614432f68c112f85d5dd179b696131a9f29b940f7f64f5f2238840f1cb744c2",
+      "triangles": 6332,
+      "rotation_x_degrees": 180.0,
+      "source_center_mm": [
+        0.0,
+        45.088998794555664,
+        246.79949188232422
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        1.2246467991473532e-16,
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0,
+        175.0,
+        110.0,
+        32.12549591064454
+      ],
+      "plate_translation_mm": [
+        175.0,
+        110.0,
+        32.12549591064454
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          90.05500030517578,
+          75.82000160217285,
+          0.0
+        ],
+        [
+          259.9449996948242,
+          144.17999839782715,
+          64.25099182128906
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10
+    }
+  ],
+  "geometry_manifest": "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json",
+  "geometry_manifest_sha256": "ed006ad044e235115af8e4308bfdd02b3e82278e2300bf58bb80afa143298dfb",
+  "cartridge_source_sha256": {
+    "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "1e38e9333d2b5807c8c5d5a0f2ed2b4850bb33e22ee2c67bcb4a46a4da612fa8",
+    "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "eb286dd16de5b4e33c28bef03a6d409074c0601c6b975125a5c3909e2b2a9031",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "c2c81f472150f0aa3ffd437ddbe61e68a69da993de194dc352567e7660db9bf9",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e8f01c85a332ccfa56c9c642457b894d9b413658acf2a6387f7bc6d0f430a246",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "b5c9728cb8f963e5d60328d4068e1d4f87e0bd49742fbf375eb05c36cd8f393d",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "3002f33a9b2c8978f56047832f2cb117678d42369f700383d17889fc61743a67",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
+    "hardware/reference/riteav-keystone/riteav_keystone.py": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe",
+    "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+    "hardware/reference/worm-clamp/worm_clamp.py": "3faf968f69a863eb257830748e292b0ee040d007e554b79c61257b63759ca786",
+    "hardware/scripts/_box_spec.py": "6d3fb6a178e443956d87c18a77e143181776b8b79d0f480ed8727b96ea35e1fe",
+    "hardware/scripts/_boxes.py": "b4ef9757879de112561a56d294a7705075a9006e2826e534cb1779781eaebc23",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "hardware/scripts/_world_sdf.py": "d5ba05f536cdaa083776aceaf095cff00f18d2fe17d25f2041f1968ee0bac1f7",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/materialize_pump_cartridge.py": "a009fe9866415be3c6f46b66b6c2c873843bcd506c728050290cd8df80d6b73b",
+    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
+  },
+  "cartridge_input_sha256": {
+    "hardware/manifold-layout/enclosure-box.json": "a1468381b233f54a07cd491fefe3dabdc56da89bb46fa3bffb6d2181802427c9",
+    "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json": "b5a7837a8216d62b466f3f70851e0b0ca2f54dcc5aa4b56e5b472253b5ab12c0",
+    "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
+    "hardware/reference/kamoer-kphm400/scan-evidence.json": "c7f8f3e63bef35bdd39b367bf268cfa54e04d996cd51ad5c997749afed4732f2",
+    "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114"
+  },
+  "cartridge_artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "9d86fe0daede923bc442b95e0cb0e37faa81a0f7843d411e2ab3136333666153",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a3a1b380305a4bff980d49fdfa1bb033ae5f9ed9f47d7cdcef23a4be7e48758f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "c9c36f0fd44f4f84699470c5a858e434e715f76eac0cd031107cb9155197e11e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "e41d4e728835589a9cce7b02056b20600b04b2af320542be037c2113019dba39",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "6614432f68c112f85d5dd179b696131a9f29b940f7f64f5f2238840f1cb744c2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "bbfc4df2a94e92f51e1c5423fffb7761c5c23eb9c9710191598fd2aff203a8ad"
+  },
+  "print_preparation_source_sha256": "da377a3cbad78b4c3ec5e9633b56a8d406ec79739288a21e5baee62f1f994e20",
+  "unqualified_tee_datums": {
+    "branch_extended_face_mm": 20.07,
+    "fixed_body_to_moving_sleeve_split_mm": 16.95,
+    "release_nose_radius_mm": 5.715
+  },
+  "staged_input": ".cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/pump-cartridge-scan-corrected-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "29abcedd797179242e50751b27c4bf68673a1038b801238110e6858bf07d9ae7",
+  "native_archive": ".cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/ready/pump-cartridge-scan-corrected-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "2d8fe33341bc5e998a0baee25e2ef92ca8939a21e06b4b2cf0be84129fe952cf",
+  "gcode_sha256": "00f9df1f571acd996e92cd7da71f8430da5f4add4ecaa2c2683ec6c088f11ad1",
+  "process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_arc_fitting": "0",
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_map": [
+      "1"
+    ]
+  },
+  "intentional_settings_changed": [
+    "extruder_ams_count",
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "layers": 496,
+  "estimated_seconds": 34977.69140625,
+  "estimated_filament_g": 413.11761474609375,
+  "slicer_warning": "",
+  "toolpath_fit": {
+    "minimum_shared_bed_margin_mm": 16.682597999999984,
+    "minimum_toolpath_separation_mm": 28.252598000000006,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "enclosure-pump-cartridge",
+          "enclosure-pump-cap"
+        ],
+        "separation_mm": 28.252598000000006
+      }
+    ]
+  },
+  "support_audit": ".cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/pump-cartridge-scan-corrected-black-z004-mark2-v1-input.support-audit.json",
+  "support_audit_sha256": "122a9bd91863fd62ed5f9ec9616a72c1ae9724348a3e9bbbfb82af611217bbc5",
+  "live_printer_mapping_and_empty_plate_still_required": true,
+  "physical_fit_tested": false,
+  "toolpath_review": "hardware/printed-parts/enclosure/enclosure/pump-toolpath-review.json",
+  "toolpath_review_sha256": "54850da99ea28ba8426c8b5a70cd5307a8bd3765f5cb576818094fa0c89bfdce"
+}

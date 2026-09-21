@@ -194,13 +194,13 @@
     "layer_counters": "Not recorded during PREPARE; the printer still exposed the previous job counters."
   },
   "print_progress": {
-    "observed_at": "2026-09-21T00:33:54.528841+00:00",
+    "observed_at": "2026-09-21T01:04:12.178529+00:00",
     "gcode_state": "RUNNING",
     "subtask_name": "nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
-    "mc_percent": 15,
-    "layer_num": 1,
+    "mc_percent": 53,
+    "layer_num": 47,
     "total_layer_num": 192,
-    "mc_remaining_time": 69,
+    "mc_remaining_time": 38,
     "print_error": 0,
     "hms": []
   }
