@@ -244,6 +244,7 @@ C14_STATION = tuple(_FACTS["constants"]["C14_STATION"])
 C13_SLIP = 0.35
 C13_WALL = 3.5
 C13_BODY_LEN = 31.0
+C13_NOSE_LEN = 9.5            # the C13 nose that enters the inlet's cavity
 C13_BOOT_LEN = 30.0
 C13_BOOT_D = (14.5, 9.0)
 C13_CABLE_D = 7.8
@@ -275,22 +276,22 @@ def _cable(points, diameter, tangents):
 def _c13_cordset(gap):
     """The cord end on the inlet's mating axis, `gap` millimetres out from the show face.
 
-    The socket the shroud enters, the moulding round it, the strain relief and the cord. Its
-    three contact slots stand where the inlet's own blades do.
+    The nose that enters the inlet's cavity, the moulding behind it, the strain relief and the
+    cord. Its three contact slots stand where the inlet's own blades do.
     """
     x, z = C14_STATION
     y0 = REAR_FACE_Y + gap
-    socket_w = _c14.SHROUD_W + 2.0 * C13_SLIP
-    socket_h = _c14.SHROUD_H + 2.0 * C13_SLIP
-    socket_depth = _c14.SHROUD_PROUD + 0.8
+    nose_w = _c14.MOUTH_W - 2.0 * C13_SLIP
+    nose_h = _c14.MOUTH_H - 2.0 * C13_SLIP
 
-    body = _prism(socket_w + 2.0 * C13_WALL, socket_h + 2.0 * C13_WALL, 3.0, C13_BODY_LEN)
+    body = _prism(nose_w + 2.0 * C13_WALL, nose_h + 2.0 * C13_WALL, 3.0, C13_BODY_LEN)
     body = body.faces(">Y").chamfer(1.2)
-    body = body.cut(_prism(socket_w, socket_h, _c14.SHROUD_FILLET + C13_SLIP, socket_depth))
+    nose = _prism(nose_w, nose_h, _c14.MOUTH_TOP_R - C13_SLIP, C13_NOSE_LEN).translate((0.0, -C13_NOSE_LEN, 0.0))
+    body = body.union(nose)
     for blade in _c14.build_blades().val().Solids():
         bb = blade.BoundingBox()
-        body = body.cut(_box(bb.xmin - 0.3, socket_depth, bb.zmin - 0.3,
-                             bb.xlen + 0.6, C13_BODY_LEN, bb.zlen + 0.6))
+        body = body.cut(_box(bb.xmin - 0.3, -C13_NOSE_LEN - 0.5, bb.zmin - 0.3,
+                             bb.xlen + 0.6, C13_NOSE_LEN + 0.5 + 6.0, bb.zlen + 0.6))
     boot = (cq.Workplane(xz_plane_y_up).workplane(offset=C13_BODY_LEN)
             .circle(C13_BOOT_D[0] / 2.0)
             .workplane(offset=C13_BOOT_LEN).circle(C13_BOOT_D[1] / 2.0).loft())

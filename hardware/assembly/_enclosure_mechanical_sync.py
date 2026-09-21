@@ -22,8 +22,7 @@ sys.path.insert(0, str(_hw / "reference" / "jg-bulkhead-union"))
 sys.path.insert(0, str(_hw / "reference" / "iec-c14-inlet"))
 
 from _y_wall_dimensions import (  # noqa: E402
-    ac_inlet_recess_depth_max,
-    ac_inlet_recess_depth_min,
+    c14_rim_inset,
 )
 from _cold_core_interface import (  # noqa: E402
     cap_conduits,
@@ -201,10 +200,8 @@ def main():
         # module `enclosure_assembly` seats the body with rather than copied beside it.
         "PSU_DEPTH": f"{_psu.height:.4g} mm",
         "PSU_LENGTH": f"{_psu.length:.4g} mm",
-        # AC inlet recess range.
-        "AC_RECESS_DEPTH": (
-            f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm"
-        ),
+        # How far inside the rear plane the inlet's rim face sits.
+        "C14_RIM_INSET": f"{c14_rim_inset():.4g} mm",
         # Foam-shell outer bottom-cap footprint, then the lid's bores: every conduit standing
         # on it, and the fluid ones among them — which are the whole of what the warm side
         # reaches the core through. The other two carry a reed cable apiece.

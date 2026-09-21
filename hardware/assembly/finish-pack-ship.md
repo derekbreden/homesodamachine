@@ -46,7 +46,7 @@ Inspect every exposed surface against the following pass criteria:
   flange or housing — the machine carries no cable gland.
 - The compressor sitting square on its four floor posts, every washer home on its post's crown with the grommet under it visibly taken up and not squashed flat; the green ring on the can's own earth screw, and the AC lead's jacket unbroken back to the electronics bay.
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
-- The C14 inlet recessed cleanly into the +Y wall's printed shroud per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the recess shroud's seam against the wall's outer face shows no gap, and the receptacle's own moulded shroud stands square in the cutout.
+- The C14 inlet recessed cleanly into the +Y wall's printed shroud per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the bore's edge against the wall's outer face shows no gap, and the receptacle's rim stands square at the bottom of the cutout.
 - The umbilical-port PP1208E bulkheads on the +Y wall — three unions on one line, blue accent ring on the carbonated-water one at the east end of the row — all three finger-tight against the wall with no rotation play.
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
 

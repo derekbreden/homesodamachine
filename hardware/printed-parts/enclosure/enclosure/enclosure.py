@@ -1071,10 +1071,18 @@ back_top_wall_t = 6.0
 c14_station_x = 66.9
 back_top_port_row_z = 336.2105808375568
 co2_axis_drop = _interface.co2_axis_drop
-c14_cutout_slip = fits.slip
-c14_wall_relief_w = 2.0 * (
-    max(abs(dx) for dx, _dz in _c14.panel_screws()) + heatset_dia / 2.0 + boss_ligament)
-c14_wall_relief_h = _c14.SHROUD_H + 2.0 * c14_cutout_slip + 2.0 * back_top_wall_t
+# THE BORE, THE POCKET AND THE SCREW PITCH ARE THE PRINT'S. The inlet's rim (`_c14.RIM_W` ×
+# `_c14.RIM_H`, `_c14.RIM_PROUD` proud of its ears) bears on the pocket floor around this bore;
+# the ears stand that far off the floor and the two screws hold through them. The pocket's
+# outline is what the flange's width and the rim's height both clear with `c14_pocket_slip`.
+c14_bore_w, c14_bore_h, c14_bore_r = 24.3, 18.3, 1.5
+c14_pocket_w, c14_pocket_h = 49.77, 22.17
+c14_pocket_end_chord = 17.98          # ear nose to the end of a long flat
+c14_pocket_knuckle_r = 1.2
+c14_screw_pitch = 40.0
+c14_pocket_depth = 5.0                 # mouth to floor; the seated part's flange back lies at the mouth
+c14_wall_relief_w = 2.0 * (c14_screw_pitch / 2.0 + heatset_dia / 2.0 + boss_ligament)
+c14_wall_relief_h = c14_bore_h + 2.0 * back_top_wall_t
 # The wall relief is the fastening field: 46.4 mm across both insert stations and the ligament
 # round each bore, the tunnel block's own height, and it ends inside the block on both X sides,
 # so the block roots on the relieved plane over the inserts and buries into the unrelieved
@@ -1085,7 +1093,7 @@ back_top_wall_reliefs = (
                                                   # corners, on
                                                   # enclosure_assembly.CO2_COLUMN (`co2-relief`)
     ("c14-inlet", c14_station_x, back_top_port_row_z,
-     c14_wall_relief_w, c14_wall_relief_h),        # the slipped shroud aperture and one
+     c14_wall_relief_w, c14_wall_relief_h),        # the bore and one
                                                   # `back_top_wall_t` over and under it
 )
 # THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
@@ -1120,12 +1128,11 @@ c14_tunnel_len = heatset_depth
 c14_tunnel_wall = back_top_wall_t
 # --- and the pocket the receptacle's flange drops into --------------------------
 #
-# THE FLANGE LANDS IN A PROFILED POCKET AND NOT ON A FLAT FACE. The pocket's silhouette comes
-# from `iec_c14_inlet.flange_profile`, the same rounded/tapered wire that draws the purchased
-# part, so a rectangular restatement cannot shave an angled edge or hide a thin corner. It is
-# `c14_pocket_slip` off the moulding, its floor is the seating face the inserts enter, and its
-# mouth stands `c14_pocket_lip` past the seated flange's own inboard face, so the pocket locates
-# the flange before its screws hold it.
+# THE INLET LANDS IN A PROFILED POCKET AND NOT ON A FLAT FACE. The pocket's silhouette is
+# `c14_pocket_profile`, the flange's width and the rim's height on one rounded/tapered wire,
+# `c14_pocket_slip` off the part. Its floor is the seating face the inserts enter and the rim
+# bears on; its mouth stands `c14_pocket_depth` fore of that floor, where the seated part's
+# flange back lies, so the pocket locates the inlet before its screws hold it.
 #
 # THE TUNNEL IS ONE BLOCK WITH THAT POCKET IN IT. From the pocket's mouth to the wall the tunnel
 # is one rectangle whose plan keeps at least `c14_pocket_wall` round the pocket everywhere in
@@ -1135,7 +1142,81 @@ c14_tunnel_wall = back_top_wall_t
 # the wall behind it are their fixed datums.
 c14_pocket_slip = fits.slip
 c14_pocket_wall = 3.0
-c14_pocket_lip = 3.0
+
+
+def _c14_pocket_landmarks() -> dict:
+    """Right-top landmarks of the pocket outline: a long flat, a knuckle round, the common
+    external tangent to the ear circle, and the nose."""
+    a = c14_pocket_w / 2.0 - math.sqrt(c14_pocket_end_chord ** 2 - (c14_pocket_h / 2.0) ** 2)
+    h = c14_pocket_h / 2.0
+    kr = c14_pocket_knuckle_r
+    ear_r = (c14_pocket_w - c14_screw_pitch) / 2.0
+    shoulder_center = (a, h - kr)
+    ear_center = (c14_screw_pitch / 2.0, 0.0)
+    dx = ear_center[0] - shoulder_center[0]
+    dz = ear_center[1] - shoulder_center[1]
+    span = math.hypot(dx, dz)
+    if span <= abs(ear_r - kr):
+        raise ValueError("the pocket's shoulder and ear rounds swallow their tangent")
+    ux, uz = dx / span, dz / span
+    along = (kr - ear_r) / span
+    across = math.sqrt(1.0 - along * along)
+    nx = along * ux + across * (-uz)
+    nz = along * uz + across * ux
+    q = (shoulder_center[0] + kr * nx, shoulder_center[1] + kr * nz)
+    t = (ear_center[0] + ear_r * nx, ear_center[1] + ear_r * nz)
+    theta = math.atan2(nz, nx)
+    mid_theta = (math.pi / 2.0 + theta) / 2.0
+    mid = (shoulder_center[0] + kr * math.cos(mid_theta),
+           shoulder_center[1] + kr * math.sin(mid_theta))
+    return {"shoulder": (a, h), "round_mid": mid, "tangent_start": q, "ear_tangent": t,
+            "nose": (c14_pocket_w / 2.0, 0.0)}
+
+
+def c14_pocket_profile(clearance: float = 0.0) -> cq.Sketch:
+    """The pocket's outline, offset outward by `clearance`."""
+    if clearance < 0.0:
+        raise ValueError("pocket clearance must be non-negative")
+    p = _c14_pocket_landmarks()
+    a, h = p["shoulder"]
+    mx, mz = p["round_mid"]
+    qx, qz = p["tangent_start"]
+    tx, tz = p["ear_tangent"]
+    nose_x = p["nose"][0]
+    sketch = (
+        cq.Sketch()
+        .segment((-a, h), (a, h))
+        .arc((a, h), (mx, mz), (qx, qz))
+        .segment((qx, qz), (tx, tz))
+        .arc((tx, tz), (nose_x, 0.0), (tx, -tz))
+        .segment((tx, -tz), (qx, -qz))
+        .arc((qx, -qz), (mx, -mz), (a, -h))
+        .segment((a, -h), (-a, -h))
+        .arc((-a, -h), (-mx, -mz), (-qx, -qz))
+        .segment((-qx, -qz), (-tx, -tz))
+        .arc((-tx, -tz), (-nose_x, 0.0), (-tx, tz))
+        .segment((-tx, tz), (-qx, qz))
+        .arc((-qx, qz), (-mx, mz), (-a, h))
+        .assemble()
+        .reset()
+    )
+    if clearance:
+        face = sketch._faces.Faces()[0]  # CadQuery Sketch has no public wire accessor.
+        wires = face.outerWire().offset2D(clearance)
+        if len(wires) != 1:
+            raise ValueError(f"a {clearance:g} mm pocket offset produced {len(wires)} outlines")
+        sketch = cq.Sketch().face(wires[0]).reset()
+    return sketch
+
+
+def c14_pocket_prism(clearance: float, y0: float, y1: float) -> cq.Workplane:
+    """The pocket outline extruded from `y0` to `y1`."""
+    if y1 <= y0:
+        raise ValueError(f"pocket prism ends at {y1:g}, not beyond its start {y0:g}")
+    from world_workplane import xz_plane_y_up
+    return (cq.Workplane(xz_plane_y_up).workplane(offset=y0)
+            .placeSketch(c14_pocket_profile(clearance)).extrude(y1 - y0))
+
 # THE FLANGE ENTERS THROUGH THE FIXED +X STRIP before it reaches that pocket. Carry its exact
 # slipped profile another 9 mm in Y- so the two-ear moulding can be held square and translated
 # into its seat. One further millimetre is a boolean overcut past the stated running clearance,
@@ -1150,9 +1231,9 @@ def c14_mount_half(bore_w, bore_h, screw_reach):
     pocket = c14_pocket_slip + c14_pocket_wall
     return (max(bore_w / 2.0 + c14_tunnel_wall,
                 screw_reach + heatset_dia / 2.0 + boss_ligament,
-                _c14.FLANGE_W / 2.0 + pocket),
+                c14_pocket_w / 2.0 + pocket),
             max(bore_h / 2.0 + c14_tunnel_wall,
-                _c14.FLANGE_H / 2.0 + pocket))
+                c14_pocket_h / 2.0 + pocket))
 
 # --- back-top's own ±X section ------------------------------------------------
 #
@@ -5076,7 +5157,7 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     for who, x0, x1, y0, y1, top in box.pack.ceiling_reliefs:
         if who == "c14-inlet":
             cx, cz, _wx, _wz, _r = _c14_aperture(box.pack.c14, box.pack.back_ports)
-            pocket = (_c14.flange_prism(c14_pocket_slip, y0, y1)
+            pocket = (c14_pocket_prism(c14_pocket_slip, y0, y1)
                       .translate((cx, 0.0, cz)).val())
             stock = stock.cut(pocket)
             continue
@@ -8426,7 +8507,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     the aperture itself and nothing else: the tunnel grows entirely OUTWARD of the hole, so
     neither its section nor its two bores ever stand in the plug's way.
 
-    THE TUNNEL IS ONE BLOCK. From the pocket's mouth — `_c14.FLANGE_T` and `c14_pocket_lip` fore
+    THE TUNNEL IS ONE BLOCK. From the pocket's mouth — `c14_pocket_depth` fore
     of the seating face — to the wall, it is one rectangle of the half extents `c14_mount_half`
     reads: the bore's section, the inserts' ligaments and the pocket's wall, whichever asks for
     more on each axis. Its fore face is one plane, its flanks are two, and the flange's pocket
@@ -8477,7 +8558,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
                 f"insert would bottom on a plane the tunnel does not root on.")
     aft = outer[3] - cap
     fore = aft - c14_tunnel_len
-    mouth = fore - _c14.FLANGE_T - c14_pocket_lip
+    mouth = fore - c14_pocket_depth
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
     # The block keeps the one section `c14_mount_half` states. Its crown enters the grown
     # ceiling slab by more than one wall, joining the two as one continuous volume.
@@ -8487,7 +8568,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1, up=1.0):
     # The cord bore continues through the wall and tunnel. The exact flange pocket opens through
     # the block's fore face and continues inboard through the +X strip for assembly access; its
     # stopped +Y end is the face the flange bears on.
-    flange_pocket = (_c14.flange_prism(
+    flange_pocket = (c14_pocket_prism(
         c14_pocket_slip, mouth - c14_pocket_overcut - c14_insertion_relief, fore)
         .translate((cx, 0.0, cz)).val())
     bore = _supported_cut(
