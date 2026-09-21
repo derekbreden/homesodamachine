@@ -1,0 +1,215 @@
+{
+  "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-lldpe-tubes/pass-02-ends-30deg/Fused 0920_1 (0.10mm).ply",
+  "cloud_sha256": "8ba10c2cc6d9ad7b2d180bee95a531d33d7d0287791fae84beb0e94a015e1a79",
+  "source": "Revo Scan native 0.10 mm fused cloud; bare white LLDPE.",
+  "scale": 1.0,
+  "method": "Independent manual spatial selections; PCA supplies an initial axis. A robust five-parameter cylinder fits the outer barrel. A free plane fits end-facing normals. An independent inner circle fits the shallow bore projected perpendicular to the fitted barrel axis. No nominal dimension enters a fit; no rescaling, surface smoothing or hole filling is applied.",
+  "scope": "Optical observations of these two samples. Residuals describe agreement with the fused cloud, not dimensional accuracy or manufacturing tolerance. The shallow visible bores do not establish bore shape through the tube. The side-wall pass is archived but is not used in these end measurements.",
+  "samples": [
+    {
+      "sample": "3/8-inch sample",
+      "nominal_od_mm_identity_only": 9.525,
+      "world_selection_mm": {
+        "x": [
+          2.0,
+          25.0
+        ],
+        "y": [
+          -42.0,
+          15.0
+        ],
+        "z_max": 172.0
+      },
+      "points_in_selection": 71778,
+      "initial_origin_mm": [
+        13.888833045959473,
+        -21.988750457763672,
+        153.85491943359375
+      ],
+      "initial_basis": [
+        [
+          0.0,
+          0.9191100552725406,
+          -0.39400089631485247
+        ],
+        [
+          -0.9986190927759201,
+          0.020698767033838574,
+          0.04828528333433555
+        ],
+        [
+          0.05253482219821616,
+          0.3934568176308374,
+          0.9178408495574905
+        ]
+      ],
+      "initial_axial_zero_shift_mm": -13.848385789159956,
+      "cylinder_parameters": [
+        -1.6082586579129328,
+        -0.20983728607442248,
+        -0.03659460546716697,
+        0.05262930876558949,
+        4.84070979287894
+      ],
+      "axis_in_native_cloud": [
+        -2.1765702805336937e-05,
+        0.3601724921048216,
+        0.9328857247579987
+      ],
+      "outer_diameter_mm": 9.68141958575788,
+      "inner_diameter_mm": 6.27880943628985,
+      "derived_mean_wall_mm": 1.7013050747340146,
+      "outer_absolute_residual_p95_mm": 0.10428354860175408,
+      "inner_absolute_residual_p95_mm": 0.1081506613447577,
+      "outer_selected_points": 16320,
+      "inner_selected_points": 2656,
+      "outer_observed_angular_bins": 47,
+      "outer_total_angular_bins": 72,
+      "angular_bin_degrees": 5,
+      "inner_center_offset_in_local_plane_mm": [
+        0.10354118326001827,
+        -0.20171105813926887
+      ],
+      "cut_plane_local_coefficients": [
+        -0.12082331460802088,
+        -0.06594867605229636,
+        -9.921409641521343
+      ],
+      "cut_face_points": 4937,
+      "cut_face_absolute_residual_p95_mm": 0.20187034218128408,
+      "cut_plane_angle_to_perpendicular_degrees": 7.837506888701972,
+      "outer_fit_band_sensitivity": [
+        {
+          "initial_axis_band_mm": [
+            6.0,
+            12.0
+          ],
+          "outer_diameter_mm": 9.694260967863098,
+          "selected_points": 13270,
+          "absolute_residual_p95_mm": 0.1195876742541499
+        },
+        {
+          "initial_axis_band_mm": [
+            8.0,
+            16.0
+          ],
+          "outer_diameter_mm": 9.68141958575788,
+          "selected_points": 16320,
+          "absolute_residual_p95_mm": 0.10428354860175408
+        },
+        {
+          "initial_axis_band_mm": [
+            10.0,
+            18.0
+          ],
+          "outer_diameter_mm": 9.678766722305204,
+          "selected_points": 15389,
+          "absolute_residual_p95_mm": 0.10100094044569867
+        }
+      ]
+    },
+    {
+      "sample": "1/4-inch sample",
+      "nominal_od_mm_identity_only": 6.35,
+      "world_selection_mm": {
+        "x": [
+          26.0,
+          46.0
+        ],
+        "y": [
+          -42.0,
+          15.0
+        ],
+        "z_max": 172.0
+      },
+      "points_in_selection": 45118,
+      "initial_origin_mm": [
+        35.55949020385742,
+        -5.541074752807617,
+        151.4507293701172
+      ],
+      "initial_basis": [
+        [
+          0.0,
+          0.9770520066232178,
+          -0.21300088345718998
+        ],
+        [
+          -0.9753140339082282,
+          0.047035367695375356,
+          0.21575497548705633
+        ],
+        [
+          0.2208224066114203,
+          0.2077427508706484,
+          0.9529325339178196
+        ]
+      ],
+      "initial_axial_zero_shift_mm": -13.561084398502505,
+      "cylinder_parameters": [
+        0.4031747424388701,
+        1.0035522149868166,
+        0.006863000659193541,
+        0.04908345786169272,
+        3.2276327360359223
+      ],
+      "axis_in_native_cloud": [
+        0.17273860368039867,
+        0.2164911987782027,
+        0.9608813327618156
+      ],
+      "outer_diameter_mm": 6.4552654720718445,
+      "inner_diameter_mm": 4.24276114010048,
+      "derived_mean_wall_mm": 1.106252165985682,
+      "outer_absolute_residual_p95_mm": 0.06375622992495454,
+      "inner_absolute_residual_p95_mm": 0.13704731463518216,
+      "outer_selected_points": 10349,
+      "inner_selected_points": 1984,
+      "outer_observed_angular_bins": 52,
+      "outer_total_angular_bins": 72,
+      "angular_bin_degrees": 5,
+      "inner_center_offset_in_local_plane_mm": [
+        0.04549420558773453,
+        -0.14415072866381792
+      ],
+      "cut_plane_local_coefficients": [
+        -0.012030199472234977,
+        -0.029567549343760123,
+        -10.807742312694105
+      ],
+      "cut_face_points": 1956,
+      "cut_face_absolute_residual_p95_mm": 0.10144977420238144,
+      "cut_plane_angle_to_perpendicular_degrees": 1.8283315941763802,
+      "outer_fit_band_sensitivity": [
+        {
+          "initial_axis_band_mm": [
+            6.0,
+            12.0
+          ],
+          "outer_diameter_mm": 6.466933251398906,
+          "selected_points": 8284,
+          "absolute_residual_p95_mm": 0.06617428223158028
+        },
+        {
+          "initial_axis_band_mm": [
+            8.0,
+            16.0
+          ],
+          "outer_diameter_mm": 6.4552654720718445,
+          "selected_points": 10349,
+          "absolute_residual_p95_mm": 0.06375622992495454
+        },
+        {
+          "initial_axis_band_mm": [
+            10.0,
+            18.0
+          ],
+          "outer_diameter_mm": 6.441511877711074,
+          "selected_points": 9855,
+          "absolute_residual_p95_mm": 0.05779463408675548
+        }
+      ]
+    }
+  ],
+  "analysis_source_sha256": "a10b12f0de281ff003db2ba82432faedc19c8ce5b6fdfd75b0e6fad8d7a315a0"
+}
