@@ -23177,6 +23177,7 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.support-audit.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
