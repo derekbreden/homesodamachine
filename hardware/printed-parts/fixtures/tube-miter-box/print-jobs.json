@@ -58,12 +58,28 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 75,
+        "observed_at": "2026-09-21T03:41:36.308979+00:00",
+        "print_error": 0
+      },
       "physical_fit": null,
       "estimate": {
         "seconds": 1253.233642578125,
         "grams": 9.222639083862305
-      }
+      },
+      "transient_hms_during_print": [
+        {
+          "attr": 201326848,
+          "code": 131095,
+          "as_shown": "0C00_0000_0002_0017",
+          "seen_at_percent": 32,
+          "cleared_by_percent": 45,
+          "query_page_had_no_text": true
+        }
+      ]
     }
   ]
 }
