@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "status": "printer_reported_complete",
+  "printer": "H2C",
+  "job_name": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+  "completion_observed_at_utc": "2026-09-21T19:22:46.620569+00:00",
+  "exact_finish_time_known": false,
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+    "sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562"
+  },
+  "gcode_sha256": "0080b646ccd07f37d715fb70c561db6fddb24fc98871d93cb66ca38f9785eca7",
+  "launch_record": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json",
+    "sha256": "acb5d18d90395fc241fe3d6e733b37973b1d14f8ad7873eb720cc52d5dffc8aa"
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T192246Z.json",
+    "sha256": "ebcee9ab512955d99be454d1f1d2aa4219810f3b1cd09742d73165b8de517e46"
+  },
+  "observed_state": {
+    "printer": "H2C",
+    "observed_at": "2026-09-21T19:22:46.620569+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 496,
+    "total_layer_num": 496,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 30.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    },
+    "nozzle_type": "HS01-0.6",
+    "nozzles": [
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A610715877"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907799"
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737"
+      }
+    ]
+  },
+  "physical_success_and_fit_confirmed": false,
+  "latest_print_removed_confirmed": false,
+  "scope": "Printer reports FINISH at496/496 with no error. Physical print success, removal, cleanup and fit require observation."
+}

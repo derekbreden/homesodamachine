@@ -726,19 +726,27 @@
       "filament_grams_petgf_density_1p43": 465.50957518584966,
       "sent_via": "Bambu Connect",
       "started_by": "agent",
-      "status": "started",
+      "status": "completed",
       "job_name": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-21T07:47:46.755410+00:00",
+      "observed_state": "FINISH",
+      "observed_at_utc": "2026-09-21T19:22:46.620569+00:00",
       "observed_print_error": 0,
-      "observed_layer": 0,
+      "observed_layer": 496,
       "print_options": {
         "timelapse": "On",
         "auto_bed_leveling": "On",
         "flow_dynamic_calibration": "Auto",
         "nozzle_offset_calibration": "Auto"
       },
-      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json"
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json",
+      "observed_total_layers": 496,
+      "observed_remaining_minutes": 0,
+      "hms": [],
+      "completion_observed_at_utc": "2026-09-21T19:22:46.620569+00:00",
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
+      "completion_record_sha256": "a28dfd5f62bcaf8a15a622be62d3cb134a82d0d2031cce89176bc07047e22275",
+      "physical_success_and_fit_confirmed": false,
+      "latest_print_removed_confirmed": false
     }
   ]
 }
