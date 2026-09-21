@@ -30,6 +30,8 @@ VARIANTS = {
 }
 
 BAMBU_STUDIO = "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"
+# The slab is the left nozzle's reach less this border, both sides (`fake_countertop.PLATE_BORDER`).
+PLATE_BORDER = 5.0
 
 
 def sha(path):
@@ -42,7 +44,8 @@ def prepare(variant):
     report = writer.refresh(
         SOURCE_PROFILE, project,
         parts=(("fake-countertop", STL, 0.0),),
-        offsets=((0.0, 0.0),), title=spec["title"], z_trim=spec["z_trim"])
+        offsets=((0.0, 0.0),), title=spec["title"], z_trim=spec["z_trim"],
+        plate_border=PLATE_BORDER)
     report["status"] = "offline project preparation; a submission is recorded in print-jobs.json"
     report["pose"] = "show face on the bed, legs up; no support"
     report["variant"] = variant

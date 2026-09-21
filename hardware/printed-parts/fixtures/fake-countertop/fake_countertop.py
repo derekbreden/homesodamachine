@@ -2,10 +2,10 @@
 the bed, one faucet through its 1-3/8" hole, the umbilical hanging and bending under it.
 
 The print stands on the show face: the slab lies on the bed and the legs rise from it, so
-the show face takes the plate's texture and nothing needs support. The slab's show edges
-are rounded down to where the round reaches 45 degrees and run out to the bed at 45 degrees
-below that. The four outer corners, the legs' inner edges and the feet are rounded plain,
-and the legs meet the slab on a rounded root.
+the show face takes the plate's texture and nothing needs support. The slab's edges on the
+bed are sharp. Every other edge is rounded: the four outer corners, the legs' inner edges
+and the feet, and the legs meet the slab on a rounded root. The print mesh is the faucet's
+absolute-tolerance triangulation, so the rounds print as rounds.
 
 Frame: X across the legs, Y along the front edge, +Z up from the bed; the show face is Z = 0.
 In use the piece stands the other way up.
@@ -17,7 +17,6 @@ geometry without writing files.
 from __future__ import annotations
 
 import json
-import math
 import sys
 from pathlib import Path
 
@@ -27,21 +26,24 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
-for _path in (_hw / "scripts", _repo / "tools"):
+for _path in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _repo / "tools"):
     sys.path.insert(0, str(_path))
 
 from _cadq_export import export_assembly, note_write  # noqa: E402
 from _material_base import M_PETGF_BLACK, one_body  # noqa: E402
 from docgen import substitute_md  # noqa: E402
+from print_mesh import write_print_stl  # noqa: E402
 
 
 INCH = 25.4
 
-# The H2C's printable area and height, per its Bambu Studio machine profile.
-BED_X = 330.0
-BED_Y = 320.0
+# The H2C's plate, per its Bambu Studio machine profile: 330 x 320 x 325, of which the left
+# nozzle, the one this job prints with, reaches X 0..325. The project stands inside that
+# reach with a small border (`faucet/refresh_print_project.py`, `plate_border`).
 BED_Z = 325.0
-BED_MARGIN = 5.0
+LEFT_REACH_X = 325.0
+LEFT_REACH_Y = 320.0
+PLATE_BORDER = 5.0
 
 # The counter hole the shank is sized for (`hardware/faucet-layout/faucet_assembly.py`).
 COUNTER_HOLE_D = 1.375 * INCH
@@ -54,20 +56,15 @@ HAND_ROOM = 60.0
 
 T = 12.0
 HEIGHT = 220.0
-SLAB_X = BED_X - 2 * BED_MARGIN
-SLAB_Y = BED_Y - 2 * BED_MARGIN
-SHOW_EDGE_R = 6.0
+SLAB_X = LEFT_REACH_X - 2 * PLATE_BORDER
+SLAB_Y = LEFT_REACH_Y - 2 * PLATE_BORDER
 CORNER_R = 6.0
 ROOT_R = 6.0
 FOOT_R = 3.0
 
-show_edge_tangent_z = SHOW_EDGE_R * (1 - math.sin(math.radians(45)))
-show_edge_runout = 2 * show_edge_tangent_z
 clear_height = HEIGHT - T
 leg_inner_x = SLAB_X / 2 - T
 
-MESH_TOLERANCE = 0.05
-MESH_ANGLE = 0.2
 
 
 def _box(x0, x1, y0, y1, z0, z1):
@@ -105,13 +102,6 @@ def _rounded():
     return u
 
 
-def _show_edges(u):
-    rounded = u.edges("<Z").fillet(SHOW_EDGE_R)
-    runout = u.edges("<Z").chamfer(show_edge_runout).intersect(
-        _box(-SLAB_X, SLAB_X, -SLAB_Y, SLAB_Y, 0.0, show_edge_tangent_z))
-    return rounded.union(runout)
-
-
 def _hole():
     return cq.Workplane(obj=cq.Solid.makeCylinder(
         COUNTER_HOLE_D / 2, T + 2.0, cq.Vector(0, 0, -1.0), cq.Vector(0, 0, 1)
@@ -119,7 +109,7 @@ def _hole():
 
 
 def build():
-    return _show_edges(_rounded()).cut(_hole())
+    return _rounded().cut(_hole())
 
 
 def _volume(shape):
@@ -133,9 +123,9 @@ def _single_valid(name, shape):
     return solids[0]
 
 
-def _section_width(shape, z):
-    # The part's X extent at height z, from a thin slice through it.
-    slab = _box(-BED_X, BED_X, -BED_Y, BED_Y, z - 0.01, z + 0.01)
+def _section_extent(shape, z):
+    # The part's X and Y extent at height z, from a thin slice through it.
+    slab = _box(-LEFT_REACH_X, LEFT_REACH_X, -LEFT_REACH_Y, LEFT_REACH_Y, z - 0.01, z + 0.01)
     bb = shape.intersect(slab).val().BoundingBox()
     return bb.xlen, bb.ylen
 
@@ -146,8 +136,8 @@ def selftest():
     bb = part.val().BoundingBox()
     if abs(bb.zmin) > 1e-6:
         raise ValueError("print does not sit on Z=0")
-    if bb.xlen > BED_X - 2 * BED_MARGIN + 1e-6 or bb.ylen > BED_Y - 2 * BED_MARGIN + 1e-6:
-        raise ValueError("footprint leaves the bed's margin")
+    if bb.xlen > LEFT_REACH_X - 2 * PLATE_BORDER + 1e-6 or bb.ylen > LEFT_REACH_Y - 2 * PLATE_BORDER + 1e-6:
+        raise ValueError("footprint leaves the plate border inside the left nozzle's reach")
     if bb.zlen > BED_Z:
         raise ValueError("taller than the printer")
 
@@ -160,23 +150,17 @@ def selftest():
     if _volume(part.intersect(probe)) > 1e-6:
         raise ValueError("the counter hole is smaller than the shank's standard")
 
-    # The show edges: between the bed and the round's 45-degree point the outline may grow
-    # no faster than 45 degrees, layer over layer, which is what prints in air.
-    overhang = []
-    heights = [0.2, 0.6, 1.0, 1.4, show_edge_tangent_z, 3.0, 5.0, SHOW_EDGE_R]
-    widths = [_section_width(part, z) for z in heights]
-    for (z0, (x0, y0)), (z1, (x1, y1)) in zip(zip(heights, widths), zip(heights[1:], widths[1:])):
-        grow = max(x1 - x0, y1 - y0) / 2.0
-        overhang.append({"from_z": z0, "to_z": z1, "grow_per_side_mm": round(grow, 3)})
-        if grow > (z1 - z0) + 0.05:
-            raise ValueError(f"show edge overhangs past 45 degrees between z {z0} and {z1}: {grow}")
+    # The slab's edges on the bed are sharp: the first layer is the whole footprint, and
+    # nothing above it stands out past it.
+    first = _section_extent(part, 0.2)
+    if abs(first[0] - bb.xlen) > 1e-3 or abs(first[1] - bb.ylen) > 1e-3:
+        raise ValueError(f"the first layer is not the whole footprint: {first} in {(bb.xlen, bb.ylen)}")
 
     print(json.dumps({
         "status": "CAD checks passed; the print is untested",
         "envelope_mm": [round(bb.xlen, 2), round(bb.ylen, 2), round(bb.zlen, 2)],
         "clear_under_slab_mm": clear_height,
         "volume_cm3": round(_volume(part) / 1000, 1),
-        "show_edge": overhang,
     }, indent=2))
     return part
 
@@ -185,11 +169,11 @@ def _export_print(part):
     stem = "fake-countertop"
     stl = _here.parent / f"{stem}.stl"
     step = _here.parent / f"{stem}.step"
-    # A sibling slicer mesh keeps this bench fixture out of viewer payloads.
-    cq.exporters.export(part, str(stl), tolerance=MESH_TOLERANCE, angularTolerance=MESH_ANGLE)
+    # A sibling print mesh keeps this bench fixture out of viewer payloads.
+    written = write_print_stl(part, stl)
     note_write(stl)
     export_assembly(one_body(part, stem, M_PETGF_BLACK), str(step))
-    print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.1f} cm³")
+    print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.1f} cm³, {len(written.faces)} facets")
 
 
 def main():
@@ -201,9 +185,8 @@ def main():
         "FCT_HEIGHT": f"{HEIGHT:g} mm",
         "FCT_CLEAR": f"{clear_height:g} mm",
         "FCT_HOLE": f"{COUNTER_HOLE_D:.2f} mm",
-        "FCT_SHOW_EDGE_R": f"{SHOW_EDGE_R:g} mm",
-        "FCT_RUNOUT": f"{show_edge_runout:.1f} mm",
         "FCT_CORNER_R": f"{CORNER_R:g} mm",
+        "FCT_ROOT_R": f"{ROOT_R:g} mm",
         "FCT_FOOT_R": f"{FOOT_R:g} mm",
         "FCT_UMBILICAL": f"{UMBILICAL_BELOW_COUNTER + UMBILICAL_BEND_R:g} mm",
         "FCT_VOLUME": f"{_volume(part) / 1000:.0f} cm³",
