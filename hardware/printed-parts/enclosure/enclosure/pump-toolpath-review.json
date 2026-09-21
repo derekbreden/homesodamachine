@@ -1,36 +1,36 @@
 {
   "status": "pass",
   "errors": [],
-  "gcode_sha256": "00f9df1f571acd996e92cd7da71f8430da5f4add4ecaa2c2683ec6c088f11ad1",
-  "geometry_manifest_sha256": "ed006ad044e235115af8e4308bfdd02b3e82278e2300bf58bb80afa143298dfb",
+  "gcode_sha256": "f09faf6c27f68fa095f39c51aa50654b382140c9b367589b763464d94f6f1bd7",
+  "geometry_manifest_sha256": "4a5debaae342377cb95407924f31a1c8f73074a7e3857222ab3ef8455c73d6e3",
   "review_source_sha256": "d4e3a8259a4826a4950a17d9406cf4d7ce72978c75f5ab4dfe356fd2a1744b29",
   "method": "Actual native G-code model roads buffered by half commanded width, per-layer temperatures, native support topology and exposed removal mouths. Physical cleanup effort and bearing finish remain unmeasured.",
   "cap_bearing_rail_roads": [
     {
       "rail": 1,
-      "native_layer_z_mm": 215.6049877929688,
+      "native_layer_z_mm": 215.60498779296879,
       "print_layer_z_mm": 63.32,
-      "covered_area_mm2": 95.95898957069555,
+      "covered_area_mm2": 95.95898957069508,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 2,
-      "native_layer_z_mm": 215.6049877929688,
+      "native_layer_z_mm": 215.60498779296879,
       "print_layer_z_mm": 63.32,
-      "covered_area_mm2": 95.95898964299221,
+      "covered_area_mm2": 95.95898964299174,
       "three_cross_section_road_widths_mm": [
-        3.0,
-        3.0,
-        3.0
+        2.9999999999999716,
+        2.9999999999999716,
+        2.9999999999999716
       ]
     },
     {
       "rail": 3,
-      "native_layer_z_mm": 215.6049877929688,
+      "native_layer_z_mm": 215.60498779296879,
       "print_layer_z_mm": 63.32,
       "covered_area_mm2": 95.9590061168942,
       "three_cross_section_road_widths_mm": [
@@ -41,35 +41,35 @@
     },
     {
       "rail": 4,
-      "native_layer_z_mm": 215.6049877929688,
+      "native_layer_z_mm": 215.60498779296879,
       "print_layer_z_mm": 63.32,
-      "covered_area_mm2": 95.95900604459759,
+      "covered_area_mm2": 95.95900604459712,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 1,
       "native_layer_z_mm": 215.3649877929688,
       "print_layer_z_mm": 63.56,
-      "covered_area_mm2": 95.95898957069555,
+      "covered_area_mm2": 95.95898957069508,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 2,
       "native_layer_z_mm": 215.3649877929688,
       "print_layer_z_mm": 63.56,
-      "covered_area_mm2": 95.95898964299221,
+      "covered_area_mm2": 95.95898964299174,
       "three_cross_section_road_widths_mm": [
-        3.0,
-        3.0,
-        3.0
+        2.9999999999999716,
+        2.9999999999999716,
+        2.9999999999999716
       ]
     },
     {
@@ -87,33 +87,33 @@
       "rail": 4,
       "native_layer_z_mm": 215.3649877929688,
       "print_layer_z_mm": 63.56,
-      "covered_area_mm2": 95.95900604459759,
+      "covered_area_mm2": 95.95900604459709,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 1,
       "native_layer_z_mm": 215.1249877929688,
       "print_layer_z_mm": 63.8,
-      "covered_area_mm2": 95.95898957069555,
+      "covered_area_mm2": 95.95898957069508,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 2,
       "native_layer_z_mm": 215.1249877929688,
       "print_layer_z_mm": 63.8,
-      "covered_area_mm2": 95.95898964299221,
+      "covered_area_mm2": 95.95898964299174,
       "three_cross_section_road_widths_mm": [
-        3.0,
-        3.0,
-        3.0
+        2.9999999999999716,
+        2.9999999999999716,
+        2.9999999999999716
       ]
     },
     {
@@ -131,33 +131,33 @@
       "rail": 4,
       "native_layer_z_mm": 215.1249877929688,
       "print_layer_z_mm": 63.8,
-      "covered_area_mm2": 95.95900604459759,
+      "covered_area_mm2": 95.95900604459709,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 1,
       "native_layer_z_mm": 214.8849877929687,
       "print_layer_z_mm": 64.04,
-      "covered_area_mm2": 95.95898957069555,
+      "covered_area_mm2": 95.95898957069508,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     },
     {
       "rail": 2,
       "native_layer_z_mm": 214.8849877929687,
       "print_layer_z_mm": 64.04,
-      "covered_area_mm2": 95.95898964299221,
+      "covered_area_mm2": 95.95898964299174,
       "three_cross_section_road_widths_mm": [
-        3.0,
-        3.0,
-        3.0
+        2.9999999999999716,
+        2.9999999999999716,
+        2.9999999999999716
       ]
     },
     {
@@ -175,16 +175,16 @@
       "rail": 4,
       "native_layer_z_mm": 214.8849877929687,
       "print_layer_z_mm": 64.04,
-      "covered_area_mm2": 95.95900604459759,
+      "covered_area_mm2": 95.95900604459709,
       "three_cross_section_road_widths_mm": [
-        3.000000000000014,
-        3.000000000000014,
-        3.000000000000014
+        2.999999999999986,
+        2.999999999999986,
+        2.999999999999986
       ]
     }
   ],
-  "minimum_rail_covered_area_mm2": 95.95898957069555,
-  "minimum_rail_road_width_mm": 2.999999999999986,
+  "minimum_rail_covered_area_mm2": 95.95898957069508,
+  "minimum_rail_road_width_mm": 2.9999999999999716,
   "orientation": {
     "enclosure-pump-cartridge": 0.0,
     "enclosure-pump-cap": 180.0

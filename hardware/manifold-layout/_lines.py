@@ -678,8 +678,8 @@ FLUID_2_LEVEL_CLEAR = 6.0
 # The level crossing stays forward of the pressure switch; the final turn is lower, beneath
 # that casting, and reaches aft onto V-A's inlet column. These are separate Y planes so the
 # descent can clear the switch while the inlet corner keeps its full stock radius.
-FLUID_2_CROSS_FORWARD = 2.0   # additional room ahead of the casting's clearance plane
-FLUID_2_INLET_SET = 3.0      # reach beyond the pack's mouth stub for the oblique inlet corner
+FLUID_2_CROSS_FORWARD = 4.0   # additional room ahead of the casting's clearance plane
+FLUID_2_INLET_SET = 5.0      # reach beyond the pack's mouth stub for the oblique inlet corner
 # The column the run goes forward and down in: the strip WEST of the flavour-A line's own aft
 # lane. `fluid-18` holds that lane over the whole depth this run crosses it in, so the strip is
 # struck off the union that line falls onto and rides it wherever the union goes. Both are 1/4",

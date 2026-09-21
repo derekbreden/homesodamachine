@@ -211,7 +211,7 @@ def native_checks(enc, box, bounds):
             tube = enc._ycyl(3.175,x,outlet_z,datum[1],plate['seated_tube_bottom_y'])
             empty(f'X{x:g} quarter-inch tube clears emitted cradle',tube,cradle)
             empty(f'X{x:g} quarter-inch tube clears fixed plate passage',tube,wall)
-    for dy in (0.,-2.15,-20.,-80.):
+    for dy in (0.,-plate['connected_release_travel'],-20.,-80.):
         empty(f'cradle/plate at {dy:g} mm cartridge withdrawal',
               cradle.translate((0,dy,0)),wall)
         empty(f'cap/plate at {dy:g} mm cartridge withdrawal',
@@ -266,7 +266,7 @@ def main():
               'native': native,
               'remaining': ['Current native slice and support removal review.',
                             'Physical pump seating, cap preload and support cleanup.',
-                            'Final tee axial datum and complete carrier/collet dry cycle.',
+                            'Tee terminal-ring bearing qualification and complete carrier/collet dry cycle.',
                             'Full enclosure regeneration and qualification are separate.']}
     MANIFEST.write_text(json.dumps(record,indent=2)+'\n')
     print(f'PASS cartridge only: {len(native["checks"])} native readings; '

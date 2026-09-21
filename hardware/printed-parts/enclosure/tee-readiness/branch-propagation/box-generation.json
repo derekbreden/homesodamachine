@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-09-21T02:58:19.905265+00:00",
+  "status": "canonical_box_produced_with_one_recorded_enclosure_bound_failure",
+  "scope": "Current measured tee branch and Kamoer source in the SeaFlo-sized Box; not a complete enclosure or G Ganen release.",
+  "command": "tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/manifold-layout/enclosure_box.py",
+  "runner_note": "Repository tracer used with traceback printing added in memory; CAD logic and guards unchanged.",
+  "producer_result": {
+    "generator": "hardware/manifold-layout/enclosure_box.py",
+    "trace_exit_code": 0,
+    "raised": null,
+    "seconds": 345.47,
+    "core_sources_unchanged": true
+  },
+  "box_sha256": "b48ba9046c15391e5e9be3c64eda68ae89f41e4fc0b6b62a2b12dfb05c248804",
+  "frozen_core_source_sha256": {
+    "hardware/manifold-layout/_lines.py": "0ea70ba3e1986a560d84d0da3f2fb48f2044c24d0124cbca89bb6dc3add79b2d",
+    "hardware/manifold-layout/enclosure_assembly.py": "1c1a2f9a44897df0c6fd8e57d396b67010c2baf649c799287322b922048b8998",
+    "hardware/manifold-layout/enclosure_box.py": "37aede7f7a726bef5bf03b72dc273ac9dcade2b279a7d673e6a4bddaf32e3f1d",
+    "hardware/manifold-layout/manifold_layout.py": "32bf6fa6aa2edc51348b13798d5f0eac0b1948d22bd6f429be464d2d40bd8030",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "fab3cfe00d672b0ea0c75a4b3e04a0bb6d57aa94eb88f95c99dc6721d1008945",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "faf3d7dc3fd51d6b18be635d2e7ec552f7ba81611911bb1d47b1826802ee43b8",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd99d0f5fb2414ce6d70b4bd130ea418c77ec5229f05b81ea97d5bbdeb6edd66",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "c2c81f472150f0aa3ffd437ddbe61e68a69da993de194dc352567e7660db9bf9",
+    "hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json": "f61aafb8513359040688f99b1ef79b63ec3b12af58bf9d35dd3ff3ef426bb2ea",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier_spring.py": "9fc8a45e1daf4ef1d92333ce88beeb1f1f46aa8cc5c7076511e7cfb766ff768d",
+    "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+    "hardware/reference/water-split/water_split.py": "af59f438113242eb0ebbaf5eb762cddbffa285a5792a3a92c4085a626f9aded1"
+  },
+  "trace_path": "box-input-trace.json",
+  "trace_sha256": "8336081b83dc8a9684dcddcee9baab595a00dacc2a13f98ddeb9dc2959793a14",
+  "recorded_bounds": 24,
+  "failed_bounds": [
+    {
+      "detail": {
+        "__hsm_list__": [
+          "water-split stands 1.10 mm inside back-top's flank at \u00b198.50. Give it a lane the way the tray's sleeve has one, seat it in a well, or lower `back_top_flank_t`"
+        ]
+      },
+      "id": "back-top-flank-clear",
+      "label": "The pack stands clear of back-top's own flank face",
+      "ok": false,
+      "target": "outside x \u00b198.50, a 9 mm flank",
+      "value": "least air -1.10 mm, at water-split"
+    }
+  ],
+  "cartridge_local_bounds": [
+    {
+      "detail": {
+        "__hsm_list__": []
+      },
+      "id": "pump-cartridge-flush",
+      "label": "The pump cartridge is flush with the fixed front face",
+      "ok": true,
+      "target": "the same plane",
+      "value": "cartridge y 5.000, fixed face y 5.000"
+    },
+    {
+      "detail": {
+        "__hsm_list__": []
+      },
+      "id": "pump-bay-cavity-throat",
+      "label": "The pump bay throat reaches both cavity side planes",
+      "ok": true,
+      "target": "the same two planes",
+      "value": "bay x -104.500..104.500, cavity x -104.500..104.500"
+    },
+    {
+      "detail": {
+        "__hsm_list__": []
+      },
+      "id": "pump-bay-vertical-datums",
+      "label": "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
+      "ok": true,
+      "target": "0.33 mm head-to-floor and 7.20 mm motor-to-lintel",
+      "value": "head floor air 0.33 mm, motor-to-lintel air 7.20 mm"
+    }
+  ],
+  "known_separate_route_issue": {
+    "run": "fluid-14",
+    "neighbor": "valve-v-a",
+    "native_overlap_mm3": 4.182230833,
+    "status": "open; no fluid-14 route correction applied",
+    "evidence_scope": "Current placed native bodies captured before route drawing; local lane sweep did not satisfy the 1 mm neighbor clearance and 14 mm bend radius together."
+  },
+  "assembly_current": false,
+  "production_enclosure_released": false
+}

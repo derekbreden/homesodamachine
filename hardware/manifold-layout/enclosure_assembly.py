@@ -1235,9 +1235,9 @@ CARRIER_MOTION_OVERLAP_TOL = 1e-5
 
 _stated.state(
     "collet-plate-stops-nose", "The printed collet plate stops the release noses",
-    "the complete teardrop opening inside the release rim",
-    PLATE_HOLE_D / (2.0 * math.cos(math.radians(_enc.teardrop_roof_angle))) < COLLET_NOSE_R,
-    "the tube opening's teardrop crown reaches the release nose rim")
+    "the complete circular tube opening inside the release rim",
+    PLATE_HOLE_D / 2.0 < COLLET_NOSE_R,
+    "the circular tube opening reaches the release nose rim")
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
@@ -1257,18 +1257,22 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     if max(abs(hz - hole_z) for _hx, hz in holes) > 1e-6:
         raise ValueError("the four branch collets need one tube-centre elevation")
     aft = faces[0]
+    for name in sorted(ml.BARB_OF):
+        pump_axis = mcarry((ml.barb_station(name), (0,0,1)))[0]
+        if abs(aft - pump_axis[1] - ml.PUMP_BARBS_TO_RELEASE_PLANE) > 1e-6:
+            raise ValueError(f'{name}: release plane consumes the stated seated-pump span')
     z0 = _enc.z_seam
     nominal_hole_z = hole_z + ml.CARRIER_DROP - _enc._interface.manifold_rise
     x1 = _enc.interior_x()[1]
     tee = ml.tee
-    stroke = PLATE_REST_GAP + tee.COLLET_TRAVEL
+    stroke = PLATE_REST_GAP + tee.BRANCH_COLLET_TRAVEL
     states = {
         name: {"offset_y": round(offset, 6),
                "tube_depth": None if depth is None else round(depth, 6),
                "cartridge_offset_y": None if depth is None else round(offset - stroke, 6),
                "tube_bottom_y": round(aft + tee.INSERTION + offset, 6),
                "collet_depression": round(tee.carrier_collet_depression(offset), 6),
-               "plate_gap": round(max(0.0, offset - tee.COLLET_TRAVEL), 6)}
+               "plate_gap": round(max(0.0, offset - tee.BRANCH_COLLET_TRAVEL), 6)}
         for name, (offset, depth) in ml.tee.CARRIER_STATES.items()
     }
     if tuple(states) != ("release", "squeeze", "connected", "park"):
@@ -1282,14 +1286,14 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
         "cartridge_offset_y": None,
         "tube_bottom_y": round(aft + tee.INSERTION + aft_limit, 6),
         "collet_depression": round(tee.carrier_collet_depression(aft_limit), 6),
-        "plate_gap": round(max(0.0, aft_limit - tee.COLLET_TRAVEL), 6),
+        "plate_gap": round(max(0.0, aft_limit - tee.BRANCH_COLLET_TRAVEL), 6),
     }
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": round(2.0 * nominal_hole_z - z0, 6),
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
-            "wall_aft_y": round(faces[0] - tee.COLLET_TRAVEL
+            "wall_aft_y": round(faces[0] - tee.BRANCH_COLLET_TRAVEL
                                 + tee.BRANCH_REACH - tee.HALF_W - TEE_WALL_BODY_AIR, 6),
             "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
             "rest_gap": PLATE_REST_GAP, "stroke": round(stroke, 6),
@@ -1824,6 +1828,9 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             read(f"{state} finger {side:+d}", finger, wall_and_fixed)
         for index, strap in enumerate(_carrier.tie_back_envelopes(spec), 1):
             read(f"{state} tie {index} aft strap", strap.translate((0, dy, 0)),
+                 wall_and_fixed)
+        for index, head in enumerate(_carrier.tie_head_envelopes(spec), 1):
+            read(f"{state} tie {index} lock", head.translate((0, dy, 0)),
                  wall_and_fixed)
         spring_length = interface["spring_bearing_lengths"][state]
         for side, station in zip(("west", "east"), interface["spring_stations"]):

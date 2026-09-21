@@ -1,10 +1,11 @@
 """PP0208E measured clearance reference, run on ±Z and branch on +Y.
 
-Fixed roots/collars use the unscaled scan envelope; run faces and operating
-stroke use Derek's calipers. The branch face and fixed/moving nose split remain
-explicitly unqualified layout datums. This is an external clearance reference,
+Fixed roots/collars use the unscaled scan envelope; run and branch faces and
+their distinct operating strokes use Derek's calipers. Terminal-ring detail
+remains explicitly unqualified. This is an external clearance reference,
 not a detailed internal fitting or manufacturing tolerance specification.
 """
+import json
 import sys
 from pathlib import Path
 import cadquery as cq
@@ -17,17 +18,19 @@ from _cadq_export import export_assembly, import_step
 from _materials import M_JG_BLACK_PP, one_body
 
 STEP = _here.parent / "tee-connector.step"
+BRANCH_MEASUREMENTS = _hw / "reference/jg-pp0208e-tee/branch-operating-measurements.json"
+_branch = json.loads(BRANCH_MEASUREMENTS.read_text())
 
 # Calipered operating dimensions. Insertion is from the PRESSED sleeve face.
 TUBE_D = 6.35
 RUN_SPAN = 42.5
 RUN_SPAN_PRESSED = 39.2
 RUN_HALF = RUN_SPAN / 2.0
-COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0
+RUN_COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0
 FIRST_RESISTANCE = 7.0
 GRIP_DEPTH = 8.5
 INSERTION = 10.0
-INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL
+RUN_INSERTION_EXTENDED = INSERTION + RUN_COLLET_TRAVEL
 
 # Fitted collar midpoints are Ø16.224..16.330; the outer draft reaches the
 # rounded Ø16.5 sample envelope. Printed passages add their own running air.
@@ -48,26 +51,43 @@ BARREL_NEAR = RUN_ROOT_BAND[0]
 RUN_ENVELOPE_SHOULDER = (9.8, 10.5)
 BRANCH_ENVELOPE_SHOULDER = (11.7, 12.0)
 
-# Retained layout proxies, NOT scan/caliper readings. Qualification of these
-# axial/nose interfaces is independent of the known radial correction. The
-# full collar envelope continues to the provisional body face. Only the
-# separate terminal sleeve moves; none of the measured collar moves with it.
-BRANCH_REACH = 20.07
-BODY_FACE = 16.95
+# The caliper's back jaw meets the NOMINAL fixed collar, not the conservative
+# clearance envelope. The resulting faces are nominal axis stations; the raw
+# outside-to-outside readings remain the primary measurements.
+BRANCH_WIDTH_EXTENDED = _branch["extended_width_mm"]
+BRANCH_WIDTH_PRESSED = _branch["pressed_width_mm"]
+BRANCH_REACH = BRANCH_WIDTH_EXTENDED - COLLAR_NOMINAL_D / 2.0
+BRANCH_PRESSED_REACH = BRANCH_WIDTH_PRESSED - COLLAR_NOMINAL_D / 2.0
+BRANCH_COLLET_TRAVEL = BRANCH_WIDTH_EXTENDED - BRANCH_WIDTH_PRESSED
+if abs(BRANCH_COLLET_TRAVEL - _branch["branch_collet_travel_mm"]) > 1e-9:
+    raise ValueError("branch stroke differs from its raw overall-width readings")
+BRANCH_INSERTION_EXTENDED = INSERTION + BRANCH_COLLET_TRAVEL
+
+# Fixed reduced barrels precede the small moving terminal rings. These are
+# conservative clearance bounds around the observed scan surfaces, not exact
+# molded shoulder or moving-ring seam measurements. Run and branch have
+# distinct fixed profiles. No part of either fixed barrel moves on release.
+FIXED_NOSE_R = 7.75
+RUN_COLLAR_END = 15.75
+BRANCH_COLLAR_END = 17.5
+RUN_FIXED_END = 18.5
+BRANCH_FIXED_END = 20.25
 COLLET_NOSE_R = 5.715
-BARREL_FAR = BODY_FACE
-COLLET_PROUD = BRANCH_REACH - BODY_FACE
+BARREL_FAR = RUN_COLLAR_END
+COLLET_PROUD = BRANCH_REACH - BRANCH_FIXED_END
 UNQUALIFIED_DATUMS = {
-    "branch_extended_face_mm": BRANCH_REACH,
-    "fixed_body_to_moving_sleeve_split_mm": BODY_FACE,
+    "run_fixed_nose_clearance_end_mm": RUN_FIXED_END,
+    "branch_fixed_nose_clearance_end_mm": BRANCH_FIXED_END,
+    "fixed_reduced_barrel_clearance_radius_mm": FIXED_NOSE_R,
     "release_nose_radius_mm": COLLET_NOSE_R,
+    "qualification": "Fixed ends and sleeve radius are conservative clearance proxies; the exact terminal-ring seam/OD is not caliper-qualified.",
 }
 MEASURE_TOL = 0.01
 
 CARRIER_AFT_COLLET_GAP = 0.5
-CARRIER_STROKE = COLLET_TRAVEL + CARRIER_AFT_COLLET_GAP
+CARRIER_STROKE = BRANCH_COLLET_TRAVEL + CARRIER_AFT_COLLET_GAP
 CARRIER_MAX_STROKE = 2.5
-if not COLLET_TRAVEL <= CARRIER_STROKE <= CARRIER_MAX_STROKE:
+if not BRANCH_COLLET_TRAVEL <= CARRIER_STROKE <= CARRIER_MAX_STROKE:
     raise ValueError("carrier stroke must release the sleeve within 2.5 mm")
 CARRIER_RELEASE_OFFSET = 0.0
 CARRIER_SQUEEZE_OFFSET = 0.0
@@ -76,14 +96,14 @@ CARRIER_PARK_OFFSET = CARRIER_STROKE
 CARRIER_STATES = {
     "release": (CARRIER_RELEASE_OFFSET, INSERTION),
     "squeeze": (CARRIER_SQUEEZE_OFFSET, INSERTION),
-    "connected": (CARRIER_CONNECTED_OFFSET, INSERTION_EXTENDED),
+    "connected": (CARRIER_CONNECTED_OFFSET, BRANCH_INSERTION_EXTENDED),
     "park": (CARRIER_PARK_OFFSET, None),
 }
 
 
 def carrier_collet_depression(offset: float) -> float:
     """Sleeve movement while its nose bears against the fixed release plate."""
-    return min(COLLET_TRAVEL, max(0.0, COLLET_TRAVEL - offset))
+    return min(BRANCH_COLLET_TRAVEL, max(0.0, BRANCH_COLLET_TRAVEL - offset))
 
 
 def _cylinder(radius, near, far, axis):
@@ -91,34 +111,35 @@ def _cylinder(radius, near, far, axis):
                                  cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
 
 
-def _fixed_arm(axis, shoulder):
+def _fixed_arm(axis, shoulder, collar_end, fixed_end):
     """Measured radial envelopes joined before the observed shoulder.
 
-    The full collar envelope is retained to the provisional body face, so an
-    unqualified chamfer cannot earn clearance. The central root union is also
-    conservative. Neither connecting surface is a measured shoulder-edge datum.
+    The reduced barrel remains fixed behind the terminal sleeve. The central
+    root union and flat transition faces are conservative clearance envelopes;
+    their edges do not claim measured molded shoulder stations.
     """
     near, far = shoulder
     root = _cylinder(ARM_R, 0.0, near, axis)
     transition = cq.Solid.makeCone(
         ARM_R, BARREL_R, far - near,
         cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
-    collar = _cylinder(BARREL_R, far, BODY_FACE, axis)
-    return root.fuse(transition, collar)
+    collar = _cylinder(BARREL_R, far, collar_end, axis)
+    nose = _cylinder(FIXED_NOSE_R, collar_end, fixed_end, axis)
+    return root.fuse(transition, collar, nose)
 
 
 def build(depression: float = 0.0):
     """Clearance reference with only the branch's terminal proxy sleeve moved."""
-    if not 0.0 <= depression <= COLLET_TRAVEL + 1e-9:
+    if not 0.0 <= depression <= BRANCH_COLLET_TRAVEL + 1e-9:
         raise ValueError("branch depression exceeds the measured sleeve stroke")
     arms = []
-    for axis, shoulder, reach, travel in (
-        ((0, 0, 1), RUN_ENVELOPE_SHOULDER, RUN_HALF, 0.0),
-        ((0, 0, -1), RUN_ENVELOPE_SHOULDER, RUN_HALF, 0.0),
-        ((0, 1, 0), BRANCH_ENVELOPE_SHOULDER, BRANCH_REACH, depression),
+    for axis, shoulder, collar_end, fixed_end, reach, travel in (
+        ((0, 0, 1), RUN_ENVELOPE_SHOULDER, RUN_COLLAR_END, RUN_FIXED_END, RUN_HALF, 0.0),
+        ((0, 0, -1), RUN_ENVELOPE_SHOULDER, RUN_COLLAR_END, RUN_FIXED_END, RUN_HALF, 0.0),
+        ((0, 1, 0), BRANCH_ENVELOPE_SHOULDER, BRANCH_COLLAR_END, BRANCH_FIXED_END, BRANCH_REACH, depression),
     ):
-        arms.extend((_fixed_arm(axis, shoulder),
-                     _cylinder(COLLET_NOSE_R, BODY_FACE - travel, reach - travel, axis)))
+        arms.extend((_fixed_arm(axis, shoulder, collar_end, fixed_end),
+                     _cylinder(COLLET_NOSE_R, fixed_end - travel, reach - travel, axis)))
     solid = arms[0].fuse(*arms[1:]).clean()
     # Tube clearance bores do not claim teeth, an O-ring or the hydraulic bore.
     # The internal stop is a measured station, not an inferred scanned feature.
@@ -129,13 +150,13 @@ def build(depression: float = 0.0):
 
 def depress_branch(solid, depression: float):
     """Move the terminal proxy sleeve, preserving every measured fixed patch."""
-    if not 0.0 <= depression <= COLLET_TRAVEL + 1e-9:
+    if not 0.0 <= depression <= BRANCH_COLLET_TRAVEL + 1e-9:
         raise ValueError("branch depression exceeds the measured sleeve stroke")
     if depression <= 1e-9:
         return solid
     bb = solid.BoundingBox()
-    cutter = cq.Solid.makeBox(bb.xlen + 2, bb.ymax - BODY_FACE + 1, bb.zlen + 2,
-                             cq.Vector(bb.xmin - 1, BODY_FACE, bb.zmin - 1))
+    cutter = cq.Solid.makeBox(bb.xlen + 2, bb.ymax - BRANCH_FIXED_END + 1, bb.zlen + 2,
+                             cq.Vector(bb.xmin - 1, BRANCH_FIXED_END, bb.zmin - 1))
     sleeve = solid.intersect(cutter)
     return solid.cut(cutter).fuse(sleeve.translate((0, -depression, 0))).clean()
 
@@ -181,7 +202,7 @@ def stations_hold():
     bb = solid.BoundingBox()
     for name, expected, got in (
         ("run span", RUN_SPAN, bb.zlen), ("positive run", RUN_HALF, bb.zmax),
-        ("branch face proxy", BRANCH_REACH, bb.ymax),
+        ("nominal extended branch face", BRANCH_REACH, bb.ymax),
         ("sample collar envelope", COLLAR_ENVELOPE_D, bb.xlen),
         ("run collar", BARREL_R, _arm_radius(solid, *RUN_COLLAR_BAND)),
         ("branch collar", BARREL_R, _branch_radius(solid, *BRANCH_COLLAR_BAND)),
@@ -192,18 +213,24 @@ def stations_hold():
     for axis in ("z", "y"):
         if collet_offsets(solid, axis, TUBE_D / 2) != [(0.0, 0.0)]:
             raise ValueError(f"tee {axis} tube bore is off its declared axis")
-    pressed = depress_branch(solid, COLLET_TRAVEL)
-    if abs(pressed.BoundingBox().ymax - (BRANCH_REACH - COLLET_TRAVEL)) > MEASURE_TOL:
-        raise ValueError("branch proxy sleeve does not provide the measured release travel")
-    band = cq.Solid.makeBox(40, CAP_FAR - CAP_NEAR, 50, cq.Vector(-20, CAP_NEAR, -25))
+    if abs(2 * (RUN_HALF - RUN_COLLET_TRAVEL) - RUN_SPAN_PRESSED) > MEASURE_TOL:
+        raise ValueError("run sleeve stroke differs from the measured pressed run span")
+    if abs(BRANCH_REACH + COLLAR_NOMINAL_D / 2 - BRANCH_WIDTH_EXTENDED) > MEASURE_TOL:
+        raise ValueError("extended branch station differs from the nominal back-collar datum")
+    pressed = depress_branch(solid, BRANCH_COLLET_TRAVEL)
+    if abs(pressed.BoundingBox().ymax - BRANCH_PRESSED_REACH) > MEASURE_TOL:
+        raise ValueError("branch sleeve does not provide the measured release travel")
+    if abs(pressed.BoundingBox().ymax + COLLAR_NOMINAL_D / 2 - BRANCH_WIDTH_PRESSED) > MEASURE_TOL:
+        raise ValueError("pressed branch station differs from the nominal back-collar datum")
+    band = cq.Solid.makeBox(40, BRANCH_FIXED_END - CAP_NEAR, 50, cq.Vector(-20, CAP_NEAR, -25))
     if solid.intersect(band).cut(pressed).Volume() > 1e-7:
-        raise ValueError("release travel removed measured fixed collar material")
+        raise ValueError("release travel removed fixed collar or reduced-barrel material")
 
 
 def selftest():
     stations_hold()
-    return ["measured collar envelopes, run span, bores and fixed-collar release check pass",
-            "branch axial face, body/sleeve seam and release rim remain unqualified"]
+    return ["measured collar envelopes, distinct run/branch strokes, nominal branch stations and fixed-barrel release check pass",
+            "terminal-ring seam/OD and conservative fixed-nose envelope ends remain unqualified"]
 
 
 def main():

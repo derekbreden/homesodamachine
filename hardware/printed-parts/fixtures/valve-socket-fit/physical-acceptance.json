@@ -1,0 +1,25 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-09-20",
+  "job": "valve-socket-fit-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "e56dae683f9ee066904794c9100d4039afab9dabd86577cd54ef91eb4bb89474",
+  "stl_sha256": "bb30ef9291b95ea2a0c780a3b755fbf326a582641cf3be180d9b2ddb8c20d98a",
+  "physical_filament": "Black PET-GF, left external spool 254; PET-CF printer metadata",
+  "user_statement": "If we are going to add zip ties to the Beduans for retention, then this print is perfect. Perfectly fits in easily, and is held somewhat even upside down loose shaking.",
+  "socket_and_bearing_fit_accepted": true,
+  "insertion": "Easy, described as a perfect fit with zip-tie retention.",
+  "inverted_retention": "Some retention during loose shaking; no measured retention force.",
+  "positive_retention": "Zip ties through the production retention paths; socket friction is not the retention mechanism.",
+  "socket_diameter_mm": 7.2,
+  "post_pitch_mm": [
+    24.4,
+    24.85
+  ],
+  "bearing_height_mm": 5.2,
+  "socket_depth_mm": 6.2,
+  "sample_count": null,
+  "rocking_separately_reported": false,
+  "production_tie_installation_tested": false,
+  "design_action": "Preserve the physically accepted socket profile. Verify access to thread and tighten the ties in the complete carrier and enclosure.",
+  "scope": "Socket coupon fit only; full carrier stiffness, installed tie access, tube operation and complete enclosure release remain separate checks."
+}

@@ -1,4 +1,4 @@
-"""Prepare the scan-corrected cartridge and cap for a Mark2 dry-fit print.
+"""Prepare the scan-corrected cartridge and cap for an H2C dry-fit print.
 
 Requires the dedicated cartridge generation/native-fit manifest to be current.
 This produces a native slice and support reading; it never connects to a printer.
@@ -16,7 +16,7 @@ import zipfile
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'tools').is_dir())
 PROFILE = ROOT / 'hardware/printed-parts/petgf.3mf'
-JOB_NAME = 'pump-cartridge-scan-corrected-black-z004-mark2-v1'
+JOB_NAME = 'pump-cartridge-measured-tee-black-z018-h2c-v1'
 JOB = ROOT / '.cache/prints' / ('2026-09-20-' + JOB_NAME)
 GEOMETRY = HERE / 'pump-cartridge-generation.json'
 sys.path.insert(0, str(ROOT / 'hardware/printed-parts/faucet'))
@@ -52,7 +52,7 @@ def main():
     old_input_sha = sha(staged) if staged.is_file() else None
     report = project_tools.refresh(
         PROFILE, staged, parts=parts, offsets=((0.0, 50.0), (0.0, -50.0)),
-        title='Scan-corrected pump cartridge and cap, black PET-GF, Mark2', z_trim=0.04)
+        title='Measured-tee pump cartridge and cap, black PET-GF, H2C', z_trim=0.18)
     with zipfile.ZipFile(staged) as z:
         members = {name: z.read(name) for name in z.namelist()}
     settings = json.loads(members[project_tools.SETTINGS_MEMBER])
@@ -90,7 +90,7 @@ def main():
         assert z.read('Metadata/plate_1.gcode.md5').decode().strip().lower() == hashlib.md5(gcode).hexdigest()
     (ready / 'plate_1.gcode').write_bytes(gcode)
     trims = [float(v) for v in re.findall(rb'^\s*G29\.1 Z([-+.\d]+)', gcode, re.M)]
-    assert trims == [0.0, 0.02], trims
+    assert trims == [0.0, 0.16], trims
     with zipfile.ZipFile(PROFILE) as z:
         base = json.loads(z.read(project_tools.SETTINGS_MEMBER))
     preserved = (
@@ -124,12 +124,12 @@ def main():
             assert sha(ROOT / relative) == expected, f'Cartridge changed during slicing: {relative}'
     record = {
         'status': 'native_slice_complete_toolpath_and_support_access_review_pending',
-        'submitted': False, 'printer': 'Mark2',
+        'submitted': False, 'printer': 'H2C',
         'purpose': 'Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly.',
         'assembly_current': False,
         'production_enclosure_released': False,
         'physical_filament': 'Black PET-GF, left external spool 254, PET-CF metadata',
-        'requested_z_trim_mm': 0.04, 'actual_z_trim_commands_mm': trims,
+        'requested_z_trim_mm': 0.18, 'actual_z_trim_commands_mm': trims,
         'source_profile': str(PROFILE.relative_to(ROOT)), 'source_profile_sha256': sha(PROFILE),
         'source_parts': report['parts'],
         'geometry_manifest': str(GEOMETRY.relative_to(ROOT)),

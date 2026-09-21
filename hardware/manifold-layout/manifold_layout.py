@@ -182,10 +182,15 @@ FORE_STUB_EXPOSED = FORE_STUB_GAP + 2.0
 FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
 # The two outer aft valves stand inboard of their pump-connected tees. Their hairpins
 # lean between those axes; the room outside the coils belongs to the closed finger cups.
-OUTER_AFT_INSET = 6.0
+OUTER_AFT_X = 73.82  # valve axes retain the side-guide and seam-rail running room
 # Locate the two-stop carrier range fore of the aft valves' full post-insertion envelope.
 CARRIER_DATUM_SHIFT = -1.75
-BARB_PLATE_BERTH = 5.7  # pump/deck placement span around the fixed release section
+# Fixed release face measured aft of the seated pump's tube plane. This design
+# span preserves the fitted cartridge's complete skirt band and plate running
+# air independently of the branch sleeve's measured operating travel.
+PUMP_BARBS_TO_RELEASE_PLANE = 5.476
+BARB_PLATE_BERTH = (PUMP_BARBS_TO_RELEASE_PLANE - _enc_if.pump_station_lead
+                    - CARRIER_DATUM_SHIFT - tee.BRANCH_COLLET_TRAVEL)
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack.
 # The fitted outlet height, pump drop and manifold rise place the two ends on one tube plane
@@ -209,6 +214,7 @@ LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", BARB_PITCH))
 INNER_X = TEE_BRANCH + CROSSBAR / 2.0        # the inner limbs' axes
 PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror plane
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
+OUTER_AFT_INSET = OUTER_X - OUTER_AFT_X
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pump's own axis,
                                              # off the barb's column, when the pitch is closed
 # One straight tube leaning `LIMB_STEP` across as it climbs enters both its mouths at
@@ -1072,7 +1078,7 @@ def runs(carrier_offset: float = CARRIER_SQUEEZE) -> dict:
 RUNS = runs()
 BARB_TUBE_LEN = math.dist(*RUNS['Y-C'])
 PUMP_TUBE_PROJECTION = (math.dist(barb_station('Y-C'), carrier_collet_port('Y-C', CARRIER_PARK)[0])
-                        + tee.INSERTION_EXTENDED)
+                        + tee.BRANCH_INSERTION_EXTENDED)
 
 # The four short, bowed joints from each pump-barb tee to the fixed fore valve above it. Keys
 # live in ``SEGMENTS``'s construction column just as a straight lane key does, but their stock
@@ -1225,7 +1231,7 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE) -> cq.Assembly:
                 # The cartridge carries this whole free projection, including the stock
                 # hidden inside its tee. Its loose-unit scene must show the full tube tip.
                 axis = carrier_collet_port(how, carrier_offset)[1]
-                depth = tee.INSERTION_EXTENDED - tee.carrier_collet_depression(carrier_offset)
+                depth = tee.BRANCH_INSERTION_EXTENDED - tee.carrier_collet_depression(carrier_offset)
                 end = tuple(end[i] - axis[i] * depth for i in range(3))
             a.add(straight(start, end), name=f"tube-fluid-{cid}",
                   color=_routing.tube_color(f"fluid-{cid}"))
@@ -1532,7 +1538,7 @@ def selftest() -> int:
         # the cartridge through the final seating stroke while the sleeve extends.
         for name in sorted(BARB_OF):
             exposed = dist(*runs(offset)[name])
-            depth = tee.INSERTION_EXTENDED - tee.carrier_collet_depression(offset)
+            depth = tee.BRANCH_INSERTION_EXTENDED - tee.carrier_collet_depression(offset)
             if abs(exposed + depth - PUMP_TUBE_PROJECTION) > 1e-8:
                 failures.append(f'{state} {name} tube length does not bottom at its body stop')
             entry_angle = skew_deg(*runs(offset)[name], branch_port(name, offset)[1])
