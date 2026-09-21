@@ -23,13 +23,10 @@ struct ApplianceView: View {
             Theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                Spacer()
-
-                Image("LaunchIcon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 160, height: 160)
-                    .accessibilityHidden(true)
+                // The launch screen hands the mark over here. It is already
+                // drawn at this size in this spot, so the page fills in under
+                // it rather than moving it.
+                MarkHeader()
 
                 Text(machine.displayName)
                     .font(.system(size: 22, weight: .medium))

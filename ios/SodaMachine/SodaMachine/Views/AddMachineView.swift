@@ -31,12 +31,21 @@ struct AddMachineView: View {
             Theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                Image("LaunchIcon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: firstRun ? 200 : 120, height: firstRun ? 200 : 120)
-                    .padding(.top, firstRun ? 80 : 28)
-                    .accessibilityHidden(true)
+                // First run is what the launch screen hands over to, so the
+                // mark stays exactly where the launch screen left it. Opened
+                // as a sheet from a page that already carries the mark, it is
+                // a smaller one, because two of the same size one tap apart
+                // read as the same picture that moved.
+                if firstRun {
+                    MarkHeader()
+                } else {
+                    Image("LaunchIcon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 88, height: 88)
+                        .padding(.top, 28)
+                        .accessibilityHidden(true)
+                }
 
                 VStack(spacing: 8) {
                     Text(firstRun ? "Soda Machine" : "Add a machine")

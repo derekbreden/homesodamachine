@@ -30,3 +30,32 @@ enum Theme {
     static let liquidStop1 = cobalt
     static let liquidStop2 = navy
 }
+
+// ────────────────────────────────────────────────────────────
+// The mark, and the one place a screen that opens with it puts it.
+//
+// THE LAUNCH SCREEN AND THE SCREEN BEHIND IT HOLD THE SAME TWO NUMBERS.
+// LaunchScreen.storyboard draws this size at this distance below the safe
+// area, against Assets.xcassets/LaunchBackground, which is Theme.background.
+// The app's first frame lands with the mark already where the launch screen
+// had it, so nothing jumps. Change one of the three and change all three.
+// ────────────────────────────────────────────────────────────
+
+extension Theme {
+    /// The mark's frame, where it is the first thing on a screen.
+    static let markSize: CGFloat = 160
+    /// From the top of the safe area to the top of that frame.
+    static let markTop: CGFloat = 72
+}
+
+/// The mark at the head of a screen, in the place the launch screen leaves it.
+struct MarkHeader: View {
+    var body: some View {
+        Image("LaunchIcon")
+            .resizable()
+            .scaledToFit()
+            .frame(width: Theme.markSize, height: Theme.markSize)
+            .padding(.top, Theme.markTop)
+            .accessibilityHidden(true)
+    }
+}
