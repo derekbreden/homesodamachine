@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 382 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✗ instruction names a purchased brand the ledger no longer carries: Ganen (hardware/assembly/cold-core.md:82, hardware/assembly/internal-plumbing.md:13)",
-      "status": "red"
+      "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_payloads.py",
@@ -57,13 +57,13 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "65/66 artifacts have their record in the index",
+      "note": "65/67 artifacts have their record in the index",
       "status": "red"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2855 tracked, 540 fetched solids, 55 tags, 41 site routes",
-      "status": "ok"
+      "note": "2 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -87,20 +87,25 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 277 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 278 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 22 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 113",
+      "lock-taking scripts scanned: 116",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
+    ],
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds a6a1f96bdac6f5d23358cfb6890bbfc2 for the 384 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 3c7b8a7f3f7b2cad8d9dcce0080487de here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_faucet_geometry.py": [
       "PASS fixture:complete-display-fit-trial",
@@ -132,12 +137,6 @@
     "hardware/scripts/check_finishes.py": [
       "web/public/finishes.json is not the table this tree states.",
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
-    ],
-    "hardware/scripts/check_ledger.py": [
-      "instructions: 121 files (15 procedures + 105 cards + cover) | ledger brands: 576 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 2 instruction(s) out of step with the ledger:",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B07F35PTFR (hardware/assembly/internal-plumbing.md:30)",
-      "  ✗ instruction names a purchased brand the ledger no longer carries: Ganen (hardware/assembly/cold-core.md:82, hardware/assembly/internal-plumbing.md:13)"
     ],
     "hardware/scripts/check_payloads.py": [
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/inputs/right.step.mesh — declared by nobody",
@@ -194,34 +193,21 @@
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "hardware/scripts/check_tracked.py": [
-      "hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
-      "  git add hardware/reference/iec-c14-inlet/README.figures.json",
-      "65/66 artifacts have their record in the index"
+      "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.figures.json — the figures of hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md",
+      "  hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
+      "  git add hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.figures.json hardware/reference/iec-c14-inlet/README.figures.json",
+      "65/67 artifacts have their record in the index"
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -4675,6 +4675,7 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py\",",
-      "           \"pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py\",",
-      "  +        \"hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json\",",
-      "           \":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step\",",
-      "           \"pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py\",",
-      "           \":out/tee-connector/hardware/reference/tee-connector/tee-connector.step\",",
-      "  @@ -6162,7 +6163,12 @@",
-      "   genrule(",
-      "       name = \"enclosure\",",
-      "       srcs = [",
-      "  +        \"pysrc/hardware/manifold-layout/_gas_chain.py\",",
-      "  +        \"pysrc/hardware/manifold-layout/_lines.py\",",
-      "  +        \"pysrc/hardware/manifold-layout/_scorecard.py\",",
-      "           \":out/enclosure-box/hardware/manifold-layout/enclosure-box.json\",",
-      "  +        \"pysrc/hardware/manifold-layout/enclosure_assembly.py\",",
-      "  +        \"pysrc/hardware/manifold-layout/manifold_layout.py\",",
-      "  … 31 more line(s)",
+      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/collect-final-print-receipt.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/collect-final-print-receipt.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_paths.py": [
+      "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:5 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/../pump-comparison/g-ganen-integration.md is held nowhere, and no tag is named for it",
+      "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:81 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/native-query-cost.json is held nowhere, and no tag is named for it",
+      "2 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
       "8 test(s) in web/ fail:",
