@@ -89,7 +89,10 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    call. One call is the point: an AXPress opens the popover too, but the front borrow
    of the click that follows closes it, so the row click lands on the dialog. The
    popover is not in the tree; the selector afterwards is, and it must read the target
-   before anything else is pressed. The device page opened in step 1 does not decide it:
+   before anything else is pressed. The borrow holds the front for a second or two, and a
+   keystroke typed elsewhere in that window takes the popover with it, so the two clicks
+   are retried, up to three times, until the selector reads the target. The device page
+   opened in step 1 does not decide it:
    on 2026-09-20 the dialog offered H2C three times after Mark2's page was opened and
    settled.
 4. **Read the filament tile.** The `AXGroup` under `Left Nozzle` reads `Ext PET-CF`
