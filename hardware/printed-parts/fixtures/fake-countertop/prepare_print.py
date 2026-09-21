@@ -24,17 +24,16 @@ VARIANTS = {
     "black-h2c": {"project": "fake-countertop-petgf.3mf",
                   "archive": "fake-countertop-petgf-z018-h2c.gcode.3mf",
                   "z_trim": 0.18, "title": "Fake countertop black PET-GF H2C"},
+    # Mark2 at Bambu's own first-layer offset: +0.00 over the stock branches, so textured PEI
+    # with the 0.4 nozzle emits the stock G29.1 Z-0.02 and nothing of the +0.04 (z-trim.md).
     "black-mark2": {"project": "fake-countertop-petgf-mark2.3mf",
-                    "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-                    "z_trim": 0.04, "title": "Fake countertop black PET-GF Mark2"},
+                    "archive": "fake-countertop-petgf-z000-mark2.gcode.3mf",
+                    "z_trim": 0.0, "title": "Fake countertop black PET-GF Mark2 stock first layer"},
 }
 
 BAMBU_STUDIO = "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"
 # The slab is the left nozzle's reach less this border, both sides (`fake_countertop.PLATE_BORDER`).
-PLATE_BORDER = 15.0
-# A first layer this wide holds its outline with a brim, added here on purpose: the shared
-# settings' auto brim adds none to anything, and brims in this shop are only ever added by hand.
-BRIM = {"brim_type": "outer_only", "brim_width": "5"}
+PLATE_BORDER = 5.0
 
 
 def sha(path):
@@ -49,15 +48,6 @@ def prepare(variant):
         parts=(("fake-countertop", STL, 0.0),),
         offsets=((0.0, 0.0),), title=spec["title"], z_trim=spec["z_trim"],
         plate_border=PLATE_BORDER)
-    with zipfile.ZipFile(project) as z:
-        members = {name: z.read(name) for name in z.namelist()}
-    settings = json.loads(members[writer.SETTINGS_MEMBER])
-    settings.update(BRIM)
-    members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
-    writer.archive_write(project, members)
-    report["project_sha256"] = sha(project)
-    report["settings_sha256"] = hashlib.sha256(members[writer.SETTINGS_MEMBER]).hexdigest()
-    report["intentional_settings"] = BRIM
     report["status"] = "offline project preparation; a submission is recorded in print-jobs.json"
     report["pose"] = "show face on the bed, legs up; no support"
     report["variant"] = variant
