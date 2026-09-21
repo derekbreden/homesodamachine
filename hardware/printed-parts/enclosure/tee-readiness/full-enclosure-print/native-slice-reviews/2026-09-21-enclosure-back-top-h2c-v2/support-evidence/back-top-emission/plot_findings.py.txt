@@ -1,0 +1,42 @@
+from pathlib import Path
+import json
+import sys
+import numpy as np
+import trimesh
+import shapely
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.collections import LineCollection
+
+HERE = Path(__file__).parent
+sys.path.insert(0, str(HERE))
+import verify_emission as probe
+
+report = json.loads((HERE/'emission-presence.json').read_text())
+selected = [10.04, 21.32, 44.36, 140.84, 187.88, 101.72]
+roads = {z: [] for z in selected}
+for seg in probe.extrusion_segments(probe.JOB/'ready/analysis-labelled-single-object.gcode'):
+    if seg['layer'] in roads and seg['feature'] not in ('', 'Custom', 'Brim') and not seg['feature'].startswith('Support'):
+        roads[seg['layer']].append([seg['a'][:2],seg['b'][:2]])
+mesh = trimesh.load(probe.ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl',force='mesh',process=True)
+frame=json.loads((probe.JOB/'ready/support-enclosure-back-top.json').read_text())['coordinate_frame']['plate_to_original_cad_transform']
+matrix=np.array(frame[:9]).reshape(3,3);translation=np.array(frame[9:])
+mesh.vertices=(mesh.vertices-translation)@np.linalg.inv(matrix)
+fig,axes=plt.subplots(2,3,figsize=(16,11),dpi=130)
+for z,ax in zip(selected,axes.flat):
+    finding=next(f for f in report['perimeter_findings'] if f['layer_z_mm']==z)
+    point=np.array(finding['worst_boundary_points_plate_xy_mm'][0])
+    cuts=trimesh.intersections.mesh_plane(mesh,[0,0,1],[0,0,z-.12+1e-7])
+    ax.add_collection(LineCollection(cuts[:,:,:2],colors='#1478ad',linewidths=1.1,label='model section'))
+    ax.add_collection(LineCollection(roads[z],colors='#333333',linewidths=.7,label='emitted model centreline'))
+    ax.scatter([point[0]],[point[1]],color='#d32736',s=30,zorder=4)
+    ax.set_xlim(point[0]-15,point[0]+15);ax.set_ylim(point[1]-20,point[1]+20)
+    ax.set_aspect('equal');ax.grid(alpha=.2)
+    ax.set_title(f'Print Z {z:.2f} mm; gap {finding["maximum_boundary_gap_beyond_emitted_halfwidth_mm"]:.3f} mm')
+    ax.set_xlabel('Plate X / mm');ax.set_ylabel('Plate Y / mm')
+axes.flat[0].legend(loc='lower right',fontsize=7)
+fig.suptitle('Back-top: model section (blue), emitted roads (gray), largest flagged boundary gap (red)',fontsize=12)
+fig.tight_layout()
+fig.savefig(HERE/'findings.png')
+print(HERE/'findings.png')

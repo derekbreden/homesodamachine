@@ -1,0 +1,150 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.3mf",
+  "staged_input_sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb",
+  "printer": "H2C",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "source_stl_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "source_step_sha256": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          355.0
+        ]
+      ],
+      "original_mesh_triangles": 557640,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/enclosure-front-top.stl",
+      "oriented_stl_sha256": "6b1cdde5d9cb4b3689aa226c8c05b84ae14447ead4a1b87a4ec489f0cfe93187",
+      "oriented_bounds_mm": [
+        [
+          -212.5500030517578,
+          -107.5,
+          160.0
+        ],
+        [
+          -5.0,
+          107.5,
+          355.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "carrier-spring-pusher",
+      "source": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+      "source_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+      "source_step": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
+      "source_step_sha256": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e",
+      "original_bounds_mm": [
+        [
+          -10.0,
+          -3.149979591369629,
+          0.0
+        ],
+        [
+          3.1498429775238037,
+          3.149979591369629,
+          2.0
+        ]
+      ],
+      "original_mesh_triangles": 1068,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/carrier-spring-pusher.stl",
+      "oriented_stl_sha256": "5e99b1d0a06c2297ac895029b86d78c3c8a35f26976ab8f3dd896c0dade0c4c3",
+      "oriented_bounds_mm": [
+        [
+          -10.0,
+          -3.149979591369629,
+          0.0
+        ],
+        [
+          3.1498429775238037,
+          3.149979591369629,
+          2.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-front-top": [
+      138.275,
+      156.7635
+    ],
+    "carrier-spring-pusher": [
+      296.5,
+      157.375
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+}

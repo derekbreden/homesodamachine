@@ -1,0 +1,160 @@
+{
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "foam-cap-top",
+      "inputs": {
+        "gcode": "support-labels-foam-cap-top.gcode",
+        "gcode_sha256": "16385a03ab2f8f530d026947df44c6fef8e1a43b85bf3700cc82651b83cc4086",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/oriented-meshes/foam-cap-top.stl",
+        "model_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+        "profile": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/g-ganen-foam-cap-top-black-z018-h2c-v2-input.3mf",
+        "profile_sha256": "2a9527e383065b008cf8a2a8573b11274bbb5a5b372a21a7f67e23ed9aa6e13b",
+        "native_plate_gcode_sha256": "863b09b1064f1ea9d7ff1a4027c1fcc7e3d46136360e44cabc359750f8f9952f",
+        "object_label": 1901,
+        "object_scope": "Analysis-only label for the sole object; original printing bytes are unchanged",
+        "original_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "original_stl_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+        "pretransform_rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "feature_filter": "Other-object feature labels masked in analysis copy; every movement retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          -160.0,
+          -0.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -162.5,
+          -160.0,
+          -0.0
+        ],
+        "plate_to_original_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          -160.0,
+          0.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            20.900000000000002,
+            69.39999999999999
+          ],
+          [
+            304.1,
+            250.6
+          ]
+        ],
+        "segments": 650253,
+        "features": {
+          "Inner wall": 213735,
+          "Outer wall": 226047,
+          "Gap infill": 54802,
+          "Bottom surface": 2059,
+          "Internal solid infill": 78381,
+          "Sparse infill": 34958,
+          "Bridge": 2468,
+          "Floating vertical shell": 34560,
+          "Top surface": 3243
+        },
+        "maximum_line_width_mm": 0.725188,
+        "arc_sampling_allowance_mm": 0.1,
+        "method": "Native non-custom layer extrusions, buffered by each emitted half-width plus arc allowance."
+      }
+    }
+  ],
+  "source_gcode_sha256": "863b09b1064f1ea9d7ff1a4027c1fcc7e3d46136360e44cabc359750f8f9952f",
+  "fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "foam-cap-top",
+        "side_margins_mm": [
+          20.900000000000002,
+          69.39999999999999,
+          20.899999999999977,
+          69.4
+        ],
+        "minimum_margin_mm": 20.899999999999977
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 20.899999999999977,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

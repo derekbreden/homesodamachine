@@ -1,0 +1,39 @@
+Reading supports: enclosure-front-bottom
+  enclosure-front-bottom: {'support_bodies': 4, 'interface_islands': 4, 'bed_rooted_bodies': 2, 'model_rooted_bodies': 2, 'shortest_build_up_mm': 7.92, 'bodies_without_interface_labels': 0, 'explicit_interface_islands': 4, 'shortest_labelled_build_up_mm': 7.92}
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+  "layers": 754,
+  "estimated_seconds": 62806.21875,
+  "estimated_grams_saved_profile_density": 560.4407958984375,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-bottom",
+        "side_margins_mm": [
+          54.9,
+          56.125,
+          54.89999999999998,
+          54.61699999999996
+        ],
+        "minimum_margin_mm": 54.61699999999996
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 54.61699999999996,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+    "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+  },
+  "scope": "Completed fresh offline native-slice/support reviews only. The current queue tracks staging and printer execution; these snapshots do not claim physical cleanup or assembly acceptance.",
+  "finalized_snapshots": [
+    {
+      "job": "back-bottom",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json",
+        "sha256": "141bfb05c015499b0b511ec30cc738123a549bb1f27b5e4bac9176f7ab89fb66"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/enclosure-back-bottom-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "4c68142fd791fc922eba261b27834041be5f8cbeb3d92d11b7e1362975bfbe07"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-bottom-mark2-v2/offline-review.json",
+        "sha256": "39ca02207abf238f35891a5b82abe7ebdd9b9fecbb970fcf398b101619de6818"
+      },
+      "slice_estimate": {
+        "seconds": 64719.6015625,
+        "grams_actual_petgf_density_1p43": 709.4524928839631
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    },
+    {
+      "job": "back-top",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-top-h2c-v2/manifest.json",
+        "sha256": "e897552680e5bcc3b2277e8b7c8dd57da3142297f24e2a4fc6ae7068e56556f3"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+        "sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-top-h2c-v2/offline-review.json",
+        "sha256": "28ca3c4c2eed4d85f70763dbd33c7cc0d18c2ad53329d74a243da4b3402643c6"
+      },
+      "slice_estimate": {
+        "seconds": 100238.8671875,
+        "grams_actual_petgf_density_1p43": 962.1293580994125
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    },
+    {
+      "job": "carrier-pair",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-carrier-pair-mark2-v2/manifest.json",
+        "sha256": "4534a302104137e8d12788d62c5f8eb405e163e98f4990a99acc63a72fe9db7c"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-carrier-pair-mark2-v2/offline-review.json",
+        "sha256": "98010c3b509fd112ea728112989a598b18c118f1b41cc8416aea83ba9a7c0700"
+      },
+      "slice_estimate": {
+        "seconds": 13357.66015625,
+        "grams_actual_petgf_density_1p43": 112.85679342580396
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    },
+    {
+      "job": "front-bottom",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json",
+        "sha256": "4822534da2413c7e956a5e1ce578b6b2b856adf045ccdf401e957f2dffd05e73"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-bottom-mark2-v2/offline-review.json",
+        "sha256": "4c13e50df276fa9dd950c850c66dc2b27c8c3276a727489bf66c09a561d4c513"
+      },
+      "slice_estimate": {
+        "seconds": 62806.21875,
+        "grams_actual_petgf_density_1p43": 621.2638280114462
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    },
+    {
+      "job": "front-top",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-top-h2c-v4/manifest.json",
+        "sha256": "a3dd84170e715f9af4ffa56de28aeb78ff9900e164966160fd2e34bbed6e0987"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+        "sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-top-h2c-v4/offline-review.json",
+        "sha256": "b8a917de0e3cf63fa234b0e51160846089cf7b2e24ecf512814a7951460df83a"
+      },
+      "slice_estimate": {
+        "seconds": 87476.1328125,
+        "grams_actual_petgf_density_1p43": 903.0202475850896
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    },
+    {
+      "job": "foam-cap-lid-top",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/manifest.json",
+        "sha256": "783b202dbde4658bdb4a40d0b91ea9cc20f563231f1019000d71a81e15f50f66"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v1.gcode.3mf",
+        "sha256": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/offline-review.json",
+        "sha256": "a5ebd56ffa7cfcc2d9ffe8046c36d9b533366cefc23b1def6b3303986837c1be"
+      },
+      "slice_estimate": {
+        "seconds": 16105.6376953125,
+        "grams_actual_petgf_density_1p43": 202.90403759387112
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    },
+    {
+      "job": "foam-cap-top",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json",
+        "sha256": "4632e3b7cb268a5ef4bb81cf89c7cf6d05df7e22ef2d4057f9b5cb94ecb2a302"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/ready/g-ganen-foam-cap-top-black-z018-h2c-v2.gcode.3mf",
+        "sha256": "3a33be497f8fb45c88b20e4b5c4b84723cedf9dd2c790fa03c36207fc6fb866f"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-top-h2c-v2/offline-review.json",
+        "sha256": "0429ef77a0c6e0c6baa347e3713ba43679f54f5e4a8f1debcf5fe1740d3154f0"
+      },
+      "slice_estimate": {
+        "seconds": 18561.40234375,
+        "grams_actual_petgf_density_1p43": 182.6251088223716
+      },
+      "queue_role": "unsubmitted_alternative",
+      "submitted": false
+    },
+    {
+      "job": "foam-cap-top",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-top-mark2-v1/manifest.json",
+        "sha256": "be66c84f33607b1825e0afde5510922fff7cbe24b983dd59b798ba20eb7412e4"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/ready/g-ganen-foam-cap-top-black-z004-mark2-v1.gcode.3mf",
+        "sha256": "2e57cae3a9eed67fc85469b00820581860754216f22158c2f1bb671e5ec6798c"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-top-mark2-v1/offline-review.json",
+        "sha256": "7db921f0a0efd432ce11c728160b1910867f1ca8dcf3b82e4815c902f669de3f"
+      },
+      "slice_estimate": {
+        "seconds": 18595.923828125,
+        "grams_actual_petgf_density_1p43": 182.62461829370304
+      },
+      "queue_role": "assigned_variant",
+      "submitted": false
+    }
+  ]
+}

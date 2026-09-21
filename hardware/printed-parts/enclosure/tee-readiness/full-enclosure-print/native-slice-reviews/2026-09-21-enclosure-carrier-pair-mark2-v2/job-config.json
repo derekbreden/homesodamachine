@@ -1,0 +1,71 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "carrier-pair",
+  "printer": "Mark2",
+  "archive_stem": "enclosure-carrier-pair-black-z004-mark2-v2",
+  "title": "Complete enclosure carrier-pair, black PET-GF, Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "centered-carrier-pair",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-left",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+      "rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": [
+        "Z90"
+      ]
+    },
+    {
+      "name": "enclosure-tee-carrier-right",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+      "rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": [
+        "Z90"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py"
+  ],
+  "required_functional_toolpath_checks": [
+    "carrier-retaining-wall"
+  ],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "model_pair_gap_mm": 40.0
+}

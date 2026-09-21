@@ -1,0 +1,81 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "7edfdea9ed4c366b88137abb49c59386a8eef595da6d3982c1f214d23461a817",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "foam-cap-lid-top",
+      "source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+      "source_stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "source_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "source_step_sha256": "ef82091d4a837c76b06a113fa2b3c7da5e6eca9446ae02f9901fd4997a1adaf7",
+      "original_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          57.775001525878906
+        ]
+      ],
+      "original_mesh_triangles": 72176,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/oriented-meshes/foam-cap-lid-top.stl",
+      "oriented_stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "oriented_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          57.775001525878906
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "foam-cap-lid-top": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+}

@@ -1,0 +1,20 @@
+{"layers": 813, "model_segments": 3633681, "mesh_faces": 1124732, "mesh_bounds_plate": [[55.0, 24.350006103031262, 0.0], [270.0, 295.649993896, 195.0]]}
+{"processed_layers": 1, "elapsed_seconds": 21.4}
+{"processed_layers": 51, "elapsed_seconds": 29.2}
+{"processed_layers": 101, "elapsed_seconds": 43.9}
+{"processed_layers": 151, "elapsed_seconds": 60.2}
+{"processed_layers": 201, "elapsed_seconds": 76.4}
+{"processed_layers": 251, "elapsed_seconds": 86.2}
+{"processed_layers": 301, "elapsed_seconds": 101.0}
+{"processed_layers": 351, "elapsed_seconds": 111.0}
+{"processed_layers": 401, "elapsed_seconds": 119.4}
+{"processed_layers": 451, "elapsed_seconds": 130.3}
+{"processed_layers": 501, "elapsed_seconds": 141.5}
+{"processed_layers": 551, "elapsed_seconds": 152.3}
+{"processed_layers": 601, "elapsed_seconds": 163.8}
+{"processed_layers": 651, "elapsed_seconds": 172.9}
+{"processed_layers": 701, "elapsed_seconds": 181.1}
+{"processed_layers": 751, "elapsed_seconds": 188.8}
+{"processed_layers": 801, "elapsed_seconds": 194.0}
+{"status": "bounded_findings_need_reading", "layers": 813, "component_sections": 1969, "elapsed_seconds": 195.12178301811218}
+missing 3 perimeter findings 47 tiny 0

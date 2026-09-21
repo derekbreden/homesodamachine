@@ -1,0 +1,134 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "job_directory": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff",
+  "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db",
+  "support_audit": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/enclosure-carrier-pair-black-z004-mark2-v2-input.support-audit.json",
+  "support_audit_sha256": "84ff5e5474e71a5437201e6186702afe82be8190b56259439a3872122f2184d0",
+  "support_ledger": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/support-removal-review.json",
+  "receipt_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "layers": 258,
+  "estimated_seconds": 13357.66015625,
+  "estimated_hours": 3.710461154513889,
+  "estimated_grams_saved_profile": 101.80787658691406,
+  "estimated_grams_petgf_density_1p43": 112.85679342580396,
+  "brim_type": "auto_brim",
+  "brim_extrusion_segments": 0,
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-left",
+      "support_summary": {
+        "support_bodies": 4,
+        "interface_islands": 10,
+        "bed_rooted_bodies": 4,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 3.84,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 10,
+        "shortest_labelled_build_up_mm": 3.84
+      },
+      "tree_count": 4,
+      "interface_count": 10
+    },
+    {
+      "name": "enclosure-tee-carrier-right",
+      "support_summary": {
+        "support_bodies": 3,
+        "interface_islands": 11,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 6.96,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 11,
+        "shortest_labelled_build_up_mm": 6.96
+      },
+      "tree_count": 3,
+      "interface_count": 11
+    }
+  ],
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-tee-carrier-left",
+        "side_margins_mm": [
+          96.301,
+          91.46600000000001,
+          176.269,
+          95.4
+        ],
+        "minimum_margin_mm": 91.46600000000001
+      },
+      {
+        "piece": "enclosure-tee-carrier-right",
+        "side_margins_mm": [
+          181.018,
+          92.99300000000001,
+          90.363,
+          89.482
+        ],
+        "minimum_margin_mm": 89.482
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 89.482,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-tee-carrier-left",
+          "enclosure-tee-carrier-right"
+        ],
+        "projected_extrusion_box_gap_mm": 32.287000000000006,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 32.287000000000006,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "native_previews": [
+    {
+      "native_member": "Metadata/plate_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/native-previews/plate_1.png",
+      "sha256": "ee78cddef3d4a6a8bfb77d4fbf01bf78eae9eb4ed26f3bebeeea94c6994911cd",
+      "bytes": 7853
+    },
+    {
+      "native_member": "Metadata/plate_1_small.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/native-previews/plate_1_small.png",
+      "sha256": "b42c16c67b6d0f8275783d42b299168cc4fdc72be050e7230fb853e67598d0b9",
+      "bytes": 2757
+    },
+    {
+      "native_member": "Metadata/plate_no_light_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/native-previews/plate_no_light_1.png",
+      "sha256": "d29f6f011849b1c987139f7948bd4fd13fb80499ac71271c50fe11c7b5cc89a7",
+      "bytes": 3874
+    },
+    {
+      "native_member": "Metadata/top_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/native-previews/top_1.png",
+      "sha256": "26476b4e25e7e94ae4cece4b96034c4e1bc01b62138488c14ea166edfa0fdf85",
+      "bytes": 2968
+    },
+    {
+      "native_member": "Metadata/pick_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/native-previews/pick_1.png",
+      "sha256": "2d34468560cec3ad38d4a504ad845d1295e6640babc22b6bc9ca51bc9e037190",
+      "bytes": 2153
+    }
+  ],
+  "print_released": false,
+  "submitted": false
+}

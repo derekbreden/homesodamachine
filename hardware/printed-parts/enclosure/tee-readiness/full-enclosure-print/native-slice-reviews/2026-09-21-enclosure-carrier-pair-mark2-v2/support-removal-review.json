@@ -1,0 +1,1151 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff",
+  "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db",
+  "support_audit_sha256": "84ff5e5474e71a5437201e6186702afe82be8190b56259439a3872122f2184d0",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-left",
+      "support_summary": {
+        "support_bodies": 4,
+        "interface_islands": 10,
+        "bed_rooted_bodies": 4,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 3.84,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 10,
+        "shortest_labelled_build_up_mm": 3.84
+      },
+      "model_overhangs_review": "All actual support contacts are named for this exact fresh two-carrier slice. The closed spring bores have tangent teardrop roofs; no separate interior support island is emitted. The 0.90 mm backing lower edge is an exposed overhang rooted against the continuous 6 mm web, with no separate support island here; no fabricated support or local extrusion-width claim is made for it. The shelf/cheek bearing surfaces retain their full sections. Physical spring retention/feel and assembled rigidity remain full-enclosure trial outcomes.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 7.16,
+            "shortest_build_up_mm": 6.96,
+            "top_z_mm": 7.64,
+            "bbox_xy_mm": [
+              96.8,
+              96.0,
+              107.6,
+              110.0
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -136.89,
+              -107.5,
+              167.374,
+              -126.09,
+              -93.5,
+              174.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.5,
+              126.09,
+              167.374,
+              -93.5,
+              136.89,
+              174.814
+            ]
+          },
+          "contact_region": "Three-millimetre aft handhold wall flat underside at Z175.300.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 4.04,
+            "shortest_build_up_mm": 3.84,
+            "top_z_mm": 54.92,
+            "bbox_xy_mm": [
+              96.8,
+              146.4,
+              124.8,
+              224.0
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-8",
+              "interface-10"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -136.89,
+              -57.1,
+              167.374,
+              -108.89,
+              20.5,
+              222.094
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -57.1,
+              108.89,
+              167.374,
+              20.5,
+              136.89,
+              222.094
+            ]
+          },
+          "contact_region": "Full-height centre rail square lower end near Z172.174.; Structural shelf flat underside at Z209.075.; Broad upper overlap cheek underside at Z222.525.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 7.16,
+            "shortest_build_up_mm": 6.96,
+            "top_z_mm": 49.16,
+            "bbox_xy_mm": [
+              116.8,
+              92.0,
+              148.4,
+              126.4
+            ],
+            "interfaces": [
+              "interface-3",
+              "interface-4",
+              "interface-5",
+              "interface-7",
+              "interface-9"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -116.89,
+              -111.5,
+              167.374,
+              -85.29,
+              -77.1,
+              216.334
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -111.5,
+              85.29,
+              167.374,
+              -77.1,
+              116.89,
+              216.334
+            ]
+          },
+          "contact_region": "Solid handhold bar flat underside at Z175.300.; Fore retaining-rim flat lower shoulder near Z181.3.; Outer tee trough roof at X\u00b182.10 and Z207.724.; Broad outer-tee half-entry corner relief roof near Z207.674.; Fixed-cup clearance notch roof in the moving outer rim, near Z216.744.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 39.56,
+            "shortest_build_up_mm": 39.36,
+            "top_z_mm": 40.04,
+            "bbox_xy_mm": [
+              122.4,
+              174.8,
+              134.0,
+              187.2
+            ],
+            "interfaces": [
+              "interface-6"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -111.29,
+              -28.7,
+              167.374,
+              -99.69,
+              -16.3,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -28.7,
+              99.69,
+              167.374,
+              -16.3,
+              111.29,
+              207.214
+            ]
+          },
+          "contact_region": "Inner tee trough roof at X\u00b122.35 and Z207.724.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 4.04,
+            "last_z_mm": 4.52,
+            "bbox_xy_mm": [
+              120.0,
+              197.2,
+              124.8,
+              212.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 3.84,
+            "bbox_cad_xyz_mm": [
+              -113.69,
+              -6.3,
+              171.214,
+              -108.89,
+              8.9,
+              171.694
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -6.3,
+              108.89,
+              171.214,
+              8.9,
+              113.69,
+              171.694
+            ]
+          },
+          "contact_region": "Full-height centre rail square lower end near Z172.174.",
+          "reviewed": true,
+          "removal_lane": "Detach the short support at the rail foot from below before the rail enters its receiver.",
+          "removal_direction_original_cad": "\u2212Z through the open rail-foot underside.",
+          "preserved_working_face_reason": "Retain the full-height rail and square bearing shoulders.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 7.16,
+            "last_z_mm": 7.64,
+            "bbox_xy_mm": [
+              100.4,
+              99.6,
+              103.2,
+              108.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 6.96,
+            "bbox_cad_xyz_mm": [
+              -133.29,
+              -103.9,
+              174.334,
+              -130.49,
+              -94.7,
+              174.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.9,
+              130.49,
+              174.334,
+              -94.7,
+              133.29,
+              174.814
+            ]
+          },
+          "contact_region": "Three-millimetre aft handhold wall flat underside at Z175.300.",
+          "reviewed": true,
+          "removal_lane": "Detach and remove downward through the open finger space/underside before enclosure installation.",
+          "removal_direction_original_cad": "\u2212Z through the exposed lower opening.",
+          "preserved_working_face_reason": "Keep the full backed finger wall and its flat guide clearance.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 7.16,
+            "last_z_mm": 7.64,
+            "bbox_xy_mm": [
+              119.6,
+              96.0,
+              136.4,
+              110.8
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 6.96,
+            "bbox_cad_xyz_mm": [
+              -114.09,
+              -107.5,
+              174.334,
+              -97.29,
+              -92.7,
+              174.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.5,
+              97.29,
+              174.334,
+              -92.7,
+              114.09,
+              174.814
+            ]
+          },
+          "contact_region": "Solid handhold bar flat underside at Z175.300.",
+          "reviewed": true,
+          "removal_lane": "Detach from the flat underside and withdraw downward through the exposed bottom while the half is loose.",
+          "removal_direction_original_cad": "\u2212Z through the open underside.",
+          "preserved_working_face_reason": "Keep the substantial bar section and flat lower guide clearance.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 13.16,
+            "last_z_mm": 13.64,
+            "bbox_xy_mm": [
+              136.4,
+              98.4,
+              142.4,
+              103.2
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 12.96,
+            "bbox_cad_xyz_mm": [
+              -97.29,
+              -105.1,
+              180.334,
+              -91.29,
+              -100.3,
+              180.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -105.1,
+              91.29,
+              180.334,
+              -100.3,
+              97.29,
+              180.814
+            ]
+          },
+          "contact_region": "Fore retaining-rim flat lower shoulder near Z181.3.",
+          "reviewed": true,
+          "removal_lane": "Detach the short branch through the open fore side and remove it downward while the half is loose.",
+          "removal_direction_original_cad": "\u2212Y and \u2212Z through the exposed fore/lower side.",
+          "preserved_working_face_reason": "Keep the complete shoulder/retaining overlap and its structural stock.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 39.56,
+            "last_z_mm": 40.04,
+            "bbox_xy_mm": [
+              122.8,
+              116.4,
+              124.8,
+              126.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 39.36,
+            "bbox_cad_xyz_mm": [
+              -110.89,
+              -87.1,
+              206.734,
+              -108.89,
+              -77.1,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -87.1,
+              108.89,
+              206.734,
+              -77.1,
+              110.89,
+              207.214
+            ]
+          },
+          "contact_region": "Outer tee trough roof at X\u221282.10 and Z207.724.",
+          "reviewed": true,
+          "removal_lane": "Detach the branch from the trough roof and withdraw through the open fore trough or its open lower end before tee/tie installation.",
+          "removal_direction_original_cad": "\u2212Y through the fore trough, then \u2212Z if needed.",
+          "preserved_working_face_reason": "Keep the flat run-end clearance and full reinforced upper backing.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-6",
+            "first_z_mm": 39.56,
+            "last_z_mm": 40.04,
+            "bbox_xy_mm": [
+              122.8,
+              176.4,
+              124.8,
+              185.6
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 39.36,
+            "bbox_cad_xyz_mm": [
+              -110.89,
+              -27.1,
+              206.734,
+              -108.89,
+              -17.9,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -27.1,
+              108.89,
+              206.734,
+              -17.9,
+              110.89,
+              207.214
+            ]
+          },
+          "contact_region": "Inner tee trough roof at X\u221222.35 and Z207.724.",
+          "reviewed": true,
+          "removal_lane": "Detach the branch from the trough roof and withdraw through its open fore/lower end before tee/tie installation.",
+          "removal_direction_original_cad": "\u2212Y through the fore trough or \u2212Z through its lower end.",
+          "preserved_working_face_reason": "Keep the flat run-end clearance and full reinforced upper backing.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-7",
+            "first_z_mm": 39.56,
+            "last_z_mm": 40.04,
+            "bbox_xy_mm": [
+              126.8,
+              110.4,
+              135.2,
+              112.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 39.36,
+            "bbox_cad_xyz_mm": [
+              -106.89,
+              -93.1,
+              206.734,
+              -98.49,
+              -91.1,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -93.1,
+              98.49,
+              206.734,
+              -91.1,
+              106.89,
+              207.214
+            ]
+          },
+          "contact_region": "Broad outer-tee half-entry corner relief roof near Z207.674.",
+          "reviewed": true,
+          "removal_lane": "Detach the contact branch through the open fore/outboard corner before fitting the tee, ties or spring.",
+          "removal_direction_original_cad": "\u2212Y and \u2212X through the open corner.",
+          "preserved_working_face_reason": "Retain the declared entry air, grip backing, trough and broad web connection.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-8",
+            "first_z_mm": 41.0,
+            "last_z_mm": 41.48,
+            "bbox_xy_mm": [
+              97.6,
+              146.8,
+              119.6,
+              214.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 40.8,
+            "bbox_cad_xyz_mm": [
+              -136.09,
+              -56.7,
+              208.174,
+              -114.09,
+              10.9,
+              208.654
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -56.7,
+              114.09,
+              208.174,
+              10.9,
+              136.09,
+              208.654
+            ]
+          },
+          "contact_region": "Structural shelf flat underside at Z209.075.",
+          "reviewed": true,
+          "removal_lane": "Detach the broad contact branch from its stem and withdraw downward through the open underside while the half is loose.",
+          "removal_direction_original_cad": "\u2212Z through the exposed shelf underside.",
+          "preserved_working_face_reason": "Keep the full flat shelf bearing and broad X load path.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-9",
+            "first_z_mm": 48.68,
+            "last_z_mm": 49.16,
+            "bbox_xy_mm": [
+              136.0,
+              99.6,
+              141.2,
+              102.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 48.48,
+            "bbox_cad_xyz_mm": [
+              -97.69,
+              -103.9,
+              215.854,
+              -92.49,
+              -101.1,
+              216.334
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.9,
+              92.49,
+              215.854,
+              -101.1,
+              97.69,
+              216.334
+            ]
+          },
+          "contact_region": "Fixed-cup clearance notch roof in the moving outer rim, near Z216.744.",
+          "reviewed": true,
+          "removal_lane": "Detach through the openly cut fore notch and withdraw forward before the half is placed around the fixed cup.",
+          "removal_direction_original_cad": "\u2212Y through the open rim notch.",
+          "preserved_working_face_reason": "Preserve the full moving cup/floor and fixed-cup seating clearance.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-10",
+            "first_z_mm": 54.68,
+            "last_z_mm": 54.92,
+            "bbox_xy_mm": [
+              97.6,
+              178.4,
+              113.2,
+              224.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 54.48,
+            "bbox_cad_xyz_mm": [
+              -136.09,
+              -25.1,
+              221.854,
+              -120.49,
+              20.5,
+              222.094
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -25.1,
+              120.49,
+              221.854,
+              20.5,
+              136.09,
+              222.094
+            ]
+          },
+          "contact_region": "Broad upper overlap cheek underside at Z222.525.",
+          "reviewed": true,
+          "removal_lane": "Detach its branch from the lower stem and withdraw it through the free inboard end between the shelf and upper cheek, before joining the other half.",
+          "removal_direction_original_cad": "+X through the open inboard end.",
+          "preserved_working_face_reason": "Keep the cheek full thickness and flat bearing face above the structural shelf.",
+          "accessible_before_hardware": true
+        }
+      ]
+    },
+    {
+      "name": "enclosure-tee-carrier-right",
+      "support_summary": {
+        "support_bodies": 3,
+        "interface_islands": 11,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 6.96,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 11,
+        "shortest_labelled_build_up_mm": 6.96
+      },
+      "model_overhangs_review": "All actual support contacts are named for this exact fresh two-carrier slice. The closed spring bores have tangent teardrop roofs; no separate interior support island is emitted. The 0.90 mm backing lower edge is an exposed overhang rooted against the continuous 6 mm web, with no separate support island here; no fabricated support or local extrusion-width claim is made for it. The shelf/cheek bearing surfaces retain their full sections. The full broad retaining-wall native region is present and the exact native path reading is connected on all 37 expected layers, at maximum 0.24 mm layer spacing. This is emitted geometry/connectivity, not a solid-infill or physical stiffness assertion. Physical spring retention/feel and assembled rigidity remain full-enclosure trial outcomes.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 39.56,
+            "shortest_build_up_mm": 39.36,
+            "top_z_mm": 49.88,
+            "bbox_xy_mm": [
+              181.6,
+              93.6,
+              224.4,
+              176.0
+            ],
+            "interfaces": [
+              "interface-5",
+              "interface-7",
+              "interface-8",
+              "interface-9",
+              "interface-11"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -138.0,
+              -25.525,
+              167.374,
+              -95.2,
+              56.875,
+              217.054
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -25.525,
+              95.2,
+              167.374,
+              56.875,
+              138.0,
+              217.054
+            ]
+          },
+          "contact_region": "Inner tee trough roof at X\u00b122.35 and Z207.724.; Structural shelf flat underside at Z209.075.; Broad integral retaining wall and root flat underside near Z211.000.; Upper overlap shelf mating underside at Z215.800.; Upper receiver rail-pocket roof behind the fore lip near Z217.575.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. The receiver roof branch uses the linked fresh continuous down-then-fore proof. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 7.16,
+            "shortest_build_up_mm": 6.96,
+            "top_z_mm": 7.64,
+            "bbox_xy_mm": [
+              182.4,
+              212.4,
+              193.6,
+              226.0
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -137.2,
+              93.275,
+              167.374,
+              -126.0,
+              106.875,
+              174.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.275,
+              126.0,
+              167.374,
+              106.875,
+              137.2,
+              174.814
+            ]
+          },
+          "contact_region": "Three-millimetre aft handhold wall flat underside at Z175.300.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 7.16,
+            "shortest_build_up_mm": 6.96,
+            "top_z_mm": 49.16,
+            "bbox_xy_mm": [
+              202.0,
+              196.4,
+              234.4,
+              230.0
+            ],
+            "interfaces": [
+              "interface-2",
+              "interface-3",
+              "interface-4",
+              "interface-6",
+              "interface-10"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -117.6,
+              77.275,
+              167.374,
+              -85.2,
+              110.875,
+              216.334
+            ],
+            "bbox_original_cad_xyz_mm": [
+              77.275,
+              85.2,
+              167.374,
+              110.875,
+              117.6,
+              216.334
+            ]
+          },
+          "contact_region": "Solid handhold bar flat underside at Z175.300.; Fore retaining-rim flat lower shoulder near Z181.3.; Outer tee trough roof at X\u00b182.10 and Z207.724.; Broad outer-tee half-entry corner relief roof near Z207.674.; Fixed-cup clearance notch roof in the moving outer rim, near Z216.744.",
+          "removal_lane": "Detach the listed contact branches while this half is loose, before joining halves or installing tees, ties and springs. Each interface row states its own open route; remove the exposed bed stems separately. No whole connected tree extraction is assumed.",
+          "removal_direction_original_cad": "Use the per-interface directions; branch detachment precedes withdrawal.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Every structural shelf, guide, rail, retaining face and cup retains its exact current geometry; cleanup uses the already open paths.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 7.16,
+            "last_z_mm": 7.64,
+            "bbox_xy_mm": [
+              186.4,
+              214.0,
+              189.2,
+              223.2
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 6.96,
+            "bbox_cad_xyz_mm": [
+              -133.2,
+              94.875,
+              174.334,
+              -130.4,
+              104.075,
+              174.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              94.875,
+              130.4,
+              174.334,
+              104.075,
+              133.2,
+              174.814
+            ]
+          },
+          "contact_region": "Three-millimetre aft handhold wall flat underside at Z175.300.",
+          "reviewed": true,
+          "removal_lane": "Detach and remove downward through the open finger space/underside before enclosure installation.",
+          "removal_direction_original_cad": "\u2212Z through the exposed lower opening.",
+          "preserved_working_face_reason": "Keep the full backed finger wall and its flat guide clearance.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 7.16,
+            "last_z_mm": 7.64,
+            "bbox_xy_mm": [
+              205.2,
+              212.0,
+              222.0,
+              226.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 6.96,
+            "bbox_cad_xyz_mm": [
+              -114.4,
+              92.875,
+              174.334,
+              -97.6,
+              107.275,
+              174.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              92.875,
+              97.6,
+              174.334,
+              107.275,
+              114.4,
+              174.814
+            ]
+          },
+          "contact_region": "Solid handhold bar flat underside at Z175.300.",
+          "reviewed": true,
+          "removal_lane": "Detach from the flat underside and withdraw downward through the exposed bottom while the half is loose.",
+          "removal_direction_original_cad": "\u2212Z through the open underside.",
+          "preserved_working_face_reason": "Keep the substantial bar section and flat lower guide clearance.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 13.16,
+            "last_z_mm": 13.64,
+            "bbox_xy_mm": [
+              222.0,
+              219.6,
+              228.4,
+              224.0
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 12.96,
+            "bbox_cad_xyz_mm": [
+              -97.6,
+              100.475,
+              180.334,
+              -91.2,
+              104.875,
+              180.814
+            ],
+            "bbox_original_cad_xyz_mm": [
+              100.475,
+              91.2,
+              180.334,
+              104.875,
+              97.6,
+              180.814
+            ]
+          },
+          "contact_region": "Fore retaining-rim flat lower shoulder near Z181.3.",
+          "reviewed": true,
+          "removal_lane": "Detach the short branch through the open fore side and remove it downward while the half is loose.",
+          "removal_direction_original_cad": "\u2212Y and \u2212Z through the exposed fore/lower side.",
+          "preserved_working_face_reason": "Keep the complete shoulder/retaining overlap and its structural stock.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 39.56,
+            "last_z_mm": 40.04,
+            "bbox_xy_mm": [
+              208.4,
+              196.4,
+              210.8,
+              206.0
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 39.36,
+            "bbox_cad_xyz_mm": [
+              -111.2,
+              77.275,
+              206.734,
+              -108.8,
+              86.875,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              77.275,
+              108.8,
+              206.734,
+              86.875,
+              111.2,
+              207.214
+            ]
+          },
+          "contact_region": "Outer tee trough roof at X+82.10 and Z207.724.",
+          "reviewed": true,
+          "removal_lane": "Detach the branch from the trough roof and withdraw through the open fore trough or its open lower end before tee/tie installation.",
+          "removal_direction_original_cad": "\u2212Y through the fore trough, then \u2212Z if needed.",
+          "preserved_working_face_reason": "Keep the flat run-end clearance and full reinforced upper backing.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 39.56,
+            "last_z_mm": 40.04,
+            "bbox_xy_mm": [
+              208.8,
+              136.8,
+              210.8,
+              146.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 39.36,
+            "bbox_cad_xyz_mm": [
+              -110.8,
+              17.675,
+              206.734,
+              -108.8,
+              27.275,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              17.675,
+              108.8,
+              206.734,
+              27.275,
+              110.8,
+              207.214
+            ]
+          },
+          "contact_region": "Inner tee trough roof at X+22.35 and Z207.724.",
+          "reviewed": true,
+          "removal_lane": "Detach the branch from the trough roof and withdraw through its open fore/lower end before tee/tie installation.",
+          "removal_direction_original_cad": "\u2212Y through the fore trough or \u2212Z through its lower end.",
+          "preserved_working_face_reason": "Keep the flat run-end clearance and full reinforced upper backing.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-6",
+            "first_z_mm": 39.56,
+            "last_z_mm": 40.04,
+            "bbox_xy_mm": [
+              212.8,
+              210.4,
+              221.2,
+              212.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 39.36,
+            "bbox_cad_xyz_mm": [
+              -106.8,
+              91.275,
+              206.734,
+              -98.4,
+              93.275,
+              207.214
+            ],
+            "bbox_original_cad_xyz_mm": [
+              91.275,
+              98.4,
+              206.734,
+              93.275,
+              106.8,
+              207.214
+            ]
+          },
+          "contact_region": "Broad outer-tee half-entry corner relief roof near Z207.674.",
+          "reviewed": true,
+          "removal_lane": "Detach the contact branch through the open fore/outboard corner before fitting the tee, ties or spring.",
+          "removal_direction_original_cad": "\u2212Y and +X through the open corner.",
+          "preserved_working_face_reason": "Retain the declared entry air, grip backing, trough and broad web connection.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-7",
+            "first_z_mm": 41.0,
+            "last_z_mm": 41.48,
+            "bbox_xy_mm": [
+              186.4,
+              145.6,
+              203.6,
+              176.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 40.8,
+            "bbox_cad_xyz_mm": [
+              -133.2,
+              26.475,
+              208.174,
+              -116.0,
+              56.875,
+              208.654
+            ],
+            "bbox_original_cad_xyz_mm": [
+              26.475,
+              116.0,
+              208.174,
+              56.875,
+              133.2,
+              208.654
+            ]
+          },
+          "contact_region": "Structural shelf flat underside at Z209.075.",
+          "reviewed": true,
+          "removal_lane": "Detach the broad contact branch from its stem and withdraw downward through the open underside while the half is loose.",
+          "removal_direction_original_cad": "\u2212Z through the exposed shelf underside.",
+          "preserved_working_face_reason": "Keep the full flat shelf bearing and broad X load path.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-8",
+            "first_z_mm": 42.92,
+            "last_z_mm": 43.4,
+            "bbox_xy_mm": [
+              181.6,
+              93.6,
+              186.8,
+              151.2
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 42.72,
+            "bbox_cad_xyz_mm": [
+              -138.0,
+              -25.525,
+              210.094,
+              -132.8,
+              32.075,
+              210.574
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -25.525,
+              132.8,
+              210.094,
+              32.075,
+              138.0,
+              210.574
+            ]
+          },
+          "contact_region": "Broad integral retaining wall and root flat underside near Z211.000.",
+          "reviewed": true,
+          "removal_lane": "Detach its contact branch from the bed tree and withdraw downward while the halves are separate. The mating stop is absent from this cleanup route.",
+          "removal_direction_original_cad": "\u2212Z through the open underside.",
+          "preserved_working_face_reason": "Retain the full wall, root and shoulder. Emitted connectivity is checked separately; physical force and stiffness remain trial observations.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-9",
+            "first_z_mm": 47.72,
+            "last_z_mm": 48.2,
+            "bbox_xy_mm": [
+              187.2,
+              97.2,
+              211.6,
+              144.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 47.52,
+            "bbox_cad_xyz_mm": [
+              -132.4,
+              -21.925,
+              214.894,
+              -108.0,
+              25.275,
+              215.374
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -21.925,
+              108.0,
+              214.894,
+              25.275,
+              132.4,
+              215.374
+            ]
+          },
+          "contact_region": "Upper overlap shelf mating underside at Z215.800.",
+          "reviewed": true,
+          "removal_lane": "Detach the branch from its stem and withdraw through the free inboard edge before the left shelf is joined.",
+          "removal_direction_original_cad": "\u2212X through the open inboard end.",
+          "preserved_working_face_reason": "Retain the broad flat 31.85 mm X overlap and complete shelf stock.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-10",
+            "first_z_mm": 48.68,
+            "last_z_mm": 49.16,
+            "bbox_xy_mm": [
+              222.4,
+              220.4,
+              227.2,
+              223.2
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 48.48,
+            "bbox_cad_xyz_mm": [
+              -97.2,
+              101.275,
+              215.854,
+              -92.4,
+              104.075,
+              216.334
+            ],
+            "bbox_original_cad_xyz_mm": [
+              101.275,
+              92.4,
+              215.854,
+              104.075,
+              97.2,
+              216.334
+            ]
+          },
+          "contact_region": "Fixed-cup clearance notch roof in the moving outer rim, near Z216.744.",
+          "reviewed": true,
+          "removal_lane": "Detach through the openly cut fore notch and withdraw forward before the half is placed around the fixed cup.",
+          "removal_direction_original_cad": "\u2212Y through the open rim notch.",
+          "preserved_working_face_reason": "Preserve the full moving cup/floor and fixed-cup seating clearance.",
+          "accessible_before_hardware": true
+        },
+        {
+          "measurement": {
+            "id": "interface-11",
+            "first_z_mm": 49.64,
+            "last_z_mm": 49.88,
+            "bbox_xy_mm": [
+              207.6,
+              113.2,
+              211.2,
+              131.2
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 49.44,
+            "bbox_cad_xyz_mm": [
+              -112.0,
+              -5.925,
+              216.814,
+              -108.4,
+              12.075,
+              217.054
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -5.925,
+              108.4,
+              216.814,
+              12.075,
+              112.0,
+              217.054
+            ]
+          },
+          "contact_region": "Upper receiver rail-pocket roof behind the fore lip near Z217.575.",
+          "reviewed": true,
+          "removal_lane": "Use the exact fresh native proof: detach the short roof branch through the broad shelf-entry opening, free its rear-wall contact by moving 0.05 mm fore, lower 2 mm into the opening, then withdraw 6 mm fore. All six continuous/access native checks have zero overlap, with a further 0.02 mm XY envelope after release. This is a detached branch, not an intact-tree pull.",
+          "removal_direction_original_cad": "0.05 mm \u2212Y, then 2 mm \u2212Z, then 6 mm \u2212Y.",
+          "preserved_working_face_reason": "Keep the full rail receiver, flat pocket roof and fore retention lip; physical detachment force is unmeasured.",
+          "accessible_before_hardware": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 09:27:59.961049] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:28:01.587566] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:28:01.587582] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "All three diagnostics name profile-authored control codes: T1001 in startup hotend-type detection, and T65535/T65279 in end-code control/unload blocks. Their exact inherited profile mapping is retained; native slicing returns0 with an empty plate warning and the intended filament/nozzle mapping. There is no additional diagnostic in this pair slice.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "additional_support_access_evidence": [
+    {
+      "id": "fresh-carrier-receiver-branch",
+      "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/support-evidence/receiver-access.json",
+      "sha256": "1e5a103e91dbc4c7e8caf90eac8fa13ed721bcc1cf8f14889fe126a8af2b2c75",
+      "status": "pass",
+      "scope": "One loose right carrier and one detached receiver-roof support branch; no mechanism geometry change or physical cleanup measurement.",
+      "native_archive_sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff",
+      "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db"
+    }
+  ],
+  "review_scope": "Only the exact carrier-pair v2 archive. All seven raw tree rows and 21 interface rows retain their measured roots/build-ups/bounds. Receiver cleanup uses this slice\u2019s own 882 buffered roads, not a prior support layout; the native proof has zero source drift."
+}

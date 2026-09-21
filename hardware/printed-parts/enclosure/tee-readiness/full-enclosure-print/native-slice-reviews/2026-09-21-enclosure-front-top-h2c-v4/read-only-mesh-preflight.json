@@ -1,0 +1,409 @@
+{
+  "status": "model_layouts_pass_read_only",
+  "geometry_staged": false,
+  "native_sliced": false,
+  "receipt_qualified": false,
+  "limitation": "Model bounds only. Wait for full chain/publication/receipt; actual support and brim roads remain unknown.",
+  "jobs": [
+    {
+      "jobdir": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4",
+      "job": "front-top",
+      "objects": [
+        {
+          "name": "enclosure-front-top",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "source_stl_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+          "triangles": 557640,
+          "original_bounds_mm": [
+            [
+              -107.5,
+              5.0,
+              160.0
+            ],
+            [
+              107.5,
+              212.5500030517578,
+              355.0
+            ]
+          ],
+          "oriented_extents_mm": [
+            207.5500030517578,
+            215.0,
+            195.0
+          ],
+          "center_xy_mm": [
+            138.275,
+            156.7635
+          ],
+          "model_bounds_xy_mm": [
+            [
+              34.4999984741211,
+              49.26349999999999
+            ],
+            [
+              242.0500015258789,
+              264.2635
+            ]
+          ],
+          "minimum_model_border_mm": 34.4999984741211,
+          "model_border_pass": true
+        },
+        {
+          "name": "carrier-spring-pusher",
+          "source": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+          "source_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+          "triangles": 1068,
+          "original_bounds_mm": [
+            [
+              -10.0,
+              -3.149979591369629,
+              0.0
+            ],
+            [
+              3.1498429775238037,
+              3.149979591369629,
+              2.0
+            ]
+          ],
+          "oriented_extents_mm": [
+            13.149842977523804,
+            6.299959182739258,
+            2.0
+          ],
+          "center_xy_mm": [
+            296.5,
+            157.375
+          ],
+          "model_bounds_xy_mm": [
+            [
+              289.9250785112381,
+              154.22502040863037
+            ],
+            [
+              303.0749214887619,
+              160.52497959136963
+            ]
+          ],
+          "minimum_model_border_mm": 21.925078511238098,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 21.925078511238098
+    },
+    {
+      "jobdir": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2",
+      "job": "front-bottom",
+      "objects": [
+        {
+          "name": "enclosure-front-bottom",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+          "source_stl_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+          "triangles": 272394,
+          "original_bounds_mm": [
+            [
+              -107.5,
+              5.0,
+              -6.0
+            ],
+            [
+              107.5,
+              212.5500030517578,
+              174.8000030517578
+            ]
+          ],
+          "oriented_extents_mm": [
+            215.0,
+            207.5500030517578,
+            180.8000030517578
+          ],
+          "center_xy_mm": [
+            162.5,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              55.0,
+              56.224998474121094
+            ],
+            [
+              270.0,
+              263.7750015258789
+            ]
+          ],
+          "minimum_model_border_mm": 55.0,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 55.0
+    },
+    {
+      "jobdir": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2",
+      "job": "back-bottom",
+      "objects": [
+        {
+          "name": "enclosure-back-bottom",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+          "source_stl_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+          "triangles": 1291828,
+          "original_bounds_mm": [
+            [
+              -107.5,
+              200.0,
+              -6.0
+            ],
+            [
+              107.5,
+              471.8999938964844,
+              174.8000030517578
+            ]
+          ],
+          "oriented_extents_mm": [
+            215.0,
+            271.8999938964844,
+            180.8000030517578
+          ],
+          "center_xy_mm": [
+            162.5,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              55.0,
+              24.050003051757812
+            ],
+            [
+              270.0,
+              295.9499969482422
+            ]
+          ],
+          "minimum_model_border_mm": 24.050003051757812,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 24.050003051757812
+    },
+    {
+      "jobdir": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2",
+      "job": "back-top",
+      "objects": [
+        {
+          "name": "enclosure-back-top",
+          "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+          "source_stl_sha256": "e606cf8aa5aa99411c8d2494da9de47f59d0955a7726c8399b0c3b06d96d8f37",
+          "triangles": 1124752,
+          "original_bounds_mm": [
+            [
+              -107.5,
+              200.0,
+              160.0
+            ],
+            [
+              107.5,
+              471.29998779296875,
+              355.0
+            ]
+          ],
+          "oriented_extents_mm": [
+            215.0,
+            271.29998779296875,
+            195.0
+          ],
+          "center_xy_mm": [
+            162.5,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              55.0,
+              24.350006103515625
+            ],
+            [
+              270.0,
+              295.6499938964844
+            ]
+          ],
+          "minimum_model_border_mm": 24.350006103515625,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 24.350006103515625
+    },
+    {
+      "jobdir": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2",
+      "job": "carrier-pair",
+      "objects": [
+        {
+          "name": "enclosure-tee-carrier-left",
+          "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+          "source_stl_sha256": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c",
+          "triangles": 5034,
+          "original_bounds_mm": [
+            [
+              -107.5,
+              92.29000091552734,
+              167.1739959716797
+            ],
+            [
+              20.5,
+              136.0,
+              229.11900329589844
+            ]
+          ],
+          "oriented_extents_mm": [
+            43.709999084472656,
+            128.0,
+            61.94500732421875
+          ],
+          "center_xy_mm": [
+            119.54500198364258,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              97.69000244140625,
+              96.0
+            ],
+            [
+              141.4000015258789,
+              224.0
+            ]
+          ],
+          "minimum_model_border_mm": 96.0,
+          "model_border_pass": true
+        },
+        {
+          "name": "enclosure-tee-carrier-right",
+          "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+          "source_stl_sha256": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4",
+          "triangles": 4934,
+          "original_bounds_mm": [
+            [
+              -25.75,
+              92.29000091552734,
+              167.1739959716797
+            ],
+            [
+              107.5,
+              138.1999969482422,
+              229.11900329589844
+            ]
+          ],
+          "oriented_extents_mm": [
+            45.909996032714844,
+            133.25,
+            61.94500732421875
+          ],
+          "center_xy_mm": [
+            204.35499954223633,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              181.4000015258789,
+              93.375
+            ],
+            [
+              227.30999755859375,
+              226.625
+            ]
+          ],
+          "minimum_model_border_mm": 93.375,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 93.375
+    },
+    {
+      "jobdir": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2",
+      "job": "foam-cap-top",
+      "objects": [
+        {
+          "name": "foam-cap-top",
+          "source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+          "source_stl_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+          "triangles": 196166,
+          "original_bounds_mm": [
+            [
+              -141.5,
+              -90.5,
+              0.0
+            ],
+            [
+              141.5,
+              90.5,
+              14.600000381469727
+            ]
+          ],
+          "oriented_extents_mm": [
+            283.0,
+            181.0,
+            14.600000381469727
+          ],
+          "center_xy_mm": [
+            162.5,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              21.0,
+              69.5
+            ],
+            [
+              304.0,
+              250.5
+            ]
+          ],
+          "minimum_model_border_mm": 21.0,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 21.0
+    },
+    {
+      "jobdir": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2",
+      "job": "foam-cap-lid-top",
+      "objects": [
+        {
+          "name": "foam-cap-lid-top",
+          "source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+          "source_stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+          "triangles": 72176,
+          "original_bounds_mm": [
+            [
+              -141.5,
+              -90.5,
+              0.0
+            ],
+            [
+              141.5,
+              90.5,
+              57.775001525878906
+            ]
+          ],
+          "oriented_extents_mm": [
+            283.0,
+            181.0,
+            57.775001525878906
+          ],
+          "center_xy_mm": [
+            162.5,
+            160.0
+          ],
+          "model_bounds_xy_mm": [
+            [
+              21.0,
+              69.5
+            ],
+            [
+              304.0,
+              250.5
+            ]
+          ],
+          "minimum_model_border_mm": 21.0,
+          "model_border_pass": true
+        }
+      ],
+      "minimum_model_border_mm": 21.0
+    }
+  ]
+}

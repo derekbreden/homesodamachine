@@ -1,0 +1,61 @@
+Reading supports: enclosure-tee-carrier-left
+  enclosure-tee-carrier-left: {'support_bodies': 4, 'interface_islands': 10, 'bed_rooted_bodies': 4, 'model_rooted_bodies': 0, 'shortest_build_up_mm': 3.84, 'bodies_without_interface_labels': 0, 'explicit_interface_islands': 10, 'shortest_labelled_build_up_mm': 3.84}
+Reading supports: enclosure-tee-carrier-right
+  enclosure-tee-carrier-right: {'support_bodies': 3, 'interface_islands': 11, 'bed_rooted_bodies': 3, 'model_rooted_bodies': 0, 'shortest_build_up_mm': 6.96, 'bodies_without_interface_labels': 0, 'explicit_interface_islands': 11, 'shortest_labelled_build_up_mm': 6.96}
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+  "layers": 258,
+  "estimated_seconds": 13357.66015625,
+  "estimated_grams_saved_profile_density": 101.80787658691406,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-tee-carrier-left",
+        "side_margins_mm": [
+          96.301,
+          91.46600000000001,
+          176.269,
+          95.4
+        ],
+        "minimum_margin_mm": 91.46600000000001
+      },
+      {
+        "piece": "enclosure-tee-carrier-right",
+        "side_margins_mm": [
+          181.018,
+          92.99300000000001,
+          90.363,
+          89.482
+        ],
+        "minimum_margin_mm": 89.482
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 89.482,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-tee-carrier-left",
+          "enclosure-tee-carrier-right"
+        ],
+        "projected_extrusion_box_gap_mm": 32.287000000000006,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 32.287000000000006,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

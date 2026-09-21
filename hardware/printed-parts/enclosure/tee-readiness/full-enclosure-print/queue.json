@@ -1,11 +1,14 @@
 {
   "schema": 2,
   "updated_date": "2026-09-21",
-  "status": "geometry_verified_awaiting_fresh_receipt_and_native_reviews",
+  "status": "offline_ready_awaiting_machine_handoffs",
   "scope": "Four fresh full shell quadrants, complete carrier pair and reusable assembly pusher, plus both matching G Ganen cold-core mounting parts.",
   "all_shell_quadrants_fresh": true,
   "additional_test_coupons_required": false,
-  "geometry_confirmation": null,
+  "geometry_confirmation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+    "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+  },
   "print_released": false,
   "release_scope": "These fields apply to the seven unsubmitted jobs; running jobs have their own immutable launch records.",
   "running_jobs": [
@@ -25,14 +28,14 @@
       "launch_observed_at": "2026-09-21T07:47:46.755410+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "/tmp/scanner-review/printer-status-1343.json",
-        "record_sha256": "12f5d1aaabb90cf8240e47f8e1ac291313b0fc6bf87f5e66cd41499b76e3018d",
-        "observed_at": "2026-09-21T13:43:23.192158+00:00",
+        "record": "/tmp/scanner-review/printer-status-1449.json",
+        "record_sha256": "30467927122d85368c26fc33e8619caac63414070e4a9bace7fad4c8e8c4b7ef",
+        "observed_at": "2026-09-21T14:49:32.201757+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 58,
-        "layer_num": 203,
+        "mc_percent": 69,
+        "layer_num": 253,
         "total_layer_num": 496,
-        "mc_remaining_time": 255,
+        "mc_remaining_time": 187,
         "print_error": 0,
         "hms": [],
         "time_units": "mc_remaining_time is the printer estimate in minutes"
@@ -47,14 +50,14 @@
       "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
       "available_for_enclosure": false,
       "latest_observation": {
-        "record": "/tmp/scanner-review/printer-status-1343.json",
-        "record_sha256": "12f5d1aaabb90cf8240e47f8e1ac291313b0fc6bf87f5e66cd41499b76e3018d",
-        "observed_at": "2026-09-21T13:43:24.036245+00:00",
+        "record": "/tmp/scanner-review/printer-status-1449.json",
+        "record_sha256": "30467927122d85368c26fc33e8619caac63414070e4a9bace7fad4c8e8c4b7ef",
+        "observed_at": "2026-09-21T14:49:31.478998+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 37,
-        "layer_num": 46,
+        "mc_percent": 44,
+        "layer_num": 50,
         "total_layer_num": 917,
-        "mc_remaining_time": 611,
+        "mc_remaining_time": 544,
         "print_error": 0,
         "hms": [],
         "time_units": "mc_remaining_time is the printer estimate in minutes"
@@ -74,14 +77,77 @@
       "orientation": "Native +Z up; shell rotated Z90; pusher flat",
       "requested_z_trim_mm": 0.18,
       "effective_textured_z_trim_mm": 0.16,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.3mf",
+        "sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+        "sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+        "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+        "sha256": "e7eed1d88c3b3b3623503cb32ebdaa37e69398908f451ac30f97d14f812de225",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/offline-review.json",
+        "sha256": "b8a917de0e3cf63fa234b0e51160846089cf7b2e24ecf512814a7951460df83a"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/native-handoff.json",
+        "sha256": "71422609da67f81d06111edc48366ecc3383fc979a79714bd3d6c1c064a2af03"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-top-h2c-v4/manifest.json",
+        "sha256": "a3dd84170e715f9af4ffa56de28aeb78ff9900e164966160fd2e34bbed6e0987"
+      },
+      "slice_estimate": {
+        "layers": 813,
+        "seconds": 87476.1328125,
+        "hours": 24.29892578125,
+        "grams_saved_profile_density": 814.6126708984375,
+        "grams_actual_petgf_density_1p43": 903.0202475850896,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/preparation.json",
+        "sha256": "25f880aa6ea567f9404b14c8daa66cf81b39e576f29cda3154c767abb43e51c8"
+      },
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 14.196,
+        "support_bodies": 5,
+        "explicit_interfaces": 21
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 903.0202475850896,
+        "latest_coordination": "Coordinating task asked Derek about available black PET-GF and suggested a fresh spool when clearing the current H2C plate; response pending."
+      },
+      "open_review_items": [],
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "H2C"
     },
     {
       "id": "front-bottom",
@@ -94,14 +160,76 @@
       "orientation": "Native +Z up; centered",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/enclosure-front-bottom-black-z004-mark2-v2-input.3mf",
+        "sha256": "ada5a4f153dea2a8fb1c7d9052434ef0ffed3f182823d3b1584efb7868ae96cf"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+        "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/support-removal-review.json",
+        "sha256": "57058d45e474ad5056693917f7f8b870b49c53d92e6d5f60689f1db4df144f28",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/offline-review.json",
+        "sha256": "4c13e50df276fa9dd950c850c66dc2b27c8c3276a727489bf66c09a561d4c513"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/native-handoff.json",
+        "sha256": "981ca79639b5660580d86149d9a4f876d2e130b98e6615aab9e3698c14f0fb00"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json",
+        "sha256": "4822534da2413c7e956a5e1ce578b6b2b856adf045ccdf401e957f2dffd05e73"
+      },
+      "slice_estimate": {
+        "layers": 754,
+        "seconds": 62806.21875,
+        "hours": 17.446171875,
+        "grams_saved_profile_density": 560.4407958984375,
+        "grams_actual_petgf_density_1p43": 621.2638280114462,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/preparation.json",
+        "sha256": "ba58c5d0f5bd0dc08963ab2ce8797ab6a25764e9ca9d614dca41ebe742a553a7"
+      },
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 54.61699999999996,
+        "support_bodies": 4,
+        "explicit_interfaces": 4
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 621.2638280114462
+      },
+      "open_review_items": [],
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "Mark2"
     },
     {
       "id": "back-bottom",
@@ -114,14 +242,76 @@
       "orientation": "Native +Z up; centered",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/enclosure-back-bottom-black-z004-mark2-v2-input.3mf",
+        "sha256": "a0e5adebd7ee9805d02b5b01f77f94ba99a12df45037741b7c955b81395f2b0e"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/enclosure-back-bottom-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "4c68142fd791fc922eba261b27834041be5f8cbeb3d92d11b7e1362975bfbe07",
+        "gcode_sha256": "3ef93d482b3bba7c4565109b3dfb86c8e3de1fbaa49c0766256a71b56bc95a6d"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/support-removal-review.json",
+        "sha256": "d1ae352b64c3ceda0d8689494e1a2300dad2bf88b2c4cd2b688d75cbf1e6735f",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/offline-review.json",
+        "sha256": "39ca02207abf238f35891a5b82abe7ebdd9b9fecbb970fcf398b101619de6818"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/native-handoff.json",
+        "sha256": "ba06e3b39d449c6bfd06ca171807a4266bfa87664a6c89a82473141cb1e09bd3"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json",
+        "sha256": "141bfb05c015499b0b511ec30cc738123a549bb1f27b5e4bac9176f7ab89fb66"
+      },
+      "slice_estimate": {
+        "layers": 754,
+        "seconds": 64719.6015625,
+        "hours": 17.977667100694443,
+        "grams_saved_profile_density": 639.99560546875,
+        "grams_actual_petgf_density_1p43": 709.4524928839631,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/preparation.json",
+        "sha256": "8d8b2bddb1bfe3be0cc83e7866061aae84d3006d2cd6bea833cfc2253f0b5478"
+      },
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 17.215,
+        "support_bodies": 5,
+        "explicit_interfaces": 5
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 709.4524928839631
+      },
+      "open_review_items": [],
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "Mark2"
     },
     {
       "id": "back-top",
@@ -134,14 +324,76 @@
       "orientation": "X180; ceiling down; centered",
       "requested_z_trim_mm": 0.18,
       "effective_textured_z_trim_mm": 0.16,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.3mf",
+        "sha256": "7d827c4982a34ece1ced6bf9046f359d02db31c6f2a9e226537379a3e9c81ab0"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+        "sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+        "gcode_sha256": "eab7b3a8dbd6573296a8f1dcf1de5bcad5ce5ab77c27ef68f7ab6ff73e0337db"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-removal-review.json",
+        "sha256": "9037f811804e679a057c8170e81df8f85d23ff594efae1fcca9b530910cde803",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/offline-review.json",
+        "sha256": "28ca3c4c2eed4d85f70763dbd33c7cc0d18c2ad53329d74a243da4b3402643c6"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/native-handoff.json",
+        "sha256": "e5cc72f914d655a296bfafd20d3bc3d1a6aee3500cb2587e3a59970533dc2f19"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-top-h2c-v2/manifest.json",
+        "sha256": "e897552680e5bcc3b2277e8b7c8dd57da3142297f24e2a4fc6ae7068e56556f3"
+      },
+      "slice_estimate": {
+        "layers": 813,
+        "seconds": 100238.8671875,
+        "hours": 27.844129774305557,
+        "grams_saved_profile_density": 867.9348754882812,
+        "grams_actual_petgf_density_1p43": 962.1293580994125,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/preparation.json",
+        "sha256": "f19175ffa4117df5d5ef676244d980c4485c8b174fc0d413b4cfbd199ea84a3e"
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 962.1293580994125
+      },
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 4.718,
+        "support_bodies": 11,
+        "explicit_interfaces": 38
+      },
+      "open_review_items": [],
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "H2C"
     },
     {
       "id": "carrier-pair",
@@ -155,54 +407,323 @@
       "orientation": "Native +Z up; Z90; 40 mm model gap",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/enclosure-carrier-pair-black-z004-mark2-v2-input.3mf",
+        "sha256": "6766096e5ca837f8174c32bbdf85b0431760e6a3343628de856bacf5e38fa645"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff",
+        "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/support-removal-review.json",
+        "sha256": "efb9776a2e511ca670aa34930ce08f849f975fde6387c74c7123f2214cc25265",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/offline-review.json",
+        "sha256": "98010c3b509fd112ea728112989a598b18c118f1b41cc8416aea83ba9a7c0700"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/native-handoff.json",
+        "sha256": "b302f86616192bda7d84a7fa12e45a7e3c33acf00ef5efa91202a225d3d75071"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-carrier-pair-mark2-v2/manifest.json",
+        "sha256": "4534a302104137e8d12788d62c5f8eb405e163e98f4990a99acc63a72fe9db7c"
+      },
+      "slice_estimate": {
+        "layers": 258,
+        "seconds": 13357.66015625,
+        "hours": 3.710461154513889,
+        "grams_saved_profile_density": 101.80787658691406,
+        "grams_actual_petgf_density_1p43": 112.85679342580396,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 112.85679342580396
+      },
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/preparation.json",
+        "sha256": "98147329ce66e1d381c3b2027dc8f8823f02b4d651660c6b897018ebd098de52"
+      },
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 89.482,
+        "support_bodies": 7,
+        "explicit_interfaces": 21
+      },
+      "open_review_items": [],
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "Mark2"
     },
     {
       "id": "foam-cap-top",
-      "directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2",
-      "config": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/job-config.json",
-      "printer": "H2C",
+      "directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1",
+      "config": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/job-config.json",
+      "printer": "Mark2",
       "parts": [
         "foam-cap-top"
       ],
       "orientation": "Native +Z up; flat Z0 underside on bed; centered",
-      "requested_z_trim_mm": 0.18,
-      "effective_textured_z_trim_mm": 0.16,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/g-ganen-foam-cap-top-black-z004-mark2-v1-input.3mf",
+        "sha256": "97a33f65f8a56473f39b2fca3dcc3851c16a329fe62aea97829a0bc1e09cf35a"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/ready/g-ganen-foam-cap-top-black-z004-mark2-v1.gcode.3mf",
+        "sha256": "2e57cae3a9eed67fc85469b00820581860754216f22158c2f1bb671e5ec6798c",
+        "gcode_sha256": "2052371f8412b76c3057eb160866dc6899a8f6c5c847a51640d05aebfb4bc0b5"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/support-removal-review.json",
+        "sha256": "ab0231143dcfaf74d8db717707927a74fa815f1e1d841813b898631e9f6d5ce7",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/offline-review.json",
+        "sha256": "7db921f0a0efd432ce11c728160b1910867f1ca8dcf3b82e4815c902f669de3f"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/native-handoff.json",
+        "sha256": "ebbb62b235db84d1c7b8e3820f7a1e10e6c141408fafa50b43a8b5f945b67af9"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-top-mark2-v1/manifest.json",
+        "sha256": "be66c84f33607b1825e0afde5510922fff7cbe24b983dd59b798ba20eb7412e4"
+      },
+      "slice_estimate": {
+        "layers": 61,
+        "seconds": 18595.923828125,
+        "hours": 5.165534396701389,
+        "grams_saved_profile_density": 164.7452850341797,
+        "grams_actual_petgf_density_1p43": 182.62461829370304,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 182.62461829370304
+      },
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/preparation.json",
+        "sha256": "baa1272f35e70e5a860fd7b1c4efcf3984f0fd724775a7bef83a756e7a832af0"
+      },
+      "open_review_items": [],
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 20.899999999999977,
+        "support_bodies": 0,
+        "explicit_interfaces": 0
+      },
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "Mark2",
+      "unsubmitted_alternatives": [
+        {
+          "directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2",
+          "config": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/job-config.json",
+          "printer": "H2C",
+          "requested_z_trim_mm": 0.18,
+          "effective_textured_z_trim_mm": 0.16,
+          "geometry_confirmation": {
+            "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+            "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+          },
+          "native_archive": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/ready/g-ganen-foam-cap-top-black-z018-h2c-v2.gcode.3mf",
+            "sha256": "3a33be497f8fb45c88b20e4b5c4b84723cedf9dd2c790fa03c36207fc6fb866f",
+            "gcode_sha256": "863b09b1064f1ea9d7ff1a4027c1fcc7e3d46136360e44cabc359750f8f9952f"
+          },
+          "native_handoff": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/native-handoff.json",
+            "sha256": "74cc72bb518ecd4159fcaceaf5a0aeb5192a24c315ba2e9cb5d141412caea8f0"
+          },
+          "support_removal_review": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/support-removal-review.json",
+            "sha256": "22453f14df305ff8287817acffe73bbeadd3744f8e8599212d7a943fb402c6de",
+            "status": "current_support_contacts_and_removal_lanes_reviewed"
+          },
+          "offline_review": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/offline-review.json",
+            "sha256": "0429ef77a0c6e0c6baa347e3713ba43679f54f5e4a8f1debcf5fe1740d3154f0"
+          },
+          "durable_review_package": {
+            "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json",
+            "sha256": "4632e3b7cb268a5ef4bb81cf89c7cf6d05df7e22ef2d4057f9b5cb94ecb2a302"
+          },
+          "slice_estimate": {
+            "seconds": 18561.40234375,
+            "grams_actual_petgf_density_1p43": 182.6251088223716
+          },
+          "active_for_submission": false,
+          "additional_required_print": false,
+          "submitted": false,
+          "offline_ready": true
+        }
+      ]
     },
     {
       "id": "foam-cap-lid-top",
-      "directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2",
-      "config": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/job-config.json",
-      "printer": "H2C",
+      "directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1",
+      "config": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/job-config.json",
+      "printer": "Mark2",
       "parts": [
         "foam-cap-lid-top"
       ],
       "orientation": "Native +Z up; flat Z0 underside on bed; centered",
-      "requested_z_trim_mm": 0.18,
-      "effective_textured_z_trim_mm": 0.16,
-      "status": "geometry_verified_awaiting_receipt_and_native_review",
-      "geometry_confirmation": null,
-      "staged_project": null,
-      "native_archive": null,
-      "support_removal_review": null,
-      "offline_review": null,
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.3mf",
+        "sha256": "7edfdea9ed4c366b88137abb49c59386a8eef595da6d3982c1f214d23461a817"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v1.gcode.3mf",
+        "sha256": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+        "gcode_sha256": "63db94db6fe6ae0882819bbc524c78c564a2c69f2b8a1a2e1705bba60acabe16"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/support-removal-review.json",
+        "sha256": "bbf5d6d4c5b4376528ce4e6c5d3a7236316b74431fa13744561b89363f917573",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/offline-review.json",
+        "sha256": "a5ebd56ffa7cfcc2d9ffe8046c36d9b533366cefc23b1def6b3303986837c1be"
+      },
       "print_released": false,
-      "submitted": false
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "native_handoff": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/native-handoff.json",
+        "sha256": "7fdb396e2e9aab51f93b1158fba362d4987ffce27336110e432b08c98dc3a6c3"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/manifest.json",
+        "sha256": "783b202dbde4658bdb4a40d0b91ea9cc20f563231f1019000d71a81e15f50f66"
+      },
+      "slice_estimate": {
+        "layers": 241,
+        "seconds": 16105.6376953125,
+        "hours": 4.473788248697916,
+        "grams_saved_profile_density": 183.039306640625,
+        "grams_actual_petgf_density_1p43": 202.90403759387112,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "handoff_conditions": [
+        "Assigned machine available",
+        "Latest print removed and plate cleared",
+        "Adequate usable black PET-GF for this exact slice",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "filament_availability": {
+        "status": "physical_supply_to_confirm_at_handoff",
+        "design_readiness_gate": false,
+        "estimated_grams_petgf": 202.90403759387112
+      },
+      "open_review_items": [],
+      "preparation": {
+        "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/preparation.json",
+        "sha256": "3ea93ae53274cad44136c48d23883f749aebc77fcc4c318d90195d5ff01f6904"
+      },
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "assigned_printer": "Mark2",
+      "unsubmitted_alternatives": [
+        {
+          "directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2",
+          "config": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/job-config.json",
+          "printer": "H2C",
+          "requested_z_trim_mm": 0.18,
+          "effective_textured_z_trim_mm": 0.16,
+          "geometry_confirmation": {
+            "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+            "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+          },
+          "native_archive": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/ready/g-ganen-foam-cap-lid-top-black-z018-h2c-v2.gcode.3mf",
+            "sha256": "b1232aa6c331dc8b8252146bb9d337b0477e92c6691258bca7e9493ea9ed5e2c",
+            "gcode_sha256": "21349bafb33a3473ffd9f41c5a3dff2cdec82b6a206325de3be631a8aff687f3"
+          },
+          "native_handoff": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/native-handoff.json",
+            "sha256": "fb31b0548c5fb7d1df18d8baa0097ceff309aab9196721aa98541c69769b5684"
+          },
+          "support_removal_review": {
+            "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/support-removal-review.json",
+            "sha256": "91a811c8444b26627384f6ecd9260b0ad2e98dfee749462080d0f3000afa9294",
+            "status": "support_contact_and_removal_lane_review_pending"
+          },
+          "offline_review": null,
+          "durable_review_package": {
+            "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/unsubmitted-alternatives/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/manifest.json",
+            "sha256": "139bb87d7bdf4f43998c863038396ef7c38cfac67a1aaa12b19a22f7fdf6a014"
+          },
+          "slice_estimate": {
+            "seconds": 16104.3876953125,
+            "grams_actual_petgf_density_1p43": 202.90403759387112
+          },
+          "active_for_submission": false,
+          "additional_required_print": false,
+          "submitted": false,
+          "offline_ready": false
+        }
+      ],
+      "native_paths": {
+        "brim_setting": "auto_brim",
+        "brim_extrusion_segments": 0,
+        "minimum_toolpath_bed_margin_mm": 20.900000000000002,
+        "support_bodies": 5,
+        "explicit_interfaces": 5
+      }
     }
   ],
   "profile": {
@@ -263,7 +784,7 @@
     "idle_printer_hold_for_agent_review": false,
     "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
   },
-  "updated_at_utc": "2026-09-21T13:46:36.760882+00:00",
+  "updated_at_utc": "2026-09-21T14:52:57.988086+00:00",
   "geometry_qualification": {
     "status": "all_active_native_gates_pass",
     "assembly_step_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
@@ -281,6 +802,90 @@
       "actual_thickness_mm": 2,
       "source_and_input_hashes_match": true
     },
-    "print_receipt_pending": true
+    "print_receipt_pending": false,
+    "geometry_receipt": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+      "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+    }
+  },
+  "printing_authorized": true,
+  "execution_status_scope": "print_released and submitted record printer execution. Full-enclosure printing is already user-authorized; an offline-ready job needs no additional design or permission approval.",
+  "print_released_scope": "The seven queued jobs; separate jobs already running have their immutable launch records.",
+  "continuity": {
+    "automation_id": "finish-the-enclosure-print-queue",
+    "status": "ACTIVE",
+    "schedule": "Every 15 minutes in the coordinating task",
+    "behavior": "Advance exact reviewed jobs when their machine is free, its latest print is removed and adequate filament is available. Stay quiet while running state is unchanged; do not pause prints or add coupons; respect Mark2 ownership by Tube miter box; stop after the full set is finished.",
+    "authority": "Coordinating task created the heartbeat automation."
+  },
+  "native_slices_complete": 7,
+  "offline_reviews_complete": 7,
+  "offline_ready": true,
+  "printer_schedule": [
+    {
+      "printer": "H2C",
+      "after": "The running cartridge/cap completes and its latest plate is cleared.",
+      "order": [
+        "front-top",
+        "back-top"
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "after": "Tube miter box finishes the countertop and releases the machine with its latest plate cleared.",
+      "order": [
+        "front-bottom",
+        "back-bottom",
+        "carrier-pair",
+        "foam-cap-top",
+        "foam-cap-lid-top"
+      ]
+    }
+  ],
+  "queue_estimates": {
+    "status": "complete",
+    "complete_slice_count": 7,
+    "job_count": 7,
+    "per_printer": [
+      {
+        "printer": "H2C",
+        "jobs": 2,
+        "estimated_seconds": 187715.0,
+        "estimated_grams_petgf_density_1p43": 1865.1496056845021
+      },
+      {
+        "printer": "Mark2",
+        "jobs": 5,
+        "estimated_seconds": 175585.0419921875,
+        "estimated_grams_petgf_density_1p43": 1829.1017702087875
+      }
+    ],
+    "total": {
+      "jobs": 7,
+      "printer_seconds": 363300.0419921875,
+      "grams_petgf_density_1p43": 3694.2513758932896
+    },
+    "scope": "Queued production jobs only; excludes currently running jobs, plate changes, support cleanup and assembly. Printer lanes can run in parallel; per-printer sums are serial slicer estimates, not wall-clock commitments."
+  },
+  "ready_job_ids": [
+    "front-top",
+    "front-bottom",
+    "back-bottom",
+    "back-top",
+    "carrier-pair",
+    "foam-cap-top",
+    "foam-cap-lid-top"
+  ],
+  "independent_job_release": "A completed job may advance through normal printer handoff while other queued jobs are still under review.",
+  "mount_printer_allocation": {
+    "status": "assigned",
+    "assigned_printer": "Mark2",
+    "current_h2c_attempts": "Preserved as unsubmitted alternatives, not additional required prints. The selected Mark2 variants need their own exact trim-specific reviewed archives.",
+    "scope": "Scheduling choice within already authorized printing, not a design or user-permission gate."
+  },
+  "native_preview_review": {
+    "status": "pass",
+    "authority": "Coordinating task visually inspected all seven active native previews.",
+    "scope": "Intended complete parts and print orientations; native/support acceptance is separately bound by each exact offline review."
   }
 }

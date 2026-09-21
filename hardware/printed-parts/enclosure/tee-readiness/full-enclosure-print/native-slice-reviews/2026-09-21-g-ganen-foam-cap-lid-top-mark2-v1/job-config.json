@@ -1,0 +1,41 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "foam-cap-lid-top",
+  "printer": "Mark2",
+  "archive_stem": "g-ganen-foam-cap-lid-top-black-z004-mark2-v1",
+  "title": "Complete enclosure foam-cap-lid-top, black PET-GF, Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "foam-cap-lid-top",
+      "stl": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+      "step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": []
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/cold-core/_cold_core_interface.py",
+    "hardware/printed-parts/cold-core/_foam_cap.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament"
+}
