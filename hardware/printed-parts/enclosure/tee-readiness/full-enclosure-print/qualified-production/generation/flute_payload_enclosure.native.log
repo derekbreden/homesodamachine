@@ -1,0 +1,9 @@
+-> enclosure-back-bottom.step.mesh  1291828 -> 216916 facets, 167941 vertices, 5633 regions, 6.68 MB, 0.161 mm inside a 0.223 mm budget
+-> enclosure-back-top.step.mesh  1124732 -> 182462 facets, 115038 vertices, 800 regions, 4.96 MB, 0.158 mm inside a 0.227 mm budget
+-> enclosure-front-bottom.step.mesh  272394 -> 52502 facets, 42961 vertices, 1230 regions, 1.67 MB, 0.090 mm inside a 0.201 mm budget
+-> enclosure-front-top.step.mesh  557640 -> 82658 facets, 65988 vertices, 494 regions, 2.58 MB, 0.198 mm inside a 0.206 mm budget
+-> enclosure-pump-cap.step.mesh  8284 -> 8284 facets, 8376 vertices, 68 regions, 0.30 MB, 0.000 mm inside a 0.103 mm budget
+-> enclosure-pump-cartridge.step.mesh  171096 -> 34218 facets, 20429 vertices, 45 regions, 0.90 MB, 0.035 mm inside a 0.136 mm budget
+-> enclosure-tee-carrier-left.step.mesh  5034 -> 2710 facets, 2771 vertices, 119 regions, 0.10 MB, 0.073 mm inside a 0.078 mm budget
+-> enclosure-tee-carrier-right.step.mesh  4934 -> 4934 facets, 3956 vertices, 122 regions, 0.16 MB, 0.000 mm inside a 0.080 mm budget
+-> hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh  6 piece(s) grafted, 17.09 MB
