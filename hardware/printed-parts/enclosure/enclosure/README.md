@@ -16,7 +16,7 @@ its underside, so it stands in the silhouette and the cavity's floor plane — t
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
 column's top SLIDES onto its bottom on hooked rails; the two halves telescope and six screws
 close the whole box.
-It measures [215 × 462 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
+It measures [215 × 466.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -242,7 +242,7 @@ outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [97 mm](RAIL_RUN_FRONT) per flank on the front column,
-[233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+[238 mm](RAIL_RUN_BACK) and [226 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
 [12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
@@ -506,16 +506,16 @@ list.
 A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
 nothing to stop. The Y seam is one, and so is every jamb.
 
-**The field closes on itself.** [260](FLUTE_COUNT) grooves go round [1333.4 mm](FLUTE_PERIM) of
+**The field closes on itself.** [262](FLUTE_COUNT) grooves go round [1342 mm](FLUTE_PERIM) of
 plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
 flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
 station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
-on, [5.1285 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH), and three bounds spend
+on, [5.1221 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH), and three bounds spend
 the choice:
 
 - **`flute-closes`** holds the pitch to the coupon's.
 - **`flute-hides-seam`** puts the **Y seam inside a groove** — the one straight line running the
-  full height of both side walls, landing [0.1 mm](FLUTE_SEAM_MISS) off a groove's centre, in
+  full height of both side walls, landing [0.27 mm](FLUTE_SEAM_MISS) off a groove's centre, in
   the shadow that is already there rather than on a land.
 - **`flute-clears-jamb`** is the opposite ask and the right one for the bay: each mouth arris
   and the pump cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
@@ -532,7 +532,7 @@ returns outboard of the cavity planes; those two actual surfaces are two open ra
 [358.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
-**x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
+**x = 0** and the pitch remains [5.1221 mm](FLUTE_PITCH), so both ledges retain the machine's
 inside phase. Each real surface is open; its two ends are edges like any other and the field
 ramps to zero on them, as it does at both Z ends of the band, which keeps cutter caps off every
 mouth and window arris.
@@ -573,10 +573,10 @@ full depth, so nothing crosses a flute anywhere here and no edge it makes is one
 on. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 
 **The mullion is the governing number, not the section behind the groove.** A slot takes its
-width out of the pitch, and what is left between two of them is [2.0285 mm](VENT_MULLION) at
-[5.1285 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
+width out of the pitch, and what is left between two of them is [2.0221 mm](VENT_MULLION) at
+[5.1221 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
 profile lays (2 × 0.42 outer + 2 × 0.45 inner, [print-log.md](print-log.md)), which leaves
-[0.2885 mm](VENT_SPARE) and ceilings a slot down every groove at [3.3885 mm](VENT_CEILING). The
+[0.2821 mm](VENT_SPARE) and ceilings a slot down every groove at [3.3821 mm](VENT_CEILING). The
 two figures move OPPOSITE ways: the jamb stands half a slot off the groove's centre, out on the
 half-ellipse where the groove is shallower, so the flank behind a jamb is
 [5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
@@ -613,8 +613,8 @@ widened into a vent, and no 1.261 or 1.981 mm strip survives between the two ope
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
-[2.0285 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
-[54.2:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
+[2.0221 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
+[54.4:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
 is **not** a bar between two mullions, and nothing stands at 45° across a groove: at
 [3](VENT_TRANSOMS) heights — [57.5, 86, 114.5 mm](VENT_TRANSOM_Z) — the wall is simply **not
 pierced**, so every mullion and both jambs run into one plate of full section
@@ -633,13 +633,13 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
-| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
+| −X intake | [22](VENT_SLOTS_IN) | [85](VENT_RUNS_IN) | [2.0221 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [60.5 cm²](VENT_OPEN_IN) |
+| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0221 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
-is [60.4 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
+is [60.5 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
 out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
-[2.0285 mm](VENT_MEAS_MULLION) mullion, which is [12.1:1](VENT_ASPECT).
+[2.0221 mm](VENT_MEAS_MULLION) mullion, which is [12.1:1](VENT_ASPECT).
 
 **Two things this does not answer.** There is **no thermal spec anywhere in this repo** — no CFM,
 no free-area requirement, no ΔT budget — and the fan is documented only as a 12 V brushless axial
@@ -1597,8 +1597,10 @@ rib and the boss bridge.
 
 **That run does not stop at the rib.** Past the clip's +X end the lead turns the corner onto
 front-top's own +X flank face and runs aft to the main-board wall, and SIG-7 arrives forward
-along that same face, so the flank carries [2](FLANK_CLIPS) more of the identical unembedded
-clip, over y [137–155, 179–197 mm](FLANK_CLIP_Y). Both stand in the **Y+ half** of that face,
+along that same face, so the flank carries [2](FLANK_CLIPS) more of the same complete clip
+profile, embedded 1.2 mm into the wall and projecting 7.8 mm, over y
+[137–155, 179–197 mm](FLANK_CLIP_Y). Each keeps its 3 mm arms, S-shaped channel and ramped
+ends; the 9 mm host retains 7.8 mm behind the recessed channel. Both stand in the **Y+ half** of that face,
 which is the half that is clear: the +X Wago tower stands its own engagement off `interior_x`
 and reaches into this face's air over its Y band, and the fore end of the face is a corner the
 lead turns rather than a run it lies along. `_flank_cable_clips` checks each station against the
@@ -1624,8 +1626,8 @@ retain their existing axes.
 The opening follows the funnel's rounded collar, ramp and outlet with
 [0.25 mm](FUNNEL_COLLAR_AIR) running clearance. The drain is centered fore–aft
 at X1.85, Y182.5, Z299.0648. The basin holds 600 mL within its inset rounded brim.
-V-A/B, Y-A/B and V-C/D sit 6 mm below the outer manifold limbs. The flow
-regulator points 15° down toward the center, with its square hub in a shallow
+V-A/B, Y-A/B and V-C/D sit 9.5 mm below the outer manifold limbs. The flow
+regulator points 25° down toward the center, with its square hub in a shallow
 clearance pocket in the 9 mm west flank. The silicone funnel and its
 casting molds share the same source geometry in
 [`zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/).

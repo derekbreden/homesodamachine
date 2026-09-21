@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "status": "frozen_bounded_probe_archive",
+  "packaged_at_utc": "2026-09-21T09:28:11.590446+00:00",
+  "reference_assembly_sha256": "fdaddbd03976b6f843df4cd5059635640a75a0676a1c7ba2e893d8737acb37b3",
+  "files": [
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/regulator-column-probe.json",
+      "preserved_path": "raw/regulator-column-probe.json",
+      "sha256": "1d1bfe2dabd028eea648d405dc7b1d1e90317a6d2eea4549471211f6749a0c48",
+      "bytes": 3282,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/regulator-options.json",
+      "preserved_path": "raw/regulator-options.json",
+      "sha256": "f424529b737592409793ec0a5aed23803318f58d496c5ee807dbbd8900cf0795",
+      "bytes": 6044,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/connected-routes.json",
+      "preserved_path": "raw/connected-routes.json",
+      "sha256": "bbe8f94ab2003751a7bd7a9336785d016badb844f4309ed8505269dd1b770b9f",
+      "bytes": 9173,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/connected-routes.log",
+      "preserved_path": "raw/connected-routes.log",
+      "sha256": "39e86bdcc5f8fe4d6e47d3b97f643fd3c8b2db8042f1e0cfbdad39b68c898f6b",
+      "bytes": 3871,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/connected-routes-verified-frames.log",
+      "preserved_path": "raw/connected-routes-verified-frames.log",
+      "sha256": "4fe10fa7311adbe3f2c0e16f55c01b07f824ea3d53056a209954c9da325315e2",
+      "bytes": 4185,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/current-ports.json",
+      "preserved_path": "raw/current-ports.json",
+      "sha256": "b9f19385369b9f5ae4186e5d105c70bdd424b03c7189873196c01559ee8e6cd5",
+      "bytes": 5903,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/regulator-column-probe.log",
+      "preserved_path": "raw/regulator-column-probe.log",
+      "sha256": "f74e9fdffcabc0570413a7392ec2a057ef21185bd228fcbbe5fe5853b8e17b68",
+      "bytes": 2166,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/regulator-options.log",
+      "preserved_path": "raw/regulator-options.log",
+      "sha256": "a10b95ca8ca63e71419b52ef6807d86f95e4d6940c7316945a31e98bba379b94",
+      "bytes": 3866,
+      "role": "frozen probe result or execution log"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/probe_regulator_column.py",
+      "preserved_path": "scripts/probe_regulator_column.py.txt",
+      "sha256": "a8a60d1a63aa38a108bdbc885aead41e0ab016d523dc11d1080618ca2a9a51f6",
+      "bytes": 2034,
+      "role": "frozen exploration script; archival text, not a current generator"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/probe_regulator_options.py",
+      "preserved_path": "scripts/probe_regulator_options.py.txt",
+      "sha256": "2df4493fb39162af9d525ebe584263d73e7b149e7c8abed06f90291e9bafc8ea",
+      "bytes": 2469,
+      "role": "frozen exploration script; archival text, not a current generator"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/final-route-gaps/probe_connected_routes.py",
+      "preserved_path": "scripts/probe_connected_routes.py.txt",
+      "sha256": "e20a2c64b452be279d95560c3bb82fbe0e94681389bf7ec354153eab7e01e223",
+      "bytes": 3627,
+      "role": "frozen exploration script; archival text, not a current generator"
+    }
+  ],
+  "derived_files": {
+    "README.md": "9f33f1b0bda0aa51d7c9d9e2ab0f0739324f8fa86d572cd8c0945135c22ac2df",
+    "report.json": "5278adaa73a1b55afe6b71d6106d7d0a0cd5d9caeaa76a534242e244b20f53c4",
+    "readiness-update-plan.md": "836bf46a596cecb871f897f3db0407047a87bef601e2f97d869b76bea6d65191"
+  },
+  "freeze_rule": "Preserved raw/script bytes are immutable evidence. A new probe run belongs in a new versioned directory."
+}

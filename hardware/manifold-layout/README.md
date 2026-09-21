@@ -28,7 +28,7 @@ about the hinge the four barb tees' front collets stand on.
 X is width, mirrored about x = 0 — channel A west, channel B east, each over its own pump. Y is
 depth; the two flavour mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
 height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
-[88.38](DECK_Z) and [149.33](UPPER_Z).
+[90.81](DECK_Z) and [151.76](UPPER_Z).
 
 ## Four limbs, folded in two
 
@@ -42,18 +42,18 @@ the pump's axis and draws the leaning tube each barb then needs to reach its tee
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
-    A2   x [-79.82](LIMB_OUT_XW)          V-G | Y-D · V-F
-    A1   x [-20.07](LIMB_IN_XW)    V-A · Y-A · V-C | Y-C · V-E
+    A2   x [-82.10](LIMB_OUT_XW)          V-G | Y-D · V-F
+    A1   x [-22.35](LIMB_IN_XW)    V-A · Y-A · V-C | Y-C · V-E
     ─────────────────────────────────────────────────────────  mirror plane
-    B1   x [+20.07](LIMB_IN_XE)    V-B · Y-B · V-D | Y-F · V-H
-    B2   x [+79.82](LIMB_OUT_XE)          V-J | Y-G · V-I
+    B1   x [+22.35](LIMB_IN_XE)    V-B · Y-B · V-D | Y-F · V-H
+    B2   x [+82.10](LIMB_OUT_XE)          V-J | Y-G · V-I
                             ↓
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [88.38](DECK_Z2), [14.60](DECK_GAP) mm over the pump heads'
-crowns; the folded deck's at z [149.33](UPPER_Z2). The two inner limbs leave
-[5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
+The lower deck's port axes sit at z [90.81](DECK_Z2), [17.08](DECK_GAP) mm over the pump heads'
+crowns; the folded deck's at z [151.76](UPPER_Z2). The two inner limbs leave
+[10.45](INNER_GAP) mm between their valve bodies across the mirror plane.
 
 ## The fold
 
@@ -62,11 +62,11 @@ with two quarter circles and a tangent straight between them. Each pair turns on
 its two mouths is lower and reaches the other with a 4 mm axial leg: at the tee on the inner
 pair, whose fixed valve rides the source limbs' drop, and at the fixed valve on the outer pair.
 Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
-[81.43](SPINE_LEN) mm for each inner hairpin and [84.22](OUTER_SPINE_LEN) mm for each outer one.
+[82.93](SPINE_LEN) mm for each inner hairpin and [84.48](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
-V-G and V-J stand [6](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
+V-G and V-J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
 lean between the two axes. The valves' tray sockets and external tube routes follow their
 placed ports; the tees keep their pump alignment. The room outside those coils carries the
 deeper closed finger cups.
@@ -88,7 +88,7 @@ radius on its own.
 
 [2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
 [21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
-[72.75](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
+[71.25](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
 +Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
 axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 
@@ -165,19 +165,19 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[193](ENV_X) × [172](ENV_Y) × [245](ENV_Z) mm — [8.14](ENV_L) L of bounding box over the
+[198](ENV_X) × [172](ENV_Y) × [247](ENV_Z) mm — [8.42](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[193](REACH_X) × [172](REACH_Y) × [259](REACH_Z).
+[198](REACH_X) × [172](REACH_Y) × [261](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 
-`BARB_STANDOFF` is the [5.576](BARB_STANDOFF) mm pump-to-deck placement span, referenced
+`BARB_STANDOFF` is the [5.776](BARB_STANDOFF) mm pump-to-deck placement span, referenced
 to the extended branch nose at the nominal fore-deck plane. The pump station uses a
 [3](PUMP_DROP) mm downward world-Z datum, while the stationary manifold stands 2 mm above
 its nominal datum. The fitted pump outlets meet the tee plane. At the fore stop the sleeve
-is depressed and the exposed tube is [7.63](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
+is depressed and the exposed tube is [7.53](BARB_TUBE_LEN) mm from pump outlet to sleeve nose,
 with the cartridge 2.15 mm short of seating. The full tube projection includes its insertion
 to the internal body stop.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what

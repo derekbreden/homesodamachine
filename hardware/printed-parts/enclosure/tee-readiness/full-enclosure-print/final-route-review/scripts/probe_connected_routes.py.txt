@@ -1,0 +1,61 @@
+from pathlib import Path
+import os, sys, json, hashlib
+os.environ['HSM_NO_BUILD_LOCK']='1'
+ROOT=Path('/Users/derekbredensteiner/Developer/homesodamachine')
+OUT=Path(__file__).resolve().parent
+sys.path[:0]=[str(ROOT/'hardware/manifold-layout'),str(ROOT/'hardware/scripts')]
+import cadquery as cq
+import enclosure_assembly as ea
+from _cadq_export import import_assembly
+import _clearing as C, _boxes
+L=ea._lines; R=ea._routing
+path=ROOT/'hardware/manifold-layout/enclosure-assembly.step'
+solids={n:s for n,(s,c) in import_assembly(path).items()}
+facts=json.loads((ROOT/'hardware/manifold-layout/enclosure-assembly.facts.json').read_text())
+captured={n:{p:(r['pos'],r['axis'],r['diam']) for p,r in ports.items()} for n,ports in facts['card_ports'].items()}
+# The two valve frames are not in the published card-port subset. Carry their
+# retained ports by the measured translation only after proving exact native
+# body equality to this completed aggregate.
+old_dir=Path('/tmp/scanner-review/integration-correction/route-pack')
+old=json.loads((old_dir/'frames.json').read_text())
+for name in ('valve-v-a','valve-v-b'):
+    native=solids[name]; bb=native.BoundingBox(); before=old[name]['bbox']
+    delta=tuple(getattr(bb,k+'min')-before[k+'min'] for k in 'xyz')
+    assert all(abs((getattr(bb,k+'max')-before[k+'max'])-delta[i])<1e-5 for i,k in enumerate('xyz'))
+    retained=cq.Shape.importBrep(str(old_dir/old[name]['brep'])).translate(delta)
+    missing=native.cut(retained).Volume();extra=retained.cut(native).Volume()
+    assert max(abs(missing),abs(extra))<1e-5,(name,missing,extra)
+    captured[name]={p:([xyz[i]+delta[i] for i in range(3)],axis,diam) for p,(xyz,axis,diam) in old[name]['ports'].items()}
+    print('Valve exact translation',name,delta,missing,extra,flush=True)
+(OUT/'current-ports.json').write_text(json.dumps(captured,indent=2)+'\n')
+print('Captured current source frames',len(captured),flush=True)
+rows=[]
+for dx,dy,angle in [(1.5,0.,30.),(0.,10.,25.)]:
+    base=ea.SPLIT_COLUMN;turns=ea.FLOWREG_TURN
+    ea.SPLIT_COLUMN=base+dx
+    ap=facts['card_ports']['asse1022-assembly']['tube-out']
+    split,sc=ea.build_split(lambda station:(ap['pos'],ap['axis']))
+    ea.FLOWREG_TURN=(*turns[:-1],(turns[-1][0],angle))
+    def shifted(station):
+        p,a=sc(station);return ((p[0],p[1]+dy,p[2]),a)
+    reg,rc=ea.build_flowreg(shifted)
+    ea.SPLIT_COLUMN=base;ea.FLOWREG_TURN=turns
+    ss={**solids,'water-split':split,'flow-regulator':reg}
+    F={n:R.frame(n,ss[n],ports) for n,ports in captured.items() if n in ss}
+    F.update(L.frames(ss,{'water-split':sc,'flow-regulator':rc}))
+    R.BLOCKED.clear()
+    runs=[L._fluid_1(F),L._fluid_2(F,ss),L._water_2(F),L._water_3(F)]
+    candidate={r.id:R.tube(r) for r in runs}
+    ss.update({'tube-'+n:s for n,s in candidate.items()})
+    reports=[]
+    for run in runs:
+        tube=candidate[run.id]; near=[]
+        for name,body in ss.items():
+            if name in {run.frm.split('.')[0],run.to.split('.')[0],'tube-'+run.id}:continue
+            if C.box_gap(_boxes.loose(tube),_boxes.loose(body))>=2:continue
+            gap=C.gap(tube,body,2.)
+            if gap<2:near.append({'name':name,'mesh_gap':gap,'native_gap':tube.distance(body),'overlap':tube.intersect(body).Volume()})
+        reports.append({'id':run.id,'min_radius':run.tightest,'pts':run.pts,'neighbors':near})
+    row={'dx':dx,'reg_aft':dy,'angle':angle,'routes':reports,'blocked':dict(R.BLOCKED)}
+    rows.append(row);print(json.dumps(row),flush=True)
+(OUT/'connected-routes.json').write_text(json.dumps({'step_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'rows':rows},indent=2)+'\n')

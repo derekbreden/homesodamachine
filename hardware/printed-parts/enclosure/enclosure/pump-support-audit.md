@@ -5,8 +5,8 @@ assembly. The cartridge prints upright and the cap prints crown-down. The exact
 two-part H2C native archive passes its offline geometry, settings, toolpath-bound
 and support-access review. Fresh native cartridge and cap builders preserve all
 fitted surfaces and have zero material difference from the exact print inputs
-with the current rear boundary. Printer submission remains with the coordinating
-task.
+with the current rear boundary. H2C is printing the reviewed cartridge-and-cap
+archive.
 
 The plate has **496 layers and 179,260 source triangles**, with no native geometry
 warning. Estimated time is **10 h 9 min 12 s**. The saved profile reports **419.9 g**
