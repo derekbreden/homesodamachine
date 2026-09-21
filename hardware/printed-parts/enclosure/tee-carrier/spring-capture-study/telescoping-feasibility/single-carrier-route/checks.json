@@ -1,0 +1,751 @@
+{
+  "scope": "Frozen provisional tee datum, front-bottom absent, bare carrier without springs/tees/valves. Axis-aligned route probes identify actual barriers; they do not exhaust all possible six-axis rigid motions or qualify a redesigned guide.",
+  "script_sha256": "815d5ace06b3a42814b397116a40472398ce6999c0c385aee4be2a10be70ec22",
+  "helper_sha256": "bd1491eebd15b39da3c2114ca2da80f3235b72b0bd26ec50ae5da05154b6b2aa",
+  "front_top_sha256": "63471e1fa49233b281b6334ec3ef82c73a3abe8c635eb537c4f38e2a2e6e5508",
+  "fixture_sha256": "446357f5355cfc2d8fafb746c1be63924acb380254df00a48323cd2a499ed9bd",
+  "current_input_manifest_sha256": "e7d645b7551a113259750679a4495e25771d2d67fd318ec97d97dec73691a266",
+  "blank": {
+    "reconstruction": "Replace joint-only centre strip with _carrier_blank's uninterrupted web and shelf; preserve frozen native geometry outside that strip.",
+    "centre_strip_x": [
+      -9.18,
+      8.07
+    ],
+    "nearest_tie_cut_x_abs_mm": 9.43,
+    "nearest_trough_x_abs_mm": 11.32,
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 112176.21140870109,
+    "bounds": {
+      "x": [
+        -107.5,
+        107.5
+      ],
+      "y": [
+        89.71,
+        130.86
+      ],
+      "z": [
+        167.174,
+        229.119
+      ]
+    },
+    "added_outside_joint_strip_mm3": 0.0
+  },
+  "native_poses": [
+    {
+      "label": "release",
+      "offset_y_mm": 0,
+      "offset_z_mm": 0,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "connected",
+      "offset_y_mm": 2.15,
+      "offset_z_mm": 0,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": 0,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -0.24,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -0.25,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -0.3,
+      "overlap_mm3": 18.978266947294486,
+      "hit_bounds": {
+        "x": [
+          -93.25,
+          93.25
+        ],
+        "y": [
+          110.51,
+          135.51000000000002
+        ],
+        "z": [
+          166.874,
+          166.9240001
+        ]
+      },
+      "hit_at_seam_storey_mm3": 18.978266947294486,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -0.5,
+      "overlap_mm3": 94.89119113946344,
+      "hit_bounds": {
+        "x": [
+          -93.25,
+          93.25
+        ],
+        "y": [
+          110.51,
+          135.51000000000002
+        ],
+        "z": [
+          166.674,
+          166.9240001
+        ]
+      },
+      "hit_at_seam_storey_mm3": 94.89119113946344,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -1,
+      "overlap_mm3": 334.7066880652833,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          166.174,
+          180.8
+        ]
+      },
+      "hit_at_seam_storey_mm3": 330.95668744394965,
+      "hit_above_seam_storey_mm3": 3.75
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -5,
+      "overlap_mm3": 2251.2775299559344,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          162.174,
+          180.8
+        ]
+      },
+      "hit_at_seam_storey_mm3": 2219.4806538957923,
+      "hit_above_seam_storey_mm3": 31.796874999999993
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -10,
+      "overlap_mm3": 3915.322017036867,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          160.0,
+          180.8
+        ]
+      },
+      "hit_at_seam_storey_mm3": 3879.6970168768717,
+      "hit_above_seam_storey_mm3": 35.625
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -14.8,
+      "overlap_mm3": 5479.056199189164,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          160.0,
+          180.8
+        ]
+      },
+      "hit_at_seam_storey_mm3": 5443.431199061574,
+      "hit_above_seam_storey_mm3": 35.62500000000002
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -20,
+      "overlap_mm3": 5830.469384501967,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          160.0,
+          180.8
+        ]
+      },
+      "hit_at_seam_storey_mm3": 5794.844384374688,
+      "hit_above_seam_storey_mm3": 35.62500000000002
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -30,
+      "overlap_mm3": 5878.439384503104,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          160.0,
+          180.8
+        ]
+      },
+      "hit_at_seam_storey_mm3": 5842.81438437588,
+      "hit_above_seam_storey_mm3": 35.62500000000002
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -50,
+      "overlap_mm3": 10105.084021950088,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          160.0,
+          179.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 10082.066521979305,
+      "hit_above_seam_storey_mm3": 23.017499999999906
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -68,
+      "overlap_mm3": 235.32570050354937,
+      "hit_bounds": {
+        "x": [
+          -104.25,
+          104.25
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          160.0,
+          161.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 235.32570050354937,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -70,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "straight underside entry at aft stop",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": -80,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "centred rear approach at installed height",
+      "offset_y_mm": 4.9,
+      "offset_z_mm": 0,
+      "overlap_mm3": 4.499999849999995,
+      "hit_bounds": {
+        "x": [
+          -104.25,
+          104.25
+        ],
+        "y": [
+          116.51,
+          116.76
+        ],
+        "z": [
+          226.1190001,
+          229.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 4.499999849999995
+    },
+    {
+      "label": "centred rear approach at installed height",
+      "offset_y_mm": 5.5,
+      "offset_z_mm": 0,
+      "overlap_mm3": 15.299999489999873,
+      "hit_bounds": {
+        "x": [
+          -104.25,
+          104.25
+        ],
+        "y": [
+          116.51,
+          117.36
+        ],
+        "z": [
+          226.1190001,
+          229.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 15.299999489999873
+    },
+    {
+      "label": "centred rear approach at installed height",
+      "offset_y_mm": 10,
+      "offset_z_mm": 0,
+      "overlap_mm3": 96.29999678999982,
+      "hit_bounds": {
+        "x": [
+          -104.25,
+          104.25
+        ],
+        "y": [
+          116.51,
+          121.86
+        ],
+        "z": [
+          226.1190001,
+          229.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 96.29999678999982
+    },
+    {
+      "label": "centred rear approach at installed height",
+      "offset_y_mm": 20,
+      "offset_z_mm": 0,
+      "overlap_mm3": 748.4808206294867,
+      "hit_bounds": {
+        "x": [
+          -107.49436706751791,
+          107.49436706751791
+        ],
+        "y": [
+          116.51,
+          131.86
+        ],
+        "z": [
+          175.3,
+          229.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 748.4808206294867
+    },
+    {
+      "label": "centred rear approach at installed height",
+      "offset_y_mm": 38.55000000000001,
+      "offset_z_mm": 0,
+      "overlap_mm3": 5056.547189653999,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          128.26,
+          150.41000000000003
+        ],
+        "z": [
+          175.3,
+          229.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 5056.547189653999
+    },
+    {
+      "label": "alternate staging pose",
+      "offset_y_mm": 4.65,
+      "offset_z_mm": 70,
+      "overlap_mm3": 17847.187190829907,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          94.36,
+          135.51000000000002
+        ],
+        "z": [
+          245.3,
+          299.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 17847.187190829907
+    },
+    {
+      "label": "alternate staging pose",
+      "offset_y_mm": 38.55000000000001,
+      "offset_z_mm": 70,
+      "overlap_mm3": 18323.132408088783,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          128.26,
+          169.41000000000003
+        ],
+        "z": [
+          245.3,
+          299.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 18323.132408088783
+    },
+    {
+      "label": "alternate staging pose",
+      "offset_y_mm": 38.55000000000001,
+      "offset_z_mm": -1,
+      "overlap_mm3": 5215.022226075999,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          128.26,
+          169.41000000000003
+        ],
+        "z": [
+          166.174,
+          228.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 337.6582217291833,
+      "hit_above_seam_storey_mm3": 4877.364004346859
+    },
+    {
+      "label": "alternate staging pose",
+      "offset_y_mm": 38.55000000000001,
+      "offset_z_mm": -30,
+      "overlap_mm3": 8122.457213524534,
+      "hit_bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          128.26,
+          169.41000000000003
+        ],
+        "z": [
+          160.0,
+          195.619
+        ]
+      },
+      "hit_at_seam_storey_mm3": 6195.317943704173,
+      "hit_above_seam_storey_mm3": 1927.139269820377
+    },
+    {
+      "label": "alternate staging pose",
+      "offset_y_mm": 38.55000000000001,
+      "offset_z_mm": -68,
+      "overlap_mm3": 245.39669999999978,
+      "hit_bounds": {
+        "x": [
+          -104.25,
+          104.25
+        ],
+        "y": [
+          128.26,
+          169.41000000000003
+        ],
+        "z": [
+          160.0,
+          161.119
+        ]
+      },
+      "hit_at_seam_storey_mm3": 245.39669999999978,
+      "hit_above_seam_storey_mm3": 0.0
+    },
+    {
+      "label": "alternate staging pose",
+      "offset_y_mm": 38.55000000000001,
+      "offset_z_mm": -70,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null,
+      "hit_at_seam_storey_mm3": 0.0,
+      "hit_above_seam_storey_mm3": 0.0
+    }
+  ],
+  "diagnostic_bottom_clearance": {
+    "method": "Union of native component bounding prisms from Z160 to each component's upper plane at the aft stop, with 0.25 mm XY/top air. Conservative upper bound only; not a proposed production cut.",
+    "components": [
+      {
+        "component": "web",
+        "overlap_mm3": 2286.512006338756,
+        "hit_bounds": {
+          "x": [
+            -62.97,
+            62.97
+          ],
+          "y": [
+            110.26000000000002,
+            116.76000000000002
+          ],
+          "z": [
+            160.0,
+            166.9240001
+          ]
+        }
+      },
+      {
+        "component": "flange",
+        "overlap_mm3": 4582.164770527899,
+        "hit_bounds": {
+          "x": [
+            -56.82000000000001,
+            56.82
+          ],
+          "y": [
+            116.26000000000002,
+            130.76000000000002
+          ],
+          "z": [
+            160.0,
+            166.9240001
+          ]
+        }
+      },
+      {
+        "component": "bar -1",
+        "overlap_mm3": 1418.0760099000006,
+        "hit_bounds": {
+          "x": [
+            -107.5,
+            -98.5
+          ],
+          "y": [
+            100.26000000000002,
+            116.76000000000002
+          ],
+          "z": [
+            160.0,
+            174.8
+          ]
+        }
+      },
+      {
+        "component": "backing -1",
+        "overlap_mm3": 293.6018399228833,
+        "hit_bounds": {
+          "x": [
+            -93.25,
+            -90.82
+          ],
+          "y": [
+            118.3099999,
+            135.76000000000002
+          ],
+          "z": [
+            160.0,
+            166.9240001
+          ]
+        }
+      },
+      {
+        "component": "aft grip -1",
+        "overlap_mm3": 204.2926229505002,
+        "hit_bounds": {
+          "x": [
+            -104.5,
+            -90.82
+          ],
+          "y": [
+            132.26000000000002,
+            135.76000000000002
+          ],
+          "z": [
+            160.0,
+            166.9240001
+          ]
+        }
+      },
+      {
+        "component": "retaining rim -1",
+        "overlap_mm3": 592.5241074024998,
+        "hit_bounds": {
+          "x": [
+            -104.5,
+            -101.0
+          ],
+          "y": [
+            94.11000000000001,
+            116.76000000000002
+          ],
+          "z": [
+            160.0,
+            229.36900009999997
+          ]
+        }
+      },
+      {
+        "component": "bar 1",
+        "overlap_mm3": 1418.0760099000004,
+        "hit_bounds": {
+          "x": [
+            98.5,
+            107.5
+          ],
+          "y": [
+            100.26000000000002,
+            116.76000000000002
+          ],
+          "z": [
+            160.0,
+            174.8
+          ]
+        }
+      },
+      {
+        "component": "backing 1",
+        "overlap_mm3": 293.6018318679619,
+        "hit_bounds": {
+          "x": [
+            90.82,
+            93.25
+          ],
+          "y": [
+            118.3099999,
+            135.76000000000002
+          ],
+          "z": [
+            160.0,
+            166.9240001
+          ]
+        }
+      },
+      {
+        "component": "aft grip 1",
+        "overlap_mm3": 204.2926213348999,
+        "hit_bounds": {
+          "x": [
+            90.82,
+            104.5
+          ],
+          "y": [
+            132.26000000000002,
+            135.76000000000002
+          ],
+          "z": [
+            160.0,
+            166.9240001
+          ]
+        }
+      },
+      {
+        "component": "retaining rim 1",
+        "overlap_mm3": 592.5241074025009,
+        "hit_bounds": {
+          "x": [
+            101.0,
+            104.5
+          ],
+          "y": [
+            94.11000000000001,
+            116.76000000000002
+          ],
+          "z": [
+            160.0,
+            229.36900009999997
+          ]
+        }
+      }
+    ],
+    "total_affected_native_mm3": 10810.160989547534,
+    "affected_bounds": {
+      "x": [
+        -107.5,
+        107.5
+      ],
+      "y": [
+        94.11000000000001,
+        135.76000000000002
+      ],
+      "z": [
+        160.0,
+        229.36900009999997
+      ]
+    },
+    "seam_storey_affected_mm3": 10755.285989835385,
+    "above_seam_affected_mm3": 54.874999999999986
+  }
+}

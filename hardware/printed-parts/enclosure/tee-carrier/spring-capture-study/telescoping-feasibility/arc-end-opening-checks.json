@@ -1,0 +1,87 @@
+{
+  "scope": "Short complementary arc pair with the existing cups and loading window, on the frozen tee datum only. No relief, deeper cup, physical coupon or production source is released.",
+  "script_sha256": "016461b251d8adf947ddaaa365f3fe65f867cd01cb861253564a501d934eeac4",
+  "arc_helper_sha256": "02aa26f671a9a12b4af353a5469bde92c0772300f0db77d6ac6aaa8f798e1afb",
+  "front_top_sha256": "63471e1fa49233b281b6334ec3ef82c73a3abe8c635eb537c4f38e2a2e6e5508",
+  "fixture_sha256": "446357f5355cfc2d8fafb746c1be63924acb380254df00a48323cd2a499ed9bd",
+  "current_input_manifest_sha256": "e7d645b7551a113259750679a4495e25771d2d67fd318ec97d97dec73691a266",
+  "end_region_readings": [
+    {
+      "state": "release",
+      "fixed_end_single_arc_axial_region_mm": 4.0,
+      "moving_end_single_arc_axial_region_mm": 4.900000000000006
+    },
+    {
+      "state": "connected",
+      "fixed_end_single_arc_axial_region_mm": 6.149999999999999,
+      "moving_end_single_arc_axial_region_mm": 7.050000000000004
+    },
+    {
+      "state": "aft_stop",
+      "fixed_end_single_arc_axial_region_mm": 8.649999999999999,
+      "moving_end_single_arc_axial_region_mm": 9.550000000000004
+    }
+  ],
+  "probe": {
+    "rigid_ball_diameter_mm": 6.0,
+    "inboard_sweep_mm": 10.0,
+    "center_y_above_fixed_floor_mm": 18.275000000000002,
+    "state": "aft_stop",
+    "native_volume_mm3": 395.8406743523139,
+    "analytic_swept_ball_volume_mm3": 395.84067435231395,
+    "distance_from_ball_to_fixed_arc_tip_mm": 1.7750000000000021,
+    "distance_from_ball_to_end_of_loading_window_mm": 1.7750000000000021
+  },
+  "native_readings": [
+    {
+      "side": -1,
+      "obstacle": "frozen front-top",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "obstacle": "original moving carrier",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "obstacle": "fixed arc",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "obstacle": "moving arc",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "obstacle": "frozen front-top",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "obstacle": "original moving carrier",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "obstacle": "fixed arc",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "obstacle": "moving arc",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    }
+  ],
+  "entire_probe_lane_clear": true,
+  "qualification": "The swept local rigid-OD probe identifies an open inboard lane near the moving spring end. It is not the entire spring, a prediction of coil deformation, or proof that either real spring end unseats. The arc pair does not enclose the entire spring length."
+}

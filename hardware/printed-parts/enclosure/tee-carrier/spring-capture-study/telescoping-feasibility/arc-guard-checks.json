@@ -1,0 +1,234 @@
+{
+  "scope": "Guard-pair and frozen native interference feasibility only; required carrier relief, supports and complete assembly are not implemented or qualified. New tee branch measurements require placement rebase.",
+  "script_sha256": "02aa26f671a9a12b4af353a5469bde92c0772300f0db77d6ac6aaa8f798e1afb",
+  "front_top_sha256": "63471e1fa49233b281b6334ec3ef82c73a3abe8c635eb537c4f38e2a2e6e5508",
+  "helper_sha256": "bd1491eebd15b39da3c2114ca2da80f3235b72b0bd26ec50ae5da05154b6b2aa",
+  "fixture_sha256": "446357f5355cfc2d8fafb746c1be63924acb380254df00a48323cd2a499ed9bd",
+  "current_input_manifest_sha256": "e7d645b7551a113259750679a4495e25771d2d67fd318ec97d97dec73691a266",
+  "parameters_mm": {
+    "id": 6.57,
+    "wall": 1.3,
+    "od": 9.17,
+    "fixed_projection": 13.5,
+    "moving_projection_from_its_floor": 13.5,
+    "held_spring_length": 9.61
+  },
+  "arc_degrees_each": 110.0,
+  "guard_pair_at_assembly": [
+    {
+      "inset_mm": 3.25,
+      "guard_overlap_mm3": 0.0,
+      "guard_distance_mm": 0.5183971868263735
+    },
+    {
+      "inset_mm": 2.5,
+      "guard_overlap_mm3": 0.0,
+      "guard_distance_mm": 1.2683971868263735
+    },
+    {
+      "inset_mm": 1.5,
+      "guard_overlap_mm3": 0.0,
+      "guard_distance_mm": 2.2683971868263733
+    },
+    {
+      "inset_mm": 0.5,
+      "guard_overlap_mm3": 0.0,
+      "guard_distance_mm": 3.2683971868263733
+    },
+    {
+      "inset_mm": 0.0,
+      "guard_overlap_mm3": 0.0,
+      "guard_distance_mm": 3.7683971868263733
+    }
+  ],
+  "continuous_lateral_separation_proof": {
+    "fixed_guard_x_max": -1.8841985934131864,
+    "moving_guard_x_min_at_maximum_inset": -1.3658014065868136,
+    "minimum_x_gap_mm": 0.5183971868263728,
+    "scope": "All intermediate parallel X offsets from 0 to 3.25 mm; projected X intervals do not meet."
+  },
+  "axial_overlap_mm": {
+    "release": 7.5,
+    "connected": 5.35,
+    "aft_stop": 2.85
+  },
+  "spring_loading": {
+    "held_length_mm": 9.61,
+    "front_end_above_fixed_floor_at_assembly_mm": 14.54,
+    "front_end_past_fixed_guard_tip_mm": 1.0399999999999991,
+    "held_spring_vs_fixed_guard_overlap_mm3": 0.0,
+    "reported_compressed_length_mm": 7.0,
+    "length_above_reported_compressed_mm": 2.6099999999999994,
+    "19mm_fixed_guard_available_spring_length_at_assembly_mm": 5.149999999999999,
+    "tool": "An inboard-withdrawing flat blade could act through the retained loading window aft of the fixed-guard tip. Its full native exit route with the required relief is pending."
+  },
+  "rigid_od_escape_bound": {
+    "inner_chord_across_each_angular_gap_mm": 3.768397186826373,
+    "rigid_test_cylinder_diameter_mm": 6.0,
+    "gap_is_narrower_than_rigid_od": true,
+    "scope": "Only undeformed \u00d86 geometry inside the zone where both arcs overlap. Individual coil-wire flexibility, ovalization and end-region escape are not modeled."
+  },
+  "current_native_interferences": [
+    {
+      "side": -1,
+      "state": "release",
+      "fixed_guard_vs_unmodified_carrier_mm3": 1.1159876518946283,
+      "required_carrier_relief_bounds": {
+        "x": [
+          -95.23481816696037,
+          -94.3364066618277
+        ],
+        "y": [
+          95.86,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          207.924
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "state": "connected",
+      "fixed_guard_vs_unmodified_carrier_mm3": 0.6455222692331671,
+      "required_carrier_relief_bounds": {
+        "x": [
+          -95.23481816696037,
+          -94.3364066618277
+        ],
+        "y": [
+          98.01,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          207.924
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "state": "aft_stop",
+      "fixed_guard_vs_unmodified_carrier_mm3": 0.09846949869658557,
+      "required_carrier_relief_bounds": {
+        "x": [
+          -95.23481816696037,
+          -94.3364066618277
+        ],
+        "y": [
+          100.51,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          207.924
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": -1,
+      "state": "inset_assembly",
+      "fixed_guard_vs_unmodified_carrier_mm3": 0.12226883615594679,
+      "required_carrier_relief_bounds": {
+        "x": [
+          -95.36193763968986,
+          -94.33600010106153
+        ],
+        "y": [
+          100.51,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          208.10554542159636
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "state": "release",
+      "fixed_guard_vs_unmodified_carrier_mm3": 1.1159876518943186,
+      "required_carrier_relief_bounds": {
+        "x": [
+          94.3364066618277,
+          95.23481816696037
+        ],
+        "y": [
+          95.86,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          207.924
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "state": "connected",
+      "fixed_guard_vs_unmodified_carrier_mm3": 0.6455222692329882,
+      "required_carrier_relief_bounds": {
+        "x": [
+          94.3364066618277,
+          95.23481816696037
+        ],
+        "y": [
+          98.01,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          207.924
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "state": "aft_stop",
+      "fixed_guard_vs_unmodified_carrier_mm3": 0.09846949869655845,
+      "required_carrier_relief_bounds": {
+        "x": [
+          94.3364066618277,
+          95.23481816696037
+        ],
+        "y": [
+          100.51,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          207.924
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "state": "inset_assembly",
+      "fixed_guard_vs_unmodified_carrier_mm3": 0.12226883615592168,
+      "required_carrier_relief_bounds": {
+        "x": [
+          94.33600010106153,
+          95.36193763968987
+        ],
+        "y": [
+          100.51,
+          100.96000000000001
+        ],
+        "z": [
+          207.45318797693494,
+          208.10554542159636
+        ]
+      },
+      "moving_guard_vs_current_front_top_mm3": 0.0
+    }
+  ],
+  "conclusion": "Short complementary arcs can clear each other and a precompressed spring during the existing lateral seating. They require local carrier clearance relief and a clear pusher exit. The pair offers a geometric lateral bound only in its overlap; end-region enclosure, structure and real spring behavior remain unqualified. No coupon is released."
+}
