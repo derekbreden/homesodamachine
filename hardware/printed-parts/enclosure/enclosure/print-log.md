@@ -391,3 +391,21 @@ The [print job](print-jobs.json) binds the source, project, archive and G-code h
 The [release report](../tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json)
 carries the native slice and support review. Spring feel, retention, rigidity and physical
 support removal remain readings of the complete enclosure trial.
+
+## 2026-09-21 — full cartridge and raised cap on H2C
+
+The full pump cartridge and raised, open motor-end cap are running on H2C.
+MQTT confirmed `RUNNING`, layer 0/496, no error, at 2026-09-21T07:47:46.755410+00:00.
+Derek confirmed the plate clear before submission.
+
+- Black PET-GF on left external 254, mapped as PET-CF; fixed left 0.4 mm diamond PCD.
+- Saved process/support profile and `auto_brim`; the actual slice emits zero brim paths.
+- Requested Z trim +0.18 mm, emitted textured-plate trim +0.16 mm.
+- Timelapse and bed leveling On; flow and nozzle-offset calibration Auto.
+- Estimate: 10 h 9 min 12 s, 419.94 g at saved density, 465.51 g at PET-GF accounting density.
+- Six support bodies have accessible removal lanes before hardware installation.
+- Native current-source reconstruction preserves both parts and their fitted mating surfaces.
+
+The [launch record](../tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
+binds the accepted archive and local mating proof. Remaining shell corrections continue
+while this complete enclosure plate prints.

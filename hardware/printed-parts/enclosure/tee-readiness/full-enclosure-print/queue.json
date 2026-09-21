@@ -1,5 +1,5 @@
 {
-  "status": "geometry_repairs_in_progress_countertop_running_on_mark2",
+  "status": "h2c_full_cartridge_cap_ready_for_local_release_remaining_geometry_under_repair",
   "submitted": true,
   "all_shell_quadrants_fresh": true,
   "source_profile": "hardware/printed-parts/petgf.3mf",
@@ -78,7 +78,7 @@
       "native_support_packing": "Native supports/brim/model paths fit; 29.275 mm minimum bed margin and 31.799 mm inter-object separation",
       "printer_handoff": "Mark2 remains assigned to Tube miter box; fresh mounted-nozzle confirmation required after hotend change",
       "brim_type": "auto_brim",
-      "native_status": "offline print review pass; pending Mark2 handoff and parent release",
+      "native_status": "superseded_machine_assignment_unsubmitted",
       "print_released": false,
       "calibration_note": "The current countertop z000 job is an explicitly limited single-print trial. It does not replace the saved Mark2 +0.04 mm requested trim. Fresh hotend first-layer behavior awaits the owning task.",
       "native_archive_sha256": "5df9a09154864e1916fd3de02e76441c23a91f92d70547785c7c35ff0e6dda01",
@@ -87,7 +87,36 @@
       "support_review": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/support-removal-review.json",
       "support_review_sha256": "3aec2af5bb8991a9f0defb7b314ac17811017268019dd05ffc1c14420bf8dd7c",
       "readiness": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/readiness.json",
-      "queue_hold": "complete_assembly_integration_findings"
+      "queue_hold": "complete_assembly_integration_findings",
+      "queue_role": "Immutable prior-machine archive retained; current cartridge/cap assignment is H2C."
+    },
+    {
+      "printer": "H2C",
+      "directory": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1",
+      "parts": [
+        "enclosure-pump-cartridge",
+        "enclosure-pump-cap"
+      ],
+      "requested_z_trim_mm": 0.18,
+      "effective_textured_z_trim_mm": 0.16,
+      "brim_type": "auto_brim",
+      "native_status": "running",
+      "print_released": true,
+      "submitted": true,
+      "native_archive": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "native_archive_sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
+      "estimated_seconds": 36552.3125,
+      "estimated_grams_petgf_density_1p43": 465.50957518584966,
+      "readiness": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/readiness.json",
+      "support_review": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/support-removal-review.json",
+      "support_review_sha256": "06e1af868f7feded2d1f8be482c813ad740b5ee38edec5a91bfa8a41c01a9efc",
+      "local_mating_confirmation": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/pump-rear-boundary-equivalence.json",
+        "sha256": "3d2ac2a0be2cb8322763fd445f09283e2edfa50804f19714b368e529881e7e83",
+        "scope": "Fresh current rear-boundary cartridge/cap builders are natively equivalent to the exact printed inputs; all local pump stations, fitted wells and mating surfaces remain unchanged."
+      },
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json",
+      "observed_at": "2026-09-21T07:47:46.755410+00:00"
     }
   ],
   "remaining_shell_jobs": [
@@ -205,6 +234,11 @@
       "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/ready/enclosure-front-bottom-black-z004-mark2-v1.gcode.3mf",
       "sha256": "1454b147ced20f2b9c64731f5e854d9b19c78ddfbd20c17c815b33338399f68c",
       "status": "offline_print_review_pass_pending_parent_release"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
+      "status": "running"
     }
   ],
   "packing_qualification": "Keep the established15 mm model border; inspect actual native model/support/brim paths against325 x320 mm area and report separation. Inherit auto_brim for future projects without forced adhesion changes.",
@@ -302,7 +336,7 @@
     "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-geometry.json",
     "sha256": "8f578fa90c11a6b6ed6c2c1cd51bdd30a718b18d3f037addb23c156e4f17a0bd"
   },
-  "resource_scheduling": "No enclosure slicer/reviewer is active. Mark2 is printing the user-requested countertop trial. H2C is available after plate clearance for a specifically qualified enclosure part. Front-bottom requires the selected core-stop +4.3 mm change to be resolved before its print can be released.",
+  "resource_scheduling": "H2C is running the full pump cartridge and raised cap. Mark2 is running the countertop. Remaining full enclosure geometry corrections continue while both printers work.",
   "brim_policy": {
     "default": "auto_brim from the saved production profile",
     "authority": "Derek allows current prepared no_brim inputs to remain unchanged and wants future projects to inherit automatic selection. No manually forced enclosure brim.",
@@ -357,15 +391,15 @@
   "queue_progression_hold": {
     "active": true,
     "authority": "Coordinating task: canonical full assembly reports complete-pack overlaps and carrier-envelope failures; assembly qualification requires triage.",
-    "scope": "No further native slices or new printer submissions. Preserve exact prepared archives. Offline toolpath/support results do not establish complete-assembly fit.",
+    "scope": "Affected shell, manifold and routing parts require corrected assembly qualification. Independently qualified complete parts may be sliced and sent; full pump cartridge/cap is running.",
     "active_worker": null,
     "last_completed_offline_job": "enclosure-front-bottom-black-z004-mark2-v1",
-    "first_h2c_job": "Paused, confirmed by coordinating task MQTT at2026-09-21T07:12:13+00:00; layer3/813,error0."
+    "first_h2c_job": "Cancelled at2026-09-21T07:20:31.779542+00:00 after user resumed the review pause; last observed running layer3/813."
   },
   "operational_rule": {
     "authority": "Derek, relayed by coordinating task on 2026-09-21",
     "printer_pauses": "Do not pause a running job for agent reviews. A known defective job is canceled, with the exact reason and printer result recorded.",
     "idle_holds": "Do not reserve an idle printer for indefinite whole-machine verification. Continue authorized useful prints whose geometry and mating interfaces are qualified.",
-    "current_priority": "The user-requested fake-countertop retry is running on Mark2 at requested +0.04, reported by its owner at 07:24:50 UTC. H2C may take the next qualified enclosure part after plate clearance; no idle-printer hold is created."
+    "current_priority": "H2C is running the full pump cartridge and raised cap. Mark2 is running the countertop. Remaining full enclosure geometry corrections continue while both printers work."
   }
 }
