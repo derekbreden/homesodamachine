@@ -1,5 +1,5 @@
 {
-  "status": "print_finished_physical_verification_pending",
+  "status": "physically_successful_appearance_qr_and_snaps",
   "submitted": true,
   "printer": "Mark2",
   "native_archive": ".cache/prints/2026-09-20-nameplate-001-black-white-z004-mark2-v1/slice-2/nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
@@ -148,7 +148,7 @@
     "Invalid T command (T65535).",
     "Invalid T command (T65279)."
   ],
-  "physical_fit_tested": false,
+  "physical_fit_tested": true,
   "part_scope": "Unit 0001 production nameplate with matching receiver coupon for retention testing.",
   "qr_verification": {
     "decoder": "Apple Vision VNDetectBarcodesRequest",
@@ -274,5 +274,6 @@
   },
   "user_design_acceptance": false,
   "user_design_feedback": "Derek finds the nameplate unnecessarily complex; the faucet display cover is the sole proven example for simple broad substantial snap walls.",
-  "plate_clearance_confirmed": false
+  "plate_clearance_confirmed": false,
+  "physical_acceptance_record": "hardware/printed-parts/enclosure/nameplate/physical-acceptance.json"
 }

@@ -99,7 +99,13 @@ and flow settings and uses Mark2's requested 0.04 mm bed trim.
 
 The [native print record](mark2-print-readiness.json) identifies the exact archive accepted
 by Mark2, its live spool mapping and the right hotend's first use with white PET-GF.
-Physical printing, support removal and snap retention remain separate checks.
+The [physical result](physical-acceptance.json) records Derek's successful print: clear
+appearance, reliable QR scanning from 2 feet, intermittent scanning from 3 feet, and working
+snaps in the receiver coupon. Both original photographs are retained with the print hashes.
+The photographed QR independently decodes to `HTTPS://HOSM.US/0001`.
+
+Derek's preference remains simpler geometry with broad, substantial flexing walls, as in the
+faucet display cover. The nameplate's functional result does not remove that complexity concern.
 
 The [native slice reading](mark2-print-readiness.json) records 1.3 mm stem toolpath envelopes
 and five consecutive full-depth catch layers. The total catch section is 3.10–3.115 mm:
