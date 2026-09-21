@@ -31,8 +31,8 @@
   "nominal_radial_interference_mm": 0.0,
   "open_release_conditions": [
     "Complete selected G Ganen reference from actual scan and update affected mounts, port seats, storeys and tube routes; existing SeaFlo checks are baseline only.",
-    "Resolve PP0208E absolute extended branch station, fixed/moving nose boundary and release rim; radial collar correction and consumers are implemented.",
-    "Integrate self-latching joint with no separate keeper, preserve physically accepted key fit and qualify full-width carrier stiffness.",
+    "Propagate measured 30.5 mm extended / 29.0 mm pressed branch width and 1.5 mm travel; resolve the terminal moving ring boundary and release rim.",
+    "Simplify the complete carrier assembly, using broad substantial walls as demonstrated by the faucet cover; neither existing joint half is selected for reuse. Qualify full-width stiffness.",
     "Provide positive capture and guidance at both spring ends with simple assembly and the measured spring pair.",
     "Dry-fit both Kamoer pumps in the corrected cradle/cap and cycle all four actual tubes; verify return, release and primed leak-tight pumping.",
     "Verify actual Beduan socket fit, DIGITEN flow direction and machine-display retention using physical parts.",
@@ -63,12 +63,13 @@
       },
       "authority": "Derek loading reports in this task; right hotend white PET-GF is first use.",
       "ready_for_prepared_job": false,
-      "observed_at": "2026-09-21T00:33:54.528841+00:00",
+      "observed_at": "2026-09-21T01:43:36.791743+00:00",
       "current_job": "nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
-      "observed_state": "RUNNING",
+      "observed_state": "FINISH",
       "print_error": 0,
       "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
-      "job_purpose": "Unit 0001 nameplate and matching receiver coupon."
+      "job_purpose": "Unit 0001 nameplate and matching receiver coupon.",
+      "plate_clearance_confirmed": false
     },
     "H2C": {
       "cancelled_object_removal_confirmed": false,
@@ -92,13 +93,18 @@
     "evidence": "hardware/reference/jg-pp0208e-tee/scan-registration.json",
     "absolute_branch_sleeve_station_known": false,
     "fixed_small_barrel_and_moving_sleeve_boundary_qualified": false,
-    "production_consumers_updated": true,
+    "production_consumers_updated": false,
     "known_radial_clash_corrected": true,
     "local_integration_evidence": "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json",
     "journal_diameter_mm": 17.0,
     "conservative_collar_diameter_mm": 16.5,
     "run_span_extended_mm": 42.5,
-    "deck_separation_mm": 60.95
+    "deck_separation_mm": 60.95,
+    "branch_measurement_record": "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+    "branch_width_extended_mm": 30.5,
+    "branch_width_pressed_mm": 29.0,
+    "branch_collet_travel_mm": 1.5,
+    "measured_branch_propagation_complete": false
   },
   "post_publish_geometry_lint": {
     "accepted_lever_print_mesh": {
@@ -152,13 +158,15 @@
   "tee_nominal_radial_running_air_mm": 0.25,
   "joint_coupon": {
     "physical_fit": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/physical-fit.json",
-    "interlocking_fit_accepted": true,
     "rocking_or_play_observed": false,
     "tiny_catch_qualified": false,
     "production_joint_integrated": false,
-    "revision_requirement": "Integral broad-wall latch; normal mating motion locks two halves without a separate keeper or extra fastening step.",
+    "revision_requirement": "Simple complete assembly with broad substantial flexing walls. Neither coupon half is selected for reuse. The faucet display cover is the sole proven snap-fit reference.",
     "integral_trial_record": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/print-readiness.json",
-    "integral_trial_status": "ready_for_integral_coupon_trial"
+    "integral_trial_status": "withdrawn_from_print_queue_for_complete_joint_redesign",
+    "tight_fit_observed": true,
+    "design_accepted": false,
+    "geometry_preservation_required": false
   },
   "faucet_display_cover": {
     "physical_acceptance": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
@@ -167,7 +175,7 @@
     "machine_display_cover_acceptance_inferred": false
   },
   "current_regeneration": {
-    "status": "baseline_box_cold_core_and_local_cartridge_checks_passed_g_ganen_pending",
+    "status": "held_for_measured_tee_datums_simpler_carrier_and_g_ganen_integration",
     "core_sources_frozen": false,
     "includes": [
       "measured tee/reference and consumer axes",
@@ -187,14 +195,17 @@
     "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
     "native_qr_payload_verified": "HTTPS://HOSM.US/0001",
     "submitted_to": "Mark2",
-    "physical_qr_and_snap_fit_accepted": false
+    "physical_qr_and_snap_fit_accepted": false,
+    "user_design_acceptance": false,
+    "user_design_feedback": "Derek finds the nameplate unnecessarily complex; it is not the preferred snap-fit precedent.",
+    "status": "print_finished_physical_verification_pending"
   },
   "water_pump": {
     "selected": "G Ganen",
     "asin": "B07F35PTFR",
     "authority": "Derek, September 20, 2026",
     "calipers_recorded": false,
-    "scan_status": "First 1,033-frame native pass fused at 0.10 mm and archived; second pass captures the on-back angle identified by Derek. Feet-down view remains next.",
+    "scan_status": "Three native passes captured: feet-up 1,033 frames, on-back 1,146 frames and feet-down 1,114 frames. First two fused clouds are archived; feet-down fusion and dimensional analysis are processing.",
     "production_reference_integrated": false,
     "existing_seaflo_baseline_qualifies_selected_pump": false,
     "selection_record": "hardware/reference/pump-comparison/README.md",
@@ -203,7 +214,7 @@
     "pass_1_points": 3235134
   },
   "cartridge_print": {
-    "status": "prepared_for_bench_fit",
+    "status": "held_for_measured_branch_datum_propagation",
     "submitted": false,
     "readiness_record": "hardware/printed-parts/enclosure/enclosure/pump-print-readiness.json",
     "estimated_seconds": 34978,

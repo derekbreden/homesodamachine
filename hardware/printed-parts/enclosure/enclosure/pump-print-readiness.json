@@ -1,5 +1,5 @@
 {
-  "status": "ready_for_cartridge_and_cap_bench_fit",
+  "status": "held_for_measured_branch_datum_propagation",
   "submitted": false,
   "printer": "Mark2",
   "purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly.",
@@ -272,5 +272,8 @@
   "live_printer_mapping_and_empty_plate_still_required": true,
   "physical_fit_tested": false,
   "toolpath_review": "hardware/printed-parts/enclosure/enclosure/pump-toolpath-review.json",
-  "toolpath_review_sha256": "54850da99ea28ba8426c8b5a70cd5307a8bd3765f5cb576818094fa0c89bfdce"
+  "toolpath_review_sha256": "54850da99ea28ba8426c8b5a70cd5307a8bd3765f5cb576818094fa0c89bfdce",
+  "print_released": false,
+  "print_hold": "Propagate the measured 30.5 mm extended / 29.0 mm pressed branch width and 1.5 mm branch travel through the reference, release plate and cartridge; regenerate and requalify affected geometry before submission.",
+  "branch_measurement_record": "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json"
 }

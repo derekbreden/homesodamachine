@@ -16,9 +16,9 @@ Removal of that object from H2C is not yet confirmed.
 |---|---|---|
 | Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. Sockets, valve trays and cold-core cradles consume these dimensions. | Fit actual posts in a production-profile socket coupon and check the other valves. No new full scan is indicated. |
 | DIGITEN flow meter | Measured offset body and mounting collars; placement, anchors, ties and adjacent tubing follow that envelope. | Confirm the molded flow arrow and actual installed direction. No new full scan is indicated. |
-| John Guest PP0208E tee | Registered fixed surfaces support the conservative Ø16.5 collar and Ø14 root envelopes. The generated reference, carrier, journals, manifold and water split consume those dimensions and the measured 42.5 mm extended run. | Resolve absolute extended branch reach, the fixed/moving nose boundary and the release rim. Those axial features remain explicitly provisional. |
+| John Guest PP0208E tee | Registered fixed surfaces support the conservative Ø16.5 collar and Ø14 root envelopes. Derek measures branch width at 30.5 mm extended and 29.0 mm pressed, from the back of the widest fixed run collar. Only the small outermost ring moves. | Propagate the measured 1.5 mm branch travel and branch face position; qualify the terminal ring boundary and diameter. |
 | Kamoer pump | Two complementary native scans are complete. The short terminal pieces are Derek's inserted ¼-inch LLDPE stubs in silicone, excluded from rigid registration and integral pump dimensions. Cap pressing rails, floor relief and outlet stations are corrected. | Fit both actual pumps in the corrected cartridge/cap, then test four-tube insertion, capture, release and primed pumping. No third scan is needed for these contact corrections. |
-| G Ganen water pump | Derek selected the received G Ganen sample on September 20. No caliper dimensions were recorded. First native scan: 1,033 frames, high accuracy, 0.10 mm fusion; complementary view and dimensional analysis are pending. | Update the pump reference, mounts and affected tube routes from the scan, then check installation and operation. Existing SeaFlo assembly checks do not qualify this pump. |
+| G Ganen water pump | Derek selected the received G Ganen sample on September 20. No caliper dimensions were recorded. Three native views contain 1,033, 1,146 and 1,114 frames. Feet-up and on-back clouds are archived at 0.10 mm fusion; feet-down processing and dimensional analysis are active. | Update the pump reference, mounts and affected tube routes from the scan, then check installation and operation. Existing SeaFlo assembly checks do not qualify this pump. |
 | Faucet lever | The accepted flat-sided model with the 9 mm cylinder channel is primary. The printed mesh is byte-identical to the successful Mark2 artifact, with Derek's fit/function confirmation on record. | The complete faucet assembly needs a measured installed pose for its lever representation; that is separate from enclosure readiness. |
 | Faucet display cover | **Physically accepted in PET-GF.** Derek confirms that its broad, long, thin walls provide successful give and spring. The current STL matches the successful complete-cover trial. | Use its broad-wall geometry as a proven example for new retention features; each new geometry still needs its own fit test. |
 
@@ -36,10 +36,13 @@ Both native projects and their raw fused clouds are archived in
 
 The tee journal is **Ø17.0 mm**, giving 0.25 mm nominal radial running air around the
 conservative Ø16.5 collar envelope. Carrier troughs are R8.75; upper backing is 5.504 mm.
-The production reference preserves Derek's **42.5 mm extended / 39.2 mm pressed run span,
-1.65 mm sleeve stroke, 0.5 mm nose gap and 10 mm insertion depth from the pressed sleeve**.
-The branch reach, body-to-nose boundary and release rim are named provisional parameters;
-the registration of fixed surfaces does not settle those axial stations.
+The measured run span is **42.5 mm extended / 39.2 mm pressed**, giving 1.65 mm per run end.
+The [branch measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json)
+are **30.5 mm extended / 29.0 mm pressed**, giving **1.5 mm branch travel**. The branch
+face stations are nominally 22.35 and 20.85 mm from the run axis when derived with the
+nominal Ø16.3 back collar. The conservative Ø16.5 envelope is not that caliper datum.
+The small outermost terminal ring moves; its exact boundary and diameter remain open.
+Production propagation is pending. The prepared cartridge print is held for these changes.
 
 Deck separation is 60.95 mm. The carrier retains its full 2.5 mm station backing and clears
 the aft valves' complete mounting-post entry by 0.25 mm. All four pump-tube axes align with
@@ -77,19 +80,19 @@ The [joint coupon physical report](tee-carrier/joint-coupon/physical-fit.json) e
 - The separate keeper inserts, but its tiny catch supplies essentially no observed spring
   tension. The catch is not accepted as a meaningful positive lock.
 
-The production target is **two halves that lock during their normal mating movement**.
-There should be no separate keeper or extra fastening step. Simpler assembly is a required
-benefit of the snap fit. The successful key and lap fit should be preserved while an integral
-broad compliant wall and retaining lip provide capture. The
-[accepted faucet cover](../faucet/faucet-display-cover/physical-acceptance.json) is the physical
-PET-GF precedent. Production integration must also verify full-half entry, valve clearance,
-release access and full-width stiffness. The production carrier currently retains its
-screw-clamped lap. The [integral latch study](tee-carrier/joint-coupon/integral-latch-study/README.md)
-checks the two-piece alternative against the current tee and valve positions. Its existing
-left bench coupon is reusable; the revised right half supplies the broad spring wall. The
-right-only Mark2 trial is prepared at 21 min 46 sec and 7.54 g. Production integration also
-requires a 1.392 mm trim of the plain lap tip while preserving the accepted keys. Automatic
-engagement, retention force and practical release await the physical trial.
+**The complete carrier joint is under redesign for simplicity.** Neither coupon half is
+selected for reuse. The tight fit and absence of play are observations; Derek does not accept
+the joint's design or complexity. The right-only integral latch trial is withdrawn from the
+print queue. The [faucet display cover](../faucet/faucet-display-cover/physical-acceptance.json)
+is the sole physically proven example for the snap-fit approach: simple, broad, substantial
+walls provide the give and spring. Its success does not qualify a differently proportioned
+part. The nameplate is also not accepted as an example of the desired simplicity.
+
+Assembly simplicity, positive retention and full-width rigidity remain required. The source
+carrier has a screw-clamped lap; its replacement's part count and assembly motion are open.
+The installed geometry must clear the enclosure, tees and valves through assembly and
+operation. The [integral latch study](tee-carrier/joint-coupon/integral-latch-study/README.md)
+retains its geometric and toolpath evidence without a print release.
 
 ## Measured springs and capture
 
@@ -132,7 +135,7 @@ density.
 
 | Scope | Needed evidence |
 |---|---|
-| PP0208E operating nose | Caliper the extended branch width shown in the [measurement diagram](../../reference/jg-pp0208e-tee/branch-measurement.svg), and identify the fixed/moving boundary. A targeted end view is useful only if that seam cannot be resolved directly. |
+| PP0208E operating nose | Propagate the recorded branch widths and moving-ring identity; resolve its exact boundary and diameter. A targeted end view is useful only if the existing scan cannot settle those features. |
 | Kamoer physical contact and tubes | Both skirt seats loaded; rims clear floor; cap removes play before hard stops. Cycle all four marked insertion depths, tug/capture, carrier release and primed pumping. |
 | Complete tee carrier | Both springs captured at every stop, including unequal grip motion and sideways deflection; compare full-width stiffness under the same loads and constraints. |
 | Machine display cover | Test its actual printed snap and housing section. The faucet cover's success is a precedent, not acceptance of this different part. |
@@ -145,8 +148,8 @@ physical mechanism.
 
 ## Production release
 
-1. Settle the remaining tee operating datums and integrate simple, positive joint and spring
-   retention; preserve established pump seating faces and successful joint fit.
+1. Settle the remaining tee operating datums and integrate simple, positive carrier and spring
+   retention with the established pump seating faces. The prior joint geometry is not a design constraint.
 2. Complete affected part generation and the combined native assembly checks. Verify the
    actual final STEP/STL/payload digests, motion, neighbors and lower-shell interfaces.
 3. Print the small mating parts and corrected cartridge as they become ready. Establish

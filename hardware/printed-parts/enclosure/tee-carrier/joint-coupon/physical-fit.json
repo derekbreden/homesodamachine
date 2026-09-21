@@ -2,7 +2,7 @@
   "schema": 1,
   "reported_by": "Derek",
   "reported_date": "2026-09-20",
-  "status": "interlocking_fit_accepted_keeper_catch_inadequate",
+  "status": "fit_observed_design_not_accepted",
   "job": "carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
   "native_archive_sha256": "16f7a517536f1fc88b7c39546f03f2cdb26c52d02f61f9db01c3ef44c457a380",
   "source_parts": [
@@ -28,10 +28,13 @@
     "keeper_catch_description": "Very flimsy with essentially zero observed spring tension; retention is dominated by friction.",
     "positive_keeper_lock_qualified": false
   },
-  "decision": "Preserve the successful key and lap fit. Integrate broad compliant walls and retaining lips into the mating halves so their normal assembly movement locks the joint without a separate keeper.",
+  "decision": "The complete joint is under redesign for simple assembly. Neither coupon half is selected for reuse. The faucet display cover is the sole physically proven snap-fit reference.",
   "faucet_cover_precedent": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
   "production_carrier_ready": false,
-  "limits": "No measured assembly force or full-width carrier stiffness result; friction alone is not accepted as positive keeper retention.",
+  "limits": "Observed tight fit and no play do not establish design acceptance, measured force or full-width carrier stiffness. The tiny keeper catch provides no meaningful observed spring tension.",
   "assembly_acceptance": "Two mating halves assemble and retain themselves in the normal seating motion; no separate keeper or extra fastening step. Simpler assembly is a required benefit of the snap fit.",
-  "user_assembly_priority": "Half the value of moving to snap fit is simpler assembly; a separate keeper does not supply that benefit."
+  "user_assembly_priority": "Half the value of moving to snap fit is simpler assembly; a separate keeper does not supply that benefit.",
+  "user_design_feedback": "Please don\u2019t consider that \u201cit fit well\u201d reason to use that design or any part of it. Please consider I prefer simplicity and the previous design and the remaining half still seem overly complicated to me. Please consider I don\u2019t love the nameplate for its complexity, and the faucet display cover is the only one that has been simple enough, with thick enough and broad enough components for the snap.",
+  "design_accepted": false,
+  "geometry_preservation_required": false
 }

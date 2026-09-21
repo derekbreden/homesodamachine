@@ -1,5 +1,5 @@
 {
-  "status": "printing_physical_verification_pending",
+  "status": "print_finished_physical_verification_pending",
   "submitted": true,
   "printer": "Mark2",
   "native_archive": ".cache/prints/2026-09-20-nameplate-001-black-white-z004-mark2-v1/slice-2/nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
@@ -194,14 +194,85 @@
     "layer_counters": "Not recorded during PREPARE; the printer still exposed the previous job counters."
   },
   "print_progress": {
-    "observed_at": "2026-09-21T01:04:12.178529+00:00",
-    "gcode_state": "RUNNING",
+    "printer": "Mark2",
+    "observed_at": "2026-09-21T01:43:36.791743+00:00",
+    "gcode_state": "FINISH",
     "subtask_name": "nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
-    "mc_percent": 53,
-    "layer_num": 47,
+    "mc_percent": 100,
+    "layer_num": 192,
     "total_layer_num": 192,
-    "mc_remaining_time": 38,
+    "mc_remaining_time": 0,
     "print_error": 0,
-    "hms": []
-  }
+    "hms": [],
+    "nozzle_temper": 147.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 72.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "user_design_acceptance": false,
+  "user_design_feedback": "Derek finds the nameplate unnecessarily complex; the faucet display cover is the sole proven example for simple broad substantial snap walls.",
+  "plate_clearance_confirmed": false
 }

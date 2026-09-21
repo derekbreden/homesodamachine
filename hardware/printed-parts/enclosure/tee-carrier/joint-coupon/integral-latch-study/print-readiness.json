@@ -1,5 +1,5 @@
 {
-  "status": "ready_for_integral_coupon_trial",
+  "status": "withdrawn_from_print_queue_for_complete_joint_redesign",
   "submitted": false,
   "production_carrier_ready": false,
   "coupon_only": true,
@@ -9,7 +9,8 @@
   "reuse_existing_part": {
     "path": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.stl",
     "sha256": "d0afd35f18df2a34753d04c91184e6f60c4eafd369c5f486042e402c6707f734",
-    "no_new_keeper": true
+    "no_new_keeper": true,
+    "selected_for_reuse": false
   },
   "printer": "Mark2",
   "physical_filament": "Black Polymaker PET-GF",
@@ -156,5 +157,8 @@
   "support_audit_sha256": "e4389461b48c7475c1049476a53e1088347138c34edc56217b6408221111349e",
   "live_printer_mapping_and_empty_plate_still_required": true,
   "toolpath_review": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/toolpath-review.json",
-  "toolpath_review_sha256": "160b0e94ad54e1680c1f5864556b02ea93d81f7dd6453fa581ca153193982f6d"
+  "toolpath_review_sha256": "160b0e94ad54e1680c1f5864556b02ea93d81f7dd6453fa581ca153193982f6d",
+  "print_released": false,
+  "user_design_feedback": "Please don\u2019t consider that \u201cit fit well\u201d reason to use that design or any part of it. Please consider I prefer simplicity and the previous design and the remaining half still seem overly complicated to me. Please consider I don\u2019t love the nameplate for its complexity, and the faucet display cover is the only one that has been simple enough, with thick enough and broad enough components for the snap.",
+  "print_hold": "Neither half is selected for reuse; simplify the complete joint using the faucet cover as the physical snap-fit precedent."
 }

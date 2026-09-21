@@ -146,10 +146,12 @@ def main():
     assert len(plate['objects'])==1 and plate['obj_cached_cnt']==0
     assert plate['triangle_count']==sum(row['triangles'] for row in report['parts'])
     support=single_part_audit(staged,report,ready,result)
-    record={'status':'native_slice_complete_toolpath_review_pending','submitted':False,
+    record={'status':'withdrawn_from_print_queue_for_complete_joint_redesign','submitted':False,
+        'print_released':False,
+        'print_hold':'Neither coupon half is selected for reuse; the complete joint is under redesign for simplicity.',
         'production_carrier_ready':False,'coupon_only':True,'printed_parts':['integral-coupon-right'],
         'reuse_existing_part':{'path':str((HERE.parent/'coupon-only-left.stl').relative_to(ROOT)),
-            'sha256':sha(HERE.parent/'coupon-only-left.stl'),'no_new_keeper':True},
+            'sha256':sha(HERE.parent/'coupon-only-left.stl'),'no_new_keeper':True,'selected_for_reuse':False},
         'printer':'Mark2','physical_filament':'Black Polymaker PET-GF',
         'filament_metadata':effective['filament_type'],
         'requested_z_trim_mm':.04,'actual_z_trim_commands_mm':trims,

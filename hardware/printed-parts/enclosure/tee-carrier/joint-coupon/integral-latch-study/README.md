@@ -1,10 +1,15 @@
 # Two-piece integral carrier latch coupon
 
+**This study has no print release.** Neither coupon half is selected for reuse. Derek's
+tight-fit observation does not establish design acceptance; the complete carrier joint
+is under redesign for simpler parts and assembly. The faucet display cover is the sole
+physically proven example for the preferred broad, substantial flexing walls.
+
 The right receiver has one broad flexible wall and a square retaining lip. Forward
 entry bends that wall; the existing 3.25 mm outward slide lets its lip return beside
 the lower key and prevent reverse sliding. Assembly uses two pieces and no additional
-fastening operation. The accepted [left coupon](../coupon-only-left.stl) is reused
-directly. Its keys and lap faces are unchanged.
+fastening operation. Its mating [left coupon](../coupon-only-left.stl) carries the keys
+and lap faces. Both pieces belong to this unselected study.
 
 ![Native sections of entry and engagement](motion.svg)
 
@@ -22,9 +27,9 @@ sweeps, positive lip retention, retained key bearing contacts, and free-wall cle
 The root's shared material is the intended integral attachment. The rear access slot
 is 2.8 × 3.7 mm and lies between the keys, in the open centre corridor between valves.
 
-For the bench trial:
+The modeled assembly sequence is:
 
-1. Reuse the original left part. Offset the right receiver 3.25 mm toward the left
+1. Offset the right receiver 3.25 mm toward the left
    of its latched position and bring it toward the lap over both heads. The lower
    head should press the broad wall aft as the lap faces meet.
 2. Slide the right receiver 3.25 mm outward. The wall should return by itself and
@@ -42,7 +47,7 @@ is a separate test; this short coupon does not establish it.
 
 ## Print evidence
 
-Only [integral-coupon-right.stl](integral-coupon-right.stl) needs printing. Its matching
+The offline slice contains [integral-coupon-right.stl](integral-coupon-right.stl). Its matching
 [STEP](integral-coupon-right.step) uses the shared assembly coordinates; the STL is
 already rotated and placed on the bed. The receiver prints **root first**, with the long
 wall vertical, as the display cover's walls rise from its bedded bezel. The 0.6 mm wall
@@ -52,8 +57,7 @@ The unique offline job is **`carrier-integral-latch-right-black-z004-mark2-v2.gc
 The retained PET-GF profile and +0.04 mm requested Mark2 trim produce `G29.1 Z0` and
 `G29.1 Z0.02`, matching the accepted coupon. The native estimate is **21 min 46 sec,
 7.54 g and 220 layers**. [print-readiness.json](print-readiness.json) identifies the
-exact source, profile, archive and G-code hashes. Submission requires a current printer
-check and a clear plate; this study performs no printer actions.
+exact source, profile, archive and G-code hashes. The trial is withdrawn from the print queue.
 
 ![Actual native roads and support paths](toolpath-review.svg)
 
@@ -74,11 +78,11 @@ has **2.07 mm minimum clearance**. The relief ends at X=11.10 mm, before the inn
 tee trough begins at X=11.32 mm, preserving its upper backing. The wall's upper region
 also clears the retained carrier flange through the prescribed deflection family.
 
-The accepted coupon's plain lap tip reaches X=9.462 mm. The current production limit
+The coupon's plain lap tip reaches X=9.462 mm. The current production limit
 is X=8.070 mm. At the independent left-half seating inset, that excess plain tip overlaps
 the wider tee by 44.224 mm³. **Production integration must trim 1.392 mm from that
 non-key tip.** The current limit clears the tee, and the original key geometry remains
-inside it. The bench left coupon stays unchanged so its physical fit can be reused.
+inside it. These are bounded geometric findings for this study, not a production selection.
 
 No production carrier source is changed by this study. Its complete insertion sequence,
 spring capture, tie access, full-width stiffness and final support removal must be
