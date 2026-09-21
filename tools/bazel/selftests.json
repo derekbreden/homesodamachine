@@ -367,6 +367,13 @@
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": [
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_material_base.py",
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py": [
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

@@ -6661,6 +6661,28 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step"
     ]
   },
+  "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": {
+    "reads": [
+      "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
+      "hardware/printed-parts/fixtures/fake-countertop/README.md",
+      "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
+      "hardware/printed-parts/fixtures/fake-countertop/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
+      "hardware/printed-parts/fixtures/fake-countertop/README.md",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl"
+    ]
+  },
   "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py": {
     "reads": [
       "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py",

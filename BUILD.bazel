@@ -7114,6 +7114,57 @@ cp hardware/printed-parts/faucet/tube-collar/README.md $$O6
 )
 
 genrule(
+    name = "fake-countertop",
+    srcs = [
+        "hardware/printed-parts/fixtures/fake-countertop/README.md",
+        "pysrc/hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step",
+        "out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
+        "out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
+        "out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/README.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step)
+O1=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl)
+O2=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/README.figures.json)
+O3=$$PWD/$(location out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/README.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py > /dev/null
+cp hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step $$O0
+cp hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl $$O1
+cp hardware/printed-parts/fixtures/fake-countertop/README.figures.json $$O2
+cp hardware/printed-parts/fixtures/fake-countertop/README.md $$O3
+""",
+)
+
+genrule(
     name = "cover-retention-trial",
     srcs = [
         "pysrc/hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py",
@@ -11979,6 +12030,14 @@ genrule(
     name = "pysrc-dec8aeccf579",
     srcs = ["hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-e6b716718d3a",
+    srcs = ["hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py"],
+    outs = ["pysrc/hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -17550,6 +17609,24 @@ sh_test(
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
+    name = "fake-countertop-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/printed-parts/fixtures/fake-countertop/README.figures.json",
+        "hardware/printed-parts/fixtures/fake-countertop/README.md",
+        "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_material_base.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    args = ["hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py"],
     size = "large",
     tags = ["local"],
 )
@@ -25225,6 +25302,7 @@ filegroup(
         ":prepare-print",
         ":tpu-o-ring",
         ":tube-collar",
+        ":fake-countertop",
         ":cover-retention-trial",
         ":faucet-display-snap-trial",
         ":tee-valve-bow-trial",
