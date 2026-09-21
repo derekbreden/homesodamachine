@@ -10,36 +10,8 @@
     "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
   },
   "print_released": false,
-  "release_scope": "These fields apply to the seven unsubmitted jobs; running jobs have their own immutable launch records.",
+  "release_scope": "These fields apply to the seven unsubmitted jobs; started jobs have their own immutable launch and completion records.",
   "running_jobs": [
-    {
-      "printer": "H2C",
-      "status": "reported_running",
-      "authority": "Exact printer observation from coordinating task",
-      "job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
-      "parts": [
-        "enclosure-pump-cartridge",
-        "enclosure-pump-cap"
-      ],
-      "native_archive": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
-      "native_archive_sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
-      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json",
-      "launch_record_sha256": "acb5d18d90395fc241fe3d6e733b37973b1d14f8ad7873eb720cc52d5dffc8aa",
-      "launch_observed_at": "2026-09-21T07:47:46.755410+00:00",
-      "physical_completion_and_fit_pending": true,
-      "latest_observation": {
-        "record": "/private/tmp/scanner-review/g-ganen-feet-correction/printer-status.json",
-        "record_sha256": "dc28936a8cd561b3cf952b207367d60da680d962830d15b5881767c4b007fbfc",
-        "observed_at": "2026-09-21T17:06:30.288739+00:00",
-        "gcode_state": "RUNNING",
-        "mc_percent": 93,
-        "layer_num": 440,
-        "total_layer_num": 496,
-        "mc_remaining_time": 42,
-        "print_error": 0,
-        "hms": []
-      }
-    },
     {
       "printer": "Mark2",
       "status": "reported_running",
@@ -49,14 +21,14 @@
       "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
       "available_for_enclosure": false,
       "latest_observation": {
-        "record": "/private/tmp/scanner-review/g-ganen-feet-correction/printer-status.json",
-        "record_sha256": "dc28936a8cd561b3cf952b207367d60da680d962830d15b5881767c4b007fbfc",
-        "observed_at": "2026-09-21T17:06:30.297997+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T192246Z.json",
+        "record_sha256": "ebcee9ab512955d99be454d1f1d2aa4219810f3b1cd09742d73165b8de517e46",
+        "observed_at": "2026-09-21T19:22:46.738271+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 58,
-        "layer_num": 246,
+        "mc_percent": 72,
+        "layer_num": 481,
         "total_layer_num": 917,
-        "mc_remaining_time": 407,
+        "mc_remaining_time": 270,
         "print_error": 0,
         "hms": []
       }
@@ -117,7 +89,7 @@
         "grams_saved_profile_density": 814.6126708984375,
         "grams_actual_petgf_density_1p43": 903.0202475850896,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/preparation.json",
@@ -211,7 +183,7 @@
         "grams_saved_profile_density": 560.4407958984375,
         "grams_actual_petgf_density_1p43": 621.2638280114462,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/preparation.json",
@@ -303,7 +275,7 @@
         "grams_saved_profile_density": 639.99560546875,
         "grams_actual_petgf_density_1p43": 709.4524928839631,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/preparation.json",
@@ -395,7 +367,7 @@
         "grams_saved_profile_density": 867.9348754882812,
         "grams_actual_petgf_density_1p43": 962.1293580994125,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/preparation.json",
@@ -488,7 +460,7 @@
         "grams_saved_profile_density": 101.80787658691406,
         "grams_actual_petgf_density_1p43": 112.85679342580396,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
       },
       "handoff_conditions": [
         "Assigned machine available",
@@ -828,7 +800,8 @@
     "h2c_cancelled_front_top_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-launch.json",
     "h2c_front_top_cancellation": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json",
     "enclosure_print_jobs": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
-    "countertop_print_jobs": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json"
+    "countertop_print_jobs": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
+    "h2c_cartridge_cap_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json"
   },
   "operating_policy": {
     "authority": "Derek",
@@ -836,7 +809,7 @@
     "idle_printer_hold_for_agent_review": false,
     "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
   },
-  "updated_at_utc": "2026-09-21T17:07:09.461114+00:00",
+  "updated_at_utc": "2026-09-21T19:22:46.781658+00:00",
   "geometry_qualification": {
     "status": "current_assembly_and_corrected_mounts_verified",
     "assembly_step_sha256": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
@@ -853,7 +826,7 @@
   },
   "printing_authorized": true,
   "execution_status_scope": "print_released and submitted record printer execution. Full-enclosure printing is already user-authorized; an offline-ready job needs no additional design or permission approval.",
-  "print_released_scope": "The seven queued jobs; separate jobs already running have their immutable launch records.",
+  "print_released_scope": "The seven queued jobs; started jobs have separate immutable launch and completion records.",
   "continuity": {
     "automation_id": "finish-the-enclosure-print-queue",
     "status": "ACTIVE",
@@ -867,7 +840,7 @@
   "printer_schedule": [
     {
       "printer": "H2C",
-      "after": "The running cartridge/cap completes and its latest plate is cleared.",
+      "after": "The completed cartridge/cap is removed, the current plate is confirmed clear and sufficient black PET-GF is confirmed.",
       "order": [
         "front-top",
         "back-top"
@@ -957,5 +930,64 @@
   "publication_review": {
     "path": "hardware/reference/g-ganen-pump/installation/publication-review/manifest.json",
     "sha256": "235d8abf3aaf0bb8282b1f73730edcc315a85a00d91cf9ce707beb3c574a09d6"
+  },
+  "completed_jobs": [
+    {
+      "printer": "H2C",
+      "status": "reported_finished",
+      "authority": "Exact printer observation from coordinating task",
+      "job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "parts": [
+        "enclosure-pump-cartridge",
+        "enclosure-pump-cap"
+      ],
+      "native_archive": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "native_archive_sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json",
+      "launch_record_sha256": "acb5d18d90395fc241fe3d6e733b37973b1d14f8ad7873eb720cc52d5dffc8aa",
+      "launch_observed_at": "2026-09-21T07:47:46.755410+00:00",
+      "physical_completion_and_fit_pending": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T192246Z.json",
+        "record_sha256": "ebcee9ab512955d99be454d1f1d2aa4219810f3b1cd09742d73165b8de517e46",
+        "observed_at": "2026-09-21T19:22:46.620569+00:00",
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 496,
+        "total_layer_num": 496,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": []
+      },
+      "printer_completion_confirmed": true,
+      "physical_success_confirmed": false,
+      "latest_print_removed_confirmed": false,
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
+        "sha256": "a28dfd5f62bcaf8a15a622be62d3cb134a82d0d2031cce89176bc07047e22275"
+      }
+    }
+  ],
+  "physical_handoff": {
+    "H2C": {
+      "after_job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "printer_available": true,
+      "next_job_id": "front-top",
+      "plate_clearance": {
+        "status": "awaiting_user_reply",
+        "asked_at_utc": "2026-09-21T19:22:46.781658+00:00",
+        "question": "H2C has finished the Kamoer cartridge and cap without a reported error. Once you have removed both parts, is its plate clear for the front-top print?",
+        "authority": "Current task request_user_input_async; no reply received."
+      },
+      "filament": {
+        "status": "awaiting_existing_user_reply",
+        "physical_material": "black PET-GF",
+        "next_job_estimated_grams": 903.0202475850896,
+        "question_previously_asked": true,
+        "asked_again_this_followup": false,
+        "prior_request_record": "hardware/printed-parts/enclosure/print-readiness.md"
+      },
+      "send_permitted": false
+    }
   }
 }

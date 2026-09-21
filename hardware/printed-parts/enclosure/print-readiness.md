@@ -2,8 +2,9 @@
 
 The requested trial uses **all four fresh shell quadrants, the complete carrier pair,
 one reusable spring-loading pusher, and both matching G Ganen cold-core mounting parts**.
-H2C is printing the complete Kamoer cartridge and raised open cap. Mark2 is printing the
-countertop under the **Tube miter box** task. No additional coupons or scans are required
+H2C has finished the complete Kamoer cartridge and raised open cap; removal and plate
+clearance are awaiting Derek’s confirmation. Mark2 is printing the countertop under
+the **Tube miter box** task. No additional coupons or scans are required
 before this full assembly trial.
 
 **G Ganen feet and mounts are corrected.** Four copies of the shared 7 mm foot sit at the fully engaged rail ends, 58 mm apart. Matching cap and lid archives are freshly reviewed. The pump is 1 mm forward to clear the rear fitting.
@@ -36,7 +37,7 @@ record execution, not a request for another approval.
 | G Ganen foam-cap-top | Mark2 | 5 h 09 min | 182.63 | Offline ready; not submitted |
 | Matching foam-cap-lid-top | Mark2 | 4 h 28 min | 202.92 | Offline ready; not submitted |
 
-H2C order: **front-top + pusher → back-top** after the current cartridge/cap.
+H2C order: **front-top + pusher → back-top** after the completed cartridge/cap is removed and the current plate is confirmed clear.
 Mark2 order: **front-bottom → back-bottom → carrier pair** after Tube miter box releases
 the machine. These are serial queues on each printer; the two printers can work in parallel.
 
@@ -58,25 +59,29 @@ Usable black PET-GF still needs physical confirmation at handoff. The next H2C p
 is estimated at 903.02 g; the coordinating task has asked Derek about the available supply.
 This is an execution condition, not another design approval.
 
-The exact running H2C job is `pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`, archive
+The completed H2C job is `pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`, archive
 SHA-256 `8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562`.
 Its [launch record](tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
-records the selected printer, material mapping, archive and observed start.
+records the selected printer, material mapping, archive and observed start. The
+[completion record](tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json)
+binds the same archive to the printer’s FINISH report at 496/496 layers, with no error.
+The exact finish time and physical print quality are not established by this reading.
 
 | Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
 | --- | --- | ---: | ---: | ---: | --- |
-| H2C | 2026-09-21T17:06:30.288739+00:00 | 93% | 440/496 | 42 | None |
-| Mark2 | 2026-09-21T17:06:30.297997+00:00 | 58% | 246/917 | 407 | None |
+| H2C | 2026-09-21T19:22:46.620569+00:00 | 100% | 496/496 | 0 | None |
+| Mark2 | 2026-09-21T19:22:46.738271+00:00 | 72% | 481/917 | 270 | None |
 
-These are timestamped readings, not live remaining-time promises. Both jobs were running;
-Mark2 remains owned by Tube miter box. The active `finish-the-enclosure-print-queue`
+These are timestamped readings, not live remaining-time promises. H2C reports FINISH;
+its plate-clear question is pending, along with the earlier filament-supply question.
+Mark2 is running and remains owned by Tube miter box. The active `finish-the-enclosure-print-queue`
 heartbeat checks every 15 minutes and advances reviewed jobs when normal physical handoff
 conditions are met, remaining quiet on unchanged running states.
 
-The running cartridge has 260 exterior divisions; the new shell uses 262, a pitch
+The completed cartridge has 260 exterior divisions; the new shell uses 262, a pitch
 difference of 0.006324 mm per groove. A small exterior groove-phase difference is possible.
 Native fitted cartridge/cap geometry is unchanged and the cap is unfluted; this cosmetic
-note does not require stopping or reprinting the running job.
+note does not require reprinting the completed job.
 
 New jobs inherit the saved [PET-GF profile](../petgf.3mf): black PET-GF on the fixed left
 0.4 mm nozzle, whole-layer printing and `auto_brim`. H2C uses +0.18 mm requested trim
