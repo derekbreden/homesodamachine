@@ -481,6 +481,11 @@
         "seconds": 58739.16796875,
         "grams": 931.5325927734375,
         "layers": 917
+      },
+      "physical_first_layer": {
+        "observed_by": "Derek, at the printer, with a photograph of the right and front edges going down",
+        "result": "clean and uniform out to the plate's edge, where the z000 layer before it had rough, lifted patches along the never-printed right and front-left edges",
+        "read": "the plate's fresh edges were the cause; one full first layer at the stock offset seasoned them. Derek: 'The seasoning worked. I mean even if it fails after this there is still a very obvious effect so far!'"
       }
     }
   ]
