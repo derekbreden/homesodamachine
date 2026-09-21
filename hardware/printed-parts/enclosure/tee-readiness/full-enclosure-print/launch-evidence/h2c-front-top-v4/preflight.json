@@ -1,0 +1,44 @@
+{
+  "status": "pass",
+  "observed_at_utc": "2026-09-21T19:45:21.902078+00:00",
+  "archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+    "sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+    "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58"
+  },
+  "review": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/offline-review.json",
+    "sha256": "b8a917de0e3cf63fa234b0e51160846089cf7b2e24ecf512814a7951460df83a"
+  },
+  "support_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+    "sha256": "e7eed1d88c3b3b3623503cb32ebdaa37e69398908f451ac30f97d14f812de225",
+    "status": "current_support_contacts_and_removal_lanes_reviewed"
+  },
+  "current_geometry_revalidation": {
+    "receipt": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+      "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+    },
+    "basis": "Current print meshes are byte-identical, except back-top which has zero native added/removed volume and at most 0.000016 mm corresponding corner movement. Saved profile and original archive/support review are retained. Complete updated assembly checks pass.",
+    "print_mesh_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+    }
+  },
+  "printer_model": "Bambu Lab H2C",
+  "printer_variant": "0.4",
+  "filament_map": [
+    "1"
+  ],
+  "filament_nozzle_map": [
+    "0"
+  ],
+  "brim_type": "auto_brim",
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "user_handoff": "H2C is clear and ready for next print.",
+  "handoff_context": "Readiness stated immediately after the next job and approximately903g blackPET-GF requirement were given. No fresh-spool quantity measurement is claimed."
+}

@@ -2,7 +2,7 @@
   "schema": 2,
   "date": "2026-09-21",
   "report": "hardware/printed-parts/enclosure/print-readiness.md",
-  "status": "offline_ready_awaiting_machine_handoffs",
+  "status": "production_printing",
   "ready_to_print": true,
   "ready_to_print_scope": "All seven required production plates have current geometry qualification and exact native/support reviews; normal physical printer handoff remains.",
   "final_physical_acceptance": false,
@@ -79,6 +79,35 @@
   "print_queue": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/queue.json",
   "running_jobs": [
     {
+      "printer": "H2C",
+      "status": "reported_running",
+      "authority": "Exact printer observation after verified Bambu Connect send",
+      "job": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+      "queue_job_id": "front-top",
+      "parts": [
+        "enclosure-front-top",
+        "carrier-spring-pusher"
+      ],
+      "native_archive": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+      "native_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+      "launch_record_sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c",
+      "launch_observed_at": "2026-09-21T19:47:45.218425+00:00",
+      "physical_completion_and_fit_pending": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T194745Z.json",
+        "record_sha256": "dbbc5d031011a0144fcac72b7af7cd09e288335951ed117ca769a56f21abfc65",
+        "observed_at": "2026-09-21T19:47:45.218425+00:00",
+        "gcode_state": "RUNNING",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 813,
+        "mc_remaining_time": 1457,
+        "print_error": 0,
+        "hms": []
+      }
+    },
+    {
       "printer": "Mark2",
       "status": "reported_running",
       "authority": "Exact printer observation from coordinating task",
@@ -87,14 +116,14 @@
       "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
       "available_for_enclosure": false,
       "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T192246Z.json",
-        "record_sha256": "ebcee9ab512955d99be454d1f1d2aa4219810f3b1cd09742d73165b8de517e46",
-        "observed_at": "2026-09-21T19:22:46.738271+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T194745Z.json",
+        "record_sha256": "dbbc5d031011a0144fcac72b7af7cd09e288335951ed117ca769a56f21abfc65",
+        "observed_at": "2026-09-21T19:47:44.277988+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 72,
-        "layer_num": 481,
+        "mc_percent": 74,
+        "layer_num": 524,
         "total_layer_num": 917,
-        "mc_remaining_time": 270,
+        "mc_remaining_time": 245,
         "print_error": 0,
         "hms": []
       }
@@ -111,10 +140,10 @@
       "assigned_printer": "H2C",
       "printer_assignment_status": "assigned",
       "active_for_submission": true,
-      "status": "offline_ready_awaiting_machine_handoff",
+      "status": "reported_running",
       "offline_ready": true,
-      "submitted": false,
-      "print_released": false,
+      "submitted": true,
+      "print_released": true,
       "slice_estimate": {
         "layers": 813,
         "seconds": 87476.1328125,
@@ -123,6 +152,10 @@
         "grams_actual_petgf_density_1p43": 903.0202475850896,
         "actual_petgf_density_g_per_cm3": 1.43,
         "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "launch_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+        "sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c"
       }
     },
     {
@@ -474,7 +507,8 @@
     "h2c_front_top_cancellation": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json",
     "enclosure_print_jobs": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
     "countertop_print_jobs": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
-    "h2c_cartridge_cap_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json"
+    "h2c_cartridge_cap_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
+    "h2c_front_top_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json"
   },
   "printing_policy": {
     "authority": "Derek",
@@ -482,7 +516,7 @@
     "idle_printer_hold_for_agent_review": false,
     "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
   },
-  "updated_at_utc": "2026-09-21T19:22:46.781658+00:00",
+  "updated_at_utc": "2026-09-21T19:49:59.084817+00:00",
   "printing_authorized": true,
   "native_slices_complete": 7,
   "offline_reviews_complete": 7,
@@ -514,7 +548,7 @@
       "printer_seconds": 363245.1884765625,
       "grams_petgf_density_1p43": 3694.2723840521285
     },
-    "scope": "Queued production jobs only; excludes currently running jobs, plate changes, support cleanup and assembly. Printer lanes can run in parallel; per-printer sums are serial slicer estimates, not wall-clock commitments."
+    "scope": "All seven production plates at their full original slice estimates, including submitted plates. Excludes the cartridge/cap, countertop, plate changes, cleanup and assembly. These are not remaining-time commitments."
   },
   "continuity": {
     "automation_id": "finish-the-enclosure-print-queue",
@@ -524,7 +558,6 @@
     "authority": "Coordinating task created the heartbeat automation."
   },
   "ready_job_ids": [
-    "front-top",
     "front-bottom",
     "back-bottom",
     "back-top",
@@ -600,33 +633,54 @@
       },
       "printer_completion_confirmed": true,
       "physical_success_confirmed": false,
-      "latest_print_removed_confirmed": false,
+      "latest_print_removed_confirmed": true,
       "completion_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
         "sha256": "a28dfd5f62bcaf8a15a622be62d3cb134a82d0d2031cce89176bc07047e22275"
-      }
+      },
+      "removal_authority": "Derek: H2C is clear and ready for next print.",
+      "removal_recorded_at_utc": "2026-09-21T19:49:59.084817+00:00"
     }
   ],
   "physical_handoff": {
     "H2C": {
       "after_job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
-      "printer_available": true,
-      "next_job_id": "front-top",
+      "printer_available": false,
+      "next_job_id": "back-top",
       "plate_clearance": {
-        "status": "awaiting_user_reply",
+        "status": "consumed_by_front_top_launch",
         "asked_at_utc": "2026-09-21T19:22:46.781658+00:00",
         "question": "H2C has finished the Kamoer cartridge and cap without a reported error. Once you have removed both parts, is its plate clear for the front-top print?",
-        "authority": "Current task request_user_input_async; no reply received."
+        "authority": "Derek: H2C is clear and ready for next print.",
+        "confirmed_at_record_time_utc": "2026-09-21T19:49:59.084817+00:00",
+        "consumed_by_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e"
       },
       "filament": {
-        "status": "awaiting_existing_user_reply",
+        "status": "consumed_by_front_top_launch",
         "physical_material": "black PET-GF",
-        "next_job_estimated_grams": 903.0202475850896,
         "question_previously_asked": true,
         "asked_again_this_followup": false,
-        "prior_request_record": "hardware/printed-parts/enclosure/print-readiness.md"
+        "prior_request_record": "hardware/printed-parts/enclosure/print-readiness.md",
+        "authority": "Derek: H2C is clear and ready for next print.",
+        "remaining_mass_measured": false,
+        "launched_job_estimated_grams": 903.0202475850896
       },
-      "send_permitted": false
+      "send_permitted": false,
+      "active_job_id": "front-top",
+      "launch_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+        "sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c"
+      },
+      "next_handoff": "After front-top finishes, obtain fresh part-removal and adequate-filament confirmation for back-top.",
+      "next_handoff_estimated_grams": 962.1293580994125
     }
+  },
+  "submitted_production_plate_count": 1,
+  "remaining_unsubmitted_plate_count": 6,
+  "remaining_unsubmitted_estimates": {
+    "jobs": 6,
+    "printer_seconds": 275769.0556640625,
+    "grams_petgf_density_1p43": 2791.252136467039,
+    "scope": "Six unsubmitted plates only; excludes remaining time on the running front-top and countertop."
   }
 }

@@ -1,0 +1,6 @@
+H2C: FINISH after pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf (job 1269252775); external spools {'254': 'PET-CF', '255': 'TPU'}
+device page: H2C
+import: enclosure-front-top-black-z018-h2c-v4.gcode.3mf | Print | 1 | Compatible Printer | : | H2C | Bed type | : | Textured PEI Plate | Filaments | : | PET-CF | Nozzle
+dialog: printer H2C
+mapping: front borrowed 1.13s, returned to ChatGPT
+bambu_send: the dialog closed under the mapping clicks: the popover did not open, so the second click landed outside the dialog (a busy printer's tile does not open one)

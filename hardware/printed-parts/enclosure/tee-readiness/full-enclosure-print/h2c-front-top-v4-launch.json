@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "status": "printer_reported_running",
+  "printer": "H2C",
+  "observed_at": "2026-09-21T19:47:45.218425+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+    "sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+    "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58"
+  },
+  "staged_project": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.3mf",
+    "sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb"
+  },
+  "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+  "observed_state": {
+    "printer": "H2C",
+    "observed_at": "2026-09-21T19:47:45.218425+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 813,
+    "mc_remaining_time": 1457,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 91.0,
+    "nozzle_target_temper": 200.0,
+    "bed_temper": 28.0,
+    "bed_target_temper": 28.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    },
+    "nozzle_type": "HS01-0.6",
+    "nozzles": [
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A610715877"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907799"
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T194745Z.json",
+    "sha256": "dbbc5d031011a0144fcac72b7af7cd09e288335951ed117ca769a56f21abfc65"
+  },
+  "first_acceptance_observed_at": "2026-09-21T19:47:11.577166+00:00",
+  "first_acceptance_state": "PREPARE",
+  "first_acceptance_layer_fields_still_described_previous_job": true,
+  "sent_via": "Bambu Connect; mapped and sent through native UI after scripted mapping attempt closed the dialog before Send",
+  "printer_selector_readback": "H2C",
+  "left_filament_mapping_readback": "Ext PET-CF under Left Nozzle; black PET-GF on external254",
+  "right_filament_mapping_readback": "Unused",
+  "physical_nozzle": "Fixed left0.4mm diamond PCD; 0.4mm id1 reported, matching established H2C launch configuration",
+  "plate_clearance_authority": "Derek: H2C is clear and ready for next print.",
+  "filament_readiness": {
+    "authority": "Derek: H2C is clear and ready for next print.",
+    "context": "Readiness stated in response to the reported approximately903g black PET-GF requirement for this next plate.",
+    "status": "user_reported_ready_for_this_job",
+    "remaining_mass_measured": false
+  },
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "requested_z_trim_mm": 0.18,
+  "effective_textured_z_trim_mm": 0.16,
+  "brim_type": "auto_brim",
+  "emitted_brim_paths": 0,
+  "offline_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/offline-review.json",
+    "sha256": "b8a917de0e3cf63fa234b0e51160846089cf7b2e24ecf512814a7951460df83a"
+  },
+  "support_removal_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+    "sha256": "e7eed1d88c3b3b3623503cb32ebdaa37e69398908f451ac30f97d14f812de225",
+    "status": "current_support_contacts_and_removal_lanes_reviewed"
+  },
+  "durable_review_package": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-top-h2c-v4/manifest.json",
+    "sha256": "a3dd84170e715f9af4ffa56de28aeb78ff9900e164966160fd2e34bbed6e0987"
+  },
+  "original_slice_geometry_confirmation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+    "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+  },
+  "current_geometry_revalidation": {
+    "receipt": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+      "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+    },
+    "basis": "Current print meshes are byte-identical, except back-top which has zero native added/removed volume and at most 0.000016 mm corresponding corner movement. Saved profile and original archive/support review are retained. Complete updated assembly checks pass.",
+    "print_mesh_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+    }
+  },
+  "preflight": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/launch-evidence/h2c-front-top-v4/preflight.json",
+    "sha256": "f3914fcf60f0bbced5ac19fa0cacf72412e87c7895e1505316cd6ae3ea247b9e"
+  },
+  "script_attempt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/launch-evidence/h2c-front-top-v4/script-attempt.log",
+    "sha256": "2601b809c8c9c55c829e1c8e3501575cba528ce5efec7e571ea5126dc28094ff"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "operating_policy": "Keep productive jobs running; never pause for design review."
+}
