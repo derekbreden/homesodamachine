@@ -165,6 +165,15 @@ enclosure jobs' profiles, offsets and file hashes are recorded in
 `hardware/printed-parts/enclosure/enclosure/print-jobs.json`, and the lever's in
 `hardware/printed-parts/faucet/lever-replica/print-jobs.json`.
 
+A print sent while the printer is loading filament or purging, which is a nozzle or bed
+target above zero with no job, starts nothing and says nothing: the dialog closes, the
+printer stays on its last state, and its `job_id` does not move. `bambu_send.py` reads the
+targets before it sends and waits for them to fall, and when a send is dropped anyway it
+reads them again and makes the whole pass again, up to three times. The job id moving is
+what says a job reached the printer; the file name alone cannot, because the last job can
+carry the same one.
+
+
 ## Printer storage
 
 The existing `h2c_timelapse_gc.py` connects to the LAN FTPS service. Its listing, archive
