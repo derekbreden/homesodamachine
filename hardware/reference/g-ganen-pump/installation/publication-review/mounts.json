@@ -1,12 +1,12 @@
 {
   "status": "pass",
-  "created_at_utc": "2026-09-21T17:13:48.018197+00:00",
+  "created_at_utc": "2026-09-21T17:19:08.399689+00:00",
   "scope": "Published corrected G Ganen and mount artifact identities; post-publication lint of the two changed printed mounting parts. This does not qualify carrier payload placement.",
   "published_artifact_sha256": {
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": "905710b0b79a803e9969bf9b8677e3cbd5cfe2b4c0fdcf15a7d62842a77f4388",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
     "hardware/manifold-layout/enclosure-assembly.step": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1ce3e2e9dbdf94e4ed9191b845f18d7d895ead7b1bab1f57b39f5750175ac7c1",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b3d26c604b2cccf3d058d0f0cd92b29c5cbadf5d024dc1f5bb433ac0a2dff473",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "b84ed5c8545a4bfc02e4e3dd91cc87a49e8979ce9aae89d94d7f00bc6b7a5186",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "009fafcdce5dbf0197d4b73815b4a4774ae1230b7cafbb906b3dd3025fe433b6",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "2a313e5291da45262032d8e4b02213de7177c0aa46f7e75e41791f9958d97682",

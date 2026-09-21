@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "status": "cause_established_native_geometry_correct",
+  "scope": "Read-only diagnosis of the exact failed postpublication payload. No production source, CAD artifact, print mesh or publication was changed by these probes.",
+  "failed_payload_sha256": "1ce3e2e9dbdf94e4ed9191b845f18d7d895ead7b1bab1f57b39f5750175ac7c1",
+  "aggregate_step_sha256": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
+  "native_canonical_Y2_added_and_missing_mm3": {
+    "left": [
+      0.0,
+      0.0
+    ],
+    "right": [
+      0.0,
+      0.0
+    ]
+  },
+  "left_printed_STL_xmin_mm": -107.5,
+  "left_native_xmin_mm": -107.5,
+  "left_reduced_payload_xmin_mm": -107.50660705566406,
+  "left_reduction_metadata_mm": {
+    "deviation": 0.073,
+    "bound": 0.0779
+  },
+  "actual_uniform_viewer_only_translation_mm": [
+    0.00330352783203125,
+    2.0,
+    0.0
+  ],
+  "required_transform_mm": [
+    0.0,
+    2.0,
+    0.0
+  ],
+  "cause": "flute_payload.placement_onto centers the two mesh bounding boxes. A permitted 0.00660705566406 mm overshoot at one reduced-surface extremum creates half that amount of extra X translation. carried writes it to every vertex. It is real viewer-position drift, not only measurement noise in the verifier.",
+  "failed_graft_behavior": "The first aggregate graft introduces the inferred shift. The publication graft recovers that same shifted pose and is byte-idempotent; eight matched/replaced entries does not prove their exact semantic placement.",
+  "bounded_remedy": "In tools/publish_now.py refresh_enclosure_viewer, pre-carry only the two appliance carrier surfaces by the exact facts states[assembly_state].offset_y and graft these pre-positioned surfaces with same_frame=True. Keep generic placement_onto, canonical release-frame part payloads, six static enclosure surfaces and all other consumer placement rules unchanged.",
+  "qualification_effect": "Viewer-only transform correction. Current native CAD and all printed STEP/STL geometry remain unchanged; original generation receipts retain their source provenance, while the new publication proof binds publisher code and transformed payload.",
+  "evidence": {
+    "probe.py": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/carrier-payload-placement/probe.py",
+      "sha256": "0faf4cba254fe8be5ed39e3a47da7c0bfff4efbf685ad944edb9ae3535a967c1"
+    },
+    "array-probe.json": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/carrier-payload-placement/array-probe.json",
+      "sha256": "d08e73da01fe78af791705aff39310ca7f6d300dbb62211e4b9dae20b09f1241"
+    },
+    "native_probe.py": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/carrier-payload-placement/native_probe.py",
+      "sha256": "76915d56625446bcd7e35a41af0450790aaeede262e393c2635ad1409a2ee31b"
+    },
+    "native-probe.json": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/carrier-payload-placement/native-probe.json",
+      "sha256": "7433c595fdf039d3f122f658222d570dad06195527c73b91c7695b3af9061709"
+    },
+    "native-probe.log": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/carrier-payload-placement/native-probe.log",
+      "sha256": "0bbaef0daca714700155ed026d71711f3804152b7993ffc8829c1125893fc76e"
+    }
+  },
+  "geometry_algorithm_sources": {
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6"
+  }
+}
