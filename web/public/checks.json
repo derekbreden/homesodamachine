@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_copper_plug_clearance.py",
-      "note": "FAIL: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "status": "red"
+      "note": "PASS: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
@@ -57,17 +57,17 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "65/65 artifacts have their record in the index",
-      "status": "ok"
+      "note": "65/66 artifacts have their record in the index",
+      "status": "red"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2785 tracked, 540 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2818 tracked, 540 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 342, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 343, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 46 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 36 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -102,13 +102,8 @@
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
-    "hardware/scripts/check_copper_plug_clearance.py": [
-      "west: front-top gap 0.000000 mm, front-top overlap 1253.465325000 mm³, foam overlap 0.000000000 mm³",
-      "port: front-top gap 0.000000 mm, front-top overlap 1253.465325000 mm³, foam overlap 0.000000000 mm³",
-      "FAIL: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json"
-    ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 152 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 20566519af2cffd7c5f2013a3a0af179 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 4a62d35020292efe60d14cbf7fe6fb7b for the 382 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 9b2468eea2ab4185b18a2e81c0a06865 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -203,33 +198,13 @@
       "    hardware/reference/g-ganen-pump/_scratch/casing-port-preview.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -4008,6 +4008,7 @@",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh\",",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl\",",
-      "           \"hardware/printed-parts/enclosure/enclosure/enclosure-front-top.support-audit.json\",",
-      "  +        \"hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.lint-answers\",",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step\",",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh\",",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl\",",
-      "  @@ -4020,8 +4021,17 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py\",",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step\",",
-      "           \":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py\",",
-      "  +        \"pysrc/hardware/printed-parts/enclosure/enclosure/prepare_pump_print.py\",",
-      "           \"hardware/printed-parts/enclosure/enclosure/print-jobs.json\",",
-      "           \"hardware/printed-parts/enclosure/enclosure/print-log.md\",",
-      "  +        \"hardware/printed-parts/enclosure/enclosure/pump-cartridge-fit.md\",",
-      "  +        \"hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json\",",
-      "  … 8870 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    "hardware/scripts/check_tracked.py": [
+      "hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
+      "  git add hardware/reference/iec-c14-inlet/README.figures.json",
+      "65/66 artifacts have their record in the index"
     ],
     "tools/check_web_tests.py": [
-      "9 test(s) in web/ fail:",
+      "8 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    a part's STEP consumers include the assembly that only _loads it (regression)",
@@ -237,7 +212,6 @@
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "    every highlighted, framed, contextual and labelled body exists in the assembly",
       "  cd web && npm test"
     ]
