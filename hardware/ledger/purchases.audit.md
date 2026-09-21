@@ -30,9 +30,13 @@ invoice fetch and a human call.
 https://www.amazon.com/your-orders/orders?timeFilter=year-2026&startIndex=N
 ```
 
-`N` steps by 10. Fully query-param navigable. 2026 is 32 pages × 10 = 318 orders.
-A `startIndex` past the end returns HTTP 200 with zero order cards — that, not
+`N` steps by 10. As of 2026-09-21 the year holds 374 orders over 38 pages. A
+`startIndex` past the end returns HTTP 200 with zero order cards — that, not
 the pagination widget's page count, is the terminator.
+
+`timeFilter` takes a load to bite. A first navigation lands on the *past three
+months* view and drops both params; the count above the list says which filter
+is live. Load the URL, read the count, then step `startIndex`.
 
 `purchases.md` is scoped to one calendar year, which the `timeFilter` matches. A
 run after year rollover walks both `year-2026` and `year-2027`.
@@ -48,10 +52,10 @@ script — `window.SiegeClientSideDecryption`. The parse succeeds, the card coun
 is right, and every extracted field is `null`. **A scrape reporting plausible row
 counts with empty fields has hit this.**
 
-Rendering the page runs the decryption. From an already-open Amazon tab, append
-a hidden same-origin `<iframe>`, set `.src` per page, wait for `onload` plus
-~1.2 s settle, then read `iframe.contentDocument`. Same-origin framing is
-allowed.
+Rendering the page runs the decryption, so the tab has to go there. A hidden
+same-origin `<iframe>` does not stand in for that: Amazon navigates the *top*
+window to the frame's URL, which takes the page's `window` state with it.
+Navigate the tab itself, one `startIndex` per load, ~4 s to settle.
 
 Read text with `innerText`, on a rendered document. The order header reads
 "ORDER PLACED" through CSS `text-transform`; `textContent` returns the
@@ -78,7 +82,7 @@ latest order without a banner is 2026-04-21, the earliest with one is
 
 ### Walk the list; open an invoice only when the check complains
 
-32 list-page loads buy every order with its grand total, items and ASINs —
+38 list-page loads buy every order with its grand total, items and ASINs —
 everything `--check` compares against, since it tests a row's allocated sum
 against the invoice **grand total**.
 
@@ -89,15 +93,22 @@ sum disagrees. The 2026-08-15 walk opened 21 of 318. Opening all of them costs
 
 ### Getting the data out
 
-Accumulate into `window.__*` in the page, reduce to one compact line per order
-*in the browser*, chunk, and append each chunk to disk. 318 orders reduced to 13
-chunks.
+A navigation wipes `window`, so each page's cards come back as the return value
+of the call that reads them. One pass over `[class*="order-card"]`, per card an
+order number, placed date, grand total, the one delivery/arrival line, and each
+`/dp/` link's ASIN with ~45 characters of its title — joined into a string and
+returned.
 
-- `javascript_tool` truncates its return near ~1000 characters. Measure the limit
-  before sizing chunks.
-- CDP `Runtime.evaluate` times out at 45 s — batch 6–8 page loads per call. The
-  JS keeps running past the timeout and its `window` state survives, so a
-  timed-out batch is resumable rather than lost.
+- `javascript_tool` truncates its return near ~1000 characters, which ten orders
+  overrun. Read a page in two slices, cards `[0,5)` and `[5,10)`, as two calls
+  after the one navigation. A `browser_batch` of navigate → wait → slice →
+  slice carries three pages per round trip.
+- Keep the extractor to that single pass. Writing what it builds to
+  `localStorage`, or widening the regex work, hangs the renderer past CDP's 45 s
+  `Runtime.evaluate` timeout, and the tab stays unresponsive afterwards.
+- Do not return `location.href` or anything else carrying a query string — the
+  extension replaces the whole result with `[BLOCKED: Cookie/query string data]`.
+  Confirm which page is loaded from the first card's order number instead.
 - No rate limiting, CAPTCHA, or session expiry appeared across ~340 page loads.
 
 Indexing `purchases.md` into JSON runs as a subagent in parallel with the scrape.
@@ -155,3 +166,8 @@ diff /tmp/before.txt /tmp/after.txt
 
 A price, quantity, or status cell altered by accident moves a total, and the
 diff names the section it happened in.
+
+A bare run writes as well as prints: it rewrites every `LEDGER_*` marker in
+`purchases.md` and `purchases.figures.json`. Where the markers had gone stale
+under someone else's rows, the first `before.txt` run is itself a change in the
+working tree.
