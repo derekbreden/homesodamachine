@@ -5,7 +5,7 @@
   "cancelled_job": "enclosure-front-top-petgf-z018-h2c.gcode.3mf",
   "cancelled_job_source_sha256": "0d15e6177dc405b0631415cc331a4e43acbf1a4cf627012e38a766964a3cb216",
   "replacement_started": true,
-  "plate_clearance_confirmed": false,
+  "plate_clearance_confirmed": true,
   "parts": [
     {
       "part": "enclosure-front-top",
@@ -86,14 +86,14 @@
       },
       "authority": "Derek loading reports; both black left and white right PET-GF have printed successfully.",
       "ready_for_prepared_job": false,
-      "observed_at": "2026-09-21T05:02:00Z",
+      "observed_at": "2026-09-21T07:24:50Z",
       "current_job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-      "observed_state": "FAILED",
+      "observed_state": "RUNNING",
       "print_error": 0,
       "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
       "job_purpose": "Fake countertop; controlled by its Claude agent.",
       "plate_clearance_confirmed": false,
-      "availability_authority": "Tube miter box agent: Derek stopped countertop after a second nozzle clump and changed the hotend. Later sends did not reach the printer; task remains allocated to that agent. H2C remains allocated to Scanner review.",
+      "availability_authority": "Tube miter box agent confirms the user-requested countertop retry RUNNING with+.04 requested trim, no brim; Mark2 remains allocated to that task.",
       "printed_coupon_removed_for_fit": true,
       "hotend_changed": true,
       "mounted_nozzle_confirmation_pending": true
@@ -101,24 +101,19 @@
     "H2C": {
       "cancelled_object_removal_confirmed": true,
       "replacement_started": true,
-      "availability_authority": "Cancellation verified through Bambu Connect and MQTT.",
-      "observed_state": "FAILED",
-      "observed_at": "2026-09-21T07:20:31.779542+00:00",
-      "current_job": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
-      "print_error": 50348044,
+      "availability_authority": "Derek cleared the plate; current complete enclosure job confirmed RUNNING by MQTT.",
+      "observed_state": "RUNNING",
+      "observed_at": "2026-09-21T07:47:46.755410+00:00",
+      "current_job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "print_error": 0,
       "ready_for_prepared_job": false,
-      "job_purpose": "First full-enclosure trial plate: current front-top and one reusable spring pusher.",
-      "plate_clearance_confirmed": false,
-      "nozzle_target_c": 0,
-      "bed_target_c": 0,
-      "hms": [
-        {
-          "attr": 201326848,
-          "code": 131095
-        }
-      ],
-      "plate_clearance_scope": "Cancelled print remains on bed until Derek confirms removal.",
-      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-launch.json"
+      "job_purpose": "Complete pump cartridge and raised open cap for the enclosure trial.",
+      "plate_clearance_confirmed": true,
+      "nozzle_target_c": 0.0,
+      "bed_target_c": 43.0,
+      "hms": [],
+      "plate_clearance_scope": "Derek confirms H2C cleared after cancelled v3 on2026-09-21.",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json"
     }
   },
   "carrier_upper_backing": {

@@ -1,0 +1,85 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-09-21T07:47:46.755410+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 496,
+  "mc_remaining_time": 609,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 43.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 43.0,
+  "bed_target_temper": 43.0,
+  "lights_report": [
+    {
+      "mode": "on",
+      "node": "chamber_light"
+    },
+    {
+      "mode": "flashing",
+      "node": "work_light"
+    },
+    {
+      "mode": "on",
+      "node": "chamber_light2"
+    }
+  ],
+  "external_spools": {
+    "254": {
+      "type": "PET-CF",
+      "colour": "000000FF"
+    },
+    "255": {
+      "type": "TPU",
+      "colour": "161616FF"
+    }
+  },
+  "nozzle_type": "HS01-0.6",
+  "nozzles": [
+    {
+      "id": 16,
+      "type": "HS01",
+      "diameter": 0.6,
+      "sn": "20D06A610715877"
+    },
+    {
+      "id": 1,
+      "type": "HS01",
+      "diameter": 0.4,
+      "sn": "N/A"
+    },
+    {
+      "id": 17,
+      "type": "HS00",
+      "diameter": 0.2,
+      "sn": "20D06A5C1907799"
+    },
+    {
+      "id": 0,
+      "type": "HS00",
+      "diameter": 0.2,
+      "sn": "20D06A5C1907737"
+    }
+  ],
+  "sent_via": "Bambu Connect",
+  "plate_clearance_authority": "Derek: H2C plate is cleared.",
+  "printer_selector_readback": "H2C",
+  "left_filament_mapping_readback": "Ext PET-CF; black PET-GF on external254",
+  "physical_nozzle": "fixed left0.4 mm diamond PCD",
+  "source_release": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-pump-cartridge-h2c-v1.json",
+  "source_release_sha256": "4ff0e45f3cd36b64c9605caec1054fea6b5efab4fcff712c3557817064c4729d",
+  "native_archive": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
+  "gcode_sha256": "0080b646ccd07f37d715fb70c561db6fddb24fc98871d93cb66ca38f9785eca7",
+  "local_mating_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/pump-rear-boundary-equivalence.json",
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "operating_policy": "Keep potentially productive jobs running or cancel and replace; never pause for design analysis."
+}

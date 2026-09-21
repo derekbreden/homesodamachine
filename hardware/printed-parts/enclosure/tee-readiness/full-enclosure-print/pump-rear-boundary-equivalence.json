@@ -1,0 +1,42 @@
+{
+  "status": "native_pump_geometry_identical",
+  "created_at_utc": "2026-09-21T07:38:37.702758+00:00",
+  "scope": "Current cartridge/cap builders, frozen fitted front datums, only rear inner/outer boundaries moved; native equality with frozen canonical exports. No export written; not a full-Box assembly claim.",
+  "input_sha256": {
+    "hardware/manifold-layout/enclosure-box.json": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "f1152a2862d3058fe21a4d567c4d4c29c35e0a63a2e359d4be11fa9553773795",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "0c0371383599b007c6ed8750964b6a3bfc0a114548089ff6d6a9f5101b21f929",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "8f2006803cf5559e314a034beee48b11cffab22befdf40d348e944d604de5c6c",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "9a1fe40190daef90a0231767926126597e6c073690ef5d596cb03ff7ce4255fd",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf"
+  },
+  "old_rear": [
+    464.0,
+    467.0
+  ],
+  "new_rear": [
+    468.3,
+    471.3
+  ],
+  "checks": [
+    {
+      "part": "pump-cartridge",
+      "candidate_extra_mm3": 0.0,
+      "frozen_extra_mm3": 0.0,
+      "seconds": 29.74668779197964,
+      "pass": true
+    },
+    {
+      "part": "pump-cap",
+      "candidate_extra_mm3": 0.0,
+      "frozen_extra_mm3": 0.0,
+      "seconds": 0.407420750008896,
+      "pass": true
+    }
+  ],
+  "source_hashes_unchanged_at_end": true
+}

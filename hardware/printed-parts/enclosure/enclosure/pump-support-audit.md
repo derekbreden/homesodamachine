@@ -2,12 +2,14 @@
 
 The complete production cartridge and cap are prepared for the fresh enclosure
 assembly. The cartridge prints upright and the cap prints crown-down. The exact
-two-part native archive passes its offline geometry, settings, toolpath-bound and
-support-access review. Full-assembly integration findings currently hold further
-submissions; Mark2 release remains with the coordinating task.
+two-part H2C native archive passes its offline geometry, settings, toolpath-bound
+and support-access review. Fresh native cartridge and cap builders preserve all
+fitted surfaces and have zero material difference from the exact print inputs
+with the current rear boundary. Printer submission remains with the coordinating
+task.
 
 The plate has **496 layers and 179,260 source triangles**, with no native geometry
-warning. Estimated time is **10 h 9 min 17 s**. The saved profile reports **419.9 g**
+warning. Estimated time is **10 h 9 min 12 s**. The saved profile reports **419.9 g**
 at 1.29 g/cm³; the same material volume is **465.5 g** at the repository's PET-GF
 density of 1.43 g/cm³. Actual model and support paths retain **29.275 mm** minimum
 clearance to the 325 × 320 mm nozzle area and **31.799 mm** between the two objects.
@@ -17,8 +19,8 @@ printing, 0.24 mm layers with a 0.20 mm first layer, two walls and 15% infill.
 Automatic tree support uses a 0.45 mm top gap, two interface layers, 0.5 mm interface
 spacing and 0.4 mm object clearance. Temperatures are 265°C nozzle / 80°C bed on
 the first layer and 280°C / 80°C thereafter. The inherited `auto_brim` setting
-produces **zero Brim extrusion roads** in this archive. Requested +0.04 mm trim
-emits `G29.1 Z0.02` after the textured-plate compensation.
+produces **zero Brim extrusion roads** in this archive. Requested +0.18 mm trim
+emits `G29.1 Z0.16` after the textured-plate compensation.
 
 | Piece / support | Contact region | Root | Build-up | Removal lane before hardware installation |
 | --- | --- | --- | --- | --- |
@@ -36,10 +38,11 @@ counterbore; its route does not use the smaller screw-shaft bore. The six bodies
 and six interface islands describe the slice. Physical removal effort and contact
 finish are observations from the printed parts.
 
-The [current offline review](../tee-readiness/full-enclosure-print/2026-09-21-pump-cartridge-mark2-v2.json)
+The [current offline review](../tee-readiness/full-enclosure-print/2026-09-21-pump-cartridge-h2c-v1.json)
 binds the exact source STEP/STL files, saved profile, native G-code, support ledger
-and the qualified fluid-2 guard-only source equivalence. The native archive is
-`.cache/prints/2026-09-21-pump-cartridge-mark2-v2/ready/pump-cartridge-cap-black-z004-mark2-v2.gcode.3mf`,
-SHA-256 `5df9a09154864e1916fd3de02e76441c23a91f92d70547785c7c35ff0e6dda01`.
+and [local mating equivalence](../tee-readiness/full-enclosure-print/pump-rear-boundary-equivalence.json).
+The native archive is
+`.cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`,
+SHA-256 `8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562`.
 The G-code SHA-256 is
-`fa57cf15e877a9d2854bea8adfbe0309ce694bcfc24bad55341b422595ec4133`.
+`0080b646ccd07f37d715fb70c561db6fddb24fc98871d93cb66ca38f9785eca7`.
