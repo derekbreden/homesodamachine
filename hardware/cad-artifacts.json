@@ -19,11 +19,15 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
+      "hardware/assembly/cards/_cards_ip.py",
+      "hardware/assembly/cards/_cards_sync.py",
       "hardware/manifold-layout/_lines.py",
+      "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+      "hardware/printed-parts/enclosure/_enclosure_dimensions.py",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
       "hardware/printed-parts/enclosure/enclosure/pump-print-readiness.json",
@@ -90,6 +94,10 @@
       "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/valve-entry-checks.json",
       "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/wall-checks.json",
       "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+      "hardware/printed-parts/enclosure/tee-carrier/verify_upper_backing.py",
+      "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/fluid14-anchor.json",
+      "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/verify_flank_clearance.py",
+      "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/verify_fluid14_anchor.py",
       "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
       "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
@@ -141,9 +149,10 @@
       "hardware/reference/g-ganen-pump/selftest_analysis.py",
       "hardware/reference/g-ganen-pump/validate_reference.py",
       "hardware/reference/kamoer-kphm400/physical-fit.json",
-      "hardware/reference/lldpe-tubes/analyze_scan.py",
-      "hardware/reference/lldpe-tubes/scan-measurements.json",
-      "hardware/service/_pump_replacement_sync.py"
+      "hardware/scripts/_bom_sync.py",
+      "hardware/scripts/_tube_export.py",
+      "hardware/service/_pump_replacement_sync.py",
+      "hardware/topology/_fluid_topology_sync.py"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1319,7 +1328,7 @@
     "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/inputs/current-front-top/front-top.step": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
     "hardware/printed-parts/enclosure/tee-readiness/branch-propagation/front-top/front-top.step": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "ac7aaed1e5ef4ebfe8cbaba39f79194b1ad805c24e80ee5f3204559f6899c9ec"
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "c79d90bc261a8da706a0a08aef55991bb8f1df3cddf89422d58ea2c58934d7d3"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1667,7 +1676,7 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": 1789013075,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": 1789013075,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1789013075,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1789962615,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1789962847,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1789744959,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1789744959,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl": 1789744959,
