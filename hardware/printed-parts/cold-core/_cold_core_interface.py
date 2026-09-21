@@ -32,7 +32,8 @@ import valve_seat as _valve_seat
 import g_ganen_installation as _water_pump
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
-from _enclosure_interface import manifold_rise, inner_limb_drop
+from _enclosure_interface import (manifold_rise, inner_limb_drop,
+                                  rear_plane_y, rear_seam_clear)
 
 
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PET-GF. The outer
@@ -815,11 +816,15 @@ for _name in deck_mounts:
 # height above the lid. The flavour valves carry the manifold rise; V-K meets the
 # suction chain at its existing port plane.
 Cradle = namedtuple("Cradle", "centre yaw seat")
+# The cap installs with its +X opposite world +Y. The fixed flavour valves' mounting
+# centres stay on world Y229.710 while the core follows the rear enclosure plane.
+cap_manifold_cradle_x = (rear_plane_y - rear_seam_clear - outer_shell_x_length / 2.0
+                         - 229.710)
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle(( 89.790,  24.770), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
-    "valve-v-b":   Cradle(( 89.790, -22.350), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
+    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.770), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
+    "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.

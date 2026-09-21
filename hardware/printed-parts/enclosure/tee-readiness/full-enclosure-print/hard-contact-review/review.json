@@ -1,0 +1,50 @@
+{
+  "status": "bounded_contact_checks_pass",
+  "scope": "Current C14 seated contact and exact printed-pocket preservation; exact-hash pump contact review. This is not a replacement for the complete assembly scorecard.",
+  "c14": {
+    "report": "c14-frozen-reference-check.json",
+    "sha256": "f8d782c0f8f39c81d5f61f9a972f9fbdc4bb4ddaffc33dde55be8cb56e6ccb8f",
+    "native_overlap_mm3": 0.0,
+    "pass": true,
+    "printed_station_preserved": true
+  },
+  "pump": {
+    "report": "pump-contact-check.json",
+    "sha256": "150c0cde6ba607747528cea4b496daed97bd5ef5a6edf113879673ddb81dd9a8",
+    "kamoer_pairs": 12,
+    "kamoer_max_overlap_mm3": 0,
+    "g_shell_pairs": 4,
+    "g_cap_classification": {
+      "rigid_overlap_mm3": 0.0,
+      "free_foot_contact_mm3": 722.1568477749382,
+      "outside_contact_masks_mm3": 5.474768890024533e-05,
+      "feet": [
+        "head_yminus_observed_rubber_slider_envelope",
+        "head_yplus_observed_rubber_slider_envelope",
+        "rear_yminus_observed_rubber_slider_envelope",
+        "rear_yplus_observed_rubber_slider_envelope"
+      ],
+      "pass": true
+    },
+    "pass": true
+  },
+  "contact_classifier_review": {
+    "regression_report": "hardware/reference/g-ganen-pump/installation/cap-contact-check.json",
+    "report_sha256": "de6d06f2e7aae08b3cc7d06a685201426b2d6fd618e889732c3f50544952b859",
+    "classifier_function_sha256": "1a5273c18e90b8328c0d65cd5887a7a16a1eee36e0f89318866e8f247b27dff6",
+    "matches_tested_classifier": true,
+    "all_four_regression_cases_pass": true,
+    "bound": "Only four exact unloaded rubber-foot envelopes below the independently derived cap plane are intentional contact. Rigid intersections, material outside those masks, missing named feet, a mismatched bearing plane or failed geometry query are not waived. Existing 1 mm3 gate tolerance remains explicit.",
+    "physical_compression_qualified": false
+  },
+  "scripts_sha256": {
+    "probe_hard_contacts.py": "2cba6495357fb856e229e639fc355e3a3fb5a0fa9c25b13dea9c16731fde5774",
+    "verify_c14_frozen_reference.py": "3ff55a43557672890dc69e53143f0cc2973f8c5950e86401d8bb388493f2d314",
+    "verify_c14_pocket_preservation.py": "6db5cf96c9f36255866cdf4bd6149046fd24cff1019ce377128b3c9f95e4b4f4"
+  },
+  "limits": [
+    "C14 check is the seated state; no new complete rigid insertion sweep.",
+    "Pump findings bind the recorded materialized part and retained pose hashes; fresh shell regeneration can replace those shell hashes.",
+    "Whole-machine scorecard and actual complete-enclosure assembly remain separate."
+  ]
+}

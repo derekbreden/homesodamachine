@@ -1,0 +1,938 @@
+{
+  "status": "bounded_rear_geometry_and_tube_checks_pass",
+  "full_shell_release": false,
+  "source_regions": {
+    "file": "hardware/manifold-layout/enclosure_assembly.py",
+    "whole_file_sha256": "5fef572a1535ceb4f724eb62a20abd28a8f4f78e5e3a56b59e050641481b120d",
+    "region_ast_sha256": "675ea0a49e6031bb82ccfd4ca016cd95b2764d80dc94d40487e7db8d7fab0271",
+    "symbols": [
+      "CLUSTER_WAGOS",
+      "FLAVOR_B_ANCHOR_WELL_CLEAR",
+      "tube_anchor_midpoint",
+      "CORE_HOLD_LANE",
+      "PANEL_FLAVOR_B_DROP",
+      "PANEL_ON_GATE_LANE",
+      "panel_z"
+    ]
+  },
+  "archive": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/rear-neighbor-correction-inputs.zip",
+  "archive_sha256": "380c7fd7b547aa2804df1b03cc812f1b50a39d934f851a4bf4e4ac364f7c1867",
+  "reproducer": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_rear_neighbor_correction.py",
+  "anchor": {
+    "station": [
+      [
+        -78.07,
+        282.0,
+        270.5740001
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      3.3249999999999997,
+      [
+        null,
+        null
+      ]
+    ],
+    "native": {
+      "bounds_mm": [
+        -98.5,
+        277.25,
+        263.9990001,
+        -78.06999999999991,
+        286.75,
+        284.89900009999997
+      ],
+      "volume_mm3": 2376.0857016795753,
+      "valid": true,
+      "solids": 1
+    },
+    "tower_overlap_mm3": 0.0,
+    "tower_air_mm": 4.699999999999989,
+    "worked_lever_y_air_mm": 1.0,
+    "full_tower_fore_y_mm": 291.45,
+    "worked_lever_fore_y_mm": 287.75,
+    "neighbor_native_checks": [
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 10.598999899999995,
+        "tested_solids": 1,
+        "name": "foam-assembly",
+        "conservative_box_lower_bound_mm": 0.0
+      },
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 32.01277703563344,
+        "tested_solids": 1,
+        "name": "tube-fluid-2",
+        "conservative_box_lower_bound_mm": 0.0
+      }
+    ],
+    "own_tube": {
+      "overlap_mm3": 0.0,
+      "air_mm": 0.14999999999997726,
+      "tested_solids": 1
+    }
+  },
+  "flavor_b": {
+    "axis_delta_mm": [
+      0,
+      0,
+      -1.55
+    ],
+    "native": {
+      "bounds_mm": [
+        -89.5,
+        446.51,
+        257.59400009999996,
+        -66.63999999999999,
+        480.8,
+        280.4540001
+      ],
+      "volume_mm3": 8302.373443952956,
+      "valid": true,
+      "solids": 1
+    },
+    "sleeve_native": {
+      "bounds_mm": [
+        -104.5,
+        366.50002725063365,
+        281.4605808375568,
+        -51.2,
+        457.00002725063365,
+        303.2105808375568
+      ],
+      "volume_mm3": 37046.225000000006,
+      "valid": true,
+      "solids": 1
+    },
+    "sleeve_translation_mm": [
+      0,
+      4.3,
+      0
+    ],
+    "sleeve_overlap_mm3": 0.0,
+    "sleeve_air_mm": 1.006580737556817,
+    "hold_stations": [
+      [
+        -65.6,
+        -56.6,
+        465.3,
+        253.4
+      ],
+      [
+        56.6,
+        65.6,
+        465.3,
+        253.4
+      ]
+    ],
+    "hold_native": {
+      "bounds_mm": [
+        -65.6,
+        453.3,
+        253.4,
+        65.6,
+        465.3,
+        293.4
+      ],
+      "volume_mm3": 5174.999999999991,
+      "valid": true,
+      "solids": 2
+    },
+    "hold_overlap_mm3": 0.0,
+    "hold_air_mm": 1.0439687216871962,
+    "hold_stock_volume_invariant": true,
+    "hold_widths_mm": [
+      8.999999999999993,
+      8.999999999999993
+    ],
+    "wall_stack_before_mm": 6.0,
+    "wall_stack_after_mm": 6.0,
+    "updated_tube_clearance": {
+      "anchor": {
+        "overlap_mm3": 0.0,
+        "air_mm": 0.14999999999997726
+      },
+      "pan_sleeve": {
+        "overlap_mm3": 0.0,
+        "air_mm": 7.711580737556801
+      },
+      "core_holds": {
+        "overlap_mm3": 0.0,
+        "air_mm": 12.838553604156985
+      }
+    },
+    "neighbor_native_checks": [
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 4.193999899999966,
+        "tested_solids": 1,
+        "name": "foam-assembly",
+        "conservative_box_lower_bound_mm": 0.0
+      }
+    ],
+    "hold_neighbor_native_checks": [
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 0.0,
+        "tested_solids": 1,
+        "name": "foam-assembly",
+        "conservative_box_lower_bound_mm": 0.0
+      },
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 24.24020640002231,
+        "tested_solids": 5,
+        "name": "g-ganen-pump",
+        "conservative_box_lower_bound_mm": 0.0
+      },
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 7.3866109474188795,
+        "tested_solids": 1,
+        "name": "bulkhead-flavor-a",
+        "conservative_box_lower_bound_mm": 0.0
+      },
+      {
+        "overlap_mm3": 0.0,
+        "air_mm": 1.5,
+        "tested_solids": 1,
+        "name": "psu",
+        "conservative_box_lower_bound_mm": 0.0
+      }
+    ],
+    "bearing_face_native_stock": [
+      {
+        "bounds_mm": [
+          -65.6,
+          454.3,
+          253.3,
+          -56.6,
+          465.2,
+          253.4
+        ],
+        "probe_volume_mm3": 9.809999999999413,
+        "native_foam_overlap_mm3": 9.809999999999413,
+        "coverage_fraction": 1.0
+      },
+      {
+        "bounds_mm": [
+          56.6,
+          454.3,
+          253.3,
+          65.6,
+          465.2,
+          253.4
+        ],
+        "probe_volume_mm3": 9.809999999999413,
+        "native_foam_overlap_mm3": 9.809999999999413,
+        "coverage_fraction": 1.0
+      }
+    ],
+    "c14_box_separation": {
+      "c14_bounds_mm": [
+        41.915000000000006,
+        436.21000000000004,
+        325.1455808375568,
+        91.885,
+        463.05,
+        347.2755808375568
+      ],
+      "fitting_bounds_mm": [
+        -89.5,
+        446.51,
+        257.59400009999996,
+        -66.63999999999999,
+        480.8,
+        280.4540001
+      ],
+      "minimum_distance_lower_bound_mm": 117.39474184912012,
+      "no_native_query_needed": true
+    }
+  },
+  "tube": {
+    "scope": "One production-authored installed tube on fresh port frames; lowered Flavor-B endpoint only. Endpoint hardware own engagement is excluded from neighbor collision readings.",
+    "source_sha256": {
+      "/tmp/scanner-review/integration-correction/route-pack/frames.json": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+      "/tmp/scanner-review/integration-correction/route-neighbors/neighbors.json": "9a472c987daaf7cb85d511eb11e4667a6fe8e3047858621460ff3624b3455dfa",
+      "/tmp/scanner-review/integration-correction/route-pack/routes.json": "f943b3bb5c7205b792ff3745e9f68753fab396d1df0b96e15e6eb7d0bfe74407",
+      "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/_lines.py": "5565665c82f18f5bc93d797fa84c9f2e36cc248af2ada46ebc2fa6abaf595213",
+      "/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-refrig-3.brep": "dd7f0ddad1da80ba108b1a1971ba564ec06a296fdded9f6231b8926e6746a72f",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-refrig-1.brep": "1d4630cb78bf35003f2ec5d5dae01e57d7f7d101e6df97fcdde250f1ce3c1223",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-refrig-2.brep": "c06e924882911b6e03181a8193f4f064ba57a75affbaa5ac7ea2777e4bb7ebd9",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-water-7.brep": "7df33ab1032e132dc820539d719d13ce20e530b5a027cb29735053defd61f874",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-water-6.brep": "5a18d5e2932f628080eccad3c8deb82360ac5bf99e365c056bdc44d595e40546",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-water-5.brep": "fe2b3dc070101c71d5f9f0b4026f4ea3b9656d964e3b1f83d625027b47410757",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-water-2.brep": "1a7dbd33972bfb662bdd35d0448c9067a5cb373358e0d755619f29a385c2ae54",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-1.brep": "89039f79fd0e76c633a45d565f7dcbb74f35380e67aeb13b0d8f6381f7aacf31",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-water-3.brep": "21d0644e2597936891e479ef4ca7de34f2334092fcd461d77b7d6d7c7d4fa3e3",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-co2-0.brep": "6072d33cf5c64ba22aacfafa43c20e30e42ebb841b0229111f0c569f9c9cc1e8",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-co2-1.brep": "106d1ee6cfa455d8d7dd5b0a527e61ea087cedcddfc90759b47bb2971fc53906",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-co2-2.brep": "f4bbad5236bf827ce0332f363092f5ad2589d471759a41507b21565d9d27b89a",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-2.brep": "b9736619c8b486f961118e88794b25547f410dd03053dac27a2090ae426a180d",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-carb-1.brep": "1b214f8339fd514db4458047d86c829acb6f6ed4c52818a381a99f2b055fcfc8",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-carb-2.brep": "583e455a7a259642e37eaf1962b4cf782cad9f0dc39ce2d6603b7a44bbcd365f",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-18.brep": "76f4d85307ca88d58c1da5be7feed49c8fba846371c34ad0a4a8e4b7a997144f",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-24.brep": "ef4907a0da29ebd5a0113db2794e67f608e40085e276618cd254399bf6168d64",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-26.brep": "92c954d75a18f012f3dc610d8eb784267a6f1bd93019c92ea42b2a0d5e568054",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-14.brep": "7be96cbd82f98054bd27d805608ef6c96737c78a7a88602b18a3eb0e25d9c5a0",
+      "/tmp/scanner-review/integration-correction/route-pack/tube-fluid-16.brep": "a4dfa2085b629ce777218ceb10b16757ec82bb28ef7fe81121cc5f73111bc87c",
+      "/tmp/scanner-review/integration-correction/route-pack/foam-assembly.brep": "eb28ed6ac6a93b49c5f246b268d173482cf8752e8f8b045b615ead3d8d0eb3d8"
+    },
+    "pts": [
+      [
+        -73.82,
+        166.23999999999998,
+        229.67500009999998
+      ],
+      [
+        -73.82,
+        166.23999999999998,
+        270.5740001
+      ],
+      [
+        -78.07,
+        186.14,
+        270.5740001
+      ],
+      [
+        -78.07,
+        393.0,
+        270.5740001
+      ],
+      [
+        -78.07,
+        413.0,
+        269.02400009999997
+      ],
+      [
+        -78.07,
+        446.51,
+        269.02400009999997
+      ]
+    ],
+    "radii": {
+      "1": 14.0,
+      "2": 14.0,
+      "3": 14.0,
+      "4": 14.0
+    },
+    "min_radius_mm": 14.0,
+    "blocked": null,
+    "tube_valid": true,
+    "tube_volume_mm3": 9996.606895340921,
+    "bounds_mm": [
+      -81.24500009999998,
+      163.06499989999995,
+      229.67500009999998,
+      -70.64499989999999,
+      446.51,
+      273.7490002
+    ],
+    "endpoint_offset_mm": [
+      0,
+      0,
+      -1.55
+    ],
+    "native_neighbors": [
+      {
+        "name": "foam-assembly",
+        "overlap_mm3": 0.0,
+        "air_mm": 3.2411573848980337
+      },
+      {
+        "name": "tube-water-3",
+        "overlap_mm3": 0.0,
+        "air_mm": 1.9264995039959862
+      },
+      {
+        "name": "tube-fluid-2",
+        "overlap_mm3": 0.0,
+        "air_mm": 34.22027917645144
+      },
+      {
+        "name": "tube-fluid-24",
+        "overlap_mm3": 0.0,
+        "air_mm": 19.71414365950653
+      }
+    ],
+    "box_clear_neighbors": [
+      {
+        "name": "g-ganen-pump",
+        "box_air_lower_bound_mm": 25.362776709928788
+      },
+      {
+        "name": "suction-chain",
+        "box_air_lower_bound_mm": 127.1949999069748
+      },
+      {
+        "name": "discharge-chain",
+        "box_air_lower_bound_mm": 1.6449999069748031
+      },
+      {
+        "name": "compressor",
+        "box_air_lower_bound_mm": 94.67500009999998
+      },
+      {
+        "name": "condenser+fan",
+        "box_air_lower_bound_mm": 139.92143025393213
+      },
+      {
+        "name": "asse1022-assembly",
+        "box_air_lower_bound_mm": 33.46158063755678
+      },
+      {
+        "name": "water-split",
+        "box_air_lower_bound_mm": 1.85499990000001
+      },
+      {
+        "name": "flow-regulator",
+        "box_air_lower_bound_mm": 31.432103972625725
+      },
+      {
+        "name": "vk-solenoid",
+        "box_air_lower_bound_mm": 118.9449998069748
+      },
+      {
+        "name": "bulkhead-water",
+        "box_air_lower_bound_mm": 51.03158063755677
+      },
+      {
+        "name": "co2-inlet",
+        "box_air_lower_bound_mm": 79.25619761234128
+      },
+      {
+        "name": "gasher-co2",
+        "box_air_lower_bound_mm": 114.39151091939361
+      },
+      {
+        "name": "wr1110",
+        "box_air_lower_bound_mm": 81.83302967500579
+      },
+      {
+        "name": "digiten-flow",
+        "box_air_lower_bound_mm": 53.14197589742592
+      },
+      {
+        "name": "co2-adapter-regulator-in",
+        "box_air_lower_bound_mm": 85.21322067634044
+      },
+      {
+        "name": "co2-adapter-regulator-out",
+        "box_air_lower_bound_mm": 85.21322067634044
+      },
+      {
+        "name": "co2-adapter-check-in",
+        "box_air_lower_bound_mm": 115.3503961024267
+      },
+      {
+        "name": "co2-adapter-check-out",
+        "box_air_lower_bound_mm": 115.3503961024267
+      },
+      {
+        "name": "co2-check-coupling-nominal",
+        "box_air_lower_bound_mm": 110.6582802901707
+      },
+      {
+        "name": "bulkhead-flavor-a",
+        "box_air_lower_bound_mm": 21.404999899999993
+      },
+      {
+        "name": "bulkhead-carb",
+        "box_air_lower_bound_mm": 55.33892159309268
+      },
+      {
+        "name": "valve-v-a",
+        "box_air_lower_bound_mm": 78.66499990000001
+      },
+      {
+        "name": "coil-v-a",
+        "box_air_lower_bound_mm": 79.63257865215594
+      },
+      {
+        "name": "tee-y-a",
+        "box_air_lower_bound_mm": 70.6449999
+      },
+      {
+        "name": "valve-v-c",
+        "box_air_lower_bound_mm": 76.66355062545695
+      },
+      {
+        "name": "coil-v-c",
+        "box_air_lower_bound_mm": 79.91666367157727
+      },
+      {
+        "name": "tee-y-c",
+        "box_air_lower_bound_mm": 100.52287114978358
+      },
+      {
+        "name": "valve-v-e",
+        "box_air_lower_bound_mm": 87.4487314155328
+      },
+      {
+        "name": "coil-v-e",
+        "box_air_lower_bound_mm": 77.11112520344258
+      },
+      {
+        "name": "valve-v-g",
+        "box_air_lower_bound_mm": 127.71499989999998
+      },
+      {
+        "name": "coil-v-g",
+        "box_air_lower_bound_mm": 128.2840376746148
+      },
+      {
+        "name": "tee-y-d",
+        "box_air_lower_bound_mm": 154.27876591496963
+      },
+      {
+        "name": "valve-v-f",
+        "box_air_lower_bound_mm": 142.57847177689905
+      },
+      {
+        "name": "coil-v-f",
+        "box_air_lower_bound_mm": 136.48247366673496
+      },
+      {
+        "name": "valve-v-b",
+        "box_air_lower_bound_mm": 31.544999900000008
+      },
+      {
+        "name": "coil-v-b",
+        "box_air_lower_bound_mm": 33.88587304786171
+      },
+      {
+        "name": "tee-y-b",
+        "box_air_lower_bound_mm": 40.04499990000001
+      },
+      {
+        "name": "valve-v-d",
+        "box_air_lower_bound_mm": 32.54361707588755
+      },
+      {
+        "name": "coil-v-d",
+        "box_air_lower_bound_mm": 39.603789482017966
+      },
+      {
+        "name": "tee-y-f",
+        "box_air_lower_bound_mm": 67.28101242650851
+      },
+      {
+        "name": "valve-v-h",
+        "box_air_lower_bound_mm": 53.18898039186308
+      },
+      {
+        "name": "coil-v-h",
+        "box_air_lower_bound_mm": 33.58441065555563
+      },
+      {
+        "name": "coil-v-j",
+        "box_air_lower_bound_mm": 12.069512112964556
+      },
+      {
+        "name": "tee-y-g",
+        "box_air_lower_bound_mm": 54.066002405809435
+      },
+      {
+        "name": "valve-v-i",
+        "box_air_lower_bound_mm": 42.82499989999995
+      },
+      {
+        "name": "coil-v-i",
+        "box_air_lower_bound_mm": 11.524999799999932
+      },
+      {
+        "name": "pump-a-head",
+        "box_air_lower_bound_mm": 127.25915435651531
+      },
+      {
+        "name": "pump-a-boss",
+        "box_air_lower_bound_mm": 133.0307005859354
+      },
+      {
+        "name": "pump-a-motor",
+        "box_air_lower_bound_mm": 145.23899705289483
+      },
+      {
+        "name": "pump-b-head",
+        "box_air_lower_bound_mm": 88.37840901012754
+      },
+      {
+        "name": "pump-b-boss",
+        "box_air_lower_bound_mm": 91.70599989999995
+      },
+      {
+        "name": "pump-b-motor",
+        "box_air_lower_bound_mm": 100.34253477873075
+      },
+      {
+        "name": "tube-fluid-10",
+        "box_air_lower_bound_mm": 103.82901717988422
+      },
+      {
+        "name": "tube-fluid-11",
+        "box_air_lower_bound_mm": 119.87059384753623
+      },
+      {
+        "name": "tube-fluid-12",
+        "box_air_lower_bound_mm": 169.3295950429546
+      },
+      {
+        "name": "tube-fluid-13",
+        "box_air_lower_bound_mm": 157.76345772878548
+      },
+      {
+        "name": "tube-fluid-20",
+        "box_air_lower_bound_mm": 68.84475313978301
+      },
+      {
+        "name": "tube-fluid-21",
+        "box_air_lower_bound_mm": 91.30794750897093
+      },
+      {
+        "name": "tube-fluid-22",
+        "box_air_lower_bound_mm": 79.38089749634347
+      },
+      {
+        "name": "tube-fluid-23",
+        "box_air_lower_bound_mm": 54.79850464448448
+      },
+      {
+        "name": "tube-fluid-9",
+        "box_air_lower_bound_mm": 110.72634900994431
+      },
+      {
+        "name": "tube-fluid-17",
+        "box_air_lower_bound_mm": 153.3072537210291
+      },
+      {
+        "name": "tube-fluid-19",
+        "box_air_lower_bound_mm": 78.92088686115987
+      },
+      {
+        "name": "tube-fluid-27",
+        "box_air_lower_bound_mm": 59.49999999999997
+      },
+      {
+        "name": "turn-fluid-3",
+        "box_air_lower_bound_mm": 89.8199998
+      },
+      {
+        "name": "turn-fluid-5",
+        "box_air_lower_bound_mm": 45.1199998
+      },
+      {
+        "name": "step-fluid-3",
+        "box_air_lower_bound_mm": 89.8199998
+      },
+      {
+        "name": "step-fluid-5",
+        "box_air_lower_bound_mm": 45.1199998
+      },
+      {
+        "name": "stub-fluid-2",
+        "box_air_lower_bound_mm": 92.23999990000002
+      },
+      {
+        "name": "stub-fluid-4",
+        "box_air_lower_bound_mm": 45.11999990000001
+      },
+      {
+        "name": "stub-fluid-18",
+        "box_air_lower_bound_mm": 141.2899999
+      },
+      {
+        "name": "stub-fluid-14",
+        "box_air_lower_bound_mm": 159.4469891013336
+      },
+      {
+        "name": "stub-fluid-16",
+        "box_air_lower_bound_mm": 105.45041415485666
+      },
+      {
+        "name": "stub-fluid-24",
+        "box_air_lower_bound_mm": 55.24633438876098
+      },
+      {
+        "name": "stub-fluid-26",
+        "box_air_lower_bound_mm": 71.33002070917121
+      },
+      {
+        "name": "psu",
+        "box_air_lower_bound_mm": 135.3949999
+      },
+      {
+        "name": "relay-2",
+        "box_air_lower_bound_mm": 149.8949999
+      },
+      {
+        "name": "pcba",
+        "box_air_lower_bound_mm": 147.7949927
+      },
+      {
+        "name": "c14-inlet",
+        "box_air_lower_bound_mm": 123.73908872591907
+      },
+      {
+        "name": "wago-h",
+        "box_air_lower_bound_mm": 161.3543466382316
+      },
+      {
+        "name": "wago-n",
+        "box_air_lower_bound_mm": 161.3543466382316
+      },
+      {
+        "name": "wago-g",
+        "box_air_lower_bound_mm": 161.3543466382316
+      },
+      {
+        "name": "wago-v12",
+        "box_air_lower_bound_mm": 161.3543466382316
+      },
+      {
+        "name": "wago-gnd",
+        "box_air_lower_bound_mm": 161.3543466382316
+      },
+      {
+        "name": "wago-mana",
+        "box_air_lower_bound_mm": 160.9237285432375
+      },
+      {
+        "name": "wago-manb",
+        "box_air_lower_bound_mm": 40.19893333405248
+      },
+      {
+        "name": "wago-reeds-b",
+        "box_air_lower_bound_mm": 4.954999900000004
+      },
+      {
+        "name": "wago-reeds-a",
+        "box_air_lower_bound_mm": 4.654999900000021
+      },
+      {
+        "name": "wago-sensors",
+        "box_air_lower_bound_mm": 4.654999900000021
+      },
+      {
+        "name": "relay-1",
+        "box_air_lower_bound_mm": 159.65000273736484
+      },
+      {
+        "name": "ground-stack",
+        "box_air_lower_bound_mm": 164.5420048893309
+      },
+      {
+        "name": "funnel",
+        "box_air_lower_bound_mm": 25.31582034528998
+      },
+      {
+        "name": "funnel-drain-stub",
+        "box_air_lower_bound_mm": 69.97690552551913
+      },
+      {
+        "name": "funnel-drain-clamp",
+        "box_air_lower_bound_mm": 69.4978503486771
+      },
+      {
+        "name": "funnel-drain-union",
+        "box_air_lower_bound_mm": 65.12899979999999
+      },
+      {
+        "name": "tube-refrig-3",
+        "box_air_lower_bound_mm": 166.49999999999997
+      },
+      {
+        "name": "tube-refrig-1",
+        "box_air_lower_bound_mm": 193.2613234007596
+      },
+      {
+        "name": "tube-refrig-2",
+        "box_air_lower_bound_mm": 227.74149036264117
+      },
+      {
+        "name": "tube-water-7",
+        "box_air_lower_bound_mm": 109.93830289666447
+      },
+      {
+        "name": "tube-water-6",
+        "box_air_lower_bound_mm": 2.594999806974897
+      },
+      {
+        "name": "tube-water-5",
+        "box_air_lower_bound_mm": 6.969999806974805
+      },
+      {
+        "name": "tube-water-2",
+        "box_air_lower_bound_mm": 13.886580537556767
+      },
+      {
+        "name": "tube-fluid-1",
+        "box_air_lower_bound_mm": 15.519729902741565
+      },
+      {
+        "name": "tube-co2-0",
+        "box_air_lower_bound_mm": 91.51024117218105
+      },
+      {
+        "name": "tube-co2-1",
+        "box_air_lower_bound_mm": 91.51024103126066
+      },
+      {
+        "name": "tube-co2-2",
+        "box_air_lower_bound_mm": 105.9199998
+      },
+      {
+        "name": "tube-carb-1",
+        "box_air_lower_bound_mm": 26.65999979999996
+      },
+      {
+        "name": "tube-carb-2",
+        "box_air_lower_bound_mm": 61.279250421577416
+      },
+      {
+        "name": "tube-fluid-18",
+        "box_air_lower_bound_mm": 29.65999979999996
+      },
+      {
+        "name": "tube-fluid-26",
+        "box_air_lower_bound_mm": 23.969999806974805
+      },
+      {
+        "name": "tube-fluid-14",
+        "box_air_lower_bound_mm": 112.21999980697478
+      },
+      {
+        "name": "tube-fluid-16",
+        "box_air_lower_bound_mm": 89.81999979999999
+      }
+    ],
+    "excluded_placeholder": {
+      "name": "stub-fluid-28",
+      "source": "enclosure_assembly.py::build_pack omits stub-* for every _lines.authored() run; manifold stub is replaced by this tube"
+    },
+    "pass": true,
+    "route_author_ast_sha256": "423f2b32a1347f34dbe6dda6bbeaa6e2f9121d1640e617d309b4c572296c1fd5",
+    "script_sha256": "ba93022afb3ea7964f320d62d96df142f587afaa94b91f2140bcfa12a99c60d8",
+    "input_drift": [],
+    "elapsed_seconds": 0.17912179199629463
+  },
+  "checks": [
+    {
+      "name": "anchor rejects insufficient straight",
+      "pass": true
+    },
+    {
+      "name": "non-flavor anchor midpoint invariant",
+      "pass": true
+    },
+    {
+      "name": "anchor tower clear",
+      "pass": true
+    },
+    {
+      "name": "anchor lever air at least1",
+      "pass": true
+    },
+    {
+      "name": "anchor neighbors clear",
+      "pass": true
+    },
+    {
+      "name": "flavor sleeve air at least1",
+      "pass": true
+    },
+    {
+      "name": "flavor hold air at least1",
+      "pass": true
+    },
+    {
+      "name": "holds full9mm width",
+      "pass": true
+    },
+    {
+      "name": "hold volume invariant",
+      "pass": true
+    },
+    {
+      "name": "hold bearings fully supported",
+      "pass": true
+    },
+    {
+      "name": "flavor neighbors clear",
+      "pass": true
+    },
+    {
+      "name": "hold neighbors clear",
+      "pass": true
+    },
+    {
+      "name": "updated tube clear of anchor sleeve and holds",
+      "pass": true
+    }
+  ],
+  "source_limits": [
+    "The current cached foam cap is the prior native producer at the refreshed core pose. The local hold bearings are fully covered by its unchanged flat cap stock.",
+    "Native route neighbors are the exact retained route-pack geometries. Final combined validation consumes the current water3, fluid16 and fluid24 corrections.",
+    "Fresh back-top production generation and complete installed-neighbor verification remain with the coordinating task."
+  ],
+  "native_pair_count": 17,
+  "archive_source_records": [
+    {
+      "original_path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure_assembly.py",
+      "sha256": "5fef572a1535ceb4f724eb62a20abd28a8f4f78e5e3a56b59e050641481b120d",
+      "retained_member": "inputs/hardware/manifold-layout/enclosure_assembly.py"
+    },
+    {
+      "original_path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "sha256": "9b92951b97461c9d8dd8fd85fbf48d7e7fc28e78471d5ec3819973139065367f",
+      "retained_member": "inputs/hardware/printed-parts/enclosure/enclosure/enclosure.py"
+    },
+    {
+      "original_path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/scanner-review/rear-neighbor-triage/frozen-inputs/hardware/manifold-layout/enclosure-box.json",
+      "sha256": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+      "retained_member": "inputs/.cache/scanner-review/rear-neighbor-triage/frozen-inputs/hardware/manifold-layout/enclosure-box.json"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/route-pack/frames.json",
+      "sha256": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+      "retained_member": "inputs/route-pack/frames.json"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/route-pack/routes.json",
+      "sha256": "f943b3bb5c7205b792ff3745e9f68753fab396d1df0b96e15e6eb7d0bfe74407",
+      "retained_member": "inputs/route-pack/routes.json"
+    },
+    {
+      "original_path": "/tmp/scanner-review/integration-correction/route-neighbors/neighbors.json",
+      "sha256": "9a472c987daaf7cb85d511eb11e4667a6fe8e3047858621460ff3624b3455dfa",
+      "retained_member": "inputs/route-neighbors/neighbors.json"
+    },
+    {
+      "original_path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/_lines.py",
+      "sha256": "5565665c82f18f5bc93d797fa84c9f2e36cc248af2ada46ebc2fa6abaf595213",
+      "retained_member": null
+    },
+    {
+      "original_path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/_routing.py",
+      "sha256": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+      "retained_member": "inputs/hardware/scripts/_routing.py"
+    }
+  ],
+  "reproducer_sha256": "1cbceb0226eebb41468072fd8418ea070a2f71bd920cb14c1fb6538bd7b52d80",
+  "retained_native_recheck": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/rear-neighbor-native-recheck.json",
+    "sha256": "d2c05060f24d466e148e284dd3bb1e08116bdbee23c006511b194aca8567e17e",
+    "status": "retained_native_recheck_pass",
+    "pair_count": 17,
+    "bearing_count": 2
+  }
+}

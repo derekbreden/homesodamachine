@@ -1,0 +1,2076 @@
+{
+  "scope": "Current source water-6, water-7 and fluid-14 against every supplied native body and route. Full regenerated shell and any subsequently revised other routes are separate checks.",
+  "inputs_sha256": {
+    "/private/tmp/scanner-review/integration-correction/route-pack/frames.json": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/neighbors.json": "ef4d5a1f5e42527068863b7e432e8bfa7ab219e4c220e69cf44aa5b3f5dfaa3f",
+    "/private/tmp/scanner-review/integration-correction/route-pack/foam-assembly.brep": "eb28ed6ac6a93b49c5f246b268d173482cf8752e8f8b045b615ead3d8d0eb3d8",
+    "/private/tmp/scanner-review/integration-correction/route-pack/g-ganen-pump.brep": "a6dcdcfa1fe66642e3e04708308248c5e3cc7ce0622b3e720593bb7618e6b95e",
+    "/private/tmp/scanner-review/integration-correction/route-pack/suction-chain.brep": "1149c0c4480a13ad8c7b7f66f15eccebb2177fbf7182f9e3c5d062258881e237",
+    "/private/tmp/scanner-review/integration-correction/route-pack/discharge-chain.brep": "768d12f860b78cfcd950d34190ad4b06a78b268d08fefb5d269f3341c6be56b5",
+    "/private/tmp/scanner-review/integration-correction/route-pack/compressor.brep": "d24a32fb6b9d83b0ba528156921f79f9bde11ab111cf12701110c6cb6922d09c",
+    "/private/tmp/scanner-review/integration-correction/route-pack/condenser+fan.brep": "531e06f85a4c8f825c625d9ea519de746fe040254a6cb67a9c48e7989f22aa5c",
+    "/private/tmp/scanner-review/integration-correction/route-pack/asse1022-assembly.brep": "45e4eab693d4bf681305e48dfcde609b3f2f8c982d04f87a4514b299dd3d30f2",
+    "/private/tmp/scanner-review/integration-correction/route-pack/water-split.brep": "acf4e5afe748b2b4a8bd64da711e65168ab9f5a9d2fcec5bc0949be9d115bd5a",
+    "/private/tmp/scanner-review/integration-correction/route-pack/flow-regulator.brep": "9e96cc6271524a0346724d04d0272161cb385a53ed9a230a67ed180a0fd5bef2",
+    "/private/tmp/scanner-review/integration-correction/route-pack/vk-solenoid.brep": "210a0ba5b2ea880d6855473aff4cfed4a61aa3c4284c9cc54d2304d6a652632f",
+    "/private/tmp/scanner-review/integration-correction/route-pack/bulkhead-water.brep": "12a1f95ea9fd1884ad4730ca4b293e34b31d7c1e00f1ca5dbc3caf32fb65b438",
+    "/private/tmp/scanner-review/integration-correction/route-pack/co2-inlet.brep": "813479bf96eaabc32ca04f47b822b48d468fad5eb028d514def3d92690e7f1e2",
+    "/private/tmp/scanner-review/integration-correction/route-pack/gasher-co2.brep": "a04be16da2567147f342ce05ae8ffc8ac817c6b88e35491eb19b10daaa3713b9",
+    "/private/tmp/scanner-review/integration-correction/route-pack/wr1110.brep": "33fb9e9085e6b11172fc86d9aa7db15ba0adcdbf3ee96b6487a8b6a373dc5180",
+    "/private/tmp/scanner-review/integration-correction/route-pack/digiten-flow.brep": "322844eb745f4c1152eeebecf0d11a99d0ad5d2cca1681c1d9b37b0a496fb3eb",
+    "/private/tmp/scanner-review/integration-correction/route-pack/co2-adapter-regulator-in.brep": "1587e7de0f57c4e287d9f58c7a3d76197dfba52a72cd768126d4067868e27b80",
+    "/private/tmp/scanner-review/integration-correction/route-pack/co2-adapter-regulator-out.brep": "87f6e2c39f9df675d88d698092fa23ddf36af6f99586622559affa434ef581ec",
+    "/private/tmp/scanner-review/integration-correction/route-pack/co2-adapter-check-in.brep": "68ca7bc5c22e3e35b5bc8622b28256de78e9a79c8a3dbfe1f019b9c14949d35e",
+    "/private/tmp/scanner-review/integration-correction/route-pack/co2-adapter-check-out.brep": "ad34f209417fe111a2ad6d442cdcd43872764e26369e669e3f8a2c9a6dae6ec1",
+    "/private/tmp/scanner-review/integration-correction/route-pack/co2-check-coupling-nominal.brep": "49296e3d911d9ea3eebc16b461ab2ae6a7c472852da6ad50548f7bb27ece1afd",
+    "/private/tmp/scanner-review/integration-correction/route-pack/bulkhead-flavor-b.brep": "28fb03888bd9f0f2453a5989be81a7345af16319e958833d674b3e25a0a1498f",
+    "/private/tmp/scanner-review/integration-correction/route-pack/bulkhead-flavor-a.brep": "d70df7613e7937b2b243e1173907ba7321a400094c78c1f3c7eac1d46e2a8fe2",
+    "/private/tmp/scanner-review/integration-correction/route-pack/bulkhead-carb.brep": "0665ce87a69405dda77e32a44360d6f3b9bf147f1304d54636d873cc73dd747e",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-a.brep": "90fc45342c4df85a4cbf5f1615e2a4e103eee1ed299c4baab6c43f6198eb5a42",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-a.brep": "6a7b4ccde6dbb245fe02175890b2b2b1619d54552636e44a4aaddc595886a835",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tee-y-a.brep": "be7515876f968943ad493dc4a5411a8f77cab3f459d1dd1f0af252161e2cbd0b",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-c.brep": "02cc6a238a15196d8d3281b30bf61d14fa0de7ad3732028eefdb6b5070b3f850",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-c.brep": "3a9f79117b2e1c49f7417408af8bc673417f9ada58a267d8655ec22b43b49ecd",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tee-y-c.brep": "989a45f719c957cb8f5001d712f4a9f1422d6207ad30d48400f24f818439dcf3",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-e.brep": "82622cee18aa66e68d9a6d32c7916ffc76ce82e594c6d0f1451e0f787ca35554",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-e.brep": "36b92c26ace08031552f69f4c86082675864703dc38363ec8e4a0d565a464007",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-g.brep": "db1f566540a97ddd0c5f2eb60d7d0c2df272718757778e5e8e5c16c7c38d2f18",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-g.brep": "3b613b799197324db4926f717fe50f1944b750698a8746c4c339be95ed5b13f7",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tee-y-d.brep": "a4595ea213fe96beacb9978ed3991d865d5c69ca9b7a689c0169768519cf8e40",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-f.brep": "81d22bdeb541097cbc4e34c17af1c7251c789b36c666474a7f0f6f00a4ca9e4d",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-f.brep": "d73d77c569d964494ee1f23e284685a32cd75e0bb4a3be06eef293b87a588eb8",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-b.brep": "26b337cc1767378b8a4f9c6b46445d8e34aa0c2e073d65f5762b76219db5d2fa",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-b.brep": "c3cc72930de5a4f8e89491893ad622876329848f91844e415ce3182da5d4dd4e",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tee-y-b.brep": "496c98074c4ee4f8f96071010183ed9223ac6806975511aeecf3692afe0c505e",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-d.brep": "e9672865b53bf84bc1597dbe3db6fad44ae26bedee7cb0113c05b1ebd8e6fe82",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-d.brep": "a960e368a687df474082d9490d39ed9bd30dec6816e1436fdb49da5b565d7e85",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tee-y-f.brep": "8154bea8a3e5870e6a661469c64a262efb483295da6f36fa21412ff582bd0998",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-h.brep": "211016b5054a8318c82a77315d0e835b6fa63d808ad3992fa2088c58c3d4e6e8",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-h.brep": "6cb4fd37fedf2c60cb59c955c80cb14b8a3f7d56c27768ad57dcb03918a58a4d",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-j.brep": "afd5b58a070a6b25c9e500ddd9bcaae181417e4a6e578c1885a9799cbfcda147",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-j.brep": "d0d33fcbadffee7d92455485b834ea4d12226be0534fc5d5b100a9ce56c99701",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tee-y-g.brep": "4e5f08700492c87aa899d99696d122fa44a9ad9ecac70149de680bc407f0dd16",
+    "/private/tmp/scanner-review/integration-correction/route-pack/valve-v-i.brep": "1f27df8f5a0f5962c9b89ae7e945af2546aad06a1d2e9a937dbfda628f7ac838",
+    "/private/tmp/scanner-review/integration-correction/route-pack/coil-v-i.brep": "61ab0e68a261f2e033a76ef825f33e4aca95485c3913c8a5b400d222b088a2ce",
+    "/private/tmp/scanner-review/integration-correction/route-pack/pump-a-head.brep": "6c29cbeac753a98682aa76aca00d63619a91fa3eca7a82d525ff0783d753c71e",
+    "/private/tmp/scanner-review/integration-correction/route-pack/pump-a-boss.brep": "99297a3063bcdca7f6bc648d551d597dc8745bf303e83adf044a48a7cb0f8fa6",
+    "/private/tmp/scanner-review/integration-correction/route-pack/pump-a-motor.brep": "00723c229401a1637b31fa7bbcc4da2151febcb2463926ba9f7a088a0ff97298",
+    "/private/tmp/scanner-review/integration-correction/route-pack/pump-b-head.brep": "5a0431609cdc7dc21bd5c42484af560f455967a4e363884f7a566d94150653f0",
+    "/private/tmp/scanner-review/integration-correction/route-pack/pump-b-boss.brep": "0cc52c942096454e7d6d6a921d77a93c838b05e0b26f4a70218e93d9ea958679",
+    "/private/tmp/scanner-review/integration-correction/route-pack/pump-b-motor.brep": "b79da41b4efd925e7e262b122efb31f41a75e38f98bcb91664e285b7c90af7bb",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-10.brep": "b3892abb65b1be0b4339ad508c6a8a01849a073887876ef51fc16f46eeb9bfa4",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-11.brep": "5a583752898913b8d0e74f8d963e8ae2cb764e812c68a28a51da6d82d7e82768",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-12.brep": "3b11c918f48cce2e150b78439c6e2870e3843b7395c4cee4ea8590efb4309a21",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-13.brep": "cd7676d65770ef32db0bb1dbc97ebc914f9eba167060222d94354d7216946857",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-20.brep": "42946ba03d957a91f7119d472322ec18f6f240ff694b829ec0eb40a8844f9580",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-21.brep": "3a2446f1ba031cfd5134698dba270895f50edd8757c89ebccd9948c7281280f7",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-22.brep": "c724b4d1d35f7a717bd183d31f0e8e3a138354eca9e9b8b9607fb2cdacbdffcb",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-23.brep": "a8905436469c22d25f9c5b8133dcebf2606e0dcb2c134efcdca151012368492c",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-9.brep": "69738f18ccc9785c94aab32839bcfb51c3aebddef102c156e2677877a7f4adf1",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-17.brep": "3d1e61599a363a3d99714300f14d65d0c2edf6ed5550fa3a7fe3b70da46b9aa7",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-19.brep": "96609b2dba54e26ba7b484033b96af1bf7cba832fb266185ef2f6ef5d45bae75",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-27.brep": "fae5920504326cd6a2d3464bae25f587a48ac56deaf36c31bda28572ae8387e5",
+    "/private/tmp/scanner-review/integration-correction/route-pack/turn-fluid-3.brep": "afe19f925c2dcc1c95f0cd3294c06e8b2d7bbd2b57b97e839fff9fcab9dd62c6",
+    "/private/tmp/scanner-review/integration-correction/route-pack/turn-fluid-5.brep": "0e232f204aaf0e173b43a71898b50d9eded619c0f1a6ed54dbf63ed9183eb6b3",
+    "/private/tmp/scanner-review/integration-correction/route-pack/step-fluid-3.brep": "2389bde66ff87d3a76622d5e845c99612653e6acb9dad8856218eedc924859b6",
+    "/private/tmp/scanner-review/integration-correction/route-pack/step-fluid-5.brep": "48ced6731031af10fb5ae92351ff64372ece08200dbefd55cc6b322bb7216982",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-2.brep": "74c66a231796e7565441ff3aafd791ed7f9e8ad2ff9a9479a9bcb9d6cefaa634",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-4.brep": "76a2d6b2793047a37189ee54e3b5fdd7784ead4ed626bc2f0f37e988f4137b38",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-18.brep": "8f0c9da5b732c908b7ce7ef5fe31812afeb8764f0354496ebb1feeeddfbbfae6",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-28.brep": "dfec42fa1ae4186b3a99bc65132de7418fa29488765170a43d03d4fab1883a13",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-14.brep": "0d4bd2123665cdbae303ea8ee9e86d4118982fcecb3826561ca4fb8c086cb988",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-16.brep": "2702a7bfe09a6246d4e4e633c83ac0ba07bb465e4092a42776267a81b28cbfd2",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-24.brep": "c994d57a21fbcdbce6947bfd21c243396450050d96d606b1dd877f262a1c1938",
+    "/private/tmp/scanner-review/integration-correction/route-pack/stub-fluid-26.brep": "540b3359c8184f76aa8691f412cf47a5a483106ff53d0785aa8d58189257fcff",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/psu.brep": "de6efb00e7aa923c45ed4f0556878f7b8ec3199ea145b63708a1a2012682adc3",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/relay-2.brep": "3544ffdef41c1836c907a80111ee14a6aa3bcdea5b78262204e5828db382af0c",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/pcba.brep": "71ec162a3c3c5d07ab9f091d7b105042a07326d0df2fed76341bcc072f102484",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/c14-inlet.brep": "a6e11502cbfcd15360e9484e54a3ac80f5521465dc62b2109c794c3500b13979",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/wago-h.brep": "a3ef76caa1a5807044ecd605f492198333404b2144b20263c313ec450b5becce",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/wago-n.brep": "618652d7841dd8bdcbec1cba5e1a499875ace37bb5d4826f61af783ea110b653",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/wago-g.brep": "f81b2486b7a0462e6c88abbaf0f980be732f481b9ea5aacf15fdd19c7cb766c3",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/wago-v12.brep": "3588a3fa895eabb7ec0bd6a1d7ef1958f8217f1abf75a6e5c8288aa0e8323a2c",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/wago-gnd.brep": "45b48fdae749d0aa660d7f8dd0f0ed336fabf6a5e6022deb65fbc4b439db852a",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/relay-1.brep": "f63923974d973a58b90ea10287ae85d7bf2922b75aec191573d0d901c7855f4d",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/ground-stack.brep": "1e18430115da131406215f488af13602baae5f1f970231529292dd7871d98f74",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/funnel.brep": "1c2fb119b5199967fb89a1d8b87db3ad22d451af40ef86ea18509e6b5ffe1439",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/funnel-drain-stub.brep": "4699a26f0b2e4a3993288394af36f99572b0554755a482ec86ca7cc31778a0cf",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/funnel-drain-clamp.brep": "bd01d5db9cb0c6c586817feaa9ac555c1e14a7a755e624481c3d865c85f34d93",
+    "/private/tmp/scanner-review/integration-correction/route-neighbors/funnel-drain-union.brep": "74656ceb2bb76c71260fb1c49a913e5a756119d55323496fccf2937f78d737bc",
+    "/private/tmp/scanner-review/integration-correction/route-pack/routes.json": "f943b3bb5c7205b792ff3745e9f68753fab396d1df0b96e15e6eb7d0bfe74407",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-refrig-3.brep": "dd7f0ddad1da80ba108b1a1971ba564ec06a296fdded9f6231b8926e6746a72f",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-refrig-1.brep": "1d4630cb78bf35003f2ec5d5dae01e57d7f7d101e6df97fcdde250f1ce3c1223",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-refrig-2.brep": "c06e924882911b6e03181a8193f4f064ba57a75affbaa5ac7ea2777e4bb7ebd9",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-water-5.brep": "fe2b3dc070101c71d5f9f0b4026f4ea3b9656d964e3b1f83d625027b47410757",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-water-2.brep": "1a7dbd33972bfb662bdd35d0448c9067a5cb373358e0d755619f29a385c2ae54",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-1.brep": "89039f79fd0e76c633a45d565f7dcbb74f35380e67aeb13b0d8f6381f7aacf31",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-water-3.brep": "21d0644e2597936891e479ef4ca7de34f2334092fcd461d77b7d6d7c7d4fa3e3",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-co2-0.brep": "6072d33cf5c64ba22aacfafa43c20e30e42ebb841b0229111f0c569f9c9cc1e8",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-co2-1.brep": "106d1ee6cfa455d8d7dd5b0a527e61ea087cedcddfc90759b47bb2971fc53906",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-co2-2.brep": "f4bbad5236bf827ce0332f363092f5ad2589d471759a41507b21565d9d27b89a",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-2.brep": "b9736619c8b486f961118e88794b25547f410dd03053dac27a2090ae426a180d",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-carb-1.brep": "1b214f8339fd514db4458047d86c829acb6f6ed4c52818a381a99f2b055fcfc8",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-carb-2.brep": "583e455a7a259642e37eaf1962b4cf782cad9f0dc39ce2d6603b7a44bbcd365f",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-28.brep": "63430403a1c607df180b5281ceed3d3bc8c5a3c43d53c0034f26f86c26c21c58",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-18.brep": "76f4d85307ca88d58c1da5be7feed49c8fba846371c34ad0a4a8e4b7a997144f",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-24.brep": "ef4907a0da29ebd5a0113db2794e67f608e40085e276618cd254399bf6168d64",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-26.brep": "92c954d75a18f012f3dc610d8eb784267a6f1bd93019c92ea42b2a0d5e568054",
+    "/private/tmp/scanner-review/integration-correction/route-pack/tube-fluid-16.brep": "a4dfa2085b629ce777218ceb10b16757ec82bb28ef7fe81121cc5f73111bc87c"
+  },
+  "source_sha256": {
+    "hardware/reference/g-ganen-pump/installation/verify_pump_routes.py": "168025d4c8513cda23c73b78789fd291672f603186e629d00e70a720758aa256",
+    "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "873e54986455e94d286ac5a1649e0ad0f7ae4cf127097aa23c14c82a8c7718c9"
+  },
+  "owned_lines_ast_sha256": "2e794dfa03cdbc6bcf0b974a18432ce1ddb58d2bf78ce81316e1fe8683b0d639",
+  "lines_file_sha256_at_start": "b4576f6d630a94116e1de5be9c65ad7ca374d1d21f1e861d4527ee4c425e2ebf",
+  "lines_file_sha256_at_end": "b4576f6d630a94116e1de5be9c65ad7ca374d1d21f1e861d4527ee4c425e2ebf",
+  "routes": [
+    {
+      "id": "water-6",
+      "waypoints_mm": [
+        [
+          -34.946262427903676,
+          340.9764884721693,
+          280.1688222682448
+        ],
+        [
+          -50.84534303853151,
+          341.0167733250191,
+          280.33499346728024
+        ],
+        [
+          -60.499999993025185,
+          327.0999999999999,
+          268.1000001
+        ],
+        [
+          -60.499999993025185,
+          311.19999999999993,
+          268.1000001
+        ]
+      ],
+      "radii_mm": {
+        "1": 15.9,
+        "2": 15.9
+      },
+      "minimum_radius_mm": 15.9,
+      "required_radius_mm": 15.9,
+      "exit_skew_degrees": 0.0,
+      "entry_skew_degrees": 0.0,
+      "native_valid": true,
+      "neighbors": [
+        {
+          "neighbor": "foam-assembly",
+          "native_air_mm": 7.149999899999926,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "g-ganen-pump",
+          "native_air_mm": 1.5631940186722204e-13,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "pass": true
+        },
+        {
+          "neighbor": "suction-chain",
+          "bbox_clearance_lower_bound_mm": 91.41507162963833,
+          "pass": true
+        },
+        {
+          "neighbor": "discharge-chain",
+          "native_air_mm": 5.684341886080802e-14,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "pass": true
+        },
+        {
+          "neighbor": "compressor",
+          "bbox_clearance_lower_bound_mm": 188.19894393965114,
+          "pass": true
+        },
+        {
+          "neighbor": "condenser+fan",
+          "bbox_clearance_lower_bound_mm": 198.64432200275567,
+          "pass": true
+        },
+        {
+          "neighbor": "asse1022-assembly",
+          "bbox_clearance_lower_bound_mm": 19.426075880235715,
+          "pass": true
+        },
+        {
+          "neighbor": "water-split",
+          "bbox_clearance_lower_bound_mm": 49.055668349334915,
+          "pass": true
+        },
+        {
+          "neighbor": "flow-regulator",
+          "bbox_clearance_lower_bound_mm": 48.18968005971747,
+          "pass": true
+        },
+        {
+          "neighbor": "vk-solenoid",
+          "bbox_clearance_lower_bound_mm": 98.04139701564267,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-water",
+          "bbox_clearance_lower_bound_mm": 104.72061317567591,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-inlet",
+          "bbox_clearance_lower_bound_mm": 114.26194666391649,
+          "pass": true
+        },
+        {
+          "neighbor": "gasher-co2",
+          "bbox_clearance_lower_bound_mm": 76.3888808697009,
+          "pass": true
+        },
+        {
+          "neighbor": "wr1110",
+          "bbox_clearance_lower_bound_mm": 47.06258505035832,
+          "pass": true
+        },
+        {
+          "neighbor": "digiten-flow",
+          "bbox_clearance_lower_bound_mm": 37.98852398903672,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-regulator-in",
+          "bbox_clearance_lower_bound_mm": 68.96981523044768,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-regulator-out",
+          "bbox_clearance_lower_bound_mm": 50.04340397001406,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-check-in",
+          "bbox_clearance_lower_bound_mm": 77.28265230884509,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-check-out",
+          "bbox_clearance_lower_bound_mm": 84.17557330438026,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-check-coupling-nominal",
+          "bbox_clearance_lower_bound_mm": 72.99724196918335,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-flavor-b",
+          "bbox_clearance_lower_bound_mm": 97.96783754556077,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-flavor-a",
+          "bbox_clearance_lower_bound_mm": 97.96783754556077,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-carb",
+          "bbox_clearance_lower_bound_mm": 104.72061317567591,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-a",
+          "bbox_clearance_lower_bound_mm": 67.20235835207704,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-a",
+          "bbox_clearance_lower_bound_mm": 77.53062277630033,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-a",
+          "bbox_clearance_lower_bound_mm": 141.08578000370355,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-c",
+          "bbox_clearance_lower_bound_mm": 145.19151397571153,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-c",
+          "bbox_clearance_lower_bound_mm": 172.870199097711,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-c",
+          "bbox_clearance_lower_bound_mm": 210.21574204703919,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-e",
+          "bbox_clearance_lower_bound_mm": 195.2002654235574,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-e",
+          "bbox_clearance_lower_bound_mm": 164.70803741619673,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-g",
+          "bbox_clearance_lower_bound_mm": 165.33968400512393,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-g",
+          "bbox_clearance_lower_bound_mm": 187.4758414104581,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-d",
+          "bbox_clearance_lower_bound_mm": 231.54275364022004,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-f",
+          "bbox_clearance_lower_bound_mm": 215.6589487601559,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-f",
+          "bbox_clearance_lower_bound_mm": 188.5056395665752,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-b",
+          "bbox_clearance_lower_bound_mm": 51.73999999999995,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-b",
+          "bbox_clearance_lower_bound_mm": 64.58999999999997,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-b",
+          "bbox_clearance_lower_bound_mm": 136.77651456279483,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-d",
+          "bbox_clearance_lower_bound_mm": 139.43870953657367,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-d",
+          "bbox_clearance_lower_bound_mm": 168.0674974962588,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-f",
+          "bbox_clearance_lower_bound_mm": 204.47804479044007,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-h",
+          "bbox_clearance_lower_bound_mm": 190.95999999999992,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-h",
+          "bbox_clearance_lower_bound_mm": 159.65999989999992,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-j",
+          "bbox_clearance_lower_bound_mm": 137.42326481585994,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-j",
+          "bbox_clearance_lower_bound_mm": 163.38645512494284,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-g",
+          "bbox_clearance_lower_bound_mm": 204.51581837182098,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-i",
+          "bbox_clearance_lower_bound_mm": 190.95999999999992,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-i",
+          "bbox_clearance_lower_bound_mm": 159.65999989999992,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-head",
+          "bbox_clearance_lower_bound_mm": 246.0695122854354,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-boss",
+          "bbox_clearance_lower_bound_mm": 248.6235657198735,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-motor",
+          "bbox_clearance_lower_bound_mm": 257.9388166158069,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-head",
+          "bbox_clearance_lower_bound_mm": 239.66274360359677,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-boss",
+          "bbox_clearance_lower_bound_mm": 241.12760242665038,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-motor",
+          "bbox_clearance_lower_bound_mm": 248.47599999999994,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-10",
+          "bbox_clearance_lower_bound_mm": 212.55916961751555,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-11",
+          "bbox_clearance_lower_bound_mm": 234.23597466602428,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-12",
+          "bbox_clearance_lower_bound_mm": 254.74368075901444,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-13",
+          "bbox_clearance_lower_bound_mm": 234.55179160549517,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-20",
+          "bbox_clearance_lower_bound_mm": 206.08070838843304,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-21",
+          "bbox_clearance_lower_bound_mm": 228.10830634739332,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-22",
+          "bbox_clearance_lower_bound_mm": 228.17630926486746,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-23",
+          "bbox_clearance_lower_bound_mm": 206.20378242044944,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-9",
+          "bbox_clearance_lower_bound_mm": 179.3534147533644,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-17",
+          "bbox_clearance_lower_bound_mm": 198.50189418815512,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-19",
+          "bbox_clearance_lower_bound_mm": 171.27333414623024,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-27",
+          "bbox_clearance_lower_bound_mm": 168.15873699444276,
+          "pass": true
+        },
+        {
+          "neighbor": "turn-fluid-3",
+          "bbox_clearance_lower_bound_mm": 141.6716305545418,
+          "pass": true
+        },
+        {
+          "neighbor": "turn-fluid-5",
+          "bbox_clearance_lower_bound_mm": 131.292644538285,
+          "pass": true
+        },
+        {
+          "neighbor": "step-fluid-3",
+          "bbox_clearance_lower_bound_mm": 123.67160914262652,
+          "pass": true
+        },
+        {
+          "neighbor": "step-fluid-5",
+          "bbox_clearance_lower_bound_mm": 111.63142260940896,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-2",
+          "bbox_clearance_lower_bound_mm": 67.91205553976621,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-4",
+          "bbox_clearance_lower_bound_mm": 38.878587138892755,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-18",
+          "bbox_clearance_lower_bound_mm": 177.5390860076861,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-28",
+          "bbox_clearance_lower_bound_mm": 142.80926395420633,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-14",
+          "bbox_clearance_lower_bound_mm": 232.4858288689676,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-16",
+          "bbox_clearance_lower_bound_mm": 209.81374970669248,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-24",
+          "bbox_clearance_lower_bound_mm": 203.0264658806252,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-26",
+          "bbox_clearance_lower_bound_mm": 202.95003612445225,
+          "pass": true
+        },
+        {
+          "neighbor": "psu",
+          "bbox_clearance_lower_bound_mm": 99.87912044179272,
+          "pass": true
+        },
+        {
+          "neighbor": "relay-2",
+          "bbox_clearance_lower_bound_mm": 114.11507162266354,
+          "pass": true
+        },
+        {
+          "neighbor": "pcba",
+          "bbox_clearance_lower_bound_mm": 112.01506442266354,
+          "pass": true
+        },
+        {
+          "neighbor": "c14-inlet",
+          "bbox_clearance_lower_bound_mm": 123.70401113703863,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-h",
+          "bbox_clearance_lower_bound_mm": 123.75237349485081,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-n",
+          "bbox_clearance_lower_bound_mm": 126.12381680650081,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-g",
+          "bbox_clearance_lower_bound_mm": 130.49103182238426,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-v12",
+          "bbox_clearance_lower_bound_mm": 136.6628208632517,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-gnd",
+          "bbox_clearance_lower_bound_mm": 144.4079943304108,
+          "pass": true
+        },
+        {
+          "neighbor": "relay-1",
+          "bbox_clearance_lower_bound_mm": 121.22840964903027,
+          "pass": true
+        },
+        {
+          "neighbor": "ground-stack",
+          "bbox_clearance_lower_bound_mm": 126.13549877377409,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel",
+          "bbox_clearance_lower_bound_mm": 47.55718148212908,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-stub",
+          "bbox_clearance_lower_bound_mm": 129.92868054995932,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-clamp",
+          "bbox_clearance_lower_bound_mm": 124.37052347780097,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-union",
+          "bbox_clearance_lower_bound_mm": 124.8331187264646,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-3",
+          "bbox_clearance_lower_bound_mm": 235.82085617691862,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-1",
+          "bbox_clearance_lower_bound_mm": 284.3389286138463,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-2",
+          "bbox_clearance_lower_bound_mm": 267.49138996687043,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-5",
+          "bbox_clearance_lower_bound_mm": 83.4,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-2",
+          "bbox_clearance_lower_bound_mm": 8.297597384634061,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-1",
+          "bbox_clearance_lower_bound_mm": 91.43233409046675,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-3",
+          "bbox_clearance_lower_bound_mm": 64.76499989999994,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-0",
+          "bbox_clearance_lower_bound_mm": 86.84135329427528,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-1",
+          "bbox_clearance_lower_bound_mm": 56.48576196663258,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-2",
+          "bbox_clearance_lower_bound_mm": 70.14007152266356,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-2",
+          "bbox_clearance_lower_bound_mm": 26.764999899999907,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-carb-1",
+          "native_air_mm": 41.14246065690409,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-carb-2",
+          "bbox_clearance_lower_bound_mm": 86.39243407542864,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-28",
+          "bbox_clearance_lower_bound_mm": 2.594999806974897,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-18",
+          "native_air_mm": 4.029124883981264,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-24",
+          "bbox_clearance_lower_bound_mm": 74.72499989999994,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-26",
+          "bbox_clearance_lower_bound_mm": 119.12499989999998,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-16",
+          "bbox_clearance_lower_bound_mm": 130.80938395753412,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-7",
+          "bbox_clearance_lower_bound_mm": 74.15837461932801,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-14",
+          "bbox_clearance_lower_bound_mm": 76.44007152963832,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "water-7",
+      "waypoints_mm": [
+        [
+          39.332170894531146,
+          340.9470234175444,
+          280.1243022039962
+        ],
+        [
+          55.23196019760069,
+          341.02098008839795,
+          280.1593810983864
+        ],
+        [
+          65.05000000697481,
+          329.5799999999999,
+          268.1000001
+        ],
+        [
+          65.05000000697481,
+          313.67999999999995,
+          268.1000001
+        ]
+      ],
+      "radii_mm": {
+        "1": 15.9,
+        "2": 15.9
+      },
+      "minimum_radius_mm": 15.9,
+      "required_radius_mm": 15.9,
+      "exit_skew_degrees": 0.0,
+      "entry_skew_degrees": 0.0,
+      "native_valid": true,
+      "neighbors": [
+        {
+          "neighbor": "foam-assembly",
+          "native_air_mm": 7.149999899999983,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "g-ganen-pump",
+          "native_air_mm": 8.192754942740642e-12,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "pass": true
+        },
+        {
+          "neighbor": "suction-chain",
+          "native_air_mm": 5.684341886080802e-14,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "pass": true
+        },
+        {
+          "neighbor": "discharge-chain",
+          "bbox_clearance_lower_bound_mm": 91.32698161423755,
+          "pass": true
+        },
+        {
+          "neighbor": "compressor",
+          "bbox_clearance_lower_bound_mm": 190.1301465239372,
+          "pass": true
+        },
+        {
+          "neighbor": "condenser+fan",
+          "bbox_clearance_lower_bound_mm": 185.3223270412931,
+          "pass": true
+        },
+        {
+          "neighbor": "asse1022-assembly",
+          "bbox_clearance_lower_bound_mm": 102.73502938894396,
+          "pass": true
+        },
+        {
+          "neighbor": "water-split",
+          "bbox_clearance_lower_bound_mm": 131.90075632244614,
+          "pass": true
+        },
+        {
+          "neighbor": "flow-regulator",
+          "bbox_clearance_lower_bound_mm": 108.94200966921558,
+          "pass": true
+        },
+        {
+          "neighbor": "vk-solenoid",
+          "bbox_clearance_lower_bound_mm": 54.399999899999955,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-water",
+          "bbox_clearance_lower_bound_mm": 148.98975410040373,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-inlet",
+          "bbox_clearance_lower_bound_mm": 114.20133615650268,
+          "pass": true
+        },
+        {
+          "neighbor": "gasher-co2",
+          "bbox_clearance_lower_bound_mm": 40.52127998237404,
+          "pass": true
+        },
+        {
+          "neighbor": "wr1110",
+          "bbox_clearance_lower_bound_mm": 46.8741054767512,
+          "pass": true
+        },
+        {
+          "neighbor": "digiten-flow",
+          "bbox_clearance_lower_bound_mm": 65.75332722609184,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-regulator-in",
+          "bbox_clearance_lower_bound_mm": 68.82930119804507,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-regulator-out",
+          "bbox_clearance_lower_bound_mm": 49.836826767796516,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-check-in",
+          "bbox_clearance_lower_bound_mm": 40.02127998237404,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-check-out",
+          "bbox_clearance_lower_bound_mm": 52.11059952910792,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-check-coupling-nominal",
+          "bbox_clearance_lower_bound_mm": 38.11469645645089,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-flavor-b",
+          "bbox_clearance_lower_bound_mm": 144.29893892945958,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-flavor-a",
+          "bbox_clearance_lower_bound_mm": 117.95466001339872,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-carb",
+          "bbox_clearance_lower_bound_mm": 123.64895822289544,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-a",
+          "bbox_clearance_lower_bound_mm": 54.21999999999997,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-a",
+          "bbox_clearance_lower_bound_mm": 67.07,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-a",
+          "bbox_clearance_lower_bound_mm": 139.461211872663,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-c",
+          "bbox_clearance_lower_bound_mm": 141.82219531255853,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-c",
+          "bbox_clearance_lower_bound_mm": 170.42894437478483,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-c",
+          "bbox_clearance_lower_bound_mm": 207.01197424875355,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-e",
+          "bbox_clearance_lower_bound_mm": 193.44009658302102,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-e",
+          "bbox_clearance_lower_bound_mm": 162.1401151276898,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-g",
+          "bbox_clearance_lower_bound_mm": 139.84097293944282,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-g",
+          "bbox_clearance_lower_bound_mm": 165.81446775928507,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-d",
+          "bbox_clearance_lower_bound_mm": 206.83313676755802,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-f",
+          "bbox_clearance_lower_bound_mm": 193.43999999999994,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-f",
+          "bbox_clearance_lower_bound_mm": 162.13999989999994,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-b",
+          "bbox_clearance_lower_bound_mm": 70.39330262141647,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-b",
+          "bbox_clearance_lower_bound_mm": 80.70807613832906,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-b",
+          "bbox_clearance_lower_bound_mm": 144.62994074667824,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-d",
+          "bbox_clearance_lower_bound_mm": 148.75787834993918,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-d",
+          "bbox_clearance_lower_bound_mm": 176.24243634438702,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-f",
+          "bbox_clearance_lower_bound_mm": 213.60999220604918,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-h",
+          "bbox_clearance_lower_bound_mm": 198.58107224494057,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-h",
+          "bbox_clearance_lower_bound_mm": 168.24026932195008,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-j",
+          "bbox_clearance_lower_bound_mm": 169.82751213238961,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-j",
+          "bbox_clearance_lower_bound_mm": 191.7819696497091,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-g",
+          "bbox_clearance_lower_bound_mm": 235.75366588532574,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-i",
+          "bbox_clearance_lower_bound_mm": 219.93011267684946,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-i",
+          "bbox_clearance_lower_bound_mm": 192.9756472449923,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-head",
+          "bbox_clearance_lower_bound_mm": 242.09734990517222,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-boss",
+          "bbox_clearance_lower_bound_mm": 243.59450406777404,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-motor",
+          "bbox_clearance_lower_bound_mm": 250.95599999999996,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-head",
+          "bbox_clearance_lower_bound_mm": 249.47298185742048,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-boss",
+          "bbox_clearance_lower_bound_mm": 252.12231582426585,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-motor",
+          "bbox_clearance_lower_bound_mm": 261.541054097284,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-10",
+          "bbox_clearance_lower_bound_mm": 208.6900627450296,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-11",
+          "bbox_clearance_lower_bound_mm": 230.68543225389797,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-12",
+          "bbox_clearance_lower_bound_mm": 230.36103861201565,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-13",
+          "bbox_clearance_lower_bound_mm": 208.48750792050947,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-20",
+          "bbox_clearance_lower_bound_mm": 216.04549800216975,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-21",
+          "bbox_clearance_lower_bound_mm": 237.58102816106666,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-22",
+          "bbox_clearance_lower_bound_mm": 258.8470004658562,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-23",
+          "bbox_clearance_lower_bound_mm": 238.82624062916224,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-9",
+          "bbox_clearance_lower_bound_mm": 173.62686490769826,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-17",
+          "bbox_clearance_lower_bound_mm": 170.23522198144542,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-19",
+          "bbox_clearance_lower_bound_mm": 182.68898296459452,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-27",
+          "bbox_clearance_lower_bound_mm": 202.64861521083913,
+          "pass": true
+        },
+        {
+          "neighbor": "turn-fluid-3",
+          "bbox_clearance_lower_bound_mm": 134.14842428432132,
+          "pass": true
+        },
+        {
+          "neighbor": "turn-fluid-5",
+          "bbox_clearance_lower_bound_mm": 145.68725413339388,
+          "pass": true
+        },
+        {
+          "neighbor": "step-fluid-3",
+          "bbox_clearance_lower_bound_mm": 114.28482994645631,
+          "pass": true
+        },
+        {
+          "neighbor": "step-fluid-5",
+          "bbox_clearance_lower_bound_mm": 127.87017174021507,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-2",
+          "bbox_clearance_lower_bound_mm": 41.79033836790624,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-4",
+          "bbox_clearance_lower_bound_mm": 70.96612470263368,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-18",
+          "bbox_clearance_lower_bound_mm": 145.2486001537536,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-28",
+          "bbox_clearance_lower_bound_mm": 182.16362510778984,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-14",
+          "bbox_clearance_lower_bound_mm": 205.31244932698738,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-16",
+          "bbox_clearance_lower_bound_mm": 205.67635350814626,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-24",
+          "bbox_clearance_lower_bound_mm": 236.8306639529838,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-26",
+          "bbox_clearance_lower_bound_mm": 213.3816737217837,
+          "pass": true
+        },
+        {
+          "neighbor": "psu",
+          "bbox_clearance_lower_bound_mm": 7.271218059303521,
+          "pass": true
+        },
+        {
+          "neighbor": "relay-2",
+          "bbox_clearance_lower_bound_mm": 6.649999893025068,
+          "pass": true
+        },
+        {
+          "neighbor": "pcba",
+          "bbox_clearance_lower_bound_mm": 4.549992693025075,
+          "pass": true
+        },
+        {
+          "neighbor": "c14-inlet",
+          "bbox_clearance_lower_bound_mm": 97.0413385776359,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-h",
+          "bbox_clearance_lower_bound_mm": 30.20579139195719,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-n",
+          "bbox_clearance_lower_bound_mm": 38.79938041440609,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-g",
+          "bbox_clearance_lower_bound_mm": 51.24957568086941,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-v12",
+          "bbox_clearance_lower_bound_mm": 65.38938059346124,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-gnd",
+          "bbox_clearance_lower_bound_mm": 80.33148935083855,
+          "pass": true
+        },
+        {
+          "neighbor": "relay-1",
+          "bbox_clearance_lower_bound_mm": 41.546358961092224,
+          "pass": true
+        },
+        {
+          "neighbor": "ground-stack",
+          "bbox_clearance_lower_bound_mm": 42.68840523855812,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel",
+          "bbox_clearance_lower_bound_mm": 49.991447653413736,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-stub",
+          "bbox_clearance_lower_bound_mm": 132.5126281350996,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-clamp",
+          "bbox_clearance_lower_bound_mm": 125.5248040537095,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-union",
+          "bbox_clearance_lower_bound_mm": 127.41487637154029,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-3",
+          "bbox_clearance_lower_bound_mm": 262.91959557449934,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-1",
+          "bbox_clearance_lower_bound_mm": 277.7642627301072,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-2",
+          "bbox_clearance_lower_bound_mm": 246.82140672239112,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-5",
+          "bbox_clearance_lower_bound_mm": 125.94108196802428,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-2",
+          "bbox_clearance_lower_bound_mm": 114.41318725750276,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-1",
+          "bbox_clearance_lower_bound_mm": 157.00814355744672,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-3",
+          "bbox_clearance_lower_bound_mm": 67.24499989999995,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-0",
+          "bbox_clearance_lower_bound_mm": 86.71662911025739,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-1",
+          "bbox_clearance_lower_bound_mm": 45.09627988237378,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-2",
+          "native_air_mm": 1.7327069567939188,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-2",
+          "bbox_clearance_lower_bound_mm": 31.369634964172583,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-carb-1",
+          "native_air_mm": 39.3662961775955,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-carb-2",
+          "bbox_clearance_lower_bound_mm": 113.7493839221607,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-28",
+          "bbox_clearance_lower_bound_mm": 109.93830289666447,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-18",
+          "native_air_mm": 47.18551470518715,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-24",
+          "bbox_clearance_lower_bound_mm": 110.9039501757866,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-26",
+          "bbox_clearance_lower_bound_mm": 134.93079131278782,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-16",
+          "bbox_clearance_lower_bound_mm": 121.6049999,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-6",
+          "bbox_clearance_lower_bound_mm": 74.15837461932801,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-14",
+          "native_air_mm": 1.367225754477047,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "fluid-14",
+      "waypoints_mm": [
+        [
+          82.1,
+          105.29,
+          282.1750001
+        ],
+        [
+          82.1,
+          105.29,
+          299.1750001
+        ],
+        [
+          44.750000006974815,
+          189.43,
+          289.0
+        ],
+        [
+          44.750000006974815,
+          203.43,
+          289.0
+        ],
+        [
+          44.750000006974815,
+          213.43,
+          269.2940001
+        ],
+        [
+          44.750000006974815,
+          289.1470234175444,
+          269.2940001
+        ],
+        [
+          44.750000006974815,
+          309.1470234175444,
+          268.0440001
+        ],
+        [
+          44.750000006974815,
+          355.67202341754444,
+          268.0440001
+        ],
+        [
+          57.50000000697483,
+          426.29999999999995,
+          269.2940001
+        ],
+        [
+          57.50000000697483,
+          426.29999999999995,
+          253.4000001
+        ]
+      ],
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0,
+        "6": 14.0,
+        "7": 14.0,
+        "8": 14.0
+      },
+      "minimum_radius_mm": 14.0,
+      "required_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "entry_skew_degrees": 0.0,
+      "native_valid": true,
+      "neighbors": [
+        {
+          "neighbor": "foam-assembly",
+          "native_air_mm": 0.14999994075322742,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "pass": true
+        },
+        {
+          "neighbor": "g-ganen-pump",
+          "native_air_mm": 3.8054633047244524,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "suction-chain",
+          "native_air_mm": 8.651342988675694,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "discharge-chain",
+          "bbox_clearance_lower_bound_mm": 93.5749999,
+          "pass": true
+        },
+        {
+          "neighbor": "compressor",
+          "bbox_clearance_lower_bound_mm": 118.64849618622253,
+          "pass": true
+        },
+        {
+          "neighbor": "condenser+fan",
+          "bbox_clearance_lower_bound_mm": 107.4000001,
+          "pass": true
+        },
+        {
+          "neighbor": "asse1022-assembly",
+          "bbox_clearance_lower_bound_mm": 103.34918091501989,
+          "pass": true
+        },
+        {
+          "neighbor": "water-split",
+          "bbox_clearance_lower_bound_mm": 124.67499990697479,
+          "pass": true
+        },
+        {
+          "neighbor": "flow-regulator",
+          "bbox_clearance_lower_bound_mm": 98.89022199049141,
+          "pass": true
+        },
+        {
+          "neighbor": "vk-solenoid",
+          "native_air_mm": 1.1249999999999858,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-water",
+          "bbox_clearance_lower_bound_mm": 112.15933771114734,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-inlet",
+          "bbox_clearance_lower_bound_mm": 43.1831588202126,
+          "pass": true
+        },
+        {
+          "neighbor": "gasher-co2",
+          "bbox_clearance_lower_bound_mm": 27.493241871029,
+          "pass": true
+        },
+        {
+          "neighbor": "wr1110",
+          "bbox_clearance_lower_bound_mm": 38.49811841771601,
+          "pass": true
+        },
+        {
+          "neighbor": "digiten-flow",
+          "bbox_clearance_lower_bound_mm": 60.053064873619064,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-regulator-in",
+          "bbox_clearance_lower_bound_mm": 41.84942145391421,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-regulator-out",
+          "bbox_clearance_lower_bound_mm": 41.84942145391422,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-check-in",
+          "bbox_clearance_lower_bound_mm": 26.993241871029,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-adapter-check-out",
+          "bbox_clearance_lower_bound_mm": 26.993241871029,
+          "pass": true
+        },
+        {
+          "neighbor": "co2-check-coupling-nominal",
+          "bbox_clearance_lower_bound_mm": 24.243241871029,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-flavor-b",
+          "bbox_clearance_lower_bound_mm": 109.54760347200461,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-flavor-a",
+          "bbox_clearance_lower_bound_mm": 70.05764222374277,
+          "pass": true
+        },
+        {
+          "neighbor": "bulkhead-carb",
+          "bbox_clearance_lower_bound_mm": 74.07504872285666,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-a",
+          "native_air_mm": 1.155000006974788,
+          "native_overlap_mm3": 0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-a",
+          "native_air_mm": 6.1984606256454065,
+          "native_overlap_mm3": 0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-a",
+          "bbox_clearance_lower_bound_mm": 10.974999906974766,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-c",
+          "bbox_clearance_lower_bound_mm": 31.82139609664426,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-c",
+          "bbox_clearance_lower_bound_mm": 44.64365855907784,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-c",
+          "bbox_clearance_lower_bound_mm": 47.26778182819769,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-e",
+          "bbox_clearance_lower_bound_mm": 2.474999906974773,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-e",
+          "bbox_clearance_lower_bound_mm": 2.474999906974773,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-g",
+          "bbox_clearance_lower_bound_mm": 23.72499990000003,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-g",
+          "bbox_clearance_lower_bound_mm": 26.375,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-d",
+          "bbox_clearance_lower_bound_mm": 45.976,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-f",
+          "native_air_mm": 0.024999999999991473,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-f",
+          "native_air_mm": 13.531500795257395,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-b",
+          "bbox_clearance_lower_bound_mm": 47.17499990697476,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-b",
+          "bbox_clearance_lower_bound_mm": 47.17499990697476,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-b",
+          "bbox_clearance_lower_bound_mm": 41.57499990697477,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-d",
+          "bbox_clearance_lower_bound_mm": 56.85029675580482,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-d",
+          "bbox_clearance_lower_bound_mm": 64.90309115306505,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-f",
+          "bbox_clearance_lower_bound_mm": 72.2045579630652,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-h",
+          "bbox_clearance_lower_bound_mm": 47.174999906974776,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-h",
+          "bbox_clearance_lower_bound_mm": 47.174999906974776,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-j",
+          "bbox_clearance_lower_bound_mm": 101.45793033027066,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-j",
+          "bbox_clearance_lower_bound_mm": 102.1101201235561,
+          "pass": true
+        },
+        {
+          "neighbor": "tee-y-g",
+          "bbox_clearance_lower_bound_mm": 124.24461026348439,
+          "pass": true
+        },
+        {
+          "neighbor": "valve-v-i",
+          "bbox_clearance_lower_bound_mm": 106.92499990697476,
+          "pass": true
+        },
+        {
+          "neighbor": "coil-v-i",
+          "bbox_clearance_lower_bound_mm": 106.92499990697476,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-head",
+          "bbox_clearance_lower_bound_mm": 46.725971084573544,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-boss",
+          "bbox_clearance_lower_bound_mm": 35.49848737409529,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-a-motor",
+          "bbox_clearance_lower_bound_mm": 39.390999900000054,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-head",
+          "bbox_clearance_lower_bound_mm": 78.03166904962482,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-boss",
+          "bbox_clearance_lower_bound_mm": 76.08832100478763,
+          "pass": true
+        },
+        {
+          "neighbor": "pump-b-motor",
+          "bbox_clearance_lower_bound_mm": 85.54399502007176,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-10",
+          "bbox_clearance_lower_bound_mm": 33.20974154277086,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-11",
+          "bbox_clearance_lower_bound_mm": 66.44745082792035,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-12",
+          "bbox_clearance_lower_bound_mm": 64.4799288501081,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-13",
+          "bbox_clearance_lower_bound_mm": 30.72499990000003,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-20",
+          "bbox_clearance_lower_bound_mm": 66.62788831813837,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-21",
+          "bbox_clearance_lower_bound_mm": 88.59020099995506,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-22",
+          "bbox_clearance_lower_bound_mm": 136.66715480354424,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-23",
+          "bbox_clearance_lower_bound_mm": 122.77725476882672,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-9",
+          "bbox_clearance_lower_bound_mm": 89.91999260344659,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-17",
+          "bbox_clearance_lower_bound_mm": 83.225,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-19",
+          "bbox_clearance_lower_bound_mm": 107.32457804504723,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-27",
+          "bbox_clearance_lower_bound_mm": 139.71302366521675,
+          "pass": true
+        },
+        {
+          "neighbor": "turn-fluid-3",
+          "bbox_clearance_lower_bound_mm": 16.049999806974764,
+          "pass": true
+        },
+        {
+          "neighbor": "turn-fluid-5",
+          "bbox_clearance_lower_bound_mm": 60.74999980697477,
+          "pass": true
+        },
+        {
+          "neighbor": "step-fluid-3",
+          "bbox_clearance_lower_bound_mm": 13.629999806974748,
+          "pass": true
+        },
+        {
+          "neighbor": "step-fluid-5",
+          "bbox_clearance_lower_bound_mm": 60.74999980697477,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-2",
+          "bbox_clearance_lower_bound_mm": 13.629999906974753,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-4",
+          "bbox_clearance_lower_bound_mm": 60.74999990697476,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-18",
+          "bbox_clearance_lower_bound_mm": 9.725000000000023,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-28",
+          "bbox_clearance_lower_bound_mm": 112.64059660762376,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-16",
+          "bbox_clearance_lower_bound_mm": 16.049999906974776,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-24",
+          "bbox_clearance_lower_bound_mm": 120.49999990697478,
+          "pass": true
+        },
+        {
+          "neighbor": "stub-fluid-26",
+          "bbox_clearance_lower_bound_mm": 60.74999990697478,
+          "pass": true
+        },
+        {
+          "neighbor": "psu",
+          "native_air_mm": 4.074999993025152,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "relay-2",
+          "native_air_mm": 33.64247863376222,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "pcba",
+          "native_air_mm": 30.81499299302518,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "c14-inlet",
+          "bbox_clearance_lower_bound_mm": 25.889565932910035,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-h",
+          "bbox_clearance_lower_bound_mm": 12.148748438754092,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-n",
+          "bbox_clearance_lower_bound_mm": 12.148748438754092,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-g",
+          "bbox_clearance_lower_bound_mm": 12.148748438754092,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-v12",
+          "bbox_clearance_lower_bound_mm": 12.148748438754092,
+          "pass": true
+        },
+        {
+          "neighbor": "wago-gnd",
+          "bbox_clearance_lower_bound_mm": 12.148748438754092,
+          "pass": true
+        },
+        {
+          "neighbor": "relay-1",
+          "bbox_clearance_lower_bound_mm": 27.98266103347197,
+          "pass": true
+        },
+        {
+          "neighbor": "ground-stack",
+          "bbox_clearance_lower_bound_mm": 27.982661033471572,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel",
+          "native_air_mm": 24.582548367939275,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-stub",
+          "bbox_clearance_lower_bound_mm": 36.54999990697479,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-clamp",
+          "bbox_clearance_lower_bound_mm": 24.44999990697479,
+          "pass": true
+        },
+        {
+          "neighbor": "funnel-drain-union",
+          "bbox_clearance_lower_bound_mm": 32.35899980697479,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-3",
+          "bbox_clearance_lower_bound_mm": 222.75179141510847,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-1",
+          "bbox_clearance_lower_bound_mm": 175.22501615075132,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-refrig-2",
+          "bbox_clearance_lower_bound_mm": 201.7999999,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-5",
+          "bbox_clearance_lower_bound_mm": 94.39999979999996,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-2",
+          "bbox_clearance_lower_bound_mm": 116.46999980697478,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-1",
+          "bbox_clearance_lower_bound_mm": 129.74999980697478,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-3",
+          "native_air_mm": 18.089107516655545,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-0",
+          "bbox_clearance_lower_bound_mm": 48.17441883417266,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-1",
+          "bbox_clearance_lower_bound_mm": 32.06824177102874,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-co2-2",
+          "native_air_mm": 26.400000000000034,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-2",
+          "bbox_clearance_lower_bound_mm": 13.629999806974787,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-carb-1",
+          "native_air_mm": 26.40000000000002,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-carb-2",
+          "bbox_clearance_lower_bound_mm": 81.26276026518427,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-28",
+          "bbox_clearance_lower_bound_mm": 112.21999980697478,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-18",
+          "native_air_mm": 11.620005630516756,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-24",
+          "bbox_clearance_lower_bound_mm": 81.89999979999996,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-26",
+          "bbox_clearance_lower_bound_mm": 60.749999806974756,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-fluid-16",
+          "native_air_mm": 3.1854365341827933,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-6",
+          "bbox_clearance_lower_bound_mm": 76.44007152963832,
+          "pass": true
+        },
+        {
+          "neighbor": "tube-water-7",
+          "native_air_mm": 1.367225754477077,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "complete_fluid14_cap_bearing": {
+    "axis_mm": [
+      44.750000006974815,
+      258.79999999999995,
+      269.2940001
+    ],
+    "required_interval_y_mm": [
+      254.39999999999995,
+      263.19999999999993
+    ],
+    "actual_straight_interval_y_mm": [
+      222.025023355502,
+      288.7099498312048
+    ],
+    "pass": true
+  },
+  "blocked": {},
+  "native_outputs": {
+    "water-6": {
+      "path": "/tmp/scanner-review/g-ganen-final-collision/current-routes/tube-water-6.brep",
+      "sha256": "d3c99f3d7c0347d30b999710322822e5befba4684d15ee2a054cc4e5dc6e2985"
+    },
+    "water-7": {
+      "path": "/tmp/scanner-review/g-ganen-final-collision/current-routes/tube-water-7.brep",
+      "sha256": "1d4dcb26c2b3d5c77693c9d49f59299ae82751058af6eca6ebc4c9776456a088"
+    },
+    "fluid-14": {
+      "path": "/tmp/scanner-review/g-ganen-final-collision/current-routes/tube-fluid-14.brep",
+      "sha256": "2ba65b74bae4db24d571b3b036281a53f0a2bfaf542294d3f958e9b97e34c780"
+    }
+  },
+  "all_pass": true,
+  "elapsed_seconds": 91.07070737497997
+}

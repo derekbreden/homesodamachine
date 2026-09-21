@@ -1,0 +1,23 @@
+{
+  "scope": "Cosmetic flute spacing of the running cartridge and the corrected complete enclosure; functional surfaces are covered by the separate native fit proof.",
+  "running_job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+  "running_archive_sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
+  "running_cartridge": {
+    "flute_count": 260,
+    "field_perimeter_mm": 1333.398223686155,
+    "pitch_mm": 5.128454706485211
+  },
+  "current_shells": {
+    "flute_count": 262,
+    "field_perimeter_mm": 1341.998223686155,
+    "pitch_mm": 5.122130624756316,
+    "pitch_drift_from_coupon_mm": 0.12213062475631631,
+    "allowed_pitch_drift_mm": 0.15,
+    "seam_miss_mm": 0.2659796856724057,
+    "allowed_seam_miss_mm": 0.5
+  },
+  "pitch_difference_mm": -0.006324081728894981,
+  "pump_cap": "Unfluted; no pitch change.",
+  "native_fit_proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/pump-rear-boundary-equivalence.json",
+  "running_part_disposition": "Continue full enclosure trial print; groove pitch difference has no effect on fitted native surfaces."
+}
