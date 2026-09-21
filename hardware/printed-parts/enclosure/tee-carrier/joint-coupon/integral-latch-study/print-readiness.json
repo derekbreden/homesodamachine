@@ -1,0 +1,160 @@
+{
+  "status": "ready_for_integral_coupon_trial",
+  "submitted": false,
+  "production_carrier_ready": false,
+  "coupon_only": true,
+  "printed_parts": [
+    "integral-coupon-right"
+  ],
+  "reuse_existing_part": {
+    "path": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.stl",
+    "sha256": "d0afd35f18df2a34753d04c91184e6f60c4eafd369c5f486042e402c6707f734",
+    "no_new_keeper": true
+  },
+  "printer": "Mark2",
+  "physical_filament": "Black Polymaker PET-GF",
+  "filament_metadata": [
+    "PET-CF"
+  ],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "source_parts": [
+    {
+      "name": "integral-coupon-right",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/integral-coupon-right.stl",
+      "stl_sha256": "d0e2e2aba417d1913daafca6d18ea2ebc3a8961ddbba3678fdb11a35f8568104",
+      "triangles": 496,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        13.824999809265137,
+        3.0,
+        26.40999984741211
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        175.0,
+        160.0,
+        26.40999984741211
+      ],
+      "plate_translation_mm": [
+        175.0,
+        160.0,
+        26.40999984741211
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          161.17500019073486,
+          157.0,
+          0.0
+        ],
+        [
+          188.82499980926514,
+          163.0,
+          52.81999969482422
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.987796842215175e-10
+    }
+  ],
+  "geometry_checks_sha256": "e2519ef49f94013fdab0fe649e9e3ebe382fb692e35b03c084d82ee0bb8da797",
+  "production_context_sha256": "6b13ddacec31e9d51e0774d74d15db553252b29412e6fd64262c2fcc4413c756",
+  "staged_input": ".cache/prints/2026-09-20-carrier-integral-latch-right-black-z004-mark2-v2/carrier-integral-latch-right-black-z004-mark2-v2-input.3mf",
+  "staged_input_sha256": "cae9f479d9c50a073c83651a4158a5f2be4c8e6fbd81067788d534fe77ebb109",
+  "native_archive": ".cache/prints/2026-09-20-carrier-integral-latch-right-black-z004-mark2-v2/ready/carrier-integral-latch-right-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "4b028730b9e711e82e1acef1c978eb63bcdefbb5bfe8cb7841ccc99c8c7a129d",
+  "gcode_sha256": "1655c3ee53f92b27c95e559a5bf24c06c71d61a0d314228869c9da81431ed1de",
+  "process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_arc_fitting": "0",
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_map": [
+      "1"
+    ]
+  },
+  "intentional_settings_changed": [
+    "extruder_ams_count",
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "layers": 220,
+  "estimated_seconds": 1306.4053955078125,
+  "estimated_filament_g": 7.544646263122559,
+  "slicer_warning": "",
+  "toolpath_fit": {
+    "minimum_shared_bed_margin_mm": 130.385998,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  },
+  "support_audit": ".cache/prints/2026-09-20-carrier-integral-latch-right-black-z004-mark2-v2/carrier-integral-latch-right-black-z004-mark2-v2-input.support-audit.json",
+  "support_audit_sha256": "e4389461b48c7475c1049476a53e1088347138c34edc56217b6408221111349e",
+  "live_printer_mapping_and_empty_plate_still_required": true,
+  "toolpath_review": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/toolpath-review.json",
+  "toolpath_review_sha256": "160b0e94ad54e1680c1f5864556b02ea93d81f7dd6453fa581ca153193982f6d"
+}

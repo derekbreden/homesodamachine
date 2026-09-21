@@ -814,8 +814,8 @@ Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle(( 93.770,  22.490), 0.0, 10.3650 + manifold_rise - inner_limb_drop),
-    "valve-v-b":   Cradle(( 93.770, -20.070), 0.0, 10.3650 + manifold_rise - inner_limb_drop),
+    "valve-v-a":   Cradle(( 92.220,  22.490), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
+    "valve-v-b":   Cradle(( 92.220, -20.070), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.

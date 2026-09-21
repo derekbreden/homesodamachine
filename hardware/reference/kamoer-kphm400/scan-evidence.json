@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "scan_date": "2026-09-20",
+  "unit": "User-owned Kamoer pump; machine BOM KPHM600-SW3B17, repository compatibility directory kamoer-kphm400",
+  "status": "two complementary native scans; bounded contact corrections implemented; physical corrected assembly not yet accepted",
+  "capture_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump",
+  "capture_manifest": "capture-manifest.json",
+  "clouds": [
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/pass-01-upright/Fused 0920_1 (0.10mm).ply",
+      "sha256": "8df2a6f04f30afec5655df8c1d051a6c9f280283d83fc2f7c197598a54a14c97",
+      "points": 2076077
+    },
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/pass-02-remounted/Fused 0920_1 (0.10mm).ply",
+      "sha256": "0247db27a6d9a219d0bb00c6c033c97e8e142e15ae20116a2d9edccd21c24fc1",
+      "points": 3053059
+    }
+  ],
+  "fusion_spacing_mm": 0.1,
+  "native_cloud_processing": "No isolation or smoothing. Putty, support fixtures and markers retained in raw clouds; analysis selects named rigid regions.",
+  "outlet_authority": {
+    "source": "Derek, 2026-09-20",
+    "statement": "There are 1/4-inch LLDPE tube stubs, very short ones, inserted into the Kamoer pump silicone in these scans.",
+    "classification": [
+      "Rigid molded casing roots are measured separately.",
+      "Silicone outlets are flexible.",
+      "Terminal LLDPE pieces are inserted external tubing, not integral rigid barbs."
+    ],
+    "registration_exclusion": "Entire outlet stack withheld from scan-to-scan rigid registration; only rigid casing roots are used for independent station comparison."
+  },
+  "registration": "scan-registration.json",
+  "native_baseline": {
+    "directory": "native-baseline",
+    "sha256": {
+      "enclosure-pump-cartridge.step": "85ad1e41dd9d15a2b7ce5d46170df689885e2983dd522314cba3b42014c31e19",
+      "enclosure-pump-cap.step": "3ffcbab0816ec63050932a2eeaaa2a4231162093b740375f6b81a5a6881f465d",
+      "enclosure-pump-cartridge.stl": "e5f2ac01f305c855867f9533771e99cc38ddcdae857623d9269984c15aaf3a9d",
+      "enclosure-pump-cap.stl": "5e0584c482953c79004593b70023ba9c9dc65223f7a75d976d4a03826717df63",
+      "enclosure-front-top.stl": "9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3"
+    },
+    "source_commit_context": "47ae3f735fd14df393d3c8ba07d37f0f1e4cc064",
+    "note": "Generated native exports are external archived evidence, not tracked git artifacts. Source commit is context, not a substitute for their content digests."
+  },
+  "native_contact_fixture": {
+    "pump_trays": [
+      [
+        49.945,
+        45.909,
+        213.745
+      ],
+      [
+        -49.945,
+        45.909,
+        213.745
+      ]
+    ],
+    "collet_plate": {
+      "aft_overtravel": 2.5,
+      "aft_y": 82.694,
+      "assembly_state": "connected",
+      "bore_r": 7.108,
+      "carrier_states": {
+        "aft_limit": {
+          "cartridge_offset_y": null,
+          "collet_depression": 0.0,
+          "offset_y": 4.65,
+          "plate_gap": 3.0,
+          "tube_bottom_y": 97.344,
+          "tube_depth": null
+        },
+        "connected": {
+          "cartridge_offset_y": 0.0,
+          "collet_depression": 0.0,
+          "offset_y": 2.15,
+          "plate_gap": 0.5,
+          "tube_bottom_y": 94.844,
+          "tube_depth": 11.65
+        },
+        "park": {
+          "cartridge_offset_y": null,
+          "collet_depression": 0.0,
+          "offset_y": 2.15,
+          "plate_gap": 0.5,
+          "tube_bottom_y": 94.844,
+          "tube_depth": null
+        },
+        "release": {
+          "cartridge_offset_y": -2.15,
+          "collet_depression": 1.65,
+          "offset_y": 0.0,
+          "plate_gap": 0.0,
+          "tube_bottom_y": 92.694,
+          "tube_depth": 10.0
+        },
+        "squeeze": {
+          "cartridge_offset_y": -2.15,
+          "collet_depression": 1.65,
+          "offset_y": 0.0,
+          "plate_gap": 0.0,
+          "tube_bottom_y": 92.694,
+          "tube_depth": 10.0
+        }
+      },
+      "connected_release_travel": 2.15,
+      "fore_y": 79.519,
+      "guide_travel": 4.65,
+      "hole_d": 8.5,
+      "holes": [
+        [
+          -79.82,
+          186.245
+        ],
+        [
+          -20.07,
+          186.245
+        ],
+        [
+          20.07,
+          186.245
+        ],
+        [
+          79.82,
+          186.245
+        ]
+      ],
+      "rest_gap": 0.5,
+      "seat_z": 165.615,
+      "seated_tube_bottom_y": 94.844,
+      "stop_offsets": [
+        0.0,
+        4.65
+      ],
+      "stroke": 2.15,
+      "tube_bottom_y": 92.694,
+      "wall_aft_y": 92.8,
+      "x0": -104.5,
+      "x1": 104.5,
+      "z0": 160.0,
+      "z1": 216.49
+    },
+    "inner": [
+      -104.5,
+      104.5,
+      14.0,
+      464.0,
+      0.0,
+      352.0
+    ],
+    "outer": [
+      -107.5,
+      107.5,
+      5.0,
+      467.0,
+      -6.0,
+      355.0
+    ],
+    "pump_bay": [
+      -104.5,
+      104.5,
+      283.49500009999997
+    ],
+    "y_joint": 200.0
+  },
+  "measurement_sampling": "Every sixth native observation after proper rigid registration; original float coordinates are neither smoothed nor scaled.",
+  "limits": [
+    "No global CAD fit. Fitted holder-derived head geometry is not an independent scan target.",
+    "Scale fixed at 1; scanner residuals do not establish absolute dimensional accuracy. Spray thickness is unmeasured.",
+    "Head transverse Y datum remains provisional; scan motor axis is aligned to the native rear motor opening, retaining the existing -1 mm head/rear-stack relationship.",
+    "No claims for pump internals, sealed cavities, material stiffness, screw torque or long-term endurance."
+  ],
+  "additional_scan_needed_for_contact_correction": false,
+  "physical_acceptance": [
+    "Dry assemble both pumps in the corrected cradle and cap: skirt lands carry each pump, front rim clears floor, and cap tightening removes vertical play before a printed/screw hard stop.",
+    "Verify straight cartridge insertion/withdrawal and separate upward pump/cap removal.",
+    "Confirm all four inserted tube depths, collet capture, carrier release and flexible-outlet alignment; run a primed pump/leak test."
+  ]
+}

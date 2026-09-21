@@ -13,19 +13,19 @@ joined carrier couples their Y motion.
 
 ## The web
 
-The web is [188 mm](WEB_WIDTH) wide, [52.82 mm](WEB_HEIGHT) tall and [6 mm](WEB_T) thick. Its
+The web is [188 mm](WEB_WIDTH) wide, [55.251 mm](WEB_HEIGHT) tall and [6 mm](WEB_T) thick. Its
 aft face is the plane the aft coils rise past when the aft valves go in, so it does not move;
 the thickness is spent fore of the old plate. Along the top of the aft face, between the two
-inner aft coils' cases and the fixed body's ceiling, a shelf [10.99 mm](FLANGE_HEIGHT) tall runs
+inner aft coils' cases and the fixed body's ceiling, a shelf [13.35 mm](FLANGE_HEIGHT) tall runs
 [14 mm](FLANGE_DEPTH) aft over the middle [113.64 mm](FLANGE_REACH) of the carrier. It stands
 clear of the outer aft coils, whose cases rise past the web's top.
 
-Each tee bears on the floor line of a vertical trough in the fore face: a [14.72 mm](TROUGH_D)
+Each tee bears on the floor line of a vertical trough in the fore face: a [17.5 mm](TROUGH_D)
 cylinder about the arm's own run axis, [0.5 mm](STATION_AIR) larger than the arm in radius,
 [3.5 mm](TROUGH_DEPTH) deep at its floor. Behind the tee the web keeps its
 [2.5 mm](STATION_T) station thickness, which is what the rising aft coils leave. The trough
-ends at Z [206.615 mm](TROUGH_TOP_Z), [0.3 mm](STUB_AIR) above the upper run end.
-Above it, the flat-floored bowed-tube relief retains [4.10829 mm](STUB_RELIEF_WEB) of backing.
+ends at Z [207.724 mm](TROUGH_TOP_Z), [0.3 mm](STUB_AIR) above the upper run end.
+Above it, the flat-floored bowed-tube relief retains [5.50417 mm](STUB_RELIEF_WEB) of backing.
 The part selftest checks that complete retained section as well as the tube's open space.
 [upper-backing-check.json](upper-backing-check.json) verifies the generated solids and
 measures the actual printed-mesh sections.
@@ -40,13 +40,13 @@ machine centre and flush-cut its tail.
 ## The lap
 
 The left half's web ends at X [-6.4 mm](SPLIT_X). A tongue [6 mm](LAP_T) thick and
-[20.03 mm](TONGUE_WIDTH) wide stands fore of the web plane over the web's full height,
-rooted on the left web over its first [4.17 mm](TONGUE_ROOT), reaching from just outboard of
+[17.25 mm](TONGUE_WIDTH) wide stands fore of the web plane over the web's full height,
+rooted on the left web over its first [2.78 mm](TONGUE_ROOT), reaching from just outboard of
 the left inner tee's inboard tie slot to just short of the right inner tee. The right half's
 web starts [3.75 mm](WEB_GAP) inboard of the left web's end and lies against the tongue's aft
-face over [12.11 mm](LAP_WIDTH) of its width. The two screws stand on one line
+face over [10.72 mm](LAP_WIDTH) of its width. The two screws stand on one line
 [0 mm](SCREW_X) off the machine centre, inside the coil-free band behind the web,
-[28.93 mm](SCREW_SPACING) apart in Z; each passes through the right web and takes
+[29.001 mm](SCREW_SPACING) apart in Z; each passes through the right web and takes
 [4 mm](INSERT_LENGTH) of insert in the tongue's aft face, with [2 mm](INSERT_BACKING) of
 tongue behind it. The lap stack is [12 mm](LAP_STACK) fore to aft. The tongue's fore face is
 the fixed body's common clearance face at release.
@@ -54,7 +54,7 @@ the fixed body's common clearance face at release.
 ## The springs
 
 Each service tab carries a [6.57 mm](SPRING_BORE_D) channel bored [11.1 mm](SPRING_BORE_DEPTH)
-into its fore face at X [97.535 mm](SPRING_X) and Z [210.1 mm](SPRING_Z), just above the tee
+into its fore face at X [97.535 mm](SPRING_X) and Z [211.209 mm](SPRING_Z), just above the tee
 arms' top collets, leaving [4.9 mm](SPRING_BAR_WALL) of bar behind the floor. A window in the bar's inboard face
 opens the channel's inboard half over its first [10 mm](SPRING_WINDOW_LENGTH), and the last
 [1.1 mm](SPRING_RING) of the channel is a full ring. The spring bears fore in a
@@ -91,7 +91,7 @@ weight. The carrier follows the tubes forward until the fixed plate releases the
 
 Each service tab is one [16 mm](GRIP_BAR_T) bar in Y. Its aft face lies on the web's aft
 plane, and the root overlaps the web's full thickness. The bar presents
-[50.39 mm](FINGER_HEIGHT) of vertical contact over its full [13.5 mm](FINGER_DEPTH)
+[50.319 mm](FINGER_HEIGHT) of vertical contact over its full [13.5 mm](FINGER_DEPTH)
 depth, with [2 mm](GRIP_EDGE_R) rounds on its exposed vertical edges. The fingers bear on
 that aft face, opposing the thumb on the cartridge pocket's aft wall.
 
@@ -99,10 +99,10 @@ The finger space is open through the moving tab's top and bottom.
 A [3 mm](GRIP_BACK_T) inboard wall joins a [3 mm](GRIP_AFT_T) aft wall,
 recessed [3.25 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
 behind the opening's aft edge throughout the stroke. The fixed opening is
-[34.15 mm](OPENING_RUN) long in Y and [51.39 mm](OPENING_HEIGHT) tall, leaving at least
+[34.15 mm](OPENING_RUN) long in Y and [51.319 mm](OPENING_HEIGHT) tall, leaving at least
 [16 mm](FINGER_RUN) behind the bar through nominal operation and
 [13.5 mm](FINGER_RUN_AT_LIMIT) at the aft flex limit. Its upper and lower edges
-leave [0.5 mm](SUPPORTED_GUIDE_AIR) above and below the bar's [50.39 mm](GRIP_HEIGHT) height.
+leave [0.5 mm](SUPPORTED_GUIDE_AIR) above and below the bar's [50.319 mm](GRIP_HEIGHT) height.
 
 Both outer faces finish flush with the enclosure; total width across the grips is
 [215 mm](GRIP_WIDTH). Each bar carries a retaining shoulder behind the opening's fore
@@ -213,7 +213,7 @@ web, with the carrier at release. The centre lap leaves all sixteen slots open.
 Print both halves upright, +Z up, with the web and backing wall on the bed. The bar and aft
 wall's flat undersides and the shelf's underside take removable support exposed below the
 loose half. The internal
-shoulder begins [14.055 mm](RIM_BED_GAP) above the bed; its extension takes removable support
+shoulder begins [14.126 mm](RIM_BED_GAP) above the bed; its extension takes removable support
 accessible from the loose half's underside. The station troughs and stub reliefs are vertical.
 The short flat ledge where each trough ends takes removable support that leaves through the
 loose half's open fore trough before the tee is fitted. The spring channel and the lap's

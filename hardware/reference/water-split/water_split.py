@@ -6,7 +6,7 @@ V-K (the fill/shutoff on the way to the SeaFlo suction) and to the flavor tap
 reducers, because the water reaches it at 1/4" and leaves at 1/4"
 ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2).
 
-THE SOLID IS `reference/tee-connector`'s — the same harvested fitting the manifold's six
+THE SOLID IS `reference/tee-connector`'s — the same measured clearance reference the manifold's six
 junctions are built from, turned into the frame below. This file writes none of its own: a
 turned copy of a solid is that solid, and `build()` hands the caller the turn. Its figures are
 measured off that STEP and held to it, so the barrel a rib closes on and the collet faces a tube
@@ -35,7 +35,9 @@ sys.path.insert(0, str(_hw / "reference" / "tee-connector"))
 from _cadq_export import import_step
 import tee_connector as tee
 
-REACH = tee.RUN_HALF         # collet face from the body centre — run half-length and branch alike
+RUN_REACH = tee.RUN_HALF
+BRANCH_REACH = tee.BRANCH_REACH  # explicitly provisional until the branch caliper reading
+REACH = RUN_REACH  # compatibility for callers which use the supply-run reach
 TUBE_D = tee.TUBE_D          # 1/4" OD LLDPE the three ports accept
 
 # What carries the tee's frame into this one: its run from ±Z onto ±Y, and its branch from +Y
@@ -53,7 +55,7 @@ def to_vk():
     """The branch collet feeding V-K, on to the SeaFlo suction: (position, axis).
     It takes V-K's share off the run at a right angle — the one port of the three
     the enclosure can point at a level the other two are not on."""
-    return (-REACH, 0.0, 0.0), (-1.0, 0.0, 0.0)
+    return (-BRANCH_REACH, 0.0, 0.0), (-1.0, 0.0, 0.0)
 
 
 def to_flavor():
@@ -71,13 +73,40 @@ def run_barrel():
 
     `station` is its mid-point and the run axis through it, in the frame the three ports are
     stated in."""
-    near, far = tee.BARREL_NEAR, tee.BARREL_FAR
+    near, far = tee.RUN_COLLAR_BAND
     return (((0.0, (near + far) / 2.0, 0.0), (0.0, 1.0, 0.0)),
             tee.BARREL_R, far - near)
 
 
+def clearance_seat(span, tie_width):
+    """A seat envelope whose tie bears only on the measured fixed collar patch.
+
+    The rib may overhang that patch with its bore clear of the narrower root and terminal
+    sleeve. Its span is clearance, not a claim that the complete span is collar bearing.
+    The branch envelope stays outside one end and the fully pressed run face outside the
+    other. The sleeve radius and fixed/moving split retain `tee.UNQUALIFIED_DATUMS` status.
+    """
+    station, radius, fixed_width = run_barrel()
+    if not 0.0 < tie_width <= fixed_width or span < tie_width:
+        raise ValueError("water-split tie must fit wholly inside the measured fixed collar patch")
+    mid = station[0][1]
+    lo, hi = mid - span / 2.0, mid + span / 2.0
+    if lo <= tee.BARREL_R or hi >= RUN_REACH - tee.COLLET_TRAVEL:
+        raise ValueError("water-split seat reaches the branch or the fully pressed run face")
+    if tee.COLLET_NOSE_R > radius:
+        raise ValueError("water-split release sleeve exceeds the seat clearance envelope")
+    # Hold the complete native fitting section to the bore, including the two overhangs.
+    # The tie width is checked separately against the narrower measured bearing patch.
+    band = cq.Solid.makeBox(100.0, span, 100.0, cq.Vector(-50.0, lo, -50.0))
+    bore = cq.Solid.makeCylinder(radius, span, cq.Vector(0.0, lo, 0.0), cq.Vector(0, 1, 0))
+    outside = build().intersect(band).cut(bore).Volume()
+    if outside > 1e-6:
+        raise ValueError(f"water-split seat covers {outside:.6f} mm³ outside its clearance bore")
+    return station, radius, span
+
+
 def build():
-    """The harvested fitting, run collets along ±Y and branch collet along −X."""
+    """The measured clearance reference, run along ±Y and branch along −X."""
     solid = import_step(str(tee.STEP)).val()
     for axis, deg in _TURNS:
         solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
@@ -102,7 +131,15 @@ def stations_hold():
 def selftest():
     tee.stations_hold()
     stations_hold()
-    return ["  the three declared stations stand on the turned solid they name"]
+    clearance_seat(9.5, 2.5)
+    for span, tie_width in ((9.5, 3.5), (14.0, 2.5)):
+        try:
+            clearance_seat(span, tie_width)
+        except ValueError:
+            continue
+        raise AssertionError("a seat outside the fixed bearing or release room was accepted")
+    return ["  the three declared stations stand on the turned solid they name",
+            "  clearance seat preserves the measured fixed tie patch and the run release room"]
 
 
 if __name__ == "__main__":

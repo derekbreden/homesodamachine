@@ -18,8 +18,8 @@ about the hinge the four barb tees' front collets stand on.
 | | |
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59.5](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.05](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
-| 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
-| [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
+| 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [19.38](BARB_INSET) mm back from the head's front face. |
+| [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
 | [8](TUBE_COUNT2) × tube | 1/4" OD LLDPE — four straight runs across the collet plate's berth from the pump barbs to the anchor tees, and [4](FORE_STUB_COUNT) bowed flex stubs above those tees. |
 
@@ -28,7 +28,7 @@ about the hinge the four barb tees' front collets stand on.
 X is width, mirrored about x = 0 — channel A west, channel B east, each over its own pump. Y is
 depth; the two flavour mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
 height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
-[88.38](DECK_Z) and [147.78](UPPER_Z).
+[88.38](DECK_Z) and [149.33](UPPER_Z).
 
 ## Four limbs, folded in two
 
@@ -52,7 +52,7 @@ the pump's axis and draws the leaning tube each barb then needs to reach its tee
 ```
 
 The lower deck's port axes sit at z [88.38](DECK_Z2), [14.60](DECK_GAP) mm over the pump heads'
-crowns; the folded deck's at z [147.78](UPPER_Z2). The two inner limbs leave
+crowns; the folded deck's at z [149.33](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
 ## The fold
@@ -62,7 +62,7 @@ with two quarter circles and a tangent straight between them. Each pair turns on
 its two mouths is lower and reaches the other with a 4 mm axial leg: at the tee on the inner
 pair, whose fixed valve rides the source limbs' drop, and at the fixed valve on the outer pair.
 Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
-[81.13](SPINE_LEN) mm for each inner hairpin and [81.43](OUTER_SPINE_LEN) mm for each outer one.
+[81.43](SPINE_LEN) mm for each inner hairpin and [84.22](OUTER_SPINE_LEN) mm for each outer one.
 As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
@@ -77,7 +77,7 @@ member with no middle chord in it, and it is the worst to pick, because what the
 a turn is how far it reaches past the hinge — and that reach is the RADIUS. The radius therefore
 starts at the stock's floor, R[14](MIN_BEND2), and opens as the end separation decreases.
 
-The decks stand [59.4](DECK_SEP) mm apart, clearing the folded valve undersides and the
+The decks stand [60.95](DECK_SEP) mm apart, clearing the folded valve undersides and the
 narrow terminals beneath them. The carrier's fore datum stands 1.75 mm fore of the hinge
 plane, leaving the aft valves' complete 6 mm post-insertion route beside its joined web.
 The hardware check reads the constituent solids; the enclosure check reads their complete
@@ -88,7 +88,7 @@ radius on its own.
 
 [2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
 [21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
-[71.57](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
+[72.75](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
 +Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
 axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 
@@ -152,8 +152,8 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
 [4](STRAIGHT_COUNT) are straight pump-barb runs. The [4](FORE_STUB_COUNT) connections from the
-anchor tees to V-E/F/H/I are [16](FORE_STUB_EXPOSED) mm of exposed LLDPE bowed across
-[14](FORE_STUB_GAP) mm sleeve-face gaps, so the four fixed valves stand that far above the
+anchor tees to V-E/F/H/I are [17.251](FORE_STUB_EXPOSED) mm of exposed LLDPE bowed across
+[15.251](FORE_STUB_GAP) mm sleeve-face gaps, so the four fixed valves stand that far above the
 tees while the tees can move fore and aft. [4](SPINE_COUNT) are the fold's 180° turns and
 [2](QUARTER_COUNT2) are the quarter turns above. Every formed corner in the manifold —
 [14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
@@ -165,10 +165,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[193](ENV_X) × [170](ENV_Y) × [243](ENV_Z) mm — [7.98](ENV_L) L of bounding box over the
+[193](ENV_X) × [172](ENV_Y) × [245](ENV_Z) mm — [8.14](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[193](REACH_X) × [170](REACH_Y) × [257](REACH_Z).
+[193](REACH_X) × [172](REACH_Y) × [259](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

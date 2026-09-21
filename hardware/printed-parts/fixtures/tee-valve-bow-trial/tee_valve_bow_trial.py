@@ -82,7 +82,9 @@ REST_DATUM_Y = TEE_RUN_Y + tee.BRANCH_REACH
 TEE_RUN_CENTRE_Z = -tee.RUN_HALF
 
 BACKING_FRONT_Y = 0.0
-TEE_GUIDE_FRONT_Y = -3.0
+# The complete translating run must clear the guide's fore face even at the
+# experimental ceiling; the branch journal continues aft from that face.
+TEE_GUIDE_FRONT_Y = TEE_RUN_Y + STROKE_CEILING + tee.HALF_W + TEE_COLLAR_RADIAL_SLIP
 TEE_GUIDE_HALF_X = 16.0
 TEE_GUIDE_HALF_Z = 16.0
 BACKING_T = REST_DATUM_Y - BACKING_FRONT_Y
@@ -146,8 +148,8 @@ def build_frame_in_use():
     frame = backing.union(valve_plate).union(guide)
 
     # The bore is normal to the card in use and normal to the bed in the exported print pose.
-    # It bears on the tee's branch collar, clears the narrower arm behind it, and remains on
-    # 2.635 mm of collar at the 4.62 mm ceiling.
+    # It clears the measured collar envelope and narrower root. The native
+    # selftest reports the measured collar-band engagement at the ceiling.
     bore = cq.Workplane(
         obj=cq.Solid.makeCylinder(
             TEE_JOURNAL_RADIUS,
@@ -204,7 +206,7 @@ def build_gauge():
 
 
 def build_tee_reference(travel: float = 0.0):
-    """The harvested tee reference, seated in the guide at one release station."""
+    """The measured tee clearance reference, seated in the guide at one trial station."""
     return import_step(str(tee.STEP)).translate(
         (0.0, TEE_RUN_Y + travel, TEE_RUN_CENTRE_Z)
     )

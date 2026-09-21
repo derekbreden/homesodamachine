@@ -1182,6 +1182,9 @@ def pump_tray_seats(placed: dict) -> dict:
         # openings; keeping it out of this station prevents that correction moving the cradle.
         if (axis, sign) == (2, 1.0):
             centre[1] -= _tray.rear_axis_y_shift
+            # The pump body seats below the nominal flange plane. Restore that
+            # offset only for the holder datum, preserving the fitted skirt lands.
+            centre[2] += _enc._interface.pump_seated_drop
         out[head] = (axis, sign, tuple(round(c, 6) for c in centre))
     return out
 
@@ -1221,7 +1224,7 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 PLATE_T = 3.175
 PLATE_REST_GAP = ml.tee.CARRIER_AFT_COLLET_GAP
 PLATE_HOLE_D = 8.5
-COLLET_NOSE_R = 5.715
+COLLET_NOSE_R = ml.tee.COLLET_NOSE_R  # release rim remains an explicit unqualified tee datum
 TEE_WALL_BORE_SLIP = fits.running
 TEE_WALL_BODY_AIR = 1.454
 CARRIER_ASSEMBLY_STATE = "connected"  # nominal seated cartridge; aft flex travel remains free
@@ -3169,7 +3172,8 @@ BODY_ANCHOR_SITES = (
     # X, so a rib off this face stands across each run the same way, and a piece builds only the
     # ribs whose whole length it owns. Both bodies stand aft of the Y seam, so both seats print on
     # `enclosure-back-top` and the two are one column of material in one piece.
-    ("water-split", _split.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
+    ("water-split", lambda: _split.clearance_seat(_enc.tube_anchor_len, _enc.tie_w),
+     (-1.0, 0.0, 0.0), "enclosure-back-top"),
     ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
@@ -3192,9 +3196,10 @@ def body_anchors(carries) -> tuple:
     THE SECTION IS THE REFERENCE MODULE'S, and that module holds it to the file the pack seats.
     So the seat rides every move of the body, and there is no radius stated here to go stale.
 
-    THE RIB LIES INSIDE ITS SECTION. A run is one radius its whole length and a fitting is not: a
-    rib longer than the barrel it is bored for closes on the hex next to it, which is a wrench
-    flat clocked by a made-up thread."""
+    THE RIB LIES INSIDE ITS SECTION. A run is one radius its whole length and a fitting is not:
+    a rib must clear whatever stands beside its bearing. The water split qualifies its complete
+    clearance span separately from the narrower measured collar patch the tie bears on; its
+    reference checks both the branch and release room before supplying that envelope."""
     stations = []
     site_ids = {name for name, _s, _r, _p in BODY_ANCHOR_SITES}
     if missing := site_ids - set(BODY_ANCHOR_END_FORMS):

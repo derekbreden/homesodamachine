@@ -48,20 +48,20 @@ class CarrierSpec:
     tab_outer_x: float
     tab_z: tuple[float, float]
     # The web behind the bearing line at a tee station, and the web everywhere else.
-    station_t: float = 2.5
+    station_t: float = enclosure_interface.tee_carrier_station_t
     web_t: float = 6.0
     # Radial air between a tee arm and the walls of its trough.
     station_air: float = 0.5
     # The bowed stub above each tee stands this far fore of the bearing line at release, less
     # its air; the relief above the arm floors there.
-    stub_relief_depth: float = 1.608291
+    stub_relief_depth: float = 3.004166
     stub_air: float = 0.3
     # The shelf on the aft face: it reaches to the outer aft coils and stands over the inner.
     flange_x: float = 56.820
     flange_z0: float = 209.075
     flange_depth: float = 14.0
     tie_band_offsets_z: tuple[float, float] = (-12.0, 12.0)
-    tie_slot_offset_x: float = 8.5
+    tie_slot_offset_x: float = tee.HALF_W + 1.64
     tie_slot_x: float = 1.5
     tie_slot_z: float = 3.5
     tie_stock_w: float = 2.5
@@ -81,8 +81,8 @@ class CarrierSpec:
     connected_offset_y: float = tee.CARRIER_CONNECTED_OFFSET
     park_offset_y: float = tee.CARRIER_PARK_OFFSET
     aft_overtravel_y: float = enclosure_interface.tee_carrier_aft_overtravel
-    fixed_plate_aft_y: float = 82.694
-    aft_coil_fore_y: float = 116.010
+    fixed_plate_aft_y: float = 82.690
+    aft_coil_fore_y: float = 117.560
     exterior_x: float = 107.5
     guide_inner_x: float = 98.5
     slide_air: float = fits.running
@@ -101,7 +101,7 @@ class CarrierSpec:
     grip_edge_r: float = 2.0
     grip_root_overlap: float = 0.2
     entry_inset_x: float | None = None
-    entry_staging_y: float = 37.842
+    entry_staging_y: float = 38.550
     entry_lift_z: float = 70.0
     joint_lap_t: float = 6.0
     # The screw axis stands inside the coil-free band behind the web's centre; the right web
@@ -343,9 +343,9 @@ class CarrierSpec:
 
 
 DEFAULT_SPEC = CarrierSpec(
-    tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=186.245,
-    web_x=(-94.0, 94.0), bearing_y=107.968, web_z=(167.245, 220.065),
-    tab_outer_x=107.5, tab_z=(175.050, 226.190),
+    tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=186.174,
+    web_x=(-94.0, 94.0), bearing_y=109.360, web_z=(167.174, 222.425),
+    tab_outer_x=107.5, tab_z=(175.050, 226.119),
 )
 
 
@@ -524,7 +524,7 @@ PLACEMENT_FIELDS = (
     'station_t', 'web_t', 'station_air', 'stub_relief_depth', 'stub_air', 'flange_x',
     'flange_z0', 'flange_depth', 'grip_back_x', 'grip_rail_top_z', 'exterior_x',
     'guide_inner_x', 'release_offset_y', 'connected_offset_y', 'park_offset_y',
-    'aft_overtravel_y', 'fixed_plate_aft_y', 'aft_coil_fore_y')
+    'aft_overtravel_y', 'fixed_plate_aft_y', 'aft_coil_fore_y', 'entry_staging_y')
 
 
 def placement_mismatches(spec, base=None, tol=0.01):

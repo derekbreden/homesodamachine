@@ -1,0 +1,123 @@
+{
+  "status": "passed_bounded_native_contact_regression",
+  "scope": "Current source cap/floor at archived holder station; full current assembly and physical fit are separate checks.",
+  "native_cradle_step_sha256": "85ad1e41dd9d15a2b7ce5d46170df689885e2983dd522314cba3b42014c31e19",
+  "measurement_record_sha256": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
+  "cap_valid": true,
+  "cap_solids": 1,
+  "cap_cradle_sampled_vertical_path": [
+    {
+      "lift_mm": -0.25,
+      "interference_mm3": 0.0
+    },
+    {
+      "lift_mm": 0.0,
+      "interference_mm3": 0.0
+    },
+    {
+      "lift_mm": 0.25,
+      "interference_mm3": 0.0
+    },
+    {
+      "lift_mm": 5.0,
+      "interference_mm3": 0.0
+    },
+    {
+      "lift_mm": 35.0,
+      "interference_mm3": 0.0
+    },
+    {
+      "lift_mm": 70.0,
+      "interference_mm3": 0.0
+    }
+  ],
+  "land_z_mm": 205.494,
+  "nominal_cap_rail_z_mm": 213.494,
+  "observed_rim_height_above_land_min_max_mm": [
+    7.813457874215291,
+    8.129970652395581
+  ],
+  "downward_contact_adjustment_mm": 0.25,
+  "bridge_clearance_at_max_closure_mm": 1.75,
+  "screw_tip_clearance_at_max_closure_mm": 0.25,
+  "insert_engagement_at_max_upward_adjustment_mm": 5.7,
+  "floor_z_mm": [
+    160.0,
+    164.01500000000001
+  ],
+  "minimum_floor_stock_mm": 4.015000000000015,
+  "minimum_air_above_floor_observed_mm": 0.33997381841263064,
+  "minimum_air_above_floor_declared_envelope_mm": 0.3289999999999793,
+  "rail_footprints": [
+    {
+      "x_mm": [
+        -32.0,
+        -29.0
+      ],
+      "y_mm": [
+        -16.0,
+        16.0
+      ],
+      "flat_area_mm2": 96.0
+    },
+    {
+      "x_mm": [
+        28.999999999999993,
+        31.999999999999993
+      ],
+      "y_mm": [
+        -16.0,
+        16.0
+      ],
+      "flat_area_mm2": 96.0
+    },
+    {
+      "x_mm": [
+        -31.999999999999993,
+        -28.999999999999993
+      ],
+      "y_mm": [
+        -16.0,
+        16.0
+      ],
+      "flat_area_mm2": 96.0
+    },
+    {
+      "x_mm": [
+        29.0,
+        32.0
+      ],
+      "y_mm": [
+        -16.0,
+        16.0
+      ],
+      "flat_area_mm2": 96.0
+    }
+  ],
+  "continuous_floor_lanes": [
+    {
+      "x_mm": [
+        17.945,
+        81.945
+      ],
+      "y_mm": [
+        14.0,
+        78.90899999999999
+      ],
+      "flat_top_z_mm": 164.01500000000001
+    },
+    {
+      "x_mm": [
+        -81.945,
+        -17.945
+      ],
+      "y_mm": [
+        14.0,
+        78.90899999999999
+      ],
+      "flat_top_z_mm": 164.01500000000001
+    }
+  ],
+  "support_access": "Front-top floor is bed-grown. Cap prints crown-down; terminal rail bearing faces are print-up, with exposed sides and no new support-removal pocket.",
+  "physical_acceptance": "Unmeasured. Dry assembly must verify both pumps seat on skirt lands, cap removes play without bottoming, tubes capture/release, and primed operation is leak-free."
+}

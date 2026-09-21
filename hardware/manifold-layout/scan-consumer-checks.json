@@ -1,0 +1,425 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-09-21T00:39:26.950347+00:00",
+  "scope": "Downstream geometry checks for measured pump and tee reference propagation. Physical corrected assembly acceptance remains pending.",
+  "source_sha256": {
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+    "hardware/manifold-layout/manifold_layout.py": "ddcc7fd045e957b6a3193b09da611112c11144de98bac3ab5dd71220c6929f71",
+    "hardware/manifold-layout/enclosure_box.py": "37aede7f7a726bef5bf03b72dc273ac9dcade2b279a7d673e6a4bddaf32e3f1d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a809d6223a731e3101ed9c474a76da8ca0926c085805a8faf1be425b51123c43",
+    "hardware/manifold-layout/enclosure_assembly.py": "3c7d6137671410c7421feac1ebca2c178a74dd5248a7b7e5d18beba51134c864",
+    "hardware/reference/tee-connector/tee_connector.py": "c581ea91f7b94fbf051556e54d8fa4258ae1a12899dd92f4f991493aa4607526",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "9a4770bf8e89d4bd7a7fc82f7eb53c2922e8d92b32b1e6bae43224069abcc43f",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier_spring.py": "9fc8a45e1daf4ef1d92333ce88beeb1f1f46aa8cc5c7076511e7cfb766ff768d",
+    "hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json": "f61aafb8513359040688f99b1ef79b63ec3b12af58bf9d35dd3ff3ef426bb2ea",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "c2c81f472150f0aa3ffd437ddbe61e68a69da993de194dc352567e7660db9bf9",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "f01d25afe921f361122136c61f7b493bba9dda44fafc3b87304774ac352863a9",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "faf3d7dc3fd51d6b18be635d2e7ec552f7ba81611911bb1d47b1826802ee43b8",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/cold-core-layout/cold_core_assembly.py": "cd5e21ead0d2f5a107cfa5363b8a870c88cb6b98fae58831bd253155eba3afaa",
+    "hardware/manifold-layout/_lines.py": "9fe7195a93116b646a67a6ccad1533b196f15110e354a313aac5b8f27fd592b8",
+    "hardware/reference/water-split/water_split.py": "be6cc6a2fd12a77abec6aa0c8663266885e49d6d7571b307417266b3872bd33e"
+  },
+  "valve_cradles": {
+    "status": "passed",
+    "cap_frame_stations": {
+      "vk-solenoid": {
+        "station": [
+          [
+            94.27,
+            65.05
+          ],
+          0.0,
+          3.65
+        ],
+        "room": [
+          4.960000000000008,
+          "the valve-v-a plinth"
+        ]
+      },
+      "valve-v-a": {
+        "station": [
+          [
+            92.22,
+            22.49
+          ],
+          0.0,
+          6.725
+        ],
+        "room": [
+          4.960000000000004,
+          "the valve-v-b plinth"
+        ]
+      },
+      "valve-v-b": {
+        "station": [
+          [
+            92.22,
+            -20.07
+          ],
+          0.0,
+          6.725
+        ],
+        "room": [
+          1.0,
+          "the reservoir-b-fill conduit passage"
+        ]
+      }
+    },
+    "socket_and_full_wall_regions": {
+      "valve-v-a": {
+        "station": [
+          [
+            92.22,
+            22.49
+          ],
+          0.0,
+          6.725
+        ],
+        "critical_socket_regions": [
+          {
+            "corner": [
+              -1,
+              -1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          },
+          {
+            "corner": [
+              -1,
+              1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          },
+          {
+            "corner": [
+              1,
+              -1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          },
+          {
+            "corner": [
+              1,
+              1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          }
+        ]
+      },
+      "valve-v-b": {
+        "station": [
+          [
+            92.22,
+            -20.07
+          ],
+          0.0,
+          6.725
+        ],
+        "critical_socket_regions": [
+          {
+            "corner": [
+              -1,
+              -1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          },
+          {
+            "corner": [
+              -1,
+              1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          },
+          {
+            "corner": [
+              1,
+              -1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          },
+          {
+            "corner": [
+              1,
+              1
+            ],
+            "socket_and_wall_change_mm3": 0.0
+          }
+        ]
+      }
+    },
+    "native_cap_checks": [
+      "one solid per lid/cap",
+      "zero seated valve interference",
+      "clear pour, vent, conduit, deck and screw openings",
+      "required counterbore bearing stock"
+    ],
+    "foam_assembly_checks": [
+      "conduits and ten screw paths clear",
+      "no printed-core solid collision",
+      "eight internal routes clear"
+    ],
+    "comparison_method": {
+      "frame": "Each plinth translated and rotated back to the same valve mounting frame",
+      "baseline_stations": {
+        "valve-v-a": {
+          "centre": [
+            93.77,
+            22.49
+          ],
+          "yaw": 0,
+          "seat": 4.365
+        },
+        "valve-v-b": {
+          "centre": [
+            93.77,
+            -20.07
+          ],
+          "yaw": 0,
+          "seat": 4.365
+        }
+      },
+      "protected_geometry": "Four cylinders per valve covering each socket and its entire nominal 3 mm surrounding wall, from 0.01 mm below socket floor to 0.01 mm above bearing plane",
+      "metric": "old-minus-new plus new-minus-old native volume, mm^3",
+      "all_eight_regions_mm3": 0.0,
+      "bearing_shape_source_unchanged": true
+    }
+  },
+  "fluid_2": {
+    "status": "passed against placed pack",
+    "result": {
+      "points": [
+        [
+          -91.35,
+          261.96,
+          318.8105808375568
+        ],
+        [
+          -91.35,
+          276.96,
+          318.8105808375568
+        ],
+        [
+          -48.16,
+          276.96,
+          318.8105808375568
+        ],
+        [
+          -48.16,
+          267.825,
+          289.0
+        ],
+        [
+          -14.07,
+          267.825,
+          289.0
+        ],
+        [
+          22.490000000000002,
+          274.03,
+          271.1750001
+        ],
+        [
+          22.490000000000002,
+          257.03,
+          271.1750001
+        ]
+      ],
+      "radii": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0
+      },
+      "nearest_non_endpoint_neighbors": [
+        [
+          "seaflo-pump",
+          1.473234977211632
+        ],
+        [
+          "tube-fluid-18",
+          2.9596465782952994
+        ],
+        [
+          "tube-water-2",
+          4.172583629588524
+        ]
+      ],
+      "destination_straight_before_collet_mm": 0.70225706432565,
+      "endpoint_skews_degrees": {
+        "source": 0.0,
+        "destination": 0.0
+      },
+      "scope": "Current route source against the frozen placed pack and authored pack runs. Seated funnel drain and printed enclosure have not been checked in this record."
+    },
+    "funnel_drain_comparison": "Deferred to complete assembly after G Ganen replacement; no full enclosure clearance claim.",
+    "construction": "Separate upper crossing and lower inlet-turn Y planes; component placements retained.",
+    "casting_qualification": "Native clearance against the current drawing-derived SeaFlo reference only. Selected G Ganen requires a scan-derived envelope and new placement/routing validation."
+  },
+  "water_split_anchor": {
+    "status": "passed against native fitting, complete wall-backed anchor, placed pack and authored pack routes",
+    "result": {
+      "mid_world": [
+        -91.35,
+        252.51,
+        290.8105808375568
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "root_plane": -98.5,
+      "seat_radius": 8.4,
+      "bore_rib_band_local": [
+        8.8,
+        18.3
+      ],
+      "fixed_collar_fit_band": [
+        12.0,
+        15.1
+      ],
+      "tie_width": 2.5,
+      "tie_band_local": [
+        12.3,
+        14.8
+      ],
+      "full_pressed_run_face": 19.6,
+      "printed_anchor_vs_fitting_overlap_mm3": 0.0,
+      "full_moving_nose_envelope_gap_mm": 2.6849999999999916,
+      "neighbors": [
+        [
+          "flow-regulator",
+          2.8238418432799333
+        ]
+      ]
+    },
+    "anchor_length_mm": 9.5,
+    "anchor_end_wall_mm": 3.0,
+    "tie_cavity_width_mm": 3.5,
+    "bearing_policy": "Only the 12.0\u201315.1 mm fixed collar patch is qualified bearing. The 9.5 mm rib span is a clearance bore with free overhangs, not a longer claimed collar.",
+    "retained_provisional_geometry": [
+      "fixed body/moving sleeve split",
+      "release sleeve radius"
+    ],
+    "source_check": "water_split.py selftest passes valid clearance seat and rejects tie outside fixed patch or span into branch/release room",
+    "anchor_integrity": "One valid native solid with full backing to the existing enclosure wall; minimum specified end-wall stock 3.0 mm.",
+    "tie_patch_margin_each_end_mm": 0.3,
+    "fully_pressed_ring_access_past_anchor_mm": 1.3,
+    "neighbor_scope": "Placed pack bodies and authored pack routes; nearest unrelated neighbor is flow-regulator at 2.8238418433 mm. Complete printed enclosure and seated drain remain outside this check."
+  },
+  "full_build_scope": {
+    "foam_cap_producer": "passed",
+    "foam_assembly_producer": "passed",
+    "enclosure_box_direct": "passed; current SeaFlo reference baseline",
+    "enclosure_box_trace": "passed; SeaFlo reference baseline",
+    "cold_core_assembly_trace": "passed; current cap/foam sources",
+    "enclosure_producer": "deferred pending selected G Ganen reference and placement",
+    "combined_enclosure_assembly": "deferred pending selected G Ganen reference and placement",
+    "physical_corrected_assembly": "pending"
+  },
+  "reproducers": {
+    "cap": "tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "foam": "tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+    "water_split": "tools/cad-venv/bin/python hardware/reference/water-split/water_split.py selftest",
+    "complete_placement": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py",
+    "cold_core": "tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py"
+  },
+  "external_working_evidence": "/tmp/scanner-review/corrected-regeneration",
+  "water_pump_selection": {
+    "status": "G Ganen B07F35PTFR selected by Derek; scan capture/processing owned by root and reference agent",
+    "caliper_measurements": "None recorded, as confirmed by Derek on 2026-09-20",
+    "current_generated_model": "SeaFlo SFDP1-013-100-22",
+    "fluid_2_result_scope": "Present-reference clearance only; routing and mounting require reevaluation for the selected pump."
+  },
+  "placement_artifact": {
+    "path": "hardware/manifold-layout/enclosure-box.json",
+    "sha256": "a1468381b233f54a07cd491fefe3dabdc56da89bb46fa3bffb6d2181802427c9"
+  },
+  "full_build_results": [
+    {
+      "generator": "hardware/manifold-layout/enclosure_box.py",
+      "phase": "enclosure-box-route-corrected",
+      "exit_code": 0,
+      "seconds": 518.6,
+      "log": "/tmp/scanner-review/corrected-regeneration/enclosure-box-route-corrected.log",
+      "traced": false,
+      "raised": null
+    },
+    {
+      "generator": "hardware/manifold-layout/enclosure_box.py",
+      "phase": "enclosure-box-final-trace",
+      "exit_code": 0,
+      "seconds": 337.6,
+      "log": "/tmp/scanner-review/corrected-regeneration/enclosure-box-final-trace.log",
+      "traced": true,
+      "raised": null,
+      "trace": "/tmp/scanner-review/corrected-regeneration/enclosure-box-final-trace.trace.json"
+    },
+    {
+      "generator": "hardware/cold-core-layout/cold_core_assembly.py",
+      "phase": "cold-core-final-trace",
+      "exit_code": 0,
+      "seconds": 40.2,
+      "log": "/tmp/scanner-review/corrected-regeneration/cold-core-final-trace.log",
+      "traced": true,
+      "raised": null,
+      "trace": "/tmp/scanner-review/corrected-regeneration/cold-core-final-trace.trace.json"
+    }
+  ],
+  "cold_core_artifact_sha256": {
+    "hardware/cold-core-layout/cold-core-assembly.step": "1cd260c6309847bc756fad9ae184232ca1d99cc8466b34d55162ca19c3bcafcc",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5"
+  },
+  "source_freeze_verification": {
+    "entries": 20,
+    "changed": [],
+    "sha256": "1c387b467c229efa48918a1c4b2e3bbee6c278c8a4e24d6c59dfd9210b85bb53"
+  },
+  "cold_core_scorecard": {
+    "gatesPass": true,
+    "checks": 17,
+    "bodies": 52,
+    "bends": 8,
+    "unmet_goals": [
+      {
+        "id": "bom-covered",
+        "label": "Every billed cold-core part has a body here",
+        "kind": "goal",
+        "status": "fail",
+        "value": "28/35",
+        "target": "a body per billed part",
+        "detail": [
+          "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
+          "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
+          "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
+          "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
+          "heat-set inserts \u2014 billed, no solid here (\"ruthex M3 Threaded Inserts\")",
+          "cap clamp screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 25 mm DIN 912\")",
+          "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")"
+        ],
+        "active": true
+      },
+      {
+        "id": "mounted",
+        "label": "A feature of another placed part locates every body",
+        "kind": "goal",
+        "status": "fail",
+        "value": "50/52",
+        "target": "a located joint per body",
+        "detail": [
+          "probe-carbonator-ds18b20: foil tape",
+          "probe-coil-ds18s20: foil tape"
+        ],
+        "active": true
+      }
+    ],
+    "scope": "Producer acceptance gates pass. Unmet body-coverage/location goals remain explicit; they do not establish physical assembly acceptance."
+  }
+}

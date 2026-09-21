@@ -32,11 +32,12 @@ collar surfaces, not a guaranteed maximum across production parts. The branch's 
 external steps are approximately **1.5 mm farther outward** than the corresponding run
 steps. The fixed and moving surfaces at each nose remain separate interface questions.
 
-The current production journal is **Ø14.216 mm**. Even the nominal Ø16.3 collar has
-**1.042 mm radial interference** there before any running clearance. The carrier troughs,
-branch journals, insertion route and release plate need a common measured reference.
-The approximate JG illustration in `jg_pp0208e_tee.py` and the McMaster stand-in in
-[`../tee-connector/`](../tee-connector/) are not that completed production reference.
+The production clearance reference in [`../tee-connector/`](../tee-connector/) uses the
+**Ø16.5 mm sampled collar envelope**, **Ø14.0 mm rounded root envelope** and measured
+**42.5 mm extended run span**. Journals add **0.25 mm radial running air**, giving **Ø17.0 mm**.
+The carrier troughs, insertion route and tie clearances consume that same envelope.
+Conservative connecting shoulders precede the observed widening; the fit-band endpoints
+are not treated as exact molded shoulder edges. Axial release qualification remains open.
 
 ![Registered external profiles](scan-profiles.svg)
 
@@ -67,7 +68,10 @@ The thin terminal rims occupy different positions in the merged surface, especia
 −Z end. The capture does not encode a qualified common collet state. Derek also identifies
 both a collet and a small fixed barrel near an open end. Moving the entire small-diameter
 nose as one sleeve does not preserve that distinction. The fixed-body seam and the actual
-moving sleeve remain explicit inputs to a production solid.
+moving sleeve remain explicit unqualified datums in the production clearance reference.
+Its retained proxies are a 20.07 mm extended branch face, 16.95 mm body/sleeve split and
+5.715 mm release-nose radius. Moving that terminal proxy leaves every measured fixed
+collar patch in place; it does not establish the real rim's release contact.
 
 ## Production consumers
 

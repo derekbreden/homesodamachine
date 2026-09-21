@@ -34,6 +34,9 @@ pump_station_lead = -0.124
 # two pumps and the four barb ends downward in the installed machine. The manifold has its
 # own independent rise, carried by its tees, valve seats and stationary tube endpoints.
 pump_station_drop = 3.0
+# The physical flange rests on the unchanged skirt lands below the holder's station datum.
+# The extra micron is the upper-well Boolean overlap, also used by cap_drop_start_z.
+pump_seated_drop = fits.running + 0.001
 manifold_rise = 2.0
 # The two source limbs, including their tees and aft valves, sit below the outer limbs.
 # WHAT THE FIGURE IS FOR is the funnel: V-A and V-B stand coil-up directly under its sloping
@@ -45,6 +48,9 @@ inner_limb_drop = 8.0
 # Aft travel available beyond the connected tee-carrier datum, for elastic bending.
 # The connected pose, tube projections and moving carrier dimensions stay independent.
 tee_carrier_aft_overtravel = 2.5
+# Required stock behind every tee bearing line. The manifold also uses this
+# section when spacing the aft valve row for complete post insertion.
+tee_carrier_station_t = 2.5
 
 # THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
 # has to know. The fade is driven by how far a station stands from the nearest edge of the show

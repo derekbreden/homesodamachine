@@ -472,6 +472,9 @@
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/reference/kamoer-kphm400/register_scan.py": [
+    "hardware/reference/kamoer-kphm400/register_scan.py"
+  ],
   "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py": [
     "hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py",
     "hardware/scripts/_cadq_export.py",
@@ -507,11 +510,15 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/reference/tee-connector/tee_connector.py": [
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
     "hardware/reference/tee-connector/tee-connector.step",
     "hardware/reference/tee-connector/tee_connector.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_material_base.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
-    "hardware/scripts/_run_lock.py"
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
   ],
   "hardware/reference/water-split/water_split.py": [
     "hardware/reference/tee-connector/tee-connector.step",

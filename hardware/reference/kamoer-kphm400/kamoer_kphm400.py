@@ -54,7 +54,7 @@ rear_axis_y_shift = -1.0
 rear_axis_y = cy + rear_axis_y_shift
 base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
-outlet_above_skirt_bottom = 1.0
+outlet_above_skirt_bottom = 0.0  # rigid casing axes, confirmed in both 2026-09-20 scans
 arch_plane_z = pc.skirt_bottom_z + outlet_above_skirt_bottom
 tower_top_z = (pc.bore_bottom_z + pc.tower_height
                - pc.tower_cap_thickness)         # tower bore far face — the motor's headroom
@@ -70,6 +70,9 @@ barb_pitch = outlet_span_x - tube_casing_w
 outlet_open_span_x = barb_pitch + shaft_w
 arch_xs = (cx - barb_pitch / 2.0, cx + barb_pitch / 2.0)
 skirt_depth = 8.0
+# Outermost rigid front-cover rim below the measured underside bearing plane. This envelope
+# is independent of the coarse case-clipped head solid and excludes spray fixtures/tubing.
+head_front_below_skirt = 41.15
 skirt_support_air = 0.15
 # The skirt's measured Y span and +Y holder clearance. Its +Y face is 30.11 mm from the pump
 # axis; the cartridge opens 0.30 mm beyond it and carries only 3 mm of upper band behind that.
@@ -95,14 +98,13 @@ motor_dia = 35.73            # silver DC motor body (clears the tower bore)
 motor_reach = 62.55          # bracket datum to the motor end cap
 pump_len = head_depth + motor_reach  # fitted head face to motor end cap, excluding the nub
 body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings seat on
-# THE MOUNTING BRACKET, STATED AND NOT DRAWN. A stamped steel plate at the junction face between
-# head and boss — `geometry-description.md` §3 — carrying the 4×M3 on a 50 mm square that the
-# part is meant to be screwed down by. It stands PROUD OF THE HEAD all the way round, and that
-# lip is what a zip tie closing on this pump reaches under. The three solids below are a coarse
-# keep-out and none of them is this plate, so a consumer that needs it takes these two figures.
-bracket_w = 68.6             # across the plate, against the head's own 62.61
-bracket_t = 2.0              # through it, the thick end of the 1.5–2 the part measures
-bracket_z = base_plane_z     # the junction face it sits on — the head's rear, the boss's front
+# The rigid molded skirt carries the clamp load between its head-facing underside and the
+# motor-facing outer rim. Its observed thickness is 8 mm; no additional plate stands above
+# the rear flange datum. The compatibility names below describe that flange footprint.
+# scan-review.md and scan-measurements.json retain the independent bearing-strip observations.
+bracket_w = head_w
+bracket_t = 0.0
+bracket_z = base_plane_z
 # THE OUTLET SIDE FALLS BACK UNDER ITS BARBS, STATED AND NOT MEASURED HERE. The datasheet
 # gives one envelope and this module drew it as a block, because nothing had ever needed the
 # face: `pump_case`'s own wall stood well clear of it. What needs it is a seat that reaches in

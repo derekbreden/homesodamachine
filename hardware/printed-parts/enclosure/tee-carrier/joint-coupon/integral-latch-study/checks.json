@@ -1,0 +1,199 @@
+{
+  "status": "two_piece_coupon_geometry_pass",
+  "production_ready": false,
+  "parts": 2,
+  "additional_assembly_operations": 0,
+  "dimensions_mm": {
+    "wall_width": 13.0,
+    "wall_thickness": 1.3,
+    "effective_flex_length": 30.249999999999996,
+    "root_fillet": 0.45,
+    "lip_engagement": 1.2,
+    "lip_height": 3.0,
+    "required_tip_clearance_deflection": 1.3499999999999999,
+    "outward_slide": 3.25,
+    "vertical_relief_gap": 0.6000000000000001,
+    "release_slot": [
+      2.8,
+      3.6999999999999993
+    ]
+  },
+  "beam_surface_strain_estimate": 0.0028768526739976785,
+  "mechanics_scope": "Small-deflection 3*t*delta/(2*L^2) comparison only. The broad plate, slot, root, layer bonds, force and fatigue require the PET-GF coupon.",
+  "readings": {
+    "left": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 12652.85344,
+      "bounds_mm": [
+        34.462,
+        12.0,
+        52.82
+      ]
+    },
+    "right": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 7126.850878669712,
+      "bounds_mm": [
+        27.65,
+        6.0,
+        52.82
+      ]
+    },
+    "right_prescribed_deflection": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 7125.721000000002,
+      "bounds_mm": [
+        27.65,
+        6.8,
+        52.82
+      ]
+    },
+    "assembled_two_halves": {
+      "overlap_mm3": 0.0
+    },
+    "left_addition": {
+      "overlap_mm3": 0.0
+    },
+    "left_missing": {
+      "overlap_mm3": 0.0
+    },
+    "unchanged_fore_lap_and_key_shoulders": {
+      "added_mm3": 0.0,
+      "removed_mm3": 0.0
+    },
+    "key_1_complete_forward_entry_with_wall_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "key_1_complete_outward_slide_with_wall_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "key_2_complete_forward_entry_with_wall_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "key_2_complete_outward_slide_with_wall_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "key_drives_lip_during_forward_entry": {
+      "overlap_mm3": 11.160000000000002
+    },
+    "full_body_entry_end_with_wall_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "latched_reverse_slide_bearing": {
+      "overlap_mm3": 0.0035999999999993377
+    },
+    "reverse_slide_contact_is_integral_lip": {
+      "overlap_mm3": 0.0
+    },
+    "released_reverse_slide_endpoint": {
+      "overlap_mm3": 0.0
+    },
+    "fore_aft_key_bearing": {
+      "overlap_mm3": 0.05248000000000304
+    },
+    "lap_compression_bearing": {
+      "overlap_mm3": 0.43079584000010385
+    },
+    "outward_shear_bearing": {
+      "overlap_mm3": 0.07687000000000804
+    },
+    "vertical_shear_bearing_-1": {
+      "overlap_mm3": 0.024020000000062013
+    },
+    "vertical_shear_bearing_+1": {
+      "overlap_mm3": 0.026540000000027375
+    },
+    "rear_flat_blade_access_to_release_slot": {
+      "overlap_mm3": 0.0
+    },
+    "release_tool_clears_left_half": {
+      "overlap_mm3": 0.0
+    },
+    "rear_flat_blade_access_when_wall_is_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "release_tool_clears_left_half_when_deflected": {
+      "overlap_mm3": 0.0
+    },
+    "wall_fixed_body_clearance_at_0.27": {
+      "overlap_mm3": 0.0
+    },
+    "wall_fixed_body_clearance_at_0.54": {
+      "overlap_mm3": 0.0
+    },
+    "wall_fixed_body_clearance_at_0.81": {
+      "overlap_mm3": 0.0
+    },
+    "wall_fixed_body_clearance_at_1.08": {
+      "overlap_mm3": 0.0
+    },
+    "wall_fixed_body_clearance_at_1.35": {
+      "overlap_mm3": 0.0
+    },
+    "integral_root_attachment": {
+      "shared_volume_mm3": 16.9,
+      "height_mm": 1.0
+    }
+  },
+  "errors": [],
+  "physical_status": "unprinted; existing v1 keys/lap accepted by Derek, integral wall/lip unqualified",
+  "assembly": "Forward entry bends the integral wall; the same 3.25 mm outward slide lets the lip return beside the key.",
+  "release": "Pull the broad wall aft through the rear slot while the receiver slides inboard. The 2.5 by 0.4 mm probe establishes a clear approach corridor; the actual hook/pry gesture and force require the physical trial.",
+  "print_orientation": {
+    "left": "exact original upright v1 mesh; existing physical left coupon can be reused",
+    "right": "inverted in Z, wall root first and long wall vertical, matching broad sidewalls rising from the faucet cover bezel"
+  },
+  "support_geometry": {
+    "wall_relief": "0.6 mm vertical gap, open at the long edges and free tip; no horizontal support sheet is required inside it",
+    "lip": "square projection in the open lower key-entry window; support removes through that window before assembly",
+    "key_pockets": "unchanged square contact faces; crowns open aft for straight support removal",
+    "status": "geometry review only; actual sliced roads and physical removal remain unverified"
+  },
+  "source_sha256": "c539f625a668004cfd7e5d3a25249707cd35e64472fe4c580b61af7013d5df21",
+  "v1_source_sha256": "1a837136b7c8a7f65b38a0a9cffc472f93f0a1391429b5c647b7de31932ae41b",
+  "printed_meshes": {
+    "left": {
+      "path": "coupon-only-left.stl",
+      "sha256": "d0afd35f18df2a34753d04c91184e6f60c4eafd369c5f486042e402c6707f734",
+      "watertight": true,
+      "winding_consistent": true,
+      "native_volume_difference_mm3": 0.0004386187702039024,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          34.46200180053711,
+          12.0,
+          52.81999969482422
+        ]
+      ],
+      "pass": true
+    },
+    "right": {
+      "path": "integral-latch-study/integral-coupon-right.stl",
+      "sha256": "d0e2e2aba417d1913daafca6d18ea2ebc3a8961ddbba3678fdb11a35f8568104",
+      "watertight": true,
+      "winding_consistent": true,
+      "native_volume_difference_mm3": 0.0006623671797569841,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          27.649999618530273,
+          6.0,
+          52.81999969482422
+        ]
+      ],
+      "pass": true
+    }
+  }
+}

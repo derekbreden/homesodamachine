@@ -29,9 +29,11 @@ nozzle it knows.
   `FAILED` (a cancelled print) are both idle: the machine takes a job and the send dialog
   offers it. `PREPARE`, `RUNNING` and `PAUSE` are busy, and Send is disabled.
 - `external_spools` are the MQTT `vir_slot` trays: `254` is the left external spool and
-  `255` the right. `254` is declared PET-CF and carries the PET-GF; every job maps the
-  left nozzle to it. The device page's Filaments panel shows the AMS trays and `255`.
-  No colour is reported for either spool.
+  `255` the right. Read both `type` and `colour` when present and verify the physical
+  material from Derek's loading report. Mark2 carries black PET-GF on the left and white
+  PET-GF on the right; both are labelled PET-CF in the printer. A single-colour black job
+  uses the left nozzle. The [two-colour nameplate record](../hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json)
+  identifies its separate left/black and right/white assignments.
 - `nozzles` lists every nozzle the machine knows, racked or mounted; `nozzle_type` names
   one of them, not the printing head. The send dialog checks the sliced diameter against
   the head and shows a mismatch on the filament tile.

@@ -1476,7 +1476,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # pump wells and fitted tube passages open through this one cradle; the clamp lifts
 # through the same straight upper wells after its two screws are removed.
 bay_crown_air = 1.7          # neutral pump datum to the nominal bay roof
-pump_bay_floor_relief = 1.0  # sill top below its neutral pump-derived datum
+pump_bay_floor_relief = 2.6  # continuous sill clears the scanned rigid head-front rim
 pump_bay_roof_relief = 2.5   # lintel underside above its neutral pump-derived datum
 pump_relief_z_air = 1.0      # pump pocket past each head/collar end
 pump_cartridge_z_clearance = fits.running  # Z air at the fixed sill and on the pump clamp; this
@@ -1500,7 +1500,7 @@ plate_foot_corbel_angle = 45.0
 #
 # THE LOWER CRADLE IS THE CARTRIDGE. It owns the complete front face, the full-height block
 # behind it, both bracket lands and both hand pulls. Each pump drops through
-# its open well until the stamped bracket at the head-to-boss junction lands on the cradle.
+# its open well until the molded flange at the head-to-boss junction lands on the cradle.
 # Nothing under the head carries it; the head clears the bay floor and the bracket puts the
 # load into the block around the well.
 #
@@ -1513,7 +1513,7 @@ plate_foot_corbel_angle = 45.0
 # heat-sets in the cradle spine, so the cap captures both brackets without becoming a second
 # thing the hand pulls on. The screw is as long as the field is tall.
 #
-# BOTH PARTS INSTALL IN Z. With the clamp off, the stamped bracket, head and two tube-side
+# BOTH PARTS INSTALL IN Z. With the clamp off, the molded flange, head and two tube-side
 # fittings have straight open paths from the top of the cradle to their seats. The clamp
 # follows the same path over the cans. Its plate footprint
 # is therefore the well above the bracket plane; below that plane the smaller head room leaves
@@ -1530,6 +1530,13 @@ clamp_lane_overlap = 2.0     # the cradle's centre clearance into each upper wel
                              # and the two wells read as one opening for the clamp's spine
 clamp_drop_air = fits.running  # clamp footprint and bracket air through the cradle well
 clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
+# Four exposed, flat rails bear on the measured outer flange rims, directly over the skirt
+# lands. The bridge keeps clearance above the cradle spine while the screws establish contact.
+# The cap prints crown-down: these terminal bearing faces face print-up, with open sides.
+cap_bridge_rise = 2.0
+cap_pressing_rail_x = (29.0, 32.0)
+cap_pressing_rail_y = (-16.0, 16.0)
+cap_contact_travel = 0.25  # downward adjustment available before screw-tip or bridge stops
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -2761,13 +2768,16 @@ def _dims(pack):
                 if crowns else None)
     if pump_bay and pack.pump_trays:
         floor_top = bay_floor_z(pack.pump_trays)[1]
-        head_floor = min(cz + _tray.head_front_z for _cx, _cy, cz in pack.pump_trays)
+        head_floor = pump_skirt_support_z(pack.pump_trays) - _tray.head_front_below_skirt
         head_air = head_floor - floor_top
         roof_air = pump_bay[2] - max(crowns)
         head_target = (pump_relief_z_air + pump_cartridge_z_clearance + pump_bay_floor_relief
-                       - pump_station_drop + _tray.head_depth + _tray.head_front_z)
+                       - pump_station_drop + _tray.head_depth - _tray.skirt_depth
+                       - _interface.pump_seated_drop - _tray.head_front_below_skirt)
         roof_target = pump_station_drop + bay_crown_air + pump_bay_roof_relief
-        vertical_ok = (abs(head_air - head_target) <= stated_bound_tol
+        vertical_ok = (head_air >= fits.running
+                       and floor_top - z_seam >= 4.0
+                       and abs(head_air - head_target) <= stated_bound_tol
                        and abs(roof_air - roof_target) <= stated_bound_tol)
         record_bound(Bound(
             "pump-bay-vertical-datums",
@@ -5102,10 +5112,7 @@ def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
 
 
 def cap_split_z(pump_trays):
-    """The stamped bracket's lower bearing plane.
-
-    The lower cradle carries the bracket from below; its top clamp presses from the bracket's
-    opposite face."""
+    """The holder station datum; the seated physical flange lies pump_seated_drop below it."""
     return min(cz for _cx, _cy, cz in pump_trays)
 
 
@@ -5115,8 +5122,29 @@ def cap_drop_start_z(pump_trays):
 
 
 def cap_base_z(pump_trays):
-    """The top clamp's broad Z-minus face, on the stamped bracket's upper face."""
-    return cap_split_z(pump_trays) + _tray.bracket_t
+    """The bridge underside, clear of the cradle spine; only its four rails press the pumps."""
+    return cap_split_z(pump_trays) + cap_bridge_rise
+
+
+def cap_pressing_z(pump_trays):
+    """The nominal outer flange rim, eight millimetres above the real skirt bearing lands."""
+    return pump_skirt_support_z(pump_trays) + _tray.skirt_depth
+
+
+def _cap_pressing_rails(pump_trays):
+    """Two straight exposed rails per pump; each overlaps the observed rigid outer rim.
+
+    The inner edges stand outside the complete boss opening. The side faces remain open for
+    inspection and cleaning, and no rail crosses a mounting hole or flexible outlet."""
+    bottom, top = cap_pressing_z(pump_trays), cap_base_z(pump_trays)
+    out = []
+    for cx, cy, _cz in pump_trays:
+        my = cy + clamp_pump_y_shift
+        for sign in (-1.0, 1.0):
+            x0, x1 = sorted(cx + sign * x for x in cap_pressing_rail_x)
+            out.append(_ybox(x0, x1, my + cap_pressing_rail_y[0],
+                             my + cap_pressing_rail_y[1], bottom, top + 0.01))
+    return out
 
 
 def cap_crown_z(box):
@@ -5138,8 +5166,8 @@ def cap_head_seat_z(box):
 
 
 def pump_skirt_support_z(pump_trays):
-    """The flat cradle land one running clearance below each 8 mm pump skirt."""
-    return cap_drop_start_z(pump_trays) - _tray.skirt_depth - _tray.skirt_support_air
+    """The fitted flat land; the physical skirt rests here below the holder station datum."""
+    return cap_split_z(pump_trays) - _tray.skirt_depth - _interface.pump_seated_drop
 
 
 def pump_skirt_band_aft_y(pump_trays):
@@ -5244,7 +5272,7 @@ def _pump_drop_voids(box):
     plane standing on the case ramp's own seam. The wall between and outside them remains
     printed stock.
 
-    ABOVE THE BRACKET each 73 mm well passes the stamped bracket, pump and complete
+    ABOVE THE BRACKET each 73 mm well passes the molded flange, pump and complete
     clamp, opening through the cartridge's flat aft face. The centre clearance joins
     the two wells over the clamp spine. At the seat the upper wells stop on the bracket
     plane, leaving the fitted head room and its bearing lands below."""
@@ -5375,8 +5403,9 @@ def pump_cartridge_figures(box):
     clamp_crown = cap_crown_z(box)
     floor_top = bay_floor_z(trays)[1]
     cartridge_top = bay[2] - pump_cartridge_top_clearance
-    head_floor = min(cz + _tray.head_front_z for _cx, _cy, cz in trays)
-    motor_crown = max(cz + _tray.motor_crown for _cx, _cy, cz in trays)
+    head_floor = pump_skirt_support_z(trays) - _tray.head_front_below_skirt
+    motor_crown = max(cz + _tray.motor_crown - _interface.pump_seated_drop
+                      for _cx, _cy, cz in trays)
     foot_low = (box.splits[0] - plate_foot_t
                 - plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle)))
     condenser_top, foot_air = plate_foot_condenser_clearance(
@@ -5386,6 +5415,7 @@ def pump_cartridge_figures(box):
         "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
         "PUMP_BAY_ROOF_RELIEF": f"{pump_bay_roof_relief:.4g} mm",
         "PUMP_BAY_FLOOR_Z": f"{floor_top:.6g} mm",
+        "PUMP_BAY_FLOOR_STOCK": f"{floor_top - z_seam:.6g} mm",
         "PUMP_BAY_LINTEL_Z": f"{bay[2] + fits.supported_surface:.6g} mm",
         "PUMP_CARTRIDGE_TOP_AIR": f"{pump_cartridge_top_clearance + fits.supported_surface:.4g} mm",
         "PUMP_HEAD_FLOOR_AIR": f"{(head_floor - floor_top):.4g} mm",
@@ -5411,7 +5441,7 @@ def pump_cartridge_figures(box):
         "PULL_FORE_STOCK": f"{(y0 - pump_cartridge_front_y):.4g} mm",
         "PULL_AFT_STOCK": f"{(aft - y1):.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
-        "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
+        "CLAMP_RISE": f"{(clamp_crown - cap_pressing_z(trays)):.5g} mm",
         "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
         "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
         "CLAMP_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - clamp_crown):.4g} mm",
@@ -5428,7 +5458,12 @@ def pump_cartridge_figures(box):
         "CLAMP_FRONT_SKIN": f"{(clamp_fore - clamp_drop_air - pump_cartridge_front_y):.4g} mm",
         "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + clamp_pump_y_shift + _tray.boss_half
                                                 for _cx, cy, _cz in trays)):.4g} mm",
-        "CLAMP_BRACKET_T": f"{_tray.bracket_t:.4g} mm",
+        "CLAMP_BRIDGE_RISE": f"{cap_bridge_rise:.4g} mm",
+        "CLAMP_PRESSING_Z": f"{cap_pressing_z(trays):.6g} mm",
+        "CLAMP_RAIL_WIDTH": f"{cap_pressing_rail_x[1] - cap_pressing_rail_x[0]:g} mm",
+        "CLAMP_RAIL_RUN": f"{cap_pressing_rail_y[1] - cap_pressing_rail_y[0]:g} mm",
+        "CLAMP_CONTACT_TRAVEL": f"{cap_contact_travel:g} mm",
+        "PUMP_SEATED_DROP": f"{_interface.pump_seated_drop:g} mm",
         "CAP_TUBE_OPEN_SPAN": f"{2.0 * cap_slot_half:.4g} mm",
         "CAP_TUBE_PART_SPAN": f"{2.0 * _tray.outlet_half:.4g} mm",
         "CAP_TUBE_OPEN": f"{2.0 * cap_fitting_half:.5g} mm",
@@ -5894,7 +5929,7 @@ def build_pump_cartridge(box, halves_cache=None):
     over a recessed fixed sill, ends on the flat back it shares with the clamp, and remains one piece through
     the complete removable front-wall height. Two open wells admit
     the pumps and top clamp in Z. Below the bracket plane those wells close to the head
-    clearance, leaving the stamped brackets on three cradle lands; four fitting-sized passages
+    clearance, leaving the molded flanges on three cradle lands; four fitting-sized passages
     stay open through the whole drop path while the aft pull wall remains between them.
 
     Both tall side pulls have mirrored edge margins plus supported-roof allowance. The clamp has no pull feature.
@@ -5957,15 +5992,12 @@ def _pump_cartridge_gross(box, halves_cache=None):
 
 
 def _pump_clamp_gross(box, halves_cache=None):
-    """One filled clamp field, cut only where its two fitted pumps require.
+    """One clamp bridge with four flat rails bearing on the measured rigid flange rims.
 
-    The field begins as one broad Z-minus face on top of both stamped brackets. Each complete
-    case-profile octagon locates a boss, and each motor can opens the remaining height. There
-    is no shallow bracket pocket or narrow rail under the field: the bracket itself lies below
-    the print. The complete field reaches one common crown carried with the pumps, independently
-    of the fixed bay lintel, and ends aft on the flat back it shares with the cradle. The lane
-    between the two openings stays full from base to crown; the screws cross it in their own
-    bores."""
+    Each complete case-profile octagon locates a boss, and each motor can opens the remaining
+    height. The broad bridge stays above the cradle spine so screw closure reaches the pump
+    rims before a printed hard stop. The common crown, screw seats and fitted openings stay
+    on their holder datums; the exposed rails alone reach the seated pump's bearing plane."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
@@ -5977,6 +6009,8 @@ def _pump_clamp_gross(box, halves_cache=None):
     x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
     x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
     solid = _ybox(x0, x1, fore, aft, base, crown)
+    for rail in _cap_pressing_rails(trays):
+        solid = solid.fuse(rail)
     for cx, cy, cz in trays:
         opening_y = cy + clamp_pump_y_shift
         solid = solid.cut(_tray.boss_room(cap_boss_air).moved(
@@ -5993,7 +6027,7 @@ def _cap_screws(box):
     """The clamp's two top-down screw bores and the cradle's two upward heat-set bores.
 
     Each M3×60 sits in a counterbore struck into the crown, runs the whole filled field, crosses
-    the stamped-bracket-height gap over the cradle spine and takes the complete long heat-set
+    the bridge clearance over the cradle spine and takes the complete long heat-set
     opened from the cradle's bracket plane; the pilot runs half a millimetre past its tip. The
     seat is placed by the screw (`cap_head_seat_z`), so the crown must stand at least one head
     over it, and both bores stand in the filled lane between the boss octagons with a wall to
@@ -6027,8 +6061,8 @@ def build_pump_cap(box, halves_cache=None):
 
     With the cartridge withdrawn from the enclosure, it lowers over both motor cans after the
     pumps stand in the cradle. Each opening takes its boss on the complete case-profile octagon
-    and closes with one shoulder round the can; the bottom field presses both stamped brackets
-    onto the cradle lands. The whole field reaches its pump-carried crown, and two M3×60 reach
+    and closes with one shoulder round the can; four rails press the molded flange rims
+    onto the cradle lands. The whole field reaches its holder-datum crown, and two M3×60 reach
     the cradle from counterbores in that crown. This piece carries no show face, plate stop or
     pull."""
     solid = _pump_clamp_gross(box, halves_cache)

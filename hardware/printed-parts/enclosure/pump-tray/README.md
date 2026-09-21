@@ -3,7 +3,7 @@
 [`pump_tray.py`](/hardware/printed-parts/enclosure/pump-tray/pump_tray.py) draws the
 case-derived collar used twice in `enclosure-pump-cap`. It is not a separate printed part.
 [`pump_case.py`](/hardware/printed-parts/enclosure/pump-tray/pump_case.py) supplies the fitted
-surfaces: a plate and 45° ramp at the pump's bracket plane, the boss's octagonal bore wall,
+surfaces: a plate and 45° ramp at the holder station plane, the boss's octagonal bore wall,
 and one shoulder around the motor can.
 
 The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
@@ -17,33 +17,28 @@ The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
 | shoulder | [3](SHOULDER) mm over the boss, bored Ø[36.23](CAN_BORE) for the can |
 | complete collar rise | [24](TRAY_D) mm |
 | pump envelope below it | [62.61](HEAD_W) mm head, [47.88](HEAD_D) mm deep |
-| stamped bracket | [68.6](BRACKET_W) mm square, stated by the pump reference and added to assembly checks |
+| molded flange envelope | [62.61](BRACKET_W) mm across, with an 8 mm skirt between bearing faces |
 | rear stack axis | [1](REAR_AXIS_Y_SHIFT) mm toward Y− from the head and lower-cradle datum |
 
 ## How it becomes the clamp
 
-`enclosure._pump_clamp_gross` places the broad pressing field on each pump's head datum and the
-case-derived collar on the reference pump's offset rear-stack axis. The pump reference does not
-draw the stamped bracket, so the enclosure builder starts the complete clamp field on that
-bracket's measured upper face. The field supplies the pressing section there, re-cuts the
-boss's exact octagon, and joins both collars with two centre screw bridges.
+`enclosure._pump_clamp_gross` uses the case-derived octagon and can openings on the reference
+pump's offset rear-stack axis. Its bridge stays above the cradle spine. Four exposed flat
+rails reach the independently measured motor-facing flange rims directly over the skirt lands.
+Two top-access M3 screws establish that contact while the lower cradle takes the load.
 
-The finished clamp therefore has three distinct contacts:
-
-- the pressing annulus closes on the bracket's top face;
-- the octagonal wall locates the white boss in X, Y and yaw above the bracket;
-- the shoulder surrounds the motor can at the boss crown.
-
-The lower cradle bears under the bracket. Two top-access M3 screws draw the clamp onto that
-cradle, so no collar or screw hidden below the pumps carries their weight.
+The pump's front rim clears the continuous bay floor; the floor is not a competing pump seat.
+The physical pump pose includes the holder's seated drop, and the four outlet paths read that
+same pose. Short inserted 1/4-inch LLDPE stubs in the scans are external tubing in silicone;
+they do not define the rigid pump envelope.
 
 ## Verification
 
-`pump_tray.py selftest` checks that the source is one valid solid, clears the drawn pump bodies,
-covers the bracket footprint, and retains material on both case-derived axial storeys. The
-enclosure assembly adds the omitted bracket to the pump drop and clamp drop sweeps, reads the
-octagonal contact against each boss, and probes printed bearing above and below three bracket
-sides.
+`pump_tray.py selftest` checks the case-derived source solid, locating profiles and reference
+clearances. Independent physical observations and native cap/cradle contact checks are in
+[the scan review](/hardware/reference/kamoer-kphm400/scan-review.md) and
+[check_pump_contacts.py](/hardware/reference/kamoer-kphm400/check_pump_contacts.py).
+The new cap and relieved floor still require a dry assembly check with the physical pumps.
 
 ## Print
 

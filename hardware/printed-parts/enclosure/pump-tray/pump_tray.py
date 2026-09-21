@@ -1,35 +1,16 @@
-"""A PUMP CLAMP COLLAR IS THE PUMP CASE WITH ITS CYLINDER CUT OFF.
+"""Case-derived locating collar and head well for the Kamoer pump cartridge.
 
-One per Kamoer. `pump_case` draws a two-piece case for this pump; its base is a plate on the
-head-to-boss plane, a 45° ramp off that plate, an octagonal bore wall standing in the ramp,
-and a cylindrical tower over the bore that the motor can turns in. Cut the tower to one
-`SHOULDER` over the boss and the remaining fitted surfaces are the collar source.
+The lower cradle supports the rigid eight-millimetre molded skirt. The enclosure's top cap
+uses four exposed rails to press its motor-facing outer rim, while the fitted octagonal
+opening locates the rear boss and the circular opening clears the motor can. The pump's
+front-cover rim clears the fixed continuous bay floor independently of these seats.
 
-Both collar sources are fused into the small top clamp (`enclosure.build_pump_cap`). The
-enclosure builder starts the clamp on the omitted stamped bracket's upper face, restores one
-complete pressing plate there, and joins the two collars with screw bridges. NO COLLAR SHIPS
-AS A PART.
-
-    ACROSS  the case's own footprint
-    ALONG   the case's own footprint, cut back to the face it roots on
-    DEEP    the bore's whole run on the boss, and one `SHOULDER` of tower over its crown
-
-THE LOWER CRADLE IS THE LOAD PATH. Its lands bear under three sides of the stamped bracket.
-The top clamp presses the bracket down and this collar locates the boss in plan and clock;
-its octagonal bore takes the boss above the bracket and its shoulder surrounds the can.
-
-This module states what the tray adds over the case and draws one in its own frame; `enclosure`
-turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` draws it:
-  Z = the pump's depth axis, out of the head toward the can. `z = 0` IS THE HEAD'S +Z FACE, which
-      is `pump_case`'s own base plane, so the case drops in with no turn and only a shift.
-  X = across the tray. Y = along it, and `root` is the way it runs to the wall.
-  Origin is the pump's own axis on that face.
-
-Printed as part of the shallow clamp, the ramp, bore wall and shoulder grow off the pressing
-plate's own section.
+This module carries the proven case profiles and their clearances. Its collar builder is a
+source solid, not a separate printed part. The production cap is enclosure.build_pump_cap.
+The physical reference is hardware/reference/kamoer-kphm400/scan-review.md; the case-derived
+reference solid alone is not independent evidence of physical contact.
 
 Run:
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py selftest
 """
 
@@ -58,15 +39,15 @@ head_half = _kp.head_w / 2.0
 # The holder's clearance envelope below the bracket, independent of the fitted head face.
 head_depth = 48.88
 head_front_z = _kp.head_front_z
+head_front_below_skirt = _kp.head_front_below_skirt
 # The boss's octagon, half of it at the flats.
 boss_half = _pc.bore_half_span
 # The boss's whole run off the bracket plane — the bore wall's depth.
 boss_depth = _pc.bore_bottom_z
 # The bore the case turns the can in, half of it — what rises out of the shoulder.
 can_half = _kp.motor_dia / 2.0 + fits.running
-# The mounting bracket the part carries at that plane, stated by `kamoer_kphm400` and drawn by
-# nobody. It stands proud of the head all the way round. The cradle bears below it and the
-# clamp's restored pressing plate lands above it.
+# The molded flange's plan envelope. Its eight-millimetre skirt transfers clamp load from
+# the measured motor-facing outer rim to the lower cradle's lands.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
 # The motor can's far face above the bracket datum. The enclosure's removable clamp follows
@@ -111,7 +92,7 @@ outlet_axis_z = _pc.skirt_bottom_z
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 # And that base plate's own thickness. The enclosure restores this whole section above the
-# stamped bracket before joining both collars into the clamp.
+# molded flange before joining both collars into the clamp.
 PLATE = _pc.base_thickness
 
 # --- what the tray adds over the case it is cut out of -----------------------
@@ -387,7 +368,7 @@ def trays_of_machine(facts):
 def selftest() -> int:
     """The tray against the pump it takes and the case it is cut out of."""
     fails = []
-    # The collar footprint must cover the stamped bracket so the enclosure can restore a
+    # The collar footprint must cover the molded flange so the enclosure can restore a
     # complete pressing annulus on its upper face.
     if half_width() < bracket_half:
         fails.append(f"the collar runs {half_width():.3f} mm off the axis and the bracket reaches "
