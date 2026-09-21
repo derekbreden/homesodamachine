@@ -1,59 +1,97 @@
 # Tee integration checks
 
-The measured PP0208E radial envelope is integrated into the production reference,
-manifold, carrier, release-wall journals and water split. `tee-integration.json`
-records native checks of the coupled tee/valve/carrier region and every input
-SHA-256. Its `print_release` is false: a local geometry pass does not release the
-complete enclosure.
+The measured PP0208E envelope and operating faces are integrated into the production
+reference, manifold, carrier, release-wall journals and water split. The complete
+enclosure is an assembly trial for spring retention, tension, rigidity and release
+feel. Native geometry and current slices qualify that print; the physical behavior
+is measured with the assembled print.
 
 | Interface | Current dimension |
 |---|---:|
-| Documented nominal collar diameter | 16.3 mm |
+| Nominal collar diameter used for the caliper datum | 16.3 mm |
 | Rounded scanned collar envelope, including draft | 16.5 mm |
 | Rounded fixed root envelope | 14.0 mm |
 | Printed journal diameter | 17.0 mm |
 | Carrier trough radius | 8.75 mm |
 | Run span, extended / both sleeves pressed | 42.5 / 39.2 mm |
-| Sleeve stroke / connected nose gap | 1.65 / 0.5 mm |
-| Release-to-connected / full aft guide stroke | 2.15 / 4.65 mm |
-| Tee bearing line | Y109.360 mm |
-| Tee axis elevation | Z186.174 mm |
-| Retained backing at each tee | 2.5 mm |
-| Retained backing above each tee | 5.504166 mm |
+| One run sleeve's travel | 1.65 mm |
+| Branch outside width, extended / pressed | 30.5 / 29.0 mm |
+| Branch face from run axis, extended / pressed | 22.35 / 20.85 mm |
+| Branch terminal travel / connected nose gap | 1.50 / 0.50 mm |
+| Carrier release / connected / aft-stop offset | 0 / 2.00 / 4.50 mm |
+| Tee axes across X | ±22.35 / ±82.10 mm |
+| Tee bearing line / axis elevation | Y111.790 / Z186.174 mm |
+| Retained backing at / above each tee | 2.5 / 5.504166 mm |
 | Deck separation | 60.95 mm |
 | Air at complete aft-valve post insertion | 0.25 mm |
 | Spring axes | X±97.535, Z211.209 mm |
-| Fixed spring floor / moving release floor | Y87.460 / Y106.960 mm |
-| Cartridge tube projection from barb station | 17.626 mm |
+| Fixed spring floor / moving release floor | Y90.040 / Y109.390 mm |
+| Circular release aperture | Ø8.5 mm |
 
-The collar envelope is a rounded reading of the scanned sample, not a production
-manufacturing tolerance. The run and branch root/collar fit intervals are interior
-patches. Conservative shoulders connect their envelopes without treating a patch
-boundary as a manufactured edge.
+The branch-axis stations subtract the nominal 8.15 mm back-collar radius from
+[Derek's outside-width readings](../../../reference/jg-pp0208e-tee/branch-operating-measurements.json).
+The conservative 8.25 mm clearance radius is a separate datum. The scanned collar
+envelope is a rounded reading of the sample, not a manufacturing tolerance. Root/collar
+fit intervals are interior patches; their endpoints are not molded shoulder edges.
 
-`verify_tee_integration.py` checks the exported reference against those fitted
-surfaces and bench spans; places the actual valve solids and corrected pump
-stations; derives the same carrier/plate interface as the appliance; reads the
-regenerated native carrier halves; and checks their local fixed wall, all operating
-states, upper backing and full post-entry position. It also checks the water split's
-distinct run and branch faces. Full carrier installation sweeps against all enclosure
-parts remain the appliance assembly's separate check.
+## Terminal-ring bearing
+
+Derek identifies the small outermost terminal ring as the moving part. The larger
+reduced barrel behind it stays fixed. The [terminal-face review](../../../reference/jg-pp0208e-tee/terminal-bearing-review.json)
+reads the existing registered scan at its original scale. Its near-planar front face
+has observed bearing outside the Ø8.5 aperture in all 36 ten-degree sectors: 20.07 mm²
+of projected face, including 99.73% of the R4.25–4.75 mm band. Sampled 0.35 mm lateral
+offsets retain observed face in every sector.
+
+This supports the aperture for the complete enclosure assembly trial. No additional
+tee scan or pre-print rear-seam measurement is required for this face-pushing interface.
+The approximate side-wall OD is 10.62 mm; neither its exact OD nor its rear seam is
+caliper-qualified. Projected scan area is not guaranteed simultaneous contact area,
+a strength rating or a manufacturing tolerance. The native R4.26–5.00 mm witness
+proves plate stock only: R5.00 is not a measured minimum terminal-face radius.
+
+The physical trial checks that every actual ring bears on the flat shoulder, reaches
+release over its measured 1.5 mm travel, and permits tube withdrawal and relocking
+without the larger fixed barrel bottoming on the plate. If contact is uneven, the
+smallest useful follow-up is the affected ring's flat-face outside diameter and its
+contact mark on the plate.
+
+## Carrier and springs
+
+The [integrated two-half carrier](../tee-carrier/simple-carrier-study/README.md) uses
+an integral broad-wall latch and broad bearing regions. Its moving spring cups are
+closed; the matching fixed cups belong to the enclosure. No joint screws, separate
+keeper or retained spring guide pin is used. The measured springs are 27 mm free,
+approximately 7 mm compressed and Ø6 mm. This capture design does not require spring ID.
+
+Spring-floor separation is 19.35 / 21.35 / 23.85 mm at release / connected / aft stop.
+Both-end retention, actual spring force, unequal-hand motion, assembly effort and
+whole-carrier rigidity remain full-enclosure trial observations. The native cup,
+stock, neighbor and installation checks are named by the carrier's
+[artifact manifest](../tee-carrier/simple-carrier-study/artifact-manifest.json).
+
+## Evidence and complete-enclosure scope
+
+[`tee-integration.json`](tee-integration.json) and the
+[measured-branch fixture](branch-propagation/) record their exact source/native input
+digests and captured geometry. They are bounded integration evidence, not a release
+of every current enclosure component. The [routing corrections](routing-clearance/)
+cover the water-split flank, retained anchors and reservoir-A fill lane. Their current
+whole-pack checks accompany the coordinated Box/enclosure generation.
+
+The pump-only placement pair is `pump_station_lead = -0.074` and
+`PUMP_BARBS_TO_RELEASE_PLANE = 5.526` mm; it preserves the tee/deck/valve stations.
+Kamoer's accepted fitted cap geometry, raised open crown and current cartridge fit
+checks belong to the separate pump evidence. The complete enclosure still requires
+matching generated parts, full native paths/clearances, current support-removal review
+and exact slice identity. The [root readiness report](../print-readiness.md) owns that
+combined status.
 
 ```sh
+tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/analyze_terminal_bearing.py
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-readiness/verify_tee_integration.py
 ```
 
-The production tee source explicitly retains three unqualified layout proxies:
-branch extended face 20.07 mm, body/sleeve split 16.95 mm, release-nose radius 5.715 mm.
-The minimum tee qualification is the requested **fully extended branch face to the
-back of the widest run collar** caliper reading, plus identification of the **actual
-moving terminal rim versus fixed small barrel** and its usable release-contact
-surface. The known 1.65 mm stroke supplies the pressed face once the absolute face
-is established. No new complete tee scan is necessary for that absolute reading.
-
-Changing the absolute branch datum affects the shared reference, manifold lateral
-stations/deck origin, release plate, carrier placement, water split and connected
-tube endpoints. Those consumers remain linked to one source. Final release also
-requires the measured spring ID/capture design, pump clamp qualification, regenerated
-whole enclosure checks, current support-removal audit and exact slice identity.
-The root [print-readiness report](../print-readiness.md) owns that combined status.
+The first command only reads scan/measurement evidence. The second builds the bounded
+native region in memory and refreshes its local report; full enclosure installation
+and current slice checks remain separate.

@@ -1,0 +1,336 @@
+{
+  "scope": "Current frozen lower valves/coils follow the existing -5.45 mm fore staging, a 100 mm rise and complete post insertion. All rigid constituent faces swept. Pusher and carrier installation occur before these valves.",
+  "generator_sha256": "b131a9fb5100d17c807e08e1e411fb643f10447913596e26ba594ba28a866cc1",
+  "script_sha256": "520c12fa14c887bd5ff5f32812ee54af4032f83c0cdcc18c39a75fd99c554928",
+  "sweep_script_sha256": "3d6d4f7567311d6ea825d23dbeb94beb69a6bc9bd6bf0123fd81c99eba987759",
+  "neighbor_manifest_sha256": "bdc2bb8e19776fb4737b1c6a1e75a7e7b860cb499de3a39e8a660f26f546be94",
+  "sweeps": [
+    {
+      "component": "coil-v-c",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 54,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-c",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 54,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-c",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-c",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-d",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 54,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-d",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 54,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-d",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-d",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-g",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 60,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-g",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 58,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-g",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-g",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-j",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 60,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "coil-v-j",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 58,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-j",
+      "stage": "rise",
+      "start": [
+        0,
+        -5.45,
+        -100
+      ],
+      "end": [
+        0,
+        -5.45,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    },
+    {
+      "component": "valve-v-j",
+      "stage": "post insertion",
+      "start": [
+        0,
+        -5.45,
+        0
+      ],
+      "end": [
+        0,
+        0,
+        0
+      ],
+      "initial_overlap_mm3": 0.0,
+      "tested_face_prisms": 0,
+      "max_prism_overlap_mm3": 0,
+      "nonzero": []
+    }
+  ],
+  "inner_forward_features": [
+    {
+      "component": "coil-v-c",
+      "forward_feature_bounds": {
+        "x": [
+          10.757571471437151,
+          33.642428528562874
+        ],
+        "y": [
+          119.98999999999998,
+          120.89000000000004
+        ],
+        "z": [
+          173.92500009999995,
+          181.9250001
+        ]
+      },
+      "native_top_to_backing_floor_air_mm": 0.24999990000000594
+    },
+    {
+      "component": "coil-v-d",
+      "forward_feature_bounds": {
+        "x": [
+          -33.94242852856285,
+          -11.057571471437129
+        ],
+        "y": [
+          119.98999999999998,
+          120.89000000000004
+        ],
+        "z": [
+          173.92500009999995,
+          181.9250001
+        ]
+      },
+      "native_top_to_backing_floor_air_mm": 0.24999990000000594
+    }
+  ],
+  "all_reported_native_readings_clear": true
+}

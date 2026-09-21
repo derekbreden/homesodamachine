@@ -1,0 +1,26 @@
+{
+  "authority": "Derek, 2026-09-20 local date",
+  "assembly": "Existing printed Kamoer cartridge and cap, screws tightened",
+  "both_pumps_held_firmly": true,
+  "vertical_play_observed": false,
+  "statements": [
+    "Yes—both pumps were firmly held",
+    "No vertical play, but there is a huge gap above the cylinder, above cap. Some room for spades is needed, but not that large gap.",
+    "I suppose I don’t want material literally above the cylinder, but I hope you see what I mean, that the cap just stops a bit short."
+  ],
+  "cap_crown_requirement": "Extend surrounding cap structure; leave the cylinder end and spade-terminal space open.",
+  "photo": {
+    "path": "/tmp/codex-remote-attachments/01a0c0a9-ed55-75a0-8840-649021dc1774/924BCC5F-8EC8-42C7-BC09-B02D734F635F/1-Photo-1.jpg",
+    "sha256": "64b65a0c1d80d4914271312718c081aa4e9082b58ebef0ae0149bcae67fd623b",
+    "archive_path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/physical-fit/assembled-cartridge-cap.jpg"
+  },
+  "print_binding": {
+    "provenance": ".cache/prints/2026-09-13-enclosure/enclosure-pump-cartridge-mark2.provenance.json",
+    "scope": "Available earlier printed cartridge/cap baseline; Derek has not identified its print date or job name."
+  },
+  "actual_contact_surfaces": "Not independently identified by this report. The observed firm assembly does not identify a flange-only load path.",
+  "four_tube_carrier_function_tested": false,
+  "cap_crown_requirement_confirmed": true,
+  "cap_crown_confirmation": "Yes—raise the surrounding cap edge",
+  "geometry_check": "contact-check.json"
+}

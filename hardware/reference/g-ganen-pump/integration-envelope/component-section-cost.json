@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "status": "same_native_occupied_bounds_pass",
+  "input_sha256": {
+    "g-ganen-integration-envelope.step": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+    "native-query-cost.json": "5296c65d0a93769a9d8ba4bfb2a8e3ae1bc34359adf8f69ffdf3887873442ceb",
+    "native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "benchmark_component_sections.py": "384839847f975c3e94175909e0d96cb043f4a26d66ca1f4fa8eaf98500912413"
+  },
+  "import_seconds": 6.064963125012582,
+  "query_seconds": 5.571750624993001,
+  "native_fragments": 22,
+  "all_fragments_valid": true,
+  "bounds_mm": [
+    [
+      -60.0000001,
+      -37.2820497413063,
+      19.9999999
+    ],
+    [
+      70.0000001,
+      37.0614982910634,
+      58.00000010000001
+    ]
+  ],
+  "standard_compound_bounds_mm": [
+    [
+      -60.0000001,
+      -37.2820497413063,
+      19.999999889977037
+    ],
+    [
+      70.00000010005866,
+      37.0614982910634,
+      58.00000010911124
+    ]
+  ],
+  "maximum_bound_difference_mm": 1.0022962015909798e-08,
+  "empty_case_pass": true,
+  "geometry_identity": "Union over components of (component intersect cutter) equals (union over components) intersect cutter. The output preserves overlaps; summed component volume is not union volume.",
+  "scope": "Identical room box and exact native solid components. Indicative host timing during shared local work, with a single cold import."
+}

@@ -198,7 +198,6 @@ def main():
         "TIES_PER_TEE": f"{len(tie_sites) // len(carrier_tees)}",
         "SPRING_COUNT": f"{len(springs)}",
         "TAB_COUNT":    f"{len(carrier_interface['tab_pad_x'])}",
-        "CARRIER_JOINT_SCREWS": f"{carrier_interface['joint_count']}",
         # The doc names this count in four places — the opening, the heading, the pull and the
         # output condition — and `docgen` keys a text by its own name, so a count standing more
         # than once stands under a suffix per standing.
@@ -217,10 +216,11 @@ def main():
                           - plate['stroke'] - plate['wall_aft_y']):.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
         "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.4g} mm",
-        # Four operation names share two stops. The fore stop depresses the sleeves and
-        # bottoms the tubes; the connected and empty park positions share the aft stop.
+        # Release/squeeze use the fore stop; connected and park name the nominal rest
+        # datum. The physical aft limit is farther aft and has its own figure.
         **{f"{name.upper()}_OFFSET": state_text(offset)
            for name, (offset, _depth) in states.items()},
+        "AFT_LIMIT_OFFSET": state_text(carrier_interface["aft_limit_offset_y"]),
         "SQUEEZE_DEPTH": f"{states['squeeze'][1]:g}",
         "CONNECTED_RELEASE_TRAVEL":
             f"{states['connected'][0] - states['release'][0]:g}",

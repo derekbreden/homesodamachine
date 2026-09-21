@@ -1,0 +1,185 @@
+{
+  "fixed": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+    "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+    "native_to_shared_initial": [
+      [
+        -0.9914073344922844,
+        -0.08766563564487335,
+        0.09708879153580989,
+        27.942973698886004
+      ],
+      [
+        0.03758851882101817,
+        0.5199861662915134,
+        0.8533472271697475,
+        -216.24566869300796
+      ],
+      [
+        -0.1252940555962078,
+        0.8496641237526952,
+        -0.5122228777005372,
+        171.6151237789361
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "moving": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+    "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+    "native_to_shared_initial": [
+      [
+        -0.789226700446176,
+        0.31275642311856117,
+        -0.5284927956944403,
+        189.84944672449933
+      ],
+      [
+        -0.6103872993317099,
+        -0.4940282535299584,
+        0.6191634917601976,
+        -127.16727283623428
+      ],
+      [
+        -0.06744301385157135,
+        0.8112456499188286,
+        0.5808028369166202,
+        -113.16755254091282
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "spacing_mm": 0.3,
+  "fit_regions": [
+    {
+      "name": "motor_middle",
+      "min": [
+        22,
+        -26,
+        20
+      ],
+      "max": [
+        52,
+        26,
+        52
+      ]
+    },
+    {
+      "name": "head_side",
+      "min": [
+        -24,
+        -23,
+        15
+      ],
+      "max": [
+        -5,
+        23,
+        50
+      ]
+    },
+    {
+      "name": "motor_rear_face",
+      "min": [
+        80,
+        -22,
+        18
+      ],
+      "max": [
+        84,
+        22,
+        48
+      ]
+    },
+    {
+      "name": "switch_side",
+      "min": [
+        -77,
+        -18,
+        20
+      ],
+      "max": [
+        -63,
+        18,
+        45
+      ]
+    },
+    {
+      "name": "motor_head_seam",
+      "min": [
+        -1.5,
+        -23,
+        15
+      ],
+      "max": [
+        1.5,
+        23,
+        48
+      ]
+    }
+  ],
+  "held_out_regions": [
+    {
+      "name": "motor_rear_arc",
+      "min": [
+        56,
+        -26,
+        20
+      ],
+      "max": [
+        72,
+        26,
+        55
+      ]
+    },
+    {
+      "name": "head_barb_root_casing",
+      "min": [
+        -38,
+        -20,
+        12
+      ],
+      "max": [
+        -27,
+        20,
+        57
+      ]
+    },
+    {
+      "name": "port_yminus",
+      "min": [
+        -40,
+        -39,
+        17
+      ],
+      "max": [
+        -26,
+        -23.1,
+        37
+      ]
+    },
+    {
+      "name": "port_yplus",
+      "min": [
+        -40,
+        23.1,
+        17
+      ],
+      "max": [
+        -26,
+        39,
+        37
+      ]
+    }
+  ],
+  "initial_frame_basis": "Exposed motor axis and unloaded foot face observations; inspected motor/head junction shift. No scale fitting or CAD dimensions."
+}

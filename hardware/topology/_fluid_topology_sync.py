@@ -229,7 +229,7 @@ NODES = {
     "BhW":        _body("bulkhead-water", "inboard", "outboard"),
     "BFP":        _body("asse1022-assembly", "tube-in", "tube-out", "vent-tip"),
     "DischChain": _body("discharge-chain", "tube-port", "barb-tip"),
-    "PW":         _body("seaflo-pump", "suction", "discharge"),
+    "PW":         _body("g-ganen-pump", "suction", "discharge"),
     "CO2In":      _body("co2-inlet", "inboard", "outboard"),
     "GasherCO2":  _body("gasher-co2", "inlet", "outlet"),
     "WR":         _body("wr1110", "inlet", "outlet"),

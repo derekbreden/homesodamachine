@@ -1,0 +1,151 @@
+{
+  "schema": 1,
+  "part": "G Ganen diaphragm pump",
+  "purchase_asin": "B07F35PTFR",
+  "sample_identity_authority": "Derek, direct identification in this task on 2026-09-20",
+  "dimensional_authority": "Native scan coordinates at unit scale; Derek confirms no caliper measurements were recorded.",
+  "status": "Three archived native passes under measurement",
+  "scale_factor": 1.0,
+  "caliper_measurements": null,
+  "capture_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump",
+  "captures": [
+    {
+      "id": "pass-01-feet-up",
+      "native_project_id": "d58b0d23-80b1-4fd9-ac9e-d80a74b429ed",
+      "native_project_title": "20260920192035",
+      "frames": 1033,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object": "Normal",
+      "color": false,
+      "exposure": 6,
+      "table_tilt_degrees": 0,
+      "table_seconds_per_revolution": 35,
+      "fusion_spacing_mm": 0.1,
+      "fused_path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+      "fused_sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+      "points": 3235134,
+      "processing": "Native fusion only; no isolation, smoothing, hole filling or scale adjustment."
+    },
+    {
+      "id": "pass-02-on-back",
+      "orientation_authority": "Derek confirms the pump is fully on its back; the native project title is not orientation evidence.",
+      "native_project_id": "88c7cfc4-673a-4066-aa81-9b848e9dd010",
+      "frames": 1146,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object": "Normal",
+      "color": false,
+      "exposure": 6,
+      "table_tilt_degrees": 0,
+      "table_seconds_per_revolution": 35,
+      "fusion_spacing_mm": 0.1,
+      "fused_path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+      "fused_sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+      "points": 3478141,
+      "processing": "Native fusion only; no isolation, smoothing, hole filling or scale adjustment."
+    },
+    {
+      "id": "pass-03-feet-down",
+      "orientation_authority": "Derek, direct remount confirmation in this task.",
+      "native_project_id": "a468cc56-da78-4ac8-b2c6-bbd101be6927",
+      "frames": 1114,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object": "Normal",
+      "color": false,
+      "exposure": 6,
+      "table_tilt_degrees": 0,
+      "table_seconds_per_revolution": 35,
+      "fusion_spacing_mm": 0.1,
+      "fused_path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+      "fused_sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+      "points": 2989594,
+      "processing": "Native fusion only; no isolation, smoothing, hole filling or scale adjustment."
+    }
+  ],
+  "frame": {
+    "positive_x": "Toward motor rear; projected onto the mounting plane",
+    "x_zero": "Observed motor/head junction",
+    "z_zero": "Average unloaded mounting-foot plane of the first pass; individual feet are recorded separately.",
+    "positive_z": "From the mounting plane toward the pump body",
+    "y_zero": "Observed motor-axis projection",
+    "positive_y": "Completes a right-handed frame",
+    "native_to_reference": [
+      [
+        -0.9914073344922844,
+        -0.08766563564487335,
+        0.09708879153580989,
+        27.942973698886004
+      ],
+      [
+        0.03758851882101817,
+        0.5199861662915134,
+        0.8533472271697475,
+        -216.24566869300796
+      ],
+      [
+        -0.1252940555962078,
+        0.8496641237526952,
+        -0.5122228777005372,
+        171.6151237789361
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "flow_port_identity": {
+    "physical_evidence": "Arrow points right while reading the label upright, including the text 4002; the arrow points right past the 2.",
+    "authority": "Derek, direct observation in this task",
+    "inlet_in_readable_label_frame": "left",
+    "outlet_in_readable_label_frame": "right",
+    "reference_signed_y_mapping": {
+      "port_yplus": "discharge",
+      "port_yminus": "suction"
+    },
+    "mapping_limit": "This establishes intended G Ganen orientation and port identity. It does not inherit the SeaFlo shape or qualify G Ganen placement translation.",
+    "intended_enclosure_flow_direction": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "intended_reference_to_enclosure_rotation": [
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "placement_authority": "Derek identifies flow toward enclosure \u2212X. Intended +90\u00b0 Z placement maps local +Y to enclosure \u2212X; source pattern enclosure_assembly.SEAFLO_YAW and seat_body verified by parent. Translation and G Ganen production integration remain separate."
+  },
+  "limits": [
+    "No caliper or external scale calibration is available.",
+    "Fusion spacing is not a dimensional tolerance.",
+    "Spray thickness and absolute scanner dimensional accuracy are unmeasured.",
+    "Loose wires and scanning putty do not define the rigid pump envelope.",
+    "A scan does not establish loaded rubber-foot stiffness, compressed mounting height, pump internals or hydraulic performance."
+  ],
+  "production_consumers_changed": false,
+  "mounting_feet": {
+    "material": "flexible rubber",
+    "authority": "Derek, direct identification in this task",
+    "loaded_height_or_stiffness_measurements": null,
+    "motion": "Four independently removable rubber feet slide fore and aft on fixed casing channels, along the motor axis.",
+    "motion_authority": "Derek, direct description in this task: the flexible rubber feet slide fore and aft and can be removed entirely.",
+    "scan_pose_interpretation": "The four observed foot/slot positions are sample poses, not a fixed mounting pattern."
+  }
+}

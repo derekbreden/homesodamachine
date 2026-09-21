@@ -82,6 +82,15 @@ manufactured seam measurements. Its moving terminal clearance radius remains 5.7
 The circular Ø8.5 release opening retains the flat annular bearing. Actual contact area and
 release force require the physical terminal ring and printed mechanism.
 
+[`terminal-bearing-review.json`](terminal-bearing-review.json) reads the observed front
+face directly. It shows 20.07 mm² of projected face outside the release aperture, with
+99.73% coverage of R4.25–4.75 mm and face present in all 36 angular sectors. The existing
+scan and measured moving-face identity/stroke support the complete enclosure assembly
+trial without another tee scan. Exact rear seam and OD remain unmeasured; projected area
+does not establish simultaneous contact or a strength rating. The trial checks contact,
+full release and relocking. The native R5.0 witness is plate stock, not a measured minimum
+terminal-face radius.
+
 ![Terminal surface and measured operating faces](terminal-ring-scan.svg)
 
 ## Production consumers

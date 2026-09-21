@@ -1,0 +1,224 @@
+{
+  "created_at_utc": "2026-09-21T04:16:53.510386+00:00",
+  "status": "pass",
+  "scope": "Current cold-core cap, surface payload, foam assembly and cold-core assembly dependencies; no Box or full enclosure generation.",
+  "dependency_chain_current": true,
+  "assembly_current": false,
+  "production_print_released": false,
+  "successful_order": [
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "hardware/scripts/flute_payload_cold_core.py",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+    "hardware/cold-core-layout/cold_core_assembly.py"
+  ],
+  "source_sha256": {
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "c5e9d168ea0508f434d1848ed2996e2db9257e0eb3e57bc2358f2e6262f7f2a7",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "902e234ce80ccc395532e5f7910a4d3c068c1fb0ddfe1c913a1357e97a33399c",
+    "hardware/printed-parts/cold-core/_show_skin.py": "788a9ffc756cb1d08d09b2a3cc09d13f37859361435f9a94ea5f3509d02576bd",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e8f01c85a332ccfa56c9c642457b894d9b413658acf2a6387f7bc6d0f430a246",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "b29462d3240e81ccd987f4b5d874ca75fe5f4f0d155de57553028d64e8e63545",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb",
+    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+    "hardware/scripts/flute_payload_cold_core.py": "409095d1bc36c51fd0debb7a6e1e986b1f6d03cfcdd1d8d739cc1a8ce72fd36b",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "dff5ceab2c53ecf99a6ff021db36471e617d3e78604996b9857aa2bf8b214abb",
+    "hardware/printed-parts/cold-core/_port_cuts.py": "c05e1281fcfc6cff70374ea70464e24dbd9d61415f386bd772f673b3c29a5cf6",
+    "hardware/printed-parts/cold-core/_reed_channels.py": "9248a47c7eaac98e914697caabc9720b00a3cf4c643d5c2c63ff29bfe10a0e62",
+    "hardware/printed-parts/cold-core/_support_ring.py": "4d382e80be2cd6ee4b88a9c77171d97f56b251e8747ed1ffbffdc14712b9ee64",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "faf3d7dc3fd51d6b18be635d2e7ec552f7ba81611911bb1d47b1826802ee43b8",
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "9e17b7d63b3dc976c4e22493fb9933994f67774bce19eb7854ad1903d2613b22",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py": "87404b3ea3fa64e22d9bb475c7102ad92749e0a348be8d9d34babd440a47543e",
+    "hardware/scripts/_meshes.py": "5501724d14a9f1262aa62b9f035ac1359e16dae11c45718daa3f67946d84f64b",
+    "hardware/scripts/_overlap.py": "df36898148ab89f8a187c3d627376a86f673cf31ba0ee30cf03549d04f2c1f0f",
+    "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+    "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+    "hardware/cold-core-layout/_bom.py": "64430c7109de2f8316733027491cbd3f672c860d242870f2157ce15d424d4299",
+    "hardware/cold-core-layout/_carbonator.py": "597528039b8d71856a93151a9124d4c2b430c4b92df6479bb6ddc10aeabbefb5",
+    "hardware/cold-core-layout/_coil.py": "398143e159f82e033f9ee22c7e2b8c064ae9f1b4d527ba1d11c6a11bec92a471",
+    "hardware/cold-core-layout/_cold_core_style.py": "a9c323f4060e475d03bc21af0cad2ec7828aca0a1f6cbdcde6bf49919ba26805",
+    "hardware/cold-core-layout/_cold_scorecard.py": "3e8faa3573f0b7adfbc262aa09b37e2b7005d42172075a42a6ebe2c66c4cc6c5",
+    "hardware/cold-core-layout/_fittings.py": "c46d9c6ff8d686d3557a301612f39443067c02410408353ff8df05e234e24b2e",
+    "hardware/cold-core-layout/_internals.py": "8e2bbf5facfd5c29e120c73c3f6f9be69c96f911f404bbb431093934637dc491",
+    "hardware/cold-core-layout/_water_inlet_jet.py": "10178e16d8764e1d0753b8199031e796ccbe9cef0bc163983d98825e15bf2cd5",
+    "hardware/cold-core-layout/cold_core_assembly.py": "cd5e21ead0d2f5a107cfa5363b8a870c88cb6b98fae58831bd253155eba3afaa",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "a7a2a555aa72d614606a2db0016fcb035cd4e2f99578abb5d260a6ae18776dc0",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py": "ad63830ad6b80fc2fc8761cc3c90ce3fe4d6ea3d09c052c8f22da9c6576186e6",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "a89cffe69231aa3410cad08a25e036486ee49095016efba334168092870af194",
+    "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py": "029372360bc995b25f09c2cdb2cfee12e9f7651284e8fa97335516f4b356fd99",
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
+    "hardware/scripts/_card.py": "c4d44163993814b5a69f2c52964019ad3cb27b0bf023ccba1e034c54e25fef8f"
+  },
+  "source_drift": [],
+  "output_sha256": {
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "42b5663fe2f25d147e0792c3401bef9ef7985a14563b76b065ff3ed0cf1fad4a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "999a014c0a8f19fdb473088638f1b20ed53015741867077788df69572ba12325",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "345143192d75be73084ecf77a5571cc47b61c54d1cfa477bfca8ef2d162dfe0e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "6154b34a9e2c702dcca03386ef6acb28f5cf61c1bb28f6c1858322dfb2f69585",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "6a1f2105bb7521106255a4710856973827763ec7550702f6a760f86bfaed6ba7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c57f8ecdd93db0f14245ce7414eb6d16f4fcf21d2b6257fe16a2cabde65dd813",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "cf4533b2cc02888dc27b8874687af6ef14e13329da9191dc1da216800016fbd0",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "4aee46ca8a6f6c7921492c69c44f5c603413230cb7222dcec091b261d621b3e7",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "43c90869154141cb3065c6d7d17820aea6ada2083fdb1a6e82c3556ddaafcaea",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "e738ea576fa217a3548130c7711e8b6510211ed9cc26665c35a30bf17c77427e",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "16b8a4efaac46b4c9f70551a2dd58bef325523a557a701bb8aa95e3949d07c99",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "17a733e4aeacd9cd6801bc1938924991a854707f37d1d6bd7661fa05072fdb9f",
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "fcca510b90c755ee327f61cfde1ae3083a7e4befdd8451a9463758542a709c99",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
+    "hardware/cold-core-layout/cold-core-assembly.step": "702c62f68806d3491bff1054fcb4cd363af8f04c3943b8b110b2bec3dab6cb65",
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh": "a8adfa602e86d78cc95d296f52498790b3f58b389441069b2679671876ee274a",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5"
+  },
+  "additional_emitted_outputs": {
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": {
+      "sha256": "69f9246028c078090e0076968a5019ce82c7e79747b9956b3d38ad311f1afa95",
+      "producer": "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+      "evidence": "successful raw input trace writes"
+    }
+  },
+  "output_drift": [],
+  "inputs_changed_since_success": {
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": [],
+    "hardware/scripts/flute_payload_cold_core.py": [],
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": [],
+    "hardware/cold-core-layout/cold_core_assembly.py": []
+  },
+  "scorecard": {
+    "path": "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
+    "sha256": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
+    "gatesPass": true,
+    "gates": [
+      {
+        "id": "one-core",
+        "status": "pass",
+        "value": "5/5 bodies shared"
+      },
+      {
+        "id": "bodies-clear",
+        "status": "pass",
+        "value": "0 clash"
+      },
+      {
+        "id": "routes-fit",
+        "status": "pass",
+        "value": "8/8 clear"
+      },
+      {
+        "id": "lines-apart",
+        "status": "pass",
+        "value": "0 crossing"
+      },
+      {
+        "id": "lane-census",
+        "status": "pass",
+        "value": "8 run-lane pairs"
+      },
+      {
+        "id": "port-leads",
+        "status": "pass",
+        "value": "5/5 collets"
+      },
+      {
+        "id": "stations-met",
+        "status": "pass",
+        "value": "2/2 stations"
+      },
+      {
+        "id": "arcs-hold",
+        "status": "pass",
+        "value": "8/8 at stock"
+      },
+      {
+        "id": "prv-vent-lands",
+        "status": "pass",
+        "value": "0.004 mm off"
+      },
+      {
+        "id": "floats-couple",
+        "status": "pass",
+        "value": "3/3 floats"
+      }
+    ],
+    "nonpassing_goals": [
+      {
+        "id": "bom-covered",
+        "status": "fail",
+        "value": "28/35"
+      },
+      {
+        "id": "inlet-jet-qualified",
+        "status": "warn",
+        "value": "nominal layout only"
+      },
+      {
+        "id": "gas-adapter-envelope",
+        "status": "warn",
+        "value": "shared nominal envelope"
+      },
+      {
+        "id": "mounted",
+        "status": "fail",
+        "value": "50/52"
+      }
+    ]
+  },
+  "native_lid_verification": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/fluid14-native-lid.json",
+    "sha256": "c99fb08bb37bb86a831cd21d52c8b787a792fc4bd1af8380d079962c4fcf4349",
+    "checks_pass": 7,
+    "actual_slice_support_bodies_reviewed": false
+  },
+  "logs": {
+    "/tmp/scanner-review/routing-dependency-regeneration/foam_cap.build.69021.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/foam_cap.build.69021.log",
+      "sha256": "32aa43711605727c2a3163afefccf843ef1a507e34a316b3c8dde81dec0357a3"
+    },
+    "/tmp/scanner-review/routing-dependency-regeneration/foam_cap.build.69229.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/foam_cap.build.69229.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/scanner-review/routing-dependency-regeneration/cold_core_assembly.build.69603.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/cold_core_assembly.build.69603.log",
+      "sha256": "1187872494d847d6d331a28ca5e63210b3a5ccd02d8101a00d4394857bdd1a33"
+    },
+    "/tmp/scanner-review/routing-dependency-regeneration/flute_payload_cold_core.attempt-2.build.70688.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/flute_payload_cold_core.attempt-2.build.70688.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/scanner-review/routing-dependency-regeneration/flute_payload_cold_core.attempt-2.build.70678.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/flute_payload_cold_core.attempt-2.build.70678.log",
+      "sha256": "208202b29d7db6b8d3b8fb9d9eed33df680c54ca29ba2540d639ebfb18afe5c7"
+    },
+    "/tmp/scanner-review/routing-dependency-regeneration/foam_assembly.attempt-1.build.70776.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/foam_assembly.attempt-1.build.70776.log",
+      "sha256": "29f4e9664aa171c1c45e733172bc3f33299c26f56606f1ce4ac32e937fecdf28"
+    },
+    "/tmp/scanner-review/routing-dependency-regeneration/cold_core_assembly.attempt-2.build.70843.log": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/dependency-regeneration/logs/cold_core_assembly.attempt-2.build.70843.log",
+      "sha256": "957b2f4aba0d612e73d8add5709a336ddde1d44bba89d567cdd006ed9435d4ac"
+    }
+  },
+  "limits": [
+    "The fresh Box, full enclosure and complete current pack route check are not in this result.",
+    "The fluid-14 tie channel has a 3 mm mouth and 0.25 mm recessed floor; actual support bodies still require removal review.",
+    "The raw trace contains new G Ganen inputs omitted by the git-tracked graph filter until those paths are staged; root owns graph reconciliation."
+  ]
+}

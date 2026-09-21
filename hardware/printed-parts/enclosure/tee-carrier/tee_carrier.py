@@ -1,27 +1,21 @@
-"""Two PET-GF carrier halves: a 6 mm web with a top flange, station troughs for the four tees,
-a full-height centre lap closed by two M3 screws from the open rear, and a return spring in
-each service tab.
+"""Two broad carrier halves with an integral retaining wall and closed spring cups.
 
-The four tees bear on one Y plane: the floor line of a vertical trough cut into the web's fore
-face at each tee station. The web behind that line is `station_t`; everywhere else it is
-`web_t`. A shelf on the web's aft face, over the inner aft coils, stiffens the span between the
-two inner tees. Each service tab is a solid bar with a blind channel in its fore face; the
-return spring rides in that channel and bears fore on a seat in the enclosure's flank recess.
-The springs' load enters the bars and none of it crosses the web.
+The full-height fore lap, captured rail and overlapping upper shelf carry the
+centre joint. The rear flexible wall retains its seated X position. Each half
+installs through the loose front-top with its spring held in the blind moving
+cup, then the temporary flat pusher leaves through the outer tee well. The
+fixed cup is integral to the enclosure. No separate joint fasteners are used.
 
-All geometry is in the enclosure frame: +Y aft, +Z up. Each half enters the loose enclosure
-from its open rear with its spring already in the bar, lowers behind the fixed body, slides
-fore to the aft stop, and seats outward into its side recess. The right half's web meets the
-left half's full-height tongue on that stop; two M3 x 10 screws driven from the open rear close
-the lap. The handholds finish flush with the enclosure; their retaining rims bear behind the
-wall, and the fixed body's flat lands and the handholds' top and bottom faces guide Y travel.
+All geometry uses +X across the enclosure, +Y aft and +Z up. Physical spring
+feel, coil retention and assembled rigidity are evaluated in the full enclosure.
 """
 
 from __future__ import annotations
 
 import math
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
+from functools import lru_cache
 from pathlib import Path
 
 import cadquery as cq
@@ -59,7 +53,9 @@ class CarrierSpec:
     # The shelf on the aft face: it reaches to the outer aft coils and stands over the inner.
     flange_x: float = 56.820
     flange_z0: float = 209.075
-    flange_depth: float = 14.0
+    flange_depth: float = 18.0
+    side_web_added_y: float = 0.90
+    side_web_z0: float = 182.175
     tie_band_offsets_z: tuple[float, float] = (-12.0, 12.0)
     tie_slot_offset_x: float = tee.HALF_W + 1.64
     tie_slot_x: float = 1.5
@@ -70,13 +66,14 @@ class CarrierSpec:
     # Established printed guide and loading route. Replacement spring measurements check
     # these dimensions; they do not move the fixed/moving bearing planes or guide axes.
     spring_bore_d: float = 6.57
-    # The spring enters its bar sideways at this compressed length, through a window in the
-    # inboard face that ends on the web's fore plane; the channel runs past it by one ring.
-    spring_load_length: float = 9.61
+    # Axial loading length held by the temporary pusher during half installation.
+    spring_load_length: float = 12.15
     spring_window_air: float = 2.0 * fits.slip
     spring_ring: float = 1.1
     spring_roof_angle_deg: float = 45.0
-    fixed_seat_depth: float = 2.0
+    fixed_seat_depth: float = 8.0
+    fixed_seat_recess_depth: float = 2.0
+    fixed_seat_wall: float = 2.0
     release_offset_y: float = tee.CARRIER_RELEASE_OFFSET
     connected_offset_y: float = tee.CARRIER_CONNECTED_OFFSET
     park_offset_y: float = tee.CARRIER_PARK_OFFSET
@@ -101,18 +98,9 @@ class CarrierSpec:
     grip_edge_r: float = 2.0
     grip_root_overlap: float = 0.2
     entry_inset_x: float | None = None
-    entry_staging_y: float = 38.550
+    entry_staging_y: float = 33.0
     entry_lift_z: float = 70.0
     joint_lap_t: float = 6.0
-    # The screw axis stands inside the coil-free band behind the web's centre; the right web
-    # keeps this much beside the clearance hole, and the two webs part by the entry inset.
-    joint_screw_x: float = 0.0
-    joint_web_ligament: float = 1.0
-    # The lower screw stands this far up the web; the upper one stands under the shelf with
-    # its head and this much web between.
-    joint_screw_inset_z: float = 9.0
-    joint_head_shelf_air: float = 1.0
-    joint_screw_length: float = 10.0
     bed_x: float = 325.0
     bed_y: float = 320.0
     bed_z: float = 320.0
@@ -234,8 +222,7 @@ class CarrierSpec:
 
     @property
     def spring_z(self):
-        """The channel stands just above the tee arms' top collets, so a spring can come down
-        the outer well past the seated tee and cross to the window over the arm's top."""
+        """Spring axis above the outer tee's upper collet."""
         return (self.tee_axis_z + tee.RUN_HALF + 2.0 * self.slide_air
                 + self.spring_bore_d / 2.0)
 
@@ -253,12 +240,16 @@ class CarrierSpec:
 
     @property
     def fixed_seat_mouth_y(self):
-        """The flank recess's fore wall: where the rim's fore end stands at release, less air."""
+        return self.fixed_seat_floor_y + self.fixed_seat_depth
+
+    @property
+    def fixed_seat_wall_y(self):
+        """Unmoved flank wall from which the integral cup projects aft."""
         return self.rim_y[0] + self.release_offset_y - self.slide_air
 
     @property
     def fixed_seat_floor_y(self):
-        return self.fixed_seat_mouth_y - self.fixed_seat_depth
+        return self.fixed_seat_wall_y - self.fixed_seat_recess_depth
 
     @property
     def joint_z(self):
@@ -266,37 +257,27 @@ class CarrierSpec:
 
     @property
     def joint_right_x0(self):
-        """The right web's inboard edge: one ligament beside the screws' clearance holes."""
-        return (self.joint_screw_x - enclosure_interface.screw_clear_dia / 2.0
-                - self.joint_web_ligament)
+        """Inboard edge of the broad rail receiver."""
+        return -9.5
 
     @property
     def joint_split_x(self):
         """The left web's inboard edge: the right web passes it on its inset slide."""
-        return self.joint_right_x0 - self.entry_shoulder_inset_x - 2.0 * self.slide_air
+        return -13.0
 
     @property
     def joint_receiver_x(self):
-        return self.joint_right_x0, self.joint_reach_x
+        return self.joint_right_x0, 12.75
 
     @property
     def joint_tongue_x(self):
-        """The tongue runs from just outboard of the left inner tee's inboard tie slot to just
-        short of the right inner tee, which the left half passes on its own inset slide."""
-        inner = min(x for x in self.tee_xs if x > 0.0)
-        return (-(inner - self.tie_slot_offset_x - self.tie_slot_x / 2.0 - self.slide_air),
-                self.joint_reach_x)
+        """Full-height fore lap spans the centre and clears the inner tee."""
+        return -16.0, self.joint_reach_x
 
     @property
     def joint_reach_x(self):
         inner = min(x for x in self.tee_xs if x > 0.0)
         return inner - tee.HALF_W - self.entry_shoulder_inset_x - 2.0 * self.slide_air
-
-    @property
-    def joint_screw_zs(self):
-        return (self.web_z[0] + self.joint_screw_inset_z,
-                self.flange_z0 - enclosure_interface.head_cbore_dia / 2.0
-                - self.joint_head_shelf_air)
 
     @property
     def grip_root_x(self):
@@ -315,10 +296,6 @@ class CarrierSpec:
     @property
     def joint_fore_y(self):
         return self.joint_face_y - self.joint_lap_t
-
-    @property
-    def joint_head_seat_y(self):
-        return self.web_aft_y
 
     @property
     def entry_shift_x(self):
@@ -540,7 +517,8 @@ PLACEMENT_FIELDS = (
     'station_t', 'web_t', 'station_air', 'stub_relief_depth', 'stub_air', 'flange_x',
     'flange_z0', 'flange_depth', 'grip_back_x', 'grip_rail_top_z', 'exterior_x',
     'guide_inner_x', 'release_offset_y', 'connected_offset_y', 'park_offset_y',
-    'aft_overtravel_y', 'fixed_plate_aft_y', 'aft_coil_fore_y', 'entry_staging_y')
+    'aft_overtravel_y', 'fixed_plate_aft_y', 'aft_coil_fore_y', 'entry_staging_y',
+    'side_web_added_y', 'side_web_z0', 'fixed_seat_depth', 'fixed_seat_recess_depth')
 
 
 def placement_mismatches(spec, base=None, tol=0.01):
@@ -561,8 +539,8 @@ def placement_mismatches(spec, base=None, tol=0.01):
 
 
 def joint_sites(spec=DEFAULT_SPEC):
-    """The two lap screws: driven from the open rear, heads on the right web's aft face."""
-    return tuple((spec.joint_screw_x, spec.joint_head_seat_y, z) for z in spec.joint_screw_zs)
+    """The broad wall retains this joint without separate fasteners."""
+    return ()
 
 
 def spring_stations(spec=DEFAULT_SPEC):
@@ -593,28 +571,33 @@ def _carrier_blank(spec):
     return body
 
 
+@lru_cache(maxsize=4)
+def assembly_parts(spec=DEFAULT_SPEC):
+    """Complete native halves and the isolated flexible retaining wall."""
+    from _simple_carrier import build_shapes
+    lap = _box(-16, spec.joint_reach_x, spec.web_fore_y-6, spec.web_fore_y, *spec.web_z)
+    for cut in _station_cutters(spec):
+        lap=lap.cut(cut)
+    for x in spec.tee_xs:
+        lap=lap.cut(_box(x-spec.trough_r,x+spec.trough_r,
+                        spec.web_fore_y-6.1,spec.stub_relief_y,
+                        spec.stub_relief_z0,spec.web_z[1]+.1))
+    for site in tie_sites(spec):
+        for x in site.slot_xs:
+            lap=lap.cut(_box(x-spec.tie_slot_x/2,x+spec.tie_slot_x/2,
+                            spec.web_fore_y-6.1,spec.web_aft_y+.1,
+                            site.band_z-spec.tie_slot_z/2,
+                            site.band_z+spec.tie_slot_z/2+fits.supported_surface))
+    data={'spec':asdict(spec),'interface':interface(spec)}
+    values=build_shapes(data,{'continuous-blank':_carrier_blank(spec).val(),'fore-lap':lap.val()})
+    return {'left':values[4],'right':values[5],'right_structural':values[6],
+            'retention_wall':values[7],'retention_lip':values[8]}
+
+
 def build_half(spec=DEFAULT_SPEC, side=1):
     if side not in (-1, 1):
         raise ValueError('carrier half must be -1 or +1')
-    split = spec.joint_split_x
-    bb = _carrier_blank(spec)
-    span = spec.tab_outer_x + spec.slide_air
-    xa, xb = (-span, split) if side < 0 else (spec.joint_right_x0, span)
-    bounds = bb.val().BoundingBox()
-    body = bb.intersect(_box(xa, xb, bounds.ymin - 1.0, bounds.ymax + 1.0,
-                            bounds.zmin - 1.0, bounds.zmax + 1.0))
-    if side < 0:
-        body = body.union(_box(*spec.joint_tongue_x,
-                               spec.joint_fore_y, spec.joint_face_y, *spec.joint_z))
-    for x, _seat_y, z in joint_sites(spec):
-        if side < 0:
-            body = body.cut(_cylinder_y(enclosure_interface.heatset_dia,
-                                        spec.joint_face_y - enclosure_interface.heatset_len,
-                                        spec.joint_face_y + spec.slide_air, x, z))
-        else:
-            body = body.cut(_cylinder_y(enclosure_interface.screw_clear_dia,
-                                        spec.web_fore_y - 1.0, spec.web_aft_y + 1.0, x, z))
-    return body
+    return cq.Workplane(obj=assembly_parts(spec)['left' if side<0 else 'right'])
 
 
 def build_carrier(spec=DEFAULT_SPEC):
@@ -661,38 +644,10 @@ def spring_envelope(spec=DEFAULT_SPEC, side=1, *, tip_y, xz_air=0.0):
 
 
 def insertion_envelopes(spec=DEFAULT_SPEC, side=1, *, xz_air=0.0):
-    """Rectangular bounds enclosing each half's web, flange, tongue, root and grip walls.
-
-    The assembly reads every segment of the inside-out route against the fixed body and
-    seated tees. The bar's flat underside clears the seam rail across its full depth.
-    """
-    split = spec.joint_split_x
-    web_x = ((spec.web_x[0], split) if side < 0
-             else (spec.joint_right_x0, spec.web_x[1]))
-    rows = [('web', web_x, (spec.web_fore_y, spec.web_aft_y), spec.web_z)]
-    flange_x = ((-spec.flange_x, split) if side < 0
-                else (spec.joint_right_x0, spec.flange_x))
-    rows.append(('flange', flange_x, spec.flange_y, spec.flange_z))
-    if side < 0:
-        rows.append(('joint tongue', spec.joint_tongue_x,
-                     (spec.joint_fore_y, spec.joint_face_y), spec.joint_z))
-
-    def handed(xs):
-        return xs if side > 0 else (-xs[1], -xs[0])
-
-    rows.extend((
-        ('grip root', handed(spec.grip_root_x), spec.tab_y,
-         (spec.grip_rail_top_z, spec.web_z[1])),
-        ('bar', handed((spec.grip_back_x, spec.tab_outer_x)),
-         spec.grip_y, spec.grip_z),
-        ('grip back', handed((spec.grip_back_x, spec.grip_back_x + spec.grip_back_t)),
-         spec.backing_y, spec.backing_z),
-        ('grip aft wall', handed(spec.aft_x), spec.aft_y, spec.grip_z),
-        ('rim', handed(spec.rim_x),
-         spec.rim_y, spec.rim_z)))
-    return tuple((name, _box(xs[0] - xz_air, xs[1] + xz_air, *ys,
-                             zs[0] - xz_air, zs[1] + xz_air).val())
-                 for name, xs, ys, zs in rows)
+    """Actual nominal half; its flexible-wall motion is checked separately."""
+    if xz_air:
+        raise ValueError('Use native motion checks; whole-part box inflation is not a clearance proof')
+    return (('complete half', build_half(spec, side).val()),)
 
 
 def insertion_poses(spec=DEFAULT_SPEC, side=1, entry_y=None, rear_y=210.0):
@@ -710,20 +665,6 @@ def insertion_poses(spec=DEFAULT_SPEC, side=1, entry_y=None, rear_y=210.0):
         ('seated outward', (0.0, entry_y, 0.0)),
     )
 
-
-def insertion_sweeps(spec=DEFAULT_SPEC, side=1, entry_y=None, rear_y=210.0, *, xz_air=0.0):
-    """Complete rectangular sweeps enclosing the whole half on every straight path segment.
-    The springs are not yet in the bars."""
-    poses = insertion_poses(spec, side, entry_y, rear_y)
-    for (_before, start), (stage, end) in zip(poses, poses[1:]):
-        if sum(abs(a - b) > 1e-8 for a, b in zip(start, end)) != 1:
-            raise ValueError(f'{stage} must be a single-axis insertion segment')
-        for name, shape in insertion_envelopes(spec, side, xz_air=xz_air):
-            bb = shape.BoundingBox()
-            spans = [(getattr(bb, axis + 'min') + min(a, b),
-                      getattr(bb, axis + 'max') + max(a, b))
-                     for axis, a, b in zip('xyz', start, end)]
-            yield stage, name, _box(*spans[0], *spans[1], *spans[2]).val()
 
 
 def interface(spec=DEFAULT_SPEC):
@@ -790,6 +731,9 @@ def interface(spec=DEFAULT_SPEC):
         'spring_bore_depth': spec.spring_bore_depth,
         'spring_bore_mouth_y': spec.grip_y[0],
         'fixed_seat_depth': spec.fixed_seat_depth,
+        'fixed_seat_recess_depth': spec.fixed_seat_recess_depth,
+        'fixed_seat_wall_y': spec.fixed_seat_wall_y,
+        'fixed_seat_outer_d': spec.spring_bore_d + 2*spec.fixed_seat_wall,
         'fixed_seat_mouth_y': spec.fixed_seat_mouth_y,
         'fixed_seat_floor_y': spec.fixed_seat_floor_y,
         'tab_slot_y_sweep': (spec.tab_y[0] + spec.release_offset_y,
@@ -811,14 +755,17 @@ def interface(spec=DEFAULT_SPEC):
         'joint_receiver_x': spec.joint_receiver_x,
         'joint_tongue_x': spec.joint_tongue_x,
         'joint_split_x': spec.joint_split_x,
-        'joint_screw_x': spec.joint_screw_x,
-        'joint_screw_zs': spec.joint_screw_zs,
         'joint_face_y': spec.joint_face_y,
         'joint_fore_y': spec.joint_fore_y,
-        'joint_head_seat_y': spec.joint_head_seat_y,
-        'joint_screw_length': spec.joint_screw_length,
-        'joint_insert_length': enclosure_interface.heatset_len,
         'joint_count': len(joint_sites(spec)),
+        'joint_retained_parts': 2,
+        'joint_shelf_overlap_x': 31.85,
+        'joint_shelf_overlap_y': spec.flange_depth,
+        'joint_style': 'broad_rail_and_shelf_with_integral_retaining_wall',
+        'spring_loading': 'axial_preload_before_half_installation',
+        'moving_spring_window_open': False,
+        'side_web_added_y': spec.side_web_added_y,
+        'side_web_z0': spec.side_web_z0,
         'finger_run': spec.finger_run,
         'finger_y': spec.finger_y,
         'spring_load_length': spec.spring_load_length,
@@ -920,59 +867,34 @@ def selftest(spec=DEFAULT_SPEC):
                 spec.trough_top_z + 0.01, spec.web_z[1] - 0.01).val()
             if upper_backing.cut(solid).Volume() > 1e-5:
                 errors.append(f'half {side:+d} lacks retained upper backing at X{x:g}')
-        flange = _box(*sorted((side * (spec.flange_x - 0.5), side * (abs(spec.joint_right_x0) + 0.5))),
-                      spec.flange_y[0] + 0.1, spec.flange_y[1] - 0.1,
-                      spec.flange_z[0] + 0.1, spec.flange_z[1] - 0.1).val()
-        if side > 0 and flange.cut(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} lacks its full aft flange')
-        beyond = _box(*sorted((side * spec.flange_x, side * spec.exterior_x)),
-                      spec.web_aft_y + 0.001, spec.flange_y[1] + 1.0,
-                      spec.flange_z[0], spec.flange_z[1]).val()
-        beyond = beyond.cut(_box(*sorted((side * (spec.grip_back_x - 0.001), side * spec.exterior_x)),
-                                 spec.web_aft_y - 1.0, spec.flange_y[1] + 2.0,
-                                 spec.web_z[0], spec.web_z[1] + 1.0).val())
-        if beyond.intersect(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} carries its flange past the outer aft coils')
-        below = _box(*sorted((side * (abs(spec.joint_right_x0) + 0.5), side * (spec.grip_back_x - 0.001))),
-                     spec.web_aft_y + 0.001, spec.flange_y[1] + 1.0,
-                     spec.web_z[0], spec.flange_z[0] - 0.001).val()
-        if below.intersect(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} stands aft of the web under the inner aft coils')
-        bore = _box(side * spec.spring_x - 0.5, side * spec.spring_x + 0.5,
-                    spec.grip_y[0] - 0.5, spec.spring_bore_floor_y - 0.001,
-                    spec.spring_z - 0.5, spec.spring_z + 0.5).val()
-        if bore.intersect(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} lacks its {spec.spring_bore_depth:g} mm spring bore')
-        floor = _box(side * spec.spring_x - 0.5, side * spec.spring_x + 0.5,
-                     spec.spring_bore_floor_y + 0.001, spec.grip_y[1] - 0.001,
-                     spec.spring_z - 0.5, spec.spring_z + 0.5).val()
-        if floor.cut(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} has no bar behind its spring bore')
-    aft = spec.aft_limit_offset_y
-    if halves[-1].intersect(halves[1]).Volume() > 1e-5:
-        errors.append('the two assembled halves overlap')
-    contact = halves[-1].intersect(halves[1].translate((0.0, -0.001, 0.0))).Volume()
-    if contact < 0.1:
-        errors.append('the lap has no mating bearing face')
-    lap = _box(spec.joint_right_x0 + 0.5, spec.joint_reach_x - 0.5,
-               spec.joint_face_y - 0.5, spec.joint_face_y + 0.5,
-               spec.web_z[0] + 0.5, spec.web_z[1] - 0.5).val()
-    for x, _seat_y, z in joint_sites(spec):
-        lap = lap.cut(cq.Solid.makeCylinder(
-            enclosure_interface.head_cbore_dia / 2.0, 2.0,
-            cq.Vector(x, spec.joint_face_y - 1.0, z), cq.Vector(0.0, 1.0, 0.0)))
-    if lap.cut(halves[-1]).cut(halves[1]).Volume() > 1e-5:
-        errors.append('the lap is not closed over the full web height')
-    screw_tip_y = spec.joint_head_seat_y - spec.joint_screw_length
-    insert_end_y = spec.joint_face_y - enclosure_interface.heatset_len
-    if not (spec.joint_fore_y < screw_tip_y <= insert_end_y + 1e-9):
-        errors.append('joint screw does not engage the full insert with fore backing')
-    if spec.joint_lap_t <= enclosure_interface.heatset_len:
-        errors.append('the tongue has no material behind the insert')
-    left_parked = halves[-1].translate((0.0, aft, 0.0))
-    for stage, name, sweep in insertion_sweeps(spec, 1):
-        if sweep.intersect(left_parked).Volume() > 1e-5:
-            errors.append(f'right half {name} crosses the left half during {stage}')
+        xa, xb = sorted((side*26.1, side*(spec.flange_x-.1)))
+        shelf = _box(xa,xb,spec.flange_y[0]+.01,spec.flange_y[1]-.01,
+                     spec.flange_z[0]+.01,spec.flange_z[1]-.01).val()
+        if shelf.cut(solid).Volume()>1e-5:
+            errors.append(f'half {side:+d} lacks the full outer shelf section')
+        bore=cq.Solid.makeCylinder(spec.spring_bore_d/2-.01,spec.spring_bore_depth-.02,
+            cq.Vector(side*spec.spring_x,spec.grip_y[0]+.01,spec.spring_z),cq.Vector(0,1,0))
+        if bore.intersect(solid).Volume()>1e-5:
+            errors.append(f'half {side:+d} obstructs the closed moving bore')
+        floor=_box(side*spec.spring_x-.5,side*spec.spring_x+.5,
+                   spec.spring_bore_floor_y+.01,spec.grip_y[1]-.01,
+                   spec.spring_z-.5,spec.spring_z+.5).val()
+        if floor.cut(solid).Volume()>1e-5:
+            errors.append(f'half {side:+d} lacks moving spring-floor stock')
+        xa,xb=sorted((side*(spec.grip_back_x+.1),side*(spec.spring_x-spec.spring_bore_d/2-.1)))
+        closure=_box(xa,xb,spec.grip_y[0]+.01,spec.web_fore_y-.01,
+                     spec.spring_z-.5,spec.spring_z+.5).val()
+        if closure.cut(solid).Volume()>1e-5:
+            errors.append(f'half {side:+d} has an open inboard spring window')
+    if halves[-1].intersect(halves[1]).Volume()>1e-5:
+        errors.append('assembled broad halves overlap')
+    if halves[-1].intersect(halves[1].translate((0,-.001,0))).Volume()<.1:
+        errors.append('broad lap has no Y bearing contact')
+    from _carrier_motion import joint_checks
+    motion=joint_checks(spec,assembly_parts(spec))
+    if not motion['clear']:
+        errors.append('native joint assembly/retaining-wall route is obstructed')
+    aft=spec.aft_limit_offset_y
     complete = build_carrier(spec).val()
     data = interface(spec)
     for dy in spec.state_offsets_y:
@@ -1008,7 +930,7 @@ def selftest(spec=DEFAULT_SPEC):
     if spec.web_aft_y - spec.stub_relief_y < spec.station_t:
         errors.append('the stub relief leaves less than the station web')
     if spec.spring_ring < 1.0:
-        errors.append('the spring channel keeps less than 1 mm of ring behind its window')
+        errors.append('the spring channel extends less than 1 mm behind the web fore plane')
     try:
         spring.fit_facts(
             {str(offset): spec.spring_bore_floor_y + offset - spec.fixed_seat_floor_y
@@ -1017,28 +939,16 @@ def selftest(spec=DEFAULT_SPEC):
             required_radial_air=spec.slide_air)
     except ValueError as exc:
         errors.append(str(exc))
-    if (spec.spring_window_y[1] - spec.spring_window_y[0]
-            < spec.spring_load_length + spec.spring_window_air):
-        errors.append('the loading window is shorter than the compressed spring and its air')
-    for side, solid in halves.items():
-        loaded = _box(*sorted((side * (spec.grip_back_x - 0.5), side * spec.spring_x)),
-                      spec.spring_window_y[0] + 0.01, spec.spring_window_y[1] - 0.01,
-                      spec.spring_z - spec.spring_bore_d / 2.0 + 0.01,
-                      spec.spring_z + spec.spring_bore_d / 2.0 - 0.01).val()
-        if loaded.intersect(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} has no open loading window into its spring channel')
-        ring = _box(*sorted((side * (spec.grip_back_x + 0.5), side * (spec.spring_x - spec.spring_bore_d / 2.0 - 0.5))),
-                    spec.spring_window_y[1] + 0.01, spec.spring_bore_floor_y - 0.01,
-                    spec.spring_z - 0.5, spec.spring_z + 0.5).val()
-        if ring.cut(solid).Volume() > 1e-5:
-            errors.append(f'half {side:+d} has no ring behind its loading window')
+    for dy in spec.state_offsets_y:
+        gap=spec.grip_y[0]+dy-spec.fixed_seat_mouth_y
+        if gap<spec.slide_air-1e-6 or gap>=spring.OUTSIDE_DIAMETER:
+            errors.append(f'fixed/moving cup mouths lose the declared bounded gap at Y{dy:g}')
     for error in errors:
-        print('FAIL', error)
+        print('FAIL',error)
     if not errors:
-        print(f'ok enclosure-tee-carrier: two valid halves, {spec.web_t:g} mm web with '
-              f'{spec.station_t:g} mm stations and an aft flange, backed grips carrying their '
-              f'springs, a full-height lap on two M3 x {spec.joint_screw_length:g} screws from '
-              f'the rear, eight unobstructed tie paths')
+        print('ok enclosure-tee-carrier: two valid broad-wall halves, closed moving cups, '
+              'native structural and retaining-wall placement, preserved grip/backing and eight tie paths; '
+              'physical feel and rigidity are full-enclosure trial observations')
     return int(bool(errors))
 
 
@@ -1092,8 +1002,6 @@ def sync_readme(spec=DEFAULT_SPEC):
         'WEB_WIDTH': spec.web_x[1] - spec.web_x[0],
         'LAP_T': spec.joint_lap_t,
         'SPLIT_X': spec.joint_split_x,
-        'SCREW_X': spec.joint_screw_x,
-        'INSERT_BACKING': spec.joint_lap_t - enclosure_interface.heatset_len,
         'SPRING_LOAD_ABOVE_COMPRESSED': (spec.spring_load_length
                                         - spring.COMPRESSED_LENGTH_UPPER_ESTIMATE),
         'LAP_WIDTH': spec.joint_reach_x - spec.joint_right_x0,
@@ -1101,9 +1009,6 @@ def sync_readme(spec=DEFAULT_SPEC):
         'TONGUE_ROOT': spec.joint_split_x - spec.joint_tongue_x[0],
         'WEB_GAP': spec.joint_right_x0 - spec.joint_split_x,
         'LAP_STACK': spec.web_aft_y - spec.joint_fore_y,
-        'SCREW_LENGTH': spec.joint_screw_length,
-        'SCREW_SPACING': spec.joint_screw_zs[1] - spec.joint_screw_zs[0],
-        'INSERT_LENGTH': enclosure_interface.heatset_len,
         'SPRING_BORE_D': spec.spring_bore_d,
         'SPRING_BORE_DEPTH': spec.spring_bore_depth,
         'SPRING_BAR_WALL': spec.grip_y[1] - spec.spring_bore_floor_y,
@@ -1147,6 +1052,14 @@ def sync_readme(spec=DEFAULT_SPEC):
         'FINGER_RUN_AT_LIMIT': spec.finger_run - spec.aft_overtravel_y,
         'FORE_OVERLAP_AT_LIMIT': spec.grip_overlap - spec.aft_overtravel_y,
         'AFT_COLLET_GAP': tee.CARRIER_AFT_COLLET_GAP,
+        'CONNECTED_TRAVEL': spec.connected_offset_y,
+        'SIDE_WEB_T': spec.web_t + spec.side_web_added_y,
+        'SHELF_OVERLAP_X': data['joint_shelf_overlap_x'],
+        'FIXED_CUP_OD': data['fixed_seat_outer_d'],
+        'FIXED_CUP_WALL': spec.fixed_seat_wall,
+        'CUP_GAP_RELEASE': spec.grip_y[0]+spec.release_offset_y-spec.fixed_seat_mouth_y,
+        'CUP_GAP_CONNECTED': spec.grip_y[0]+spec.connected_offset_y-spec.fixed_seat_mouth_y,
+        'CUP_GAP_LIMIT': spec.grip_y[0]+spec.aft_limit_offset_y-spec.fixed_seat_mouth_y,
         'RIM_BED_GAP': spec.printed_rim_z[0] - spec.web_z[0],
     }
     figures = {key: f'{value:.6g} mm' for key, value in values.items()}

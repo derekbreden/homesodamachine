@@ -1,0 +1,421 @@
+{
+  "status": "isolated_concept_inputs_not_print_release",
+  "spec": {
+    "tee_xs": [
+      -82.1,
+      -22.35,
+      22.35,
+      82.1
+    ],
+    "tee_axis_z": 186.174,
+    "web_x": [
+      -94.0,
+      94.0
+    ],
+    "bearing_y": 111.79,
+    "web_z": [
+      167.174,
+      222.425
+    ],
+    "tab_outer_x": 107.5,
+    "tab_z": [
+      175.05,
+      226.119
+    ],
+    "station_t": 2.5,
+    "web_t": 6.0,
+    "station_air": 0.5,
+    "stub_relief_depth": 3.004166,
+    "stub_air": 0.3,
+    "flange_x": 56.82,
+    "flange_z0": 209.075,
+    "flange_depth": 14.0,
+    "tie_band_offsets_z": [
+      -12.0,
+      12.0
+    ],
+    "tie_slot_offset_x": 9.89,
+    "tie_slot_x": 1.5,
+    "tie_slot_z": 3.5,
+    "tie_stock_w": 2.5,
+    "tie_stock_t": 1.0,
+    "tie_head": [
+      5.0,
+      3.6,
+      2.8
+    ],
+    "spring_bore_d": 6.57,
+    "spring_load_length": 9.61,
+    "spring_window_air": 0.3,
+    "spring_ring": 1.1,
+    "spring_roof_angle_deg": 45.0,
+    "fixed_seat_depth": 2.0,
+    "release_offset_y": 0.0,
+    "connected_offset_y": 2.0,
+    "park_offset_y": 2.0,
+    "aft_overtravel_y": 2.5,
+    "fixed_plate_aft_y": 82.69,
+    "aft_coil_fore_y": 119.99,
+    "exterior_x": 107.5,
+    "guide_inner_x": 98.5,
+    "slide_air": 0.25,
+    "finger_run": 16.0,
+    "finger_air": 0.2,
+    "grip_bar_t": 16.0,
+    "grip_back_x": 91.0,
+    "grip_back_t": 3.0,
+    "grip_aft_t": 3.0,
+    "grip_rail_top_z": 175.05,
+    "grip_shoulder_rise": 6.0,
+    "grip_rim_t": 3.0,
+    "grip_wall_t": 3.0,
+    "grip_overlap": 4.0,
+    "grip_top_overlap": 3.0,
+    "grip_edge_r": 2.0,
+    "grip_root_overlap": 0.2,
+    "entry_inset_x": null,
+    "entry_staging_y": 38.55,
+    "entry_lift_z": 70.0,
+    "joint_lap_t": 6.0,
+    "joint_screw_x": 0.0,
+    "joint_web_ligament": 1.0,
+    "joint_screw_inset_z": 9.0,
+    "joint_head_shelf_air": 1.0,
+    "joint_screw_length": 10.0,
+    "bed_x": 325.0,
+    "bed_y": 320.0,
+    "bed_z": 320.0
+  },
+  "interface": {
+    "squeeze_offset_y": 0.0,
+    "release_offset_y": 0.0,
+    "connected_offset_y": 2.0,
+    "park_offset_y": 2.0,
+    "aft_limit_offset_y": 4.5,
+    "bearing_y": 111.79,
+    "station_t": 2.5,
+    "web_t": 6.0,
+    "web_fore_y": 108.29,
+    "web_aft_y": 114.29,
+    "web_x": [
+      -94.0,
+      94.0
+    ],
+    "web_z": [
+      167.174,
+      222.425
+    ],
+    "station_trough_r": 8.75,
+    "station_trough_axis_y": 103.04,
+    "station_trough_top_z": 207.72400000000002,
+    "stub_relief_y": 108.78583400000001,
+    "stub_relief_z0": 207.124,
+    "flange_x": 56.82,
+    "flange_y": [
+      114.29,
+      128.29000000000002
+    ],
+    "flange_z": [
+      209.075,
+      222.425
+    ],
+    "joint_z": [
+      167.174,
+      222.425
+    ],
+    "joint_work_fore_y": 102.04,
+    "release_fore_stop_y": 98.29,
+    "squeeze_reference_aft_y": 114.29,
+    "nominal_tongue_aft_y": 116.29,
+    "guide_body_y": [
+      98.29,
+      114.29
+    ],
+    "guide_body_z": [
+      175.05,
+      225.619
+    ],
+    "printed_guide_body_z": [
+      175.3,
+      225.619
+    ],
+    "printed_grip_rim_z": [
+      181.3,
+      229.119
+    ],
+    "printed_grip_back_z": [
+      167.174,
+      229.119
+    ],
+    "printed_joint_z": [
+      167.174,
+      222.425
+    ],
+    "supported_surface_air": 0.25,
+    "guide_bearing_length": 16.0,
+    "guide_slide_air": 0.25,
+    "grip_bar_t": 16.0,
+    "grip_pocket_depth": 13.5,
+    "grip_back_x": 91.0,
+    "grip_back_t": 3.0,
+    "grip_back_y": [
+      114.09,
+      133.29000000000002
+    ],
+    "grip_back_z": [
+      167.174,
+      229.369
+    ],
+    "grip_aft_t": 3.0,
+    "grip_aft_x": [
+      91.0,
+      104.25
+    ],
+    "grip_aft_y": [
+      130.29000000000002,
+      133.29000000000002
+    ],
+    "grip_rail_top_z": 175.05,
+    "grip_rim_y": [
+      92.29,
+      114.29
+    ],
+    "grip_rim_z": [
+      181.05,
+      229.369
+    ],
+    "grip_rim_t": 3.0,
+    "grip_rim_x": [
+      101.25,
+      104.25
+    ],
+    "grip_wall_t": 3.0,
+    "grip_overlap": 4.0,
+    "grip_outer_x": 107.5,
+    "grip_projection": 0.0,
+    "spring_seats": [
+      [
+        -97.535,
+        109.39,
+        211.209
+      ],
+      [
+        97.535,
+        109.39,
+        211.209
+      ]
+    ],
+    "spring_stations": [
+      {
+        "x": -97.535,
+        "z": 211.209,
+        "bore_floor_y": 109.39,
+        "seat_floor_y": 90.04,
+        "seat_mouth_y": 92.04
+      },
+      {
+        "x": 97.535,
+        "z": 211.209,
+        "bore_floor_y": 109.39,
+        "seat_floor_y": 90.04,
+        "seat_mouth_y": 92.04
+      }
+    ],
+    "spring_bore_d": 6.57,
+    "spring_bore_depth": 11.1,
+    "spring_bore_mouth_y": 98.29,
+    "fixed_seat_depth": 2.0,
+    "fixed_seat_mouth_y": 92.04,
+    "fixed_seat_floor_y": 90.04,
+    "tab_slot_y_sweep": [
+      98.29,
+      116.29
+    ],
+    "tab_slot_z": [
+      175.05,
+      226.119
+    ],
+    "tab_pad_x": [
+      [
+        -107.5,
+        -94.0
+      ],
+      [
+        94.0,
+        107.5
+      ]
+    ],
+    "service_slot_x": [
+      104.5,
+      108.5
+    ],
+    "service_slot_y": [
+      98.29,
+      132.29000000000002
+    ],
+    "service_slot_z": [
+      174.8,
+      225.869
+    ],
+    "half_entry_shift_x": 17.150000000000006,
+    "half_install_order": [
+      -1,
+      1
+    ],
+    "half_entry_offsets_y": [
+      4.5,
+      4.5
+    ],
+    "half_entry_staging_y": 38.55,
+    "half_entry_lift_z": 70.0,
+    "half_entry_shoulder_inset_x": 3.25,
+    "joint_sites": [
+      [
+        0.0,
+        114.29,
+        176.174
+      ],
+      [
+        0.0,
+        114.29,
+        205.17499999999998
+      ]
+    ],
+    "joint_reach_x": 10.350000000000001,
+    "joint_receiver_x": [
+      -2.65,
+      10.350000000000001
+    ],
+    "joint_tongue_x": [
+      -11.46,
+      10.350000000000001
+    ],
+    "joint_split_x": -6.4,
+    "joint_screw_x": 0.0,
+    "joint_screw_zs": [
+      176.174,
+      205.17499999999998
+    ],
+    "joint_face_y": 108.29,
+    "joint_fore_y": 102.29,
+    "joint_head_seat_y": 114.29,
+    "joint_screw_length": 10.0,
+    "joint_insert_length": 4.0,
+    "joint_count": 2,
+    "finger_run": 16.0,
+    "finger_y": [
+      114.29,
+      130.29000000000002
+    ],
+    "spring_load_length": 9.61,
+    "spring_window_y": [
+      98.29,
+      108.29
+    ],
+    "spring_window_x": [
+      91.0,
+      97.535
+    ],
+    "printed_parts": [
+      "enclosure-tee-carrier-left",
+      "enclosure-tee-carrier-right"
+    ],
+    "tie_sites": [
+      {
+        "tee_x": -82.1,
+        "band_z": 174.174,
+        "slot_xs": [
+          -90.0,
+          -72.21
+        ],
+        "head_side": 1
+      },
+      {
+        "tee_x": -82.1,
+        "band_z": 198.174,
+        "slot_xs": [
+          -90.0,
+          -72.21
+        ],
+        "head_side": 1
+      },
+      {
+        "tee_x": -22.35,
+        "band_z": 174.174,
+        "slot_xs": [
+          -32.24,
+          -12.46
+        ],
+        "head_side": -1
+      },
+      {
+        "tee_x": -22.35,
+        "band_z": 198.174,
+        "slot_xs": [
+          -32.24,
+          -12.46
+        ],
+        "head_side": -1
+      },
+      {
+        "tee_x": 22.35,
+        "band_z": 174.174,
+        "slot_xs": [
+          12.46,
+          32.24
+        ],
+        "head_side": 1
+      },
+      {
+        "tee_x": 22.35,
+        "band_z": 198.174,
+        "slot_xs": [
+          12.46,
+          32.24
+        ],
+        "head_side": 1
+      },
+      {
+        "tee_x": 82.1,
+        "band_z": 174.174,
+        "slot_xs": [
+          72.21,
+          90.0
+        ],
+        "head_side": -1
+      },
+      {
+        "tee_x": 82.1,
+        "band_z": 198.174,
+        "slot_xs": [
+          72.21,
+          90.0
+        ],
+        "head_side": -1
+      }
+    ]
+  },
+  "files": {
+    "continuous-blank": {
+      "path": "continuous-blank.brep",
+      "sha256": "517ed70d094e7b2786bc3104ab718b7cc130a0e36c7b3da59051f99284f16d35",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 112133.17431215315
+    },
+    "fore-lap": {
+      "path": "fore-lap.brep",
+      "sha256": "867f60e44d7c5e2d7833509065b06ae45d89751faa2a5f8641195ec189a4f932",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 7989.382585003298
+    }
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "8d1c5becee2b7a2518228b4a60ebf11bf0b3845832a25d0215916ca3422c4f1e",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/freeze_inputs.py": "00b2c28f3786fa8a48894924299fc81f344ef080d232f63a56a2d9ff791b7eaf"
+  }
+}

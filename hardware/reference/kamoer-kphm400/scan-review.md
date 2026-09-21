@@ -1,12 +1,14 @@
 # Kamoer pump scan and contact review
 
-The two native fused scans support the pump's two rigid bearing faces, front-cover rim and
-molded outlet-casing stations. The cap uses four exposed pressing rails over the skirt lands;
-the fixed bay floor clears the front rim along the complete cartridge insertion path. The
-fitted side walls, skirt lands and locating profiles retain their local geometry.
+Derek confirms that the existing assembled cartridge and cap hold both pumps firmly with
+no vertical play. [physical-fit.json](physical-fit.json) records his report and photograph.
+The production cap has a broad underside, fitted octagonal bosses and Ø37 motor openings.
+Its surrounding crown reaches the cartridge top, with two Ø45 openings around the motor ends
+and spade terminals. The cap has no projecting underside rails.
 
-The corrected parts still require a dry assembly with both physical pumps. Scan agreement and
-CAD clearance do not establish clamp force, operating rigidity or endurance.
+The two native scans independently describe selected rigid surfaces and outlet-casing
+stations. Their transform assumes that the underside strips seat on the modeled cradle lands;
+it does not independently identify the assembled cap's complete contact path.
 
 ## Evidence and registration
 
@@ -33,8 +35,8 @@ Final fitting point-to-plane absolute p95 is 0.158 mm. Withheld molded casings h
 manufacturing tolerance. The scan spray thickness is unmeasured.
 
 Pass 2 supplies the opposite head side and underside bearing strips obscured in pass 1. Those
-complementary observations are sufficient for the contact corrections below. No specific third
-view is required for them. Hidden pump internals and sealed cavities are outside this review.
+complementary observations support the surface readings below. No specific third
+view is indicated by the current review. Hidden pump internals and sealed cavities are outside this review.
 The independent head Y datum is not fully established: the existing fitted head/rear-axis
 relationship is retained, with the observed motor axis aligned to the native rear opening.
 
@@ -56,9 +58,9 @@ check of rigid casing roots finds at most 0.235/0.183 mm penetration in pass 1 a
 to registration/spray uncertainty; it is not a large repeatable clash or a zero-clearance
 certification. Physical insertion remains the acceptance check.
 
-The physical pump rests 0.251 mm below the holder station datum on its skirt lands.
+The assembly model places the pump 0.251 mm below the holder station datum on its skirt lands.
 `_enclosure_interface.pump_seated_drop` is shared by the pump placement, holder-datum recovery
-and cap contact calculation. The manifold's four outlet paths and carried tee axes consume
+and outlet calculation. The manifold's four outlet paths and carried tee axes consume
 that seated pose. The tee reference's own measured length can change the whole manifold's
 placement; that global placement change is distinct from the local pump seating correction.
 
@@ -78,52 +80,41 @@ actual native cradle lands; no extra plate thickness is used to place the pump.
 | Cross-pass fitted underside-plane absolute p95 residual | 0.079 mm |
 
 The repeated front-face structure is the native rigid molded cover and rim in both scans.
-The conflicting floor contact would hold the pump above the intended skirt seat, partly
-consuming the cap gap. It does not provide the intended clamp load path.
+These readings are conditional on the stated seating transform. The flange-only gap does
+not establish loose pump retention; Derek's assembled part has no observed vertical play.
 
-The production construction follows these measured interfaces:
+The cap's broad underside stands 2 mm above the holder datum. The boss opening, Ø37 motor
+bore and screw seats retain their fitted geometry. The crown reaches the cartridge top and
+has two Ø45 open terminal wells above the fitted motor bores.
 
-- The continuous fixed floor is relieved by 2.6 mm from its pump-neutral datum. The cradle's
-  bearing block follows that same flat plane, with no local pocket lip to obstruct withdrawal.
-  At the frozen station fixture, it retains 4.015 mm of stock and gives the minimum observed
-  front rim 0.340 mm air. The conservative declared rigid envelope has 0.329 mm air. Fresh
-  assembly placement determines the absolute floor height and stock.
-- Two 3 × 32 mm flat rails per pump extend from the cap bridge to the nominal flange plane,
-  8 mm above the existing skirt lands. Their X bands are −32…−29 and 29…32 mm, and Y is
-  −16…16 mm about the rear motor axis. These are inspected outer-rim regions clear of the
-  flexible outlets and mounting-hole centers. The actual contact area is the pump rim,
-  not the full nominal printed rail face.
-- The cap has 0.25 mm downward screw adjustment over the measured rim-height range. At maximum
-  closure the bridge still has 1.75 mm clearance to the holder datum, and the screw tips have
-  0.25 mm remaining pilot depth. The cap crown, screw-head seats, fitted octagonal openings
-  and skirt lands keep their local datum relationship.
+The continuous fixed floor is relieved by 2.6 mm from its pump-neutral datum. At the retained
+native station it has 4.015 mm of stock and gives the scanned front rim 0.340 mm air under the
+stated transform. The floor is one flat insertion lane. Its effect on the physically accepted
+cradle is recorded in the [fitted-well audit](fitted-well-audit/README.md). The lower well
+matches 208 sampled triangles of the retained printed input within 0.004 mm. Changing
+only the floor relief leaves the native well and cap geometry unchanged; the matching
+new cartridge extends to the lower floor. Both scanned front rims project through the
+printed cradle's open wells. An older cartridge placed on the new floor would lower
+the complete cartridge and pumps, so the trial uses the matching new cartridge.
 
-The floor grows from front-top's print bed. The cap prints crown-down, so the terminal rail
-bearing faces face print-up. Rail sides are exposed; the correction adds no supported bearing
-face or enclosed support-removal pocket. Production support assessment still belongs to the
-fresh slice and physical print.
+## Checks and assembly test
 
-## Checks and remaining acceptance
+[check_pump_contacts.py](check_pump_contacts.py) and [contact-check.json](contact-check.json)
+record the current cap at the archived station: one valid solid, a clear sampled vertical
+path through the native cradle, open motor-terminal wells and a flat floor corridor.
+The fitted boss/can band is compared to vertices and triangle centers from the retained
+September 13 print input in a common pump-local frame. The maximum surface discrepancy is
+0.012 mm, within the mesh chord approximation. The input archive and original STL hashes
+identify that comparison; Derek has not identified his physical part by print date.
 
-[check_pump_contacts.py](check_pump_contacts.py) builds the current cap and floor at an explicit
-archived station fixture. [contact-check.json](contact-check.json) records one valid cap solid,
-zero native-cradle interference at sampled lifts −0.25, 0, 0.25, 5, 35 and 70 mm, real planar
-rail faces over the selected observations, screw/bridge travel, minimum floor stock, and
-continuous flat head insertion corridors. This bounded check is separate from the complete
-current assembly build and its tube/collet alignment checks.
+The cap prints crown-down. Its two upper-well transition faces are flat supported annuli.
+Their support is open to the bed and exits axially through the Ø45 wells before pump assembly.
+The fresh production slice supplies the final support reading.
 
-Before production acceptance, the physical assembly needs:
-
-1. Both pumps seated on the skirt lands with the front rims clear of the floor. Tightening
-   the cap must remove vertical play before the bridge or screw tips bottom.
-2. Straight cartridge insertion and withdrawal, followed by cap removal and separate upward
-   pump removal on the bench.
-3. Four marked tube insertion depths, secure collet capture and carrier release, followed by
-   a primed pumping/leak check. Silicone outlet flexibility is not a substitute for this test.
-
-The reference's coarse holder-derived surfaces remain useful for layout. These selected
-independent observations qualify the named interfaces; they do not certify every reference
-surface as a scan fit.
+The complete enclosure print tests terminal-connector space, cartridge insertion and
+withdrawal, all four marked tube insertion depths, collet capture, carrier release and spring
+feel. Primed operation supplies the leak check. These are physical acceptance results of the
+assembled trial, not prerequisites for printing it.
 
 ## Reproduce
 

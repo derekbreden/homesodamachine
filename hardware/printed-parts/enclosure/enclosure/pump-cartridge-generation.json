@@ -1,15 +1,17 @@
 {
   "schema": 1,
   "status": "current_cartridge_only_native_checks_passed",
-  "created_at_utc": "2026-09-21T02:59:33.889892+00:00",
+  "created_at_utc": "2026-09-21T05:36:40.464772+00:00",
   "assembly_current": false,
   "production_enclosure_released": false,
   "physical_fit_tested": false,
   "command": [
     "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py",
+    "--existing-exports",
     "--box-sha256",
-    "b48ba9046c15391e5e9be3c64eda68ae89f41e4fc0b6b62a2b12dfb05c248804"
+    "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7"
   ],
+  "existing_exports_checked": true,
   "source_sha256": {
     "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
     "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
@@ -18,13 +20,13 @@
     "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
     "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
     "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd99d0f5fb2414ce6d70b4bd130ea418c77ec5229f05b81ea97d5bbdeb6edd66",
-    "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "4df3d0e6425801d7d4ef3e53734b51bc0aa9cf910c560951762f6533e4cd9c53",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "5e3ceafcce5cb2da4790fcb24514c5ac40cb7ad28e5ad6e4f2775da1f893341e",
+    "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "913e3dd14d642737f944fa4fe00d11f89111b1f638c1cfd93a5e85c24836e612",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
-    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "c2c81f472150f0aa3ffd437ddbe61e68a69da993de194dc352567e7660db9bf9",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e8f01c85a332ccfa56c9c642457b894d9b413658acf2a6387f7bc6d0f430a246",
     "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
@@ -41,64 +43,41 @@
     "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
     "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
     "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
-    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
     "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
     "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
     "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
-    "hardware/scripts/_world_sdf.py": "d5ba05f536cdaa083776aceaf095cff00f18d2fe17d25f2041f1968ee0bac1f7",
-    "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
     "hardware/scripts/materialize_pump_cartridge.py": "a009fe9866415be3c6f46b66b6c2c873843bcd506c728050290cd8df80d6b73b",
     "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
   },
   "input_sha256": {
-    "hardware/manifold-layout/enclosure-box.json": "b48ba9046c15391e5e9be3c64eda68ae89f41e4fc0b6b62a2b12dfb05c248804",
-    "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json": "34cbfdae19ec5b30a81e2f8de3e117cc0efe3e905c4067f4f35bbcbd917412d1",
+    "hardware/manifold-layout/enclosure-box.json": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+    "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json": "b4b0578cd87dae83b4913b8751dec09a3de21c8287bf1032c7b5013f2fcea9d2",
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
-    "hardware/reference/kamoer-kphm400/scan-evidence.json": "c7f8f3e63bef35bdd39b367bf268cfa54e04d996cd51ad5c997749afed4732f2",
+    "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310",
     "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "b29fefdea6d1e62747abcec024b5b1202b5a8d79865e1184a2a18ba65ed7bd21",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "96b7591f5235f356e2a14b3c28c899d40c966d2b92df72e568b86c0b89bff59e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "3f4a1f26a4b10f7c2ba64aef57cea76e94daf5ae5cc65458794ec05f582d6aa9",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "62051c73ad91aeadb53ba5ece12a5841fece6b5b83a8cb69fc746738d54509d8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "832f834f28e5a9b2da02dfc8162767b190b67c80098806dd55b34691f1654c70",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "0316c65049e86d66d25c0d445a87d595740ec6dc2685fe1c6f0c5c31ad8677bf"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "f1152a2862d3058fe21a4d567c4d4c29c35e0a63a2e359d4be11fa9553773795",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "0c0371383599b007c6ed8750964b6a3bfc0a114548089ff6d6a9f5101b21f929",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "7251091ef894102e9df67e2bb54dc4e43112b25b923892daa4b49e160692e513",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1e0215464ee9bdd19179dff01acfdeb2b823bc4e5915714b44956102a70ad3c7"
   },
   "materializer_results": {
     "pump-cartridge": {
       "hashes": {
-        "enclosure-pump-cartridge.step": "b29fefdea6d1e62747abcec024b5b1202b5a8d79865e1184a2a18ba65ed7bd21",
-        "enclosure-pump-cartridge.stl": "96b7591f5235f356e2a14b3c28c899d40c966d2b92df72e568b86c0b89bff59e",
-        "enclosure-pump-cartridge.step.mesh": "3f4a1f26a4b10f7c2ba64aef57cea76e94daf5ae5cc65458794ec05f582d6aa9"
-      },
-      "timings": {
-        "solid": 23.128789791997406,
-        "step": 0.1839309999922989,
-        "stl": 43.46847487500054,
-        "payload": 15.710049083005288,
-        "seat": 0.1185188749950612,
-        "total": 82.60976837499766
-      },
-      "facets": 171298,
-      "payload_src": "b29fefdea6d1e62747abcec024b5b1202b5a8d79865e1184a2a18ba65ed7bd21"
+        "enclosure-pump-cartridge.step": "f1152a2862d3058fe21a4d567c4d4c29c35e0a63a2e359d4be11fa9553773795",
+        "enclosure-pump-cartridge.stl": "0c0371383599b007c6ed8750964b6a3bfc0a114548089ff6d6a9f5101b21f929",
+        "enclosure-pump-cartridge.step.mesh": "7251091ef894102e9df67e2bb54dc4e43112b25b923892daa4b49e160692e513"
+      }
     },
     "pump-cap": {
       "hashes": {
-        "enclosure-pump-cap.step": "62051c73ad91aeadb53ba5ece12a5841fece6b5b83a8cb69fc746738d54509d8",
-        "enclosure-pump-cap.stl": "832f834f28e5a9b2da02dfc8162767b190b67c80098806dd55b34691f1654c70",
-        "enclosure-pump-cap.step.mesh": "0316c65049e86d66d25c0d445a87d595740ec6dc2685fe1c6f0c5c31ad8677bf"
-      },
-      "timings": {
-        "solid": 0.5646696670009987,
-        "step": 0.1743429579946678,
-        "stl": 0.4694280840049032,
-        "payload": 0.8374863329954678,
-        "seat": 0.010710417001973838,
-        "total": 2.0570341249986086
-      },
-      "facets": 6332,
-      "payload_src": "62051c73ad91aeadb53ba5ece12a5841fece6b5b83a8cb69fc746738d54509d8"
+        "enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+        "enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+        "enclosure-pump-cap.step.mesh": "1e0215464ee9bdd19179dff01acfdeb2b823bc4e5915714b44956102a70ad3c7"
+      }
     }
   },
   "native": {
@@ -144,24 +123,24 @@
       {
         "check": "pump-cartridge emitted STEP is one valid solid",
         "pass": true,
-        "volume_mm3": 591745.6344497213
+        "volume_mm3": 589628.6694697856
       },
       {
         "check": "pump-cartridge emitted STL is one closed oriented volume",
         "pass": true,
-        "facets": 171298,
-        "volume_mm3": 569696.0946115755
+        "facets": 170976,
+        "volume_mm3": 567579.6026365221
       },
       {
         "check": "pump-cap emitted STEP is one valid solid",
         "pass": true,
-        "volume_mm3": 586246.9775775291
+        "volume_mm3": 627783.271932688
       },
       {
         "check": "pump-cap emitted STL is one closed oriented volume",
         "pass": true,
-        "facets": 6332,
-        "volume_mm3": 586256.1248466145
+        "facets": 8284,
+        "volume_mm3": 627794.7611953677
       },
       {
         "check": "cap/cradle vertical path at -0.25 mm lift",
@@ -204,7 +183,7 @@
       {
         "check": "pump-cartridge bounded aft-face correction changes only terminal stock",
         "pass": true,
-        "added_mm3": 46.02341029458913,
+        "added_mm3": 46.023410294579875,
         "removed_mm3": 0.0,
         "added_outside_terminal_mm3": 0.0,
         "terminal_y_mm": [
@@ -215,7 +194,7 @@
       {
         "check": "pump-cap bounded aft-face correction changes only terminal stock",
         "pass": true,
-        "added_mm3": 43.263600000206566,
+        "added_mm3": 46.92635226967062,
         "removed_mm3": 0.0,
         "added_outside_terminal_mm3": 0.0,
         "terminal_y_mm": [
@@ -248,60 +227,32 @@
         "check": "emitted cradle retains both flat skirt bearing lands",
         "pass": true,
         "native_land_z_mm": 206.674,
-        "native_area_mm2": 1342.7356611650935
+        "native_area_mm2": 1367.8219901547861
       },
       {
-        "check": "cap adjustment brackets both scan passes at all four rail footprints",
+        "check": "cap broad underside has no projections into the fitted pump seat",
         "pass": true,
-        "observed_rim_height_mm": [
-          7.813457874215291,
-          8.129970652395581
-        ],
-        "nominal_height_mm": 8.0,
-        "adjustment_mm": 0.25
+        "broad_base_z_mm": 216.925,
+        "cap_lowest_z_mm": 216.925
       },
       {
-        "check": "rail 1 exists in emitted cap",
+        "check": "cap surrounding crown reaches the cartridge top",
         "pass": true,
-        "missing_mm3": 0.0
+        "cap_top_z_mm": 284.1740001,
+        "cartridge_top_z_mm": 284.1740001
       },
       {
-        "check": "rail 1 has an exposed flat print-up bearing face",
+        "check": "X52.225 motor-terminal crown remains fully open",
         "pass": true,
-        "area_mm2": 96.0
+        "interference_mm3": 0.0
       },
       {
-        "check": "rail 2 exists in emitted cap",
+        "check": "X-52.225 motor-terminal crown remains fully open",
         "pass": true,
-        "missing_mm3": 0.0
+        "interference_mm3": 0.0
       },
       {
-        "check": "rail 2 has an exposed flat print-up bearing face",
-        "pass": true,
-        "area_mm2": 96.0
-      },
-      {
-        "check": "rail 3 exists in emitted cap",
-        "pass": true,
-        "missing_mm3": 0.0
-      },
-      {
-        "check": "rail 3 has an exposed flat print-up bearing face",
-        "pass": true,
-        "area_mm2": 96.0
-      },
-      {
-        "check": "rail 4 exists in emitted cap",
-        "pass": true,
-        "missing_mm3": 0.0
-      },
-      {
-        "check": "rail 4 has an exposed flat print-up bearing face",
-        "pass": true,
-        "area_mm2": 96.0
-      },
-      {
-        "check": "screw and bridge stops permit contact adjustment",
+        "check": "cap lift allowance preserves screw and bridge clearances",
         "pass": true,
         "tip_air_mm": 0.25,
         "bridge_air_mm": 1.75,
@@ -434,12 +385,12 @@
     "pump_trays": [
       [
         52.225,
-        45.909,
+        45.859,
         214.925
       ],
       [
         -52.225,
-        45.909,
+        45.859,
         214.925
       ]
     ],
@@ -527,62 +478,22 @@
       ],
       "assembly_state": "connected"
     },
-    "cap_rails": [
+    "open_terminal_wells": [
       {
-        "bounds_xy_mm": [
-          [
-            20.225,
-            28.909
-          ],
-          [
-            23.225,
-            60.909
-          ]
+        "center_xy_mm": [
+          52.225,
+          44.859
         ],
-        "z_mm": 214.674,
-        "area_mm2": 96.0
+        "diameter_mm": 45.0,
+        "bottom_z_mm": 278.925
       },
       {
-        "bounds_xy_mm": [
-          [
-            81.225,
-            28.909
-          ],
-          [
-            84.225,
-            60.909
-          ]
+        "center_xy_mm": [
+          -52.225,
+          44.859
         ],
-        "z_mm": 214.674,
-        "area_mm2": 96.0
-      },
-      {
-        "bounds_xy_mm": [
-          [
-            -84.225,
-            28.909
-          ],
-          [
-            -81.225,
-            60.909
-          ]
-        ],
-        "z_mm": 214.674,
-        "area_mm2": 96.0
-      },
-      {
-        "bounds_xy_mm": [
-          [
-            -23.225,
-            28.909
-          ],
-          [
-            -20.225,
-            60.909
-          ]
-        ],
-        "z_mm": 214.674,
-        "area_mm2": 96.0
+        "diameter_mm": 45.0,
+        "bottom_z_mm": 278.925
       }
     ],
     "skirt_land_z_mm": 206.674,
@@ -603,7 +514,7 @@
       ],
       "cap_head_seat_z_mm": 268.975,
       "cap_counterbore_radius_mm": 2.9,
-      "cap_crown_z_mm": 278.925
+      "cap_crown_z_mm": 284.1740001
     },
     "floor_z_mm": [
       160.0,
@@ -620,8 +531,8 @@
   },
   "remaining": [
     "Current native slice and support removal review.",
-    "Physical pump seating, cap preload and support cleanup.",
-    "Tee terminal-ring bearing qualification and complete carrier/collet dry cycle.",
+    "Assembled enclosure fit, terminal connectors and support cleanup; existing cap retention is recorded in physical-fit.json.",
+    "Complete carrier/collet dry cycle in the assembled enclosure.",
     "Full enclosure regeneration and qualification are separate."
   ]
 }

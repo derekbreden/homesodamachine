@@ -10,7 +10,7 @@
     "qualification": "Fixed ends and sleeve radius are conservative clearance proxies; the exact terminal-ring seam/OD is not caliper-qualified."
   },
   "inputs_sha256": {
-    "hardware/printed-parts/enclosure/tee-readiness/verify_tee_integration.py": "3e00dabd6233ad4429c9521528c66c9cf6bbee8768206028faf03b28d5adb5cb",
+    "hardware/printed-parts/enclosure/tee-readiness/verify_tee_integration.py": "1f20bd6158edad4fbe3373f8fd0d3c42ad7e5b271923162d6dd987e921faf17e",
     "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
     "hardware/reference/tee-connector/tee-connector.step": "fe353e2f8c8d0866836dae917cbeff9355ea611ee8be476dc84e318a6c791a00",
     "hardware/reference/jg-pp0208e-tee/scan-registration.json": "2120e0521b8e4d865cc25d422ca8560ec3e38895227d31fa6cc0eaf8ba143962",
@@ -18,13 +18,13 @@
     "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
     "hardware/reference/water-split/water_split.py": "af59f438113242eb0ebbaf5eb762cddbffa285a5792a3a92c4085a626f9aded1",
-    "hardware/manifold-layout/manifold_layout.py": "32bf6fa6aa2edc51348b13798d5f0eac0b1948d22bd6f429be464d2d40bd8030",
-    "hardware/manifold-layout/enclosure_assembly.py": "1c1a2f9a44897df0c6fd8e57d396b67010c2baf649c799287322b922048b8998",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd99d0f5fb2414ce6d70b4bd130ea418c77ec5229f05b81ea97d5bbdeb6edd66",
-    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "8d1c5becee2b7a2518228b4a60ebf11bf0b3845832a25d0215916ca3422c4f1e",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "07c1716f76c4e6fd2e2cd9098ce79036477cc4ed92533f11bf0adec00a849a54",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "0066f7a86a2dfdb6fb874a91e4af15a04288c48e3c7c95f20621ae189ef9669b"
+    "hardware/manifold-layout/manifold_layout.py": "4e6d9d70fb49b0dad8a79a921e15216ba4c9dd8250b28cab3cf85ee2fe6c1b71",
+    "hardware/manifold-layout/enclosure_assembly.py": "7cf2592b59ec59133668c90d1092c39bac6ce5a196622fab1e11efdff40dfcc0",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "08c689797fde87ced31b7b074b2df2a9f5ee860db03016a8ba2b4e591cdd6835",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16"
   },
   "checks": [
     {
@@ -5786,7 +5786,7 @@
     "run_collet_travel": 1.6499999999999986,
     "branch_collet_travel": 1.5,
     "carrier_seating_travel": 2.0,
-    "pump_to_release_span": 5.476,
+    "pump_to_release_span": 5.526,
     "journal_diameter": 17.0,
     "trough_radius": 8.75,
     "retained_upper_backing": 5.504165999999998,
@@ -5794,17 +5794,17 @@
     "full_valve_post_entry_air": 0.2499998999999633,
     "carrier_drop": 5.251,
     "manifold_lift": 191.42500009999998,
-    "pump_tube_projection": 17.476000000000006
+    "pump_tube_projection": 17.52600000000001
   },
   "pump_trays": [
     [
       52.225,
-      45.909,
+      45.859,
       214.925
     ],
     [
       -52.225,
-      45.909,
+      45.859,
       214.925
     ]
   ],
@@ -5812,7 +5812,7 @@
     "Y-C": {
       "pump": [
         22.35,
-        77.214,
+        77.164,
         186.17400009999997
       ],
       "tee_release": [
@@ -5824,7 +5824,7 @@
     "Y-D": {
       "pump": [
         82.1,
-        77.214,
+        77.164,
         186.17400009999997
       ],
       "tee_release": [
@@ -5836,7 +5836,7 @@
     "Y-F": {
       "pump": [
         -22.35,
-        77.214,
+        77.164,
         186.17400009999997
       ],
       "tee_release": [
@@ -5848,7 +5848,7 @@
     "Y-G": {
       "pump": [
         -82.1,
-        77.214,
+        77.164,
         186.17400009999997
       ],
       "tee_release": [
@@ -5887,7 +5887,9 @@
     "stub_air": 0.3,
     "flange_x": 56.82,
     "flange_z0": 209.075,
-    "flange_depth": 14.0,
+    "flange_depth": 18.0,
+    "side_web_added_y": 0.9,
+    "side_web_z0": 182.175,
     "tie_band_offsets_z": [
       -12.0,
       12.0
@@ -5903,11 +5905,13 @@
       2.8
     ],
     "spring_bore_d": 6.57,
-    "spring_load_length": 9.61,
+    "spring_load_length": 12.15,
     "spring_window_air": 0.3,
     "spring_ring": 1.1,
     "spring_roof_angle_deg": 45.0,
-    "fixed_seat_depth": 2.0,
+    "fixed_seat_depth": 8.0,
+    "fixed_seat_recess_depth": 2.0,
+    "fixed_seat_wall": 2.0,
     "release_offset_y": 0.0,
     "connected_offset_y": 2.0,
     "park_offset_y": 2.0,
@@ -5932,14 +5936,9 @@
     "grip_edge_r": 2.0,
     "grip_root_overlap": 0.2,
     "entry_inset_x": null,
-    "entry_staging_y": 38.54999999999998,
+    "entry_staging_y": 33.0,
     "entry_lift_z": 70.0,
     "joint_lap_t": 6.0,
-    "joint_screw_x": 0.0,
-    "joint_web_ligament": 1.0,
-    "joint_screw_inset_z": 9.0,
-    "joint_head_shelf_air": 1.0,
-    "joint_screw_length": 10.0,
     "bed_x": 325.0,
     "bed_y": 320.0,
     "bed_z": 320.0
@@ -6055,7 +6054,7 @@
     "flange_x": 56.82,
     "flange_y": [
       114.29000000000002,
-      128.29000000000002
+      132.29000000000002
     ],
     "flange_z": [
       209.075,
@@ -6153,21 +6152,24 @@
         "z": 211.20900009999997,
         "bore_floor_y": 109.39000000000001,
         "seat_floor_y": 90.04000000000002,
-        "seat_mouth_y": 92.04000000000002
+        "seat_mouth_y": 98.04000000000002
       },
       {
         "x": 97.535,
         "z": 211.20900009999997,
         "bore_floor_y": 109.39000000000001,
         "seat_floor_y": 90.04000000000002,
-        "seat_mouth_y": 92.04000000000002
+        "seat_mouth_y": 98.04000000000002
       }
     ],
     "spring_bore_d": 6.57,
     "spring_bore_depth": 11.1,
     "spring_bore_mouth_y": 98.29000000000002,
-    "fixed_seat_depth": 2.0,
-    "fixed_seat_mouth_y": 92.04000000000002,
+    "fixed_seat_depth": 8.0,
+    "fixed_seat_recess_depth": 2.0,
+    "fixed_seat_wall_y": 92.04000000000002,
+    "fixed_seat_outer_d": 10.57,
+    "fixed_seat_mouth_y": 98.04000000000002,
     "fixed_seat_floor_y": 90.04000000000002,
     "tab_slot_y_sweep": [
       98.29000000000002,
@@ -6208,48 +6210,37 @@
       4.5,
       4.5
     ],
-    "half_entry_staging_y": 38.54999999999998,
+    "half_entry_staging_y": 33.0,
     "half_entry_lift_z": 70.0,
     "half_entry_shoulder_inset_x": 3.25,
-    "joint_sites": [
-      [
-        0.0,
-        114.29000000000002,
-        176.17400009999997
-      ],
-      [
-        0.0,
-        114.29000000000002,
-        205.17499999999998
-      ]
-    ],
+    "joint_sites": [],
     "joint_reach_x": 10.350000000000001,
     "joint_receiver_x": [
-      -2.65,
-      10.350000000000001
+      -9.5,
+      12.75
     ],
     "joint_tongue_x": [
-      -11.46,
+      -16.0,
       10.350000000000001
     ],
-    "joint_split_x": -6.4,
-    "joint_screw_x": 0.0,
-    "joint_screw_zs": [
-      176.17400009999997,
-      205.17499999999998
-    ],
+    "joint_split_x": -13.0,
     "joint_face_y": 108.29000000000002,
     "joint_fore_y": 102.29000000000002,
-    "joint_head_seat_y": 114.29000000000002,
-    "joint_screw_length": 10.0,
-    "joint_insert_length": 4.0,
-    "joint_count": 2,
+    "joint_count": 0,
+    "joint_retained_parts": 2,
+    "joint_shelf_overlap_x": 31.85,
+    "joint_shelf_overlap_y": 18.0,
+    "joint_style": "broad_rail_and_shelf_with_integral_retaining_wall",
+    "spring_loading": "axial_preload_before_half_installation",
+    "moving_spring_window_open": false,
+    "side_web_added_y": 0.9,
+    "side_web_z0": 182.175,
     "finger_run": 16.0,
     "finger_y": [
       114.29000000000002,
       130.29000000000002
     ],
-    "spring_load_length": 9.61,
+    "spring_load_length": 12.15,
     "spring_window_y": [
       98.29000000000002,
       108.29000000000002
@@ -6336,152 +6327,7 @@
         "head_side": -1
       }
     ],
-    "joint_head_clearances": [
-      [
-        "working sweep",
-        1,
-        "coil-v-c",
-        6.693561
-      ],
-      [
-        "working sweep",
-        1,
-        "coil-v-d",
-        6.888147
-      ],
-      [
-        "working sweep",
-        1,
-        "valve-v-c",
-        29.733559
-      ],
-      [
-        "working sweep",
-        1,
-        "valve-v-d",
-        29.733559
-      ],
-      [
-        "working sweep",
-        2,
-        "coil-v-c",
-        4.982884
-      ],
-      [
-        "working sweep",
-        2,
-        "coil-v-d",
-        5.218881
-      ],
-      [
-        "working sweep",
-        2,
-        "valve-v-c",
-        29.674861
-      ],
-      [
-        "working sweep",
-        2,
-        "valve-v-d",
-        29.674861
-      ],
-      [
-        "underside entry",
-        1,
-        "coil-v-c",
-        3.276707
-      ],
-      [
-        "post insertion",
-        1,
-        "coil-v-c",
-        6.599365
-      ],
-      [
-        "underside entry",
-        1,
-        "valve-v-c",
-        28.726623
-      ],
-      [
-        "post insertion",
-        1,
-        "valve-v-c",
-        28.791174
-      ],
-      [
-        "underside entry",
-        2,
-        "coil-v-c",
-        4.860133
-      ],
-      [
-        "post insertion",
-        2,
-        "coil-v-c",
-        4.860133
-      ],
-      [
-        "underside entry",
-        2,
-        "valve-v-c",
-        28.730574
-      ],
-      [
-        "post insertion",
-        2,
-        "valve-v-c",
-        28.730574
-      ],
-      [
-        "underside entry",
-        1,
-        "coil-v-d",
-        3.575366
-      ],
-      [
-        "post insertion",
-        1,
-        "coil-v-d",
-        6.794834
-      ],
-      [
-        "underside entry",
-        1,
-        "valve-v-d",
-        28.726623
-      ],
-      [
-        "post insertion",
-        1,
-        "valve-v-d",
-        28.791174
-      ],
-      [
-        "underside entry",
-        2,
-        "coil-v-d",
-        5.098972
-      ],
-      [
-        "post insertion",
-        2,
-        "coil-v-d",
-        5.098972
-      ],
-      [
-        "underside entry",
-        2,
-        "valve-v-d",
-        28.730574
-      ],
-      [
-        "post insertion",
-        2,
-        "valve-v-d",
-        28.730574
-      ]
-    ],
+    "joint_head_clearances": [],
     "states": {
       "release": {
         "offset_y": 0.0,
@@ -6582,7 +6428,7 @@
       "park": 14.35,
       "aft_limit": 16.85
     },
-    "spring_loading_clearance_above_compressed_estimate": 2.61,
+    "spring_loading_clearance_above_compressed_estimate": 5.15,
     "spring_representation": {
       "representation": "measured spring clearance envelope",
       "use": "fit and collision checks only",
@@ -7093,13 +6939,17 @@
     "tee_count": 4,
     "spring_count": 2,
     "tab_count": 2,
-    "joint_screw_count": 2,
+    "joint_screw_count": 0,
     "recess_roof_wall": 6.305999900000046,
     "recess_socket_wall": 6.78099990000004
   },
   "remaining_release_checks": [
-    "Terminal-ring OD, fixed/moving seam and physical release-ring bearing qualification; nominal branch face stations are caliper-derived.",
-    "Spring ID and positive capture design/physical qualification.",
     "Complete regenerated enclosure interference and insertion checks, current support-removal audit and exact slice identity."
-  ]
+  ],
+  "full_enclosure_physical_checks": [
+    "Moving-ring bearing, continuous depression during extraction and relocking; branch face stations and travel are caliper-derived.",
+    "Both-end spring capture through the working stroke, return tension, joint rigidity and operating feel."
+  ],
+  "terminal_bearing_evidence": "hardware/reference/jg-pp0208e-tee/terminal-bearing-review.json",
+  "spring_id_required_by_design": false
 }

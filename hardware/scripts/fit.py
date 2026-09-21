@@ -54,7 +54,7 @@ they leave, on the same measured distances.
     fit.search(p, x=(xlo, xhi, step), y=(ylo, yhi, step), z=deck,
                yaw=(0, 90, 180, 270), clearance=2.0, skip=("vk-solenoid",))
 
-    fit.slab(z=(deck, ceiling), size=(width, depth), exact=("seaflo-pump",))
+    fit.slab(z=(deck, ceiling), size=(width, depth), exact=("g-ganen-pump",))
 
 `slab` maps what is free in a Z band rather than testing one part: the largest rectangles
 a footprint could stand in, each with the floor it stands on — a rectangle with nothing

@@ -241,7 +241,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [98 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [97 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -529,7 +529,7 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[358.39 mm](STOREY_RUN) over the storey at z [177.8..283.5 mm](STOREY_BAND). The two open flanks
+[358.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
 **x = 0** and the pitch remains [5.1285 mm](FLUTE_PITCH), so both ledges retain the machine's
@@ -938,8 +938,9 @@ supported-face allowances, both allocated to the rebate floor. The nominal assem
 pose stands 0.50 mm above the floor and has a 1.25 mm flange gap. The bearing floor
 and retention roof retain their datums.
 
-The moisture plate's **cable clip** is immediately aft of the sleeve on the dry inner face of
-the −X flank. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
+The moisture plate's **cable clip** lies below the sleeve's aft end on the dry inner face of
+the −X flank, with 6 mm above the clip and 3 mm between its rear end and the rear wall.
+The complete pan withdrawal path stays above it. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
 [9 mm](PAN_CLIP_WALL) wall, leaving [3 mm](PAN_CLIP_PROUD) proud in the cabinet and [3 mm](CABLE_CLIP_BACKING) of
 exterior backing. The profile is asymmetric in its own up, and that up follows the print's:
 back-top prints ceiling-down, so the run is laid along +Y and the profile's up is the box's −Z.
@@ -1215,9 +1216,9 @@ east lane to the cold core.
 (`build_pump_cartridge`) owns the complete removable front wall, the filled body behind it,
 and both hand pulls. Its filled bearing block rides the bay floor; its exterior
 face begins on that same bed plane above a [0.25 mm](PUMP_CARTRIDGE_Z_CLEARANCE) recess in the fixed sill and ends
-[0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel. The bed plane is z [165.615 mm](PUMP_CARTRIDGE_BOTTOM_Z), the crown is z
-[283.245 mm](PUMP_CARTRIDGE_TOP_Z), and the complete removable face is
-[117.63 mm](PUMP_CARTRIDGE_RISE) high. Its outer shell
+[0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel. The bed plane is z [165.195 mm](PUMP_CARTRIDGE_BOTTOM_Z), the crown is z
+[284.174 mm](PUMP_CARTRIDGE_TOP_Z), and the complete removable face is
+[118.979 mm](PUMP_CARTRIDGE_RISE) high. Its outer shell
 keeps the complete 215 mm enclosure width, including both rounded front corners and side skins,
 and its show plane shares the fixed front face at [0 mm](PUMP_FACE_OFFSET) offset. The flavour pack stands behind that plane. The show plane stands one complete
 [1.2 mm](PUMP_SHOW_GROWTH) flute depth ahead of the pump-pocket datum. Its filled body reaches both cavity
@@ -1235,42 +1236,40 @@ sides, with tube passages on +Y. The physical skirt rests on those lands; the mo
 transfers the pump weight and clamp load into the cradle and the continuous bay floor.
 
 The head's [8 mm](PUMP_SKIRT_DEPTH) skirt stands over one flat horizontal land at z
-[205.494 mm](PUMP_SKIRT_SUPPORT_Z). The physical pump sits [0.251 mm](PUMP_SEATED_DROP)
+[206.674 mm](PUMP_SKIRT_SUPPORT_Z). The physical pump sits [0.251 mm](PUMP_SEATED_DROP)
 below the holder station datum when the skirt is seated. The land keeps the skirt's fitted X/Y plan;
 there is no slanted substitute for it. It is continuous across the X−, Y− and X+ flanks, with
 [4.9 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
 measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.25 mm](PUMP_SKIRT_XY_AIR) per-face clearance
 in a [54.5 mm](PUMP_SKIRT_OPEN_Y) Y opening, from y
-[18.437 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
-[72.937 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
+[18.387 mm](PUMP_SKIRT_BODY_Y_MINUS_EDGE) to y
+[72.887 mm](PUMP_SKIRT_BODY_Y_PLUS_EDGE). On Y+ the same land continues only between the two
 tube-casing passages. The skirt itself spans [62.5 mm](PUMP_SKIRT_Y), from y
-[13.519 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [76.019 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
+[13.469 mm](PUMP_SKIRT_Y_MINUS_EDGE) to y [75.969 mm](PUMP_SKIRT_Y_PLUS_EDGE); its opening ends
 at y [76.269 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
-[0.25 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
-[3.332 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Behind
+[0.3 mm](PUMP_SKIRT_Y_PLUS_AIR) around the skirt and
+[3.382 mm](PUMP_SKIRT_Y_PLUS_LAND) of supporting land back to the body opening. Behind
 that opening the cradle keeps [3 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
 [3 mm](PUMP_SKIRT_UPPER_BAND) upper band that ends at y [79.269 mm](PUMP_SKIRT_UPPER_BAND_AFT),
 and ends on the cartridge's flat back at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y): the bay bulkhead
 less its [0.246 mm](CARTRIDGE_BULKHEAD_KISS) clearance, the plane the clamp ends on too.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [62 mm](CLAMP_RISE) high. Its bridge underside
-stands at z [215.75 mm](CLAMP_BASE_Z), [2 mm](CLAMP_BRIDGE_RISE) above the holder datum.
-Four [3 mm](CLAMP_RAIL_WIDTH) × [32 mm](CLAMP_RAIL_RUN) flat rails reach the measured outer
-flange rims at z [213.494 mm](CLAMP_PRESSING_Z). Screw closure has
-[0.25 mm](CLAMP_CONTACT_TRAVEL) downward adjustment without a bridge or screw-tip stop.
+(`build_pump_cap`) is [174.4 mm](CLAMP_SPAN) across and [67.249 mm](CLAMP_RISE) high. Its bridge underside
+stands at z [216.93 mm](CLAMP_BASE_Z), [2 mm](CLAMP_BRIDGE_RISE) above the holder datum.
+The fitted cylindrical motor bores are Ø37 mm. Above their upper ends, two
+[45 mm](CLAMP_TERMINAL_OPENING) open wells leave the motor ends and terminal pairs exposed.
 One filled field spans both pump heads from their clean
 fore envelope to the cartridge's flat back and reaches one common crown at z
-[277.75 mm](CLAMP_CROWN_Z), with [6 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
+[284.17 mm](CLAMP_CROWN_Z), with [0.5 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
 Two fitted openings wrap
 both bosses with [0.25 mm](CLAMP_BOSS_AIR) clearance from each octagonal face and leave one shoulder around each motor
 can. Both fitted openings follow the pump reference's rear-stack axis,
-[1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− from the head and lower-cradle datum. Nothing else is cut
-from the field: the [46.39 mm](CLAMP_SCREW_LANE) lane between the two octagons stays full from
+[1 mm](CLAMP_PUMP_Y_SHIFT) toward Y− from the head and lower-cradle datum. Above those fitted openings, the motor-terminal wells open through the crown. The [50.95 mm](CLAMP_SCREW_LANE) lane between the two octagons stays full from
 base to crown, and the two screw stations cross it in their own bores,
 [36 mm](CLAMP_SCREW_PITCH) apart on the centreline. Each [60 mm](CLAMP_SCREW_LEN) M3 drops
 through a counterbore in the crown whose seat is struck from the screw,
-[9.95 mm](CLAMP_HEAD_SEAT_DEPTH) under the crown at z [267.795 mm](CLAMP_HEAD_SEAT_Z), runs the
+[15.2 mm](CLAMP_HEAD_SEAT_DEPTH) under the crown at z [268.975 mm](CLAMP_HEAD_SEAT_Z), runs the
 whole field and the bridge clearance under it, and takes the complete
 [5.7 mm](CLAMP_INSERT_LEN) long insert opened from the cradle's station plane. The clamp
 carries no show face, plate stop or hand pull. Its insertion wells leave
@@ -1286,14 +1285,14 @@ bench, followed by straight Y insertion.
 stand [59.75 mm](CAP_TUBE_PITCH) apart. The physical pair spans
 [72.5 mm](CAP_TUBE_PART_SPAN), while its holder openings span
 [73 mm](CAP_TUBE_OPEN_SPAN). Each passage begins at the case-room seam,
-y [50.0481 mm](CAP_TUBE_START_Y). Its circular lower half is
+y [49.936 mm](CAP_TUBE_START_Y). Its circular lower half is
 centered on the casing axis and a straight [13.25 mm](CAP_TUBE_OPEN) shaft continues through the complete vertical
 insertion path. The shafts, tube-side case room and upper well share the same outer X planes;
 printed wall remains between and outside the passages. The full-width upper wells end together
-at the bulkhead face, y [79.519 mm](PUMP_UPPER_WELL_AFT). The cradle and clamp have flat
+at the bulkhead face, y [79.515 mm](PUMP_UPPER_WELL_AFT). The cradle and clamp have flat
 aft faces beside these openings.
 
-The pump outlet planes stand [2.305 mm](PUMP_OUTLET_BULKHEAD_AIR) fore of the
+The pump outlet planes stand [2.351 mm](PUMP_OUTLET_BULKHEAD_AIR) fore of the
 bulkhead. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET) offset and
 stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
 the complete flavour pack's common station.
@@ -1310,13 +1309,18 @@ relax the grasp so the two springs settle the carrier at connected. The plate is
 the tee wall behind it.
 
 The [`tee carrier`](/hardware/printed-parts/enclosure/tee-carrier/README.md) is two printed
-halves with closed finger cups, a 6 mm web and a full-height centre lap closed by two M3
-screws from the open rear. Each half enters the loose front-top through its open rear above
-the valve supports, lowers behind the fixed body and seats outward into its side recess on
-the aft stop; the right half slides onto the left half's tongue on that stop. The four moving
-tees are already seated; both valve rows and both springs remain absent during carrier entry.
-Each service tab carries its own return spring in a channel behind its fore face, bearing on
-a seat in the flank recess's fore wall.
+halves with closed finger cups, a 6 mm web, a full-height fore lap, one captured centre rail
+and an overlapping upper shelf. An integral broad rear wall retains their seated joint.
+The lap, rail and shelf carry its bearing faces; there are no centre-joint screws or separate
+keepers. Broad inner-web backing adds 0.90 mm above the lower valve coils' entry path.
+
+Install the left half and then the right in the loose front-top, with the four bare tees
+seated at release and both valve rows absent. Each spring is already loaded into its closed
+moving cup and held at 12.15 mm by the temporary flat pusher. Each half enters through the
+open rear, lowers behind the fixed body, shifts outward to its staging position, slides fore
+and seats outward at the aft stop. The right shelf passes through its receiver during the
+fore slide; the final outward seat retains the joint. Withdraw and lift the pusher after
+each half seats. One tool serves both sides in sequence.
 
 Each cup has a thick front bar, a closed back and a rounded mouth. Its rectangular body runs
 between the opening's flat upper and lower bearings; the fore and aft faces stop the stroke.
@@ -1325,40 +1329,41 @@ internal recess. The two rims face opposite wall shoulders and capture the joine
 across X. The guide faces and rims locate the carrier
 with the tees and springs absent. The part's README carries the grip, guide and rim dimensions.
 
-Each passage has an Ø8.5 mm circular bore and a tangent teardrop roof. It passes the
+Each collet-release passage has an Ø8.5 mm circular bore. It passes the
 Ø6.35 mm tube between the aligned pump and tee stations while the surrounding face
-catches the release nose's Ø11.43 mm rim. The four tube-centre stations are independent of
+catches the moving terminal ring. The [observed terminal face](/hardware/reference/jg-pp0208e-tee/terminal-bearing-review.json)
+supplies bearing stock around that aperture. The four tube-centre stations are independent of
 the bulkhead's outline and the cartridge's pull pockets.
 
 **The tee travels and the valve stays seated.** The complete release travel is
-[2.15 mm](PLATE_STROKE): [0.5 mm](PLATE_REST_GAP) of nose air followed by
-[1.65 mm](SLEEVE_TRAVEL) of sleeve depression, the PP0208E's measured stroke
+[2 mm](PLATE_STROKE): [0.5 mm](PLATE_REST_GAP) of nose air followed by
+[1.5 mm](SLEEVE_TRAVEL) of branch-sleeve depression, the PP0208E's measured branch stroke
 ([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). At the fore stop
 the fully depressed sleeves bear directly on the fixed plate and all four tubes bottom
-10 mm beyond that face with the cartridge 2.15 mm short of seating. Release the grips and
-push the cartridge through the remaining 2.15 mm; its tips then bottom at the aft body stops,
-11.65 mm beyond the extended sleeves. Squeeze and release share the fore stop. The complete
+10 mm beyond that face with the cartridge 2 mm short of seating. Release the grips and
+push the cartridge through the remaining 2 mm; its tips then bottom at the aft body stops,
+11.50 mm beyond the extended sleeves. Squeeze and release share the fore stop. The complete
 assembly shows nominal connected rest. The internal aft stop allows an additional 2.5 mm
-of movement for bending, giving 4.65 mm total travel; the empty carrier can return to that stop.
-The modeled
-branch sleeves move inside their bodies; the spring loads remain catalog estimates.
+of movement for bending, giving 4.50 mm total travel; the empty carrier can return to that stop.
+Only the small outermost branch rings move. Spring force and rate are unmeasured; the model's
+spring bodies are clearance envelopes.
 
 The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
-[0.25 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
+[0.246 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
 
 **Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [18 mm](PULL_DEPTH)
-deep and [28 mm](PULL_RUN) long in Y, from z [176.25 mm](PULL_FLOOR_Z)
-to z [272.865 mm](PULL_TOP_Z), a [96.62 mm](PULL_RISE) height. The cartridge keeps
-[10.63 mm](PULL_FLOOR_LIGAMENT) below each pocket and [10.38 mm](PULL_ROOF_LIGAMENT)
+deep and [28 mm](PULL_RUN) long in Y, from z [177.43 mm](PULL_FLOOR_Z)
+to z [272.194 mm](PULL_TOP_Z), a [94.77 mm](PULL_RISE) height. The cartridge keeps
+[12.23 mm](PULL_FLOOR_LIGAMENT) below each pocket and [11.98 mm](PULL_ROOF_LIGAMENT)
 above it. The four corners have [6 mm](PULL_CORNER_R) radii, and the complete exposed
-perimeter has [6 mm](PULL_EDGE_R) rounds, leaving [4.63 mm](PULL_RIM_FLOOR_LIGAMENT)
-at the lower rim and [4.38 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
+perimeter has [6 mm](PULL_EDGE_R) rounds, leaving [6.23 mm](PULL_RIM_FLOOR_LIGAMENT)
+at the lower rim and [5.98 mm](PULL_RIM_ROOF_LIGAMENT) at the upper rim.
 The rim's roll and corner blends follow the top shoulder and lower handholds;
 the flutes taper into the same broad smooth edge.
 The fore face at y [28.13 mm](PULL_LEDGE)
 carries cartridge extraction; the aft face at y [56.13 mm](PULL_AFT_LEDGE) takes the thumb's
 push during insertion. The cradle keeps [23.13 mm](PULL_FORE_STOCK) of stock fore
-of the pocket and [23.13 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
+of the pocket and [23.14 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
 ## The tee carrier body
@@ -1388,12 +1393,20 @@ above the finger space. The internal recess continues from the outer tee well to
 tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
 insertion and working sweeps include 0.25 mm clearance in X and 0.50 mm at supported Z faces.
 
-Each flank recess's fore wall carries a round spring seat on its service tab's channel axis.
-Each compressed spring comes down the outer tee well, passes outward through the window in
-the bar's inboard face into the channel, and expands fore into that seat. The rear recesses
-admit the aft valves from the loose piece's open underside with the joined carrier at
-release. The lap's two screws enter from the open rear before the aft valves; the fixed body
-carries no passage for them.
+Each flank recess's fore wall carries an integral Ø6.57 mm spring cup, 8 mm deep with a
+2 mm radial wall. The moving bar has a closed Ø6.57 mm teardrop bore, 11.1 mm deep.
+Their spring floors remain at Y90.040 and Y109.390 plus carrier travel. Floor separations
+are 19.35 mm at release, 21.35 mm at connected and 23.85 mm at the aft stop. Both ends are
+inside their cups; the mouth gap ranges from 0.25 to 4.75 mm. Actual coil bowing, retention
+and feel are evaluated in the complete enclosure assembly.
+
+The [reusable pusher](/hardware/printed-parts/fixtures/carrier-spring-pusher/README.md) has a
+Ø6.3 mm tip and a 10 × 3 mm tongue, both 2 mm thick. It holds the spring during half entry,
+then withdraws 15.435 mm inboard and lifts 70 mm through the outer tee well. The spring
+expands into its fixed cup before the same tool loads the next half. With the joined carrier
+held at release, the rear recesses admit the lower valves and coils from the loose piece's
+open underside at their 5.45 mm fore entry offset; they then slide aft onto the mounting
+posts. The accepted Beduan socket fit is retained, with ties supplying positive retention.
 
 The fixed guide ceilings and tee wells keep their working faces. Support
 leaves through the open aft cavities before hardware is installed.
@@ -1412,10 +1425,10 @@ floor carries its flat underside. Both rounded hand pockets belong to this cradl
 ## The bay floor
 
 Front-top carries one continuous floor from the front wall through the rear bulkhead.
-Its flat bearing sill is z [165.615 mm](PUMP_BAY_FLOOR_Z),
+Its flat bearing sill is z [165.195 mm](PUMP_BAY_FLOOR_Z),
 [2.6 mm](PUMP_BAY_FLOOR_RELIEF) below the pump-neutral floor datum. The independently scanned
 rigid front-rim envelope keeps [0.329 mm](PUMP_HEAD_FLOOR_AIR) above it. The full floor retains
-[4.015 mm](PUMP_BAY_FLOOR_STOCK) of stock and keeps one flat insertion/withdrawal lane. The floor begins on front-top's Z-seam
+[5.195 mm](PUMP_BAY_FLOOR_STOCK) of stock and keeps one flat insertion/withdrawal lane. The floor begins on front-top's Z-seam
 print bed and runs into the full thickness of the bulkhead.
 
 Front-bottom's lip drops around the front and both flanks as far as the tee-wall datum.
@@ -1431,9 +1444,9 @@ is [2 mm](PLATE_FOOT_COND_AIR).
 ## The bay bulkhead
 
 One rectangular bulkhead joins the floor, lintel and both enclosure flanks. Its flat
-cartridge-facing plane is Y [79.519 mm](BAY_BACK_Y); its complete thickness is
-[13.281 mm](BAY_BULKHEAD_T). The cradle and clamp share one flat back at y
-[79.269 mm](PUMP_CARTRIDGE_AFT_Y), one [0.25 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
+cartridge-facing plane is Y [79.515 mm](BAY_BACK_Y); its complete thickness is
+[14.321 mm](BAY_BULKHEAD_T). The cradle and clamp share one flat back at y
+[79.269 mm](PUMP_CARTRIDGE_AFT_Y), one [0.246 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
 plane.
 
 Four passages carry the pump tubes through the bulkhead. Each smaller fore opening
@@ -1443,11 +1456,11 @@ continues from the bulkhead's aft face around those journals, spring seats and w
 guides. The Z-seam rail channels begin at that same aft datum.
 
 The clamp lifts through the cradle's straight upper wells, which open through its aft
-face. Its four flat rails press the molded flange rims onto the cradle's fitted lands.
+face. Its broad underside, fitted boss openings and motor bores close over both pumps.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): exterior side face to exterior
-side face, from the floor's own top at z [165.615 mm](PUMP_BAY_FLOOR_Z) to the fixed lintel at z
-[283.745 mm](PUMP_BAY_LINTEL_Z), and aft to the flat bay bulkhead. The lintel is relieved
+side face, from the floor's own top at z [165.195 mm](PUMP_BAY_FLOOR_Z) to the fixed lintel at z
+[284.674 mm](PUMP_BAY_LINTEL_Z), and aft to the flat bay bulkhead. The lintel is relieved
 [2.5 mm](PUMP_BAY_ROOF_RELIEF) upward from its pump-neutral roof datum and keeps
 [7.45 mm](PUMP_MOTOR_LINTEL_AIR) over the installed motor crowns. The flat sill runs wall to
 wall; the lintel carries the facet and the display on a stated ligament.
@@ -1463,10 +1476,10 @@ between those two flat gaps with no taper.
 
 **The fixed front wall is [9 mm](FRONT_WALL) thick and grows inward.** The removable pump
 face shares its exterior plane. The fitted lower head wells leave at least
-[8.659 mm](PUMP_FACE_SKIN) of smooth stock ahead of them. The upper insertion wells end
+[8.459 mm](PUMP_FACE_SKIN) of smooth stock ahead of them. The upper insertion wells end
 on one flat plane, [0.25 mm](CLAMP_DROP_AIR) ahead of the clamp, leaving
-[5.659 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section and
-[4.459 mm](PUMP_UPPER_FLUTED_SKIN) behind the deepest flutes.
+[5.609 mm](PUMP_UPPER_SMOOTH_SKIN) of smooth section and
+[4.409 mm](PUMP_UPPER_FLUTED_SKIN) behind the deepest flutes.
 Both lower wells follow the pump stations, including their skirt lands and fitting passages.
 The fixed wall's two 45°-chamfered compressor reliefs (`_front_relief_cuts`) follow the
 mounting plate's front strip and power box. The compressor is the only body in the compressor bay
@@ -1477,22 +1490,20 @@ surface, region by region.
 
 ## Pump clamp field
 
-The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted boss and motor
-openings. The bridge spans both pumps at the holder datum and carries two exposed flat rails
-per pump. Those rails reach the observed motor-facing outer rim over the lower skirt lands.
-The fixed bay lintel does not locate the cap. Its crown and screw seats stay on their stated
-planes while screw closure establishes rim contact.
+The geometry in `printed-parts/enclosure/pump-tray/` supplies the fitted boss and motor
+openings. The cap has one broad underside and two screw counterbores. Its surrounding crown
+is level with the cartridge top; two open wells leave the motor ends and terminal pairs exposed.
+The screw seats and lower fitted surfaces remain on their holder datums.
 
-The [scan review](/hardware/reference/kamoer-kphm400/scan-review.md) records both rigid bearing
-faces, the head-front envelope, and the native cap/cradle comparison. The measured outer-rim
-height spans 7.81–8.13 mm above the skirt seat. The nominal 8 mm rail height and
-[0.25 mm](CLAMP_CONTACT_TRAVEL) downward adjustment cover that observed range, with clearance
-above the cradle spine and at the screw tips. This geometric check does not claim a measured
-clamp load or physical acceptance of the new cap.
+Derek confirms the existing assembled cartridge and cap hold both pumps firmly with no vertical
+play. [Physical-fit evidence](/hardware/reference/kamoer-kphm400/physical-fit.json) records that
+observation and the requested open crown. The [scan review](/hardware/reference/kamoer-kphm400/scan-review.md)
+records the independent surfaces and their assumed seating transform. A flange-only gap does
+not identify the cap's complete contact path.
 
 The octagonal openings locate the rear bosses in plan and clock. Their vertical path keeps
-[5.659 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of the cap and
-[7.86 mm](CLAMP_AFT_WALL) behind each octagon.
+[5.609 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of the cap and
+[7.91 mm](CLAMP_AFT_WALL) behind each octagon.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads sit in counterbores in the crown,
 reached from above with the same 2.5 mm key as every other M3 in the box. Their full-length
@@ -1504,18 +1515,16 @@ closes a pump.
 
 The fitted opening's exact source dimensions and section readings are in
 [`pump-tray/README.md`](/hardware/printed-parts/enclosure/pump-tray/README.md). The enclosure
-uses those profiles for the boss and can openings, with separate measured flange-bearing rails.
+uses those fitted profiles for the boss openings and Ø37 mm motor bores.
 
 **The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
 corners and both flank skins begin together on that bed and rise plumb. Each hand pocket's
 flat roof takes support removable through the open side. The pump wells remain open above.
-**The top clamp prints on its crown** (`print_up` is −1 for
-`pump-cap`): its two boss-to-can shoulders look print-up and carry themselves, the boss
-octagons open upward through the pressing face and the can bores run straight to the bed, so
-no support reaches the field. What looks down is each head seat, a bridge one counterbore wide
-over its own clearance bore; the production slice stands one 8.8 mm tree in each counterbore
-under it, which leaves through the counterbore's mouth on the bed face. The exposed pressing rails terminate on the print's top surface. They add no supported
-bearing face or enclosed support-removal pocket.
+**The top clamp prints on its crown** (`print_up` is −1 for `pump-cap`). Its boss
+octagons open upward through the underside. Each motor bore opens into a Ø45 mm terminal
+well through the crown. The annular transition has a straight support-removal path through
+that open well; each screw-head seat is accessible through its counterbore mouth on the
+crown. The current production slice records the supports at those contact regions.
 
 ## Display housing
 
@@ -1558,7 +1567,7 @@ Its nominal [14.8 × 16.3 mm](PUMP_JACK_APERTURE) aperture has an additional 0.2
 supported crown. It passes the 3 mm rib, which is the receptacle's
 whole lip; the pocket, the two catches the jack's tang and latch snap over, and the boss that
 carries them stand [6.7 mm](PUMP_JACK_BOSS_REACH) aft of the rib in the cavity, the boss's lower
-wall on the bay bulkhead's crown, which puts the aperture centre at z [297.03 mm](PUMP_JACK_Z). The
+wall on the bay bulkhead's crown, which puts the aperture centre at z [297.95 mm](PUMP_JACK_Z). The
 jack goes in from the cavity, tang first, swinging down onto the lower catch, and its
 [30 mm](PUMP_JACK_BODY) body with the 110 punchdown block reaches aft over the valves. The fixed
 J13 lead ends on that punchdown; the cartridge's cord ends in the **pump plug**, an RJ11 6P4C

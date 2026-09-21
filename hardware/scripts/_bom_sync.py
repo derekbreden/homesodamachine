@@ -181,11 +181,11 @@ assert not _orphans, (
 # the top cap's deck-mount columns — each takes a ruthex short in its top bore, and
 # each is a bolt station, and the water pump is the one module that uses any: the
 # clamp screws are 1:1 with the clamp inserts, and a deck column takes a screw only
-# where a module bolts into it — which today is `seaflo-pump`'s four and nothing
+# where a module bolts into it — which today is `g-ganen-pump`'s four and nothing
 # else. The three valves that stand on the top lid press into cradles printed in
 # it, which take neither.
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
-pump_mount_screws_per_build = len(deck_mount_xy("seaflo-pump"))
+pump_mount_screws_per_build = len(deck_mount_xy("g-ganen-pump"))
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
 foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
                               + foam_cap_deck_inserts_per_build)

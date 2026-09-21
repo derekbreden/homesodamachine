@@ -1,0 +1,1680 @@
+{
+  "status": "native_valid_and_measured_residuals_recorded",
+  "production_mount_and_route_qualified": false,
+  "native_solids": [
+    {
+      "name": "rigid_casing_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 3962,
+      "bounds_mm": [
+        [
+          -77.6974534707391,
+          -30.995935142553062,
+          1.9609650148906408
+        ],
+        [
+          82.36454172387788,
+          30.929374367365522,
+          60.42208993162759
+        ]
+      ]
+    },
+    {
+      "name": "head_outer_shell_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1983,
+      "bounds_mm": [
+        [
+          -45.4999420089695,
+          -24.499981057325737,
+          14.00003241011487
+        ],
+        [
+          -0.40010109557900364,
+          24.49996432189579,
+          60.53391690220124
+        ]
+      ]
+    },
+    {
+      "name": "switch_outer_shell_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 2498,
+      "bounds_mm": [
+        [
+          -77.89997331756854,
+          -22.99996555595695,
+          14.000111310011064
+        ],
+        [
+          -45.90004241093334,
+          22.99985525082453,
+          50.18187862937464
+        ]
+      ]
+    },
+    {
+      "name": "head_side_yminus_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 878,
+      "bounds_mm": [
+        [
+          -17.99922562259124,
+          -32.4088036802618,
+          25.001010699380004
+        ],
+        [
+          -0.0007896438395817916,
+          -19.803716530903287,
+          41.99984868190268
+        ]
+      ]
+    },
+    {
+      "name": "head_side_yplus_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 858,
+      "bounds_mm": [
+        [
+          -17.998899243517798,
+          19.309670078127354,
+          25.002579056901965
+        ],
+        [
+          -0.0002730493978617685,
+          32.19009347911741,
+          41.99955762237916
+        ]
+      ]
+    },
+    {
+      "name": "lower_cradle_occupied_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 88,
+      "bounds_mm": [
+        [
+          0.9999999999999961,
+          -27.40307724960562,
+          1.9609651148906408
+        ],
+        [
+          76.0,
+          27.451106397720395,
+          23.97174185496697
+        ]
+      ]
+    },
+    {
+      "name": "motor_surface_yminus_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 130,
+      "bounds_mm": [
+        [
+          5.503547879931659,
+          -26.59769695351893,
+          30.004175970110637
+        ],
+        [
+          10.799855797530341,
+          -23.91748241376446,
+          40.998622518224195
+        ]
+      ]
+    },
+    {
+      "name": "motor_surface_yplus_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 148,
+      "bounds_mm": [
+        [
+          5.500556722779464,
+          23.753699819889377,
+          30.000585070915662
+        ],
+        [
+          10.799424532864066,
+          26.599630063079708,
+          40.99818898412525
+        ]
+      ]
+    },
+    {
+      "name": "motor_can_vent_filled_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 3,
+      "bounds_mm": [
+        [
+          -0.07438680986629649,
+          -24.555122193273828,
+          9.439279805718922
+        ],
+        [
+          76.0743868098663,
+          24.555122193273885,
+          58.779532824942706
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_01_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1060,
+      "bounds_mm": [
+        [
+          -45.157604596573634,
+          14.542725582338178,
+          56.80008444015165
+        ],
+        [
+          -38.75487185486364,
+          21.174485246798827,
+          58.75316251715947
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_02_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1622,
+      "bounds_mm": [
+        [
+          -45.24913346626178,
+          -21.580879452295537,
+          56.80012344695328
+        ],
+        [
+          -38.733899089273535,
+          -15.49065067957535,
+          58.67720991696437
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_03_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 823,
+      "bounds_mm": [
+        [
+          -7.286448335268489,
+          15.021342494101361,
+          56.80099345484874
+        ],
+        [
+          -0.38965894136200063,
+          22.156712827830123,
+          59.169051912435066
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_04_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1012,
+      "bounds_mm": [
+        [
+          -7.228509246402723,
+          -22.24929284092369,
+          56.80012490494049
+        ],
+        [
+          -0.4328845874925946,
+          -15.490642805440348,
+          59.03486891059478
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_05_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1062,
+      "bounds_mm": [
+        [
+          -26.70364391033897,
+          12.515284719518014,
+          56.80032476386047
+        ],
+        [
+          -19.508379930380414,
+          19.11904372487445,
+          58.94551734381062
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_06_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1072,
+      "bounds_mm": [
+        [
+          -26.511146370450007,
+          -19.623819989729046,
+          56.800608076743316
+        ],
+        [
+          -19.552892997617704,
+          -13.029948859570961,
+          58.858032908960354
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_head_07_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1160,
+      "bounds_mm": [
+        [
+          -43.40919030659333,
+          -3.569871442231438,
+          56.80106667472138
+        ],
+        [
+          -36.94516622837918,
+          2.9278519197103883,
+          58.8201539345969
+        ]
+      ]
+    },
+    {
+      "name": "crown_round_molded_boss_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 4502,
+      "bounds_mm": [
+        [
+          -39.572853767493115,
+          -15.811057184626915,
+          56.70026581247551
+        ],
+        [
+          -27.215129188454142,
+          -3.6454372217954223,
+          59.57086948113901
+        ]
+      ]
+    },
+    {
+      "name": "crown_long_molded_boss_external_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 2218,
+      "bounds_mm": [
+        [
+          -18.698727349028417,
+          -12.429296965886937,
+          57.19666588001927
+        ],
+        [
+          -5.302337695387621,
+          12.141701774919758,
+          59.93636778145806
+        ]
+      ]
+    },
+    {
+      "name": "port_yminus_barb_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 56,
+      "bounds_mm": [
+        [
+          -39.02784317299528,
+          -37.28204974131546,
+          21.01757749987445
+        ],
+        [
+          -27.673554815645453,
+          -23.8457732717541,
+          32.3719610519399
+        ]
+      ]
+    },
+    {
+      "name": "port_yminus_root_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 478,
+      "bounds_mm": [
+        [
+          -41.99946402163519,
+          -24.149971175039514,
+          17.70258862422645
+        ],
+        [
+          -26.235403027701278,
+          -20.30021313775055,
+          36.4996120239373
+        ]
+      ]
+    },
+    {
+      "name": "port_yplus_barb_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 53,
+      "bounds_mm": [
+        [
+          -38.866933898359974,
+          23.81505117012894,
+          21.057085356970056
+        ],
+        [
+          -27.717605730711867,
+          37.061498291063074,
+          32.20584040583358
+        ]
+      ]
+    },
+    {
+      "name": "port_yplus_root_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 648,
+      "bounds_mm": [
+        [
+          -41.999694834657475,
+          20.300051533949084,
+          17.700257508386485
+        ],
+        [
+          -26.43547465368883,
+          24.14976520756744,
+          36.498615824798236
+        ]
+      ]
+    },
+    {
+      "name": "rear_yminus_observed_rubber_slider_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 926,
+      "bounds_mm": [
+        [
+          59.04754092263235,
+          -47.72023614611207,
+          -0.9926282414967176
+        ],
+        [
+          78.20170168751963,
+          -27.0000511801298,
+          18.397728208990728
+        ]
+      ]
+    },
+    {
+      "name": "rear_yplus_observed_rubber_slider_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 782,
+      "bounds_mm": [
+        [
+          64.4009852947658,
+          27.000040719688272,
+          -0.8372895371062441
+        ],
+        [
+          83.45110402020643,
+          47.12537820822514,
+          18.492689997670226
+        ]
+      ]
+    },
+    {
+      "name": "head_yminus_observed_rubber_slider_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 556,
+      "bounds_mm": [
+        [
+          1.5694883047810162,
+          -47.82341394262875,
+          -1.7845319690661086
+        ],
+        [
+          21.08211878215881,
+          -27.74791128776043,
+          16.84621471636339
+        ]
+      ]
+    },
+    {
+      "name": "head_yplus_observed_rubber_slider_envelope",
+      "valid": true,
+      "solids": 1,
+      "faces": 1058,
+      "bounds_mm": [
+        [
+          0.3849302929965148,
+          27.000257823982423,
+          -0.8748742304587438
+        ],
+        [
+          19.560423414931677,
+          47.35333467144555,
+          18.497638766682883
+        ]
+      ]
+    }
+  ],
+  "native_port_continuity": [
+    {
+      "port": "port_yminus",
+      "root_casing_overlap_mm3": 314.57700738359887,
+      "root_barb_overlap_mm3": 26.752538284638845,
+      "scope": "Native continuity check only; occupied-envelope overlap is not actual material volume."
+    },
+    {
+      "port": "port_yplus",
+      "root_casing_overlap_mm3": 303.8990515784428,
+      "root_barb_overlap_mm3": 25.89188558742926,
+      "scope": "Native continuity check only; occupied-envelope overlap is not actual material volume."
+    }
+  ],
+  "readings": [
+    {
+      "pass": "pass-01-feet-up",
+      "region": "head_switch_outer_walls",
+      "points": 2391,
+      "signed_distance_mm": {
+        "mean": 1.771553125953188,
+        "median": 1.254431344259957,
+        "rms": 2.382510016230977,
+        "p05": 0.11224504311457315,
+        "p95": 4.617038359901779,
+        "abs_p95": 4.617038359901779,
+        "min": -0.37460419992559374,
+        "max": 8.073826179142944,
+        "n": 2391
+      },
+      "outside_distance_mm": {
+        "mean": 0.0012299152735719906,
+        "median": 0.0,
+        "rms": 0.013213440411961574,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.37460419992559374,
+        "n": 2391
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "region": "head_side_lug_exteriors",
+      "points": 1505,
+      "signed_distance_mm": {
+        "mean": 1.2070691550150374,
+        "median": 1.1331456223556036,
+        "rms": 1.5164269280134173,
+        "p05": 0.061571105735109065,
+        "p95": 2.6924454519468872,
+        "abs_p95": 2.6924454519468872,
+        "min": -0.0037963471821765697,
+        "max": 3.2559172670937753,
+        "n": 1505
+      },
+      "outside_distance_mm": {
+        "mean": 1.0364658329029072e-05,
+        "median": 0.0,
+        "rms": 0.00018265285306469264,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.0037963471821765697,
+        "n": 1505
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "region": "motor_barrel_outer_surface",
+      "points": 2324,
+      "signed_distance_mm": {
+        "mean": 0.03716160604578959,
+        "median": 0.028207641636470875,
+        "rms": 0.11799119463874476,
+        "p05": -0.09351151064107441,
+        "p95": 0.16981871915745875,
+        "abs_p95": 0.20006410831221796,
+        "min": -1.21437041500457,
+        "max": 0.9036431225378163,
+        "n": 2324
+      },
+      "outside_distance_mm": {
+        "mean": 0.014596538233196725,
+        "median": 0.0,
+        "rms": 0.06378573456124004,
+        "p05": 0.0,
+        "p95": 0.0935115106410744,
+        "abs_p95": 0.0935115106410744,
+        "min": 0.0,
+        "max": 1.21437041500457,
+        "n": 2324
+      },
+      "observations_outside_0_5_mm": 6,
+      "observations_outside_1_0_mm": 3,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            57.817499823606866,
+            16.93770991621983,
+            53.47060177623996
+          ],
+          "outside_distance_mm": 1.21437041500457
+        },
+        {
+          "point_mm": [
+            56.60345624690438,
+            16.89780752551721,
+            53.48745451885267
+          ],
+          "outside_distance_mm": 1.1981018120902576
+        },
+        {
+          "point_mm": [
+            58.23072776811978,
+            16.890734802218873,
+            53.37927386333831
+          ],
+          "outside_distance_mm": 1.1156203604358836
+        },
+        {
+          "point_mm": [
+            52.78841142223439,
+            16.00437979338645,
+            53.875987452551485
+          ],
+          "outside_distance_mm": 0.7577878449310116
+        },
+        {
+          "point_mm": [
+            58.21352484703685,
+            16.278160143743577,
+            53.33162058948854
+          ],
+          "outside_distance_mm": 0.6802991628544284
+        },
+        {
+          "point_mm": [
+            5.708258543191381,
+            -25.487013621684184,
+            28.463826948388004
+          ],
+          "outside_distance_mm": 0.5554180037063614
+        }
+      ]
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "region": "fixed_lower_cradle_between_feet",
+      "points": 2236,
+      "signed_distance_mm": {
+        "mean": 2.449158769604465,
+        "median": 0.7309377280908891,
+        "rms": 3.5338491104843426,
+        "p05": -0.0057231173628733275,
+        "p95": 6.198065294683965,
+        "abs_p95": 6.198065294683965,
+        "min": -0.6730240258707431,
+        "max": 6.821832215708057,
+        "n": 2236
+      },
+      "outside_distance_mm": {
+        "mean": 0.006855974102397401,
+        "median": 0.0,
+        "rms": 0.04483861135260108,
+        "p05": 0.0,
+        "p95": 0.0057231173628733275,
+        "abs_p95": 0.0057231173628733275,
+        "min": 0.0,
+        "max": 0.6730240258707431,
+        "n": 2236
+      },
+      "observations_outside_0_5_mm": 3,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            31.756622120460573,
+            -27.696860913489076,
+            16.431316263877363
+          ],
+          "outside_distance_mm": 0.6730240258707431
+        },
+        {
+          "point_mm": [
+            54.337508124449045,
+            -27.761420862203806,
+            16.516853357985923
+          ],
+          "outside_distance_mm": 0.5633726329805946
+        },
+        {
+          "point_mm": [
+            36.52264838632086,
+            -27.51363541458423,
+            16.286158813547274
+          ],
+          "outside_distance_mm": 0.5263856239672844
+        }
+      ]
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "region": "motor_rear_cap",
+      "points": 1411,
+      "signed_distance_mm": {
+        "mean": -0.001868080943748214,
+        "median": 0.01706456152020023,
+        "rms": 0.24742923515328633,
+        "p05": -0.3593658253919956,
+        "p95": 0.3919674672255816,
+        "abs_p95": 0.5250007635777292,
+        "min": -0.9703613741420227,
+        "max": 1.2844753564323175,
+        "n": 1411
+      },
+      "outside_distance_mm": {
+        "mean": 0.08053949619681777,
+        "median": 0.0,
+        "rms": 0.15909380653986976,
+        "p05": 0.0,
+        "p95": 0.3593658253919956,
+        "abs_p95": 0.3593658253919956,
+        "min": 0.0,
+        "max": 0.9703613741420227,
+        "n": 1411
+      },
+      "observations_outside_0_5_mm": 25,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            77.20374887230018,
+            -25.416193651910532,
+            20.072639327278438
+          ],
+          "outside_distance_mm": 0.9703613741420227
+        },
+        {
+          "point_mm": [
+            76.99339564209345,
+            -25.249198696591236,
+            20.7725923205509
+          ],
+          "outside_distance_mm": 0.8389815896910795
+        },
+        {
+          "point_mm": [
+            77.07878859384279,
+            -24.97929844053283,
+            20.969306363610798
+          ],
+          "outside_distance_mm": 0.8268738787693597
+        },
+        {
+          "point_mm": [
+            77.13915773327518,
+            -24.759706859075322,
+            20.95884340943465
+          ],
+          "outside_distance_mm": 0.7720656126787376
+        },
+        {
+          "point_mm": [
+            76.8796655425679,
+            -25.29391317344573,
+            20.788222835667597
+          ],
+          "outside_distance_mm": 0.7665378999438678
+        },
+        {
+          "point_mm": [
+            77.14794436989106,
+            -24.545772453887793,
+            21.31691686413282
+          ],
+          "outside_distance_mm": 0.7563021012269135
+        },
+        {
+          "point_mm": [
+            76.72700829605446,
+            -25.610390970690332,
+            20.377685650096936
+          ],
+          "outside_distance_mm": 0.6966875029566639
+        },
+        {
+          "point_mm": [
+            77.22871973021857,
+            -24.505991440058352,
+            20.812812766027008
+          ],
+          "outside_distance_mm": 0.696432055775082
+        },
+        {
+          "point_mm": [
+            79.60115400885863,
+            16.91101186810269,
+            49.84983045320675
+          ],
+          "outside_distance_mm": 0.6741903278256584
+        },
+        {
+          "point_mm": [
+            76.97964949607925,
+            -24.531281274909446,
+            21.89484792915337
+          ],
+          "outside_distance_mm": 0.662007622800668
+        }
+      ]
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "region": "port_yminus_barb",
+      "points": 1471,
+      "signed_distance_mm": {
+        "mean": 0.03797727995032039,
+        "median": 0.038802328918221794,
+        "rms": 0.0796444561818209,
+        "p05": -0.07337368362727519,
+        "p95": 0.14112153985856235,
+        "abs_p95": 0.14578180830642035,
+        "min": -0.21658269492303728,
+        "max": 0.4427951782290969,
+        "n": 1471
+      },
+      "outside_distance_mm": {
+        "mean": 0.011784540799099998,
+        "median": 0.0,
+        "rms": 0.029914132509755238,
+        "p05": 0.0,
+        "p95": 0.07337368362727519,
+        "abs_p95": 0.07337368362727519,
+        "min": 0.0,
+        "max": 0.21658269492303728,
+        "n": 1471
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Independent earlier pass against the third-pass port model."
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "region": "port_yplus_barb",
+      "points": 1013,
+      "signed_distance_mm": {
+        "mean": 0.3401805650279119,
+        "median": 0.3809581107849262,
+        "rms": 0.38732703937696766,
+        "p05": -0.024090401486516658,
+        "p95": 0.5723606863046995,
+        "abs_p95": 0.5723606863046995,
+        "min": -0.20578761225801315,
+        "max": 0.7343608566841837,
+        "n": 1013
+      },
+      "outside_distance_mm": {
+        "mean": 0.005044073933310189,
+        "median": 0.0,
+        "rms": 0.024164723534075474,
+        "p05": 0.0,
+        "p95": 0.02409040148651665,
+        "abs_p95": 0.02409040148651665,
+        "min": 0.0,
+        "max": 0.20578761225801315,
+        "n": 1013
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Independent earlier pass against the third-pass port model."
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "head_switch_outer_walls",
+      "points": 2399,
+      "signed_distance_mm": {
+        "mean": 2.3695437978253593,
+        "median": 2.371556740532019,
+        "rms": 2.898916223047113,
+        "p05": 0.035270754002136,
+        "p95": 4.764150151785107,
+        "abs_p95": 4.764150151785107,
+        "min": -0.3823876162644501,
+        "max": 8.003489264527117,
+        "n": 2399
+      },
+      "outside_distance_mm": {
+        "mean": 0.0027247575130150232,
+        "median": 0.0,
+        "rms": 0.02232520079046573,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.3823876162644501,
+        "n": 2399
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "head_side_lug_exteriors",
+      "points": 1933,
+      "signed_distance_mm": {
+        "mean": 0.8570164948884842,
+        "median": 0.4540317698374213,
+        "rms": 1.240911078843194,
+        "p05": 0.018795782986846855,
+        "p95": 2.6237491606411503,
+        "abs_p95": 2.6237491606411503,
+        "min": -0.10602497203704897,
+        "max": 3.4318702526639853,
+        "n": 1933
+      },
+      "outside_distance_mm": {
+        "mean": 0.00015084196423853635,
+        "median": 0.0,
+        "rms": 0.002647155675690363,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.10602497203704897,
+        "n": 1933
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "motor_barrel_outer_surface",
+      "points": 2367,
+      "signed_distance_mm": {
+        "mean": 0.19766481053572102,
+        "median": 0.08598660478649833,
+        "rms": 0.30442228780990027,
+        "p05": -0.04315111164760565,
+        "p95": 0.6256880396900264,
+        "abs_p95": 0.6261041985816195,
+        "min": -0.6372612220806306,
+        "max": 1.2898938877137553,
+        "n": 2367
+      },
+      "outside_distance_mm": {
+        "mean": 0.006817230294312817,
+        "median": 0.0,
+        "rms": 0.03397933513384938,
+        "p05": 0.0,
+        "p95": 0.04315111164760547,
+        "abs_p95": 0.04315111164760547,
+        "min": 0.0,
+        "max": 0.6372612220806306,
+        "n": 2367
+      },
+      "observations_outside_0_5_mm": 3,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            5.559181809161686,
+            25.554175895078643,
+            29.359864040548956
+          ],
+          "outside_distance_mm": 0.6372612220806306
+        },
+        {
+          "point_mm": [
+            8.04309484664833,
+            -25.50545638612661,
+            29.311442445826543
+          ],
+          "outside_distance_mm": 0.6028529094339541
+        },
+        {
+          "point_mm": [
+            3.466028533308247,
+            24.76688090510659,
+            40.323198886042434
+          ],
+          "outside_distance_mm": 0.6007106011423934
+        }
+      ]
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "fixed_lower_cradle_between_feet",
+      "points": 2344,
+      "signed_distance_mm": {
+        "mean": 2.2738194761423656,
+        "median": 0.7401244151650979,
+        "rms": 3.326187752654883,
+        "p05": 0.01126447163772201,
+        "p95": 6.194820992630995,
+        "abs_p95": 6.194820992630995,
+        "min": -0.5978370457816391,
+        "max": 6.938233930801044,
+        "n": 2344
+      },
+      "outside_distance_mm": {
+        "mean": 0.004848134764131308,
+        "median": 0.0,
+        "rms": 0.038782170264415015,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.5978370457816391,
+        "n": 2344
+      },
+      "observations_outside_0_5_mm": 4,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            27.98991018596101,
+            -27.617189377822655,
+            16.517897259958715
+          ],
+          "outside_distance_mm": 0.5978370457816391
+        },
+        {
+          "point_mm": [
+            50.86697759352634,
+            -27.695474622815297,
+            16.418844206203232
+          ],
+          "outside_distance_mm": 0.5393169324978968
+        },
+        {
+          "point_mm": [
+            51.75543843292033,
+            -27.69488714225068,
+            16.442571947604108
+          ],
+          "outside_distance_mm": 0.529518001302867
+        },
+        {
+          "point_mm": [
+            27.231374198268014,
+            -27.578102523734586,
+            16.63912649228942
+          ],
+          "outside_distance_mm": 0.5176234399000514
+        }
+      ]
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "motor_rear_cap",
+      "points": 1631,
+      "signed_distance_mm": {
+        "mean": 0.020143969001828056,
+        "median": -0.006773673076245316,
+        "rms": 0.23202681176899742,
+        "p05": -0.2284082893686041,
+        "p95": 0.4712583864334073,
+        "abs_p95": 0.5266904732524414,
+        "min": -0.9727433847299544,
+        "max": 1.386555784448654,
+        "n": 1631
+      },
+      "outside_distance_mm": {
+        "mean": 0.05853087974230501,
+        "median": 0.006773673076245316,
+        "rms": 0.12063564985316856,
+        "p05": 0.0,
+        "p95": 0.2284082893686041,
+        "abs_p95": 0.2284082893686041,
+        "min": 0.0,
+        "max": 0.9727433847299544,
+        "n": 1631
+      },
+      "observations_outside_0_5_mm": 18,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            77.0875682371673,
+            -25.672195683293737,
+            20.06750322506204
+          ],
+          "outside_distance_mm": 0.9727433847299544
+        },
+        {
+          "point_mm": [
+            77.08410418238932,
+            -25.56013701406677,
+            20.189207086137372
+          ],
+          "outside_distance_mm": 0.9370915291507002
+        },
+        {
+          "point_mm": [
+            77.05217231658217,
+            -25.074999164020625,
+            20.953560605724135
+          ],
+          "outside_distance_mm": 0.846069799898917
+        },
+        {
+          "point_mm": [
+            76.82184596939145,
+            -25.827633348525396,
+            20.13143077469215
+          ],
+          "outside_distance_mm": 0.8268194806678989
+        },
+        {
+          "point_mm": [
+            77.05387423624234,
+            -24.51417608502571,
+            21.740017657274393
+          ],
+          "outside_distance_mm": 0.7508991817735021
+        },
+        {
+          "point_mm": [
+            76.88633093279785,
+            -24.772539473168095,
+            21.60387692453122
+          ],
+          "outside_distance_mm": 0.7031068352760045
+        },
+        {
+          "point_mm": [
+            77.058250011635,
+            -24.42394111795207,
+            21.869291970550563
+          ],
+          "outside_distance_mm": 0.6814711464050085
+        },
+        {
+          "point_mm": [
+            76.91335136975243,
+            25.37042913140202,
+            20.17686306951566
+          ],
+          "outside_distance_mm": 0.6417714764283992
+        },
+        {
+          "point_mm": [
+            76.71859215990439,
+            25.78482164790104,
+            20.108470794298768
+          ],
+          "outside_distance_mm": 0.6328357078998234
+        },
+        {
+          "point_mm": [
+            76.78830645224069,
+            25.240827375595345,
+            20.71554977008509
+          ],
+          "outside_distance_mm": 0.597841284661306
+        }
+      ]
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "port_yminus_barb",
+      "points": 1016,
+      "signed_distance_mm": {
+        "mean": -0.08670213625904044,
+        "median": -0.11183153271509969,
+        "rms": 0.15276963473732294,
+        "p05": -0.25707261142066185,
+        "p95": 0.10152653045820118,
+        "abs_p95": 0.25794480500702593,
+        "min": -0.3160221545921388,
+        "max": 0.45721027742636416,
+        "n": 1016
+      },
+      "outside_distance_mm": {
+        "mean": 0.10781774149177685,
+        "median": 0.11183153271509969,
+        "rms": 0.14407861633683045,
+        "p05": 0.0,
+        "p95": 0.25707261142066185,
+        "abs_p95": 0.25707261142066185,
+        "min": 0.0,
+        "max": 0.3160221545921388,
+        "n": 1016
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Independent earlier pass against the third-pass port model."
+    },
+    {
+      "pass": "pass-02-on-back",
+      "region": "port_yplus_barb",
+      "points": 1081,
+      "signed_distance_mm": {
+        "mean": 0.1883461866547544,
+        "median": 0.22637545308912158,
+        "rms": 0.429245728885854,
+        "p05": -0.5006589045786523,
+        "p95": 0.682411417819806,
+        "abs_p95": 0.6860393299005035,
+        "min": -1.004182671899265,
+        "max": 0.9511656887874529,
+        "n": 1081
+      },
+      "outside_distance_mm": {
+        "mean": 0.09012633213494929,
+        "median": 0.0,
+        "rms": 0.19349090477418526,
+        "p05": 0.0,
+        "p95": 0.5006589045786523,
+        "abs_p95": 0.5006589045786523,
+        "min": 0.0,
+        "max": 1.004182671899265,
+        "n": 1081
+      },
+      "observations_outside_0_5_mm": 55,
+      "observations_outside_1_0_mm": 1,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Independent earlier pass against the third-pass port model."
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "head_switch_outer_walls",
+      "points": 2313,
+      "signed_distance_mm": {
+        "mean": 2.1562777780353306,
+        "median": 2.038709343237241,
+        "rms": 2.761433427337412,
+        "p05": 0.05235104460076468,
+        "p95": 4.738127626984968,
+        "abs_p95": 4.738127626984968,
+        "min": -0.3470895677466215,
+        "max": 7.610903452039792,
+        "n": 2313
+      },
+      "outside_distance_mm": {
+        "mean": 0.0022064020783628575,
+        "median": 0.0,
+        "rms": 0.01846166042827463,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.3470895677466215,
+        "n": 2313
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "head_side_lug_exteriors",
+      "points": 2095,
+      "signed_distance_mm": {
+        "mean": 0.8712566383108079,
+        "median": 0.4385093444822494,
+        "rms": 1.2395437326594068,
+        "p05": 0.04937488774603975,
+        "p95": 2.6354707933482127,
+        "abs_p95": 2.6354707933482127,
+        "min": -0.011528023953216369,
+        "max": 3.2444222902024418,
+        "n": 2095
+      },
+      "outside_distance_mm": {
+        "mean": 3.875932198795912e-05,
+        "median": 0.0,
+        "rms": 0.00048517679602613247,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.011528023953216369,
+        "n": 2095
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "motor_barrel_outer_surface",
+      "points": 2371,
+      "signed_distance_mm": {
+        "mean": 0.1053791370764221,
+        "median": 0.031214320847549715,
+        "rms": 0.21588172705967656,
+        "p05": -0.07050695152669886,
+        "p95": 0.5289150105263491,
+        "abs_p95": 0.5289981513532691,
+        "min": -0.5403677962903933,
+        "max": 1.2422779765950034,
+        "n": 2371
+      },
+      "outside_distance_mm": {
+        "mean": 0.01433834156873216,
+        "median": 0.0,
+        "rms": 0.03682049723934549,
+        "p05": 0.0,
+        "p95": 0.07050695152669886,
+        "abs_p95": 0.07050695152669886,
+        "min": 0.0,
+        "max": 0.5403677962903933,
+        "n": 2371
+      },
+      "observations_outside_0_5_mm": 1,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            4.3878400820311185,
+            -25.786671784191537,
+            38.195574908500745
+          ],
+          "outside_distance_mm": 0.5403677962903933
+        }
+      ]
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "fixed_lower_cradle_between_feet",
+      "points": 2079,
+      "signed_distance_mm": {
+        "mean": 0.41499433646036393,
+        "median": 0.4652802826220047,
+        "rms": 0.5241542819757695,
+        "p05": -0.1908611792810621,
+        "p95": 0.837055703715334,
+        "abs_p95": 0.837055703715334,
+        "min": -0.5629535138943932,
+        "max": 0.9139829024698798,
+        "n": 2079
+      },
+      "outside_distance_mm": {
+        "mean": 0.022098931411900995,
+        "median": 0.0,
+        "rms": 0.08498315620642204,
+        "p05": 0.0,
+        "p95": 0.190861179281062,
+        "abs_p95": 0.190861179281062,
+        "min": 0.0,
+        "max": 0.5629535138943932,
+        "n": 2079
+      },
+      "observations_outside_0_5_mm": 9,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            27.267972609849693,
+            -27.60438712752749,
+            16.5877770125433
+          ],
+          "outside_distance_mm": 0.5629535138943932
+        },
+        {
+          "point_mm": [
+            28.33268725678218,
+            -27.624408914332154,
+            16.618434631932345
+          ],
+          "outside_distance_mm": 0.5584541191209376
+        },
+        {
+          "point_mm": [
+            29.293695634387433,
+            -27.624696754782402,
+            16.60640023624174
+          ],
+          "outside_distance_mm": 0.5552243671386126
+        },
+        {
+          "point_mm": [
+            28.674210341160176,
+            -27.63798272704744,
+            16.658394379943203
+          ],
+          "outside_distance_mm": 0.5506434094922663
+        },
+        {
+          "point_mm": [
+            29.076687309897153,
+            -27.560828044747094,
+            16.522077903236294
+          ],
+          "outside_distance_mm": 0.5353236682483127
+        },
+        {
+          "point_mm": [
+            25.467423187943893,
+            -27.545753582916635,
+            16.567821699372857
+          ],
+          "outside_distance_mm": 0.534562119277825
+        },
+        {
+          "point_mm": [
+            25.903712710999258,
+            -27.579266531013918,
+            16.646370318254455
+          ],
+          "outside_distance_mm": 0.5274959469857989
+        },
+        {
+          "point_mm": [
+            30.723691135884508,
+            -27.595814966667245,
+            16.58962798187933
+          ],
+          "outside_distance_mm": 0.5234200554510532
+        },
+        {
+          "point_mm": [
+            32.12783245108125,
+            -27.62407099574354,
+            16.66047875610326
+          ],
+          "outside_distance_mm": 0.5061989748011961
+        }
+      ]
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "motor_rear_cap",
+      "points": 2061,
+      "signed_distance_mm": {
+        "mean": -0.09818363968804097,
+        "median": -0.06751323200138731,
+        "rms": 0.23427037038951434,
+        "p05": -0.4314674774800195,
+        "p95": 0.2232019078350498,
+        "abs_p95": 0.4698317325461865,
+        "min": -0.8174395948937881,
+        "max": 1.4395732669390924,
+        "n": 2061
+      },
+      "outside_distance_mm": {
+        "mean": 0.13006772568115732,
+        "median": 0.06751323200138731,
+        "rms": 0.19162428480306842,
+        "p05": 0.0,
+        "p95": 0.4314674774800195,
+        "abs_p95": 0.4314674774800195,
+        "min": 0.0,
+        "max": 0.8174395948937881,
+        "n": 2061
+      },
+      "observations_outside_0_5_mm": 53,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": [
+        {
+          "point_mm": [
+            76.99488784087328,
+            -25.125708532373157,
+            20.93623676232842
+          ],
+          "outside_distance_mm": 0.8174395948937881
+        },
+        {
+          "point_mm": [
+            76.82691125986037,
+            -25.618328993808117,
+            20.475848353598934
+          ],
+          "outside_distance_mm": 0.8070961221371871
+        },
+        {
+          "point_mm": [
+            81.33753070457018,
+            20.443361034053986,
+            45.629263097013165
+          ],
+          "outside_distance_mm": 0.7284960423428123
+        },
+        {
+          "point_mm": [
+            77.03954496225498,
+            -24.79136704391023,
+            21.067839124702758
+          ],
+          "outside_distance_mm": 0.7258448912451876
+        },
+        {
+          "point_mm": [
+            76.7119708400306,
+            -25.434664685452372,
+            20.786491307794634
+          ],
+          "outside_distance_mm": 0.6897628441828554
+        },
+        {
+          "point_mm": [
+            76.83301490074453,
+            -24.79024030692349,
+            21.668977773588296
+          ],
+          "outside_distance_mm": 0.6802007199807094
+        },
+        {
+          "point_mm": [
+            76.61530109862599,
+            -25.663752762008894,
+            20.45675866382527
+          ],
+          "outside_distance_mm": 0.6439030350306467
+        },
+        {
+          "point_mm": [
+            79.18130953597858,
+            16.703783523886603,
+            50.31893866718022
+          ],
+          "outside_distance_mm": 0.6378521865170538
+        },
+        {
+          "point_mm": [
+            81.33609563414973,
+            20.665507463453917,
+            45.4538322524665
+          ],
+          "outside_distance_mm": 0.6316120413918723
+        },
+        {
+          "point_mm": [
+            81.32351094582572,
+            20.104172722171228,
+            45.88374238126276
+          ],
+          "outside_distance_mm": 0.6187361262205983
+        }
+      ]
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "head_crown_complementary_view",
+      "points": 2394,
+      "signed_distance_mm": {
+        "mean": 2.109970939082685,
+        "median": 2.204039416367075,
+        "rms": 2.57560716884154,
+        "p05": 0.07675245520207566,
+        "p95": 5.193858700620244,
+        "abs_p95": 5.193858700620244,
+        "min": -0.007799079938546689,
+        "max": 5.534212127058573,
+        "n": 2394
+      },
+      "outside_distance_mm": {
+        "mean": 1.2770265490545025e-05,
+        "median": 0.0,
+        "rms": 0.0002647230397355992,
+        "p05": 0.0,
+        "p95": 0.0,
+        "abs_p95": 0.0,
+        "min": 0.0,
+        "max": 0.007799079938546689,
+        "n": 2394
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12; at least 0.36 mm from every fitted X section (fit half-width 0.24 mm). Additional explicit feature hulls use disjoint native indices. Motor cylinder is independently checked beyond its local source arc.",
+      "largest_outside_observations": []
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "port_yminus_barb",
+      "points": 905,
+      "signed_distance_mm": {
+        "mean": 0.003077540328736945,
+        "median": 9.172798577010918e-06,
+        "rms": 0.03505284823658448,
+        "p05": -0.04667514604644932,
+        "p95": 0.05936884934935308,
+        "abs_p95": 0.0723235648526836,
+        "min": -0.19974319967521229,
+        "max": 0.21457333969193582,
+        "n": 905
+      },
+      "outside_distance_mm": {
+        "mean": 0.010730463325172655,
+        "median": 0.0,
+        "rms": 0.02161709010699033,
+        "p05": 0.0,
+        "p95": 0.0466751460464493,
+        "abs_p95": 0.0466751460464493,
+        "min": 0.0,
+        "max": 0.19974319967521229,
+        "n": 905
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12 are disjoint from 0 mod 3 used for profile fitting."
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "region": "port_yplus_barb",
+      "points": 1148,
+      "signed_distance_mm": {
+        "mean": -0.0008791812027584147,
+        "median": -0.008632844328907197,
+        "rms": 0.04945406100902642,
+        "p05": -0.058706519586597214,
+        "p95": 0.08677870370930993,
+        "abs_p95": 0.09206113205874018,
+        "min": -0.1509787632931204,
+        "max": 0.38507094656483815,
+        "n": 1148
+      },
+      "outside_distance_mm": {
+        "mean": 0.018697539830806627,
+        "median": 0.008632844328907197,
+        "rms": 0.029924046648913714,
+        "p05": 0.0,
+        "p95": 0.05870651958659718,
+        "abs_p95": 0.05870651958659718,
+        "min": 0.0,
+        "max": 0.1509787632931204,
+        "n": 1148
+      },
+      "observations_outside_0_5_mm": 0,
+      "observations_outside_1_0_mm": 0,
+      "scope": "Positive is inside the occupied envelope; negative is outside. Filled openings can have large positive values and do not represent measured material.",
+      "holdout": "Native indices 1 mod 12 are disjoint from 0 mod 3 used for profile fitting."
+    }
+  ],
+  "native_tessellation": {
+    "linear_deflection_mm": 0.08,
+    "angular_tolerance_radians": 0.15
+  },
+  "all_native_solids_valid": true,
+  "unit_scale_transforms": true,
+  "flow_mapping_check": "Reference +Y discharge maps to enclosure -X under intended +90 degree Z rotation.",
+  "reference_parameters_sha256": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
+  "verified_parameter_input_digests": {
+    "registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
+    "casing-sections.json": "48214ef1eedb0471164e6c19cc12e0056a61d1eb29cbc37c2b8c3a14fcf35efa",
+    "scan-evidence.json": "bfe1b021c43194d2ae332a15fe063027f7dc6cbfe165fd1aca7bec10fb306ec1",
+    "scan-measurements.json": "80636440024dce04dda4bc3b649cda74e835ae8b3e8f4c479feccce644a41045",
+    "interface-measurements.json": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
+    "build_reference.py": "ef3a0d53b0970dde2a016ab549155aefc65f94b3826e0fad0434bcc1408360a8",
+    "g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+    "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8"
+  },
+  "tool_sha256": {
+    "validate_reference.py": "b0ae1ed0803bba0f2278ed4c4b786649f6db7de015cc051027aa9c9be8106bbc",
+    "g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+    "derive_casing.py": "642682a70c8d27711c8df3deb6f1a610a5c2f55731d4e276e197be5c2e831462",
+    "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8"
+  },
+  "lower_cradle_corroboration": "Each selected observation has a second scan surface within 0.45 mm and normal dot product above 0.85. Noncorroborated loose leads are excluded before model comparison.",
+  "limits": [
+    "Residuals are comparison to a sprayed optical scan, not absolute scanner tolerance.",
+    "Loose wires, scanning putty and rubber-foot poses are excluded from rigid casing comparison.",
+    "Barb cross-view disagreement remains explicit; no scale or symmetry is used to erase it.",
+    "The four filled foot envelopes cannot qualify through-slot screw passage, washer coverage, clip retention or the loaded clamp stack.",
+    "Native bodies are occupied external envelopes and cannot supply material mass or strength."
+  ],
+  "diagnostic_sha256": {
+    "native-validation.png": "945b78f74c0a5f837b793c49f19f8eee72f64f4145f765686b6db26b046cccf8"
+  }
+}

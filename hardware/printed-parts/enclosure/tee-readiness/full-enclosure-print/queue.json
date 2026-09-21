@@ -1,0 +1,125 @@
+{
+  "status": "preparation_only_waiting_for_full_current_geometry",
+  "submitted": false,
+  "all_shell_quadrants_fresh": true,
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "left_nozzle_area_mm": [
+    [
+      0,
+      0
+    ],
+    [
+      325,
+      320
+    ]
+  ],
+  "first_jobs": [
+    {
+      "printer": "H2C",
+      "directory": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1",
+      "parts": [
+        "enclosure-front-top",
+        "enclosure-tee-carrier-left",
+        "enclosure-tee-carrier-right",
+        "carrier-spring-pusher"
+      ],
+      "requested_z_trim_mm": 0.18,
+      "effective_textured_z_trim_mm": 0.16,
+      "pusher_geometry": "verified canonical flat 13.15 x 6.3 x 2.0 mm tool; current native wall installation/removal passed",
+      "pusher_declaration": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/pusher-declaration.json"
+    },
+    {
+      "printer": "Mark2",
+      "directory": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2",
+      "parts": [
+        "enclosure-pump-cartridge",
+        "enclosure-pump-cap"
+      ],
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "queue_after": "current fake-countertop job",
+      "native_support_packing": "pending exact native support/toolpath bounds",
+      "printer_handoff": "Mark2 remains assigned to Tube miter box; fresh mounted-nozzle confirmation required after hotend change"
+    }
+  ],
+  "remaining_shell_jobs": [
+    {
+      "part": "enclosure-front-bottom",
+      "orientation": "upright",
+      "printer": null
+    },
+    {
+      "part": "enclosure-back-bottom",
+      "orientation": "upright",
+      "printer": null
+    },
+    {
+      "part": "enclosure-back-top",
+      "orientation": "ceiling-down X180",
+      "printer": null
+    }
+  ],
+  "print_sequence": "by layer",
+  "staged_projects": [],
+  "native_slices": [],
+  "packing_qualification": "Native support and extrusion bounds pending; model-box planning alone does not qualify fit.",
+  "print_released": false,
+  "existing_nameplate": "Physically accepted; no repeat print required",
+  "matching_cold_core_mounting_parts": [
+    {
+      "part": "foam-cap-top",
+      "role": "G Ganen four-column deck mount and matching holes",
+      "material": "black PET-GF",
+      "required_for": "Installing the selected G Ganen pump and current upper cold-core hardware",
+      "scope": "Separate matching cold-core mounting parts; outside the first spring/enclosure trial plate",
+      "qualification_authority": "Coordinating task reports the matching native exports qualified",
+      "current_artifact_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "cf4533b2cc02888dc27b8874687af6ef14e13329da9191dc1da216800016fbd0",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "4aee46ca8a6f6c7921492c69c44f5c603413230cb7222dcec091b261d621b3e7"
+      },
+      "missing_canonical_artifacts": [],
+      "printer": null,
+      "print_profile": null,
+      "offline_project_prepared": false,
+      "print_released": false
+    },
+    {
+      "part": "foam-cap-lid-top",
+      "role": "Matching G Ganen deck holes, revised valve cradles and fluid-14 anchor",
+      "material": "black PET-GF",
+      "required_for": "Installing the selected G Ganen pump and current upper cold-core hardware",
+      "scope": "Separate matching cold-core mounting parts; outside the first spring/enclosure trial plate",
+      "qualification_authority": "Coordinating task reports the matching native exports qualified",
+      "current_artifact_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "6a1f2105bb7521106255a4710856973827763ec7550702f6a760f86bfaed6ba7"
+      },
+      "missing_canonical_artifacts": [
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl"
+      ],
+      "printer": null,
+      "print_profile": null,
+      "offline_project_prepared": false,
+      "print_released": false
+    }
+  ],
+  "complete_pump_installation_scope": "The four shell quadrants do not provide the selected pump mounting by themselves; matching foam-cap-top and foam-cap-lid-top are required.",
+  "existing_display_cover": {
+    "status": "use accepted existing display cover",
+    "authority": "Derek confirms the display was already test-fit in the prior design; coordinating task explicitly directs reuse",
+    "new_print_required": false,
+    "fresh_housing_geometry_check_owner": "readiness_verification"
+  },
+  "coupons": "None; the requested prints are complete production enclosure parts",
+  "spring_pusher": {
+    "quantity": 1,
+    "purpose": "Essential temporary spring-loading tool reused for both halves",
+    "coupon": false
+  },
+  "current_front_top_native_checks": {
+    "report": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+    "sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6",
+    "status": "current_front_top_native_pass",
+    "print_released": false
+  }
+}

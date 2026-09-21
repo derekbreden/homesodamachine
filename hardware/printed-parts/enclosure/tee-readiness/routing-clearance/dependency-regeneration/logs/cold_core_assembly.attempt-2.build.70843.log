@@ -1,0 +1,172 @@
+-> cold-core-assembly.step.mesh  (3 fluted piece(s))
+-> cold-core-assembly.step
+
+cold core
+  bulkhead-reservoir-a     [   92.3,  117.7] [  -16.2,   11.0] [    3.0,   38.2]
+  bulkhead-reservoir-b     [ -117.7,  -92.3] [  -11.0,   16.0] [    3.0,   38.2]
+  bulkhead-seal-a          [   93.0,  117.0] [  -12.0,   12.0] [   29.2,   32.2]
+  bulkhead-seal-b          [ -117.0,  -93.0] [  -12.0,   12.0] [   29.2,   32.2]
+  carbonator-elbow-carb-water-out [  -20.6,    9.2] [   11.1,   27.0] [    7.8,   45.0]
+  carbonator-elbow-co2-in  [   -9.2,   21.7] [  -39.0,  -11.1] [    8.5,   45.0]
+  carbonator-elbow-prv     [   -9.2,    9.2] [   11.1,   39.6] [  171.4,  207.3]
+  carbonator-elbow-water-in [  -16.4,    9.2] [  -27.0,    3.1] [  171.4,  208.5]
+  carbonator-tube          [  -63.5,   63.5] [  -63.5,   63.5] [   32.0,  184.4]
+  collet-carb-water-out    [  -39.1,   -9.6] [   11.9,   26.2] [    8.7,   25.3]
+  collet-co2-in            [    3.2,   34.8] [  -49.0,  -19.7] [    8.7,   25.3]
+  collet-water-in          [  -23.4,    2.0] [  -13.4,   19.1] [  191.1,  207.7]
+  copper-plug-port         [ -143.0, -137.1] [  -81.8,  -73.2] [   28.4,  213.4]
+  copper-plug-west         [ -143.0, -137.1] [   73.2,   81.8] [   28.4,  213.4]
+  endcap-bottom            [  -61.7,   61.7] [  -61.7,   61.7] [   38.4,   44.7]
+  endcap-top               [  -61.7,   61.7] [  -61.7,   61.7] [  171.7,  178.1]
+  evap-coil                [  -69.9,   69.8] [  -69.9,   69.9] [   43.8,  169.6]
+  evap-tail-inlet          [ -143.5,  -34.3] [  -80.7,  -53.7] [   25.2,   50.2]
+  evap-tail-outlet         [ -143.5,  -34.3] [   53.7,   80.7] [   25.2,  169.6]
+  float-a                  [   98.2,  126.2] [   18.5,   46.5] [  119.0,  131.0]
+  float-b                  [ -126.2,  -98.2] [   18.5,   46.5] [  119.0,  131.0]
+  float-carb               [   33.8,   61.8] [  -14.0,   14.0] [  121.3,  133.2]
+  float-rod-a              [  113.2,  116.3] [   30.9,   34.1] [   32.5,  209.0]
+  float-rod-b              [ -116.3, -113.2] [   30.9,   34.1] [   32.5,  209.0]
+  float-rod-carb           [   49.4,   52.6] [   -1.6,    1.6] [   42.2,  174.2]
+  foam-cap-bottom          [ -141.5,  141.5] [  -90.5,   90.5] [  -18.0,   -0.0]
+  foam-cap-lid-bottom      [ -141.5,  141.5] [  -90.5,   90.5] [  -20.0,  -14.6]
+  foam-cap-lid-top         [ -141.5,  141.5] [  -90.5,   90.5] [  228.0,  285.8]
+  foam-cap-top             [ -141.5,  141.5] [  -90.5,   90.5] [  213.4,  228.0]
+  foam-shell               [ -141.5,  141.5] [  -90.5,   90.5] [   -0.0,  213.4]
+  probe-carbonator-ds18b20 [  -68.7,  -64.4] [   -2.2,    2.2] [  110.3,  115.5]
+  probe-coil-ds18s20       [  -39.1,  -34.8] [   53.2,   57.5] [  145.3,  150.5]
+  prv-shroud               [  -11.6,   11.6] [   39.6,   85.6] [  187.8,  211.0]
+  prv-sv125                [   -8.2,    8.2] [   26.9,   77.7] [  191.5,  207.3]
+  reed-a-1                 [  133.2,  135.8] [   31.2,   33.8] [   50.5,   64.5]
+  reed-a-2                 [  133.2,  135.8] [   31.2,   33.8] [   95.5,  109.5]
+  reed-a-3                 [  133.2,  135.8] [   31.2,   33.8] [  140.5,  154.5]
+  reed-a-4                 [  133.2,  135.8] [   31.2,   33.8] [  185.5,  199.5]
+  reed-b-1                 [ -135.8, -133.2] [   31.2,   33.8] [   50.5,   64.5]
+  reed-b-2                 [ -135.8, -133.2] [   31.2,   33.8] [   95.5,  109.5]
+  reed-b-3                 [ -135.8, -133.2] [   31.2,   33.8] [  140.5,  154.5]
+  reed-b-4                 [ -135.8, -133.2] [   31.2,   33.8] [  185.5,  199.5]
+  reed-bridge              [   58.7,   66.8] [  -24.9,   24.9] [   79.0,  147.4]
+  reed-carb-1              [   63.5,   66.0] [   -1.2,    1.2] [   92.1,  106.1]
+  reed-carb-2              [   63.5,   66.0] [   -1.2,    1.2] [  120.3,  134.2]
+  reservoir-a              [   52.3,  129.2] [  -70.2,   70.2] [   24.6,  202.2]
+  reservoir-a-cap          [   52.3,  129.2] [  -70.2,   70.2] [  202.2,  213.2]
+  reservoir-b              [ -129.2,  -52.3] [  -70.2,   70.2] [   24.6,  202.2]
+  reservoir-b-cap          [ -129.2,  -52.3] [  -70.2,   70.2] [  202.2,  213.2]
+  vent-membrane-a          [   89.5,  102.5] [  -39.0,  -26.0] [  210.4,  210.6]
+  vent-membrane-b          [ -102.5,  -89.5] [  -39.0,  -26.0] [  210.4,  210.6]
+  water-inlet-jet-cap-nominal [   -4.8,    4.8] [  -23.8,  -14.3] [  169.4,  171.4]
+
+  52 bodies, 8 lines, shell z 0..213.4, stack floor -20.0, cap face 233.4
+  carbonator
+    tube            ⌀127.0 × 1.651 wall × 152.4, z 32.00..184.40
+    plates          ⌀123.44 × 6.35, bottom z 38.35..44.70, top z 171.70..178.05
+    plate-to-bore   0.254 mm slip on ⌀123.698 bore
+    interior        z 44.70..171.70 (127.0 mm of column)
+    float rod       ⌀3.175 × 132.1 at x +50.97
+    elbow standoff  21.35 off the plate face (shell storeys) vs 20.57 (catalog leg) — Δ-0.78
+    co2-in          corner (+0.0, -19.05, 17.00)  mouth (+16.0, -31.96, 17.00)
+    carb-water-out  corner (+0.0, +19.05, 17.00)  mouth (-20.6, +19.05, 17.00)
+    water-in        corner (+0.0, -19.05, 199.40)  mouth (-9.0, -0.55, 199.40)
+    prv             corner (+0.0, +19.05, 199.40)  mouth (+0.0, +39.62, 199.40)
+    band   17.00    co2-in corner at 17.00 — on it
+    band  199.40    water-in corner at 199.40 — on it
+  evaporator coil
+    stock           1/4" soft ACR copper, min bend 12.70 — 2×OD — a lever bender's smallest common former (BEND_RATIO)
+    wound at        r 66.675 (carbonator 63.5 + tube 3.175); the mandrel winds at r 63.675
+    wraps           9.687 at 12.33 mm pitch, z 47.0..166.4
+    azimuths        inlet -123.69°, outlet +123.69°, CCW delta 247.38°
+    wrap laid       4089 mm (13.42 ft) — mandrel 3877, sprung 4060, reed bridge +29
+    inlet stub      335.5 mm allowed = 134.8 mm drawn in-shell (135.5 billed) + 200 protruding
+    outlet stub     429.6 mm allowed = 253.9 mm drawn in-shell (254.6 billed) + 175 protruding
+    cut per carb    4854.3 mm (15.926 ft); 3 per 50 ft roll leaves +2.222 ft (+677 mm)
+  internals
+    inlet jet       nominal ⌀9.5 × 2 cap, ⌀1.5875 passage; fit, weld and installed projection unqualified
+    reservoir-a     mouth (+101.0, -15.5, 6.0)
+    reservoir-b     mouth (-105.0, +16.0, 6.0)
+    carb reeds      z 99.1, 127.3 at x 64.75
+    res reeds       z 57.5, 102.5, 147.5, 192.5 at x ±134.5, y 32.5, 45 mm pitch in a 40..210 travel
+    res rods        ⌀3.175 × 176.5 at x ±115, y 32.5, seated at z 32.5, 32.5
+    float slop      ⌀9.75 bore on a ⌀3.175 rod — 3.288 mm of radial freedom, against the 2.0 mm the reed reads at
+    float-a         rod parked 114.750, wall 126.250, capsule lies at 112.250 — magnet stands off +0.787 mm
+    float-b         rod parked 114.750, wall 126.250, capsule lies at 112.250 — magnet stands off +0.787 mm
+    float-carb      rod parked 50.974, wall 61.849, capsule lies at 47.849 — magnet stands off +0.162 mm
+
+scorecard
+  OK   one-core       5/5 bodies shared                  One card for both models of the cold core
+         this card is written beside cold-core-layout/cold-core-assembly.step
+                                 and printed-parts/cold-core/foam-assembly/foam-assembly.step
+         foam-shell: placed here
+         foam-cap-top: placed here
+         foam-cap-lid-top: placed here
+         foam-cap-bottom: placed here
+         foam-cap-lid-bottom: placed here
+  OK   bodies-clear   0 clash                            No two placed solids share volume
+         carbonator-tube ∩ evap-coil: the wrap rides it — see RIDES_ON
+         evap-coil ∩ reed-bridge: the wrap rides it — see RIDES_ON
+         evap-coil ∩ reed-carb-1: the wrap rides it — see RIDES_ON
+         evap-coil ∩ reed-carb-2: the wrap rides it — see RIDES_ON
+  OK   routes-fit     8/8 clear                          No line meets a solid
+  OK   lines-apart    0 crossing                         No two runs want the same corridor
+  FAIL bom-covered    28/35                              Every billed cold-core part has a body here
+         PTFE thread tape — billed, no solid here ("Millrose 70894 Nickel Guard")
+         pour-in-place foam — billed, no solid here ("closed-cell pour-in-place PU foam")
+         foil tape — billed, no solid here ("3M 425 aluminum foil tape")
+         reed columns — billed, no solid here ("Pre-soldered reed-and-wire column")
+         heat-set inserts — billed, no solid here ("ruthex M3 Threaded Inserts")
+         cap clamp screws — billed, no solid here ("BNUOK M3 × 25 mm DIN 912")
+         reservoir cap screws — billed, no solid here ("BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless")
+  OK   lane-census    8 run-lane pairs                   What each lane carries, and at what storey
+         port-lane: carb-water-out at z 13.8..233.4, x -55.4..-20.6
+         port-lane: co2-in at z 13.8..233.4, x -4.7..50.0
+         port-lane: evap-tail-inlet at z 25.2..50.2, x -143.5..-34.3
+         port-lane: reservoir-a at z 2.8..233.4, x -138.1..104.1
+         west-lane: evap-tail-outlet at z 25.2..169.6, x -143.5..-34.3
+         west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2
+         west-lane: reservoir-b at z 2.8..233.4, x -138.1..-101.8
+         west-lane: water-in at z 179.9..233.4, x -138.1..-6.2
+  OK   port-leads     5/5 collets                        Every collet's own corner seats at stock
+         carb-water-out end: 28.0 mm into a bore, which takes a lean
+         co2-in start: 202.4 mm into a bore, which takes a lean
+         prv-vent start: 2.0 mm into a bore, which takes a lean
+         prv-vent end: 1.0 mm into a bore, which takes a lean
+         reservoir-a end: 213.4 mm into a bore, which takes a lean
+         reservoir-b end: 213.4 mm into a bore, which takes a lean
+         water-in end: 23.2 mm into a bore, which takes a lean
+  OK   stations-met   2/2 stations                       Every wall station carries a run
+         port-lane evap-inlet at z 28.43: evap-tail-inlet
+         west-lane evap-outlet at z 28.43: evap-tail-outlet
+  OK   arcs-hold      8/8 at stock                       Every corner turns at the stock arc
+  OK   prv-vent-lands 0.004 mm off                       The PRV shroud's vent bore opens on the lane its line falls
+         the shroud's vent bore opens at (+0.00, +77.50, 187.85), on the west lane (77.5) — the strip the barrel's own bore can reach with no corner
+         it stands 11.55 mm under the elbow's own axis, against the 11.55 mm barrel radius a bore facing DOWN reads
+         station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.85 and out the +Y flank at y 92.50
+  OK   floats-couple  3/3 floats                         Every float's magnet is held against the wall its reed reads through
+         float-a: rod parked 114.75 biases the capsule +2.50 mm into a wall at 126.25; magnet standoff 0..0.79 mm
+         float-b: rod parked 114.75 biases the capsule +2.50 mm into a wall at 126.25; magnet standoff 0..0.79 mm
+         float-carb: rod parked 50.97 biases the capsule +3.13 mm into a wall at 61.85; magnet standoff 0..0.16 mm
+       inlet-jet-qualified nominal layout only                The inlet jet's actual joint and fit are qualified
+         The cap is drawn at nominal 9.5 mm diameter, 2 mm thickness and a 1/16-inch passage.
+         The elbow bore and installed tip projection are unmeasured layout assumptions; the model does not establish the weld land, penetration or pressure integrity.
+         Qualify the coupon, passage and made-up port using assembly/water-inlet-jet.md.
+       gas-adapter-envelope shared nominal envelope            The gas collet matches its acquired PI010822S
+         The gas port carries the PI010822S identity and gray acetal material; its envelope is represented by the existing PP010822E layout reference until measured.
+  OK   placed         52/52                              Every body the core carries is placed
+  OK   located        6/6                                Every port a placed body declares is positioned
+  OK   routed         8/8                                Every line the core owes is drawn
+  FAIL mounted        50/52                              A feature of another placed part locates every body
+         probe-carbonator-ds18b20: foil tape
+         probe-coil-ds18s20: foil tape
+
+lines
+  line               grade     length    reach  detour  tightest corners
+  carb-water-out     B          316.2    239.1  1.32x     14.00 6
+  co2-in             B          312.1    221.8  1.41x     14.00 2
+  prv-vent           B           25.0     21.9  1.14x     14.00 1
+  reservoir-a        B          537.8    328.9  1.64x     14.00 4
+  reservoir-a-fill   straight     20.2     20.2  1.00x     14.00 0
+  reservoir-b        B          334.8    231.0  1.45x     14.00 3
+  reservoir-b-fill   straight     20.2     20.2  1.00x     14.00 0
+  water-in           B          227.1    142.1  1.60x     14.00 3
+
+-> cold-core-layout/cold-core-assembly.scorecard.json
+
+-> printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json
