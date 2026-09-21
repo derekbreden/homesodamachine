@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "back-bottom",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+    "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/enclosure-back-bottom-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "4c68142fd791fc922eba261b27834041be5f8cbeb3d92d11b7e1362975bfbe07"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "3ef93d482b3bba7c4565109b3dfb86c8e3de1fbaa49c0766256a71b56bc95a6d",
+  "files": {
+    "native-handoff.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/native-handoff.json",
+      "sha256": "ba06e3b39d449c6bfd06ca171807a4266bfa87664a6c89a82473141cb1e09bd3",
+      "bytes": 4352
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/offline-review.json",
+      "sha256": "39ca02207abf238f35891a5b82abe7ebdd9b9fecbb970fcf398b101619de6818",
+      "bytes": 8130
+    },
+    "offline-review-before-diagnostic-mirror-fix.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/offline-review-before-diagnostic-mirror-fix.json",
+      "sha256": "7950bd508ac7dd6371e83e109b3637ada2e7ba514df8d69faebb4a1640ce6e7e",
+      "bytes": 6849
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/readiness.json",
+      "sha256": "7c098b403edd5190f1ffe7d08da7046fc43d33d9689651cfce1e72f880816b71",
+      "bytes": 6377
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/support-removal-review.json",
+      "sha256": "d1ae352b64c3ceda0d8689494e1a2300dad2bf88b2c4cd2b688d75cbf1e6735f",
+      "bytes": 15003
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/preparation.json",
+      "sha256": "8d8b2bddb1bfe3be0cc83e7866061aae84d3006d2cd6bea833cfc2253f0b5478",
+      "bytes": 2233
+    },
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/job-config.json",
+      "sha256": "0896c04a2806b0d4d08e31ecb8fc4fad6018f6917279d96ca71d7ab78c892efc",
+      "bytes": 1075
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/slice-command.json",
+      "sha256": "ef18264b45c0ab6db9f93e6c6be634debfd79f9c84b1832fec5059b43a7c1d62",
+      "bytes": 504
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/slice-input.json",
+      "sha256": "5793a7f520384c35972f5320df3eb355f22e46b33c92c9366670ef97d7d25546",
+      "bytes": 279
+    },
+    "native-review.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/native-review.log",
+      "sha256": "03b5a19e6241025b6433b0036399a7d53f85074d91b6e61f07bbd51eb15f8077",
+      "bytes": 1432
+    },
+    "slice.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/slice.log",
+      "sha256": "7d6f5b9caf29bcf8920db3c2df981e16cf8d600bbf2530965869fc58939ac501",
+      "bytes": 272
+    },
+    "finalize.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/finalize.log",
+      "sha256": "1957048a439a11d75daf9918d0ec0c62d098b65f9953c93a9b121049f2ab8f9f",
+      "bytes": 470
+    },
+    "enclosure-back-bottom-black-z004-mark2-v2-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/enclosure-back-bottom-black-z004-mark2-v2-input.support-audit.json",
+      "sha256": "7a7459e2f5e314c7acf57052abe5d7d9513e9f26e349ada5fc5d8eae6f8b84a6",
+      "bytes": 11953
+    },
+    "enclosure-back-bottom-black-z004-mark2-v2-input.print.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/enclosure-back-bottom-black-z004-mark2-v2-input.print.json",
+      "sha256": "4286d56eb4a0eef0e8a2d9e1f5d260f5344cc688778b7d1a17d83033a5118290",
+      "bytes": 6654
+    },
+    "workflow/prepare.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/prepare.py",
+      "sha256": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+      "bytes": 71
+    },
+    "workflow/slice.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/slice.py",
+      "sha256": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177",
+      "bytes": 87
+    },
+    "workflow/print_workflow.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/print_workflow.py",
+      "sha256": "03e3b4f37308613ae0b8b6beef2d75904286c39aa2384ab87d6af974ebb1a6c0",
+      "bytes": 17365
+    },
+    "workflow/review_native.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/review_native.py",
+      "sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+      "bytes": 32954
+    },
+    "workflow/finalize_review.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/finalize_review.py",
+      "sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+      "bytes": 6949
+    },
+    "native/bambu-cli.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/bambu-cli.log",
+      "sha256": "25546e14b56a506518839ca73b5c8e76b3dbfdf3b52f07cdde9c9b2a9356cf53",
+      "bytes": 355
+    },
+    "native/result.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/result.json",
+      "sha256": "ab281cd6280aacdad5ab0c16b6e8166cd3591bd4a693851e6ef6e940772712e2",
+      "bytes": 2533
+    },
+    "native/path-bounds-checkpoint.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/path-bounds-checkpoint.json",
+      "sha256": "1d031a61aed17d22ab8833d52d6e3f21b4fedc0e79c381454eaaa3cea46e471d",
+      "bytes": 555
+    },
+    "native/support-enclosure-back-bottom.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/support-enclosure-back-bottom.json",
+      "sha256": "00ec636e34b35b6ba217227744c31563d32c8d474a605e4bd86f7b354e937913",
+      "bytes": 9260
+    },
+    "previews/pick_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/pick_1.png",
+      "sha256": "1ce4f172b3cf9159807a260daa308715f0a46de2f76ca4747621a35c07d3123a",
+      "bytes": 2617
+    },
+    "previews/plate_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/plate_1.png",
+      "sha256": "f74ef79099ecf2ea1f4529a86a184b0d7b2aa9876026d6ed8bf34fa01a15133a",
+      "bytes": 8937
+    },
+    "previews/plate_1_small.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/plate_1_small.png",
+      "sha256": "02461a7d254e5c13c3d9d6d24a4d891fdc4e8dad138ee9868ab843cde2cf2002",
+      "bytes": 2570
+    },
+    "previews/plate_no_light_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/plate_no_light_1.png",
+      "sha256": "9eea745006be9b1622a3bb41cf0494b582c85618e168a5053b16f0d34a76b35c",
+      "bytes": 3045
+    },
+    "previews/top_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/native-previews/top_1.png",
+      "sha256": "0e77b5e642c3a5438cf16a25b5f363d1956905b289d4642feb4e6b77c8adf436",
+      "bytes": 5723
+    },
+    "reproducers/complete-offline-review.py.txt": {
+      "source_path": "/tmp/scanner-review/complete-offline-review.py",
+      "sha256": "87874ae4134af98a5269f3a5e08070f7bf778d1d6a09173c4566f37574c26a0e",
+      "bytes": 2763
+    }
+  },
+  "printing_authorized": true,
+  "submitted": false,
+  "print_released": false,
+  "execution_status": "Await assigned printer availability, latest plate removal, adequate filament and the normal verified handoff; no new design or permission gate.",
+  "physical_cleanup_effort_measured": false,
+  "scope": "Byte-identical completed native slice/support evidence. Large input and native archives remain at their exact hashed cache paths. The finalized ledger is authoritative for diagnostic disposition; the preliminary readiness record may retain pending mirror fields."
+}

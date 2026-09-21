@@ -1,0 +1,82 @@
+"""Bind full-layer evidence and resolve the saved first-layer contour allowance."""
+from pathlib import Path
+import json
+import sys
+import zipfile
+
+import numpy as np
+import shapely
+import trimesh
+
+HERE=Path(__file__).parent
+sys.path.insert(0,str(HERE))
+import verify_emission as probe
+import qualify_printable_sections as width_probe
+
+
+def main():
+    raw_path=HERE/'emission-presence.json'
+    width_path=HERE/'printable-width-review.json'
+    raw=json.loads(raw_path.read_text()); widths=json.loads(width_path.read_text())
+    assert widths['raw_probe_sha256']==probe.sha(raw_path)
+    assert widths['script_sha256']==probe.sha(Path(width_probe.__file__))
+    for p,h in raw['bindings'].items():assert probe.sha(Path(p))==h,p
+    assert widths['all_813_native_and_model_layers_match_expected_schedule']
+    assert widths['all_native_layers_have_model_sections']
+    assert widths['negative_control']['omitted_boundary_is_detected']
+    assert len(widths['remaining_findings'])==1 and widths['remaining_findings'][0]['layer_z_mm']==.2
+    archive=next((probe.JOB/'ready').glob('*.gcode.3mf'))
+    with zipfile.ZipFile(archive) as z:config=json.loads(z.read('Metadata/project_settings.config'))
+    assert config['wall_generator']=='classic' and config['detect_thin_wall']=='0'
+    assert float(config['outer_wall_line_width'])==.42
+    bead=float(config['initial_layer_line_width'])
+    compensation=float(config['elefant_foot_compensation'])
+    assert bead==.5 and compensation==.15
+    class FirstLayer:
+        def open(self):
+            for line in (probe.JOB/'ready/analysis-labelled-single-object.gcode').open():
+                if line.startswith('; Z_HEIGHT:') and float(line.split(':',1)[1])>.2:break
+                yield line
+    roads=[]
+    for seg in probe.extrusion_segments(FirstLayer()):
+        if seg['feature'] not in ('','Custom','Brim') and not seg['feature'].startswith('Support'):
+            roads.append((seg['a'][:2],seg['b'][:2],seg['width']))
+    lines=shapely.linestrings(np.array([[s[0],s[1]] for s in roads]))
+    road_widths=np.array([s[2] for s in roads])
+    mesh=trimesh.load(probe.ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl',force='mesh',process=True)
+    frame=json.loads((probe.JOB/'ready/support-enclosure-back-top.json').read_text())['coordinate_frame']['plate_to_original_cad_transform']
+    mesh.vertices=(mesh.vertices-np.array(frame[9:]))@np.linalg.inv(np.array(frame[:9]).reshape(3,3))
+    first=[]
+    for poly in width_probe.polygons(mesh,.1):
+        expected=poly.buffer(-compensation).buffer(-bead/2).buffer(bead/2)
+        parts=[expected] if expected.geom_type=='Polygon' else list(expected.geoms)
+        for p in parts:
+            if not p.is_empty:first.append(width_probe.read_presence(p,lines,road_widths))
+    assert first and all(p['segment_intersections']>0 and p['samples_beyond_0p20_mm']==0 for p in first),first
+    report={
+        'status':'pass','native_archive_sha256':probe.sha(archive),'gcode_sha256':raw['gcode_sha256'],
+        'passed_checks':['back-top-native-layer-schedule','back-top-printable-width-components-and-boundaries'],
+        'native_layers':813,'raw_section_components':raw['component_sections'],
+        'raw_boundary_sample_count':sum(p['boundary_samples'] for r in raw['rows'] for p in r['components']),
+        'raw_complete_component_absences':3,
+        'complete_absence_resolution':'All three absent cross-sections have widths0.04005,0.08001,0.32001mm and contain no region wide enough for the configured0.42mm classic outer-wall bead; thin-wall detection is disabled. They are narrow tips, not missing printable-width bodies.',
+        'raw_perimeter_flag_resolution':'All non-first-layer flags resolve against the model section opened by the actual0.42mm bead diameter; each remaining printable-width component and its sampled boundary has emitted model roads. The sole first-layer residual is read against the native0.15mm elephant-foot contour inset and0.50mm bead, with the same0.20mm diagnostic margin.',
+        'first_layer_compensation_mm':compensation,'first_layer_wall_width_mm':bead,
+        'first_layer_readings':first,
+        'all_model_layers_equal_native_and_expected_schedule':True,
+        'no_missing_printable_width_section_or_sampled_boundary_found':True,
+        'negative_control':widths['negative_control'],
+        'evidence':[
+            {'path':str(p),'sha256':probe.sha(p)} for p in
+            (raw_path,width_path,Path(probe.__file__),Path(width_probe.__file__),Path(__file__),HERE/'findings.png',HERE/'plot_findings.py')],
+        'native_diagnostic':'ZFiller: encounter idx from clip:1725',
+        'slicer_version':'02.08.02.61',
+        'source_reference':'https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Fill/FillFloatingConcentric.cpp#L446-L454',
+        'diagnostic_interpretation':'The integer is a clipping-vertex tag, not a layer or coordinate. The warning is retained. This approval uses the current emitted archive readings; it does not classify the upstream warning as universally harmless.',
+        'limitations':'0.5mm boundary sampling with0.20mm allowance beyond actual road half-widths is a bounded path-presence diagnostic. It does not prove every interior sparse-infill road, physical adhesion, bond strength or assembly fit.'}
+    (HERE/'diagnostic-assessment.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps({'status':'pass','layers':813,'components':raw['component_sections'],
+                      'first_layer_worst_gap':max(p['max_boundary_gap_beyond_halfwidth_mm'] for p in first)}),flush=True)
+
+
+if __name__=='__main__':main()

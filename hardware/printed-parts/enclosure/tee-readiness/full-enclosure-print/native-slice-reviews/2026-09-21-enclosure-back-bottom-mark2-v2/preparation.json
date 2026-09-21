@@ -1,0 +1,81 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/enclosure-back-bottom-black-z004-mark2-v2-input.3mf",
+  "staged_input_sha256": "a0e5adebd7ee9805d02b5b01f77f94ba99a12df45037741b7c955b81395f2b0e",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "enclosure-back-bottom",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "source_stl_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+      "source_step_sha256": "7ffd112745203620884174253b19f437d03b560381efbf8ec9a01de5167e82dc",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          200.0,
+          -6.0
+        ],
+        [
+          107.5,
+          471.8999938964844,
+          174.8000030517578
+        ]
+      ],
+      "original_mesh_triangles": 1291828,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/oriented-meshes/enclosure-back-bottom.stl",
+      "oriented_stl_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          200.0,
+          -6.0
+        ],
+        [
+          107.5,
+          471.8999938964844,
+          174.8000030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-back-bottom": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+}

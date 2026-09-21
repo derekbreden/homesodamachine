@@ -1,0 +1,103 @@
+"""Separate nozzle-width limits from loss of printable structure in flagged layers."""
+from pathlib import Path
+import json
+import re
+import sys
+import time
+
+import numpy as np
+import shapely
+from shapely.geometry import LineString
+from shapely.strtree import STRtree
+import trimesh
+
+HERE=Path(__file__).parent
+sys.path.insert(0,str(HERE))
+import verify_emission as probe
+
+
+def polygons(mesh, height):
+    cuts=trimesh.intersections.mesh_plane(mesh,[0,0,1],[0,0,height+1e-7])
+    xy=np.round(cuts[:,:,:2],5)
+    noded=shapely.unary_union(shapely.linestrings(xy))
+    out,dangles,edges,invalid=shapely.polygonize_full(shapely.get_parts(noded))
+    assert invalid.length < 1e-4 and dangles.length+edges.length < .01
+    a,b=xy[:,0],xy[:,1]
+    selected=[]
+    for poly in out.geoms:
+        p=poly.representative_point(); mask=(a[:,1]>p.y)!=(b[:,1]>p.y)
+        ix=a[mask,0]+(p.y-a[mask,1])*(b[mask,0]-a[mask,0])/(b[mask,1]-a[mask,1])
+        if int(np.sum(ix>p.x))%2: selected.append(poly)
+    return selected
+
+
+def read_presence(poly, lines, widths):
+    points=probe.boundary_points(poly)
+    tree=STRtree(lines)
+    pairs,dist=tree.query_nearest(points,all_matches=False,return_distance=True)
+    gaps=dist-widths[pairs[1]]/2
+    return {'area_mm2':float(poly.area),'bounds_plate_xy_mm':list(poly.bounds),
+            'segment_intersections':len(tree.query(poly,predicate='intersects')),
+            'boundary_samples':len(points),'samples_beyond_0p20_mm':int(np.sum(gaps>.20)),
+            'max_boundary_gap_beyond_halfwidth_mm':float(max(gaps)),
+            'worst_plate_xy_mm':list(points[pairs[0][int(np.argmax(gaps))]].coords[0])}
+
+
+def main():
+    raw_path=HERE/'emission-presence.json'; raw=json.loads(raw_path.read_text())
+    for p,h in raw['bindings'].items(): assert probe.sha(Path(p))==h,p
+    gcode=probe.JOB/'ready/plate_1.gcode'
+    schedule=[float(x.split(':',1)[1]) for x in gcode.read_text().splitlines() if x.startswith('; Z_HEIGHT:')]
+    observed=[r['layer_z_mm'] for r in raw['rows']]
+    assert schedule==observed and len(schedule)==813
+    assert all(abs(z-(.2+.24*i))<1e-5 for i,z in enumerate(schedule))
+    assert all(r['model_components']>0 for r in raw['rows'])
+    selected=sorted(set(f['layer_z_mm'] for f in raw['perimeter_findings']))
+    roads={z:[] for z in selected}
+    for seg in probe.extrusion_segments(probe.JOB/'ready/analysis-labelled-single-object.gcode'):
+        if seg['layer'] in roads and seg['feature'] not in ('','Custom','Brim') and not seg['feature'].startswith('Support'):
+            roads[seg['layer']].append((seg['a'][:2],seg['b'][:2],seg['width']))
+    mesh=trimesh.load(probe.ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl',force='mesh',process=True)
+    frame=json.loads((probe.JOB/'ready/support-enclosure-back-top.json').read_text())['coordinate_frame']['plate_to_original_cad_transform']
+    mesh.vertices=(mesh.vertices-np.array(frame[9:]))@np.linalg.inv(np.array(frame[:9]).reshape(3,3))
+    rows=[];guard=None
+    for z in selected:
+        cuts=polygons(mesh,z/2 if z==.2 else z-.12)
+        segments=roads[z];widths=np.array([s[2] for s in segments])
+        lines=shapely.linestrings(np.array([[s[0],s[1]] for s in segments]))
+        bead=.50 if z==.2 else .42
+        rows_here=[]
+        for number,poly in enumerate(cuts):
+            opened=poly.buffer(-bead/2).buffer(bead/2)
+            parts=[opened] if opened.geom_type=='Polygon' else list(opened.geoms)
+            results=[read_presence(p,lines,widths) for p in parts if not p.is_empty]
+            rows_here.append({'original_component':number,'original_area_mm2':float(poly.area),
+                              'printable_width_mm':bead,'opened_area_mm2':float(opened.area),
+                              'no_bead_width_region':opened.is_empty,'regions':results})
+            if guard is None and not opened.is_empty:
+                p=parts[0].exterior.interpolate(.37,normalized=True)
+                keep=shapely.distance(lines,p)>6
+                check=read_presence(parts[0],lines[keep],widths[keep])
+                assert check['samples_beyond_0p20_mm']>0 and check['max_boundary_gap_beyond_halfwidth_mm']>5
+                guard={'scope':'Synthetic omission from a copy of emitted paths only; physical archive unchanged',
+                       'removed_segments':int(np.sum(~keep)),'witness_plate_xy_mm':list(p.coords[0]),
+                       'omitted_boundary_is_detected':True,'reading':check}
+        rows.append({'layer_z_mm':z,'components':rows_here})
+    bad=[{'layer_z_mm':r['layer_z_mm'],**p} for r in rows for c in r['components'] for p in c['regions']
+         if p['segment_intersections']==0 or p['samples_beyond_0p20_mm']>0]
+    report={'status':'pass' if not bad else 'findings_need_reading',
+            'native_archive_sha256':raw['native_archive_sha256'],'gcode_sha256':raw['gcode_sha256'],
+            'raw_probe_sha256':probe.sha(raw_path),'script_sha256':probe.sha(Path(__file__)),
+            'all_813_native_and_model_layers_match_expected_schedule':True,
+            'all_native_layers_have_model_sections':True,'raw_missing_components':raw['whole_missing_components'],
+            'configured_wall_generator':'classic','detect_thin_wall':False,
+            'nominal_outer_bead_mm':.42,'first_layer_bead_mm':.50,
+            'method':'Morphological opening by one actual wall bead diameter identifies section regions capable of containing that bead. Every opened-region boundary is sampled at0.5mm against emitted road half-widths with0.20mm allowance. Original raw findings are retained.',
+            'raw_flagged_layers':len(selected),'readings':rows,'remaining_findings':bad,
+            'negative_control':guard,
+            'scope':'Diagnoses raw contour flags against the exact saved finite-width/disabled-thin-wall slicing settings. Does not prove physical bonds or every internal sparse-infill road.'}
+    (HERE/'printable-width-review.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(report['status'],'remaining',len(bad),flush=True)
+
+
+if __name__=='__main__':main()

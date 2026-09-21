@@ -1,0 +1,11 @@
+{
+  "status": "offline_print_review_pass",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+  "estimated_seconds": 62806.21875,
+  "estimated_grams_petgf_density_1p43": 621.2638280114462,
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  }
+}

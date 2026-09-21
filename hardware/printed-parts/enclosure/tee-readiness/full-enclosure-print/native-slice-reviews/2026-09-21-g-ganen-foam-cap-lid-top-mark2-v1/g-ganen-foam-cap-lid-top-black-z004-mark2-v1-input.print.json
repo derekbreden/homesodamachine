@@ -1,0 +1,208 @@
+{
+  "project": "g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "4abb51da216d16711660642cf245c1e9af2582cb19bc0786cfb92f71cfa865c6",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "foam-cap-lid-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/oriented-meshes/foam-cap-lid-top.stl",
+      "stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "triangles": 72176,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        28.887500762939453
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        28.887500762939453
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        28.887500762939453
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          21.0,
+          69.5,
+          0.0
+        ],
+        [
+          304.0,
+          250.5,
+          57.775001525878906
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "original_source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+      "original_stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111"
+    }
+  ],
+  "project_sha256": "7edfdea9ed4c366b88137abb49c59386a8eef595da6d3982c1f214d23461a817",
+  "settings_preserved_byte_for_byte": false,
+  "job_key": "foam-cap-lid-top",
+  "assigned_printer": "Mark2",
+  "archive_stem": "g-ganen-foam-cap-lid-top-black-z004-mark2-v1",
+  "requested_z_trim_mm": 0.04,
+  "actual_textured_z_trim_mm": 0.02,
+  "geometry_confirmation": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/geometry-confirmation.json",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "geometry_confirmation_received_from": "/private/tmp/scanner-review/integration-correction/final-print-receipt-v3/current-geometry.json",
+  "original_sources": [
+    {
+      "name": "foam-cap-lid-top",
+      "source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+      "source_stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "source_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "source_step_sha256": "ef82091d4a837c76b06a113fa2b3c7da5e6eca9446ae02f9901fd4997a1adaf7",
+      "original_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          57.775001525878906
+        ]
+      ],
+      "original_mesh_triangles": 72176,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/oriented-meshes/foam-cap-lid-top.stl",
+      "oriented_stl_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "oriented_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          57.775001525878906
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "layerwise_print": true,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task",
+  "writer_source_sha256": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
+  "workflow_sha256": {
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/finalize_review.py": "7e82cbe0ded28485bbd1b870501902ff066f7739547582ff29c50bddaa09697a",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/job-config.json": "992f5b16a52380c0d15395ff6c6771071f8bf5390401801f727023852bbb60ac",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/prepare.py": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/print_workflow.py": "03e3b4f37308613ae0b8b6beef2d75904286c39aa2384ab87d6af974ebb1a6c0",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/review_native.py": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/slice.py": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177"
+  },
+  "functional_regions": null,
+  "functional_regions_sha256": null,
+  "required_functional_toolpath_checks": []
+}

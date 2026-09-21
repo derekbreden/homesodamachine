@@ -1,0 +1,86 @@
+{
+    "error_string": "Success.",
+    "export_time": 9029,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 695,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 792.4176635742188,
+                "Bridge": 5061.30419921875,
+                "Custom": 297.46319580078125,
+                "Flush": 15.0,
+                "Gap infill": 745.5855712890625,
+                "Inner wall": 9196.3330078125,
+                "Internal solid infill": 6601.5068359375,
+                "Outer wall": 12005.3408203125,
+                "Overhang wall": 1652.354248046875,
+                "Sparse infill": 16210.95703125,
+                "Support": 20728.8828125,
+                "Support interface": 336.3002014160156,
+                "Top surface": 800.1857299804688,
+                "Travel": 12679.94140625,
+                "Undefined": 12678.21875
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 814.6127319335938,
+                    "total_used_g": 814.6126708984375
+                }
+            ],
+            "generate_support_material_time": 49409,
+            "id": 1,
+            "infill_time": 5857,
+            "layer_filament_change": 0,
+            "main_predication": 87150.390625,
+            "make_perimeters_time": 8670,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 215.0,
+                        "height": 195.0,
+                        "width": 207.5500030517578,
+                        "x": 34.5,
+                        "y": 49.26350021362305,
+                        "z": 0.0
+                    },
+                    "id": 5,
+                    "name": "enclosure-front-top",
+                    "triangle_count": 557640
+                },
+                {
+                    "bbox": {
+                        "depth": 6.299958229064941,
+                        "height": 2.0,
+                        "width": 13.149842262268066,
+                        "x": 289.9250793457031,
+                        "y": 154.2250213623047,
+                        "z": 0.0
+                    },
+                    "id": 9,
+                    "name": "carrier-spring-pusher",
+                    "triangle_count": 1068
+                }
+            ],
+            "sliced_time": 80272,
+            "sliced_time_with_cache": 14671,
+            "total_predication": 87476.1328125,
+            "triangle_count": 558708,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

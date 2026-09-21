@@ -1,0 +1,70 @@
+{
+    "error_string": "Success.",
+    "export_time": 2767,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 266,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 1216.2386474609375,
+                "Bridge": 4428.22705078125,
+                "Custom": 305.09063720703125,
+                "Flush": 15.0,
+                "Gap infill": 585.6002197265625,
+                "Inner wall": 1595.564208984375,
+                "Internal solid infill": 5017.3466796875,
+                "Outer wall": 1842.439453125,
+                "Sparse infill": 536.1152954101563,
+                "Top surface": 773.1112670898438,
+                "Travel": 2292.63134765625,
+                "Undefined": 2283.3955078125
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 164.7452850341797,
+                    "total_used_g": 164.7452850341797
+                }
+            ],
+            "generate_support_material_time": 2372,
+            "id": 1,
+            "infill_time": 4291,
+            "layer_filament_change": 0,
+            "main_predication": 18270.068359375,
+            "make_perimeters_time": 3008,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 181.0,
+                        "height": 14.600000381469727,
+                        "width": 283.0,
+                        "x": 21.0,
+                        "y": 69.5,
+                        "z": 2.651363573136223e-10
+                    },
+                    "id": 5,
+                    "name": "foam-cap-top",
+                    "triangle_count": 196166
+                }
+            ],
+            "sliced_time": 12894,
+            "sliced_time_with_cache": 2859,
+            "total_predication": 18595.923828125,
+            "triangle_count": 196166,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

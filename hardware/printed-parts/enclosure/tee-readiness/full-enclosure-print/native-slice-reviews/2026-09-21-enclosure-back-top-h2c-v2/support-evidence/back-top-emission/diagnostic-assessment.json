@@ -1,0 +1,99 @@
+{
+  "status": "pass",
+  "native_archive_sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+  "gcode_sha256": "eab7b3a8dbd6573296a8f1dcf1de5bcad5ce5ab77c27ef68f7ab6ff73e0337db",
+  "passed_checks": [
+    "back-top-native-layer-schedule",
+    "back-top-printable-width-components-and-boundaries"
+  ],
+  "native_layers": 813,
+  "raw_section_components": 1969,
+  "raw_boundary_sample_count": 2824211,
+  "raw_complete_component_absences": 3,
+  "complete_absence_resolution": "All three absent cross-sections have widths0.04005,0.08001,0.32001mm and contain no region wide enough for the configured0.42mm classic outer-wall bead; thin-wall detection is disabled. They are narrow tips, not missing printable-width bodies.",
+  "raw_perimeter_flag_resolution": "All non-first-layer flags resolve against the model section opened by the actual0.42mm bead diameter; each remaining printable-width component and its sampled boundary has emitted model roads. The sole first-layer residual is read against the native0.15mm elephant-foot contour inset and0.50mm bead, with the same0.20mm diagnostic margin.",
+  "first_layer_compensation_mm": 0.15,
+  "first_layer_wall_width_mm": 0.5,
+  "first_layer_readings": [
+    {
+      "area_mm2": 43878.636218245,
+      "bounds_plate_xy_mm": [
+        60.059480000015256,
+        24.50001,
+        264.9400599999927,
+        295.49999
+      ],
+      "segment_intersections": 1823,
+      "boundary_samples": 2132,
+      "samples_beyond_0p20_mm": 0,
+      "max_boundary_gap_beyond_halfwidth_mm": 0.035925657766778585,
+      "worst_plate_xy_mm": [
+        146.6838260995002,
+        26.46407434223322
+      ]
+    }
+  ],
+  "all_model_layers_equal_native_and_expected_schedule": true,
+  "no_missing_printable_width_section_or_sampled_boundary_found": true,
+  "negative_control": {
+    "scope": "Synthetic omission from a copy of emitted paths only; physical archive unchanged",
+    "removed_segments": 33,
+    "witness_plate_xy_mm": [
+      132.3371002667137,
+      230.39999
+    ],
+    "omitted_boundary_is_detected": true,
+    "reading": {
+      "area_mm2": 44038.76035066487,
+      "bounds_plate_xy_mm": [
+        59.909480000011534,
+        24.35001,
+        265.0900599999936,
+        295.64999
+      ],
+      "segment_intersections": 1790,
+      "boundary_samples": 2135,
+      "samples_beyond_0p20_mm": 253,
+      "max_boundary_gap_beyond_halfwidth_mm": 6.113588712193794,
+      "worst_plate_xy_mm": [
+        132.3620922737825,
+        230.39999
+      ]
+    }
+  },
+  "evidence": [
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/emission-presence.json",
+      "sha256": "acdd608ec8aff358a1476e60373c2c06baf10cdef663b3336cd0034e51f0eaef"
+    },
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/printable-width-review.json",
+      "sha256": "91de07e2e80a731a097ec0756200bd864b34ff0220827bef4853c5f165baf08b"
+    },
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/verify_emission.py",
+      "sha256": "57341a2e0f75559736aa62a596e707fb854cf86345e702aa792562e30660995a"
+    },
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/qualify_printable_sections.py",
+      "sha256": "8beba48129755964de90848bc5b8b102ed9a4ff0fc85fa2bcbef6f440a388f24"
+    },
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/assess_diagnostic.py",
+      "sha256": "dccce6a272d57f1bc745ec01bf20f3232209f02b9997b0cfefa4105d4c69d5e8"
+    },
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/findings.png",
+      "sha256": "39ca3006fc40b55737a7b5962163d086b5ae9d065b1dba51d98f210518f39055"
+    },
+    {
+      "path": "/tmp/scanner-review/support-review/back-top-emission/plot_findings.py",
+      "sha256": "73a76236f3a5e88fc47d0659154f358d2d53037aec580fcf8fa3c9c7f01f08a8"
+    }
+  ],
+  "native_diagnostic": "ZFiller: encounter idx from clip:1725",
+  "slicer_version": "02.08.02.61",
+  "source_reference": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Fill/FillFloatingConcentric.cpp#L446-L454",
+  "diagnostic_interpretation": "The integer is a clipping-vertex tag, not a layer or coordinate. The warning is retained. This approval uses the current emitted archive readings; it does not classify the upstream warning as universally harmless.",
+  "limitations": "0.5mm boundary sampling with0.20mm allowance beyond actual road half-widths is a bounded path-presence diagnostic. It does not prove every interior sparse-infill road, physical adhesion, bond strength or assembly fit."
+}

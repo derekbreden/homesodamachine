@@ -1,0 +1,67 @@
+"""Bounded exact-road cleanout checks for the final lid's small open tunnels."""
+from pathlib import Path
+import hashlib,json,sys,time,re
+import cadquery as cq
+import numpy as np
+from shapely.geometry import LineString,box
+from shapely.ops import unary_union
+ROOT=Path('/Users/derekbredensteiner/Developer/homesodamachine')
+JOB=Path(sys.argv[1]).resolve();OUT=JOB/'support-evidence';OUT.mkdir(exist_ok=True)
+sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
+from prepare_display_print import extrusion_segments
+
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def path(p):return Path(p) if Path(p).is_absolute() else ROOT/p
+def prism(b):return cq.Solid.makeBox(b[3]-b[0],b[4]-b[1],b[5]-b[2],cq.Vector(*b[:3]))
+def sweep(b,d):return [min(b[i],b[i]+d[i]) for i in range(3)]+[max(b[i+3],b[i+3]+d[i]) for i in range(3)]
+def translated(b,d):return [b[i]+d[i%3] for i in range(6)]
+start=time.monotonic();r=json.loads((JOB/'readiness.json').read_text());audit_path=path(r['support_audit']);assert sha(audit_path)==r['support_audit_sha256']
+a=json.loads(audit_path.read_text());part=next(p for p in a['parts'] if p['piece']=='foam-cap-lid-top');source=r['original_sources'][0]
+step=path(source['source_step']);assert sha(step)==source['source_step_sha256']
+archive=path(r['native_archive']);assert sha(archive)==r['native_archive_sha256']
+gcode=JOB/'ready'/part['inputs']['gcode'];assert sha(gcode)==part['inputs']['gcode_sha256']
+frame=part['coordinate_frame']['plate_to_original_cad_transform'];matrix=np.array(frame[:9]).reshape(3,3);shift=np.array(frame[9:]);assert np.array_equal(matrix,np.eye(3))
+inputs=[archive,gcode,audit_path,step,JOB/'readiness.json',ROOT/'hardware/printed-parts/cold-core/foam-cap/foam_cap.py',ROOT/'hardware/printed-parts/cold-core/_cold_core_interface.py']
+before={str(p.relative_to(ROOT)):sha(p) for p in inputs}
+# The full raw body bounds select roads spatially; no prior tree identity is used.
+selected={t['id']:[] for t in part['trees']}
+feature='';positive_support_arcs=0
+for raw in gcode.open():
+    if raw.startswith('; FEATURE:'):feature=raw.split(':',1)[1].strip()
+    if feature.startswith('Support') and raw.startswith(('G2 ','G3 ')) and re.search(r' E[+]?[0-9]',raw):positive_support_arcs+=1
+assert positive_support_arcs==0
+total_support_roads=0
+for seg in extrusion_segments(gcode):
+    if seg['object']!=part['inputs']['object_label'] or not seg['feature'].startswith('Support'):continue
+    total_support_roads+=1;matched=[]
+    p=np.array([seg['a'],seg['b']])@matrix+shift
+    assert abs(p[0,2]-p[1,2])<1e-6
+    for t in part['trees']:
+        b=t['bbox_original_cad_xyz_mm']
+        if b[2]-.01<=p[0,2]<=b[5]+.01 and box(b[0]-.5,b[1]-.5,b[3]+.5,b[4]+.5).intersects(LineString(p[:,:2])):
+            selected[t['id']].append((p.tolist(),seg['width'],seg['layer']));matched.append(t['id'])
+    assert len(matched)==1,('support coverage',matched,seg)
+assert all(selected.values())
+native=cq.importers.importStep(str(step)).val();assert native.isValid()
+checks=[]
+for t in part['trees']:
+    roads=selected[t['id']];raw=t['bbox_original_cad_xyz_mm'];cx=(raw[0]+raw[3])/2;cy=(raw[1]+raw[4])/2
+    if cx>125:name='water-3 side-anchor window';direction=[10,0,0];mouth=138.0
+    elif raw[2]>40:name='fluid-18 side-anchor window';direction=[-31,0,0];mouth=21.675
+    elif cy<0:name='discharge-chain tie tunnel';direction=[0,-26,0];mouth=-72.15
+    elif cy>55:name='suction-chain tie tunnel';direction=[0,26,0];mouth=76.7
+    else:name='fluid-14 tie tunnel';direction=[0,16,0];mouth=51.075
+    xy=unary_union([LineString(np.array(p)[:,:2]).buffer(w/2) for p,w,z in roads]);bxy=xy.bounds
+    b=[bxy[0],bxy[1],min(p[0][2]-.24 for p,w,z in roads),bxy[2],bxy[3],max(p[0][2] for p,w,z in roads)]
+    lift=[0,0,.25];up=translated(b,lift)
+    probes=[('emitted-road conservative envelope',b),('continuous 0.25 mm lift to clear the local floor lip',sweep(b,lift)),('continuous withdrawal through the open mouth',sweep(up,direction))]
+    rows=[]
+    for label,bounds in probes:
+        overlap=abs(native.intersect(prism(bounds)).Volume());rows.append({'name':label,'bounds_original_cad_mm':bounds,'overlap_mm3':overlap,'pass':overlap<1e-8})
+    end=translated(up,direction)
+    escaped=(end[0]>mouth if direction[0]>0 else end[3]<mouth if direction[0]<0 else end[1]>mouth if direction[1]>0 else end[4]<mouth)
+    assert escaped,(name,end,mouth)
+    checks.append({'tree':t['id'],'interface_ids':t['interfaces'],'contact':name,'root':t['root'],'shortest_build_up_mm':t['shortest_build_up_mm'],'native_roads':len(roads),'native_widths_mm':sorted(set(w for p,w,z in roads)),'native_road_layers_mm':sorted(set(z for p,w,z in roads)),'raw_tree_bounds_mm':raw,'emitted_envelope_mm':b,'emitted_layer_height_mm':.24,'motions_mm':[lift,direction],'fully_past_mouth':escaped,'native_checks':rows,'pass':all(x['pass'] for x in rows)})
+report={'status':'pass' if all(x['pass'] for x in checks) else 'fail','native_archive_sha256':r['native_archive_sha256'],'gcode_sha256':r['gcode_sha256'],'input_sha256':before,'script_sha256':sha(__file__),'native_support_roads':total_support_roads,'each_support_road_assigned_exactly_once':True,'positive_extruding_support_arcs':positive_support_arcs,'source_drift':[p for p,h in before.items() if sha(ROOT/p)!=h],'supports':checks,'scope':'Only detached support material in the exact final lid slice. Each rectangular swept envelope contains all selected emitted roads with their actual half widths and full 0.24 mm layer height; whole-body native clearance is checked before any purchased hardware is installed. No lid or working-face geometry is changed.','limits':['Detachment force, cleanup time and resulting contact finish are physical observations.','The vertical lift is available geometric room after the support is detached; it is not a claim that adhered support moves freely.','This is support cleanout evidence, not a mechanical strength or model-path completeness check.'],'elapsed_seconds':time.monotonic()-start}
+assert not report['source_drift'];out=OUT/'lid-support-lanes.json';out.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+if report['status']!='pass':raise SystemExit(1)

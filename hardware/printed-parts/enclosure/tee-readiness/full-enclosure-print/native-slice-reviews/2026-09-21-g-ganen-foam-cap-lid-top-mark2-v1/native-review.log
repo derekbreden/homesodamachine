@@ -1,0 +1,39 @@
+Reading supports: foam-cap-lid-top
+  foam-cap-lid-top: {'support_bodies': 5, 'interface_islands': 5, 'bed_rooted_bodies': 0, 'model_rooted_bodies': 5, 'shortest_build_up_mm': 0.0, 'bodies_without_interface_labels': 0, 'explicit_interface_islands': 5, 'shortest_labelled_build_up_mm': 0.0}
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "native_archive": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v1.gcode.3mf",
+  "layers": 241,
+  "estimated_seconds": 16105.6376953125,
+  "estimated_grams_saved_profile_density": 183.039306640625,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "foam-cap-lid-top",
+        "side_margins_mm": [
+          20.900000000000002,
+          69.39999999999999,
+          20.903999999999996,
+          69.4
+        ],
+        "minimum_margin_mm": 20.900000000000002
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 20.900000000000002,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

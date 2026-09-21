@@ -1,0 +1,43 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "back-top",
+  "printer": "H2C",
+  "archive_stem": "enclosure-back-top-black-z018-h2c-v2",
+  "title": "Complete enclosure back-top, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "rotation_sequence": [
+        "X180"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/manifold-layout/enclosure_assembly.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament"
+}

@@ -1,0 +1,412 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "4c68142fd791fc922eba261b27834041be5f8cbeb3d92d11b7e1362975bfbe07",
+  "gcode_sha256": "3ef93d482b3bba7c4565109b3dfb86c8e3de1fbaa49c0766256a71b56bc95a6d",
+  "support_audit_sha256": "7a7459e2f5e314c7acf57052abe5d7d9513e9f26e349ada5fc5d8eae6f8b84a6",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "parts": [
+    {
+      "name": "enclosure-back-bottom",
+      "support_summary": {
+        "support_bodies": 5,
+        "interface_islands": 5,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": 8.16,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 5,
+        "shortest_labelled_build_up_mm": 8.16
+      },
+      "model_overhangs_review": "Five actual support bodies and five labeled islands: two downward-open handhold lifting ceilings, one exterior bed tree reaching the fore portion of the west Z-seam catch, and two model-rooted exposed catch ribbons. Every square lifting/catch working face remains intact. The external tree does not require a rigid whole-tree pull: detach its catch-contact branch outboard before removing its exposed bed trunk. Remove all supports while the shell is loose and before the top shell or hardware is fitted; physical effort remains unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 174.68,
+            "shortest_build_up_mm": 174.48,
+            "top_z_mm": 174.92,
+            "bbox_xy_mm": [
+              17.6,
+              43.6,
+              63.6,
+              158.0
+            ],
+            "interfaces": [
+              "interface-3"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -144.9,
+              219.55,
+              -5.8,
+              -98.9,
+              333.95,
+              168.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -144.9,
+              219.55,
+              -5.8,
+              -98.9,
+              333.95,
+              168.92
+            ]
+          },
+          "contact_region": "West rear Z-seam catch underside: exterior bed tree and catch-contact branch.",
+          "removal_lane": "Release the contact branch outboard through the fully exposed catch groove, then remove the exposed exterior bed trunk separately. The native tree lies outside the west flank and no installed top shell encloses its contact branch; an intact whole-tree rigid extraction is not claimed.",
+          "removal_direction_original_cad": "\u2212X outboard through the exposed west catch groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The broad square catch underside bears against the rear top shell foot along the complete rail; retain the flat bearing face.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.28,
+            "shortest_build_up_mm": 34.08,
+            "top_z_mm": 35.72,
+            "bbox_xy_mm": [
+              56.0,
+              23.6,
+              68.4,
+              75.2
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -106.5,
+              199.55,
+              -5.8,
+              -94.1,
+              251.15,
+              29.72
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -106.5,
+              199.55,
+              -5.8,
+              -94.1,
+              251.15,
+              29.72
+            ]
+          },
+          "contact_region": "West rear handhold lifting-ceiling tree, rooted on the bed and reaching one underside interface.",
+          "removal_lane": "Detach from the broad lifting ceiling and withdraw downward through the fully open finger aperture. Its end walls bound the pocket along Y; the complete bottom remains open before the enclosure is assembled.",
+          "removal_direction_original_cad": "\u2212Z through the open handhold bottom.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The full flat lifting ceiling is the load-bearing handhold face; retain the roof and backing stock.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "model",
+            "base_z_mm": 166.52,
+            "first_interface_z_mm": 174.68,
+            "shortest_build_up_mm": 8.16,
+            "top_z_mm": 174.92,
+            "bbox_xy_mm": [
+              59.2,
+              154.0,
+              63.6,
+              279.6
+            ],
+            "interfaces": [
+              "interface-4"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -103.3,
+              329.95,
+              160.52,
+              -98.9,
+              455.55,
+              168.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.3,
+              329.95,
+              160.52,
+              -98.9,
+              455.55,
+              168.92
+            ]
+          },
+          "contact_region": "West rear Z-seam catch underside: model-rooted exposed catch ribbon.",
+          "removal_lane": "Peel the narrow ribbon outboard from the fully exposed groove beneath the catch. The top shell is absent and the groove opens from its sliding face past the exterior plane along the complete contact run; no branch returns into a closed pocket.",
+          "removal_direction_original_cad": "\u2212X outboard through the exposed west catch groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The broad square catch underside bears against the rear top shell foot along the complete rail; retain the flat bearing face.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.28,
+            "shortest_build_up_mm": 34.08,
+            "top_z_mm": 35.72,
+            "bbox_xy_mm": [
+              256.4,
+              23.6,
+              270.4,
+              75.2
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              93.9,
+              199.55,
+              -5.8,
+              107.9,
+              251.15,
+              29.72
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.9,
+              199.55,
+              -5.8,
+              107.9,
+              251.15,
+              29.72
+            ]
+          },
+          "contact_region": "East rear handhold lifting-ceiling tree, rooted on the bed and reaching one underside interface.",
+          "removal_lane": "Detach from the broad lifting ceiling and withdraw downward through the fully open finger aperture. Its end walls bound the pocket along Y; the complete bottom remains open before the enclosure is assembled.",
+          "removal_direction_original_cad": "\u2212Z through the open handhold bottom.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The full flat lifting ceiling is the load-bearing handhold face; retain the roof and backing stock.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-5",
+            "root": "model",
+            "base_z_mm": 166.52,
+            "first_interface_z_mm": 174.68,
+            "shortest_build_up_mm": 8.16,
+            "top_z_mm": 174.92,
+            "bbox_xy_mm": [
+              261.2,
+              43.6,
+              266.0,
+              279.6
+            ],
+            "interfaces": [
+              "interface-5"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              98.7,
+              219.55,
+              160.52,
+              103.5,
+              455.55,
+              168.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.7,
+              219.55,
+              160.52,
+              103.5,
+              455.55,
+              168.92
+            ]
+          },
+          "contact_region": "East rear Z-seam catch underside: model-rooted exposed catch ribbon.",
+          "removal_lane": "Peel the narrow ribbon outboard from the fully exposed groove beneath the catch. The top shell is absent and the groove opens from its sliding face past the exterior plane along the complete contact run; no branch returns into a closed pocket.",
+          "removal_direction_original_cad": "+X outboard through the exposed east catch groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The broad square catch underside bears against the rear top shell foot along the complete rail; retain the flat bearing face.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 34.28,
+            "last_z_mm": 34.76,
+            "bbox_xy_mm": [
+              57.6,
+              24.0,
+              68.4,
+              75.2
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 34.08,
+            "bbox_cad_xyz_mm": [
+              -104.9,
+              199.95,
+              28.28,
+              -94.1,
+              251.15,
+              28.76
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -104.9,
+              199.95,
+              28.28,
+              -94.1,
+              251.15,
+              28.76
+            ]
+          },
+          "contact_region": "West rear handhold flat lifting ceiling at Z29.25 over the downward-open finger pocket, actual contact near Y200..251.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 34.28,
+            "last_z_mm": 34.76,
+            "bbox_xy_mm": [
+              256.4,
+              24.0,
+              267.6,
+              75.2
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 34.08,
+            "bbox_cad_xyz_mm": [
+              93.9,
+              199.95,
+              28.28,
+              105.1,
+              251.15,
+              28.76
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.9,
+              199.95,
+              28.28,
+              105.1,
+              251.15,
+              28.76
+            ]
+          },
+          "contact_region": "East rear handhold flat lifting ceiling at Z29.25 over the downward-open finger pocket, actual contact near Y200..251.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 174.68,
+            "last_z_mm": 174.92,
+            "bbox_xy_mm": [
+              59.2,
+              43.6,
+              63.6,
+              142.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 174.48,
+            "bbox_cad_xyz_mm": [
+              -103.3,
+              219.55,
+              168.68,
+              -98.9,
+              317.95,
+              168.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.3,
+              219.55,
+              168.68,
+              -98.9,
+              317.95,
+              168.92
+            ]
+          },
+          "contact_region": "Fore portion of west rear Z-seam catch underside at Z169.45, actual contact near Y220..318, reached by the exterior bed tree.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 174.68,
+            "last_z_mm": 174.92,
+            "bbox_xy_mm": [
+              59.2,
+              154.0,
+              63.6,
+              279.6
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 8.16,
+            "bbox_cad_xyz_mm": [
+              -103.3,
+              329.95,
+              168.68,
+              -98.9,
+              455.55,
+              168.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.3,
+              329.95,
+              168.68,
+              -98.9,
+              455.55,
+              168.92
+            ]
+          },
+          "contact_region": "Aft portion of west rear Z-seam catch underside at Z169.45, actual contact near Y330..456, reached by a model-rooted exposed ribbon.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 174.68,
+            "last_z_mm": 174.92,
+            "bbox_xy_mm": [
+              261.2,
+              43.6,
+              266.0,
+              279.6
+            ],
+            "tree": "tree-5",
+            "build_up_mm": 8.16,
+            "bbox_cad_xyz_mm": [
+              98.7,
+              219.55,
+              168.68,
+              103.5,
+              455.55,
+              168.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.7,
+              219.55,
+              168.68,
+              103.5,
+              455.55,
+              168.92
+            ]
+          },
+          "contact_region": "East rear Z-seam catch underside at Z169.45, actual contact near Y220..456, reached by a model-rooted exposed ribbon.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 09:18:12.799216] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:18:19.990140] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:18:19.990341] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The three messages name the saved profile commands T1001 (startup hotend-type detection), T65535 and T65279 (end-code control/unload blocks). These exact inherited profile tokens are recorded parser diagnostics for authored machine-code blocks. The native slice returns0, its plate warning is empty, and its intended filament/nozzle mapping and complete model/support paths were verified; there is no additional diagnostic in this slice.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "review_scope": "This exact back-bottom archive only. All five raw tree and interface measurements are retained unchanged, including roots and build-ups; neither root kind nor build-up is treated as a cleanup-effort rating."
+}

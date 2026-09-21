@@ -1,0 +1,48 @@
+{
+  "1901": {
+    "low": [
+      34.4,
+      14.196
+    ],
+    "high": [
+      276.961,
+      299.38300000000004
+    ],
+    "segments": 4207179,
+    "maximum_width": 0.725414,
+    "features": {
+      "Support": 2344561,
+      "Inner wall": 568446,
+      "Outer wall": 639248,
+      "Gap infill": 67359,
+      "Bottom surface": 2801,
+      "Internal solid infill": 115388,
+      "Sparse infill": 367315,
+      "Floating vertical shell": 63234,
+      "Bridge": 18863,
+      "Top surface": 9367,
+      "Overhang wall": 1614,
+      "Support interface": 8983
+    }
+  },
+  "1902": {
+    "low": [
+      289.825,
+      154.13
+    ],
+    "high": [
+      303.174,
+      160.623
+    ],
+    "segments": 1399,
+    "maximum_width": 0.541744,
+    "features": {
+      "Inner wall": 281,
+      "Outer wall": 334,
+      "Bottom surface": 47,
+      "Internal solid infill": 698,
+      "Top surface": 24,
+      "Gap infill": 15
+    }
+  }
+}

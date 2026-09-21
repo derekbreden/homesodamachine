@@ -1,0 +1,61 @@
+Reading supports: enclosure-front-top
+  enclosure-front-top: {'support_bodies': 5, 'interface_islands': None, 'bed_rooted_bodies': 3, 'model_rooted_bodies': 2, 'shortest_build_up_mm': None, 'bodies_without_interface_labels': 2, 'explicit_interface_islands': 21, 'shortest_labelled_build_up_mm': 44.88}
+Reading supports: carrier-spring-pusher
+  carrier-spring-pusher: {'support_bodies': 0, 'interface_islands': 0, 'bed_rooted_bodies': 0, 'model_rooted_bodies': 0, 'shortest_build_up_mm': None, 'bodies_without_interface_labels': 0, 'explicit_interface_islands': 0, 'shortest_labelled_build_up_mm': None}
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+  "layers": 813,
+  "estimated_seconds": 87476.1328125,
+  "estimated_grams_saved_profile_density": 814.6126708984375,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-top",
+        "side_margins_mm": [
+          34.4,
+          14.196,
+          48.03899999999999,
+          20.616999999999962
+        ],
+        "minimum_margin_mm": 14.196
+      },
+      {
+        "piece": "carrier-spring-pusher",
+        "side_margins_mm": [
+          289.825,
+          154.13,
+          21.826000000000022,
+          159.377
+        ],
+        "minimum_margin_mm": 21.826000000000022
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 14.196,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-front-top",
+          "carrier-spring-pusher"
+        ],
+        "projected_extrusion_box_gap_mm": 12.863999999999976,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 12.863999999999976,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

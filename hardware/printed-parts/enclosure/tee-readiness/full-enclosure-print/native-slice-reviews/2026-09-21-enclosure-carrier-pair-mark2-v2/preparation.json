@@ -1,0 +1,152 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/enclosure-carrier-pair-black-z004-mark2-v2-input.3mf",
+  "staged_input_sha256": "6766096e5ca837f8174c32bbdf85b0431760e6a3343628de856bacf5e38fa645",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-left",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+      "source_stl_sha256": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step",
+      "source_step_sha256": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          92.29000091552734,
+          167.1739959716797
+        ],
+        [
+          20.5,
+          136.0,
+          229.11900329589844
+        ]
+      ],
+      "original_mesh_triangles": 5034,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/oriented-meshes/enclosure-tee-carrier-left.stl",
+      "oriented_stl_sha256": "6818e0565e02aefa5ff7bf5eb6c4b8685c1a4cd804834eac6f9344305dd1284e",
+      "oriented_bounds_mm": [
+        [
+          -136.0,
+          -107.5,
+          167.1739959716797
+        ],
+        [
+          -92.29000091552734,
+          20.5,
+          229.11900329589844
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "enclosure-tee-carrier-right",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+      "source_stl_sha256": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step",
+      "source_step_sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+      "original_bounds_mm": [
+        [
+          -25.75,
+          92.29000091552734,
+          167.1739959716797
+        ],
+        [
+          107.5,
+          138.1999969482422,
+          229.11900329589844
+        ]
+      ],
+      "original_mesh_triangles": 4934,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/oriented-meshes/enclosure-tee-carrier-right.stl",
+      "oriented_stl_sha256": "11f6b4c7ca7be8ba0629bc93d524879834666434e262856250d2e93320413974",
+      "oriented_bounds_mm": [
+        [
+          -138.1999969482422,
+          -25.75,
+          167.1739959716797
+        ],
+        [
+          -92.29000091552734,
+          107.5,
+          229.11900329589844
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-tee-carrier-left": [
+      119.54500198364258,
+      160.0
+    ],
+    "enclosure-tee-carrier-right": [
+      204.35499954223633,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+}

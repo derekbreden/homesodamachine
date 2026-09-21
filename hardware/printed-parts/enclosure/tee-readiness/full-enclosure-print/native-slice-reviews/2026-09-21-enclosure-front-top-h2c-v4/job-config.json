@@ -1,0 +1,70 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "front-top",
+  "printer": "H2C",
+  "archive_stem": "enclosure-front-top-black-z018-h2c-v4",
+  "title": "Complete enclosure front-top, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "explicit",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": [
+        "Z90"
+      ]
+    },
+    {
+      "name": "carrier-spring-pusher",
+      "stl": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+      "step": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": []
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/manifold-layout/enclosure_assembly.py",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py"
+  ],
+  "required_functional_toolpath_checks": [
+    "spring-pusher-connectivity"
+  ],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament"
+}

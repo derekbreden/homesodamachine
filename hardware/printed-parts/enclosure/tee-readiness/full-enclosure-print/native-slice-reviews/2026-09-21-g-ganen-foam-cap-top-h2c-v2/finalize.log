@@ -1,0 +1,11 @@
+{
+  "status": "offline_print_review_pass",
+  "native_archive": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/ready/g-ganen-foam-cap-top-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "3a33be497f8fb45c88b20e4b5c4b84723cedf9dd2c790fa03c36207fc6fb866f",
+  "estimated_seconds": 18561.40234375,
+  "estimated_grams_petgf_density_1p43": 182.6251088223716,
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  }
+}

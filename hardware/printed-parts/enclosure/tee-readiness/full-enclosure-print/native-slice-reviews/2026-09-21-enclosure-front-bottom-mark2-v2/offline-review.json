@@ -1,0 +1,210 @@
+{
+  "status": "offline_print_review_pass",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_printer_handoff_and_release",
+  "printer": "Mark2",
+  "job": "front-bottom",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/enclosure-front-bottom-black-z004-mark2-v2-input.3mf",
+  "staged_input_sha256": "ada5a4f153dea2a8fb1c7d9052434ef0ffed3f182823d3b1584efb7868ae96cf",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+  "native_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+  "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-front-bottom",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "source_stl_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "source_step_sha256": "2fcd9a02a24c0e5393ec1227bf1aa1d9b3b6e849d35d043aee3bed1bfea96daf",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "original_mesh_triangles": 272394,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/oriented-meshes/enclosure-front-bottom.stl",
+      "oriented_stl_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "machine_start_gcode",
+    "extruder_ams_count",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-21 09:14:48.273886] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:14:55.148362] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:14:55.148479] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 754,
+  "native_log_diagnostics_review": "All three messages name the saved profile commands T1001 (startup hotend-type detection), T65535 and T65279 (end-code control/unload blocks). The exact inherited profile contains these tokens; native slicing returns0 with an empty plate warning and the verified intended filament/nozzle mapping. They are recorded parser diagnostics for the authored machine-code blocks, not evidence of missing support/model paths.",
+  "estimated_seconds": 62806.21875,
+  "estimated_grams_saved_profile_density": 560.4407958984375,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-bottom",
+        "side_margins_mm": [
+          54.9,
+          56.125,
+          54.89999999999998,
+          54.61699999999996
+        ],
+        "minimum_margin_mm": 54.61699999999996
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 54.61699999999996,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/enclosure-front-bottom-black-z004-mark2-v2-input.support-audit.json",
+  "support_audit_sha256": "ff86201dd9b863d829d9278af08f32620ae30e080263e9c7f691b1da4cfdde21",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "printer_state_checked": false,
+  "support_removal_review_sha256": "57058d45e474ad5056693917f7f8b870b49c53d92e6d5f60689f1db4df144f28",
+  "native_review_sha256": "803c45d8894013d8cd1c1ecec31ad817958570460df19c089c042a32ffba56ea",
+  "final_review_script_sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  },
+  "estimated_grams_petgf_density_1p43": 621.2638280114462,
+  "native_log_diagnostics_review_source": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/support-removal-review.json",
+    "sha256": "57058d45e474ad5056693917f7f8b870b49c53d92e6d5f60689f1db4df144f28",
+    "field": "native_log_diagnostics_review"
+  },
+  "metadata_completion": {
+    "predecessor_path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/offline-review-before-diagnostic-mirror-fix.json",
+    "predecessor_sha256": "6bc6cbb9ea11b23d5db20e426a04892dafdceda94daaf27a5d48901096969860",
+    "script_path": "/private/tmp/scanner-review/complete-offline-review.py",
+    "script_sha256": "87874ae4134af98a5269f3a5e08070f7bf778d1d6a09173c4566f37574c26a0e",
+    "scope": "Mirror the completed bound-ledger explanation. Native archive, G-code, settings, geometry, measurements and release state are unchanged."
+  }
+}

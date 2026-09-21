@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "front-top",
+  "printer": "H2C",
+  "source_job_directory": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+    "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+    "sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+  "files": {
+    "native-handoff.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/native-handoff.json",
+      "sha256": "71422609da67f81d06111edc48366ecc3383fc979a79714bd3d6c1c064a2af03",
+      "bytes": 5285
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/offline-review.json",
+      "sha256": "b8a917de0e3cf63fa234b0e51160846089cf7b2e24ecf512814a7951460df83a",
+      "bytes": 17516
+    },
+    "offline-review-before-diagnostic-mirror-fix.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/offline-review-before-diagnostic-mirror-fix.json",
+      "sha256": "7ae8764a762e58e813a8bd36241a7a9a8aa150f8cd35acba1df1e85dd16801da",
+      "bytes": 16098
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/readiness.json",
+      "sha256": "07153e31258ddb5b76d8e16677d5e1dce4aa3200ebc5d1d313c2aa2ca2aa6fc3",
+      "bytes": 15626
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+      "sha256": "e7eed1d88c3b3b3623503cb32ebdaa37e69398908f451ac30f97d14f812de225",
+      "bytes": 33575
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/preparation.json",
+      "sha256": "25f880aa6ea567f9404b14c8daa66cf81b39e576f29cda3154c767abb43e51c8",
+      "bytes": 3893
+    },
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/job-config.json",
+      "sha256": "7ec0f6e2f315b5403cf0fedfb0b3263509d88586e2ee5a16c0bc1f7a194abf37",
+      "bytes": 1734
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/slice-command.json",
+      "sha256": "922e988f0571221e4e4df2413ea6bcf98d6c3bb5263dfdda99c0a50a0f467ea3",
+      "bytes": 488
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/slice-input.json",
+      "sha256": "91b9c53897e197280deba7bc33b380f7390a4343f2b22324d249bf998690ec15",
+      "bytes": 279
+    },
+    "native-review.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/native-review.log",
+      "sha256": "49428f29d944ed9e1890982d9a2495c955c283eb12c94e6ebfb15ea17b7a9978",
+      "bytes": 2266
+    },
+    "slice.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/slice.log",
+      "sha256": "fc9b304c742ea1a4175a654ad490d93d76638f6869f339e37ea53827601f00ae",
+      "bytes": 264
+    },
+    "finalize.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/finalize.log",
+      "sha256": "8961b0cb3f9639bc39abcbac71ffc84ff839013a116d05791c4478291bea2997",
+      "bytes": 462
+    },
+    "read-only-mesh-preflight.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/read-only-mesh-preflight.json",
+      "sha256": "dc8fdf64eaabb3fd8d258da72bc42bd0b3e837bdce6b07fe1c16fb3abf4d4cd2",
+      "bytes": 10925
+    },
+    "layout.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/layout.json",
+      "sha256": "b13545439cbefd591645171f4c6e7c4563c64e18eb3be8b66a17b6f492e7ce22",
+      "bytes": 118
+    },
+    "enclosure-front-top-black-z018-h2c-v4-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.support-audit.json",
+      "sha256": "e5cb2cd1acea4a15c55c6be995254936c2e7adb3c68f1ce01b0294d7f28d1979",
+      "bytes": 26707
+    },
+    "enclosure-front-top-black-z018-h2c-v4-input.print.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.print.json",
+      "sha256": "c51aedf33f669c4a55aa84f2986fa07a2980402bb33f7181ebbde7def127c558",
+      "bytes": 9925
+    },
+    "workflow/prepare.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/prepare.py",
+      "sha256": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+      "bytes": 71
+    },
+    "workflow/slice.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/slice.py",
+      "sha256": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177",
+      "bytes": 87
+    },
+    "workflow/print_workflow.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/print_workflow.py",
+      "sha256": "03e3b4f37308613ae0b8b6beef2d75904286c39aa2384ab87d6af974ebb1a6c0",
+      "bytes": 17365
+    },
+    "workflow/review_native.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/review_native.py",
+      "sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+      "bytes": 32954
+    },
+    "workflow/finalize_review.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/finalize_review.py",
+      "sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+      "bytes": 6949
+    },
+    "native/bambu-cli.log": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/bambu-cli.log",
+      "sha256": "e055aaac5f95b4420efa00380d122eb709b0099ac703477fbdc7b0a9f41e3293",
+      "bytes": 355
+    },
+    "native/result.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/result.json",
+      "sha256": "e1b0e759adc73f0d01892d69049fba9b67d3ccd8958098cd2a36ead99b9f44dd",
+      "bytes": 2981
+    },
+    "native/path-bounds-checkpoint.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/path-bounds-checkpoint.json",
+      "sha256": "4e21699959a55d4982d0e09174ae448d59509e1aef5fc262948f7630158abf80",
+      "bytes": 920
+    },
+    "native/support-carrier-spring-pusher.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/support-carrier-spring-pusher.json",
+      "sha256": "4669ed70bc4b74fee385149dd7fe65b9d31d9447f4f8a3bf649f33a24f4fbecb",
+      "bytes": 3353
+    },
+    "native/support-enclosure-front-top.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/support-enclosure-front-top.json",
+      "sha256": "ad75c2d5fdd75e898f6c5bf5c88219dec0d4e777ac567d43de83091cd863d66e",
+      "bytes": 17722
+    },
+    "previews/pick_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/pick_1.png",
+      "sha256": "70dd6e5b8dc3bbb7a0ef3c4c20f1b54bcbf326cc0f1cc6645734b37e607f233d",
+      "bytes": 2698
+    },
+    "previews/plate_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/plate_1.png",
+      "sha256": "d5b5257227216f323739594f45a8c377b60e58ccff131b08eb5b4fcb1e8f026b",
+      "bytes": 13464
+    },
+    "previews/plate_1_small.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/plate_1_small.png",
+      "sha256": "02be09e4a09eb3dca0a19baa9a638909b394ae53d47bedff48d96568028df2c8",
+      "bytes": 3609
+    },
+    "previews/plate_no_light_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/plate_no_light_1.png",
+      "sha256": "506fc1e738e7191ef12bb11d92fd5fc0bc4be8573556873049c16c87815d79f3",
+      "bytes": 3713
+    },
+    "previews/top_1.png": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/top_1.png",
+      "sha256": "27a9c966533e155f0a392114ad1abd597fe4f4f5dac2629a9930154c6ba34d30",
+      "bytes": 5893
+    },
+    "support-evidence/display-approach.json": {
+      "source_path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-evidence/display-approach.json",
+      "sha256": "1843098b6ad22b353d0b3679970ee1e837d71b281289f0a058fc1752eb52eb2b",
+      "bytes": 4742
+    },
+    "reproducers/verify-display-approach.py.txt": {
+      "source_path": "/tmp/scanner-review/support-review/verify-display-approach.py",
+      "sha256": "c0130b36a4a7854f54cc9e08877088ee3565f489b7e5d66969ab0eed6949a0ef",
+      "bytes": 3459
+    },
+    "reproducers/complete-offline-review.py.txt": {
+      "source_path": "/tmp/scanner-review/complete-offline-review.py",
+      "sha256": "87874ae4134af98a5269f3a5e08070f7bf778d1d6a09173c4566f37574c26a0e",
+      "bytes": 2763
+    }
+  },
+  "printing_authorized": true,
+  "submitted": false,
+  "print_released": false,
+  "execution_status": "Await assigned printer availability, latest plate removal, adequate filament and the normal verified handoff; no new design or permission gate.",
+  "physical_cleanup_effort_measured": false,
+  "scope": "Byte-identical completed native slice/support evidence. Large input and native archives remain at their exact hashed cache paths. The finalized ledger is authoritative for diagnostic disposition; the preliminary readiness record may retain pending mirror fields."
+}

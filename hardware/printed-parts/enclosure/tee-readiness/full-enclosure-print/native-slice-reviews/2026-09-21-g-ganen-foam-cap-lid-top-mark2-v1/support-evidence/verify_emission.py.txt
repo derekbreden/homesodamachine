@@ -1,0 +1,143 @@
+"""Read-only layer/component and perimeter-presence probe for one native slice."""
+from pathlib import Path
+import collections
+import hashlib
+import json
+import sys
+import time
+
+import numpy as np
+import shapely
+from shapely.geometry import LineString
+from shapely.strtree import STRtree
+import trimesh
+
+ROOT = Path('/Users/derekbredensteiner/Developer/homesodamachine')
+JOB = Path(sys.argv[1]).resolve()
+OUT = Path(__file__).parent
+sys.path.insert(0, str(ROOT / 'hardware/printed-parts/faucet'))
+from prepare_display_print import extrusion_segments
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def boundary_points(poly, spacing=.5):
+    result = []
+    for ring in [poly.exterior, *poly.interiors]:
+        line = LineString(ring.coords)
+        count = max(4, int(np.ceil(line.length / spacing)))
+        result.extend(shapely.line_interpolate_point(line, np.arange(count) * line.length / count))
+    return np.array(result, dtype=object)
+
+
+def main():
+    start = time.time()
+    archive = next((JOB / 'ready').glob('*.gcode.3mf'))
+    gcode = JOB / 'ready/plate_1.gcode'
+    labelled = JOB / 'ready/analysis-labelled-single-object.gcode'
+    assert gcode.read_bytes() == b''.join(x for x in labelled.read_bytes().splitlines(keepends=True)
+                                         if not x.startswith(b'; start printing object, unique label id:'))
+    readiness_path = JOB / 'readiness.json'
+    readiness = json.loads(readiness_path.read_text())
+    source = readiness['original_sources'][0]
+    stl = ROOT / source['source']
+    assert sha(stl) == source['source_stl_sha256']
+    assert sha(archive) == readiness['native_archive_sha256']
+    assert sha(gcode) == readiness['gcode_sha256']
+    frame_path = JOB / ('ready/support-' + source['name'] + '.json')
+    frame = json.loads(frame_path.read_text())['coordinate_frame']['plate_to_original_cad_transform']
+    matrix = np.array(frame[:9]).reshape(3, 3)
+    translation = np.array(frame[9:])
+    mesh = trimesh.load(stl, force='mesh', process=True)
+    mesh.vertices = (mesh.vertices - translation) @ np.linalg.inv(matrix)
+    tri_z = mesh.triangles[:, :, 2]
+    zlow, zhigh = tri_z.min(axis=1), tri_z.max(axis=1)
+    paths = collections.defaultdict(list)
+    features = collections.Counter()
+    for seg in extrusion_segments(labelled):
+        if seg['feature'] in ('', 'Custom', 'Brim') or seg['feature'].startswith('Support'):
+            continue
+        assert seg['width'] > 0
+        paths[seg['layer']].append((seg['a'][:2], seg['b'][:2], seg['width']))
+        features[seg['feature']] += 1
+    native_layer_z = sorted({float(line.split(':',1)[1]) for line in gcode.open() if line.startswith('; Z_HEIGHT:')})
+    assert sorted(paths) == native_layer_z, ('whole model layer absent', sorted(set(native_layer_z)-set(paths)))
+    assert len(paths) == readiness['layers']
+    assert all(abs(z-(.2+.24*i)) < 1e-6 for i,z in enumerate(native_layer_z)), 'unexpected layer schedule'
+    print(json.dumps({'layers': len(paths), 'model_segments': sum(map(len, paths.values())),
+                      'mesh_faces': len(mesh.faces), 'mesh_bounds_plate': mesh.bounds.tolist()}), flush=True)
+    rows = []
+    tiny = []
+    for index, z in enumerate(sorted(paths)):
+        height = z / 2 if index == 0 else z - .12
+        # Interior plane at the slicer's layer midpoint; epsilon avoids an exact mesh vertex.
+        height += 1e-7
+        faces = np.flatnonzero((zlow < height) & (zhigh > height))
+        cuts = trimesh.intersections.mesh_plane(mesh, [0, 0, 1], [0, 0, height], local_faces=faces)
+        # Weld shared cut-edge endpoints at 0.00001 mm, then polygonize. Select
+        # material faces with the original section's even/odd horizontal ray rule.
+        # This preserves holes/islands without adding an optional graph library.
+        cut_xy = np.round(cuts[:, :, :2], 5)
+        # Node coincident/overlapping cut edges before forming rings. Section
+        # planes can lie within one STL rounding unit of a horizontal terrace.
+        noded = shapely.unary_union(shapely.linestrings(cut_xy))
+        polygonized, dangles, cut_edges, invalid = shapely.polygonize_full(shapely.get_parts(noded))
+        assert invalid.length < 1e-4, ('invalid section rings', z, invalid.length)
+        assert dangles.length + cut_edges.length < .01, ('open section edges', z, dangles.length, cut_edges.length)
+        polys = []
+        ax, ay = cut_xy[:, 0, 0], cut_xy[:, 0, 1]
+        bx, by = cut_xy[:, 1, 0], cut_xy[:, 1, 1]
+        for poly in polygonized.geoms:
+            point = poly.representative_point()
+            crosses = (ay > point.y) != (by > point.y)
+            intersections = ax[crosses] + (point.y-ay[crosses]) * (bx[crosses]-ax[crosses]) / (by[crosses]-ay[crosses])
+            if int(np.sum(intersections > point.x)) % 2:
+                polys.append(poly)
+        assert polys, ('empty section', z, height)
+        segments = paths[z]
+        widths = np.array([s[2] for s in segments])
+        lines = shapely.linestrings(np.array([[s[0], s[1]] for s in segments]))
+        tree = STRtree(lines)
+        components = []
+        for component, poly in enumerate(polys):
+            # All sections are retained; the tiny regions have separate raw diagnostics.
+            points = boundary_points(poly)
+            pairs, distances = tree.query_nearest(points, all_matches=False, return_distance=True)
+            clear = distances - widths[pairs[1]] / 2
+            hits = tree.query(poly, predicate='intersects')
+            bad = clear > .20
+            item = {'component': component, 'area_mm2': float(poly.area),
+                    'bounds_plate_xy_mm': list(poly.bounds), 'model_segments_intersecting': len(hits),
+                    'boundary_samples': len(points), 'boundary_samples_beyond_0p20_mm': int(np.sum(bad)),
+                    'maximum_boundary_gap_beyond_emitted_halfwidth_mm': float(max(clear)),
+                    'worst_boundary_points_plate_xy_mm': [list(points[pairs[0][j]].coords[0])
+                                                         for j in np.argsort(clear)[-5:][::-1]]}
+            components.append(item)
+            if poly.area < .25:
+                tiny.append({'layer_z_mm': z, **item})
+        rows.append({'layer_z_mm': z, 'mesh_section_z_mm': height, 'model_segments': len(segments),
+                     'model_components': len(components), 'components': components})
+        if index % 50 == 0:
+            print(json.dumps({'processed_layers': index + 1, 'elapsed_seconds': round(time.time()-start, 1)}), flush=True)
+    missing = [{'layer_z_mm': r['layer_z_mm'], **p} for r in rows for p in r['components']
+               if p['area_mm2'] >= .25 and p['model_segments_intersecting'] == 0]
+    perimeter = [{'layer_z_mm': r['layer_z_mm'], **p} for r in rows for p in r['components']
+                 if p['area_mm2'] >= .25 and p['boundary_samples_beyond_0p20_mm'] > 0]
+    bindings = {str(p): sha(p) for p in (archive, gcode, labelled, stl, frame_path, readiness_path, Path(__file__))}
+    report = {'status': 'all_components_and_sampled_perimeters_present' if not missing and not perimeter else 'bounded_findings_need_reading',
+              'native_archive_sha256': sha(archive), 'gcode_sha256': sha(gcode),
+              'bindings': bindings, 'native_layer_schedule_matches_model_paths': True, 'native_layer_schedule_matches_declared_0p20_then_0p24': True, 'layers': len(rows), 'component_sections': sum(r['model_components'] for r in rows),
+              'boundary_sample_spacing_mm': .5, 'permitted_gap_beyond_emitted_halfwidth_mm': .20,
+              'component_area_reporting_floor_mm2': .25, 'features': dict(features),
+              'whole_missing_components': missing, 'perimeter_findings': perimeter, 'tiny_components': tiny,
+              'rows': rows, 'elapsed_seconds': time.time()-start,
+              'scope': 'Presence of each layer component and sampled model boundaries in this exact emitted archive; excludes supports. Does not prove interior infill density or physical bond/strength.'}
+    (OUT / 'emission-presence.json').write_text(json.dumps(report, indent=2)+'\n')
+    print(json.dumps({k: report[k] for k in ('status','layers','component_sections','elapsed_seconds')}), flush=True)
+    print('missing', len(missing), 'perimeter findings', len(perimeter), 'tiny', len(tiny), flush=True)
+
+
+if __name__ == '__main__':
+    main()

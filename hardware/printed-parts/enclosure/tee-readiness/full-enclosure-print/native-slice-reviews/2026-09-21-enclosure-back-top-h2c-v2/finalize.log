@@ -1,0 +1,11 @@
+{
+  "status": "offline_print_review_pass",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+  "estimated_seconds": 100238.8671875,
+  "estimated_grams_petgf_density_1p43": 962.1293580994125,
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  }
+}

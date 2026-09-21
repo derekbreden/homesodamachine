@@ -1,0 +1,505 @@
+{
+  "status": "pass",
+  "native_archive_sha256": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+  "gcode_sha256": "63db94db6fe6ae0882819bbc524c78c564a2c69f2b8a1a2e1705bba60acabe16",
+  "input_sha256": {
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v1.gcode.3mf": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/support-labels-foam-cap-lid-top.gcode": "d926f51109a0def74336fe682f05efe750d8695904fc214b3bccff5993bfbdd1",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.support-audit.json": "e92e3548185f1b38bf782217b5161292038197f9278c92c032b06d58a3cab8c0",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "ef82091d4a837c76b06a113fa2b3c7da5e6eca9446ae02f9901fd4997a1adaf7",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/readiness.json": "067025b76facc8054fbfa41360b29ac6aed68f1888130c8f4bdc04f9412f3ba7",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029"
+  },
+  "script_sha256": "1da85ead6e993fdb82eb59c238cfcf445d7757017460478d8e56a133e3581ae7",
+  "native_support_roads": 3936,
+  "each_support_road_assigned_exactly_once": true,
+  "positive_extruding_support_arcs": 0,
+  "source_drift": [],
+  "supports": [
+    {
+      "tree": "tree-1",
+      "interface_ids": [
+        "interface-5"
+      ],
+      "contact": "fluid-18 side-anchor window",
+      "root": "model",
+      "shortest_build_up_mm": 1.92,
+      "native_roads": 1378,
+      "native_widths_mm": [
+        0.62
+      ],
+      "native_road_layers_mm": [
+        42.2,
+        42.44,
+        42.68,
+        42.92,
+        43.16,
+        43.4,
+        43.64,
+        43.88,
+        44.12,
+        44.36
+      ],
+      "raw_tree_bounds_mm": [
+        23.1,
+        33.2,
+        42.2,
+        51.5,
+        34.8,
+        44.36
+      ],
+      "emitted_envelope_mm": [
+        22.592999999999993,
+        32.810003582593225,
+        41.96,
+        51.68799997549493,
+        35.19,
+        44.36
+      ],
+      "emitted_layer_height_mm": 0.24,
+      "motions_mm": [
+        [
+          0,
+          0,
+          0.25
+        ],
+        [
+          -31,
+          0,
+          0
+        ]
+      ],
+      "fully_past_mouth": true,
+      "native_checks": [
+        {
+          "name": "emitted-road conservative envelope",
+          "bounds_original_cad_mm": [
+            22.592999999999993,
+            32.810003582593225,
+            41.96,
+            51.68799997549493,
+            35.19,
+            44.36
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous 0.25 mm lift to clear the local floor lip",
+          "bounds_original_cad_mm": [
+            22.592999999999993,
+            32.810003582593225,
+            41.96,
+            51.68799997549493,
+            35.19,
+            44.61
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous withdrawal through the open mouth",
+          "bounds_original_cad_mm": [
+            -8.407000000000007,
+            32.810003582593225,
+            42.21,
+            51.68799997549493,
+            35.19,
+            44.61
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "tree": "tree-2",
+      "interface_ids": [
+        "interface-2"
+      ],
+      "contact": "suction-chain tie tunnel",
+      "root": "model",
+      "shortest_build_up_mm": 1.68,
+      "native_roads": 970,
+      "native_widths_mm": [
+        0.62
+      ],
+      "native_road_layers_mm": [
+        5.72,
+        5.96,
+        6.2,
+        6.44,
+        6.68,
+        6.92,
+        7.16,
+        7.4,
+        7.64,
+        7.88
+      ],
+      "raw_tree_bounds_mm": [
+        34.3,
+        53.6,
+        5.72,
+        35.9,
+        76.8,
+        7.88
+      ],
+      "emitted_envelope_mm": [
+        33.93000000000001,
+        53.135999999999996,
+        5.4799999999999995,
+        36.31899999999999,
+        76.982,
+        7.88
+      ],
+      "emitted_layer_height_mm": 0.24,
+      "motions_mm": [
+        [
+          0,
+          0,
+          0.25
+        ],
+        [
+          0,
+          26,
+          0
+        ]
+      ],
+      "fully_past_mouth": true,
+      "native_checks": [
+        {
+          "name": "emitted-road conservative envelope",
+          "bounds_original_cad_mm": [
+            33.93000000000001,
+            53.135999999999996,
+            5.4799999999999995,
+            36.31899999999999,
+            76.982,
+            7.88
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous 0.25 mm lift to clear the local floor lip",
+          "bounds_original_cad_mm": [
+            33.93000000000001,
+            53.135999999999996,
+            5.4799999999999995,
+            36.31899999999999,
+            76.982,
+            8.129999999999999
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous withdrawal through the open mouth",
+          "bounds_original_cad_mm": [
+            33.93000000000001,
+            53.135999999999996,
+            5.7299999999999995,
+            36.31899999999999,
+            102.982,
+            8.129999999999999
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "tree": "tree-3",
+      "interface_ids": [
+        "interface-3"
+      ],
+      "contact": "discharge-chain tie tunnel",
+      "root": "model",
+      "shortest_build_up_mm": 1.68,
+      "native_roads": 995,
+      "native_widths_mm": [
+        0.62
+      ],
+      "native_road_layers_mm": [
+        5.72,
+        5.96,
+        6.2,
+        6.44,
+        6.68,
+        6.92,
+        7.16,
+        7.4,
+        7.64,
+        7.88
+      ],
+      "raw_tree_bounds_mm": [
+        59.9,
+        -72.0,
+        5.72,
+        61.9,
+        -48.8,
+        7.88
+      ],
+      "emitted_envelope_mm": [
+        59.78100002922429,
+        -72.32980166600218,
+        5.4799999999999995,
+        62.203,
+        -48.568,
+        7.88
+      ],
+      "emitted_layer_height_mm": 0.24,
+      "motions_mm": [
+        [
+          0,
+          0,
+          0.25
+        ],
+        [
+          0,
+          -26,
+          0
+        ]
+      ],
+      "fully_past_mouth": true,
+      "native_checks": [
+        {
+          "name": "emitted-road conservative envelope",
+          "bounds_original_cad_mm": [
+            59.78100002922429,
+            -72.32980166600218,
+            5.4799999999999995,
+            62.203,
+            -48.568,
+            7.88
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous 0.25 mm lift to clear the local floor lip",
+          "bounds_original_cad_mm": [
+            59.78100002922429,
+            -72.32980166600218,
+            5.4799999999999995,
+            62.203,
+            -48.568,
+            8.129999999999999
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous withdrawal through the open mouth",
+          "bounds_original_cad_mm": [
+            59.78100002922429,
+            -98.32980166600218,
+            5.7299999999999995,
+            62.203,
+            -48.568,
+            8.129999999999999
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "tree": "tree-4",
+      "interface_ids": [
+        "interface-4"
+      ],
+      "contact": "fluid-14 tie tunnel",
+      "root": "model",
+      "shortest_build_up_mm": 1.68,
+      "native_roads": 571,
+      "native_widths_mm": [
+        0.62
+      ],
+      "native_road_layers_mm": [
+        5.72,
+        5.96,
+        6.2,
+        6.44,
+        6.68,
+        6.92,
+        7.16,
+        7.4,
+        7.64,
+        7.88
+      ],
+      "raw_tree_bounds_mm": [
+        64.3,
+        38.4,
+        5.72,
+        65.9,
+        50.8,
+        7.88
+      ],
+      "emitted_envelope_mm": [
+        63.81,
+        38.246007202569196,
+        5.4799999999999995,
+        66.19,
+        50.99798546368634,
+        7.88
+      ],
+      "emitted_layer_height_mm": 0.24,
+      "motions_mm": [
+        [
+          0,
+          0,
+          0.25
+        ],
+        [
+          0,
+          16,
+          0
+        ]
+      ],
+      "fully_past_mouth": true,
+      "native_checks": [
+        {
+          "name": "emitted-road conservative envelope",
+          "bounds_original_cad_mm": [
+            63.81,
+            38.246007202569196,
+            5.4799999999999995,
+            66.19,
+            50.99798546368634,
+            7.88
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous 0.25 mm lift to clear the local floor lip",
+          "bounds_original_cad_mm": [
+            63.81,
+            38.246007202569196,
+            5.4799999999999995,
+            66.19,
+            50.99798546368634,
+            8.129999999999999
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous withdrawal through the open mouth",
+          "bounds_original_cad_mm": [
+            63.81,
+            38.246007202569196,
+            5.7299999999999995,
+            66.19,
+            66.99798546368635,
+            8.129999999999999
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "tree": "tree-5",
+      "interface_ids": [
+        "interface-1"
+      ],
+      "contact": "water-3 side-anchor window",
+      "root": "model",
+      "shortest_build_up_mm": 0.0,
+      "native_roads": 22,
+      "native_widths_mm": [
+        0.62
+      ],
+      "native_road_layers_mm": [
+        5.96,
+        6.2
+      ],
+      "raw_tree_bounds_mm": [
+        130.7,
+        -13.6,
+        5.96,
+        137.9,
+        -12.4,
+        6.2
+      ],
+      "emitted_envelope_mm": [
+        130.37400000000002,
+        -14.066999955816918,
+        5.72,
+        138.2819997099343,
+        -11.932999999999995,
+        6.2
+      ],
+      "emitted_layer_height_mm": 0.24,
+      "motions_mm": [
+        [
+          0,
+          0,
+          0.25
+        ],
+        [
+          10,
+          0,
+          0
+        ]
+      ],
+      "fully_past_mouth": true,
+      "native_checks": [
+        {
+          "name": "emitted-road conservative envelope",
+          "bounds_original_cad_mm": [
+            130.37400000000002,
+            -14.066999955816918,
+            5.72,
+            138.2819997099343,
+            -11.932999999999995,
+            6.2
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous 0.25 mm lift to clear the local floor lip",
+          "bounds_original_cad_mm": [
+            130.37400000000002,
+            -14.066999955816918,
+            5.72,
+            138.2819997099343,
+            -11.932999999999995,
+            6.45
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        },
+        {
+          "name": "continuous withdrawal through the open mouth",
+          "bounds_original_cad_mm": [
+            130.37400000000002,
+            -14.066999955816918,
+            5.97,
+            148.2819997099343,
+            -11.932999999999995,
+            6.45
+          ],
+          "overlap_mm3": 0.0,
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "scope": "Only detached support material in the exact final lid slice. Each rectangular swept envelope contains all selected emitted roads with their actual half widths and full 0.24 mm layer height; whole-body native clearance is checked before any purchased hardware is installed. No lid or working-face geometry is changed.",
+  "limits": [
+    "Detachment force, cleanup time and resulting contact finish are physical observations.",
+    "The vertical lift is available geometric room after the support is detached; it is not a claim that adhered support moves freely.",
+    "This is support cleanout evidence, not a mechanical strength or model-path completeness check."
+  ],
+  "elapsed_seconds": 1.3527481250057463
+}

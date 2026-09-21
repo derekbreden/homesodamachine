@@ -1,0 +1,210 @@
+{
+  "status": "offline_print_review_pass",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_printer_handoff_and_release",
+  "printer": "H2C",
+  "job": "foam-cap-top",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/g-ganen-foam-cap-top-black-z018-h2c-v2-input.3mf",
+  "staged_input_sha256": "2a9527e383065b008cf8a2a8573b11274bbb5a5b372a21a7f67e23ed9aa6e13b",
+  "native_archive": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/ready/g-ganen-foam-cap-top-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "3a33be497f8fb45c88b20e4b5c4b84723cedf9dd2c790fa03c36207fc6fb866f",
+  "gcode_sha256": "863b09b1064f1ea9d7ff1a4027c1fcc7e3d46136360e44cabc359750f8f9952f",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "foam-cap-top",
+      "source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+      "source_stl_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+      "source_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "source_step_sha256": "9aaece744e3221715aa3c39dfc3b36627265ed8e8e5d9a4cab199a5afdcb5a2d",
+      "original_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          14.600000381469727
+        ]
+      ],
+      "original_mesh_triangles": 196166,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/oriented-meshes/foam-cap-top.stl",
+      "oriented_stl_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+      "oriented_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          14.600000381469727
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.18,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "machine_start_gcode",
+    "printer_settings_id",
+    "extruder_ams_count"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-21 09:31:42.897826] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:31:46.324400] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:31:46.324552] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 61,
+  "native_log_diagnostics_review": "The only three messages name inherited profile commands: startup hotend-type detection T1001 and end-code control/unload T65535/T65279. They are recorded parser diagnostics for those authored machine-code blocks; the native slice returned0, has no plate warning and retains the verified intended filament/nozzle mapping. No separate geometry diagnostic is emitted.",
+  "estimated_seconds": 18561.40234375,
+  "estimated_grams_saved_profile_density": 164.7457275390625,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "foam-cap-top",
+        "side_margins_mm": [
+          20.900000000000002,
+          69.39999999999999,
+          20.899999999999977,
+          69.4
+        ],
+        "minimum_margin_mm": 20.899999999999977
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 20.899999999999977,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/g-ganen-foam-cap-top-black-z018-h2c-v2-input.support-audit.json",
+  "support_audit_sha256": "ffcc4a4a8c0fa487079f8f07ce018ce82adf3f7329df9b5be4b7598bfa6b6559",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "printer_state_checked": false,
+  "support_removal_review_sha256": "22453f14df305ff8287817acffe73bbeadd3744f8e8599212d7a943fb402c6de",
+  "native_review_sha256": "49fb70de9ac28b13a6cbc01d8af7d580a4ffdb769ff5a0eacee9d1a42e8cfa40",
+  "final_review_script_sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  },
+  "estimated_grams_petgf_density_1p43": 182.6251088223716,
+  "native_log_diagnostics_review_source": {
+    "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/support-removal-review.json",
+    "sha256": "22453f14df305ff8287817acffe73bbeadd3744f8e8599212d7a943fb402c6de",
+    "field": "native_log_diagnostics_review"
+  },
+  "metadata_completion": {
+    "predecessor_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-h2c-v2/offline-review-before-diagnostic-mirror-fix.json",
+    "predecessor_sha256": "9584ac977a6eb1852b575132521c8504672f1b19bbe46483608e2c8dba4403a4",
+    "script_path": "/private/tmp/scanner-review/complete-offline-review.py",
+    "script_sha256": "87874ae4134af98a5269f3a5e08070f7bf778d1d6a09173c4566f37574c26a0e",
+    "scope": "Mirror the completed bound-ledger explanation. Native archive, G-code, settings, geometry, measurements and release state are unchanged."
+  }
+}

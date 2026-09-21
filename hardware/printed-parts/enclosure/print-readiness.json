@@ -2,12 +2,12 @@
   "schema": 2,
   "date": "2026-09-21",
   "report": "hardware/printed-parts/enclosure/print-readiness.md",
-  "status": "geometry_verified_fresh_receipt_and_print_reviews_pending",
-  "ready_to_print": false,
-  "ready_to_print_scope": "Seven unsubmitted full-part jobs; the separate H2C cartridge/cap and Mark2 countertop are already running.",
+  "status": "offline_ready_awaiting_machine_handoffs",
+  "ready_to_print": true,
+  "ready_to_print_scope": "Seven production jobs after current offline review. Printer availability, latest plate removal and physical filament supply are normal execution conditions, not another design or permission approval.",
   "final_physical_acceptance": false,
   "current_regeneration": {
-    "status": "all_generation_and_active_native_gates_pass_receipt_pending",
+    "status": "all_generation_native_gates_and_exact_print_receipt_pass",
     "core_sources_frozen": true,
     "flute_count": 262,
     "completed_phases": [
@@ -19,8 +19,11 @@
     ],
     "assembly_current": true,
     "gates_pass": true,
-    "geometry_confirmation": null,
-    "exact_current_geometry_claim": "The completed current assembly and all active native gates pass. A fresh print receipt, actual slices and their support reviews are still pending.",
+    "geometry_confirmation": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+      "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+    },
+    "exact_current_geometry_claim": "The current native assembly, active geometry gates, canonical pusher and source/mesh/profile closure are qualified by the accepted exact print receipt. Every production plate still requires its own fresh offline review before normal printer handoff.",
     "production_print_released": false,
     "remaining_gates": [],
     "completed_gate_summary": "105 scorecard checks: 104 pass and one inactive physical gas-fit goal warning. Pack: 0 clashes, 0 unanswered. Port leads: 67/67 clear. Clearance floor: 0 under. Carrier: 638 native solid/sweep checks pass.",
@@ -38,18 +41,18 @@
         "sha256": "6705d1a1d90cc63e36add0e6d608b6164144e6817869a1db2c96c98f73237cb3"
       },
       "facts": {
-        "path": "hardware/manifold-layout/enclosure-assembly.facts.json",
-        "sha256": "ffcc624c276cfeb17421f6875a59e7834b72b0d08da7543995614f84c49d1db1"
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/assembly/enclosure-assembly.facts.json",
+        "sha256": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260"
       },
       "completed_chain": {
-        "path": "/tmp/scanner-review/integration-correction/final-chain.json",
-        "sha256": "0046b00a83fbf79e95285d0ebcbbe3408ccc53a1993819ea2bc0ca79297b7d68",
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-chain.json",
+        "sha256": "caefd9509c8a5f5f1cab71c5582e2dac3f80cbeb3d75d32ae62dd3f2de45f683",
         "phases": 5,
         "all_exit_zero": true
       },
       "assembly_generation": {
-        "path": "/tmp/scanner-review/integration-correction/generation/enclosure_assembly.generation.json",
-        "sha256": "2827b918f8b5ca565a0fb765bb6fb08fdc2d7e2ab7d2ab2d23568ae1405da18d",
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/generation/enclosure_assembly.generation.json",
+        "sha256": "b4bc8b0fd98b32dc637945bc3b8f05096dba81ecdfd12275c65f96a00d8087ba",
         "loaded_source_drift": []
       },
       "canonical_pusher": {
@@ -61,6 +64,14 @@
         "continuous_sweeps": 19,
         "actual_thickness_mm": 2,
         "source_and_input_hashes_match": true
+      },
+      "geometry_receipt": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      },
+      "published_assembly_payload": {
+        "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "sha256": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137"
       }
     },
     "scorecard_counts": {
@@ -93,14 +104,14 @@
       "launch_observed_at": "2026-09-21T07:47:46.755410+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "/tmp/scanner-review/printer-status-1343.json",
-        "record_sha256": "12f5d1aaabb90cf8240e47f8e1ac291313b0fc6bf87f5e66cd41499b76e3018d",
-        "observed_at": "2026-09-21T13:43:23.192158+00:00",
+        "record": "/tmp/scanner-review/printer-status-1449.json",
+        "record_sha256": "30467927122d85368c26fc33e8619caac63414070e4a9bace7fad4c8e8c4b7ef",
+        "observed_at": "2026-09-21T14:49:32.201757+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 58,
-        "layer_num": 203,
+        "mc_percent": 69,
+        "layer_num": 253,
         "total_layer_num": 496,
-        "mc_remaining_time": 255,
+        "mc_remaining_time": 187,
         "print_error": 0,
         "hms": [],
         "time_units": "mc_remaining_time is the printer estimate in minutes"
@@ -115,14 +126,14 @@
       "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
       "available_for_enclosure": false,
       "latest_observation": {
-        "record": "/tmp/scanner-review/printer-status-1343.json",
-        "record_sha256": "12f5d1aaabb90cf8240e47f8e1ac291313b0fc6bf87f5e66cd41499b76e3018d",
-        "observed_at": "2026-09-21T13:43:24.036245+00:00",
+        "record": "/tmp/scanner-review/printer-status-1449.json",
+        "record_sha256": "30467927122d85368c26fc33e8619caac63414070e4a9bace7fad4c8e8c4b7ef",
+        "observed_at": "2026-09-21T14:49:31.478998+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 37,
-        "layer_num": 46,
+        "mc_percent": 44,
+        "layer_num": 50,
         "total_layer_num": 917,
-        "mc_remaining_time": 611,
+        "mc_remaining_time": 544,
         "print_error": 0,
         "hms": [],
         "time_units": "mc_remaining_time is the printer estimate in minutes"
@@ -137,7 +148,22 @@
         "carrier-spring-pusher"
       ],
       "printer": "H2C",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "assigned_printer": "H2C",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 813,
+        "seconds": 87476.1328125,
+        "hours": 24.29892578125,
+        "grams_saved_profile_density": 814.6126708984375,
+        "grams_actual_petgf_density_1p43": 903.0202475850896,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     },
     {
       "id": "front-bottom",
@@ -145,7 +171,22 @@
         "enclosure-front-bottom"
       ],
       "printer": "Mark2",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "assigned_printer": "Mark2",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 754,
+        "seconds": 62806.21875,
+        "hours": 17.446171875,
+        "grams_saved_profile_density": 560.4407958984375,
+        "grams_actual_petgf_density_1p43": 621.2638280114462,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     },
     {
       "id": "back-bottom",
@@ -153,7 +194,22 @@
         "enclosure-back-bottom"
       ],
       "printer": "Mark2",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "assigned_printer": "Mark2",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 754,
+        "seconds": 64719.6015625,
+        "hours": 17.977667100694443,
+        "grams_saved_profile_density": 639.99560546875,
+        "grams_actual_petgf_density_1p43": 709.4524928839631,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     },
     {
       "id": "back-top",
@@ -161,7 +217,22 @@
         "enclosure-back-top"
       ],
       "printer": "H2C",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "assigned_printer": "H2C",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 813,
+        "seconds": 100238.8671875,
+        "hours": 27.844129774305557,
+        "grams_saved_profile_density": 867.9348754882812,
+        "grams_actual_petgf_density_1p43": 962.1293580994125,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     },
     {
       "id": "carrier-pair",
@@ -170,23 +241,68 @@
         "enclosure-tee-carrier-right"
       ],
       "printer": "Mark2",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "assigned_printer": "Mark2",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 258,
+        "seconds": 13357.66015625,
+        "hours": 3.710461154513889,
+        "grams_saved_profile_density": 101.80787658691406,
+        "grams_actual_petgf_density_1p43": 112.85679342580396,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     },
     {
       "id": "foam-cap-top",
       "parts": [
         "foam-cap-top"
       ],
-      "printer": "H2C",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "printer": "Mark2",
+      "assigned_printer": "Mark2",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 61,
+        "seconds": 18595.923828125,
+        "hours": 5.165534396701389,
+        "grams_saved_profile_density": 164.7452850341797,
+        "grams_actual_petgf_density_1p43": 182.62461829370304,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     },
     {
       "id": "foam-cap-lid-top",
       "parts": [
         "foam-cap-lid-top"
       ],
-      "printer": "H2C",
-      "status": "geometry_verified_awaiting_receipt_and_native_review"
+      "printer": "Mark2",
+      "assigned_printer": "Mark2",
+      "printer_assignment_status": "assigned",
+      "active_for_submission": true,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "offline_ready": true,
+      "submitted": false,
+      "print_released": false,
+      "slice_estimate": {
+        "layers": 241,
+        "seconds": 16105.6376953125,
+        "hours": 4.473788248697916,
+        "grams_saved_profile_density": 183.039306640625,
+        "grams_actual_petgf_density_1p43": 202.90403759387112,
+        "actual_petgf_density_g_per_cm3": 1.43,
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      }
     }
   ],
   "saved_profile": {
@@ -369,10 +485,7 @@
       "All four tee-ring release/relock contacts and tube retention"
     ]
   },
-  "open_release_conditions": [
-    "Bind the verified current source, native solids, meshes, profile and fresh canonical-pusher/carrier evidence in the exact print receipt.",
-    "For each plate, finish its fresh native slice, emitted working-feature reading and every support-contact removal lane before printer handoff."
-  ],
+  "open_release_conditions": [],
   "physical_trial": {
     "additional_scans_required_before_print": false,
     "physical_trial_is_preprint_gate": false,
@@ -406,5 +519,65 @@
     "idle_printer_hold_for_agent_review": false,
     "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
   },
-  "updated_at_utc": "2026-09-21T13:46:36.760882+00:00"
+  "updated_at_utc": "2026-09-21T14:52:57.988086+00:00",
+  "printing_authorized": true,
+  "native_slices_complete": 7,
+  "offline_reviews_complete": 7,
+  "remaining_execution_conditions": [
+    "Assigned machine available and its latest print removed",
+    "Adequate usable black PET-GF for the exact job",
+    "Normal verified exact-archive handoff"
+  ],
+  "queue_estimates": {
+    "status": "complete",
+    "complete_slice_count": 7,
+    "job_count": 7,
+    "per_printer": [
+      {
+        "printer": "H2C",
+        "jobs": 2,
+        "estimated_seconds": 187715.0,
+        "estimated_grams_petgf_density_1p43": 1865.1496056845021
+      },
+      {
+        "printer": "Mark2",
+        "jobs": 5,
+        "estimated_seconds": 175585.0419921875,
+        "estimated_grams_petgf_density_1p43": 1829.1017702087875
+      }
+    ],
+    "total": {
+      "jobs": 7,
+      "printer_seconds": 363300.0419921875,
+      "grams_petgf_density_1p43": 3694.2513758932896
+    },
+    "scope": "Queued production jobs only; excludes currently running jobs, plate changes, support cleanup and assembly. Printer lanes can run in parallel; per-printer sums are serial slicer estimates, not wall-clock commitments."
+  },
+  "continuity": {
+    "automation_id": "finish-the-enclosure-print-queue",
+    "status": "ACTIVE",
+    "schedule": "Every 15 minutes in the coordinating task",
+    "behavior": "Advance exact reviewed jobs when their machine is free, its latest print is removed and adequate filament is available. Stay quiet while running state is unchanged; do not pause prints or add coupons; respect Mark2 ownership by Tube miter box; stop after the full set is finished.",
+    "authority": "Coordinating task created the heartbeat automation."
+  },
+  "ready_job_ids": [
+    "front-top",
+    "front-bottom",
+    "back-bottom",
+    "back-top",
+    "carrier-pair",
+    "foam-cap-top",
+    "foam-cap-lid-top"
+  ],
+  "mount_printer_allocation": {
+    "status": "assigned",
+    "assigned_printer": "Mark2",
+    "current_h2c_attempts": "Preserved as unsubmitted alternatives, not additional required prints. The selected Mark2 variants need their own exact trim-specific reviewed archives.",
+    "scope": "Scheduling choice within already authorized printing, not a design or user-permission gate."
+  },
+  "native_preview_review": {
+    "status": "pass",
+    "authority": "Coordinating task visually inspected all seven active native previews.",
+    "scope": "Intended complete parts and print orientations; native/support acceptance is separately bound by each exact offline review."
+  }
 }

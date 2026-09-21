@@ -1,0 +1,99 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "job_directory": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+  "gcode_sha256": "eab7b3a8dbd6573296a8f1dcf1de5bcad5ce5ab77c27ef68f7ab6ff73e0337db",
+  "support_audit": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.support-audit.json",
+  "support_audit_sha256": "7b26c61cc853db8c897aff11274968b06d63b5221cd4589c310b86be72a5ae0e",
+  "support_ledger": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-removal-review.json",
+  "receipt_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "layers": 813,
+  "estimated_seconds": 100238.8671875,
+  "estimated_hours": 27.844129774305557,
+  "estimated_grams_saved_profile": 867.9348754882812,
+  "estimated_grams_petgf_density_1p43": 962.1293580994125,
+  "brim_type": "auto_brim",
+  "brim_extrusion_segments": 0,
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "support_summary": {
+        "support_bodies": 11,
+        "interface_islands": null,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 9,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 38,
+        "shortest_labelled_build_up_mm": 1.68
+      },
+      "tree_count": 11,
+      "interface_count": 38
+    }
+  ],
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-back-top",
+        "side_margins_mm": [
+          38.854,
+          4.718,
+          54.89999999999998,
+          20.366999999999962
+        ],
+        "minimum_margin_mm": 4.718
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 4.718,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "native_previews": [
+    {
+      "native_member": "Metadata/plate_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/native-previews/plate_1.png",
+      "sha256": "a37c450379b50520955c590e8376303170de0af0c73e765bacfbc12269f307c4",
+      "bytes": 15407
+    },
+    {
+      "native_member": "Metadata/plate_1_small.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/native-previews/plate_1_small.png",
+      "sha256": "4cafa6a93050c83b05d51fbf92b1c456b780434253c576c0eee22ee4425fe3f7",
+      "bytes": 2985
+    },
+    {
+      "native_member": "Metadata/plate_no_light_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/native-previews/plate_no_light_1.png",
+      "sha256": "e09d99be5c29a67d933eeb1d067b643ce0eb1996ab71c4a43df465f21e6e42a4",
+      "bytes": 3501
+    },
+    {
+      "native_member": "Metadata/top_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/native-previews/top_1.png",
+      "sha256": "5ddf5dd73004e5855d0998caff172a5eab454fed52a2540c389d811442586b7a",
+      "bytes": 6080
+    },
+    {
+      "native_member": "Metadata/pick_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/native-previews/pick_1.png",
+      "sha256": "bb90f4cfb81a651579705eea83e6452f26da5b753432802bd36e96d686192dde",
+      "bytes": 2840
+    }
+  ],
+  "print_released": false,
+  "submitted": false
+}

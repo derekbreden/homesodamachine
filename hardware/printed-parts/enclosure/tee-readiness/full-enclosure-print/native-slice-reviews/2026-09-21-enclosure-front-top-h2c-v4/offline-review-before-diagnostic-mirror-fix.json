@@ -1,0 +1,505 @@
+{
+  "status": "offline_print_review_pass",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_printer_handoff_and_release",
+  "printer": "H2C",
+  "job": "front-top",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.3mf",
+  "staged_input_sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+  "native_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+  "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "source_stl_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "source_step_sha256": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          355.0
+        ]
+      ],
+      "original_mesh_triangles": 557640,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/enclosure-front-top.stl",
+      "oriented_stl_sha256": "6b1cdde5d9cb4b3689aa226c8c05b84ae14447ead4a1b87a4ec489f0cfe93187",
+      "oriented_bounds_mm": [
+        [
+          -212.5500030517578,
+          -107.5,
+          160.0
+        ],
+        [
+          -5.0,
+          107.5,
+          355.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "carrier-spring-pusher",
+      "source": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+      "source_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+      "source_step": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
+      "source_step_sha256": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e",
+      "original_bounds_mm": [
+        [
+          -10.0,
+          -3.149979591369629,
+          0.0
+        ],
+        [
+          3.1498429775238037,
+          3.149979591369629,
+          2.0
+        ]
+      ],
+      "original_mesh_triangles": 1068,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/carrier-spring-pusher.stl",
+      "oriented_stl_sha256": "5e99b1d0a06c2297ac895029b86d78c3c8a35f26976ab8f3dd896c0dade0c4c3",
+      "oriented_bounds_mm": [
+        [
+          -10.0,
+          -3.149979591369629,
+          0.0
+        ],
+        [
+          3.1498429775238037,
+          3.149979591369629,
+          2.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [
+    "spring-pusher-connectivity"
+  ],
+  "requested_z_trim_mm": 0.18,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "machine_start_gcode",
+    "extruder_ams_count",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-21 09:10:47.036023] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:10:57.655627] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:10:57.655818] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 813,
+  "native_log_diagnostics_review": "pending",
+  "estimated_seconds": 87476.1328125,
+  "estimated_grams_saved_profile_density": 814.6126708984375,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-top",
+        "side_margins_mm": [
+          34.4,
+          14.196,
+          48.03899999999999,
+          20.616999999999962
+        ],
+        "minimum_margin_mm": 14.196
+      },
+      {
+        "piece": "carrier-spring-pusher",
+        "side_margins_mm": [
+          289.825,
+          154.13,
+          21.826000000000022,
+          159.377
+        ],
+        "minimum_margin_mm": 21.826000000000022
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 14.196,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-front-top",
+          "carrier-spring-pusher"
+        ],
+        "projected_extrusion_box_gap_mm": 12.863999999999976,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 12.863999999999976,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.support-audit.json",
+  "support_audit_sha256": "e5cb2cd1acea4a15c55c6be995254936c2e7adb3c68f1ce01b0294d7f28d1979",
+  "spring_pusher_toolpath_reading": {
+    "original_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+    "native_layers": 8,
+    "nominal_mesh_thickness_mm": 2.0,
+    "last_emitted_layer_z_mm": 1.88,
+    "nominal_footprint_area_mm2": 52.09110884370051,
+    "all_layers_have_connected_head_and_tongue": true,
+    "connectivity_quantization_allowance_mm": 0.003,
+    "layers": [
+      {
+        "z_mm": 0.2,
+        "buffered_extrusion_area_mm2": 46.61759716848817,
+        "covered_nominal_footprint_area_mm2": 46.61759716848818,
+        "extrusion_bounds_xy_mm": [
+          -9.850078510999992,
+          -2.9929152041448255,
+          2.9979057349181972,
+          2.9989165579796384
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.6999999999999886
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.6999999999999886
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 5.810394811071415
+          }
+        ]
+      },
+      {
+        "z_mm": 0.44,
+        "buffered_extrusion_area_mm2": 51.96241660759313,
+        "covered_nominal_footprint_area_mm2": 51.962208054222174,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.142927049212986,
+          3.1489135945814226,
+          3.147990182882757
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.28060523144789
+          }
+        ]
+      },
+      {
+        "z_mm": 0.68,
+        "buffered_extrusion_area_mm2": 51.95995345103626,
+        "covered_nominal_footprint_area_mm2": 51.95974611399679,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.142927049212986,
+          3.1489125282395807,
+          3.1479821001300756
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.280561994781681
+          }
+        ]
+      },
+      {
+        "z_mm": 0.92,
+        "buffered_extrusion_area_mm2": 51.96497880008042,
+        "covered_nominal_footprint_area_mm2": 51.96477025672474,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.144999147739381,
+          3.1489135945814226,
+          3.1479821001300756
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.290991742065116
+          }
+        ]
+      },
+      {
+        "z_mm": 1.16,
+        "buffered_extrusion_area_mm2": 51.95589084054545,
+        "covered_nominal_footprint_area_mm2": 51.95568062282562,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.142927049212986,
+          3.1458140692616428,
+          3.1479821001300756
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.280561994781681
+          }
+        ]
+      },
+      {
+        "z_mm": 1.4,
+        "buffered_extrusion_area_mm2": 51.96971875763679,
+        "covered_nominal_footprint_area_mm2": 51.96950549839431,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.142927049212986,
+          3.1489135945814226,
+          3.1479821001300756
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.280561994781681
+          }
+        ]
+      },
+      {
+        "z_mm": 1.64,
+        "buffered_extrusion_area_mm2": 51.96336267603859,
+        "covered_nominal_footprint_area_mm2": 51.96315292530614,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.142927049212986,
+          3.147873373616241,
+          3.1479821001300756
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.280561994781681
+          }
+        ]
+      },
+      {
+        "z_mm": 1.88,
+        "buffered_extrusion_area_mm2": 51.87083551721681,
+        "covered_nominal_footprint_area_mm2": 51.870624188112394,
+        "extrusion_bounds_xy_mm": [
+          -10.000078510999991,
+          -3.142927049212986,
+          3.147919616703623,
+          3.1479821001300756
+        ],
+        "connected_component_spans_tongue_and_head": true,
+        "tongue_cross_sections": [
+          {
+            "x_original_mm": -6.712539255619049,
+            "extruded_width_sum_mm": 2.9896587961530052
+          },
+          {
+            "x_original_mm": -3.425078511238098,
+            "extruded_width_sum_mm": 2.999999999999984
+          },
+          {
+            "x_original_mm": -0.13761776685714722,
+            "extruded_width_sum_mm": 6.280561994781681
+          }
+        ]
+      }
+    ],
+    "support_bodies": 0,
+    "limit": "Emitted roads and connectivity only. Spring force, physical tool stiffness and handling effort remain trial outcomes."
+  },
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "printer_state_checked": false,
+  "support_removal_review_sha256": "e7eed1d88c3b3b3623503cb32ebdaa37e69398908f451ac30f97d14f812de225",
+  "native_review_sha256": "07153e31258ddb5b76d8e16677d5e1dce4aa3200ebc5d1d313c2aa2ca2aa6fc3",
+  "final_review_script_sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  },
+  "estimated_grams_petgf_density_1p43": 903.0202475850896
+}

@@ -1,0 +1,335 @@
+{
+  "project": "enclosure-front-top-black-z018-h2c-v4-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "0c30c22c698d3759179269ef8e508a81c4675af558d15b8cf0f6b91cc1db72d7",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/enclosure-front-top.stl",
+      "stl_sha256": "6b1cdde5d9cb4b3689aa226c8c05b84ae14447ead4a1b87a4ec489f0cfe93187",
+      "triangles": 557640,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        -108.7750015258789,
+        0.0,
+        257.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        138.275,
+        156.7635,
+        97.5
+      ],
+      "plate_translation_mm": [
+        138.275,
+        156.7635,
+        97.5
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          34.4999984741211,
+          49.26349999999999,
+          0.0
+        ],
+        [
+          242.0500015258789,
+          264.2635,
+          195.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "original_stl_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08"
+    },
+    {
+      "name": "carrier-spring-pusher",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/carrier-spring-pusher.stl",
+      "stl_sha256": "5e99b1d0a06c2297ac895029b86d78c3c8a35f26976ab8f3dd896c0dade0c4c3",
+      "triangles": 1068,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        -3.425078511238098,
+        0.0,
+        1.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        296.5,
+        157.375,
+        1.0
+      ],
+      "plate_translation_mm": [
+        296.5,
+        157.375,
+        1.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          289.9250785112381,
+          154.22502040863037,
+          0.0
+        ],
+        [
+          303.0749214887619,
+          160.52497959136963,
+          2.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.992068980413933e-10,
+      "original_source": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+      "original_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+    }
+  ],
+  "project_sha256": "12e1acbba6a2bf2ab4048d5de4fe7dd6eb0a161971bd7ecc922eb51cbfe4b4eb",
+  "settings_preserved_byte_for_byte": false,
+  "job_key": "front-top",
+  "assigned_printer": "H2C",
+  "archive_stem": "enclosure-front-top-black-z018-h2c-v4",
+  "requested_z_trim_mm": 0.18,
+  "actual_textured_z_trim_mm": 0.16,
+  "geometry_confirmation": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/geometry-confirmation.json",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "geometry_confirmation_received_from": "/private/tmp/scanner-review/integration-correction/final-print-receipt-v3/current-geometry.json",
+  "original_sources": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "source_stl_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "source_step_sha256": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          355.0
+        ]
+      ],
+      "original_mesh_triangles": 557640,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/enclosure-front-top.stl",
+      "oriented_stl_sha256": "6b1cdde5d9cb4b3689aa226c8c05b84ae14447ead4a1b87a4ec489f0cfe93187",
+      "oriented_bounds_mm": [
+        [
+          -212.5500030517578,
+          -107.5,
+          160.0
+        ],
+        [
+          -5.0,
+          107.5,
+          355.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "carrier-spring-pusher",
+      "source": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+      "source_stl_sha256": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+      "source_step": "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
+      "source_step_sha256": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e",
+      "original_bounds_mm": [
+        [
+          -10.0,
+          -3.149979591369629,
+          0.0
+        ],
+        [
+          3.1498429775238037,
+          3.149979591369629,
+          2.0
+        ]
+      ],
+      "original_mesh_triangles": 1068,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/oriented-meshes/carrier-spring-pusher.stl",
+      "oriented_stl_sha256": "5e99b1d0a06c2297ac895029b86d78c3c8a35f26976ab8f3dd896c0dade0c4c3",
+      "oriented_bounds_mm": [
+        [
+          -10.0,
+          -3.149979591369629,
+          0.0
+        ],
+        [
+          3.1498429775238037,
+          3.149979591369629,
+          2.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "layerwise_print": true,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task",
+  "writer_source_sha256": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
+  "workflow_sha256": {
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/finalize_review.py": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/job-config.json": "7ec0f6e2f315b5403cf0fedfb0b3263509d88586e2ee5a16c0bc1f7a194abf37",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/layout.json": "b13545439cbefd591645171f4c6e7c4563c64e18eb3be8b66a17b6f492e7ce22",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/prepare.py": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/print_workflow.py": "03e3b4f37308613ae0b8b6beef2d75904286c39aa2384ab87d6af974ebb1a6c0",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/review_native.py": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/self_test.py": "1a7fe9b9802847f36733a247058c6dc7dcdf96abff2e5ef1674f35660027085b",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/slice.py": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177"
+  },
+  "functional_regions": null,
+  "functional_regions_sha256": null,
+  "required_functional_toolpath_checks": [
+    "spring-pusher-connectivity"
+  ]
+}

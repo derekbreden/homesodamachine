@@ -1,0 +1,99 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "job_directory": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+  "gcode_sha256": "63db94db6fe6ae0882819bbc524c78c564a2c69f2b8a1a2e1705bba60acabe16",
+  "support_audit": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.support-audit.json",
+  "support_audit_sha256": "e92e3548185f1b38bf782217b5161292038197f9278c92c032b06d58a3cab8c0",
+  "support_ledger": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/support-removal-review.json",
+  "receipt_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "layers": 241,
+  "estimated_seconds": 16105.6376953125,
+  "estimated_hours": 4.473788248697916,
+  "estimated_grams_saved_profile": 183.039306640625,
+  "estimated_grams_petgf_density_1p43": 202.90403759387112,
+  "brim_type": "auto_brim",
+  "brim_extrusion_segments": 0,
+  "parts": [
+    {
+      "name": "foam-cap-lid-top",
+      "support_summary": {
+        "support_bodies": 5,
+        "interface_islands": 5,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 5,
+        "shortest_build_up_mm": 0.0,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 5,
+        "shortest_labelled_build_up_mm": 0.0
+      },
+      "tree_count": 5,
+      "interface_count": 5
+    }
+  ],
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "foam-cap-lid-top",
+        "side_margins_mm": [
+          20.900000000000002,
+          69.39999999999999,
+          20.903999999999996,
+          69.4
+        ],
+        "minimum_margin_mm": 20.900000000000002
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 20.900000000000002,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "native_previews": [
+    {
+      "native_member": "Metadata/plate_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/native-previews/plate_1.png",
+      "sha256": "8ba1e68da27e5eb5ec0cf1ee2f81ae057026397c7ea9cb7ce6f3c7836d6e41e7",
+      "bytes": 8969
+    },
+    {
+      "native_member": "Metadata/plate_1_small.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/native-previews/plate_1_small.png",
+      "sha256": "b3ea28162de0b8bc8d038f7dc6f50804597914b58d425a12f679ca09b61d2531",
+      "bytes": 2602
+    },
+    {
+      "native_member": "Metadata/plate_no_light_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/native-previews/plate_no_light_1.png",
+      "sha256": "34792e6ba873b610188bc2b95cc66585bcfd61eba62f22f1e574ea0a352fdb95",
+      "bytes": 2988
+    },
+    {
+      "native_member": "Metadata/top_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/native-previews/top_1.png",
+      "sha256": "2c4fbf46391316be14b081a01ce65312e30294afdbfcf2ac542f0308a457a524",
+      "bytes": 7424
+    },
+    {
+      "native_member": "Metadata/pick_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/native-previews/pick_1.png",
+      "sha256": "2f5938717cc796d9e9db39e75a7e8cfa73fcbfb54da0cba9048dbdc3a7c6d55d",
+      "bytes": 2795
+    }
+  ],
+  "print_released": false,
+  "submitted": false
+}

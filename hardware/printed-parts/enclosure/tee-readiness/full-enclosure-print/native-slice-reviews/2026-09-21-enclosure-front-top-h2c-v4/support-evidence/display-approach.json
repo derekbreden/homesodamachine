@@ -1,0 +1,171 @@
+{
+  "status": "pass",
+  "scope": "A detached fragment corridor only; neither intact-strip removal nor measured breaking force. The strip may be segmented to at most 2 mm width before withdrawal. The working roof and retaining shoulder are unchanged.",
+  "native_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+  "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+  "input_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.support-audit.json": "e5cb2cd1acea4a15c55c6be995254936c2e7adb3c68f1ce01b0294d7f28d1979",
+    ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/readiness.json": "07153e31258ddb5b76d8e16677d5e1dce4aa3200ebc5d1d313c2aa2ca2aa6fc3",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003"
+  },
+  "script_sha256": "c0130b36a4a7854f54cc9e08877088ee3565f489b7e5d66969ab0eed6949a0ef",
+  "actual_unlabelled_support_bodies": [
+    {
+      "id": "tree-4",
+      "root": "model",
+      "base_z_mm": 135.8,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 149.72,
+      "bbox_xy_mm": [
+        172.4,
+        92.4,
+        192.8,
+        94.4
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -74.65,
+        -64.363,
+        295.8,
+        -54.25,
+        -62.363,
+        309.72
+      ],
+      "bbox_original_cad_xyz_mm": [
+        -64.363,
+        54.25,
+        295.8,
+        -62.363,
+        74.65,
+        309.72
+      ]
+    },
+    {
+      "id": "tree-5",
+      "root": "model",
+      "base_z_mm": 135.8,
+      "first_interface_z_mm": null,
+      "shortest_build_up_mm": null,
+      "top_z_mm": 149.72,
+      "bbox_xy_mm": [
+        172.4,
+        218.8,
+        192.8,
+        221.2
+      ],
+      "interfaces": [],
+      "interface_reading": "unlabelled",
+      "bbox_cad_xyz_mm": [
+        -74.65,
+        62.037,
+        295.8,
+        -54.25,
+        64.436,
+        309.72
+      ],
+      "bbox_original_cad_xyz_mm": [
+        62.037,
+        54.25,
+        295.8,
+        64.436,
+        74.65,
+        309.72
+      ]
+    }
+  ],
+  "source_pocket_minimum_approach_width_mm": 2.3999999999999986,
+  "fragment_envelope_mm": {
+    "width_x": 2,
+    "length_y": 24,
+    "thickness_z": 1
+  },
+  "post_release_edge_air_mm": 0.2,
+  "working_normal": [
+    0.0,
+    -0.49999999999999994,
+    0.8660254037844387
+  ],
+  "checks": [
+    {
+      "name": "Continuous inward release of a detached at-most-2-mm-wide fragment below the retaining roof",
+      "side": -1,
+      "local_x_mm": [
+        -64.5,
+        -60.2
+      ],
+      "local_y_mm": [
+        -12,
+        12
+      ],
+      "local_z_mm": [
+        -32.5,
+        -31.5
+      ],
+      "native_overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "Continuous withdrawal through the open approach to beyond the cover face",
+      "side": -1,
+      "local_x_mm": [
+        -62.199999999999996,
+        -60.2
+      ],
+      "local_y_mm": [
+        -12,
+        12
+      ],
+      "local_z_mm": [
+        -32.5,
+        5
+      ],
+      "native_overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "Continuous inward release of a detached at-most-2-mm-wide fragment below the retaining roof",
+      "side": 1,
+      "local_x_mm": [
+        60.2,
+        64.5
+      ],
+      "local_y_mm": [
+        -12,
+        12
+      ],
+      "local_z_mm": [
+        -32.5,
+        -31.5
+      ],
+      "native_overlap_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "Continuous withdrawal through the open approach to beyond the cover face",
+      "side": 1,
+      "local_x_mm": [
+        60.2,
+        62.199999999999996
+      ],
+      "local_y_mm": [
+        -12,
+        12
+      ],
+      "local_z_mm": [
+        -32.5,
+        5
+      ],
+      "native_overlap_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "assembly_condition": "Loose front-top, before display/cover, wiring, funnel, carrier, springs or pumps are installed.",
+  "physical_cleanup_effort_measured": false,
+  "whole_strip_rigid_extraction_proven": false,
+  "contact_count_and_build_up": "Remain unknown for both unlabelled bodies; bounds identify their display-pocket regions."
+}

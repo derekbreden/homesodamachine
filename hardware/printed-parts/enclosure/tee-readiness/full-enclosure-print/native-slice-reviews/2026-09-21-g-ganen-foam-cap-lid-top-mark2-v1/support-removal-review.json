@@ -1,0 +1,449 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+  "gcode_sha256": "63db94db6fe6ae0882819bbc524c78c564a2c69f2b8a1a2e1705bba60acabe16",
+  "support_audit_sha256": "e92e3548185f1b38bf782217b5161292038197f9278c92c032b06d58a3cab8c0",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "parts": [
+    {
+      "name": "foam-cap-lid-top",
+      "support_summary": {
+        "support_bodies": 5,
+        "interface_islands": 5,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 5,
+        "shortest_build_up_mm": 0.0,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 5,
+        "shortest_labelled_build_up_mm": 0.0
+      },
+      "model_overhangs_review": "The actual final Mark2 lid emits five model-rooted supports, each with one explicit roof island: suction-chain, discharge-chain and fluid-14 tie tunnels plus fluid-18 and water-3 side-anchor windows. The short water-3 body has measured zero build-up, retained as a topology reading rather than a cleanup rating. All 3936 actual support roads are assigned exactly once; their full-width/full-layer-height conservative envelopes pass 15 native initial/lift/withdrawal checks against the complete lid. Flat bearing roofs, the 0.25 mm floor-relief lips, full post/rib stock and all valve/pump mounting surfaces are preserved. The independent exact model-path proof covers all 241 layers / 785 section components; physical support removal effort, finish and assembly fit remain unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "model",
+            "base_z_mm": 42.2,
+            "first_interface_z_mm": 44.12,
+            "shortest_build_up_mm": 1.92,
+            "top_z_mm": 44.36,
+            "bbox_xy_mm": [
+              185.6,
+              193.2,
+              214.0,
+              194.8
+            ],
+            "interfaces": [
+              "interface-5"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              23.1,
+              33.2,
+              42.2,
+              51.5,
+              34.8,
+              44.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              23.1,
+              33.2,
+              42.2,
+              51.5,
+              34.8,
+              44.36
+            ]
+          },
+          "contact_region": "fluid-18 side-anchor window",
+          "removal_lane": "After detachment, lift the branch 0.25 mm and withdraw 31 mm along \u2212X through the relieved rear mouth while the lid is loose. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions. Clean before tubes, fitting chains, valves, pump or ties are installed; physical detachment force is unmeasured.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then \u2212X 31 mm.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Keep the circular locating seat, complete rib/post bearing web and flat tie-tunnel roof; no working face is sloped, thinned or removed.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "model",
+            "base_z_mm": 5.72,
+            "first_interface_z_mm": 7.4,
+            "shortest_build_up_mm": 1.68,
+            "top_z_mm": 7.88,
+            "bbox_xy_mm": [
+              196.8,
+              213.6,
+              198.4,
+              236.8
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              34.3,
+              53.6,
+              5.72,
+              35.9,
+              76.8,
+              7.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              34.3,
+              53.6,
+              5.72,
+              35.9,
+              76.8,
+              7.88
+            ]
+          },
+          "contact_region": "suction-chain tie tunnel",
+          "removal_lane": "After detachment, lift the support 0.25 mm to clear the recessed-floor lip, then withdraw 26 mm along +Y through the open transverse tie-channel mouth. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions. Clean before tubes, fitting chains, valves, pump or ties are installed; physical detachment force is unmeasured.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then +Y 26 mm.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Keep the circular locating seat, complete rib/post bearing web and flat tie-tunnel roof; no working face is sloped, thinned or removed.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "model",
+            "base_z_mm": 5.72,
+            "first_interface_z_mm": 7.4,
+            "shortest_build_up_mm": 1.68,
+            "top_z_mm": 7.88,
+            "bbox_xy_mm": [
+              222.4,
+              88.0,
+              224.4,
+              111.2
+            ],
+            "interfaces": [
+              "interface-3"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              59.9,
+              -72.0,
+              5.72,
+              61.9,
+              -48.8,
+              7.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              59.9,
+              -72.0,
+              5.72,
+              61.9,
+              -48.8,
+              7.88
+            ]
+          },
+          "contact_region": "discharge-chain tie tunnel",
+          "removal_lane": "After detachment, lift the support 0.25 mm to clear the recessed-floor lip, then withdraw 26 mm along \u2212Y through the open transverse tie-channel mouth. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions. Clean before tubes, fitting chains, valves, pump or ties are installed; physical detachment force is unmeasured.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then \u2212Y 26 mm.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Keep the circular locating seat, complete rib/post bearing web and flat tie-tunnel roof; no working face is sloped, thinned or removed.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "model",
+            "base_z_mm": 5.72,
+            "first_interface_z_mm": 7.4,
+            "shortest_build_up_mm": 1.68,
+            "top_z_mm": 7.88,
+            "bbox_xy_mm": [
+              226.8,
+              198.4,
+              228.4,
+              210.8
+            ],
+            "interfaces": [
+              "interface-4"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              64.3,
+              38.4,
+              5.72,
+              65.9,
+              50.8,
+              7.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              64.3,
+              38.4,
+              5.72,
+              65.9,
+              50.8,
+              7.88
+            ]
+          },
+          "contact_region": "fluid-14 tie tunnel",
+          "removal_lane": "After detachment, lift the support 0.25 mm to clear the recessed-floor lip, then withdraw 16 mm along +Y through the open transverse tie-channel mouth. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions. Clean before tubes, fitting chains, valves, pump or ties are installed; physical detachment force is unmeasured.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then +Y 16 mm.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Keep the circular locating seat, complete rib/post bearing web and flat tie-tunnel roof; no working face is sloped, thinned or removed.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-5",
+            "root": "model",
+            "base_z_mm": 5.96,
+            "first_interface_z_mm": 5.96,
+            "shortest_build_up_mm": 0.0,
+            "top_z_mm": 6.2,
+            "bbox_xy_mm": [
+              293.2,
+              146.4,
+              300.4,
+              147.6
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              130.7,
+              -13.6,
+              5.96,
+              137.9,
+              -12.4,
+              6.2
+            ],
+            "bbox_original_cad_xyz_mm": [
+              130.7,
+              -13.6,
+              5.96,
+              137.9,
+              -12.4,
+              6.2
+            ]
+          },
+          "contact_region": "water-3 side-anchor window",
+          "removal_lane": "After detachment, lift the short strip 0.25 mm to clear the recessed-floor lip, then withdraw 10 mm along +X through the open front mouth. The exact emitted-road envelope clears the whole native lid throughout both motions. Clean before tubes, fitting chains, valves, pump or ties are installed; physical detachment force is unmeasured.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then +X 10 mm.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Keep the circular locating seat, complete rib/post bearing web and flat tie-tunnel roof; no working face is sloped, thinned or removed.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 5.96,
+            "last_z_mm": 6.2,
+            "bbox_xy_mm": [
+              293.2,
+              146.4,
+              300.4,
+              147.6
+            ],
+            "tree": "tree-5",
+            "build_up_mm": 0.0,
+            "bbox_cad_xyz_mm": [
+              130.7,
+              -13.6,
+              5.96,
+              137.9,
+              -12.4,
+              6.2
+            ],
+            "bbox_original_cad_xyz_mm": [
+              130.7,
+              -13.6,
+              5.96,
+              137.9,
+              -12.4,
+              6.2
+            ]
+          },
+          "contact_region": "water-3 side-anchor window flat supported roof.",
+          "reviewed": true,
+          "removal_lane": "After detachment, lift the short strip 0.25 mm to clear the recessed-floor lip, then withdraw 10 mm along +X through the open front mouth. The exact emitted-road envelope clears the whole native lid throughout both motions.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then +X 10 mm."
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 7.4,
+            "last_z_mm": 7.88,
+            "bbox_xy_mm": [
+              196.8,
+              213.6,
+              198.4,
+              236.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 1.68,
+            "bbox_cad_xyz_mm": [
+              34.3,
+              53.6,
+              7.4,
+              35.9,
+              76.8,
+              7.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              34.3,
+              53.6,
+              7.4,
+              35.9,
+              76.8,
+              7.88
+            ]
+          },
+          "contact_region": "suction-chain tie tunnel flat supported roof.",
+          "reviewed": true,
+          "removal_lane": "After detachment, lift the support 0.25 mm to clear the recessed-floor lip, then withdraw 26 mm along +Y through the open transverse tie-channel mouth. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then +Y 26 mm."
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 7.4,
+            "last_z_mm": 7.88,
+            "bbox_xy_mm": [
+              222.4,
+              88.0,
+              224.4,
+              111.2
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 1.68,
+            "bbox_cad_xyz_mm": [
+              59.9,
+              -72.0,
+              7.4,
+              61.9,
+              -48.8,
+              7.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              59.9,
+              -72.0,
+              7.4,
+              61.9,
+              -48.8,
+              7.88
+            ]
+          },
+          "contact_region": "discharge-chain tie tunnel flat supported roof.",
+          "reviewed": true,
+          "removal_lane": "After detachment, lift the support 0.25 mm to clear the recessed-floor lip, then withdraw 26 mm along \u2212Y through the open transverse tie-channel mouth. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then \u2212Y 26 mm."
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 7.4,
+            "last_z_mm": 7.88,
+            "bbox_xy_mm": [
+              226.8,
+              198.8,
+              228.4,
+              210.8
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 1.68,
+            "bbox_cad_xyz_mm": [
+              64.3,
+              38.8,
+              7.4,
+              65.9,
+              50.8,
+              7.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              64.3,
+              38.8,
+              7.4,
+              65.9,
+              50.8,
+              7.88
+            ]
+          },
+          "contact_region": "fluid-14 tie tunnel flat supported roof.",
+          "reviewed": true,
+          "removal_lane": "After detachment, lift the support 0.25 mm to clear the recessed-floor lip, then withdraw 16 mm along +Y through the open transverse tie-channel mouth. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then +Y 16 mm."
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 44.12,
+            "last_z_mm": 44.36,
+            "bbox_xy_mm": [
+              185.6,
+              193.2,
+              214.0,
+              194.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 1.92,
+            "bbox_cad_xyz_mm": [
+              23.1,
+              33.2,
+              44.12,
+              51.5,
+              34.8,
+              44.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              23.1,
+              33.2,
+              44.12,
+              51.5,
+              34.8,
+              44.36
+            ]
+          },
+          "contact_region": "fluid-18 side-anchor window flat supported roof.",
+          "reviewed": true,
+          "removal_lane": "After detachment, lift the branch 0.25 mm and withdraw 31 mm along \u2212X through the relieved rear mouth while the lid is loose. The exact full emitted-road envelope clears the whole native lid throughout both continuous motions.",
+          "removal_direction_original_cad": "+Z 0.25 mm, then \u2212X 31 mm."
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 09:43:13.437206] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 327",
+    "[2026-09-21 09:43:13.437248] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 330",
+    "[2026-09-21 09:43:13.437256] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 332",
+    "[2026-09-21 09:43:13.437261] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 337",
+    "[2026-09-21 09:43:13.437265] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 341",
+    "[2026-09-21 09:43:13.437269] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 343",
+    "[2026-09-21 09:43:13.437926] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 705",
+    "[2026-09-21 09:43:13.437933] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 709",
+    "[2026-09-21 09:43:13.437937] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 713",
+    "[2026-09-21 09:43:13.437941] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 718",
+    "[2026-09-21 09:43:13.437944] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 672",
+    "[2026-09-21 09:43:13.440104] [0x000000016bf27000] [error]   ZFiller: encounter idx from clip: 907",
+    "[2026-09-21 09:43:15.471085] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:43:16.177822] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:43:16.177834] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The 12 ZFiller clipping-tag diagnostics are retained and assessed against this exact final Mark2 archive in support-evidence/native-diagnostic-assessment.json. All 241 expected model layers and 785 current STL section components have emitted paths; 182505 boundary samples have zero findings at the declared 0.20 mm margin beyond actual emitted half-width, with worst 0.157684 mm. No whole model layer is omitted. This is a bounded component/boundary presence reading, not a blanket assertion about slicer warnings or interior infill. The other three messages are the inherited profile T1001/T65535/T65279 startup/end control tokens.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "additional_support_access_evidence": [
+    {
+      "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/support-evidence/lid-support-lanes.json",
+      "sha256": "015e5560443e1f3f5b3cc7ad97fb5343bd0a9e45da56c9df898ccc50afe26a78",
+      "status": "pass",
+      "checks": 15,
+      "native_archive_sha256": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+      "gcode_sha256": "63db94db6fe6ae0882819bbc524c78c564a2c69f2b8a1a2e1705bba60acabe16"
+    }
+  ],
+  "native_diagnostic_assessment": {
+    "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/support-evidence/native-diagnostic-assessment.json",
+    "sha256": "fa2ef1c28f25b98ea7339358ee53a4f1dbe0b0b3bdb67470ece112228e8bd351",
+    "status": "pass_for_this_exact_native_archive"
+  },
+  "review_scope": "This exact final Mark2 lid archive only. All raw tree/interface rows and roots/build-ups are unchanged. H2C alternative contact approvals are not inherited; native cleanout and model-layer readings use this final slice."
+}

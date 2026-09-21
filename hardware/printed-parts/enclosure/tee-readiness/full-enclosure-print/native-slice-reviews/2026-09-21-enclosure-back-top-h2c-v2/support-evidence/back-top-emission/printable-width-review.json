@@ -1,0 +1,3215 @@
+{
+  "status": "findings_need_reading",
+  "native_archive_sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+  "gcode_sha256": "eab7b3a8dbd6573296a8f1dcf1de5bcad5ce5ab77c27ef68f7ab6ff73e0337db",
+  "raw_probe_sha256": "acdd608ec8aff358a1476e60373c2c06baf10cdef663b3336cd0034e51f0eaef",
+  "script_sha256": "8beba48129755964de90848bc5b8b102ed9a4ff0fc85fa2bcbef6f440a388f24",
+  "all_813_native_and_model_layers_match_expected_schedule": true,
+  "all_native_layers_have_model_sections": true,
+  "raw_missing_components": [
+    {
+      "layer_z_mm": 44.6,
+      "component": 2,
+      "area_mm2": 0.4787000261999861,
+      "bounds_plate_xy_mm": [
+        117.41012,
+        24.35001,
+        131.95776,
+        24.39006
+      ],
+      "model_segments_intersecting": 0,
+      "boundary_samples": 59,
+      "boundary_samples_beyond_0p20_mm": 59,
+      "maximum_boundary_gap_beyond_emitted_halfwidth_mm": 7.345254124941405,
+      "worst_boundary_points_plate_xy_mm": [
+        [
+          124.74939299927189,
+          24.39004941404177
+        ],
+        [
+          124.86490204176073,
+          24.35392693504045
+        ],
+        [
+          124.37172736171696,
+          24.35037033456298
+        ],
+        [
+          124.25620222012067,
+          24.390042419949204
+        ],
+        [
+          125.242583778536,
+          24.39003
+        ]
+      ]
+    },
+    {
+      "layer_z_mm": 140.6,
+      "component": 1,
+      "area_mm2": 1.4401800000000267,
+      "bounds_plate_xy_mm": [
+        71.91999,
+        162.85001,
+        72.0,
+        180.85001
+      ],
+      "model_segments_intersecting": 0,
+      "boundary_samples": 73,
+      "boundary_samples_beyond_0p20_mm": 73,
+      "maximum_boundary_gap_beyond_emitted_halfwidth_mm": 8.0,
+      "worst_boundary_points_plate_xy_mm": [
+        [
+          72.0,
+          163.097681369863
+        ],
+        [
+          72.0,
+          163.59302410958904
+        ],
+        [
+          72.0,
+          171.51850794520547
+        ],
+        [
+          72.0,
+          171.02316520547944
+        ],
+        [
+          72.0,
+          170.52782246575342
+        ]
+      ]
+    },
+    {
+      "layer_z_mm": 140.84,
+      "component": 1,
+      "area_mm2": 5.760179999999934,
+      "bounds_plate_xy_mm": [
+        71.67999,
+        162.85001,
+        72.0,
+        180.85001
+      ],
+      "model_segments_intersecting": 0,
+      "boundary_samples": 74,
+      "boundary_samples_beyond_0p20_mm": 74,
+      "maximum_boundary_gap_beyond_emitted_halfwidth_mm": 8.0,
+      "worst_boundary_points_plate_xy_mm": [
+        [
+          72.0,
+          163.3451454054054
+        ],
+        [
+          72.0,
+          172.2575827027027
+        ],
+        [
+          72.0,
+          171.2673118918919
+        ],
+        [
+          72.0,
+          170.77217648648647
+        ],
+        [
+          72.0,
+          170.27704108108108
+        ]
+      ]
+    }
+  ],
+  "configured_wall_generator": "classic",
+  "detect_thin_wall": false,
+  "nominal_outer_bead_mm": 0.42,
+  "first_layer_bead_mm": 0.5,
+  "method": "Morphological opening by one actual wall bead diameter identifies section regions capable of containing that bead. Every opened-region boundary is sampled at0.5mm against emitted road half-widths with0.20mm allowance. Original raw findings are retained.",
+  "raw_flagged_layers": 47,
+  "readings": [
+    {
+      "layer_z_mm": 0.2,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 44038.90394228944,
+          "printable_width_mm": 0.5,
+          "opened_area_mm2": 44038.76035066487,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 44038.76035066487,
+              "bounds_plate_xy_mm": [
+                59.909480000011534,
+                24.35001,
+                265.0900599999936,
+                295.64999
+              ],
+              "segment_intersections": 1823,
+              "boundary_samples": 2135,
+              "samples_beyond_0p20_mm": 3,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.20884658241315263,
+              "worst_plate_xy_mm": [
+                252.3681508693209,
+                295.61207907109866
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 10.04,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 36200.01541691376,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 36197.328838845235,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 36197.328838845235,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4753,
+              "boundary_samples": 6041,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010643447567310227,
+              "worst_plate_xy_mm": [
+                269.5751948375717,
+                150.64180005471985
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 10.28,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 36131.99731688895,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 36126.030665501334,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 36126.030665501334,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4769,
+              "boundary_samples": 6046,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009941132292209082,
+              "worst_plate_xy_mm": [
+                55.317450133451345,
+                150.53288266056103
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 10.52,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 36068.384322135855,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 36059.17736378735,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 36059.17736378735,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4773,
+              "boundary_samples": 6031,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011589425655900848,
+              "worst_plate_xy_mm": [
+                269.62808796154803,
+                150.5899691608979
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 10.76,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 36179.6287197419,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 36167.253451582015,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 36167.253451582015,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 5625,
+              "boundary_samples": 5833,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.052197250033257786,
+              "worst_plate_xy_mm": [
+                72.37710741299942,
+                132.91457532003366
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 11.96,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 35902.33071805819,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 35900.00599103947,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 35900.00599103947,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 6576,
+              "boundary_samples": 5904,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011317427545300296,
+              "worst_plate_xy_mm": [
+                55.40138135569411,
+                150.61920830935352
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 12.2,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 2799.3337623366933,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2793.394893422791,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2793.394893422791,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.511448151437193,
+                78.86082,
+                295.64999
+              ],
+              "segment_intersections": 1850,
+              "boundary_samples": 1552,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.013606938726788947,
+              "worst_plate_xy_mm": [
+                68.4530538679982,
+                101.35760693872679
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 122.13588380399999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 122.07387503589666,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 122.07387503589666,
+              "bounds_plate_xy_mm": [
+                89.99918,
+                24.35001,
+                119.12082,
+                30.35001
+              ],
+              "segment_intersections": 50,
+              "boundary_samples": 140,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0047305936951313465,
+              "worst_plate_xy_mm": [
+                105.65177401700335,
+                24.483095455991602
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 2,
+          "original_area_mm2": 169.7407380000001,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 169.7026597884332,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 169.7026597884332,
+              "bounds_plate_xy_mm": [
+                109.39,
+                121.38998,
+                133.99,
+                128.29001
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 126,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 2.000000000010327e-05,
+              "worst_plate_xy_mm": [
+                109.6,
+                121.38998
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 3,
+          "original_area_mm2": 56.67652499999993,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 56.638446788433,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 56.638446788433,
+              "bounds_plate_xy_mm": [
+                152.3,
+                123.3974,
+                158.26595,
+                132.8974
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003999999999928505,
+              "worst_plate_xy_mm": [
+                152.6320914524979,
+                132.8974
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 4,
+          "original_area_mm2": 169.73975399999978,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 169.7016757884329,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 169.7016757884329,
+              "bounds_plate_xy_mm": [
+                109.39,
+                74.98999,
+                133.99,
+                81.88998
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 126,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 9.999999996929132e-06,
+              "worst_plate_xy_mm": [
+                109.6,
+                74.98999
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 5,
+          "original_area_mm2": 114.07732476930016,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 114.01523603791937,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 114.01523603791937,
+              "bounds_plate_xy_mm": [
+                130.25918,
+                24.35001,
+                159.81408,
+                30.35001
+              ],
+              "segment_intersections": 49,
+              "boundary_samples": 140,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.007564693265381561,
+              "worst_plate_xy_mm": [
+                146.50673485254413,
+                24.397158314175975
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 6,
+          "original_area_mm2": 2708.519057427999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2708.1709697970423,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2708.1709697970423,
+              "bounds_plate_xy_mm": [
+                241.55,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 1924,
+              "boundary_samples": 1396,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.007856213073538648,
+              "worst_plate_xy_mm": [
+                269.7053758830187,
+                272.2933367048739
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 7,
+          "original_area_mm2": 120.17490500000005,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 120.13682678843307,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 120.13682678843307,
+              "bounds_plate_xy_mm": [
+                176.095,
+                218.72501,
+                185.595,
+                231.375
+              ],
+              "segment_intersections": 47,
+              "boundary_samples": 88,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 7.965850201685498e-15,
+              "worst_plate_xy_mm": [
+                176.095,
+                219.10458112722338
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 8,
+          "original_area_mm2": 68.04298999999997,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 68.00491178843302,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 68.00491178843302,
+              "bounds_plate_xy_mm": [
+                190.05,
+                157.8974,
+                197.21242,
+                167.3974
+              ],
+              "segment_intersections": 56,
+              "boundary_samples": 66,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0004199999999991988,
+              "worst_plate_xy_mm": [
+                197.21242,
+                167.01768357320873
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 9,
+          "original_area_mm2": 68.04298999999997,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 68.00491178843302,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 68.00491178843302,
+              "bounds_plate_xy_mm": [
+                204.68758,
+                157.8974,
+                211.85,
+                167.3974
+              ],
+              "segment_intersections": 55,
+              "boundary_samples": 66,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00042724006882854937,
+              "worst_plate_xy_mm": [
+                204.70269083412643,
+                167.26531955751125
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 10,
+          "original_area_mm2": 56.67652499999993,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 56.638446788433,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 56.638446788433,
+              "bounds_plate_xy_mm": [
+                171.63405,
+                123.3974,
+                177.6,
+                132.8974
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00039999999999282276,
+              "worst_plate_xy_mm": [
+                172.00739327829268,
+                132.8974
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 11,
+          "original_area_mm2": 306.56581004879877,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 306.4790438815926,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 306.4790438815926,
+              "bounds_plate_xy_mm": [
+                170.08592,
+                24.35001,
+                217.25,
+                37.60001
+              ],
+              "segment_intersections": 264,
+              "boundary_samples": 249,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0061917334469597796,
+              "worst_plate_xy_mm": [
+                183.4278925795902,
+                24.419175000161253
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 12,
+          "original_area_mm2": 37.949999999999996,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 37.91192178843308,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 37.91192178843308,
+              "bounds_plate_xy_mm": [
+                215.725,
+                60.92239,
+                218.725,
+                73.57239
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003900000000038317,
+              "worst_plate_xy_mm": [
+                216.10428037506685,
+                73.57239
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 13,
+          "original_area_mm2": 37.94999999999999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 37.91192178843308,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 37.91192178843308,
+              "bounds_plate_xy_mm": [
+                222.225,
+                60.92239,
+                225.225,
+                73.57239
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003900000000038317,
+              "worst_plate_xy_mm": [
+                222.60428037506685,
+                73.57239
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 12.44,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 2800.500348569147,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2790.211102016607,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2790.211102016607,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.511444966823362,
+                78.58421,
+                295.64999
+              ],
+              "segment_intersections": 1850,
+              "boundary_samples": 1549,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.043055918755663364,
+              "worst_plate_xy_mm": [
+                68.43832683677839,
+                101.38705591875566
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 119.92300389124998,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 119.86099553446027,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 119.86099553446027,
+              "bounds_plate_xy_mm": [
+                90.27579,
+                24.35001,
+                118.84421,
+                30.35001
+              ],
+              "segment_intersections": 50,
+              "boundary_samples": 138,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.006145012117369647,
+              "worst_plate_xy_mm": [
+                105.89620761088293,
+                24.45185189330778
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 2,
+          "original_area_mm2": 169.74073800000008,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 169.7026597884332,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 169.7026597884332,
+              "bounds_plate_xy_mm": [
+                109.39,
+                121.38998,
+                133.99,
+                128.29001
+              ],
+              "segment_intersections": 40,
+              "boundary_samples": 126,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 2.000000000010327e-05,
+              "worst_plate_xy_mm": [
+                109.6,
+                121.38998
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 3,
+          "original_area_mm2": 54.379994999999994,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 54.34191678843307,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 54.34191678843307,
+              "bounds_plate_xy_mm": [
+                152.3,
+                123.3974,
+                158.02421,
+                132.8974
+              ],
+              "segment_intersections": 42,
+              "boundary_samples": 61,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00039999999999282276,
+              "worst_plate_xy_mm": [
+                152.67350062337093,
+                132.8974
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 4,
+          "original_area_mm2": 169.73975399999978,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 169.7016757884329,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 169.7016757884329,
+              "bounds_plate_xy_mm": [
+                109.39,
+                74.98999,
+                133.99,
+                81.88998
+              ],
+              "segment_intersections": 40,
+              "boundary_samples": 126,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 9.999999996929132e-06,
+              "worst_plate_xy_mm": [
+                109.6,
+                74.98999
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 5,
+          "original_area_mm2": 112.04001100925007,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 111.97792229721914,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 111.97792229721914,
+              "bounds_plate_xy_mm": [
+                130.53579,
+                24.35001,
+                159.50379,
+                30.35001
+              ],
+              "segment_intersections": 50,
+              "boundary_samples": 138,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.006770164281321933,
+              "worst_plate_xy_mm": [
+                146.24268079052092,
+                24.433764054421715
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 6,
+          "original_area_mm2": 2708.5950588288492,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2708.2469679342817,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2708.2469679342817,
+              "bounds_plate_xy_mm": [
+                241.55,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 1938,
+              "boundary_samples": 1396,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.007860702741806724,
+              "worst_plate_xy_mm": [
+                269.70534295244795,
+                272.2932972822326
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 7,
+          "original_area_mm2": 120.17490500000002,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 120.13682678843307,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 120.13682678843307,
+              "bounds_plate_xy_mm": [
+                176.095,
+                218.72501,
+                185.595,
+                231.375
+              ],
+              "segment_intersections": 55,
+              "boundary_samples": 88,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 7.965850201685498e-15,
+              "worst_plate_xy_mm": [
+                176.095,
+                219.10458112722338
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 8,
+          "original_area_mm2": 64.09022999999976,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 64.05215178843281,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 64.05215178843281,
+              "bounds_plate_xy_mm": [
+                190.05,
+                157.8974,
+                196.79634,
+                167.3974
+              ],
+              "segment_intersections": 50,
+              "boundary_samples": 65,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00039999999999282276,
+              "worst_plate_xy_mm": [
+                190.42459782984162,
+                167.3974
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 9,
+          "original_area_mm2": 64.09023000000003,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 64.05215178843308,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 64.05215178843308,
+              "bounds_plate_xy_mm": [
+                205.10366,
+                157.8974,
+                211.85,
+                167.3974
+              ],
+              "segment_intersections": 50,
+              "boundary_samples": 65,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00039999999999282276,
+              "worst_plate_xy_mm": [
+                205.4782578298416,
+                167.3974
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 10,
+          "original_area_mm2": 54.379994999999994,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 54.34191678843307,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 54.34191678843307,
+              "bounds_plate_xy_mm": [
+                171.87579,
+                123.3974,
+                177.6,
+                132.8974
+              ],
+              "segment_intersections": 41,
+              "boundary_samples": 61,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003999999999928505,
+              "worst_plate_xy_mm": [
+                172.2492906233709,
+                132.8974
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 11,
+          "original_area_mm2": 303.6422877170999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 303.5555184713846,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 303.5555184713846,
+              "bounds_plate_xy_mm": [
+                170.39621,
+                24.35001,
+                217.25,
+                37.60001
+              ],
+              "segment_intersections": 264,
+              "boundary_samples": 248,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.004011308644143119,
+              "worst_plate_xy_mm": [
+                183.22958679613555,
+                24.432479934769475
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 12,
+          "original_area_mm2": 37.949999999999996,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 37.91192178843308,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 37.91192178843308,
+              "bounds_plate_xy_mm": [
+                215.725,
+                60.92239,
+                218.725,
+                73.57239
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003900000000038317,
+              "worst_plate_xy_mm": [
+                216.10428037506685,
+                73.57239
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 13,
+          "original_area_mm2": 37.94999999999999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 37.91192178843308,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 37.91192178843308,
+              "bounds_plate_xy_mm": [
+                222.225,
+                60.92239,
+                225.225,
+                73.57239
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003900000000038317,
+              "worst_plate_xy_mm": [
+                222.60428037506685,
+                73.57239
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 21.32,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 2720.651311204549,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2720.3327951047395,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2720.3327951047395,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.477693543388316,
+                76.05048,
+                289.35001
+              ],
+              "segment_intersections": 1757,
+              "boundary_samples": 1507,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011587002467300878,
+              "worst_plate_xy_mm": [
+                55.39204067350637,
+                150.6102005797023
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 21.88191114074986,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 21.825339269888545,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 21.825339269888545,
+              "bounds_plate_xy_mm": [
+                55.03279294198135,
+                292.64998267581603,
+                64.0,
+                295.64999
+              ],
+              "segment_intersections": 28,
+              "boundary_samples": 47,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00584328244711757,
+              "worst_plate_xy_mm": [
+                55.05702120642875,
+                294.266269443686
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 2,
+          "original_area_mm2": 100.15420912804994,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 100.09326763100592,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 100.09326763100592,
+              "bounds_plate_xy_mm": [
+                92.80952,
+                24.35001,
+                116.31048,
+                30.35001
+              ],
+              "segment_intersections": 43,
+              "boundary_samples": 117,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.008212414936981632,
+              "worst_plate_xy_mm": [
+                106.10513858746371,
+                24.4663728207907
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 3,
+          "original_area_mm2": 21.786016721400028,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 21.747938509833116,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 21.747938509833116,
+              "bounds_plate_xy_mm": [
+                109.39,
+                121.38998,
+                112.54738,
+                128.29001
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 40,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00038000000000068535,
+              "worst_plate_xy_mm": [
+                112.54738,
+                127.91590079433222
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 4,
+          "original_area_mm2": 21.786016721400127,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 21.7479385098332,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 21.7479385098332,
+              "bounds_plate_xy_mm": [
+                130.83262,
+                121.38998,
+                133.99,
+                128.29001
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 40,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00038000000001486844,
+              "worst_plate_xy_mm": [
+                130.83262,
+                121.76408920566776
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 5,
+          "original_area_mm2": 21.785890426199988,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 21.74781221463308,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 21.74781221463308,
+              "bounds_plate_xy_mm": [
+                109.39,
+                74.98999,
+                112.54738,
+                81.88998
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 40,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00038000000000068535,
+              "worst_plate_xy_mm": [
+                112.54738,
+                81.51587279433222
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 6,
+          "original_area_mm2": 21.785890426200083,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 21.74781221463317,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 21.74781221463317,
+              "bounds_plate_xy_mm": [
+                130.83262,
+                74.98999,
+                133.99,
+                81.88998
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 40,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0003800000000148962,
+              "worst_plate_xy_mm": [
+                130.83262,
+                75.36409720566778
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 7,
+          "original_area_mm2": 93.53800713199995,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 93.47591062197995,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 93.47591062197995,
+              "bounds_plate_xy_mm": [
+                133.06952,
+                24.35001,
+                156.57472,
+                30.35001
+              ],
+              "segment_intersections": 51,
+              "boundary_samples": 116,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.007523471987445157,
+              "worst_plate_xy_mm": [
+                146.3466034759767,
+                24.442086606806278
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 8,
+          "original_area_mm2": 21.88191142199987,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 21.82804738511521,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 21.82804738511521,
+              "bounds_plate_xy_mm": [
+                261.0,
+                292.64998,
+                269.967212663855,
+                295.64999
+              ],
+              "segment_intersections": 29,
+              "boundary_samples": 47,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.005369592489433833,
+              "worst_plate_xy_mm": [
+                269.9028480489336,
+                295.53175128988653
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 9,
+          "original_area_mm2": 32.943624999999955,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 32.90554678843303,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 32.90554678843303,
+              "bounds_plate_xy_mm": [
+                176.095,
+                227.90725,
+                185.595,
+                231.375
+              ],
+              "segment_intersections": 17,
+              "boundary_samples": 52,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 7.965850201685498e-15,
+              "worst_plate_xy_mm": [
+                176.095,
+                228.27933136478745
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 10,
+          "original_area_mm2": 32.943434999999894,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 32.90535678843296,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 32.90535678843296,
+              "bounds_plate_xy_mm": [
+                176.095,
+                218.72501,
+                185.595,
+                222.19274
+              ],
+              "segment_intersections": 17,
+              "boundary_samples": 52,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 7.965850201685498e-15,
+              "worst_plate_xy_mm": [
+                176.095,
+                221.98273999999998
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 11,
+          "original_area_mm2": 2629.5974086537053,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2626.8802329571004,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2626.8802329571004,
+              "bounds_plate_xy_mm": [
+                241.55,
+                24.35001,
+                270.0,
+                289.35001
+              ],
+              "segment_intersections": 1928,
+              "boundary_samples": 1294,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.04481223181964197,
+              "worst_plate_xy_mm": [
+                260.95518776818034,
+                157.5244845005533
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 12,
+          "original_area_mm2": 267.4036863162997,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 267.31720481489174,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 267.31720481489174,
+              "bounds_plate_xy_mm": [
+                173.32528,
+                24.35001,
+                217.25,
+                37.60001
+              ],
+              "segment_intersections": 333,
+              "boundary_samples": 236,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0033786598341157548,
+              "worst_plate_xy_mm": [
+                183.2478134155467,
+                24.39363885900221
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 44.12,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5533.749010654146,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5529.347544954086,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2918.610501221844,
+              "bounds_plate_xy_mm": [
+                132.06920697297102,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 2690,
+              "boundary_samples": 1934,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.028854858608385076,
+              "worst_plate_xy_mm": [
+                132.11970805872681,
+                27.28667309722085
+              ]
+            },
+            {
+              "area_mm2": 0.7319645004323759,
+              "bounds_plate_xy_mm": [
+                128.27798778952175,
+                24.35001,
+                130.05246033133028,
+                24.792819276212747
+              ],
+              "segment_intersections": 4,
+              "boundary_samples": 9,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00020016555033269823,
+              "worst_plate_xy_mm": [
+                128.46661593006297,
+                24.373890305354557
+              ]
+            },
+            {
+              "area_mm2": 0.7502012623688302,
+              "bounds_plate_xy_mm": [
+                123.15929545131839,
+                24.35001,
+                124.98180540955596,
+                24.792819999117672
+              ],
+              "segment_intersections": 3,
+              "boundary_samples": 9,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.05872809725340092,
+              "worst_plate_xy_mm": [
+                123.20838581861203,
+                24.717556430060537
+              ]
+            },
+            {
+              "area_mm2": 0.749771891215721,
+              "bounds_plate_xy_mm": [
+                118.09714652030819,
+                24.35001,
+                119.91289225554178,
+                24.79280541564055
+              ],
+              "segment_intersections": 4,
+              "boundary_samples": 9,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.03659985701487961,
+              "worst_plate_xy_mm": [
+                118.14249366674288,
+                24.713071464222224
+              ]
+            },
+            {
+              "area_mm2": 2608.505106078225,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                117.30971837741708,
+                295.64999
+              ],
+              "segment_intersections": 2129,
+              "boundary_samples": 1487,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010029183382385898,
+              "worst_plate_xy_mm": [
+                117.13789552016956,
+                24.497724353059013
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 44.36,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5538.290039622671,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5534.290208564167,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2924.2885123142237,
+              "bounds_plate_xy_mm": [
+                132.09,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 2725,
+              "boundary_samples": 1929,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010214777418746462,
+              "worst_plate_xy_mm": [
+                269.6735997424941,
+                150.54226802990323
+              ]
+            },
+            {
+              "area_mm2": 2610.001696249943,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                117.29,
+                295.64999
+              ],
+              "segment_intersections": 2128,
+              "boundary_samples": 1489,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010748936822589289,
+              "worst_plate_xy_mm": [
+                116.73808307127271,
+                24.541278538987502
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 44.6,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 2611.8212402571594,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2611.475115907857,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2611.475115907857,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                117.29,
+                295.64999
+              ],
+              "segment_intersections": 2131,
+              "boundary_samples": 1491,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00887118774755663,
+              "worst_plate_xy_mm": [
+                55.48638839681406,
+                150.70119529095032
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 2930.376562016527,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2929.9567536126,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2929.9567536126,
+              "bounds_plate_xy_mm": [
+                132.09,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 2896,
+              "boundary_samples": 1924,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010628442478805594,
+              "worst_plate_xy_mm": [
+                269.6598226145274,
+                150.55670441672535
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 2,
+          "original_area_mm2": 0.4787000261999861,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 0.0,
+          "no_bead_width_region": true,
+          "regions": []
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 57.56,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 2451.27022521363,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2450.974015077552,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2450.974015077552,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                117.29,
+                295.64999
+              ],
+              "segment_intersections": 1686,
+              "boundary_samples": 1853,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.01276507972854768,
+              "worst_plate_xy_mm": [
+                117.28730271500234,
+                27.211546705016964
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 2791.505039317546,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 2791.107777286072,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 2791.107777286072,
+              "bounds_plate_xy_mm": [
+                132.09,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 2557,
+              "boundary_samples": 1819,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00987938953097317,
+              "worst_plate_xy_mm": [
+                269.68468266615923,
+                150.53065105792874
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 100.52,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5221.870288765242,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5221.175426673863,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5221.175426673863,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4531,
+              "boundary_samples": 3498,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011569511673164362,
+              "worst_plate_xy_mm": [
+                55.371120715892616,
+                150.58914542546395
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 28.33929348930002,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 28.22814813652876,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 28.22814813652876,
+              "bounds_plate_xy_mm": [
+                63.88940999999999,
+                36.53640484809835,
+                67.0,
+                48.16360562716055
+              ],
+              "segment_intersections": 28,
+              "boundary_samples": 52,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0004209866552203345,
+              "worst_plate_xy_mm": [
+                65.38382927031557,
+                46.844424098276654
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 100.76,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5228.692021055114,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5227.997519276234,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5227.997519276234,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4495,
+              "boundary_samples": 3495,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011507412597434291,
+              "worst_plate_xy_mm": [
+                55.369064420975306,
+                150.58699022600752
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 31.32997308929999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 31.21882759799064,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 31.21882759799064,
+              "bounds_plate_xy_mm": [
+                63.64941,
+                36.29640484809834,
+                67.0,
+                48.40360515190193
+              ],
+              "segment_intersections": 29,
+              "boundary_samples": 55,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": -6.2450045135165055e-15,
+              "worst_plate_xy_mm": [
+                67.0,
+                36.50640484809834
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 101.0,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5232.610153955625,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5231.914124297616,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5231.914124297616,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4457,
+              "boundary_samples": 3491,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011648515587062619,
+              "worst_plate_xy_mm": [
+                269.6101065697226,
+                150.60812922789694
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 34.43584678344996,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 34.32470183587842,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 34.32470183587842,
+              "bounds_plate_xy_mm": [
+                63.40941,
+                36.0564118130398,
+                67.0,
+                48.643605151901845
+              ],
+              "segment_intersections": 30,
+              "boundary_samples": 57,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": -6.189493362285248e-15,
+              "worst_plate_xy_mm": [
+                67.0,
+                48.432068126388735
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 101.24,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5237.358415731636,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5236.662718257769,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5236.662718257769,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4363,
+              "boundary_samples": 3486,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009803509136065286,
+              "worst_plate_xy_mm": [
+                269.687227750842,
+                150.5279849481211
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 37.65692398344999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 37.545778877660936,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 37.545778877660936,
+              "bounds_plate_xy_mm": [
+                63.16941,
+                35.81641269002826,
+                67.0,
+                48.883605151901826
+              ],
+              "segment_intersections": 33,
+              "boundary_samples": 59,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": -6.189493362285248e-15,
+              "worst_plate_xy_mm": [
+                67.0,
+                36.19519688675355
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 101.48,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5243.192807236679,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5242.495958504364,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5242.495958504364,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4317,
+              "boundary_samples": 3482,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009531490484660426,
+              "worst_plate_xy_mm": [
+                55.46345662374121,
+                150.6790787820866
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 40.99339484980005,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 40.88204535291904,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 40.88204535291904,
+              "bounds_plate_xy_mm": [
+                62.92941,
+                35.5764216846404,
+                67.0,
+                49.12360515190165
+              ],
+              "segment_intersections": 37,
+              "boundary_samples": 62,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": -6.2450045135165055e-15,
+              "worst_plate_xy_mm": [
+                67.0,
+                35.78642168463936
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 101.72,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5250.7361296493455,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5250.037412608782,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5250.037412608782,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4264,
+              "boundary_samples": 3477,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010581393635184205,
+              "worst_plate_xy_mm": [
+                269.57301061389535,
+                150.64390781527527
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 44.57433748475002,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 44.33352905012109,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 44.33352905012109,
+              "bounds_plate_xy_mm": [
+                62.68941,
+                35.33641484809834,
+                67.0,
+                49.36360515190165
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 64,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.001905747631183119,
+              "worst_plate_xy_mm": [
+                67.0,
+                48.94364429723789
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 101.96,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5070.52368219764,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5069.863102218392,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5069.863102218392,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4258,
+              "boundary_samples": 3388,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009640482810318735,
+              "worst_plate_xy_mm": [
+                72.73217236633158,
+                24.35001
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 48.407687815350016,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 47.900202532001984,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 47.900202532001984,
+              "bounds_plate_xy_mm": [
+                62.44941,
+                35.096414847685395,
+                67.0,
+                49.603605151901654
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 66,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": -6.189493362285248e-15,
+              "worst_plate_xy_mm": [
+                67.0,
+                49.27044682157137
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 102.2,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5133.617793242828,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5132.63017207672,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5080.6240448637045,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4358,
+              "boundary_samples": 3319,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009631213893305207,
+              "worst_plate_xy_mm": [
+                269.53994624585226,
+                150.6757993581956
+              ]
+            },
+            {
+              "area_mm2": 52.00612721301521,
+              "bounds_plate_xy_mm": [
+                62.20941,
+                34.21655698178789,
+                67.63975033621993,
+                49.843605151901656
+              ],
+              "segment_intersections": 53,
+              "boundary_samples": 72,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.01793997638879183,
+              "worst_plate_xy_mm": [
+                67.35069998909437,
+                34.23214116719095
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 102.44,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5146.076602328282,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5145.410174080129,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5145.410174080129,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4341,
+              "boundary_samples": 3393,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.11656889557508085,
+              "worst_plate_xy_mm": [
+                68.22998731731943,
+                33.50875966026195
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 102.68,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5159.04216892344,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5158.402314631142,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5158.402314631142,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4322,
+              "boundary_samples": 3391,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.013692879722813162,
+              "worst_plate_xy_mm": [
+                131.54502006682512,
+                24.418372441909224
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 103.16,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5192.558880400275,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5191.91895837545,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5191.91895837545,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4367,
+              "boundary_samples": 3387,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00850377594165308,
+              "worst_plate_xy_mm": [
+                255.47068425514396,
+                30.67626012877166
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 103.4,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5175.211833754736,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5174.5523350895,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5174.5523350895,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4336,
+              "boundary_samples": 3393,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011200285755496336,
+              "worst_plate_xy_mm": [
+                269.6409396484443,
+                150.57649787418808
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 104.12,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5101.26980121338,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5100.685610304874,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5100.685610304874,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4135,
+              "boundary_samples": 3308,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010115377647029494,
+              "worst_plate_xy_mm": [
+                125.49462650583234,
+                24.40957709265919
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 104.36,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5109.947827629036,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5109.363844708328,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5109.363844708328,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4137,
+              "boundary_samples": 3305,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011555674758087914,
+              "worst_plate_xy_mm": [
+                269.60688797884046,
+                150.61123315978276
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 104.6,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5119.1540700072055,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5118.569576979798,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5118.569576979798,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4157,
+              "boundary_samples": 3302,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010712363358336724,
+              "worst_plate_xy_mm": [
+                259.3423695121375,
+                36.58877158199073
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 104.84,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5129.927807122687,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5129.342340723076,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5129.342340723076,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4175,
+              "boundary_samples": 3300,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009793744673940646,
+              "worst_plate_xy_mm": [
+                90.61576246834473,
+                24.48222965312845
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 105.08,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5143.463922877798,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5142.8966859495395,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5142.8966859495395,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4156,
+              "boundary_samples": 3289,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010112479606737529,
+              "worst_plate_xy_mm": [
+                55.32302604919248,
+                150.53873096256822
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 105.8,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5155.689016249731,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5155.11799481383,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5155.11799481383,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4101,
+              "boundary_samples": 3282,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011881818199503402,
+              "worst_plate_xy_mm": [
+                259.5500257117986,
+                36.75713977065454
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 106.04,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5159.34191432002,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5158.769700898404,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5158.769700898404,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4115,
+              "boundary_samples": 3279,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00990501452063594,
+              "worst_plate_xy_mm": [
+                55.316145208989134,
+                150.53151963676308
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 106.28,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5162.833085407365,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5162.2654522672965,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5162.2654522672965,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4128,
+              "boundary_samples": 3277,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010902503247131795,
+              "worst_plate_xy_mm": [
+                257.664987820315,
+                34.89015121806265
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 106.76,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5157.3489552253905,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5156.831362483057,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5156.831362483057,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4021,
+              "boundary_samples": 3276,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.01047000164459505,
+              "worst_plate_xy_mm": [
+                255.4908434161898,
+                30.74480057687161
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 107.0,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5151.731750897067,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5151.2125711285635,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5151.2125711285635,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4021,
+              "boundary_samples": 3276,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010889672193838296,
+              "worst_plate_xy_mm": [
+                269.65133256785003,
+                150.56560967640982
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 107.72,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5136.063992408472,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5135.052040464486,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5084.883183493282,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3989,
+              "boundary_samples": 3201,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010205076796764773,
+              "worst_plate_xy_mm": [
+                255.48715842964202,
+                30.732266917828113
+              ]
+            },
+            {
+              "area_mm2": 50.16885697120402,
+              "bounds_plate_xy_mm": [
+                62.31059,
+                34.70424445876115,
+                67.25332227349872,
+                49.74243515190165
+              ],
+              "segment_intersections": 39,
+              "boundary_samples": 69,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.04010228716597611,
+              "worst_plate_xy_mm": [
+                67.25000245405525,
+                34.8776439335017
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 107.96,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5084.527943625264,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5084.05695711262,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5084.05695711262,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3988,
+              "boundary_samples": 3202,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010751437995644098,
+              "worst_plate_xy_mm": [
+                269.5789165617927,
+                150.63821181581093
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 46.765343924000014,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 46.38260062406666,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 46.38260062406666,
+              "bounds_plate_xy_mm": [
+                62.55059,
+                35.197574840134266,
+                67.0,
+                49.50243515190165
+              ],
+              "segment_intersections": 24,
+              "boundary_samples": 65,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00041000000000310233,
+              "worst_plate_xy_mm": [
+                62.55059,
+                39.55179478624537
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 108.2,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5083.85687397999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5083.384306609615,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5083.384306609615,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3992,
+              "boundary_samples": 3202,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010020186219743793,
+              "worst_plate_xy_mm": [
+                255.48555229312433,
+                30.726818537054996
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 43.02839637494999,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 42.864480216919254,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 42.864480216919254,
+              "bounds_plate_xy_mm": [
+                62.79059,
+                35.43757484630134,
+                67.0,
+                49.262435151901656
+              ],
+              "segment_intersections": 21,
+              "boundary_samples": 63,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0004099999999959969,
+              "worst_plate_xy_mm": [
+                62.79059,
+                39.8679759372408
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 108.44,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5083.316729992638,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5082.844381335439,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5082.844381335439,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3991,
+              "boundary_samples": 3202,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0108553864053689,
+              "worst_plate_xy_mm": [
+                255.5106740393508,
+                30.81226212784691
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 39.5727052893,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 39.461559814906494,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 39.461559814906494,
+              "bounds_plate_xy_mm": [
+                63.03059,
+                35.677574848098345,
+                67.0,
+                49.022435151901654
+              ],
+              "segment_intersections": 20,
+              "boundary_samples": 61,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00041000000000310233,
+              "worst_plate_xy_mm": [
+                63.03059,
+                39.821525163855696
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 108.68,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5082.9132990323715,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5082.440010214527,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5082.440010214527,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3991,
+              "boundary_samples": 3203,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011715513254998977,
+              "worst_plate_xy_mm": [
+                269.6124366826423,
+                150.6058818182038
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 36.284984889300034,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 36.17383941389435,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 36.17383941389435,
+              "bounds_plate_xy_mm": [
+                63.27059,
+                35.91757484809835,
+                67.0,
+                48.78243515190165
+              ],
+              "segment_intersections": 20,
+              "boundary_samples": 58,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00041000000000310233,
+              "worst_plate_xy_mm": [
+                63.27059,
+                39.56742869590447
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 108.92,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5082.688454190534,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5082.215278284623,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5082.215278284623,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3994,
+              "boundary_samples": 3203,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010393463279660703,
+              "worst_plate_xy_mm": [
+                256.4263138459269,
+                33.021872513335346
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 33.11246448930001,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 33.00131901307565,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 33.00131901307565,
+              "bounds_plate_xy_mm": [
+                63.51059,
+                36.15757484809835,
+                67.0,
+                48.54243515190165
+              ],
+              "segment_intersections": 17,
+              "boundary_samples": 56,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0004099999999959969,
+              "worst_plate_xy_mm": [
+                63.51059,
+                39.462165628202314
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 109.16,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5082.645451153515,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5082.1727399383,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5082.1727399383,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 3994,
+              "boundary_samples": 3203,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.011126706316306717,
+              "worst_plate_xy_mm": [
+                147.88794197744153,
+                24.428905000726864
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 30.055144089299965,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 29.94399861239982,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 29.94399861239982,
+              "bounds_plate_xy_mm": [
+                63.75059,
+                36.39757484809835,
+                67.0,
+                48.30243515190165
+              ],
+              "segment_intersections": 16,
+              "boundary_samples": 54,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0004099999999959969,
+              "worst_plate_xy_mm": [
+                63.75059,
+                39.86007968160004
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 109.4,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5082.7695102313955,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5082.295237977656,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5082.295237977656,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4001,
+              "boundary_samples": 3203,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010985731684405614,
+              "worst_plate_xy_mm": [
+                255.50432810633637,
+                30.790669810749886
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 27.113023689300004,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 27.00187799737892,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 27.00187799737892,
+              "bounds_plate_xy_mm": [
+                63.99058999999999,
+                36.637575983873305,
+                67.0,
+                48.062435151901646
+              ],
+              "segment_intersections": 27,
+              "boundary_samples": 51,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.00041000000000310233,
+              "worst_plate_xy_mm": [
+                63.99058999999999,
+                39.77161373221047
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 140.6,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5336.705431236072,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5336.19921507234,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5336.19921507234,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4572,
+              "boundary_samples": 3217,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010787687426271009,
+              "worst_plate_xy_mm": [
+                269.58021307927004,
+                150.63695985642948
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 1.4401800000000267,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 0.0,
+          "no_bead_width_region": true,
+          "regions": []
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 140.84,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 5336.703806829332,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 5336.197576816779,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 5336.197576816779,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4572,
+              "boundary_samples": 3217,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.010898786231019558,
+              "worst_plate_xy_mm": [
+                256.3746346430724,
+                32.92594156880265
+              ]
+            }
+          ]
+        },
+        {
+          "original_component": 1,
+          "original_area_mm2": 5.760179999999934,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 0.0,
+          "no_bead_width_region": true,
+          "regions": []
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 187.88,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 4640.789498835251,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 4635.858657358555,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 3770.6785700417654,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4266,
+              "boundary_samples": 2665,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.0922032161370305,
+              "worst_plate_xy_mm": [
+                55.273591153987425,
+                165.94220321613702
+              ]
+            },
+            {
+              "area_mm2": 865.1800873167896,
+              "bounds_plate_xy_mm": [
+                55.0,
+                177.8295646788574,
+                64.0,
+                295.64999
+              ],
+              "segment_intersections": 755,
+              "boundary_samples": 545,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.007376804029161882,
+              "worst_plate_xy_mm": [
+                55.276129355266804,
+                272.3125838964021
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layer_z_mm": 188.12,
+      "components": [
+        {
+          "original_component": 0,
+          "original_area_mm2": 4638.150352600547,
+          "printable_width_mm": 0.42,
+          "opened_area_mm2": 4635.882808661531,
+          "no_bead_width_region": false,
+          "regions": [
+            {
+              "area_mm2": 3770.6740701016183,
+              "bounds_plate_xy_mm": [
+                55.0,
+                24.35001,
+                270.0,
+                295.64999
+              ],
+              "segment_intersections": 4266,
+              "boundary_samples": 2665,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.009012713228094632,
+              "worst_plate_xy_mm": [
+                55.48149960592248,
+                150.6964813777318
+              ]
+            },
+            {
+              "area_mm2": 865.208738559913,
+              "bounds_plate_xy_mm": [
+                55.0,
+                177.85001,
+                64.0,
+                295.64999
+              ],
+              "segment_intersections": 755,
+              "boundary_samples": 545,
+              "samples_beyond_0p20_mm": 0,
+              "max_boundary_gap_beyond_halfwidth_mm": 0.007361902526842101,
+              "worst_plate_xy_mm": [
+                55.27557948265942,
+                272.3131570580148
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "remaining_findings": [
+    {
+      "layer_z_mm": 0.2,
+      "area_mm2": 44038.76035066487,
+      "bounds_plate_xy_mm": [
+        59.909480000011534,
+        24.35001,
+        265.0900599999936,
+        295.64999
+      ],
+      "segment_intersections": 1823,
+      "boundary_samples": 2135,
+      "samples_beyond_0p20_mm": 3,
+      "max_boundary_gap_beyond_halfwidth_mm": 0.20884658241315263,
+      "worst_plate_xy_mm": [
+        252.3681508693209,
+        295.61207907109866
+      ]
+    }
+  ],
+  "negative_control": {
+    "scope": "Synthetic omission from a copy of emitted paths only; physical archive unchanged",
+    "removed_segments": 33,
+    "witness_plate_xy_mm": [
+      132.3371002667137,
+      230.39999
+    ],
+    "omitted_boundary_is_detected": true,
+    "reading": {
+      "area_mm2": 44038.76035066487,
+      "bounds_plate_xy_mm": [
+        59.909480000011534,
+        24.35001,
+        265.0900599999936,
+        295.64999
+      ],
+      "segment_intersections": 1790,
+      "boundary_samples": 2135,
+      "samples_beyond_0p20_mm": 253,
+      "max_boundary_gap_beyond_halfwidth_mm": 6.113588712193794,
+      "worst_plate_xy_mm": [
+        132.3620922737825,
+        230.39999
+      ]
+    }
+  },
+  "scope": "Diagnoses raw contour flags against the exact saved finite-width/disabled-thin-wall slicing settings. Does not prove physical bonds or every internal sparse-infill road."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "3a33be497f8fb45c88b20e4b5c4b84723cedf9dd2c790fa03c36207fc6fb866f",
+  "gcode_sha256": "863b09b1064f1ea9d7ff1a4027c1fcc7e3d46136360e44cabc359750f8f9952f",
+  "support_audit_sha256": "ffcc4a4a8c0fa487079f8f07ce018ce82adf3f7329df9b5be4b7598bfa6b6559",
+  "geometry_confirmation_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "parts": [
+    {
+      "name": "foam-cap-top",
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "model_overhangs_review": "The exact +Z/floor-down top-cup slice contains no support bodies or interface islands. Its 14.6 mm walls, attachment/conduit columns and four G Ganen mount columns rise from the bedded floor; the cup mouth and insert bores face upward, and the screw/conduit bores pass vertically through the floor. There is no enclosed supported cavity to clean. Keep the flat lid-bearing rim/column tops, full floor and bores as exported. Native path bounds stay within the plate; zero support is a slice measurement, not a claim about physical warping, insert fit or strength.",
+      "trees": [],
+      "interfaces": []
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 09:31:42.897826] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 09:31:46.324400] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 09:31:46.324552] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The only three messages name inherited profile commands: startup hotend-type detection T1001 and end-code control/unload T65535/T65279. They are recorded parser diagnostics for those authored machine-code blocks; the native slice returned0, has no plate warning and retains the verified intended filament/nozzle mapping. No separate geometry diagnostic is emitted.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "review_scope": "This exact fresh top-cap archive only, with all raw zero-support readings and null build-up fields preserved. Physical fit and cleanup remain unmeasured."
+}

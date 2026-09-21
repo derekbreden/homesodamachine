@@ -1,0 +1,134 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "job_directory": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4",
+  "native_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+  "native_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+  "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58",
+  "support_audit": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/enclosure-front-top-black-z018-h2c-v4-input.support-audit.json",
+  "support_audit_sha256": "e5cb2cd1acea4a15c55c6be995254936c2e7adb3c68f1ce01b0294d7f28d1979",
+  "support_ledger": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/support-removal-review.json",
+  "receipt_sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+  "layers": 813,
+  "estimated_seconds": 87476.1328125,
+  "estimated_hours": 24.29892578125,
+  "estimated_grams_saved_profile": 814.6126708984375,
+  "estimated_grams_petgf_density_1p43": 903.0202475850896,
+  "brim_type": "auto_brim",
+  "brim_extrusion_segments": 0,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "support_summary": {
+        "support_bodies": 5,
+        "interface_islands": null,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 2,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 2,
+        "explicit_interface_islands": 21,
+        "shortest_labelled_build_up_mm": 44.88
+      },
+      "tree_count": 5,
+      "interface_count": 21
+    },
+    {
+      "name": "carrier-spring-pusher",
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "tree_count": 0,
+      "interface_count": 0
+    }
+  ],
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-top",
+        "side_margins_mm": [
+          34.4,
+          14.196,
+          48.03899999999999,
+          20.616999999999962
+        ],
+        "minimum_margin_mm": 14.196
+      },
+      {
+        "piece": "carrier-spring-pusher",
+        "side_margins_mm": [
+          289.825,
+          154.13,
+          21.826000000000022,
+          159.377
+        ],
+        "minimum_margin_mm": 21.826000000000022
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 14.196,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-front-top",
+          "carrier-spring-pusher"
+        ],
+        "projected_extrusion_box_gap_mm": 12.863999999999976,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 12.863999999999976,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "native_previews": [
+    {
+      "native_member": "Metadata/plate_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/plate_1.png",
+      "sha256": "d5b5257227216f323739594f45a8c377b60e58ccff131b08eb5b4fcb1e8f026b",
+      "bytes": 13464
+    },
+    {
+      "native_member": "Metadata/plate_1_small.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/plate_1_small.png",
+      "sha256": "02be09e4a09eb3dca0a19baa9a638909b394ae53d47bedff48d96568028df2c8",
+      "bytes": 3609
+    },
+    {
+      "native_member": "Metadata/plate_no_light_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/plate_no_light_1.png",
+      "sha256": "506fc1e738e7191ef12bb11d92fd5fc0bc4be8573556873049c16c87815d79f3",
+      "bytes": 3713
+    },
+    {
+      "native_member": "Metadata/top_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/top_1.png",
+      "sha256": "27a9c966533e155f0a392114ad1abd597fe4f4f5dac2629a9930154c6ba34d30",
+      "bytes": 5893
+    },
+    {
+      "native_member": "Metadata/pick_1.png",
+      "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/native-previews/pick_1.png",
+      "sha256": "70dd6e5b8dc3bbb7a0ef3c4c20f1b54bcbf326cc0f1cc6645734b37e607f233d",
+      "bytes": 2698
+    }
+  ],
+  "print_released": false,
+  "submitted": false
+}
