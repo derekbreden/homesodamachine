@@ -1,0 +1,328 @@
+{
+  "created_at_utc": "2026-09-21T05:19:32.401126+00:00",
+  "status": "pass",
+  "scope": "Bounded back-top west wall, actual placed split/regulator and declared anchor stations. Complete shell and unrelated pack neighbors are not tested here.",
+  "assembly_current": false,
+  "production_print_released": false,
+  "input_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure-box.json": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/frames.json": "e49f81ec1b5ab6d8112f680f22df33912881b9efff8bf89288d0ff2618686a1e",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/water-split.brep": "dc4721c1d4169a0516f4522cadd8a0cc4234fb6f6a74995947ccc9000f8981c3",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/flow-regulator.brep": "093050e093289e6d697b5ee4477e3aacab53d6636a4b871ad50565f10ef73727",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/foam-assembly.brep": "7535bcff78a1c76610cf3553e7bb11a5e0b8830513acba0a753756183cd1730f"
+  },
+  "checker_sha256": "1d2bf0ef0a1444156f69c94b33d72d56209662a5a676c0ec7683a3c5f4565f75",
+  "loaded_function_bytecode_sha256": {
+    "enclosure_assembly.flank_reliefs": "7d7312f3f613f5fbd5c43be76e32fe1b2e4b5b731c5dc61a63e38bb7a3b27dcb",
+    "enclosure._flank_body_pockets": "0827ed820f6b23febe52f4f5888681b9501d2f40d844c67244ed95c2e388f391",
+    "enclosure._tube_anchors": "7a70a597d2978e4e33cea44fbe8f6976a85397d2980b94c149382d32281617c7",
+    "enclosure._anchor_rib": "f597d38502081db50e2022d6c657f2e395b99108bc742862817e71e983376dea",
+    "enclosure._anchor_corbel": "60b8f8cd9bf4c0a8fc2aaaac19c3df78874e994c12c9e7293b9a3fac1e2df338",
+    "enclosure._anchor_column": "89877106a7cf7bc3753d758fbd71777178ae2d5933053c0130000e163b2926d0",
+    "enclosure._anchor_bore": "5371939ca5247901e6f1aeb53ff4406b0530bc5f0f254a039dbd5ecc226b7da0",
+    "enclosure._supported_cut": "ccd772c4a80b04d9aa1c0dc8fbe864df243dcaa9bd21816f5b29379bd3b093c8",
+    "water_split.clearance_seat": "d26cabfa41c02b306778b047051a6c6ebd3e990c71a044f487162384b4c5f3dd"
+  },
+  "function_source_sha256": {
+    "enclosure_assembly.flank_reliefs": "c70c8a493accc3b637b736962b608ba9065b63451f077852c6b549e4faefb7b4",
+    "enclosure._flank_body_pockets": "88703dd9c4d3f4494e24fb6db8310dbd4edc8d019196332c4be494837b803b60",
+    "enclosure._tube_anchors": "433ff743395025de769eb377902ebdeeb338715c960159d3ea9dd4d3391cba71",
+    "enclosure._anchor_rib": "cfccbfa6b9ee9fc4f76970168bdb3ec6d3d12f774c19d4e6e9556dcf77c19b07",
+    "enclosure._anchor_corbel": "580103cab05bda2c5c587d6e424819dd1ecee590a1f5223bafe70af4445cba49",
+    "enclosure._anchor_column": "288fd275c3454674691d16580096226c024fda68f7b193fca85cc9ddff810143",
+    "enclosure._anchor_bore": "f3d1a0ecb3db0583c595c1c79971ecf2dd85bca6a8dc476de96fff2cd24f48af",
+    "enclosure._supported_cut": "bac930e10ea1adc50a6a5d950c00b981ded7b98a3f19252bbcaa89d3b97c3850",
+    "water_split.clearance_seat": "f2332f2c5cb2c1a92c96dd13812ec21b5e585153bc734e3258e376472b43a48a"
+  },
+  "pockets": [
+    [
+      "flow-regulator",
+      -100.07321409974112,
+      -98.5,
+      231.81,
+      246.11,
+      313.2892919217043,
+      319.88214832066876
+    ],
+    [
+      "water-split",
+      -99.85,
+      -98.5,
+      220.21,
+      257.71000000000004,
+      270.310580837557,
+      295.5830248670614
+    ]
+  ],
+  "anchors": [
+    {
+      "station": [
+        [
+          -91.35,
+          252.51,
+          290.8105808375568
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        8.4,
+        [
+          null,
+          null
+        ]
+      ],
+      "nominal_wall_mm": 3.0,
+      "passage_depth_mm": 1.7500000000000053,
+      "tie_width_mm": 2.5,
+      "tie_thickness_mm": 1.0,
+      "tie_thickness_air_each_side_mm": 0.37500000000000266,
+      "shortest_closed_tie_loop_mm": 74.93118736021145
+    },
+    {
+      "station": [
+        [
+          -91.35,
+          223.95999999999998,
+          318.8105808375568
+        ],
+        [
+          1.5848095757158822e-17,
+          -1.0,
+          5.914589856893349e-17
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        7.0,
+        [
+          [
+            343.0,
+            null
+          ],
+          [
+            343.0,
+            null
+          ]
+        ]
+      ],
+      "nominal_wall_mm": 3.0,
+      "passage_depth_mm": 3.1500000000000057,
+      "tie_width_mm": 2.5,
+      "tie_thickness_mm": 1.0,
+      "tie_thickness_air_each_side_mm": 1.0750000000000028,
+      "shortest_closed_tie_loop_mm": 65.13842180963624
+    }
+  ],
+  "checks": [
+    {
+      "check": "bounded wall is one valid solid",
+      "value": 0,
+      "maximum": 0,
+      "pass": true
+    },
+    {
+      "check": "all complete native anchor stock is retained mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "water-split native body overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "water-split native bearing air mm",
+      "value": 0.14999999999979668,
+      "minimum": 0.15,
+      "pass": true
+    },
+    {
+      "check": "flow-regulator native body overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "flow-regulator native bearing air mm",
+      "value": 0.14999999999980673,
+      "minimum": 0.15,
+      "pass": true
+    },
+    {
+      "check": "water-split pocket outside its anchor has running air mm",
+      "value": 0.25,
+      "minimum": 0.25,
+      "pass": true
+    },
+    {
+      "check": "flow-regulator pocket leaves wall mm",
+      "value": 7.426785900258878,
+      "minimum": 3.0,
+      "pass": true
+    },
+    {
+      "check": "water-split pocket leaves wall mm",
+      "value": 7.650000000000006,
+      "minimum": 3.0,
+      "pass": true
+    },
+    {
+      "check": "anchor 1 tie passage fits its thickness mm",
+      "value": 1.7500000000000053,
+      "minimum": 1.0,
+      "pass": true
+    },
+    {
+      "check": "anchor 1 nominal wall missing mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 1 straight tie threading overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 1 tie threading / water-split overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 1 tie threading / flow-regulator overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 1 open straight support-extraction corridor mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 2 tie passage fits its thickness mm",
+      "value": 3.1500000000000057,
+      "minimum": 1.0,
+      "pass": true
+    },
+    {
+      "check": "anchor 2 nominal wall missing mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 2 straight tie threading overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 2 tie threading / water-split overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 2 tie threading / flow-regulator overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "anchor 2 open straight support-extraction corridor mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "fixed split collar carries the complete tie width",
+      "value": 0.0,
+      "maximum": 0.0,
+      "pass": true
+    },
+    {
+      "check": "split tie head / bounded native wall overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "split 25 mm straight tail-tension lane / wall overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "split tie head / foam-assembly overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "split tail-tension lane / foam-assembly overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "split tie head / flow-regulator overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "split tail-tension lane / flow-regulator overlap mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    }
+  ],
+  "support_access": {
+    "print_up": "-Z",
+    "opening_axis": "Z",
+    "removal_state": "Before split, regulator or tubing installation, with back-top separate.",
+    "actual_slice_bodies_reviewed": false,
+    "physical_cleanup_tested": false,
+    "limit": "Native tunnel has two open mouths; production slicing must verify connected support branches do not obstruct that straight extraction lane."
+  },
+  "tie_installation": {
+    "water_split_required_closed_loop_mm": 74.93118736021145,
+    "length_selection": "Use the documented 6 inch 18 lb tie; the 4 inch tie closing circumference is too short for the split anchor.",
+    "head_clocking": "Head on the exposed inboard crown, away from the wall and moving collets.",
+    "head_envelope_mm": [
+      2.8,
+      3.6,
+      5.0
+    ],
+    "straight_tail_tension_lane_length_mm": 25.0,
+    "head_and_tail_neighbor_readings": [
+      {
+        "name": "foam-assembly",
+        "head_overlap_mm3": 0.0,
+        "tail_lane_overlap_mm3": 0.0
+      },
+      {
+        "name": "flow-regulator",
+        "head_overlap_mm3": 0.0,
+        "tail_lane_overlap_mm3": 0.0
+      }
+    ],
+    "provided_pack_head_and_tail_lane_verified": true,
+    "complete_tool_body_and_physical_threading_verified": false
+  }
+}

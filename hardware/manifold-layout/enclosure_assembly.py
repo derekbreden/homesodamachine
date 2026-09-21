@@ -275,7 +275,6 @@ CLUSTER_WAGOS = {
 }
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
-SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "funnel" / "funnel.step"
 
 # The placement anchors. Each is a turn a body is installed at, and the machine holds
@@ -292,8 +291,8 @@ FOAM_YAW = 90.0
 COMPRESSOR_YAW = 90.0
 # The water pump lies flat on the core's crown. Its barbs are molded into the casting
 # and leave its ±Y side faces, so this yaw lands them on the machine's ±X, and lays its
-# 187 mm long axis front-to-back.
-SEAFLO_YAW = 90.0
+# measured motor axis front-to-back.
+WATER_PUMP_YAW = _lines._pump.YAW
 # The funnel's spout is on its collar centre, so a turn about Z picks nothing; 0 keeps
 # the collar's own axes on the top wall's.
 FUNNEL_ROT = 0.0
@@ -309,7 +308,7 @@ FUNNEL_ROT = 0.0
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
                         C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
-                        C_PSU, C_RELAY, C_SEAFLO,
+                        C_PSU, C_RELAY,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
@@ -318,8 +317,6 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
 # carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
 # The cold core is shells, caps and lids, and every one of them comes off the black spool.
 C_FOAM = M_PETG_BLACK
-# SEAFLO's own orange, which is the head casting — the whole outside of the pump but the white
-# motor can behind it and the black feet under it.
 # Cast platinum silicone, pigmented to hide concentrate staining.
 C_FUNNEL = M_SILICONE_BLACK
 # The funnel's own length of tube, off the roll `fluid-4` carries on below the union.
@@ -1408,7 +1405,21 @@ def tee_carrier_spec(mcarry, squeeze_stood, plate) -> _carrier.CarrierSpec:
                          for plane, sign, _seats in valve_tray_stations(solids) if sign < 0)
     entry_aft_y = max(shape.BoundingBox().ymax
                       for _name, shape in _carrier.insertion_envelopes(spec))
-    return replace(spec, entry_staging_y=aft_tray_fore_y - entry_aft_y - spec.slide_air)
+    limit = aft_tray_fore_y - entry_aft_y - spec.slide_air
+    if base.entry_staging_y > limit + 1e-6:
+        raise ValueError(f"carrier lowering station {base.entry_staging_y:g} exceeds native aft limit {limit:g}")
+    # The broad backing stands above the inner coils' complete forward
+    # projection during their unchanged underside/post-insertion route.
+    valve_entry_y = -(_vtray.grip() + spec.slide_air)
+    forward_top = []
+    for name in ("coil-v-c", "coil-v-d"):
+        cb = box(solids[name])
+        region = _carrier._box(cb.xmin-1, cb.xmax+1, cb.ymin-1,
+                               spec.web_aft_y + spec.side_web_added_y - valve_entry_y + spec.slide_air,
+                               cb.zmin-1, cb.zmax+1).val()
+        forward_top.append(solids[name].intersect(region).BoundingBox().zmax)
+    return replace(spec, entry_staging_y=base.entry_staging_y,
+                   side_web_z0=round(max(forward_top)+spec.slide_air, 6))
 
 
 def carrier_joint_heads(spec: _carrier.CarrierSpec, offsets=(0.0, 0.0)) -> tuple:
@@ -1677,12 +1688,12 @@ def add_carrier_spring_envelopes(a: cq.Assembly, interface: dict, *, state: str)
 def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
     """Read the complete carrier installation and working motion against live front-top.
 
-    The carrier part's own selftest proves the two halves and their clamped lap joint.
+    The carrier part's own selftest checks both halves and their captured rail/shelf joint.
     This is the complementary appliance reading: source-built front-top, including every tray,
     Wago well, stop, spring guide and service opening which can enter the moving envelope.
-    Complete rectangular sweeps enclose each half's rear entry, lowering and outward seating;
-    the remaining seating
-    motions use at most 0.7 mm between samples. Exact release and aft limit allow tangent contact; a 0.001 mm
+    Native boundary-face sweeps cover each half's complete rigid placement and working
+    travel, held-spring path and temporary-pusher removal. Separate valve and tee motions
+    use at most 0.7 mm between samples. Exact release and aft limit allow tangent contact; a 0.001 mm
     overshoot at each end must produce positive intersection and thereby prove both stops exist.
     """
     if not getattr(a, "tee_carrier", None):
@@ -1888,7 +1899,7 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         read(f"tee X{x:g} axial loading envelope", run.fuse(branch),
              (("enclosure-front-top", wall),))
 
-    # With the tees and joined carrier at release and the springs not yet loaded, each aft
+    # With the tees and preloaded joined carrier held at release, each aft
     # valve rises from the open underside with its posts clear of the tray, then presses its
     # full post length into the sockets.
     entry_dy = interface["aft_valve_entry_y"]
@@ -1913,60 +1924,33 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
                      shape.translate((0, entry_dy * (1 - i / (count - 1)), 0)),
                      (*carrier_installation, ("joined carrier at release", release_carrier)))
 
-    # Each half enters through the loose front-top's open rear above the valve supports,
-    # lowers behind the fixed body, slides fore to the aft stop and seats from inside into the
-    # flank recess. The left half seats first; the right slides onto the left half's tongue on
-    # the same stop. Both valve rows and both springs are absent during this route.
+    # Both halves enter with axially held springs in closed moving cups.
+    # The actual broad rail/shelf and flexible wall require native surfaces;
+    # rectangular half boxes would fill their intended sliding spaces.
+    from _carrier_motion import loading_checks, joint_checks, swept_overlap
     release = interface["states"]["release"]["offset_y"]
     aft_limit = interface["aft_limit_offset_y"]
     left_parked = halves[-1].translate((0.0, aft_limit, 0.0))
-    for side, entry_y in zip(interface["half_install_order"], interface["half_entry_offsets_y"]):
-        blockers = carrier_installation + ((("left half on the aft stop", left_parked),) if side > 0 else ())
-        envelopes = _carrier.insertion_envelopes(spec, side)
-        outside = halves[side].cut(*(shape for _name, shape in envelopes)).Volume()
-        if outside > CARRIER_MOTION_OVERLAP_TOL:
-            failures.append(f"half {side:+d} has {outside:.6f} mm³ outside its insertion envelopes")
-        rear_y = wall_box.ymax - spec.rim_y[0] + spec.slide_air
-        for stage, name, sweep in _carrier.insertion_sweeps(
-                spec, side, entry_y, rear_y, xz_air=spec.slide_air):
-            read(f"half {side:+d} complete {stage} {name} sweep with {spec.slide_air:g} mm X/Z air",
-                 sweep, blockers)
-        for name, envelope in _carrier.insertion_envelopes(spec, side, xz_air=spec.slide_air):
-            bb = envelope.BoundingBox()
-            sweep = _carrier._box(bb.xmin, bb.xmax, bb.ymin + release, bb.ymax + aft_limit,
-                                  bb.zmin, bb.zmax).val()
-            read(f"half {side:+d} full working {name} sweep with {spec.slide_air:g} mm X/Z air",
-                 sweep, wall_and_fixed)
-    # Each compressed spring comes down the outer tee well on its own side with the joined
-    # carrier at release, moves outward through its bar's loading window into the channel, and
-    # expands fore against the fixed seat. The fore valves are absent.
-    radius = interface["spring_clearance_d"] / 2.0 + spec.slide_air
-    for side, station in zip((-1, 1), interface["spring_stations"]):
-        x, z = station["x"], station["z"]
-        y0 = spec.spring_window_y[0] + release + spec.slide_air
-        y1 = y0 + spec.spring_load_length
-        # Down the outer tee's own port channel and well, above the seated arm's top collet,
-        # then outward over that collet to the window; the spring's centre reaches the
-        # channel axis and its outboard half is inside the channel the part's selftest proves.
-        entry_x = side * max(abs(tx) for tx in spec.tee_xs)
-        port_y0 = min(cavity[1][0] for cavity in interface["valve_cavities"]) + spec.slide_air
-        route = (
-            ("outer-well descent", _carrier._box(
-                entry_x - radius, entry_x + radius, port_y0, port_y0 + spec.spring_load_length,
-                z - radius, interface["body_top_z"] + 2.0 * radius)),
-            ("fore to the window", _carrier._box(
-                entry_x - radius, entry_x + radius, min(y0, port_y0),
-                max(y1, port_y0 + spec.spring_load_length), z - radius, z + radius)),
-            ("outward through the loading window", _carrier._box(
-                *sorted((entry_x - side * radius, x)), y0, y1, z - radius, z + radius)),
-        )
-        blockers = (*installation, ("joined carrier at release", release_carrier))
-        for stage, sweep in route:
-            read(f"spring X{x:g} {stage}", sweep.val(), blockers)
-        read(f"spring X{x:g} seating and expansion envelope",
-             _enc._ycyl(radius, x, z, station["seat_floor_y"],
-                        station["bore_floor_y"] + release),
-             (("enclosure-front-top", wall),))
+    loading = loading_checks(spec, _carrier.assembly_parts(spec), wall, seated_tees)
+    joint = joint_checks(spec, _carrier.assembly_parts(spec))
+    native_rows = list(loading['rows']) + joint['rigid_sweeps']
+    for side, shape in halves.items():
+        for name, obstacle in wall_and_fixed:
+            native_rows.append({'check':f'half {side:+d} complete working travel against {name}',
+                **swept_overlap(shape, (0,release,0), (0,aft_limit,0), obstacle)})
+    for row in native_rows:
+        overlap = max(row['initial_overlap_mm3'], row['max_prism_overlap_mm3'])
+        max_overlap = max(max_overlap, overlap)
+        readings += 1
+        if overlap > CARRIER_MOTION_OVERLAP_TOL:
+            failures.append(f"{row.get('check','joint structural motion')}: native swept overlap {overlap:.6f} mm³")
+    for row in joint['elastic_wall']:
+        readings += 1
+        max_overlap = max(max_overlap, row['overlap_mm3'])
+        if row['overlap_mm3'] > CARRIER_MOTION_OVERLAP_TOL:
+            failures.append(f"retaining-wall clearance witness overlaps by {row['overlap_mm3']:.6f} mm³")
+    if loading['spring_tool_to_tee_vertical_air_mm'] <= 0:
+        failures.append('held spring/pusher does not clear the seated tee tops')
     lap_contact = halves[1].translate((0.0, aft_limit, 0.0)).intersect(left_parked).Volume()
     if lap_contact > CARRIER_MOTION_OVERLAP_TOL:
         failures.append(f"the two halves overlap on the aft stop by {lap_contact:.6f} mm³")
@@ -1979,23 +1963,6 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         for name in sorted(ml.CARRIER_TEES):
             read(f'{name} sleeve and body travel {i + 1}/{count}', tee_pose(name, dy),
                  (("enclosure-front-top", wall),))
-
-    # Both M3 heads and the driver enter from the open rear, with the joined carrier on the
-    # aft stop and both valve rows absent: straight aft from each head to the aft tray, and up
-    # out of the loose piece from there.
-    parked_carrier = carrier.translate((0, aft_limit, 0))
-    for x, seat_y, z in _carrier.joint_sites(spec):
-        radius = _gnd.head_d / 2.0 + fits.slip
-        aft_reach = interface["body_floor_aft_y"] - 1.0
-        access = cq.Solid.makeCylinder(
-            radius, aft_reach - (seat_y + aft_limit),
-            cq.Vector(x, seat_y + aft_limit, z), cq.Vector(0.0, 1.0, 0.0))
-        read(f"M3 screw and driver at X{x:g} Z{z:g}", access,
-             (*carrier_installation, ("joined carrier on the aft stop", parked_carrier)))
-        column = _carrier._box(x - radius, x + radius, aft_reach - 2.0 * radius, aft_reach,
-                               z - radius, wall_box.zmax + 1.0)
-        read(f"driver lift above the screw at X{x:g} Z{z:g}", column.val(),
-             (*carrier_installation, ("joined carrier on the aft stop", parked_carrier)))
 
     # A real stop is air at its datum and material immediately beyond it.
     release_hit = carrier.translate(cq.Vector(0.0, release - 0.001, 0.0)).intersect(wall).Volume()
@@ -2046,8 +2013,8 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         "Tee carrier clears front-top through installation, nominal states and aft overtravel, and "
         "both end stops and all five transverse constraints engage",
         not failures,
-        f"{readings} solid/envelope checks including {spec.slide_air:g} mm X/Z air through "
-        f"every carrier insertion and working sweep; maximum unintended overlap {max_overlap:.6f} mm³; "
+        f"{readings} native solid/sweep checks including closed-cup preload and pusher removal; "
+        f"maximum unintended overlap {max_overlap:.6f} mm³; "
         f"release/aft overshoots {release_hit:.6f}/{park_hit:.6f} mm³; "
         f"{10 * len(interface['states'])} independent flank-capture readings at {spec.capture_probe_angle:.3g}° rotation, "
         f"minimum contact {contact_min:.6f} mm³; "
@@ -2167,7 +2134,7 @@ FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
 # when the back assembly comes over: the water pump, its two made-up chains, and the
 # three cap-cradled valves with their coils and port stubs. They sweep with the core,
 # so the ride carries them.
-CORE_RIDERS = ("seaflo-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
+CORE_RIDERS = ("g-ganen-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
                "coil-v-a", "coil-v-b", "stub-fluid-2", "stub-fluid-4",
                "discharge-chain", "suction-chain")
 # And what is NOT in the box at all when the core rides in: the pan and its plate come
@@ -2286,7 +2253,7 @@ def refrigerant_mates(joints) -> list:
 MOUNT_TOL = 0.001
 
 
-def pump_mount_rows(foam_carry, seaflo_carry) -> list:
+def pump_mount_rows(foam_carry, water_pump_carry) -> list:
     """Each of the pump's four mounting bores against the cap column bored for it, as
     `(has, wants)` in the cap's own frame.
 
@@ -2294,8 +2261,8 @@ def pump_mount_rows(foam_carry, seaflo_carry) -> list:
     `has` is the station `_cold_core_interface.deck_mounts` prints. Both are re-derived off the
     placed pump at every build, the same way the valve cradles are, because the pump is stood on
     the core's crown by this module and the column is printed by a part that never sees it."""
-    printed = sorted(_cci.deck_mount_xy("seaflo-pump"))
-    wanted = sorted(cap_xy(foam_carry, seaflo_carry(
+    printed = sorted(_cci.deck_mount_xy("g-ganen-pump"))
+    wanted = sorted(cap_xy(foam_carry, water_pump_carry(
         ((hx, hy, _lines._pump.mount_seat_z()), (0.0, 0.0, 1.0)))[0][:2])
         for hx, hy in _lines._pump.mount_holes())
     return list(zip(printed, wanted))
@@ -2338,7 +2305,7 @@ def cap_conduit(name: str):
     return ((x, y, _foam.cap_face_z), _foam.cap_conduit_axis_out())
 
 
-def seaflo_west_limit() -> float:
+def water_pump_west_limit() -> float:
     """The westmost the pump's casting may reach on the tray's storey.
 
     THE TRAY IS THE BODY WITH A WALL TO GET THROUGH. It draws out through a slot in the −X wall
@@ -2351,7 +2318,7 @@ def seaflo_west_limit() -> float:
             + _pan.PAN_SLIP + DRIP_SLEEVE_T + FOOT_CLEAR)
 
 
-def seaflo_port_lane_limit() -> float:
+def water_pump_port_lane_limit() -> float:
     """The westmost the pump's casting may reach on the FLAVOUR UNIONS' OWN STOREY.
 
     THE CASTING IS THE EAST FLANK OF THE PORT LANE. The two flavour unions cross the +Y wall of back-top
@@ -2362,38 +2329,36 @@ def seaflo_port_lane_limit() -> float:
     return PANEL_X["bulkhead-flavor-a"] + _jg.BODY_D / 2.0 + PORT_LANE_CLEAR
 
 
-def build_seaflo(foam, gate: float):
-    """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, its aft
-    face flush with the core's own back, and standing east of both the tray and the port lane.
+def build_water_pump(foam, gate: float):
+    """The measured pump on its bearing datum, with its rigid rear at the core rear.
 
-    IT IS SITED BY WHAT LIES WEST, not by the mirror plane. Centred, the pump left the tray
-    whatever the −X wall happened to be, which made the tray's rim a function of the appliance's
-    stated width; stood off `seaflo_west_limit`, the tray keeps its lane at any width and the
-    pump spends the air on its own east flank instead, staying centred wherever the lane is
-    already wide enough.
-
-    TWO ROOMS READ THE SAME CASTING and it is one body, so the shift is the wider of what they
-    ask. The tray lies alongside the pump at its own storey; the flavour unions cross the wall
-    aft of it and a storey up, in the band `flavor_storey` carries their barrels over the feet.
-
-    The casting is measured over each room's own four planes — above the feet and aft of the
-    discharge barb for the tray, in the rear band at the pair's own storey for the unions, the
-    places the box would answer for the whole part and be wrong (the feet are 8 mm of a 72 mm
-    casting, the barb one 10 mm band of a 187 mm one)."""
-    b = box(foam)
-    shape = import_step(str(SEAFLO_STEP)).val()
-    turns = (((0, 0, 1), SEAFLO_YAW),)
-    planes = dict(y1=b.ymax, z0=cap_face(foam))
-    probe, probe_carry = seat_body(shape, turns, cx=0.0, **planes)
+    Each selected rubber foot slides only along its casing rail. Free rubber can
+    extend below the measured average bearing plane; its box does not set the
+    pump height. The tray and rear fitting lanes constrain the lateral position.
+    """
+    pump = _lines._pump
+    shape = pump.build()
+    rigid_rear = pump.rigid_shape().BoundingBox().xmax
+    origin_y = box(foam).ymax - rigid_rear
+    bearing_z = cap_face(foam)
+    turns = (((0, 0, 1), WATER_PUMP_YAW),)
+    def at(x, seat=None):
+        return seat_body(shape, turns, seat=seat,
+                         station=(pump.bearing_datum(), (x, origin_y, bearing_z)))
+    probe, probe_carry = at(0.0)
     pb = box(probe)
-    west = pump_west_face(probe, pb.zmin + _lines._pump.FOOT_T, pb.zmax,
+    west = pump_west_face(probe, bearing_z + pump.observed_pad_upper_z(), pb.zmax,
                           pan_front_y(probe_carry), pb.ymax)
-    storey = flavor_storey(gate, probe)
+    storey = flavor_storey(gate, probe_carry)
     lane = pump_west_face(probe, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
                           bulkhead_mouth_y(), _enc.rear_plane_y)
-    return seat_body(shape, turns, seat="seaflo-pump",
-                     cx=max(0.0, seaflo_west_limit() - west,
-                            seaflo_port_lane_limit() - lane), **planes)
+    shift = max(0.0, water_pump_west_limit() - west if west is not None else 0.0,
+                water_pump_port_lane_limit() - lane if lane is not None else 0.0)
+    placed, carry = at(shift, "g-ganen-pump")
+    # Foot selection clears the actual union band, including after lateral placement.
+    if abs(flavor_storey(gate, carry) - storey) > 1e-6:
+        raise ValueError("Pump foot selection changed the rear fitting storey after placement")
+    return placed, carry
 
 
 # --- the suction chain, lying in the lane beside the pump ------------------
@@ -2406,7 +2371,7 @@ def build_seaflo(foam, gate: float):
 # run reaches either square on.
 #
 # It lies BARB AFT, COLLET FORWARD. The barb faces back at the pump because that is where its
-# hose comes from — `SEAFLO_YAW` lays the motor axis front-to-back, which puts the moulded
+# hose comes from — `WATER_PUMP_YAW` lays the motor axis front-to-back, which puts the moulded
 # suction barb on the head's EAST face pointing east, so `water-7` leaves across the machine and
 # turns forward onto a mouth facing it. The collet then faces FORWARD, down the machine at the
 # tap-water column that will feed it, rather than into the rear band.
@@ -2419,35 +2384,15 @@ SUCT_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
 # Its column is the rib's — `cap_anchors["suction-chain"]` — which hugs the pump rather than the
 # core's east edge and leaves the wall side of the strip open. `clearance-floor` is what holds it
 # off the pump's casting, the same reading it takes of every other pair.
-# How far FORWARD of the pump's suction mouth the chain's barb stands. `water-7` turns from east
-# to forward in this gap, and a 3/8" corner needs its whole radius as tangent in each leg it
-# touches.
-SUCT_CORNER_ROOM = 21.52
 
 
-def build_suction_chain(foam_carry, suction):
-    """The chain lying in its printed seat on the cold core's cap, east of the pump.
-
-    TWO OF ITS COORDINATES ARE THE SEAT'S, the same bargain its discharge twin takes: X and Z
-    come off `cap_anchor("suction-chain")`. Y stands its barb one `SUCT_CORNER_ROOM` forward of
-    the pump's suction mouth, which is what buys `water-7`'s corner.
-
-    WHAT FOLLOWS THIS PLANE IS V-K. `build_vk` seats the valve on this chain's own collet, so the
-    two mouths stay on one plane and the joint stays a butt — there is tube in both grips and
-    none between them. `cap_cradles["vk-solenoid"].seat` is
-    what carries the valve up to meet it, and `pack-closes` is what reads the butt.
-
-    What holds it off the pump's own casting is `clearance-floor`, the reading every other pair
-    on this card answers to."""
-    axis = foam_carry(cap_anchor("suction-chain"))[0]
-    chain = _suct.build()
-    # The chain's own Ø, read on X because the box is measured BEFORE the turn: unturned the
-    # chain stands its length on Z and its widest section across X, and the turn is about X.
-    half = box(chain).xlen / 2.0
-    return seat_body(chain, SUCT_CHAIN_TURN, seat="suction-chain",
-                     x0=axis[0] - half,
-                     y1=suction[0][1] - SUCT_CORNER_ROOM,
-                     z0=axis[2] - half)
+def build_suction_chain(foam_carry):
+    """Seat the actual hex midpoint on its printed anchor; V-K follows its collet."""
+    section = next(row for row in _suct.sections() if row[0] == "MAACFLOW hex")
+    mid = (section[2] + section[3]) / 2.0
+    return seat_body(_suct.build(), SUCT_CHAIN_TURN, seat="suction-chain",
+                     station=(((0.0, 0.0, -mid), (0.0, 0.0, 1.0)),
+                              foam_carry(cap_anchor("suction-chain"))[0]))
 
 
 # --- the discharge chain, in the lane west of the pump ---------------------
@@ -2459,37 +2404,15 @@ def build_suction_chain(foam_carry, suction):
 # It lies BARB AFT, COLLET FORWARD in the lane west of the pump, which is the suction chain's
 # own pose read across the machine — so it takes the suction chain's own turn.
 DISCH_CHAIN_TURN = SUCT_CHAIN_TURN
-# How far FORWARD of the pump's discharge mouth the chain's barb stands — the suction side's
-# `SUCT_CORNER_ROOM` read across the machine. `water-6` turns from west to forward and falls in
-# this gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
-DISCH_CORNER_ROOM = 24.0
 # What a printed rib holds its chain off itself, radially. `chains-seated` reads it back.
 CHAIN_SEAT_SLIP = fits.slip
-def build_discharge_chain(foam_carry, seaflo_carry):
-    """The chain lying in its printed seat on the cold core's cap, west of the pump.
-
-    TWO OF ITS COORDINATES ARE THE SEAT'S. X and Z come off `cap_anchor("discharge-chain")` —
-    the rib the top lid stands, carried out of the cap's own frame — so the body lies where the
-    printed part says and the two cannot drift apart. Y stands its barb one `DISCH_CORNER_ROOM`
-    forward of the pump's discharge mouth, which is what buys `water-6` its corner.
-
-    The rib is held against the section it seats: the seat's radius
-    is read off the placed chain's own stack, and the rib's whole length has to lie inside one
-    section of it.
-
-    THE COLLET FIRES AT THE FLOW REGULATOR'S BACK, on the storey that body stands on. What its
-    straight comes to against the 2 × `TUBE_BEND` a collet asks for is the `port-leads` row for
-    `discharge-chain.tube-port`, read there off the regulator's own solid."""
-    disch = seaflo_carry(_lines._pump.discharge())[0]
-    axis = foam_carry(cap_anchor("discharge-chain"))[0]
-    chain = _dis.build()
-    # The chain's own Ø, read on X because the box is measured BEFORE the turn: unturned the
-    # chain stands its length on Z and its widest section across X, and the turn is about X.
-    half = box(chain).xlen / 2.0
-    return seat_body(chain, DISCH_CHAIN_TURN, seat="discharge-chain",
-                     x0=axis[0] - half,
-                     y1=disch[1] - DISCH_CORNER_ROOM,
-                     z0=axis[2] - half)
+def build_discharge_chain(foam_carry):
+    """Seat the check's actual hex midpoint on the printed discharge anchor."""
+    section = next(row for row in _dis.sections() if row[0] == "GASHER hex")
+    mid = (section[2] + section[3]) / 2.0
+    return seat_body(_dis.build(), DISCH_CHAIN_TURN, seat="discharge-chain",
+                     station=(((0.0, 0.0, -mid), (0.0, 0.0, 1.0)),
+                              foam_carry(cap_anchor("discharge-chain"))[0]))
 
 
 # --- the tap-water bulkhead, through the +Y wall of back-top -------------------------
@@ -2914,7 +2837,7 @@ def west_seam_crown():
 # the flavour storey, and the west column takes one pitch beyond that. Swept over the wall by
 # dropping the union's own body down the lane:
 #
-#     enclosure_assembly.pump_west_face(seaflo, z0, z1, bulkhead_mouth_y(), rear_plane_y)
+#     enclosure_assembly.pump_west_face(water_pump, z0, z1, bulkhead_mouth_y(), rear_plane_y)
 PORT_LANE_CLEAR = 1.0
 # THE WEST COLUMN IS STRUCK, NOT CHOSEN. What fences this lane on that flank is not the −X wall
 # but the seam's own furniture standing off it — `west_seam_crown` — and a union clamped through
@@ -2931,28 +2854,24 @@ PORT_WEST_COLUMN = west_seam_crown() + PORT_LANE_CLEAR + _jg.BODY_D / 2.0
 PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
            "bulkhead-flavor-a": PORT_WEST_COLUMN + PORT_PITCH,
            "bulkhead-carb": PORT_WEST_COLUMN + PORT_PITCH}
-# What a union's barrel keeps off the pump's BRACKET where the two pass. The feet are the widest
-# section the casting has and they are only `seaflo_22_pump.FOOT_T` tall — above them the casting
-# steps back across the machine and the port lane opens by twenty millimetres. So a barrel
-# carried over the feet has the lane and one struck through them does not.
+# Clearance from a union's barrel to any rubber slider in its actual passage.
 PORT_FOOT_CLEAR = 1.0
 
 
-def flavor_storey(gate: float, seaflo) -> float:
-    """The storey the two flavour unions cross the wall on: their own runs' cruise lane, or the
-    plane that carries their barrels over the pump's bracket, whichever is higher."""
-    return max(gate, box(seaflo).zmin + _lines._pump.FOOT_T
-               + PORT_FOOT_CLEAR + _jg.BODY_D / 2.0)
-# THE WEST COLUMN CARRIES THE TAP WATER UNION TOO, one storey up: the chain, the split, the
-# regulator and the ASSE drip pan under the vent all hang off that union, and the column is what
-# stands them in the lane.
-#
-# THE STOREY THE FLAVOUR UNIONS TAKE IS THEIR OWN RUNS'. `_lines.gate_cruise` is the plane the
-# west gate climbs to under the reservoir line crossing its column, and it is the plane both runs
-# arrive on: `fluid-28` cruises its union's own column onto it and `fluid-18` comes down that
-# column onto it, so each run's last move into its collet is flat. `flavor_storey` then carries
-# both barrels clear over the pump's bracket, and what the runs spend on that is one short lean
-# apiece at the aft end.
+def flavor_storey(gate: float, pump_carry) -> float:
+    """Rear unions clear the actual rubber feet in their own X/Y passage."""
+    pump = _lines._pump
+    feet = cq.Compound.makeCompound(list(pump.feet_shapes(pump_carry).values()))
+    radius = _jg.BODY_D / 2.0
+    b = feet.BoundingBox()
+    slab = cq.Solid.makeBox(2.0 * radius, _enc.rear_plane_y - bulkhead_mouth_y(),
+                            b.zmax - b.zmin + 2.0,
+                            cq.Vector(PANEL_X["bulkhead-flavor-a"] - radius,
+                                      bulkhead_mouth_y(), b.zmin - 1.0))
+    band = pump.occupied_bounds(pump.intersect_components(feet, slab))
+    return max(gate, band[1][2] + PORT_FOOT_CLEAR + radius) if band else gate
+
+
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
 
 
@@ -3769,7 +3688,7 @@ def co2_wall_port(inlet_carry):
 # one box — the clearances the core and the pump stand off are struck against it — so a
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
-STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
+STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
               "display-gasket", "pump-jack",
               "psu", "pcba",
@@ -3948,7 +3867,7 @@ def build_psu(foam, wall_seat):
     Three faces of the machine and not three numbers: EAST on the wall seat, FOOT on the cap's
     own lid, and AFT its own rear mount hole on `enclosure.wall_boss_aft_limit` — the brick
     answers to the corner with the hole pattern it has, so its aft face lands wherever that
-    puts it. The lane it lies in is what the SeaFlo leaves east of itself on that cap.
+    puts it. The lane it lies in is what the G Ganen leaves east of itself on that cap.
 
     THE COLUMN AHEAD OF IT HAS NOTHING TO TAKE. Relay #2 and the main board are packed one
     `WIRED_CLEAR` at a time off this brick's own fore face and the main board stands about a
@@ -4521,11 +4440,8 @@ ASSE1022_YAW = -90.0
 # flush: the union hangs `jg_bulkhead_union.far_ring_face_y` inboard of the wall it clamps
 # through, and the chain's inlet collet meets that face. So a longer union, or a thicker wall,
 # moves the chain forward — and the whole west lane, which hangs off this chain, comes with it.
-# THE PUMP IS NOT ITS BOX, and the lane west of it is a different width at every height. The
-# bracket's splayed feet are the widest thing on the casting and they are only
-# `seaflo_22_pump.FOOT_T` tall; over them the cradle steps in, and the head's flange steps back
-# out. The chain and its pan stand on the deck's storey, high over the bracket, and what
-# fences them there is whatever the casting presents AT THEIR OWN HEIGHT.
+# The lane beside the pump is measured through the room the chain and pan occupy.
+# Rubber sliders, lower cradle and port roots have distinct occupied sections.
 #
 # The tray's SLEEVE stands off the casting's west flank by this, read over the
 # room the sleeve itself stands in.
@@ -4555,18 +4471,17 @@ def pan_floor(asse):
     return pan_rim_z(asse) - _pan.PAN_Z
 
 
-def pump_west_face(seaflo, z0, z1, y0, y1):
-    """The westmost the pump's casting reaches inside a room — the fence a body lying beside the
-    pump in that room actually has.
+def pump_west_face(water_pump, z0, z1, y0, y1):
+    """Occupied pump extent inside the queried room, or None for an empty room.
 
-    MEASURED ON THE SOLID over the room's OWN FOUR PLANES, because the box would answer with the
-    feet at every height and with the discharge barb at every station: the feet are 8 mm of a
-    72 mm casting, and the barb fires west out of one 10 mm band of a 187 mm one."""
-    b = box(seaflo)
-    slab = (cq.Workplane("XY")
-            .box(b.xlen + 2.0, y1 - y0, z1 - z0, centered=False)
-            .translate((b.xmin - 1.0, y0, z0)).val())
-    return box(seaflo.intersect(slab)).xmin
+    Per-component intersection avoids partitioning overlapping envelope bodies;
+    it has the same occupied bounds as a compound Boolean section.
+    """
+    b = box(water_pump)
+    slab = cq.Solid.makeBox(b.xlen + 2.0, y1 - y0, z1 - z0,
+                            cq.Vector(b.xmin - 1.0, y0, z0))
+    band = _lines._pump.occupied_bounds(_lines._pump.intersect_components(water_pump, slab))
+    return band[0][0] if band else None
 
 
 def pan_west_x():
@@ -4774,17 +4689,13 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
 PAN_PORT_CLEAR = 10.0
 
 
-def pan_front_y(seaflo_carry):
-    """The Y the tray's sleeve stands its forward face on: one `PAN_PORT_CLEAR` aft of the pump's
-    discharge. The pan's own forward rim is one sleeve section and one slip further aft.
-
-    The barb is a cylinder firing along ±X, so what it stands in down the lane is its centreline
-    and its own radius. Moving the pump moves the tray that clears it."""
-    pos = seaflo_carry(_lines._pump.discharge())[0]
-    return pos[1] + _lines._pump.PORT_D / 2.0 + PAN_PORT_CLEAR
+def pan_front_y(water_pump_carry):
+    """The tray clears the measured discharge barb and root in their placed pose."""
+    return (_lines._pump.discharge_shape(water_pump_carry).BoundingBox().ymax
+            + PAN_PORT_CLEAR)
 
 
-def build_pan(asse, seaflo, seaflo_carry, asse_carry):
+def build_pan(asse, water_pump, water_pump_carry, asse_carry):
     """The ASSE drip pan, under the atmospheric vent and over the pump's casting.
 
     IN Y THE PUMP'S DISCHARGE BOUNDS IT AND THE VENT DOES NOT. The sleeve's forward face is
@@ -4806,7 +4717,7 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry):
     record_bound(Bound(*_pan.check_plate()))
     placed, carry = seat_body(
         pan, (), seat="asse-drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
-        y0=pan_front_y(seaflo_carry) + DRIP_SLEEVE_T + _pan.PAN_SLIP)
+        y0=pan_front_y(water_pump_carry) + DRIP_SLEEVE_T + _pan.PAN_SLIP)
     return placed, carry
 
 
@@ -4957,7 +4868,7 @@ def build_flowreg(split_carry):
 # V-K STANDS ON THE CHAIN'S OWN MOUTH AND NOTHING ELSE DECIDES ITS DEPTH. Three Beduans sit on
 # this cap — V-A, V-B and this one — all the same way up. The two the pack carries stand where
 # the flavour chain's butted layout puts them, which is a plane this valve does not share: the
-# chain behind V-K is stood off the pump's suction mouth (`SUCT_CORNER_ROOM`), and what is left
+# chain behind V-K lies on its printed cap anchor, and what is left
 # between its collet and V-K's outlet has to be nothing, because that joint is a butt with tube
 # in both grips and none between them. So the chain's plane is the one V-K answers to, and the
 # millimetres between its end and the source pair's are whatever the pack's own body lengths
@@ -5334,12 +5245,12 @@ def build_pack() -> cq.Assembly:
     a.core_holds = core_holds(foam)
     a.vent_chase = vent_chase(foam, foam_carry)
     # The gate lane's own cruise, off the placed manifold — the plane the flavour pair climbs to.
-    # Two bodies take it: `build_seaflo` carries it into `flavor_storey` for the band its casting
+    # Two bodies take it: `build_water_pump` carries it into `flavor_storey` for the band its casting
     # is measured over, and `a.gate_z` stands the pair itself on what that storey comes out at.
     gate_cruise = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
-    seaflo, seaflo_carry = build_seaflo(foam, gate_cruise)
-    a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
-    chain, chain_carry = build_suction_chain(foam_carry, seaflo_carry(_lines._pump.suction()))
+    water_pump, water_pump_carry = build_water_pump(foam, gate_cruise)
+    a.add(water_pump, name="g-ganen-pump", color=M_DONOR_BLACK)
+    chain, chain_carry = build_suction_chain(foam_carry)
     a.add(chain, name="suction-chain", color=C_SUCT)
     wall_seat = east_wall_seat()
     psu, psu_carry = build_psu(foam, wall_seat)
@@ -5409,14 +5320,14 @@ def build_pack() -> cq.Assembly:
             + " — carry the placed stations into _cold_core_interface.cap_cradles")
     # The pump's own joint, read the same way: the four cap columns against the four bores in
     # the bracket's pad, both taken back into the frame the cap is authored in.
-    a.pump_mount = pump_mount_rows(foam_carry, seaflo_carry)
+    a.pump_mount = pump_mount_rows(foam_carry, water_pump_carry)
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
     # split, the regulator and the ASSE drip pan all take station off the chain. NEITHER IS THE GAS
     # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
     # strike and answers to `deck_storey` the way the union row does.
-    a.gate_z = flavor_storey(gate_cruise, seaflo)
+    a.gate_z = flavor_storey(gate_cruise, water_pump_carry)
     # The signal jack shares the soda/flavour-A column and centres its taller inboard pocket
     # between their two axes. It goes down before the deck strike so the soda union's descent
     # reads the real body standing below it rather than an empty interval the finished machine
@@ -5446,7 +5357,7 @@ def build_pack() -> cq.Assembly:
     a.co2_inlet_carry = co2in_carry
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
-    pan, pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry)
+    pan, pan_carry = build_pan(asse, water_pump, water_pump_carry, asse_carry)
     a.add(pan, name="asse-drip-pan", color=C_PAN)
     mplate, _mplate_carry = build_moisture_plate(pan_carry, asse_carry)
     a.add(mplate, name="moisture-plate", color=C_PLATE)
@@ -5454,7 +5365,7 @@ def build_pack() -> cq.Assembly:
     a.add(split, name="water-split", color=C_SPLIT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
-    disch, disch_carry = build_discharge_chain(foam_carry, seaflo_carry)
+    disch, disch_carry = build_discharge_chain(foam_carry)
     a.add(disch, name="discharge-chain", color=C_SUCT)
     # Each rib the cap prints against the sections of the chain it stands under, read back off
     # the placed body — the same reading the pump's four columns take. Both chains are down by
@@ -5505,7 +5416,7 @@ def build_pack() -> cq.Assembly:
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
-    carries = {"foam-assembly": foam_carry, "seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
+    carries = {"foam-assembly": foam_carry, "g-ganen-pump": water_pump_carry, "suction-chain": chain_carry,
                "discharge-chain": disch_carry,
                "compressor": comp_carry, "condenser+fan": cond_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
@@ -5513,7 +5424,7 @@ def build_pack() -> cq.Assembly:
                "bulkhead-water": bulkhead_carry, "co2-inlet": co2in_carry,
                "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
-    solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
+    solids = {"foam-assembly": foam, "g-ganen-pump": water_pump, "suction-chain": chain,
               "discharge-chain": disch,
               "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
@@ -5966,18 +5877,9 @@ KEPT_WEDGES = (
 
 def pan_cable_clip_room(box) -> tuple:
     """The SIG-9 clip's profile room, on the sleeve and wall that place the clip."""
-    sleeve = box.pack.pan_sleeve
-    if not sleeve or not sleeve[0]:
+    bounds = _enc.pan_cable_clip_bounds(box)
+    if bounds is None:
         return ()
-    blocks = sleeve[0]
-    if len(blocks) != 1:
-        raise ValueError(f"the pan cable clip needs one sleeve block; got {len(blocks)}")
-    clip = _enc._cable_clip
-    face = _enc.back_top_flank_face()[0]
-    y1 = box.inner[3] - _enc.pan_cable_clip_rear_land
-    z0 = blocks[0][4] - clip.DEPTH
-    bounds = (face - _enc.pan_cable_clip_embed, y1 - clip.RUN, z0,
-              face + clip.projection(_enc.pan_cable_clip_embed), y1, z0 + clip.HEIGHT)
     return ((
         "the SIG-9 cable clip's section", bounds,
         "the clip is the stated profile, laid for the print by `cable_clip.apply`; its arms' "
@@ -6211,26 +6113,30 @@ def wedge_fills(placed, authored_rooms=()) -> Bound:
 
 
 def flank_reliefs(placed):
-    """The regulator hub's clearance pocket in back-top's west flank.
+    """Native-footprint pockets for the fixed split and regulator in the west flank.
 
-    Only the solid entering the added flank stock determines the pocket. The
-    barrel seat and its two supporting columns keep their full working sections.
+    Each footprint includes the near-wall surface within its clearance so that
+    pocket corners clear drafted collars. Both pockets stay within the added
+    flank stock. The shell cuts them before restoring its complete anchor ribs.
     """
-    shape = placed["flow-regulator"][0]
     face = _enc.back_top_flank_face()[0]
-    b = box(shape)
-    if b.xmin >= face:
-        return ()
-    intruding = shape.intersect(cq.Solid.makeBox(
-        face - b.xmin, b.ylen + 2.0, b.zlen + 2.0,
-        cq.Vector(b.xmin, b.ymin - 1.0, b.zmin - 1.0)))
-    hit = box(intruding)
-    air = BODY_ANCHOR_SLIP
-    floor = hit.xmin - air
-    if floor < _enc.interior_x()[0]:
-        raise ValueError("flow-regulator pocket would enter the enclosure's nominal wall")
-    return (("flow-regulator", floor, face, hit.ymin - air, hit.ymax + air,
-             hit.zmin - air, hit.zmax + air),)
+    pockets = []
+    for name, air, approach in (("flow-regulator", BODY_ANCHOR_SLIP, BODY_ANCHOR_SLIP),
+                                ("water-split", fits.running, fits.running)):
+        shape = placed[name][0]
+        b = box(shape)
+        if b.xmin >= face + approach:
+            continue
+        near_wall = shape.intersect(cq.Solid.makeBox(
+            face + approach - b.xmin, b.ylen + 2.0, b.zlen + 2.0,
+            cq.Vector(b.xmin, b.ymin - 1.0, b.zmin - 1.0)))
+        hit = box(near_wall)
+        floor = hit.xmin - air
+        if floor < _enc.interior_x()[0]:
+            raise ValueError(f"{name} pocket would enter the enclosure's nominal wall")
+        pockets.append((name, floor, face, hit.ymin - air, hit.ymax + air,
+                        hit.zmin - air, hit.zmax + air))
+    return tuple(pockets)
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
@@ -6675,7 +6581,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
 
     print("\nbodies")
     sh, co = box(named["compressor"]), box(named["condenser+fan"])
-    fo, sf = box(named["foam-assembly"]), box(named["seaflo-pump"])
+    fo, sf = box(named["foam-assembly"]), box(named["g-ganen-pump"])
     line("compressor", sh)
     line("condenser+fan", co)
     pack = None
@@ -6686,7 +6592,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
     line("foam-assembly", fo)
-    line("seaflo-pump", sf)
+    line("g-ganen-pump", sf)
     if "funnel" in named:
         line("funnel", box(named["funnel"]))
     if "suction-chain" in named:
@@ -6737,9 +6643,9 @@ def report(a: cq.Assembly, clashes=None) -> None:
         p = a.refrigerant_at[j.frm][0]
         print(f"  {j.id:16} {j.frm.split('.')[1]:16} {j.made:5} {j.to.split('.')[1]:16} "
               f"({p[0]:7.2f},{p[1]:7.2f},{p[2]:6.2f})  off {j.mm:.3f}")
-    print(f"  core crown       z {fo.zmax:.2f}   seaflo floor         z {sf.zmin:.2f}   "
-          f"gap {sf.zmin - fo.zmax:.2f}")
-    print(f"  core aft face    y {fo.ymax:.2f}   seaflo aft face      y {sf.ymax:.2f}   "
+    print(f"  core cap face    z {cap_face(named['foam-assembly']):.2f}   "
+          f"pump free rubber low z {sf.zmin:.2f}; bearing datum is the cap face")
+    print(f"  core aft face    y {fo.ymax:.2f}   water pump aft face      y {sf.ymax:.2f}   "
           f"flush by {sf.ymax - fo.ymax:.2f}; it clears the pack by {sf.ymin - pack.ymax:.2f} mm")
     over = [(n, box(s)) for n, s in placed
             if _manifold(n) and box(s).ymax > fo.ymin + 1e-6]

@@ -1,0 +1,1469 @@
+{
+  "scope": "Frozen measured-tee native pack. Connected-state comparisons use its actual placed tubes. At other stops the four attached tee bodies move with the carrier; tube readings retain the connected tube path only, not a simulated flexible tube shape. Carrier installation uses the loose front-top with valves absent, and checks the four seated tees. Matching native wall readings are in wall-checks.json.",
+  "generator_sha256": "b131a9fb5100d17c807e08e1e411fb643f10447913596e26ba594ba28a866cc1",
+  "script_sha256": "7b82bd2bd20e1a758dd1c3e62fea21551e8d8755e181240dcc55810a650cafb0",
+  "neighbor_manifest_sha256": "bdc2bb8e19776fb4737b1c6a1e75a7e7b860cb499de3a39e8a660f26f546be94",
+  "tee_envelope_script_sha256": "845cb2d65d18a22d4260ff309d0ea57cf8e1c2d65fa1e6002ce07ecaf937e791",
+  "operating": [
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "coil-v-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tee-y-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "valve-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "coil-v-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tee-y-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "valve-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "coil-v-j",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tee-y-g",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "valve-v-i",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-10",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-11",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-20",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-21",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-22",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-23",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "left",
+      "neighbor": "tube-fluid-27",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "coil-v-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tee-y-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "valve-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "coil-v-g",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tee-y-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "valve-v-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "coil-v-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tee-y-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "valve-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-10",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-11",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-12",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-13",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-20",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-21",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "release",
+      "side": "right",
+      "neighbor": "tube-fluid-17",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "coil-v-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tee-y-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "valve-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "coil-v-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tee-y-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "valve-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "coil-v-j",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tee-y-g",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "valve-v-i",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-10",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-11",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-20",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-21",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-22",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-23",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "left",
+      "neighbor": "tube-fluid-27",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "coil-v-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tee-y-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "valve-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "coil-v-g",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tee-y-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "valve-v-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "coil-v-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tee-y-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "valve-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-10",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-11",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-12",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-13",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-20",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-21",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "connected",
+      "side": "right",
+      "neighbor": "tube-fluid-17",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "coil-v-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tee-y-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "valve-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "coil-v-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tee-y-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "valve-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "coil-v-j",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tee-y-g",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "valve-v-i",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tube-fluid-10",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tube-fluid-20",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tube-fluid-23",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "left",
+      "neighbor": "tube-fluid-27",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "coil-v-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tee-y-c",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "valve-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "coil-v-e",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "coil-v-g",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tee-y-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "valve-v-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "coil-v-d",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tee-y-f",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "valve-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "coil-v-h",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tube-fluid-10",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tube-fluid-13",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tube-fluid-20",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "state": "aft_limit",
+      "side": "right",
+      "neighbor": "tube-fluid-17",
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    }
+  ],
+  "tee_assembly_sweeps": [
+    {
+      "side": -1,
+      "tee": "tee-y-c",
+      "start": [
+        17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-d",
+      "start": [
+        17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-f",
+      "start": [
+        17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-g",
+      "start": [
+        17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-c",
+      "start": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-d",
+      "start": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-f",
+      "start": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-g",
+      "start": [
+        17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-c",
+      "start": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-d",
+      "start": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-f",
+      "start": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-g",
+      "start": [
+        17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-c",
+      "start": [
+        3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-d",
+      "start": [
+        3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-f",
+      "start": [
+        3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-g",
+      "start": [
+        3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-c",
+      "start": [
+        3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-d",
+      "start": [
+        3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-f",
+      "start": [
+        3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": -1,
+      "tee": "tee-y-g",
+      "start": [
+        3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-c",
+      "start": [
+        -17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-d",
+      "start": [
+        -17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-f",
+      "start": [
+        -17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-g",
+      "start": [
+        -17.150000000000006,
+        210,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-c",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-d",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-f",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-g",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "end": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-c",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-d",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-f",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-g",
+      "start": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-c",
+      "start": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-d",
+      "start": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-f",
+      "start": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-g",
+      "start": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "end": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-c",
+      "start": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-d",
+      "start": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-f",
+      "start": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "side": 1,
+      "tee": "tee-y-g",
+      "start": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "end": [
+        0,
+        4.5,
+        0
+      ],
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    }
+  ],
+  "flex_wall_envelope": [],
+  "tee_envelope_containment": {
+    "tee-y-c": 0.0,
+    "tee-y-d": 0.0,
+    "tee-y-f": 0.0,
+    "tee-y-g": 0.0
+  },
+  "sweep_method": "Each full native tee is first proved inside a union of two radius-8.25 mm cylinders. Exact cylinder/box unions cover every point of each straight carrier motion. Positive envelope overlaps are conservative; zeros prove clearance.",
+  "outer_tee_entry_corner": [
+    {
+      "part": "screwed_reference",
+      "left_inset_x_mm": 3.25,
+      "overlap_mm3": 203.2457571080015,
+      "hit_bounds": {
+        "x": [
+          -90.35,
+          -87.75
+        ],
+        "y": [
+          102.79,
+          109.55165534607568
+        ],
+        "z": [
+          175.3,
+          207.4240001
+        ]
+      }
+    },
+    {
+      "part": "study",
+      "left_inset_x_mm": 3.25,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "part": "screwed_reference",
+      "left_inset_x_mm": 2.5,
+      "overlap_mm3": 95.8891503092967,
+      "hit_bounds": {
+        "x": [
+          -90.35,
+          -88.49999999999996
+        ],
+        "y": [
+          102.79,
+          108.74600614675022
+        ],
+        "z": [
+          175.3,
+          204.6740001
+        ]
+      }
+    },
+    {
+      "part": "study",
+      "left_inset_x_mm": 2.5,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "part": "screwed_reference",
+      "left_inset_x_mm": 1.5,
+      "overlap_mm3": 18.549441731876215,
+      "hit_bounds": {
+        "x": [
+          -90.35,
+          -89.49999999999972
+        ],
+        "y": [
+          102.79,
+          107.18725924496812
+        ],
+        "z": [
+          175.3,
+          204.6740001
+        ]
+      }
+    },
+    {
+      "part": "study",
+      "left_inset_x_mm": 1.5,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "part": "screwed_reference",
+      "left_inset_x_mm": 0,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    },
+    {
+      "part": "study",
+      "left_inset_x_mm": 0,
+      "overlap_mm3": 0.0,
+      "hit_bounds": null
+    }
+  ],
+  "installation_tee_pose": {
+    "state": "release",
+    "translation_from_native_pack_y_mm": -2.0,
+    "authority": "hardware/manifold-layout/enclosure_assembly.py _carrier_front_top_motion_bound seats installation tees at spec.release_offset_y; branch sleeve envelope is unpressed and remote from the carrier."
+  },
+  "all_reported_native_readings_clear": true,
+  "nonzero_operating": []
+}

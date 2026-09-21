@@ -498,7 +498,7 @@
       "printer": "H2C",
       "printer_serial": "31B8AP612000452",
       "job_name": "pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
-      "status": "started",
+      "status": "cancelled",
       "purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly.",
       "sent_via": "Bambu Connect, verified Send selector H2C and left external PET-CF mapping",
       "started_by": "agent",
@@ -532,13 +532,19 @@
         "flow_dynamic_calibration": "Auto",
         "nozzle_offset_calibration": "Auto"
       },
-      "observed_state": "RUNNING",
-      "observed_at_utc": "2026-09-21T03:20:54.501001+00:00",
+      "observed_state": "FAILED",
+      "observed_at_utc": "2026-09-21T03:45:39.329351+00:00",
       "observed_layer": 0,
-      "observed_print_error": 0,
+      "observed_print_error": 50348044,
       "hms": [],
       "physical_fit_tested": false,
-      "production_enclosure_released": false
+      "production_enclosure_released": false,
+      "cancel_reason": "Added narrow cap rails are not accepted; Derek confirms the existing assembled cap holds both pumps firmly with no vertical play.",
+      "last_running_layer": 1,
+      "last_running_total_layers": 496,
+      "nozzle_target_c": 0,
+      "bed_target_c": 0,
+      "geometry_manifest_archive": ".cache/prints/2026-09-20-pump-cartridge-measured-tee-black-z018-h2c-v1/submitted-pump-cartridge-generation.json"
     }
   ]
 }

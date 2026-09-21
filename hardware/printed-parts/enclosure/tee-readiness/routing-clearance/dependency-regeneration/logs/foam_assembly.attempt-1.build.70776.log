@@ -1,0 +1,34 @@
+-> foam-assembly.step.mesh  (3 fluted piece(s))
+-> foam-assembly.step
+  part                  X range            Y range            Z range
+  foam-shell          [ -141.5,  141.5]  [  -90.5,   90.5]  [   -0.0,  213.4]
+  foam-cap-top        [ -141.5,  141.5]  [  -90.5,   90.5]  [  213.4,  228.0]
+  foam-cap-lid-top    [ -141.5,  141.5]  [  -90.5,   90.5]  [  228.0,  285.8]
+  foam-cap-bottom     [ -141.5,  141.5]  [  -90.5,   90.5]  [  -18.0,   -0.0]
+  foam-cap-lid-bottom [ -141.5,  141.5]  [  -90.5,   90.5]  [  -20.0,  -14.6]
+  screw pattern: 10 points, closed under the half turn (shared top + bottom)  OK
+  cap face 233.4, 253.4 mm over the stack's own floor — what stands on the core is placed off this, not off the box's top  OK
+  CO2 reach in: (41.62, -52.60) .. (0.00, -19.05) at z 17.00, 53.5 mm straight — clear  OK
+  cap conduit water-in  (-134.90,  +56.00) clear through cap + lid; bottom solid  OK
+  cap conduit reservoir-a (-134.90,  -43.50) clear through cap + lid; bottom solid  OK
+  cap conduit reservoir-b (-134.90,  +43.50) clear through cap + lid; bottom solid  OK
+  cap conduit reservoir-a-fill (+102.50,  -57.50) clear through cap + lid; bottom solid  OK
+  cap conduit reservoir-b-fill ( -90.50,  +43.50) clear through cap + lid; bottom solid  OK
+  cap conduit carb-water-out ( -52.20,  -77.50) clear through cap + lid; bottom solid  OK
+  cap conduit co2-in    (  -1.50,  -77.50) clear through cap + lid; bottom solid  OK
+  cap conduit reed-cable-a (+134.50,  +31.00) clear through cap + lid; bottom solid  OK
+  cap conduit reed-cable-b (-134.50,  +31.00) clear through cap + lid; bottom solid  OK
+  screw paths: all 10 clear through every cap + lid (top + bottom)  OK
+  no solid collisions
+  internal routes: 8 lines in 1/4" LLDPE, stock arc 14 mm — 2.2×OD — bench test on the spool: "flow with no kinks at 14.0 mm comfortably"
+    carb-water-out     336.8 mm, 6 corners, arc 14.00 mm, tightest 14.00 mm — clear
+    co2-in             332.7 mm, 2 corners, arc 14.00 mm, tightest 14.00 mm — clear
+    prv-vent            25.0 mm, 1 corners, arc 14.00 mm, tightest 14.00 mm — clear
+    reservoir-a        553.8 mm, 4 corners, arc 14.00 mm, tightest 14.00 mm — clear
+    reservoir-a-fill    20.2 mm, 0 corners, arc 14.00 mm, tightest  none   — clear
+    reservoir-b        350.8 mm, 3 corners, arc 14.00 mm, tightest 14.00 mm — clear
+    reservoir-b-fill    20.2 mm, 0 corners, arc 14.00 mm, tightest  none   — clear
+    water-in           247.7 mm, 3 corners, arc 14.00 mm, tightest 14.00 mm — clear
+    no line meets another
+    every corner at the stock arc
+-> internal-routes.step

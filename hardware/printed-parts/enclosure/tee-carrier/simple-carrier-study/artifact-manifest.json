@@ -1,0 +1,369 @@
+{
+  "status": "native_geometry_ready_for_combined_enclosure_trial_build",
+  "recorded_utc": "2026-09-21T04:15:03.934128+00:00",
+  "scope": "Isolated native carrier and fixed-cup integration; combined enclosure generation, printable meshes and their actual slices are separate production evidence.",
+  "physical_status": "Full-enclosure trial not yet observed. Spring feel, actual coil retention, snap fit, support removal and assembled rigidity are trial outcomes.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "d7952ebf65b791883847cd0abc51ee19092ff7a5c1f9dad3325663b17c37d122",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "8a8e49ed08ba8d3297f680be98c5bbac5c5694c317a8dcbe3e31a70b661093eb",
+    "hardware/printed-parts/enclosure/tee-carrier/_carrier_motion.py": "7e28f5c0e81cc4fc42eebbf8c5b4fe53d8769436c31e8c28882155ed6041a1be"
+  },
+  "owned_region_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": {
+      "_tee_carrier_service_slots": "c3f169429bc7db2fd3409983dada3ea14b59503d0672d91e63028be508a5e6de",
+      "_tee_carrier_fixed_cups": "e6bbd67bd7215e98be506f2321fe286502cc3da8ca80f46d69c55dbe7d4cee8c"
+    },
+    "hardware/manifold-layout/enclosure_assembly.py": {
+      "tee_carrier_spec": "d97540c83bd13d40067717f6d69e254f0bac3f9355da19e72b3002fa95b6d3c2",
+      "tee_carrier_interface": "99b1522327b0eec4f360a31970a077a1e2db2327ecb13c796ccf6304190db712",
+      "_carrier_front_top_motion_bound": "56ac41871c465bb232242662361014a3a84100ce71807d587728efeda9dd917a"
+    }
+  },
+  "native_readings": {
+    "production_selftest_exit": 0,
+    "production_added_missing_volume_mm3": 0,
+    "joint_continuous_sweeps": 5,
+    "joint_deflection_witnesses": 9,
+    "wall_half_sweeps": 10,
+    "held_spring_tool_sweeps": 10,
+    "pusher_removal_sweeps": 4,
+    "working_wall_states": 6,
+    "opposed_guide_contacts": 12,
+    "working_neighbor_readings": 102,
+    "tee_entry_sweeps": 40,
+    "lower_valve_entry_sweeps": 16,
+    "declared_tie_passages": 32,
+    "fixed_cup_neighbor_readings": 30
+  },
+  "section_moment_ratios": {
+    "Iy_geometric_mm4": {
+      "sampled_minimum_ratio": 1.0313312530144851,
+      "least_local_ratio": {
+        "x_mm": -10,
+        "ratio": 0.6949409901021978
+      }
+    },
+    "Iz_geometric_mm4": {
+      "sampled_minimum_ratio": 12.318866097980052,
+      "least_local_ratio": {
+        "x_mm": 11,
+        "ratio": 0.9431111238092807
+      }
+    }
+  },
+  "section_scope": "Geometric stock only. Improved sampled minima do not imply uniform local improvement or assembled stiffness.",
+  "files": {
+    "README.md": {
+      "bytes": 11586,
+      "sha256": "66640187bab194c2f97168b0082443b90f8e6558f517dd2103d2f0d189bfbcaa"
+    },
+    "access-checks.json": {
+      "bytes": 7864,
+      "sha256": "82d17852c11b9b0672894294f1601b9ce4b8ff3629acae1840ec2c436a0f0b7d"
+    },
+    "assembled-concept.step": {
+      "bytes": 960802,
+      "sha256": "a44d10f7b8a52b123984d181a3f7c2122f96e5463dfa37aea6369b4f9ab4d9c6"
+    },
+    "assembly-sequence.png": {
+      "bytes": 409489,
+      "sha256": "c63ccd214f8199fba5b982097ae3e18bab97fbf892526f4299b6b43c9165e356"
+    },
+    "assembly-sequence.svg": {
+      "bytes": 507064,
+      "sha256": "a07acfe1f42d931c80fb1b779f1945e97793c2b480f84b5e81ac83370242db6b"
+    },
+    "build_concept.py": {
+      "bytes": 14415,
+      "sha256": "b131a9fb5100d17c807e08e1e411fb643f10447913596e26ba594ba28a866cc1"
+    },
+    "check_access.py": {
+      "bytes": 3360,
+      "sha256": "308e3119d1254e75e79cdcd220b579908342904f9f6ae899cb984d9648ca21d9"
+    },
+    "check_grip_stock.py": {
+      "bytes": 2691,
+      "sha256": "b978206368e53acb0723598f79a5ad53c6a82a6b1288b4558f288aec97d88181"
+    },
+    "check_joint_motion.py": {
+      "bytes": 5495,
+      "sha256": "3d6d4f7567311d6ea825d23dbeb94beb69a6bc9bd6bf0123fd81c99eba987759"
+    },
+    "check_neighbors.py": {
+      "bytes": 6057,
+      "sha256": "7b82bd2bd20e1a758dd1c3e62fea21551e8d8755e181240dcc55810a650cafb0"
+    },
+    "check_production_integration.py": {
+      "bytes": 3708,
+      "sha256": "15d708acf027d6514c0922fb6412b1fc80dbf8c5a01998ef82315c4e35d25e9f"
+    },
+    "check_sections.py": {
+      "bytes": 2880,
+      "sha256": "4d66cc470576a4296652df41422746e2f1ffea0cfb2cefe4bf728736e63be404"
+    },
+    "check_spring_capture.py": {
+      "bytes": 5631,
+      "sha256": "213f60b40581bc54d13555efb12bee4061f4e0e8790c291be399a3a140219dbc"
+    },
+    "check_valve_entry.py": {
+      "bytes": 2303,
+      "sha256": "520c12fa14c887bd5ff5f32812ee54af4032f83c0cdcc18c39a75fd99c554928"
+    },
+    "check_wall.py": {
+      "bytes": 7140,
+      "sha256": "6536a30e681a855bc2258a644f72aeadb9a19ef0a49287a4d28b0b3f56d04f1c"
+    },
+    "checks.json": {
+      "bytes": 9168,
+      "sha256": "2bad24ec380f0fe71451793354a4cd3512825549c29df631fe75f56c4d6cf14b"
+    },
+    "concept-overview.png": {
+      "bytes": 319135,
+      "sha256": "32e7e54834121076adbff85fdcf01a9282453c20187982bdb3858d4159791528"
+    },
+    "continuous-reference.step": {
+      "bytes": 647106,
+      "sha256": "7e78c4ec2ad15a14a4c815397c9c5be118ff90f85681923c0b04707722553618"
+    },
+    "fixed-cup-integral-extension.step": {
+      "bytes": 9394,
+      "sha256": "09928abeee34c3007f491790217e914b910562876d3587db37cd2e69cfd4a4f3"
+    },
+    "fixed-cup-local-section.step": {
+      "bytes": 9622,
+      "sha256": "3f8a02e0fe5111ecc4057939c684f22d3faa55da2f6e41cb2802ff5b7ae32f35"
+    },
+    "freeze_evidence.py": {
+      "bytes": 7333,
+      "sha256": "ce994600fbff264a8a2bbd19e90e8a7dc82ef98be761374ec7ea6cbc8246e12d"
+    },
+    "freeze_inputs.py": {
+      "bytes": 2724,
+      "sha256": "00b2c28f3786fa8a48894924299fc81f344ef080d232f63a56a2d9ff791b7eaf"
+    },
+    "grip-stock-checks.json": {
+      "bytes": 1830,
+      "sha256": "de423af3451e5008e66521146dc9de4e3d31168449d3711b98716a3c74d460bb"
+    },
+    "inputs/continuous-blank.brep": {
+      "bytes": 171899,
+      "sha256": "517ed70d094e7b2786bc3104ab718b7cc130a0e36c7b3da59051f99284f16d35"
+    },
+    "inputs/current-front-top/fixture.json": {
+      "bytes": 6488,
+      "sha256": "eba1b7de6249f4b8f01b71399b7b68334cbe701523a6baf8bf8c40baa6922ee6"
+    },
+    "inputs/current-front-top/front-top.step": {
+      "bytes": 2262283,
+      "sha256": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6"
+    },
+    "inputs/current-front-top/manifest.json": {
+      "bytes": 299,
+      "sha256": "b0b3146199d5f232add0c80d0dab7f68b049c40080f553ff955e3a1ee3ab463e"
+    },
+    "inputs/fore-lap.brep": {
+      "bytes": 17577,
+      "sha256": "867f60e44d7c5e2d7833509065b06ae45d89751faa2a5f8641195ec189a4f932"
+    },
+    "inputs/manifest.json": {
+      "bytes": 8779,
+      "sha256": "03a32ad478e07bc4b220192856ecbc0f2cf564b1d0e05c0fa5aa60168e7ad2bd"
+    },
+    "inputs/placed-neighbors/coil-v-c.brep": {
+      "bytes": 175936,
+      "sha256": "3a9f79117b2e1c49f7417408af8bc673417f9ada58a267d8655ec22b43b49ecd"
+    },
+    "inputs/placed-neighbors/coil-v-d.brep": {
+      "bytes": 176825,
+      "sha256": "a960e368a687df474082d9490d39ed9bd30dec6816e1436fdb49da5b565d7e85"
+    },
+    "inputs/placed-neighbors/coil-v-e.brep": {
+      "bytes": 178962,
+      "sha256": "36b92c26ace08031552f69f4c86082675864703dc38363ec8e4a0d565a464007"
+    },
+    "inputs/placed-neighbors/coil-v-g.brep": {
+      "bytes": 174477,
+      "sha256": "3b613b799197324db4926f717fe50f1944b750698a8746c4c339be95ed5b13f7"
+    },
+    "inputs/placed-neighbors/coil-v-h.brep": {
+      "bytes": 178562,
+      "sha256": "6cb4fd37fedf2c60cb59c955c80cb14b8a3f7d56c27768ad57dcb03918a58a4d"
+    },
+    "inputs/placed-neighbors/coil-v-j.brep": {
+      "bytes": 176170,
+      "sha256": "d0d33fcbadffee7d92455485b834ea4d12226be0534fc5d5b100a9ce56c99701"
+    },
+    "inputs/placed-neighbors/manifest.json": {
+      "bytes": 13160,
+      "sha256": "bdc2bb8e19776fb4737b1c6a1e75a7e7b860cb499de3a39e8a660f26f546be94"
+    },
+    "inputs/placed-neighbors/tee-y-c.brep": {
+      "bytes": 30498,
+      "sha256": "989a45f719c957cb8f5001d712f4a9f1422d6207ad30d48400f24f818439dcf3"
+    },
+    "inputs/placed-neighbors/tee-y-d.brep": {
+      "bytes": 30507,
+      "sha256": "a4595ea213fe96beacb9978ed3991d865d5c69ca9b7a689c0169768519cf8e40"
+    },
+    "inputs/placed-neighbors/tee-y-f.brep": {
+      "bytes": 30619,
+      "sha256": "8154bea8a3e5870e6a661469c64a262efb483295da6f36fa21412ff582bd0998"
+    },
+    "inputs/placed-neighbors/tee-y-g.brep": {
+      "bytes": 30599,
+      "sha256": "4e5f08700492c87aa899d99696d122fa44a9ad9ecac70149de680bc407f0dd16"
+    },
+    "inputs/placed-neighbors/tube-fluid-10.brep": {
+      "bytes": 17051,
+      "sha256": "b3892abb65b1be0b4339ad508c6a8a01849a073887876ef51fc16f46eeb9bfa4"
+    },
+    "inputs/placed-neighbors/tube-fluid-11.brep": {
+      "bytes": 2140,
+      "sha256": "bb766bf9afd09361cc6b5fa7577a71b07390614f27dc499b56ab4a7ba157a765"
+    },
+    "inputs/placed-neighbors/tube-fluid-12.brep": {
+      "bytes": 2138,
+      "sha256": "ab70c4cdf85d04cee15a7ca0db6ab70676cd3ef2bba7af4c59ea6c09a5167d1b"
+    },
+    "inputs/placed-neighbors/tube-fluid-13.brep": {
+      "bytes": 17051,
+      "sha256": "cd7676d65770ef32db0bb1dbc97ebc914f9eba167060222d94354d7216946857"
+    },
+    "inputs/placed-neighbors/tube-fluid-17.brep": {
+      "bytes": 6391,
+      "sha256": "3d1e61599a363a3d99714300f14d65d0c2edf6ed5550fa3a7fe3b70da46b9aa7"
+    },
+    "inputs/placed-neighbors/tube-fluid-19.brep": {
+      "bytes": 5575,
+      "sha256": "96609b2dba54e26ba7b484033b96af1bf7cba832fb266185ef2f6ef5d45bae75"
+    },
+    "inputs/placed-neighbors/tube-fluid-20.brep": {
+      "bytes": 22459,
+      "sha256": "42946ba03d957a91f7119d472322ec18f6f240ff694b829ec0eb40a8844f9580"
+    },
+    "inputs/placed-neighbors/tube-fluid-21.brep": {
+      "bytes": 2148,
+      "sha256": "010c745673ddc63e57b68b0719f6ec28e1c784039cf064ed86b0fbbecd957238"
+    },
+    "inputs/placed-neighbors/tube-fluid-22.brep": {
+      "bytes": 2140,
+      "sha256": "9afb2a6a90335c33e320acacc24493908a31eeaf9f7f64f4d1eae8f670e10061"
+    },
+    "inputs/placed-neighbors/tube-fluid-23.brep": {
+      "bytes": 22456,
+      "sha256": "a8905436469c22d25f9c5b8133dcebf2606e0dcb2c134efcdca151012368492c"
+    },
+    "inputs/placed-neighbors/tube-fluid-27.brep": {
+      "bytes": 6432,
+      "sha256": "fae5920504326cd6a2d3464bae25f587a48ac56deaf36c31bda28572ae8387e5"
+    },
+    "inputs/placed-neighbors/tube-fluid-9.brep": {
+      "bytes": 5555,
+      "sha256": "69738f18ccc9785c94aab32839bcfb51c3aebddef102c156e2677877a7f4adf1"
+    },
+    "inputs/placed-neighbors/valve-v-c.brep": {
+      "bytes": 468123,
+      "sha256": "02cc6a238a15196d8d3281b30bf61d14fa0de7ad3732028eefdb6b5070b3f850"
+    },
+    "inputs/placed-neighbors/valve-v-d.brep": {
+      "bytes": 470777,
+      "sha256": "e9672865b53bf84bc1597dbe3db6fad44ae26bedee7cb0113c05b1ebd8e6fe82"
+    },
+    "inputs/placed-neighbors/valve-v-e.brep": {
+      "bytes": 475778,
+      "sha256": "82622cee18aa66e68d9a6d32c7916ffc76ce82e594c6d0f1451e0f787ca35554"
+    },
+    "inputs/placed-neighbors/valve-v-f.brep": {
+      "bytes": 469747,
+      "sha256": "81d22bdeb541097cbc4e34c17af1c7251c789b36c666474a7f0f6f00a4ca9e4d"
+    },
+    "inputs/placed-neighbors/valve-v-g.brep": {
+      "bytes": 470485,
+      "sha256": "db1f566540a97ddd0c5f2eb60d7d0c2df272718757778e5e8e5c16c7c38d2f18"
+    },
+    "inputs/placed-neighbors/valve-v-h.brep": {
+      "bytes": 473765,
+      "sha256": "211016b5054a8318c82a77315d0e835b6fa63d808ad3992fa2088c58c3d4e6e8"
+    },
+    "inputs/placed-neighbors/valve-v-i.brep": {
+      "bytes": 473199,
+      "sha256": "1f27df8f5a0f5962c9b89ae7e945af2546aad06a1d2e9a937dbfda628f7ac838"
+    },
+    "inputs/placed-neighbors/valve-v-j.brep": {
+      "bytes": 469827,
+      "sha256": "afd5b58a070a6b25c9e500ddd9bcaae181417e4a6e578c1885a9799cbfcda147"
+    },
+    "inputs/screwed-baseline-left.step": {
+      "bytes": 354439,
+      "sha256": "07c1716f76c4e6fd2e2cd9098ce79036477cc4ed92533f11bf0adec00a849a54"
+    },
+    "inputs/screwed-baseline-manifest.json": {
+      "bytes": 474,
+      "sha256": "5f5c42fbcccf28c0c8ce0aefa843749b38a1dbac7c0ce38e6a5673bb2db285bc"
+    },
+    "inputs/screwed-baseline-right.step": {
+      "bytes": 340605,
+      "sha256": "0066f7a86a2dfdb6fb874a91e4af15a04288c48e3c7c95f20621ae189ef9669b"
+    },
+    "joint-motion-checks.json": {
+      "bytes": 3130,
+      "sha256": "62d6c9df62b28292007247d80bf262f9414f3b2aa2c0252e9e19800595d1f047"
+    },
+    "left-concept.step": {
+      "bytes": 459543,
+      "sha256": "4bce0430a9cfc36140bd21f37dc7d919d522a663c983c8bee807948917a7f921"
+    },
+    "neighbor-checks.json": {
+      "bytes": 27991,
+      "sha256": "0669ee7762c30d34a045fa9ec693dd79e5aa7cd1053d33ec269c9efcbf034ba3"
+    },
+    "production-integration-checks.json": {
+      "bytes": 8922,
+      "sha256": "3b5f8a0a9b2b47b7c93e789b40a9cde76bcfc947849eb2fd036ea27991c3b87a"
+    },
+    "render_assembly.py": {
+      "bytes": 2893,
+      "sha256": "19db062716db23f3b4c2774b2caa9490175dc4b8152412b2759fad7494618abe"
+    },
+    "render_concept.py": {
+      "bytes": 4323,
+      "sha256": "933d91e38615ebe190518cdc79ec1992869673d85549e4cf5a9efa9ecb819b55"
+    },
+    "retention-wall.step": {
+      "bytes": 30345,
+      "sha256": "7153a3c90fb493b5ca53f4083446920e95bf72f03b1edb3317e3b21d9d46e194"
+    },
+    "right-concept.step": {
+      "bytes": 476316,
+      "sha256": "fe161c4ad9a6673e67aa713c83fe6e9fbfccccb43df5a76b8d8f9dea42b2972c"
+    },
+    "right-deflected-clearance-witness.step": {
+      "bytes": 498458,
+      "sha256": "5368ba488a5b1cdf194e4857331b469b3e3b6233a7e50c5e71359fc41145e727"
+    },
+    "right-structural-body.step": {
+      "bytes": 455158,
+      "sha256": "259774d65467a395795393f3d926bd3c4d3e00d77b039ef45f3773e62c09aa02"
+    },
+    "section-stock-checks.json": {
+      "bytes": 22904,
+      "sha256": "93195aa7378e6335728f7174e012361e68ce50147b5eb92eac6566e24f20f06b"
+    },
+    "spring-capture-checks.json": {
+      "bytes": 4070,
+      "sha256": "345cef9099686fc1490c39a8a2e3199e75acc3e9b6936e615e745752255905a7"
+    },
+    "tee_envelope.py": {
+      "bytes": 1642,
+      "sha256": "845cb2d65d18a22d4260ff309d0ea57cf8e1c2d65fa1e6002ce07ecaf937e791"
+    },
+    "valve-entry-checks.json": {
+      "bytes": 6510,
+      "sha256": "d705f16451400ab7de5e2afa3beca9cf4f70e53d41c7c8fadbe880c6ed702512"
+    },
+    "wall-checks.json": {
+      "bytes": 15712,
+      "sha256": "1594386fd3f96c07d0ff84ad204a0f54f8a05bc5e88a5edba052e56366121da7"
+    }
+  }
+}

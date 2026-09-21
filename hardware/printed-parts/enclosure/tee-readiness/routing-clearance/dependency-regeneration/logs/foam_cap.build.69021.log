@@ -1,0 +1,9 @@
+-> foam-cap-top.step
+-> foam-cap-bottom.step
+-> foam-cap-lid-top.step
+-> foam-cap-lid-bottom.step
+-> foam-cap-gasket.step
+-> foam-cap-top.stl  (196166 facets, watertight)
+-> foam-cap-bottom.stl  (233282 facets, watertight)
+-> _foam_cap.py
+-> foam_cap.py (self)

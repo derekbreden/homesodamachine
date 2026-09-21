@@ -27,7 +27,7 @@ show_corner_r = 2.0 * show_edge_r
 # Signed pump-to-deck offset. The manifold subtracts it from the pump-outlet station and adds
 # it to the placement span, leaving the fixed tee deck on its own plane. The pump skirt's
 # slipped opening leaves 3 mm of cradle behind it at the common cartridge back.
-pump_station_lead = -0.124
+pump_station_lead = -0.074
 
 # THE PUMPS' VERTICAL SERVICE DATUM. In `manifold_layout`'s authored frame the pump depth axis
 # is Y; `enclosure_assembly` stands that axis on world Z. This shift therefore moves only the

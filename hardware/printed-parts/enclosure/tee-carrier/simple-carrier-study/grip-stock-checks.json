@@ -1,0 +1,69 @@
+{
+  "generator_sha256": "b131a9fb5100d17c807e08e1e411fb643f10447913596e26ba594ba28a866cc1",
+  "script_sha256": "b978206368e53acb0723598f79a5ad53c6a82a6b1288b4558f288aec97d88181",
+  "scope": "Native stock only; no material stiffness or permitted grip load inferred.",
+  "broad_entry_relief": {
+    "removed_mm3_per_side": 853.459574999998,
+    "bounds": {
+      "x": [
+        91.0,
+        93.85
+      ],
+      "y": [
+        98.29,
+        107.54
+      ],
+      "z": [
+        175.3,
+        207.674
+      ]
+    },
+    "remaining_grip_bar_width_x_mm": 13.650000000000006,
+    "minimum_distance_to_round_spring_bore_mm": 1.8214126351089233,
+    "web_connection_thickness_y_mm": 6.0,
+    "relief_to_web_fore_y_air_mm": 0.75,
+    "spring_floor_y_preserved": true
+  },
+  "cup_rim_notch": {
+    "removed_mm3_per_side": 199.25999999999988,
+    "bounds": {
+      "x": [
+        101.25,
+        104.25
+      ],
+      "y": [
+        92.29,
+        98.29
+      ],
+      "z": [
+        205.674,
+        216.744
+      ]
+    },
+    "remaining_rim_y_length_at_notch_mm": 16.0
+  },
+  "native_preserved_regions": [
+    {
+      "region": "complete aft backing",
+      "reference_volume_mm3": 3568.032000000001,
+      "lost_mm3": 0.0
+    },
+    {
+      "region": "full 6 mm web connection",
+      "reference_volume_mm3": 1054.1099999999992,
+      "lost_mm3": 0.0
+    },
+    {
+      "region": "outside bar guide faces",
+      "reference_volume_mm3": 2328.9236014719686,
+      "lost_mm3": 0.0
+    },
+    {
+      "region": "moving spring floor and aft wall",
+      "reference_volume_mm3": 859.9500000000012,
+      "lost_mm3": 0.0
+    }
+  ],
+  "all_declared_regions_preserved": true,
+  "acceptance": "The relieved corner sacrifices fore/inboard grip stock. Preserve full-width bending and loaded-grip trials; native stock is not a strength rating."
+}

@@ -1,0 +1,143 @@
+{
+  "created_at_utc": "2026-09-21T04:23:10.315631+00:00",
+  "status": "pass",
+  "scope": "Unaffected-input supplement for the completed cold-core dependency chain only.",
+  "baseline_currentness_sha256": "69674624fce6e7f7077806d5d2b401546b8f00a48acda3d9cf0115bd22e2ad1c",
+  "baseline_record_sha256": "c3538e35c3900308d44df1fa4cf26746a6b7069770399f638bb0037a6a29a807",
+  "verifier_sha256": "407e1bb236b506ce3ee96fdb33e6ab8ff64d6fa3b64fb35f6b81fab727874601",
+  "interface_path": "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+  "interface_before_sha256": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+  "interface_after_sha256": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
+  "affected_generator_input_records": [
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+    "hardware/cold-core-layout/cold_core_assembly.py"
+  ],
+  "consumed_values": {
+    "manifold_rise": {
+      "before": 2.0,
+      "after": 2.0
+    },
+    "inner_limb_drop": {
+      "before": 8.0,
+      "after": 8.0
+    }
+  },
+  "checks": [
+    {
+      "check": "Baseline source bytes match the successful build input",
+      "pass": true,
+      "reading": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64"
+    },
+    {
+      "check": "Only the recorded numeric assignment changes executable interface source",
+      "pass": true,
+      "reading": {
+        "member": "pump_station_lead",
+        "before": -0.124,
+        "after": -0.074
+      }
+    },
+    {
+      "check": "Assignment values equal the bounded proposed change",
+      "pass": true,
+      "reading": {
+        "assignment": "pump_station_lead",
+        "before": -0.124,
+        "after": -0.074
+      }
+    },
+    {
+      "check": "Changed value feeds no other enclosure-interface declaration",
+      "pass": true,
+      "reading": []
+    },
+    {
+      "check": "Cold-core source closure uses only the two unchanged interface members",
+      "pass": true,
+      "reading": {
+        "imports": [
+          {
+            "file": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+            "line": 35,
+            "names": [
+              "manifold_rise",
+              "inner_limb_drop"
+            ]
+          }
+        ],
+        "full_module_imports": [],
+        "changed_symbol_reads": []
+      }
+    },
+    {
+      "check": "Consumed interface values are unchanged",
+      "pass": true,
+      "reading": {
+        "manifold_rise": {
+          "before": 2.0,
+          "after": 2.0
+        },
+        "inner_limb_drop": {
+          "before": 8.0,
+          "after": 8.0
+        }
+      }
+    },
+    {
+      "check": "All other loaded first-party source hashes match",
+      "pass": true,
+      "reading": []
+    },
+    {
+      "check": "No cold-core run loads a manifold or enclosure assembly producer",
+      "pass": true,
+      "reading": []
+    },
+    {
+      "check": "All other recorded native/source inputs match",
+      "pass": true,
+      "reading": {
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": [],
+        "hardware/scripts/flute_payload_cold_core.py": [],
+        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": [],
+        "hardware/cold-core-layout/cold_core_assembly.py": []
+      }
+    },
+    {
+      "check": "All emitted native outputs and viewer payloads are unchanged",
+      "pass": true,
+      "reading": []
+    }
+  ],
+  "output_sha256": {
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "42b5663fe2f25d147e0792c3401bef9ef7985a14563b76b065ff3ed0cf1fad4a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "999a014c0a8f19fdb473088638f1b20ed53015741867077788df69572ba12325",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "345143192d75be73084ecf77a5571cc47b61c54d1cfa477bfca8ef2d162dfe0e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "6154b34a9e2c702dcca03386ef6acb28f5cf61c1bb28f6c1858322dfb2f69585",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "6a1f2105bb7521106255a4710856973827763ec7550702f6a760f86bfaed6ba7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c57f8ecdd93db0f14245ce7414eb6d16f4fcf21d2b6257fe16a2cabde65dd813",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "cf4533b2cc02888dc27b8874687af6ef14e13329da9191dc1da216800016fbd0",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "4aee46ca8a6f6c7921492c69c44f5c603413230cb7222dcec091b261d621b3e7",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "43c90869154141cb3065c6d7d17820aea6ada2083fdb1a6e82c3556ddaafcaea",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "e738ea576fa217a3548130c7711e8b6510211ed9cc26665c35a30bf17c77427e",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "16b8a4efaac46b4c9f70551a2dd58bef325523a557a701bb8aa95e3949d07c99",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "17a733e4aeacd9cd6801bc1938924991a854707f37d1d6bd7661fa05072fdb9f",
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "fcca510b90c755ee327f61cfde1ae3083a7e4befdd8451a9463758542a709c99",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
+    "hardware/cold-core-layout/cold-core-assembly.step": "702c62f68806d3491bff1054fcb4cd363af8f04c3943b8b110b2bec3dab6cb65",
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh": "a8adfa602e86d78cc95d296f52498790b3f58b389441069b2679671876ee274a",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "69f9246028c078090e0076968a5019ce82c7e79747b9956b3d38ad311f1afa95"
+  },
+  "dependency_geometry_current": true,
+  "assembly_current": false,
+  "production_print_released": false,
+  "limits": [
+    "The paired manifold span edit and native cartridge/plate fit are checked separately.",
+    "This proof does not qualify the Box, whole enclosure, routes in a fresh pack, or sliced support removal.",
+    "The original generation manifests retain the hashes actually loaded; this supplement records the unused assignment change."
+  ]
+}

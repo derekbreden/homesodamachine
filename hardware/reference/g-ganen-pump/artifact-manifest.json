@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "part": "G Ganen B07F35PTFR diaphragm-pump external reference",
+  "status": "standalone_native_reference_frozen_with_explicit_interface_limits",
+  "native_reference_valid": true,
+  "production_consumers_changed": false,
+  "production_mount_and_route_qualified": false,
+  "envelope_only_not_material_mass_or_strength": true,
+  "files": {
+    "README.md": {
+      "sha256": "8dfd19e28a03f2b2db5af3d1d4bf4f97717af9c4ee559c6c85e502e0cf948eb4",
+      "bytes": 9192
+    },
+    "analyze_registered.py": {
+      "sha256": "1a397ea07e300cb7c32440f16b96ecff5bb839138cb1916566f2010c798a7c38",
+      "bytes": 11527
+    },
+    "analyze_scan.py": {
+      "sha256": "e5c3d5b38f5e4d9afc70bf85f824bbc2ac7c2048e0b47ac27cfd806a71ddec19",
+      "bytes": 21058
+    },
+    "benchmark_native.py": {
+      "sha256": "4a37d58bd00b145eed49083199ea38aaa29c524cee815002d001abe5d9bf7b42",
+      "bytes": 3839
+    },
+    "build_reference.py": {
+      "sha256": "ef3a0d53b0970dde2a016ab549155aefc65f94b3826e0fad0434bcc1408360a8",
+      "bytes": 17059
+    },
+    "casing-sections.json": {
+      "sha256": "48214ef1eedb0471164e6c19cc12e0056a61d1eb29cbc37c2b8c3a14fcf35efa",
+      "bytes": 3738382
+    },
+    "casing-sections.png": {
+      "sha256": "09554da6021d45deea11d364befd27180d15c04292c747d0fd932efa9e6dff34",
+      "bytes": 370159
+    },
+    "derive_casing.py": {
+      "sha256": "642682a70c8d27711c8df3deb6f1a610a5c2f55731d4e276e197be5c2e831462",
+      "bytes": 7887
+    },
+    "freeze_reference.py": {
+      "sha256": "4b70b613f3355d1375a5dfb929ec49ca3fdf745663cddb6b43ee91fe5006b4c1",
+      "bytes": 7285
+    },
+    "g-ganen-pump.step": {
+      "sha256": "5489c2d4ed0748b0b47c5f02d09d1453a0bf613e822a5f546935f901e7837494",
+      "bytes": 79932675
+    },
+    "g-ganen-pump.step.mesh": {
+      "sha256": "80b5eed4da1b67a24c3187512709c0c47a84c501259222292d65f0c67f4eae14",
+      "bytes": 3256396
+    },
+    "g_ganen_pump.py": {
+      "sha256": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+      "bytes": 4938
+    },
+    "inspect_scan.py": {
+      "sha256": "59bd0fe615343d6499d830d1af274526669544f091728b5a8d98f4e66c9ad4dc",
+      "bytes": 2071
+    },
+    "integration-handoff.md": {
+      "sha256": "f1a57e42e908b993973d4c6c8635ed8420164e5e9a777c1ea97cfd5bd249c9ff",
+      "bytes": 5131
+    },
+    "interface-measurements.json": {
+      "sha256": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
+      "bytes": 2101395
+    },
+    "measure_interfaces.py": {
+      "sha256": "c0717e11cfb6b2eb74390f12f728ec3b344f343dc713e38f95cffd3a12240d6d",
+      "bytes": 9920
+    },
+    "native-query-cost.json": {
+      "sha256": "4d09b764460bb56ced9683321fbbfead005e8acfcb6037fb7a2880a954025851",
+      "bytes": 1224
+    },
+    "native-validation.json": {
+      "sha256": "3a8af6ae8c4f217b6a13a0a9b62325d3c37cc5d88fdab767ae893c27fa1a012b",
+      "bytes": 51573
+    },
+    "native-validation.png": {
+      "sha256": "945b78f74c0a5f837b793c49f19f8eee72f64f4145f765686b6db26b046cccf8",
+      "bytes": 838363
+    },
+    "pass-01-feet.png": {
+      "sha256": "18208157c77dd29ddfb3c47eb2e545b2073571334f8f7c181493c0d4ab4d8f49",
+      "bytes": 1775911
+    },
+    "pass-01-native.png": {
+      "sha256": "ea90f53eff0f88eb95c0e275f94cd4731bc730bd903261657b16652deafd3ba7",
+      "bytes": 2124041
+    },
+    "pass-01-port-profiles.png": {
+      "sha256": "1428aad614065f7d1e75a8fe6c816af70f377daa41d37dc81fce556e9b8b9390",
+      "bytes": 143960
+    },
+    "pass-01-reference-transform.json": {
+      "sha256": "6286d8e29fad310adbfb3b4c539db062fb07f17c3e22e7f83bae3478b8ccc947",
+      "bytes": 366
+    },
+    "pass-02-native.png": {
+      "sha256": "8ae26db681bf515e2948d0792487140891474bb5c4aa4b14c3bb39011143bd7c",
+      "bytes": 1920568
+    },
+    "pass-02-reference-initial-frame.png": {
+      "sha256": "2ccf0159802f356bfad791b6b2a1f9cc1a63400347b0c85d011bab7fe7b8611f",
+      "bytes": 1623191
+    },
+    "pass-02-reference-transform.json": {
+      "sha256": "77237b4eaac8466088dc2f7c7884db93d2168658bc4f976aed643261a50c7bfe",
+      "bytes": 367
+    },
+    "pass-02-registration-config.json": {
+      "sha256": "06bf2d3d953ed1436df87db59c5404002e6b3046a89707a79a78b2711a0e4827",
+      "bytes": 3157
+    },
+    "pass-02-registration.json": {
+      "sha256": "34183402eec1c5a348428934bb18bab608f093fe0061e298670f1a5f00bb76ed",
+      "bytes": 21944
+    },
+    "pass-03-native.png": {
+      "sha256": "99feb4d7e87c6586a02feea982876ba2ac838f2287f0fa64c38e6aca32493ab6",
+      "bytes": 2369155
+    },
+    "pass-03-reference-frame.png": {
+      "sha256": "a90f586a73c9835a052642fea58a43564349a330c076cff300961187e2462873",
+      "bytes": 1861117
+    },
+    "pass-03-reference-transform.json": {
+      "sha256": "2284cc2a99a53e7370dbaacb83374f43874b8f9af5f025d3c50e10d962465f28",
+      "bytes": 365
+    },
+    "pass-03-registration-config.json": {
+      "sha256": "38fb33c9129d6b7c05117f7c2e80b9fbc1fac899c5b87553d03241ded4f2faee",
+      "bytes": 3232
+    },
+    "pass-03-registration.json": {
+      "sha256": "f4a961c752a0d30d6fec111b6b4b23b063f719d57592801d97cfd331800b9618",
+      "bytes": 28517
+    },
+    "reference-parameters.json": {
+      "sha256": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
+      "bytes": 4151215
+    },
+    "register_scan.py": {
+      "sha256": "579de2761b7d8107a0ff509a80d4ebfc074d5ec094f2c158cfb0fe5823fca27e",
+      "bytes": 8075
+    },
+    "registered-measurements.json": {
+      "sha256": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
+      "bytes": 420938
+    },
+    "scan-evidence.json": {
+      "sha256": "bfe1b021c43194d2ae332a15fe063027f7dc6cbfe165fd1aca7bec10fb306ec1",
+      "bytes": 6088
+    },
+    "scan-measurements.json": {
+      "sha256": "80636440024dce04dda4bc3b649cda74e835ae8b3e8f4c479feccce644a41045",
+      "bytes": 114026
+    },
+    "scan_tools.py": {
+      "sha256": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
+      "bytes": 6757
+    },
+    "selftest_analysis.py": {
+      "sha256": "f4efc3080839dc710dbce422ef7e772fe5c7aae8fc235fbcafffff7cca9cbb2b",
+      "bytes": 1789
+    },
+    "validate_reference.py": {
+      "sha256": "b0ae1ed0803bba0f2278ed4c4b786649f6db7de015cc051027aa9c9be8106bbc",
+      "bytes": 14048
+    }
+  },
+  "report_dependency_hashes_verified": 44,
+  "native_reimport": {
+    "valid_solids": 26,
+    "bounds_mm": [
+      [
+        -77.89997331756443,
+        -47.82341394262818,
+        -1.7845319690664259
+      ],
+      [
+        83.45110402020678,
+        47.353334671446,
+        60.53391690220148
+      ]
+    ],
+    "matches_validated_bounds": true,
+    "viewer_payload_matches_step": true
+  },
+  "native_sources": [
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+      "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+      "points": 3235134
+    },
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+      "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+      "points": 3478141
+    },
+    {
+      "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+      "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+      "points": 2989594
+    }
+  ],
+  "source_scale_factor": 1.0,
+  "remaining_physical_fit": [
+    "Actual M3 screw passage through all four rubber slots.",
+    "Selected washer flat seating and upstand clearance.",
+    "Loaded rubber clamp stack, chosen slider positions and production mount/tube/wire integration."
+  ],
+  "limits": [
+    "Filled foot slots/clip cavities cannot qualify hardware passage or material properties.",
+    "Rail face extent is observed; hidden clip geometry and hard travel limits are unqualified.",
+    "Lead transition regions are retained, while flexible wire routes and any distinct rigid strain-relief boundary remain unqualified.",
+    "Native scan residuals do not establish absolute scanner or sprayed-part dimensional tolerance."
+  ]
+}

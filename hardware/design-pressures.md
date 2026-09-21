@@ -75,28 +75,29 @@ destroyed is a part that comes out by being destroyed.
   tee.** The PP0208E's own figures are in
   [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets
   resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
-  the sleeve pressed home, and one sleeve presses 1.65 mm. The fixed plate holds the sleeves
-  fully depressed at the fore stop. The carrier returns 2.15 mm to the aft stop, extending
-  the sleeves and leaving 0.5 mm of nose air. Release and squeeze share the fore stop;
-  connected and empty park share the aft stop. Tube projection reaches the aft internal stop
-  with the cartridge fully seated; at the fore stop it bottoms with the cartridge 2.15 mm shy
-  of seating. Relax the grips and push through that final stroke. The displayed appliance is fully aft.
+  the sleeve pressed home. Each run sleeve travels 1.65 mm; the branch sleeve travels
+  1.50 mm. The fixed plate acts on the four branch sleeves and holds them fully depressed
+  at the fore stop. Nominal connected travel is 2.00 mm: 1.50 mm of sleeve travel and
+  0.50 mm of nose air. Release and squeeze share the fore stop. The mechanical aft limit
+  is 4.50 mm from release, 2.50 mm beyond nominal connected; an empty spring-driven
+  carrier returns to that limit. Tube projection bottoms at nominal connected with the
+  cartridge fully seated, 11.50 mm beyond each extended branch face. At squeeze it
+  bottoms 10.00 mm beyond each pressed face with the cartridge 2.00 mm shy of seating.
+  Relax the grips and push through that final seating stroke.
 - **Exposed path length is not stock cut length.** Each of the four bowed flex stubs presents a
-  16 mm developed path between sleeve faces separated by 14 mm in height and 1.75 mm fore/aft
+  17.251 mm developed path between sleeve faces separated by 15.251 mm in height and 1.75 mm fore/aft
   at squeeze. Its blank also includes the
   insertion at both fittings, and the valve-side depth has not been measured. The tee–valve bow
   trial therefore owns the blank before production; no cut instruction may call that blank
-  16 mm.
-- **The front-top assembly order follows the moving mechanism.** Insert the bare tees from
-  aft into the fixed body's cavities and move them to the fore stop. With both valve rows
-  absent, feed the left carrier half through the open rear, lower it behind the fixed body
-  and seat its bar outward on the aft stop. Slide the right half onto the left half's tongue
-  on the same stop and seat it. Two M3 screws enter from the open rear. Move the carrier to
-  release, raise the aft valves through the underside and press their posts into the tray.
-  Tie each tee twice; feed each compressed spring down an outer tee well and through the
-  window into its bar's channel. Install the fore valves and bowed stubs. After the chassis
-  closes, squeeze each cartridge pocket toward its carrier tab, bottom all four tubes and
-  relax to the aft stop.
+  17.251 mm.
+- **The front-top assembly order follows the moving mechanism.** Both carrier bodies must
+  enter the actual shell, engage their guides and retain each other without colliding with
+  the tees or valve hardware. Spring loading needs an accessible controlled path into both
+  retained ends. Prefer two substantial, self-latching bodies whose normal seating motion
+  closes the joint; separate keepers or screws add assembly work. The current candidate's
+  native assembly checks and support-removal review precede a complete enclosure test print.
+  That assembled print establishes spring capture, return tension, joint retention and feel;
+  those physical readings are acceptance results, not prerequisites for printing the test.
 - **The collet action is physically established.** Derek's checks with a tube-tight collar
   show easy extraction while the collet is continuously held, relocking after a small
   separating tug, and insertion against spring-level collet tension. The fixed plate carries

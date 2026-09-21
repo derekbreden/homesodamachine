@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "created_at_utc": "2026-09-21T05:11:01.566595+00:00",
+  "scope": "Exact current native sweep identity; no new neighborhood claim.",
+  "native_report_sha256": "672db15352dec74808ec4fed0f26c1a76e215cbc9a397efd9763208cc57080e6",
+  "prior_lines_sha256": "e04d7471fc2d36511ea7603de930c780b00e075b8204c24c4a161bb98994473e",
+  "current_lines_sha256": "1674cdc2971073826d7c25a6a759cd0d3a22b51f7cee059a99db9bea9f45307c",
+  "checker_sha256": "82478c028166564ea7aabb441c9414836757e16eb2bb2e0259dc4627097e170e",
+  "diameter_mm": 6.35,
+  "waypoints_equal": true,
+  "radii_equal": true,
+  "unchanged_native_inputs": 80,
+  "unchanged_constructor_sha256": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+  "unchanged_cap_interface_sha256": "c5e9d168ea0508f434d1848ed2996e2db9257e0eb3e57bc2358f2e6262f7f2a7",
+  "assembly_current": false,
+  "production_print_released": false
+}

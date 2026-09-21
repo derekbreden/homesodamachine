@@ -1,5 +1,5 @@
 {
-  "status": "printing_cartridge_and_cap_bench_fit",
+  "status": "cancelled_geometry_revision_required",
   "submitted": true,
   "printer": "H2C",
   "purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly.",
@@ -276,5 +276,9 @@
   "toolpath_review": "hardware/printed-parts/enclosure/enclosure/pump-toolpath-review.json",
   "toolpath_review_sha256": "2dd56cba120074ae1faef3d286a36f8c5e46e713f6a37634fa7430a17a77e19a",
   "print_record": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
-  "submission_observed_at_utc": "2026-09-21T03:20:54.501001+00:00"
+  "submission_observed_at_utc": "2026-09-21T03:20:54.501001+00:00",
+  "observed_state": "FAILED",
+  "observed_at_utc": "2026-09-21T03:45:39.329351+00:00",
+  "resumable": false,
+  "review_reason": "Added narrow cap rails are not accepted; Derek confirms the existing assembled cap holds both pumps firmly with no vertical play."
 }

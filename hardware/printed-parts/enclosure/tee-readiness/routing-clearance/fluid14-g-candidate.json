@@ -1,0 +1,285 @@
+{
+  "scope": "Explicit G placement candidate; all other native bodies retain the measured-tee/SeaFlo baseline cache. The native cap still requires regeneration to move its own anchor; all other route pairs require the final coordinated pack.",
+  "translation_mm": [
+    2.07113515194,
+    378.63545827612,
+    253.4
+  ],
+  "rear_slider_x_mm": 50.0,
+  "ports": {
+    "suction": [
+      [
+        39.33217089452915,
+        345.34702341754246,
+        280.1243022039962
+      ],
+      [
+        0.999986748620726,
+        0.004651362946762452,
+        0.0022062197729691684
+      ]
+    ],
+    "discharge": [
+      [
+        -34.94626242790567,
+        345.3764884721673,
+        280.1688222682448
+      ],
+      [
+        -0.9999421767690463,
+        0.002533638544009382,
+        0.010451018807260161
+      ]
+    ]
+  },
+  "waypoints_mm": [
+    [
+      82.1,
+      105.29,
+      282.1750001
+    ],
+    [
+      82.1,
+      105.29,
+      299.1750001
+    ],
+    [
+      44.750000006974815,
+      185.13,
+      289.0
+    ],
+    [
+      44.750000006974815,
+      199.13,
+      289.0
+    ],
+    [
+      44.750000006974815,
+      209.13,
+      269.2940001
+    ],
+    [
+      44.750000006974815,
+      360.0720234175425,
+      269.2940001
+    ],
+    [
+      57.50000000697483,
+      422.0,
+      269.2940001
+    ],
+    [
+      57.50000000697483,
+      422.0,
+      253.4000001
+    ]
+  ],
+  "radii_mm": {
+    "1": 14.0,
+    "2": 14.0,
+    "3": 14.0,
+    "4": 14.0,
+    "5": 14.0,
+    "6": 14.0
+  },
+  "pump_neighbors": [
+    {
+      "name": "head_yminus_observed_rubber_slider_envelope",
+      "gap_mm": 4.800757892063993,
+      "interference_mm3": 0.0
+    }
+  ],
+  "valve_air_mm": {
+    "valve-v-a": 1.155000006974788,
+    "vk-solenoid": 1.1249999999999858
+  },
+  "status": "pass_bounded_candidate",
+  "assembly_current": false,
+  "production_print_released": false,
+  "support_anchor_file": "fluid14-anchor.json",
+  "native_input_sha256": {
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/frames.json": "995d5192a287b2713b1f9b457c109f5b81de399dc04cb48a85c163e750773354",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/foam-assembly.brep": "41c746f1d72fd969b28e59fc3dd97152085c73f60faaddaf114234278b0dd8b3",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/seaflo-pump.brep": "7476aa94ec04c21224342a9562501d1a04f1222696d6c5165934a7a6f989c41d",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/suction-chain.brep": "4c1bd50e698318338193dd728604bdd1438e469af4ecff882e3d0a3da4aec83c",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/discharge-chain.brep": "a568f29862e01b4e5ba245f1d50d455fddfdbfd830e23dca4c551908c54043b8",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/compressor.brep": "d24a32fb6b9d83b0ba528156921f79f9bde11ab111cf12701110c6cb6922d09c",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/condenser+fan.brep": "531e06f85a4c8f825c625d9ea519de746fe040254a6cb67a9c48e7989f22aa5c",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/asse1022-assembly.brep": "35b1eb6783bc567dc73aa1a32aa536c4053042b762592440e91a5d84ae4c5665",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/water-split.brep": "dc4721c1d4169a0516f4522cadd8a0cc4234fb6f6a74995947ccc9000f8981c3",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/flow-regulator.brep": "093050e093289e6d697b5ee4477e3aacab53d6636a4b871ad50565f10ef73727",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/vk-solenoid.brep": "331c90d6201d3cacdc2b7617573a1e1be50febdf2a76c0c01e9fc0848268016e",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/bulkhead-water.brep": "266546e8ed1c7b896b68f54d954d54cc4141b91ec0a604c874d92a4e9c8ec8a4",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/co2-inlet.brep": "d8ccd00fe92e367c2f25c45e3e1436cca7ae7485d06f311915c1e6a1bf9f16f0",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/gasher-co2.brep": "95a725fcfbdd9b7e46f85897ca09c0ebc1dfe2296548595c47d75c3f4716d36e",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/wr1110.brep": "5520818b66c288c1b7de552c723d86686d6b86125bdd93530250e7cd2da6bfd1",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/digiten-flow.brep": "faa429ef2da0ada33be709d360e49a9312be28afe44e093d579eeab5920ccbba",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/co2-adapter-regulator-in.brep": "f47a8c00bb1651026ffaad63704be79b4e6b9e14a0b6dccef45b2103e70e888b",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/co2-adapter-regulator-out.brep": "07687292049f7d6f2defd2a50d11a2b4efc60e462f30c511721ae1803c91a984",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/co2-adapter-check-in.brep": "6fd7ba5716755721e00e06449ddff087f3bcd30dbd6521909161f7923aae76d7",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/co2-adapter-check-out.brep": "9c64b84426255cb8742544f441bfb1835e5764aeaf7b2c0d7b6f9377acd8a6d5",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/co2-check-coupling-nominal.brep": "2d93c8bd9456fdb6bc8bb9ffd9dc02d48075070c8e2cef1732288fab213668f3",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/bulkhead-flavor-b.brep": "35b7c29936d0ec70b2bebf64062a0c73657b6d5d155488e6cdfff9e020d4fd62",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/bulkhead-flavor-a.brep": "787f039362c63dd0714844a69b39296bb0e1f08779c24b7a6542242a9690b0db",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/bulkhead-carb.brep": "54b316f4b1b824b91aa09da1a6b49252eabcc3979e1d2c24eb47759bcb7fdd2d",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-a.brep": "90fc45342c4df85a4cbf5f1615e2a4e103eee1ed299c4baab6c43f6198eb5a42",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-a.brep": "6a7b4ccde6dbb245fe02175890b2b2b1619d54552636e44a4aaddc595886a835",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tee-y-a.brep": "be7515876f968943ad493dc4a5411a8f77cab3f459d1dd1f0af252161e2cbd0b",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-c.brep": "02cc6a238a15196d8d3281b30bf61d14fa0de7ad3732028eefdb6b5070b3f850",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-c.brep": "3a9f79117b2e1c49f7417408af8bc673417f9ada58a267d8655ec22b43b49ecd",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tee-y-c.brep": "989a45f719c957cb8f5001d712f4a9f1422d6207ad30d48400f24f818439dcf3",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-e.brep": "82622cee18aa66e68d9a6d32c7916ffc76ce82e594c6d0f1451e0f787ca35554",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-e.brep": "36b92c26ace08031552f69f4c86082675864703dc38363ec8e4a0d565a464007",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-g.brep": "db1f566540a97ddd0c5f2eb60d7d0c2df272718757778e5e8e5c16c7c38d2f18",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-g.brep": "3b613b799197324db4926f717fe50f1944b750698a8746c4c339be95ed5b13f7",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tee-y-d.brep": "a4595ea213fe96beacb9978ed3991d865d5c69ca9b7a689c0169768519cf8e40",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-f.brep": "81d22bdeb541097cbc4e34c17af1c7251c789b36c666474a7f0f6f00a4ca9e4d",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-f.brep": "d73d77c569d964494ee1f23e284685a32cd75e0bb4a3be06eef293b87a588eb8",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-b.brep": "26b337cc1767378b8a4f9c6b46445d8e34aa0c2e073d65f5762b76219db5d2fa",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-b.brep": "c3cc72930de5a4f8e89491893ad622876329848f91844e415ce3182da5d4dd4e",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tee-y-b.brep": "496c98074c4ee4f8f96071010183ed9223ac6806975511aeecf3692afe0c505e",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-d.brep": "e9672865b53bf84bc1597dbe3db6fad44ae26bedee7cb0113c05b1ebd8e6fe82",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-d.brep": "a960e368a687df474082d9490d39ed9bd30dec6816e1436fdb49da5b565d7e85",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tee-y-f.brep": "8154bea8a3e5870e6a661469c64a262efb483295da6f36fa21412ff582bd0998",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-h.brep": "211016b5054a8318c82a77315d0e835b6fa63d808ad3992fa2088c58c3d4e6e8",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-h.brep": "6cb4fd37fedf2c60cb59c955c80cb14b8a3f7d56c27768ad57dcb03918a58a4d",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-j.brep": "afd5b58a070a6b25c9e500ddd9bcaae181417e4a6e578c1885a9799cbfcda147",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-j.brep": "d0d33fcbadffee7d92455485b834ea4d12226be0534fc5d5b100a9ce56c99701",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tee-y-g.brep": "4e5f08700492c87aa899d99696d122fa44a9ad9ecac70149de680bc407f0dd16",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/valve-v-i.brep": "1f27df8f5a0f5962c9b89ae7e945af2546aad06a1d2e9a937dbfda628f7ac838",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/coil-v-i.brep": "61ab0e68a261f2e033a76ef825f33e4aca95485c3913c8a5b400d222b088a2ce",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/pump-a-head.brep": "0e29af21cfe728970927d876d853df2443afdfdf2c2ba31c35361bd7ac6d8cd0",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/pump-a-boss.brep": "72b78ea2478159a0b62f2b1cad172a15c1224cff4a444b8156b6c0015d0960e6",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/pump-a-motor.brep": "e4ea958106fcb8330fccf061bc222db22842e3417b29179be5c5a7893b57fe51",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/pump-b-head.brep": "1ba88090323ec24f292579f60ef162e7859c020a1bfc55cb0cf06a0b84d6cb71",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/pump-b-boss.brep": "68e4ed9758a23480e16bb8091eac00948838c6c6044be411c4c7f950fe6e5eec",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/pump-b-motor.brep": "ca766e225cd9d3e62e7330f9bba8014080107f564623c8f840e44f401198f22b",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-10.brep": "b3892abb65b1be0b4339ad508c6a8a01849a073887876ef51fc16f46eeb9bfa4",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-11.brep": "bb766bf9afd09361cc6b5fa7577a71b07390614f27dc499b56ab4a7ba157a765",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-12.brep": "ab70c4cdf85d04cee15a7ca0db6ab70676cd3ef2bba7af4c59ea6c09a5167d1b",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-13.brep": "cd7676d65770ef32db0bb1dbc97ebc914f9eba167060222d94354d7216946857",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-20.brep": "42946ba03d957a91f7119d472322ec18f6f240ff694b829ec0eb40a8844f9580",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-21.brep": "010c745673ddc63e57b68b0719f6ec28e1c784039cf064ed86b0fbbecd957238",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-22.brep": "9afb2a6a90335c33e320acacc24493908a31eeaf9f7f64f4d1eae8f670e10061",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-23.brep": "a8905436469c22d25f9c5b8133dcebf2606e0dcb2c134efcdca151012368492c",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-9.brep": "69738f18ccc9785c94aab32839bcfb51c3aebddef102c156e2677877a7f4adf1",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-17.brep": "3d1e61599a363a3d99714300f14d65d0c2edf6ed5550fa3a7fe3b70da46b9aa7",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-19.brep": "96609b2dba54e26ba7b484033b96af1bf7cba832fb266185ef2f6ef5d45bae75",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/tube-fluid-27.brep": "fae5920504326cd6a2d3464bae25f587a48ac56deaf36c31bda28572ae8387e5",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/turn-fluid-3.brep": "afe19f925c2dcc1c95f0cd3294c06e8b2d7bbd2b57b97e839fff9fcab9dd62c6",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/turn-fluid-5.brep": "0e232f204aaf0e173b43a71898b50d9eded619c0f1a6ed54dbf63ed9183eb6b3",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/step-fluid-3.brep": "2389bde66ff87d3a76622d5e845c99612653e6acb9dad8856218eedc924859b6",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/step-fluid-5.brep": "48ced6731031af10fb5ae92351ff64372ece08200dbefd55cc6b322bb7216982",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-2.brep": "74c66a231796e7565441ff3aafd791ed7f9e8ad2ff9a9479a9bcb9d6cefaa634",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-4.brep": "76a2d6b2793047a37189ee54e3b5fdd7784ead4ed626bc2f0f37e988f4137b38",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-18.brep": "8f0c9da5b732c908b7ce7ef5fe31812afeb8764f0354496ebb1feeeddfbbfae6",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-28.brep": "dfec42fa1ae4186b3a99bc65132de7418fa29488765170a43d03d4fab1883a13",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-14.brep": "0d4bd2123665cdbae303ea8ee9e86d4118982fcecb3826561ca4fb8c086cb988",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-16.brep": "2702a7bfe09a6246d4e4e633c83ac0ba07bb465e4092a42776267a81b28cbfd2",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-24.brep": "c994d57a21fbcdbce6947bfd21c243396450050d96d606b1dd877f262a1c1938",
+    "/tmp/scanner-review/tee-branch-propagation/route-pack/stub-fluid-26.brep": "540b3359c8184f76aa8691f412cf47a5a483106ff53d0785aa8d58189257fcff",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/reference-parameters.json": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": "7e86285e8991d6cde45830d7997cb30eb026d4998f3d54948d4dd480c32e0236"
+  },
+  "valve_and_other_tube_baseline": {
+    "lane_dx": 1.25,
+    "cap_dz": -6.0,
+    "gate_lead": 17.0,
+    "minimum_radius": 14.0,
+    "waypoints": [
+      [
+        82.1,
+        105.29,
+        282.1750001
+      ],
+      [
+        82.1,
+        105.29,
+        299.1750001
+      ],
+      [
+        44.750000006974815,
+        185.13,
+        289.0
+      ],
+      [
+        44.750000006974815,
+        199.13,
+        289.0
+      ],
+      [
+        44.750000006974815,
+        209.13,
+        269.294
+      ],
+      [
+        44.750000006974815,
+        345.62500000000006,
+        269.294
+      ],
+      [
+        57.50000000697483,
+        422.0,
+        269.294
+      ],
+      [
+        57.50000000697483,
+        422.0,
+        253.4000001
+      ]
+    ],
+    "nearest": [
+      {
+        "name": "foam-assembly",
+        "gap": 0.0,
+        "volume": 273.9483227913418,
+        "hit_bbox": [
+          41.57500000697481,
+          250.1,
+          266.11899999999997,
+          47.92500000697481,
+          258.9,
+          272.4368506433298
+        ]
+      },
+      {
+        "name": "vk-solenoid",
+        "gap": 1.1249999999999858,
+        "volume": 0.0,
+        "hit_bbox": null
+      },
+      {
+        "name": "valve-v-a",
+        "gap": 1.155000006974781,
+        "volume": 0.0,
+        "hit_bbox": null
+      },
+      {
+        "name": "seaflo-pump",
+        "gap": 1.9563840050215278,
+        "volume": 0.0,
+        "hit_bbox": null
+      },
+      {
+        "name": "tube-fluid-18",
+        "gap": 2.228797969210349,
+        "volume": 0.0,
+        "hit_bbox": null
+      },
+      {
+        "name": "tube-fluid-16",
+        "gap": 3.203264007372314,
+        "volume": 0.0,
+        "hit_bbox": null
+      }
+    ]
+  },
+  "source_provenance": {
+    "method": "Native candidate calculation retained in the source script; exact G transform and slider choice are recorded above.",
+    "script_path": "/tmp/scanner-review/tee-branch-propagation/probe_fluid14_g_candidate.py",
+    "script_sha256": "54cead4914cc8bde47f77115a66f25e3483a46877b810a489d8ff026c438a07c",
+    "baseline_lines_sha256": "0ea70ba3e1986a560d84d0da3f2fb48f2044c24d0124cbca89bb6dc3add79b2d",
+    "baseline_lines_matches_e8ae62bc7": true
+  }
+}

@@ -39,7 +39,7 @@ import enclosure_assembly as ea                         # noqa: E402
 import _routing as R                                    # noqa: E402
 import _scorecard                                       # noqa: E402
 import _mesh_payload                                    # noqa: E402
-import seaflo_22_pump as _pump                          # noqa: E402
+import g_ganen_installation as _pump                          # noqa: E402
 import seaflo_discharge_chain as _dis                   # noqa: E402
 lap("imports")
 
@@ -118,7 +118,11 @@ def export(a):
     # Frame name → (kind, grip length, the figure it came from). Ports not listed here fall
     # through to `unknown`.
     END_KINDS = {
-        "seaflo-pump": ("barb", float(_pump.PORT_L), "seaflo_22_pump.PORT_L"),
+        "g-ganen-pump": {
+            port: ("barb", float(_pump.profiled_barb_length(port)),
+                   "G Ganen independently scanned exterior: candidate insertion allowance; "
+                   "physical hose engagement and retention remain unqualified")
+            for port in ("suction", "discharge")},
         "suction-chain": {"barb-tip": ("barb", float(_dis.BARB_L), "seaflo_discharge_chain.BARB_L (MAACFLOW barb)"),
                           "tube-port": ("collet", COLLET_GRIP, "tee-connector README INSERTION 10.0")},
         "discharge-chain": {"barb-tip": ("barb", float(_dis.BARB_L), "seaflo_discharge_chain.BARB_L (MAACFLOW barb)"),
@@ -154,7 +158,7 @@ def export(a):
         if spec in ("collet", "union"):
             return spec, COLLET_GRIP, "tee-connector README: teeth hold from 8.5 (GRIP_DEPTH), tube bottoms at 10.0 (INSERTION)"
         if spec == "barb":
-            return spec, float(_pump.PORT_L), "seaflo_22_pump.PORT_L"
+            raise ValueError("A barb needs its own explicit measured or stated engagement allowance")
         if spec == "cap-bore":
             return spec, float(CAP_BORE_LEN), CAP_BORE_SOURCE
         if spec == "braze":
@@ -556,7 +560,10 @@ def export(a):
             "HOSE_OD": HOSE_OD,
             "HOSE_BEND": _lines.HOSE_BEND,
             "collet_grip_mm": COLLET_GRIP,
-            "pump_barb_PORT_L": _pump.PORT_L,
+            "pump_barb_exterior_mm": {port: _pump.profiled_barb_length(port)
+                                      for port in ("suction", "discharge")},
+            "pump_hose_engagement_physically_qualified": False,
+            "pump_grip_allowance_basis": "per-port observed exterior, assembly-test candidate",
             "chain_BARB_L": _dis.BARB_L,
             "cap_bore_len_mm": CAP_BORE_LEN,
             "cap_bore_len_source": CAP_BORE_SOURCE,

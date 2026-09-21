@@ -1,0 +1,3 @@
+-> foam-shell.step.mesh  517264 -> 87170 facets, 53986 vertices, 170 regions, 2.34 MB, 0.125 mm inside a 0.226 mm budget
+-> foam-cap-bottom.step.mesh  233282 -> 24062 facets, 16938 vertices, 96 regions, 0.70 MB, 0.108 mm inside a 0.161 mm budget
+-> foam-cap-top.step.mesh  196166 -> 33628 facets, 27109 vertices, 96 regions, 1.06 MB, 0.095 mm inside a 0.160 mm budget
