@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_copper_plug_clearance.py",
-      "note": "PASS: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "status": "ok"
+      "note": "FAIL: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
@@ -17,7 +17,7 @@
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "note": "PASS section:neck",
       "status": "red"
     },
     {
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
-      "status": "ok"
+      "note": "✗ instruction names a purchased brand the ledger no longer carries: Ganen (hardware/assembly/cold-core.md:82, hardware/assembly/internal-plumbing.md:13)",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_payloads.py",
@@ -62,12 +62,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2657 tracked, 540 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2785 tracked, 540 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 341, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 342, and the whole pointer file reads by name in 30.7 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,12 +87,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 29 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 236 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 39 of 241 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -102,41 +102,52 @@
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
+    "hardware/scripts/check_copper_plug_clearance.py": [
+      "west: front-top gap 0.000000 mm, front-top overlap 1253.465325000 mm³, foam overlap 0.000000000 mm³",
+      "port: front-top gap 0.000000 mm, front-top overlap 1253.465325000 mm³, foam overlap 0.000000000 mm³",
+      "FAIL: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json"
+    ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 707dc2cd9cb33891ab39858aef5bf317 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 152 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at b9dee5f5f48afcfda3fd13d615d1c367 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_faucet_geometry.py": [
-      "PASS fixture:complete-display-fit-trial",
-      "PASS fixture:production-print-orientations",
-      "PASS solid:display_trial_housing",
-      "PASS mesh:display_trial_housing",
-      "PASS motion:lever",
-      "PASS position:signal-southwest",
-      "PASS solid:display-ribbon-envelope",
-      "PASS clearance:signal-shell_base",
-      "PASS clearance:signal-shell_tip",
-      "PASS clearance:signal-above_counter_plate",
-      "PASS clearance:signal-above_counter_gasket",
-      "PASS clearance:signal-display_cover",
-      "PASS clearance:signal-tpu_thimble",
-      "PASS clearance:signal-donor",
-      "PASS clearance:signal-soda-tube",
-      "PASS clearance:signal-flavor-a",
-      "PASS clearance:signal-flavor-b",
-      "PASS clearance:signal-countertop",
-      "PASS clearance:signal-under-counter-plate",
-      "PASS clearance:signal-display-body",
-      "PASS clearance:signal-display-usb",
-      "PASS fit:signal-lane-section",
-      "PASS wall:neck-signal-lane",
-      "PASS seat:plate-gasket",
-      "FAIL faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json"
+      "PASS mesh:display_cover_relaxed_print",
+      "PASS mesh:lower-outer-loft-accuracy",
+      "PASS route:flavor-tube-radius",
+      "PASS route:flavor-passage-radius",
+      "PASS route:soda-tube-radius",
+      "PASS clearance:donor-shell_base",
+      "PASS clearance:donor-shell_tip",
+      "PASS clearance:donor-above_counter_plate",
+      "PASS clearance:donor-display_cover",
+      "PASS clearance:soda-shell_base",
+      "PASS clearance:soda-shell_tip",
+      "PASS clearance:soda-display_cover",
+      "PASS clearance:flavor-a-shell_base",
+      "PASS clearance:flavor-a-shell_tip",
+      "PASS clearance:flavor-a-display_cover",
+      "PASS clearance:flavor-b-shell_base",
+      "PASS clearance:flavor-b-shell_tip",
+      "PASS clearance:flavor-b-display_cover",
+      "PASS clearance:display-body-shell_base",
+      "PASS clearance:display-body-shell_tip",
+      "PASS clearance:display-body-display_cover",
+      "PASS clearance:display-screen-shell_base",
+      "PASS clearance:display-screen-shell_tip",
+      "PASS clearance:display-screen-display_cover",
+      "PASS section:neck"
     ],
     "hardware/scripts/check_finishes.py": [
       "web/public/finishes.json is not the table this tree states.",
       "  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write"
+    ],
+    "hardware/scripts/check_ledger.py": [
+      "instructions: 121 files (15 procedures + 105 cards + cover) | ledger brands: 576 | waived: 1 ASIN + 4 brand",
+      "DRIFT: 2 instruction(s) out of step with the ledger:",
+      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B07F35PTFR (hardware/assembly/internal-plumbing.md:30)",
+      "  ✗ instruction names a purchased brand the ledger no longer carries: Ganen (hardware/assembly/cold-core.md:82, hardware/assembly/internal-plumbing.md:13)"
     ],
     "hardware/scripts/check_payloads.py": [
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/inputs/right.step.mesh — declared by nobody",
@@ -198,23 +209,6 @@
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/reference/g-ganen-pump/register_scan.py",
       "    hardware/reference/g-ganen-pump/scan_tools.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/reference/g-ganen-pump/scan_tools.py",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -31,6 +31,11 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py\",",
-      "           \"pysrc/hardware/printed-parts/valve-seat/valve_seat.py\",",
-      "           \"pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py\",",
-      "  +        \"pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py\",",
-      "  +        \"pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py\",",
-      "  +        \"pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py\",",
-      "  +        \"pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py\",",
-      "  +        \"hardware/reference/g-ganen-pump/reference-parameters.json\",",
-      "           \"pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py\",",
-      "           \":out/tee-connector/hardware/reference/tee-connector/tee-connector.step\",",
-      "           \"pysrc/hardware/reference/tee-connector/tee_connector.py\",",
-      "  @@ -152,6 +157,11 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py\",",
-      "  … 1183 more line(s)",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
