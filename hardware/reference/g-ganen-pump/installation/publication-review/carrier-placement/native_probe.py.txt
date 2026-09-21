@@ -1,0 +1,15 @@
+from pathlib import Path
+import sys,json,hashlib,time
+import numpy as np
+import cadquery as cq
+R=Path('/Users/derekbredensteiner/Developer/homesodamachine');D=Path(__file__).parent
+sys.path.insert(0,str(R/'hardware/scripts'));from _cadq_export import import_assembly
+import _mesh_payload as mp
+p=R/'hardware/manifold-layout/enclosure-assembly.step';parts=import_assembly(p);print('loaded',len(parts),flush=True)
+rows=[]
+for side in ['left','right']:
+ name='enclosure-tee-carrier-'+side;q=R/'hardware/printed-parts/enclosure/tee-carrier'/f'{name}.step';s=cq.importers.importStep(str(q)).val();a=parts[name][0];expected=s.translate((0,2,0))
+ bounds=lambda x:(lambda b:[b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax])(x.BoundingBox())
+ row={'name':name,'piece_step_sha256':hashlib.sha256(q.read_bytes()).hexdigest(),'native_original_bounds':bounds(s),'native_host_bounds':bounds(a),'native_added_vs_exact_Y2_mm3':a.cut(expected).Volume(),'native_missing_vs_exact_Y2_mm3':expected.cut(a).Volume()}
+ rows.append(row);print(json.dumps(row),flush=True)
+(D/'native-probe.json').write_text(json.dumps({'aggregate_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'readings':rows},indent=2)+'\n')
