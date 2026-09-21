@@ -1,0 +1,261 @@
+{
+  "scope": "Independent native feasibility study only. No production source, trace, full assembly, physical coupon, slice or print release.",
+  "placement_status": "Frozen fixtures and carrier at provisional 20.07 mm tee branch datum. New measured branch geometry and selected G Ganen require rebase.",
+  "external_sleeve": "Blocked by existing sideways installation and retained aft guide shoulder.",
+  "closed_cups": "Temporary-pusher route and added-stock continuous sweeps clear the rebuilt frozen front-top at 12.15 mm held spring length. Spring stability and effort are unmeasured.",
+  "complementary_arcs": "The short pair clears itself but requires a lower-lip relief and leaves a native-verified open inboard lane near the moving end. End-capture refinement would add complexity; not adopted.",
+  "architecture": "Plain integral cups are the simplest credible spring candidate from this study. The existing carrier joint and halves are not prescribed for reuse.",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "89cb69457f35cd7b9189fe24bfc74a44a8e8a5298f4faf918357a27066322fe0",
+      "bytes": 16028
+    },
+    {
+      "file": "arc-end-opening-checks.json",
+      "sha256": "123c377b0ac51c1cd67c806e50348779f72dfe586ce8f354b5a02c2ecf60d554",
+      "bytes": 2868
+    },
+    {
+      "file": "arc-guard-checks.json",
+      "sha256": "d689deab008d517951396b1f7e09e9824e90f3da58557634c1410d296ef21665",
+      "bytes": 6930
+    },
+    {
+      "file": "arc-pair-at-aft-stop.step",
+      "sha256": "f6b5cf8953c8aec68f8bfb9f58dc71058645f93fa5595c3623ebbaf94098c3df",
+      "bytes": 38460
+    },
+    {
+      "file": "arc_end_opening.py",
+      "sha256": "016461b251d8adf947ddaaa365f3fe65f867cd01cb861253564a501d934eeac4",
+      "bytes": 4528
+    },
+    {
+      "file": "arc_guard_probe.py",
+      "sha256": "02aa26f671a9a12b4af353a5469bde92c0772300f0db77d6ac6aaa8f798e1afb",
+      "bytes": 6292
+    },
+    {
+      "file": "assembly-clash.step",
+      "sha256": "0b1cd56ec41b83c12146050d51bf34e399d919381f91bb1d9b36671ba361ec33",
+      "bytes": 43462
+    },
+    {
+      "file": "check_current.py",
+      "sha256": "6c021e2fcc0a9bbe1cfa6452ca55af136ff9174fe204ec3cc18d653a09b0075f",
+      "bytes": 6034
+    },
+    {
+      "file": "checks.json",
+      "sha256": "5849b7d72cb7ad59d9fb093e1841ab3c909d51e708e98c5a75177e8cad734fb7",
+      "bytes": 15093
+    },
+    {
+      "file": "closed-cup-checks.json",
+      "sha256": "d299704f4c81faf9d606f6d49a6cb66666c31e3476b1e5d7e644bc069ed920b6",
+      "bytes": 54326
+    },
+    {
+      "file": "closed-cup-fixed-native-coupon.step",
+      "sha256": "a345eb4fa892c8d4ee003fb50c19369cdcff7743a43ec684390779b007b84f77",
+      "bytes": 36837
+    },
+    {
+      "file": "closed-cup-moving-native-coupon.step",
+      "sha256": "c9dd5a76ede801aedb83625f31c411d003a8421f883e10b148e5e655e936fb5c",
+      "bytes": 90452
+    },
+    {
+      "file": "closed_cup_loading.py",
+      "sha256": "02efe3065a14e0195ee0b467db03c78cadb65133b2b7443cccd7cbd50e4e447b",
+      "bytes": 11913
+    },
+    {
+      "file": "closed_cup_stock.py",
+      "sha256": "9e3746c68b97cbee1f43c46c1a0c11451b580bfa0000c1c8a4c6f5d48f51bd44",
+      "bytes": 4749
+    },
+    {
+      "file": "current-checks.json",
+      "sha256": "607a40d62720a24336a4496721e1ad09ce6f4d79d8b40537c94ac9ddf31414ed",
+      "bytes": 13285
+    },
+    {
+      "file": "current-closed-cup-checks.json",
+      "sha256": "d66fb8a256ac902004687001350128e4e9e35ce75f8f17fb133d3462f5ea76bc",
+      "bytes": 50885
+    },
+    {
+      "file": "current-closed-cup-fixed-native-coupon.step",
+      "sha256": "5f8571ab4f99202fe647c01b07ae1e1ea2fd172f4fd641b3abac564dcb71a3ad",
+      "bytes": 36693
+    },
+    {
+      "file": "current-closed-cup-moving-native-coupon.step",
+      "sha256": "1c7ac3fc1b16047b355fbbe2776f28f1833c3ba3aee882702a77885fa887263f",
+      "bytes": 89120
+    },
+    {
+      "file": "current-closed-cup-stock-checks.json",
+      "sha256": "8daedca5570703405c5789360d0848ad05d151b0c97c150674d843351b13e87b",
+      "bytes": 3850
+    },
+    {
+      "file": "current-inputs/carrier-left.step",
+      "sha256": "4fd2e96090b1990a8cabfaa1be31e0077bbc84fd2b5537ec204246440c4102a3",
+      "bytes": 354453
+    },
+    {
+      "file": "current-inputs/carrier-right.step",
+      "sha256": "8d2190ed4a36bc9e636f0a0d0733413e4eaeafdf86462d78d246825800a4e8ba",
+      "bytes": 340709
+    },
+    {
+      "file": "current-inputs/coil-v-g.brep",
+      "sha256": "60543512f6b9a65f8262ec124e93ff0434ba63f0ac8dc1bff649ba2ea8eb3ae1",
+      "bytes": 171706
+    },
+    {
+      "file": "current-inputs/coil-v-j.brep",
+      "sha256": "62186a9737506c9a9219ece663b26d8d0dbc5de468821c98f5724c4e6fb6cba1",
+      "bytes": 173405
+    },
+    {
+      "file": "current-inputs/interface.json",
+      "sha256": "41193dd24f56a2e22e67d1340b24edc14548b00247521364023df0dcb0ab3cac",
+      "bytes": 21067
+    },
+    {
+      "file": "current-inputs/manifest.json",
+      "sha256": "e7d645b7551a113259750679a4495e25771d2d67fd318ec97d97dec73691a266",
+      "bytes": 6940
+    },
+    {
+      "file": "current-inputs/pump-a-head.brep",
+      "sha256": "7b18a7eae565ce96beca952cd25c8187798f3df7e8b1f7e18c7f6943d199dd64",
+      "bytes": 26564
+    },
+    {
+      "file": "current-inputs/pump-b-head.brep",
+      "sha256": "9d54b9123f249fb3252d7c5e447544398b2b3fde36b98421ec7c27d9fcf5ce24",
+      "bytes": 26817
+    },
+    {
+      "file": "current-inputs/tee-y-d.brep",
+      "sha256": "2b8a7d01bd4c98574914f3d80f1d81137a963bbf3a9851d1c467ffeb3f0a8599",
+      "bytes": 26056
+    },
+    {
+      "file": "current-inputs/tee-y-g.brep",
+      "sha256": "af8988f7f017f86542db14d47c1f98bb22427efca53a260527315fd756ee57a2",
+      "bytes": 26162
+    },
+    {
+      "file": "current-inputs/tube-fluid-12.brep",
+      "sha256": "a49421a36e5701fe2ea3c323a9568d426248f4ed6d219c4facb8c7645a2965a7",
+      "bytes": 2140
+    },
+    {
+      "file": "current-inputs/tube-fluid-13.brep",
+      "sha256": "fcc9bba1ca1c801ff7056dcc10bc65a303348653d417ab79e523f2c2a6b93865",
+      "bytes": 16502
+    },
+    {
+      "file": "current-inputs/tube-fluid-22.brep",
+      "sha256": "6425325cf99779134055efa755e697b4f3f60969f3b102f0bf23cdac745c012c",
+      "bytes": 2148
+    },
+    {
+      "file": "current-inputs/tube-fluid-23.brep",
+      "sha256": "a8fd7f216b855132c07aaf89fe1a2f6f146e6b326f83b9398af77da37f41010e",
+      "bytes": 22576
+    },
+    {
+      "file": "current-inputs/valve-v-f.brep",
+      "sha256": "841f6a713093822a0c2ada165b4e19a2524e93c065d621e00ff0d3a2cb9849a5",
+      "bytes": 468833
+    },
+    {
+      "file": "current-inputs/valve-v-i.brep",
+      "sha256": "1e8ecf64df1be4bd54f01607101f3fa24629ff2f1b8df6af29d3014c17653ba9",
+      "bytes": 473095
+    },
+    {
+      "file": "evaluate.py",
+      "sha256": "bd1491eebd15b39da3c2114ca2da80f3235b72b0bd26ec50ae5da05154b6b2aa",
+      "bytes": 12798
+    },
+    {
+      "file": "fixed-sleeve-coupon.step",
+      "sha256": "7f51e64ef26e7aa0ac8dc2547361e2f2f52efc027dc642461cae1a853e58843b",
+      "bytes": 36846
+    },
+    {
+      "file": "frozen-front-top/current-front-top.step",
+      "sha256": "63471e1fa49233b281b6334ec3ef82c73a3abe8c635eb537c4f38e2a2e6e5508",
+      "bytes": 2175629
+    },
+    {
+      "file": "frozen-front-top/fixture.json",
+      "sha256": "446357f5355cfc2d8fafb746c1be63924acb380254df00a48323cd2a499ed9bd",
+      "bytes": 5575
+    },
+    {
+      "file": "moving-closed-bore-coupon.step",
+      "sha256": "5f51c1bdcef5e9519b33f768234b43e217bf15b506d24ba368348cfed85fbf74",
+      "bytes": 87873
+    },
+    {
+      "file": "single-carrier-route/README.md",
+      "sha256": "4fed21be6383f616dc7469b0ccb65a8884d4bbe25a82f0c7eb51a20667c43bcc",
+      "bytes": 8987
+    },
+    {
+      "file": "single-carrier-route/bottom-keeper-required-stock.step",
+      "sha256": "c2690db31400925120043998c50d02ddf58975355444053d1cfe1a7f70c8bd7d",
+      "bytes": 318805
+    },
+    {
+      "file": "single-carrier-route/bottom-opening-checks.json",
+      "sha256": "be8dba52be337135d0007e2d84354ef4cef2cb0756b7b91aa18c456d9d1c0d54",
+      "bytes": 8186
+    },
+    {
+      "file": "single-carrier-route/bottom_opening.py",
+      "sha256": "001cefcd8339a74ed84f93e934fe1372336f1430c6edabc370bf0a2a04418085",
+      "bytes": 8920
+    },
+    {
+      "file": "single-carrier-route/checks.json",
+      "sha256": "24374fd831e0f10a088b15ab606b9231f98e4f55f0fa246ebf0435edc8dce2e9",
+      "bytes": 17110
+    },
+    {
+      "file": "single-carrier-route/conservative-bottom-opening-stock.step",
+      "sha256": "d07c1f8b7481cea982bc081189ddb461cd70386e147e068fd91a3abbf95fd104",
+      "bytes": 338393
+    },
+    {
+      "file": "single-carrier-route/continuous-closed-cup-reference.step",
+      "sha256": "e27ede39733be09e9a673f0fd8c46a1410a71859a0a5cc85686d8e7ef792a1fa",
+      "bytes": 570603
+    },
+    {
+      "file": "single-carrier-route/continuous-reference-blank.step",
+      "sha256": "5bfeb6204a11279bf1a4c0e1bb3ad1d948214c4c1ff374c3619982011ef05709",
+      "bytes": 596912
+    },
+    {
+      "file": "single-carrier-route/probe.py",
+      "sha256": "815d5ace06b3a42814b397116a40472398ce6999c0c385aee4be2a10be70ec22",
+      "bytes": 6933
+    },
+    {
+      "file": "single-carrier-route/underside-barrier-at-minus-1mm.step",
+      "sha256": "181d418e66b82a2bb7197aa7e1468922f7895df9d38a36a8bafb36261f1382d6",
+      "bytes": 222974
+    }
+  ],
+  "continuous_carrier": "The continuous reference fits all working stops. A bounded bottom opening clears the whole upward motion, but transferring its guide stock directly to front-bottom blocks the existing Y-slide closure. A broad keeper carried with front-top is an undesigned candidate; no release."
+}
