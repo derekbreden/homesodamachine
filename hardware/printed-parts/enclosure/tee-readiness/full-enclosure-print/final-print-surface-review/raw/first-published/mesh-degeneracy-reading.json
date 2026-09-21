@@ -1,0 +1,117 @@
+{
+  "status": "read_only_mesh_reading",
+  "parts": [
+    {
+      "part": "enclosure-front-top",
+      "stl_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "faces": 557640,
+      "zero_area_faces": 2,
+      "is_watertight": true,
+      "winding_consistent": true,
+      "connected_bodies": 1,
+      "volume_mm3": 1379386.4491479204,
+      "zero_area_triangle_bounds": [
+        [
+          [
+            -107.4329833984375,
+            155.05010986328125,
+            349.8942565917969
+          ],
+          [
+            -107.4329833984375,
+            157.33872985839844,
+            349.8942565917969
+          ]
+        ],
+        [
+          [
+            107.4329833984375,
+            155.05010986328125,
+            349.8942565917969
+          ],
+          [
+            107.4329833984375,
+            157.38504028320312,
+            349.8942565917969
+          ]
+        ]
+      ],
+      "analysis_zero_area_removal": {
+        "written": false,
+        "is_watertight": false,
+        "winding_consistent": true,
+        "connected_bodies": 1,
+        "volume_mm3": 1379386.4491479204
+      },
+      "source_unchanged": true
+    },
+    {
+      "part": "enclosure-back-bottom",
+      "stl_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+      "faces": 1291828,
+      "zero_area_faces": 4,
+      "is_watertight": true,
+      "winding_consistent": true,
+      "connected_bodies": 1,
+      "volume_mm3": 1269244.277006163,
+      "zero_area_triangle_bounds": [
+        [
+          [
+            -76.83354949951172,
+            471.7250061035156,
+            19.973535537719727
+          ],
+          [
+            -76.83354949951172,
+            471.7250061035156,
+            19.973539352416992
+          ]
+        ],
+        [
+          [
+            29.562402725219727,
+            471.7749938964844,
+            40.7138786315918
+          ],
+          [
+            29.56243133544922,
+            471.7749938964844,
+            40.71391296386719
+          ]
+        ],
+        [
+          [
+            48.58571243286133,
+            471.75,
+            40.66010665893555
+          ],
+          [
+            48.58573913574219,
+            471.75,
+            40.660133361816406
+          ]
+        ],
+        [
+          [
+            48.739501953125,
+            471.70001220703125,
+            40.94269943237305
+          ],
+          [
+            48.739654541015625,
+            471.70001220703125,
+            40.943355560302734
+          ]
+        ]
+      ],
+      "analysis_zero_area_removal": {
+        "written": false,
+        "is_watertight": false,
+        "winding_consistent": true,
+        "connected_bodies": 1,
+        "volume_mm3": 1269244.2770061626
+      },
+      "source_unchanged": true
+    }
+  ]
+}

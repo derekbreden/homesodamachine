@@ -1,0 +1,12 @@
+START enclosure-front-bottom; published native/payload and print input verified
+{"status": "read_only_lint_complete", "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl", "mesh_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd", "unanswered_count": 2, "answered_count": 5, "seconds": 16.311718832992483}
+START enclosure-back-bottom; published native/payload and print input verified
+{"status": "read_only_lint_complete", "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl", "mesh_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b", "unanswered_count": 153, "answered_count": 4, "seconds": 97.57653929200023}
+START enclosure-tee-carrier-left; published native/payload and print input verified
+{"status": "read_only_lint_complete", "mesh": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl", "mesh_sha256": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c", "unanswered_count": 2, "answered_count": 31, "seconds": 0.3022599169926252}
+START enclosure-tee-carrier-right; published native/payload and print input verified
+{"status": "read_only_lint_complete", "mesh": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl", "mesh_sha256": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4", "unanswered_count": 0, "answered_count": 39, "seconds": 0.31036037497688085}
+START foam-cap-top; published native/payload and print input verified
+{"status": "read_only_lint_complete", "mesh": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl", "mesh_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785", "unanswered_count": 0, "answered_count": 0, "seconds": 17.320020459010266}
+START foam-cap-lid-top; published native/payload and print input verified
+{"status": "read_only_lint_complete", "mesh": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl", "mesh_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111", "unanswered_count": 1, "answered_count": 5, "seconds": 2.637466458021663}

@@ -1,0 +1,106 @@
+{
+  "status": "read_only_lint_complete",
+  "created_at_utc": "2026-09-21T09:10:04.817021+00:00",
+  "mesh": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+  "mesh_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+  "native": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+  "published_member_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "ef82091d4a837c76b06a113fa2b3c7da5e6eca9446ae02f9901fd4997a1adaf7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "71372f76f8d3e0ea2b7787a31cee059474348f9f08eaae4fa5ec86509d2ef388"
+  },
+  "publication_pointer_sha256_at_start": "9aa6d5eefc48896a47bda48cf468a5d7a032d80e17dd6220b33f009fe2be599a",
+  "publication_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "derivative_print_mesh_from_published_native": true,
+  "derivative_manifest_sha256": "64df9db1c42d00386dbbfa090d537ca8ff3daf85951a661fc8db21def2eef858",
+  "answers": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+  "answers_sha256": "522ede5e9c3178b2ea8b65b76d505d754e63d7f6a4009c42c4f01de08b6049dc",
+  "printed_facets": 72176,
+  "lint_source_sha256": "4dde8aeddd61ecaee129f1743f895bc71a286dfb3022cbe680d253eec1ceb0d5",
+  "errors": "",
+  "input_drift": [],
+  "unanswered_count": 1,
+  "answered_count": 5,
+  "open": {
+    "step": [],
+    "sliver": [],
+    "ceiling": [
+      {
+        "class": "ceiling",
+        "score": 19.342287690655972,
+        "line": "35 mm\u00b2 flat print-down face at z=8.400 \u00b7 12.7 \u00d7 2.8 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=65.000 y=44.750 z=8.400",
+          "click: x=65.000 y=44.750 z=8.400"
+        ]
+      }
+    ],
+    "slope": []
+  },
+  "answered": [
+    {
+      "finding": {
+        "class": "step",
+        "score": 93.20001220703125,
+        "line": "\u03940.250 mm between parallel planes \u00b7 footprint met 23.3 \u00d7 2.8 mm",
+        "pick": [
+          "faceA: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=61.000 y=-60.500 z=5.150",
+          "faceB: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=0.000 z=5.400",
+          "click: x=61.000 y=-60.500 z=5.150"
+        ]
+      },
+      "reason": "The 0.25 mm recess is the floor allowance beneath the discharge-chain zip-tie tunnel. It gives the supported roof strands clearance while retaining the seated body's axis, the tunnel roof and the full anchor feet. The surrounding lid face is the locating datum. The recess ends at the open tunnel mouths, leaving a 0.25 mm lip to clear during cleanout."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 29.18494313478729,
+        "line": "81 mm\u00b2 flat print-down face at z=44.875 \u00b7 28.8 \u00d7 2.8 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=37.275 y=34.000 z=44.875",
+          "click: x=37.275 y=34.000 z=44.875"
+        ]
+      },
+      "reason": "The fluid-18 side-anchor window carries the tie under the tube seat while retaining a solid column beneath it. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 28.8 mm transverse extent is the post depth above the window. The window is 3.25 mm high. Support cleanout runs straight along X through the open front or relieved rear mouth before tubing, ties or the adjacent pump hardware are installed. No branch turns into a blind pocket; the tie's rear channel continues openly from the window floor to the post crown."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 26.25067883131233,
+        "line": "65 mm\u00b2 flat print-down face at z=8.400 \u00b7 23.3 \u00d7 2.8 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=61.000 y=-60.500 z=8.400",
+          "click: x=61.000 y=-60.500 z=8.400"
+        ]
+      },
+      "reason": "The suction-chain, discharge-chain and fluid-14 tunnel roofs are the backs of the clamping ribs: the zip tie passes under each rib and pulls its body into the seat. Each roof bridges 2.8 mm along X between complete 3 mm feet; the 23.3 mm or 12.7 mm transverse extent is the rib's width. The recessed floor provides 3.25 mm of clear height. The cleanout lane runs along Y through either open mouth, before the purchased body and tie are fitted. Release any attached support at its contact faces and clear the 0.25 mm floor-relief lip before withdrawing it through a mouth; the relief is not a flush floor-level slide path."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 26.250656651687933,
+        "line": "65 mm\u00b2 flat print-down face at z=8.400 \u00b7 23.3 \u00d7 2.8 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=35.120 y=65.050 z=8.400",
+          "click: x=35.120 y=65.050 z=8.400"
+        ]
+      },
+      "reason": "The suction-chain, discharge-chain and fluid-14 tunnel roofs are the backs of the clamping ribs: the zip tie passes under each rib and pulls its body into the seat. Each roof bridges 2.8 mm along X between complete 3 mm feet; the 23.3 mm or 12.7 mm transverse extent is the rib's width. The recessed floor provides 3.25 mm of clear height. The cleanout lane runs along Y through either open mouth, before the purchased body and tie are fitted. Release any attached support at its contact faces and clear the 0.25 mm floor-relief lip before withdrawing it through a mouth; the relief is not a flush floor-level slide path."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 7.03486548908536,
+        "line": "21 mm\u00b2 flat print-down face at z=6.675 \u00b7 7.6 \u00d7 2.8 mm \u00b7 drop 1.5\u20131.5 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=134.200 y=-13.000 z=6.675",
+          "click: x=134.200 y=-13.000 z=6.675"
+        ]
+      },
+      "reason": "The water-3 side-anchor window lets the tie pass beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 7.6 mm transverse extent is the post depth above the window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Any attached support must be released and lifted clear of the 0.25 mm floor-relief lip before it leaves through a mouth; the surrounding lid surface is above the recessed floor."
+    }
+  ],
+  "scope": "Mesh anomalies and exact existing answer-anchor matches only; no new physical acceptance or support approval.",
+  "seconds": 2.637466458021663
+}

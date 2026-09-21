@@ -1,0 +1,7 @@
+foam-cap-lid-top: 1 open / 5 existing matches
+Native: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+Mesh SHA256: 3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111
+[ceiling] 35 mm² flat print-down face at z=8.400 · 12.7 × 2.8 mm · drop 3.2–3.2 mm to material below
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=65.000 y=44.750 z=8.400
+click: x=65.000 y=44.750 z=8.400
+

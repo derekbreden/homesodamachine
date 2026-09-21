@@ -1,0 +1,3 @@
+foam-cap-top: 0 open / 0 existing matches
+Native: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
+Mesh SHA256: 8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785

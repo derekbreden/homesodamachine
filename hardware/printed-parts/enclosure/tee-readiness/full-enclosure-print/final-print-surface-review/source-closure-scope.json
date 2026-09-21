@@ -1,0 +1,7 @@
+{
+  "status": "package_outside_current_assembly_source_closure",
+  "graph_sha256": "708061ee567ed223d61882825be08bcdd97f1dfbb1b9ebfde58354ec32823b9e",
+  "source_count": 382,
+  "package_files_are_generator_inputs": false,
+  "production_geometry_or_answers_changed_by_packaging": false
+}

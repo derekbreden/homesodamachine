@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "scope": "native witness and exact source guard",
+  "guards": {
+    "former_guard_former_route": {
+      "accepted": true
+    },
+    "current_guard_former_route": {
+      "accepted": false,
+      "error": "fluid-14 clears valve-v-a by 0.882 mm, below the 1 mm clearance floor"
+    },
+    "current_guard_corrected_route": {
+      "accepted": true
+    }
+  },
+  "native_witness": {
+    "point_to_former_tube_mm": 2.2908525676797875e-06,
+    "point_to_actual_valve_mm": 0.8882882584251909,
+    "former_whole_shape_distance_mm": 1.1550000069750013,
+    "former_production_mesh_gap_mm": 0.8820397555222746,
+    "corrected_production_mesh_gap_mm": 1.0754158609219209
+  }
+}
