@@ -5,10 +5,10 @@ click: x=-90.850 y=108.538 z=214.774
 click: x=-74.225 y=108.786 z=214.774
 
 [sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py.
-file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step
+click: x=-13.600 y=108.538 z=214.774
+click: x=-73.350 y=108.538 z=214.774
 click: x=-90.850 y=108.538 z=214.774
 click: x=-31.100 y=108.538 z=214.774
-click: x=-73.258 y=108.538 z=214.774
 
 [sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
 click: x=-90.000 y=111.290 z=200.174
@@ -63,8 +63,8 @@ click: x=8.875 y=110.490 z=194.799
 
 [sliver] The 3 × 3 × 9 mm retaining stop ends at Y136.000, while its broad upper-cheek/root ends at Y135.990. These are the 0.010 mm exposed edge faces at their union. The stop overlaps the root through its remaining 2.99 mm Y depth; no freestanding 0.010 mm sheet is present. The root is continuous with the shelf and upper cheek, and the native retaining-wall motion checks use this exact body.
 file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step
+click: x=-29.000 y=135.995 z=215.500
 click: x=-31.500 y=135.995 z=211.000
-click: x=-28.907 y=135.995 z=215.500
 
 [ceiling] The lower structural shelf keeps its flat bearing section. The current carrier-pair Mark2 slice places tree-2/interface-8 below it; detach that contact branch from the bed stem and remove it through the exposed underside while the half is loose. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json. Cleanup force and finish remain physical observations.
 file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step

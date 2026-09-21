@@ -1,0 +1,53 @@
+enclosure-front-top: 10 open / 31 existing matches
+Native: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+Mesh SHA256: 1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08
+[step] Δ0.750 mm between parallel planes · footprint met 6.4 × 4.2 mm
+faceA: plane · n x=-1.000 y=0.000 z=0.000 · thru x=104.500 y=146.020 z=194.810
+faceB: plane · n x=-1.000 y=0.000 z=0.000 · thru x=103.750 y=95.938 z=171.875
+click: x=103.750 y=95.938 z=171.875
+
+[sliver] 1.350 mm strip, 34.6 mm long
+face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-99.175 y=151.152 z=253.100
+edge: x=-99.175 y=151.152 z=270.389 → x=-99.175 y=151.152 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-99.175 y=151.152 z=253.100
+
+[sliver] 1.350 mm strip, 34.6 mm long
+face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=99.175 y=150.882 z=253.100
+edge: x=99.175 y=150.882 z=270.389 → x=99.175 y=150.882 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=99.175 y=150.882 z=253.100
+
+[sliver] 1.570 mm strip, 19.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-97.715 y=109.340 z=235.925
+edge: x=-97.715 y=99.440 z=235.925 → x=-97.715 y=119.240 z=235.925 · len 19.800 · straight · dir x=0.000 y=1.000 z=0.000
+click: x=-97.715 y=109.340 z=235.925
+
+[sliver] 1.570 mm strip, 19.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=97.715 y=109.340 z=235.925
+edge: x=97.715 y=99.440 z=235.925 → x=97.715 y=119.240 z=235.925 · len 19.800 · straight · dir x=0.000 y=1.000 z=0.000
+click: x=97.715 y=109.340 z=235.925
+
+[sliver] 0.500 mm strip, 9.2 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-98.500 y=176.690 z=180.550
+edge: x=-98.500 y=172.090 z=180.550 → x=-98.500 y=181.290 z=180.550 · len 9.200 · straight · dir x=0.000 y=1.000 z=0.000
+click: x=-98.500 y=176.690 z=180.550
+
+[sliver] 0.839 mm strip, 7.1 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-97.500 y=122.795 z=270.969
+edge: x=-97.500 y=119.240 z=270.969 → x=-97.500 y=126.350 z=270.969 · len 7.110 · straight · dir x=0.000 y=1.000 z=0.000
+click: x=-97.500 y=122.795 z=270.969
+
+[sliver] 0.204 mm strip, 6.9 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-93.250 y=93.938 z=163.462
+edge: x=-93.250 y=93.938 z=166.924 → x=-93.250 y=93.938 z=160.000 · len 6.924 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-93.250 y=93.938 z=163.462
+
+[sliver] nan mm strip, nan mm long
+face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-107.433 y=156.194 z=349.894
+edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+click: x=-107.433 y=156.194 z=349.894
+
+[sliver] nan mm strip, nan mm long
+face: plane · n x=0.000 y=0.000 z=0.000 · thru x=107.433 y=156.218 z=349.894
+edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+click: x=107.433 y=156.218 z=349.894
+

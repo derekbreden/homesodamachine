@@ -1,0 +1,608 @@
+{
+  "status": "all_45_current_findings_classified",
+  "native_sha256": "73f21c065154de8532ccf2a69be35b79be45670ef04e59d1ce5e1dc8ed875b9b",
+  "mesh_sha256": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5",
+  "answer_input_sha256": "44bc3aa329bfa3a5c5a125dde288e794372740e8a328bd76ed3fa3b4087ad9b4",
+  "proposed_sha256": "80c8a7e8dba602d72817bceecf6b4a89d81acb53a1e732c6c031c6eeac62d0ac",
+  "current_box_sha256": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+  "regulator_relief": [
+    "flow-regulator",
+    -99.56217782649107,
+    -98.5,
+    236.10999999999999,
+    250.41,
+    318.6851543570139,
+    321.43814897322136
+  ],
+  "groups": [
+    {
+      "class": "step",
+      "reason": "The CO2 nut land at Y466.3 stands 1 mm inside the Y465.3 wall field. `port_clamp_stack` retains 5 mm of wall plus chip at this station, and `station_land_draft` joins the two planes. The offset is the bulkhead fitting's clamp land, backed by the rear wall.",
+      "findings": [
+        {
+          "class": "step",
+          "score": 30.000000953674316,
+          "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 30.0 \u00d7 26.7 mm",
+          "pick": [
+            "faceA: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=2.450 y=466.300 z=336.461",
+            "faceB: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=465.300 z=261.720",
+            "click: x=13.216 y=466.300 z=331.384"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "step",
+      "reason": "The PRV duct's seam-storey jamb meets the Z-slide channel wall. The skin at X-104.5 and channel at X-103.75 leave a 0.75 mm step between these two clearance datums; the full exterior wall backs both. `_vent_chase` and `_back_top_flanks` supply the faces.",
+      "findings": [
+        {
+          "class": "step",
+          "score": 16.0,
+          "line": "\u03940.750 mm between parallel planes \u00b7 footprint met 12.0 \u00d7 4.9 mm",
+          "pick": [
+            "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-104.500 y=323.800 z=172.325",
+            "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-103.750 y=335.425 z=171.875",
+            "click: x=-104.500 y=323.800 z=172.325"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "This face is the ceiling slab's section between its aft edge and the CO2 station's drafted nut land. The 0.480 mm measure is the short plan remainder where that draft meets the slab, not the slab thickness. The continuous ceiling carries its full section behind the face.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 34.000000953674316,
+          "line": "0.480 mm strip, 34.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=2.450 y=465.540 z=352.000",
+            "edge: x=19.450 y=465.540 z=352.000 \u2192 x=-14.550 y=465.540 z=352.000 \u00b7 len 34.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=2.450 y=465.540 z=352.000"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 14.89999771118164,
+          "line": "1.400 mm strip, 14.9 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-37.810 y=462.300 z=314.192",
+            "edge: x=-30.360 y=462.300 z=314.192 \u2192 x=-45.260 y=462.300 z=314.192 \u00b7 len 14.900 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=-37.810 y=462.300 z=314.192"
+          ]
+        },
+        {
+          "class": "sliver",
+          "score": 14.89999771118164,
+          "line": "1.300 mm strip, 14.9 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-37.810 y=462.250 z=294.142",
+            "edge: x=-30.360 y=462.250 z=294.142 \u2192 x=-45.260 y=462.250 z=294.142 \u00b7 len 14.900 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+            "click: x=-37.810 y=462.250 z=294.142"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "The ASSE anchor's aft round seat closes against its common crown. The reported 1.304 mm vertical face is the crown's exposed end above the supported fitting seat, backed west to the side wall over the complete 13.5 mm run. It is not a thin ligament.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 13.5,
+          "line": "1.304 mm strip, 13.5 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-78.070 y=404.760 z=322.323",
+            "edge: x=-78.070 y=411.510 z=322.323 \u2192 x=-78.070 y=398.010 z=322.323 \u00b7 len 13.500 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-78.070 y=404.760 z=322.323"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "The PRV duct's 0.75 mm strip is the bottom of the flank section at the seam rim, between the X-104.5 skin and X-103.75 slide-channel wall. Both are clearance datums backed by the full exterior wall; this strip faces print-up on the ceiling-bedded piece.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 12.0,
+          "line": "0.750 mm strip, 12.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-104.125 y=323.800 z=174.800",
+            "edge: x=-104.125 y=329.800 z=174.800 \u2192 x=-104.125 y=317.800 z=174.800 \u00b7 len 12.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-104.125 y=323.800 z=174.800"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "The flank-section bottoms ahead of the rail feet show the 0.75 mm difference between the interior skin and the slide-channel wall. They extend across the 4 mm stop-block lane and face print-up. Each bounds the full wall section; no thin load-bearing strip crosses the lane.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 4.0,
+          "line": "0.750 mm strip, 4.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-104.125 y=216.550 z=168.700",
+            "edge: x=-104.125 y=218.550 z=168.700 \u2192 x=-104.125 y=214.550 z=168.700 \u00b7 len 4.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-104.125 y=216.550 z=168.700"
+          ]
+        },
+        {
+          "class": "sliver",
+          "score": 4.0,
+          "line": "0.750 mm strip, 4.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=104.125 y=216.550 z=168.700",
+            "edge: x=104.125 y=218.550 z=168.700 \u2192 x=104.125 y=214.550 z=168.700 \u00b7 len 4.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=104.125 y=216.550 z=168.700"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "This horizontal face bounds the regulator hub's 1.062178 mm-deep clearance pocket at X-99.562178..-98.5. It is the pocket edge in the thick flank, not a separate strip. The smooth native wall retains 7.937822 mm to X-107.5; the deepest 1.2 mm exterior flute leaves 6.737822 mm. The lower return is 45 degrees, and the locating barrel seat and supporting columns keep their full sections.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 14.300003051757812,
+          "line": "1.062 mm strip, 14.3 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-99.031 y=243.260 z=321.438",
+            "edge: x=-99.031 y=250.410 z=321.438 \u2192 x=-99.031 y=236.110 z=321.438 \u00b7 len 14.300 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+            "click: x=-99.031 y=243.260 z=321.438"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "These two vertical returns join the flow-meter housing pocket at X-12.41 to its lead-root pocket at X-12.31. Their 0.10 mm exposed width is the difference between the two overlapping clearance envelopes. Native sections confirm continuous material toward +X behind each return and the complete 3 mm ceiling at Z352..355 above them. Both pockets remain open from below before meter installation.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 9.0,
+          "line": "0.100 mm strip, 9.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-12.360 y=399.010 z=347.500",
+            "edge: x=-12.360 y=399.010 z=352.000 \u2192 x=-12.360 y=399.010 z=343.000 \u00b7 len 9.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+            "click: x=-12.360 y=399.010 z=347.500"
+          ]
+        },
+        {
+          "class": "sliver",
+          "score": 9.0,
+          "line": "0.100 mm strip, 9.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-12.360 y=389.010 z=347.500",
+            "edge: x=-12.360 y=389.010 z=352.000 \u2192 x=-12.360 y=389.010 z=343.000 \u00b7 len 9.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+            "click: x=-12.360 y=389.010 z=347.500"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "The aft end wall of the ASSE ceiling pocket has a 1 mm run beyond the anchor, not a 1 mm material thickness. The purchased body ends at Y410.51 and the pocket at Y412.51, keeping its 2 mm routing clearance. The complete shell lies west of this face, with 14.273 mm continuous stock at the anchor point.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 8.5,
+          "line": "1.000 mm strip, 8.5 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-93.227 y=412.010 z=347.250",
+            "edge: x=-93.227 y=412.010 z=351.500 \u2192 x=-93.227 y=412.010 z=343.000 \u00b7 len 8.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+            "click: x=-93.227 y=412.010 z=347.250"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "sliver",
+      "reason": "These shoulders join the narrower inlet-adapter pocket to the wider gas-check body pocket. The 1.184 mm width is their plan step, not a remaining wall thickness. Their common pocket roof at Z347.961 leaves 7.039 mm of continuous ceiling stock to Z355; the material beside each shoulder also joins the surrounding slab.",
+      "findings": [
+        {
+          "class": "sliver",
+          "score": 4.9605712890625,
+          "line": "1.184 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=32.029 y=325.503 z=345.480",
+            "edge: x=32.029 y=325.503 z=347.961 \u2192 x=32.029 y=325.503 z=343.000 \u00b7 len 4.961 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+            "click: x=32.029 y=325.503 z=345.480"
+          ]
+        },
+        {
+          "class": "sliver",
+          "score": 4.9605712890625,
+          "line": "1.184 mm strip, 5.0 mm long",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=44.871 y=325.503 z=345.480",
+            "edge: x=44.871 y=325.503 z=347.961 \u2192 x=44.871 y=325.503 z=343.000 \u00b7 len 4.961 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+            "click: x=44.871 y=325.503 z=345.480"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The ASSE pan's berth floor is its flat insertion/bearing surface. It includes running clearance and the supported-face allowance while the sleeve grows behind the relieved floor to retain its section. Back-top prints ceiling-down; support reaches this face from the slab and is removed through the pan's open mouth.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 3594.994856137841,
+          "line": "3771 mm\u00b2 flat print-down face at z=284.461 \u00b7 76.5 \u00d7 49.3 mm \u00b7 drop 37.2\u201358.5 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-82.850 y=411.750 z=284.461",
+            "click: x=-82.850 y=411.750 z=284.461"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The pan sleeve's lid is the flat surface beneath the ASSE chain; the chain occupies the space where a ramp would rise. On this ceiling-down print the lid is supported from the slab, and its open pan cavity provides support-removal access.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 1688.494909701542,
+          "line": "1198 mm\u00b2 flat print-down face at z=303.211 \u00b7 90.5 \u00d7 47.3 mm \u00b7 drop 39.8\u201348.8 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-74.850 y=411.750 z=303.211",
+            "click: x=-74.850 y=411.750 z=303.211"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The nameplate bar's two exposed crowns lie below the pump and remain flat. The complete bar translates 0.25 mm toward print-up for supported-face clearance while the pump and screw axes stay fixed; its original section is retained. Support is accessible from the open enclosure before hardware installation.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 1544.9317476392514,
+          "line": "347 mm\u00b2 flat print-down face at z=266.150 \u00b7 67.3 \u00d7 6.4 mm \u00b7 drop 76.9\u201382.9 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=22.947 y=462.090 z=266.150",
+            "click: x=22.947 y=462.090 z=266.150"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 592.7163070082635,
+          "line": "118 mm\u00b2 flat print-down face at z=266.150 \u00b7 21.4 \u00d7 6.4 mm \u00b7 drop 54.7\u201354.7 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=76.312 y=462.090 z=266.150",
+            "click: x=76.312 y=462.090 z=266.150"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 767.1990193880087,
+          "line": "135 mm\u00b2 flat print-down face at z=276.899 \u00b7 20.4 \u00d7 9.5 mm \u00b7 drop 66.1\u201366.1 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-88.285 y=282.000 z=276.899",
+            "click: x=-88.285 y=282.000 z=276.899"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 549.4930904557801,
+          "line": "203 mm\u00b2 flat print-down face at z=243.500 \u00b7 98.5 \u00d7 2.1 mm \u00b7 drop 38.5\u201338.5 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=38.160 y=470.269 z=243.500",
+            "click: x=38.160 y=470.269 z=243.500"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "Relay 2's lower end bar bridges the 15 mm span between its two blocker-profiled wings over the relay's pin field. The flat first printed face projects only 2.25 mm from the east wall and is carried by those wings; the bar remains a full mounting feature, not a thin detached shelf.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 342.75902613935637,
+          "line": "34 mm\u00b2 flat print-down face at z=258.900 \u00b7 15.0 \u00d7 2.2 mm \u00b7 drop 59.0\u201359.0 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=97.375 y=341.300 z=258.900",
+            "click: x=97.375 y=341.300 z=258.900"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The ASSE tie cavity's lower threshold spans 31.6 mm with a full 3 mm wall at X-101.5..-98.5. The closed tie loop passes over this flat threshold. Its Z321.671 face includes the 0.25 mm supported allowance, with the surrounding anchor stock retained. Support is accessible before the ASSE chain is installed.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 295.2554685298148,
+          "line": "95 mm\u00b2 flat print-down face at z=321.671 \u00b7 31.6 \u00d7 3.0 mm \u00b7 drop 30.3\u201330.3 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-100.000 y=378.510 z=321.671",
+            "click: x=-100.000 y=378.510 z=321.671"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The regulator and water-split anchors expose flat flanks and relief-lobe floors across their 3.5 mm tie bands. These spans connect the end webs and leave room for the closed zip-tie loops. The nominal fitting seats remain on their axes and the support-facing routing cavities include the 0.25 mm allowance. Removable support is accessible before hardware installation.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 248.77269523016054,
+          "line": "44 mm\u00b2 flat print-down face at z=305.411 \u00b7 11.4 \u00d7 9.5 mm \u00b7 drop 37.6\u201337.6 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-95.550 y=256.810 z=305.411",
+            "click: x=-95.550 y=256.810 z=305.411"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 122.8129726851718,
+          "line": "21 mm\u00b2 flat print-down face at z=280.611 \u00b7 6.0 \u00d7 3.5 mm \u00b7 drop 1.8\u201326.8 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-101.500 y=256.810 z=280.611",
+            "click: x=-101.500 y=256.810 z=280.611"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 65.01422869793564,
+          "line": "35 mm\u00b2 flat print-down face at z=332.011 \u00b7 10.0 \u00d7 3.5 mm \u00b7 drop 11.0\u201311.0 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-94.850 y=228.260 z=332.011",
+            "click: x=-94.850 y=228.260 z=332.011"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The C14 tunnel's aperture and flange-pocket floors follow the purchased shroud and flange with 0.15 mm per-face fit plus 0.25 mm on their print-down edges. Both bridge between the tunnel flanks. The tunnel block grows behind the relief to retain its wall section, and support leaves through the open aperture and pocket.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 245.84004826280517,
+          "line": "176 mm\u00b2 flat print-down face at z=326.811 \u00b7 21.3 \u00d7 8.2 mm \u00b7 drop 18.6\u201318.6 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=66.900 y=467.175 z=326.811",
+            "click: x=66.900 y=467.175 z=326.811"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 235.3315826090824,
+          "line": "107 mm\u00b2 flat print-down face at z=324.726 \u00b7 21.5 \u00d7 5.0 mm \u00b7 drop 22.7\u201322.7 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=66.900 y=460.550 z=324.726",
+            "click: x=66.900 y=460.550 z=324.726"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The rear Z-slide feet retain their complete nominal sections through Z168.70. The mating back-bottom catches stand at Z169.45, allocating 0.25 mm running fit plus one 0.25 mm allowance for each supported mating face entirely on the bottom head. Lifting the top closes this gap onto broad square bearing faces. Support carries these ceiling-down feet and leaves through the open channels.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 224.34378527479828,
+          "line": "1248 mm\u00b2 flat print-down face at z=168.700 \u00b7 237.7 \u00d7 5.2 mm \u00b7 drop 6.4\u20136.4 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=101.125 y=337.425 z=168.700",
+            "click: x=101.125 y=337.425 z=168.700"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 163.64361213301495,
+          "line": "664 mm\u00b2 flat print-down face at z=168.700 \u00b7 126.5 \u00d7 5.2 mm \u00b7 drop 6.4\u20136.4 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-101.125 y=393.050 z=168.700",
+            "click: x=-101.125 y=393.050 z=168.700"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 144.95026669881972,
+          "line": "521 mm\u00b2 flat print-down face at z=168.700 \u00b7 99.2 \u00d7 5.2 mm \u00b7 drop 6.4\u20136.4 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-101.125 y=268.175 z=168.700",
+            "click: x=-101.125 y=268.175 z=168.700"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 222.22374930471085,
+          "line": "81 mm\u00b2 flat print-down face at z=291.517 \u00b7 15.0 \u00d7 6.7 mm \u00b7 drop 24.7\u201324.7 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-37.810 y=464.955 z=291.517",
+            "click: x=-37.810 y=464.955 z=291.517"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 125.96715999701804,
+          "line": "44 mm\u00b2 flat print-down face at z=293.922 \u00b7 14.8 \u00d7 3.0 mm \u00b7 drop 17.7\u201318.9 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-37.810 y=469.805 z=293.922",
+            "click: x=-37.810 y=469.805 z=293.922"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The PRV mouth's floor spans the 12 mm passage between its jambs. Its square section preserves the tube's path; the print-down edge includes the 0.25 mm supported-face allowance. The wall behind the mouth retains its full section and support leaves through the passage.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 132.0,
+          "line": "36 mm\u00b2 flat print-down face at z=185.600 \u00b7 12.0 \u00d7 3.0 mm \u00b7 drop 21.0\u201322.0 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-92.000 y=323.800 z=185.600",
+            "click: x=-92.000 y=323.800 z=185.600"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The joined upper main-board and relay-2 mounting pad is a 9.3 mm tall rectangular block linking three insert stations to the east wall. Its crown joins relay 1's aft column. The first printed face projects 2.25 mm from the wall; the complete mounting block backs that short projection.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 113.66111928821354,
+          "line": "52 mm\u00b2 flat print-down face at z=327.200 \u00b7 23.0 \u00d7 2.2 mm \u00b7 drop 7.5\u201315.8 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=97.375 y=339.800 z=327.200",
+            "click: x=97.375 y=339.800 z=327.200"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The pan's flange passes over these flat rim-rebate shoulders at Z296.211. With the pan fully seated on the clean bearing floor, the gap is 0.75 mm: 0.25 mm running fit plus two 0.25 mm allowances for the supported flange underside and sleeve shoulder. The gap is 1.25 mm in the nominal assembly pose, whose pan bottom stands 0.50 mm above the clean floor. The sleeve retains its complete 3 mm bearing floor and 3 mm retention roof. Support leaves through the open pan berth.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 108.24837433515951,
+          "line": "732 mm\u00b2 flat print-down face at z=296.211 \u00b7 84.5 \u00d7 53.3 mm \u00b7 drop 4.0\u20134.0 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-80.850 y=411.750 z=296.211",
+            "click: x=-80.850 y=411.750 z=296.211"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "These two flat shoulders engage the nameplate snap tabs. Each is part of the full receiver block rooted in the rear wall; the receiving passages preserve the tab approach and engagement. Supports are removed through those open passages before the plate is installed.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 57.56179014146187,
+          "line": "42 mm\u00b2 flat print-down face at z=255.850 \u00b7 10.0 \u00d7 6.3 mm \u00b7 drop 8.9\u20138.9 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=83.868 y=463.890 z=255.850",
+            "click: x=83.868 y=463.890 z=255.850"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 57.56176348155274,
+          "line": "42 mm\u00b2 flat print-down face at z=255.850 \u00b7 10.0 \u00d7 6.3 mm \u00b7 drop 8.9\u20138.9 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-7.547 y=463.890 z=255.850",
+            "click: x=-7.547 y=463.890 z=255.850"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 30.582828221916127,
+          "line": "89 mm\u00b2 flat print-down face at z=348.611 \u00b7 25.3 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=2.450 y=367.503 z=348.611",
+            "click: x=2.450 y=367.503 z=348.611"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 30.156778078940906,
+          "line": "86 mm\u00b2 flat print-down face at z=344.400 \u00b7 24.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.3 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-40.810 y=370.810 z=344.400",
+            "click: x=-40.810 y=370.810 z=344.400"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 30.156778078940906,
+          "line": "86 mm\u00b2 flat print-down face at z=344.400 \u00b7 24.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.3 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-40.810 y=417.210 z=344.400",
+            "click: x=-40.810 y=417.210 z=344.400"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 28.388707645736222,
+          "line": "76 mm\u00b2 flat print-down face at z=346.861 \u00b7 21.8 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=38.450 y=333.003 z=346.861",
+            "click: x=38.450 y=333.003 z=346.861"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 21.62531992504751,
+          "line": "44 mm\u00b2 flat print-down face at z=338.425 \u00b7 12.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=18.345 y=270.600 z=338.425",
+            "click: x=18.345 y=270.600 z=338.425"
+          ]
+        },
+        {
+          "class": "ceiling",
+          "score": 21.62531992504751,
+          "line": "44 mm\u00b2 flat print-down face at z=342.286 \u00b7 12.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=57.975 y=428.403 z=342.286",
+            "click: x=57.975 y=428.403 z=342.286"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "ceiling",
+      "reason": "The funnel brim rests on this Z349 plane, with a complete 6 mm bearing section behind it. Back-top prints with its Z355 roof on the bed, so supports carry the inset seat 6 mm above the bed. The open funnel recess gives direct access for support removal.",
+      "findings": [
+        {
+          "class": "ceiling",
+          "score": 263.5383868663904,
+          "line": "1929 mm\u00b2 flat print-down face at z=349.000 \u00b7 179.5 \u00d7 65.2 mm \u00b7 open to the bed (6.0 mm up)",
+          "pick": [
+            "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=232.625 z=349.000",
+            "click: x=0.000 y=232.625 z=349.000"
+          ]
+        }
+      ]
+    }
+  ],
+  "actual_support_topology": "Pending fresh ceiling-down production slice; no prior roads approved."
+}

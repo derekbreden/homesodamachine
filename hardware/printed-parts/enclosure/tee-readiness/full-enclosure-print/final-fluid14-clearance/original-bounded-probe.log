@@ -1,0 +1,49 @@
+QUERY valve-v-a
+{"name": "valve-v-a", "mesh_air_mm": 1.0754158609219209, "mesh_overlap_mm3": 0, "required_air_mm": 1, "allowed_contact": null, "pass": true, "native_whole_shape_air_mm": 1.1550000069748172}
+QUERY coil-v-a
+{"name": "coil-v-a", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY coil-v-f
+{"name": "coil-v-f", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY cold-core/foam-cap-lid-top
+{"name": "cold-core/foam-cap-lid-top", "mesh_air_mm": 0.14941870176998095, "mesh_overlap_mm3": 0.0, "required_air_mm": 0, "allowed_contact": "full cap bearing or own endpoint", "pass": true, "native_whole_shape_air_mm": 0.14999989999996544}
+QUERY cold-core/line-carb-water-out
+{"name": "cold-core/line-carb-water-out", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY cold-core/line-co2-in
+{"name": "cold-core/line-co2-in", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY cold-core/line-reservoir-a
+{"name": "cold-core/line-reservoir-a", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY cold-core/line-reservoir-a-fill
+{"name": "cold-core/line-reservoir-a-fill", "mesh_air_mm": 0.0, "mesh_overlap_mm3": 1.1796119636642288e-16, "required_air_mm": 0, "allowed_contact": "full cap bearing or own endpoint", "pass": true, "native_whole_shape_air_mm": 5.684341886080802e-14}
+QUERY g-ganen-pump
+{"name": "g-ganen-pump", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY suction-chain
+{"name": "suction-chain", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY psu
+{"name": "psu", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY relay-2
+{"name": "relay-2", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY pcba
+{"name": "pcba", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY wago-mana
+{"name": "wago-mana", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY vk-solenoid
+{"name": "vk-solenoid", "mesh_air_mm": 1.1251182556152344, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true, "native_whole_shape_air_mm": 1.1250000000002496}
+QUERY tube-water-7
+{"name": "tube-water-7", "mesh_air_mm": 1.3699206009415845, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY tube-water-3
+{"name": "tube-water-3", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY tube-co2-2
+{"name": "tube-co2-2", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY tube-carb-1
+{"name": "tube-carb-1", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY tube-fluid-18
+{"name": "tube-fluid-18", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY tube-fluid-16
+{"name": "tube-fluid-16", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY funnel
+{"name": "funnel", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY enclosure-front-top
+{"name": "enclosure-front-top", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+QUERY enclosure-back-top
+{"name": "enclosure-back-top", "mesh_air_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_air_mm": 1, "allowed_contact": null, "pass": true}
+FINAL pass 1.0747359739009112 [253.7011627817986, 288.7099498312048] 4.2997711669886485

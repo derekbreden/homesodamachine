@@ -1,0 +1,328 @@
+{
+  "status": "pass",
+  "assembly_step_sha256": "fdaddbd03976b6f843df4cd5059635640a75a0676a1c7ba2e893d8737acb37b3",
+  "input_sha256": {
+    "/tmp/scanner-review/fluid14-current-aggregate/candidate-fall-advance-4.brep": "9769f53f6750a9b67647a13b0946a825473930af39af35487e2233e387467d54",
+    "/tmp/scanner-review/fluid14-current-aggregate/manifest.json": "2916ff7378cddc404077fc95906c536d966ecea19c450ebf2a09237f9bbf38d2",
+    "/tmp/scanner-review/fluid14-current-aggregate/valve-v-a.brep": "add93ef5329a1b001487936b2c85f4247758f7d35688feadad934c7e5ae9a227",
+    "/tmp/scanner-review/fluid14-current-aggregate/coil-v-a.brep": "98c469a99605480695334c81f98507d8820a8c000be06a4e4d3dbe65cdec5ed6",
+    "/tmp/scanner-review/fluid14-current-aggregate/valve-v-f.brep": "3b82857efbded980f2c125e0709929f73d5bdb312e1106e3c52f1de5f2c581ca",
+    "/tmp/scanner-review/fluid14-current-aggregate/coil-v-f.brep": "cf4f780cce2dbdf2a5e70b0411a0722fe61a1be59f0f69b961215b35f05ce914",
+    "/tmp/scanner-review/fluid14-current-aggregate/cold-core--foam-cap-lid-top.brep": "2ebdf0c28b8aea2b4edb080d21b85b08c8a1d5d2e9f8a96124cbeebbf1f85e0b",
+    "/tmp/scanner-review/fluid14-current-aggregate/cold-core--line-carb-water-out.brep": "ca1858642d3ff2bb1d886a2869994f7ab66cabbebedcda5ca54db2e41d42dfe5",
+    "/tmp/scanner-review/fluid14-current-aggregate/cold-core--line-co2-in.brep": "d86e934bc32c3289d8a18be7cd55e9f96fd61bdc27ed1b72e340dde8bf48f808",
+    "/tmp/scanner-review/fluid14-current-aggregate/cold-core--line-reservoir-a.brep": "42132e3c80e54d8b56bd0e4f1e60af73e18b7207d98175aa79f2160f33b6541a",
+    "/tmp/scanner-review/fluid14-current-aggregate/cold-core--line-reservoir-a-fill.brep": "ddc45901b2d67b6f36a84ccf1b17935414a51c5709df2a02c58357983dde93bb",
+    "/tmp/scanner-review/fluid14-current-aggregate/g-ganen-pump.brep": "fa7dba128cd0108c335510d3ded6c0fbd1c2e60c711ca8fc71c16d6252e25749",
+    "/tmp/scanner-review/fluid14-current-aggregate/suction-chain.brep": "7e79c7143f4a70215f49166ea6ae93f53bd04f8b75d1675ffdfbd3b59affbeef",
+    "/tmp/scanner-review/fluid14-current-aggregate/psu.brep": "3a50bc8758ce23794690be09044c9cab27088a52e17fce2166893120d4a63d5d",
+    "/tmp/scanner-review/fluid14-current-aggregate/relay-2.brep": "60ad8b0b51d6f010ebe53429c1aad7ce136d77138f6cd5d6370088ea96a79973",
+    "/tmp/scanner-review/fluid14-current-aggregate/pcba.brep": "600f09a27cbd971ed339b69cf3eaea078d723605261d560c47c8abf126cb8bf2",
+    "/tmp/scanner-review/fluid14-current-aggregate/wago-mana.brep": "284780a8b190b0031d2c4e8fb115e2e2b5e206324d8d0de3925c4a40bba2e862",
+    "/tmp/scanner-review/fluid14-current-aggregate/vk-solenoid.brep": "b9476b04d8f8ad3eaf1bfb6f84b232bf8bb7ad58d3328f30beda9f27abc49a8e",
+    "/tmp/scanner-review/fluid14-current-aggregate/tube-water-7.brep": "0b4f74eb88a1628febf64e0498f1b367a5a245a82fcb26676cc0de1f3f433155",
+    "/tmp/scanner-review/fluid14-current-aggregate/tube-water-3.brep": "9216e0cc0d5ad279a033dfafe0a967c6452b1175e3abcdeac045ce02b0ee3872",
+    "/tmp/scanner-review/fluid14-current-aggregate/tube-co2-2.brep": "a4277e95723e3ad76a151fe8094a961c040378d4571a31b2a72c856a2478e4b6",
+    "/tmp/scanner-review/fluid14-current-aggregate/tube-carb-1.brep": "7b6bf41da12be070af95964b344ac45581290455c425a385158160f691d64ae8",
+    "/tmp/scanner-review/fluid14-current-aggregate/tube-fluid-18.brep": "230f0820e0598156db46097f7983e2cb63a85c0ffa91f0f4563c97949331dc60",
+    "/tmp/scanner-review/fluid14-current-aggregate/tube-fluid-16.brep": "7021069b11ad8ac6900bd1e3b2cd85eb0ed34cb87d5b420936b7a6bec44aac5e",
+    "/tmp/scanner-review/fluid14-current-aggregate/funnel.brep": "e664810b68adf29bb9c68027003e7a86339a2efdcc5bd213b2a773331c942612",
+    "/tmp/scanner-review/fluid14-current-aggregate/enclosure-front-top.brep": "afc45cfe083cf9792f27b0d9ce2b4f17df78b88d3f73ea98557f0859fbdeabd7",
+    "/tmp/scanner-review/fluid14-current-aggregate/enclosure-back-top.brep": "017b05a0d2fb305ea561fca14dffe73f159b3ca50017f3ccb8ce8c0856b7a31e"
+  },
+  "candidate_fall_run_mm": 6.0,
+  "candidate_drop_mm": 1.5,
+  "candidate_return_mm": 8.0,
+  "minimum_radius_mm": 14.0,
+  "waypoints": [
+    [
+      82.1,
+      105.29,
+      282.1750001
+    ],
+    [
+      82.1,
+      105.29,
+      299.1750001
+    ],
+    [
+      44.750000006974815,
+      189.43,
+      289.0
+    ],
+    [
+      44.750000006974815,
+      203.43,
+      289.0
+    ],
+    [
+      44.750000006974815,
+      209.43,
+      267.7940001
+    ],
+    [
+      44.750000006974815,
+      244.39999999999995,
+      267.7940001
+    ],
+    [
+      44.750000006974815,
+      252.39999999999995,
+      269.2940001
+    ],
+    [
+      44.750000006974815,
+      289.1470234175444,
+      269.2940001
+    ],
+    [
+      44.750000006974815,
+      309.1470234175444,
+      268.0440001
+    ],
+    [
+      44.750000006974815,
+      355.67202341754444,
+      268.0440001
+    ],
+    [
+      57.50000000697483,
+      426.29999999999995,
+      269.2940001
+    ],
+    [
+      57.50000000697483,
+      426.29999999999995,
+      253.4000001
+    ]
+  ],
+  "radii": {
+    "1": 14.0,
+    "2": 14.0,
+    "3": 14.0,
+    "4": 14.0,
+    "5": 14.0,
+    "6": 14.0,
+    "7": 14.0,
+    "8": 14.0,
+    "9": 14.0,
+    "10": 14.0
+  },
+  "bearing_required_mm": [
+    254.4,
+    263.2
+  ],
+  "bearing_actual_straight_mm": [
+    253.7011627817986,
+    288.7099498312048
+  ],
+  "bearing_pass": true,
+  "neighbors": [
+    {
+      "name": "valve-v-a",
+      "mesh_air_mm": 1.0754158609219209,
+      "mesh_overlap_mm3": 0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true,
+      "native_whole_shape_air_mm": 1.1550000069748172
+    },
+    {
+      "name": "coil-v-a",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "valve-v-f",
+      "allowed_contact": "own starting collet",
+      "checked": false
+    },
+    {
+      "name": "coil-v-f",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "cold-core/foam-cap-lid-top",
+      "mesh_air_mm": 0.14941870176998095,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 0,
+      "allowed_contact": "full cap bearing or own endpoint",
+      "pass": true,
+      "native_whole_shape_air_mm": 0.14999989999996544
+    },
+    {
+      "name": "cold-core/line-carb-water-out",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "cold-core/line-co2-in",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "cold-core/line-reservoir-a",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "cold-core/line-reservoir-a-fill",
+      "mesh_air_mm": 0.0,
+      "mesh_overlap_mm3": 1.1796119636642288e-16,
+      "required_air_mm": 0,
+      "allowed_contact": "full cap bearing or own endpoint",
+      "pass": true,
+      "native_whole_shape_air_mm": 5.684341886080802e-14
+    },
+    {
+      "name": "g-ganen-pump",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "suction-chain",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "psu",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "relay-2",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "pcba",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "wago-mana",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "vk-solenoid",
+      "mesh_air_mm": 1.1251182556152344,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true,
+      "native_whole_shape_air_mm": 1.1250000000002496
+    },
+    {
+      "name": "tube-water-7",
+      "mesh_air_mm": 1.3699206009415845,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "tube-water-3",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "tube-co2-2",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "tube-carb-1",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "tube-fluid-18",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "tube-fluid-16",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "funnel",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "enclosure-front-top",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    },
+    {
+      "name": "enclosure-back-top",
+      "mesh_air_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_air_mm": 1,
+      "allowed_contact": null,
+      "pass": true
+    }
+  ],
+  "full210_manifest_bounds_used": true,
+  "elapsed_seconds": 4.2997711669886485,
+  "V_A_fine_mesh_air_mm": 1.0747359739009112,
+  "all_pass": true,
+  "stable_inputs": true
+}

@@ -1,0 +1,13 @@
+enclosure-tee-carrier-left: 2 open / 31 existing matches
+Native: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step
+Mesh SHA256: e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c
+[sliver] 0.496 mm strip, 15.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-73.258 y=108.538 z=214.774
+edge: x=-73.254 y=108.538 z=222.425 → x=-73.261 y=108.538 z=207.124 · len 15.301 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-73.258 y=108.538 z=214.774
+
+[sliver] 0.010 mm strip, 9.0 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-28.907 y=135.995 z=215.500
+edge: x=-28.905 y=135.995 z=220.000 → x=-28.909 y=135.995 z=211.000 · len 9.000 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-28.907 y=135.995 z=215.500
+

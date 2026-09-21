@@ -1,0 +1,35 @@
+{
+  "status": "read_only_lint_complete",
+  "created_at_utc": "2026-09-21T09:10:02.101563+00:00",
+  "mesh": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+  "mesh_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+  "native": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+  "published_member_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "9aaece744e3221715aa3c39dfc3b36627265ed8e8e5d9a4cab199a5afdcb5a2d",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "bdc9efa400b535ddb38c422f67f2a1011879e482620c00e7488fbcf8876478b6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785"
+  },
+  "publication_pointer_sha256_at_start": "9aa6d5eefc48896a47bda48cf468a5d7a032d80e17dd6220b33f009fe2be599a",
+  "publication_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "derivative_print_mesh_from_published_native": false,
+  "derivative_manifest_sha256": null,
+  "answers": null,
+  "answers_sha256": null,
+  "printed_facets": 196166,
+  "lint_source_sha256": "4dde8aeddd61ecaee129f1743f895bc71a286dfb3022cbe680d253eec1ceb0d5",
+  "errors": "",
+  "input_drift": [],
+  "unanswered_count": 0,
+  "answered_count": 0,
+  "open": {
+    "step": [],
+    "sliver": [],
+    "ceiling": [],
+    "slope": []
+  },
+  "answered": [],
+  "scope": "Mesh anomalies and exact existing answer-anchor matches only; no new physical acceptance or support approval.",
+  "seconds": 17.320020459010266
+}

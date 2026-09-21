@@ -1,0 +1,8 @@
+START enclosure-front-top; published native/payload and print input verified
+{"status": "lint_input_or_pass_error", "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl", "mesh_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08", "unanswered_count": 10, "answered_count": 31, "seconds": 36.162968833989}
+Traceback (most recent call last):
+  File "/Users/derekbredensteiner/Developer/homesodamachine/.cache/scanner-review/postpublish-lint-current-v1/run_lint.py", line 122, in <module>
+    raise ValueError(f'Incomplete lint or input drift: {errors.getvalue()}, {drift}')
+ValueError: Incomplete lint or input drift: /Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:104: RuntimeWarning: invalid value encountered in divide
+  u /= np.linalg.norm(u)
+, []

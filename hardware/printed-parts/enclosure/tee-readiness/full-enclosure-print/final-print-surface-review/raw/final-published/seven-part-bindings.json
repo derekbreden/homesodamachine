@@ -1,0 +1,121 @@
+{
+  "status": "seven_published_print_meshes_fully_answered",
+  "time_utc": "2026-09-21T13:47:42.351132+00:00",
+  "publication_pointer_sha256": "3db373cd3b763dec2c5bf849e1c99bff02115556f7aa0ba64da529fb2dbc1495",
+  "parts": [
+    {
+      "part": "enclosure-front-top",
+      "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "mesh_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "published_member_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6d2419353edf8b12b66a24f84c00b6309e88eb072631af029d9cea39fa49a70f",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "869f0f42f4a23f8eb6be81a51213923dfff43d178ec64e68d82aa6fba2b92ee5",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/enclosure-front-top.json",
+      "measurement_report_sha256": "a16ea535604754bcb74aa7e6b2189b65a782d17a4659e09062ce05997ec858ad",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 41,
+      "answers_sha256": "683ef4f8df578a3f80467a21b1a2be5b11bdbf2e0315945f71affaf52664def4"
+    },
+    {
+      "part": "enclosure-front-bottom",
+      "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "mesh_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+      "published_member_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2fcd9a02a24c0e5393ec1227bf1aa1d9b3b6e849d35d043aee3bed1bfea96daf",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "42163fbc8dcb4ad806d8a3dea806b662d8f923a51bc84e4e3276f2f92dba2bbc",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/enclosure-front-bottom.json",
+      "measurement_report_sha256": "056788077904977f77ee565d3f63e692adf29921b71f4ba4ec4ff140664adaa5",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 7,
+      "answers_sha256": "f84b0358c04fa6333a7f5b3c3e24e0e5ef27a3fbbfdd22417d947f0810ded5a1"
+    },
+    {
+      "part": "enclosure-back-bottom",
+      "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+      "mesh_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+      "published_member_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "7ffd112745203620884174253b19f437d03b560381efbf8ec9a01de5167e82dc",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "60a4bd2efbbad9d713d2ff48c1810eda838ba80bf7c806afb393f309cb873875",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/enclosure-back-bottom.json",
+      "measurement_report_sha256": "a19105f2b68a67354f4d789e164e2453117521c938a47da9673ce4a0d0c18bde",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 157,
+      "answers_sha256": "c0c8e3f7845af0d12946a1b3141e5921f00a892d6cf9c663ee97272a2c152313"
+    },
+    {
+      "part": "enclosure-tee-carrier-left",
+      "mesh": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl",
+      "mesh_sha256": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c",
+      "published_member_sha256": {
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh": "cfe5b8b1588ffe0594ffcd2a1e9559a12ec90601b84f0a2766214a01248a379b",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/enclosure-tee-carrier-left.json",
+      "measurement_report_sha256": "68c8699e9ebaf6e27dd72b5a2bd8d71d2cedc215d67878e3ec62856d3c4c0a8f",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 33,
+      "answers_sha256": "53e6cf883424aaaa78afc53578d820a6779cc1230b2ccb8a00ef36d82ccc85f5"
+    },
+    {
+      "part": "enclosure-tee-carrier-right",
+      "mesh": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl",
+      "mesh_sha256": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4",
+      "published_member_sha256": {
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh": "bd5ece33c5b09acdb6fdaeee295e412c620f5ee70aff82a566c7d707feb6b822",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/enclosure-tee-carrier-right.json",
+      "measurement_report_sha256": "f46bcf718893fb35c9ddac3b2259b70c959007e080802fe573e42658a0548e70",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 39,
+      "answers_sha256": "a0311d60d1e9f503cd4b895084078aedcb63462215350bec260b87e0c0688f99"
+    },
+    {
+      "part": "foam-cap-top",
+      "mesh": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+      "mesh_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+      "published_member_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "9aaece744e3221715aa3c39dfc3b36627265ed8e8e5d9a4cab199a5afdcb5a2d",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "bdc9efa400b535ddb38c422f67f2a1011879e482620c00e7488fbcf8876478b6",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/foam-cap-top.json",
+      "measurement_report_sha256": "b90105c9be48bdaa10cf0d01737cde32efeb0c9c0962a0a687a688d37e6718ef",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 0,
+      "answers_sha256": null
+    },
+    {
+      "part": "foam-cap-lid-top",
+      "mesh": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-h2c-v2/inputs/foam-cap-lid-top.stl",
+      "mesh_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "published_member_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "ef82091d4a837c76b06a113fa2b3c7da5e6eca9446ae02f9901fd4997a1adaf7",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "71372f76f8d3e0ea2b7787a31cee059474348f9f08eaae4fa5ec86509d2ef388"
+      },
+      "measurement_report": ".cache/scanner-review/postpublish-lint-current-v1/foam-cap-lid-top.json",
+      "measurement_report_sha256": "370d21601dc0f82d194cc48e3ef41301e9a50a312279c95c56d02a777026f986",
+      "mesh_bytes_unchanged": true,
+      "unanswered": 0,
+      "answered": 6,
+      "answers_sha256": "a4d2ac938ec2cd4a85928d733c9852649b3a2d403ec054da9b6973827714c05b"
+    }
+  ],
+  "geometry_changed": false,
+  "support_release": false,
+  "back_top": "separate current lint next"
+}

@@ -1,0 +1,15 @@
+mesh counts 19026 64689
+queries 4602
+min_vertex_to_triangle 0.8894437385843648 [41.64286804199219, 217.19403076171875, 269.4649658203125] [40.768135978720835, 217.21255217969156, 269.625] 96540
+Native from mesh vertex to valve 0.8882882584251909
+Native from valve mesh point to tube 0.8879763463661324
+Traceback (most recent call last):
+  File "/tmp/scanner-review/fluid14-current-aggregate/locate-gap.py", line 24, in <module>
+    pts2,d2,ids2=trimesh.proximity.closest_point(t,v.vertices)
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/proximity.py", line 172, in closest_point
+    query_close = _corresponding(query_tri, query_point)
+  File "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/trimesh/triangles.py", line 583, in closest_point
+    def closest_point(triangles, points):
+    
+KeyboardInterrupt

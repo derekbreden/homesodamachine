@@ -1,0 +1,1247 @@
+{
+ "gatesPass": true,
+ "size": [
+  {
+   "id": "enclosure",
+   "label": "the printed box, outside face to outside face",
+   "min": [
+    -107.5,
+    5.0,
+    -6.0
+   ],
+   "max": [
+    107.5,
+    471.9,
+    355.0
+   ],
+   "mm": [
+    215.0,
+    466.9,
+    361.0
+   ]
+  },
+  {
+   "id": "assembly",
+   "label": "every placed body, the box around them included",
+   "min": [
+    -113.45,
+    5.0,
+    -6.0
+   ],
+   "max": [
+    107.5,
+    536.191,
+    355.0
+   ],
+   "mm": [
+    220.95,
+    531.191,
+    361.0
+   ]
+  }
+ ],
+ "checks": [
+  {
+   "id": "coverage",
+   "label": "Every placed body is declared in the fastening table",
+   "kind": "gate",
+   "status": "pass",
+   "value": "99/99 declared",
+   "target": "all declared",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "room-holds",
+   "label": "Every derived pose has the room its own construction states",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 bands held, tightest +3.198 mm",
+   "target": "every band held",
+   "detail": [
+    "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 4.198",
+    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 9.832",
+    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 10.217",
+    "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 5.748",
+    "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
+    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 20.576",
+    "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
+   ],
+   "active": true
+  },
+  {
+   "id": "pack-closes",
+   "label": "No two solids overlap (pack closes)",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
+   "target": "0 clash, 0 unanswered",
+   "detail": [
+    "G Ganen cap bearing: 4 named free-rubber foot envelopes; 722.157 mm\u00b3 contact, 0.000000 mm\u00b3 rigid interference, 0.000055 mm\u00b3 outside the contact masks"
+   ],
+   "active": true
+  },
+  {
+   "id": "lines-clear",
+   "label": "No routed tube intersects a body, a piece or another tube",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 clash",
+   "target": "0 clash",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-leads",
+   "label": "Every tube port has the straight a run off it needs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "67/67 clear",
+   "target": "all clear",
+   "detail": [
+    "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
+    "asse1022-assembly.vent-tip: 7.25 mm to asse-drip-pan \u2014 opens to atmosphere, not gated"
+   ],
+   "active": true
+  },
+  {
+   "id": "clearance-floor",
+   "label": "Two things the machine does not seat together stand a millimetre apart",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 under, tightest 1.000 mm",
+   "target": "\u2265 1 mm",
+   "detail": [
+    "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
+    "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
+    "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
+    "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "g-ganen-pump \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "suction-chain \u2014 vk-solenoid: 0.000 mm \u2014 seated against it",
+    "psu \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "vk-solenoid \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "co2-inlet \u2014 bulkhead-ring-co2: 0.000 mm \u2014 seated against it",
+    "wr1110 \u2014 co2-adapter-regulator-in: 0.000 mm \u2014 seated against it",
+    "wr1110 \u2014 co2-adapter-regulator-out: 0.000 mm \u2014 seated against it",
+    "gasher-co2 \u2014 co2-adapter-check-in: 0.000 mm \u2014 seated against it",
+    "gasher-co2 \u2014 co2-check-coupling-nominal: 0.000 mm \u2014 seated against it",
+    "co2-adapter-check-out \u2014 co2-check-coupling-nominal: 0.000 mm \u2014 seated against it",
+    "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
+    "asse-drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
+    "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 seated against it",
+    "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b: 0.000 mm \u2014 seated against it",
+    "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a: 0.000 mm \u2014 seated against it",
+    "bulkhead-carb \u2014 bulkhead-ring-carb: 0.000 mm \u2014 seated against it",
+    "bulkhead-ring-water \u2014 bulkhead-ring-water-word: 0.000 mm \u2014 seated against it",
+    "bulkhead-ring-carb \u2014 bulkhead-ring-carb-word: 0.000 mm \u2014 seated against it",
+    "bulkhead-ring-flavor-a \u2014 bulkhead-ring-flavor-a-word: 0.000 mm \u2014 seated against it",
+    "bulkhead-ring-flavor-b \u2014 bulkhead-ring-flavor-b-word: 0.000 mm \u2014 seated against it",
+    "bulkhead-ring-co2 \u2014 bulkhead-ring-co2-word: 0.000 mm \u2014 seated against it",
+    "nameplate \u2014 nameplate-ink: 0.000 mm \u2014 seated against it",
+    "funnel \u2014 funnel-drain-stub: 0.000 mm \u2014 seated against it",
+    "funnel \u2014 funnel-drain-clamp: 0.000 mm \u2014 seated against it",
+    "funnel \u2014 funnel-drain-union: 0.000 mm \u2014 seated against it",
+    "funnel-drain-stub \u2014 funnel-drain-union: 0.000 mm \u2014 seated against it",
+    "display \u2014 display-gasket: 0.000 mm \u2014 seated against it",
+    "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
+    "co2-2 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
+    "fluid-18 \u2014 foam-assembly: 0.149 mm \u2014 seated against it",
+    "fluid-28 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
+    "water-3 \u2014 foam-assembly: 0.149 mm \u2014 seated against it",
+    "carb-1 \u2014 enclosure-back-top: 0.149 mm \u2014 seated against it",
+    "discharge-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
+    "suction-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
+    "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
+    "g-ganen-pump \u2014 nameplate: 1.000 mm",
+    "fluid-18 \u2014 g-ganen-pump: 1.048 mm",
+    "fluid-18 \u2014 enclosure-front-top: 1.050 mm",
+    "fluid-14 \u2014 valve-v-a: 1.075 mm",
+    "carb-1 \u2014 suction-chain: 1.114 mm",
+    "fluid-14 \u2014 vk-solenoid: 1.125 mm",
+    "fluid-24 \u2014 wago-manb: 1.193 mm",
+    "coil-v-a \u2014 funnel: 1.217 mm",
+    "coil-v-b \u2014 funnel: 1.217 mm",
+    "fluid-24 \u2014 valve-v-b: 1.225 mm",
+    "fluid-24 \u2014 coil-v-b: 1.225 mm",
+    "g-ganen-pump \u2014 bulkhead-flavor-a: 1.266 mm",
+    "water-3 \u2014 enclosure-front-top: 1.325 mm",
+    "water-3 \u2014 enclosure-back-top: 1.325 mm",
+    "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
+    "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
+    "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.366 mm",
+    "water-7 \u2014 fluid-14: 1.370 mm",
+    "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
+    "carb-1 \u2014 pcba: 1.453 mm",
+    "fluid-1 \u2014 enclosure-front-top: 1.490 mm",
+    "flow-regulator \u2014 funnel: 1.562 mm",
+    "co2-inlet \u2014 bulkhead-ring-co2-word: 1.571 mm",
+    "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
+    "wago-sensors \u2014 foam-assembly: 1.600 mm",
+    "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
+    "water-7 \u2014 co2-2: 1.738 mm",
+    "water-3 \u2014 fluid-26: 1.751 mm",
+    "fluid-18 \u2014 vk-solenoid: 1.866 mm",
+    "co2-2 \u2014 pcba: 1.875 mm",
+    "co2-1 \u2014 enclosure-back-top: 1.904 mm",
+    "fluid-18 \u2014 pcba: 1.908 mm",
+    "keystone-jack \u2014 bulkhead-ring-carb: 1.941 mm",
+    "fluid-24 \u2014 fluid-26: 1.950 mm",
+    "fluid-28 \u2014 water-split: 1.965 mm"
+   ],
+   "active": true
+  },
+  {
+   "id": "bed-fit",
+   "label": "Every printed piece fits the bed",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 on the bed",
+   "target": "every piece on the bed",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-lane-width",
+   "label": "The port lane carries a bore with a wall either side of it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "9.8 mm of lane",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-even",
+   "label": "The flute count is even",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the spun cap's grooves land on the shell's",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "forward-band-takes-a-bore",
+   "label": "The forward band still passes a line",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "6.8 >= 6.8 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "boss-clears-lane",
+   "label": "Every \u00b1Y attachment boss stands clear of the port lane",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 hold",
+   "target": "every \u00b1Y boss inboard of the lane's outer edge",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "boss-clears-lane-x",
+   "label": "Every \u00b1X attachment boss stands clear of both lanes in y",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "every \u00b1X boss inboard of both bands",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-reveal",
+   "label": "A band on the run either carries the field or is a reveal",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 hold",
+   "target": "fluted iff it stands 10 mm tall",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-screw-reach",
+   "label": "The clamp screw reaches the whole of its insert",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "5.7 mm past the shell face",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-screw-bottom",
+   "label": "The clamp screw pulls its head down before it bottoms",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "8 mm past the shell face at most",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "deck-mount-reach",
+   "label": "Every deck mount's screw reaches the whole of its insert",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "5.7 mm into the column",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "deck-mount-room",
+   "label": "Every deck-mount column leaves the pour its gap in the cup",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "1.5 mm off everything standing in the cup",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "forward-band-takes-a-tube",
+   "label": "A tube on the forward band's centre clears both its faces",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "6.8 >= 6.35 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "entry-skew-ceiling",
+   "label": "The countersink stands inside the boss its own column carries",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "45.0\u00b0 at most",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "entry-passes-section",
+   "label": "The countersink's mouth passes the leaning tube's whole section",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "\u23008.06 across the face",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fill-conduits-paired",
+   "label": "Every fill bore has a conduit over it and every conduit a bore",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the cap's fills naming ['reservoir-a-fill', 'reservoir-b-fill']",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fill-conduit-station",
+   "label": "Every fill conduit stands on its own side's anchor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "each conduit on the station its anchor strikes",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-conduit-room",
+   "label": "Every conduit column leaves the pour its gap in the cup",
+   "kind": "gate",
+   "status": "pass",
+   "value": "9/9 hold",
+   "target": "1.5 mm off everything else standing in the cup",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-conduit-wall",
+   "label": "Every conduit column stands the pour gap off the wall or merges in",
+   "kind": "gate",
+   "status": "pass",
+   "value": "9/9 hold",
+   "target": "the pour gap apart or a 2 mm neck",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "deck-mount-pour",
+   "label": "Every deck mount's lid hole leaves a land under its screw head",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 hold",
+   "target": "1.5 mm off the pour hole",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-room",
+   "label": "Every plinth clears the other openings on the lid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "111/111 hold",
+   "target": "1 mm off the nearest",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-pour",
+   "label": "Every plinth leaves a land beside the pour hole",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 hold",
+   "target": "1 mm off the pour hole",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-vent",
+   "label": "Every plinth clears both vents",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 hold",
+   "target": "1 mm off either vent",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "anchor-room",
+   "label": "Every chain anchor stands its room off everything else the face opens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 hold",
+   "target": "1 mm off the nearest",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-side-anchor-room",
+   "label": "Every side post stands clear of what the lid's face opens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "1 mm off the nearest",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-conduit-pair",
+   "label": "Every pair of conduits stands apart or merges on a neck, never tangent",
+   "kind": "gate",
+   "status": "pass",
+   "value": "36/36 hold",
+   "target": "the pour gap apart or a 2 mm neck",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-floor-grade",
+   "label": "The funnel ramp falls toward the offset outlet",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a continuous downhill floor to the offset outlet",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-boss-leaves-motor",
+   "label": "The case-derived seams leave the part a motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a boss ending before the part's 62.55 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-motor-clears-tower",
+   "label": "The case's tower bore is deep enough for the motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a bore reaching 62.55 mm or past it",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-notches-on-tube-casings",
+   "label": "The case's arch notches stand on the part's own tube casings",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the two stations on one plane",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "crossbar-positive",
+   "label": "The crossbar leaves Y-A and Y-B their own tube",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a crossbar of 0 or more",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "inner-limb-pitch",
+   "label": "The inner limbs stand a valve body apart",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "34.25 mm between the inner limbs",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "limb-pitch-floor",
+   "label": "The two lanes stand a valve body apart",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "LIMB_PITCH at or over 34.25 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-motor-room",
+   "label": "The pump's three bodies are the part, end to end",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "110.43 mm across head, boss and can",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "limb-pitch-ceiling",
+   "label": "The lanes step inboard of the barbs, never outboard",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "LIMB_PITCH at or under 59.75 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "spine-bend-radius",
+   "label": "The spine turn holds the corner this stock takes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "SPINE_R at or over 14 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "spine-straight",
+   "label": "The two quarter-turns leave straight tube between them",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "SPINE_R at or under 30.35 mm, half the park separation",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "source-step-room",
+   "label": "Both source runs step on two arcs alone",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the travel over the two-arc floor by 0.5 mm on each channel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plug-per-station",
+   "label": "Every station is one plug's bottom face and every plug is one station's",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "2 plugs",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plug-web",
+   "label": "Every plug leaves a printable wall standing between its arches",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "1 mm of web",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "display-cover-reveal",
+   "label": "The display bezel is a smooth reveal in the curved top",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a 2 mm visible edge; optical and gasket surfaces remain smooth",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fuse-clamp-donor",
+   "label": "The clamp closes on features the compressor actually has",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 hold",
+   "target": "head inside the flank's face, leaves filling its gap and under its own box",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fuse-clamp-lead",
+   "label": "The clamp lets the cutoff's lead go where a bend becomes legal",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "channel past the case \u2265 3, short lead left in the open \u2265 12",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "water-outlet-slot",
+   "label": "The carbonated-water outlet crosses the support ring in one slot",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "one slot holding the whole crossing",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "co2-inlet-slot",
+   "label": "The CO2 reach in crosses the support ring in one slot",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "one slot holding the whole crossing",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "co2-bore-meets-fall",
+   "label": "The CO2 bore is struck where its line falls down the lane",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the co2-in conduit on the port lane (-77.5)",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reed-channel-clear",
+   "label": "Every conduit's line falls clear of both reed channels",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 hold",
+   "target": "3.175 mm off the nearer channel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reed-cable-conduit-stands-over-its-channel",
+   "label": "Every reed-cable conduit opens on the channel its own cable climbs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "3.4 mm of shared mouth on each axis",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "dry-seal-rim",
+   "label": "The dry seal's counterbore leaves a PETG rim under the elbow flange",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "under \u230018.7",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reservoir-float-reaches-rod",
+   "label": "The capsule's bore has the slop the park spends",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a bias under 3.2875 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reservoir-rod-boss-inboard",
+   "label": "The rod's anchor boss stands clear of the cavity wall",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a boss inboard of 126.25 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "stub-tails-billed",
+   "label": "Each coil tail's in-shell run is the one its stub allowance bills",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "within 1.0 mm of `coil_mandrel.tail_in_shell`",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "collet-plate-stops-nose",
+   "label": "The printed collet plate stops the release noses",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the complete circular tube opening inside the release rim",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-field-web",
+   "label": "Two neighbouring pockets leave standing wall between them",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a web of 3 mm or more, one rim's own width",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-pocket-floor",
+   "label": "Every pocket leaves wall under the chip it holds",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a chip under `enclosure.wall` 3 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-clamp-stack",
+   "label": "Every fitting's bare barrel takes the wall and the ring lying in it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5/5 hold",
+   "target": "a stack of the wall at its own station, floored on `enclosure.wall` and 2 mm of boss",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "c14-surround",
+   "label": "The C14 flange pockets into one block at its ceiling-clear mount",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "3 mm in XZ, a 5 mm pocket the rim seats at the floor of, a 9 mm entry relief, and one ceiling-bedded rectangular block",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "co2-relief",
+   "label": "The CO2 station's wall relief stands on the neoFit's own column and storey",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "x 2.45, z 335.96",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "keystone-receptacle",
+   "label": "The wall carries the jack's lip and stands the rest of its pocket",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a section between `LIP_D` 3 and `DEPTH` 9.7 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "east-boss-corbels",
+   "label": "Every +X-wall electronics-bay boss has a flat D stem or shares a bar, and its candidate 45 degree corbel clears the installed bodies",
+   "kind": "gate",
+   "status": "pass",
+   "value": "17/17 clear; 14 reach their mounting face across their whole width and 1 use blocker-profiled split corbels, 1 are held back across their whole width (1 with offered wing(s) stood down); 4 hole pair(s) share a bar",
+   "target": "one clear candidate corbel per mounting hole, one bar per hole pair",
+   "detail": [
+    "`pcba` y 323.300, z 256.900: 3.000 mm setback past pcba, offered wing(s) y 325.298..326.800 stand down, 1.50 of 7.00 mm; no wing",
+    "`relay-2` y 347.800, z 255.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 331.300..333.800, y 348.800..351.300"
+   ],
+   "active": true
+  },
+  {
+   "id": "east-boss-fills",
+   "label": "The reviewed electronics-bay fills are rectangular and clear of the installed pack",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 clear",
+   "target": "one ground-stack ceiling column, one upper pcba/relay-2 pad union, and two relay-1 paired-bar ceiling columns",
+   "detail": [
+    "`ground-stack ceiling column` x 92.250..98.500, y 334.800..341.800, z 341.044..348.500",
+    "`pcba/relay-2 upper pad union` x 96.250..98.500, y 319.800..351.300, z 317.900..327.200",
+    "`relay-1 y=258.8 ceiling column` x 96.250..98.500, y 255.300..262.300, z 327.200..348.500",
+    "`relay-1 y=324.8 ceiling column` x 96.250..98.500, y 321.300..328.300, z 327.200..348.500"
+   ],
+   "active": true
+  },
+  {
+   "id": "plate-lies-flat",
+   "label": "The moisture plate lies flat on the pan's floor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "flat floor 42.00 x 67.00",
+   "target": "42.00 x 56.00",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "tee-carrier-motion",
+   "label": "Tee carrier clears front-top through installation, nominal states and aft overtravel, and both end stops and all five transverse constraints engage",
+   "kind": "gate",
+   "status": "pass",
+   "value": "638 native solid/sweep checks including closed-cup preload and pusher removal; maximum unintended overlap 0.000000 mm\u00b3; release/aft overshoots 0.104881/0.018000 mm\u00b3; 50 independent flank-capture readings at 6.29\u00b0 rotation, minimum contact 0.100066 mm\u00b3; 4.5 mm total travel, nominal rest 2 mm, 2.5 mm additional aft room; minimum upper/lower web bearing 305.312 mm\u00b2; minimum depressed-collet bearing 45.863 mm\u00b2; fore tube bottom 92.690 mm Y, 10 mm beyond the depressed sleeve; seated cartridge tube bottom 94.690 mm Y, 2 mm final cartridge seating travel",
+   "target": "0 mm\u00b3 unintended overlap; positive end-stop, X/Z and pitch/yaw/roll contact",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-jack-service",
+   "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path clears front-top and the display",
+   "kind": "gate",
+   "status": "pass",
+   "value": "17.000 mm pull; 0.000000/0.000000 mm\u00b3 path overlap; 0.000000/0.000000 mm\u00b3 finger overlap; 0.000/4.831 mm path air; 5.825 mm past the bulkhead",
+   "target": "0 mm\u00b3 overlap; clip down; 15 mm finger room; pulled plug fore of the bay bulkhead",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "wedge-fills",
+   "label": "Every print-down slope on a ceiling-down piece has its stated carry",
+   "kind": "goal",
+   "status": "pass",
+   "value": "39 print-down slope(s): 27 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns",
+   "target": "no unaccounted slope a column could replace, and every named room standing",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "z-seam-bed",
+   "label": "The Z seam leaves every piece on the H2C's bed",
+   "kind": "gate",
+   "status": "pass",
+   "value": "seam at 160.00, band 35.00..299.20",
+   "target": "inside the H2C's 320 mm Z",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-two-pieces",
+   "label": "A column splits into two pieces the H2C can print",
+   "kind": "gate",
+   "status": "pass",
+   "value": "361.00 mm column, band 35.00..299.20",
+   "target": "a band inside the H2C's 320 mm Z",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-front-lane",
+   "label": "The front column's lip ring is clear at the seam height",
+   "kind": "gate",
+   "status": "pass",
+   "value": "seam at 160.00, lane 150.75..193.41, 218.96..220.72",
+   "target": "a lane containing it",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-back-lane",
+   "label": "The back column's lip ring is clear at the seam height",
+   "kind": "gate",
+   "status": "pass",
+   "value": "seam at 160.00, lane 35.00..299.20",
+   "target": "a lane containing it",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-under-deck",
+   "label": "The Z-seam rim stays under the flavour deck's lowest plate",
+   "kind": "gate",
+   "status": "pass",
+   "value": "rim at 174.80, lowest wall root at 177.90",
+   "target": "air between them",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plate-foot-condenser-envelope",
+   "label": "The collet-plate feet stay outside the condenser+fan envelope",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2.00 mm air over the complete bounding box",
+   "target": "positive air outside the complete condenser+fan bounding box",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-width",
+   "label": "The pack stands inside the appliance's stated width",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches x \u00b1104.50 at foam-assembly, wall at \u00b1104.50",
+   "target": "inside a 215 mm appliance",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "back-top-flank-clear",
+   "label": "The pack stands clear of back-top's own flank face",
+   "kind": "gate",
+   "status": "pass",
+   "value": "least air 0.15 mm, at flow-regulator",
+   "target": "outside x \u00b198.50, a 9 mm flank",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-front",
+   "label": "The pack stands behind the front wall's relieved surface",
+   "kind": "gate",
+   "status": "pass",
+   "value": "least air 0.00 mm, at compressor",
+   "target": "on or behind the wall's own surface, plane 14 and its reliefs",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-depth",
+   "label": "The pack stands inside the appliance's stated depth",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches y 468.30 at foam-assembly, +Y wall at 468.30",
+   "target": "ahead of `rear_plane_y` 468.3",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-height",
+   "label": "The pack stands under the appliance's stated ceiling",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches z 351.00, ceiling at 352.00",
+   "target": "under a 361 mm appliance",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-cartridge-flush",
+   "label": "The pump cartridge is flush with the fixed front face",
+   "kind": "gate",
+   "status": "pass",
+   "value": "cartridge y 5.000, fixed face y 5.000",
+   "target": "the same plane",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-backed",
+   "label": "Every fluted face keeps a whole wall behind its grooves",
+   "kind": "gate",
+   "status": "pass",
+   "value": "thinnest of 12 stated sections is 3.0000 mm",
+   "target": "at least 3 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-closes",
+   "label": "The reeded field closes on the box at the coupon's own pitch",
+   "kind": "gate",
+   "status": "pass",
+   "value": "262 grooves round 1342.00 mm, 5.1221 mm centres",
+   "target": "within 0.15 mm of the coupon's 5",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-hides-seam",
+   "label": "The Y seam runs down a groove, not across a land",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.2660 mm off a groove centre, in a groove 4 mm wide",
+   "target": "within 0.5 mm of a centre",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-bay-cavity-throat",
+   "label": "The pump bay throat reaches both cavity side planes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "bay x -104.500..104.500, cavity x -104.500..104.500",
+   "target": "the same two planes",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "y-seam-clears-facet",
+   "label": "The Y seam stands behind the display housing",
+   "kind": "gate",
+   "status": "pass",
+   "value": "seam at 200.00, housing back plane at 101.00",
+   "target": "aft of 103.00",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "display-housing-seats",
+   "label": "The housing's back cut keeps a wall behind the display's seats",
+   "kind": "gate",
+   "status": "pass",
+   "value": "cut at 96.00 aft of the front face, seats reach 80.87",
+   "target": "a 3 mm wall behind them, so aft of 83.87",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "wall-under-lip",
+   "label": "The pack stands clear of the wall under each Z-seam lip",
+   "kind": "gate",
+   "status": "pass",
+   "value": "clear on all three sides of both pieces",
+   "target": "one `wall` (3 mm) off the \u00b1Y walls and the \u00b1X ones below each seam",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pump-bay-vertical-datums",
+   "label": "The pump bay keeps its fixed floor and roof datums around the lowered pumps",
+   "kind": "gate",
+   "status": "pass",
+   "value": "head floor air 0.33 mm, motor-to-lintel air 7.20 mm",
+   "target": "0.33 mm head-to-floor and 7.20 mm motor-to-lintel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-collar-frame",
+   "label": "The funnel collar stands in the frame the top wall has left",
+   "kind": "gate",
+   "status": "pass",
+   "value": "collar x -82.50..82.50, y 107.00..258.00",
+   "target": "frame x -89.50..89.50, y 101.00..465.30",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-brim-overhang",
+   "label": "The funnel's brim overhang fits its top-wall margin",
+   "kind": "gate",
+   "status": "pass",
+   "value": "overhang 7.00 mm",
+   "target": "within brim_margin 7.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-brim-margin",
+   "label": "The funnel collar keeps a brim margin at each free edge",
+   "kind": "gate",
+   "status": "pass",
+   "value": "\u2212X 7.00, +X 7.00, +Y 207.30 mm",
+   "target": "each at least brim_margin 7.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-brim-lands",
+   "label": "The funnel's brim lands on top wall ahead of the throat",
+   "kind": "gate",
+   "status": "pass",
+   "value": "brim front at y 100.00, facet arris at 95.34",
+   "target": "a 3 mm landing, so at or aft of 98.34",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "y-seam-upper",
+   "label": "Both upper seam blocks join the ceiling and pass their complete entry lanes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 corners clear",
+   "target": "two complete ceiling columns, flat lower ends, open screw pilots and clear swept slots",
+   "detail": [
+    "west: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "east: missing column 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; material below the flat end 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3"
+   ],
+   "active": true
+  },
+  {
+   "id": "y-seam-lower",
+   "label": "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
+   "kind": "gate",
+   "status": "pass",
+   "value": "four screw axes at Z 48.9 and 152.1 mm; middle collars end at Z 160",
+   "target": "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
+   "detail": [
+    "west: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "east: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
+    "floor lap blocks a 0.5 mm upward shift: 145.3849 mm\u00b3 overlap"
+   ],
+   "active": true
+  },
+  {
+   "id": "handholds",
+   "label": "Both handholds open through the floor and keep their lifting sections and inner walls",
+   "kind": "gate",
+   "status": "pass",
+   "value": "two 80 \u00d7 35 mm bottom openings at Y 214",
+   "target": "clear upward entry, 3 mm inner walls, 12 mm roofs and complete end posts",
+   "detail": [
+    "west: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3",
+    "east: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3"
+   ],
+   "active": true
+  },
+  {
+   "id": "runs-drawn",
+   "label": "Every authored run is drawn as its author asked",
+   "kind": "gate",
+   "status": "pass",
+   "value": "22/22 as drawn",
+   "target": "0 short",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bend-radius",
+   "label": "Every routed tube turns at or above its stock's minimum radius",
+   "kind": "gate",
+   "status": "pass",
+   "value": "B \u2014 73/73 corners at spec",
+   "target": "every corner \u2265 its stock's minimum (B)",
+   "detail": [
+    "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
+    "runs by grade: A:1 B:19",
+    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
+   ],
+   "active": true
+  },
+  {
+   "id": "mounted",
+   "label": "A printed feature of another placed part fastens every body",
+   "kind": "gate",
+   "status": "pass",
+   "value": "67/67 mounted, 25 part of another body, 7 nothing fastens",
+   "target": "a printed joint per body",
+   "detail": [
+    "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the inset 6 mm seat, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
+    "funnel-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
+    "funnel-drain-stub: tube-clamp \u2014 nothing fastens it; The worm clamp closes the funnel's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the funnel every time it is washed.",
+    "funnel-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the +Z leg takes the stub the funnel carries, the other leg hands `fluid-4` forward to turn west and return to V-B's cap cradle \u2014 so the elbow hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",
+    "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
+    "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
+    "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts."
+   ],
+   "active": true
+  },
+  {
+   "id": "placed",
+   "label": "Every placement is stated as a rule, and the solid lands on it",
+   "kind": "goal",
+   "status": "pass",
+   "value": "99/99 stated",
+   "target": "a stated rule per body, each landing on it",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "routed",
+   "label": "Every tube connection the machine owes, made as a real 3-D path",
+   "kind": "goal",
+   "status": "pass",
+   "value": "39/39 made",
+   "target": "every connection made",
+   "detail": [
+    "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
+    "drawn 22, bowed 4, fold 4, straight 4, butt 3, turn 2 \u2014 0 still to route",
+    "by circuit \u2014 co2 3/3, fluid 26/26, refrigerant 3/3, water 7/7",
+    "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
+    "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
+    "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3 \u2014 made by a butt between two collets",
+    "fluid-7 (fluid): Y-A-2 \u2192 V-C-I \u2014 made by a butt between two collets",
+    "fluid-8 (fluid): Y-B-2 \u2192 V-D-I \u2014 made by a butt between two collets",
+    "fluid-9 (fluid): V-C-O \u2192 Y-C-1 \u2014 made by the fold's hairpin",
+    "fluid-10 (fluid): V-E-O \u2192 Y-C-2 \u2014 made by a bowed flex stub",
+    "fluid-11 (fluid): Y-C-3 \u2192 P-A-I \u2014 made by a lane's own straight",
+    "fluid-12 (fluid): P-A-O \u2192 Y-D-1 \u2014 made by a lane's own straight",
+    "fluid-13 (fluid): Y-D-2 \u2192 V-F-I \u2014 made by a bowed flex stub",
+    "fluid-17 (fluid): Y-D-3 \u2192 V-G-I \u2014 made by the fold's hairpin",
+    "fluid-19 (fluid): V-D-O \u2192 Y-F-1 \u2014 made by the fold's hairpin",
+    "fluid-20 (fluid): V-H-O \u2192 Y-F-2 \u2014 made by a bowed flex stub",
+    "fluid-21 (fluid): Y-F-3 \u2192 P-B-I \u2014 made by a lane's own straight",
+    "fluid-22 (fluid): P-B-O \u2192 Y-G-1 \u2014 made by a lane's own straight",
+    "fluid-23 (fluid): Y-G-3 \u2192 V-I-I \u2014 made by a bowed flex stub",
+    "fluid-27 (fluid): Y-G-2 \u2192 V-J-I \u2014 made by the fold's hairpin"
+   ],
+   "active": false
+  },
+  {
+   "id": "located",
+   "label": "Every port a placed body declares is carried into world",
+   "kind": "goal",
+   "status": "pass",
+   "value": "68/68 located",
+   "target": "every declared port positioned and sized",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "tube-anchored",
+   "label": "No run goes further than one span with nothing holding it",
+   "kind": "goal",
+   "status": "pass",
+   "value": "20/20 within span, 2 left loose",
+   "target": "200 mm between held points",
+   "detail": [
+    "carb-1: 146.1 mm, held at its anchor",
+    "co2-2: 196.2 mm, held at its anchor",
+    "fluid-28: 164.6 mm, held at its anchor",
+    "fluid-18: 254.1 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.",
+    "fluid-4: 224.4 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+   ],
+   "active": false
+  },
+  {
+   "id": "gas-chain-qualified",
+   "label": "Warm gas fitting dimensions and made-up fit qualified",
+   "kind": "goal",
+   "status": "warn",
+   "value": "physical measurements pending",
+   "target": "measure actual adapter reach, coupling and check before assembly",
+   "detail": [
+    "PI010822S uses the shared nominal 1/4-inch PTC envelope.",
+    "Coupling \u00d822 \u00d7 25.4 mm and 11 mm engagement are provisional layout allowances, not verified purchased-part dimensions.",
+    "Model clearance does not qualify NPT engagement, the check's pressure rating, or the printed cradle's physical fit."
+   ],
+   "active": false
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "all_requested_parts_linted_read_only",
+  "parts": [
+    {
+      "status": "read_only_lint_complete",
+      "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "mesh_sha256": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5",
+      "unanswered_count": 42,
+      "answered_count": 3,
+      "seconds": 20.450459750019945
+    }
+  ],
+  "back_top_is_current_corrected_publication": true
+}

@@ -15,7 +15,3 @@ click: x=37.275 y=34.000 z=44.875
 [ceiling] The water-3 side-anchor window lets the tie pass beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 7.6 mm transverse extent is the post depth above the window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Any attached support must be released and lifted clear of the 0.25 mm floor-relief lip before it leaves through a mouth; the surrounding lid surface is above the recessed floor.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=134.200 y=-13.000 z=6.675
-
-[ceiling] The fluid-14 tie tunnel is the open passage beneath its clamping rib. Its flat roof bridges 2.8 mm along X between full 3 mm feet and spans 12.7 mm along Y. Native mouth probes verify 3.0 mm openings along both Y directions above the 0.25 mm floor-relief lip. Detach any emitted support from the roof, clear that lip and withdraw through an open mouth before fitting tubing or ties. The current production slice supplies the actual branch and contact geometry.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=65.000 y=44.750 z=8.400

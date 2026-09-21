@@ -1,0 +1,150 @@
+[step] The CO2 nut land at Y462 stands 1 mm inside the Y461 wall field. `port_clamp_stack` retains 5 mm of wall plus chip at this station, and `station_land_draft` joins the two planes. The offset is the bulkhead fitting's clamp land, backed by the rear wall.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=13.216 y=462.000 z=331.384
+
+[step] The PRV duct's seam-storey jamb meets the Z-slide channel wall. The skin at X-104.5 and channel at X-103.75 leave a 0.75 mm step between these two clearance datums; the full exterior wall backs both. `_vent_chase` and `_back_top_flanks` supply the faces.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-104.500 y=319.500 z=172.325
+
+[sliver] The nameplate mouth's square rim is the 4.5 mm plate depth minus the normal-clearance-adjusted bevel, 3 - (sqrt(2)-1)*0.15 mm. Its nominal square remainder is 1.562 mm. These four rim faces bound the flush pocket and are backed by the wall and grown perimeter pad; their width is the square portion of the pocket depth, not wall thickness.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.160 y=466.219 z=296.085
+click: x=38.160 y=466.219 z=229.465
+click: x=90.575 y=466.214 z=262.775
+click: x=-14.255 y=466.206 z=262.775
+
+[ceiling] The nameplate pocket's lower square rim is the flat part of the flush mouth after its 45-degree bevel. The lower edge includes the 0.25 mm supported-face allowance; `_nameplate` grows the perimeter pad with it to preserve the surrounding section. Support reaches the rim from the ceiling slab and leaves through the open pocket.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.160 y=466.219 z=229.465
+
+[sliver] This face is the ceiling slab's section between its aft edge and the CO2 station's drafted nut land. The 0.480 mm measure is the short plan remainder where that draft meets the slab, not the slab thickness. The continuous ceiling carries its full section behind the face.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=2.450 y=461.240 z=352.000
+
+[sliver] One printed chord of the analytic R12 aft-east standing column: its STEP surface is cylindrical. The 0.291 mm width is the tessellation between adjacent cylinder chords, not a strip of modeled stock.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=98.326 y=453.599 z=279.275
+
+[sliver] The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-37.810 y=458.000 z=315.820
+click: x=-37.810 y=457.950 z=295.770
+
+[sliver] The ASSE anchor's aft round seat closes against its common crown. The reported 1.304 mm vertical face is the crown's exposed end above the supported fitting seat, backed west to the side wall over the complete 13.5 mm run. It is not a thin ligament.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-78.070 y=400.460 z=322.323
+
+[sliver] The PRV duct's 0.75 mm strip is the bottom of the flank section at the seam rim, between the X-104.5 skin and X-103.75 slide-channel wall. Both are clearance datums backed by the full exterior wall; this strip faces print-up on the ceiling-bedded piece.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-104.125 y=319.500 z=174.800
+
+[sliver] The flank-section bottoms ahead of the rail feet show the 0.75 mm difference between the interior skin and the slide-channel wall. They extend across the 4 mm stop-block lane and face print-up. Each bounds the full wall section; no thin load-bearing strip crosses the lane.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-104.125 y=216.550 z=168.700
+click: x=104.125 y=216.550 z=168.700
+
+[ceiling] The ASSE pan's berth floor is its flat insertion/bearing surface. It includes running clearance and the supported-face allowance while the sleeve grows behind the relieved floor to retain its section. Back-top prints ceiling-down; support reaches this face from the slab and is removed through the pan's open mouth.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-82.850 y=391.350 z=284.461
+
+[ceiling] The pan sleeve's lid is the flat surface beneath the ASSE chain; the chain occupies the space where a ramp would rise. On this ceiling-down print the lid is supported from the slab, and its open pan cavity provides support-removal access.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-74.850 y=391.350 z=303.211
+
+[ceiling] The nameplate bar's two exposed crowns lie below the pump and remain flat. The complete bar translates 0.25 mm toward print-up for supported-face clearance while the pump and screw axes stay fixed; its original section is retained. Support is accessible from the open enclosure before hardware installation.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=23.648 y=457.790 z=266.150
+click: x=77.013 y=457.790 z=266.150
+
+[ceiling] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-88.285 y=287.580 z=275.790
+
+[ceiling] The ASSE tie cavity's lower threshold spans 31.6 mm with a full 3 mm wall at X-101.5..-98.5. The closed tie loop passes over this flat threshold. Its Z321.671 face includes the 0.25 mm supported allowance, with the surrounding anchor stock retained. Support is accessible before the ASSE chain is installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-100.000 y=374.210 z=321.671
+
+[ceiling] The regulator and water-split anchors expose flat flanks and relief-lobe floors across their 3.5 mm tie bands. These spans connect the end webs and leave room for the closed zip-tie loops. The nominal fitting seats remain on their axes and the support-facing routing cavities include the 0.25 mm allowance. Removable support is accessible before hardware installation.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-96.354 y=252.140 z=300.819
+click: x=-101.554 y=252.140 z=278.803
+click: x=-101.550 y=225.140 z=306.811
+click: x=-96.350 y=225.140 z=328.811
+
+[ceiling] The C14 tunnel's aperture and flange-pocket floors follow the purchased shroud and flange with 0.15 mm per-face fit plus 0.25 mm on their print-down edges. Both bridge between the tunnel flanks. The tunnel block grows behind the relief to retain its wall section, and support leaves through the open aperture and pocket.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=66.900 y=462.875 z=326.811
+click: x=66.900 y=456.250 z=324.726
+
+[ceiling] The rear Z-slide feet retain their complete nominal sections through Z168.70. The mating back-bottom catches stand at Z169.45, allocating 0.25 mm running fit plus one 0.25 mm allowance for each supported mating face entirely on the bottom head. Lifting the top closes this gap onto broad square bearing faces. Support carries these ceiling-down feet and leaves through the open channels.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=101.125 y=335.275 z=168.700
+click: x=-101.125 y=388.750 z=168.700
+click: x=-101.125 y=266.025 z=168.700
+
+[ceiling] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-37.810 y=460.655 z=293.145
+click: x=-37.810 y=465.505 z=295.550
+
+[ceiling] The PRV mouth's floor spans the 12 mm passage between its jambs. Its square section preserves the tube's path; the print-down edge includes the 0.25 mm supported-face allowance. The wall behind the mouth retains its full section and support leaves through the passage.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-92.000 y=319.500 z=185.600
+
+[ceiling] The pan's flange passes over these flat rim-rebate shoulders at Z296.211. With the pan fully seated on the clean bearing floor, the gap is 0.75 mm: 0.25 mm running fit plus two 0.25 mm allowances for the supported flange underside and sleeve shoulder. The gap is 1.25 mm in the nominal assembly pose, whose pan bottom stands 0.50 mm above the clean floor. The sleeve retains its complete 3 mm bearing floor and 3 mm retention roof. Support leaves through the open pan berth.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-80.850 y=391.350 z=296.211
+
+[ceiling] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=2.450 y=363.203 z=348.611
+click: x=-40.810 y=366.510 z=344.400
+click: x=-40.810 y=412.910 z=344.400
+click: x=38.450 y=328.703 z=346.861
+click: x=57.975 y=424.103 z=342.286
+click: x=18.345 y=266.300 z=338.425
+
+[sliver] These shoulders join the narrower inlet-adapter pocket to the wider gas-check body pocket. The 1.184 mm width is their plan step, not a remaining wall thickness. Their common pocket roof at Z347.961 leaves 7.039 mm of continuous ceiling stock to Z355; the material beside each shoulder also joins the surrounding slab.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=32.029 y=321.203 z=345.480
+click: x=44.871 y=321.203 z=345.480
+
+[sliver] The aft end wall of the ASSE ceiling pocket has a 1 mm run beyond the anchor, not a 1 mm material thickness. The purchased body ends at Y406.21 and the pocket at Y408.21, keeping its 2 mm routing clearance. The complete shell lies west of this face, with 14.273 mm continuous stock at the anchor point.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-93.227 y=407.710 z=347.250
+
+[ceiling] Relay 2's lower end bar bridges the 15 mm span between its two blocker-profiled wings over the relay's pin field. The flat first printed face projects only 2.25 mm from the east wall and is carried by those wings; the bar remains a full mounting feature, not a thin detached shelf.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.375 y=337.000 z=258.900
+
+[ceiling] The joined upper main-board and relay-2 mounting pad is a 9.3 mm tall rectangular block linking three insert stations to the east wall. Its crown joins relay 1's aft column. The first printed face projects 2.25 mm from the wall; the complete mounting block backs that short projection.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.375 y=335.500 z=327.200
+
+[sliver] The STL has one collinear triangle along X-107.5/Z325, spanning Y207.495758..208.295883. Its area and normal are zero, leaving its strip dimensions undefined. It contributes no physical surface or volume.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-107.500 y=207.896 z=325.000
+
+[ceiling] The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.160 y=465.969 z=243.500
+
+[ceiling] The funnel brim rests on this Z349 plane, with a complete 6 mm bearing section behind it. Back-top prints with its Z355 roof on the bed, so supports carry the inset seat 6 mm above the bed. The open funnel recess gives direct access for support removal.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=0.000 y=232.625 z=349.000
+
+[ceiling] These two flat shoulders engage the nameplate snap tabs. Each is part of the full receiver block rooted in the rear wall; the receiving passages preserve the tab approach and engagement. Supports are removed through those open passages before the plate is installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=83.868 y=459.590 z=255.850
+click: x=-7.547 y=459.590 z=255.850
+
+[sliver] These narrow faces bound the regulator hub's 1.573 mm-deep clearance pocket; they are edges of a recess in the thick flank. The pocket retains 7.427 mm of nominal wall and 6.227 mm at the deepest exterior flute. Its lower return is 45 degrees, and the locating barrel seat and both supporting columns retain their complete sections.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-99.287 y=240.140 z=319.322
+click: x=-99.287 y=247.290 z=315.539
+click: x=-99.287 y=232.990 z=315.539
+
+[sliver] These two vertical returns join the flow-meter housing pocket at X-12.41 to its lead-root pocket at X-12.31. Their 0.10 mm exposed width is the difference between the two overlapping clearance envelopes. Native sections confirm continuous material toward +X behind each return and the complete 3 mm ceiling at Z352..355 above them. Both pockets remain open from below before meter installation.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-12.360 y=384.710 z=347.500
+click: x=-12.360 y=394.710 z=347.500

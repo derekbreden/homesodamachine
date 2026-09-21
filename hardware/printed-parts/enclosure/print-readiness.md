@@ -1,286 +1,134 @@
-# Front-top and tee-carrier print readiness
+# Full enclosure print readiness
 
-**H2C’s front-top/pusher v3 job is cancelled.** Bambu Connect and MQTT confirmed
-the cancellation at 2026-09-21 07:20:31 UTC, after the last observed running layer 3/813.
-The completed full assembly report failed its fit gates. Native intersections confirm
-that the front-top aft valve tray enters the actual cold-core shell by 3.29 mm, and
-the selected G Ganen placement intersects the rear shell and nameplate. Those parts
-require correction. The [cancellation record](tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json)
-and [print job](enclosure/print-jobs.json) retain the observations.
+The requested trial uses **all four fresh shell quadrants, the complete carrier pair,
+one reusable spring-loading pusher, and both matching G Ganen cold-core mounting parts**.
+H2C is printing the complete Kamoer cartridge and raised open cap. Mark2 is printing the
+countertop under the **Tube miter box** task. No additional coupons or scans are required
+before this full assembly trial.
 
-The full pump cartridge and raised open cap are **running on H2C**, confirmed at
-2026-09-21 07:47:46 UTC, layer0/496, no error. Derek confirmed the plate clear.
-The exact H2C slice and current-source native mating comparison pass; the estimate is
-10h9m12s, and the saved auto-brim setting emits no brim. The [launch record](tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json) binds these inputs.
-Mark2 is printing the countertop. The remaining shell, manifold and routing corrections
-continue during these complete prints.
+**The complete current assembly passes all active native gates.** Its scorecard has
+105 checks: 104 pass and one inactive physical gas-fit goal remains a warning. There are
+zero clashes or unanswered overlaps, 67/67 clear port leads, and no pair below the required
+clearance. The carrier passes 638 native solid/sweep checks. The actual canonical 2 mm
+pusher separately passes 38 checks and 19 continuous sweeps against matching current inputs.
 
-Derek’s operating rule is to keep potentially productive prints running while checks
-continue, or cancel and switch to productive work. **Do not pause a print for design
-analysis.** The requested test is the complete enclosure; no further coupons are required.
-New print projects inherit the saved auto-brim default and each printer’s established trim.
+The verified assembly STEP SHA-256 is
+`0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67`.
+The [readiness record](print-readiness.json) binds the scorecard, Box, sources and focused
+pusher evidence. The seven fresh workflows still need the exact print receipt, staging,
+native slicing and support reviews; none is submitted. The
+[queue](tee-readiness/full-enclosure-print/queue.json) tracks those stages separately.
 
-The earlier 152 local readings and 36 continuous sweeps cover the loose front-top,
-carrier and pusher interfaces. They do not establish clearance to the complete cold core
-or every installed appliance component. The completed aggregate exposes the additional
-failures now being corrected. Physical spring retention, tension, rigidity, feel and
-assembly effort will be evaluated in the complete printed enclosure.
+## Complete parts and printer plan
 
-## Scans and fitted parts
+| Plate | Assigned printer | Print orientation | Current state |
+| --- | --- | --- | --- |
+| Front-top and one 2 mm spring pusher | H2C | Shell +Z up, Z90; pusher flat | Awaiting final receipt and fresh slice review |
+| Front-bottom | Mark2 | +Z up | Awaiting final receipt and fresh slice review |
+| Back-bottom | Mark2 | +Z up | Awaiting final receipt and fresh slice review |
+| Back-top | H2C | X180, ceiling down | Awaiting final receipt and fresh slice review |
+| Complete left and right carrier halves | Mark2 | +Z up, Z90 | Awaiting final receipt and fresh slice review |
+| G Ganen foam-cap-top | H2C | +Z up, flat underside on bed | Awaiting final receipt and fresh slice review |
+| Matching foam-cap-lid-top | H2C | +Z up, flat underside on bed | Awaiting final receipt and fresh slice review |
 
-| Part | Current evidence and model | Remaining physical work |
-|---|---|---|
-| Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. Derek physically accepts the [production-profile socket coupon](../fixtures/valve-socket-fit/README.md): easy insertion and some inverted retention during loose shaking. Preserve the socket fit and use zip ties for positive retention. | Verify that the ties can be threaded and tightened in the complete carrier without disturbing valve seating. No new full scan is indicated. |
-| DIGITEN flow meter | Measured offset body and mounting collars; placement, anchors, ties and adjacent tubing follow that envelope. | Confirm the molded flow arrow and actual installed direction. No new full scan is indicated. |
-| John Guest PP0208E tee | Registered fixed surfaces support the conservative Ø16.5 collar and Ø14 root envelopes. Derek measures branch width at 30.5 mm extended and 29.0 mm pressed. Only the small outermost ring moves. Measured travel and face stations are integrated. The observed terminal face supports the Ø8.5 release aperture in all 36 sampled angular sectors. | Test simultaneous contact, release and relocking of all four actual rings in the complete enclosure. No additional full scan is indicated before the trial. |
-| Kamoer pump | Two complementary native scans are complete. The short terminal pieces are Derek's inserted ¼-inch LLDPE stubs in silicone, excluded from rigid registration and integral pump dimensions. Derek confirms the existing cartridge/cap holds both pumps firmly with no vertical play. The cap retains a broad underside and fitted Ø37 motor bores; its raised crown has open Ø45 terminal wells. The fitted lower-well comparison matches the retained printed input within 0.004 mm. Floor relief leaves the well and cap surfaces unchanged. | Verify the raised crown with actual connectors and cycle four-tube insertion, capture, release and primed pumping in the complete enclosure. Use the matching new cartridge on the relieved floor. |
-| G Ganen water pump | Three native views containing 1,033, 1,146 and 1,114 frames are fused at 0.10 mm and archived with hashes. The detailed reference, conservative mounting envelope, four sliding-foot mounts and affected hose routes are integrated; 58 native installation checks pass. Its flexible rubber feet slide fore/aft on channels and are removable. Derek identifies discharge as enclosure −X, mapping to local +Y at the intended +90° mounting yaw. | Complete the combined assembly check, then verify the actual mounting screws, washers, loaded rubber feet and operation. Captured foot positions are individual poses, not a fixed bolt pattern. |
-| Faucet lever | The accepted flat-sided model with the 9 mm cylinder channel is primary. The printed mesh is byte-identical to the successful Mark2 artifact, with Derek's fit/function confirmation on record. | The complete faucet assembly needs a measured installed pose for its lever representation; that is separate from enclosure readiness. |
-| Faucet display cover | **Physically accepted in PET-GF.** Derek confirms that its broad, long, thin walls provide successful give and spring. The current STL matches the successful complete-cover trial. | Use its broad-wall geometry as a proven example for new retention features; each new geometry still needs its own fit test. |
+The exact running H2C job is `pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`, archive
+SHA-256 `8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562`.
+Its [launch record](tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
+records the selected printer, material mapping, archive and observed start.
+The latest recorded observations are:
 
-The [tee registration](../../reference/jg-pp0208e-tee/scan-registration.json) uses scale 1.0
-and six fixed exterior patches; held-out p95 residuals are 0.061–0.107 mm. The corresponding
-Beduan and DIGITEN comparisons reproduce 0.113 and 0.155 mm p95 respectively. These describe
-agreement with the scans, not manufacturing tolerances.
+| Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
+| --- | --- | ---: | ---: | ---: | --- |
+| H2C | 2026-09-21T13:43:23.192158+00:00 | 58% | 203/496 | 255 | None |
+| Mark2 | 2026-09-21T13:43:24.036245+00:00 | 37% | 46/917 | 611 | None |
 
-The [Kamoer review](../../reference/kamoer-kphm400/scan-review.md) records the raw clouds,
-rigid alignment, independent contact selections, frozen baseline CAD and reproducible checks.
-Both native projects and their raw fused clouds are archived in
-`~/Documents/3D Scans/2026-09-20-kamoer-pump/`.
+These are timestamped printer readings, not live remaining-time promises. Both jobs
+were running; Mark2 remains owned by Tube miter box.
+The running cartridge has 260 exterior divisions; the new shell uses 262, a pitch
+difference of 0.006324 mm per groove. A small exterior groove-phase difference is possible.
+Native fitted cartridge/cap geometry is unchanged and the cap is unfluted; this cosmetic
+note does not require stopping or reprinting the running job.
 
-## Tee and pump corrections
+New jobs inherit the saved [PET-GF profile](../petgf.3mf): black PET-GF on the fixed left
+0.4 mm nozzle, whole-layer printing and `auto_brim`. H2C uses +0.18 mm requested trim
+(+0.16 mm emitted for Textured PEI); Mark2 uses +0.04 mm (+0.02 mm emitted).
+Both configured printable areas are 325 × 320 mm, with at least 15 mm model border.
+Each actual slice reports its emitted brim and support paths. Every support contact needs
+an accessible removal lane before hardware installation, following the
+[support-removal strategy](enclosure/README.md#support-removal-strategy).
 
-The tee journal is **Ø17.0 mm**, giving 0.25 mm nominal radial running air around the
-conservative Ø16.5 collar envelope. Carrier troughs are R8.75; upper backing is 5.504 mm.
-The measured run span is **42.5 mm extended / 39.2 mm pressed**, giving 1.65 mm per run end.
-The [branch measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json)
-are **30.5 mm extended / 29.0 mm pressed**, giving **1.5 mm branch travel**. The branch
-face stations are nominally 22.35 and 20.85 mm from the run axis when derived with the
-nominal Ø16.3 back collar. The conservative Ø16.5 envelope is not that caliper datum.
-The small outermost terminal ring moves. Its exact outer diameter and rear seam remain
-unmeasured; the [terminal-face review](../../reference/jg-pp0208e-tee/terminal-bearing-review.json)
-observes 99.73% coverage of the R4.25–4.75 mm bearing band around the Ø8.5 aperture,
-with stock in all 36 angular sectors. Those unmeasured dimensions do not block the trial.
-The measured branch datums are in the production source. The submitted cap-rail slice is
-cancelled and its exact source closure is retained. Current Box and enclosure exports are
-identified in the [geometry receipt](tee-readiness/full-enclosure-print/current-geometry.json). The frozen
-measured-tee front-top fixture passes 38 interface checks, 26 stock checks and 12 positive contact probes.
-The integrated simpler carrier passes complete rigid insertion and spring-loading
-paths against the fresh canonical front-top, including the actual integral fixed cups.
-That reading uses the regenerated Box with its paired 0.050 mm fore pump-station adjustment;
-complete appliance closure remains separate. The [propagation record](tee-readiness/branch-propagation/README.md) names the
-changed placements and the scope of each native check.
+Derek's operating rule is to keep productive jobs running while checks proceed, or cancel
+a concretely defective job and switch to useful work. Do not pause a print for design
+analysis or hold an idle machine merely for an agent review. Printer handoff uses the exact
+reviewed archive after the assigned machine is available and its plate is cleared.
 
-Deck separation is 60.95 mm. The carrier retains its full 2.5 mm station backing and clears
-the aft valves' complete mounting-post entry by 0.25 mm. All four pump-tube axes align with
-the carried tees. The [local native integration audit](tee-readiness/tee-integration.json)
-passes 958 checks, including all carrier states, native tee envelopes, valve insertion and
-declared tie-slot and tie-head clearances. It reads the regenerated 0.90 mm-backing carrier
-halves and the paired pump stations at Y45.859 mm.
-Those checks are distinct from the full enclosure build.
+## Accepted physical evidence
 
-Kamoer's [physical-fit record](../../reference/kamoer-kphm400/physical-fit.json) confirms
-firm retention in the existing assembled cap. The current cap's fitted boss/can band differs
-from the retained printed mesh by at most 0.012 mm, within mesh approximation. Its surrounding
-crown is level with the cartridge top, with open terminal wells and unchanged screw seats.
-The [bounded native check](../../reference/kamoer-kphm400/contact-check.json) also verifies
-its clear lift path and the conditional scan-to-floor clearance. Whole-enclosure generation
-and the assembled physical trial remain separate.
+| Part or interface | Established result and current use |
+| --- | --- |
+| Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted contact geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. The raised crown and four-tube operation are checked in the full trial. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
+| Beduan sockets | The production-profile socket fit is easy and accepted, with some retention during loose inverted shaking. Preserve the Ø7.2 sockets and use zip ties for positive retention. Installed tie access remains a full-assembly observation. [Physical record](../fixtures/valve-socket-fit/physical-acceptance.json). |
+| Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
+| Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example; the new carrier still needs its own physical evaluation. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
+| Machine display cover | Derek confirms the existing cover was already test fit. Reuse that cover; its shell interface belongs in the final generated assembly checks. |
+| Nameplate | Appearance, QR readability and snap fit are accepted. Reuse the print. Its complexity is not the preferred design example. [Physical record](nameplate/physical-acceptance.json). |
+| C14 inlet and cord | Derek accepts the printed inlet/C13-cord station. Its fitted pocket and screw stations are preserved; the reference uses the measured flange outline and R6 corners. [Native interface evidence](tee-readiness/full-enclosure-print/hard-contact-review/README.md). |
+| G Ganen feet and flow | Derek identifies flexible rubber feet that slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
 
-## Carrier rigidity and assembly
+## Tee, carrier and springs
 
-**The simpler two-piece carrier is integrated in production source.** Its two moving
-halves use a full-height fore lap, one captured rail and an overlapping upper shelf;
-an integral broad rear wall retains the seated joint. The fixed spring cups belong to
-the enclosure. No joint screws, heat-set inserts, separate keeper or spring-ID guide
-are retained. The [integration record](tee-carrier/simple-carrier-study/README.md) and
-[digest manifest](tee-carrier/simple-carrier-study/artifact-manifest.json) identify the
-frozen native baseline. The [production backing check](tee-carrier/entry-backing-check.json)
-identifies the current source and exact bounded difference.
+The registered tee envelope uses a conservative Ø16.5 fixed collar and Ø17.0 journal,
+leaving 0.25 mm radial running air. Derek's run span is 42.5 mm extended / 39.2 mm pressed,
+with 1.65 mm travel per run end. The branch measures **30.5 mm extended / 29.0 mm pressed**,
+with **1.5 mm travel**; only the small outermost ring moves. The branch face stations
+22.35 / 20.85 mm use the nominal Ø16.3 back-collar datum. The conservative clearance
+envelope is a separate dimension. [Measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json).
 
-The main web is 6 mm thick. Broad inner backing adds 0.90 mm above the lower valve coils'
-insertion path. The shelf overlaps 31.85 mm across X and 18 mm in Y, with 6.625 mm plies
-and 0.10 mm nominal face air. The 26.35 mm-wide fore lap, captured rail and upper cheek
-provide broad bearing regions. The 51.75 × 9 × 3 mm rear wall retains the seated position;
-its geometric clearance witness uses 2.3 mm free-tip displacement. Force, strain and
-endurance are unmeasured.
+The Ø8.5 circular release aperture retains annular bearing against the observed terminal
+face. The [terminal-bearing review](../../reference/jg-pp0208e-tee/terminal-bearing-review.json)
+supports the full trial without another ring scan or caliper reading. Simultaneous contact,
+release and relocking of all four actual rings remain physical checks.
 
-The current production manifold derives the same carrier spec as the printed source,
-including 0.25 mm valve-entry air. Its selftest and 34 backing integration checks pass.
-The canonical carrier STEP, STL and viewer payloads are regenerated from that source;
-their verified digests are in the [readiness record](print-readiness.json). The
-[fresh wall report](tee-readiness/full-enclosure-print/current-front-top-check.json)
-proves their native equality, actual Box agreement and complete placement/working paths
-through the canonical front-top. The actual slice and support-removal lanes are separate.
-The right receiver's exact two-carrier slice passes six native support-access readings:
-detach the short roof branch through the broad shelf entry, release rear-wall contact,
-lower it 2 mm, then withdraw it 6 mm fore. This qualifies detached-branch removal;
-intact-tree extraction and cleanup effort remain unmeasured. All seven trees and 21
-interfaces have named contacts and removal lanes while the halves are loose. The two
-0.90 mm backing edges have no separate support islands; they remain exposed overhangs
-rooted in the continuous web, with printed finish checked in the complete trial. The
-[carrier lint review](tee-readiness/full-enclosure-print/postpublish-carrier-lint-review.json)
-has zero open findings: 33 answered on the left and 39 on the right.
-Each source-built half is an exact subset of the frozen study: only the declared
-0.05 mm backing strip is absent, with no change to cups, joint, guides or bearing faces.
-Those bounds carry the baseline collision-free paths to the current halves. Checks pass for five
-continuous inter-half sweeps, nine deflection witnesses, ten full-half wall sweeps, ten
-held-spring/pusher sweeps, four pusher-removal sweeps, six working wall states and twelve
-opposed guide-contact probes. Another 102 native neighbor readings, forty tee-entry sweeps,
-sixteen lower-valve/body and coil insertion sweeps, thirty-two tie lanes and thirty fixed-cup
-neighbor checks pass. These use the exact frozen measured-tee wall named in the manifest;
-they remain distinct from the fresh complete-wall report and combined assembly.
+The carrier has **two moving halves with an integral broad retaining wall**, a fore lap,
+a captured rail and an overlapping shelf. It uses no joint screws, heat-set inserts or
+separate keeper. The fixed spring cups belong to front-top; the moving cups have closed
+sides. One flat 2 mm pusher loads the two springs in turn and is removed before operation.
 
-Install the left half and then the right through the loose front-top with the bare tees
-at release and valves absent. Each spring is held axially in its closed moving cup.
-Each half has five placement segments: rear entry, lowering, outward staging, fore slide
-and outward seating. The temporary pusher then withdraws inboard and lifts through the
-outer tee well. One 2 mm-thick reusable pusher serves both sides in sequence; its
-[19 native route checks](../fixtures/carrier-spring-pusher/native-sequence-check.json)
-include right-half entry with the left spring already released into its cups.
-The shelf requires no separate lift or twist; the right half's final
-outward seat retains the joint. The [assembly view](tee-carrier/simple-carrier-study/assembly-sequence.png)
-shows these motions. Actual hand effort is a full-enclosure trial result.
+Derek measures the stiffer springs at **27 mm free length, about 7 mm compressed length
+(possibly slightly less), and Ø6 mm**. The present bearing separations are:
 
-The [current section readings](tee-carrier/entry-backing-check.json)
-give sampled minimum Iy of 78,368.9 mm⁴ versus 76,204.1 mm⁴, and Iz of 12,249.1 mm⁴ versus
-994.5 mm⁴, for the frozen measured-tee screwed CAD reference. The reference is not the bowed
-physical coupon or the carrier preceding spring relocation. The beam spans X: transverse
-Y loading bends about Z and uses Iz; transverse Z loading bends about Y and uses Iy.
-Observed bowing along X does not identify the force direction. Improved sampled minima
-do not imply uniform local improvement or measured assembled stiffness; joint slip,
-print anisotropy and guide compliance remain physical properties of the complete trial.
+| State | Carrier offset | Spring length | Compression from 27 mm |
+| --- | ---: | ---: | ---: |
+| Release | 0 mm | 19.35 mm | 7.65 mm |
+| Connected | 2 mm | 21.35 mm | 5.65 mm |
+| Aft stop | 4.5 mm | 23.85 mm | 3.15 mm |
 
-The [archived body audit](tee-carrier/readiness-audit.json) retains its separate comparison
-to the print preceding spring relocation: local Izz ratios 156.29 at the inner tee, 5.21
-at the outer tee and 0.887 at the grip root, with equal-modulus body bending gains of
-35.82 for equal grips and 1.379 for spring return. It excludes the center joint, torsion
-and shear and does not qualify this complete carrier. Its spring-load fixture requires
-23.795 N·mm of center-joint bending and 25.035 N·mm of roll restraint per 1 N total spring
-force. Those values remain archived model evidence.
+The 6.57 mm cup bores provide nominal 0.285 mm radial air. Fixed cups are 8 mm deep with
+2 mm radial walls; moving cups are 11.1 mm deep. The design does not need a spring-ID
+measurement or an added guide pin. Geometric capture and retained stock do not establish
+helical-spring escape resistance, operating force or printed stiffness. **Improved physical
+rigidity over the carrier before the springs moved has not yet been demonstrated.**
 
-The [joint coupon physical report](tee-carrier/joint-coupon/physical-fit.json) establishes:
+## What remains before and during the trial
 
-- Both interlocking halves assemble with a small amount of force and a tight friction fit.
-- Derek observes **no rocking or play**.
-- The assembled coupon is secure but **bows along X more easily than acceptable for the
-  carrier's function**. Derek identifies short X engagement as a possible contributor;
-  force and bending mode are unmeasured.
-- The separate keeper inserts, but its tiny catch supplies essentially no observed spring
-  tension. The catch is not accepted as a meaningful positive lock.
+Bind the verified source, native solids, meshes, profile and current carrier/pusher
+proofs in the fresh print receipt. For each plate, review its actual native slice, emitted
+working features and every support-contact removal lane before printer handoff. Earlier
+receipts and support approvals do not qualify new geometry or archives.
 
-Neither coupon half is selected for reuse in the integrated carrier. The tight fit and
-absence of play are observations; Derek does not accept the coupon's design or complexity.
-The right-only integral latch trial is withdrawn from the print queue. The
-[faucet display cover](../faucet/faucet-display-cover/physical-acceptance.json)
-is Derek's preferred example for the snap-fit approach: simple, broad, substantial
-walls provide the give and spring. Its success does not qualify a differently proportioned
-part. The nameplate is physically successful, including its snaps, but is not accepted
-as an example of the desired simplicity.
+The complete printed assembly establishes spring retention at both ends through every
+stop and unequal-hand motion; tension, feel, sideways deflection and full-span rigidity;
+valve tie installation; four-tube insertion, capture, release and relocking; pump mounting,
+connectors and primed operation; and shell closure. G Ganen screw/washer seating and rubber
+compression, DIGITEN arrow orientation, and actual made-up gas-fitting fit are direct
+assembly observations. They do not require another scan or a separate coupon before the
+requested trial. Production LLDPE routes retain nominal ¼-inch and ⅜-inch outside diameters.
 
-The complete enclosure assembly-test print supplies the actual rigidity, joint retention,
-spring behavior and assembly-effort readings. These are test outcomes, not requirements for
-another coupon before that print. The [integral latch study](tee-carrier/joint-coupon/integral-latch-study/README.md)
-retains its distinct geometric and toolpath evidence without a print release.
+Physical spring behavior and complete enclosure fit are **outcomes of this trial**, not
+prerequisites to printing it. No whole-carrier functional rigidity, retention force or
+cycle-life result is claimed.
 
-## Measured springs and capture
-
-[Derek's measured pair](tee-carrier/spring-measurements.json) is **27 mm free, approximately
-7 mm compressed (possibly slightly less), and Ø6 mm**. Wire diameter, inside diameter and
-spring rate are not measured.
-
-| State | Bearing separation | Compression from 27 mm | Margin above approximately 7 mm compressed |
-|---|---:|---:|---:|
-| Release / squeeze | 19.35 mm | 7.65 mm | 12.35 mm |
-| Connected | 21.35 mm | 5.65 mm | 14.35 mm |
-| Aft limit | 23.85 mm | 3.15 mm | 16.85 mm |
-
-The production moving cup is a **closed Ø6.57 mm teardrop bore, 11.1 mm deep**. Its inboard
-side is permanently closed. Each integral fixed cup is 8 mm deep with Ø6.57 mm ID,
-Ø10.57 mm OD and 2 mm radial wall. The bore gives 0.285 mm nominal radial air to the
-measured spring. Axes remain X±97.535, Z211.209 mm; spring floors are Y90.040 and
-Y109.390 plus travel. Working travel is 0 / 2.00 / 4.50 mm at release / connected / aft stop.
-
-Gaps between cup mouths are **0.25 / 2.25 / 4.75 mm** at those states. Native checks preserve
-both floors, clear the spring envelope and block a rigid D6 lateral sphere witness. A real
-helical coil can deform; those readings do not establish impossible real misalignment.
-Both-end retention through unequal-hand movement and deliberate sideways loading is an
-outcome of the full enclosure print.
-
-The spring loads axially at **12.15 mm held length**, 5.15 mm above the approximately 7 mm
-compressed estimate. The canonical [flat pusher](../fixtures/carrier-spring-pusher/README.md)
-has a **Ø6.3 mm tip, 2 mm thickness and a 10 × 3 mm tongue**. One tool serves the left
-spring and then the right. After each half seats, it withdraws 15.435 mm inboard and lifts
-70 mm through the outer well. The fresh complete-wall check verifies installation,
-one-tool reuse and removal with a conservative 0.30 mm lift-lane gap on both sides.
-The fixed-cup air is 1.70 mm. The source, printable files and exact digests
-are recorded in its [geometry check](../fixtures/carrier-spring-pusher/geometry-check.json).
-
-The frozen [spring-capture checks](tee-carrier/simple-carrier-study/spring-capture-checks.json)
-and [wall route](tee-carrier/simple-carrier-study/wall-checks.json) retain their thinner
-0.6 mm witness; that witness is not the printable tool. The current pusher has its own
-[native route record](../fixtures/carrier-spring-pusher/native-sequence-check.json).
-The [fresh integrated check](tee-readiness/full-enclosure-print/current-front-top-check.json)
-passes with the complete canonical front-top, both current half STEPs and the 2 mm pusher.
-No spring ID measurement or retained guide plug is required. Spring force and actual
-compression effort remain unknown.
-
-The [guide-plug study](tee-carrier/spring-capture-study/README.md) and its archived 9.61 mm
-loading fixture remain separate exploration records. They do not describe the integrated
-closed-cup assembly or specify another required print.
-
-## Nameplate print
-
-Mark2 has completed the black-and-white unit-0001 nameplate and its matching receiver coupon.
-The [native job record](nameplate/mark2-print-readiness.json) records black PET-GF on the left,
-white PET-GF on the right, both carrying the printer's PET-CF label. This is the right
-hotend's first use with white PET-GF. Derek reports clear appearance, reliable QR scanning
-from 2 feet, intermittent scanning from 3 feet, and working snaps. The
-[physical result and photographs](nameplate/physical-acceptance.json) identify the exact
-print; its photographed QR independently decodes to `HTTPS://HOSM.US/0001`. The nameplate
-remains more complex than Derek prefers for the carrier's design example.
-
-## Other readiness evidence
-
-| Scope | Needed evidence |
-|---|---|
-| PP0208E operating nose | In the complete print, confirm that all four moving rings contact, release and relock without the fixed barrel bottoming. The existing scan supports the aperture's annular contact; a contact mark or face-diameter reading is only needed if the trial exposes a problem. |
-| Kamoer fit and tubes | Existing assembled cap retention is accepted. The full trial checks connectors, all four marked insertion depths, tug/capture, carrier release and primed pumping. |
-| Complete tee carrier | The full enclosure trial records both-end spring retention at every stop, unequal-hand behavior, sideways deflection and whole-span bowing under the actual assembled constraints. These are physical trial outcomes. |
-| Machine display cover | Derek confirms the display was already test fit with the previous design. Use that accepted fit and verify the current shell interface; no separate coupon or repeat cover print is required. |
-| Before wider enclosure release | Verify the combined generated assembly and current slices containing the G Ganen reference, sliding-foot mounts and hose routes. |
-| Back-top gas fittings | Seats and ceiling pockets use nominal dimensions. Confirm the made-up fitting fit in the complete enclosure; no separate coupon is required. Actual gas-fitting fit remains unverified. |
-
-Already fitted rectangular and cylindrical parts do not require scans merely because a
-scanner is available. Printed friction, spring capture and tube reconnection require the
-physical mechanism.
-
-## Complete enclosure trial
-
-Derek requests fresh prints of all four shell quadrants and the complete pump mechanism.
-No earlier shell print constrains the design or needs to be reused. The first H2C plate
-is printing front-top and the required spring-loading tool. The separate carrier-pair
-and matching cartridge/raised-cap plates pass their offline reviews and remain unsubmitted
-for Mark2 after its countertop job and a clear-bed check. The remaining three quadrants
-receive current slices for subsequent available beds. Physical testing uses the complete
-enclosure; no additional test coupons are required.
-
-1. The fresh front-top installation, working-stop and canonical pusher checks pass.
-   Its exact native slice, support-access review and live printer release are complete;
-   the uniquely named v3 job is confirmed running.
-2. Complete the resumed combined native assembly build and its remaining neighbor and
-   lower-shell interface checks. Review the later plates against their current part digests.
-3. The exact carrier and cartridge/cap slice reviews pass. Prepare the remaining shell and
-   G Ganen mounting jobs with their actual material, nozzle and Z settings. Inspect each
-   exact slice's support contacts and removal access; retained old audits do not qualify
-   a changed STL or profile.
-4. Check each assigned printer's live state and confirm its plate is clear before sending
-   the next reviewed archive, then verify that exact job on the printer.
-5. Assemble the complete printed enclosure and mechanism. Record spring capture at both
-   ends, tension, feel, full-span rigidity, tube insertion/release, pump fit and assembly effort.
-
-The prior assembly's 107 passing checks, 398 carrier motion/envelope readings and source
-hashes are retained as baseline evidence. A fresh combined build is required for the current
-tee and pump corrections. The machine-readable [readiness record](print-readiness.json)
-tracks current artifacts separately from that baseline. Repository-wide checks are not all
-passing and must not be presented as an all-green project.
+The immutable [front-top cancellation](tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json),
+[launch](tee-readiness/full-enclosure-print/h2c-front-top-launch.json) and
+[print-job records](enclosure/print-jobs.json) remain available for the affected archived
+jobs. Their geometry and slice approvals are not active entries in the current queue.
