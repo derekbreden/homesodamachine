@@ -164,6 +164,7 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/faucet/above-counter-gasket",
     "hardware/printed-parts/fixtures/faucet-display-snap",
     "hardware/printed-parts/fixtures/faucet-cover-retention",
+    "hardware/printed-parts/fixtures/valve-socket-fit",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -212,6 +213,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/manifold-layout",
     "hardware/faucet-layout",
     "hardware/printed-parts/fixtures/faucet-cover-retention",
+    "hardware/printed-parts/fixtures/valve-socket-fit",
 )
 
 # The fit-trial assembly has a viewer payload. Its two separately printable
