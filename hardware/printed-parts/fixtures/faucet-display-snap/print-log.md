@@ -60,3 +60,11 @@ with the tip at −105° and cover bezel up at −50°.
 
 This is a physical seating and retention observation; repeated cycling and
 long-term preload were not reported.
+
+## Physical acceptance — 2026-09-20
+
+Derek confirms the faucet display cover is solid and successful in PET-GF. Its broad,
+long, thin walls provide the necessary give and spring. The current cover STL matches
+the successful complete-cover trial: `d6ec3db737b11e3aa6a09bacbda2328e0999212dc19deac941e4773fed51425f`.
+The [acceptance record](../../faucet/faucet-display-cover/physical-acceptance.json) preserves
+his statement and the exact geometry.

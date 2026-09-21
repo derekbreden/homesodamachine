@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "part": "faucet display cover",
+  "status": "physically_accepted_fit_and_retention",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-20",
+  "material": "PET-GF",
+  "user_statement": "Please note the faucet display cover has been proven solid and successful, those broad long thin (but not too thin!) walls provide the necessary give and spring, more so than anything else anyone else has tried, in PET-GF so far.",
+  "observed_behavior": {
+    "cover_solid_and_successful": true,
+    "broad_walls_provide_elastic_give_and_spring": true,
+    "both_complete_cover_orientations_previously_retained_firmly": true
+  },
+  "proven_geometry": {
+    "stl": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
+    "stl_sha256": "d6ec3db737b11e3aa6a09bacbda2328e0999212dc19deac941e4773fed51425f",
+    "current_stl_matches_successful_trial": true,
+    "trial_record": "hardware/printed-parts/faucet/faucet-display-petgf.readiness.json",
+    "trial_job": "faucet-display-mark2.gcode.3mf",
+    "trial_archive_sha256": "defdde770a54b0f22db742c291448d5238ae0a6fe6165c4670103c0786b3034e",
+    "production_rotation_x_degrees": -50.0,
+    "lip_height_mm": 3.0,
+    "lip_engagement_mm": 1.2,
+    "wing_preload_at_lip_top_mm": 1.25
+  },
+  "design_precedent": "Broad compliant side walls spread around the rigid neck and spring inward, carrying broad retaining lips. The whole wall supplies compliance.",
+  "scope": "Derek confirms the existing faucet cover. A newly proportioned keeper or spring capture must establish its own physical fit and retention; force and cycle-life values have not been measured."
+}

@@ -3,11 +3,11 @@
   "piece": "nameplate-and-receiver",
   "inputs": {
     "gcode": "plate_1.gcode",
-    "gcode_sha256": "2dece6861bda876310e3e530ab0f3b0358656261b56285f84a39b493c6232ea4",
+    "gcode_sha256": "141f3c5211b84f8f1177eb68f54b521db1b2ed6ee5d59e70d0624c1b53d116f7",
     "model": null,
     "model_sha256": null,
-    "profile": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
-    "profile_sha256": "e80189a2d95e948fffcf05ce359067ba4f4583f60a47a436a1ccda02b815f04d"
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
+    "profile_sha256": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72"
   },
   "slicer": "BambuStudio 02.08.02.61",
   "first_layer_z_mm": 0.2,
@@ -54,9 +54,6 @@
       ],
       "interface_reading": "explicit_feature",
       "part": "nameplate",
-      "contacts": [
-        "Nameplate lip bearing face"
-      ],
       "removal_access": "Open beside the tab"
     },
     {
@@ -75,8 +72,7 @@
       "interfaces": [],
       "interface_reading": "unlabelled",
       "part": "receiver coupon",
-      "contacts": [],
-      "removal_access": "Open from receiver front and rear"
+      "removal_access": "Open from receiver front and rear before assembly"
     },
     {
       "id": "tree-3",
@@ -99,11 +95,7 @@
       ],
       "interface_reading": "explicit_feature",
       "part": "receiver coupon",
-      "contacts": [
-        "Receiver pump ledge and retaining shoulders",
-        "Receiver lower pocket rim"
-      ],
-      "removal_access": "Open from receiver front and rear"
+      "removal_access": "Open from receiver front and rear before assembly"
     },
     {
       "id": "tree-4",
@@ -123,9 +115,6 @@
       ],
       "interface_reading": "explicit_feature",
       "part": "nameplate",
-      "contacts": [
-        "Nameplate lip bearing face"
-      ],
       "removal_access": "Open beside the tab"
     },
     {
@@ -144,8 +133,7 @@
       "interfaces": [],
       "interface_reading": "unlabelled",
       "part": "receiver coupon",
-      "contacts": [],
-      "removal_access": "Open from receiver front and rear"
+      "removal_access": "Open from receiver front and rear before assembly"
     }
   ],
   "interfaces": [
@@ -160,8 +148,7 @@
         126.4
       ],
       "tree": "tree-1",
-      "build_up_mm": 10.32,
-      "contact": "Nameplate lip bearing face"
+      "build_up_mm": 10.32
     },
     {
       "id": "interface-2",
@@ -174,8 +161,7 @@
         126.4
       ],
       "tree": "tree-4",
-      "build_up_mm": 10.32,
-      "contact": "Nameplate lip bearing face"
+      "build_up_mm": 10.32
     },
     {
       "id": "interface-3",
@@ -188,8 +174,7 @@
         216.0
       ],
       "tree": "tree-3",
-      "build_up_mm": 18.72,
-      "contact": "Receiver pump ledge and retaining shoulders"
+      "build_up_mm": 18.72
     },
     {
       "id": "interface-4",
@@ -202,8 +187,7 @@
         214.8
       ],
       "tree": "tree-3",
-      "build_up_mm": 29.04,
-      "contact": "Receiver pump ledge and retaining shoulders"
+      "build_up_mm": 29.04
     },
     {
       "id": "interface-5",
@@ -216,8 +200,7 @@
         215.2
       ],
       "tree": "tree-3",
-      "build_up_mm": 29.04,
-      "contact": "Receiver pump ledge and retaining shoulders"
+      "build_up_mm": 29.04
     },
     {
       "id": "interface-6",
@@ -230,11 +213,9 @@
         204.4
       ],
       "tree": "tree-3",
-      "build_up_mm": 41.52,
-      "contact": "Receiver lower pocket rim"
+      "build_up_mm": 41.52
     }
   ],
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
-  "nameplate_support_bodies": 2,
   "physical_removal_tested": false
 }
