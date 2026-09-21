@@ -1,47 +1,46 @@
-# Tee connector — reference fitting (stand-in)
+# Tee connector — PP0208E measured clearance reference
 
-The production fitting is the **John Guest PP0208E** 1/4" union tee, black PP
-— the part every Tee junction (Y-C/D/E/F/G/H/KA/KB) in the
-[fluid topology](/hardware/topology/fluid-topology.md) is built from, committed
-in the BOM (`hardware/ledger/bom.md` §8).
+The production fitting is the **John Guest PP0208E** 1/4 inch union tee, black
+polypropylene. The manifold and water split share the generated
+`tee-connector.step` from `tee_connector.py`.
 
-`tee-connector.step` is **McMaster 51175K143**, a 1/4" push-to-connect
-drinking-water tee — simply a STEP that happened to be available, used as a
-close-but-not-exact geometric stand-in for layout. The design iterates toward
-the **installed characteristics of the PP0208E**, not this file; swap in
-measured PP0208E geometry as parts come in hand. Six of the manifold's eight
-junctions are this fitting ([`fluid-topology.md`](/hardware/topology/fluid-topology.md)
-§Junctions): the **run** takes a pair of valve ports lying in line — one above
-the other, once the trays are stacked — and the **branch** turns off to the
-third leg.
+The reference uses the unscaled five-view scan registered in
+[`../jg-pp0208e-tee/scan-registration.json`](../jg-pp0208e-tee/scan-registration.json).
+Its fixed root envelope is **Ø14.0 mm**. Its collar envelope is **Ø16.5 mm**,
+covering the draft beyond the **Ø16.3 mm nominal** collar. This is a rounded
+sample envelope, not a manufacturing tolerance limit. Printed journals provide
+**Ø17.0 mm**, including 0.25 mm radial running air.
 
-## Geometry (measured from the STEP)
+The run is on ±Z with extended sleeve faces at **±21.25 mm**, from Derek's
+42.5 mm run-span reading. The branch is on +Y. Fitted root and collar patches
+have distinct run and branch stations; they are interior surface patches, not
+shoulder edges. The connecting shoulders and central union are conservative
+clearance envelopes. They deliberately do not claim every molded fillet.
 
-The McMaster stand-in's figures — close to the PP0208E, not identical;
-reconcile against a measured production tee once one is in hand.
+Three interfaces remain explicit layout proxies in `UNQUALIFIED_DATUMS`:
 
-Overall body envelope **13.7 × 26.9 × 40.1 mm**. Three 1/4" ports: a **run**
-of two in-line ports on the long axis (collet faces at ±20.07 mm), and one
-**branch** perpendicular to the run (collet face at +20.07 mm). All three meet
-at the body center.
+- The fully extended branch face is provisionally **20.07 mm** from the axis.
+- The fixed-body/moving-sleeve split is provisionally **16.95 mm**.
+- The release nose radius is provisionally **5.715 mm**.
 
-In the file's own frame (run axis = Z):
+The requested branch caliper width and identification of the actual moving rim
+must qualify those interfaces before print release. Sleeve depression moves
+only the terminal proxy sleeve and preserves the entire measured fixed collar.
+CAD consistency tests do not convert a proxy into a bench measurement.
 
-| Port | Opens | Location |
-|---|---|---|
-| Run 1 | +Z, collet face Z ≈ +20.07 | centered, (0, 0) |
-| Run 2 | −Z, collet face Z ≈ −20.07 | centered, (0, 0) |
-| Branch | +Y, collet face Y ≈ +20.07 | centered, (0, 0) |
+The bores show Ø6.35 mm tube clearance. They do not claim teeth, O-rings, the
+hydraulic bore or an inferred internal stop. The stop is the measured insertion
+station below.
 
-The run carries straight-through flow; the branch joins at 90°. Run
-half-length and branch reach are both 20.07 mm.
-
-Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
+```sh
+tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py
+tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py selftest
+```
 
 ## Measured on the PP0208E in hand
 
-Calipered on the production tee itself, not on the stand-in STEP, so `stations_hold` does not
-read them back. Both spans are collet face to collet face along the run. The three depths are
+Calipered on the production tee itself. The generated clearance reference carries the run
+span and the operating branch travel, and `stations_hold` reads those back. Both spans are collet face to collet face along the run. The three depths are
 how far a 1/4" tube stands inside one collet from the sleeve's face with the sleeve pressed
 home, which is where the tube was marked.
 
@@ -65,11 +64,6 @@ fully seated: 11.65 mm beyond the extended sleeve. At the fore stop, the cartrid
 2.15 mm short of seating when its tubes bottom. Relax the squeeze and advance it through
 that final 2.15 mm. Both the connected carrier and the empty carrier rest at the aft stop.
 The springs remain preloaded there; final cartridge seating may require a push.
-
-The stand-in's 40.14 mm run span is 2.36 mm short of the production tee's measured extended
-span. Its envelope locates the pack; `depress_branch` moves its branch sleeve by the measured
-PP0208E travel. `enclosure_assembly.collet_plate_spec` places the fixed face on those fully
-depressed noses. The internal tube-bottom station uses the measured 10 mm depth.
 
 ## Observed push-connect action
 

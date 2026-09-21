@@ -128,6 +128,7 @@ import _stated_bounds as _bounds                      # noqa: E402
 import _boxes                                         # noqa: E402
 import _overlap                                       # noqa: E402
 import _enclosure_interface as _enc_if                # noqa: E402
+import fits                                          # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -168,7 +169,10 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
 # In the enclosure pose the limb's +Y is world +Z. The carrier tees sit below the
 # fold datum; the four fore valves retain their own elevation above that datum.
-CARRIER_DROP = 4.0
+# The carrier branch axes follow the observed seated pump outlet row. Keeping
+# this relationship explicit retains the straight, coaxial cartridge tubes.
+CARRIER_DROP = (_enc_if.pump_station_drop + _enc_if.manifold_rise
+                + _enc_if.pump_seated_drop - kp.outlet_above_skirt_bottom)
 INNER_LIMB_DROP = _enc_if.inner_limb_drop
 FORE_VALVE_RISE = 10.0
 FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
@@ -186,7 +190,7 @@ PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack.
 # The fitted outlet height, pump drop and manifold rise place the two ends on one tube plane
 # while retaining the bracket's independent support datum.
-PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop
+PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop - _enc_if.pump_seated_drop
           - _enc_if.manifold_rise)
 # The pump-to-deck placement span, measured to the reference's extended branch nose
 # on the nominal fore-deck plane. `runs()` follows the sleeve's actual position.
@@ -431,7 +435,15 @@ def flat_bodies() -> dict:
 #
 # `HSM_DECK_SEP` builds another. The carrier's fore datum leaves the aft row's
 # full post-insertion route clear while the fixed decks stay on these planes.
-DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 59.4))
+# The aft coil must pass the full post length fore of its seated position while
+# the tee and its complete backing remain installed. Both the post entry and
+# final moving/fixed interface keep their own running air. The native appliance
+# motion check reads the actual solids against this dimensional lower bound.
+CARRIER_ENTRY_DECK_SEP = (CARRIER_DATUM_SHIFT + tee.HALF_W
+                        + _enc_if.tee_carrier_station_t
+                        + VALVE_TOP_Z - VALVE_PORT_Z
+                        + vlv.boss_z_range[0] + 2.0 * fits.running)
+DECK_SEP = float(os.environ.get("HSM_DECK_SEP", max(59.4, CARRIER_ENTRY_DECK_SEP)))
 FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
 HINGE_Z = DECK_Z + DECK_SEP / 2.0
 UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height

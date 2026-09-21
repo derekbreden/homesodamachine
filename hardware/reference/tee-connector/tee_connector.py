@@ -1,87 +1,74 @@
-"""Tee connector — the three-port union the manifold's junctions are built from.
+"""PP0208E measured clearance reference, run on ±Z and branch on +Y.
 
-`tee-connector.step` is a harvested solid standing in for the John Guest PP0208E
-(`README.md`): there is no builder here, and every number in the first block below was
-measured off that file. `stations_hold` reads them back off it at import of the pack that
-places it, so a measurement and the metal it was taken from cannot part. The second block is
-calipered on the PP0208E in hand, which the STEP does not carry.
-
-Coordinate frame
-----------------
-- The RUN on Z, its two collet faces at ±`RUN_HALF`. The BRANCH on +Y, its face at
-  `BRANCH_REACH`. All three ports are coaxial with the body centre and take 1/4" OD tube.
-- Origin at the body centre, so `HALF_W` is the body's own radius about the run.
-
-The topology names the three legs of each junction (`../../topology/fluid-topology.md`); which
-name lands on the branch is the numbering's business, and the enclosure's.
+Fixed roots/collars use the unscaled scan envelope; run faces and operating
+stroke use Derek's calipers. The branch face and fixed/moving nose split remain
+explicitly unqualified layout datums. This is an external clearance reference,
+not a detailed internal fitting or manufacturing tolerance specification.
 """
-
 import sys
 from pathlib import Path
-
 import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _measuring import collet_offsets
-from _cadq_export import import_step
+from _cadq_export import export_assembly, import_step
+from _materials import M_JG_BLACK_PP, one_body
 
 STEP = _here.parent / "tee-connector.step"
 
-# --- Measured off the STEP ------------------------------------------------
-RUN_HALF = 20.07          # run collet face from the body centre
-BRANCH_REACH = 20.07      # branch collet face from the same centre
-HALF_W = 6.86             # the body's own radius about the run axis
-TUBE_D = 6.35             # the 1/4" OD LLDPE all three ports accept
-MEASURE_TOL = 0.01        # what the figures above are rounded to
+# Calipered operating dimensions. Insertion is from the PRESSED sleeve face.
+TUBE_D = 6.35
+RUN_SPAN = 42.5
+RUN_SPAN_PRESSED = 39.2
+RUN_HALF = RUN_SPAN / 2.0
+COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0
+FIRST_RESISTANCE = 7.0
+GRIP_DEPTH = 8.5
+INSERTION = 10.0
+INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL
 
-# THE ROUND BARREL ON EACH ARM — the stretch a printed seat closes on. Every arm carries the same
-# three sections outward from the centre: a waist the branch's own arm crosses, then the barrel
-# and the collet cap standing `BARREL_R` about the axis, then the release nose stepping back in
-# so a thumb reaches it. `BARREL_NEAR` is where the waist ends and `BARREL_FAR` where the nose
-# begins, so a rib laid between them bears on the cap and clears the release.
-BARREL_NEAR = 7.0
-BARREL_FAR = 17.0
-BARREL_R = 6.858
+# Fitted collar midpoints are Ø16.224..16.330; the outer draft reaches the
+# rounded Ø16.5 sample envelope. Printed passages add their own running air.
+COLLAR_NOMINAL_D = 16.3
+COLLAR_ENVELOPE_D = 16.5
+BARREL_R = COLLAR_ENVELOPE_D / 2.0
+HALF_W = BARREL_R
+ARM_R = 7.0  # rounded envelope of the Ø13.75..13.86 fitted fixed roots
+RUN_ROOT_BAND = (6.9, 9.8)
+BRANCH_ROOT_BAND = (8.7, 11.7)
+RUN_COLLAR_BAND = (12.0, 15.1)
+BRANCH_COLLAR_BAND = (13.8, 16.6)
+ARM_ROOT = BRANCH_ROOT_BAND[0]
+CAP_NEAR, CAP_FAR = BRANCH_COLLAR_BAND
+BARREL_NEAR = RUN_ROOT_BAND[0]
+# These conservative envelope transitions precede the observed shoulders.
+# The fit bands above are interior measurement patches, NOT shoulder edges.
+RUN_ENVELOPE_SHOULDER = (9.8, 10.5)
+BRANCH_ENVELOPE_SHOULDER = (11.7, 12.0)
 
-# THE MOUTH COLLAR, AND THE COLLET STANDING PROUD OF IT. `BARREL_R` is the widest anything on
-# an arm reaches over `BARREL_NEAR`..`BARREL_FAR`, which is what a rib laid across the arm must
-# CLEAR. These are the band that IS that radius, which is what a bore can BEAR on: a journal
-# closed on the collar holds the arm across its own axis and leaves it free along it.
-# `BODY_FACE` is where the collar ends and the collet stands out of it, so `COLLET_PROUD` is
-# the stand-in collet's exposed length. The operating stroke comes from the measured
-# production sleeve travel below. The same three figures the
-# calipered members of this family carry (`../jg-pp0408w/`, `../jg-pp061208w/`,
-# `../jg-pp451223w/`), read off the solid here because this one is harvested.
-CAP_NEAR = 12.815         # the collar's inboard end, off the body centre
-CAP_FAR = 16.700          # the last station standing full `BARREL_R`; the collar breaks after
-BODY_FACE = 16.95         # where the collar ends and the collet begins
-COLLET_PROUD = RUN_HALF - BODY_FACE
-ARM_ROOT = 8.2            # where the arm's own round section begins, off the body centre
-ARM_R = 6.6415            # what the arm stands from that root out to the collar
+# Retained layout proxies, NOT scan/caliper readings. Qualification of these
+# axial/nose interfaces is independent of the known radial correction. The
+# full collar envelope continues to the provisional body face. Only the
+# separate terminal sleeve moves; none of the measured collar moves with it.
+BRANCH_REACH = 20.07
+BODY_FACE = 16.95
+COLLET_NOSE_R = 5.715
+BARREL_FAR = BODY_FACE
+COLLET_PROUD = BRANCH_REACH - BODY_FACE
+UNQUALIFIED_DATUMS = {
+    "branch_extended_face_mm": BRANCH_REACH,
+    "fixed_body_to_moving_sleeve_split_mm": BODY_FACE,
+    "release_nose_radius_mm": COLLET_NOSE_R,
+}
+MEASURE_TOL = 0.01
 
-# --- Measured on the PP0208E in hand ----------------------------------------
-# Calipered on the production tee, not read off the stand-in STEP, so `stations_hold` does not
-# hold them. The two spans are collet face to collet face along the run. The three depths are
-# how far a 1/4" tube stands inside one collet from the sleeve's face WITH THE SLEEVE PRESSED
-# HOME, which is where the tube was marked. These are insertion observations; the collet
-# and its gripping teeth move during locking, while the tube's internal stop stays in the body.
-RUN_SPAN = 42.5            # sleeves extended
-RUN_SPAN_PRESSED = 39.2    # both sleeves pressed home
-COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0   # one sleeve's stroke, 1.65
-FIRST_RESISTANCE = 7.0     # the tube first meets the mechanism
-GRIP_DEPTH = 8.5           # the teeth hold from here in; at 8.4 the tube still draws out
-INSERTION = 10.0           # the tube bottoms
-INSERTION_EXTENDED = INSERTION + COLLET_TRAVEL  # fixed stop depth from an extended nose
-
-# The fore stop holds the branch sleeve fully depressed against the fixed plate.
-# Release and squeeze share that stop; connected and empty park share the aft stop.
 CARRIER_AFT_COLLET_GAP = 0.5
 CARRIER_STROKE = COLLET_TRAVEL + CARRIER_AFT_COLLET_GAP
 CARRIER_MAX_STROKE = 2.5
 if not COLLET_TRAVEL <= CARRIER_STROKE <= CARRIER_MAX_STROKE:
-    raise ValueError('carrier stroke must release the sleeve within the 2.5 mm travel limit')
+    raise ValueError("carrier stroke must release the sleeve within 2.5 mm")
 CARRIER_RELEASE_OFFSET = 0.0
 CARRIER_SQUEEZE_OFFSET = 0.0
 CARRIER_CONNECTED_OFFSET = CARRIER_STROKE
@@ -92,179 +79,145 @@ CARRIER_STATES = {
     "connected": (CARRIER_CONNECTED_OFFSET, INSERTION_EXTENDED),
     "park": (CARRIER_PARK_OFFSET, None),
 }
-# Each occupied stop describes a tube bottomed against the tee body's internal stop.
-# The cartridge is one carrier stroke short of seating at fore and fully seated at aft.
-# Park names the empty-carrier use of that same aft stop, so it has no tube-depth entry.
 
 
 def carrier_collet_depression(offset: float) -> float:
-    """Branch-sleeve depression while its nose bears against the fixed plate."""
+    """Sleeve movement while its nose bears against the fixed release plate."""
     return min(COLLET_TRAVEL, max(0.0, COLLET_TRAVEL - offset))
 
 
-def depress_branch(solid, depression: float):
-    """The stand-in tee with only its branch sleeve translated into the body."""
+def _cylinder(radius, near, far, axis):
+    return cq.Solid.makeCylinder(radius, far - near,
+                                 cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
+
+
+def _fixed_arm(axis, shoulder):
+    """Measured radial envelopes joined before the observed shoulder.
+
+    The full collar envelope is retained to the provisional body face, so an
+    unqualified chamfer cannot earn clearance. The central root union is also
+    conservative. Neither connecting surface is a measured shoulder-edge datum.
+    """
+    near, far = shoulder
+    root = _cylinder(ARM_R, 0.0, near, axis)
+    transition = cq.Solid.makeCone(
+        ARM_R, BARREL_R, far - near,
+        cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
+    collar = _cylinder(BARREL_R, far, BODY_FACE, axis)
+    return root.fuse(transition, collar)
+
+
+def build(depression: float = 0.0):
+    """Clearance reference with only the branch's terminal proxy sleeve moved."""
     if not 0.0 <= depression <= COLLET_TRAVEL + 1e-9:
-        raise ValueError(f'branch depression {depression:g} exceeds the measured sleeve stroke')
+        raise ValueError("branch depression exceeds the measured sleeve stroke")
+    arms = []
+    for axis, shoulder, reach, travel in (
+        ((0, 0, 1), RUN_ENVELOPE_SHOULDER, RUN_HALF, 0.0),
+        ((0, 0, -1), RUN_ENVELOPE_SHOULDER, RUN_HALF, 0.0),
+        ((0, 1, 0), BRANCH_ENVELOPE_SHOULDER, BRANCH_REACH, depression),
+    ):
+        arms.extend((_fixed_arm(axis, shoulder),
+                     _cylinder(COLLET_NOSE_R, BODY_FACE - travel, reach - travel, axis)))
+    solid = arms[0].fuse(*arms[1:]).clean()
+    # Tube clearance bores do not claim teeth, an O-ring or the hydraulic bore.
+    # The internal stop is a measured station, not an inferred scanned feature.
+    bores = (_cylinder(TUBE_D / 2, -RUN_HALF - 1, RUN_HALF + 1, (0, 0, 1)),
+             _cylinder(TUBE_D / 2, 0, BRANCH_REACH + 1, (0, 1, 0)))
+    return solid.cut(*bores).clean()
+
+
+def depress_branch(solid, depression: float):
+    """Move the terminal proxy sleeve, preserving every measured fixed patch."""
+    if not 0.0 <= depression <= COLLET_TRAVEL + 1e-9:
+        raise ValueError("branch depression exceeds the measured sleeve stroke")
     if depression <= 1e-9:
         return solid
     bb = solid.BoundingBox()
     cutter = cq.Solid.makeBox(bb.xlen + 2, bb.ymax - BODY_FACE + 1, bb.zlen + 2,
-                              cq.Vector(bb.xmin - 1, BODY_FACE, bb.zmin - 1))
+                             cq.Vector(bb.xmin - 1, BODY_FACE, bb.zmin - 1))
     sleeve = solid.intersect(cutter)
     return solid.cut(cutter).fuse(sleeve.translate((0, -depression, 0))).clean()
 
 
 def run(sign):
-    """One of the run's two collinear ports, `sign` picking the +Z or −Z end."""
     return ((0.0, 0.0, sign * RUN_HALF), (0.0, 0.0, sign))
 
 
 def run_barrel(sign):
-    """The barrel on one of the run's two arms — `(station, radius, length)`, `station` its
-    mid-point and the run axis through it."""
-    return (((0.0, 0.0, sign * (BARREL_NEAR + BARREL_FAR) / 2.0), (0.0, 0.0, sign)),
-            BARREL_R, BARREL_FAR - BARREL_NEAR)
+    near, far = RUN_COLLAR_BAND
+    return (((0.0, 0.0, sign * (near + far) / 2), (0.0, 0.0, sign)),
+            BARREL_R, far - near)
 
 
 def branch():
-    """The third port, perpendicular to the run, out +Y."""
-    return ((0.0, +BRANCH_REACH, 0.0), (0.0, 1.0, 0.0))
+    return ((0.0, BRANCH_REACH, 0.0), (0.0, 1.0, 0.0))
 
 
 def branch_collar():
-    """The mouth collar on the branch arm — `(station, radius, length)`, `station` its
-    mid-point with the branch axis through it. What a printed bore journals on."""
-    return (((0.0, (CAP_NEAR + CAP_FAR) / 2.0, 0.0), (0.0, 1.0, 0.0)),
+    return (((0.0, (CAP_NEAR + CAP_FAR) / 2, 0.0), (0.0, 1.0, 0.0)),
             BARREL_R, CAP_FAR - CAP_NEAR)
 
 
-def stations() -> dict:
-    """All three, under the ends they stand on."""
-    return {"+z": run(+1.0), "-z": run(-1.0), "branch": branch()}
+def stations():
+    return {"+z": run(1.0), "-z": run(-1.0), "branch": branch()}
+
+
+def _branch_radius(solid, lo, hi):
+    band = cq.Solid.makeBox(40, hi - lo, 50, cq.Vector(-20, lo, -25))
+    bb = solid.intersect(band).BoundingBox()
+    return max(bb.xmax, -bb.xmin, bb.zmax, -bb.zmin)
+
+
+def _arm_radius(solid, lo, hi):
+    band = cq.Solid.makeBox(40, 50, hi - lo, cq.Vector(-20, -25, lo))
+    bb = solid.intersect(band).BoundingBox()
+    return max(bb.xmax, -bb.xmin)
 
 
 def stations_hold():
-    """Hold the figures above to `tee-connector.step`.
-
-    All three are extents of the solid's own box, and the run and the branch are each also a
-    1/4" bore standing on the body's own centreline."""
+    """CAD consistency of the export, NOT qualification of UNQUALIFIED_DATUMS."""
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
-    for name, claimed, actual in (("RUN_HALF", RUN_HALF, bb.zmax),
-                                  ("BRANCH_REACH", BRANCH_REACH, bb.ymax),
-                                  ("HALF_W", HALF_W, bb.xmax)):
-        if abs(actual - claimed) > MEASURE_TOL:
-            raise ValueError(
-                f"tee-connector {name} is {claimed:g} and the STEP's own is {actual:.4f} — "
-                f"{abs(actual - claimed):.4f} mm apart, over the {MEASURE_TOL:g} mm this file "
-                f"rounds to. Every leg placed off {name} closes on tube that is not there.")
-    for axis, what in (("z", "run"), ("y", "branch")):
-        seen = collet_offsets(solid, axis, TUBE_D / 2.0)
-        if seen != [(0.0, 0.0)]:
-            raise ValueError(
-                f"the tee's {what} bore runs at {seen} and not on the body's own centreline — "
-                f"the stations here all stand at the centre, so a port is off its own axis.")
-    for label, lo, hi, claimed in (("barrel", BARREL_NEAR, BARREL_FAR, BARREL_R),
-                                   ("release nose", BARREL_FAR, RUN_HALF, None)):
-        actual = _arm_radius(solid, lo, hi)
-        if claimed is None:
-            if actual >= BARREL_R - MEASURE_TOL:
-                raise ValueError(
-                    f"the tee's {label} stands {actual:.4f} about the run and the barrel stands "
-                    f"{BARREL_R:g} — a seat bored for the barrel would close on the release "
-                    f"instead of leaving it for a thumb.")
-        elif abs(actual - claimed) > MEASURE_TOL:
-            raise ValueError(
-                f"tee-connector BARREL_R is {claimed:g} and the STEP's own {label} stands "
-                f"{actual:.4f} about the run over {lo:g}..{hi:g} — {abs(actual - claimed):.4f} mm "
-                f"apart, over the {MEASURE_TOL:g} mm this file rounds to. A seat bored for it "
-                f"closes on a body that is not that shape.")
-    # THE BRANCH ARM CARRIES THE SAME PROFILE, and a journal is closed on it rather than a rib
-    # laid across it, so it is held here in its own right. Two readings: the collar stands full
-    # `BARREL_R` the whole way over `CAP_NEAR`..`CAP_FAR`, and nothing past `BODY_FACE` stands
-    # that wide. The first is what a bore bears on; the second is what leaves the collet free to
-    # be pressed inside that bore, which is the whole of the release.
-    # READ THE NARROWEST STATION ACROSS THE BAND, not the widest in it. A journal bears along
-    # its whole length, so what matters is where the collar is thinnest — and a band claimed
-    # wider than the collar actually is still contains the collar's own full radius somewhere,
-    # so a widest-in-band reading passes exactly the error worth catching.
-    thin, wide = _branch_band(solid, CAP_NEAR, CAP_FAR)
-    # AND THE ROUND ROOT BEHIND IT, on the same reading — the stretch a bore passes rather than
-    # bears on, and what fixes how deep a wall can take the arm before the run body stops it.
-    root_thin, _root_wide = _branch_band(solid, ARM_ROOT, CAP_NEAR)
-    if abs(root_thin - ARM_R) > MEASURE_TOL:
-        raise ValueError(
-            f"tee-connector ARM_R is {ARM_R:g} and the narrowest station of the STEP's own "
-            f"branch arm stands {root_thin:.4f} over {ARM_ROOT:g}..{CAP_NEAR:g} — "
-            f"{abs(root_thin - ARM_R):.4f} mm apart, over the {MEASURE_TOL:g} mm this file "
-            f"rounds to. A wall taken to `ARM_ROOT` closes on a body that is not that shape.")
-    # BOTH ENDS OF THE COLLAR PINNED FROM OUTSIDE. The band reading alone cannot fix an edge
-    # finer than one slice; these say the arm is already NARROWER one slice past each end, which
-    # is what makes `CAP_NEAR` and `CAP_FAR` the collar's own stations rather than near them.
-    for label, lo, hi in (("inboard of", CAP_NEAR - 0.1, CAP_NEAR - 0.05),
-                          ("outboard of", CAP_FAR + 0.05, CAP_FAR + 0.1)):
-        seen = _branch_radius(solid, lo, hi)
-        if seen >= BARREL_R - MEASURE_TOL:
-            raise ValueError(
-                f"the tee's branch arm still stands {seen:.4f} at {lo:g}..{hi:g}, {label} the "
-                f"collar this file declares — so the collar runs past the station claimed for "
-                f"it and a journal struck on it bears on less than it thinks.")
-    for label, seen in (("narrowest", thin), ("widest", wide)):
-        if abs(seen - BARREL_R) > MEASURE_TOL:
-            raise ValueError(
-                f"tee-connector BARREL_R is {BARREL_R:g} and the {label} station of the STEP's "
-                f"own branch collar stands {seen:.4f} over {CAP_NEAR:g}..{CAP_FAR:g} — "
-                f"{abs(seen - BARREL_R):.4f} mm apart, over the {MEASURE_TOL:g} mm this file "
-                f"rounds to. A bore journalled on the collar rides on a body that is not that "
-                f"shape for the whole of its length.")
-    collet = _branch_radius(solid, BODY_FACE, BRANCH_REACH)
-    if collet >= BARREL_R - MEASURE_TOL:
-        raise ValueError(
-            f"the tee's branch collet stands {collet:.4f} about its axis and the collar stands "
-            f"{BARREL_R:g} — a bore journalled on the collar would close on the collet too, and "
-            f"a collet a bore grips cannot be pressed to release the tube it holds.")
+    for name, expected, got in (
+        ("run span", RUN_SPAN, bb.zlen), ("positive run", RUN_HALF, bb.zmax),
+        ("branch face proxy", BRANCH_REACH, bb.ymax),
+        ("sample collar envelope", COLLAR_ENVELOPE_D, bb.xlen),
+        ("run collar", BARREL_R, _arm_radius(solid, *RUN_COLLAR_BAND)),
+        ("branch collar", BARREL_R, _branch_radius(solid, *BRANCH_COLLAR_BAND)),
+        ("branch root", ARM_R, _branch_radius(solid, *BRANCH_ROOT_BAND)),
+    ):
+        if abs(expected - got) > MEASURE_TOL:
+            raise ValueError(f"tee {name}: expected {expected:g}, exported {got:g}")
+    for axis in ("z", "y"):
+        if collet_offsets(solid, axis, TUBE_D / 2) != [(0.0, 0.0)]:
+            raise ValueError(f"tee {axis} tube bore is off its declared axis")
+    pressed = depress_branch(solid, COLLET_TRAVEL)
+    if abs(pressed.BoundingBox().ymax - (BRANCH_REACH - COLLET_TRAVEL)) > MEASURE_TOL:
+        raise ValueError("branch proxy sleeve does not provide the measured release travel")
+    band = cq.Solid.makeBox(40, CAP_FAR - CAP_NEAR, 50, cq.Vector(-20, CAP_NEAR, -25))
+    if solid.intersect(band).cut(pressed).Volume() > 1e-7:
+        raise ValueError("release travel removed measured fixed collar material")
 
-
-def _branch_band(solid, lo: float, hi: float, step: float = 0.5):
-    """The narrowest and widest the body stands about the branch axis ACROSS a band, read one
-    slice at a time. `_branch_radius` over the whole band answers only the widest, which a band
-    claimed longer than the feature still satisfies."""
-    n = max(2, int(round((hi - lo) / step)))
-    edges = [lo + (hi - lo) * i / n for i in range(n + 1)]
-    seen = [_branch_radius(solid, a, b) for a, b in zip(edges, edges[1:])]
-    return min(seen), max(seen)
-
-
-def _branch_radius(solid, lo: float, hi: float) -> float:
-    """The widest the body stands about the BRANCH axis between two stations on the +Y arm."""
-    bb = solid.BoundingBox()
-    band = cq.Solid.makeBox(
-        2 * bb.xlen, hi - lo, 2 * bb.zlen, cq.Vector(-bb.xlen, lo, -bb.zlen))
-    cut = solid.intersect(band).BoundingBox()
-    return max(cut.xmax, -cut.xmin, cut.zmax, -cut.zmin)
-
-
-def _arm_radius(solid, lo: float, hi: float) -> float:
-    """The widest the body stands about the run axis between two stations on the +Z arm."""
-    bb = solid.BoundingBox()
-    band = cq.Solid.makeBox(
-        2 * bb.xlen, 2 * bb.ylen, hi - lo, cq.Vector(-bb.xlen, -bb.ylen, lo))
-    cut = solid.intersect(band).BoundingBox()
-    return max(cut.xmax, -cut.xmin)
-
-
-# --- controls -------------------------------------------------------------
 
 def selftest():
     stations_hold()
-    return ["  the three declared stations stand on the solid they were measured off"]
+    return ["measured collar envelopes, run span, bores and fixed-collar release check pass",
+            "branch axial face, body/sleeve seam and release rim remain unqualified"]
+
+
+def main():
+    solid = build()
+    if not solid.isValid() or len(solid.Solids()) != 1:
+        raise ValueError("tee clearance reference must be one valid solid")
+    export_assembly(one_body(cq.Workplane(obj=solid), "tee-connector", M_JG_BLACK_PP), str(STEP))
+    for line in selftest():
+        print(line)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+    if sys.argv[1:] == ["selftest"]:
         for line in selftest():
             print(line)
-        print("tee_connector selftest OK")
     else:
-        print(__doc__)
+        main()

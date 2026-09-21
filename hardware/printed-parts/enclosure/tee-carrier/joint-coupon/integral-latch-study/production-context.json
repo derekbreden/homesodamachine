@@ -1,0 +1,1166 @@
+{
+  "scope": "Integral wall, relief and rear release lane in current tee/valve context. The whole coupon is not a replacement production carrier.",
+  "checks_pass": true,
+  "production_ready": false,
+  "source_inputs_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/integral_latch_coupon.py": "c539f625a668004cfd7e5d3a25249707cd35e64472fe4c580b61af7013d5df21",
+    "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/check_production_context.py": "ffd8b2794532319ddaacd15ec8cf8e5a223b2e62430bf22c468e24a3d5e2f891",
+    "hardware/reference/tee-connector/tee_connector.py": "c581ea91f7b94fbf051556e54d8fa4258ae1a12899dd92f4f991493aa4607526",
+    "hardware/reference/tee-connector/tee-connector.step": "7b41b871cb8b783a046620520b96ee4518585951c66967e561098aa049b6b311",
+    "hardware/reference/jg-pp0208e-tee/scan-registration.json": "a1accf9f30a183e6fb70397a0869bdbf64e990db53e9dc34cd9cafa92d1b0c82",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
+    "hardware/reference/water-split/water_split.py": "be6cc6a2fd12a77abec6aa0c8663266885e49d6d7571b307417266b3872bd33e",
+    "hardware/manifold-layout/manifold_layout.py": "ddcc7fd045e957b6a3193b09da611112c11144de98bac3ab5dd71220c6929f71",
+    "hardware/manifold-layout/enclosure_assembly.py": "3c7d6137671410c7421feac1ebca2c178a74dd5248a7b7e5d18beba51134c864",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a809d6223a731e3101ed9c474a76da8ca0926c085805a8faf1be425b51123c43",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "9a4770bf8e89d4bd7a7fc82f7eb53c2922e8d92b32b1e6bae43224069abcc43f",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4fd2e96090b1990a8cabfaa1be31e0077bbc84fd2b5537ec204246440c4102a3",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "8d2190ed4a36bc9e636f0a0d0733413e4eaeafdf86462d78d246825800a4e8ba"
+  },
+  "carrier_mapping": {
+    "x": 0.0,
+    "y": 105.86000000000001,
+    "z": 167.17400009999997,
+    "states_y": [
+      0.0,
+      2.15,
+      4.65
+    ]
+  },
+  "dimensions_mm": {
+    "relief_right_x": 11.1,
+    "inner_tee_trough_left_x": 11.32,
+    "wall_max_deflected_local_y": 6.8,
+    "flange_low_local_z": 41.900999900000016,
+    "coupon_lap_tip_x": 9.462,
+    "production_lap_tip_limit_x": 8.07,
+    "required_non_key_lap_trim_x": 1.3919999999999995,
+    "release_probe_length_mm": 21.349999999999998
+  },
+  "minimum_native_distances": {
+    "wall_to_fixed_mm": {
+      "distance": 0.24999999999997158,
+      "state": "aft_limit",
+      "part": "coil-v-c"
+    },
+    "wall_to_tee_mm": {
+      "distance": 4.711308564242471,
+      "state": "release",
+      "part": "Y-C"
+    },
+    "release_tool_to_fixed_mm": {
+      "distance": 2.0700000000000167,
+      "state": "release",
+      "part": "coil-v-c"
+    }
+  },
+  "readings": [
+    {
+      "check": "wall deflection 0.00 / retained carrier flange",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "wall deflection 0.27 / retained carrier flange",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "wall deflection 0.54 / retained carrier flange",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "wall deflection 0.81 / retained carrier flange",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "wall deflection 1.08 / retained carrier flange",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "wall deflection 1.35 / retained carrier flange",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "X-79.820 retained upper tee backing / latch relief",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "X-20.070 retained upper tee backing / latch relief",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "X20.070 retained upper tee backing / latch relief",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "X79.820 retained upper tee backing / latch relief",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / valve-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / valve-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / coil-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / coil-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / Y-C",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / Y-C",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / Y-F",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / Y-F",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / Y-D",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / Y-D",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release fully deflected latch / Y-G",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "release rear straight release-tool lane / Y-G",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / valve-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / valve-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / coil-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / coil-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / Y-C",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / Y-C",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / Y-F",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / Y-F",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / Y-D",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / Y-D",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected fully deflected latch / Y-G",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "connected rear straight release-tool lane / Y-G",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-a",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-c",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-e",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-g",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-f",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-b",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-d",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-h",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-j",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / valve-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / valve-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / coil-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / coil-v-i",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / Y-C",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / Y-C",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / Y-F",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / Y-F",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / Y-D",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / Y-D",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit fully deflected latch / Y-G",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    },
+    {
+      "check": "aft_limit rear straight release-tool lane / Y-G",
+      "overlap_mm3": 0.0,
+      "pass": true,
+      "expected_clear": true
+    }
+  ],
+  "issues": [],
+  "original_lap_production_inset_readings": [
+    {
+      "state": "release",
+      "stage": "seated",
+      "tee": "Y-C",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "left_half_inset",
+      "tee": "Y-C",
+      "original_v1_lap_overlap_mm3": 44.22386589827091,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "seated",
+      "tee": "Y-F",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "left_half_inset",
+      "tee": "Y-F",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "seated",
+      "tee": "Y-D",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "left_half_inset",
+      "tee": "Y-D",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "seated",
+      "tee": "Y-G",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "release",
+      "stage": "left_half_inset",
+      "tee": "Y-G",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "seated",
+      "tee": "Y-C",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "left_half_inset",
+      "tee": "Y-C",
+      "original_v1_lap_overlap_mm3": 44.22386589826951,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "seated",
+      "tee": "Y-F",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "left_half_inset",
+      "tee": "Y-F",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "seated",
+      "tee": "Y-D",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "left_half_inset",
+      "tee": "Y-D",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "seated",
+      "tee": "Y-G",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "connected",
+      "stage": "left_half_inset",
+      "tee": "Y-G",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "seated",
+      "tee": "Y-C",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "left_half_inset",
+      "tee": "Y-C",
+      "original_v1_lap_overlap_mm3": 44.22386589826941,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "seated",
+      "tee": "Y-F",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "left_half_inset",
+      "tee": "Y-F",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "seated",
+      "tee": "Y-D",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "left_half_inset",
+      "tee": "Y-D",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "seated",
+      "tee": "Y-G",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    },
+    {
+      "state": "aft_limit",
+      "stage": "left_half_inset",
+      "tee": "Y-G",
+      "original_v1_lap_overlap_mm3": 0.0,
+      "production_limit_lap_overlap_mm3": 0.0
+    }
+  ],
+  "unqualified_tee_datums": {
+    "branch_extended_face_mm": 20.07,
+    "fixed_body_to_moving_sleeve_split_mm": 16.95,
+    "release_nose_radius_mm": 5.715
+  },
+  "limits": [
+    "The 1.2 mm lip, spring force, release tool gesture and printed layer durability need physical qualification.",
+    "Current production tee axial proxies remain explicit in the reference.",
+    "Full carrier insertion, stiffness, tie access, spring capture and printed support removal require the eventual integrated carrier."
+  ]
+}

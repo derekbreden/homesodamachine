@@ -15,29 +15,29 @@
     },
     {
       "part": "enclosure-tee-carrier-left",
-      "current_stl_sha256": "dbe19c9733361a3883aa042d50c260d2e3e6bdfdc88882cebf07e67c49e877b2",
+      "current_stl_sha256": "7c76ace68a8fc60c87e27b6b8b4301f0d5087e0c501cb80553b98d64c1952c68",
       "support_audit_stl_sha256": "e554aec8bb063bf893a7af7d4e848b93555c93b7920f33db0a4de662f99cad20",
       "support_audit_current": false
     },
     {
       "part": "enclosure-tee-carrier-right",
-      "current_stl_sha256": "21cf24ca1e1c8438ac13e6a8c93e7aadfd04ada0bdaaa46a7067ba77879219e1",
+      "current_stl_sha256": "7ba4f977a9456e4600886856128ddaa542460baf5afbb5bffaebcebb25d7266d",
       "support_audit_stl_sha256": "4f76907f513ee5dd355aac947404245ef5927dbbb22fbad5e0fd8b9667820a27",
       "support_audit_current": false
     }
   ],
-  "tee_journal_diameter_mm": 14.216,
-  "production_tee_collar_diameter_mm": 16.3,
-  "nominal_radial_interference_mm": 1.042,
+  "tee_journal_diameter_mm": 17.0,
+  "production_tee_collar_diameter_mm": 16.5,
+  "nominal_radial_interference_mm": 0.0,
   "open_release_conditions": [
-    "Replace stand-in tee with actual scanned production geometry and propagate all consumers.",
-    "Qualify carrier stiffness, retained backing and interlocking joint.",
-    "Provide positive capture and guidance at both spring ends, including closure of the loading window.",
-    "Use measured 6 mm OD, 27 mm free and approximately 7 mm compressed spring data; actual force remains unmeasured.",
-    "Obtain independent Kamoer pump interface evidence through scan or equivalent direct fit measurements.",
-    "Verify actual-part and display-retention coupons in the production print profile.",
-    "Rebuild affected models and checks; reslice exact final geometry and refresh support evidence.",
-    "Confirm physical plate clearance before sending a unique replacement job."
+    "Complete selected G Ganen reference from actual scan and update affected mounts, port seats, storeys and tube routes; existing SeaFlo checks are baseline only.",
+    "Resolve PP0208E absolute extended branch station, fixed/moving nose boundary and release rim; radial collar correction and consumers are implemented.",
+    "Integrate self-latching joint with no separate keeper, preserve physically accepted key fit and qualify full-width carrier stiffness.",
+    "Provide positive capture and guidance at both spring ends with simple assembly and the measured spring pair.",
+    "Dry-fit both Kamoer pumps in the corrected cradle/cap and cycle all four actual tubes; verify return, release and primed leak-tight pumping.",
+    "Verify actual Beduan socket fit, DIGITEN flow direction and machine-display retention using physical parts.",
+    "Complete current combined regeneration and native assembly checks; reslice final geometry and inspect support-removal lanes.",
+    "Confirm H2C plate clear before sending a unique replacement job."
   ],
   "baseline_verification": {
     "assembly_generator_exit_code": 0,
@@ -57,13 +57,18 @@
   },
   "printer_availability": {
     "Mark2": {
-      "physical_filament": "black PET-GF",
-      "authority": "Derek reports spool switched back to black PET-GF and printer ready for new prints in this task",
-      "date": "2026-09-20",
+      "physical_filament_mapping": {
+        "left": "black PET-GF, external 254, PET-CF metadata",
+        "right": "white PET-GF, external 255, PET-CF metadata"
+      },
+      "authority": "Derek loading reports in this task; right hotend white PET-GF is first use.",
       "ready_for_prepared_job": false,
-      "active_job": "carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
-      "observed_at": "2026-09-20T22:42:37.892000+00:00",
-      "job_purpose": "Interlocking carrier joint fit and capture coupon; production carrier remains held."
+      "observed_at": "2026-09-21T00:33:54.528841+00:00",
+      "current_job": "nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
+      "observed_state": "RUNNING",
+      "print_error": 0,
+      "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
+      "job_purpose": "Unit 0001 nameplate and matching receiver coupon."
     },
     "H2C": {
       "cancelled_object_removal_confirmed": false,
@@ -73,14 +78,122 @@
   "carrier_upper_backing": {
     "geometry_check": "pass",
     "evidence": "hardware/printed-parts/enclosure/tee-carrier/upper-backing-check.json",
-    "outer_tee_section_Izz_ratio_to_pre_spring_move": 2.208111310985492,
-    "whole_carrier_stiffness_qualified": false
+    "outer_tee_section_Izz_ratio_to_pre_spring_move": 5.214380643410595,
+    "whole_carrier_stiffness_qualified": false,
+    "body_bending_gains_equal_modulus": {
+      "equal_grips": 35.82040563243257,
+      "spring_return": 1.378610565019605,
+      "unequal_grips_2_to_1": 34.41911790985389
+    },
+    "comparison_scope": "Body only; center joint, torsion and shear excluded. Full assembled stiffness remains unqualified."
   },
   "tee_registration": {
     "status": "six fixed external surfaces rigidly registered at scale 1; held-out residuals retained",
     "evidence": "hardware/reference/jg-pp0208e-tee/scan-registration.json",
     "absolute_branch_sleeve_station_known": false,
     "fixed_small_barrel_and_moving_sleeve_boundary_qualified": false,
-    "production_consumers_updated": false
+    "production_consumers_updated": true,
+    "known_radial_clash_corrected": true,
+    "local_integration_evidence": "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json",
+    "journal_diameter_mm": 17.0,
+    "conservative_collar_diameter_mm": 16.5,
+    "run_span_extended_mm": 42.5,
+    "deck_separation_mm": 60.95
+  },
+  "post_publish_geometry_lint": {
+    "accepted_lever_print_mesh": {
+      "open_findings": 0,
+      "answered": 2
+    },
+    "carrier_left": {
+      "open_findings": 0,
+      "answered": 20
+    },
+    "carrier_right": {
+      "open_findings": 0,
+      "answered": 20
+    },
+    "joint_coupon": {
+      "open_findings": 0,
+      "answered": 6
+    },
+    "meaning": "Intentional supported faces and keeper features are documented. Lint does not qualify fit or assembled stiffness."
+  },
+  "kamoer_scan": {
+    "archive": "~/Documents/3D Scans/2026-09-20-kamoer-pump",
+    "capture_passes": 2,
+    "frames": [
+      1051,
+      1058
+    ],
+    "fusion_point_spacing_mm": 0.1,
+    "points": [
+      2076077,
+      3053059
+    ],
+    "rigid_comparison_status": "complete_bounded_contact_corrections_implemented",
+    "inserted_parts": "Short 1/4-inch LLDPE stubs in silicone outlets, identified by Derek; excluded from native pump dimensions and rigid registration.",
+    "evidence": "hardware/reference/kamoer-kphm400/scan-evidence.json",
+    "contact_check": "hardware/reference/kamoer-kphm400/contact-check.json",
+    "additional_view_needed_for_contact_correction": false,
+    "physical_corrected_assembly_accepted": false
+  },
+  "measured_spring_consumer": {
+    "status": "pass",
+    "evidence": "hardware/printed-parts/enclosure/tee-carrier/measured-spring-check.json",
+    "printed_geometry_unchanged": false,
+    "minimum_compression_mm": 2.85,
+    "loading_clearance_above_compressed_estimate_mm": 2.61,
+    "forces_known": false,
+    "positive_capture_qualified": false,
+    "full_assembly_artifacts_current": false,
+    "geometry_scope": "The measured-spring update preserves fitted spring seats; current tee correction also changes carrier geometry. The retained invariance evidence applies only to the bounded spring-input update."
+  },
+  "tee_nominal_radial_running_air_mm": 0.25,
+  "joint_coupon": {
+    "physical_fit": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/physical-fit.json",
+    "interlocking_fit_accepted": true,
+    "rocking_or_play_observed": false,
+    "tiny_catch_qualified": false,
+    "production_joint_integrated": false,
+    "revision_requirement": "Integral broad-wall latch; normal mating motion locks two halves without a separate keeper or extra fastening step.",
+    "integral_trial_record": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/print-readiness.json",
+    "integral_trial_status": "ready_for_integral_coupon_trial"
+  },
+  "faucet_display_cover": {
+    "physical_acceptance": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
+    "accepted_in_petgf": true,
+    "precedent": "Broad compliant walls supply give and spring; broad lips retain the cover.",
+    "machine_display_cover_acceptance_inferred": false
+  },
+  "current_regeneration": {
+    "status": "baseline_scan_corrections_building_g_ganen_replacement_pending",
+    "core_sources_frozen": true,
+    "includes": [
+      "measured tee/reference and consumer axes",
+      "measured spring envelope",
+      "Kamoer cap contact rails and floor relief",
+      "cold-core valve cradle stations",
+      "fluid-2 tube routing around pressure switch",
+      "water-split fixed-body anchor qualification"
+    ],
+    "assembly_current": false,
+    "production_print_released": false
+  },
+  "nameplate": {
+    "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
+    "native_qr_payload_verified": "HTTPS://HOSM.US/0001",
+    "submitted_to": "Mark2",
+    "physical_qr_and_snap_fit_accepted": false
+  },
+  "water_pump": {
+    "selected": "G Ganen",
+    "asin": "B07F35PTFR",
+    "authority": "Derek, September 20, 2026",
+    "calipers_recorded": false,
+    "scan_status": "first 1033-frame native capture complete; 0.10 mm fusion running; complementary orientation requested",
+    "production_reference_integrated": false,
+    "existing_seaflo_baseline_qualifies_selected_pump": false,
+    "selection_record": "hardware/reference/pump-comparison/README.md"
   }
 }
