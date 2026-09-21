@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "portable_runner_sha256": "61412bef236fa03c3994bf7a6a429f8438e6382507621630e3c1de23499bbdef",
+  "scope": "Native washer replay using only archived inputs. Neighbor replay filesystem substitutions are checked; the 830-row native computation is preserved rather than repeated.",
+  "washer_replay_report_sha256": "04b9745210f4881271718fa254429c7fcd20787f8b490f941ce0635996d5a895",
+  "original_washer_report_sha256": "9c75f618781956eb777814a9cebe12190fc1093504ee268c037d63fb2ec4bf98",
+  "washer_all_geometry_and_measurement_fields_exact_equal": true,
+  "difference_keys": [
+    "inputs_sha256: localized file paths and localized index bytes only"
+  ],
+  "neighbor_original_script_sha256": "d7b311002628d26e7da342929fefe8b5d6df6f104eb41e31d35ab9e6c523717d",
+  "neighbor_bootstrap_replacements_each_match_once": true,
+  "full_neighbor_replay_repeated_for_packaging": false
+}

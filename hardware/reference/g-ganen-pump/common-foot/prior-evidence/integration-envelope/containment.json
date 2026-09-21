@@ -1,0 +1,2387 @@
+{
+  "schema": 1,
+  "part": "G Ganen conservative integration envelope",
+  "frozen_reference_manifest_sha256": "d0d7a798c7da13d9bb393cd4a8965f19050dd0e9a45615385aa07271f0b894ed",
+  "detailed_native_sha256": "5489c2d4ed0748b0b47c5f02d09d1453a0bf613e822a5f546935f901e7837494",
+  "tool_sha256": {
+    "derive_envelope.py": "74bc334a33f779a5f2417ff13bea04b745c97e34d3069b7b313ac6b3dcba6e14"
+  },
+  "surface_distance_bound_mm": 0.15,
+  "support_plane_guard_mm": 1e-05,
+  "geometry_tolerance_mm": 2e-06,
+  "source_solids": 26,
+  "source_faces": 29636,
+  "envelope_solids": 26,
+  "envelope_faces": 5691,
+  "all_native_solids_valid": true,
+  "native_containment_verified": true,
+  "source_scale_factor": 1.0,
+  "measured_reference_changed": false,
+  "production_consumers_changed": false,
+  "qualification": "Clearance-only occupied envelope. External hulls fill hidden feet slots and clip cavities; no material mass, loaded rubber state, screw passage or hose retention is inferred.",
+  "components": [
+    {
+      "name": "rigid_casing_envelope",
+      "method": "exact_frozen_native_copy",
+      "source_faces": 3962,
+      "envelope_faces": 3962,
+      "source_bounds_mm": [
+        [
+          -77.69745347073,
+          -30.995935142551538,
+          1.9609650148909998
+        ],
+        [
+          82.36454172387799,
+          30.929374367366,
+          60.422089931628
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -77.69745347073,
+          -30.995935142551538,
+          1.9609650148909998
+        ],
+        [
+          82.36454172387799,
+          30.929374367366,
+          60.422089931628
+        ]
+      ],
+      "max_outward_surface_distance_mm": 0.0,
+      "added_axis_extents_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "source_volume_mm3": 295005.2876665759,
+      "envelope_volume_mm3": 295005.2876665759
+    },
+    {
+      "name": "head_outer_shell_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1983,
+      "envelope_faces": 114,
+      "source_native_convexity": {
+        "planar_faces": 1983,
+        "linear_edges": 2975,
+        "max_native_face_halfspace_violation_mm": 6.984744033156076e-11,
+        "native_volume_mm3": 96302.4571552176,
+        "hull_volume_discrepancy_mm3": 1.7258571460843086e-08
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 114,
+        "linear_edges": 331,
+        "max_native_face_halfspace_violation_mm": 6.581472346278705e-11,
+        "native_volume_mm3": 96349.6282152259,
+        "hull_volume_discrepancy_mm3": 4.551839083433151e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.582467904081568e-11,
+      "max_outward_surface_distance_mm": 0.14812612101987752,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -45.4999420089691,
+          -24.499981057323918,
+          14.000032410114514
+        ],
+        [
+          -0.4001010955785501,
+          24.499964321896,
+          60.53391690220148
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -45.49996401865136,
+          -24.500006266912877,
+          13.99999132699971
+        ],
+        [
+          -0.4000727299961098,
+          24.499993843849488,
+          60.533927796141356
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          2.2009682261625585e-05,
+          2.5209588958574614e-05,
+          4.1083114803441845e-05
+        ],
+        [
+          2.8365582440292858e-05,
+          2.952195348626674e-05,
+          1.0893939872858027e-05
+        ]
+      ],
+      "source_volume_mm3": 96302.4571552176,
+      "envelope_volume_mm3": 96349.6282152259,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 3.0345194183201722
+        },
+        {
+          "planes": 38,
+          "vertices": 72,
+          "maximum_vertex_distance_mm": 1.9473492824079461
+        },
+        {
+          "planes": 50,
+          "vertices": 96,
+          "maximum_vertex_distance_mm": 1.012005229082302
+        },
+        {
+          "planes": 62,
+          "vertices": 120,
+          "maximum_vertex_distance_mm": 0.5401775204903065
+        },
+        {
+          "planes": 74,
+          "vertices": 144,
+          "maximum_vertex_distance_mm": 0.3969672033410513
+        },
+        {
+          "planes": 86,
+          "vertices": 168,
+          "maximum_vertex_distance_mm": 0.3374317091959017
+        },
+        {
+          "planes": 98,
+          "vertices": 189,
+          "maximum_vertex_distance_mm": 0.2538032370790244
+        },
+        {
+          "planes": 110,
+          "vertices": 210,
+          "maximum_vertex_distance_mm": 0.18941997772080238
+        },
+        {
+          "planes": 115,
+          "vertices": 219,
+          "maximum_vertex_distance_mm": 0.1480998667413667
+        }
+      ],
+      "derivation_seconds": 2.4775146250030957
+    },
+    {
+      "name": "switch_outer_shell_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 2498,
+      "envelope_faces": 109,
+      "source_native_convexity": {
+        "planar_faces": 2498,
+        "linear_edges": 3747,
+        "max_native_face_halfspace_violation_mm": 8.309989155130815e-11,
+        "native_volume_mm3": 38423.388167754834,
+        "hull_volume_discrepancy_mm3": 1.775333657860756e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 109,
+        "linear_edges": 316,
+        "max_native_face_halfspace_violation_mm": 7.084854924954698e-11,
+        "native_volume_mm3": 38474.94349338979,
+        "hull_volume_discrepancy_mm3": 9.826908353716135e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999996068709e-06,
+      "max_envelope_halfspace_violation_mm": 7.084821618263959e-11,
+      "max_outward_surface_distance_mm": 0.14857977499036754,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -77.89997331756443,
+          -22.999965555955793,
+          14.000111310010606
+        ],
+        [
+          -45.90004241092742,
+          22.999855250825,
+          50.18187862937554
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -77.899983748359,
+          -22.999988351084827,
+          14.000092750466418
+        ],
+        [
+          -45.900023135047995,
+          22.999875158894344,
+          50.181893658616666
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          1.043079457474505e-05,
+          2.2795129034136608e-05,
+          1.8559544187723986e-05
+        ],
+        [
+          1.9275879424185405e-05,
+          1.9908069344154455e-05,
+          1.5029241126285342e-05
+        ]
+      ],
+      "source_volume_mm3": 38423.388167754834,
+      "envelope_volume_mm3": 38474.94349338979,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 4.114356360311601
+        },
+        {
+          "planes": 38,
+          "vertices": 70,
+          "maximum_vertex_distance_mm": 2.828923525436673
+        },
+        {
+          "planes": 50,
+          "vertices": 94,
+          "maximum_vertex_distance_mm": 1.3773339548985277
+        },
+        {
+          "planes": 62,
+          "vertices": 118,
+          "maximum_vertex_distance_mm": 0.6377270714634856
+        },
+        {
+          "planes": 74,
+          "vertices": 140,
+          "maximum_vertex_distance_mm": 0.3115798668085789
+        },
+        {
+          "planes": 86,
+          "vertices": 163,
+          "maximum_vertex_distance_mm": 0.2577362634923968
+        },
+        {
+          "planes": 98,
+          "vertices": 185,
+          "maximum_vertex_distance_mm": 0.19582183676170528
+        },
+        {
+          "planes": 110,
+          "vertices": 209,
+          "maximum_vertex_distance_mm": 0.14855270340494345
+        }
+      ],
+      "derivation_seconds": 3.98515370801033
+    },
+    {
+      "name": "head_side_yminus_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 878,
+      "envelope_faces": 64,
+      "source_native_convexity": {
+        "planar_faces": 878,
+        "linear_edges": 1317,
+        "max_native_face_halfspace_violation_mm": 6.726107691645833e-11,
+        "native_volume_mm3": 2309.027527078577,
+        "hull_volume_discrepancy_mm3": 5.285983206704259e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 64,
+        "linear_edges": 185,
+        "max_native_face_halfspace_violation_mm": 7.379491462344845e-11,
+        "native_volume_mm3": 2325.1865394343617,
+        "hull_volume_discrepancy_mm3": 1.0630628821672872e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 7.37898631086864e-11,
+      "max_outward_surface_distance_mm": 0.14529585804685496,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -17.99922562259,
+          -32.40880368026046,
+          25.001010699379673
+        ],
+        [
+          -0.0007896438395105876,
+          -19.803716530894253,
+          41.99984868190311
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -17.999244262886197,
+          -32.408814589511344,
+          25.000988307008257
+        ],
+        [
+          -0.0007574316135382219,
+          -19.803691825914072,
+          41.99987431773386
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          1.8640296197247608e-05,
+          1.0909250882207289e-05,
+          2.2392371416657397e-05
+        ],
+        [
+          3.221222597236571e-05,
+          2.4704980180700886e-05,
+          2.563583075243514e-05
+        ]
+      ],
+      "source_volume_mm3": 2309.027527078577,
+      "envelope_volume_mm3": 2325.1865394343617,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 46,
+          "maximum_vertex_distance_mm": 2.3262303509381024
+        },
+        {
+          "planes": 38,
+          "vertices": 65,
+          "maximum_vertex_distance_mm": 0.6750130702577621
+        },
+        {
+          "planes": 50,
+          "vertices": 87,
+          "maximum_vertex_distance_mm": 0.38024348053449314
+        },
+        {
+          "planes": 62,
+          "vertices": 111,
+          "maximum_vertex_distance_mm": 0.26569928901484435
+        },
+        {
+          "planes": 68,
+          "vertices": 124,
+          "maximum_vertex_distance_mm": 0.14528539358105017
+        }
+      ],
+      "derivation_seconds": 1.2094698330038227
+    },
+    {
+      "name": "head_side_yplus_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 858,
+      "envelope_faces": 68,
+      "source_native_convexity": {
+        "planar_faces": 858,
+        "linear_edges": 1287,
+        "max_native_face_halfspace_violation_mm": 7.797558432276475e-11,
+        "native_volume_mm3": 2297.564633050863,
+        "hull_volume_discrepancy_mm3": 4.966750566381961e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 68,
+        "linear_edges": 194,
+        "max_native_face_halfspace_violation_mm": 5.886108267461054e-11,
+        "native_volume_mm3": 2311.6702048182337,
+        "hull_volume_discrepancy_mm3": 2.2776475816499442e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 5.88684656577243e-11,
+      "max_outward_surface_distance_mm": 0.14544867911669707,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -17.998899243517208,
+          19.309670078127,
+          25.00257905690147
+        ],
+        [
+          -0.0002730493978608042,
+          32.19009347911764,
+          41.999557622379186
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -17.998917198758512,
+          19.309645139420308,
+          25.002555056596652
+        ],
+        [
+          -0.00024115044612957272,
+          32.19010421777462,
+          41.999580701855415
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          1.795524130443482e-05,
+          2.4938706690846857e-05,
+          2.4000304819082885e-05
+        ],
+        [
+          3.189895173123146e-05,
+          1.0738656975206595e-05,
+          2.3079476228815565e-05
+        ]
+      ],
+      "source_volume_mm3": 2297.564633050863,
+      "envelope_volume_mm3": 2311.6702048182337,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 2.288585556740009
+        },
+        {
+          "planes": 38,
+          "vertices": 70,
+          "maximum_vertex_distance_mm": 0.8178663671231736
+        },
+        {
+          "planes": 50,
+          "vertices": 93,
+          "maximum_vertex_distance_mm": 0.34586657408658394
+        },
+        {
+          "planes": 62,
+          "vertices": 115,
+          "maximum_vertex_distance_mm": 0.26878660792335235
+        },
+        {
+          "planes": 69,
+          "vertices": 128,
+          "maximum_vertex_distance_mm": 0.14542387081462363
+        }
+      ],
+      "derivation_seconds": 1.0622659169894177
+    },
+    {
+      "name": "lower_cradle_occupied_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 88,
+      "envelope_faces": 49,
+      "source_native_convexity": {
+        "planar_faces": 88,
+        "linear_edges": 144,
+        "max_native_face_halfspace_violation_mm": 6.164600427349676e-11,
+        "native_volume_mm3": 63630.59208577729,
+        "hull_volume_discrepancy_mm3": 4.802132025361061e-08
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 49,
+        "linear_edges": 108,
+        "max_native_face_halfspace_violation_mm": 1.0582823506410932e-10,
+        "native_volume_mm3": 63758.76958930786,
+        "hull_volume_discrepancy_mm3": 7.630806067027152e-07
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 1.0583178777778812e-10,
+      "max_outward_surface_distance_mm": 0.13092154183927648,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          0.9999999999991491,
+          -27.40307724960676,
+          1.9609651148909626
+        ],
+        [
+          76.00000000000611,
+          27.45110639772,
+          23.971741854967448
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          0.9999641922857976,
+          -27.403103504422475,
+          1.960953041976314
+        ],
+        [
+          76.00003940405031,
+          27.45113515194207,
+          23.971751855000004
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          3.580771335154331e-05,
+          2.6254815715276436e-05,
+          1.2072914648664224e-05
+        ],
+        [
+          3.940404420177401e-05,
+          2.8754222068272384e-05,
+          1.0000032556689575e-05
+        ]
+      ],
+      "source_volume_mm3": 63630.59208577729,
+      "envelope_volume_mm3": 63758.76958930786,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 40,
+          "maximum_vertex_distance_mm": 6.331983964150164
+        },
+        {
+          "planes": 38,
+          "vertices": 47,
+          "maximum_vertex_distance_mm": 1.3430497653467284
+        },
+        {
+          "planes": 50,
+          "vertices": 57,
+          "maximum_vertex_distance_mm": 0.8189392877313273
+        },
+        {
+          "planes": 62,
+          "vertices": 58,
+          "maximum_vertex_distance_mm": 0.25500971276180034
+        },
+        {
+          "planes": 69,
+          "vertices": 64,
+          "maximum_vertex_distance_mm": 0.13090499248879148
+        }
+      ],
+      "derivation_seconds": 0.5768404999980703
+    },
+    {
+      "name": "motor_surface_yminus_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 130,
+      "envelope_faces": 43,
+      "source_native_convexity": {
+        "planar_faces": 130,
+        "linear_edges": 195,
+        "max_native_face_halfspace_violation_mm": 5.917066836502727e-11,
+        "native_volume_mm3": 75.80195016139812,
+        "hull_volume_discrepancy_mm3": 8.467679890600266e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 43,
+        "linear_edges": 112,
+        "max_native_face_halfspace_violation_mm": 5.7421921384470664e-11,
+        "native_volume_mm3": 77.17887075085565,
+        "hull_volume_discrepancy_mm3": 3.7117331430636114e-10
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 5.7418958476773696e-11,
+      "max_outward_surface_distance_mm": 0.13883523456305075,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          5.503547879931308,
+          -26.597696953515083,
+          30.00417597011051
+        ],
+        [
+          10.799855797530546,
+          -23.917482413755373,
+          40.99862251822451
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          5.503509285151629,
+          -26.597714120102975,
+          30.004108825540047
+        ],
+        [
+          10.799881043696484,
+          -23.91746727347684,
+          40.998687899140194
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          3.859477967882441e-05,
+          1.7166587891637164e-05,
+          6.71445704618634e-05
+        ],
+        [
+          2.5246165938241916e-05,
+          1.5140278531333706e-05,
+          6.538091568586424e-05
+        ]
+      ],
+      "source_volume_mm3": 75.80195016139812,
+      "envelope_volume_mm3": 77.17887075085565,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 44,
+          "maximum_vertex_distance_mm": 1.7295838057265123
+        },
+        {
+          "planes": 38,
+          "vertices": 58,
+          "maximum_vertex_distance_mm": 0.5284148219464022
+        },
+        {
+          "planes": 47,
+          "vertices": 71,
+          "maximum_vertex_distance_mm": 0.13881451999637026
+        }
+      ],
+      "derivation_seconds": 0.5076333750039339
+    },
+    {
+      "name": "motor_surface_yplus_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 148,
+      "envelope_faces": 44,
+      "source_native_convexity": {
+        "planar_faces": 148,
+        "linear_edges": 222,
+        "max_native_face_halfspace_violation_mm": 7.164518978086676e-11,
+        "native_volume_mm3": 93.414645415862,
+        "hull_volume_discrepancy_mm3": 1.016758233163273e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 44,
+        "linear_edges": 122,
+        "max_native_face_halfspace_violation_mm": 6.47889138172264e-11,
+        "native_volume_mm3": 95.93619626380462,
+        "hull_volume_discrepancy_mm3": 6.535714192068554e-10
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 6.478728664660593e-11,
+      "max_outward_surface_distance_mm": 0.12640665986927163,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          5.500556722779,
+          23.753699819889,
+          30.000585070914372
+        ],
+        [
+          10.799424532864,
+          26.59963006308,
+          40.99818898412525
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          5.50053206524436,
+          23.753688620573403,
+          30.000531984175506
+        ],
+        [
+          10.799445785852335,
+          26.5996435215131,
+          40.99823118293473
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          2.4657534639871415e-05,
+          1.1199315597565374e-05,
+          5.3086738866170435e-05
+        ],
+        [
+          2.125298833455247e-05,
+          1.3458433102186973e-05,
+          4.219880948141963e-05
+        ]
+      ],
+      "source_volume_mm3": 93.414645415862,
+      "envelope_volume_mm3": 95.93619626380462,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 44,
+          "maximum_vertex_distance_mm": 1.7484599518162647
+        },
+        {
+          "planes": 38,
+          "vertices": 65,
+          "maximum_vertex_distance_mm": 0.39002949522523134
+        },
+        {
+          "planes": 48,
+          "vertices": 80,
+          "maximum_vertex_distance_mm": 0.12638861676799917
+        }
+      ],
+      "derivation_seconds": 0.4850636249902891
+    },
+    {
+      "name": "motor_can_vent_filled_envelope",
+      "method": "exact_frozen_native_copy",
+      "source_faces": 3,
+      "envelope_faces": 3,
+      "source_bounds_mm": [
+        [
+          -0.07438680986631638,
+          -24.55512219327397,
+          9.439279805718439
+        ],
+        [
+          76.07438680986631,
+          24.555122193274027,
+          58.779532824943
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -0.07438680986631638,
+          -24.55512219327397,
+          9.439279805718439
+        ],
+        [
+          76.07438680986631,
+          24.555122193274027,
+          58.779532824943
+        ]
+      ],
+      "max_outward_surface_distance_mm": 0.0,
+      "added_axis_extents_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "source_volume_mm3": 143962.59189548215,
+      "envelope_volume_mm3": 143962.59189548215
+    },
+    {
+      "name": "crown_round_head_01_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1060,
+      "envelope_faces": 61,
+      "source_native_convexity": {
+        "planar_faces": 1060,
+        "linear_edges": 1590,
+        "max_native_face_halfspace_violation_mm": 7.716488559239565e-11,
+        "native_volume_mm3": 48.71894359323821,
+        "hull_volume_discrepancy_mm3": 3.3072922178689623e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 61,
+        "linear_edges": 176,
+        "max_native_face_halfspace_violation_mm": 6.050351886166538e-11,
+        "native_volume_mm3": 50.374274872437894,
+        "hull_volume_discrepancy_mm3": 5.041584927312215e-10
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.050626666365133e-11,
+      "max_outward_surface_distance_mm": 0.1438467238508314,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -45.15760459657,
+          14.54272558233766,
+          56.80008444015123
+        ],
+        [
+          -38.754871854854706,
+          21.174485246800895,
+          58.753162517160455
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -45.157634209467204,
+          14.542677833677441,
+          56.80007107999865
+        ],
+        [
+          -38.75482488653487,
+          21.174516818734492,
+          58.75317251720001
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          2.9612897201047872e-05,
+          4.7748660218616124e-05,
+          1.3360152578911766e-05
+        ],
+        [
+          4.696831983608263e-05,
+          3.157193359726307e-05,
+          1.0000039551982809e-05
+        ]
+      ],
+      "source_volume_mm3": 48.71894359323821,
+      "envelope_volume_mm3": 50.374274872437894,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 0.45593867201033433
+        },
+        {
+          "planes": 38,
+          "vertices": 72,
+          "maximum_vertex_distance_mm": 0.34467112695687774
+        },
+        {
+          "planes": 50,
+          "vertices": 96,
+          "maximum_vertex_distance_mm": 0.21407198848508194
+        },
+        {
+          "planes": 61,
+          "vertices": 117,
+          "maximum_vertex_distance_mm": 0.14381862871810433
+        }
+      ],
+      "derivation_seconds": 0.8433332080021501
+    },
+    {
+      "name": "crown_round_head_02_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1622,
+      "envelope_faces": 65,
+      "source_native_convexity": {
+        "planar_faces": 1622,
+        "linear_edges": 2433,
+        "max_native_face_halfspace_violation_mm": 7.614109950176973e-11,
+        "native_volume_mm3": 42.574373963962685,
+        "hull_volume_discrepancy_mm3": 5.46371836662729e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 65,
+        "linear_edges": 187,
+        "max_native_face_halfspace_violation_mm": 7.261841128425317e-11,
+        "native_volume_mm3": 44.531265630497366,
+        "hull_volume_discrepancy_mm3": 6.767209015379194e-11
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 7.261746759468224e-11,
+      "max_outward_surface_distance_mm": 0.1468028593460164,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -45.24913346626112,
+          -21.58087945229071,
+          56.800123446953
+        ],
+        [
+          -38.73389908926892,
+          -15.490650679565668,
+          58.67720991696471
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -45.24915792668416,
+          -21.58090823909585,
+          56.80011344699999
+        ],
+        [
+          -38.73385370889687,
+          -15.490614181503911,
+          58.67722003863942
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          2.4460423041716695e-05,
+          2.878680514228904e-05,
+          9.99995301498302e-06
+        ],
+        [
+          4.5380372043268835e-05,
+          3.649806175687331e-05,
+          1.0121674705487749e-05
+        ]
+      ],
+      "source_volume_mm3": 42.574373963962685,
+      "envelope_volume_mm3": 44.531265630497366,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 46,
+          "maximum_vertex_distance_mm": 0.4626514001997803
+        },
+        {
+          "planes": 38,
+          "vertices": 67,
+          "maximum_vertex_distance_mm": 0.3520927750355241
+        },
+        {
+          "planes": 50,
+          "vertices": 91,
+          "maximum_vertex_distance_mm": 0.29427493379995556
+        },
+        {
+          "planes": 62,
+          "vertices": 113,
+          "maximum_vertex_distance_mm": 0.1760594438521294
+        },
+        {
+          "planes": 68,
+          "vertices": 124,
+          "maximum_vertex_distance_mm": 0.14677399952003806
+        }
+      ],
+      "derivation_seconds": 1.2501305420009885
+    },
+    {
+      "name": "crown_round_head_03_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 823,
+      "envelope_faces": 62,
+      "source_native_convexity": {
+        "planar_faces": 823,
+        "linear_edges": 1235,
+        "max_native_face_halfspace_violation_mm": 6.41289035763215e-11,
+        "native_volume_mm3": 63.3954561801425,
+        "hull_volume_discrepancy_mm3": 3.242348611820489e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 62,
+        "linear_edges": 174,
+        "max_native_face_halfspace_violation_mm": 7.052741723967415e-11,
+        "native_volume_mm3": 64.78211834781493,
+        "hull_volume_discrepancy_mm3": 1.4622401067754254e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 7.052847195154754e-11,
+      "max_outward_surface_distance_mm": 0.14813585739309806,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -7.286448335268927,
+          15.021342494101,
+          56.80099345484843
+        ],
+        [
+          -0.38965894136160967,
+          22.156712827831395,
+          59.169051912435535
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -7.286503017631205,
+          15.021281436179567,
+          56.80096427783748
+        ],
+        [
+          -0.38959604318011776,
+          22.156773417899842,
+          59.169063107500854
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          5.468236227734735e-05,
+          6.105792143351607e-05,
+          2.9177010951286775e-05
+        ],
+        [
+          6.289818149191051e-05,
+          6.0590068446941814e-05,
+          1.1195065319213882e-05
+        ]
+      ],
+      "source_volume_mm3": 63.3954561801425,
+      "envelope_volume_mm3": 64.78211834781493,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 0.772005657720277
+        },
+        {
+          "planes": 38,
+          "vertices": 66,
+          "maximum_vertex_distance_mm": 0.4227835004853498
+        },
+        {
+          "planes": 50,
+          "vertices": 87,
+          "maximum_vertex_distance_mm": 0.2330675981826829
+        },
+        {
+          "planes": 62,
+          "vertices": 107,
+          "maximum_vertex_distance_mm": 0.182475073246136
+        },
+        {
+          "planes": 67,
+          "vertices": 114,
+          "maximum_vertex_distance_mm": 0.14807948240932767
+        }
+      ],
+      "derivation_seconds": 0.9077468329924159
+    },
+    {
+      "name": "crown_round_head_04_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1012,
+      "envelope_faces": 56,
+      "source_native_convexity": {
+        "planar_faces": 1012,
+        "linear_edges": 1518,
+        "max_native_face_halfspace_violation_mm": 6.905434210557893e-11,
+        "native_volume_mm3": 59.1715666901747,
+        "hull_volume_discrepancy_mm3": 1.1024354762412258e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 56,
+        "linear_edges": 156,
+        "max_native_face_halfspace_violation_mm": 6.193477328220176e-11,
+        "native_volume_mm3": 61.17826404496247,
+        "hull_volume_discrepancy_mm3": 2.21408669176526e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.193801027620793e-11,
+      "max_outward_surface_distance_mm": 0.14592803957903447,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -7.228509246403258,
+          -22.249292840922298,
+          56.80012490494
+        ],
+        [
+          -0.4328845874929087,
+          -15.490642805433467,
+          59.03486891059528
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -7.2285546921198405,
+          -22.249330632010153,
+          56.80009990614815
+        ],
+        [
+          -0.4328236056466972,
+          -15.490574748003631,
+          59.03487891060001
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          4.5445716582825924e-05,
+          3.7791087855509886e-05,
+          2.4998791850805446e-05
+        ],
+        [
+          6.0981846211505264e-05,
+          6.805742983573282e-05,
+          1.000000472828333e-05
+        ]
+      ],
+      "source_volume_mm3": 59.1715666901747,
+      "envelope_volume_mm3": 61.17826404496247,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 46,
+          "maximum_vertex_distance_mm": 0.7041828810641849
+        },
+        {
+          "planes": 38,
+          "vertices": 65,
+          "maximum_vertex_distance_mm": 0.36140076482709194
+        },
+        {
+          "planes": 50,
+          "vertices": 85,
+          "maximum_vertex_distance_mm": 0.21072831114076637
+        },
+        {
+          "planes": 62,
+          "vertices": 99,
+          "maximum_vertex_distance_mm": 0.152514953575715
+        },
+        {
+          "planes": 64,
+          "vertices": 102,
+          "maximum_vertex_distance_mm": 0.14588877001134934
+        }
+      ],
+      "derivation_seconds": 0.7787715839949669
+    },
+    {
+      "name": "crown_round_head_05_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1062,
+      "envelope_faces": 61,
+      "source_native_convexity": {
+        "planar_faces": 1062,
+        "linear_edges": 1593,
+        "max_native_face_halfspace_violation_mm": 7.31344351398433e-11,
+        "native_volume_mm3": 56.71658363194816,
+        "hull_volume_discrepancy_mm3": 1.7507062466393108e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 61,
+        "linear_edges": 172,
+        "max_native_face_halfspace_violation_mm": 6.879125047376533e-11,
+        "native_volume_mm3": 58.5413275586986,
+        "hull_volume_discrepancy_mm3": 1.5351560023191269e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.87911949626141e-11,
+      "max_outward_surface_distance_mm": 0.14296748250944225,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -26.703643910337945,
+          12.515284719516393,
+          56.800324763857475
+        ],
+        [
+          -19.508379930374346,
+          19.119043724875365,
+          58.94551734381102
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -26.703696835628115,
+          12.515220997623022,
+          56.80030049442786
+        ],
+        [
+          -19.508317911316688,
+          19.11908549813677,
+          58.94552734380001
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          5.29252901699806e-05,
+          6.372189337078282e-05,
+          2.4269429616197158e-05
+        ],
+        [
+          6.201905765834681e-05,
+          4.177326140464288e-05,
+          9.999988989761732e-06
+        ]
+      ],
+      "source_volume_mm3": 56.71658363194816,
+      "envelope_volume_mm3": 58.5413275586986,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 0.6046284580055428
+        },
+        {
+          "planes": 38,
+          "vertices": 71,
+          "maximum_vertex_distance_mm": 0.3919313158659437
+        },
+        {
+          "planes": 50,
+          "vertices": 95,
+          "maximum_vertex_distance_mm": 0.2042171884689603
+        },
+        {
+          "planes": 62,
+          "vertices": 113,
+          "maximum_vertex_distance_mm": 0.1429142807226924
+        }
+      ],
+      "derivation_seconds": 0.7530025839951122
+    },
+    {
+      "name": "crown_round_head_06_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1072,
+      "envelope_faces": 62,
+      "source_native_convexity": {
+        "planar_faces": 1072,
+        "linear_edges": 1608,
+        "max_native_face_halfspace_violation_mm": 8.30793003836483e-11,
+        "native_volume_mm3": 52.840272191798576,
+        "hull_volume_discrepancy_mm3": 5.558078441936232e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 62,
+        "linear_edges": 178,
+        "max_native_face_halfspace_violation_mm": 6.672007391017587e-11,
+        "native_volume_mm3": 54.37392087057698,
+        "hull_volume_discrepancy_mm3": 1.2363443602225743e-12
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.671996288787341e-11,
+      "max_outward_surface_distance_mm": 0.14231402795045267,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -26.51114637045,
+          -19.623819989726446,
+          56.800608076742336
+        ],
+        [
+          -19.55289299760973,
+          -13.029948859562749,
+          58.85803290896064
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -26.51119485052552,
+          -19.623865081292777,
+          56.80058259006786
+        ],
+        [
+          -19.55281789461371,
+          -13.029876839746912,
+          58.8580439635729
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          4.848007552027411e-05,
+          4.5091566331478816e-05,
+          2.5486674473995663e-05
+        ],
+        [
+          7.510299602131454e-05,
+          7.201981583726536e-05,
+          1.1054612258476482e-05
+        ]
+      ],
+      "source_volume_mm3": 52.840272191798576,
+      "envelope_volume_mm3": 54.37392087057698,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 0.5893361812838505
+        },
+        {
+          "planes": 38,
+          "vertices": 66,
+          "maximum_vertex_distance_mm": 0.4144076620393639
+        },
+        {
+          "planes": 50,
+          "vertices": 86,
+          "maximum_vertex_distance_mm": 0.24593960995174977
+        },
+        {
+          "planes": 62,
+          "vertices": 110,
+          "maximum_vertex_distance_mm": 0.16297709472339306
+        },
+        {
+          "planes": 66,
+          "vertices": 118,
+          "maximum_vertex_distance_mm": 0.142257815592146
+        }
+      ],
+      "derivation_seconds": 0.7434227080084383
+    },
+    {
+      "name": "crown_round_head_07_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1160,
+      "envelope_faces": 60,
+      "source_native_convexity": {
+        "planar_faces": 1160,
+        "linear_edges": 1741,
+        "max_native_face_halfspace_violation_mm": 8.02861960941259e-11,
+        "native_volume_mm3": 51.68374829168198,
+        "hull_volume_discrepancy_mm3": 2.551630018388096e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 60,
+        "linear_edges": 171,
+        "max_native_face_halfspace_violation_mm": 7.728062287326587e-11,
+        "native_volume_mm3": 53.28898490421915,
+        "hull_volume_discrepancy_mm3": 2.275150734476483e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 7.72786279412685e-11,
+      "max_outward_surface_distance_mm": 0.13827310764054537,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -43.40919030659272,
+          -3.569871442237525,
+          56.801066674721
+        ],
+        [
+          -36.94516622837,
+          2.9278519197107644,
+          58.82015393459747
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -43.40923071214558,
+          -3.5699291259748653,
+          56.80104686524919
+        ],
+        [
+          -36.945111200225774,
+          2.9278901671752884,
+          58.82016393460001
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          4.040555285911296e-05,
+          5.768373734049703e-05,
+          1.9809471808684975e-05
+        ],
+        [
+          5.5028144224422704e-05,
+          3.82474645239661e-05,
+          1.0000002539811703e-05
+        ]
+      ],
+      "source_volume_mm3": 51.68374829168198,
+      "envelope_volume_mm3": 53.28898490421915,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 0.5943260405903164
+        },
+        {
+          "planes": 38,
+          "vertices": 71,
+          "maximum_vertex_distance_mm": 0.3577021604458799
+        },
+        {
+          "planes": 50,
+          "vertices": 91,
+          "maximum_vertex_distance_mm": 0.23776393806865065
+        },
+        {
+          "planes": 62,
+          "vertices": 109,
+          "maximum_vertex_distance_mm": 0.15511462562605893
+        },
+        {
+          "planes": 64,
+          "vertices": 113,
+          "maximum_vertex_distance_mm": 0.13823874054224117
+        }
+      ],
+      "derivation_seconds": 0.7001473330019508
+    },
+    {
+      "name": "crown_round_molded_boss_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 4502,
+      "envelope_faces": 103,
+      "source_native_convexity": {
+        "planar_faces": 4502,
+        "linear_edges": 6753,
+        "max_native_face_halfspace_violation_mm": 8.152011010675864e-11,
+        "native_volume_mm3": 309.0515787977496,
+        "hull_volume_discrepancy_mm3": 2.9478997021215037e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 103,
+        "linear_edges": 302,
+        "max_native_face_halfspace_violation_mm": 6.41615467353307e-11,
+        "native_volume_mm3": 316.008117660979,
+        "hull_volume_discrepancy_mm3": 1.1306724445603322e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.416200903913705e-11,
+      "max_outward_surface_distance_mm": 0.14796710260496088,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -39.572853767492866,
+          -15.811057184625454,
+          56.70026581247497
+        ],
+        [
+          -27.215129188443857,
+          -3.645437221795,
+          59.5708694811392
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -39.572916337950964,
+          -15.811130632868116,
+          56.700241147161506
+        ],
+        [
+          -27.215037936193582,
+          -3.645359238631091,
+          59.57088054757296
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          6.257045809832107e-05,
+          7.344824266120042e-05,
+          2.4665313461014193e-05
+        ],
+        [
+          9.125225027517558e-05,
+          7.798316390905669e-05,
+          1.1066433764028716e-05
+        ]
+      ],
+      "source_volume_mm3": 309.0515787977496,
+      "envelope_volume_mm3": 316.008117660979,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 0.709186816688653
+        },
+        {
+          "planes": 38,
+          "vertices": 70,
+          "maximum_vertex_distance_mm": 0.5554804635051623
+        },
+        {
+          "planes": 50,
+          "vertices": 94,
+          "maximum_vertex_distance_mm": 0.4455964572162454
+        },
+        {
+          "planes": 62,
+          "vertices": 118,
+          "maximum_vertex_distance_mm": 0.3388206408730333
+        },
+        {
+          "planes": 74,
+          "vertices": 141,
+          "maximum_vertex_distance_mm": 0.24240480246483487
+        },
+        {
+          "planes": 86,
+          "vertices": 165,
+          "maximum_vertex_distance_mm": 0.1931212120891035
+        },
+        {
+          "planes": 98,
+          "vertices": 189,
+          "maximum_vertex_distance_mm": 0.16569456407992236
+        },
+        {
+          "planes": 104,
+          "vertices": 201,
+          "maximum_vertex_distance_mm": 0.14790178427417103
+        }
+      ],
+      "derivation_seconds": 1.7796477079973556
+    },
+    {
+      "name": "crown_long_molded_boss_external_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 2218,
+      "envelope_faces": 91,
+      "source_native_convexity": {
+        "planar_faces": 2218,
+        "linear_edges": 3327,
+        "max_native_face_halfspace_violation_mm": 7.12954140169586e-11,
+        "native_volume_mm3": 632.4359281248361,
+        "hull_volume_discrepancy_mm3": 6.30052454653196e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 91,
+        "linear_edges": 261,
+        "max_native_face_halfspace_violation_mm": 6.043976430447628e-11,
+        "native_volume_mm3": 644.8977686948814,
+        "hull_volume_discrepancy_mm3": 1.0525582183618098e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000003174137e-05,
+      "max_envelope_halfspace_violation_mm": 6.044587053111172e-11,
+      "max_outward_surface_distance_mm": 0.1453906170364185,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -18.69872734902638,
+          -12.42929696588432,
+          57.1966658800189
+        ],
+        [
+          -5.302337695383239,
+          12.141701774920415,
+          59.936367781458536
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -18.69887235779135,
+          -12.429612130500004,
+          57.19660881011256
+        ],
+        [
+          -5.30215475086705,
+          12.141988126150661,
+          59.936377781500006
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          0.00014500876496725823,
+          0.00031516461568337206,
+          5.706990634024578e-05
+        ],
+        [
+          0.00018294451618849905,
+          0.0002863512302457849,
+          1.0000041470448195e-05
+        ]
+      ],
+      "source_volume_mm3": 632.4359281248361,
+      "envelope_volume_mm3": 644.8977686948814,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 46,
+          "maximum_vertex_distance_mm": 0.9256373218668406
+        },
+        {
+          "planes": 38,
+          "vertices": 70,
+          "maximum_vertex_distance_mm": 0.5008611609851146
+        },
+        {
+          "planes": 50,
+          "vertices": 94,
+          "maximum_vertex_distance_mm": 0.3011179038966926
+        },
+        {
+          "planes": 62,
+          "vertices": 118,
+          "maximum_vertex_distance_mm": 0.25765208951900026
+        },
+        {
+          "planes": 74,
+          "vertices": 142,
+          "maximum_vertex_distance_mm": 0.2177973349686396
+        },
+        {
+          "planes": 86,
+          "vertices": 163,
+          "maximum_vertex_distance_mm": 0.17403761244499913
+        },
+        {
+          "planes": 93,
+          "vertices": 172,
+          "maximum_vertex_distance_mm": 0.1453550574265882
+        }
+      ],
+      "derivation_seconds": 1.126736250007525
+    },
+    {
+      "name": "port_yminus_barb_envelope",
+      "method": "exact_frozen_native_copy",
+      "source_faces": 56,
+      "envelope_faces": 56,
+      "source_bounds_mm": [
+        [
+          -39.027843172995226,
+          -37.28204974130631,
+          21.01757749987396
+        ],
+        [
+          -27.67355481564477,
+          -23.84577327175411,
+          32.37196105194004
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -39.027843172995226,
+          -37.28204974130631,
+          21.01757749987396
+        ],
+        [
+          -27.67355481564477,
+          -23.84577327175411,
+          32.37196105194004
+        ]
+      ],
+      "max_outward_surface_distance_mm": 0.0,
+      "added_axis_extents_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "source_volume_mm3": 1009.992325262567,
+      "envelope_volume_mm3": 1009.992325262567
+    },
+    {
+      "name": "port_yminus_root_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 478,
+      "envelope_faces": 67,
+      "source_native_convexity": {
+        "planar_faces": 478,
+        "linear_edges": 717,
+        "max_native_face_halfspace_violation_mm": 6.770295435387652e-11,
+        "native_volume_mm3": 721.9071874089775,
+        "hull_volume_discrepancy_mm3": 3.2114257919602096e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 67,
+        "linear_edges": 185,
+        "max_native_face_halfspace_violation_mm": 6.753896053535158e-11,
+        "native_volume_mm3": 725.725577315896,
+        "hull_volume_discrepancy_mm3": 5.929450708208606e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 6.753353432031872e-11,
+      "max_outward_surface_distance_mm": 0.1422252580900753,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -41.99946402163,
+          -24.14997117504,
+          17.702588624226
+        ],
+        [
+          -26.23540302769193,
+          -20.30021313774268,
+          36.49961202393779
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -41.99952593243693,
+          -24.149981175000008,
+          17.702509885154257
+        ],
+        [
+          -26.235347227046017,
+          -20.300194391352086,
+          36.49967364371546
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          6.191080693440654e-05,
+          9.99996000672354e-06,
+          7.873907174271721e-05
+        ],
+        [
+          5.580064591370615e-05,
+          1.8746390594515105e-05,
+          6.16197776679428e-05
+        ]
+      ],
+      "source_volume_mm3": 721.9071874089775,
+      "envelope_volume_mm3": 725.725577315896,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 46,
+          "maximum_vertex_distance_mm": 1.6990169327832787
+        },
+        {
+          "planes": 38,
+          "vertices": 64,
+          "maximum_vertex_distance_mm": 0.746545960159908
+        },
+        {
+          "planes": 50,
+          "vertices": 83,
+          "maximum_vertex_distance_mm": 0.37138271852961424
+        },
+        {
+          "planes": 62,
+          "vertices": 102,
+          "maximum_vertex_distance_mm": 0.17423016116148954
+        },
+        {
+          "planes": 72,
+          "vertices": 120,
+          "maximum_vertex_distance_mm": 0.14215854491249388
+        }
+      ],
+      "derivation_seconds": 0.7424557919875951
+    },
+    {
+      "name": "port_yplus_barb_envelope",
+      "method": "exact_frozen_native_copy",
+      "source_faces": 53,
+      "envelope_faces": 53,
+      "source_bounds_mm": [
+        [
+          -38.86693389835395,
+          23.81505117012894,
+          21.057085356970347
+        ],
+        [
+          -27.717605730706055,
+          37.0614982910634,
+          32.205840405833655
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -38.86693389835395,
+          23.81505117012894,
+          21.057085356970347
+        ],
+        [
+          -27.717605730706055,
+          37.0614982910634,
+          32.205840405833655
+        ]
+      ],
+      "max_outward_surface_distance_mm": 0.0,
+      "added_axis_extents_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "source_volume_mm3": 1018.0206343866316,
+      "envelope_volume_mm3": 1018.0206343866316
+    },
+    {
+      "name": "port_yplus_root_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 648,
+      "envelope_faces": 67,
+      "source_native_convexity": {
+        "planar_faces": 648,
+        "linear_edges": 972,
+        "max_native_face_halfspace_violation_mm": 7.346626779147769e-11,
+        "native_volume_mm3": 709.2978659160851,
+        "hull_volume_discrepancy_mm3": 1.7772663341020234e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 67,
+        "linear_edges": 188,
+        "max_native_face_halfspace_violation_mm": 7.36525840316915e-11,
+        "native_volume_mm3": 714.1316056806726,
+        "hull_volume_discrepancy_mm3": 8.332676770805847e-09
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 7.347011887759436e-11,
+      "max_outward_surface_distance_mm": 0.146822874495657,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          -41.99969483465777,
+          20.300051533948746,
+          17.70025750838595
+        ],
+        [
+          -26.43547465368,
+          24.149765207567636,
+          36.49861582479839
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          -41.99976595574836,
+          20.300033151355528,
+          17.70018755561856
+        ],
+        [
+          -26.435431025490647,
+          24.149775207600005,
+          36.49868446550527
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          7.112109059193017e-05,
+          1.8382593218291277e-05,
+          6.995276739019118e-05
+        ],
+        [
+          4.362818935277346e-05,
+          1.000003236839575e-05,
+          6.864070687839785e-05
+        ]
+      ],
+      "source_volume_mm3": 709.2978659160851,
+      "envelope_volume_mm3": 714.1316056806726,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 2.13035063067282
+        },
+        {
+          "planes": 38,
+          "vertices": 66,
+          "maximum_vertex_distance_mm": 1.132448664886645
+        },
+        {
+          "planes": 50,
+          "vertices": 84,
+          "maximum_vertex_distance_mm": 0.5431376276178037
+        },
+        {
+          "planes": 62,
+          "vertices": 105,
+          "maximum_vertex_distance_mm": 0.23916613416505375
+        },
+        {
+          "planes": 74,
+          "vertices": 123,
+          "maximum_vertex_distance_mm": 0.1467821093043595
+        }
+      ],
+      "derivation_seconds": 0.7338044579955749
+    },
+    {
+      "name": "rear_yminus_observed_rubber_slider_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 926,
+      "envelope_faces": 87,
+      "source_native_convexity": {
+        "planar_faces": 926,
+        "linear_edges": 1389,
+        "max_native_face_halfspace_violation_mm": 7.065427626642973e-11,
+        "native_volume_mm3": 4270.320748860486,
+        "hull_volume_discrepancy_mm3": 9.149516699835658e-10
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 87,
+        "linear_edges": 249,
+        "max_native_face_halfspace_violation_mm": 6.439442729044842e-11,
+        "native_volume_mm3": 4280.784747905311,
+        "hull_volume_discrepancy_mm3": 4.067806003149599e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -9.999999999621423e-06,
+      "max_envelope_halfspace_violation_mm": 6.439293542825908e-11,
+      "max_outward_surface_distance_mm": 0.1414229283957246,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          59.04754092263178,
+          -47.72023614611083,
+          -0.9926282414980107
+        ],
+        [
+          78.20170168752,
+          -27.000051180122036,
+          18.39772820899109
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          59.04749256414847,
+          -47.7202766828705,
+          -0.9926399595428849
+        ],
+        [
+          78.20173381308112,
+          -27.00000465254732,
+          18.397797967462427
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          4.835848331197212e-05,
+          4.0536759669862477e-05,
+          1.1718044874209355e-05
+        ],
+        [
+          3.212556111975573e-05,
+          4.6527574713906006e-05,
+          6.975847133716684e-05
+        ]
+      ],
+      "source_volume_mm3": 4270.320748860486,
+      "envelope_volume_mm3": 4280.784747905311,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 4.051001256365577
+        },
+        {
+          "planes": 38,
+          "vertices": 72,
+          "maximum_vertex_distance_mm": 0.9534858876941613
+        },
+        {
+          "planes": 50,
+          "vertices": 96,
+          "maximum_vertex_distance_mm": 0.5900523474863724
+        },
+        {
+          "planes": 62,
+          "vertices": 119,
+          "maximum_vertex_distance_mm": 0.3184370866172906
+        },
+        {
+          "planes": 74,
+          "vertices": 139,
+          "maximum_vertex_distance_mm": 0.218383348692256
+        },
+        {
+          "planes": 86,
+          "vertices": 160,
+          "maximum_vertex_distance_mm": 0.15888407003482333
+        },
+        {
+          "planes": 88,
+          "vertices": 164,
+          "maximum_vertex_distance_mm": 0.141393919404451
+        }
+      ],
+      "derivation_seconds": 0.9010304999974323
+    },
+    {
+      "name": "rear_yplus_observed_rubber_slider_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 782,
+      "envelope_faces": 92,
+      "source_native_convexity": {
+        "planar_faces": 782,
+        "linear_edges": 1173,
+        "max_native_face_halfspace_violation_mm": 7.889653513837303e-11,
+        "native_volume_mm3": 4232.547111366086,
+        "hull_volume_discrepancy_mm3": 2.4429027689620852e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 92,
+        "linear_edges": 264,
+        "max_native_face_halfspace_violation_mm": 6.954564701899812e-11,
+        "native_volume_mm3": 4244.0502302085615,
+        "hull_volume_discrepancy_mm3": 1.6974809113889933e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000000176534e-05,
+      "max_envelope_halfspace_violation_mm": 6.95337121214834e-11,
+      "max_outward_surface_distance_mm": 0.14555663675841404,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          64.40098529476545,
+          27.000040719687792,
+          -0.837289537106684
+        ],
+        [
+          83.4511040202068,
+          47.12537820822563,
+          18.492689997678106
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          64.40095741123717,
+          27.00000957619377,
+          -0.837300119471408
+        ],
+        [
+          83.45112402410336,
+          47.12539765500411,
+          18.492728006302436
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          2.788352827565177e-05,
+          3.114349402366656e-05,
+          1.0582364724065485e-05
+        ],
+        [
+          2.0003896565867763e-05,
+          1.9446778480869398e-05,
+          3.800862432967733e-05
+        ]
+      ],
+      "source_volume_mm3": 4232.547111366086,
+      "envelope_volume_mm3": 4244.0502302085615,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 4.050156652832359
+        },
+        {
+          "planes": 38,
+          "vertices": 72,
+          "maximum_vertex_distance_mm": 0.9784493634109223
+        },
+        {
+          "planes": 50,
+          "vertices": 96,
+          "maximum_vertex_distance_mm": 0.6299562753366551
+        },
+        {
+          "planes": 62,
+          "vertices": 117,
+          "maximum_vertex_distance_mm": 0.4125652871923384
+        },
+        {
+          "planes": 74,
+          "vertices": 140,
+          "maximum_vertex_distance_mm": 0.23441630440410147
+        },
+        {
+          "planes": 86,
+          "vertices": 164,
+          "maximum_vertex_distance_mm": 0.16348242877883182
+        },
+        {
+          "planes": 93,
+          "vertices": 175,
+          "maximum_vertex_distance_mm": 0.14553901420599685
+        }
+      ],
+      "derivation_seconds": 0.8889350829995237
+    },
+    {
+      "name": "head_yminus_observed_rubber_slider_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 556,
+      "envelope_faces": 96,
+      "source_native_convexity": {
+        "planar_faces": 556,
+        "linear_edges": 834,
+        "max_native_face_halfspace_violation_mm": 7.019740344560432e-11,
+        "native_volume_mm3": 3534.6207790378335,
+        "hull_volume_discrepancy_mm3": 1.1191787052666768e-08
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 96,
+        "linear_edges": 263,
+        "max_native_face_halfspace_violation_mm": 7.110519117947689e-11,
+        "native_volume_mm3": 3546.2003339287844,
+        "hull_volume_discrepancy_mm3": 1.887474354589358e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000000509601e-05,
+      "max_envelope_halfspace_violation_mm": 7.111111699487083e-11,
+      "max_outward_surface_distance_mm": 0.13446631063140793,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          1.569488304780872,
+          -47.82341394262818,
+          -1.784531969066424
+        ],
+        [
+          21.08211878215908,
+          -27.747911287752583,
+          16.846214716368234
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          1.569465860441158,
+          -47.82344259889718,
+          -1.7845459348612216
+        ],
+        [
+          21.082147959597442,
+          -27.747886833231043,
+          16.84625003932212
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          2.2444339714100536e-05,
+          2.8656269002169665e-05,
+          1.3965794797510256e-05
+        ],
+        [
+          2.9177438364058617e-05,
+          2.4454521540206997e-05,
+          3.5322953884531216e-05
+        ]
+      ],
+      "source_volume_mm3": 3534.6207790378335,
+      "envelope_volume_mm3": 3546.2003339287844,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 4.605208999449885
+        },
+        {
+          "planes": 38,
+          "vertices": 70,
+          "maximum_vertex_distance_mm": 1.6358015890117745
+        },
+        {
+          "planes": 50,
+          "vertices": 93,
+          "maximum_vertex_distance_mm": 0.7446949921049697
+        },
+        {
+          "planes": 62,
+          "vertices": 114,
+          "maximum_vertex_distance_mm": 0.3468005472841849
+        },
+        {
+          "planes": 74,
+          "vertices": 136,
+          "maximum_vertex_distance_mm": 0.2651318378467702
+        },
+        {
+          "planes": 86,
+          "vertices": 150,
+          "maximum_vertex_distance_mm": 0.17928207831255558
+        },
+        {
+          "planes": 98,
+          "vertices": 167,
+          "maximum_vertex_distance_mm": 0.15659948331727155
+        },
+        {
+          "planes": 99,
+          "vertices": 169,
+          "maximum_vertex_distance_mm": 0.13443508741073643
+        }
+      ],
+      "derivation_seconds": 0.8922215000056894
+    },
+    {
+      "name": "head_yplus_observed_rubber_slider_envelope",
+      "method": "convex_native_outer_supporting_planes",
+      "source_faces": 1058,
+      "envelope_faces": 96,
+      "source_native_convexity": {
+        "planar_faces": 1058,
+        "linear_edges": 1588,
+        "max_native_face_halfspace_violation_mm": 6.979267164197722e-11,
+        "native_volume_mm3": 4613.411719826879,
+        "hull_volume_discrepancy_mm3": 7.113158062566072e-09
+      },
+      "envelope_native_convexity": {
+        "planar_faces": 96,
+        "linear_edges": 272,
+        "max_native_face_halfspace_violation_mm": 7.123723833046824e-11,
+        "native_volume_mm3": 4635.947832981661,
+        "hull_volume_discrepancy_mm3": 2.8339854907244444e-08
+      },
+      "source_vertices_within_envelope_planes": true,
+      "max_source_halfspace_violation_mm": -1.0000000000176534e-05,
+      "max_envelope_halfspace_violation_mm": 7.123190925995004e-11,
+      "max_outward_surface_distance_mm": 0.14633260153883065,
+      "distance_bound_method": "Distance to a convex set is convex, so its maximum on a polytope is attained at a vertex. Every reduced native vertex was compared with the exact triangulated planar source boundary.",
+      "source_bounds_mm": [
+        [
+          0.3849302929960646,
+          27.000257823982,
+          -0.874874230459377
+        ],
+        [
+          19.560423414932426,
+          47.353334671446,
+          18.497638766685835
+        ]
+      ],
+      "envelope_bounds_mm": [
+        [
+          0.38489623145847957,
+          27.00021111584302,
+          -0.8748842305000019
+        ],
+        [
+          19.560455660169147,
+          47.35335834201266,
+          18.497695754784438
+        ]
+      ],
+      "added_axis_extents_mm": [
+        [
+          3.4061537585061696e-05,
+          4.670813898144388e-05,
+          1.000004062490234e-05
+        ],
+        [
+          3.224523672074042e-05,
+          2.3670566662303827e-05,
+          5.698809860277265e-05
+        ]
+      ],
+      "source_volume_mm3": 4613.411719826879,
+      "envelope_volume_mm3": 4635.947832981661,
+      "refinement": [
+        {
+          "planes": 26,
+          "vertices": 48,
+          "maximum_vertex_distance_mm": 3.448175374552183
+        },
+        {
+          "planes": 38,
+          "vertices": 71,
+          "maximum_vertex_distance_mm": 0.988479880678242
+        },
+        {
+          "planes": 50,
+          "vertices": 94,
+          "maximum_vertex_distance_mm": 0.630387122740913
+        },
+        {
+          "planes": 62,
+          "vertices": 117,
+          "maximum_vertex_distance_mm": 0.45601251682907745
+        },
+        {
+          "planes": 74,
+          "vertices": 138,
+          "maximum_vertex_distance_mm": 0.25921678735753423
+        },
+        {
+          "planes": 86,
+          "vertices": 159,
+          "maximum_vertex_distance_mm": 0.18277337942461985
+        },
+        {
+          "planes": 97,
+          "vertices": 178,
+          "maximum_vertex_distance_mm": 0.14630427351588293
+        }
+      ],
+      "derivation_seconds": 0.9551180830021622
+    }
+  ],
+  "derived_native_cache": {
+    "rigid_casing_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/rigid_casing_envelope.brep",
+      "sha256": "04628d4328edd81dc94d5a4421ccb07f68b39a655626372a11fa17da38ad2a5b"
+    },
+    "head_outer_shell_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/head_outer_shell_external_envelope.brep",
+      "sha256": "b32266d92d7de1578f831b933eea47a2688abe66c4f379725fd85ba72484f114"
+    },
+    "switch_outer_shell_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/switch_outer_shell_external_envelope.brep",
+      "sha256": "5b33439818d9a5bd162afe29a7c53b5c07e009980eed1b59ffdac5238166e15e"
+    },
+    "head_side_yminus_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/head_side_yminus_external_envelope.brep",
+      "sha256": "df2a58d320f340755dcc2154814a43db326171f603f629eb7f6fe368513b95a9"
+    },
+    "head_side_yplus_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/head_side_yplus_external_envelope.brep",
+      "sha256": "f90229d13891d4f0bed54339da951f2e2a3c7fda64aee5f70062dde7f9820881"
+    },
+    "lower_cradle_occupied_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/lower_cradle_occupied_external_envelope.brep",
+      "sha256": "a8cc13099a9c3e39ba394bcb42d191bb1729d66cdfcfddcae8aeb5d327a7eff2"
+    },
+    "motor_surface_yminus_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/motor_surface_yminus_external_envelope.brep",
+      "sha256": "97775eac1f13ce25ad968e054d56cc998df5a8d59db061efd9a37fc99770a87d"
+    },
+    "motor_surface_yplus_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/motor_surface_yplus_external_envelope.brep",
+      "sha256": "58e4df600cf31f71404f67d36981c1baea6f1c24aa510699c25fcb2283e5c821"
+    },
+    "motor_can_vent_filled_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/motor_can_vent_filled_envelope.brep",
+      "sha256": "090ef3cfe78561b6bdf64906f3b03d27d1294673ea6d8af2c946fac11d52d635"
+    },
+    "crown_round_head_01_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_01_external_envelope.brep",
+      "sha256": "39a0e96b70f127ee6ff58f1500886b720ff9f2fa8bad800967c842155116541c"
+    },
+    "crown_round_head_02_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_02_external_envelope.brep",
+      "sha256": "ce4864a577792d7353d0971d8fd292c788fba0dbeb23db3cee78e1a6f28e2ddc"
+    },
+    "crown_round_head_03_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_03_external_envelope.brep",
+      "sha256": "2bc9b955e2c2197d6043ff70e26a9849136e7b1e7554e25c364ca60d355dc1c7"
+    },
+    "crown_round_head_04_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_04_external_envelope.brep",
+      "sha256": "72fc52771e799c21d129de7a688c98d359e7534553d0fc89e31edf6138922017"
+    },
+    "crown_round_head_05_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_05_external_envelope.brep",
+      "sha256": "b6ee32affbbf2cd877d469a436c7dfa4c2d5cc1fd50f84ae43a9d0ce85e7855d"
+    },
+    "crown_round_head_06_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_06_external_envelope.brep",
+      "sha256": "43fc8c200bf270c161a9326eff4fca5ce8dc902fa58991efaa017c31978f0a75"
+    },
+    "crown_round_head_07_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_head_07_external_envelope.brep",
+      "sha256": "fcf7e88e08f2d93648bd62e23aa3439f0a93b46f3a69bc576db82e37270619ca"
+    },
+    "crown_round_molded_boss_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_round_molded_boss_external_envelope.brep",
+      "sha256": "9ed5f33ee2c19f7ddd1bc3ae978ff9636968a7c5a1a11aa9edfe1635dcfa16ee"
+    },
+    "crown_long_molded_boss_external_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/crown_long_molded_boss_external_envelope.brep",
+      "sha256": "da9cc620560b6cfcc0f087da370130df9c636214d23ab73c80e7c503cd0133c7"
+    },
+    "port_yminus_barb_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/port_yminus_barb_envelope.brep",
+      "sha256": "d301b6e50209228fd8536ee4b89b533a0dc0c0c171d39f987bc9789515c5c74a"
+    },
+    "port_yminus_root_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/port_yminus_root_envelope.brep",
+      "sha256": "39028554bf131a552765f4f3e0ac42a7cd67e88eeefefbcfec64007cf5dd40c5"
+    },
+    "port_yplus_barb_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/port_yplus_barb_envelope.brep",
+      "sha256": "257a8a441f46858b60854ad9b38cbdab44af7610ed8a34f28cc2f4bdcd5d531f"
+    },
+    "port_yplus_root_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/port_yplus_root_envelope.brep",
+      "sha256": "6bbee86f034941da6f091bef40432f811cd90eb2f1640ab85c24fa4d0ccb138b"
+    },
+    "rear_yminus_observed_rubber_slider_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/rear_yminus_observed_rubber_slider_envelope.brep",
+      "sha256": "2c40a87eb1f6b1f801f7fab0a23d3920bcb083aef90a60d44735d890738e67d9"
+    },
+    "rear_yplus_observed_rubber_slider_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/rear_yplus_observed_rubber_slider_envelope.brep",
+      "sha256": "2cb6b4aff5a37d8cdd56756f9ee3a081fd3dc358b4cb058ec4f15a8b29224626"
+    },
+    "head_yminus_observed_rubber_slider_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/head_yminus_observed_rubber_slider_envelope.brep",
+      "sha256": "60deddfdc50138f6bdd37386755dea5c864743cce33fa65c3a52c83ae42851d7"
+    },
+    "head_yplus_observed_rubber_slider_envelope": {
+      "path": ".cache/g-ganen-integration-envelope/head_yplus_observed_rubber_slider_envelope.brep",
+      "sha256": "42ea19d149bc5bda129027e50b3de78581608e5bd1f3487fdb6f89c785f52696"
+    }
+  }
+}

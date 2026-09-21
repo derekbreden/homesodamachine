@@ -1,0 +1,374 @@
+{
+  "created_at_utc": "2026-09-21T16:34:02.383400+00:00",
+  "status": "mesh-inputs-and-native-mouths-pass",
+  "purpose": "Matching full production G Ganen installation cap/lid; no coupon or printer submission.",
+  "production_artifacts_modified": false,
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "b84ed5c8545a4bfc02e4e3dd91cc87a49e8979ce9aae89d94d7f00bc6b7a5186",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "2a313e5291da45262032d8e4b02213de7177c0aa46f7e75e41791f9958d97682"
+  },
+  "producer_receipt": "/private/tmp/scanner-review/g-ganen-feet-correction/generation/foam_cap.generation.json",
+  "producer_receipt_sha256": "e6025a566d7b0c5bdf80f4c21540190cb3641ea2aed766d5380582dc28354b7d",
+  "producer_loaded_source_sha256": {
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    "hardware/printed-parts/cold-core/_outer_shell.py": "902e234ce80ccc395532e5f7910a4d3c068c1fb0ddfe1c913a1357e97a33399c",
+    "hardware/printed-parts/cold-core/_show_skin.py": "788a9ffc756cb1d08d09b2a3cc09d13f37859361435f9a94ea5f3509d02576bd",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "a601e8765e0c82ee6c1282f6ba2970c9cf0b653eccc913c55f2ad54695315eff",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
+    "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
+  },
+  "mesh_convention": {
+    "absolute_deflection_mm": 0.005,
+    "angular_deflection_rad": 0.05,
+    "note": "Only the lid is triangulated here. The cap keeps its canonical fluted STL."
+  },
+  "tool_sha256": {
+    "hardware/printed-parts/cadlib/print_mesh.py": "aeebebd41360dd1fa605d7908e944ce3800d0b7be1fcc45cc05d5604fafebcfa",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "8234fa4a41dcc6097906636bb8482fb344af5137ce0fcea420d723e5435f8d43",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/prepare_inputs.py": "5222c4530d2d302bca2424d96a73b59b8d5e77f58c88ecb6a6e28bee1f8fa810"
+  },
+  "parts": {
+    "foam-cap-top": {
+      "native_source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "native_source_sha256": "b84ed5c8545a4bfc02e4e3dd91cc87a49e8979ce9aae89d94d7f00bc6b7a5186",
+      "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+      "stl_sha256": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          14.600000000000001
+        ]
+      ],
+      "mesh_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          14.600000381469727
+        ]
+      ],
+      "mesh_native_max_bound_error_mm": 3.8146972514141453e-07,
+      "native_volume_mm3": 147654.09994975507,
+      "mesh_volume_mm3": 141174.7177588013,
+      "triangles": 196166,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_bodies": 1,
+      "non_manifold_edges": 0,
+      "downward_planar_faces": [
+        {
+          "area_mm2": 50687.008182443446,
+          "centre_mm": [
+            -0.3198418104645242,
+            -0.03654106705575311,
+            0.0
+          ],
+          "bounds_mm": [
+            -141.5,
+            -90.5,
+            0.0,
+            141.5,
+            90.5,
+            0.0
+          ],
+          "bed_face": true
+        }
+      ],
+      "source": "Exact canonical fluted STL",
+      "print_orientation": {
+        "native_up": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "z_translation_mm": 0,
+        "bed_face": "Broad native Z=0 underside",
+        "placement": "One part centered at X162.5/Y160 on the left-nozzle 325x320 mm area; inspect actual support and automatic brim bounds."
+      }
+    },
+    "foam-cap-lid-top": {
+      "native_source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "native_source_sha256": "2a313e5291da45262032d8e4b02213de7177c0aa46f7e75e41791f9958d97682",
+      "stl": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.stl",
+      "stl_sha256": "6d73f9bd3cab919b9bc320eccdaa8b3f27c6e527a93db5bf0f870372242bfe3b",
+      "native_valid": true,
+      "native_solids": 1,
+      "native_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          57.775
+        ]
+      ],
+      "mesh_bounds_mm": [
+        [
+          -141.5,
+          -90.5,
+          0.0
+        ],
+        [
+          141.5,
+          90.5,
+          57.775001525878906
+        ]
+      ],
+      "mesh_native_max_bound_error_mm": 1.5258789076710855e-06,
+      "native_volume_mm3": 326204.4083984738,
+      "mesh_volume_mm3": 326206.19518511946,
+      "triangles": 72176,
+      "watertight": true,
+      "winding_consistent": true,
+      "connected_bodies": 1,
+      "non_manifold_edges": 0,
+      "downward_planar_faces": [
+        {
+          "area_mm2": 50282.08830532226,
+          "centre_mm": [
+            -0.8338349606193849,
+            0.29029507310634883,
+            0.0
+          ],
+          "bounds_mm": [
+            -141.5,
+            -90.5,
+            0.0,
+            141.5,
+            90.5,
+            0.0
+          ],
+          "bed_face": true
+        },
+        {
+          "area_mm2": 65.23999999999995,
+          "centre_mm": [
+            61.0,
+            -60.50000000000001,
+            8.4
+          ],
+          "bounds_mm": [
+            59.6,
+            -72.15,
+            8.4,
+            62.4,
+            -48.85,
+            8.4
+          ],
+          "bed_face": false
+        },
+        {
+          "area_mm2": 21.27999999999999,
+          "centre_mm": [
+            134.2,
+            -13.0,
+            6.675
+          ],
+          "bounds_mm": [
+            130.4,
+            -14.4,
+            6.675,
+            138.0,
+            -11.6,
+            6.675
+          ],
+          "bed_face": false
+        },
+        {
+          "area_mm2": 80.63999999999992,
+          "centre_mm": [
+            37.275,
+            34.0,
+            44.875
+          ],
+          "bounds_mm": [
+            22.875,
+            32.6,
+            44.875,
+            51.675,
+            35.4,
+            44.875
+          ],
+          "bed_face": false
+        },
+        {
+          "area_mm2": 35.42000000000007,
+          "centre_mm": [
+            65.0,
+            44.75,
+            8.4
+          ],
+          "bounds_mm": [
+            63.6,
+            38.425,
+            8.4,
+            66.4,
+            51.075,
+            8.4
+          ],
+          "bed_face": false
+        },
+        {
+          "area_mm2": 65.24000000000011,
+          "centre_mm": [
+            35.120000000000005,
+            65.05,
+            8.4
+          ],
+          "bounds_mm": [
+            33.72,
+            53.4,
+            8.4,
+            36.52,
+            76.7,
+            8.4
+          ],
+          "bed_face": false
+        }
+      ],
+      "source": "Exact canonical STEP triangulated by project print_mesh.write_print_stl",
+      "print_orientation": {
+        "native_up": [
+          0,
+          0,
+          1
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "z_translation_mm": 0,
+        "bed_face": "Broad native Z=0 underside",
+        "placement": "One part centered at X162.5/Y160 on the left-nozzle 325x320 mm area; inspect actual support and automatic brim bounds."
+      }
+    }
+  },
+  "native_support_mouths": [
+    {
+      "name": "discharge-chain",
+      "axis": "native Y, either open end",
+      "centre_xy_mm": [
+        61.0,
+        -60.5
+      ],
+      "width_mm": 2.8,
+      "internal_height_mm": 3.25,
+      "mouth_height_mm": 3.0,
+      "floor_lip_mm": 0.25,
+      "mouth_probe_overlap_mm3": 0.0,
+      "passed": true,
+      "removal": "Detach support, lift above the 0.25 mm floor lip and withdraw through an open Y mouth before fittings/ties."
+    },
+    {
+      "name": "suction-chain",
+      "axis": "native Y, either open end",
+      "centre_xy_mm": [
+        35.12,
+        65.05
+      ],
+      "width_mm": 2.8,
+      "internal_height_mm": 3.25,
+      "mouth_height_mm": 3.0,
+      "floor_lip_mm": 0.25,
+      "mouth_probe_overlap_mm3": 0.0,
+      "passed": true,
+      "removal": "Detach support, lift above the 0.25 mm floor lip and withdraw through an open Y mouth before fittings/ties."
+    },
+    {
+      "name": "fluid-14",
+      "axis": "native Y, either open end",
+      "centre_xy_mm": [
+        65.0,
+        44.75
+      ],
+      "width_mm": 2.8,
+      "internal_height_mm": 3.25,
+      "mouth_height_mm": 3.0,
+      "floor_lip_mm": 0.25,
+      "mouth_probe_overlap_mm3": 0.0,
+      "passed": true,
+      "removal": "Detach support, lift above the 0.25 mm floor lip and withdraw through an open Y mouth before fittings/ties."
+    },
+    {
+      "name": "water-3",
+      "axis": "native X, front or rear mouth",
+      "centre_xy_mm": [
+        138.0,
+        -13.0
+      ],
+      "width_mm": 2.8,
+      "internal_height_mm": 1.5250000000000004,
+      "mouth_height_mm": 1.2750000000000004,
+      "floor_lip_mm": 0.25,
+      "mouth_probe_overlap_mm3": 0.0,
+      "passed": true,
+      "removal": "Detach support and withdraw through an X mouth before tubing/ties/pump, clearing the recorded floor lip."
+    },
+    {
+      "name": "fluid-18",
+      "axis": "native X, front or rear mouth",
+      "centre_xy_mm": [
+        51.675,
+        34.0
+      ],
+      "width_mm": 2.8,
+      "internal_height_mm": 3.25,
+      "mouth_height_mm": 3.25,
+      "floor_lip_mm": 0.0,
+      "mouth_probe_overlap_mm3": 0.0,
+      "passed": true,
+      "removal": "Detach support and withdraw through an X mouth before tubing/ties/pump, clearing the recorded floor lip."
+    }
+  ],
+  "actual_slice_reviewed": false,
+  "physical_cleanup_tested": false,
+  "production_print_released": false,
+  "elapsed_seconds": 5.308128333010245,
+  "remaining": [
+    "Stage exact inputs using the current saved PET-GF auto_brim profile.",
+    "Inspect each actual connected support and interface plus its removal lane before hardware.",
+    "Check native toolpaths, nozzle/material mapping and final release."
+  ]
+}

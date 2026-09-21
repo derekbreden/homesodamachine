@@ -5,11 +5,11 @@
   "production_consumers_changed": false,
   "production_mount_and_route_qualified": false,
   "envelope_only_not_material_mass_or_strength": true,
-  "frozen_detailed_manifest_sha256": "d0d7a798c7da13d9bb393cd4a8965f19050dd0e9a45615385aa07271f0b894ed",
+  "frozen_detailed_manifest_sha256": "e97eedf775b60a245bd87736e0dea46afd774248f6f8416ac9d903b78582412b",
   "files": {
     "README.md": {
-      "sha256": "35fee58e646cd84cf973f746df47c401fdb93cdd079a79ea7e2501e54eece93d",
-      "bytes": 6374
+      "sha256": "7065919d9dee798d84fef82cabbd29ee02635ec29e964c97c3a9567ca45b68ba",
+      "bytes": 6713
     },
     "benchmark_component_sections.py": {
       "sha256": "384839847f975c3e94175909e0d96cb043f4a26d66ca1f4fa8eaf98500912413",
@@ -24,32 +24,32 @@
       "bytes": 1445
     },
     "containment.json": {
-      "sha256": "4a5118e1d7be48cc2be7491e2dbdeaa56fe2b3b494a1c825abca4e9dabcc96a4",
-      "bytes": 75229
+      "sha256": "a1dc94e8618c5cc316545c5c831a99734e5b84c6bc6452cb358621387b366532",
+      "bytes": 66886
     },
     "derive_envelope.py": {
-      "sha256": "74bc334a33f779a5f2417ff13bea04b745c97e34d3069b7b313ac6b3dcba6e14",
-      "bytes": 14765
+      "sha256": "4a7418269a05be21d64ee312d61fc43f49e03cd88fddd3bbda555f58fa320f55",
+      "bytes": 14900
     },
     "envelope-parameters.json": {
-      "sha256": "000df84a461127bc8daebd33869c0e96c69c35590573a4cab693aae30cea9609",
-      "bytes": 521254
+      "sha256": "3b51eb1cb016319927f6810b4121161fb601b7ccd6ae31ba93b83e61059ae8e1",
+      "bytes": 404533
     },
     "export_envelope.py": {
       "sha256": "9ea843ffb91113a36a89c7effa81de85fb1d33b5fafa8555c13a43c10bc71897",
       "bytes": 5895
     },
     "freeze_envelope.py": {
-      "sha256": "e99ffa8570eec603b7695b8fa0b6e910b68a36ff7747870245b0689f8d76616d",
-      "bytes": 6163
+      "sha256": "b8abc3114babfa06abdda54bf68c6506f5208ffe9e5fc76f879cb936fece9846",
+      "bytes": 7536
     },
     "g-ganen-integration-envelope.step": {
-      "sha256": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
-      "bytes": 20344939
+      "sha256": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+      "bytes": 19139350
     },
     "g-ganen-integration-envelope.step.mesh": {
-      "sha256": "9bfce013cf3b01d57fb24df67235e67398e6e20f82a78c48530cdabc6db35c48",
-      "bytes": 1211844
+      "sha256": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461",
+      "bytes": 1199500
     },
     "g_ganen_integration.py": {
       "sha256": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
@@ -60,8 +60,8 @@
       "bytes": 1803
     },
     "native-validation.json": {
-      "sha256": "7e86285e8991d6cde45830d7997cb30eb026d4998f3d54948d4dd480c32e0236",
-      "bytes": 15028
+      "sha256": "4066d7173283123de642523096eed28c83a6083384e361d1d46d5273f1a0eb6e",
+      "bytes": 17421
     },
     "native_queries.py": {
       "sha256": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
@@ -75,25 +75,31 @@
   "native_containment_verified": true,
   "native_roundtrip_verified": true,
   "solids": 26,
-  "faces": 5691,
-  "detailed_faces": 29636,
+  "faces": 5496,
+  "detailed_faces": 26490,
   "maximum_outward_distance_mm": 0.14857977499036754,
   "geometry_tolerance_mm": 2e-06,
   "exact_components": [
     "rigid_casing_envelope",
     "motor_can_vent_filled_envelope",
     "port_yminus_barb_envelope",
-    "port_yplus_barb_envelope"
+    "port_yplus_barb_envelope",
+    "rear_yminus_observed_rubber_slider_envelope",
+    "rear_yplus_observed_rubber_slider_envelope",
+    "head_yminus_observed_rubber_slider_envelope",
+    "head_yplus_observed_rubber_slider_envelope"
   ],
   "benchmarks": {
     "distance": "completed",
     "section": "completed"
   },
-  "component_section_bounds_verified": true,
+  "benchmark_native_sha256": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+  "benchmark_scope": "historical_exact_predecessor_native; not a current performance claim",
+  "component_section_bounds_verified_on_current_native": false,
   "limits": [
     "The outward bound is relative to the detailed native envelope; scanner absolute accuracy remains unqualified.",
     "The four feet remain independently removable/sliding, at recorded observed poses.",
-    "Filled slots and rail-clip cavities do not qualify screw passage, clamping or replacement feet.",
+    "The common foot retains visible openings; hidden clip retention, clamping and replacement manufacture remain outside the reference scope.",
     "The measured port exterior does not qualify hose engagement or retention.",
     "This is a conservative rigid-neighbor clearance model; a flagged contact can be checked against the detailed source."
   ]

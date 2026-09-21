@@ -34,6 +34,7 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
     started=time.monotonic()
     inputs=[Path(ea.__file__), Path(ea._lines.__file__), Path(ea._cci.__file__),
             HERE/'g_ganen_installation.py', HERE/'validate_installation.py',
+            Path(pump.stock_foot.__file__),
             pump.envelope.NATIVE, pump.envelope.HERE/'native-validation.json',
             pump.REFERENCE/'reference-parameters.json', Path(ea.FOAM_STEP),
             Path(cap.__file__)]
@@ -71,13 +72,17 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
         got=[b.xmin,b.ymin,b.zmin,b.xmax,b.ymax,b.zmax]
         check(name+' cap-relative placed bounds',max(abs(x-y) for x,y in zip(got,wanted)),1e-5)
         check(name+' pump clearance',s.distance(shape),1.,'>=')
-    # The rubber remains the purchased component; only its allowed axial pose changes.
+    # Four instances of the same purchased foot, with their rail clips engaged.
     foot_rows=[]
     for row in pump.mount_stations():
         foot=pump.build_parts()[row['id']+'_observed_rubber_slider_envelope']
         b=foot.BoundingBox()
-        check(row['id']+' selected axial envelope above observed rail start',b.xmin,.4,'>=')
-        check(row['id']+' selected axial envelope below observed rail end',b.xmax,76.9)
+        start, end = row['rail_engagement_x_mm']
+        check(row['id']+' complete clip above rail start',start,pump.RAIL_X[0],'>=')
+        check(row['id']+' complete clip below rail end',end,pump.RAIL_X[1])
+        at_end = abs(start-pump.RAIL_X[0]) if row['id'].startswith('head_') else abs(end-pump.RAIL_X[1])
+        check(row['id']+' clip at selected outer rail end',at_end,1e-7)
+        check(row['id']+' shared pad thickness',abs(row['pad_thickness_mm']-7.),1e-7)
         p=carry((row['station_mm'],(0,0,1)))[0]
         z0=pump.placed_bearing_z(carry)+min(t['over_washer_min_mm'] for t in row['observed_pad_top_mm'])+pump.WASHER_T
         tool=cq.Solid.makeCylinder(pump.WASHER_OD/2,45.,cq.Vector(p[0],p[1],z0))

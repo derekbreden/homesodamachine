@@ -1,0 +1,63 @@
+"""Extract immutable native previews and summarize one completed native review."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import zipfile
+
+ROOT = Path('/Users/derekbredensteiner/Developer/homesodamachine')
+sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('job_directory', type=Path)
+    args = parser.parse_args()
+    job = args.job_directory.resolve()
+    review = json.loads((job / 'readiness.json').read_text())
+    archive = ROOT / review['native_archive']
+    assert sha(archive) == review['native_archive_sha256']
+    audit = json.loads((ROOT / review['support_audit']).read_text())
+    assert sha(ROOT / review['support_audit']) == review['support_audit_sha256']
+    output = job / 'ready' / 'native-previews'
+    output.mkdir(exist_ok=True)
+    previews = []
+    with zipfile.ZipFile(archive) as source:
+        for name in source.namelist():
+            if name.startswith('Metadata/') and name.endswith('.png'):
+                data = source.read(name)
+                target = output / Path(name).name
+                if target.exists():
+                    assert target.read_bytes() == data
+                else:
+                    target.write_bytes(data)
+                previews.append({'native_member': name, 'path': str(target),
+                                 'sha256': sha(target), 'bytes': len(data)})
+    assert sha(archive) == review['native_archive_sha256']
+    result = {
+        'status': review['status'], 'job_directory': str(job),
+        'native_archive': str(archive), 'native_archive_sha256': sha(archive),
+        'gcode_sha256': review['gcode_sha256'],
+        'support_audit': str(ROOT / review['support_audit']),
+        'support_audit_sha256': review['support_audit_sha256'],
+        'support_ledger': str(job / 'support-removal-review.json'),
+        'receipt_sha256': review['geometry_confirmation_sha256'],
+        'layers': review['layers'], 'estimated_seconds': review['estimated_seconds'],
+        'estimated_hours': review['estimated_seconds'] / 3600,
+        'estimated_grams_saved_profile': review['estimated_grams_saved_profile_density'],
+        'estimated_grams_petgf_density_1p43': review['estimated_grams_saved_profile_density'] / 1.29 * 1.43,
+        'brim_type': review['exact_emitted_critical_settings']['brim_type'],
+        'brim_extrusion_segments': sum(p['toolpaths']['features'].get('Brim', 0) for p in audit['parts']),
+        'parts': [{'name': part['piece'], 'support_summary': part['summary'],
+                   'tree_count': len(part['trees']), 'interface_count': len(part['interfaces'])}
+                  for part in audit['parts']],
+        'toolpath_fit': review['toolpath_fit'], 'native_previews': previews,
+        'print_released': False, 'submitted': False,
+    }
+    target = job / 'native-handoff.json'
+    target.write_text(json.dumps(result, indent=2) + '\n')
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == '__main__':
+    main()

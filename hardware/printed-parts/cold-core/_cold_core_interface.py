@@ -703,12 +703,11 @@ deck_mount_cap_gap = 1.5
 # seven conduit columns beside it. `assembly/cold-core.md` CC-06 and CC-15 both read the cap
 # that way.
 #   A STATION IS THE BODY THAT BOLTS TO IT, so the table is one row long: the water pump. Its
-# four purchased rubber sliders are independently positioned along the casing rails.
-# Their explicit cap stations follow the installed candidate, not a rectangular hole pattern.
-# An M3 SHCS and Ø9 × 0.8 washer clamp each pad through the lid into its insert.
-# `seat` is the largest observed free-pad stack under that washer; `seat_min` is the
-# smallest. Loaded rubber compression, washer seating and actual screw passage remain
-# physical assembly-test readings in the pump's installation ledger.
+# four identical rubber sliders stand at the fully engaged fore/aft rail ends.
+# Their screw axes sit 1.5 mm outward within the elongated slots, leaving the
+# Ø9 × 0.8 washer flat on each 7 mm pad. An M3 SHCS passes through the lid into
+# its insert. The nominal pad/washer stack and the blind screw-tip reserve are
+# separate dimensions; actual rubber compression is read during assembly.
 #   Every other body standing on this cap is carried some other way: the electronics bay hangs on
 # the enclosure's own wall bosses (`enclosure_assembly.wall_mounts`), and the three valves press
 # into the cradles below, which take no screw.
@@ -752,11 +751,10 @@ def deck_mount_reach(name):
     return m.screw - over
 
 
-# The longest possible reach uses the smallest observed free-pad stack. This
-# prevents the candidate screw bottoming on the larger-pad nominal bore depth.
-deck_mount_bore_depth = max(
+# The pump's minimum blind depth leaves screw-tip travel below its nominal stack.
+deck_mount_bore_depth = max(_water_pump.SCREW_BORE_MIN_DEPTH, max(
     (m.screw - m.seat_min - (foam_cap_lid_height if m.standoff == 0.0 else 0.0)
-     for m in deck_mounts.values()), default=0.0) + deck_mount_bore_relief
+     for m in deck_mounts.values()), default=0.0) + deck_mount_bore_relief)
 _mount_reach = bound(
     "deck-mount-reach", "Every deck mount's screw reaches the whole of its insert",
     f"{deck_mount_insert_length:g} mm into the column")

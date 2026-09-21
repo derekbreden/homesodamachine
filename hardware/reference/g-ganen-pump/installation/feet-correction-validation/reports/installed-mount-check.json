@@ -1,0 +1,743 @@
+{
+  "schema": "g-ganen-installation/1",
+  "inputs": {
+    "hardware/manifold-layout/enclosure_assembly.py": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+    "hardware/manifold-layout/_lines.py": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "hardware/reference/g-ganen-pump/installation/validate_installation.py": "e7a991aa5acca3592fb6aa678c089c4a11fee52283c2f8d1b3a1c428ab805a72",
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "94da59690610f3df4d20cfe26232db92257f1fcaa0e7e57ae2cc8cc62f98b890",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b"
+  },
+  "gate_fixture": {
+    "source": "hardware/manifold-layout/enclosure-assembly.facts.json",
+    "sha256": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260",
+    "z_mm": 270.5740001,
+    "qualification": "retained baseline gate; complete candidate assembly still required"
+  },
+  "local_to_world": {
+    "z_rotation_degrees": 90.0,
+    "origin_mm": [
+      2.0711351519419985,
+      373.235458276122,
+      253.4
+    ]
+  },
+  "core_translation_from_retained_facts_y_mm": 0.0,
+  "installed_bounds_mm": [
+    [
+      -45.428864848058,
+      295.33547452776276,
+      253.4
+    ],
+    [
+      49.571135151942,
+      455.6,
+      313.9339277961417
+    ]
+  ],
+  "suction": [
+    [
+      39.332170894531146,
+      339.9470234175444,
+      280.1243022039962
+    ],
+    [
+      0.999986748620726,
+      0.004651362946762391,
+      0.002206219772969168
+    ]
+  ],
+  "discharge": [
+    [
+      -34.946262427903676,
+      339.9764884721693,
+      280.1688222682448
+    ],
+    [
+      -0.9999421767690463,
+      0.0025336385440094433,
+      0.01045101880726016
+    ]
+  ],
+  "selected_feet": [
+    {
+      "id": "rear_yminus",
+      "station_mm": [
+        67.5,
+        -40.0,
+        0.0
+      ],
+      "slot_center_mm": [
+        67.5,
+        -38.5,
+        0.0
+      ],
+      "screw_offset_outward_mm": 1.5,
+      "shape_basis": "shared_purchased_rubber_foot",
+      "pad_thickness_mm": 7.0,
+      "rail_engagement_x_mm": [
+        58.5,
+        76.5
+      ],
+      "station_basis": "outermost_complete_visible_rail_engagement",
+      "observed_pad_top_mm": [
+        {
+          "pass": "Derek_direct_measurement_approximately_7_mm",
+          "at_screw_axis_mm": 7.0,
+          "over_washer_min_mm": 7.0,
+          "over_washer_max_mm": 7.0
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          58.5,
+          -47.5,
+          -7.348484807355974e-17
+        ],
+        [
+          76.5,
+          -22.499999999999996,
+          18.4
+        ]
+      ],
+      "tool_rigid_gap_mm": 8.096896495579994
+    },
+    {
+      "id": "rear_yplus",
+      "station_mm": [
+        67.5,
+        40.0,
+        0.0
+      ],
+      "slot_center_mm": [
+        67.5,
+        38.5,
+        0.0
+      ],
+      "screw_offset_outward_mm": 1.5,
+      "shape_basis": "shared_purchased_rubber_foot",
+      "pad_thickness_mm": 7.0,
+      "rail_engagement_x_mm": [
+        58.5,
+        76.5
+      ],
+      "station_basis": "outermost_complete_visible_rail_engagement",
+      "observed_pad_top_mm": [
+        {
+          "pass": "Derek_direct_measurement_approximately_7_mm",
+          "at_screw_axis_mm": 7.0,
+          "over_washer_min_mm": 7.0,
+          "over_washer_max_mm": 7.0
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          58.5,
+          22.5,
+          -7.348484807355974e-17
+        ],
+        [
+          76.5,
+          47.5,
+          18.4
+        ]
+      ],
+      "tool_rigid_gap_mm": 8.09793238797206
+    },
+    {
+      "id": "head_yminus",
+      "station_mm": [
+        9.5,
+        -40.0,
+        0.0
+      ],
+      "slot_center_mm": [
+        9.5,
+        -38.5,
+        0.0
+      ],
+      "screw_offset_outward_mm": 1.5,
+      "shape_basis": "shared_purchased_rubber_foot",
+      "pad_thickness_mm": 7.0,
+      "rail_engagement_x_mm": [
+        0.5,
+        18.5
+      ],
+      "station_basis": "outermost_complete_visible_rail_engagement",
+      "observed_pad_top_mm": [
+        {
+          "pass": "Derek_direct_measurement_approximately_7_mm",
+          "at_screw_axis_mm": 7.0,
+          "over_washer_min_mm": 7.0,
+          "over_washer_max_mm": 7.0
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          0.49999999999999933,
+          -47.5,
+          -7.348484807355974e-17
+        ],
+        [
+          18.5,
+          -22.499999999999996,
+          18.4
+        ]
+      ],
+      "tool_rigid_gap_mm": 7.700620270779217
+    },
+    {
+      "id": "head_yplus",
+      "station_mm": [
+        9.5,
+        40.0,
+        0.0
+      ],
+      "slot_center_mm": [
+        9.5,
+        38.5,
+        0.0
+      ],
+      "screw_offset_outward_mm": 1.5,
+      "shape_basis": "shared_purchased_rubber_foot",
+      "pad_thickness_mm": 7.0,
+      "rail_engagement_x_mm": [
+        0.5,
+        18.5
+      ],
+      "station_basis": "outermost_complete_visible_rail_engagement",
+      "observed_pad_top_mm": [
+        {
+          "pass": "Derek_direct_measurement_approximately_7_mm",
+          "at_screw_axis_mm": 7.0,
+          "over_washer_min_mm": 7.0,
+          "over_washer_max_mm": 7.0
+        }
+      ],
+      "through_slot_physically_qualified": false,
+      "washer_physically_qualified": false,
+      "selected_native_bounds_mm": [
+        [
+          0.5,
+          22.5,
+          -7.348484807355974e-17
+        ],
+        [
+          18.5,
+          47.5,
+          18.4
+        ]
+      ],
+      "tool_rigid_gap_mm": 7.817212467906216
+    }
+  ],
+  "printed_cap_stations_mm": [
+    [
+      -116.93545827612205,
+      -37.92886485503283
+    ],
+    [
+      -116.93545827612205,
+      42.07113514496717
+    ],
+    [
+      -58.93545827612205,
+      -37.92886485503283
+    ],
+    [
+      -58.93545827612205,
+      42.07113514496717
+    ]
+  ],
+  "mount_rows": [
+    [
+      [
+        -116.93545827612205,
+        -37.92886485503283
+      ],
+      [
+        -116.93545827612206,
+        -37.92886485503282
+      ]
+    ],
+    [
+      [
+        -116.93545827612205,
+        42.07113514496717
+      ],
+      [
+        -116.93545827612206,
+        42.07113514496718
+      ]
+    ],
+    [
+      [
+        -58.93545827612205,
+        -37.92886485503283
+      ],
+      [
+        -58.93545827612206,
+        -37.92886485503282
+      ]
+    ],
+    [
+      [
+        -58.93545827612205,
+        42.07113514496717
+      ],
+      [
+        -58.93545827612206,
+        42.07113514496718
+      ]
+    ]
+  ],
+  "screw_stacks": [
+    {
+      "id": "rear_yminus",
+      "free_pad_stack_mm": [
+        7.0,
+        7.0
+      ],
+      "insert_reach_mm": [
+        6.799999999999999,
+        6.799999999999999
+      ],
+      "physical_loaded_stack_qualified": false
+    },
+    {
+      "id": "rear_yplus",
+      "free_pad_stack_mm": [
+        7.0,
+        7.0
+      ],
+      "insert_reach_mm": [
+        6.799999999999999,
+        6.799999999999999
+      ],
+      "physical_loaded_stack_qualified": false
+    },
+    {
+      "id": "head_yminus",
+      "free_pad_stack_mm": [
+        7.0,
+        7.0
+      ],
+      "insert_reach_mm": [
+        6.799999999999999,
+        6.799999999999999
+      ],
+      "physical_loaded_stack_qualified": false
+    },
+    {
+      "id": "head_yplus",
+      "free_pad_stack_mm": [
+        7.0,
+        7.0
+      ],
+      "insert_reach_mm": [
+        6.799999999999999,
+        6.799999999999999
+      ],
+      "physical_loaded_stack_qualified": false
+    }
+  ],
+  "washer_od_mm": 9.0,
+  "washer_t_mm": 0.8,
+  "bore_depth_mm": 8.5,
+  "remaining_floor_mm": 6.1,
+  "routes": [],
+  "routes_checked": false,
+  "route_blockers": [],
+  "checks": [
+    {
+      "check": "cap mount axis 0",
+      "value": 1.5888218580782548e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap mount axis 1",
+      "value": 1.5888218580782548e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap mount axis 2",
+      "value": 1.5888218580782548e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap mount axis 3",
+      "value": 1.5888218580782548e-14,
+      "limit": 0.001,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "bearing datum on cap",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear rigid face has declared core-rear clearance",
+      "value": 1.0658141036401503e-14,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "flavor gate unchanged",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "flow local discharge maps enclosure -X",
+      "value": -0.9999421767690463,
+      "limit": -0.999,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "suction-chain cap-relative placed bounds",
+      "value": 0.0,
+      "limit": 1e-05,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "suction-chain pump clearance",
+      "value": 31.45973139917938,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "discharge-chain cap-relative placed bounds",
+      "value": 0.0,
+      "limit": 1e-05,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "discharge-chain pump clearance",
+      "value": 33.189236404828485,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "vk-solenoid cap-relative placed bounds",
+      "value": 0.0,
+      "limit": 1e-05,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "vk-solenoid pump clearance",
+      "value": 55.406134541474245,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus complete clip above rail start",
+      "value": 58.5,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus complete clip below rail end",
+      "value": 76.5,
+      "limit": 76.5,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus clip at selected outer rail end",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus shared pad thickness",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus washer and straight driver corridor to rigid pump",
+      "value": 8.096896495579994,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus complete clip above rail start",
+      "value": 58.5,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus complete clip below rail end",
+      "value": 76.5,
+      "limit": 76.5,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus clip at selected outer rail end",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus shared pad thickness",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus washer and straight driver corridor to rigid pump",
+      "value": 8.09793238797206,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus complete clip above rail start",
+      "value": 0.5,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus complete clip below rail end",
+      "value": 18.5,
+      "limit": 76.5,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus clip at selected outer rail end",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus shared pad thickness",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus washer and straight driver corridor to rigid pump",
+      "value": 7.700620270779217,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus complete clip above rail start",
+      "value": 0.5,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus complete clip below rail end",
+      "value": 18.5,
+      "limit": 76.5,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus clip at selected outer rail end",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus shared pad thickness",
+      "value": 0.0,
+      "limit": 1e-07,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus washer and straight driver corridor to rigid pump",
+      "value": 7.817212467906216,
+      "limit": 0.5,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "cap cup native invalid",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap lid native invalid",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap cup solid count",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "cap lid solid count",
+      "value": 0,
+      "limit": 0,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rigid pump to printed lid",
+      "value": 1.9609529419760179,
+      "limit": 1.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yminus nominal full insert engagement",
+      "value": 6.799999999999999,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "rear_yplus nominal full insert engagement",
+      "value": 6.799999999999999,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yminus nominal full insert engagement",
+      "value": 6.799999999999999,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus M3 shank envelope printed cup overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus M3 shank envelope printed lid overlap",
+      "value": 0.0,
+      "limit": 1e-06,
+      "relation": "<=",
+      "pass": true
+    },
+    {
+      "check": "head_yplus nominal full insert engagement",
+      "value": 6.799999999999999,
+      "limit": 5.7,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "blind bore remaining floor",
+      "value": 6.1,
+      "limit": 2.0,
+      "relation": ">=",
+      "pass": true
+    },
+    {
+      "check": "added four columns exact volume vs clear stock",
+      "value": 1.6893864085432142e-10,
+      "limit": 0.0001,
+      "relation": "<=",
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "physical_checks_open": [
+    "Actual M3 passes all four complete slots",
+    "Selected washer seats flat and clears rubber upstand",
+    "Loaded rubber compression and screw engagement",
+    "Hose insertion and clamp retention"
+  ],
+  "elapsed_seconds": 21.166262584010838
+}

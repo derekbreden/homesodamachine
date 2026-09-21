@@ -1,12 +1,11 @@
-"""Installed G Ganen candidate using the purchased sliding rubber feet.
+"""Installed G Ganen with four identical purchased sliding rubber feet.
 
-The selected slider stations are assembly choices. Observed free-foot geometry,
-slot sections and planes remain in the frozen measured reference. A loaded clamp
-stack and actual M3/washer fit remain physical assembly-test readings.
+The shared foot has a nominal 7 mm pad. Its rail clips reach the fore/aft rail
+ends with their full axial span engaged. Scan poses and raw slot observations
+remain separate from the installed mounting stations.
 """
 from functools import lru_cache
 from pathlib import Path
-import math
 import sys
 
 import cadquery as cq
@@ -16,24 +15,32 @@ REFERENCE = HERE.parent
 sys.path.insert(0, str(REFERENCE/'integration-envelope'))
 import g_ganen_integration as envelope
 from native_queries import intersect_components, occupied_bounds
+sys.path.insert(0, str(REFERENCE/'common-foot'))
+import g_ganen_foot as stock_foot
 
 SCENE_KEY = 'g-ganen-pump'
 YAW = 90.
-REAR_CLEARANCE = 8.7
+REAR_CLEARANCE = 9.7
 WASHER_OD = 9.
 WASHER_T = .8
 SCREW_D = 3.
 SCREW_LENGTH = 20.
-SELECTED_SLIDER_X = {'head_yminus': 12., 'head_yplus': 12.,
-                     'rear_yminus': 50., 'rear_yplus': 50.}
-# The cap's +X points toward enclosure fore. These zero-clearance stations place
-# the rigid pump rear at the core rear; the shared clearance moves pump and all
-# four printed mount axes fore together. pump_mount_rows checks their alignment.
-CAP_MOUNT_XY = tuple((x + REAR_CLEARANCE, y) for x, y in (
-    (-109.13545827612205, 40.58788185569069),
-    (-109.13545827612205, -36.70985685897666),
-    (-71.13545827612205, 41.32456561223638),
-    (-71.13545827612205, -36.26848796999695)))
+SCREW_BORE_MIN_DEPTH = 8.5
+SCREW_SLOT_OFFSET_OUTWARD = 1.5
+# The visible rail ends and the shared foot's complete engagement span define
+# the installed fore/aft extremes. Positive reference X points aft.
+RAIL_X = (0.5, 76.5)
+CLIP_X = stock_foot.rail_engagement_interval()
+SELECTED_SLIDER_X = {
+    name: RAIL_X[0] - CLIP_X[0] if name.startswith('head_') else RAIL_X[1] - CLIP_X[1]
+    for name in ('rear_yminus', 'rear_yplus', 'head_yminus', 'head_yplus')}
+SLOT_Y = stock_foot.SLOT_Y
+# Reference origin in the installed cap frame, with the rear-clearance shift.
+CAP_PUMP_ORIGIN = (-59.13545827612205 + REAR_CLEARANCE, 2.07113514496717)
+CAP_MOUNT_XY = tuple((CAP_PUMP_ORIGIN[0] - x,
+                      CAP_PUMP_ORIGIN[1] - (-1 if 'yminus' in name else 1)
+                      * (SLOT_Y + SCREW_SLOT_OFFSET_OUTWARD))
+                     for name, x in SELECTED_SLIDER_X.items())
 
 parameters = envelope.parameters
 port = envelope.port
@@ -47,39 +54,27 @@ mount_seat_z = envelope.mount_seat_z
 @lru_cache(maxsize=1)
 def mount_stations():
     rows = []
-    for foot in envelope.mount_slots():
-        observed = foot['pose_observations'][0]['local_slot_sections']
-        sections = [s for s in observed['sections'] if s.get('status') == 'complete_section_observed']
-        qualification = 'visible_complete_lower_sections'
-        if not sections:
-            sections = [min((s for s in observed['sections'] if 'center_reference_mm' in s),
-                            key=lambda s: s['depth_above_local_bearing_plane_mm'])]
-            qualification = 'visible_partial_mouth_only'
-        center = [sum(s['center_reference_mm'][i] for s in sections)/len(sections) for i in (0, 1)]
-        dx = SELECTED_SLIDER_X[foot['id']]-center[0]
-        station = [center[0]+dx, center[1], 0.]
-        heights = []
-        for top in foot['top_plane_observations']['observations']:
-            if 'top_plane_point_mm' not in top:
-                continue
-            pose = next(p for p in foot['pose_observations'] if p['pass'] == top['pass'])
-            p = list(top['top_plane_point_mm'])
-            shift = pose['native_foot_pose_translation_to_first_pass_mm']
-            p = [p[i]+shift[i] for i in range(3)]
-            p[0] += dx
-            n = top['top_plane_normal']
-            at_axis = p[2]-(n[0]*(station[0]-p[0])+n[1]*(station[1]-p[1]))/n[2]
-            half_range = WASHER_OD/2*math.hypot(n[0], n[1])/abs(n[2])
-            heights.append({'pass': top['pass'], 'at_screw_axis_mm': at_axis,
-                            'over_washer_min_mm': at_axis-half_range,
-                            'over_washer_max_mm': at_axis+half_range})
-        rows.append({'id': foot['id'], 'station_mm': tuple(station),
-                     'observed_slot_center_xy_mm': tuple(center),
-                     'slider_translation_x_mm': dx,
-                     'slot_center_basis': qualification,
-                     'visible_sections': sections, 'observed_pad_top_mm': heights,
-                     'through_slot_physically_qualified': False,
-                     'washer_physically_qualified': False})
+    for observed in envelope.mount_slots():
+        name = observed['id']
+        side = -1 if 'yminus' in name else 1
+        x = SELECTED_SLIDER_X[name]
+        interval = CLIP_X if side > 0 else (-CLIP_X[1], -CLIP_X[0])
+        rows.append({
+            'id': name,
+            'station_mm': (x, side*(SLOT_Y + SCREW_SLOT_OFFSET_OUTWARD), 0.),
+            'slot_center_mm': (x, side*SLOT_Y, 0.),
+            'screw_offset_outward_mm': SCREW_SLOT_OFFSET_OUTWARD,
+            'shape_basis': 'shared_purchased_rubber_foot',
+            'pad_thickness_mm': stock_foot.PAD_THICKNESS,
+            'rail_engagement_x_mm': (x+interval[0], x+interval[1]),
+            'station_basis': 'outermost_complete_visible_rail_engagement',
+            'observed_pad_top_mm': [{
+                'pass': 'Derek_direct_measurement_approximately_7_mm',
+                'at_screw_axis_mm': stock_foot.PAD_THICKNESS,
+                'over_washer_min_mm': stock_foot.PAD_THICKNESS,
+                'over_washer_max_mm': stock_foot.PAD_THICKNESS}],
+            'through_slot_physically_qualified': False,
+            'washer_physically_qualified': False})
     return tuple(rows)
 
 
@@ -114,8 +109,10 @@ def observed_pad_lower_z():
 def build_parts():
     parts = envelope.build_parts()
     for row in mount_stations():
-        key = row['id']+'_observed_rubber_slider_envelope'
-        parts[key] = parts[key].translate((row['slider_translation_x_mm'], 0., 0.))
+        name = row['id']
+        x, y, _ = row['slot_center_mm']
+        parts[name+'_observed_rubber_slider_envelope'] = stock_foot.placed_foot(
+            x, -1 if 'yminus' in name else 1, abs(y))
     return parts
 
 

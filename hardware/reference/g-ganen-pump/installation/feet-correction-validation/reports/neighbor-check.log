@@ -1,0 +1,59 @@
+LOAD 0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67
+LOADED 210
+POSE (2.0711351519419985, 373.235458276122, 253.4)
+FRAME {'body': 'suction-chain', 'added_mm3': 0.0, 'missing_mm3': 0.0, 'pass': True}
+FRAME {'body': 'discharge-chain', 'added_mm3': 0.0, 'missing_mm3': 0.0, 'pass': True}
+FRAME {'body': 'vk-solenoid', 'added_mm3': 0.0, 'missing_mm3': 0.0, 'pass': True}
+ROUTE water-6 15.9 4
+ROUTE water-7 15.9 4
+ROUTE fluid-14 14.0 12
+PAIR {"target": "g-ganen-pump", "neighbor": "cold-core/foam-cap-lid-top", "production_mesh_gap_mm": 0.0, "mesh_overlap_mm3": -1.982802959907097e-13, "required_gap_mm": 0.0, "intentional_contact": "Four flat rubber pad bearing faces only", "pass": true, "native_gap_mm": 0.0}
+PAIR {"target": "g-ganen-pump", "neighbor": "cold-core/line-carb-water-out", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "cold-core/line-co2-in", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "cold-core/line-reservoir-a", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "cold-core/line-water-in", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "keystone-jack", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "bulkhead-flavor-a", "production_mesh_gap_mm": 1.274566650390625, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true, "native_gap_mm": 1.2745417238779737}
+PAIR {"target": "g-ganen-pump", "neighbor": "tube-water-7", "production_mesh_gap_mm": 0.0, "mesh_overlap_mm3": 9.030945910207763e-06, "required_gap_mm": 0.0, "intentional_contact": "Own measured barb tip connection; allpump components also checked for positive overlap", "pass": true, "native_gap_mm": 8.199860199218967e-12}
+PAIR {"target": "g-ganen-pump", "neighbor": "tube-water-6", "production_mesh_gap_mm": 0.0, "mesh_overlap_mm3": 2.3804312081332278e-05, "required_gap_mm": 0.0, "intentional_contact": "Own measured barb tip connection; allpump components also checked for positive overlap", "pass": true, "native_gap_mm": 1.4921397450962104e-13}
+PAIR {"target": "g-ganen-pump", "neighbor": "tube-co2-2", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "tube-carb-1", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "tube-fluid-18", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "tube-fluid-14", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "g-ganen-pump", "neighbor": "enclosure-back-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-6", "neighbor": "cold-core/foam-cap-lid-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-6", "neighbor": "discharge-chain", "production_mesh_gap_mm": 0.0, "mesh_overlap_mm3": 1.607047828144914e-14, "required_gap_mm": 0.0, "intentional_contact": "Own named endpoint", "pass": true, "native_gap_mm": 1.1368683772161603e-13}
+PAIR {"target": "tube-water-6", "neighbor": "tube-carb-1", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-6", "neighbor": "tube-fluid-18", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-6", "neighbor": "enclosure-back-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-7", "neighbor": "cold-core/foam-cap-lid-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-7", "neighbor": "suction-chain", "production_mesh_gap_mm": 0.0, "mesh_overlap_mm3": 3.230922474006803e-14, "required_gap_mm": 0.0, "intentional_contact": "Own named endpoint", "pass": true, "native_gap_mm": 1.1368683772161603e-13}
+PAIR {"target": "tube-water-7", "neighbor": "tube-co2-2", "production_mesh_gap_mm": 1.7446363448810354, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-7", "neighbor": "tube-carb-1", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-7", "neighbor": "tube-fluid-18", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-7", "neighbor": "tube-fluid-14", "production_mesh_gap_mm": 1.3699220229110713, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-water-7", "neighbor": "enclosure-back-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "valve-v-a", "production_mesh_gap_mm": 1.0754158609219209, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true, "native_gap_mm": 1.1550000069748172}
+PAIR {"target": "tube-fluid-14", "neighbor": "coil-v-a", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "valve-v-f", "production_mesh_gap_mm": 0.02399900113593381, "mesh_overlap_mm3": 0.0, "required_gap_mm": 0.0, "intentional_contact": "Own named endpoint", "pass": true, "native_gap_mm": 0.024999999999991473}
+PAIR {"target": "tube-fluid-14", "neighbor": "coil-v-f", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "cold-core/foam-cap-lid-top", "production_mesh_gap_mm": 0.14941870176995245, "mesh_overlap_mm3": 0.0, "required_gap_mm": 0.0, "intentional_contact": "Measured0.15mm cap bearing and own routed fill conduit", "pass": true, "native_gap_mm": 0.14999999999999858}
+PAIR {"target": "tube-fluid-14", "neighbor": "cold-core/line-carb-water-out", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "cold-core/line-co2-in", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "cold-core/line-reservoir-a", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "cold-core/line-reservoir-a-fill", "production_mesh_gap_mm": 0.0, "mesh_overlap_mm3": -6.765421556309548e-17, "required_gap_mm": 0.0, "intentional_contact": "Own named endpoint", "pass": true, "native_gap_mm": 5.684341886080802e-14}
+PAIR {"target": "tube-fluid-14", "neighbor": "suction-chain", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "psu", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "relay-2", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "pcba", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "wago-mana", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "vk-solenoid", "production_mesh_gap_mm": 1.1251182556152344, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true, "native_gap_mm": 1.1250000000002496}
+PAIR {"target": "tube-fluid-14", "neighbor": "tube-water-3", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "tube-co2-2", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "tube-carb-1", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "tube-fluid-18", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "tube-fluid-16", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "funnel", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "enclosure-front-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+PAIR {"target": "tube-fluid-14", "neighbor": "enclosure-back-top", "production_mesh_gap_mm": 2.0, "mesh_overlap_mm3": 0.0, "required_gap_mm": 1.0, "intentional_contact": null, "pass": true}
+FINAL True stable True seconds 76.25853270897642

@@ -1,0 +1,58 @@
+"""Compare binary STL vertex correspondence; no mesh repair or resampling."""
+from pathlib import Path
+import hashlib
+import json
+import struct
+import numpy as np
+
+HERE=Path(__file__).resolve().parent
+ROOT=Path('/Users/derekbredensteiner/Developer/homesodamachine')
+OLD=ROOT/'.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/oriented-meshes/enclosure-back-top.stl'
+NEW=ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl'
+DECL=ROOT/'.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.print.json'
+CONFIG=ROOT/'.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/job-config.json'
+def sha(p):
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+def read(p):
+    with p.open('rb') as f:
+        f.seek(80); n=struct.unpack('<I',f.read(4))[0]
+    assert p.stat().st_size==84+50*n
+    dtype=np.dtype([('normal','<f4',(3,)),('vertices','<f4',(3,3)),('attr','<u2')])
+    return np.memmap(p,dtype=dtype,offset=84,mode='r',shape=(n,))
+decl=json.loads(DECL.read_text())
+part=decl['parts'][0]
+assert part['name']=='enclosure-back-top'
+assert sha(OLD)==part['stl_sha256']
+old,new=read(OLD),read(NEW)
+result={'source_sha256':{str(Path(__file__)):sha(Path(__file__))},
+        'input_sha256':{str(p):sha(p) for p in (OLD,NEW,DECL,CONFIG)},
+        'prior_original_stl_sha256':part['original_stl_sha256'],
+        'comparison':'Undo the declared 180-degree X print orientation of the exact prior staged mesh; preserve native triangle and corner correspondence.',
+        'old_triangle_count':len(old),'new_triangle_count':len(new),
+        'same_triangle_count':len(old)==len(new)}
+assert len(old)==len(new)
+max_axis=0.;max_distance=0.;different_triangles=0;different_corners=0
+lo=np.full(3,np.inf);hi=np.full(3,-np.inf)
+hist={str(t):0 for t in (0,1e-7,1e-6,1e-5,1e-4,1e-3,.01,.1,1.)}
+for start in range(0,len(old),65536):
+    ov=old['vertices'][start:start+65536].astype(np.float64)
+    ov[:,:,1:]*=-1
+    nv=new['vertices'][start:start+65536].astype(np.float64)
+    delta=nv-ov
+    dist=np.linalg.norm(delta,axis=2)
+    changed=np.any(delta!=0,axis=(1,2))
+    different_triangles+=int(changed.sum())
+    different_corners+=int(np.count_nonzero(dist))
+    max_axis=max(max_axis,float(np.abs(delta).max()))
+    max_distance=max(max_distance,float(dist.max()))
+    for key in hist:hist[key]+=int(np.count_nonzero(dist>float(key)))
+    if changed.any():
+        p=nv[changed].reshape(-1,3)
+        lo=np.minimum(lo,p.min(axis=0));hi=np.maximum(hi,p.max(axis=0))
+result.update(max_axis_delta_mm=max_axis,max_vertex_distance_mm=max_distance,
+              differing_triangles=different_triangles,differing_corners=different_corners,
+              corner_counts_over_threshold_mm=hist,
+              changed_triangle_bounds_mm=(lo.tolist()+hi.tolist()) if different_triangles else None)
+result['status']='equal_at_1_micron_vertex_correspondence' if max_distance<=.001 else 'larger_difference_requires_review'
+(HERE/'mesh-summary.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result,indent=2))

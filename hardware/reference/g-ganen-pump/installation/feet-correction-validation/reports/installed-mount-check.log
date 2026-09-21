@@ -1,0 +1,55 @@
+placed pump [[-45.428864848058, 295.33547452776276, 253.4], [49.571135151942, 455.6, 313.9339277961417]]
+cap mount axis 0 1.5888218580782548e-14 PASS
+cap mount axis 1 1.5888218580782548e-14 PASS
+cap mount axis 2 1.5888218580782548e-14 PASS
+cap mount axis 3 1.5888218580782548e-14 PASS
+bearing datum on cap 0.0 PASS
+rear rigid face has declared core-rear clearance 1.0658141036401503e-14 PASS
+flavor gate unchanged 0.0 PASS
+flow local discharge maps enclosure -X -0.9999421767690463 PASS
+suction-chain cap-relative placed bounds 0.0 PASS
+suction-chain pump clearance 31.45973139917938 PASS
+discharge-chain cap-relative placed bounds 0.0 PASS
+discharge-chain pump clearance 33.189236404828485 PASS
+vk-solenoid cap-relative placed bounds 0.0 PASS
+vk-solenoid pump clearance 55.406134541474245 PASS
+rear_yminus complete clip above rail start 58.5 PASS
+rear_yminus complete clip below rail end 76.5 PASS
+rear_yminus clip at selected outer rail end 0.0 PASS
+rear_yminus shared pad thickness 0.0 PASS
+rear_yminus washer and straight driver corridor to rigid pump 8.096896495579994 PASS
+rear_yplus complete clip above rail start 58.5 PASS
+rear_yplus complete clip below rail end 76.5 PASS
+rear_yplus clip at selected outer rail end 0.0 PASS
+rear_yplus shared pad thickness 0.0 PASS
+rear_yplus washer and straight driver corridor to rigid pump 8.09793238797206 PASS
+head_yminus complete clip above rail start 0.5 PASS
+head_yminus complete clip below rail end 18.5 PASS
+head_yminus clip at selected outer rail end 0.0 PASS
+head_yminus shared pad thickness 0.0 PASS
+head_yminus washer and straight driver corridor to rigid pump 7.700620270779217 PASS
+head_yplus complete clip above rail start 0.5 PASS
+head_yplus complete clip below rail end 18.5 PASS
+head_yplus clip at selected outer rail end 0.0 PASS
+head_yplus shared pad thickness 0.0 PASS
+head_yplus washer and straight driver corridor to rigid pump 7.817212467906216 PASS
+cap cup native invalid 0 PASS
+cap lid native invalid 0 PASS
+cap cup solid count 0 PASS
+cap lid solid count 0 PASS
+rigid pump to printed lid 1.9609529419760179 PASS
+rear_yminus M3 shank envelope printed cup overlap 0.0 PASS
+rear_yminus M3 shank envelope printed lid overlap 0.0 PASS
+rear_yminus nominal full insert engagement 6.799999999999999 PASS
+rear_yplus M3 shank envelope printed cup overlap 0.0 PASS
+rear_yplus M3 shank envelope printed lid overlap 0.0 PASS
+rear_yplus nominal full insert engagement 6.799999999999999 PASS
+head_yminus M3 shank envelope printed cup overlap 0.0 PASS
+head_yminus M3 shank envelope printed lid overlap 0.0 PASS
+head_yminus nominal full insert engagement 6.799999999999999 PASS
+head_yplus M3 shank envelope printed cup overlap 0.0 PASS
+head_yplus M3 shank envelope printed lid overlap 0.0 PASS
+head_yplus nominal full insert engagement 6.799999999999999 PASS
+blind bore remaining floor 6.1 PASS
+added four columns exact volume vs clear stock 1.6893864085432142e-10 PASS
+All pass: True seconds 21.166262584010838

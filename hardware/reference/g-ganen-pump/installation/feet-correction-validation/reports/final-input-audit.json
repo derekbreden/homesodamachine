@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "checked_at_utc": "2026-09-21T16:40:35.861195+00:00",
+  "scope": "Lightweight final source/native hash binding only; retains original native probe report unchanged.",
+  "neighbor_probe_inputs": [
+    {
+      "path": "hardware/manifold-layout/enclosure_assembly.py",
+      "probe_sha256": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+      "current_sha256": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/manifold-layout/_lines.py",
+      "probe_sha256": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+      "current_sha256": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "probe_sha256": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+      "current_sha256": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+      "probe_sha256": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+      "current_sha256": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+      "probe_sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+      "current_sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+      "probe_sha256": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+      "current_sha256": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step",
+      "probe_sha256": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+      "current_sha256": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/integration-envelope/native-validation.json",
+      "probe_sha256": "482c8ab3b07e53e3dbad4c2f2e42c1a6b5b42a345840cb259a87a5ae578dba70",
+      "current_sha256": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+      "classification": "reference_metadata_rebound_to_final_archive_names; same_native_STEP_and_runtime_geometry_sources"
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/reference-parameters.json",
+      "probe_sha256": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+      "current_sha256": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+      "classification": "exact_same_bytes"
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "probe_sha256": "537930083b3bf8a248cb06b21dd5e1853253991f6a70b489766d9bef29a79d0a",
+      "current_sha256": "94da59690610f3df4d20cfe26232db92257f1fcaa0e7e57ae2cc8cc62f98b890",
+      "classification": "dependent_mount_export_regenerated; fresh_mount_check_binds_same_core_translation_and_pump_pose"
+    }
+  ],
+  "final_reference_closure_sha256": "308d45048f07aef90216e03f968e1245a46a089bc958b9318cab0c5c3a8af398",
+  "final_reference_files_all_exact": true,
+  "fresh_mount_inputs": [
+    {
+      "path": "hardware/manifold-layout/enclosure_assembly.py",
+      "report_sha256": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+      "current_sha256": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+      "exact": true
+    },
+    {
+      "path": "hardware/manifold-layout/_lines.py",
+      "report_sha256": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+      "current_sha256": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+      "exact": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "report_sha256": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+      "current_sha256": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+      "exact": true
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+      "report_sha256": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+      "current_sha256": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+      "exact": true
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/installation/validate_installation.py",
+      "report_sha256": "e7a991aa5acca3592fb6aa678c089c4a11fee52283c2f8d1b3a1c428ab805a72",
+      "current_sha256": "e7a991aa5acca3592fb6aa678c089c4a11fee52283c2f8d1b3a1c428ab805a72",
+      "exact": true
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+      "report_sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+      "current_sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+      "exact": true
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step",
+      "report_sha256": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+      "current_sha256": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+      "exact": true
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/integration-envelope/native-validation.json",
+      "report_sha256": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+      "current_sha256": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+      "exact": true
+    },
+    {
+      "path": "hardware/reference/g-ganen-pump/reference-parameters.json",
+      "report_sha256": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+      "current_sha256": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+      "exact": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "report_sha256": "94da59690610f3df4d20cfe26232db92257f1fcaa0e7e57ae2cc8cc62f98b890",
+      "current_sha256": "94da59690610f3df4d20cfe26232db92257f1fcaa0e7e57ae2cc8cc62f98b890",
+      "exact": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+      "report_sha256": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+      "current_sha256": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+      "exact": true
+    }
+  ],
+  "fresh_mount_pump_pose_equals_neighbor_probe": true,
+  "fresh_mount_core_translation_from_retained_facts_y_mm": 0.0,
+  "runtime_geometry_inputs_all_exact": true
+}

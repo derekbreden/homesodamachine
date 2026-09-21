@@ -1,0 +1,21 @@
+{
+  "staged": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/g-ganen-foam-cap-lid-top-black-z004-mark2-v2-input.3mf",
+  "sha256": "d27e5d2f3f885d103556ab9021e1f1a82b1fa9f680d03768b9a0eeb0cb567fbd",
+  "parts": [
+    {
+      "name": "foam-cap-lid-top",
+      "plate_bounds_mm": [
+        [
+          21.0,
+          69.5,
+          0.0
+        ],
+        [
+          304.0,
+          250.5,
+          57.775001525878906
+        ]
+      ]
+    }
+  ]
+}

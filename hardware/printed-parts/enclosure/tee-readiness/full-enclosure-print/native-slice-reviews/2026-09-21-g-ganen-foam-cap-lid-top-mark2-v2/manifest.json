@@ -1,0 +1,235 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "foam-cap-lid-top",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/current-geometry.json",
+    "sha256": "22c80d7756b70139fe6ede97a4c9d3f70b782629171f8cd850a342acfffa36e6"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "7fa3dbf1b31c4161365ff8f4d40c41eecd2e825def4f202ed3877165ff3ca6ce"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "0cfd4612842405233cb51f069ef25106b8b8f815bf9357c3140e68b44b6468d3",
+  "files": {
+    "README.md": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/README.md",
+      "sha256": "0791801ba19810f940915205b364dcda98ef687bfa24397ba793deb6ba0e7aa0",
+      "bytes": 1507
+    },
+    "visual-review.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/visual-review.json",
+      "sha256": "d6e3a51b9dc3c7bfe1c5cc472e14613b68977944b63d8047a2201357e04f48c0",
+      "bytes": 1186
+    },
+    "predecessor.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/predecessor.json",
+      "sha256": "7f832b375eae798b83a18c34f366bd37c8e6c75095f0c0687f842d1e434cfebf",
+      "bytes": 2212
+    },
+    "geometry-confirmation.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/geometry-confirmation.json",
+      "sha256": "22c80d7756b70139fe6ede97a4c9d3f70b782629171f8cd850a342acfffa36e6",
+      "bytes": 6471
+    },
+    "prepare.log": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/prepare.log",
+      "sha256": "d703fd3b2901d9987645e61cca07ef7db300f2622af2c00d0efa8d5c50c63218",
+      "bytes": 461
+    },
+    "native-handoff.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/native-handoff.json",
+      "sha256": "fb909cbd73f2018b3a577abcd3d5a07c1d4d1ff69e021b47757c4c33da9231c0",
+      "bytes": 4411
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/offline-review.json",
+      "sha256": "04dd518a01c5d9b2c5f3b317c016c43e6fb5d75364dd4276c91bc20a035a5507",
+      "bytes": 8922
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/readiness.json",
+      "sha256": "84c3f8e59b17b9272ffc1b5327d8ae7edf93ed8cec69f55b42079cb136a85c6a",
+      "bytes": 7674
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-removal-review.json",
+      "sha256": "2324d824db0ccdb08a01df1e2833a3fd4e1a41a2d161c75cb78cfc91eee4692e",
+      "bytes": 19054
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/preparation.json",
+      "sha256": "d3f96b661e91781d2cafd38ba1ee428718d6ecc6d8680b0651d0960c93ebb790",
+      "bytes": 2211
+    },
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/job-config.json",
+      "sha256": "39d46817a046ed19640c7fd30ab074dc4eee727e4c6fdcab3f94decb15c487f5",
+      "bytes": 1095
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/slice-command.json",
+      "sha256": "8ebdd20a3925304d3b8991fe16248e812d3afa1474be641185b7ea719d6ce4d5",
+      "bytes": 516
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/slice-input.json",
+      "sha256": "376d6181efc7e80e489d22f2bb2fc9d371a37022401a00b4fca95e83d4ef2f05",
+      "bytes": 279
+    },
+    "native-review.log": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/native-review.log",
+      "sha256": "23c30644b2caf169536e5dfa1ff88a308141ffe485cee2804c23ec273006d8e3",
+      "bytes": 1460
+    },
+    "slice.log": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/slice.log",
+      "sha256": "4ee3796524a93f5d9cce02c9e18bcbc977952edf9a3d29e86769e51507f631d9",
+      "bytes": 278
+    },
+    "finalize.log": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/finalize.log",
+      "sha256": "edb76f3a24e33af206fc434fdc11e4a3088e79783ecce48c5bc1fabc3c285dea",
+      "bytes": 479
+    },
+    "g-ganen-foam-cap-lid-top-black-z004-mark2-v2-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/g-ganen-foam-cap-lid-top-black-z004-mark2-v2-input.support-audit.json",
+      "sha256": "98e4ac1dae0aeac8c72a3f2021911157d82286fc26c710c494b0c941fa6f98ee",
+      "bytes": 11804
+    },
+    "g-ganen-foam-cap-lid-top-black-z004-mark2-v2-input.print.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/g-ganen-foam-cap-lid-top-black-z004-mark2-v2-input.print.json",
+      "sha256": "39b8943c3d874fea0813fb71bbf2fd6bd0ba0283e22ad9c2a0c84ffd54ac13aa",
+      "bytes": 6678
+    },
+    "workflow/prepare.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/prepare.py",
+      "sha256": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+      "bytes": 71
+    },
+    "workflow/slice.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/slice.py",
+      "sha256": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177",
+      "bytes": 87
+    },
+    "workflow/print_workflow.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/print_workflow.py",
+      "sha256": "03e3b4f37308613ae0b8b6beef2d75904286c39aa2384ab87d6af974ebb1a6c0",
+      "bytes": 17365
+    },
+    "workflow/review_native.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/review_native.py",
+      "sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+      "bytes": 32954
+    },
+    "workflow/finalize_review.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/finalize_review.py",
+      "sha256": "7e82cbe0ded28485bbd1b870501902ff066f7739547582ff29c50bddaa09697a",
+      "bytes": 7180
+    },
+    "native/bambu-cli.log": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/bambu-cli.log",
+      "sha256": "63d725d0ca57b7701293dc496ee95d516acc04dec59e5ec9c9a3141caf51aba4",
+      "bytes": 1531
+    },
+    "native/result.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/result.json",
+      "sha256": "12d5cbb2f1c15f42e1a36e8fccd05953f300fc84d1cdc5fc548e3e5238431da2",
+      "bytes": 2514
+    },
+    "native/path-bounds-checkpoint.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/path-bounds-checkpoint.json",
+      "sha256": "0e574c982e19e0a89bb423c0ca0adb3e4cb210f576bc4a04490f45fc45c44771",
+      "bytes": 565
+    },
+    "native/support-foam-cap-lid-top.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/support-foam-cap-lid-top.json",
+      "sha256": "506451b0e25e188cf377aeff7b992e5a5836add09f6a24a81776d28c090ddcf9",
+      "bytes": 9082
+    },
+    "previews/pick_1.png": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/native-previews/pick_1.png",
+      "sha256": "6eab3caefdbbafd113d83f351c46fef379bb1bc1c577a207c65c34d212a52b76",
+      "bytes": 2781
+    },
+    "previews/plate_1.png": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/native-previews/plate_1.png",
+      "sha256": "19993c509b67f3974f609685f656d0fb73a194408a954b8b17e7fc079448f2c5",
+      "bytes": 8964
+    },
+    "previews/plate_1_small.png": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/native-previews/plate_1_small.png",
+      "sha256": "01c66008ca4c8040acd0bdf8370cded49aea48b405fe86f019c896fd13fd7e74",
+      "bytes": 2600
+    },
+    "previews/plate_no_light_1.png": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/native-previews/plate_no_light_1.png",
+      "sha256": "34792e6ba873b610188bc2b95cc66585bcfd61eba62f22f1e574ea0a352fdb95",
+      "bytes": 2988
+    },
+    "previews/top_1.png": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/ready/native-previews/top_1.png",
+      "sha256": "98a09f0062e48d36fd4ea8387ee388ae4851ac51129d5b71023ba6f3c4ddabd2",
+      "bytes": 7432
+    },
+    "support-evidence/complete_review.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/complete_review.py",
+      "sha256": "7d373da403a9e9baf8f0497c944c7bdaa6954f90f3d97b15014c43073aefcec2",
+      "bytes": 7486
+    },
+    "support-evidence/emission-presence.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/emission-presence.json",
+      "sha256": "47b07317d33a3f14827db3530d03d3896b7898eb9295a972c84a7814c708a13a",
+      "bytes": 753000
+    },
+    "support-evidence/lid-support-lanes.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/lid-support-lanes.json",
+      "sha256": "ec0bfd0e9e6813722fdcbb15358a6d26115a89aebef781a3efc513f402c5a252",
+      "bytes": 12623
+    },
+    "support-evidence/native-diagnostic-assessment.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/native-diagnostic-assessment.json",
+      "sha256": "67925ba6db11db10732fc19088fa354a104b724946293c69669c587c3e59fb51",
+      "bytes": 3238
+    },
+    "support-evidence/verify_emission.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/verify_emission.py",
+      "sha256": "b7c9ecc9e9454a8d2d684971235ca28e3acfffb9a5451c24ce0992df9a21bb4b",
+      "bytes": 8416
+    },
+    "support-evidence/verify_lid_support_lanes.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/verify_lid_support_lanes.py",
+      "sha256": "1da85ead6e993fdb82eb59c238cfcf445d7757017460478d8e56a133e3581ae7",
+      "bytes": 6207
+    },
+    "inputs/print-inputs.json": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/print-inputs.json",
+      "sha256": "ad167fd50e920e0ad45257f2a4aa7349591d7f8ee1505cf2a83d32723176cb76",
+      "bytes": 13178
+    },
+    "reproducers/package-corrected-mount-review.py.txt": {
+      "source_path": "/tmp/scanner-review/g-ganen-feet-correction/package-corrected-mount-review.py",
+      "sha256": "bac8a660784defd6850e06b1d4ab70f98339e81d92f6e199568f7dabe18bf9d8",
+      "bytes": 7154
+    },
+    "reproducers/seven-plate-handoff.py.txt": {
+      "source_path": "/tmp/scanner-review/seven-plate-handoff.py",
+      "sha256": "8d873187bf437b87fba2f5c3548489a1aded2f7a8b3e0e9c779768ea7e3ae17c",
+      "bytes": 3059
+    },
+    "reproducers/prepare_inputs.py.txt": {
+      "source_path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/prepare_inputs.py",
+      "sha256": "5222c4530d2d302bca2424d96a73b59b8d5e77f58c88ecb6a6e28bee1f8fa810",
+      "bytes": 8089
+    }
+  },
+  "printing_authorized": true,
+  "submitted": false,
+  "print_released": false,
+  "execution_status": "Await assigned printer availability, latest plate removal, adequate filament and the normal verified handoff; no new design or permission gate.",
+  "physical_cleanup_effort_measured": false,
+  "scope": "Byte-identical completed native slice/support evidence. Large input and native archives remain at their exact hashed cache paths. The finalized ledger is authoritative for diagnostic disposition; the preliminary readiness record may retain pending mirror fields."
+}

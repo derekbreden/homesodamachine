@@ -1,0 +1,37 @@
+from pathlib import Path
+import sys,json,math,hashlib
+import cadquery as cq
+O=Path('/tmp/scanner-review/g-ganen-feet-correction');sys.path.insert(0,str(O))
+from check_common_positions import sha,bounds,bg,iv,native_gap
+P=Path('/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/common-foot-candidate.step')
+foot=cq.importers.importStep(str(P)).val();bore=3.;od=9.;off=1.5
+# Contact area is the solid material immediately under the flat washer face.
+# The central nominalM3 hole is wholly inside the foot's through-slot.
+layer=.001
+annulus=(cq.Solid.makeCylinder(od/2,layer,cq.Vector(0,off,7-layer))
+         .cut(cq.Solid.makeCylinder(bore/2,layer,cq.Vector(0,off,7-layer))))
+contact=annulus.intersect(foot).Volume()/layer
+washer=(cq.Solid.makeCylinder(od/2,.8,cq.Vector(0,off,7.000001))
+         .cut(cq.Solid.makeCylinder(bore/2,.8,cq.Vector(0,off,7.000001))))
+screw=cq.Solid.makeCylinder(1.5,7.002,cq.Vector(0,off,-.001))
+# Report bearing area on both axial sides of the slot, separately.
+areas={}
+for side,(lo,hi) in {'axial_minus':(-9,-2.25),'axial_plus':(2.25,9)}.items():
+ block=cq.Solid.makeBox(hi-lo,30,layer,cq.Vector(lo,-15,7-layer))
+ areas[side]=annulus.intersect(foot).intersect(block).Volume()/layer
+man=json.loads((O/'current-native.json').read_text());obs=json.loads((O/'observed-envelope-probe.json').read_text());origin=list(obs['pump_origin_world_mm']);origin[1]-=1.
+pose=lambda s:s.rotate((0,0,0),(0,0,1),90).translate(origin)
+cup=cq.Shape.importBrep(man['bodies']['cold-core/foam-cap-top']['path']);lid=cq.Shape.importBrep(man['bodies']['cold-core/foam-cap-lid-top']['path']);cb=cup.BoundingBox()
+oldcuts=[]
+for r in obs['readings']:
+ if r['candidate_slot_station_x_mm']!=(12 if r['id'].startswith('head') else 50):continue
+ p=r['station_world_mm'];oldcuts.append(cq.Solid.makeCylinder(3.50001,cb.zmax-(cb.zmin+3)+.01,cq.Vector(p[0],p[1],cb.zmin+3+1e-5)))
+plain=cup.cut(cq.Compound.makeCompound(oldcuts))
+reads=[]
+for side in(-1,1):
+ for end,x in [('head',9.5),('rear',67.5)]:
+  p=[origin[0]-side*(38.5+off),origin[1]+x,origin[2]]
+  col=cq.Solid.makeCylinder(3.5,cb.zmax-(cb.zmin+3+.01),cq.Vector(p[0],p[1],cb.zmin+3+.01))
+  reads.append({'foot':end+('_yplus' if side>0 else'_yminus'),'world_screw_axis_mm':p,'cap_screw_axis_mm':[323.8-p[1],p[0]],'new_post_overlap_non_mount_cup_mm3':iv(col,plain)})
+report={'status':'native_clamp_geometry_pass','inputs_sha256':{str(P):sha(P),str(O/'current-native.json'):sha(O/'current-native.json'),str(Path(__file__)):sha(__file__)},'aggregate_sha256':man['source_sha256'],'washer_outer_diameter_mm':9.,'washer_inner_diameter_for_annular_area_mm':3.,'inner_diameter_scope':'nominalM3 witness; complete central region is inside the foot slot and carries no pad contact','washer_thickness_mm':.8,'screw_outward_offset_in_slot_mm':1.5,'shoulder_edge_air_mm':.5,'washer_foot_overlap_mm3':iv(washer,foot),'screw_foot_overlap_mm3':iv(screw,foot),'screw_to_slot_native_gap_mm':screw.distance(foot),'supported_annular_contact_area_mm2':contact,'annular_area_nominal_M3_mm2':math.pi*(4.5**2-1.5**2),'contact_fraction_of_nominal_annulus':contact/(math.pi*(4.5**2-1.5**2)),'side_bearing_areas_mm2':areas,'cup_readings':reads,'screw_stack':{'screw_length_mm':20.,'pad_nominal_mm':7.,'washer_mm':.8,'lid_mm':5.4,'nominal_insert_reach_mm':6.8,'insert_length_mm':5.7,'retained_blind_depth_mm':8.514254735882211,'nominal_screw_tip_reserve_mm':8.514254735882211-6.8,'remaining_floor_to_cap_exterior_mm':14.6-8.514254735882211,'compression_qualified':False},'limitations':['Pad is nominal7mm per owner measurement; actual compressed rubber and torque are not inferred.','M3 andØ9washer are nominal installation choices; actual supplied hardware remains a fit observation.','Pump must be fastened before tube-fluid18 and the rear keystone obstruct the straight driver lanes.','Whole-pump hose/end-point integration remains root work.']}
+(O/'washer-15-check.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2),flush=True)

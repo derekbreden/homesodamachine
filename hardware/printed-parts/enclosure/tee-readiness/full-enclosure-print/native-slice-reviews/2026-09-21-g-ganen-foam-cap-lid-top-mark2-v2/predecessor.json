@@ -1,0 +1,20 @@
+{
+  "status": "retained_ineligible_predecessor",
+  "qualification_inherited": false,
+  "reason": "Mounting inputs require regeneration for four identical rubber feet at their outermost rail positions.",
+  "predecessor_job": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1",
+  "retained_files_sha256": {
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/job-config.json": "992f5b16a52380c0d15395ff6c6771071f8bf5390401801f727023852bbb60ac",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/preparation.json": "3ea93ae53274cad44136c48d23883f749aebc77fcc4c318d90195d5ff01f6904",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/geometry-confirmation.json": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/readiness.json": "067025b76facc8054fbfa41360b29ac6aed68f1888130c8f4bdc04f9412f3ba7",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/native-handoff.json": "7fdb396e2e9aab51f93b1158fba362d4987ffce27336110e432b08c98dc3a6c3",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/support-removal-review.json": "bbf5d6d4c5b4376528ce4e6c5d3a7236316b74431fa13744561b89363f917573",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/offline-review.json": "a5ebd56ffa7cfcc2d9ffe8046c36d9b533366cefc23b1def6b3303986837c1be",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/ready/g-ganen-foam-cap-lid-top-black-z004-mark2-v1.gcode.3mf": "7fca2c895ccf45ee569b9b311edbac75e7778c088afec7fe9bb41a0ea6fa0a4f",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.3mf": "7edfdea9ed4c366b88137abb49c59386a8eef595da6d3982c1f214d23461a817",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.print.json": "30948dc5fe34480d5d3dc931ca2248e7c34e1edb3597d19332c1871a6358fb49",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/g-ganen-foam-cap-lid-top-black-z004-mark2-v1-input.support-audit.json": "e92e3548185f1b38bf782217b5161292038197f9278c92c032b06d58a3cab8c0"
+  },
+  "files_modified": false
+}

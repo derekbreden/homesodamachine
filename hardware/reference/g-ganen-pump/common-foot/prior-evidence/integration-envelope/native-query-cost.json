@@ -1,0 +1,28 @@
+{
+  "status": "indicative_query_costs",
+  "native_sha256": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+  "tool_sha256": {
+    "benchmark_integration.py": "2bf28a796eeb295ef010bebfe60703e4adfc1e4de545cb74de931f6f8360bbcf",
+    "../benchmark_native.py": "4a37d58bd00b145eed49083199ea38aaa29c524cee815002d001abe5d9bf7b42"
+  },
+  "detailed_reference_costs_sha256": "4d09b764460bb56ced9683321fbbfead005e8acfcb6037fb7a2880a954025851",
+  "operations": [
+    {
+      "operation": "distance",
+      "exit_code": 0,
+      "wall_seconds": 12.158361624999088,
+      "stdout": "{\"stage\": \"imported\", \"seconds\": 5.542863333001151, \"solids\": 26, \"faces\": 5691}\n{\"stage\": \"operation_complete\", \"operation\": \"distance\", \"query_seconds\": 0.18633104099717457, \"description\": \"5 mm box beside the measured +Y head lug, lower corner (-15, 34.5, 30).\", \"result\": {\"distance_mm\": 2.4998291752847166}}\n",
+      "stderr": "",
+      "status": "completed"
+    },
+    {
+      "operation": "section",
+      "exit_code": 0,
+      "wall_seconds": 52.17561520800518,
+      "stdout": "{\"stage\": \"imported\", \"seconds\": 7.54232941599912, \"solids\": 26, \"faces\": 5691}\n{\"stage\": \"operation_complete\", \"operation\": \"section\", \"query_seconds\": 37.34760033299972, \"description\": \"Native room section: X -60..70, full Y, Z 20..58; analogous to pump_west_face.\", \"result\": {\"bounds_mm\": [[-60.0000001, -37.2820497413063, 19.999999889977037], [70.00000010005866, 37.0614982910634, 58.00000010911124]], \"solids\": 82}}\n",
+      "stderr": "",
+      "status": "completed"
+    }
+  ],
+  "scope": "Identical frozen benchmark implementation and fresh STEP imports, on this host during shared local work. These are indicative timings, not a full-assembly benchmark."
+}

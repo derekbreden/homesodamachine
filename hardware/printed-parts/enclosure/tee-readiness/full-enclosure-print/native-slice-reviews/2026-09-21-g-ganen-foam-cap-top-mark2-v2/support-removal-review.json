@@ -1,0 +1,35 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "6b0d82014961bf7f247da9a451bd9466dbe64ecd75043f527534d891d9d6f259",
+  "gcode_sha256": "219b895745c951a418e92c1177f78200383a25da52c9be8ce1d82847dac61796",
+  "support_audit_sha256": "fee136d43c984cf24b08a7d806d88af50c92a8663b05721d10859559ce4adaa0",
+  "geometry_confirmation_sha256": "22c80d7756b70139fe6ede97a4c9d3f70b782629171f8cd850a342acfffa36e6",
+  "parts": [
+    {
+      "name": "foam-cap-top",
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "model_overhangs_review": "This exact corrected-foot Mark2 +Z/floor-down top-cap slice contains no support body or interface island. Its floor lies on the bed; full cup walls, conduit/attachment columns and all four revised pump columns rise vertically from it. The cup mouth and blind insert bores open upward, and through-bores retain open axial access. There is no enclosed supported cavity to clean. Flat lid-bearing faces and the complete 6.1 mm stock below the blind insert bores are retained. This zero-support reading does not measure warping, insertion force or strength.",
+      "trees": [],
+      "interfaces": []
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-21 11:43:45.054199] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 11:43:50.614068] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 11:43:50.614436] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The only native diagnostics are saved-profile control tokens: T1001 hotend-type detection and T65535/T65279 end-code control/unload. They remain in the exact ledger. Native review verifies the intended machine/nozzle/filament mapping and completed output; no separate geometry diagnostic is present.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false,
+  "review_scope": "This exact corrected-foot Mark2 v2 top-cap archive only. Its actual zero-support topology and null build-up fields are preserved. No prior slice approval is inherited; physical finish and fit are trial outcomes."
+}

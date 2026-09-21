@@ -1,0 +1,20 @@
+{
+  "status": "retained_ineligible_predecessor",
+  "qualification_inherited": false,
+  "reason": "Mounting inputs require regeneration for four identical rubber feet at their outermost rail positions.",
+  "predecessor_job": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1",
+  "retained_files_sha256": {
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/job-config.json": "428e204952f029027e0a5938f1c7d3aed9749c97fadc817f12286ae2a7a6e8a3",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/preparation.json": "baa1272f35e70e5a860fd7b1c4efcf3984f0fd724775a7bef83a756e7a832af0",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/geometry-confirmation.json": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/readiness.json": "166c0ca5c3244ba40f16bbf4f596e02d1a0ab8483de241631c1b362f0f6f3088",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/native-handoff.json": "ebbb62b235db84d1c7b8e3820f7a1e10e6c141408fafa50b43a8b5f945b67af9",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/support-removal-review.json": "ab0231143dcfaf74d8db717707927a74fa815f1e1d841813b898631e9f6d5ce7",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/offline-review.json": "7db921f0a0efd432ce11c728160b1910867f1ca8dcf3b82e4815c902f669de3f",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/ready/g-ganen-foam-cap-top-black-z004-mark2-v1.gcode.3mf": "2e57cae3a9eed67fc85469b00820581860754216f22158c2f1bb671e5ec6798c",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/g-ganen-foam-cap-top-black-z004-mark2-v1-input.3mf": "97a33f65f8a56473f39b2fca3dcc3851c16a329fe62aea97829a0bc1e09cf35a",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/g-ganen-foam-cap-top-black-z004-mark2-v1-input.print.json": "199206634f872d1698404856cc44732ef0cc983e981f7dffbe17727490542726",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v1/g-ganen-foam-cap-top-black-z004-mark2-v1-input.support-audit.json": "157b4f58e16b440f9253704526afb096aa4c82ace6b99f273d3eb55fd3e08f7f"
+  },
+  "files_modified": false
+}

@@ -1,0 +1,97 @@
+{
+  "status": "native_clamp_geometry_pass",
+  "inputs_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/common-foot-candidate.step": "c33337b41a2f56c8dba37123385d009a9ca14e420f0c898d15ea41339e67bbaf",
+    "/tmp/scanner-review/g-ganen-feet-correction/current-native.json": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a",
+    "/tmp/scanner-review/g-ganen-feet-correction/check_washer_15.py": "17c6a915acb152c3b9098bed1101b821dd536b60f9179c18afc0a0014c7e4acb"
+  },
+  "aggregate_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "washer_outer_diameter_mm": 9.0,
+  "washer_inner_diameter_for_annular_area_mm": 3.0,
+  "inner_diameter_scope": "nominalM3 witness; complete central region is inside the foot slot and carries no pad contact",
+  "washer_thickness_mm": 0.8,
+  "screw_outward_offset_in_slot_mm": 1.5,
+  "shoulder_edge_air_mm": 0.5,
+  "washer_foot_overlap_mm3": 0.0,
+  "screw_foot_overlap_mm3": 0.0,
+  "screw_to_slot_native_gap_mm": 0.3999999999999999,
+  "supported_annular_contact_area_mm2": 38.289338752840514,
+  "annular_area_nominal_M3_mm2": 56.548667764616276,
+  "contact_fraction_of_nominal_annulus": 0.6771041700260706,
+  "side_bearing_areas_mm2": {
+    "axial_minus": 12.43724319841782,
+    "axial_plus": 12.437243198416803
+  },
+  "cup_readings": [
+    {
+      "foot": "head_yminus",
+      "world_screw_axis_mm": [
+        42.071135151942,
+        382.735458276122,
+        253.4
+      ],
+      "cap_screw_axis_mm": [
+        -58.935458276122006,
+        42.071135151942
+      ],
+      "new_post_overlap_non_mount_cup_mm3": 0.0
+    },
+    {
+      "foot": "rear_yminus",
+      "world_screw_axis_mm": [
+        42.071135151942,
+        440.735458276122,
+        253.4
+      ],
+      "cap_screw_axis_mm": [
+        -116.935458276122,
+        42.071135151942
+      ],
+      "new_post_overlap_non_mount_cup_mm3": 0.0
+    },
+    {
+      "foot": "head_yplus",
+      "world_screw_axis_mm": [
+        -37.928864848058,
+        382.735458276122,
+        253.4
+      ],
+      "cap_screw_axis_mm": [
+        -58.935458276122006,
+        -37.928864848058
+      ],
+      "new_post_overlap_non_mount_cup_mm3": 0.0
+    },
+    {
+      "foot": "rear_yplus",
+      "world_screw_axis_mm": [
+        -37.928864848058,
+        440.735458276122,
+        253.4
+      ],
+      "cap_screw_axis_mm": [
+        -116.935458276122,
+        -37.928864848058
+      ],
+      "new_post_overlap_non_mount_cup_mm3": 0.0
+    }
+  ],
+  "screw_stack": {
+    "screw_length_mm": 20.0,
+    "pad_nominal_mm": 7.0,
+    "washer_mm": 0.8,
+    "lid_mm": 5.4,
+    "nominal_insert_reach_mm": 6.8,
+    "insert_length_mm": 5.7,
+    "retained_blind_depth_mm": 8.514254735882211,
+    "nominal_screw_tip_reserve_mm": 1.7142547358822116,
+    "remaining_floor_to_cap_exterior_mm": 6.085745264117788,
+    "compression_qualified": false
+  },
+  "limitations": [
+    "Pad is nominal7mm per owner measurement; actual compressed rubber and torque are not inferred.",
+    "M3 and\u00d89washer are nominal installation choices; actual supplied hardware remains a fit observation.",
+    "Pump must be fastened before tube-fluid18 and the rear keystone obstruct the straight driver lanes.",
+    "Whole-pump hose/end-point integration remains root work."
+  ]
+}
