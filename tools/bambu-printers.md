@@ -84,8 +84,10 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    staged as a visible copy first, and a path inside the working tree walks fastest.
 3. **Open the dialog.** `press "Print" --role AXButton`. In `tree`, the group labelled
    `<name> chevron_down` is the printer offered. When it is not the target, the selector's
-   popover chooses it: `click <x+70> <y+32> <x+74> <y+84+34n>` from the selector's `@x,y`,
-   its name text and then row `n` of the popover, the printers in `PRINTERS` order. The
+   popover chooses it: `click <x+70> <y+32> <x+81> <y+91+36n>` from the selector's `@x,y`,
+   its name text and then row `n` of the popover, the printers in `PRINTERS` order, in one
+   call. One call is the point: an AXPress opens the popover too, but the front borrow
+   of the click that follows closes it, so the row click lands on the dialog. The
    popover is not in the tree; the selector afterwards is, and it must read the target
    before anything else is pressed. The device page opened in step 1 does not decide it:
    on 2026-09-20 the dialog offered H2C three times after Mark2's page was opened and
