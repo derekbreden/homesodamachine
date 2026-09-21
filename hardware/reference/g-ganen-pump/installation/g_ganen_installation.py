@@ -19,18 +19,21 @@ from native_queries import intersect_components, occupied_bounds
 
 SCENE_KEY = 'g-ganen-pump'
 YAW = 90.
+REAR_CLEARANCE = 8.7
 WASHER_OD = 9.
 WASHER_T = .8
 SCREW_D = 3.
 SCREW_LENGTH = 20.
 SELECTED_SLIDER_X = {'head_yminus': 12., 'head_yplus': 12.,
                      'rear_yminus': 50., 'rear_yplus': 50.}
-# Authored cap stations for the selected installed candidate. The assembly's
-# pump_mount_rows checks these against the native placed foot axes every build.
-CAP_MOUNT_XY = ((-109.13545827612205, 40.58788185569069),
-                (-109.13545827612205, -36.70985685897666),
-                (-71.13545827612205, 41.32456561223638),
-                (-71.13545827612205, -36.26848796999695))
+# The cap's +X points toward enclosure fore. These zero-clearance stations place
+# the rigid pump rear at the core rear; the shared clearance moves pump and all
+# four printed mount axes fore together. pump_mount_rows checks their alignment.
+CAP_MOUNT_XY = tuple((x + REAR_CLEARANCE, y) for x, y in (
+    (-109.13545827612205, 40.58788185569069),
+    (-109.13545827612205, -36.70985685897666),
+    (-71.13545827612205, 41.32456561223638),
+    (-71.13545827612205, -36.26848796999695)))
 
 parameters = envelope.parameters
 port = envelope.port
@@ -126,6 +129,43 @@ def feet_shapes(carry=None):
     if carry is not None:
         parts = {name: shape.moved(carry.where) for name, shape in parts.items()}
     return parts
+
+
+def cap_bearing_contact_parts(carry, cap_plane_z):
+    """Placed rigid pump plus four exact free-rubber masks below its cap plane.
+
+    These masks classify only the observed unloaded foot envelope where it bears
+    on the flat lid. They are not material/compression models. A collision checker
+    must still test the rigid pump against the cap and retain every overlap not
+    inside these masks; the complete pump remains in all other neighbor checks.
+    """
+    point, axis = carry(bearing_datum())
+    if abs(point[2] - cap_plane_z) > 1e-6:
+        raise ValueError('G Ganen bearing datum is not on the independent cap plane')
+    if max(abs(a - b) for a, b in zip(axis, (0., 0., 1.))) > 1e-7:
+        raise ValueError('G Ganen bearing masks require the installed upright Z axis')
+    parts = build_parts()
+    expected = {name + '_observed_rubber_slider_envelope' for name in SELECTED_SLIDER_X}
+    foot_names = {name for name in parts if 'rubber_slider' in name}
+    if foot_names != expected or len(expected) != 4:
+        raise ValueError('G Ganen bearing masks require exactly the four named stock feet')
+    rigid = cq.Compound.makeCompound([
+        shape.moved(carry.where) for name, shape in parts.items() if name not in foot_names])
+    masks = {}
+    for name in sorted(expected):
+        foot = parts[name].moved(carry.where)
+        b = foot.BoundingBox()
+        if b.zmin >= cap_plane_z:
+            masks[name] = cq.Compound.makeCompound([])
+            continue
+        # No extension above the independently located lid plane. The small
+        # sideways/bottom extension belongs to the cutter, not the returned mask.
+        eps = 1e-5
+        slab = cq.Solid.makeBox(b.xlen + 2*eps, b.ylen + 2*eps,
+                                cap_plane_z - b.zmin + eps,
+                                cq.Vector(b.xmin-eps, b.ymin-eps, b.zmin-eps))
+        masks[name] = foot.intersect(slab)
+    return rigid, masks
 
 
 def build():

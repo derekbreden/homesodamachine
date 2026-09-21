@@ -1,0 +1,149 @@
+{
+  "scope": "Bounded intersection audit of materialized Kamoer holder/cap and G Ganen contact. Native B-reps are inputs; zero-overlap readings use the production Manifold mesh intersection or disjoint native bounding boxes, not a universal exact OCC distance proof.",
+  "raw_probe_sha256": "c61a9cea24086a4b02caf63d2e5eab86b2953f2771764ef7cbc0fbbc2a427290",
+  "input_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "e2a469b88255a23265b1f0a2c249a3769fb19c08882432ccad75a7264cadd83c",
+    "/tmp/scanner-review/integration-correction/route-pack/frames.json": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "04e77f4a7fd292444655a3ea4fdf2a79ca628ca22a4c4da34ce8e968a9e40aea",
+    "/tmp/scanner-review/integration-correction/route-pack/pump-a-head.brep": "6c29cbeac753a98682aa76aca00d63619a91fa3eca7a82d525ff0783d753c71e",
+    "/tmp/scanner-review/integration-correction/route-pack/pump-a-boss.brep": "99297a3063bcdca7f6bc648d551d597dc8745bf303e83adf044a48a7cb0f8fa6",
+    "/tmp/scanner-review/integration-correction/route-pack/pump-a-motor.brep": "00723c229401a1637b31fa7bbcc4da2151febcb2463926ba9f7a088a0ff97298",
+    "/tmp/scanner-review/integration-correction/route-pack/pump-b-head.brep": "5a0431609cdc7dc21bd5c42484af560f455967a4e363884f7a566d94150653f0",
+    "/tmp/scanner-review/integration-correction/route-pack/pump-b-boss.brep": "0cc52c942096454e7d6d6a921d77a93c838b05e0b26f4a70218e93d9ea958679",
+    "/tmp/scanner-review/integration-correction/route-pack/pump-b-motor.brep": "b79da41b4efd925e7e262b122efb31f41a75e38f98bcb91664e285b7c90af7bb",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "537930083b3bf8a248cb06b21dd5e1853253991f6a70b489766d9bef29a79d0a",
+    "/tmp/scanner-review/integration-correction/route-pack/g-ganen-pump.brep": "a6dcdcfa1fe66642e3e04708308248c5e3cc7ce0622b3e720593bb7618e6b95e",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "7ffd112745203620884174253b19f437d03b560381efbf8ec9a01de5167e82dc",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "368a6bcc159d4b407252cd9d765f36dbb9d4a2fe059997ce4249d8f45b864514",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "442b16664de704eff26a27d4a3b70f24c0014f3c2e1d7424192bef80efc51bbb"
+  },
+  "source_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure_assembly.py": "5fef572a1535ceb4f724eb62a20abd28a8f4f78e5e3a56b59e050641481b120d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure.py": "6e97e190ee942b737a7d2c0a33d306816ee3be6bfe0a6c6e41f4dba7f56cc5f3",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029"
+  },
+  "readings": [
+    {
+      "name": "pump-a-head cartridge",
+      "overlap_mm3": -7.993605777301127e-15,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-a-head cap",
+      "overlap_mm3": 0,
+      "method": "disjoint native bounding boxes"
+    },
+    {
+      "name": "pump-a-boss cartridge",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-a-boss cap",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-a-motor cartridge",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-a-motor cap",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-b-head cartridge",
+      "overlap_mm3": -4.440892098500626e-15,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-b-head cap",
+      "overlap_mm3": 0,
+      "method": "disjoint native bounding boxes"
+    },
+    {
+      "name": "pump-b-boss cartridge",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-b-boss cap",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-b-motor cartridge",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "pump-b-motor cap",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "G-pump enclosure-back-top",
+      "overlap_mm3": 0.0,
+      "overlap_bounds": null
+    },
+    {
+      "name": "G-pump enclosure-back-bottom",
+      "overlap_mm3": 0,
+      "method": "disjoint native bounding boxes"
+    },
+    {
+      "name": "G-pump enclosure-front-top",
+      "overlap_mm3": 0,
+      "method": "disjoint native bounding boxes"
+    },
+    {
+      "name": "G-pump enclosure-front-bottom",
+      "overlap_mm3": 0,
+      "method": "disjoint native bounding boxes"
+    }
+  ],
+  "g_pump": {
+    "origin": [
+      2.071135151941995,
+      374.235458276122,
+      253.4
+    ],
+    "source_expected_y": 374.235458276122,
+    "source_expected_z": 253.4,
+    "classification": {
+      "rigid_overlap_mm3": 0.0,
+      "free_foot_contact_mm3": 722.1568477749382,
+      "outside_contact_masks_mm3": 5.474768890024533e-05,
+      "feet": [
+        "head_yminus_observed_rubber_slider_envelope",
+        "head_yplus_observed_rubber_slider_envelope",
+        "rear_yminus_observed_rubber_slider_envelope",
+        "rear_yplus_observed_rubber_slider_envelope"
+      ],
+      "pass": true
+    }
+  },
+  "stable_inputs_at_probe": true,
+  "stable_sources_at_probe": true,
+  "artifact_hash_matches_at_packaging": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": false,
+    "/tmp/scanner-review/integration-correction/route-pack/frames.json": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": true,
+    "/tmp/scanner-review/integration-correction/route-pack/pump-a-head.brep": true,
+    "/tmp/scanner-review/integration-correction/route-pack/pump-a-boss.brep": true,
+    "/tmp/scanner-review/integration-correction/route-pack/pump-a-motor.brep": true,
+    "/tmp/scanner-review/integration-correction/route-pack/pump-b-head.brep": true,
+    "/tmp/scanner-review/integration-correction/route-pack/pump-b-boss.brep": true,
+    "/tmp/scanner-review/integration-correction/route-pack/pump-b-motor.brep": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": true,
+    "/tmp/scanner-review/integration-correction/route-pack/g-ganen-pump.brep": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": false,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": false
+  },
+  "physical_limits": "No inference of clamp force, rubber compression, pump retention force or full enclosure assembly acceptance."
+}

@@ -1031,6 +1031,31 @@ def _bounds(a) -> list:
 _clash_cache: dict = {}
 
 
+def pump_cap_contact(a, bodies) -> dict:
+    """Read only the four unloaded rubber feet's contact with their cap plane.
+
+    The whole pump remains an obstacle to every other part. Here its rigid body
+    must clear the core, and any common material outside the four individually
+    clipped foot envelopes is still an interference.
+    """
+    import enclosure_assembly as ea
+    import g_ganen_installation as pump
+    import _meshes
+
+    foam = bodies["foam-assembly"]
+    rigid, masks = pump.cap_bearing_contact_parts(
+        a.carries["g-ganen-pump"], ea.cap_face(foam))
+    rigid_volume = _overlap.volume(rigid, foam)
+    remaining, total = _overlap.common(bodies["g-ganen-pump"], foam)
+    for mask in masks.values():
+        if mask.Solids():
+            remaining = remaining - _meshes.meshed(mask)
+    excess = remaining.volume()
+    return {"rigid_overlap_mm3": rigid_volume, "free_foot_contact_mm3": total,
+            "outside_contact_masks_mm3": excess, "feet": sorted(masks),
+            "pass": max(rigid_volume, excess) <= _clearing.HIT_VOL}
+
+
 def pack_clashes(a) -> tuple:
     """The one exact pairwise-clash reading for an assembled machine.
 
@@ -1045,7 +1070,19 @@ def pack_clashes(a) -> tuple:
     if hit is not None and hit[0] is a:
         return hit[1]
     bodies, tubes, pieces = _split_placed(a)
-    result = ml.clashes(a, bodies={**bodies, **tubes, **pieces})
+    bad, unanswered = ml.clashes(a, bodies={**bodies, **tubes, **pieces})
+    bearing_pair = frozenset(("g-ganen-pump", "foam-assembly"))
+    if any(frozenset((hit.a, hit.b)) == bearing_pair for hit in bad):
+        try:
+            reading = pump_cap_contact(a, bodies)
+            a.pump_cap_contact_reading = reading
+            if reading["pass"]:
+                bad = [hit for hit in bad
+                       if frozenset((hit.a, hit.b)) != bearing_pair]
+        except Exception as exc:
+            unanswered.append(("g-ganen-pump", "foam-assembly",
+                               "rubber foot contact: " + str(exc).splitlines()[0]))
+    result = bad, unanswered
     _clash_cache[id(a)] = (a, result)
     return result
 
@@ -1054,8 +1091,14 @@ def _pack_closes(a) -> Check:
     bad, unanswered = pack_clashes(a)
     detail = [f"{c.a} ∩ {c.b}   {c.volume:.1f} mm³, {c.where}" for c in bad]
     detail += [f"{ni} ? {nj}   {why}" for ni, nj, why in unanswered]
+    if reading := getattr(a, "pump_cap_contact_reading", None):
+        detail.append(
+            f"G Ganen cap bearing: {len(reading['feet'])} named free-rubber foot envelopes; "
+            f"{reading['free_foot_contact_mm3']:.3f} mm³ contact, "
+            f"{reading['rigid_overlap_mm3']:.6f} mm³ rigid interference, "
+            f"{reading['outside_contact_masks_mm3']:.6f} mm³ outside the contact masks")
     return Check("pack-closes", "No two solids overlap (pack closes)", "gate",
-                 verdict(not detail), f"{len(bad)} clash, {len(unanswered)} unanswered",
+                 verdict(not bad and not unanswered), f"{len(bad)} clash, {len(unanswered)} unanswered",
                  "0 clash, 0 unanswered", detail)
 
 
@@ -1988,11 +2031,13 @@ def selftest() -> int:
     assembly = _Assembly()
     calls = 0
     real_clashes = ml.clashes
+    held = ml.Clash("fixture-a", "fixture-b", 2.0,
+                    ml.Extents(0., 0., 0., 1., 1., 2.))
 
     def counted_clashes(got, **_kwargs):
         nonlocal calls
         calls += 1
-        return (["held"], [])
+        return ([held], [])
 
     _clash_cache.clear()
     ml.clashes = counted_clashes
@@ -2003,7 +2048,7 @@ def selftest() -> int:
         ml.clashes = real_clashes
         _clash_cache.clear()
     check("the report and card share one exact clash reading",
-          calls == 1 and first is second and first == (["held"], []),
+          calls == 1 and first is second and first == ([held], []),
           f"{calls} calls, {first!r}, {second!r}")
 
     # Every `how` the pack states, through the card's own renaming, must land on a name in

@@ -276,7 +276,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # Both are struck at THIS pitch from a datum on the same x = 0, so their phase remains the
 # machine's phase inside as it is outside. `flute_rails` is where the box says which runs it
 # has, and `flute_skin.py` reads nothing else about either of them.
-flute_count = 260
+flute_count = 262
 # THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
 flute_depth = _interface.flute_depth
@@ -438,7 +438,7 @@ display_loom_x_offset = 32.0
 pump_jack_clip_edge_land = 12.0
 # AND THE FLANK CARRIES THE REST OF THAT RUN. What the ridge clip guides toward +X turns the
 # corner onto front-top's own +X face and runs aft to the main-board wall, so that face takes the
-# same unembedded clip, standing off the plane `front_top_flank_t` leaves.
+# same complete clip profile embedded in the section `front_top_flank_t` provides.
 #
 # THEY STAND IN THE Y+ HALF OF THAT FACE, WHICH IS THE HALF THAT IS CLEAR. The +X Wago tower
 # stands its own engagement off `interior_x` and reaches into this face's air over its Y band,
@@ -447,6 +447,7 @@ pump_jack_clip_edge_land = 12.0
 # the clip's full run. Stated as `(y0, run)` each, in the flank's own +Y order.
 flank_clip_stations = ((137.0, _cable_clip.RUN),
                        (179.0, _cable_clip.RUN))
+flank_clip_embed = 1.2
 display_cover_thickness = _interface.display_cover_thickness
 display_cover_slip = _interface.display_cover_slip
 
@@ -1032,7 +1033,7 @@ def piece_root_faces(inner, y_side, z_side):
 # component dragged forward inside the machine does not make the machine shallower,
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
-rear_plane_y = 464.0
+rear_plane_y = _interface.rear_plane_y
 # --- back-top's own +Y section ------------------------------------------------
 #
 # THE +Y WALL IS ALREADY TWO WALLS THICK WHERE IT IS A BOTTOM PIECE. `_lip_underwall` carries
@@ -1041,8 +1042,8 @@ rear_plane_y = 464.0
 # is what makes the two agree: one section for the whole back of the machine.
 #
 # IT IS TAKEN INWARD, off `rear_plane_y`, and 6 is the whole of what there is. The cold core and
-# the water pump both end at y 461.00 and the PSU at 460.50, so the room behind them is exactly
-# `rear_seam_clear` — which is the standoff this wall was given in the first place, and which
+# the water pump follow the rear datum, so the room behind the core is exactly
+# `rear_seam_clear` — the standoff this wall was given in the first place, and which
 # back-bottom already spends. A seventh millimetre is a wall drawn through the core.
 back_top_wall_t = 6.0
 # AND ONE STATION CANNOT AFFORD IT. What clamps a rear-wall fitting is its own bare barrel
@@ -1735,6 +1736,8 @@ def documented(box):
 #   flank_reliefs  named clearance pockets in back-top's west flank, one
 #                 `(name, x0, x1, y0, y1, z0, z1)` from the intruding body. The pocket
 #                 keeps the nominal wall; its print-down edge has a 45-degree return.
+#   front_flank_reliefs  the same world-box fields for the two outer valve-coil
+#                 yokes in front-top, with a 45-degree roof in its +Z print direction.
 #   port_field    the pockets the +Y wall of back-top's outer face carries and the nut lands
 #                 behind them, (proud, rim, pockets) — how deep a pocket is cut and how far a
 #                 relieved station's retained land stands inboard, the wall the field keeps
@@ -1774,7 +1777,8 @@ Pack = namedtuple(
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
             "flank_reliefs port_field nameplate keystone "
-            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate tee_carrier")
+            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate tee_carrier "
+            "front_flank_reliefs")
 Pack.__new__.__defaults__ = (
     (),             # front_ports
     (),             # back_ports
@@ -1806,6 +1810,7 @@ Pack.__new__.__defaults__ = (
     (),             # vent_chase
     None,           # collet_plate
     None,           # tee_carrier
+    (),             # front_flank_reliefs
 )
 
 
@@ -5022,6 +5027,22 @@ def _flank_body_pockets(piece, pockets):
     return piece
 
 
+def _front_top_flank_pockets(piece, pockets):
+    """Shallow native-yoke pockets with complete wall stock and 45-degree roofs."""
+    for name, x0, x1, y0, y1, z0, z1 in pockets:
+        side = 1.0 if x0 + x1 > 0.0 else -1.0
+        face, floor = sorted((abs(x0), abs(x1)))
+        depth = floor - face
+        remaining = appliance_width / 2.0 - floor - _interface.flute_depth
+        if remaining < wall - stated_bound_tol:
+            raise ValueError(f"{name} flank pocket leaves only {remaining:g} mm behind fluting")
+        piece = piece.cut(_xz_prism(y0, y1, [
+            (side * (face - 1.0), z0), (side * floor, z0),
+            (side * floor, z1), (side * (face - 1.0), z1 + depth + 1.0),
+        ]))
+    return piece
+
+
 def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     """THE SECTION BACK-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`back_top_flank_t`). Fused before any of this piece's flank furniture, so the Wago wells,
@@ -5862,7 +5883,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
 
 def _flank_cable_clips(piece, box):
     """The +X flank's share of the run the ridge clip starts — `flank_clip_stations`, each the
-    same unembedded clip, standing on front-top's own flank face and running aft.
+    complete clip profile, embedded into front-top's flank and running aft.
 
     WHAT SETS THEIR HEIGHT IS THE SEAM COLLAR'S OWN 45°. The upper Y-seam socket stands on a web
     that falls at 45° off the collar's floor to the lip face (`_front_socket`), and the clip
@@ -5883,7 +5904,7 @@ def _flank_cable_clips(piece, box):
     are checked rather than assumed."""
     plate = box.pack.collet_plate
     fx = front_top_flank_face()[1]
-    z_origin = _seam_web_at(box, fx) - _cable_clip.channel_mouth()
+    z_origin = _seam_web_at(box, fx + flank_clip_embed) - _cable_clip.channel_mouth()
     z_band = (z_origin, z_origin + _cable_clip.HEIGHT)
     corner = plate["aft_y"] + ridge_wall_t + _cable_clip.DEPTH
     towers = [(st[1] - wago_half(st[3])[0], st[1] + wago_half(st[3])[0],
@@ -5908,7 +5929,7 @@ def _flank_cable_clips(piece, box):
             origin=(fx, y0, z_origin),
             outward=(-1.0, 0.0, 0.0),
             along=(0.0, 1.0, 0.0),
-            embed=0.0,
+            embed=flank_clip_embed,
             wall_thickness=front_top_flank_t,
             run=run,
         ).val()
@@ -9031,6 +9052,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # those access volumes cannot erase their measured capture surfaces.
         for cup in _tee_carrier_fixed_cups(box.pack.tee_carrier):
             piece = piece.fuse(cup)
+        piece = _front_top_flank_pockets(piece, box.pack.front_flank_reliefs)
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box, up=up)

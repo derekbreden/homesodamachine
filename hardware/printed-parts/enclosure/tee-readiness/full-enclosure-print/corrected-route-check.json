@@ -1,0 +1,364 @@
+{
+  "scope": "Current source authored pack routes against corrected fixed inner bodies, exact source split/regulator, lowered Flavor-B and corrected cap lid. Canonical full regenerated shell clearance remains separate.",
+  "sources": {
+    "hardware/manifold-layout/enclosure_assembly.py": "5fef572a1535ceb4f724eb62a20abd28a8f4f78e5e3a56b59e050641481b120d",
+    "hardware/manifold-layout/_lines.py": "2d5e9bf4e274b7dddf2e1cb7be9c22d13e92cd1aaf2b64db3d34b718b95415ce",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "b94b1c78cab4e1e5d07315a7fc613d236a81ee23d5d85e3e54f71c3586c69029"
+  },
+  "routes": [
+    {
+      "id": "water-2",
+      "pts": [
+        [
+          -78.07,
+          306.51,
+          336.2105808375568
+        ],
+        [
+          -78.07,
+          294.51,
+          336.2105808375568
+        ],
+        [
+          -91.35,
+          285.76,
+          294.0105808375568
+        ],
+        [
+          -91.35,
+          264.51,
+          294.0105808375568
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "near": [],
+      "native_valid": true,
+      "pass": true
+    },
+    {
+      "id": "fluid-1",
+      "pts": [
+        [
+          -91.35,
+          222.01,
+          294.0105808375568
+        ],
+        [
+          -91.35,
+          206.26,
+          294.0105808375568
+        ],
+        [
+          -91.35,
+          206.26,
+          322.0105808375568
+        ],
+        [
+          -91.35,
+          220.26,
+          322.0105808375568
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "near": [],
+      "native_valid": true,
+      "pass": true
+    },
+    {
+      "id": "water-3",
+      "pts": [
+        [
+          -91.35,
+          243.26,
+          271.6605808375568
+        ],
+        [
+          -91.35,
+          243.26,
+          256.50000009999997
+        ],
+        [
+          -94.0,
+          226.3,
+          256.50000009999997
+        ],
+        [
+          -94.0,
+          180.8,
+          261.00000009999997
+        ],
+        [
+          -30.0,
+          180.8,
+          261.00000009999997
+        ],
+        [
+          -22.0,
+          184.3,
+          261.00000009999997
+        ],
+        [
+          -5.5,
+          184.3,
+          261.00000009999997
+        ],
+        [
+          20.0,
+          180.8,
+          261.00000009999997
+        ],
+        [
+          65.05000000697481,
+          164.0,
+          268.1000001
+        ],
+        [
+          65.05000000697481,
+          199.77999999999997,
+          268.1000001
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "near": [
+        {
+          "name": "current-cap-lid",
+          "air_mm": 0.1490445846500169,
+          "native_air_mm": 0.1499999999999406,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 0.0,
+          "seat_scope": "Purpose-built water3 cap bearing; free first bend checked separately"
+        },
+        {
+          "name": "tube-fluid-26",
+          "air_mm": 1.7512054443359375,
+          "native_air_mm": 1.7500000011244574,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        }
+      ],
+      "native_valid": true,
+      "pass": true
+    },
+    {
+      "id": "fluid-2",
+      "pts": [
+        [
+          -91.35,
+          266.26,
+          322.0105808375568
+        ],
+        [
+          -91.35,
+          281.26,
+          322.0105808375568
+        ],
+        [
+          -48.16,
+          281.26,
+          322.0105808375568
+        ],
+        [
+          -48.16,
+          278.46,
+          289.0
+        ],
+        [
+          -16.35,
+          278.46,
+          289.0
+        ],
+        [
+          24.770000000000003,
+          278.46,
+          269.6750001
+        ],
+        [
+          24.770000000000003,
+          259.46,
+          269.6750001
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "near": [],
+      "native_valid": true,
+      "pass": true
+    },
+    {
+      "id": "fluid-28",
+      "pts": [
+        [
+          -73.82,
+          166.23999999999998,
+          229.67500009999998
+        ],
+        [
+          -73.82,
+          166.23999999999998,
+          270.5740001
+        ],
+        [
+          -78.07,
+          186.14,
+          270.5740001
+        ],
+        [
+          -78.07,
+          393.0,
+          270.5740001
+        ],
+        [
+          -78.07,
+          413.0,
+          269.02400009999997
+        ],
+        [
+          -78.07,
+          446.51,
+          269.02400009999997
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "near": [],
+      "native_valid": true,
+      "pass": true
+    },
+    {
+      "id": "fluid-24",
+      "pts": [
+        [
+          -82.1,
+          105.29,
+          282.1750001
+        ],
+        [
+          -81.5,
+          105.29,
+          296.1750001
+        ],
+        [
+          -81.5,
+          170.0,
+          296.1750001
+        ],
+        [
+          -43.499999993025185,
+          192.0,
+          296.1750001
+        ],
+        [
+          -43.499999993025185,
+          233.29999999999995,
+          296.1750001
+        ],
+        [
+          -43.499999993025185,
+          233.29999999999995,
+          253.4000001
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 2.454031674526884,
+      "near": [
+        {
+          "name": "valve-v-b",
+          "air_mm": 1.2250785827636719,
+          "native_air_mm": 1.2249999930252145,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        },
+        {
+          "name": "coil-v-b",
+          "air_mm": 1.2250785827636719,
+          "native_air_mm": 1.2249999930252145,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        },
+        {
+          "name": "wago-manb",
+          "air_mm": 1.1927670538817672,
+          "native_air_mm": 1.1928682851072525,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        },
+        {
+          "name": "current-cap-lid",
+          "air_mm": 1.4048219853630275,
+          "native_air_mm": 1.4086253702127567,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        },
+        {
+          "name": "tube-fluid-26",
+          "air_mm": 1.949607087613356,
+          "native_air_mm": 1.940702311008473,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        }
+      ],
+      "native_valid": true,
+      "pass": true
+    },
+    {
+      "id": "fluid-16",
+      "pts": [
+        [
+          43.500000006974815,
+          188.89999999999995,
+          253.4000001
+        ],
+        [
+          43.500000006974815,
+          188.89999999999995,
+          281.15
+        ],
+        [
+          22.35,
+          105.29,
+          299.6750001
+        ],
+        [
+          22.35,
+          105.29,
+          282.1750001
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "exit_skew_degrees": 0.0,
+      "near": [
+        {
+          "name": "current-cap-lid",
+          "air_mm": 1.4051962476395046,
+          "native_air_mm": 1.4086253702127602,
+          "native_overlap_mm3": 0.0,
+          "required_air_mm": 1.0,
+          "seat_scope": null
+        }
+      ],
+      "native_valid": true,
+      "pass": true
+    }
+  ],
+  "blocked": {},
+  "water3_free_bend_foam_air_mm": 1.0486852613291795,
+  "split_free_lead": [
+    "foam-assembly",
+    18.260586941072404
+  ],
+  "flowreg_funnel_air_mm": 1.5402901427096007,
+  "all_pass": true,
+  "input_archive": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/corrected-route-inputs.zip",
+  "input_archive_sha256": "c77cbbbef2cb0b07c148001e81dd5ed8751aa72ce2898f6d527a4c22befc8e4c",
+  "reproducer_sha256": "31af4559df5a2b7aee569d8001421a066e5ab2047fa66d31adc75bacf68e662c"
+}
