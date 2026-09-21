@@ -1,0 +1,195 @@
+{
+  "schema": 1,
+  "status": "bounded_candidate_probes_preserved",
+  "final_geometry_qualified": false,
+  "print_released": false,
+  "scope": "Regulator/shared split-column candidate and fluid-1, fluid-2, water-2, water-3 probes against the completed assembly named by the recorded STEP digest. Separate fluid-14 proof is outside this package.",
+  "reference_assembly": {
+    "original_path": "hardware/manifold-layout/enclosure-assembly.step",
+    "sha256": "fdaddbd03976b6f843df4cd5059635640a75a0676a1c7ba2e893d8737acb37b3",
+    "binding": "Digest declared consistently by all three preserved JSON result files. The 93 MB STEP is not duplicated in this package.",
+    "final_corrected_assembly": false
+  },
+  "selected_candidate": {
+    "dx_from_then_current_column_mm": 1.5,
+    "regulator_aft_delta_mm": 0.0,
+    "final_regulator_roll_degrees": 30.0,
+    "shared_column_x_in_probe_mm": -89.85,
+    "clearance_results": [
+      {
+        "pair": [
+          "fluid-1",
+          "enclosure-front-top"
+        ],
+        "native_air_mm": 1.4865814439518832,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "flow-regulator",
+          "funnel"
+        ],
+        "native_air_mm": 1.5603131065662599,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "water-split",
+          "tube-fluid-28"
+        ],
+        "native_air_mm": 1.9626255991428767,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "water-3",
+          "tube-fluid-26"
+        ],
+        "native_air_mm": 1.7500000001485154,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "water-3",
+          "enclosure-front-top"
+        ],
+        "native_air_mm": 1.3250000000000028,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "water-3",
+          "enclosure-back-top"
+        ],
+        "native_air_mm": 1.3249999999999744,
+        "overlap_mm3": 0.0
+      }
+    ],
+    "regulator_inlet_lead": {
+      "requested_mm": 17.175,
+      "cast_return_mm": 17.175,
+      "hit_body": null,
+      "meaning": "The cast completed the full requested reach; this is not an unbounded clearance distance."
+    },
+    "connected_routes": [
+      {
+        "id": "fluid-1",
+        "minimum_radius_mm": 14.0,
+        "reported_neighbors": [
+          {
+            "name": "enclosure-front-top",
+            "mesh_gap": 1.4902390624954036,
+            "native_gap": 1.4865814439518832,
+            "overlap": 0.0
+          }
+        ]
+      },
+      {
+        "id": "fluid-2",
+        "minimum_radius_mm": 14.0,
+        "reported_neighbors": []
+      },
+      {
+        "id": "water-2",
+        "minimum_radius_mm": 14.0,
+        "reported_neighbors": []
+      },
+      {
+        "id": "water-3",
+        "minimum_radius_mm": 14.0,
+        "reported_neighbors": [
+          {
+            "name": "cold-core/foam-cap-lid-top",
+            "mesh_gap": 0.1490471070890793,
+            "native_gap": 0.14999991075683272,
+            "overlap": 0.0
+          },
+          {
+            "name": "tube-fluid-26",
+            "mesh_gap": 1.7509918212890625,
+            "native_gap": 1.7500000001485154,
+            "overlap": 0.0
+          },
+          {
+            "name": "enclosure-front-top",
+            "mesh_gap": 1.32501220703125,
+            "native_gap": 1.3250000000000028,
+            "overlap": 0.0
+          },
+          {
+            "name": "enclosure-back-top",
+            "mesh_gap": 1.32501220703125,
+            "native_gap": 1.3249999999999744,
+            "overlap": 0.0
+          }
+        ]
+      }
+    ],
+    "route_blockages": {},
+    "screening_limit": "The scripts use enclosing boxes and a 2 mm mesh-gap screen before exact native distances for reported near pairs. An empty neighbor list is not a measured exact global minimum.",
+    "seat_readings": [
+      {
+        "pair": [
+          "water-split",
+          "enclosure-back-top"
+        ],
+        "native_air_mm": 0.28287759199004425,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "flow-regulator",
+          "enclosure-back-top"
+        ],
+        "native_air_mm": 0.14999999999997726,
+        "overlap_mm3": 0.0
+      },
+      {
+        "pair": [
+          "water-3",
+          "cold-core/foam-cap-lid-top"
+        ],
+        "native_air_mm": 0.14999991075683272,
+        "overlap_mm3": 0.0
+      }
+    ],
+    "seat_reading_scope": "These close anchor/bearing readings are preserved separately, not treated as proof of a 1 mm unrelated-neighbor gap. Final regenerated anchors, seating classification and whole-assembly gates remain authoritative."
+  },
+  "rejected_candidate": {
+    "dx_mm": 0.0,
+    "regulator_aft_delta_mm": 10.0,
+    "roll_degrees": 25.0,
+    "reason": "The connected native fluid-2 and water-2 tubes intersect.",
+    "intersecting_routes": [
+      "fluid-2",
+      "water-2"
+    ],
+    "overlap_mm3": 152.68459848638565,
+    "secondary_frozen_shell_observation": "regulator-options.json also records 59.574644 mm3 flow-regulator/back-top overlap against the then-current shell."
+  },
+  "frame_provenance": {
+    "result_log": "raw/connected-routes-verified-frames.log",
+    "result_matches_verified_log_exactly": true,
+    "published_port_subset_source": "Then-current enclosure-assembly.facts.json card_ports",
+    "valve_ports": "Retained valve-v-a/b ports translated only after both corresponding translated native bodies proved zero added and missing volume against the completed assembly.",
+    "port_table": "raw/current-ports.json",
+    "earlier_log": "raw/connected-routes.log",
+    "earlier_log_scope": "Preserved intermediate execution with 28 reported frames. The verified execution with 11 frames and explicit valve native-equality checks binds connected-routes.json."
+  },
+  "execution_limits": [
+    "These are bounded exploration records, not the final corrected whole-assembly result or a print release.",
+    "The scripts read live repository modules and canonical STEP/facts paths. Their complete imported-source closure was not recorded in the result JSON.",
+    "dx is added to the SPLIT_COLUMN loaded at execution. The production source now already contains the selected +1.5 mm inboard offset; blindly rerunning these scripts would apply that delta again.",
+    "The archived .py.txt files preserve original bytes and are evidence only. Reproduction requires restoring their recorded assembly and matching then-current source/retained inputs, or writing a separately bound absolute-pose check for current sources.",
+    "No CAD or native queries were executed while packaging. No result has been promoted to final qualification."
+  ],
+  "source_state_at_packaging": {
+    "path": "hardware/manifold-layout/enclosure_assembly.py",
+    "sha256": "17af11ac85bff019783ccf1c50fecb83b40ff44bcc55007559b64cd042e63226",
+    "meaning": "Interpretation context only, not the historical probe import closure.",
+    "selected_offset_expression": "SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP + 1.5",
+    "selected_roll_degrees": 30.0
+  },
+  "manifest": "artifact-manifest.json",
+  "readiness_update_plan": "readiness-update-plan.md"
+}

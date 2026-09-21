@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -95,12 +95,11 @@
    "id": "port-leads",
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
-   "status": "fail",
-   "value": "66/67 clear",
+   "status": "pass",
+   "value": "67/67 clear",
    "target": "all clear",
    "detail": [
     "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
-    "flow-regulator.inlet: 7.71 mm to enclosure-front-top, needs 17.18",
     "asse1022-assembly.vent-tip: 7.25 mm to asse-drip-pan \u2014 opens to atmosphere, not gated"
    ],
    "active": true
@@ -109,13 +108,11 @@
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 under, tightest 0.491 mm",
+   "status": "pass",
+   "value": "0 under, tightest 1.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "fluid-1 \u2014 enclosure-front-top: 0.491 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-14 \u2014 valve-v-a: 0.882 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -160,6 +157,7 @@
     "g-ganen-pump \u2014 nameplate: 1.000 mm",
     "fluid-18 \u2014 g-ganen-pump: 1.048 mm",
     "fluid-18 \u2014 enclosure-front-top: 1.050 mm",
+    "fluid-14 \u2014 valve-v-a: 1.075 mm",
     "carb-1 \u2014 suction-chain: 1.114 mm",
     "fluid-14 \u2014 vk-solenoid: 1.125 mm",
     "fluid-24 \u2014 wago-manb: 1.193 mm",
@@ -176,7 +174,8 @@
     "water-7 \u2014 fluid-14: 1.370 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
     "carb-1 \u2014 pcba: 1.453 mm",
-    "flow-regulator \u2014 funnel: 1.543 mm",
+    "fluid-1 \u2014 enclosure-front-top: 1.490 mm",
+    "flow-regulator \u2014 funnel: 1.562 mm",
     "co2-inlet \u2014 bulkhead-ring-co2-word: 1.571 mm",
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
@@ -188,7 +187,8 @@
     "co2-1 \u2014 enclosure-back-top: 1.904 mm",
     "fluid-18 \u2014 pcba: 1.908 mm",
     "keystone-jack \u2014 bulkhead-ring-carb: 1.941 mm",
-    "fluid-24 \u2014 fluid-26: 1.950 mm"
+    "fluid-24 \u2014 fluid-26: 1.950 mm",
+    "fluid-28 \u2014 water-split: 1.965 mm"
    ],
    "active": true
   },
@@ -835,7 +835,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "pass",
-   "value": "40 print-down slope(s): 28 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns",
+   "value": "39 print-down slope(s): 27 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
    "active": false
