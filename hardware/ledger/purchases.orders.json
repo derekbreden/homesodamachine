@@ -1,14 +1,36 @@
 {
   "_meta": {
-    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-19; latest invoice and shipment-banner verification 2026-09-19 (the 3P and 5P 22 AWG ribbon spools, and the two 2026-09-02 ruthex insert orders); the 2026-09-19 Revopoint AB6 order read from its own invoice, and the 2026-09-16 MINI 2 and AESUB Orange orders confirmed delivered 2026-09-18, all verified 2026-09-19",
-    "orders": 366,
-    "ordered/total": "ordered present for all 360; total present for 365 — the three cancelled orders were never charged",
+    "source": "amazon.com order history, year-2026 filter: full scrape 2026-08-15 plus individually verified orders through 2026-09-21. The 2026-09-21 walk read the list pages back to 2026-08-27 and opened the invoices for the three orders no earlier pass held — 112-7997113-5902601 (PET-GF15 Dark Grey), 114-4531838-9243459 (two DUROZZLE 0.4 PCD) and 112-4818896-3446652 (the single ASVPP1LF) — plus the cancelled 114-8422321-4073051",
+    "orders": 374,
+    "ordered/total": "ordered present for all 374; total absent only on the four cancelled orders, which were never charged",
     "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 × 60, M3 × 20 and the three washer ODs) read from their own invoices",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation, the four orders verified individually on 2026-08-29 and 2026-08-31, and the four invoices opened during the 2026-09-02 update, the M5 × 50 invoice verified 2026-09-08, and the two DUROZZLE 0.4 PCD invoices opened 2026-09-11; not scraped for the rest; the September 13 sensor and September 15 jet/pump invoices verified 2026-09-16, and the five September 16 orders (two spring, three filament) read from their own invoices; the September 16 Revopoint MINI 2 and AESUB Orange orders read from their own invoices; the two September 17 BNTECHGO ribbon orders read from their own invoices; the five September 18 fastener orders (M3 × 60, M3 × 20 and the three washer ODs) read from their own invoices; the 2026-09-21 walk added the PET-GF15 Dark Grey, the two-nozzle DUROZZLE and the single ASVPP1LF invoices",
     "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
     "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
   },
   "orders": {
+    "112-7997113-5902601": {
+      "ordered": "2026-09-21",
+      "subtotal": 29.99,
+      "shipping": 0.0,
+      "tax": 2.17,
+      "total": 32.16,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-21",
+      "expected_delivery": "2026-09-22"
+    },
+    "114-4531838-9243459": {
+      "ordered": "2026-09-20",
+      "subtotal": 119.8,
+      "shipping": 0.0,
+      "tax": 8.68,
+      "total": 128.48,
+      "in_transit": true,
+      "project": true,
+      "verified": "2026-09-21",
+      "expected_delivery": "2026-09-25"
+    },
     "114-1317201-9708267": {
       "ordered": "2026-09-19",
       "subtotal": 71.98,
@@ -22,85 +44,106 @@
     },
     "112-4339967-8873055": {
       "ordered": "2026-09-18",
+      "delivered": "2026-09-20",
       "subtotal": 8.39,
       "shipping": 0.0,
       "tax": 0.61,
       "total": 9.0,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-19",
-      "expected_delivery": "2026-09-20",
       "tax_estimated": true
     },
     "112-4954529-1422668": {
       "ordered": "2026-09-18",
+      "delivered": "2026-09-19",
       "subtotal": 7.29,
       "shipping": 0.0,
       "tax": 0.53,
       "total": 7.82,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-19",
-      "expected_delivery": "2026-09-20",
       "tax_estimated": true
     },
     "112-5107616-8144245": {
       "ordered": "2026-09-18",
+      "delivered": "2026-09-19",
       "subtotal": 9.49,
       "shipping": 0.0,
       "tax": 0.69,
       "total": 10.18,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-18",
-      "expected_delivery": "2026-09-20",
       "tax_estimated": true
     },
     "112-0416491-0117835": {
       "ordered": "2026-09-18",
+      "delivered": "2026-09-20",
       "subtotal": 7.59,
       "shipping": 0.0,
       "tax": 0.55,
       "total": 8.14,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-18",
-      "expected_delivery": "2026-09-20",
       "tax_estimated": true
     },
     "112-2270140-6656239": {
       "ordered": "2026-09-18",
+      "delivered": "2026-09-19",
       "subtotal": 5.99,
       "shipping": 0.0,
       "tax": 0.43,
       "total": 6.42,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-18",
-      "expected_delivery": "2026-09-20",
       "tax_estimated": true
+    },
+    "114-8422321-4073051": {
+      "ordered": "2026-09-17",
+      "total": null,
+      "cancelled": true,
+      "project": false,
+      "why": "cancelled"
+    },
+    "114-7198036-9138622": {
+      "ordered": "2026-09-17",
+      "delivered": "2026-09-18",
+      "total": 12.83,
+      "project": false,
+      "why": "pet"
     },
     "112-4810974-5145053": {
       "ordered": "2026-09-17",
+      "delivered": "2026-09-20",
       "subtotal": 18.98,
       "shipping": 0.0,
       "tax": 1.38,
       "total": 20.36,
-      "in_transit": true,
       "project": true,
-      "verified": "2026-09-18",
-      "expected_delivery": "2026-09-20"
+      "verified": "2026-09-18"
     },
     "112-3585791-4776226": {
       "ordered": "2026-09-17",
+      "delivered": "2026-09-21",
       "subtotal": 28.98,
       "shipping": 0.0,
       "tax": 2.1,
       "total": 31.08,
-      "in_transit": true,
       "project": true,
-      "verified": "2026-09-18",
-      "expected_delivery": "2026-09-20"
+      "verified": "2026-09-18"
+    },
+    "114-2551277-2871444": {
+      "ordered": "2026-09-16",
+      "delivered": "2026-09-17",
+      "total": 40.73,
+      "project": false,
+      "why": "pet"
+    },
+    "114-3261412-1747452": {
+      "ordered": "2026-09-16",
+      "delivered": "2026-09-17",
+      "total": 23.58,
+      "project": false,
+      "why": "pet"
     },
     "112-3768552-7755445": {
       "ordered": "2026-09-16",
@@ -124,71 +167,66 @@
     },
     "112-3782386-8113829": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-20",
       "subtotal": 10.38,
       "shipping": 0.0,
       "tax": 0.76,
       "total": 11.14,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
-      "expected_delivery": "2026-09-20",
       "tax_estimated": true
     },
     "112-5383652-4465062": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-18",
       "subtotal": 8.89,
       "shipping": 0.0,
       "tax": 0.64,
       "total": 9.53,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
-      "expected_delivery": "2026-09-18",
       "tax_estimated": true
     },
     "112-9028685-5492269": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-17",
       "subtotal": 29.99,
       "shipping": 0.0,
       "tax": 2.17,
       "total": 32.16,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
-      "expected_delivery": "2026-09-17",
       "tax_estimated": true
     },
     "112-4443137-8148205": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-18",
       "subtotal": 29.99,
       "shipping": 0.0,
       "tax": 2.17,
       "total": 32.16,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
-      "expected_delivery": "2026-09-18",
       "tax_estimated": true
     },
     "112-5158473-3421830": {
       "ordered": "2026-09-16",
+      "delivered": "2026-09-17",
       "subtotal": 29.99,
       "shipping": 0.0,
       "tax": 2.17,
       "total": 32.16,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
-      "expected_delivery": "2026-09-17",
       "tax_estimated": true
     },
     "112-0884852-3444230": {
       "ordered": "2026-09-15",
+      "delivered": "2026-09-17",
       "subtotal": 99.82,
       "shipping": 0.0,
       "tax": 7.23,
       "total": 107.05,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
       "tax_estimated": true,
@@ -246,33 +284,42 @@
     },
     "112-0866672-6740231": {
       "ordered": "2026-09-13",
+      "delivered": "2026-09-16",
       "subtotal": 7.69,
       "shipping": 0.0,
       "tax": 0.56,
       "total": 8.25,
-      "in_transit": true,
       "project": true,
       "verified": "2026-09-16",
-      "expected_delivery": "2026-09-16",
       "tax_estimated": true
     },
     "112-7339165-9617019": {
       "ordered": "2026-09-11",
+      "delivered": "2026-09-12",
       "subtotal": 59.9,
       "shipping": 0.0,
       "tax": 4.34,
       "total": 64.24,
-      "project": true,
-      "delivered": "2026-09-12"
+      "project": true
     },
     "112-4775870-3223436": {
       "ordered": "2026-09-11",
+      "delivered": "2026-09-15",
       "subtotal": 119.8,
       "shipping": 0.0,
       "tax": 8.68,
       "total": 128.48,
+      "project": true
+    },
+    "112-4818896-3446652": {
+      "ordered": "2026-09-08",
+      "delivered": "2026-09-09",
+      "subtotal": 15.28,
+      "shipping": 0.0,
+      "tax": 1.11,
+      "total": 16.39,
       "project": true,
-      "delivered": "2026-09-15"
+      "verified": "2026-09-21"
     },
     "112-6085763-5397009": {
       "ordered": "2026-09-08",
@@ -281,6 +328,19 @@
       "shipping": 0.0,
       "tax": 0.58,
       "total": 8.57,
+      "project": true
+    },
+    "114-8717442-6689060": {
+      "ordered": "2026-09-05",
+      "delivered": "2026-09-07",
+      "total": 15.37,
+      "project": null,
+      "why": "Crush Grape liquid water enhancer, B07QH7QSM4 — flavor-path stock or a household drink; Derek's call"
+    },
+    "112-1549259-6014618": {
+      "ordered": "2026-09-05",
+      "delivered": "2026-09-07",
+      "total": 24.65,
       "project": true
     },
     "112-6847774-7837033": {
@@ -303,9 +363,9 @@
     },
     "112-9248875-1573807": {
       "ordered": "2026-09-03",
+      "delivered": "2026-09-05",
       "total": 7.5,
-      "project": true,
-      "delivered": "2026-09-05"
+      "project": true
     },
     "112-6302698-6065059": {
       "ordered": "2026-09-02",
@@ -321,20 +381,20 @@
     },
     "112-1104114-3043411": {
       "ordered": "2026-09-02",
+      "delivered": "2026-09-05",
       "total": 10.71,
-      "in_transit": true,
       "project": true
     },
     "112-1967009-0797830": {
       "ordered": "2026-09-02",
+      "delivered": "2026-09-03",
       "total": 8.03,
-      "project": true,
-      "delivered": "2026-09-03"
+      "project": true
     },
     "112-6764112-7787443": {
       "ordered": "2026-09-02",
+      "delivered": "2026-09-03",
       "total": 21.74,
-      "in_transit": true,
       "project": true
     },
     "112-9132466-5487409": {
@@ -351,14 +411,14 @@
     },
     "112-6708194-8872235": {
       "ordered": "2026-09-02",
+      "delivered": "2026-09-05",
       "total": 9.64,
-      "in_transit": true,
       "project": true
     },
     "114-3955189-3937854": {
       "ordered": "2026-09-01",
+      "delivered": "2026-09-03",
       "total": 21.42,
-      "in_transit": true,
       "project": false,
       "why": "household"
     },
@@ -393,7 +453,7 @@
     },
     "112-8958234-5634623": {
       "ordered": "2026-08-29",
-      "delivered": "2026-09-01",
+      "delivered": "2026-08-30",
       "subtotal": 96.26,
       "shipping": 0.0,
       "tax": 6.98,
@@ -418,8 +478,8 @@
     },
     "112-3347068-4029052": {
       "ordered": "2026-08-28",
+      "delivered": "2026-08-30",
       "total": 273.69,
-      "in_transit": true,
       "project": true,
       "nonproject_amount": 28.95
     },
@@ -1906,11 +1966,11 @@
     },
     "112-7291284-7101059": {
       "ordered": "2026-04-13",
-      "total": 48.26,
-      "project": true,
       "subtotal": 45.0,
       "shipping": 2.99,
-      "tax": 3.26
+      "tax": 3.26,
+      "total": 48.26,
+      "project": true
     },
     "112-6216768-3197856": {
       "ordered": "2026-04-12",
@@ -1950,11 +2010,11 @@
     },
     "112-2273377-9628208": {
       "ordered": "2026-04-06",
-      "total": 383.85,
-      "project": true,
       "subtotal": 357.9,
       "shipping": 0.0,
-      "tax": 25.95
+      "tax": 25.95,
+      "total": 383.85,
+      "project": true
     },
     "114-9662555-0662608": {
       "ordered": "2026-04-05",
@@ -1983,11 +2043,11 @@
     },
     "114-2214596-3435404": {
       "ordered": "2026-03-22",
-      "total": 396.71,
-      "project": true,
       "subtotal": 369.89,
       "shipping": 0.0,
-      "tax": 26.82
+      "tax": 26.82,
+      "total": 396.71,
+      "project": true
     },
     "114-2813251-8225805": {
       "ordered": "2026-03-16",
@@ -2143,13 +2203,13 @@
     },
     "114-9620011-1329056": {
       "ordered": "2026-02-25",
+      "subtotal": 66.3,
+      "shipping": 2.99,
+      "tax": 4.8,
       "total": 71.1,
       "project": true,
       "nonproject_amount": 40.37,
-      "why_mixed": "also carried $37.64 of Jonathan Green grass seed (yard)",
-      "subtotal": 66.3,
-      "shipping": 2.99,
-      "tax": 4.8
+      "why_mixed": "also carried $37.64 of Jonathan Green grass seed (yard)"
     },
     "114-0429960-0635402": {
       "ordered": "2026-02-25",
@@ -2413,12 +2473,6 @@
       "total": 38.6,
       "project": false,
       "why": "household"
-    },
-    "112-1549259-6014618": {
-      "ordered": "2026-09-05",
-      "delivered": "2026-09-07",
-      "total": 24.65,
-      "project": true
     }
   }
 }
