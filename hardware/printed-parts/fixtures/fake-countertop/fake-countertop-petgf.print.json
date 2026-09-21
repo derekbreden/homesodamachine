@@ -2,7 +2,7 @@
   "project": "fake-countertop-petgf.3mf",
   "settings_source": "hardware/printed-parts/petgf.3mf",
   "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "settings_sha256": "f191d2812ef571f1b4e86b506071921b6ccb34c1374c4b1cbdc09d18e32f3116",
+  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
   "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
   "settings_changes": {
     "machine_start_gcode": {
@@ -53,7 +53,7 @@
   "printable_area_extruders": [
     0
   ],
-  "plate_border_mm": 15.0,
+  "plate_border_mm": 5.0,
   "plate_count": 1,
   "parts": [
     {
@@ -64,7 +64,7 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
-      "stl_sha256": "468383b97805ce1effdab23bee421912187cab24227093970fc184f69db19656",
+      "stl_sha256": "d1c6fe94e19db1ac8409d91f9b25462603c8054b3ea3d5151c7829a123fc15b6",
       "triangles": 84060,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
@@ -98,13 +98,13 @@
       ],
       "plate_bounds_mm": [
         [
-          15.0,
-          15.0,
+          5.0,
+          5.0,
           0.0
         ],
         [
-          310.0,
-          305.0,
+          320.0,
+          315.0,
           220.0
         ]
       ],
@@ -113,12 +113,8 @@
       "embedded_vertex_error_mm": 4.999947122996673e-10
     }
   ],
-  "project_sha256": "5b6326f43d845f611dc1cdbcc3b0db2c696c25e7b7829001358a3bc4832785bb",
+  "project_sha256": "65566829b3374a30b778aadb7b5bbd4766711ef56b85dba00d413740f84ba9f4",
   "settings_preserved_byte_for_byte": false,
-  "intentional_settings": {
-    "brim_type": "outer_only",
-    "brim_width": "5"
-  },
   "status": "offline project preparation; a submission is recorded in print-jobs.json",
   "pose": "show face on the bed, legs up; no support",
   "variant": "black-h2c"
