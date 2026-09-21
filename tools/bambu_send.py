@@ -33,11 +33,18 @@ STANDING_OPTIONS = {
 # above the External spool.
 TILE_CENTRE = (47, 30)
 EXTERNAL_SPOOL = (-245, 282)
-# The printer selector at the dialog's top, from its own origin: its name text, and the first
-# row of the popover that opens under it, one row per printer in PRINTERS order.
+# The dialog's printer selector, from its own origin: its name text, then the first row of
+# the popover that opens under it and the pitch to the rows below, one per printer in
+# PRINTERS order. Both clicks share one front borrow: the popover does not survive a
+# separate activation, so an AXPress that opens it is undone by the click that follows.
 SELECTOR_TEXT = (70, 32)
-PRINTER_ROW = (74, 84)
-PRINTER_ROW_PITCH = 34
+#: The dialog is in the tree before it takes a click; a click at once misses the popover.
+DIALOG_SETTLE = 2.0
+#: A click borrows the front for a second or two, and a keystroke typed elsewhere in that
+#: window takes the popover with it; the selector says whether it took, and a miss is retried.
+POPOVER_TRIES = 3
+PRINTER_ROW = (81, 91)
+PRINTER_ROW_PITCH = 36
 BUSY = ("PREPARE", "RUNNING", "PAUSE")
 
 NODE = re.compile(
@@ -200,16 +207,30 @@ def main():
     if name != args.printer:
         # The printer popover is out of the tree, like the filament one: clicked by position
         # from the selector's own origin, and judged by what the selector reads afterwards.
-        sel = [g for g in find(nodes, role="AXGroup", ends=" chevron_down")
-               if g["label"].rsplit(" ", 1)[0] in PRINTERS][0]
-        x, y = sel["x"], sel["y"]
         row = PRINTERS.index(args.printer)
-        ax("click", str(x + SELECTOR_TEXT[0]), str(y + SELECTOR_TEXT[1]),
-           str(x + PRINTER_ROW[0]), str(y + PRINTER_ROW[1] + PRINTER_ROW_PITCH * row))
-        nodes = wait_for(5, lambda n: dialog(n) and selector(n) == args.printer and n)
-        if not nodes:
+        tries = []
+        for attempt in range(POPOVER_TRIES):
+            time.sleep(DIALOG_SETTLE)
+            sel = [g for g in find(nodes, role="AXGroup", ends=" chevron_down")
+                   if g["label"].rsplit(" ", 1)[0] in PRINTERS][0]
+            x, y = sel["x"], sel["y"]
+            clicked = ax("click", str(x + SELECTOR_TEXT[0]), str(y + SELECTOR_TEXT[1]),
+                         str(x + PRINTER_ROW[0]), str(y + PRINTER_ROW[1] + PRINTER_ROW_PITCH * row))
+            taken = wait_for(5, lambda n: dialog(n) and selector(n) == args.printer and n)
+            if taken:
+                nodes = taken
+                break
+            nodes = wait_for(3, lambda n: dialog(n) and selector(n) and n)
+            tries.append(f"@{x},{y} {clicked.splitlines()[0] if clicked else 'no click output'} -> "
+                         f"{selector(nodes) if nodes else 'no dialog'}")
+            if not nodes:
+                break
+        else:
             ax("press", "cancel", "--role", "AXButton", check=False)
-            fail(f"the dialog offers {name}, not {args.printer}, and the printer popover did not take it")
+            fail(f"the dialog offers {name}, not {args.printer}, and the printer popover did not "
+                 f"take it in {POPOVER_TRIES} tries: " + "; ".join(tries))
+        if not nodes:
+            fail(f"the dialog closed under the printer popover clicks: " + "; ".join(tries))
         print(f"dialog: offered {name}; chose {args.printer} in the printer popover")
         name = selector(nodes)
     print(f"dialog: printer {name}")
