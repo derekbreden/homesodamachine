@@ -2,7 +2,7 @@
   "schema": 1,
   "scan_date": "2026-09-20",
   "unit": "User-owned Kamoer pump; machine BOM KPHM600-SW3B17, repository compatibility directory kamoer-kphm400",
-  "status": "two complementary native scans; bounded contact corrections implemented; physical corrected assembly not yet accepted",
+  "status": "two complementary native scans retained; existing assembled cap physically accepted; raised open crown checked against retained printed fit surfaces",
   "capture_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump",
   "capture_manifest": "capture-manifest.json",
   "clouds": [
@@ -171,8 +171,8 @@
   ],
   "additional_scan_needed_for_contact_correction": false,
   "physical_acceptance": [
-    "Dry assemble both pumps in the corrected cradle and cap: skirt lands carry each pump, front rim clears floor, and cap tightening removes vertical play before a printed/screw hard stop.",
-    "Verify straight cartridge insertion/withdrawal and separate upward pump/cap removal.",
-    "Confirm all four inserted tube depths, collet capture, carrier release and flexible-outlet alignment; run a primed pump/leak test."
-  ]
+    "Existing cartridge and cap hold both pumps firmly with no vertical play, confirmed by Derek.",
+    "Complete enclosure trial checks raised crown terminal space, four tube capture/release, spring feel and primed operation."
+  ],
+  "physical_fit_record": "physical-fit.json"
 }

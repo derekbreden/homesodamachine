@@ -1,0 +1,90 @@
+{
+  "status": "pass",
+  "created_at_utc": "2026-09-21T04:11:19.487680+00:00",
+  "scope": "Actual regenerated foam-cap-lid-top STEP, current declared fluid-14 seat, wall stock and tie/support mouth.",
+  "assembly_current": false,
+  "production_print_released": false,
+  "station": {
+    "centre": [
+      65.0,
+      44.75
+    ],
+    "seat_r": 3.3249999999999997,
+    "over_face": 15.894
+  },
+  "lid_outer_face_z_mm": 5.4,
+  "axis_height_over_face_mm": 15.894,
+  "native_step": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+  "native_step_sha256": "6a1f2105bb7521106255a4710856973827763ec7550702f6a760f86bfaed6ba7",
+  "anchor_length_mm": 8.8,
+  "bearing_web_mm": 3.0,
+  "native_tube_air_mm": 0.15000000000000113,
+  "tie_channel_mm": {
+    "width": 2.8,
+    "height": 3.25
+  },
+  "shortest_closed_tie_loop_mm": 39.74200222386842,
+  "footprint_room_mm": 1.365000000000009,
+  "footprint_neighbor": "the valve-v-a plinth",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/verify_fluid14_anchor.py": "5dc0e9de493137d78fcdef12937aecd53329c277b6d9bff839ee1ea8170d7801",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "c5e9d168ea0508f434d1848ed2996e2db9257e0eb3e57bc2358f2e6262f7f2a7",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b"
+  },
+  "native_builder_sha256": "3cf8aedb65d0c3e6441b64b5306d00ad6a234e2c30865aa90dc110acb032a6fc",
+  "checks": [
+    {
+      "check": "lid and rib are one valid native solid",
+      "value": 0,
+      "maximum": 0,
+      "pass": true
+    },
+    {
+      "check": "complete 3 mm lower bearing annulus retained mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "actual tube clears the declared anchor bore mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "native tube-to-bearing air equals declared slip mm",
+      "value": 1.1379786002407855e-15,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "2.5 x 1 mm tie has straight open threading lane mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "nominal 3 mm channel mouth is open along its axis mm3",
+      "value": 0.0,
+      "maximum": 1e-05,
+      "pass": true
+    },
+    {
+      "check": "cap footprint preserves required room mm",
+      "value": -0.3650000000000091,
+      "maximum": 0.0,
+      "pass": true
+    }
+  ],
+  "support_access": {
+    "mouth_axis": "cap local Y / world X",
+    "mouth_height_mm": 3.0,
+    "recessed_floor_step_at_mouth_mm": 0.25,
+    "full_native_void_extraction_probe_overlap_mm3": 4.0032,
+    "full_native_void_has_straight_exit": false,
+    "removal_state": "Separate cap before water-pump, fitting or tube installation.",
+    "actual_slice_bodies_reviewed": false,
+    "physical_cleanup_tested": false,
+    "limit": "A plug filling the entire 3.25 mm void meets the 0.25 mm exterior floor ledge. Actual connected support bodies must fit the 3 mm mouth after separation/lift; native mouth clearance alone does not qualify removal."
+  }
+}

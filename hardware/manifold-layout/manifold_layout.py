@@ -188,7 +188,7 @@ CARRIER_DATUM_SHIFT = -1.75
 # Fixed release face measured aft of the seated pump's tube plane. This design
 # span preserves the fitted cartridge's complete skirt band and plate running
 # air independently of the branch sleeve's measured operating travel.
-PUMP_BARBS_TO_RELEASE_PLANE = 5.476
+PUMP_BARBS_TO_RELEASE_PLANE = 5.526
 BARB_PLATE_BERTH = (PUMP_BARBS_TO_RELEASE_PLANE - _enc_if.pump_station_lead
                     - CARRIER_DATUM_SHIFT - tee.BRANCH_COLLET_TRAVEL)
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead

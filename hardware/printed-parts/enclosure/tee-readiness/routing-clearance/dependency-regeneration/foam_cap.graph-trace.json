@@ -1,0 +1,48 @@
+{
+  "reads": [
+    "hardware/printed-parts/cadlib/fits.py",
+    "hardware/printed-parts/cadlib/flute_skin.py",
+    "hardware/printed-parts/cadlib/reeding.py",
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py",
+    "hardware/printed-parts/cold-core/_foam_cap.py",
+    "hardware/printed-parts/cold-core/_outer_shell.py",
+    "hardware/printed-parts/cold-core/_show_skin.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "hardware/printed-parts/valve-seat/valve_seat.py",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_material_base.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/_stated_bounds.py",
+    "tools/docgen/__init__.py"
+  ],
+  "rewritten": [
+    "hardware/printed-parts/cold-core/_foam_cap.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py"
+  ],
+  "writes": [
+    "hardware/printed-parts/cold-core/_foam_cap.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py"
+  ]
+}

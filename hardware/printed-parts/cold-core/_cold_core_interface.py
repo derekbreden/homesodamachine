@@ -22,12 +22,14 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(_here.parent / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_here.parent / "valve-seat"))
+sys.path.insert(0, str(_here.parents[1] / "reference" / "g-ganen-pump" / "installation"))
 
 import cadquery as cq
 
 import reeding
 import fits
 import valve_seat as _valve_seat
+import g_ganen_installation as _water_pump
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
 from _enclosure_interface import manifold_rise, inner_limb_drop
@@ -700,28 +702,28 @@ deck_mount_cap_gap = 1.5
 # seven conduit columns beside it. `assembly/cold-core.md` CC-06 and CC-15 both read the cap
 # that way.
 #   A STATION IS THE BODY THAT BOLTS TO IT, so the table is one row long: the water pump. Its
-# bracket's rubber pad carries four Ø6 bores on its own 59 x 79 pattern
-# (`seaflo_22_pump.mount_holes`), the pad bears on the lid's outer face, and an M3 SHCS with a
-# plain washer under its head passes down each bore, through the lid, into the insert below. The
-# pad is the pump's isolator and the washer is what spreads the head over it, so `seat` on that
-# row is the pad plus that washer.
+# four purchased rubber sliders are independently positioned along the casing rails.
+# Their explicit cap stations follow the installed candidate, not a rectangular hole pattern.
+# An M3 SHCS and Ø9 × 0.8 washer clamp each pad through the lid into its insert.
+# `seat` is the largest observed free-pad stack under that washer; `seat_min` is the
+# smallest. Loaded rubber compression, washer seating and actual screw passage remain
+# physical assembly-test readings in the pump's installation ledger.
 #   Every other body standing on this cap is carried some other way: the electronics bay hangs on
 # the enclosure's own wall bosses (`enclosure_assembly.wall_mounts`), and the three valves press
 # into the cradles below, which take no screw.
-DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
+DeckMount = namedtuple("DeckMount", "points standoff seat screw seat_min")
 deck_mounts = {
-    #                        centre            pitch_x pitch_y  proud  seat  screw
-    "seaflo-pump": DeckMount((-93.20,   2.62),  59.00,  79.00,   0.0,  8.50, 20.0),
+    "g-ganen-pump": DeckMount(
+        _water_pump.CAP_MOUNT_XY, 0.0,
+        _water_pump.observed_pad_upper_z() + _water_pump.WASHER_T,
+        _water_pump.SCREW_LENGTH,
+        _water_pump.observed_pad_lower_z() + _water_pump.WASHER_T),
 }
 
 
 def deck_mount_xy(name):
-    """The boss centres of a deck mount, in the cap's own frame. A zero pitch makes the
-    rectangle degenerate, and the duplicate corners it produces are one column."""
-    m = deck_mounts[name]
-    (cx, cy) = m.centre
-    return tuple(sorted({(cx + sx * m.pitch_x / 2.0, cy + sy * m.pitch_y / 2.0)
-                         for sx in (-1, 1) for sy in (-1, 1)}))
+    """Explicit selected boss centres in the cap's own frame."""
+    return tuple(sorted(set(deck_mounts[name].points)))
 
 
 def deck_mount_standoff(name):
@@ -749,9 +751,11 @@ def deck_mount_reach(name):
     return m.screw - over
 
 
-# One bore serves every station, sunk to the deepest reach any of them presents.
+# The longest possible reach uses the smallest observed free-pad stack. This
+# prevents the candidate screw bottoming on the larger-pad nominal bore depth.
 deck_mount_bore_depth = max(
-    (deck_mount_reach(name) for name in deck_mounts), default=0.0) + deck_mount_bore_relief
+    (m.screw - m.seat_min - (foam_cap_lid_height if m.standoff == 0.0 else 0.0)
+     for m in deck_mounts.values()), default=0.0) + deck_mount_bore_relief
 _mount_reach = bound(
     "deck-mount-reach", "Every deck mount's screw reaches the whole of its insert",
     f"{deck_mount_insert_length:g} mm into the column")
@@ -1345,13 +1349,10 @@ cap_anchors = {
     # Reservoir A's fill runs aft along this straight cap lane. The anchor stands behind
     # V-A's plinth with the full room required by `cap_anchor_room`.
     #
-    # It reaches `_lines._fill_a_cap_z` — the plane the run holds over the pump's bracket and
-    # over the side post this lid stands for `fluid-18`'s crossing, which is higher than this
-    # seat's own three layers. THE RIB IS BUILT UP TO THE RUN, so this figure follows that plane
-    # rather than setting it, and `enclosure_assembly.check_run_seated` is what holds the two
-    # together — it reads the placed solids and wants the rib within `TUBE_ANCHOR_SLIP` of the
-    # tube.
-    "fluid-14":        CapAnchor(( 65.000,  43.500), 6.35 / 2.0 + fits.slip, 21.894),
+    # Its column and height define the low lane between the actual V-A and V-K bodies.
+    # `_lines._fluid_14` reads both from this row; `check_run_seated` reads the native
+    # tube and seat back together. The 3 mm tie-channel floor and full bearing web remain.
+    "fluid-14":        CapAnchor(( 65.000,  44.750), 6.35 / 2.0 + fits.slip, 15.894),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same

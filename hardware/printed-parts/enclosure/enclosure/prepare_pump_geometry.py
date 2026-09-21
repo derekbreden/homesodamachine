@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Materialize and qualify the two Kamoer cartridge pieces for a bench-fit print.
+"""Qualify the two Kamoer cartridge pieces for the complete enclosure print.
 
 This consumes a successfully regenerated, explicitly identified Box. It does not
 regenerate or qualify the complete enclosure, carrier mechanism or water pump.
@@ -100,7 +100,7 @@ def native_checks(enc, box, bounds):
               facets=len(mesh.faces), volume_mm3=float(mesh.volume))
         pieces[name] = shape
     cradle, cap = pieces['pump-cartridge'], pieces['pump-cap']
-    for dz in (-enc.cap_contact_travel, 0., .25, 5., 35., 70.):
+    for dz in (-enc.cap_lift_clearance, 0., .25, 5., 35., 70.):
         empty(f'cap/cradle vertical path at {dz:g} mm lift',
               cap.translate((0, 0, dz)), cradle)
 
@@ -136,7 +136,6 @@ def native_checks(enc, box, bounds):
               terminal_y_mm=[nominal_aft,aft])
     measured = json.loads(MEASUREMENTS.read_text())
     land = enc.pump_skirt_support_z(trays)
-    contact = enc.cap_pressing_z(trays)
     floor_bottom, floor_top = enc.bay_floor_z(trays)
     observed_front = measured['baseline_front_rim']['head_front_height_above_skirt_land_mm']['min']
     front_air = land + observed_front - floor_top
@@ -156,37 +155,31 @@ def native_checks(enc, box, bounds):
           all(any(abs(f.Center().x-cx) < 36 for f in lands) for cx, _, _ in trays)
           and sum(f.Area() for f in lands) > 1000,
           native_land_z_mm=land, native_area_mm2=sum(f.Area() for f in lands))
-    observations = measured['corrected_cap_rail_observations']
-    minimum = min(r['observed_height_above_land_mm']['min'] for r in observations)
-    maximum = max(r['observed_height_above_land_mm']['max'] for r in observations)
-    check('cap adjustment brackets both scan passes at all four rail footprints',
-          contact-land-enc.cap_contact_travel < minimum
-          and maximum < contact-land+enc.cap_contact_travel,
-          observed_rim_height_mm=[minimum, maximum], nominal_height_mm=contact-land,
-          adjustment_mm=enc.cap_contact_travel)
-    rail_rows = []
-    for index, rail in enumerate(enc._cap_pressing_rails(trays)):
-        b = rail.BoundingBox()
-        probe = enc._ybox(b.xmin+.01,b.xmax-.01,b.ymin+.01,b.ymax-.01,
-                         contact+.001,contact+.1)
-        missing = probe.cut(cap).Volume()
-        check(f'rail {index+1} exists in emitted cap', missing < 1e-6,
-              missing_mm3=missing)
-        faces = [f for f in cap.Faces() if f.geomType() == 'PLANE'
-                 and f.normalAt().z < -.99999 and abs(f.Center().z-contact) < 1e-5
-                 and b.xmin <= f.Center().x <= b.xmax and b.ymin <= f.Center().y <= b.ymax]
-        area = sum(f.Area() for f in faces)
-        check(f'rail {index+1} has an exposed flat print-up bearing face',
-              area > 90. and enc.PIECE_PRINT_UP['pump-cap'] == -1., area_mm2=area)
-        rail_rows.append({'bounds_xy_mm': [[b.xmin,b.ymin],[b.xmax,b.ymax]],
-                          'z_mm': contact, 'area_mm2': area})
+    base = enc.cap_base_z(trays)
+    check('cap broad underside has no projections into the fitted pump seat',
+          abs(cap.BoundingBox().zmin-base) < 1e-6,
+          broad_base_z_mm=base, cap_lowest_z_mm=cap.BoundingBox().zmin)
+    check('cap surrounding crown reaches the cartridge top',
+          abs(cap.BoundingBox().zmax-cradle.BoundingBox().zmax)<1e-6,
+          cap_top_z_mm=cap.BoundingBox().zmax,
+          cartridge_top_z_mm=cradle.BoundingBox().zmax)
+    terminal_rows = []
+    for cx,cy,_ in trays:
+        bottom = enc.cap_terminal_opening_z(box)
+        room = enc._zcyl(enc.cap_terminal_opening_r-.001,
+                         cx,cy+enc.clamp_pump_y_shift,bottom+.001,
+                         cap.BoundingBox().zmax+1.)
+        empty(f'X{cx:g} motor-terminal crown remains fully open',cap,room)
+        terminal_rows.append({'center_xy_mm':[cx,cy+enc.clamp_pump_y_shift],
+                              'diameter_mm':2*enc.cap_terminal_opening_r,
+                              'bottom_z_mm':bottom})
 
     _, pilots = enc._cap_screws(box)
-    tip = enc.cap_head_seat_z(box)-enc.cap_screw_len-enc.cap_contact_travel
+    tip = enc.cap_head_seat_z(box)-enc.cap_screw_len-enc.cap_lift_clearance
     tip_air = min(tip-p.BoundingBox().zmin for p in pilots)
-    bridge_air = enc.cap_base_z(trays)-enc.cap_split_z(trays)-enc.cap_contact_travel
-    raised_tip = enc.cap_head_seat_z(box)+enc.cap_contact_travel-enc.cap_screw_len
-    check('screw and bridge stops permit contact adjustment',
+    bridge_air = enc.cap_base_z(trays)-enc.cap_split_z(trays)-enc.cap_lift_clearance
+    raised_tip = enc.cap_head_seat_z(box)+enc.cap_lift_clearance-enc.cap_screw_len
+    check('cap lift allowance preserves screw and bridge clearances',
           tip_air >= .25-1e-6 and bridge_air > 0
           and raised_tip <= enc.cap_split_z(trays)-enc.cap_heatset_len+1e-6,
           tip_air_mm=tip_air, bridge_air_mm=bridge_air,
@@ -218,7 +211,7 @@ def native_checks(enc, box, bounds):
               cap.translate((0,dy,0)),wall)
     return {'checks': rows, 'checks_pass': all(r['pass'] for r in rows),
             'pump_trays': trays, 'collet_plate': plate,
-            'cap_rails': rail_rows, 'skirt_land_z_mm': land,
+            'open_terminal_wells': terminal_rows, 'skirt_land_z_mm': land,
             'support_features': {
                 'pull_y_mm': enc.pull_y_span(trays,plate),
                 'pull_z_mm': enc.pull_z_span(box),
@@ -237,6 +230,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--box-sha256', required=True,
                         help='Exact Box digest supplied by its completed producer checks')
+    parser.add_argument('--existing-exports', action='store_true',
+                        help='Check the completed enclosure producer outputs without rewriting them')
     args = parser.parse_args()
     if sha(BOX) != args.box_sha256:
         raise ValueError('Box is not the qualified producer output named on this command')
@@ -248,7 +243,14 @@ def main():
     import materialize_pump_cartridge as producer
     import _box_spec
     import enclosure as enc
-    result = producer.materialize()
+    if args.existing_exports:
+        result = {
+            name: {'hashes': {
+                f'enclosure-{name}{suffix}': sha(HERE / f'enclosure-{name}{suffix}')
+                for suffix in ('.step', '.stl', '.step.mesh')}}
+            for name in ('pump-cartridge', 'pump-cap')}
+    else:
+        result = producer.materialize()
     box,bounds = _box_spec.read(enc.Box,enc.Bound,(enc.Pack,enc.PortField,enc.Nameplate),path=BOX)
     native = native_checks(enc,box,bounds)
     after_inputs = {relative(p): sha(p) for p in INPUTS}
@@ -257,16 +259,19 @@ def main():
     sources = loaded_sources(before_sources)
     artifacts = {relative(HERE/name): digest for part in result.values()
                  for name,digest in part['hashes'].items()}
+    if any(sha(ROOT / name) != digest for name, digest in artifacts.items()):
+        raise ValueError('A cartridge output changed during its native checks')
     record = {'schema': 1, 'status': 'current_cartridge_only_native_checks_passed',
               'created_at_utc': datetime.now(timezone.utc).isoformat(),
               'assembly_current': False, 'production_enclosure_released': False,
               'physical_fit_tested': False, 'command': sys.argv,
+              'existing_exports_checked': args.existing_exports,
               'source_sha256': sources, 'input_sha256': after_inputs,
               'artifact_sha256': artifacts, 'materializer_results': result,
               'native': native,
               'remaining': ['Current native slice and support removal review.',
-                            'Physical pump seating, cap preload and support cleanup.',
-                            'Tee terminal-ring bearing qualification and complete carrier/collet dry cycle.',
+                            'Assembled enclosure fit, terminal connectors and support cleanup; existing cap retention is recorded in physical-fit.json.',
+                            'Complete carrier/collet dry cycle in the assembled enclosure.',
                             'Full enclosure regeneration and qualification are separate.']}
     MANIFEST.write_text(json.dumps(record,indent=2)+'\n')
     print(f'PASS cartridge only: {len(native["checks"])} native readings; '

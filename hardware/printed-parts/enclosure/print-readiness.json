@@ -15,28 +15,36 @@
     },
     {
       "part": "enclosure-tee-carrier-left",
-      "current_stl_sha256": "7c76ace68a8fc60c87e27b6b8b4301f0d5087e0c501cb80553b98d64c1952c68",
+      "current_stl_sha256": "8ee7f1f2826abcc12ad4a5acc93eb9c882c7ad82746147af8368ab26880c1f48",
       "support_audit_stl_sha256": "e554aec8bb063bf893a7af7d4e848b93555c93b7920f33db0a4de662f99cad20",
-      "support_audit_current": false
+      "support_audit_current": false,
+      "integrated_source_exports_current": true,
+      "source_evidence": "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json",
+      "source_export_scope": "Canonical production STEP/STL/payload bytes match current 0.90 mm backing geometry. Fresh complete front-top, actual Box and canonical carrier/pusher native checks pass; the current slice/support review remains separate.",
+      "archived_primary_stl_sha256": "7c76ace68a8fc60c87e27b6b8b4301f0d5087e0c501cb80553b98d64c1952c68",
+      "current_step_sha256": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+      "current_payload_sha256": "ea6887689068d7a575cf829c60c68e28d751064a2b97befd8bee0abdcfd5f6be"
     },
     {
       "part": "enclosure-tee-carrier-right",
-      "current_stl_sha256": "7ba4f977a9456e4600886856128ddaa542460baf5afbb5bffaebcebb25d7266d",
+      "current_stl_sha256": "4f21c9cb7dd0d230f0f187c3192741761c4fc0a5bee7b45d065eeefd29df5232",
       "support_audit_stl_sha256": "4f76907f513ee5dd355aac947404245ef5927dbbb22fbad5e0fd8b9667820a27",
-      "support_audit_current": false
+      "support_audit_current": false,
+      "integrated_source_exports_current": true,
+      "source_evidence": "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json",
+      "source_export_scope": "Canonical production STEP/STL/payload bytes match current 0.90 mm backing geometry. Fresh complete front-top, actual Box and canonical carrier/pusher native checks pass; the current slice/support review remains separate.",
+      "archived_primary_stl_sha256": "7ba4f977a9456e4600886856128ddaa542460baf5afbb5bffaebcebb25d7266d",
+      "current_step_sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+      "current_payload_sha256": "7164de3f71685d916fe62f71c4670ff6def4a236315670acb6052567b93c1a17"
     }
   ],
   "tee_journal_diameter_mm": 17.0,
   "production_tee_collar_diameter_mm": 16.5,
   "nominal_radial_interference_mm": 0.0,
   "open_release_conditions": [
-    "Complete selected G Ganen reference from actual scan and update affected mounts, port seats, storeys and tube routes; existing SeaFlo checks are baseline only.",
-    "Propagate measured 30.5 mm extended / 29.0 mm pressed branch width and 1.5 mm travel; resolve the terminal moving ring boundary and release rim.",
-    "Simplify the complete carrier assembly, using broad substantial walls as demonstrated by the faucet cover; neither existing joint half is selected for reuse. Qualify full-width stiffness.",
-    "Provide positive capture and guidance at both spring ends with simple assembly and the measured spring pair.",
-    "Dry-fit both Kamoer pumps in the corrected cradle/cap and cycle all four actual tubes; verify return, release and primed leak-tight pumping.",
-    "Verify installed Beduan tie access, DIGITEN flow direction and machine-display retention using physical parts.",
-    "Complete current combined regeneration and native assembly checks; reslice final geometry and inspect support-removal lanes."
+    "Complete coherent Box, enclosure and assembly regeneration with the G Ganen integration, restored pump fit and raised open cap.",
+    "Review exact current native slices: material/nozzle mapping, printer-specific Z trim, bed bounds, support contacts and accessible removal lanes.",
+    "Confirm target printer idle and plate clear before sending the exact reviewed archive."
   ],
   "baseline_verification": {
     "assembly_generator_exit_code": 0,
@@ -62,26 +70,31 @@
       },
       "authority": "Derek loading reports; both black left and white right PET-GF have printed successfully.",
       "ready_for_prepared_job": false,
-      "observed_at": "2026-09-21T03:16:40Z",
-      "current_job": "tube-miter-box-petgf-z004-mark2.gcode.3mf",
-      "observed_state": "RUNNING",
+      "observed_at": "2026-09-21T05:02:00Z",
+      "current_job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "observed_state": "FAILED",
       "print_error": 0,
-      "print_record": "hardware/printed-parts/fixtures/tube-miter-box/print-jobs.json",
-      "job_purpose": "Tube miter box; controlled by its Claude agent.",
+      "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
+      "job_purpose": "Fake countertop; controlled by its Claude agent.",
       "plate_clearance_confirmed": false,
-      "availability_authority": "Tube miter box agent: exact job confirmed RUNNING via MQTT at 2026-09-21T03:16:40Z.",
-      "printed_coupon_removed_for_fit": true
+      "availability_authority": "Tube miter box agent: Derek stopped countertop after a second nozzle clump and changed the hotend. Later sends did not reach the printer; task remains allocated to that agent. H2C remains allocated to Scanner review.",
+      "printed_coupon_removed_for_fit": true,
+      "hotend_changed": true,
+      "mounted_nozzle_confirmation_pending": true
     },
     "H2C": {
       "cancelled_object_removal_confirmed": true,
       "replacement_started": false,
-      "availability_authority": "Derek: both printers are available right now, September 20, 2026",
-      "observed_state": "RUNNING",
-      "observed_at": "2026-09-21T03:20:54.501001+00:00",
+      "availability_authority": "Tube miter box agent relays Derek cleared both beds and stopped the paused H2C job, 2026-09-21T03:48:11Z. Geometry revision remains pending.",
+      "observed_state": "FAILED",
+      "observed_at": "2026-09-21T04:24:48.794056+00:00",
       "current_job": "pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
       "print_error": 0,
       "ready_for_prepared_job": false,
-      "job_purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly."
+      "job_purpose": "Cancelled cap-rail job; H2C reserved for corrected full-enclosure trial.",
+      "plate_clearance_confirmed": true,
+      "nozzle_target_c": 0,
+      "bed_target_c": 0
     }
   },
   "carrier_upper_backing": {
@@ -94,7 +107,13 @@
       "spring_return": 1.378610565019605,
       "unequal_grips_2_to_1": 34.41911790985389
     },
-    "comparison_scope": "Archived body-only stiffness fixture; center joint, torsion and shear excluded. Current measured-branch placement and replacement joint require their own checks; full assembled stiffness remains unqualified."
+    "comparison_scope": "Archived body-only comparison against the print preceding spring relocation; center joint, torsion and shear excluded. The integrated carrier has its own passing native stock/path evidence. Actual assembled stiffness is a full-enclosure trial result, not a pre-print coupon requirement.",
+    "archived_body_comparison": true,
+    "current_native_evidence": "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json",
+    "current_production_selftest_exit_code": 0,
+    "current_complete_enclosure_physical_stiffness_tested": false,
+    "current_native_stock_checks_pass": true,
+    "frozen_native_baseline": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/artifact-manifest.json"
   },
   "tee_registration": {
     "status": "six fixed external surfaces rigidly registered at scale 1; held-out residuals retained",
@@ -116,7 +135,11 @@
     "production_sources_updated": true,
     "fresh_part_generation_complete": false,
     "local_native_check_count": 958,
-    "terminal_ring_evidence": "hardware/reference/jg-pp0208e-tee/terminal-ring-scan.json"
+    "terminal_ring_evidence": "hardware/reference/jg-pp0208e-tee/terminal-ring-scan.json",
+    "local_integration_evidence_sha256": "b4b0578cd87dae83b4913b8751dec09a3de21c8287bf1032c7b5013f2fcea9d2",
+    "local_integration_current_carrier_exports": true,
+    "local_integration_scope": "958 native local checks against the regenerated 0.90 mm backing carrier halves and paired pump stations. The separate current-front-top-check.json now passes complete wall and canonical pusher paths.",
+    "local_pump_tray_y_mm": 45.859
   },
   "post_publish_geometry_lint": {
     "accepted_lever_print_mesh": {
@@ -125,17 +148,24 @@
     },
     "carrier_left": {
       "open_findings": 0,
-      "answered": 20
+      "answered": 20,
+      "current_for_integrated_simple_carrier": false
     },
     "carrier_right": {
       "open_findings": 0,
-      "answered": 20
+      "answered": 20,
+      "current_for_integrated_simple_carrier": false
     },
     "joint_coupon": {
       "open_findings": 0,
       "answered": 6
     },
-    "meaning": "Intentional supported faces and keeper features are documented. Lint does not qualify fit or assembled stiffness."
+    "meaning": "Intentional supported faces and keeper features are documented. Lint does not qualify fit or assembled stiffness.",
+    "raised_open_pump_cap": {
+      "open_findings": 0,
+      "answered": 2,
+      "scope": "Flat upper-well annuli with open axial support-removal paths."
+    }
   },
   "kamoer_scan": {
     "archive": "~/Documents/3D Scans/2026-09-20-kamoer-pump",
@@ -149,30 +179,111 @@
       2076077,
       3053059
     ],
-    "rigid_comparison_status": "complete_bounded_contact_corrections_implemented",
+    "rigid_comparison_status": "independent scan observations retained; fitted cap and open crown native checks pass",
     "inserted_parts": "Short 1/4-inch LLDPE stubs in silicone outlets, identified by Derek; excluded from native pump dimensions and rigid registration.",
     "evidence": "hardware/reference/kamoer-kphm400/scan-evidence.json",
     "contact_check": "hardware/reference/kamoer-kphm400/contact-check.json",
     "additional_view_needed_for_contact_correction": false,
-    "physical_corrected_assembly_accepted": false
+    "physical_corrected_assembly_accepted": false,
+    "existing_assembled_cap_accepted": true,
+    "physical_fit_record": "hardware/reference/kamoer-kphm400/physical-fit.json",
+    "cap_fitted_surface_max_distance_mm": 0.0115,
+    "cap_crown_confirmed_by_user": true,
+    "fitted_well_audit": "hardware/reference/kamoer-kphm400/fitted-well-audit/fitted-well-check.json",
+    "fitted_well_max_sampled_surface_difference_mm": 0.003618535
   },
   "measured_spring_consumer": {
-    "status": "current_measured_branch_lengths_recorded_physical_capture_unqualified",
-    "evidence": "hardware/printed-parts/enclosure/tee-carrier/measured-spring-check.json",
+    "status": "fresh_fixed_moving_cups_and_canonical_pusher_native_pass_full_enclosure_physical_trial_pending",
+    "evidence": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/spring-capture-checks.json",
     "printed_geometry_unchanged": false,
     "minimum_compression_mm": 3.15,
-    "loading_clearance_above_compressed_estimate_mm": 2.61,
+    "loading_clearance_above_compressed_estimate_mm": 5.15,
     "forces_known": false,
     "positive_capture_qualified": false,
     "full_assembly_artifacts_current": false,
-    "geometry_scope": "The measured-spring update preserves fitted spring seats; current tee correction also changes carrier geometry. The retained invariance evidence applies only to the bounded spring-input update.",
+    "geometry_scope": "Closed 11.1 mm moving bores and 8 mm integral fixed cups retain the current spring floor datums. Fresh complete front-top and canonical carrier/tool checks pass actual cup stock, clear straight spring envelopes, full installation, one-tool reuse/removal and working states. A rigid lateral sphere witness does not qualify a deformable helical spring.",
     "current_bearing_separations_mm": {
       "release": 19.35,
       "connected": 21.35,
       "aft_limit": 23.85
     },
-    "current_datum_evidence": "hardware/printed-parts/enclosure/tee-readiness/branch-propagation/README.md",
-    "loading_clearance_scope": "The 2.61 mm loading clearance is archived pre-branch fixture evidence; replacement loading remains separately checked."
+    "current_datum_evidence": "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json",
+    "loading_clearance_scope": "Current 12.15 mm axial held length minus the approximately 7 mm measured compressed upper estimate. This is geometry, not measured manual compression effort.",
+    "archived_envelope_evidence": "hardware/printed-parts/enclosure/tee-carrier/measured-spring-check.json",
+    "moving_bore_closed": true,
+    "moving_bore_id_mm": 6.57,
+    "moving_bore_depth_mm": 11.1,
+    "fixed_cup_id_mm": 6.57,
+    "fixed_cup_depth_mm": 8.0,
+    "fixed_cup_od_mm": 10.57,
+    "fixed_cup_radial_wall_mm": 2.0,
+    "spring_axes_mm": [
+      [
+        -97.535,
+        211.209
+      ],
+      [
+        97.535,
+        211.209
+      ]
+    ],
+    "spring_floor_y_mm": {
+      "fixed": 90.04,
+      "moving_at_release": 109.39
+    },
+    "working_travel_mm": {
+      "release": 0.0,
+      "connected": 2.0,
+      "aft_limit": 4.5
+    },
+    "current_mouth_gaps_mm": {
+      "release": 0.25,
+      "connected": 2.25,
+      "aft_limit": 4.75
+    },
+    "axial_held_length_mm": 12.15,
+    "temporary_pusher": {
+      "diameter_mm": 6.3,
+      "thickness_mm": 2.0,
+      "handle_inboard_length_mm": 10.0,
+      "handle_height_mm": 3.0,
+      "inboard_withdrawal_mm": 15.435,
+      "lift_mm": 70.0,
+      "retained_after_assembly": false,
+      "quantity": 1,
+      "print_envelope_mm": [
+        13.15,
+        6.3,
+        2.0
+      ],
+      "canonical_geometry_evidence": "hardware/printed-parts/fixtures/carrier-spring-pusher/geometry-check.json",
+      "native_route_evidence": "hardware/printed-parts/fixtures/carrier-spring-pusher/native-sequence-check.json",
+      "frozen_wall_sweeps_pass": 19,
+      "fixed_cup_air_mm": 1.7,
+      "conservative_lift_lane_air_mm": 0.3,
+      "sequence": "Seat and release left spring, withdraw and lift pusher, then reuse the same tool for right.",
+      "canonical_exports_current": true,
+      "fresh_integrated_wall_path_check_pending": false,
+      "fresh_integrated_wall_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+      "fresh_integrated_wall_evidence_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6"
+    },
+    "spring_id_required_by_design": false,
+    "retained_guide_plugs": 0,
+    "native_closed_end_geometry_and_loading_paths_pass": true,
+    "physical_capture_test_scope": "Both-end retention, real coil side bowing, unequal-hand motion, return tension and feel are observations of the complete enclosure assembly-test print; they do not require another coupon before printing it.",
+    "archived_loading_length_mm": 9.61,
+    "archived_loading_margin_above_compressed_estimate_mm": 2.61,
+    "archived_temporary_pusher_witness": {
+      "diameter_mm": 6.3,
+      "thickness_mm": 0.6,
+      "handle_inboard_length_mm": 10.0,
+      "handle_height_mm": 1.0,
+      "evidence": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/wall-checks.json",
+      "scope": "Thin native clearance witness in the frozen study; not the canonical printable tool."
+    },
+    "native_path_scope": "Fresh actual Box, complete canonical front-top, both current half STEPs and canonical 2 mm pusher, with stable input/source hashes.",
+    "fresh_front_top_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+    "fresh_front_top_evidence_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6"
   },
   "tee_nominal_radial_running_air_mm": 0.25,
   "joint_coupon": {
@@ -180,14 +291,15 @@
     "rocking_or_play_observed": false,
     "tiny_catch_qualified": false,
     "production_joint_integrated": false,
-    "revision_requirement": "Simple complete assembly with broad substantial flexing walls. Neither coupon half is selected for reuse. The faucet display cover is the preferred physically proven example for simple snap retention.",
+    "revision_requirement": "The integrated replacement uses two broad moving halves, one captured rail and shelf, and an integral retaining wall. The faucet display cover remains the physically proven simplicity example; the replacement is evaluated in the complete enclosure.",
     "integral_trial_record": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/print-readiness.json",
     "integral_trial_status": "withdrawn_from_print_queue_for_complete_joint_redesign",
     "tight_fit_observed": true,
     "design_accepted": false,
     "geometry_preservation_required": false,
     "x_span_bowing_observed": true,
-    "coupon_bending_acceptable_for_carrier": false
+    "coupon_bending_acceptable_for_carrier": false,
+    "integration_scope": "These physical facts describe the archived keeper coupon. Neither coupon half is used in the integrated simple carrier."
   },
   "faucet_display_cover": {
     "physical_acceptance": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
@@ -196,21 +308,37 @@
     "machine_display_cover_acceptance_inferred": false
   },
   "current_regeneration": {
-    "status": "held_for_measured_tee_datums_simpler_carrier_and_g_ganen_integration",
-    "core_sources_frozen": false,
+    "status": "current_shell_exports_passed_native_slicing_started",
+    "core_sources_frozen": true,
     "includes": [
       "measured tee/reference and consumer axes",
       "measured spring envelope",
-      "Kamoer cap contact rails and floor relief",
+      "Kamoer physically accepted fit and open motor-terminal crown",
       "cold-core valve cradle stations",
       "fluid-2 tube routing around pressure switch",
-      "water-split fixed-body anchor qualification"
+      "water-split fixed-body anchor qualification",
+      "integrated broad two-half carrier and closed fixed/moving spring cups"
     ],
     "assembly_current": false,
     "production_print_released": false,
-    "bounded_followup": "The cartridge/cap common aft face retains the full 3 mm fitted skirt band and 0.246 mm plate clearance. All 55 local native geometry checks pass; complete enclosure geometry and physical fit remain unqualified.",
+    "bounded_followup": "The paired pump-station adjustment moves only the Kamoer holders 0.050 mm fore. Fixed valves and tee release ports remain unchanged; the restored fitted well retains its full 3 mm aft band and 0.246 mm plate air. Fresh generated assembly and slices are pending.",
     "baseline_evidence": "hardware/manifold-layout/scan-consumer-checks.json",
-    "cartridge_evidence": "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json"
+    "cartridge_evidence": "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json",
+    "carrier_sources_frozen": true,
+    "carrier_evidence": "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json",
+    "carrier_fresh_box_check_status": "passed_current_Box_front_top_canonical_half_and_2mm_pusher_native_checks",
+    "carrier_frozen_evidence_qualifies_pending_box": false,
+    "carrier_actual_manifold_derivation_pass": true,
+    "carrier_baseline_manifest": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/artifact-manifest.json",
+    "carrier_backing_station_resolved": true,
+    "carrier_canonical_exports_current": true,
+    "carrier_local_integration_checks_pass": 958,
+    "fluid18_evidence": "hardware/printed-parts/enclosure/tee-readiness/routing-clearance/fluid18-current-pack.json",
+    "box_sha256": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+    "carrier_fresh_front_top_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+    "shell_exports_current": true,
+    "carrier_fresh_box_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+    "carrier_fresh_box_evidence_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6"
   },
   "nameplate": {
     "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
@@ -227,8 +355,8 @@
     "asin": "B07F35PTFR",
     "authority": "Derek, September 20, 2026",
     "calipers_recorded": false,
-    "scan_status": "Three native passes fused at 0.10 mm and archived with hashes: feet-up 1,033 frames, on-back 1,146 frames and feet-down 1,114 frames. Combined dimensional analysis is active.",
-    "production_reference_integrated": false,
+    "scan_status": "Three native views analyzed into independently frozen detailed reference and conservative integration envelope.",
+    "production_reference_integrated": true,
     "existing_seaflo_baseline_qualifies_selected_pump": false,
     "selection_record": "hardware/reference/pump-comparison/README.md",
     "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump",
@@ -240,10 +368,13 @@
     "feet_mounting": "Removable sliders on fore/aft channels; captured poses are not a fixed bolt pattern.",
     "flow_direction_enclosure": "-X",
     "flow_direction_reference": "+Y at the intended +90 degree Z yaw",
-    "suction_direction_reference": "-Y"
+    "suction_direction_reference": "-Y",
+    "production_source_status": "G Ganen placement, four sliding-foot cap mounts and hose consumers updated; coherent generated assembly pending.",
+    "native_installation_check": "hardware/reference/g-ganen-pump/installation/native-installation-check.json",
+    "native_installation_checks_pass": 58
   },
   "cartridge_print": {
-    "status": "printing_cartridge_and_cap_bench_fit",
+    "status": "cancelled_geometry_revision_required",
     "submitted": true,
     "readiness_record": "hardware/printed-parts/enclosure/enclosure/pump-print-readiness.json",
     "estimated_seconds": 35167.51953125,
@@ -252,7 +383,8 @@
     "printer": "H2C",
     "job": "pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
     "print_record": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
-    "observed_at_utc": "2026-09-21T03:20:54.501001+00:00"
+    "observed_at_utc": "2026-09-21T03:45:39.329351+00:00",
+    "review_reason": "Added narrow cap rails are not accepted; Derek confirms the existing assembled cap holds both pumps firmly with no vertical play."
   },
   "post_publish_geometry_lint_current_carrier": {
     "remaining_findings": 0,
@@ -261,7 +393,8 @@
       "right": 24,
       "integral_right_coupon": 5
     },
-    "scope": "Current mesh features and accessible support paths; no physical latch or complete assembly acceptance implied."
+    "scope": "Retained preceding carrier/coupon mesh readings. They do not qualify the integrated simple-carrier meshes, support slice, physical joint or complete enclosure.",
+    "current_for_integrated_simple_carrier": false
   },
   "beduan_socket_fit": {
     "physical_baseline": "hardware/printed-parts/fixtures/valve-socket-fit/physical-baseline.json",
@@ -272,5 +405,359 @@
     "retention": "Zip ties; retain the current easy-fitting socket profile.",
     "physical_acceptance": "hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json",
     "production_tie_installation_tested": false
+  },
+  "lldpe_scan": {
+    "capture_complete": true,
+    "analysis_complete": true,
+    "evidence": "hardware/reference/lldpe-tubes/README.md",
+    "production_od_changed": false
+  },
+  "carrier_assembly": {
+    "status": "fresh_front_top_and_canonical_carrier_native_pass_full_enclosure_trial_pending",
+    "evidence": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/artifact-manifest.json",
+    "evidence_sha256": "311f06637cd04b3f0ebdf34e63f6f339896d2ab2cee5b562ac869b2988fa4ac4",
+    "evidence_recorded_utc": "2026-09-21T04:15:03.934128+00:00",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+      "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f",
+      "hardware/printed-parts/enclosure/tee-carrier/_carrier_motion.py": "7e28f5c0e81cc4fc42eebbf8c5b4fe53d8769436c31e8c28882155ed6041a1be"
+    },
+    "production_source_integrated": true,
+    "frozen_production_selftest_exit_code": 0,
+    "retained_moving_parts": 2,
+    "joint_screws": 0,
+    "joint_heatset_inserts": 0,
+    "separate_keepers": 0,
+    "joint_style": "full_height_fore_lap_captured_rail_overlapping_shelf_integral_rear_retaining_wall",
+    "fore_lap_mm": {
+      "width_x": 26.35,
+      "thickness_y": 6.0,
+      "height_z": 55.251
+    },
+    "shelf_mm": {
+      "overlap_x": 31.85,
+      "depth_y": 18.0,
+      "ply_thickness_z": 6.625,
+      "nominal_face_air": 0.1
+    },
+    "broad_inner_web_added_y_mm": 0.9,
+    "retaining_wall_mm": {
+      "free_length_x": 51.75,
+      "height_z": 9.0,
+      "thickness_y": 3.0,
+      "modeled_free_tip_deflection_y": 2.3
+    },
+    "native_readings": {
+      "production_selftest_exit": 0,
+      "joint_continuous_sweeps": 5,
+      "joint_deflection_witnesses": 9,
+      "wall_half_sweeps": 10,
+      "held_spring_tool_sweeps": 10,
+      "pusher_removal_sweeps": 4,
+      "working_wall_states": 6,
+      "opposed_guide_contacts": 12,
+      "working_neighbor_readings": 102,
+      "tee_entry_sweeps": 40,
+      "lower_valve_entry_sweeps": 16,
+      "declared_tie_passages": 32,
+      "fixed_cup_neighbor_readings": 30,
+      "archived_production_added_missing_volume_mm3": 0
+    },
+    "frozen_front_top_step_sha256": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
+    "native_wall_scope": "Fresh complete canonical front-top, actual current Box, canonical carrier halves and 2 mm pusher pass 152 native readings and 36 continuous sweeps. Frozen study evidence remains separately identified.",
+    "section_moment_ratios": {
+      "Iy_geometric_mm4": {
+        "sampled_minimum_ratio": 1.028408159096585,
+        "least_local_ratio": 0.6949409895967615
+      },
+      "Iz_geometric_mm4": {
+        "sampled_minimum_ratio": 12.316661423080557,
+        "least_local_ratio": 0.9431111242141229
+      }
+    },
+    "section_scope": "Geometric samples versus the frozen measured-tee screwed CAD reference. This is not the physical coupon or pre-spring-relocation print. Improved minima are not uniform local improvement or assembled stiffness.",
+    "assembly_order": [
+      "left half",
+      "right half"
+    ],
+    "placement_segments_per_half": 5,
+    "pusher_removal_segments_per_half": 2,
+    "shelf_specific_lift_or_twist": false,
+    "assembly_view": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/assembly-sequence.png",
+    "actual_slice_support_review_pending": true,
+    "support_focus": "Captured rail receiver undercut and its fore extraction opening; flat shelf, handhold, rear-wall supports and integral fixed cups.",
+    "physical_evaluation": "Complete enclosure assembly-test print with actual springs, tubes and hardware.",
+    "separate_carrier_fixture_required": false,
+    "physical_trial_is_preprint_gate": false,
+    "physical_stiffness_retention_feel_tested": false,
+    "archived_production_study_added_missing_volume_mm3": 0.0,
+    "current_backing_evidence": "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json",
+    "current_backing_evidence_sha256": "39224401478cea4e62d391c2b233049db049d0a7f473de77430a8fb4e840d865",
+    "actual_production_manifold_derivation_pass": true,
+    "bounded_backing_checks": 34,
+    "current_halves_are_exact_subsets_of_frozen_study": true,
+    "native_delta": [
+      {
+        "part": "left",
+        "frozen_volume_mm3": 66388.92717039507,
+        "current_volume_mm3": 66332.59501276267,
+        "removed_volume_mm3": 56.33227499996473,
+        "added_volume_mm3": 0.0
+      },
+      {
+        "part": "right",
+        "frozen_volume_mm3": 60007.88380039155,
+        "current_volume_mm3": 59953.97852275239,
+        "removed_volume_mm3": 53.905399999966264,
+        "added_volume_mm3": 0.0
+      },
+      {
+        "part": "right_structural",
+        "frozen_volume_mm3": 58581.83380039127,
+        "current_volume_mm3": 58527.92852275242,
+        "removed_volume_mm3": 53.905399999966264,
+        "added_volume_mm3": 0.0
+      }
+    ],
+    "sampled_section_minima": {
+      "area_mm2": {
+        "x_mm": 12.73,
+        "value": 267.69790030111346
+      },
+      "Iy_geometric_mm4": {
+        "x_mm": -22.35,
+        "value": 78368.88262566079
+      },
+      "Iz_geometric_mm4": {
+        "x_mm": 22.35,
+        "value": 12249.141485142189
+      }
+    },
+    "frozen_projection_limitation": "The frozen check_valve_entry.py projection used literal 0.90 mm while its carrier used 0.95 mm. Its collision sweeps remain valid. Its stated 0.25 mm projection air does not qualify that frozen thicker backing.",
+    "required_valve_entry_air_mm": 0.25,
+    "temporary_spring_tool": {
+      "quantity": 1,
+      "path": "hardware/printed-parts/fixtures/carrier-spring-pusher",
+      "print_envelope_mm": [
+        13.15,
+        6.3,
+        2.0
+      ],
+      "tip_diameter_mm": 6.3,
+      "tongue_mm": [
+        10,
+        3,
+        2
+      ],
+      "frozen_native_sweeps": 19,
+      "sequence": "Seat and release left spring, remove pusher, then reuse the same tool for right.",
+      "fresh_wall_check_pending": false,
+      "canonical_export_pending": false,
+      "artifacts_sha256": {
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step.mesh": "cd595e9edf6da41d1c90d7103b365df7e154e05a305829e435d61f9b3053ca2d"
+      },
+      "geometry_check": "hardware/printed-parts/fixtures/carrier-spring-pusher/geometry-check.json",
+      "geometry_check_sha256": "a1d5afa6e2647f11479a05cd42b3d59789d999777e71083e2b87a56864676d57",
+      "canonical_print_frame": "XY broad face on Z0; +Z up, no rotation or supports",
+      "native_route_evidence": "hardware/printed-parts/fixtures/carrier-spring-pusher/native-sequence-check.json",
+      "conservative_lift_lane_air_mm": 0.30000000000001137,
+      "fresh_native_route_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+      "fresh_native_route_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6"
+    },
+    "canonical_generation": {
+      "producer": "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+      "raised": null,
+      "loaded_source_sha256": {
+        "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
+        "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+        "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
+        "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+        "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
+        "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+        "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
+        "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
+        "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
+        "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "08c689797fde87ced31b7b074b2df2a9f5ee860db03016a8ba2b4e591cdd6835",
+        "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
+        "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf",
+        "hardware/printed-parts/enclosure/tee-carrier/_carrier_motion.py": "7e28f5c0e81cc4fc42eebbf8c5b4fe53d8769436c31e8c28882155ed6041a1be",
+        "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f",
+        "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+        "hardware/printed-parts/enclosure/tee-carrier/tee_carrier_spring.py": "9fc8a45e1daf4ef1d92333ce88beeb1f1f46aa8cc5c7076511e7cfb766ff768d",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+        "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e8f01c85a332ccfa56c9c642457b894d9b413658acf2a6387f7bc6d0f430a246",
+        "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+        "hardware/printed-parts/zone-c/funnel/funnel.py": "b5c9728cb8f963e5d60328d4068e1d4f87e0bd49742fbf375eb05c36cd8f393d",
+        "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "3002f33a9b2c8978f56047832f2cb117678d42369f700383d17889fc61743a67",
+        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+        "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
+        "hardware/reference/riteav-keystone/riteav_keystone.py": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe",
+        "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+        "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+        "hardware/reference/worm-clamp/worm_clamp.py": "3faf968f69a863eb257830748e292b0ee040d007e554b79c61257b63759ca786",
+        "hardware/scripts/_box_spec.py": "6d3fb6a178e443956d87c18a77e143181776b8b79d0f480ed8727b96ea35e1fe",
+        "hardware/scripts/_boxes.py": "b4ef9757879de112561a56d294a7705075a9006e2826e534cb1779781eaebc23",
+        "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+        "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+        "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
+        "hardware/scripts/_measuring.py": "3978b06f38f46681c022f0e7ec2ca862f5750bd6f544c25dfb8e7d8ac7eebcb5",
+        "hardware/scripts/_mesh_payload.py": "1e1cee55690e125f45b846b183227ea59391adb798d01ee9aeaa69d1d5e44e72",
+        "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+        "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+        "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+        "hardware/scripts/_world_sdf.py": "c451edbaaeb095a6bb7f35fe0996ad0b4783156311b3656531960bc46386f90f",
+        "hardware/scripts/flute_payload.py": "d93dcb92f176cc963148cf56c0d7fcd113bbd2798227b3b71cb483a20733a6c2",
+        "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
+      },
+      "loaded_source_drift": [],
+      "rewritten_sources": [],
+      "output_sha256": {
+        "hardware/printed-parts/enclosure/tee-carrier/README.figures.json": "93d66386a90e355133c11d306d84ad26cad3a8c20698886dc9000e4bfcc8ba0e",
+        "hardware/printed-parts/enclosure/tee-carrier/README.md": "adb2ab7c78ac3951246285cdea5a98b97df313ad41fbfaa88978d8a89b2e1488",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step.mesh": "ea6887689068d7a575cf829c60c68e28d751064a2b97befd8bee0abdcfd5f6be",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "8ee7f1f2826abcc12ad4a5acc93eb9c882c7ad82746147af8368ab26880c1f48",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step.mesh": "7164de3f71685d916fe62f71c4670ff6def4a236315670acb6052567b93c1a17",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "4f21c9cb7dd0d230f0f187c3192741761c4fc0a5bee7b45d065eeefd29df5232"
+      },
+      "scope": "Current standalone carrier producer and exact output bytes. This does not qualify the regenerated complete front-top or its support slice."
+    },
+    "canonical_generation_record_sha256": "d6a27e8171dca494638227112417f144fb9ab16bf5a9f661198b418c2055e5a5",
+    "native_readings_scope": "The native_readings counts describe the frozen study. Fresh front-top counts, hashes and scope are in fresh_front_top; no physical stiffness or retention qualification is inferred.",
+    "fresh_local_integration": {
+      "evidence": "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json",
+      "sha256": "b4b0578cd87dae83b4913b8751dec09a3de21c8287bf1032c7b5013f2fcea9d2",
+      "checks_pass": 958,
+      "pump_trays": [
+        [
+          52.225,
+          45.859,
+          214.925
+        ],
+        [
+          -52.225,
+          45.859,
+          214.925
+        ]
+      ],
+      "canonical_carrier_input_sha256": {
+        "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16"
+      },
+      "full_wall_and_pusher_paths_checked": false,
+      "spring_id_required_by_design": false,
+      "separate_full_wall_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json"
+    },
+    "fresh_front_top": {
+      "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+      "sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6",
+      "status": "current_front_top_native_pass",
+      "native_readings": 152,
+      "continuous_sweeps": 36,
+      "all_checks_pass": true,
+      "box_sha256": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+      "front_top_step_sha256": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+      "canonical_part_input_sha256": {
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/geometry-check.json": "a1d5afa6e2647f11479a05cd42b3d59789d999777e71083e2b87a56864676d57",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "8ee7f1f2826abcc12ad4a5acc93eb9c882c7ad82746147af8368ab26880c1f48",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "4f21c9cb7dd0d230f0f187c3192741761c4fc0a5bee7b45d065eeefd29df5232",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+      },
+      "source_drift": [],
+      "scope": "Complete native front-top and canonical halves/tool; current Box agreement, joint and half placement, held springs, one-tool reuse/removal, cups, working travel, guide/stop contact, and seated display interface. Full appliance closure and actual support slice remain separate."
+    }
+  },
+  "fresh_print_scope": {
+    "authority": "Derek,2026-09-21: assume no reusable shell pieces; all are safe and preferred to reprint; design is not constrained by earlier prints.",
+    "reuse_required": false,
+    "shell_quadrants": [
+      "front-top",
+      "front-bottom",
+      "back-top",
+      "back-bottom"
+    ],
+    "mechanism": [
+      "pump-cartridge",
+      "pump-cap",
+      "tee-carrier-left",
+      "tee-carrier-right"
+    ],
+    "assembly_tool": [
+      "one reusable spring pusher"
+    ],
+    "first_job_printer": "H2C",
+    "first_job_parts": [
+      "front-top",
+      "tee-carrier-left",
+      "tee-carrier-right",
+      "spring-pusher"
+    ],
+    "second_job_printer": "Mark2 after fake-countertop and confirmed clear bed",
+    "second_job_parts": [
+      "pump-cartridge",
+      "pump-cap"
+    ],
+    "remaining_shell_jobs": "Fresh slices for printer assignment as beds become available.",
+    "packing_status": "Model packing only; exact native support and extrusion bounds pending.",
+    "other_enclosure_parts": [],
+    "additional_test_coupons": false,
+    "physical_acceptance_scope": "Complete enclosure and working mechanism; no separate display or carrier coupon."
+  },
+  "full_enclosure_physical_tests": [
+    "Spring retention at both ends through all stops and unequal grip motion; tension, feel and assembled X-span rigidity.",
+    "Four-tube insertion, moving-ring contact, release, relocking and primed pumping.",
+    "Raised cap with actual motor spade connectors and matching new cartridge on the relieved floor.",
+    "Beduan tie threading/tightening, DIGITEN flow direction and machine-display retention.",
+    "G Ganen actual screws, washers, sliding rubber feet and installed operation."
+  ],
+  "tee_terminal_bearing": {
+    "evidence": "hardware/reference/jg-pp0208e-tee/terminal-bearing-review.json",
+    "aperture_diameter_mm": 8.5,
+    "observed_bearing_band_radii_mm": [
+      4.25,
+      4.75
+    ],
+    "observed_band_coverage_percent": 99.7327,
+    "angular_sectors_with_stock": 36,
+    "exact_ring_od_and_rear_seam_measured": false,
+    "additional_full_scan_required_before_trial": false,
+    "physical_contact_release_relock_tested": false
+  },
+  "machine_display_cover": {
+    "geometry_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/display-cover-check.json",
+    "included_in_fresh_trial": false,
+    "fresh_front_top_fit_check_pending": false,
+    "native_slice_pending": false,
+    "physical_fit_accepted": true,
+    "physical_fit_authority": "Derek, 2026-09-21: the display was already test fit with the previous design.",
+    "additional_coupon_required": false,
+    "current_shell_interface_passed": true
+  },
+  "matching_cold_core_mounting_parts": {
+    "parts": [
+      "foam-cap-top",
+      "foam-cap-lid-top"
+    ],
+    "material": "black PET-GF",
+    "scope": "The selected G Ganen installation uses the four current cap columns and matching lid holes; the lid also carries the scan-corrected valve cradles and fluid-14 anchor.",
+    "native_dependencies_current": true,
+    "print_release": false,
+    "first_front_mechanism_job_dependency": false
+  },
+  "gas_chain_shell_fit": {
+    "evidence": "hardware/printed-parts/enclosure/tee-readiness/gas-chain-shell/source-audit.json",
+    "received_part_fit_verified": false,
+    "additional_coupon_required": false,
+    "assembly_print_blocked": false,
+    "scope": "Nominal gas fitting seats and ceiling pockets remain a local back-top fit uncertainty. All four shell pieces are part of the requested full enclosure assembly print; actual made-up fitting fit is checked in that enclosure."
   }
 }

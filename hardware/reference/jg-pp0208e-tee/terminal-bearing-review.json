@@ -1,0 +1,128 @@
+{
+  "created_at_utc": "2026-09-21T04:30:29.155346+00:00",
+  "scope": "Read observed terminal-face coverage outside the circular release aperture.\n\nThis keeps the archived scan's registration and scale. Projected scan-face area\nis evidence for an assembly trial, not a guaranteed simultaneous contact area or\na material-strength calculation. No native production geometry is generated.\n",
+  "input_sha256": {
+    "archived_scan": "c25584adca577ac559a11117579a8c65f0340413d2ddfa3e05e9e4555790942e",
+    "scan-registration.json": "2120e0521b8e4d865cc25d422ca8560ec3e38895227d31fa6cc0eaf8ba143962",
+    "terminal-ring-scan.json": "eb8444d621ff5716b8cd2e1bd396243059d1304b8665fc3df6bd6eba7e2f2f95",
+    "branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2"
+  },
+  "source_sha256": {
+    "hardware/reference/jg-pp0208e-tee/analyze_terminal_bearing.py": "e87879c76f551511b82f63944882d2bfb50c47bc485efd3a2fb647a8b0743314",
+    "hardware/manifold-layout/enclosure_assembly.py": "7cf2592b59ec59133668c90d1092c39bac6ce5a196622fab1e11efdff40dfcc0",
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9"
+  },
+  "scale": 1.0,
+  "selection": {
+    "branch_y_mm": [
+      21.0,
+      21.8
+    ],
+    "radius_mm": [
+      3.2,
+      5.8
+    ],
+    "outward_normal_y_minimum": 0.85,
+    "absolute_fitted_face_plane_residual_maximum_mm": 0.3,
+    "triangles": 2867,
+    "description": "Union of actual selected triangle projections; no filling of missing sectors or rescaling."
+  },
+  "aperture_diameter_mm": 8.5,
+  "projected_terminal_face_area_mm2": 32.20947578272064,
+  "projected_face_outside_aperture_mm2": 20.07055236036873,
+  "annular_bands": [
+    {
+      "inner_radius_mm": 4.25,
+      "outer_radius_mm": 4.5,
+      "annular_band_area_mm2": 6.872146704969559,
+      "observed_projected_area_mm2": 6.872130414670721,
+      "coverage_fraction": 0.9999976295181786,
+      "unobserved_projected_area_mm2": 1.629029883787325e-05
+    },
+    {
+      "inner_radius_mm": 4.25,
+      "outer_radius_mm": 4.75,
+      "annular_band_area_mm2": 14.136987507365781,
+      "observed_projected_area_mm2": 14.09919412121275,
+      "coverage_fraction": 0.9973266308587074,
+      "unobserved_projected_area_mm2": 0.037793386153030184
+    },
+    {
+      "inner_radius_mm": 4.25,
+      "outer_radius_mm": 5.0,
+      "annular_band_area_mm2": 21.7945224071889,
+      "observed_projected_area_mm2": 19.403985325851387,
+      "coverage_fraction": 0.8903147755809966,
+      "unobserved_projected_area_mm2": 2.390537081337513
+    }
+  ],
+  "offset_sensitivity": [
+    {
+      "offset_mm": 0.0,
+      "angles_sampled": 72,
+      "minimum_projected_area_mm2": 20.07055236036873,
+      "minimum_sector_area_mm2": 0.39459093539845275,
+      "minimum_present_sectors": 36
+    },
+    {
+      "offset_mm": 0.25,
+      "angles_sampled": 72,
+      "minimum_projected_area_mm2": 20.06432348263062,
+      "minimum_sector_area_mm2": 0.2039605480420677,
+      "minimum_present_sectors": 36
+    },
+    {
+      "offset_mm": 0.35,
+      "angles_sampled": 72,
+      "minimum_projected_area_mm2": 20.0203861948078,
+      "minimum_sector_area_mm2": 0.12467071004965154,
+      "minimum_present_sectors": 36
+    },
+    {
+      "offset_mm": 0.5,
+      "angles_sampled": 72,
+      "minimum_projected_area_mm2": 19.75914327362708,
+      "minimum_sector_area_mm2": 0.016797248539572797,
+      "minimum_present_sectors": 36
+    }
+  ],
+  "offset_qualification": "Sampled offsets illustrate radial registration/journal play. They are not manufacturing tolerance bounds or a mechanical contact simulation.",
+  "outer_wall_measurement": {
+    "fitted_diameter_mm": 10.618188436581288,
+    "held_out_radial_p95_mm": 0.23475675274560753,
+    "minimum_selected_radius_about_registered_branch_axis_mm": 4.999332937519914,
+    "minimum_selected_radius_minus_aperture_radius_mm": 0.749332937519914,
+    "qualification": "Observed side-wall samples and residuals only. The rounded front edge makes the near-planar contact face smaller than this outside diameter."
+  },
+  "axial_contact": {
+    "moving_feature_authority": "30.5 extended, 29 collet pressed. It is the outermost donut which slides, the furthest in the \u201cextended\u201d direction. This is obviously not the largest donut, in fact it is one of the smallest.",
+    "extended_width_mm": 30.5,
+    "pressed_width_mm": 29.0,
+    "travel_mm": 1.5,
+    "nominal_collar_back_diameter_mm": 16.3,
+    "extended_face_from_run_axis_mm": 22.35,
+    "pressed_face_from_run_axis_mm": 20.85,
+    "observed_fixed_reduced_face_outermost_station_mm": 20.085154911000558,
+    "production_fixed_reduced_barrel_envelope_end_mm": 20.25,
+    "nominal_pressed_face_to_fixed_envelope_air_mm": 0.6000000000000014,
+    "clearance_collar_envelope_diameter_mm": 16.5,
+    "seam_relevance": "The plate pushes the measured outermost face. Its 1.5 mm travel and endpoint datums do not require the unmeasured rear seam; the wider fixed barrel remains behind the pressed contact plane."
+  },
+  "witness_distinction": "The native R4.26\u20135.0 annulus proves printed-plate stock. R5.0 is not a measured minimum ring-face radius; this scan observes only about 89% of the wider R4.25\u20135.0 near-planar band.",
+  "assessment": {
+    "sufficient_terminal_geometry_for_assembly_test_print": true,
+    "additional_scan_required_before_trial": false,
+    "exact_terminal_diameter_qualified": false,
+    "exact_terminal_rear_seam_qualified": false,
+    "physical_release_qualified": false,
+    "reason": "Measured moving-face identity and stroke, observed bearing in all angular sectors and retained circular plate stock support the complete enclosure assembly trial.",
+    "physical_trial_observation": "Verify that each actual ring bears on the flat shoulder, reaches release over the measured travel, and allows tube withdrawal/relocking without the larger fixed barrel bottoming on the plate.",
+    "minimum_extra_measurement_if_trial_reveals_an_issue": "Measure the affected terminal ring's flat front-face outside diameter and inspect the plate contact mark; another whole-tee scan is not the first step."
+  },
+  "limits": [
+    "Merged-scan sleeve state is intermediate or mixed; no absolute rear seam is inferred.",
+    "Projected scan area is not guaranteed flat simultaneous contact area or a strength/load rating.",
+    "Scan residuals are not uncertainty bounds or production tolerances.",
+    "Current full front-top stock, actual sliced support cleanup, printed fit and release effort are separate checks."
+  ]
+}

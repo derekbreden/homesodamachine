@@ -1,0 +1,33 @@
+{
+  "status": "native_tool_exported_for_complete_enclosure_trial",
+  "scope": "Reusable temporary assembly tool. Its native route is recorded separately; actual spring force, handling effort and tool durability remain unmeasured.",
+  "quantity_required": 1,
+  "reuse_sequence": "Load and seat left half, remove pusher so left spring expands into both cups, then turn the same tool 180 degrees about the spring axis and use it for the right half.",
+  "print_frame": "Flat XY, broad face on bed at Z0, +Z up; no rotation required.",
+  "print_dimensions_mm": {
+    "x": 13.15,
+    "y": 6.3,
+    "z": 2.0
+  },
+  "tip_diameter_mm": 6.3,
+  "tongue_length_from_tip_center_mm": 10.0,
+  "tongue_width_mm": 3.0,
+  "constant_thickness_mm": 2.0,
+  "held_spring_length_mm": 12.15,
+  "support_required": false,
+  "toolpath_review": "Confirm the whole tongue/head footprint survives every tool layer; at 0.20 mm uniform layer height the 2.0 mm body is ten layers. Use the actual slice layer heights for the recorded count.",
+  "native_valid": true,
+  "native_solids": 1,
+  "native_volume_mm3": 104.1857047684304,
+  "mesh_watertight": true,
+  "mesh_bodies": 1,
+  "mesh_faces": 1068,
+  "source_sha256": {
+    "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier_spring_pusher.py": "1db32277d54650071c6b2866a1034365f0df66814a9f611de2a00f1f7645f259"
+  },
+  "artifacts": {
+    "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e",
+    "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a",
+    "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step.mesh": "cd595e9edf6da41d1c90d7103b365df7e154e05a305829e435d61f9b3053ca2d"
+  }
+}

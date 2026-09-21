@@ -1518,7 +1518,7 @@ plate_foot_corbel_angle = 45.0
 # follows the same path over the cans. Its plate footprint
 # is therefore the well above the bracket plane; below that plane the smaller head room leaves
 # the bracket's three closed sides standing on material.
-cap_pump_air = fits.running           # running air round the head in the cradle's lower well
+cap_pump_air = 0.4                    # fitted case-profile air in the cradle's lower well
 cap_boss_air = fits.running  # per-face insertion air around each octagonal pump boss
 cap_slot_half = _tray.outlet_open_half
 cap_fitting_half = _tray.shaft_w / 2.0
@@ -1530,13 +1530,10 @@ clamp_lane_overlap = 2.0     # the cradle's centre clearance into each upper wel
                              # and the two wells read as one opening for the clamp's spine
 clamp_drop_air = fits.running  # clamp footprint and bracket air through the cradle well
 clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
-# Four exposed, flat rails bear on the measured outer flange rims, directly over the skirt
-# lands. The bridge keeps clearance above the cradle spine while the screws establish contact.
-# The cap prints crown-down: these terminal bearing faces face print-up, with open sides.
+# Broad underside and fitted boss/can openings of the physically accepted cap.
 cap_bridge_rise = 2.0
-cap_pressing_rail_x = (29.0, 32.0)
-cap_pressing_rail_y = (-16.0, 16.0)
-cap_contact_travel = 0.25  # downward adjustment available before screw-tip or bridge stops
+cap_terminal_opening_r = 22.5  # open crown around each motor end and its terminal pair
+cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap position
 
 # --- THE HAND PULLS ONLY THE LOWER CRADLE -----------------------------------
 #
@@ -5122,39 +5119,19 @@ def cap_drop_start_z(pump_trays):
 
 
 def cap_base_z(pump_trays):
-    """The bridge underside, clear of the cradle spine; only its four rails press the pumps."""
+    """The fitted cap's broad underside, two millimetres above its holder datum."""
     return cap_split_z(pump_trays) + cap_bridge_rise
 
 
-def cap_pressing_z(pump_trays):
-    """The nominal outer flange rim, eight millimetres above the real skirt bearing lands."""
-    return pump_skirt_support_z(pump_trays) + _tray.skirt_depth
-
-
-def _cap_pressing_rails(pump_trays):
-    """Two straight exposed rails per pump; each overlaps the observed rigid outer rim.
-
-    The inner edges stand outside the complete boss opening. The side faces remain open for
-    inspection and cleaning, and no rail crosses a mounting hole or flexible outlet."""
-    bottom, top = cap_pressing_z(pump_trays), cap_base_z(pump_trays)
-    out = []
-    for cx, cy, _cz in pump_trays:
-        my = cy + clamp_pump_y_shift
-        for sign in (-1.0, 1.0):
-            x0, x1 = sorted(cx + sign * x for x in cap_pressing_rail_x)
-            out.append(_ybox(x0, x1, my + cap_pressing_rail_y[0],
-                             my + cap_pressing_rail_y[1], bottom, top + 0.01))
-    return out
+def cap_terminal_opening_z(box):
+    """The fitted motor bore's upper end; the wider open crown begins here."""
+    return (max(cz for _cx, _cy, cz in box.pack.pump_trays)
+            + _tray.motor_crown + bay_crown_air - pump_cartridge_z_clearance)
 
 
 def cap_crown_z(box):
-    """The complete top clamp's common crown, translated with the pumps.
-
-    The fixed bay roof has its own relief and does not locate this removable clamp. The motor's
-    far face does: `bay_crown_air` less the cartridge's running clearance gives one constant
-    section carried with the bracket datum."""
-    return (max(cz for _cx, _cy, cz in box.pack.pump_trays)
-            + _tray.motor_crown + bay_crown_air - pump_cartridge_z_clearance)
+    """The surrounding crown meets the cartridge's top edge around two open motor ends."""
+    return box.pump_bay[2] - pump_cartridge_top_clearance
 
 
 def cap_head_seat_z(box):
@@ -5444,7 +5421,7 @@ def pump_cartridge_figures(box):
         "PULL_FORE_STOCK": f"{(y0 - pump_cartridge_front_y):.4g} mm",
         "PULL_AFT_STOCK": f"{(aft - y1):.4g} mm",
         "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
-        "CLAMP_RISE": f"{(clamp_crown - cap_pressing_z(trays)):.5g} mm",
+        "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
         "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
         "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
         "CLAMP_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - clamp_crown):.4g} mm",
@@ -5462,10 +5439,8 @@ def pump_cartridge_figures(box):
         "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + clamp_pump_y_shift + _tray.boss_half
                                                 for _cx, cy, _cz in trays)):.4g} mm",
         "CLAMP_BRIDGE_RISE": f"{cap_bridge_rise:.4g} mm",
-        "CLAMP_PRESSING_Z": f"{cap_pressing_z(trays):.6g} mm",
-        "CLAMP_RAIL_WIDTH": f"{cap_pressing_rail_x[1] - cap_pressing_rail_x[0]:g} mm",
-        "CLAMP_RAIL_RUN": f"{cap_pressing_rail_y[1] - cap_pressing_rail_y[0]:g} mm",
-        "CLAMP_CONTACT_TRAVEL": f"{cap_contact_travel:g} mm",
+        "CLAMP_TERMINAL_OPENING": f"{2.0 * cap_terminal_opening_r:g} mm",
+        "CLAMP_TERMINAL_OPENING_Z": f"{cap_terminal_opening_z(box):.6g} mm",
         "PUMP_SEATED_DROP": f"{_interface.pump_seated_drop:g} mm",
         "CAP_TUBE_OPEN_SPAN": f"{2.0 * cap_slot_half:.4g} mm",
         "CAP_TUBE_PART_SPAN": f"{2.0 * _tray.outlet_half:.4g} mm",
@@ -5688,7 +5663,7 @@ def _tee_carrier_service_slots(carrier):
     cuts = []
     for station in carrier["spring_stations"]:
         cuts.append(_teardrop_y(carrier["spring_bore_d"] / 2.0, station["x"], station["z"],
-                                station["seat_floor_y"], station["seat_mouth_y"] + 1.0))
+                                station["seat_floor_y"], carrier.get("fixed_seat_wall_y", station["seat_mouth_y"]) + 1.0))
     for name in ("service_slot", "service_recess"):
         x0, x1 = carrier[name + "_x"]
         y0, y1 = carrier[name + "_y"]
@@ -5705,6 +5680,18 @@ def _tee_carrier_service_slots(carrier):
         cuts.extend(opening if side > 0 else opening.mirror("YZ")
                     for side in (-1, 1))
     return tuple(cuts)
+
+
+def _tee_carrier_fixed_cups(carrier):
+    """Integral round extensions over the unmoved fixed spring-floor datums."""
+    if not carrier or not carrier.get("fixed_seat_outer_d"):
+        return ()
+    inner=carrier["spring_bore_d"]/2
+    outer=carrier["fixed_seat_outer_d"]/2
+    root=carrier["fixed_seat_wall_y"]-.1
+    return tuple(_ycyl(outer,s["x"],s["z"],root,s["seat_mouth_y"]).cut(
+        _ycyl(inner,s["x"],s["z"],root-.1,s["seat_mouth_y"]+.1))
+        for s in carrier["spring_stations"])
 
 
 def _ridge_keystone(slab, station, t):
@@ -5995,12 +5982,10 @@ def _pump_cartridge_gross(box, halves_cache=None):
 
 
 def _pump_clamp_gross(box, halves_cache=None):
-    """One clamp bridge with four flat rails bearing on the measured rigid flange rims.
+    """One broad cap with fitted octagonal bosses and cylindrical motor openings.
 
-    Each complete case-profile octagon locates a boss, and each motor can opens the remaining
-    height. The broad bridge stays above the cradle spine so screw closure reaches the pump
-    rims before a printed hard stop. The common crown, screw seats and fitted openings stay
-    on their holder datums; the exposed rails alone reach the seated pump's bearing plane."""
+    The surrounding crown reaches the cartridge top. Two wider openings pass straight through
+    that crown above the fitted motor bores, leaving the motor ends and terminals open."""
     if halves_cache is not None and "pump-clamp-gross" in halves_cache:
         return halves_cache["pump-clamp-gross"]
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
@@ -6012,8 +5997,6 @@ def _pump_clamp_gross(box, halves_cache=None):
     x0 = min(cx - _tray.half_width() for cx, _cy, _cz in trays)
     x1 = max(cx + _tray.half_width() for cx, _cy, _cz in trays)
     solid = _ybox(x0, x1, fore, aft, base, crown)
-    for rail in _cap_pressing_rails(trays):
-        solid = solid.fuse(rail)
     for cx, cy, cz in trays:
         opening_y = cy + clamp_pump_y_shift
         solid = solid.cut(_tray.boss_room(cap_boss_air).moved(
@@ -6021,6 +6004,9 @@ def _pump_clamp_gross(box, halves_cache=None):
         solid = solid.cut(_zcyl(
             _tray.can_half, cx, opening_y,
             split + _tray.boss_depth - 0.1, crown + 1.0))
+        solid = solid.cut(_zcyl(
+            cap_terminal_opening_r, cx, opening_y,
+            cap_terminal_opening_z(box), crown + 1.0))
     if halves_cache is not None:
         halves_cache["pump-clamp-gross"] = solid
     return solid
@@ -6064,8 +6050,9 @@ def build_pump_cap(box, halves_cache=None):
 
     With the cartridge withdrawn from the enclosure, it lowers over both motor cans after the
     pumps stand in the cradle. Each opening takes its boss on the complete case-profile octagon
-    and closes with one shoulder round the can; four rails press the molded flange rims
-    onto the cradle lands. The whole field reaches its holder-datum crown, and two M3×60 reach
+    and closes with one shoulder round the can. The broad underside, locating profiles and
+    screw seats share the fitted holder datums. Two open motor-terminal wells cross the crown,
+    level with the cartridge's top edge, and two M3×60 reach
     the cradle from counterbores in that crown. This piece carries no show face, plate stop or
     pull."""
     solid = _pump_clamp_gross(box, halves_cache)
@@ -6182,9 +6169,9 @@ pan_sleeve_corbel = 20.0
 
 # THE MOISTURE-PLATE LEAD STAYS ON THE DRY SIDE OF THE PAN. The −X back-top flank is nine
 # millimetres thick here, so the cable clip takes six millimetres of it and leaves three
-# millimetres proud in the cabinet plus three millimetres of exterior backing. It runs aft-to-
-# fore beside the pan, clear of the sleeve and the ASSE chain; the lead's service loop falls
-# from its forward ramp into the open pan and the fixed loom leaves its rear ramp.
+# millimetres proud in the cabinet plus three millimetres of exterior backing. It runs below
+# the sleeve's aft end, with a full dry gap under the sleeve and ahead of the actual rear wall.
+# The lead's service loop rises from its forward ramp into the open pan.
 pan_cable_clip_embed = 6.0
 pan_cable_clip_rear_land = wall
 pan_cable_clip_sleeve_gap = 2.0 * wall
@@ -6283,6 +6270,28 @@ def _pan_sleeve(solid, sleeve, z0, z1, up=1.0):
     return solid
 
 
+def pan_cable_clip_bounds(box):
+    """The unchanged clip profile below the sleeve, outside the pan's withdrawal room.
+
+    The rear land is measured from this piece's actual rear face. The complete 39 mm
+    section stands below the sleeve's underside, leaving the declared dry gap above it.
+    """
+    if not box.pack.pan_sleeve or not box.pack.pan_sleeve[0]:
+        return None
+    blocks = box.pack.pan_sleeve[0]
+    if len(blocks) != 1:
+        raise ValueError(f"the pan cable clip needs one sleeve block; got {len(blocks)}")
+    face = back_top_flank_face()[0]
+    run_end = back_top_wall_face() - pan_cable_clip_rear_land
+    run_start = run_end - _cable_clip.RUN
+    z_high = blocks[0][4] - pan_cable_clip_sleeve_gap
+    z_low = z_high - _cable_clip.HEIGHT
+    if run_start < box.y_joint + wall or z_low < box.splits[1] + wall:
+        raise ValueError("the pan cable clip no longer fits on the dry back-top flank")
+    return (face - pan_cable_clip_embed, run_start, z_low,
+            face + _cable_clip.projection(pan_cable_clip_embed), run_end, z_high)
+
+
 def _pan_cable_clip(solid, box, up=1.0):
     """The partially embedded SIG-9 service-loop clip beside the ASSE drip pan.
 
@@ -6293,24 +6302,15 @@ def _pan_cable_clip(solid, box, up=1.0):
     where it is negative, and the origin is the profile's lower corner at the start of
     whichever run that is, so the clip stands over the same Y run and the same Z band either
     way."""
-    if not box.pack.pan_sleeve or not box.pack.pan_sleeve[0]:
+    bounds = pan_cable_clip_bounds(box)
+    if bounds is None:
         return solid
-    blocks = box.pack.pan_sleeve[0]
-    if len(blocks) != 1:
-        raise ValueError(f"the pan cable clip needs one sleeve block; got {len(blocks)}")
-    _x0, _x1, _y0, sleeve_y1, sleeve_z0, _z1 = blocks[0]
+    _x0, run_start, z_low, _x1, run_end, z_high = bounds
     face = back_top_flank_face()[0]
-    run_end = box.inner[3] - pan_cable_clip_rear_land
-    run_start = run_end - _cable_clip.RUN
-    if run_start < sleeve_y1 + pan_cable_clip_sleeve_gap - 1e-9:
-        raise ValueError(
-            "the pan cable clip no longer fits between the sleeve and rear wall: "
-            f"starts y {run_start:g}, sleeve ends {sleeve_y1:g}")
-    z_low = sleeve_z0 - _cable_clip.DEPTH          # the Z band's lower edge, either print
     if up > 0:
         origin, along = (face, run_end, z_low), (0.0, -1.0, 0.0)
     else:
-        origin, along = (face, run_start, z_low + _cable_clip.HEIGHT), (0.0, 1.0, 0.0)
+        origin, along = (face, run_start, z_high), (0.0, 1.0, 0.0)
     return _cable_clip.apply(
         solid,
         origin=origin,
@@ -8354,7 +8354,9 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1, up=1.0):
             # wall keeps its full section at the rib's two ends.
             solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
                                           reach, b_face, b_lane))
-            roof = b_crown + cavity_depth
+            # This channel is only the air available before the declared root. A shallow
+            # anchor must not gain clearance by cutting through its supporting wall.
+            roof = min(b_root, b_crown + cavity_depth)
             if roof > b_face + 1e-9:
                 solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
                                               reach + tie_t + tie_cav_buffer, b_face, roof))
@@ -8835,12 +8837,14 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The removable cartridge bears on the floor joined to the bay bulkhead.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
         piece = piece.fuse(_bay_floor(inner, y_joint, box.pack.collet_plate, box.pack.pump_trays))
+    # Fixed fitting pockets remove only the flank stock. Restore the anchors afterwards so
+    # their complete circular bearing webs, end roots and tie channels survive the relief.
+    if (y_side, z_side) == ("back", "top"):
+        piece = _flank_body_pockets(piece, box.pack.flank_reliefs)
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the ASSE anchor is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, roots, inner, box.pack.tube_anchors, ylo, yhi, zlo, zhi,
                           up=up)
-    if (y_side, z_side) == ("back", "top"):
-        piece = _flank_body_pockets(piece, box.pack.flank_reliefs)
     # And the nameplate — the pocket on the +Y wall's outer face, the plateau that floors it on
     # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
     # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,
@@ -8942,6 +8946,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # Flat guide openings continue through every wall, bearing body and seam feature.
         for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
             piece = piece.cut(slot)
+        # Add the closed circular cups after the common well/guide cutters so
+        # those access volumes cannot erase their measured capture surfaces.
+        for cup in _tee_carrier_fixed_cups(box.pack.tee_carrier):
+            piece = piece.fuse(cup)
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
         piece = _pan_cable_clip(piece, box, up=up)

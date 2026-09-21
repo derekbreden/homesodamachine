@@ -1,0 +1,379 @@
+{
+  "status": "native_concept_not_released",
+  "scope": "Measured-tee input blank. Inter-half assembly and local stock only; matching wall and placed-neighbor checks are separate. No material or physical-spring qualification.",
+  "script_sha256": "b131a9fb5100d17c807e08e1e411fb643f10447913596e26ba594ba28a866cc1",
+  "input_manifest_sha256": "03a32ad478e07bc4b220192856ecbc0f2cf564b1d0e05c0fa5aa60168e7ad2bd",
+  "parts": {
+    "left-concept": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 66388.9271703947,
+      "bounds": {
+        "x": [
+          -107.5,
+          20.5
+        ],
+        "y": [
+          92.29,
+          136.00000000000003
+        ],
+        "z": [
+          167.174,
+          229.11900000000003
+        ]
+      }
+    },
+    "right-concept": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 60007.883800391355,
+      "bounds": {
+        "x": [
+          -25.75,
+          107.5
+        ],
+        "y": [
+          92.29,
+          138.20000000000002
+        ],
+        "z": [
+          167.174,
+          229.11900000000003
+        ]
+      }
+    },
+    "right-structural-body": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 58581.83380039138,
+      "bounds": {
+        "x": [
+          -22.0,
+          107.5
+        ],
+        "y": [
+          92.29,
+          138.20000000000002
+        ],
+        "z": [
+          167.174,
+          229.11900000000003
+        ]
+      }
+    },
+    "retention-wall": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1426.0499999999997,
+      "bounds": {
+        "x": [
+          -25.75,
+          26.0
+        ],
+        "y": [
+          134.00000000000003,
+          138.20000000000002
+        ],
+        "z": [
+          211.0,
+          220.0
+        ]
+      }
+    },
+    "continuous-reference": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 110960.57932078265,
+      "bounds": {
+        "x": [
+          -107.5,
+          107.5
+        ],
+        "y": [
+          92.29,
+          133.29000000000002
+        ],
+        "z": [
+          167.174,
+          229.11900000000003
+        ]
+      }
+    }
+  },
+  "inter_half_motion": [
+    {
+      "right_pose_mm": [
+        -17.150000000000006,
+        33.0,
+        70
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -17.150000000000006,
+        33.0,
+        35
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -17.150000000000006,
+        33.0,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        33.0,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        20,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        10,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        7,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        6.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        5.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 24.0
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 50.400000000000034
+    },
+    {
+      "right_pose_mm": [
+        -3.25,
+        4.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 50.400000000000034
+    },
+    {
+      "right_pose_mm": [
+        -2.5,
+        4.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 37.80000000000002
+    },
+    {
+      "right_pose_mm": [
+        -1.5,
+        4.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 21.000000000000014
+    },
+    {
+      "right_pose_mm": [
+        -0.5,
+        4.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 4.200000000000003
+    },
+    {
+      "right_pose_mm": [
+        0,
+        4.5,
+        0
+      ],
+      "rigid_overlap_mm3": 0.0,
+      "rigid_hit_bounds": null,
+      "nominal_flex_wall_contact_mm3": 0.0
+    }
+  ],
+  "stock": {
+    "fore_lap_x_span_mm": 26.35,
+    "fore_lap_y_thickness_mm": 6,
+    "web_height_mm": 55.251000000000005,
+    "head_x_width_mm": 15.75,
+    "continuous_head_z_mm": 45.251000000000005,
+    "head_y_thickness_mm": 2,
+    "receiver_fore_lip_y_mm": 2.2,
+    "nominal_fore_lap_and_head_retaining_y_face_air_mm": 0,
+    "receiver_back_wall_y_mm": 1.65,
+    "receiver_end_bridge_z_mm": 4.85,
+    "head_retaining_overlap_x_mm": 3,
+    "nominal_retaining_face_mm2": 135.75300000000001,
+    "shelf_entry_web_cut_x_mm": [
+      -9.6,
+      13.35
+    ],
+    "shelf_entry_web_cut_z_mm": [
+      208.975,
+      215.8
+    ],
+    "retaining_face_interrupted_by_shelf_entry_mm2": 20.475000000000037,
+    "shelf_overlap_x_mm": 31.85,
+    "shelf_overlap_y_mm": 18.0,
+    "shelf_bearing_area_mm2": 573.3000000000001,
+    "shelf_face_clearance_mm": 0.1,
+    "shelf_added_aft_depth_mm": 4.0,
+    "shelf_y_mm": [
+      114.29,
+      132.29000000000002
+    ],
+    "shelf_upper_cheek_x_mm": [
+      -26,
+      20.5
+    ],
+    "shelf_upper_cheek_y_mm": [
+      120.5,
+      135.99
+    ],
+    "shelf_upper_cheek_aft_overhang_mm": 3.7,
+    "shelf_upper_cheek_z_thickness_mm": 2.5,
+    "upper_cheek_to_right_shelf_air_mm": 0.1,
+    "shelf_upper_cheek_z_mm": [
+      222.525,
+      225.025
+    ],
+    "shelf_full_depth_to_half_depth_transition_x_mm": 4,
+    "shelf_lower_ply_z_mm": 6.6250000000000115,
+    "shelf_upper_ply_z_mm": 6.6250000000000115,
+    "right_receiver_added_aft_mm": 0,
+    "side_web_added_aft_mm": 0.95,
+    "side_web_x_mm": [
+      [
+        -56.82,
+        -13
+      ],
+      [
+        15,
+        56.82
+      ]
+    ],
+    "side_web_z_mm": [
+      182.175,
+      209.075
+    ],
+    "side_web_nominal_total_y_mm": 6.95,
+    "side_web_to_coil_air_at_aft_stop_mm": 0.2499999999999858,
+    "receiver_aft_to_coil_fore_at_aft_stop_mm": 1.1999999999999886,
+    "closure_added_mm3_per_cup": 466.4220793147716,
+    "fore_rim_removed_mm3_per_side": 199.25999999999988,
+    "fore_rim_removed_bounds": {
+      "x": [
+        101.25,
+        104.25
+      ],
+      "y": [
+        92.29,
+        98.29
+      ],
+      "z": [
+        205.674,
+        216.744
+      ]
+    },
+    "flex_wall_excluded_from_beam_stiffness": true,
+    "warning": "Areas, section stock and clearance do not establish assembled stiffness. Sliding interfaces, print anisotropy and the short half-depth shelf transitions need an assembled-enclosure bending reading."
+  },
+  "assembly_route_mm": {
+    "staging_y": 33.0,
+    "fore_slide": 28.5,
+    "entry_lift_z": 70,
+    "initial_inset_x": 17.150000000000006,
+    "shoulder_inset_x": 3.25
+  },
+  "spring": {
+    "free_mm": 27,
+    "compressed_user_mm": 7,
+    "od_mm": 6,
+    "moving_cup_depth_mm": 11.1,
+    "fixed_cup_depth_candidate_mm": 8,
+    "exposed_middle_mm": [
+      0.25,
+      2.25,
+      4.75
+    ],
+    "qualification": "Real coil deformation, buckling, manual spring compression and retention force untested."
+  },
+  "wall_retention": {
+    "free_length_x_mm": 51.75,
+    "height_z_mm": 9,
+    "thickness_y_mm": 3,
+    "minimum_local_lip_clearance_deflection_y_mm": 2.0,
+    "modeled_free_tip_deflection_y_mm": 2.3,
+    "seated_reverse_x_gap_mm": 0.25,
+    "model": "Rigid wall/root separately checked. The free wall requires elastic deflection on the fore slide and returns during outward seating. Deflection envelope is geometric; force/strain tolerance is unqualified."
+  },
+  "outputs": {
+    "left-concept.step": "4bce0430a9cfc36140bd21f37dc7d919d522a663c983c8bee807948917a7f921",
+    "right-concept.step": "fe161c4ad9a6673e67aa713c83fe6e9fbfccccb43df5a76b8d8f9dea42b2972c",
+    "right-structural-body.step": "259774d65467a395795393f3d926bd3c4d3e00d77b039ef45f3773e62c09aa02",
+    "retention-wall.step": "7153a3c90fb493b5ca53f4083446920e95bf72f03b1edb3317e3b21d9d46e194",
+    "continuous-reference.step": "7e78c4ec2ad15a14a4c815397c9c5be118ff90f85681923c0b04707722553618",
+    "assembled-concept.step": "a44d10f7b8a52b123984d181a3f7c2122f96e5463dfa37aea6369b4f9ab4d9c6"
+  }
+}

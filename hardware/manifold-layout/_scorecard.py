@@ -158,7 +158,7 @@ REFRIGERANT_SEGMENTS = (
 
 # The tap water, from the +Y wall's bulkhead through the backflow preventer, the split and the
 # V-K fill/shutoff to the carbonator's own water inlet — `assembly/internal-plumbing.md` §2. All
-# 1/4" LLDPE, stepping back up to 3/8" only at the SeaFlo's two moulded barbs. The ASSE 1022's
+# 1/4" LLDPE, stepping back up to 3/8" only at the G Ganen's two measured barbs. The ASSE 1022's
 # vent is not here: it terminates to atmosphere over the ASSE drip pan.
 #
 # THERE IS NO `water-1`. The rear bulkhead's inboard collet and the ASSE chain's inlet collet
@@ -173,8 +173,8 @@ WATER_SEGMENTS = (
     ("water-2", "asse1022-assembly tube-out", "water-split supply"),
     ("water-3", "water-split to-vk", "vk-solenoid inlet"),
     ("water-5", "discharge-chain tube-port", "foam-assembly water-in"),
-    ("water-6", "seaflo-pump discharge (3/8\" barb, moulded)", "discharge-chain barb-tip"),
-    ("water-7", "seaflo-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
+    ("water-6", "g-ganen-pump discharge (3/8\" barb, moulded)", "discharge-chain barb-tip"),
+    ("water-7", "g-ganen-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
 )
 
 # Gas passes from the wall bulkhead through WR1110, then the downstream check, to the
@@ -253,7 +253,7 @@ MOUNTS = (
     # wall the aft. Neither piece holds it alone and both are screwed to the back-bottom it
     # stands in, so the fastening is the three quadrants pinned together.
     ("foam-assembly", ("enclosure-front-bottom", "enclosure-back-top"), "seam-capture"),
-    ("seaflo-pump", "foam-assembly", "deck-mount"),
+    ("g-ganen-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
     # THE FUNNEL'S DISCONNECT, THREE BODIES ON THE SPOUT'S OWN AXIS. The stub stands inside the
     # silicone under the clamp's band; the clamp closes silicone onto steel; the union takes the
@@ -663,8 +663,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER),
     ("gasher-co2", _gas_chain.CHECK_COUPLING),
     (_gas_chain.CHECK_COUPLING, _gas_chain.CHECK_OUT_ADAPTER),
-    # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
-    ("foam-assembly", "seaflo-pump"),
+    # What stands on the core's cap — `build_water_pump` and `build_psu` both take its crown as `z0`.
+    ("foam-assembly", "g-ganen-pump"),
     ("foam-assembly", "psu"),
     # THE THREE VALVES IN THE CAP'S OWN CRADLES. A press fit is a contact by construction: the
     # bosses' sockets take the valve's four corner posts on `valve_seat.socket_clearance` and

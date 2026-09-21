@@ -89,6 +89,11 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier_spring_pusher.py": (
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step.mesh",
+    ),
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py": tuple(
         f"hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-{label}.step.mesh"
         for label in "abcdef"

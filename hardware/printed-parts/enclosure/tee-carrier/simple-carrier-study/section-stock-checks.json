@@ -1,0 +1,757 @@
+{
+  "scope": "Geometric thin sections of the full beam through the structural upper cheek at Z225.025, excluding the flexible retaining wall. These are section stock/moment readings only. They assume all stock in one section can transfer load; interface slip and shelf-face engagement are not qualified. They do not prove more stiffness than any physical print.",
+  "generator_sha256": "b131a9fb5100d17c807e08e1e411fb643f10447913596e26ba594ba28a866cc1",
+  "script_sha256": "4d66cc470576a4296652df41422746e2f1ffea0cfb2cefe4bf728736e63be404",
+  "screwed_reference_manifest_sha256": "5f5c42fbcccf28c0c8ce0aefa843749b38a1dbac7c0ce38e6a5673bb2db285bc",
+  "beam_axis": "X across the carrier. For a beam along X, transverse Y force bends about Z (Iz), and transverse Z force bends about Y (Iy). The observed X-span bow does not identify force direction.",
+  "section_width_mm": 0.02,
+  "rows": [
+    {
+      "x_mm": -55,
+      "screwed_reference": {
+        "area_mm2": 518.4059999998971,
+        "Iy_geometric_mm4": 139566.367233514,
+        "Iz_geometric_mm4": 15998.945294821142
+      },
+      "concept": {
+        "area_mm2": 597.360999999882,
+        "Iy_geometric_mm4": 152147.2342867388,
+        "Iz_geometric_mm4": 27605.97410275788
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999998977,
+        "Iy_geometric_mm4": 139566.36723350527,
+        "Iz_geometric_mm4": 15998.945294819687
+      }
+    },
+    {
+      "x_mm": -40,
+      "screwed_reference": {
+        "area_mm2": 518.405999999897,
+        "Iy_geometric_mm4": 139566.36723350818,
+        "Iz_geometric_mm4": 15998.945294818232
+      },
+      "concept": {
+        "area_mm2": 597.3609999998818,
+        "Iy_geometric_mm4": 152147.23428673297,
+        "Iz_geometric_mm4": 27605.974102756423
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999998979,
+        "Iy_geometric_mm4": 139566.36723350818,
+        "Iz_geometric_mm4": 15998.945294821142
+      }
+    },
+    {
+      "x_mm": -28,
+      "screwed_reference": {
+        "area_mm2": 453.07700395904044,
+        "Iy_geometric_mm4": 116094.2214482975,
+        "Iz_geometric_mm4": 13348.458942280737
+      },
+      "concept": {
+        "area_mm2": 619.4352539590511,
+        "Iy_geometric_mm4": 145370.27041048737,
+        "Iz_geometric_mm4": 41042.21280491934
+      },
+      "continuous_blank": {
+        "area_mm2": 453.0770039590984,
+        "Iy_geometric_mm4": 116094.22144831496,
+        "Iz_geometric_mm4": 13348.458942286557
+      }
+    },
+    {
+      "x_mm": -26.02,
+      "screwed_reference": {
+        "area_mm2": 401.90969659582026,
+        "Iy_geometric_mm4": 93172.48331545656,
+        "Iz_geometric_mm4": 11659.79861307591
+      },
+      "concept": {
+        "area_mm2": 568.2679465958214,
+        "Iy_geometric_mm4": 117142.25054971858,
+        "Iz_geometric_mm4": 36619.23927660928
+      },
+      "continuous_blank": {
+        "area_mm2": 401.9096965958784,
+        "Iy_geometric_mm4": 93172.48331547111,
+        "Iz_geometric_mm4": 11659.798613074456
+      }
+    },
+    {
+      "x_mm": -25.98,
+      "screwed_reference": {
+        "area_mm2": 401.1652220349318,
+        "Iy_geometric_mm4": 92809.02034961029,
+        "Iz_geometric_mm4": 11637.667868939683
+      },
+      "concept": {
+        "area_mm2": 395.42022203492843,
+        "Iy_geometric_mm4": 93258.62819885333,
+        "Iz_geometric_mm4": 18961.92750461305
+      },
+      "continuous_blank": {
+        "area_mm2": 401.16522203499005,
+        "Iy_geometric_mm4": 92809.02034962775,
+        "Iz_geometric_mm4": 11637.667868945504
+      }
+    },
+    {
+      "x_mm": -24,
+      "screwed_reference": {
+        "area_mm2": 375.5573477389832,
+        "Iy_geometric_mm4": 79675.85478888145,
+        "Iz_geometric_mm4": 10916.289885246117
+      },
+      "concept": {
+        "area_mm2": 369.8123477389711,
+        "Iy_geometric_mm4": 81653.4596708637,
+        "Iz_geometric_mm4": 17987.218482649514
+      },
+      "continuous_blank": {
+        "area_mm2": 375.5573477390414,
+        "Iy_geometric_mm4": 79675.85478889309,
+        "Iz_geometric_mm4": 10916.2898852483
+      }
+    },
+    {
+      "x_mm": -22.35,
+      "screwed_reference": {
+        "area_mm2": 369.1918216040381,
+        "Iy_geometric_mm4": 76204.06541164033,
+        "Iz_geometric_mm4": 10748.643775662496
+      },
+      "concept": {
+        "area_mm2": 363.44682160414425,
+        "Iy_geometric_mm4": 78591.63426578481,
+        "Iz_geometric_mm4": 17755.39045857906
+      },
+      "continuous_blank": {
+        "area_mm2": 369.19182160409616,
+        "Iy_geometric_mm4": 76204.06541166652,
+        "Iz_geometric_mm4": 10748.643775665407
+      }
+    },
+    {
+      "x_mm": -21.98,
+      "screwed_reference": {
+        "area_mm2": 369.5091805982656,
+        "Iy_geometric_mm4": 76379.27592959724,
+        "Iz_geometric_mm4": 10756.89504630983
+      },
+      "concept": {
+        "area_mm2": 483.0141805983346,
+        "Iy_geometric_mm4": 94293.51134781525,
+        "Iz_geometric_mm4": 23699.814821490752
+      },
+      "continuous_blank": {
+        "area_mm2": 369.5091805983238,
+        "Iy_geometric_mm4": 76379.2759296147,
+        "Iz_geometric_mm4": 10756.89504631565
+      }
+    },
+    {
+      "x_mm": -16,
+      "screwed_reference": {
+        "area_mm2": 479.89482872395024,
+        "Iy_geometric_mm4": 126752.8387864569,
+        "Iz_geometric_mm4": 14374.039310043485
+      },
+      "concept": {
+        "area_mm2": 593.3998287239738,
+        "Iy_geometric_mm4": 152491.05804210037,
+        "Iz_geometric_mm4": 30615.024396437257
+      },
+      "continuous_blank": {
+        "area_mm2": 479.89482872400845,
+        "Iy_geometric_mm4": 126752.83878646271,
+        "Iz_geometric_mm4": 14374.039310049306
+      }
+    },
+    {
+      "x_mm": -14.02,
+      "screwed_reference": {
+        "area_mm2": 510.8192439659771,
+        "Iy_geometric_mm4": 138230.32669870727,
+        "Iz_geometric_mm4": 15687.608748089331
+      },
+      "concept": {
+        "area_mm2": 727.0640071309821,
+        "Iy_geometric_mm4": 206040.29697522923,
+        "Iz_geometric_mm4": 41946.86759029131
+      },
+      "continuous_blank": {
+        "area_mm2": 510.8192439659783,
+        "Iy_geometric_mm4": 138230.32669869854,
+        "Iz_geometric_mm4": 15687.608748087876
+      }
+    },
+    {
+      "x_mm": -13.02,
+      "screwed_reference": {
+        "area_mm2": 473.4059999999448,
+        "Iy_geometric_mm4": 120333.6951114894,
+        "Iz_geometric_mm4": 15223.433193723224
+      },
+      "concept": {
+        "area_mm2": 872.2294999999757,
+        "Iy_geometric_mm4": 236925.3590835982,
+        "Iz_geometric_mm4": 60955.848062621546
+      },
+      "continuous_blank": {
+        "area_mm2": 473.4059999999454,
+        "Iy_geometric_mm4": 120333.69511148067,
+        "Iz_geometric_mm4": 15223.43319372104
+      }
+    },
+    {
+      "x_mm": -12.98,
+      "screwed_reference": {
+        "area_mm2": 473.4059999999447,
+        "Iy_geometric_mm4": 120333.69511148067,
+        "Iz_geometric_mm4": 15223.433193719586
+      },
+      "concept": {
+        "area_mm2": 563.7309999999833,
+        "Iy_geometric_mm4": 140355.37368963737,
+        "Iz_geometric_mm4": 58119.369275124656
+      },
+      "continuous_blank": {
+        "area_mm2": 473.4059999999455,
+        "Iy_geometric_mm4": 120333.69511148358,
+        "Iz_geometric_mm4": 15223.433193723951
+      }
+    },
+    {
+      "x_mm": -12,
+      "screwed_reference": {
+        "area_mm2": 473.4060000001392,
+        "Iy_geometric_mm4": 120333.69511152433,
+        "Iz_geometric_mm4": 15223.43319372759
+      },
+      "concept": {
+        "area_mm2": 563.7310000000193,
+        "Iy_geometric_mm4": 140355.37368964902,
+        "Iz_geometric_mm4": 58119.36927512611
+      },
+      "continuous_blank": {
+        "area_mm2": 473.40600000014007,
+        "Iy_geometric_mm4": 120333.69511153597,
+        "Iz_geometric_mm4": 15223.433193723951
+      }
+    },
+    {
+      "x_mm": -10,
+      "screwed_reference": {
+        "area_mm2": 849.9120000001556,
+        "Iy_geometric_mm4": 235433.97333504597,
+        "Iz_geometric_mm4": 35648.99890215655
+      },
+      "concept": {
+        "area_mm2": 608.7309999999981,
+        "Iy_geometric_mm4": 163612.7185331513,
+        "Iz_geometric_mm4": 61775.633863394716
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001962,
+        "Iy_geometric_mm4": 139566.36723358385,
+        "Iz_geometric_mm4": 15998.945294826963
+      }
+    },
+    {
+      "x_mm": -9.52,
+      "screwed_reference": {
+        "area_mm2": 849.9119999999248,
+        "Iy_geometric_mm4": 235433.9733349412,
+        "Iz_geometric_mm4": 35648.998902155094
+      },
+      "concept": {
+        "area_mm2": 608.7309999999908,
+        "Iy_geometric_mm4": 163612.71853316293,
+        "Iz_geometric_mm4": 61775.633863394716
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999999173,
+        "Iy_geometric_mm4": 139566.36723350527,
+        "Iz_geometric_mm4": 15998.945294821142
+      }
+    },
+    {
+      "x_mm": -9.48,
+      "screwed_reference": {
+        "area_mm2": 849.9119999999248,
+        "Iy_geometric_mm4": 235433.97333495284,
+        "Iz_geometric_mm4": 35648.99890215364
+      },
+      "concept": {
+        "area_mm2": 899.28699999995,
+        "Iy_geometric_mm4": 264213.75572394073,
+        "Iz_geometric_mm4": 63889.04398112108
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999999173,
+        "Iy_geometric_mm4": 139566.3672335169,
+        "Iz_geometric_mm4": 15998.945294821142
+      }
+    },
+    {
+      "x_mm": -6,
+      "screwed_reference": {
+        "area_mm2": 331.50600000005187,
+        "Iy_geometric_mm4": 84331.61798914717,
+        "Iz_geometric_mm4": 994.5179999986165
+      },
+      "concept": {
+        "area_mm2": 906.5281000000732,
+        "Iy_geometric_mm4": 264430.79556008615,
+        "Iz_geometric_mm4": 63921.402191950045
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001963,
+        "Iy_geometric_mm4": 139566.36723358385,
+        "Iz_geometric_mm4": 15998.945294825508
+      }
+    },
+    {
+      "x_mm": -4,
+      "screwed_reference": {
+        "area_mm2": 331.50600000005187,
+        "Iy_geometric_mm4": 84331.61798914717,
+        "Iz_geometric_mm4": 994.5180000007992
+      },
+      "concept": {
+        "area_mm2": 906.5281000000732,
+        "Iy_geometric_mm4": 264430.7955600803,
+        "Iz_geometric_mm4": 63921.4021919515
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001963,
+        "Iy_geometric_mm4": 139566.36723358676,
+        "Iz_geometric_mm4": 15998.945294826963
+      }
+    },
+    {
+      "x_mm": 0,
+      "screwed_reference": {
+        "area_mm2": 773.3123757595894,
+        "Iy_geometric_mm4": 212995.08046368437,
+        "Iz_geometric_mm4": 34639.59479861669
+      },
+      "concept": {
+        "area_mm2": 920.8831000001142,
+        "Iy_geometric_mm4": 266023.8339981565,
+        "Iz_geometric_mm4": 64108.502577005725
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001999,
+        "Iy_geometric_mm4": 139566.36723358385,
+        "Iz_geometric_mm4": 15998.945294825508
+      }
+    },
+    {
+      "x_mm": 8,
+      "screwed_reference": {
+        "area_mm2": 849.9120000001205,
+        "Iy_geometric_mm4": 235433.97333504015,
+        "Iz_geometric_mm4": 35648.998902163825
+      },
+      "concept": {
+        "area_mm2": 920.8831000000124,
+        "Iy_geometric_mm4": 266023.8339980808,
+        "Iz_geometric_mm4": 64108.502577011546
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001962,
+        "Iy_geometric_mm4": 139566.36723358967,
+        "Iz_geometric_mm4": 15998.945294825508
+      }
+    },
+    {
+      "x_mm": 9.83,
+      "screwed_reference": {
+        "area_mm2": 849.9120000001533,
+        "Iy_geometric_mm4": 235433.9733350518,
+        "Iz_geometric_mm4": 35648.99890216528
+      },
+      "concept": {
+        "area_mm2": 730.828900000098,
+        "Iy_geometric_mm4": 223694.1129079459,
+        "Iz_geometric_mm4": 62300.93198520549
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001962,
+        "Iy_geometric_mm4": 139566.36723358967,
+        "Iz_geometric_mm4": 15998.945294826963
+      }
+    },
+    {
+      "x_mm": 9.87,
+      "screwed_reference": {
+        "area_mm2": 849.911999999914,
+        "Iy_geometric_mm4": 235433.97333495284,
+        "Iz_geometric_mm4": 35648.99890214927
+      },
+      "concept": {
+        "area_mm2": 611.5788999999859,
+        "Iy_geometric_mm4": 210433.27101604178,
+        "Iz_geometric_mm4": 45626.26928860652
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999999284,
+        "Iy_geometric_mm4": 139566.3672335111,
+        "Iz_geometric_mm4": 15998.945294821142
+      }
+    },
+    {
+      "x_mm": 11,
+      "screwed_reference": {
+        "area_mm2": 518.4060000001955,
+        "Iy_geometric_mm4": 139566.36723359258,
+        "Iz_geometric_mm4": 15998.945294824052
+      },
+      "concept": {
+        "area_mm2": 280.07290000010016,
+        "Iy_geometric_mm4": 97810.32466165676,
+        "Iz_geometric_mm4": 15088.783276764716
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001962,
+        "Iy_geometric_mm4": 139566.36723358967,
+        "Iz_geometric_mm4": 15998.945294824052
+      }
+    },
+    {
+      "x_mm": 12.73,
+      "screwed_reference": {
+        "area_mm2": 473.4059999999495,
+        "Iy_geometric_mm4": 120333.6951114865,
+        "Iz_geometric_mm4": 15223.43319372104
+      },
+      "concept": {
+        "area_mm2": 267.69789999994754,
+        "Iy_geometric_mm4": 89660.7109243445,
+        "Iz_geometric_mm4": 14654.193262455563
+      },
+      "continuous_blank": {
+        "area_mm2": 473.4059999999501,
+        "Iy_geometric_mm4": 120333.69511147776,
+        "Iz_geometric_mm4": 15223.433193725406
+      }
+    },
+    {
+      "x_mm": 12.77,
+      "screwed_reference": {
+        "area_mm2": 473.4059999999495,
+        "Iy_geometric_mm4": 120333.69511148067,
+        "Iz_geometric_mm4": 15223.43319372104
+      },
+      "concept": {
+        "area_mm2": 403.5309999999603,
+        "Iy_geometric_mm4": 131554.07599137147,
+        "Iz_geometric_mm4": 22235.412489741106
+      },
+      "continuous_blank": {
+        "area_mm2": 473.4059999999501,
+        "Iy_geometric_mm4": 120333.6951114865,
+        "Iz_geometric_mm4": 15223.433193724679
+      }
+    },
+    {
+      "x_mm": 13.19,
+      "screwed_reference": {
+        "area_mm2": 473.4059999999314,
+        "Iy_geometric_mm4": 120333.69511147485,
+        "Iz_geometric_mm4": 15223.433193721768
+      },
+      "concept": {
+        "area_mm2": 403.53099999997886,
+        "Iy_geometric_mm4": 131554.0759913773,
+        "Iz_geometric_mm4": 22235.412489741106
+      },
+      "continuous_blank": {
+        "area_mm2": 473.4059999999501,
+        "Iy_geometric_mm4": 120333.6951114865,
+        "Iz_geometric_mm4": 15223.433193720313
+      }
+    },
+    {
+      "x_mm": 13.23,
+      "screwed_reference": {
+        "area_mm2": 518.4059999999278,
+        "Iy_geometric_mm4": 139566.36723350818,
+        "Iz_geometric_mm4": 15998.945294821142
+      },
+      "concept": {
+        "area_mm2": 448.5309999999467,
+        "Iy_geometric_mm4": 150669.10812227597,
+        "Iz_geometric_mm4": 23453.916164900333
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999999284,
+        "Iy_geometric_mm4": 139566.3672335111,
+        "Iz_geometric_mm4": 15998.945294821142
+      }
+    },
+    {
+      "x_mm": 13.58,
+      "screwed_reference": {
+        "area_mm2": 518.4060000001955,
+        "Iy_geometric_mm4": 139566.36723359258,
+        "Iz_geometric_mm4": 15998.945294825508
+      },
+      "concept": {
+        "area_mm2": 489.48100000022805,
+        "Iy_geometric_mm4": 154753.56342568886,
+        "Iz_geometric_mm4": 24389.620724338267
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4060000001962,
+        "Iy_geometric_mm4": 139566.36723358967,
+        "Iz_geometric_mm4": 15998.945294825508
+      }
+    },
+    {
+      "x_mm": 13.62,
+      "screwed_reference": {
+        "area_mm2": 510.81924396593257,
+        "Iy_geometric_mm4": 138230.32669870145,
+        "Iz_geometric_mm4": 15687.60874808351
+      },
+      "concept": {
+        "area_mm2": 481.89424396596684,
+        "Iy_geometric_mm4": 153539.91327657603,
+        "Iz_geometric_mm4": 24010.028212052184
+      },
+      "continuous_blank": {
+        "area_mm2": 510.8192439659298,
+        "Iy_geometric_mm4": 138230.32669869854,
+        "Iz_geometric_mm4": 15687.60874808642
+      }
+    },
+    {
+      "x_mm": 15,
+      "screwed_reference": {
+        "area_mm2": 510.81924396607815,
+        "Iy_geometric_mm4": 138230.32669876548,
+        "Iz_geometric_mm4": 15687.608748090786
+      },
+      "concept": {
+        "area_mm2": 493.48424396611,
+        "Iy_geometric_mm4": 154932.17944856588,
+        "Iz_geometric_mm4": 24020.07466097565
+      },
+      "continuous_blank": {
+        "area_mm2": 510.81924396607536,
+        "Iy_geometric_mm4": 138230.32669876257,
+        "Iz_geometric_mm4": 15687.60874808642
+      }
+    },
+    {
+      "x_mm": 20,
+      "screwed_reference": {
+        "area_mm2": 382.2277230410324,
+        "Iy_geometric_mm4": 83221.00663837283,
+        "Iz_geometric_mm4": 11096.86469945682
+      },
+      "concept": {
+        "area_mm2": 376.4827230410159,
+        "Iy_geometric_mm4": 99499.0444623915,
+        "Iz_geometric_mm4": 18234.509886243795
+      },
+      "continuous_blank": {
+        "area_mm2": 382.2277230410324,
+        "Iy_geometric_mm4": 83221.00663837865,
+        "Iz_geometric_mm4": 11096.864699456093
+      }
+    },
+    {
+      "x_mm": 20.48,
+      "screwed_reference": {
+        "area_mm2": 377.3893408915111,
+        "Iy_geometric_mm4": 80658.78186982007,
+        "Iz_geometric_mm4": 10965.380745368006
+      },
+      "concept": {
+        "area_mm2": 371.64434089151297,
+        "Iy_geometric_mm4": 96837.9606865256,
+        "Iz_geometric_mm4": 18054.68670430606
+      },
+      "continuous_blank": {
+        "area_mm2": 377.3893408915111,
+        "Iy_geometric_mm4": 80658.78186982007,
+        "Iz_geometric_mm4": 10965.38074536946
+      }
+    },
+    {
+      "x_mm": 20.52,
+      "screwed_reference": {
+        "area_mm2": 377.03847055432294,
+        "Iy_geometric_mm4": 80471.07856876566,
+        "Iz_geometric_mm4": 10955.949308561245
+      },
+      "concept": {
+        "area_mm2": 332.56847055432974,
+        "Iy_geometric_mm4": 85757.03457173209,
+        "Iz_geometric_mm4": 12432.303980369628
+      },
+      "continuous_blank": {
+        "area_mm2": 377.0384705543229,
+        "Iy_geometric_mm4": 80471.07856876566,
+        "Iz_geometric_mm4": 10955.949308561972
+      }
+    },
+    {
+      "x_mm": 22.35,
+      "screwed_reference": {
+        "area_mm2": 369.1918216040963,
+        "Iy_geometric_mm4": 76204.06541166361,
+        "Iz_geometric_mm4": 10748.643775666134
+      },
+      "concept": {
+        "area_mm2": 324.72182160410085,
+        "Iy_geometric_mm4": 81893.58917749212,
+        "Iz_geometric_mm4": 12251.334074013883
+      },
+      "continuous_blank": {
+        "area_mm2": 369.1918216040963,
+        "Iy_geometric_mm4": 76204.0654116607,
+        "Iz_geometric_mm4": 10748.643775663224
+      }
+    },
+    {
+      "x_mm": 24,
+      "screwed_reference": {
+        "area_mm2": 375.55734773904663,
+        "Iy_geometric_mm4": 79675.854788896,
+        "Iz_geometric_mm4": 10916.289885247572
+      },
+      "concept": {
+        "area_mm2": 331.08734773902836,
+        "Iy_geometric_mm4": 85037.89471200178,
+        "Iz_geometric_mm4": 12397.68809926425
+      },
+      "continuous_blank": {
+        "area_mm2": 375.5573477390467,
+        "Iy_geometric_mm4": 79675.85478889891,
+        "Iz_geometric_mm4": 10916.289885250482
+      }
+    },
+    {
+      "x_mm": 25.98,
+      "screwed_reference": {
+        "area_mm2": 401.1652220349793,
+        "Iy_geometric_mm4": 92809.02034963066,
+        "Iz_geometric_mm4": 11637.667868946959
+      },
+      "concept": {
+        "area_mm2": 356.69522203499616,
+        "Iy_geometric_mm4": 96867.80383763203,
+        "Iz_geometric_mm4": 13027.173015057142
+      },
+      "continuous_blank": {
+        "area_mm2": 401.16522203497925,
+        "Iy_geometric_mm4": 92809.02034961902,
+        "Iz_geometric_mm4": 11637.667868944049
+      }
+    },
+    {
+      "x_mm": 26.02,
+      "screwed_reference": {
+        "area_mm2": 401.90969659585977,
+        "Iy_geometric_mm4": 93172.4833154682,
+        "Iz_geometric_mm4": 11659.798613075183
+      },
+      "concept": {
+        "area_mm2": 531.6796965958947,
+        "Iy_geometric_mm4": 107004.42904137766,
+        "Iz_geometric_mm4": 35564.71618127275
+      },
+      "continuous_blank": {
+        "area_mm2": 401.90969659585977,
+        "Iy_geometric_mm4": 93172.48331547111,
+        "Iz_geometric_mm4": 11659.798613076639
+      }
+    },
+    {
+      "x_mm": 40,
+      "screwed_reference": {
+        "area_mm2": 518.4059999996293,
+        "Iy_geometric_mm4": 139566.36723342087,
+        "Iz_geometric_mm4": 15998.945294813866
+      },
+      "concept": {
+        "area_mm2": 597.3609999995667,
+        "Iy_geometric_mm4": 152147.23428663984,
+        "Iz_geometric_mm4": 27605.974102743327
+      },
+      "continuous_blank": {
+        "area_mm2": 518.40599999963,
+        "Iy_geometric_mm4": 139566.36723342087,
+        "Iz_geometric_mm4": 15998.945294813866
+      }
+    },
+    {
+      "x_mm": 55,
+      "screwed_reference": {
+        "area_mm2": 518.4059999996291,
+        "Iy_geometric_mm4": 139566.36723342087,
+        "Iz_geometric_mm4": 15998.9452948095
+      },
+      "concept": {
+        "area_mm2": 597.3609999995667,
+        "Iy_geometric_mm4": 152147.23428663984,
+        "Iz_geometric_mm4": 27605.97410274478
+      },
+      "continuous_blank": {
+        "area_mm2": 518.4059999996299,
+        "Iy_geometric_mm4": 139566.3672334267,
+        "Iz_geometric_mm4": 15998.945294816776
+      }
+    }
+  ],
+  "sampled_minima": {
+    "screwed_reference": {
+      "area_mm2": {
+        "x_mm": -6,
+        "value": 331.50600000005187
+      },
+      "Iy_geometric_mm4": {
+        "x_mm": -22.35,
+        "value": 76204.06541164033
+      },
+      "Iz_geometric_mm4": {
+        "x_mm": -6,
+        "value": 994.5179999986165
+      }
+    },
+    "concept": {
+      "area_mm2": {
+        "x_mm": 12.73,
+        "value": 267.69789999994754
+      },
+      "Iy_geometric_mm4": {
+        "x_mm": -22.35,
+        "value": 78591.63426578481
+      },
+      "Iz_geometric_mm4": {
+        "x_mm": 22.35,
+        "value": 12251.334074013883
+      }
+    },
+    "continuous_blank": {
+      "area_mm2": {
+        "x_mm": -22.35,
+        "value": 369.19182160409616
+      },
+      "Iy_geometric_mm4": {
+        "x_mm": 22.35,
+        "value": 76204.0654116607
+      },
+      "Iz_geometric_mm4": {
+        "x_mm": 22.35,
+        "value": 10748.643775663224
+      }
+    }
+  },
+  "acceptance": "Observe the complete 215 mm carrier installed in the full enclosure, with the actual spring and tube loads, in both out-of-plane bending directions. Secure centre seating alone is insufficient."
+}

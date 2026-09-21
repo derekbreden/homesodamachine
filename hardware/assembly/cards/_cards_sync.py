@@ -606,7 +606,7 @@ def sub_assemblies(m: Machine):
         "SA06_SPOUT_LAND": f"{_stub.FUNNEL_ENGAGEMENT:g}",
         "SA06_UNION_INSERT": f"{_stub.UNION_INSERTION:g}",
         "SA06_SPOUT_WALL": f"{_funnel.spout_wall:g}",
-        "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('seaflo-pump'))}",
+        "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('g-ganen-pump'))}",
         # A cap pours with one per station, clamped to the shell's face, and they come out
         # again after cure — the stack's other six belong to the other cap.
         "CAP_POUR_SCREWS": f"{len(_cci.attachment_xy_positions)}",

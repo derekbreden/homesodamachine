@@ -1,0 +1,25 @@
+{
+  "status": "indicative_query_costs",
+  "native_sha256": "5489c2d4ed0748b0b47c5f02d09d1453a0bf613e822a5f546935f901e7837494",
+  "tool_sha256": {
+    "benchmark_native.py": "4a37d58bd00b145eed49083199ea38aaa29c524cee815002d001abe5d9bf7b42"
+  },
+  "operations": [
+    {
+      "operation": "distance",
+      "exit_code": 0,
+      "wall_seconds": 62.358316124998964,
+      "stdout": "{\"stage\": \"imported\", \"seconds\": 50.10802583300392, \"solids\": 26, \"faces\": 29636}\n{\"stage\": \"operation_complete\", \"operation\": \"distance\", \"query_seconds\": 0.6087432500062278, \"description\": \"5 mm box beside the measured +Y head lug, lower corner (-15, 34.5, 30).\", \"result\": {\"distance_mm\": 2.523605027846445}}\n",
+      "stderr": "",
+      "status": "completed"
+    },
+    {
+      "operation": "section",
+      "status": "timeout",
+      "wall_seconds": 90.1500216669956,
+      "timeout_including_import_seconds": 90,
+      "stdout": "{\"stage\": \"imported\", \"seconds\": 19.53340145898983, \"solids\": 26, \"faces\": 29636}\n"
+    }
+  ],
+  "scope": "Fresh STEP imports and specified queries on this host during shared local work. These timings are not a performance guarantee or a full-assembly benchmark."
+}

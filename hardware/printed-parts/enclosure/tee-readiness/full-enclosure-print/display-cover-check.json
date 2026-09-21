@@ -1,0 +1,99 @@
+{
+  "scope": "Read-only current source/export comparison; existing physical cover is accepted for reuse and no new cover print is queued.",
+  "input_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "06f3460bf00bbf857708dbbbeb7ee228da2532951eefdef7586934a7bf80f7ce",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "90bc75b424821639a53add244a0acd7f06638d0d35ea569b890fdc8573553c9e",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff"
+  },
+  "script_sha256": "5fc54ee5930e26b28eaf2608140d2f7d4db6e8c5da39321acaa9ba0ec46b4d4b",
+  "source_export_comparison": {
+    "source_solid_valid": true,
+    "source_solids": 1,
+    "export_solid_valid": true,
+    "export_solids": 1,
+    "source_volume_mm3": 8770.364762888614,
+    "export_volume_mm3": 8770.364762888685,
+    "source_minus_export_and_export_minus_source_mm3": [
+      0.0,
+      0.0
+    ],
+    "mesh_watertight": true,
+    "mesh_body_count": 1,
+    "mesh_triangles": 2104,
+    "current_source_tessellation_triangles": 2104,
+    "mesh_is_exact_current_tessellation_float32_triangles": true,
+    "mesh_bounds_mm": [
+      [
+        -64.55000305175781,
+        -41.5,
+        -34.0
+      ],
+      [
+        64.55000305175781,
+        41.5,
+        0.0
+      ]
+    ],
+    "mesh_extents_mm": [
+      129.10000610351562,
+      83.0,
+      34.0
+    ],
+    "print_orientation": "identity; visible face +Z, skirts at the bed",
+    "selftest_glass_and_seated_pocket_clearance_passed": true,
+    "exports_current": true
+  },
+  "print_record_search": {
+    "cache_archives_read": 128,
+    "machine_cover_matches": [],
+    "current_part_readme_records_physical_measurements": false,
+    "recorded_usable_physical_print_found": true,
+    "limit": "The retained archive search does not override the direct physical confirmation.",
+    "authority": "Direct user confirmation relayed by coordinating task; retained archive search is limited to local job records"
+  },
+  "housing_source_interface": {
+    "cover_and_housing_share_retention_module": "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "housing_stock_function": "enclosure._shell_with_facet",
+    "housing_pocket_function": "enclosure._display_cuts",
+    "assembly_pose_function": "enclosure_assembly.build_display_cover",
+    "fresh_front_top_native_match": "passed in current-front-top-check.json"
+  },
+  "fresh_housing_check": {
+    "report": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+    "sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6",
+    "status": "current_front_top_native_pass",
+    "front_top_step_sha256": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+    "box_sha256": "7407956c5dc8e371113406815ff10518a7fe205e4e81d3162ad75c5c262bf5c7",
+    "seated_interface_and_retaining_shoulders": {
+      "existing_selftest_output": "Display cover: one valid solid; glass clear; 0.35 mm skirt preload\n",
+      "seated_pose": "enclosure_assembly.build_display_cover(Box)",
+      "shoulder_contacts": [
+        {
+          "side": -1,
+          "pull_out_mm": 0.481,
+          "native_contact_mm3": 0.04305815143657096
+        },
+        {
+          "side": 1,
+          "pull_out_mm": 0.481,
+          "native_contact_mm3": 0.04305815143656902
+        }
+      ],
+      "scope": "Canonical relaxed export equality, existing glass/seated-pocket gate, actual seated-wall clearance, complete declared pocket/approach cavity and positive retaining shoulders.",
+      "snap_insertion_force_or_deformation_qualified": false,
+      "limitation": "The production gate has no full elastic snap-entry model. This current-shell interface check does not measure hand force, skirt strain or fatigue; the user reports prior physical display fit acceptance."
+    },
+    "all_native_checks_pass": true,
+    "print_released": false
+  },
+  "print_released": false,
+  "physical_acceptance": {
+    "status": "use accepted existing display cover",
+    "authority": "Derek confirms the display was already test-fit in the prior design; coordinating task explicitly directs reuse",
+    "new_print_required": false,
+    "fresh_housing_geometry_check_owner": "readiness_verification"
+  }
+}

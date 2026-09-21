@@ -1,10 +1,9 @@
 {
-  "status": "passed_bounded_native_contact_regression",
-  "scope": "Current source cap/floor at archived holder station; full current assembly and physical fit are separate checks.",
+  "status": "passed_bounded_native_fit_and_clearance_checks",
   "native_cradle_step_sha256": "85ad1e41dd9d15a2b7ce5d46170df689885e2983dd522314cba3b42014c31e19",
-  "measurement_record_sha256": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
   "cap_valid": true,
   "cap_solids": 1,
+  "broad_base_z_mm": 215.745,
   "cap_cradle_sampled_vertical_path": [
     {
       "lift_mm": -0.25,
@@ -31,16 +30,42 @@
       "interference_mm3": 0.0
     }
   ],
-  "land_z_mm": 205.494,
-  "nominal_cap_rail_z_mm": 213.494,
-  "observed_rim_height_above_land_min_max_mm": [
-    7.813457874215291,
-    8.129970652395581
+  "fitted_cap_comparison": {
+    "input_project": ".cache/prints/2026-09-13-enclosure/enclosure-pump-cartridge-mark2-input.3mf",
+    "input_sha256": "9f84eb4edb3faba30243680036600c45f6a700ee7e884a7f0237940f153df372",
+    "printed_cap_stl_sha256": "38d71860ac4bee0ae33c7125ebd16ba7a926a488e4541121df00a68e7d9c4172",
+    "rigid_translation_mm": [
+      0.0,
+      -0.1,
+      0.0
+    ],
+    "sample_count": 840,
+    "maximum_surface_distance_mm": 0.011495834452374138,
+    "p95_surface_distance_mm": 0.01149388700886556,
+    "scope": "Earlier printed mesh vertices and triangle centers on the fitted boss/can band; excludes crown, screws, outer boundary and aft extension. Difference includes mesh chord approximation.",
+    "physical_binding": "Earlier print available in retained job provenance; Derek confirms the existing assembled cap fit but has not identified its job date."
+  },
+  "open_terminal_wells": [
+    {
+      "center_xy_mm": [
+        49.945,
+        44.909
+      ],
+      "diameter_mm": 45.0,
+      "bottom_z_mm": 277.745,
+      "top_z_mm": 283.24500009999997
+    },
+    {
+      "center_xy_mm": [
+        -49.945,
+        44.909
+      ],
+      "diameter_mm": 45.0,
+      "bottom_z_mm": 277.745,
+      "top_z_mm": 283.24500009999997
+    }
   ],
-  "downward_contact_adjustment_mm": 0.25,
-  "bridge_clearance_at_max_closure_mm": 1.75,
-  "screw_tip_clearance_at_max_closure_mm": 0.25,
-  "insert_engagement_at_max_upward_adjustment_mm": 5.7,
+  "land_z_mm": 205.494,
   "floor_z_mm": [
     160.0,
     164.01500000000001
@@ -48,76 +73,8 @@
   "minimum_floor_stock_mm": 4.015000000000015,
   "minimum_air_above_floor_observed_mm": 0.33997381841263064,
   "minimum_air_above_floor_declared_envelope_mm": 0.3289999999999793,
-  "rail_footprints": [
-    {
-      "x_mm": [
-        -32.0,
-        -29.0
-      ],
-      "y_mm": [
-        -16.0,
-        16.0
-      ],
-      "flat_area_mm2": 96.0
-    },
-    {
-      "x_mm": [
-        28.999999999999993,
-        31.999999999999993
-      ],
-      "y_mm": [
-        -16.0,
-        16.0
-      ],
-      "flat_area_mm2": 96.0
-    },
-    {
-      "x_mm": [
-        -31.999999999999993,
-        -28.999999999999993
-      ],
-      "y_mm": [
-        -16.0,
-        16.0
-      ],
-      "flat_area_mm2": 96.0
-    },
-    {
-      "x_mm": [
-        29.0,
-        32.0
-      ],
-      "y_mm": [
-        -16.0,
-        16.0
-      ],
-      "flat_area_mm2": 96.0
-    }
-  ],
-  "continuous_floor_lanes": [
-    {
-      "x_mm": [
-        17.945,
-        81.945
-      ],
-      "y_mm": [
-        14.0,
-        78.90899999999999
-      ],
-      "flat_top_z_mm": 164.01500000000001
-    },
-    {
-      "x_mm": [
-        -81.945,
-        -17.945
-      ],
-      "y_mm": [
-        14.0,
-        78.90899999999999
-      ],
-      "flat_top_z_mm": 164.01500000000001
-    }
-  ],
-  "support_access": "Front-top floor is bed-grown. Cap prints crown-down; terminal rail bearing faces are print-up, with exposed sides and no new support-removal pocket.",
-  "physical_acceptance": "Unmeasured. Dry assembly must verify both pumps seat on skirt lands, cap removes play without bottoming, tubes capture/release, and primed operation is leak-free."
+  "scan_placement_scope": "Clearance assumes the observed underside strips are seated on the native lands. Actual cap contact surfaces are not independently identified.",
+  "physical_fit": "Derek confirms both pumps held firmly with no vertical play in the existing assembled cartridge/cap; physical-fit.json.",
+  "support_access": "Crown-down print; upper motor-well annuli are flat supported faces open axially to the bed. Support leaves through the same open wells.",
+  "remaining_assembly_test": "Raised crown connector clearance, full enclosure insertion, four tube connections and spring-loaded carrier operation."
 }

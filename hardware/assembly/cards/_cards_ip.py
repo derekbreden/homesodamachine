@@ -217,7 +217,7 @@ def internal_plumbing(m):
     # on it would be standing on another valve's cradle. `enclosure_assembly.cap_face` is the lid's
     # own outer face and `cap_cradles` is the seat each valve takes over it, which is the pair
     # this reads V-K against.
-    vk, pump = a.bb("vk-solenoid"), a.bb("seaflo-pump")
+    vk, pump = a.bb("vk-solenoid"), a.bb("g-ganen-pump")
     chain = a.bb("suction-chain")
     vk_x = (vk.xmin + vk.xmax) / 2.0
     assert "vk-solenoid" in cap_cradles, (

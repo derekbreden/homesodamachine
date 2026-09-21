@@ -1,0 +1,34 @@
+{
+  "scope": "Independent in-memory native pump and port comparison with explicit baseline, lead-only and paired parameter cases. Complete Box production remains separate.",
+  "authority": "Scanner review / carrier_revision native probe, 2026-09-21",
+  "source_sha256": {
+    "hardware/manifold-layout/manifold_layout.py": "4e6d9d70fb49b0dad8a79a921e15216ba4c9dd8250b28cab3cf85ee2fe6c1b71",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "08c689797fde87ced31b7b074b2df2a9f5ee860db03016a8ba2b4e591cdd6835",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf"
+  },
+  "parameters": {
+    "pump_station_lead_mm": -0.074,
+    "pump_barbs_to_release_plane_mm": 5.526
+  },
+  "derived": {
+    "barb_plate_berth_mm": 5.85,
+    "deck_z_mm": 90.81,
+    "upper_z_mm": 151.76,
+    "lift_mm": 191.4250001,
+    "pump_holder_y_mm": 45.859,
+    "pump_barb_y_mm": 77.164,
+    "plate_fore_y_mm": 79.515,
+    "plate_aft_y_mm": 82.69,
+    "full_skirt_band_aft_y_mm": 79.269,
+    "plate_air_mm": 0.246,
+    "minimum_plate_air_mm": 0.24
+  },
+  "comparison": {
+    "pump_fore_movement_mm": 0.05,
+    "fixed_valve_ports_unchanged": 20,
+    "fixed_tee_release_ports_unchanged": 4,
+    "directions_unchanged": true
+  },
+  "assembly_current": false
+}

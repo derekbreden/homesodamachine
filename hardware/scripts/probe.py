@@ -82,7 +82,7 @@ index a set of coordinates is.
 `w.drawn(run, pts)` is the same reading for ONE candidate centreline given whole, so a waypoint
 can be dropped as well as moved. Both hold every BODY where it stands. A run's waypoints are
 expressions over the bodies its author measured them off — `fluid-14`'s read `valve-v-f`,
-`foam-assembly`, `vk-solenoid` and `seaflo-pump` — so a body moved in `enclosure_assembly.py`
+`foam-assembly`, `vk-solenoid` and `g-ganen-pump` — so a body moved in `enclosure_assembly.py`
 takes its runs with it and is built, not swept.
 
 The centreline is what moves. `w.chain(id)` is the rest of the build that reads the run and

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Native checks of the measured tee radial correction and its coupled interfaces.
 
-Builds the small tee/valve/carrier region, not the complete appliance. Its positive
-result establishes those checks only; unresolved sleeve datums and the complete
-printed enclosure still require qualification before a production print.
+Builds the small tee/valve/carrier region. Its positive result establishes those
+checks only; complete enclosure motions and the exact slice have separate checks.
+The assembled enclosure trial establishes physical retention and operating feel.
 """
 from __future__ import annotations
 import dataclasses
@@ -195,9 +195,12 @@ def main():
         'pump_trays':trays,'pump_to_tee_axes':axes,
         'carrier_spec':dataclasses.asdict(spec),'collet_plate':plate,'carrier_interface':interface,
         'remaining_release_checks':[
-            'Terminal-ring OD, fixed/moving seam and physical release-ring bearing qualification; nominal branch face stations are caliper-derived.',
-            'Spring ID and positive capture design/physical qualification.',
             'Complete regenerated enclosure interference and insertion checks, current support-removal audit and exact slice identity.'],
+        'full_enclosure_physical_checks':[
+            'Moving-ring bearing, continuous depression during extraction and relocking; branch face stations and travel are caliper-derived.',
+            'Both-end spring capture through the working stroke, return tension, joint rigidity and operating feel.'],
+        'terminal_bearing_evidence':'hardware/reference/jg-pp0208e-tee/terminal-bearing-review.json',
+        'spring_id_required_by_design':False,
     }
     (HERE/'tee-integration.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({'checks_pass':report['checks_pass'],'count':len(rows),'dimensions':report['dimensions'],

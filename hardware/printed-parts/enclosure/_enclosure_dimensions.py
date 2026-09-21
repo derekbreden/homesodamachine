@@ -121,7 +121,7 @@ OVERHANG_N = len(_OVER)
 # --- the service bay, on the core's cap ------------------------------------
 DECK_TOP = CORE_CROWN
 DECK_HEIGHT = _INNER[5] - DECK_TOP
-PUMP_CROWN = _bb("seaflo-pump").zmax
+PUMP_CROWN = _bb("g-ganen-pump").zmax
 # The back column's own Z seam, the piece it leaves under it, and what the bed carries.
 BACK_Z_SEAM = _BOX["splits"][1]
 BACK_BOTTOM_H = _F.pieces["back-bottom"]["box"][5] - _F.pieces["back-bottom"]["box"][2]

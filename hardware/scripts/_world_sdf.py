@@ -17,7 +17,7 @@ The cache lives outside the tree, keyed by the STEP's digest and every build par
     w = WorldSDF.load_or_build(STEP)          # first run builds (~15 s), later runs load (<1 s)
     w.query([[0, 300, 320]])                  # signed distance, mm
     w.gradient([[0, 300, 320]])               # unit outward gradient
-    w.nearest_body([[0, 300, 320]])           # ['seaflo-pump']
+    w.nearest_body([[0, 300, 320]])           # ['g-ganen-pump']
 """
 import hashlib
 import json

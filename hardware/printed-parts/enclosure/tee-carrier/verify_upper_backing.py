@@ -430,8 +430,7 @@ def main():
             before = cq.importers.importStep(str(baseline)).val()
             added = body.cut(before)
             removed = before.cut(body).Volume()
-            web = next(shape for label, shape in carrier.insertion_envelopes(SPEC, side)
-                       if label == 'web')
+            web = carrier._box(*SPEC.web_x, SPEC.web_fore_y, SPEC.web_aft_y, *SPEC.web_z).val()
             outside_web_envelope = added.cut(web).Volume()
             arm_overlap = sum(added.intersect(arm).Volume() for arm in carrier.arm_probes(SPEC))
             allowed = cq.Compound.makeCompound([

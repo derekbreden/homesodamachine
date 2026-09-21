@@ -1,0 +1,40 @@
+{
+  "reads": [
+    "hardware/printed-parts/cold-core/foam-cap/.gitignore",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "hardware/printed-parts/cold-core/foam-shell/.gitignore",
+    "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
+    "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
+    "hardware/printed-parts/cold-core/foam-shell/README.md",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+    "hardware/printed-parts/cold-core/foam-shell/print-log.md",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/flute_payload.py",
+    "hardware/scripts/flute_payload_cold_core.py"
+  ],
+  "rewritten": [],
+  "writes": [
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh"
+  ]
+}
