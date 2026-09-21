@@ -1,0 +1,33 @@
+[
+  {
+    "producer": "hardware/manifold-layout/enclosure_box.py",
+    "exit_code": 0,
+    "seconds": 604.8850662708282,
+    "log": "/tmp/scanner-review/integration-correction/enclosure_box-generation.log"
+  },
+  {
+    "producer": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "exit_code": 0,
+    "seconds": 219.61674213409424,
+    "log": "/tmp/scanner-review/integration-correction/enclosure-generation.log"
+  },
+  {
+    "producer": "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+    "exit_code": 0,
+    "seconds": 11.876091003417969,
+    "log": "/tmp/scanner-review/integration-correction/tee_carrier-generation.log"
+  },
+  {
+    "producer": "hardware/scripts/flute_payload_enclosure.py",
+    "exit_code": 0,
+    "seconds": 59.12027406692505,
+    "log": "/tmp/scanner-review/integration-correction/flute_payload_enclosure-generation.log"
+  },
+  {
+    "producer": "hardware/manifold-layout/enclosure_assembly.py",
+    "exit_code": 0,
+    "seconds": 387.72595149997505,
+    "log": "/tmp/scanner-review/integration-correction/enclosure_assembly-generation.log",
+    "refresh_reason": "Same geometry after all published-surface lint explanations were completed; current facts include those declared documentation inputs."
+  }
+]

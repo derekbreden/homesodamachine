@@ -1,0 +1,13 @@
+  [  1/1] hardware/printed-parts/enclosure/enclosure/enclosure.py       58 read  17 written
+148 generator(s) in the graph
+
+5 member(s) this run wrote are no longer the pointer file's:
+    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl
+    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    hardware/printed-parts/enclosure/enclosure/enclosure.step
+    hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh
+  A TRACE IS A CUT — the run rewrote them, and they are ignored, so
+  `git status` reads clean over a bundle that has moved. `pack.py --check`
+  is the only thing that sees this, and it reads rc=1 until someone publishes.
+PASS hardware/printed-parts/enclosure/enclosure/enclosure.py 47 loaded sources stable 17 outputs
