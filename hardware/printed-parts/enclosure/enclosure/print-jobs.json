@@ -488,8 +488,9 @@
         "observed_bed_target_c": 0,
         "last_running_layer": 51,
         "total_layers": 813,
-        "plate_clearance": "Derek will remove the cancelled print; clearance not yet confirmed",
-        "replacement_started": false
+        "plate_clearance": "Derek confirms both printers are available, September 20, 2026.",
+        "replacement_started": false,
+        "plate_clearance_confirmed": true
       }
     }
   ]

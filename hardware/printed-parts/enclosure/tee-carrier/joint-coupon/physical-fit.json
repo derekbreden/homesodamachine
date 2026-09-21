@@ -26,9 +26,13 @@
     "rocking_or_play_observed": false,
     "keeper_inserts": true,
     "keeper_catch_description": "Very flimsy with essentially zero observed spring tension; retention is dominated by friction.",
-    "positive_keeper_lock_qualified": false
+    "positive_keeper_lock_qualified": false,
+    "assembled_connection_secure": true,
+    "x_span_bowing_observed": true,
+    "bending_compliance_acceptable_for_carrier": false,
+    "user_suspected_contributor": "Short X extent of some joint components; longer X engagement suggested for investigation."
   },
-  "decision": "The complete joint is under redesign for simple assembly. Neither coupon half is selected for reuse. The faucet display cover is the sole physically proven snap-fit reference.",
+  "decision": "The complete joint is under redesign for simple assembly. Neither coupon half is selected for reuse. The faucet display cover is the preferred physically proven example for simple, broad-wall snap retention.",
   "faucet_cover_precedent": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
   "production_carrier_ready": false,
   "limits": "Observed tight fit and no play do not establish design acceptance, measured force or full-width carrier stiffness. The tiny keeper catch provides no meaningful observed spring tension.",
@@ -36,5 +40,7 @@
   "user_assembly_priority": "Half the value of moving to snap fit is simpler assembly; a separate keeper does not supply that benefit.",
   "user_design_feedback": "Please don\u2019t consider that \u201cit fit well\u201d reason to use that design or any part of it. Please consider I prefer simplicity and the previous design and the remaining half still seem overly complicated to me. Please consider I don\u2019t love the nameplate for its complexity, and the faucet display cover is the only one that has been simple enough, with thick enough and broad enough components for the snap.",
   "design_accepted": false,
-  "geometry_preservation_required": false
+  "geometry_preservation_required": false,
+  "additional_user_statement": "On that last joint, that test coupon with the keeper. I wanted to also mention, that once assembled, the pieces are rock solid, but there is bending/bowing in the X axis more easily than I would like for the function of this tee carrier. I can see how increasing the X length of some aspects might improve the situation, but wanted to mention only that the short x distance of some of those components lends itself to bending too easily in that direction.",
+  "stiffness_status": "Physically observed coupon bending is excessive for the intended carrier function. Secure joint fit is not assembled stiffness acceptance; load magnitude and bending mode remain unmeasured."
 }

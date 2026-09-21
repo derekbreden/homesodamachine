@@ -2,23 +2,23 @@
 
 **The production enclosure is not released for printing.** The known tee collar interference
 and Kamoer contact defects are corrected in the source. The selected G Ganen water pump
-is being scanned for its reference, mounts and tube routes. The combined enclosure rebuild,
+has three completed scan views under dimensional analysis for its reference, mounts and tube routes. The combined enclosure rebuild,
 carrier retention and the physical checks below remain open.
 
 H2C's `enclosure-front-top-petgf-z018-h2c.gcode.3mf` is cancelled. Its valve-tray region was
 2 mm above the corrected assembly. The last running reading was 51/813 layers; cancellation
 and zero heater targets are recorded in [print-jobs.json](enclosure/print-jobs.json).
-Removal of that object from H2C is not yet confirmed.
+Derek confirms both printers are available and their plates ready for the prepared jobs.
 
 ## Scans and fitted parts
 
 | Part | Current evidence and model | Remaining physical work |
 |---|---|---|
-| Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. Sockets, valve trays and cold-core cradles consume these dimensions. | Fit actual posts in a production-profile socket coupon and check the other valves. No new full scan is indicated. |
+| Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. Sockets, valve trays and cold-core cradles consume these dimensions. Derek reports the existing sockets fit pretty well. | Compare the [production-profile socket coupon](../fixtures/valve-socket-fit/README.md) against that physical baseline, including the other valves. No new full scan is indicated. |
 | DIGITEN flow meter | Measured offset body and mounting collars; placement, anchors, ties and adjacent tubing follow that envelope. | Confirm the molded flow arrow and actual installed direction. No new full scan is indicated. |
 | John Guest PP0208E tee | Registered fixed surfaces support the conservative Ø16.5 collar and Ø14 root envelopes. Derek measures branch width at 30.5 mm extended and 29.0 mm pressed, from the back of the widest fixed run collar. Only the small outermost ring moves. | Propagate the measured 1.5 mm branch travel and branch face position; qualify the terminal ring boundary and diameter. |
 | Kamoer pump | Two complementary native scans are complete. The short terminal pieces are Derek's inserted ¼-inch LLDPE stubs in silicone, excluded from rigid registration and integral pump dimensions. Cap pressing rails, floor relief and outlet stations are corrected. | Fit both actual pumps in the corrected cartridge/cap, then test four-tube insertion, capture, release and primed pumping. No third scan is needed for these contact corrections. |
-| G Ganen water pump | Derek selected the received G Ganen sample on September 20. No caliper dimensions were recorded. Three native views containing 1,033, 1,146 and 1,114 frames are fused at 0.10 mm and archived with hashes. Its feet are flexible rubber. Dimensional analysis is active. | Update the pump reference, mounts and affected tube routes from the scan, then check installation and operation. Map the observed label-frame flow arrow to model coordinates. Existing SeaFlo assembly checks do not qualify this pump. |
+| G Ganen water pump | Derek selected the received G Ganen sample on September 20. No caliper dimensions were recorded. Three native views containing 1,033, 1,146 and 1,114 frames are fused at 0.10 mm and archived with hashes. Its flexible rubber feet slide fore/aft on channels and are removable. Derek identifies discharge as enclosure −X, mapping to local +Y at the intended +90° mounting yaw. Dimensional analysis is active. | Update the pump reference, sliding-foot mounts and affected tube routes from the scan, then check installation and operation. Captured foot positions are individual poses, not a fixed bolt pattern. Existing SeaFlo assembly checks do not qualify this pump. |
 | Faucet lever | The accepted flat-sided model with the 9 mm cylinder channel is primary. The printed mesh is byte-identical to the successful Mark2 artifact, with Derek's fit/function confirmation on record. | The complete faucet assembly needs a measured installed pose for its lever representation; that is separate from enclosure readiness. |
 | Faucet display cover | **Physically accepted in PET-GF.** Derek confirms that its broad, long, thin walls provide successful give and spring. The current STL matches the successful complete-cover trial. | Use its broad-wall geometry as a proven example for new retention features; each new geometry still needs its own fit test. |
 
@@ -77,6 +77,9 @@ The [joint coupon physical report](tee-carrier/joint-coupon/physical-fit.json) e
 
 - Both interlocking halves assemble with a small amount of force and a tight friction fit.
 - Derek observes **no rocking or play**.
+- The assembled coupon is secure but **bows along X more easily than acceptable for the
+  carrier's function**. Derek identifies short X engagement as a possible contributor;
+  force and bending mode are unmeasured.
 - The separate keeper inserts, but its tiny catch supplies essentially no observed spring
   tension. The catch is not accepted as a meaningful positive lock.
 
@@ -86,7 +89,8 @@ the joint's design or complexity. The right-only integral latch trial is withdra
 print queue. The [faucet display cover](../faucet/faucet-display-cover/physical-acceptance.json)
 is Derek's preferred example for the snap-fit approach: simple, broad, substantial
 walls provide the give and spring. Its success does not qualify a differently proportioned
-part. The nameplate is also not accepted as an example of the desired simplicity.
+part. The nameplate is physically successful, including its snaps, but is not accepted
+as an example of the desired simplicity.
 
 Assembly simplicity, positive retention and full-width rigidity remain required. The source
 carrier has a screw-clamped lap; its replacement's part count and assembly motion are open.
@@ -159,8 +163,8 @@ physical mechanism.
    trim; confirm the emitted +0.16 mm Textured PEI compensation. Inspect actual support
    contacts and straight extraction lanes. Retained old support audits do not qualify a
    changed STL or profile.
-5. Confirm H2C's plate is clear, send a uniquely named replacement and verify that exact
-   job on the printer.
+5. Check H2C's live state against Derek's confirmed availability, send a uniquely named
+   replacement and verify that exact job on the printer.
 
 The prior assembly's 107 passing checks, 398 carrier motion/envelope readings and source
 hashes are retained as baseline evidence. A fresh combined build is required for the current

@@ -6,7 +6,8 @@ are under measurement for the production reference. Derek identified the sample 
 September 20, 2026 and confirmed that no caliper measurements were recorded.
 Scan-derived dimensions remain pending review. Derek identifies the feet as flexible rubber.
 With `4002` upright and readable, the flow arrow points right, past the `2`.
-The mapping of that label orientation to the model's signed port coordinates is open.
+Derek identifies the installed flow as enclosure −X: discharge on −X and inlet on +X.
+The mounting feet are removable and slide fore and aft along the casing channels.
 
 The generated enclosure still uses the
 [SeaFlo SFDP1-013-100-22 reference](/hardware/reference/seaflo-22-pump/README.md)
