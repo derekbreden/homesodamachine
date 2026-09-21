@@ -1,0 +1,23 @@
+{
+  "part": "John Guest PP0208E tee",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-20",
+  "datum": "Overall width from the back of the run widest fixed collar to the branch collet outer face.",
+  "diagram": "hardware/reference/jg-pp0208e-tee/branch-measurement.svg",
+  "extended_width_mm": 30.5,
+  "pressed_width_mm": 29.0,
+  "branch_collet_travel_mm": 1.5,
+  "moving_feature": "The small outermost terminal ring, furthest in the extended direction.",
+  "user_statement": "30.5 extended, 29 collet pressed. It is the outermost donut which slides, the furthest in the \u201cextended\u201d direction. This is obviously not the largest donut, in fact it is one of the smallest.",
+  "derived_nominal_stations": {
+    "back_collar_nominal_diameter_mm": 16.3,
+    "extended_branch_face_from_run_axis_mm": 22.35,
+    "pressed_branch_face_from_run_axis_mm": 20.85,
+    "qualification": "Derived using the nominal 8.15 mm back-collar radius. The conservative 8.25 mm envelope is not the caliper datum. Raw measured widths remain authoritative."
+  },
+  "unresolved": [
+    "Exact axial boundary of the moving terminal ring.",
+    "Actual terminal ring outside diameter."
+  ],
+  "production_propagation_complete": false
+}
