@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+    What the phone puts up while the app comes to life.
+
+    IT IS THE APP'S FIRST SCREEN, DRAWN BEFORE THE APP CAN DRAW. So it holds
+    the same background as every page — LaunchBackground is Theme.background —
+    and the mark at the same size and the same distance below the safe area
+    that Theme.markSize and Theme.markTop give MarkHeader. The mark does not
+    move when the app takes over; the page simply fills in beneath it.
+-->
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
@@ -15,18 +24,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-hae">
-                                <rect key="frame" x="87.5" y="233.5" width="200" height="200"/>
+                                <rect key="frame" x="107.5" y="92" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Wpc-Ql-4vh"/>
-                                    <constraint firstAttribute="height" constant="200" id="xQi-MZ-27H"/>
+                                    <constraint firstAttribute="width" constant="160" id="Wpc-Ql-4vh"/>
+                                    <constraint firstAttribute="height" constant="160" id="xQi-MZ-27H"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.18039215686274511" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" name="LaunchBackground"/>
                         <constraints>
                             <constraint firstItem="YRO-k0-hae" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5cM-xg-NR4"/>
-                            <constraint firstItem="YRO-k0-hae" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="QjM-vk-U08"/>
+                            <constraint firstItem="YRO-k0-hae" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="72" id="QjM-vk-U08"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,5 +46,8 @@
     </scenes>
     <resources>
         <image name="LaunchIcon" width="1024" height="1024"/>
+        <namedColor name="LaunchBackground">
+            <color red="0.090196078431372548" green="0.28627450980392155" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
