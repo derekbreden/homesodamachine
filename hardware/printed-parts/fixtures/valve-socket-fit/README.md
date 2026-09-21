@@ -9,7 +9,10 @@ baseline; the exact prior printed artifact has not been identified. The
 [source comparison](physical-baseline.json) records Ø7.1 mm sockets on a 24.4 × 24.4 mm
 pattern in the pre-scan source. The coupon uses the measured reference: Ø7.2 mm sockets
 on a 24.4 × 24.85 mm pattern, with a 5.2 mm body bearing height and 6.2 mm socket depth.
-Physical comparison must establish whether those small changes preserve the good fit.
+The [printed coupon is physically accepted](physical-acceptance.json): Derek reports
+easy insertion, a perfect fit when used with zip ties, and some retention even when held
+upside down with loose shaking. Keep this socket profile. The sockets locate the valve;
+zip ties provide positive retention.
 
 The panel is 43.6 × 44.05 × 9.2 mm and prints with enclosure +Z upward. Its socket crowns
 use the production teardrop roof. The native slice contains no supports. Five sampled
@@ -29,12 +32,9 @@ submission and the observed printer state.
 The [toolpath review](toolpath-review.json) measures 7.192–7.200 mm openings at the four
 socket centers. Post-publication geometry lint reports zero findings on the printed mesh.
 
-After cooling, check the following with the actual valves:
-
-- All four posts enter fully without reaming or forcing the valve sideways.
-- The broad valve body seats against the panel without rocking.
-- Fit remains comparable to the existing good sockets, including the other received valves.
-- Record whether the valve stays seated when the panel faces downward.
+The complete carrier still needs a physical check that each tie can be threaded and
+tightened without disturbing the valve seating. The number of valves tested and a
+separate rocking assessment were not reported. No friction retention force was measured.
 
 This coupon qualifies only the socket and bearing fit. It does not release the carrier,
 cartridge, tube routes or complete enclosure.

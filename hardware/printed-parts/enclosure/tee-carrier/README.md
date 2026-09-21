@@ -32,19 +32,21 @@ measures the actual printed-mesh sections.
 The [readiness audit](../print-readiness.md#carrier-stiffness-and-joint) still holds production
 for the actual tee reference, spring capture and assembled stiffness qualification.
 
-Each tie crosses the web through two 1.5 × [3.75 mm](TIE_SLOT_HEIGHT) slots outside the
-trough's mouth and bears across the station section between them. Its strap lies on the
-plain aft face and closes around the tee arm on the fore side. Clock every head away from the
-machine centre and flush-cut its tail.
+Each tie crosses the web through two 1.5 × [3.75 mm](TIE_SLOT_HEIGHT) slots and bears across
+the station section between them. The outermost slots stand at X ±90.00 mm, behind the
+collar tangent and 0.25 mm inboard of the complete handhold backing. The slot openings
+retain at least 0.25 mm running air to the collar. Each strap lies on the plain aft face and
+closes around the tee arm on the fore side. Clock the inner tees' heads outward and the
+outer tees' heads inward, into the open gaps between adjacent tees, then flush-cut the tails.
 
 ## The lap
 
 The left half's web ends at X [-6.4 mm](SPLIT_X). A tongue [6 mm](LAP_T) thick and
-[17.25 mm](TONGUE_WIDTH) wide stands fore of the web plane over the web's full height,
-rooted on the left web over its first [2.78 mm](TONGUE_ROOT), reaching from just outboard of
+[21.81 mm](TONGUE_WIDTH) wide stands fore of the web plane over the web's full height,
+rooted on the left web over its first [5.06 mm](TONGUE_ROOT), reaching from just outboard of
 the left inner tee's inboard tie slot to just short of the right inner tee. The right half's
 web starts [3.75 mm](WEB_GAP) inboard of the left web's end and lies against the tongue's aft
-face over [10.72 mm](LAP_WIDTH) of its width. The two screws stand on one line
+face over [13 mm](LAP_WIDTH) of its width. The two screws stand on one line
 [0 mm](SCREW_X) off the machine centre, inside the coil-free band behind the web,
 [29.001 mm](SCREW_SPACING) apart in Z; each passes through the right web and takes
 [4 mm](INSERT_LENGTH) of insert in the tongue's aft face, with [2 mm](INSERT_BACKING) of
@@ -60,8 +62,8 @@ opens the channel's inboard half over its first [10 mm](SPRING_WINDOW_LENGTH), a
 [1.1 mm](SPRING_RING) of the channel is a full ring. The spring bears fore in a
 [2 mm](FIXED_SEAT_DEPTH) seat bored into the flank recess's fore wall on the same axis. It is
 compressed to [9.61 mm](SPRING_LOAD_LENGTH), [2.61 mm](SPRING_LOAD_ABOVE_COMPRESSED) above the
-measured compressed upper estimate, to pass the window. Installed it runs [19.5 mm](SPRING_LENGTH_RELEASE) at
-release, [21.65 mm](SPRING_LENGTH_CONNECTED) at connected and [24.15 mm](SPRING_LENGTH_LIMIT)
+measured compressed upper estimate, to pass the window. Installed it runs [19.35 mm](SPRING_LENGTH_RELEASE) at
+release, [21.35 mm](SPRING_LENGTH_CONNECTED) at connected and [23.85 mm](SPRING_LENGTH_LIMIT)
 on the aft stop, against a measured [27 mm](SPRING_FREE) free length. The spring's load goes
 from the fixed seat straight into the bar the fingers pull; none of it crosses the web.
 The [direct measurements](spring-measurements.json) control the production envelope:
@@ -99,7 +101,7 @@ The finger space is open through the moving tab's top and bottom.
 A [3 mm](GRIP_BACK_T) inboard wall joins a [3 mm](GRIP_AFT_T) aft wall,
 recessed [3.25 mm](GRIP_AFT_INSET) behind the enclosure's outer face. The backing extends
 behind the opening's aft edge throughout the stroke. The fixed opening is
-[34.15 mm](OPENING_RUN) long in Y and [51.319 mm](OPENING_HEIGHT) tall, leaving at least
+[34 mm](OPENING_RUN) long in Y and [51.319 mm](OPENING_HEIGHT) tall, leaving at least
 [16 mm](FINGER_RUN) behind the bar through nominal operation and
 [13.5 mm](FINGER_RUN_AT_LIMIT) at the aft flex limit. Its upper and lower edges
 leave [0.5 mm](SUPPORTED_GUIDE_AIR) above and below the bar's [50.319 mm](GRIP_HEIGHT) height.
@@ -150,7 +152,7 @@ complete with the tees, ties and springs absent.
 ## Frame and motion
 
 The source returns installed geometry: +Y aft, +Z up. There are two physical stops, separated
-by [4.65 mm](GUIDE_TRAVEL). The fore stop holds all four branch sleeves fully depressed against
+by [4.5 mm](GUIDE_TRAVEL). The fore stop holds all four branch sleeves fully depressed against
 the fixed plate. Nominal connected rest leaves [0.5 mm](AFT_COLLET_GAP) between the fully extended
 noses and the plate, 2.15 mm aft of release. The complete appliance is rendered at this nominal
 rest. The aft stop leaves [2.5 mm](AFT_OVERTRAVEL) of additional movement beyond it for elastic bending.

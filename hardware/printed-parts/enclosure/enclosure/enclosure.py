@@ -5607,14 +5607,14 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 def _tee_wall(inner, y_joint, plate, bay):
     """One bay bulkhead from floor to lintel, joined to both flanks.
 
-    Each tube passage opens on its flat fore face. The larger aft journal clears the
+    Each circular tube passage retains a full flat annular release bearing. The larger aft journal clears the
     tee collar and leaves the collet's release shoulder on the stated Y plane. The
     carrier bearing body joins the aft face around those four journals.
     """
     slab = _ybox(inner[0], inner[1], bay_back_y(plate),
                   plate["wall_aft_y"], z_seam, bay[2])
     for hx, hz in plate["holes"]:
-        slab = slab.cut(_teardrop_y(
+        slab = slab.cut(_ycyl(
             plate["hole_d"] / 2.0, hx, hz,
             bay_back_y(plate) - 1.0, plate["aft_y"] + 1.0))
         slab = slab.cut(_tee_bore(plate, hx, hz))

@@ -17,16 +17,27 @@ have distinct run and branch stations; they are interior surface patches, not
 shoulder edges. The connecting shoulders and central union are conservative
 clearance envelopes. They deliberately do not claim every molded fillet.
 
-Three interfaces remain explicit layout proxies in `UNQUALIFIED_DATUMS`:
+The measured branch widths are **30.5 mm extended** and **29.0 mm pressed**, from
+the back of the widest fixed run collar to the outermost terminal face. Subtracting
+the **8.15 mm nominal back-collar radius** places those faces at **22.35 mm** and
+**20.85 mm** from the run axis. The **1.50 mm branch stroke** is distinct from the
+**1.65 mm run-sleeve stroke**. The conservative Ø16.5 clearance envelope is not the
+caliper back datum. The raw measurements are retained in
+[`branch-operating-measurements.json`](../jg-pp0208e-tee/branch-operating-measurements.json).
 
-- The fully extended branch face is provisionally **20.07 mm** from the axis.
-- The fixed-body/moving-sleeve split is provisionally **16.95 mm**.
-- The release nose radius is provisionally **5.715 mm**.
+The scan distinguishes a reduced fixed barrel behind the small moving terminal
+ring. Conservative fixed-barrel bounds are **R7.75 mm**, ending at **18.50 mm** on
+the run and **20.25 mm** on the branch. These flat envelope ends are not exact
+molded seams. The terminal clearance radius remains **5.715 mm** in
+`UNQUALIFIED_DATUMS`; the exact terminal OD and seam remain unqualified.
 
-The requested branch caliper width and identification of the actual moving rim
-must qualify those interfaces before print release. Sleeve depression moves
-only the terminal proxy sleeve and preserves the entire measured fixed collar.
-CAD consistency tests do not convert a proxy into a bench measurement.
+[`terminal-ring-scan.json`](../jg-pp0208e-tee/terminal-ring-scan.json) reads an
+approximate **Ø10.62 mm** terminal surface, with **0.235 mm held-out radial p95**.
+Its observed face near **21.36 mm** lies between the measured operating endpoints.
+The merged scan therefore cannot establish an absolute terminal seam or minimum
+ring size. Release moves only the terminal proxy and preserves both the fixed
+collar and reduced barrel. The printed **Ø8.5 mm circular tube opening** retains
+a full flat annular bearing; actual release performance still requires the part.
 
 The bores show Ø6.35 mm tube clearance. They do not claim teeth, O-rings, the
 hydraulic bore or an inferred internal stop. The stop is the measured insertion
@@ -40,7 +51,7 @@ tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py self
 ## Measured on the PP0208E in hand
 
 Calipered on the production tee itself. The generated clearance reference carries the run
-span and the operating branch travel, and `stations_hold` reads those back. Both spans are collet face to collet face along the run. The three depths are
+span and the distinct branch travel, and `stations_hold` reads those back. Both run spans are collet face to collet face. The three depths are
 how far a 1/4" tube stands inside one collet from the sleeve's face with the sleeve pressed
 home, which is where the tube was marked.
 
@@ -48,7 +59,9 @@ home, which is where the tube was marked.
 |---|---|
 | run span, sleeves extended | 42.5 mm (`RUN_SPAN`) |
 | run span, both sleeves pressed | 39.2 mm (`RUN_SPAN_PRESSED`) |
-| one sleeve's stroke | 1.65 mm (`COLLET_TRAVEL`) |
+| one run sleeve's stroke | 1.65 mm (`RUN_COLLET_TRAVEL`) |
+| branch width, sleeve extended / pressed | 30.5 / 29.0 mm |
+| branch sleeve's stroke | 1.50 mm (`BRANCH_COLLET_TRAVEL`) |
 | first resistance to the tube | 7.0 mm (`FIRST_RESISTANCE`) |
 | the teeth hold | 8.5 mm (`GRIP_DEPTH`); at 8.4 mm the tube still draws out |
 | the tube bottoms | 10.0 mm (`INSERTION`) |
@@ -58,11 +71,11 @@ body. The measured sleeve stroke sets the carrier's fore-to-aft movement. The 7 
 insertion observations describe how the tube enters the fitting.
 
 At the fore stop the plate holds each sleeve fully depressed and a bottomed tube projects
-10 mm beyond that face. The return stroke is 2.15 mm: 1.65 mm of sleeve extension while its
+10 mm beyond that face. The return stroke is 2.00 mm: 1.50 mm of branch-sleeve extension while its
 nose stays at the plate, followed by a 0.5 mm plate-to-nose gap. Tube length places each tip at the internal stop with the carrier aft and the cartridge
-fully seated: 11.65 mm beyond the extended sleeve. At the fore stop, the cartridge is
-2.15 mm short of seating when its tubes bottom. Relax the squeeze and advance it through
-that final 2.15 mm. Both the connected carrier and the empty carrier rest at the aft stop.
+fully seated: 11.50 mm beyond the extended branch sleeve. At the fore stop, the cartridge is
+2.00 mm short of seating when its tubes bottom. Relax the squeeze and advance it through
+that final 2.00 mm. Both the connected carrier and the empty carrier rest at the nominal aft station.
 The springs remain preloaded there; final cartridge seating may require a push.
 
 ## Observed push-connect action

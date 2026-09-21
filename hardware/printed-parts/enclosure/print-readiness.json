@@ -35,7 +35,7 @@
     "Simplify the complete carrier assembly, using broad substantial walls as demonstrated by the faucet cover; neither existing joint half is selected for reuse. Qualify full-width stiffness.",
     "Provide positive capture and guidance at both spring ends with simple assembly and the measured spring pair.",
     "Dry-fit both Kamoer pumps in the corrected cradle/cap and cycle all four actual tubes; verify return, release and primed leak-tight pumping.",
-    "Verify actual Beduan socket fit, DIGITEN flow direction and machine-display retention using physical parts.",
+    "Verify installed Beduan tie access, DIGITEN flow direction and machine-display retention using physical parts.",
     "Complete current combined regeneration and native assembly checks; reslice final geometry and inspect support-removal lanes."
   ],
   "baseline_verification": {
@@ -62,19 +62,26 @@
       },
       "authority": "Derek loading reports; both black left and white right PET-GF have printed successfully.",
       "ready_for_prepared_job": false,
-      "observed_at": "2026-09-21T02:19:32.961273+00:00",
-      "current_job": "valve-socket-fit-black-z004-mark2-v1.gcode.3mf",
+      "observed_at": "2026-09-21T03:16:40Z",
+      "current_job": "tube-miter-box-petgf-z004-mark2.gcode.3mf",
       "observed_state": "RUNNING",
       "print_error": 0,
-      "print_record": "hardware/printed-parts/fixtures/valve-socket-fit/print-status.json",
-      "job_purpose": "Beduan production-profile socket and bearing fit trial.",
+      "print_record": "hardware/printed-parts/fixtures/tube-miter-box/print-jobs.json",
+      "job_purpose": "Tube miter box; controlled by its Claude agent.",
       "plate_clearance_confirmed": false,
-      "availability_authority": "Derek: both printers are available right now, September 20, 2026"
+      "availability_authority": "Tube miter box agent: exact job confirmed RUNNING via MQTT at 2026-09-21T03:16:40Z.",
+      "printed_coupon_removed_for_fit": true
     },
     "H2C": {
       "cancelled_object_removal_confirmed": true,
       "replacement_started": false,
-      "availability_authority": "Derek: both printers are available right now, September 20, 2026"
+      "availability_authority": "Derek: both printers are available right now, September 20, 2026",
+      "observed_state": "RUNNING",
+      "observed_at": "2026-09-21T03:20:54.501001+00:00",
+      "current_job": "pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
+      "print_error": 0,
+      "ready_for_prepared_job": false,
+      "job_purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly."
     }
   },
   "carrier_upper_backing": {
@@ -87,7 +94,7 @@
       "spring_return": 1.378610565019605,
       "unequal_grips_2_to_1": 34.41911790985389
     },
-    "comparison_scope": "Body only; center joint, torsion and shear excluded. Full assembled stiffness remains unqualified."
+    "comparison_scope": "Archived body-only stiffness fixture; center joint, torsion and shear excluded. Current measured-branch placement and replacement joint require their own checks; full assembled stiffness remains unqualified."
   },
   "tee_registration": {
     "status": "six fixed external surfaces rigidly registered at scale 1; held-out residuals retained",
@@ -105,7 +112,11 @@
     "branch_width_extended_mm": 30.5,
     "branch_width_pressed_mm": 29.0,
     "branch_collet_travel_mm": 1.5,
-    "measured_branch_propagation_complete": false
+    "measured_branch_propagation_complete": false,
+    "production_sources_updated": true,
+    "fresh_part_generation_complete": false,
+    "local_native_check_count": 958,
+    "terminal_ring_evidence": "hardware/reference/jg-pp0208e-tee/terminal-ring-scan.json"
   },
   "post_publish_geometry_lint": {
     "accepted_lever_print_mesh": {
@@ -146,15 +157,22 @@
     "physical_corrected_assembly_accepted": false
   },
   "measured_spring_consumer": {
-    "status": "pass",
+    "status": "current_measured_branch_lengths_recorded_physical_capture_unqualified",
     "evidence": "hardware/printed-parts/enclosure/tee-carrier/measured-spring-check.json",
     "printed_geometry_unchanged": false,
-    "minimum_compression_mm": 2.85,
+    "minimum_compression_mm": 3.15,
     "loading_clearance_above_compressed_estimate_mm": 2.61,
     "forces_known": false,
     "positive_capture_qualified": false,
     "full_assembly_artifacts_current": false,
-    "geometry_scope": "The measured-spring update preserves fitted spring seats; current tee correction also changes carrier geometry. The retained invariance evidence applies only to the bounded spring-input update."
+    "geometry_scope": "The measured-spring update preserves fitted spring seats; current tee correction also changes carrier geometry. The retained invariance evidence applies only to the bounded spring-input update.",
+    "current_bearing_separations_mm": {
+      "release": 19.35,
+      "connected": 21.35,
+      "aft_limit": 23.85
+    },
+    "current_datum_evidence": "hardware/printed-parts/enclosure/tee-readiness/branch-propagation/README.md",
+    "loading_clearance_scope": "The 2.61 mm loading clearance is archived pre-branch fixture evidence; replacement loading remains separately checked."
   },
   "tee_nominal_radial_running_air_mm": 0.25,
   "joint_coupon": {
@@ -225,18 +243,22 @@
     "suction_direction_reference": "-Y"
   },
   "cartridge_print": {
-    "status": "held_for_measured_branch_datum_propagation",
-    "submitted": false,
+    "status": "printing_cartridge_and_cap_bench_fit",
+    "submitted": true,
     "readiness_record": "hardware/printed-parts/enclosure/enclosure/pump-print-readiness.json",
-    "estimated_seconds": 34978,
+    "estimated_seconds": 35167.51953125,
     "physical_fit_tested": false,
-    "final_tee_axial_datums_qualified": false
+    "final_tee_axial_datums_qualified": false,
+    "printer": "H2C",
+    "job": "pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
+    "print_record": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
+    "observed_at_utc": "2026-09-21T03:20:54.501001+00:00"
   },
   "post_publish_geometry_lint_current_carrier": {
     "remaining_findings": 0,
     "answered_findings": {
-      "left": 28,
-      "right": 28,
+      "left": 24,
+      "right": 24,
       "integral_right_coupon": 5
     },
     "scope": "Current mesh features and accessible support paths; no physical latch or complete assembly acceptance implied."
@@ -244,8 +266,11 @@
   "beduan_socket_fit": {
     "physical_baseline": "hardware/printed-parts/fixtures/valve-socket-fit/physical-baseline.json",
     "existing_fit_pretty_good": true,
-    "current_scan_corrected_coupon_accepted": false,
-    "trial_status": "submitted_to_Mark2",
-    "print_record": "hardware/printed-parts/fixtures/valve-socket-fit/print-status.json"
+    "current_scan_corrected_coupon_accepted": true,
+    "trial_status": "finished_and_physically_accepted_with_zip_tie_retention",
+    "print_record": "hardware/printed-parts/fixtures/valve-socket-fit/print-status.json",
+    "retention": "Zip ties; retain the current easy-fitting socket profile.",
+    "physical_acceptance": "hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json",
+    "production_tie_installation_tested": false
   }
 }

@@ -82,7 +82,7 @@ class CarrierSpec:
     park_offset_y: float = tee.CARRIER_PARK_OFFSET
     aft_overtravel_y: float = enclosure_interface.tee_carrier_aft_overtravel
     fixed_plate_aft_y: float = 82.690
-    aft_coil_fore_y: float = 117.560
+    aft_coil_fore_y: float = 119.990
     exterior_x: float = 107.5
     guide_inner_x: float = 98.5
     slide_air: float = fits.running
@@ -343,8 +343,8 @@ class CarrierSpec:
 
 
 DEFAULT_SPEC = CarrierSpec(
-    tee_xs=(-79.82, -20.07, 20.07, 79.82), tee_axis_z=186.174,
-    web_x=(-94.0, 94.0), bearing_y=109.360, web_z=(167.174, 222.425),
+    tee_xs=(-82.10, -22.35, 22.35, 82.10), tee_axis_z=186.174,
+    web_x=(-94.0, 94.0), bearing_y=111.790, web_z=(167.174, 222.425),
     tab_outer_x=107.5, tab_z=(175.050, 226.119),
 )
 
@@ -371,19 +371,35 @@ def _box(x0: float, x1: float, y0: float, y1: float, z0: float, z1: float):
 def tie_sites(spec: CarrierSpec) -> tuple[TieSite, ...]:
     """The eight ties and their sixteen through-slot axes.
 
-    Every head is clocked away from the machine centre.  It lies beside the tee on the fore
-    side of the carrier; no head occupies the coil clearance behind the web.
+    The heads face the open gaps between adjacent tees. The outermost slots lie behind the
+    collar tangent and stop before the full handhold backing; their opening need not stand
+    beyond the collar's widest X. No head occupies the coil clearance behind the web.
     """
-    return tuple(
-        TieSite(
-            tee_x=tee_x,
-            band_z=spec.tee_axis_z + dz,
-            slot_xs=(tee_x - spec.tie_slot_offset_x, tee_x + spec.tie_slot_offset_x),
-            head_side=-1 if tee_x < 0.0 else 1,
-        )
-        for tee_x in spec.tee_xs
-        for dz in spec.tie_band_offsets_z
-    )
+    sites = []
+    outer = max(abs(x) for x in spec.tee_xs)
+    limit = spec.grip_back_x - spec.slide_air - spec.tie_slot_x / 2.0
+    for tee_x in spec.tee_xs:
+        side = -1 if tee_x < 0 else 1
+        is_outer = abs(tee_x) == outer
+        slots = [tee_x - spec.tie_slot_offset_x, tee_x + spec.tie_slot_offset_x]
+        if is_outer:
+            slots[0 if side < 0 else 1] = side * limit
+        for dz in spec.tie_band_offsets_z:
+            sites.append(TieSite(tee_x, spec.tee_axis_z + dz, tuple(slots),
+                                 -side if is_outer else side))
+    return tuple(sites)
+
+
+def tie_head_envelopes(spec=DEFAULT_SPEC):
+    """Declared 5 × 3.6 × 2.8 mm locks, beside the collar and fore of the web."""
+    width, depth, height = spec.tie_head
+    shapes = []
+    for site in tie_sites(spec):
+        x = site.tee_x + site.head_side * (tee.HALF_W + spec.slide_air + width / 2.0)
+        shapes.append(_box(x - width / 2.0, x + width / 2.0,
+                           spec.web_fore_y - depth, spec.web_fore_y,
+                           site.band_z - height / 2.0, site.band_z + height / 2.0).val())
+    return tuple(shapes)
 
 
 def _teardrop_y(
@@ -818,6 +834,23 @@ def interface(spec=DEFAULT_SPEC):
 def selftest(spec=DEFAULT_SPEC):
     errors = []
     halves = {side: build_half(spec, side).val() for side in (-1, 1)}
+    for index, (site, head) in enumerate(zip(tie_sites(spec), tie_head_envelopes(spec)), 1):
+        collar_air = cq.Solid.makeCylinder(
+            tee.HALF_W + spec.slide_air, 2.0 * tee.RUN_HALF,
+            cq.Vector(site.tee_x, spec.bearing_y - tee.HALF_W,
+                      spec.tee_axis_z - tee.RUN_HALF), cq.Vector(0, 0, 1))
+        if head.intersect(collar_air).Volume() > 1e-5:
+            errors.append(f'tie {index} lock loses collar running clearance')
+        for slot_x in site.slot_xs:
+            slot = _box(slot_x-spec.tie_slot_x/2, slot_x+spec.tie_slot_x/2,
+                        spec.web_fore_y-.1, spec.web_aft_y+.1,
+                        site.band_z-spec.tie_slot_z/2,
+                        site.band_z+spec.tie_slot_z/2+fits.supported_surface).val()
+            if slot.intersect(collar_air).Volume() > 1e-5:
+                errors.append(f'tie {index} slot loses collar running clearance')
+        for side, half in halves.items():
+            if head.intersect(half).Volume() > 1e-5:
+                errors.append(f'tie {index} lock crosses carrier half {side:+d}')
     for side, solid in halves.items():
         bb = solid.BoundingBox()
         if len(solid.Solids()) != 1 or not solid.isValid():

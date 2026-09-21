@@ -8,13 +8,17 @@ carrier retention and the physical checks below remain open.
 H2C's `enclosure-front-top-petgf-z018-h2c.gcode.3mf` is cancelled. Its valve-tray region was
 2 mm above the corrected assembly. The last running reading was 51/813 layers; cancellation
 and zero heater targets are recorded in [print-jobs.json](enclosure/print-jobs.json).
-Derek confirms both printers are available and their plates ready for the prepared jobs.
+H2C is printing `pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf`: the corrected
+cartridge and cap for a Kamoer bench fit, 496 layers, about 9 h 46 min and 406.71 g. Its
+exact source closure, native slice and support paths are recorded in
+[the print readiness record](enclosure/pump-print-readiness.json). Mark2 is printing the
+[tube miter box](../fixtures/tube-miter-box/print-jobs.json).
 
 ## Scans and fitted parts
 
 | Part | Current evidence and model | Remaining physical work |
 |---|---|---|
-| Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. Sockets, valve trays and cold-core cradles consume these dimensions. Derek reports the existing sockets fit pretty well. | Compare the [production-profile socket coupon](../fixtures/valve-socket-fit/README.md) against that physical baseline, including the other valves. No new full scan is indicated. |
+| Beduan solenoid | Measured reference: 24.4 × 24.85 mm post pitch, Ø6.9 posts, 5.2 mm bearing height, 59.5 mm port span and 57.3 mm overall height. Derek physically accepts the [production-profile socket coupon](../fixtures/valve-socket-fit/README.md): easy insertion and some inverted retention during loose shaking. Preserve the socket fit and use zip ties for positive retention. | Verify that the ties can be threaded and tightened in the complete carrier without disturbing valve seating. No new full scan is indicated. |
 | DIGITEN flow meter | Measured offset body and mounting collars; placement, anchors, ties and adjacent tubing follow that envelope. | Confirm the molded flow arrow and actual installed direction. No new full scan is indicated. |
 | John Guest PP0208E tee | Registered fixed surfaces support the conservative Ø16.5 collar and Ø14 root envelopes. Derek measures branch width at 30.5 mm extended and 29.0 mm pressed, from the back of the widest fixed run collar. Only the small outermost ring moves. | Propagate the measured 1.5 mm branch travel and branch face position; qualify the terminal ring boundary and diameter. |
 | Kamoer pump | Two complementary native scans are complete. The short terminal pieces are Derek's inserted ¼-inch LLDPE stubs in silicone, excluded from rigid registration and integral pump dimensions. Cap pressing rails, floor relief and outlet stations are corrected. | Fit both actual pumps in the corrected cartridge/cap, then test four-tube insertion, capture, release and primed pumping. No third scan is needed for these contact corrections. |
@@ -42,12 +46,17 @@ are **30.5 mm extended / 29.0 mm pressed**, giving **1.5 mm branch travel**. The
 face stations are nominally 22.35 and 20.85 mm from the run axis when derived with the
 nominal Ø16.3 back collar. The conservative Ø16.5 envelope is not that caliper datum.
 The small outermost terminal ring moves; its exact boundary and diameter remain open.
-Production propagation is pending. The prepared cartridge print is held for these changes.
+The measured branch datums are in the production source. The cartridge/cap generation
+passes all 55 native checks and its exact verified slice is printing on H2C. A fresh native
+front-top fixture passes 38 interface checks, 26 stock checks and 12 positive contact probes.
+Complete carrier insertion and the combined enclosure remain unqualified. The [propagation record](tee-readiness/branch-propagation/README.md) names the
+changed placements and the scope of each native check.
 
 Deck separation is 60.95 mm. The carrier retains its full 2.5 mm station backing and clears
 the aft valves' complete mounting-post entry by 0.25 mm. All four pump-tube axes align with
 the carried tees. The [local native integration audit](tee-readiness/tee-integration.json)
-passes 107 checks, including all carrier states, native tee envelopes and valve insertion.
+passes 958 checks, including all carrier states, native tee envelopes, valve insertion and
+declared tie-slot and tie-head clearances.
 Those checks are distinct from the full enclosure build.
 
 Kamoer's corrected cap has two exposed 3 × 32 mm pressing rails per pump, landing nominally
@@ -61,14 +70,15 @@ checks native cap clearance, bearing faces, screw adjustment and the flat insert
 ## Carrier rigidity and assembly
 
 The carrier has a 6 mm web, broad inner shelf and spring reaction in each grip. The current
-[section and bending audit](tee-carrier/readiness-audit.json) compares its actual mesh with
+[section and bending audit](tee-carrier/readiness-audit.json) compares a frozen baseline mesh with
 the print preceding spring relocation. Local Izz ratios are 156.29 at the inner tee, 5.21 at
 the outer tee and 0.887 at the grip root. A load-weighted beam comparison gives body bending
 gains of 35.82 for equal grips and 1.379 for spring return, assuming equal modulus and
 excluding the center joint, torsion and shear. These are bounded model comparisons, not
-measured assembly stiffness.
+measured assembly stiffness. These values do not qualify the current measured-branch
+placement or the replacement joint.
 
-The relocated spring loads require 23.795 N·mm of center-joint bending and 25.035 N·mm of
+The archived spring-load fixture requires 23.795 N·mm of center-joint bending and 25.035 N·mm of
 roll restraint per 1 N total spring force. Service-slot lands and rim-to-roof/fore-guide
 contacts provide positive restraint in the source, with 0.50 mm nominal vertical clearance.
 The fresh native wall, complete joint and physical full-width mechanism still need checking.
@@ -106,17 +116,17 @@ spring rate are not measured.
 
 | State | Bearing separation | Compression from 27 mm | Margin above approximately 7 mm compressed |
 |---|---:|---:|---:|
-| Release / squeeze | 19.50 mm | 7.50 mm | 12.50 mm |
-| Connected | 21.65 mm | 5.35 mm | 14.65 mm |
-| Aft limit | 24.15 mm | 2.85 mm | 17.15 mm |
+| Release / squeeze | 19.35 mm | 7.65 mm | 12.35 mm |
+| Connected | 21.35 mm | 5.65 mm | 14.35 mm |
+| Aft limit | 23.85 mm | 3.15 mm | 16.85 mm |
 
-The Ø6.57 spring channel has 0.285 mm nominal radial air. The 9.61 mm loading space is
-2.61 mm above the measured compressed estimate. The measured-spring consumer uses these
-actual dimensions and records force as unknown.
+The Ø6.57 spring channel has 0.285 mm nominal radial air. The loading-space reading in
+the archived spring fixture is 9.61 mm; the complete replacement carrier has its own
+assembly and spring-loading checks. Spring force remains unknown.
 
 **Both-end positive capture is still required.** The current moving channel's first 10 mm
 is open inboard; only 1.1 mm remains closed at its blind end. The free gap between fixed and
-moving mouths ranges from 6.40 to 11.05 mm. Straight-envelope clearance and preload do not
+moving mouths is a separate problem from end-seat fit. Straight-envelope clearance and preload do not
 prove that a sideways-deflected spring remains aligned.
 
 The [capture study](tee-carrier/spring-capture-study/README.md) checks an enclosed moving bore and axial loading from the empty pump

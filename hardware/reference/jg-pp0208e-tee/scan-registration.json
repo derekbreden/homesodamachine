@@ -264,21 +264,32 @@
     }
   },
   "current_journal": {
-    "diameter_mm": 14.216,
+    "diameter_mm": 17.0,
     "nominal_production_collar_diameter_mm": 16.3,
-    "radial_interference_before_clearance_mm": 1.0420000000000007,
     "scan_sample_outer_envelope_diameter_mm": 16.5,
-    "note": "The fitted collar is slightly tapered. 16.3 is the documented nominal; 16.5 is a rounded sampled outer envelope, not a production tolerance bound."
+    "radial_running_air_mm": 0.25,
+    "note": "16.3 is the nominal caliper back datum; 16.5 is a rounded sampled clearance envelope, not a production tolerance bound."
   },
   "bench_authority": {
     "run_span_extended_mm": 42.5,
     "run_span_pressed_mm": 39.2,
-    "one_sleeve_stroke_mm": 1.65,
+    "run_sleeve_stroke_mm": 1.65,
+    "branch_sleeve_stroke_mm": 1.5,
+    "branch_width_extended_mm": 30.5,
+    "branch_width_pressed_mm": 29.0,
+    "branch_width_datum": "Overall width from the back of the run widest fixed collar to the branch collet outer face.",
+    "branch_nominal_axis_stations": {
+      "back_collar_nominal_diameter_mm": 16.3,
+      "extended_branch_face_from_run_axis_mm": 22.35,
+      "pressed_branch_face_from_run_axis_mm": 20.85,
+      "qualification": "Derived using the nominal 8.15 mm back-collar radius. The conservative 8.25 mm envelope is not the caliper datum. Raw measured widths remain authoritative."
+    },
+    "branch_measurement_source": "branch-operating-measurements.json",
     "carrier_nose_gap_mm": 0.5,
     "tube_insertion_from_pressed_sleeve_face_mm": 10.0
   },
   "open_interfaces": [
-    "Absolute fully extended branch sleeve face station pending caliper width.",
-    "Release sleeve/collar edge details must remain explicit when constructing the moving sleeve."
+    "Exact terminal-ring outside diameter and the fixed/moving seam; the merged terminal surface has an intermediate or merged sleeve state.",
+    "Physical release contact and operating force with the printed circular bearing and complete cartridge."
   ]
 }

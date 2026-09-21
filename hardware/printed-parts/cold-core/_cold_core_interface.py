@@ -814,8 +814,8 @@ Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle(( 94.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle(( 92.220,  22.490), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
-    "valve-v-b":   Cradle(( 92.220, -20.070), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
+    "valve-v-a":   Cradle(( 89.790,  24.770), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
+    "valve-v-b":   Cradle(( 89.790, -22.350), 0.0, 12.7250 + manifold_rise - inner_limb_drop),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
@@ -1342,9 +1342,8 @@ cap_anchors = {
     #                             centre         seat_r  over_face
     "discharge-chain": CapAnchor((61.000, -60.500), 8.5 + fits.slip, 14.700),
     "suction-chain":   CapAnchor((35.120,  65.050), 8.5 + fits.slip, 14.700),
-    # Reservoir A's own fill, which comes down onto this face at V-A's forward end and runs the
-    # rest of the way aft on it. The station is the one that splits that run's two unheld spans
-    # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading.
+    # Reservoir A's fill runs aft along this straight cap lane. The anchor stands behind
+    # V-A's plinth with the full room required by `cap_anchor_room`.
     #
     # It reaches `_lines._fill_a_cap_z` — the plane the run holds over the pump's bracket and
     # over the side post this lid stands for `fluid-18`'s crossing, which is higher than this
@@ -1352,7 +1351,7 @@ cap_anchors = {
     # rather than setting it, and `enclosure_assembly.check_run_seated` is what holds the two
     # together — it reads the placed solids and wants the rib within `TUBE_ANCHOR_SLIP` of the
     # tube.
-    "fluid-14":        CapAnchor(( 68.500,  43.500), 6.35 / 2.0 + fits.slip, 21.894),
+    "fluid-14":        CapAnchor(( 65.000,  43.500), 6.35 / 2.0 + fits.slip, 21.894),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same

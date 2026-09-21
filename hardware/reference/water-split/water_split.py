@@ -36,7 +36,7 @@ from _cadq_export import import_step
 import tee_connector as tee
 
 RUN_REACH = tee.RUN_HALF
-BRANCH_REACH = tee.BRANCH_REACH  # explicitly provisional until the branch caliper reading
+BRANCH_REACH = tee.BRANCH_REACH  # caliper width less the nominal fixed-collar back radius
 REACH = RUN_REACH  # compatibility for callers which use the supply-run reach
 TUBE_D = tee.TUBE_D          # 1/4" OD LLDPE the three ports accept
 
@@ -91,7 +91,7 @@ def clearance_seat(span, tie_width):
         raise ValueError("water-split tie must fit wholly inside the measured fixed collar patch")
     mid = station[0][1]
     lo, hi = mid - span / 2.0, mid + span / 2.0
-    if lo <= tee.BARREL_R or hi >= RUN_REACH - tee.COLLET_TRAVEL:
+    if lo <= tee.BARREL_R or hi >= RUN_REACH - tee.RUN_COLLET_TRAVEL:
         raise ValueError("water-split seat reaches the branch or the fully pressed run face")
     if tee.COLLET_NOSE_R > radius:
         raise ValueError("water-split release sleeve exceeds the seat clearance envelope")

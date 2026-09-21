@@ -1,0 +1,23 @@
+{
+  "status": "interrupted_incomplete",
+  "reason": "Stopped at parent direction to propagate newly measured tee branch geometry; the unfinished baseline operation is neither a geometry pass nor a geometry failure.",
+  "interrupted_at_utc": "2026-09-21T01:46:19.401898+00:00",
+  "process_pid": 34009,
+  "process_exit_code": 143,
+  "termination_signal": "SIGTERM",
+  "bound": null,
+  "partial_motion_readings_recorded": false,
+  "completed_evidence": [
+    "fixture.json",
+    "upper-backing-check.json",
+    "readiness-audit.json"
+  ],
+  "fixture_sha256": "446357f5355cfc2d8fafb746c1be63924acb380254df00a48323cd2a499ed9bd",
+  "fixture_step_sha256": "63471e1fa49233b281b6334ec3ef82c73a3abe8c635eb537c4f38e2a2e6e5508",
+  "wrapper_sha256": "dad3b7735d0fe451ae4d08cb89df6a30d9d2ff361e8b4b5f62cf9c4ac881d371",
+  "source_scope": "Frozen source and Box hashes are in fixture.json; no completed full-motion source-closure result exists.",
+  "new_measurements": "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+  "assembly_current": false,
+  "production_enclosure_released": false,
+  "next_required": "Propagate nominal branch extended/pressed stations 22.35/20.85 mm, branch travel 1.5 mm, distinct run travel 1.65 mm, then regenerate affected geometry and checks. Terminal moving-ring boundary and OD require resolution."
+}

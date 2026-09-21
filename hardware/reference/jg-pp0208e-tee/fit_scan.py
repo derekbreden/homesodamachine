@@ -37,6 +37,36 @@ PATCHES = (
 )
 
 
+def operating_metadata():
+    """Bench operating datums remain independent of the rigid scan fit."""
+    path = Path(__file__).resolve().parent/'branch-operating-measurements.json'
+    branch = json.loads(path.read_text())
+    return {
+        'run_span_extended_mm': 42.5, 'run_span_pressed_mm': 39.2,
+        'run_sleeve_stroke_mm': 1.65, 'branch_sleeve_stroke_mm': branch['branch_collet_travel_mm'],
+        'branch_width_extended_mm': branch['extended_width_mm'],
+        'branch_width_pressed_mm': branch['pressed_width_mm'],
+        'branch_width_datum': branch['datum'],
+        'branch_nominal_axis_stations': branch['derived_nominal_stations'],
+        'branch_measurement_source': path.name,
+        'carrier_nose_gap_mm': .5,
+        'tube_insertion_from_pressed_sleeve_face_mm': 10.,
+    }
+
+
+OPEN_INTERFACES = [
+    'Exact terminal-ring outside diameter and the fixed/moving seam; the merged terminal surface has an intermediate or merged sleeve state.',
+    'Physical release contact and operating force with the printed circular bearing and complete cartridge.',
+]
+
+
+CURRENT_JOURNAL = {
+    'diameter_mm': 17.0, 'nominal_production_collar_diameter_mm': 16.3,
+    'scan_sample_outer_envelope_diameter_mm': 16.5, 'radial_running_air_mm': .25,
+    'note': '16.3 is the nominal caliper back datum; 16.5 is a rounded sampled clearance envelope, not a production tolerance bound.',
+}
+
+
 def readings(values):
     values = np.asarray(values)
     return {
@@ -154,19 +184,9 @@ def fit(mesh_path):
             'closest_axis_separation_mm':float(line_distance),
             'residual':readings(branch_residual(bfit)),
         },
-        'current_journal':{
-            'diameter_mm':14.216,'nominal_production_collar_diameter_mm':16.3,
-            'radial_interference_before_clearance_mm':(16.3-14.216)/2,
-            'scan_sample_outer_envelope_diameter_mm':16.5,
-            'note':'The fitted collar is slightly tapered. 16.3 is the documented nominal; 16.5 is a rounded sampled outer envelope, not a production tolerance bound.',
-        },
-        'bench_authority':{
-            'run_span_extended_mm':42.5,'run_span_pressed_mm':39.2,
-            'one_sleeve_stroke_mm':1.65,'carrier_nose_gap_mm':.5,
-            'tube_insertion_from_pressed_sleeve_face_mm':10.,
-        },
-        'open_interfaces':['Absolute fully extended branch sleeve face station pending caliper width.',
-                           'Release sleeve/collar edge details must remain explicit when constructing the moving sleeve.'],
+        'current_journal': CURRENT_JOURNAL,
+        'bench_authority': operating_metadata(),
+        'open_interfaces': OPEN_INTERFACES,
     }
     return mesh, q, n, report
 

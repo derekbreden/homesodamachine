@@ -1,45 +1,41 @@
-[step] The flat bowed-tube relief ends 0.496 mm behind the web fore face. The retained upper backing is 5.504 mm thick and joins the complete web; this is the edge of a shallow open recess, not a separate thin wall.
-click: x=27.945 y=106.356 z=214.774
+[step] The outer bowed-tube recess ends at absolute X90.850 beside the grip back at X91.000. Its 0.150 mm lateral offset is the edge of a 0.496 mm-deep open recess, backed by the continuous 5.504 mm upper web. It is not the grip's wall thickness; native probes preserve the full grip root and 3 mm finger-pocket backing.
+click: x=90.850 y=108.538 z=214.774
 
-[step] The outer tie-slot wall at absolute X90.460 and the grip back at X91.000 locate different features. The 0.540 mm offset does not reduce the 16 mm Y grip section. The through-slot remains beside the tee, with its full aft bearing web retained.
-click: x=90.460 y=108.860 z=174.299
+[step] The flat bowed-tube relief ends 0.496 mm behind the web fore face. The retained upper backing is 5.504 mm thick and joins the complete web; this is the edge of a shallow open recess, not a separate thin wall.
+click: x=30.225 y=108.786 z=214.774
 
 [sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py.
-click: x=11.320 y=106.108 z=214.774
-click: x=28.820 y=106.108 z=214.774
-click: x=71.070 y=106.108 z=214.774
-click: x=88.570 y=106.108 z=214.774
+click: x=90.850 y=108.538 z=214.774
+click: x=31.100 y=108.538 z=214.774
+click: x=13.600 y=108.538 z=214.774
+click: x=73.350 y=108.538 z=214.774
 
-[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them.
-click: x=10.180 y=108.860 z=172.424
-click: x=29.960 y=108.860 z=172.424
-click: x=69.930 y=108.860 z=172.424
-click: x=89.710 y=108.860 z=172.424
-click: x=10.180 y=108.860 z=176.174
-click: x=29.960 y=108.860 z=176.174
-click: x=69.930 y=108.860 z=176.174
-click: x=89.710 y=108.860 z=176.174
-click: x=10.180 y=108.860 z=196.424
-click: x=29.960 y=108.860 z=196.424
-click: x=69.930 y=108.860 z=196.424
-click: x=89.710 y=108.860 z=196.424
-click: x=10.180 y=108.860 z=200.174
-click: x=29.960 y=108.860 z=200.174
-click: x=69.930 y=108.860 z=200.174
-click: x=89.710 y=108.860 z=200.174
+[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+click: x=12.460 y=111.290 z=200.174
+click: x=72.210 y=111.290 z=200.174
+click: x=90.000 y=111.290 z=200.174
+click: x=12.460 y=111.290 z=176.174
+click: x=72.210 y=111.290 z=176.174
+click: x=90.000 y=111.290 z=176.174
+click: x=12.460 y=111.290 z=172.424
+click: x=72.210 y=111.290 z=172.424
+click: x=90.000 y=111.290 z=172.424
+click: x=12.460 y=111.290 z=196.424
+click: x=72.210 y=111.290 z=196.424
+click: x=90.000 y=111.290 z=196.424
 
-[ceiling] The aft shelf's flat underside at Z209.075 runs 14 mm behind the web and clears the inner aft coil cases. Removable support rises 41.901 mm from the bed and leaves through the loose half's open aft face before hardware assembly.
-click: x=27.085 y=118.860 z=209.075
+[ceiling] The aft shelf's flat underside at Z209.075 runs 14 mm behind the web and clears the inner aft coil cases. Removable support rises 41.901 mm from the bed and leaves through the loose half's open aft face before hardware assembly. The final slice must verify its emitted support bodies.
+click: x=27.085 y=121.290 z=209.075
 
-[ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end, before the tee is fitted.
-click: x=20.070 y=107.858 z=207.724
-click: x=79.820 y=107.858 z=207.724
+[ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies.
+click: x=82.100 y=110.288 z=207.724
+click: x=22.350 y=110.288 z=207.724
 
 [ceiling] The solid grip bar's flat underside at Z175.300 clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including the 0.25 mm supported-surface allowance. The full 16 mm Y section rises from this face. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly.
-click: x=99.250 y=103.860 z=175.300
+click: x=99.250 y=106.290 z=175.300
 
 [ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly.
-click: x=99.125 y=129.360 z=175.300
+click: x=99.125 y=131.790 z=175.300
 
 [slope] The spring channel's tangent 45-degree roof runs along its Y axis and preserves the complete 6.57 mm round passage. It builds without interior support on the Z-up print. This is a bore roof, not a load-bearing seating face.
-click: x=98.717 y=101.410 z=214.713
+click: x=98.717 y=103.840 z=214.713

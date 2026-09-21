@@ -91,5 +91,85 @@
       }
     ]
   },
-  "physical_fit_accepted": false
+  "physical_fit_accepted": true,
+  "completion_status": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-21T02:46:08.733121+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "valve-socket-fit-black-z004-mark2-v1.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 184,
+    "total_layer_num": 184,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 142.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 72.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "physical_acceptance": "hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json"
 }

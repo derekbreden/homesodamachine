@@ -1,0 +1,244 @@
+{
+  "status": "pass",
+  "scope": "Bounded source-geometry check of the circular tube passage and flat release face.\n\nNo native full front-top or production slice is qualified by this check.\n",
+  "inputs_sha256": {
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+    "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2",
+    "hardware/manifold-layout/manifold_layout.py": "32bf6fa6aa2edc51348b13798d5f0eac0b1948d22bd6f429be464d2d40bd8030",
+    "hardware/manifold-layout/enclosure_assembly.py": "1c1a2f9a44897df0c6fd8e57d396b67010c2baf649c799287322b922048b8998",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd99d0f5fb2414ce6d70b4bd130ea418c77ec5229f05b81ea97d5bbdeb6edd66",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "8d1c5becee2b7a2518228b4a60ebf11bf0b3845832a25d0215916ca3422c4f1e",
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
+    "hardware/printed-parts/enclosure/tee-readiness/branch-propagation/check_release_bore.py": "1d2332298bc4a6bd147e51bf990209529cb48b4eae119607f6ecc21d850bf45c"
+  },
+  "checks": [
+    {
+      "check": "X-82.1 R4.26..5.0 release annulus missing stock",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X-82.1 complete axial opening obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X-82.1 tube passage obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X-22.35 R4.26..5.0 release annulus missing stock",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X-22.35 complete axial opening obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X-22.35 tube passage obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X22.35 R4.26..5.0 release annulus missing stock",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X22.35 complete axial opening obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X22.35 tube passage obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X82.1 R4.26..5.0 release annulus missing stock",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X82.1 complete axial opening obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "X82.1 tube passage obstructed",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "fixed collar and reduced barrel removed by release",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "nominal pressed branch face error",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    },
+    {
+      "check": "source tee validity",
+      "value": 0.0,
+      "maximum": 1e-06,
+      "pass": true
+    }
+  ],
+  "source_tee_used_in_memory": true,
+  "current_native_front_top_checked": false,
+  "current_production_slice_checked": false,
+  "physical_release_qualified": false,
+  "plate": {
+    "holes": [
+      [
+        -82.1,
+        186.174
+      ],
+      [
+        -22.35,
+        186.174
+      ],
+      [
+        22.35,
+        186.174
+      ],
+      [
+        82.1,
+        186.174
+      ]
+    ],
+    "aft_y": 82.69,
+    "fore_y": 79.515,
+    "z0": 160.0,
+    "z1": 218.85,
+    "x0": -104.5,
+    "x1": 104.5,
+    "hole_d": 8.5,
+    "seat_z": 165.195,
+    "wall_aft_y": 93.836,
+    "bore_r": 8.5,
+    "rest_gap": 0.5,
+    "stroke": 2.0,
+    "tube_bottom_y": 92.69,
+    "seated_tube_bottom_y": 94.69,
+    "carrier_states": {
+      "release": {
+        "offset_y": 0.0,
+        "tube_depth": 10.0,
+        "cartridge_offset_y": -2.0,
+        "tube_bottom_y": 92.69,
+        "collet_depression": 1.5,
+        "plate_gap": 0.0
+      },
+      "squeeze": {
+        "offset_y": 0.0,
+        "tube_depth": 10.0,
+        "cartridge_offset_y": -2.0,
+        "tube_bottom_y": 92.69,
+        "collet_depression": 1.5,
+        "plate_gap": 0.0
+      },
+      "connected": {
+        "offset_y": 2.0,
+        "tube_depth": 11.5,
+        "cartridge_offset_y": 0.0,
+        "tube_bottom_y": 94.69,
+        "collet_depression": 0.0,
+        "plate_gap": 0.5
+      },
+      "park": {
+        "offset_y": 2.0,
+        "tube_depth": null,
+        "cartridge_offset_y": null,
+        "tube_bottom_y": 94.69,
+        "collet_depression": 0.0,
+        "plate_gap": 0.5
+      },
+      "aft_limit": {
+        "offset_y": 4.5,
+        "tube_depth": null,
+        "cartridge_offset_y": null,
+        "tube_bottom_y": 97.19,
+        "collet_depression": 0.0,
+        "plate_gap": 3.0
+      }
+    },
+    "aft_overtravel": 2.5,
+    "guide_travel": 4.5,
+    "connected_release_travel": 2.0,
+    "stop_offsets": [
+      0.0,
+      4.5
+    ],
+    "assembly_state": "connected"
+  },
+  "pump_trays": [
+    [
+      52.225,
+      45.909,
+      214.925
+    ],
+    [
+      -52.225,
+      45.909,
+      214.925
+    ]
+  ],
+  "spring_stations": [
+    {
+      "x": -97.535,
+      "z": 211.20900009999997,
+      "bore_floor_y": 109.39000000000001,
+      "seat_floor_y": 90.04000000000002,
+      "seat_mouth_y": 92.04000000000002
+    },
+    {
+      "x": 97.535,
+      "z": 211.20900009999997,
+      "bore_floor_y": 109.39000000000001,
+      "seat_floor_y": 90.04000000000002,
+      "seat_mouth_y": 92.04000000000002
+    }
+  ],
+  "cartridge_aft_y": 79.269,
+  "plate_running_air_mm": 0.2459999999999951,
+  "bore_diameter_mm": 8.5,
+  "tube_radial_air_mm": 1.0750000000000002,
+  "annular_probe_radii_mm": [
+    4.26,
+    5.0
+  ],
+  "annular_probe_area_mm2": 21.527449499458708,
+  "annular_probe_qualification": "Proves plate stock at a declared radius; R5.0 is not a caliper-qualified minimum terminal-ring radius.",
+  "print_up": [
+    0,
+    0,
+    1.0
+  ],
+  "bore_axis": [
+    0,
+    1,
+    0
+  ],
+  "release_neck_length_mm": 3.174999999999997,
+  "support_access": "The 3.175 mm cylindrical neck is open axially into the empty pump bay and the larger aft journal. Crown supports require removal before tees/cartridge installation. Final generated support bodies and complete front-top surroundings require the refreshed production slice."
+}

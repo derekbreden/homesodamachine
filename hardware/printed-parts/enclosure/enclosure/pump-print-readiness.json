@@ -1,15 +1,15 @@
 {
-  "status": "held_for_measured_branch_datum_propagation",
-  "submitted": false,
-  "printer": "Mark2",
+  "status": "printing_cartridge_and_cap_bench_fit",
+  "submitted": true,
+  "printer": "H2C",
   "purpose": "Bench-fit the two corrected Kamoer wells and cap rails. Final four-tube operation requires the qualified collet/carrier assembly.",
   "assembly_current": false,
   "production_enclosure_released": false,
   "physical_filament": "Black PET-GF, left external spool 254, PET-CF metadata",
-  "requested_z_trim_mm": 0.04,
+  "requested_z_trim_mm": 0.18,
   "actual_z_trim_commands_mm": [
     0.0,
-    0.02
+    0.16
   ],
   "source_profile": "hardware/printed-parts/petgf.3mf",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
@@ -22,7 +22,7 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-      "stl_sha256": "a3a1b380305a4bff980d49fdfa1bb033ae5f9ed9f47d7cdcef23a4be7e48758f",
+      "stl_sha256": "96b7591f5235f356e2a14b3c28c899d40c966d2b92df72e568b86c0b89bff59e",
       "triangles": 171298,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
@@ -78,7 +78,7 @@
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
       "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-      "stl_sha256": "6614432f68c112f85d5dd179b696131a9f29b940f7f64f5f2238840f1cb744c2",
+      "stl_sha256": "832f834f28e5a9b2da02dfc8162767b190b67c80098806dd55b34691f1654c70",
       "triangles": 6332,
       "rotation_x_degrees": 180.0,
       "source_center_mm": [
@@ -112,12 +112,12 @@
       ],
       "plate_bounds_mm": [
         [
-          90.05500030517578,
+          87.7750015258789,
           75.82000160217285,
           0.0
         ],
         [
-          259.9449996948242,
+          262.2249984741211,
           144.17999839782715,
           64.25099182128906
         ]
@@ -128,7 +128,7 @@
     }
   ],
   "geometry_manifest": "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json",
-  "geometry_manifest_sha256": "ed006ad044e235115af8e4308bfdd02b3e82278e2300bf58bb80afa143298dfb",
+  "geometry_manifest_sha256": "4a5debaae342377cb95407924f31a1c8f73074a7e3857222ab3ef8455c73d6e3",
   "cartridge_source_sha256": {
     "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
     "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
@@ -140,8 +140,8 @@
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "befb2a660a1962172bb4b4c67b1fae60277171314fd552ca7b0fd887ec431f64",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "1e38e9333d2b5807c8c5d5a0f2ed2b4850bb33e22ee2c67bcb4a46a4da612fa8",
-    "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "eb286dd16de5b4e33c28bef03a6d409074c0601c6b975125a5c3909e2b2a9031",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd99d0f5fb2414ce6d70b4bd130ea418c77ec5229f05b81ea97d5bbdeb6edd66",
+    "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "4df3d0e6425801d7d4ef3e53734b51bc0aa9cf910c560951762f6533e4cd9c53",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "c2c81f472150f0aa3ffd437ddbe61e68a69da993de194dc352567e7660db9bf9",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
@@ -170,31 +170,33 @@
     "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
   },
   "cartridge_input_sha256": {
-    "hardware/manifold-layout/enclosure-box.json": "a1468381b233f54a07cd491fefe3dabdc56da89bb46fa3bffb6d2181802427c9",
-    "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json": "b5a7837a8216d62b466f3f70851e0b0ca2f54dcc5aa4b56e5b472253b5ab12c0",
+    "hardware/manifold-layout/enclosure-box.json": "b48ba9046c15391e5e9be3c64eda68ae89f41e4fc0b6b62a2b12dfb05c248804",
+    "hardware/printed-parts/enclosure/tee-readiness/tee-integration.json": "34cbfdae19ec5b30a81e2f8de3e117cc0efe3e905c4067f4f35bbcbd917412d1",
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
     "hardware/reference/kamoer-kphm400/scan-evidence.json": "c7f8f3e63bef35bdd39b367bf268cfa54e04d996cd51ad5c997749afed4732f2",
     "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114"
   },
   "cartridge_artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "9d86fe0daede923bc442b95e0cb0e37faa81a0f7843d411e2ab3136333666153",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a3a1b380305a4bff980d49fdfa1bb033ae5f9ed9f47d7cdcef23a4be7e48758f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "c9c36f0fd44f4f84699470c5a858e434e715f76eac0cd031107cb9155197e11e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "e41d4e728835589a9cce7b02056b20600b04b2af320542be037c2113019dba39",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "6614432f68c112f85d5dd179b696131a9f29b940f7f64f5f2238840f1cb744c2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "bbfc4df2a94e92f51e1c5423fffb7761c5c23eb9c9710191598fd2aff203a8ad"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "b29fefdea6d1e62747abcec024b5b1202b5a8d79865e1184a2a18ba65ed7bd21",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "96b7591f5235f356e2a14b3c28c899d40c966d2b92df72e568b86c0b89bff59e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "3f4a1f26a4b10f7c2ba64aef57cea76e94daf5ae5cc65458794ec05f582d6aa9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "62051c73ad91aeadb53ba5ece12a5841fece6b5b83a8cb69fc746738d54509d8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "832f834f28e5a9b2da02dfc8162767b190b67c80098806dd55b34691f1654c70",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "0316c65049e86d66d25c0d445a87d595740ec6dc2685fe1c6f0c5c31ad8677bf"
   },
-  "print_preparation_source_sha256": "da377a3cbad78b4c3ec5e9633b56a8d406ec79739288a21e5baee62f1f994e20",
+  "print_preparation_source_sha256": "47be5de2abccc148947077f73aeff2dce3799fbb7f48a62072ee44a1312c8eb1",
   "unqualified_tee_datums": {
-    "branch_extended_face_mm": 20.07,
-    "fixed_body_to_moving_sleeve_split_mm": 16.95,
-    "release_nose_radius_mm": 5.715
+    "run_fixed_nose_clearance_end_mm": 18.5,
+    "branch_fixed_nose_clearance_end_mm": 20.25,
+    "fixed_reduced_barrel_clearance_radius_mm": 7.75,
+    "release_nose_radius_mm": 5.715,
+    "qualification": "Fixed ends and sleeve radius are conservative clearance proxies; the exact terminal-ring seam/OD is not caliper-qualified."
   },
-  "staged_input": ".cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/pump-cartridge-scan-corrected-black-z004-mark2-v1-input.3mf",
-  "staged_input_sha256": "29abcedd797179242e50751b27c4bf68673a1038b801238110e6858bf07d9ae7",
-  "native_archive": ".cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/ready/pump-cartridge-scan-corrected-black-z004-mark2-v1.gcode.3mf",
-  "native_archive_sha256": "2d8fe33341bc5e998a0baee25e2ef92ca8939a21e06b4b2cf0be84129fe952cf",
-  "gcode_sha256": "00f9df1f571acd996e92cd7da71f8430da5f4add4ecaa2c2683ec6c088f11ad1",
+  "staged_input": ".cache/prints/2026-09-20-pump-cartridge-measured-tee-black-z018-h2c-v1/pump-cartridge-measured-tee-black-z018-h2c-v1-input.3mf",
+  "staged_input_sha256": "23b42a6854926f3eae703ce5f5c83cb37d977cd67c282b35a76a34acfe2e5953",
+  "native_archive": ".cache/prints/2026-09-20-pump-cartridge-measured-tee-black-z018-h2c-v1/ready/pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "29675ab8d7d02da740512affbdeb5ab07907288e8ff571bccd3ab22fddb71f89",
+  "gcode_sha256": "f09faf6c27f68fa095f39c51aa50654b382140c9b367589b763464d94f6f1bd7",
   "process": {
     "layer_height": "0.24",
     "initial_layer_print_height": "0.2",
@@ -251,8 +253,8 @@
     ]
   },
   "layers": 496,
-  "estimated_seconds": 34977.69140625,
-  "estimated_filament_g": 413.11761474609375,
+  "estimated_seconds": 35167.51953125,
+  "estimated_filament_g": 406.7113952636719,
   "slicer_warning": "",
   "toolpath_fit": {
     "minimum_shared_bed_margin_mm": 16.682597999999984,
@@ -267,13 +269,12 @@
       }
     ]
   },
-  "support_audit": ".cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/pump-cartridge-scan-corrected-black-z004-mark2-v1-input.support-audit.json",
-  "support_audit_sha256": "122a9bd91863fd62ed5f9ec9616a72c1ae9724348a3e9bbbfb82af611217bbc5",
-  "live_printer_mapping_and_empty_plate_still_required": true,
+  "support_audit": ".cache/prints/2026-09-20-pump-cartridge-measured-tee-black-z018-h2c-v1/pump-cartridge-measured-tee-black-z018-h2c-v1-input.support-audit.json",
+  "support_audit_sha256": "9ca5e5a4978f5d72c59a2f3b3acc94d190608b261a4b3da8e407c24b2a89ca3f",
+  "live_printer_mapping_and_empty_plate_still_required": false,
   "physical_fit_tested": false,
   "toolpath_review": "hardware/printed-parts/enclosure/enclosure/pump-toolpath-review.json",
-  "toolpath_review_sha256": "54850da99ea28ba8426c8b5a70cd5307a8bd3765f5cb576818094fa0c89bfdce",
-  "print_released": false,
-  "print_hold": "Propagate the measured 30.5 mm extended / 29.0 mm pressed branch width and 1.5 mm branch travel through the reference, release plate and cartridge; regenerate and requalify affected geometry before submission.",
-  "branch_measurement_record": "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json"
+  "toolpath_review_sha256": "2dd56cba120074ae1faef3d286a36f8c5e46e713f6a37634fa7430a17a77e19a",
+  "print_record": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
+  "submission_observed_at_utc": "2026-09-21T03:20:54.501001+00:00"
 }
