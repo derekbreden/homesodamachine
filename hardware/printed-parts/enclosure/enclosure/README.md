@@ -1229,15 +1229,14 @@ reference's rear boss and motor axis stands 1 mm toward Y− from its head datum
 clamp's fitted octagon and motor-can openings follow that rear-stack axis. The four short
 barb tubes connect each pump head to its fixed tee interface.
 
-**Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, stamped
-bracket, head and tube fittings at every insertion station. Below `cap_split_z`, the head well
-closes to `cap_pump_air` around the moulded head. That leaves a continuous cradle land under
-the stamped bracket on −Y and both X sides; +Y remains open for the fittings. Pump weight goes
-from that bracket directly into the lower cradle and then into the bay floor.
+**Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, molded
+flange, head and tube fittings. The fitted head well leaves flat skirt lands on −Y and both X
+sides, with tube passages on +Y. The physical skirt rests on those lands; the molded flange
+transfers the pump weight and clamp load into the cradle and the continuous bay floor.
 
 The head's [8 mm](PUMP_SKIRT_DEPTH) skirt stands over one flat horizontal land at z
-[205.494 mm](PUMP_SKIRT_SUPPORT_Z). The [0.25 mm](PUMP_SKIRT_SUPPORT_AIR) difference between
-the skirt bottom and that land is Z clearance. The land keeps the skirt's existing X/Y plan;
+[205.494 mm](PUMP_SKIRT_SUPPORT_Z). The physical pump sits [0.251 mm](PUMP_SEATED_DROP)
+below the holder station datum when the skirt is seated. The land keeps the skirt's fitted X/Y plan;
 there is no slanted substitute for it. It is continuous across the X−, Y− and X+ flanks, with
 [4.9 mm](PUMP_SKIRT_Y_MINUS_LAND) under Y−. The
 measured [54 mm](PUMP_SKIRT_BODY_Y) body has [0.25 mm](PUMP_SKIRT_XY_AIR) per-face clearance
@@ -1252,12 +1251,15 @@ at y [76.269 mm](PUMP_SKIRT_Y_PLUS_OPEN_EDGE), leaving
 that opening the cradle keeps [3 mm](PUMP_SKIRT_AFT_STOCK) of stock, at least the
 [3 mm](PUMP_SKIRT_UPPER_BAND) upper band that ends at y [79.269 mm](PUMP_SKIRT_UPPER_BAND_AFT),
 and ends on the cartridge's flat back at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y): the bay bulkhead
-less its [0.25 mm](CARTRIDGE_BULKHEAD_KISS) kiss, the plane the clamp ends on too.
+less its [0.246 mm](CARTRIDGE_BULKHEAD_KISS) clearance, the plane the clamp ends on too.
 
 **The second printed piece is the top clamp.** `enclosure-pump-cap`
-(`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [62 mm](CLAMP_RISE) high. Its Z− face
-stands at z [215.75 mm](CLAMP_BASE_Z) on the upper face of each measured
-[2 mm](CLAMP_BRACKET_T) stamped bracket. One filled field spans both pump heads from their clean
+(`build_pump_cap`) is [169.9 mm](CLAMP_SPAN) across and [62 mm](CLAMP_RISE) high. Its bridge underside
+stands at z [215.75 mm](CLAMP_BASE_Z), [2 mm](CLAMP_BRIDGE_RISE) above the holder datum.
+Four [3 mm](CLAMP_RAIL_WIDTH) × [32 mm](CLAMP_RAIL_RUN) flat rails reach the measured outer
+flange rims at z [213.494 mm](CLAMP_PRESSING_Z). Screw closure has
+[0.25 mm](CLAMP_CONTACT_TRAVEL) downward adjustment without a bridge or screw-tip stop.
+One filled field spans both pump heads from their clean
 fore envelope to the cartridge's flat back and reaches one common crown at z
 [277.75 mm](CLAMP_CROWN_Z), with [6 mm](CLAMP_LINTEL_AIR) of Z air below the fixed bay lintel.
 Two fitted openings wrap
@@ -1269,8 +1271,8 @@ base to crown, and the two screw stations cross it in their own bores,
 [36 mm](CLAMP_SCREW_PITCH) apart on the centreline. Each [60 mm](CLAMP_SCREW_LEN) M3 drops
 through a counterbore in the crown whose seat is struck from the screw,
 [9.95 mm](CLAMP_HEAD_SEAT_DEPTH) under the crown at z [267.795 mm](CLAMP_HEAD_SEAT_Z), runs the
-whole field and the bracket-height gap under it, and takes the complete
-[5.7 mm](CLAMP_INSERT_LEN) long insert opened from the cradle's bracket plane. The clamp
+whole field and the bridge clearance under it, and takes the complete
+[5.7 mm](CLAMP_INSERT_LEN) long insert opened from the cradle's station plane. The clamp
 carries no show face, plate stop or hand pull. Its insertion wells leave
 [0.25 mm](CLAMP_DROP_AIR) per-face clearance around the clamp.
 
@@ -1411,8 +1413,9 @@ floor carries its flat underside. Both rounded hand pockets belong to this cradl
 
 Front-top carries one continuous floor from the front wall through the rear bulkhead.
 Its flat bearing sill is z [165.615 mm](PUMP_BAY_FLOOR_Z),
-[1 mm](PUMP_BAY_FLOOR_RELIEF) below the pump-neutral floor datum. The fitted pump head
-keeps [0.25 mm](PUMP_HEAD_FLOOR_AIR) above it. The floor begins on front-top's Z-seam
+[2.6 mm](PUMP_BAY_FLOOR_RELIEF) below the pump-neutral floor datum. The independently scanned
+rigid front-rim envelope keeps [0.329 mm](PUMP_HEAD_FLOOR_AIR) above it. The full floor retains
+[4.015 mm](PUMP_BAY_FLOOR_STOCK) of stock and keeps one flat insertion/withdrawal lane. The floor begins on front-top's Z-seam
 print bed and runs into the full thickness of the bulkhead.
 
 Front-bottom's lip drops around the front and both flanks as far as the tee-wall datum.
@@ -1440,7 +1443,7 @@ continues from the bulkhead's aft face around those journals, spring seats and w
 guides. The Z-seam rail channels begin at that same aft datum.
 
 The clamp lifts through the cradle's straight upper wells, which open through its aft
-face. Its broad base presses the pump brackets against the cradle's fitted lands.
+face. Its four flat rails press the molded flange rims onto the cradle's fitted lands.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): exterior side face to exterior
 side face, from the floor's own top at z [165.615 mm](PUMP_BAY_FLOOR_Z) to the fixed lintel at z
@@ -1474,23 +1477,22 @@ surface, region by region.
 
 ## Pump clamp field
 
-The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted openings in the top
-clamp. The clamp is one rectangular field over both pumps, from each stamped bracket's upper
-face to the common pump-carried crown. The fixed bay lintel does not locate it. The exact
-pump-case octagon and motor-can bore are cut from it, leaving the case-derived locating walls,
-pressing lands and can shoulders wherever a pump does not occupy the material. It is one
-printed `enclosure-pump-cap`, not separate collars or fastener pieces.
+The geometry in `printed-parts/enclosure/pump-tray/` supplies the two fitted boss and motor
+openings. The bridge spans both pumps at the holder datum and carries two exposed flat rails
+per pump. Those rails reach the observed motor-facing outer rim over the lower skirt lands.
+The fixed bay lintel does not locate the cap. Its crown and screw seats stay on their stated
+planes while screw closure establishes rim contact.
 
-**The bracket divides bearing from location.** The lower cradle bears under three sides of the
-68.6 mm stamped bracket, and the clamp's complete broad base lands on its upper face. The
-bracket remains wholly below the printed cap: every cap wall grows directly from one common
-Z− plane, with no shallow pocket ceiling or narrow perimeter foot. Above that steel, the
-case-derived octagon engages the white boss over its complete run and the shoulder surrounds
-the can. Thus the cradle takes weight, the clamp prevents lift, and the octagon fixes X, Y and
-yaw. With the cartridge withdrawn, the clamp's vertical path keeps
-[5.659 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of its fore face. A
-[7.86 mm](CLAMP_AFT_WALL) wall remains aft of each octagon to locate the boss
-against +Y.
+The [scan review](/hardware/reference/kamoer-kphm400/scan-review.md) records both rigid bearing
+faces, the head-front envelope, and the native cap/cradle comparison. The measured outer-rim
+height spans 7.81–8.13 mm above the skirt seat. The nominal 8 mm rail height and
+[0.25 mm](CLAMP_CONTACT_TRAVEL) downward adjustment cover that observed range, with clearance
+above the cradle spine and at the screw tips. This geometric check does not claim a measured
+clamp load or physical acceptance of the new cap.
+
+The octagonal openings locate the rear bosses in plan and clock. Their vertical path keeps
+[5.659 mm](CLAMP_FRONT_SKIN) of smooth cradle skin ahead of the cap and
+[7.86 mm](CLAMP_AFT_WALL) behind each octagon.
 
 **Two M3 close one clamp onto one cradle.** Both screw heads sit in counterbores in the crown,
 reached from above with the same 2.5 mm key as every other M3 in the box. Their full-length
@@ -1502,8 +1504,7 @@ closes a pump.
 
 The fitted opening's exact source dimensions and section readings are in
 [`pump-tray/README.md`](/hardware/printed-parts/enclosure/pump-tray/README.md). The enclosure
-uses those case profiles to shape the broad pressing base and cut the boss and can rooms from
-one service clamp.
+uses those profiles for the boss and can openings, with separate measured flange-bearing rails.
 
 **The lower cradle prints on its Z− floor.** Its filled bearing block, flush front, rounded
 corners and both flank skins begin together on that bed and rise plumb. Each hand pocket's
@@ -1513,8 +1514,8 @@ flat roof takes support removable through the open side. The pump wells remain o
 octagons open upward through the pressing face and the can bores run straight to the bed, so
 no support reaches the field. What looks down is each head seat, a bridge one counterbore wide
 over its own clearance bore; the production slice stands one 8.8 mm tree in each counterbore
-under it, which leaves through the counterbore's mouth on the bed face. The pressing face is
-the print's top surface.
+under it, which leaves through the counterbore's mouth on the bed face. The exposed pressing rails terminate on the print's top surface. They add no supported
+bearing face or enclosed support-removal pocket.
 
 ## Display housing
 
