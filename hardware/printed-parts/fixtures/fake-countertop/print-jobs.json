@@ -148,7 +148,12 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
+      "print_completion": {
+        "gcode_state": "FAILED",
+        "layer_num": 0,
+        "mc_percent": 0,
+        "note": "Nozzle clumping again in the first layer. Derek is changing the hotend. The archive was re-read: sha matches this record, printer_settings_id '+0.04 Z trim', G29.1 Z0.02 as the miter box that printed clean on Mark2 the same evening, settings equal to petgf.3mf apart from the trim block, the id and the slicer's own filament_map_2 / filament_prime_volume."
+      },
       "physical_fit": null,
       "estimate": {
         "seconds": 58737.38671875,
