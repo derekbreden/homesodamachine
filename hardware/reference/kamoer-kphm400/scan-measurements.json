@@ -1,0 +1,844 @@
+{
+  "schema": 1,
+  "status": "independent_rigid_measurements_and_frozen_native_contact_comparison",
+  "registration": "scan-registration.json",
+  "scale_factor": 1.0,
+  "selection_authority": "Inspected rigid regions and normals; no CAD-residual trimming. Complete outlet stack excluded from registration.",
+  "limits": [
+    "No global CAD fit. Fitted holder-derived head geometry is not an independent scan target.",
+    "Scale fixed at 1; scanner residuals do not establish absolute dimensional accuracy. Spray thickness is unmeasured.",
+    "Head transverse Y datum remains provisional; scan motor axis is aligned to the native rear motor opening, retaining the existing -1 mm head/rear-stack relationship.",
+    "No claims for pump internals, sealed cavities, material stiffness, screw torque or long-term endurance."
+  ],
+  "native_baseline_sha256": {
+    "enclosure-pump-cartridge.step": "85ad1e41dd9d15a2b7ce5d46170df689885e2983dd522314cba3b42014c31e19",
+    "enclosure-pump-cap.step": "3ffcbab0816ec63050932a2eeaaa2a4231162093b740375f6b81a5a6881f465d",
+    "enclosure-pump-cartridge.stl": "e5f2ac01f305c855867f9533771e99cc38ddcdae857623d9269984c15aaf3a9d",
+    "enclosure-pump-cap.stl": "5e0584c482953c79004593b70023ba9c9dc65223f7a75d976d4a03826717df63",
+    "enclosure-front-top.stl": "9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3"
+  },
+  "skirt_bearing_plane": {
+    "selected_points": 14368,
+    "center_common": [
+      -0.5985906280520282,
+      -6.402147022815725,
+      -7.937665469451937
+    ],
+    "normal_common": [
+      -0.0006329402401706617,
+      0.005678012767014201,
+      0.999983679645658
+    ],
+    "origin_common": [
+      0.0,
+      0.0,
+      -7.973638656983071
+    ],
+    "common_to_bearing_rotation": [
+      [
+        0.9999997996933062,
+        3.5938434843169584e-06,
+        0.000632930037141788
+      ],
+      [
+        -4.235164736271502e-22,
+        0.9999838799491231,
+        -0.005678013904358395
+      ],
+      [
+        -0.0006329402401706617,
+        0.005678012767014201,
+        0.999983679645658
+      ]
+    ],
+    "untrimmed_residual_mm": {
+      "n": 14368,
+      "mean": -4.4394085042583656e-14,
+      "median": -0.002177758204622453,
+      "rms": 0.045575032688599165,
+      "p05": -0.07123543512248531,
+      "p95": 0.07133138486983377,
+      "abs_p95": 0.07908658081819701,
+      "min": -0.133794468663595,
+      "max": 0.3650346043937824
+    },
+    "per_region_per_pass": [
+      {
+        "region": "xminus",
+        "pass": 1,
+        "points": 3440,
+        "plane_center": [
+          -27.844816339093228,
+          2.554417101677995,
+          -7.9889827463484995
+        ],
+        "plane_normal": [
+          0.0021029222060023503,
+          0.008421215547479564,
+          0.9999623297139241
+        ],
+        "intercept_mm": -8.026028327456276,
+        "untrimmed_plane_residual_mm": {
+          "n": 3440,
+          "mean": -1.4432705676576227e-14,
+          "median": 0.005140727025321638,
+          "rms": 0.03209765985377416,
+          "p05": -0.06125192969006276,
+          "p95": 0.04012838105934996,
+          "abs_p95": 0.06835913704755363,
+          "min": -0.15961636921732883,
+          "max": 0.18503178566786682
+        }
+      },
+      {
+        "region": "xminus",
+        "pass": 2,
+        "points": 2828,
+        "plane_center": [
+          -27.928257533567308,
+          -0.73248467805819,
+          -7.991763408843232
+        ],
+        "plane_normal": [
+          -0.0006437913347112641,
+          0.002262476407289374,
+          0.9999972333627848
+        ],
+        "intercept_mm": -7.9754406227931165,
+        "untrimmed_plane_residual_mm": {
+          "n": 2828,
+          "mean": 1.2631966822543781e-14,
+          "median": 0.0002769779324538098,
+          "rms": 0.017806165077900057,
+          "p05": -0.02865031402011839,
+          "p95": 0.022308122360348244,
+          "abs_p95": 0.036974092645808684,
+          "min": -0.10616938015300605,
+          "max": 0.07982900574549832
+        }
+      },
+      {
+        "region": "xplus",
+        "pass": 1,
+        "points": 3096,
+        "plane_center": [
+          27.987756025406348,
+          -1.2729569631473425,
+          -7.92177913812386
+        ],
+        "plane_normal": [
+          0.002190121016366618,
+          0.008588872058187235,
+          0.9999607165517563
+        ],
+        "intercept_mm": -7.871413851421593,
+        "untrimmed_plane_residual_mm": {
+          "n": 3096,
+          "mean": -2.722198005340597e-15,
+          "median": -0.004684620781858245,
+          "rms": 0.02270147922238944,
+          "p05": -0.023700124850242376,
+          "p95": 0.03553428918423836,
+          "abs_p95": 0.03589081906127137,
+          "min": -0.04699425868300577,
+          "max": 0.34319105797121174
+        }
+      },
+      {
+        "region": "xplus",
+        "pass": 2,
+        "points": 3011,
+        "plane_center": [
+          27.947929829479826,
+          -0.36608402853882627,
+          -7.984894730195578
+        ],
+        "plane_normal": [
+          0.004981139486575096,
+          0.003944805940664106,
+          0.999979813173999
+        ],
+        "intercept_mm": -7.847123542641497,
+        "untrimmed_plane_residual_mm": {
+          "n": 3011,
+          "mean": 4.725250782190736e-15,
+          "median": -0.0021443421504840077,
+          "rms": 0.01396475222956987,
+          "p05": -0.018452524166195527,
+          "p95": 0.024982005822715505,
+          "abs_p95": 0.025901952701968104,
+          "min": -0.048692500961479104,
+          "max": 0.09827288977878208
+        }
+      },
+      {
+        "region": "yminus",
+        "pass": 1,
+        "points": 839,
+        "plane_center": [
+          -0.27089034389616845,
+          -27.937565254194848,
+          -7.709548307757659
+        ],
+        "plane_normal": [
+          -0.002722678518896692,
+          0.0007281952453039864,
+          0.9999960283687969
+        ],
+        "intercept_mm": -7.7291548404907475,
+        "untrimmed_plane_residual_mm": {
+          "n": 839,
+          "mean": 2.6270867351469885e-15,
+          "median": 0.002653116119750165,
+          "rms": 0.017353813422656024,
+          "p05": -0.02923056352425014,
+          "p95": 0.020035759303630583,
+          "abs_p95": 0.03465616798558774,
+          "min": -0.11583201621072388,
+          "max": 0.06773571255848188
+        }
+      },
+      {
+        "region": "yminus",
+        "pass": 2,
+        "points": 3064,
+        "plane_center": [
+          0.07644761924078576,
+          -28.11954526441234,
+          -7.8109089981300786
+        ],
+        "plane_normal": [
+          -0.003824208467190658,
+          -0.005716491930688461,
+          0.9999763482951014
+        ],
+        "intercept_mm": -7.650452401092152,
+        "untrimmed_plane_residual_mm": {
+          "n": 3064,
+          "mean": -2.0898281654654317e-14,
+          "median": -0.0003225406436613062,
+          "rms": 0.02036914527629424,
+          "p05": -0.039037301009387744,
+          "p95": 0.030001502352418472,
+          "abs_p95": 0.04327650677258844,
+          "min": -0.0880833811417735,
+          "max": 0.06336849863847602
+        }
+      }
+    ]
+  },
+  "native_placement": {
+    "bearing_frame_world_origin": [
+      49.945,
+      44.909,
+      205.49400329589844
+    ],
+    "native_cradle_bearing_z_mm": 205.49400329589844,
+    "native_cap_underside_z_mm": 215.7449951171875,
+    "native_floor_z_mm": 165.615,
+    "support_footprint_area_mm2": 1342.7357277231458,
+    "cap_underside_footprint_area_mm2": 8232.536421302528,
+    "floor_footprint_area_mm2": 15957.88164132997,
+    "method": "Actual observed underside strips seated on actual native lower lands. X is paired head-side midpoint; Y aligns observed motor axis to native motor opening. No extra plate assumed."
+  },
+  "baseline_broad_cap_gap_mm": {
+    "n": 8344,
+    "mean": 2.2083605192061477,
+    "median": 2.200188047208812,
+    "rms": 2.210811649914575,
+    "p05": 2.0698985287501515,
+    "p95": 2.38751444249105,
+    "abs_p95": 2.38751444249105,
+    "min": 1.9810073701089834,
+    "max": 3.05761204102501
+  },
+  "baseline_broad_cap_gap_by_pass": [
+    {
+      "pass": 1,
+      "gap_mm": {
+        "n": 4309,
+        "mean": 2.1796161607510025,
+        "median": 2.1608706169832885,
+        "rms": 2.1818066608555977,
+        "p05": 2.0529302924651405,
+        "p95": 2.338146107384733,
+        "abs_p95": 2.338146107384733,
+        "min": 1.9810073701089834,
+        "max": 2.765842245818078
+      }
+    },
+    {
+      "pass": 2,
+      "gap_mm": {
+        "n": 4035,
+        "mean": 2.239056787008681,
+        "median": 2.2243363605430773,
+        "rms": 2.241371841577587,
+        "p05": 2.0968926081643646,
+        "p95": 2.4236812641464582,
+        "abs_p95": 2.4236812641464582,
+        "min": 2.0688155910419823,
+        "max": 3.05761204102501
+      }
+    }
+  ],
+  "rigid_topography_under_cap": {
+    "observations": 17561,
+    "observations_above_cap_underside": 0,
+    "relative_heights_to_cap_mm": {
+      "n": 17561,
+      "mean": -2.4125073761466638,
+      "median": -2.30783281040533,
+      "rms": 2.4300913261370702,
+      "p05": -3.0093063439650223,
+      "p95": -2.089191584936202,
+      "abs_p95": 3.0093063439650223,
+      "min": -3.265912865316295,
+      "max": -1.953560462819695
+    }
+  },
+  "projected_underside_points_on_native_land": 4975,
+  "baseline_front_rim": {
+    "head_front_height_above_skirt_land_mm": {
+      "n": 62572,
+      "mean": -39.80605136182825,
+      "median": -40.076938856966734,
+      "rms": 39.81444779688263,
+      "p05": -40.71976909686224,
+      "p95": -38.04814221287884,
+      "abs_p95": 40.71976909686224,
+      "min": -41.13902618158735,
+      "max": -37.102178447663874
+    },
+    "floor_gap_mm": {
+      "n": 62572,
+      "mean": 0.07295193407018054,
+      "median": -0.19793556106832,
+      "rms": 0.820883874167493,
+      "p05": -0.8407658009638084,
+      "p95": 1.8308610830195984,
+      "abs_p95": 1.8308610830195984,
+      "min": -1.260022885688926,
+      "max": 2.776824848234554
+    },
+    "selected_points_outside_floor": 0,
+    "identity": "Repeated rigid molded cover/rim in both views, including its native screw recess surrounds; flexible outlets and fixtures are outside the selected region.",
+    "per_pass": [
+      {
+        "pass": 1,
+        "floor_gap_mm": {
+          "n": 34423,
+          "mean": 0.0883257274881332,
+          "median": -0.19446255847310567,
+          "rms": 0.8290033270978197,
+          "p05": -0.8465486535281173,
+          "p95": 1.8547493409478022,
+          "abs_p95": 1.8547493409478022,
+          "min": -1.123743665411041,
+          "max": 2.776824848234554
+        }
+      },
+      {
+        "pass": 2,
+        "floor_gap_mm": {
+          "n": 28149,
+          "mean": 0.05415154717095906,
+          "median": -0.20106235458069932,
+          "rms": 0.8108442147951535,
+          "p05": -0.8209131971503666,
+          "p95": 1.7892222908036957,
+          "abs_p95": 1.7892222908036957,
+          "min": -1.260022885688926,
+          "max": 2.7218102117346348
+        }
+      }
+    ]
+  },
+  "corrected_cap_rail_observations": [
+    {
+      "pass": 1,
+      "side": "xminus",
+      "bearing_frame_x_range_mm": [
+        -32.0,
+        -29.0
+      ],
+      "bearing_frame_y_range_mm": [
+        -16.0,
+        16.0
+      ],
+      "observed_height_above_land_mm": {
+        "n": 693,
+        "mean": 8.038510302896514,
+        "median": 8.041390269566836,
+        "rms": 8.038645559171984,
+        "p05": 7.945301417841534,
+        "p95": 8.105896883880831,
+        "abs_p95": 8.105896883880831,
+        "min": 7.880254818679534,
+        "max": 8.129970652395581
+      }
+    },
+    {
+      "pass": 1,
+      "side": "xplus",
+      "bearing_frame_x_range_mm": [
+        29.0,
+        32.0
+      ],
+      "bearing_frame_y_range_mm": [
+        -16.0,
+        16.0
+      ],
+      "observed_height_above_land_mm": {
+        "n": 357,
+        "mean": 8.0091621625849,
+        "median": 8.016182321870838,
+        "rms": 8.009230625988863,
+        "p05": 7.940679958497417,
+        "p95": 8.046532361267039,
+        "abs_p95": 8.046532361267039,
+        "min": 7.898713975715791,
+        "max": 8.127835934426981
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xminus",
+      "bearing_frame_x_range_mm": [
+        -32.0,
+        -29.0
+      ],
+      "bearing_frame_y_range_mm": [
+        -16.0,
+        16.0
+      ],
+      "observed_height_above_land_mm": {
+        "n": 695,
+        "mean": 8.018694548792142,
+        "median": 8.027612729374901,
+        "rms": 8.018842057653256,
+        "p05": 7.936712644974685,
+        "p95": 8.085512962062095,
+        "abs_p95": 8.085512962062095,
+        "min": 7.851153743076885,
+        "max": 8.117064777143325
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xplus",
+      "bearing_frame_x_range_mm": [
+        29.0,
+        32.0
+      ],
+      "bearing_frame_y_range_mm": [
+        -16.0,
+        16.0
+      ],
+      "observed_height_above_land_mm": {
+        "n": 659,
+        "mean": 7.970569145470143,
+        "median": 7.962597464404082,
+        "rms": 7.970641260662995,
+        "p05": 7.929868563138309,
+        "p95": 8.038106603272716,
+        "abs_p95": 8.038106603272716,
+        "min": 7.813457874215291,
+        "max": 8.068001111043667
+      }
+    }
+  ],
+  "molded_casing_sections": [
+    {
+      "pass": 1,
+      "side": "xminus",
+      "y_range_common_mm": [
+        16,
+        18
+      ],
+      "points": 1084,
+      "center_xz_common_mm": [
+        -29.98506586208445,
+        -28.470224730220224
+      ],
+      "fitted_width_x_mm": 13.09440186489939,
+      "fitted_height_z_mm": 13.633680113591554,
+      "approx_geometric_residual_mm": {
+        "n": 1084,
+        "mean": 0.0019814997790327817,
+        "median": 0.0019378239984346277,
+        "rms": 0.0500712123002088,
+        "p05": -0.0627595393073363,
+        "p95": 0.05579878143446823,
+        "abs_p95": 0.09626205271520384,
+        "min": -0.19478429927215582,
+        "max": 0.50557432301851
+      }
+    },
+    {
+      "pass": 1,
+      "side": "xminus",
+      "y_range_common_mm": [
+        19,
+        21
+      ],
+      "points": 1273,
+      "center_xz_common_mm": [
+        -29.997115807605866,
+        -28.48511815529469
+      ],
+      "fitted_width_x_mm": 13.131220042939686,
+      "fitted_height_z_mm": 13.806808419156315,
+      "approx_geometric_residual_mm": {
+        "n": 1273,
+        "mean": -0.0005626759532746489,
+        "median": 0.00026531386972876057,
+        "rms": 0.055497127129434144,
+        "p05": -0.062048823972410516,
+        "p95": 0.06942332751156781,
+        "abs_p95": 0.09417553293511739,
+        "min": -0.4761933250522654,
+        "max": 0.35039269848416427
+      }
+    },
+    {
+      "pass": 1,
+      "side": "xminus",
+      "y_range_common_mm": [
+        22,
+        24
+      ],
+      "points": 1612,
+      "center_xz_common_mm": [
+        -30.006479233269033,
+        -28.50601227230011
+      ],
+      "fitted_width_x_mm": 13.198901375726592,
+      "fitted_height_z_mm": 13.969767488952886,
+      "approx_geometric_residual_mm": {
+        "n": 1612,
+        "mean": 0.010493407353112421,
+        "median": -0.0016228899980859357,
+        "rms": 0.10746681232071266,
+        "p05": -0.06248654426993632,
+        "p95": 0.09332831725032108,
+        "abs_p95": 0.17510978523956172,
+        "min": -0.5191224394799011,
+        "max": 0.7159417788484561
+      }
+    },
+    {
+      "pass": 1,
+      "side": "xplus",
+      "y_range_common_mm": [
+        16,
+        18
+      ],
+      "points": 1107,
+      "center_xz_common_mm": [
+        30.032536057950047,
+        -28.432963047118676
+      ],
+      "fitted_width_x_mm": 12.931496858376155,
+      "fitted_height_z_mm": 13.594949488466344,
+      "approx_geometric_residual_mm": {
+        "n": 1107,
+        "mean": 0.005672719918695802,
+        "median": -0.001730360752565461,
+        "rms": 0.05846265271252937,
+        "p05": -0.06174357807199131,
+        "p95": 0.08506975999948514,
+        "abs_p95": 0.09883077424784917,
+        "min": -0.10551704393561734,
+        "max": 0.6198501042875042
+      }
+    },
+    {
+      "pass": 1,
+      "side": "xplus",
+      "y_range_common_mm": [
+        19,
+        21
+      ],
+      "points": 1305,
+      "center_xz_common_mm": [
+        30.025375618877252,
+        -28.440110038808417
+      ],
+      "fitted_width_x_mm": 13.035564285347172,
+      "fitted_height_z_mm": 13.784412115321507,
+      "approx_geometric_residual_mm": {
+        "n": 1305,
+        "mean": 0.002390374204199322,
+        "median": -0.00026690720136314695,
+        "rms": 0.0482456028166002,
+        "p05": -0.06110391821581405,
+        "p95": 0.08123543959812549,
+        "abs_p95": 0.10944651774472985,
+        "min": -0.1416092033326903,
+        "max": 0.2854413270596298
+      }
+    },
+    {
+      "pass": 1,
+      "side": "xplus",
+      "y_range_common_mm": [
+        22,
+        24
+      ],
+      "points": 1593,
+      "center_xz_common_mm": [
+        30.007174200820444,
+        -28.464114672806282
+      ],
+      "fitted_width_x_mm": 13.174063652603792,
+      "fitted_height_z_mm": 13.949328034149774,
+      "approx_geometric_residual_mm": {
+        "n": 1593,
+        "mean": 0.01101850459357218,
+        "median": -0.0007785083406557755,
+        "rms": 0.09908846101147545,
+        "p05": -0.06869967532578607,
+        "p95": 0.08515415850431038,
+        "abs_p95": 0.17762478817785685,
+        "min": -0.21509980632172104,
+        "max": 0.7256080103757729
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xminus",
+      "y_range_common_mm": [
+        16,
+        18
+      ],
+      "points": 1087,
+      "center_xz_common_mm": [
+        -29.87960613727277,
+        -28.474463243069327
+      ],
+      "fitted_width_x_mm": 12.899335468438794,
+      "fitted_height_z_mm": 13.45934001892108,
+      "approx_geometric_residual_mm": {
+        "n": 1087,
+        "mean": 0.0005726238532591402,
+        "median": 0.001049888412068121,
+        "rms": 0.059428918865038934,
+        "p05": -0.08753458006107297,
+        "p95": 0.06338037125572082,
+        "abs_p95": 0.13222724233428024,
+        "min": -0.15976310813223343,
+        "max": 0.5501801101213253
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xminus",
+      "y_range_common_mm": [
+        19,
+        21
+      ],
+      "points": 1105,
+      "center_xz_common_mm": [
+        -29.910132147331698,
+        -28.505381201367836
+      ],
+      "fitted_width_x_mm": 12.88327251839069,
+      "fitted_height_z_mm": 13.581176991733619,
+      "approx_geometric_residual_mm": {
+        "n": 1105,
+        "mean": -0.0050394105427624,
+        "median": 0.002587689459428692,
+        "rms": 0.04624974569824365,
+        "p05": -0.08311791070747125,
+        "p95": 0.053643133983626495,
+        "abs_p95": 0.09711749025957847,
+        "min": -0.20454104325955907,
+        "max": 0.1661090529011594
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xminus",
+      "y_range_common_mm": [
+        22,
+        24
+      ],
+      "points": 1107,
+      "center_xz_common_mm": [
+        -29.892072006500953,
+        -28.52799030405044
+      ],
+      "fitted_width_x_mm": 12.975572475566688,
+      "fitted_height_z_mm": 13.718626920402127,
+      "approx_geometric_residual_mm": {
+        "n": 1107,
+        "mean": -0.002103126132768191,
+        "median": 0.0019877813412076885,
+        "rms": 0.0787954391907533,
+        "p05": -0.11116111572390051,
+        "p95": 0.05708566714794129,
+        "abs_p95": 0.14420690207415676,
+        "min": -0.24238835216725232,
+        "max": 0.6906574579080323
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xplus",
+      "y_range_common_mm": [
+        16,
+        18
+      ],
+      "points": 1058,
+      "center_xz_common_mm": [
+        29.963456964080052,
+        -28.472141142180547
+      ],
+      "fitted_width_x_mm": 12.806971083959526,
+      "fitted_height_z_mm": 13.487090495710925,
+      "approx_geometric_residual_mm": {
+        "n": 1058,
+        "mean": 0.003014160142047827,
+        "median": 3.511693574272743e-05,
+        "rms": 0.05836870988444928,
+        "p05": -0.06474447736896527,
+        "p95": 0.053704583325374394,
+        "abs_p95": 0.10110154353014572,
+        "min": -0.14040660199003624,
+        "max": 0.6495977390080573
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xplus",
+      "y_range_common_mm": [
+        19,
+        21
+      ],
+      "points": 1039,
+      "center_xz_common_mm": [
+        29.999062298779148,
+        -28.496558874070352
+      ],
+      "fitted_width_x_mm": 12.775410958037797,
+      "fitted_height_z_mm": 13.595355389173639,
+      "approx_geometric_residual_mm": {
+        "n": 1039,
+        "mean": -0.0033761358946456646,
+        "median": 0.0025937571840242016,
+        "rms": 0.04374111577566789,
+        "p05": -0.08845461857239141,
+        "p95": 0.053295901686319654,
+        "abs_p95": 0.09678050502253195,
+        "min": -0.1655771654250784,
+        "max": 0.2791256850941211
+      }
+    },
+    {
+      "pass": 2,
+      "side": "xplus",
+      "y_range_common_mm": [
+        22,
+        24
+      ],
+      "points": 1067,
+      "center_xz_common_mm": [
+        29.97040971970651,
+        -28.51543106299167
+      ],
+      "fitted_width_x_mm": 12.888689214340967,
+      "fitted_height_z_mm": 13.735241684333463,
+      "approx_geometric_residual_mm": {
+        "n": 1067,
+        "mean": 0.0055620679230900215,
+        "median": 0.001090797148166246,
+        "rms": 0.09555140155830481,
+        "p05": -0.10299605960873194,
+        "p95": 0.07457993300582037,
+        "abs_p95": 0.16379337387532286,
+        "min": -0.24181321576592718,
+        "max": 0.7553261106659959
+      }
+    }
+  ],
+  "molded_casing_native_clearance": {
+    "sampling": "Every fifth selected observation from the every-sixth raw sample; molded casing roots Y16..24 only.",
+    "rows": [
+      {
+        "pass": 1,
+        "side": "xminus",
+        "observations": 1260,
+        "inside_native_cradle": 99,
+        "inside_distance_mm": {
+          "n": 99,
+          "mean": 0.11523023453207713,
+          "median": 0.12147922814686876,
+          "rms": 0.1308622576094242,
+          "p05": 0.010247108616463255,
+          "p95": 0.20412615853482177,
+          "abs_p95": 0.20412615853482177,
+          "min": 0.0018923291825538712,
+          "max": 0.23526769293250638
+        },
+        "deepest_common_xyz": [
+          -35.94248479237516,
+          23.69053287524558,
+          -31.684497772879553
+        ]
+      },
+      {
+        "pass": 1,
+        "side": "xplus",
+        "observations": 1342,
+        "inside_native_cradle": 90,
+        "inside_distance_mm": {
+          "n": 90,
+          "mean": 0.08328222053777765,
+          "median": 0.07820879975299647,
+          "rms": 0.09746664074405216,
+          "p05": 0.004530064248297575,
+          "p95": 0.16903333820177235,
+          "abs_p95": 0.16903333820177235,
+          "min": 3.925873585255423e-05,
+          "max": 0.18305201779194932
+        },
+        "deepest_common_xyz": [
+          35.9461929746103,
+          23.78038205846677,
+          -31.561239817894034
+        ]
+      },
+      {
+        "pass": 2,
+        "side": "xminus",
+        "observations": 1016,
+        "inside_native_cradle": 0
+      },
+      {
+        "pass": 2,
+        "side": "xplus",
+        "observations": 997,
+        "inside_native_cradle": 23,
+        "inside_distance_mm": {
+          "n": 23,
+          "mean": 0.019544308801270373,
+          "median": 0.015254409149573052,
+          "rms": 0.023616382201654875,
+          "p05": 0.0033026568432519524,
+          "p95": 0.038985481663675034,
+          "abs_p95": 0.038985481663675034,
+          "min": 0.0016428180786622493,
+          "max": 0.03976627373152332
+        },
+        "deepest_common_xyz": [
+          35.88098349183528,
+          23.07750362998793,
+          -31.325618065597496
+        ]
+      }
+    ],
+    "interpretation": "Sub-quarter-millimetre discrepancy is not consistent between passes and is comparable to cross-pass/spray uncertainty. It does not establish a large repeatable interference or justify altering the fitted opening. Physical insertion remains required."
+  },
+  "casing_interpretation": "Oval exterior sections describe station and size; they do not prove a circular interference fit. Silicone and inserted LLDPE are excluded."
+}

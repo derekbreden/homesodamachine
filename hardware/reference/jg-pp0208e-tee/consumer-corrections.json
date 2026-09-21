@@ -56,7 +56,7 @@
         "depress_branch",
         "stations_hold"
       ],
-      "change": "Use the measured production fitting and distinct run/branch profiles. Preserve bench operating inputs. Move only identified sleeve geometry for depression. Validate declared surfaces against the produced solid."
+      "change": "Generated measured-clearance solid: \u00d816.5 collar envelope, \u00d814 root envelope, distinct run/branch patches, 42.5 run span. Moving terminal proxy preserves fixed collar. Branch face, sleeve seam and release rim remain explicit unqualified datums."
     },
     {
       "path": "hardware/manifold-layout/manifold_layout.py",
@@ -65,7 +65,7 @@
         "TEE_RUN",
         "TEE_BRANCH"
       ],
-      "change": "Recompute fitted tee placements and adjacent tubes from one production reference. Run-half change is +1.18 mm from the stand-in; branch change remains pending the absolute reading."
+      "change": "Measured run span and collar propagate to placed fittings. Corrected seated pump and tee axes are coaxial. Deck separation 60.95 preserves 2.5 carrier backing and 0.25 air during full aft-valve post insertion. Absolute branch reach remains provisional."
     },
     {
       "path": "hardware/manifold-layout/enclosure_assembly.py",
@@ -77,7 +77,7 @@
         "tee_run_clear_r",
         "tee entry cavity"
       ],
-      "change": "Journal and entry pass must clear the actual slightly tapered collar. Recompute journal axial contact band, fixed release face, bearing depths, insertion route, ties and nearby hardware."
+      "change": "Shared measured radius produces \u00d817 journals and larger entry/tie envelopes. Carrier interface and pump holder datum are derived coherently; complete regenerated enclosure checks remain separate from the local native pass."
     },
     {
       "path": "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -89,7 +89,7 @@
         "retained backing",
         "tie routes"
       ],
-      "change": "Use actual run length and collar radius in seated troughs and tube reliefs. Recheck backing and ties after that increase; preserve measured release/connected motion."
+      "change": "Regenerated native halves use R8.75 troughs, wider tie positions, Y109.36 bearing and measured run extent. Native backing, arm, spring-channel and joint checks pass; upper backing is 5.504166 mm."
     },
     {
       "path": "hardware/reference/water-split/water_split.py",
@@ -98,7 +98,7 @@
         "REACH",
         "tee.BARREL_R"
       ],
-      "change": "Use distinct branch and run stations; rebuild the ASSE chain and its fitting envelope."
+      "change": "Distinct run 21.25 and provisional branch 20.07 stations consume the common solid. Native stations_hold passes."
     },
     {
       "path": "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py",
@@ -106,14 +106,14 @@
         "tee reference",
         "tee stations"
       ],
-      "change": "Keep fixture fitting seats and tube-depth marks consistent with the production reference."
+      "change": "Regenerated experimental fixture uses \u00d817 journal and a fore guide face beyond the full translating run envelope. Native selftest passes; the fixture retains its explicitly experimental 10/12/3.15/4.62 dimensions."
     },
     {
       "path": "hardware/assembly/scenes/_scenes.py",
       "symbols": [
         "hardware/reference/tee-connector/tee-connector.step"
       ],
-      "change": "Regenerate placed views from the qualified production solid."
+      "change": "Existing shared STEP path resolves to the measured-clearance reference. Artwork regeneration does not qualify pending release interfaces."
     },
     {
       "path": "hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
@@ -128,5 +128,13 @@
       ],
       "change": "The illustration remains an approximate drawing. Its eventual measured implementation must preserve the no-argument install-art interface or update its caller coherently; operating insertion must remain the bench value."
     }
-  ]
+  ],
+  "radial_clearance_integrated": true,
+  "integration_evidence": "../../printed-parts/enclosure/tee-readiness/tee-integration.json",
+  "current_passage_diameter_mm": 17.0,
+  "current_unqualified_proxy_datums": {
+    "branch_extended_face_mm": 20.07,
+    "fixed_body_to_moving_sleeve_split_mm": 16.95,
+    "release_nose_radius_mm": 5.715
+  }
 }

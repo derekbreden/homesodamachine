@@ -675,15 +675,11 @@ FLUID_2_CROSS_Z = 289.0
 # that at the top and seats the collet's own straight at the bottom. The figure is what the run
 # holds past the lean's column before it starts down.
 FLUID_2_LEVEL_CLEAR = 6.0
-# How far past the pack's own stub this run turns onto V-A's column. A square corner spends its
-# whole radius as tangent in each leg it touches, so a turn planted ON the stub's far end has
-# exactly the stub to seat in and no more — this is what the leg carries over that.
-#
-# IT IS A SET AND NOT A PLANE. Aft of the stub stands the water pump's casting, and the crossing
-# is a run passing a body nothing seats it against: what it owes there is `clearance-floor`, the
-# same millimetre every other such pair holds. The set is what the leg takes when the casting is
-# further off than that, and the casting is what decides the plane when it is not.
-FLUID_2_CROSS_SET = 0.5
+# The level crossing stays forward of the pressure switch; the final turn is lower, beneath
+# that casting, and reaches aft onto V-A's inlet column. These are separate Y planes so the
+# descent can clear the switch while the inlet corner keeps its full stock radius.
+FLUID_2_CROSS_FORWARD = 2.0   # additional room ahead of the casting's clearance plane
+FLUID_2_INLET_SET = 3.0      # reach beyond the pack's mouth stub for the oblique inlet corner
 # The column the run goes forward and down in: the strip WEST of the flavour-A line's own aft
 # lane. `fluid-18` holds that lane over the whole depth this run crosses it in, so the strip is
 # struck off the union that line falls onto and rides it wherever the union goes. Both are 1/4",
@@ -718,36 +714,42 @@ def _fluid_2(F, solids):
     column it stops holding: the fall onto V-A's port plane is spent in the same leg that carries
     the run the rest of the way east, which is what keeps both of that leg's corners off square.
 
-    The last leg is `manifold_layout.STUB` and up to `FLUID_2_CROSS_SET` over it — the straight
-    that pack draws on every mouth that leaves it, which is what its first corner needs before it
-    can turn at all. Drawing this run is what makes that stub a real line, so
-    `enclosure_assembly.build_pack` stops adding the placeholder once the run exists. What caps
-    the set is the water pump: the crossing passes its casting and holds `clearance-floor` off
-    it, and a casting near enough to close the stub itself raises here."""
+    The last leg reaches `manifold_layout.STUB + FLUID_2_INLET_SET` off the inlet. Its rounded
+    turn stands under the pressure switch while the level crossing stays forward of the switch
+    face. The descent joins those two planes in one oblique leg. Drawing this run makes the
+    pack's mouth stub a real line, so `enclosure_assembly.build_pack` omits its placeholder.
+    The finished sweep must retain the stock radius and clear the actual pump solid by
+    `clearance-floor`; its square construction corners are not the tube's occupied envelope."""
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
     lane = out[1] + FLUID_2_LEAD
     lane_x = F["bulkhead-flavor-a"].at("tube-in")[0] - FLUID_2_LANE_CLEAR
-    stub_end = inlet[1] + _ml.STUB
+    inlet_turn = inlet[1] + _ml.STUB + FLUID_2_INLET_SET
     pump_fore = solids["seaflo-pump"].BoundingBox().ymin
-    cross = min(stub_end + FLUID_2_CROSS_SET,
-                pump_fore - _card.CLEARANCE_FLOOR - _split.TUBE_D / 2.0)
-    if cross < stub_end - 1e-6:
-        raise ValueError(
-            f"the pump's fore face at Y{pump_fore:.3f} puts fluid-2's crossing at "
-            f"Y{cross:.3f}, inside the stub V-A's inlet ends at Y{stub_end:.3f}")
+    cross = min(inlet_turn,
+                pump_fore - _card.CLEARANCE_FLOOR - _split.TUBE_D / 2.0
+                - FLUID_2_CROSS_FORWARD)
     level_end = F["valve-v-b"].at("inlet")[0] + FLUID_2_LEVEL_CLEAR
-    return R.bent(
+    run = R.bent(
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, out[2]),                       # east across the lane, level on its own storey
         (lane_x, cross, FLUID_2_CROSS_Z),             # forward down that strip onto the crossing storey
         (level_end, cross, FLUID_2_CROSS_Z),          # east over the drain's lean, level for all of it
-        (inlet[0], cross, inlet[2]),                  # east and down onto V-A's column in one leg
+        (inlet[0], inlet_turn, inlet[2]),             # east and down beneath the switch onto V-A's column
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, level east "
              "across the lane into the strip west of the flavor-A line, forward and down that "
              "strip, and east through the window the drain leaves")
+    radius = min(run.radii.values(), default=run.bend)
+    if radius < TUBE_BEND - 1e-6:
+        raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
+    pump_gap = R.tube(run).distance(solids["seaflo-pump"])
+    if pump_gap < _card.CLEARANCE_FLOOR - 1e-6:
+        raise ValueError(
+            f"fluid-2's finished sweep clears the pump by {pump_gap:.3f} mm, below "
+            f"the {_card.CLEARANCE_FLOOR:g} mm clearance floor")
+    return run
 
 
 # --- the funnel's gravity drain ---------------------------------------------
