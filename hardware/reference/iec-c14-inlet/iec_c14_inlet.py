@@ -6,14 +6,14 @@ the C13 connector nose enters that cavity until its shoulder meets the rim face.
 
 Measured from the scan
 ----------------------
-* 49.97 x 21.88 mm: flange nose-to-nose, and across its two long flats.
+* 49.77 x 21.9 mm: flange nose-to-nose (calipers) and across its two long
+  flats (scan); the outline runs from each flat through a taper tangent to an
+  R4.885 ear arc centred 20 from the axis, 17.98 from shoulder to nose (calipers).
 * 3.25 mm: flange thickness, ear faces both sides. The ear front faces crown
   about 0.2 mm toward the tips; the model keeps them flat.
 * 40.21 mm: screw pitch, both holes on the mating axis, dia 3.24, countersunk
   90 degrees to dia 6.1 on the outboard face.
-* 12.33 mm: where each long flat meets its 32.7 degree taper; the taper runs
-  tangent to an R5.175 ear arc centred 19.81 from the axis.
-* 31.03 x 22.13 mm, R5, 1.84 proud: the rim around the cavity mouth.
+* 31.03 x 22.13 mm, R6, 1.84 proud: the rim around the cavity mouth.
 * 24.82 x 16.26 mm: the cavity mouth, R2.3 at the top corners and 4.8 mm
   45 degree chamfers at the bottom (earth-side) corners; floor 14.3 below the
   seating plane.
@@ -21,6 +21,10 @@ Measured from the scan
   to its end face, 45 degree chamfers of 4.85 mm leg on its two lower long edges.
 * three 4.0 x 10.0 mm bosses 1.17 proud of the end face, each carrying a
   0.8 x 6.3 mm solder tab reaching 25.0 behind the seating plane.
+
+The plan outline of the flange follows the calipers and the pocket that holds
+the part; the scan's broad faces end on that outline and its thin edge band
+reads up to 0.3 mm outside it.
 
 Left as simple forms
 --------------------
@@ -59,14 +63,17 @@ from world_workplane import xz_plane_y_up  # noqa: E402
 STEP = _here.parent / "iec-c14-inlet.step"
 
 
-# Flange and fasteners.
-FLANGE_W = 49.97
-FLANGE_H = 21.88
+# Flange and fasteners. The plan outline is the calipered one: the scan's broad faces end
+# on it, while its thin edge band reads up to 0.3 mm outside it (`scan-evidence.json`).
+FLANGE_W = 49.77              # nose to nose, calipers
+FLANGE_H = 21.9               # across the long flats, scan
 FLANGE_T = 3.25
-FLANGE_SHOULDER_X = 12.33     # the long flat ends and the taper begins
-EAR_R = 5.175
-EAR_CX = FLANGE_W / 2.0 - EAR_R
-FLANGE_KNUCKLE_R = 1.0        # ESTIMATED round between flat and taper
+FLANGE_END_CHORD = 17.98      # ear nose to the end of a long flat, calipers
+EAR_CX = 20.0                 # ear arc centre, calipers
+EAR_R = FLANGE_W / 2.0 - EAR_CX
+FLANGE_SHOULDER_X = FLANGE_W / 2.0 - math.sqrt(
+    FLANGE_END_CHORD ** 2 - (FLANGE_H / 2.0) ** 2)
+FLANGE_KNUCKLE_R = 1.2        # ESTIMATED round between flat and taper
 SCREW_PITCH = 40.21
 SCREW_D = 3.24
 CSK_D = 6.1                   # 90 degree countersink on the outboard face
@@ -81,7 +88,7 @@ CUTOUT_R = 3.0
 # Rim and cavity on the mating side.
 RIM_W = 31.03
 RIM_H = 22.13
-RIM_R = 5.0
+RIM_R = 6.0
 RIM_PROUD = 1.84
 MOUTH_W = 24.82
 MOUTH_H = 16.26
@@ -145,39 +152,36 @@ def panel_stack() -> tuple:
 
 
 def _flange_landmarks() -> dict:
-    """Right-top landmarks of the flange outline.
-
-    The long flat and the taper meet at ``shoulder``; the taper is the tangent
-    from that corner to the ear arc, and a knuckle round of ``FLANGE_KNUCKLE_R``
-    replaces the corner itself.
-    """
+    """Right-top landmarks of the flange outline: a long flat, a knuckle round at its end, the
+    common external tangent shared with the ear arc, and the nose."""
     a = FLANGE_SHOULDER_X
     h = FLANGE_H / 2.0
     kr = FLANGE_KNUCKLE_R
-    cx, r = EAR_CX, EAR_R
-    d = math.hypot(cx - a, 0.0 - h)
-    if d <= r:
-        raise ValueError("the flange shoulder lies inside the ear arc")
-    beta = math.atan2(0.0 - h, cx - a)
-    gamma = math.asin(r / d)
-    ux, uz = math.cos(beta + gamma), math.sin(beta + gamma)      # the upper tangent
-    length = math.sqrt(d * d - r * r)
-    t = (a + length * ux, h + length * uz)
-    theta = math.atan2(-uz, ux)                                   # descent angle of the taper
-    back = kr * math.tan(theta / 2.0)                             # round tangent points off the corner
-    q_flat = (a - back, h)
-    q_taper = (a + back * ux, h + back * uz)
-    centre = (a - back, h - kr)
-    bis = (a - centre[0], h - centre[1])
-    norm = math.hypot(*bis)
-    mid = (centre[0] + kr * bis[0] / norm, centre[1] + kr * bis[1] / norm)
+    shoulder_center = (a, h - kr)
+    ear_center = (EAR_CX, 0.0)
+    dx = ear_center[0] - shoulder_center[0]
+    dz = ear_center[1] - shoulder_center[1]
+    span = math.hypot(dx, dz)
+    if span <= abs(EAR_R - kr):
+        raise ValueError("the flange shoulder and ear rounds swallow their tangent")
+    ux, uz = dx / span, dz / span
+    along = (kr - EAR_R) / span
+    across = math.sqrt(1.0 - along * along)
+    nx = along * ux + across * (-uz)
+    nz = along * uz + across * ux
+    q = (shoulder_center[0] + kr * nx, shoulder_center[1] + kr * nz)
+    t = (ear_center[0] + EAR_R * nx, ear_center[1] + EAR_R * nz)
+    theta = math.atan2(nz, nx)
+    mid_theta = (math.pi / 2.0 + theta) / 2.0
+    mid = (shoulder_center[0] + kr * math.cos(mid_theta),
+           shoulder_center[1] + kr * math.sin(mid_theta))
     return {
-        "shoulder": q_flat,
+        "shoulder": (a, h),
         "round_mid": mid,
-        "tangent_start": q_taper,
+        "tangent_start": q,
         "ear_tangent": t,
         "nose": (FLANGE_W / 2.0, 0.0),
-        "taper_angle_deg": math.degrees(theta),
+        "taper_angle_deg": math.degrees(math.atan2(q[1] - t[1], t[0] - q[0])),
     }
 
 
@@ -361,9 +365,10 @@ def selftest() -> int:
     fails = []
     p = _flange_landmarks()
     if abs(EAR_CX + EAR_R - FLANGE_W / 2.0) > 1e-9:
-        fails.append("the ear arcs do not reach the measured flange noses")
-    if abs(p["taper_angle_deg"] - 32.7) > 0.6:
-        fails.append(f"the flange taper runs at {p['taper_angle_deg']:.2f} degrees, not the scanned 32.7")
+        fails.append("the ear arcs do not reach the flange noses")
+    chord = math.dist(p["shoulder"], p["nose"])
+    if abs(chord - FLANGE_END_CHORD) > 1e-9:
+        fails.append(f"flange shoulder-to-nose chord is {chord:.6f}, not {FLANGE_END_CHORD:g}")
     if abs(SCREW_PITCH / 2.0 - EAR_CX) > 0.5:
         fails.append("the screw holes are not centred in the ears")
     if MOUTH_W > RIM_W - 2.0 or MOUTH_H > RIM_H - 2.0:
@@ -385,8 +390,8 @@ def selftest() -> int:
         print(f"FAIL {line}")
     if not fails:
         print(
-            f"ok  C14 flange {FLANGE_W:g} x {FLANGE_H:g} x {FLANGE_T:g}, taper "
-            f"{p['taper_angle_deg']:.1f} deg; rim {RIM_W:g} x {RIM_H:g} proud {RIM_PROUD:g}; "
+            f"ok  C14 flange {FLANGE_W:g} x {FLANGE_H:g} x {FLANGE_T:g}, chord {FLANGE_END_CHORD:g}, taper "
+            f"{p['taper_angle_deg']:.1f} deg; rim {RIM_W:g} x {RIM_H:g} R{RIM_R:g} proud {RIM_PROUD:g}; "
             f"mouth {MOUTH_W:g} x {MOUTH_H:g}; housing {BODY_W:g} x {BODY_H:g} x {BODY_DEPTH:g}; "
             f"screws {SCREW_PITCH:g} apart")
     return 1 if fails else 0
