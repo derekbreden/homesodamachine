@@ -167,8 +167,8 @@
     "machine_display_cover_acceptance_inferred": false
   },
   "current_regeneration": {
-    "status": "baseline_scan_corrections_building_g_ganen_replacement_pending",
-    "core_sources_frozen": true,
+    "status": "baseline_box_cold_core_and_local_cartridge_checks_passed_g_ganen_pending",
+    "core_sources_frozen": false,
     "includes": [
       "measured tee/reference and consumer axes",
       "measured spring envelope",
@@ -178,7 +178,10 @@
       "water-split fixed-body anchor qualification"
     ],
     "assembly_current": false,
-    "production_print_released": false
+    "production_print_released": false,
+    "bounded_followup": "The cartridge/cap common aft face retains the full 3 mm fitted skirt band and 0.246 mm plate clearance. All 55 local native geometry checks pass; complete enclosure geometry and physical fit remain unqualified.",
+    "baseline_evidence": "hardware/manifold-layout/scan-consumer-checks.json",
+    "cartridge_evidence": "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json"
   },
   "nameplate": {
     "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
@@ -191,9 +194,12 @@
     "asin": "B07F35PTFR",
     "authority": "Derek, September 20, 2026",
     "calipers_recorded": false,
-    "scan_status": "first 1033-frame native capture complete; 0.10 mm fusion running; complementary orientation requested",
+    "scan_status": "first 1033-frame native capture fused at 0.10 mm and fully archived; complementary orientation awaiting visual confirmation",
     "production_reference_integrated": false,
     "existing_seaflo_baseline_qualifies_selected_pump": false,
-    "selection_record": "hardware/reference/pump-comparison/README.md"
+    "selection_record": "hardware/reference/pump-comparison/README.md",
+    "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump",
+    "pass_1_cloud_sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+    "pass_1_points": 3235134
   }
 }

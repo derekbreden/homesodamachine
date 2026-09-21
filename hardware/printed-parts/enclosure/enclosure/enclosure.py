@@ -1487,8 +1487,8 @@ pump_bay_side_air = fits.running      # pump-body air inside each cavity throat 
 # complete plan silhouette and its filled body reaches both cavity planes without a side taper.
 # The monolithic clamp remains inside the cradle's two vertical wells throughout insertion and
 # withdrawal.
-cap_kiss = fits.running               # the cartridge's flat back off the bay bulkhead at full seat,
-                             # cradle and clamp alike
+cap_kiss = fits.running               # preferred plate air, cradle and clamp alike
+cap_kiss_station_allowance = 0.01      # one least-significant place of the measured 30.11 mm skirt datum
 # Front-bottom's two bearing lands under the pump-bay bulkhead.
 plate_foot_reach = 10.0
 plate_foot_y = 20.0
@@ -5179,15 +5179,19 @@ def pump_skirt_band_aft_y(pump_trays):
 def pump_cartridge_aft_y(pump_trays, plate):
     """The cartridge's one flat back, cradle and clamp alike: the bay bulkhead less its kiss.
 
-    At full seat the tubes are bottomed and the carrier is on its aft stop; the kiss is that
-    seat's running clearance. The skirt opening's upper band lies fore of this plane."""
-    aft = bay_back_y(plate) - cap_kiss
+    At full seat the tubes are bottomed and the carrier is on its aft stop. The flat back
+    preserves the complete skirt band, spending at most one hundredth of a millimetre of the
+    preferred plate air when the independently stated measured stations meet there."""
+    nominal_aft = bay_back_y(plate) - cap_kiss
     band = pump_skirt_band_aft_y(pump_trays)
-    if aft < band:
+    aft = max(nominal_aft, band)
+    air = bay_back_y(plate) - aft
+    if air < cap_kiss - cap_kiss_station_allowance - 1e-9:
         raise ValueError(
             f"the bay bulkhead at Y{bay_back_y(plate):g} stands inside the skirt opening's "
             f"upper band, which ends at Y{band:g}: the cradle cannot keep its "
-            f"{_tray.skirt_upper_band:g} mm behind the pumps")
+            f"{_tray.skirt_upper_band:g} mm behind the pumps and "
+            f"{cap_kiss - cap_kiss_station_allowance:g} mm minimum plate air")
     return aft
 
 
@@ -5340,9 +5344,8 @@ def pull_z_span(box):
 
 
 def pull_y_span(pump_trays, plate):
-    """Both pockets' fore and aft walls: `pull_run` centred on the cradle's own Y run, from
-    its show face to its aft edge."""
-    mid = (pump_cartridge_front_y + pump_cartridge_aft_y(pump_trays, plate)) / 2.0
+    """Both pockets on the nominal cartridge run, independent of terminal band stock."""
+    mid = (pump_cartridge_front_y + bay_back_y(plate) - cap_kiss) / 2.0
     return mid - pull_run / 2.0, mid + pull_run / 2.0
 
 
@@ -5500,7 +5503,7 @@ def pump_cartridge_figures(box):
         "PUMP_CARTRIDGE_AFT_Y": f"{aft:.6g} mm",
         "PUMP_SKIRT_AFT_STOCK":
             f"{(aft - max(cy + _tray.skirt_open_y_max for _cx, cy, _cz in trays)):.4g} mm",
-        "CARTRIDGE_BULKHEAD_KISS": f"{cap_kiss:.4g} mm",
+        "CARTRIDGE_BULKHEAD_KISS": f"{(bay_back_y(plate) - aft):.4g} mm",
         "PUMP_FACE_OFFSET": f"{(box.outer[2] - pump_cartridge_front_y):.4g} mm",
         "PUMP_STATION_LEAD": f"{pump_station_lead:.4g} mm",
         "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
