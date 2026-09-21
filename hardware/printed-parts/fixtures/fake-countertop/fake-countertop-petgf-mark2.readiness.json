@@ -3,52 +3,51 @@
   "printer_submission": false,
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 4455,
+    "export_time": 6669,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 1104,
+    "prepare_time": 2379,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 1941.955322265625,
-          "Bridge": 7214.50390625,
-          "Brim": 235.43528747558594,
-          "Custom": 297.4267883300781,
+          "Bottom surface": 2205.7587890625,
+          "Bridge": 8262.4111328125,
+          "Custom": 297.3392028808594,
           "Flush": 15.0,
-          "Gap infill": 1.7558242082595825,
-          "Inner wall": 6089.9619140625,
-          "Internal solid infill": 6001.53564453125,
-          "Outer wall": 5921.90087890625,
-          "Sparse infill": 23038.662109375,
-          "Top surface": 1146.82177734375,
-          "Travel": 1676.836181640625,
-          "Undefined": 1675.2672119140625
+          "Gap infill": 1.6267926692962646,
+          "Inner wall": 6469.50146484375,
+          "Internal solid infill": 6830.322265625,
+          "Outer wall": 6262.158203125,
+          "Sparse infill": 25342.810546875,
+          "Top surface": 1305.983642578125,
+          "Travel": 1759.8955078125,
+          "Undefined": 1758.3265380859375
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFT01",
             "id": 1,
-            "main_used_g": 846.4520263671875,
-            "total_used_g": 846.4520263671875
+            "main_used_g": 931.5325927734375,
+            "total_used_g": 931.5325927734375
           }
         ],
-        "generate_support_material_time": 723,
+        "generate_support_material_time": 872,
         "id": 1,
-        "infill_time": 1459,
+        "infill_time": 1865,
         "layer_filament_change": 0,
-        "main_predication": 53205.25390625,
-        "make_perimeters_time": 2214,
+        "main_predication": 58410.2421875,
+        "make_perimeters_time": 3840,
         "obj_cached_cnt": 0,
         "objects": [
           {
             "bbox": {
-              "depth": 290.0,
+              "depth": 310.0,
               "height": 220.0,
-              "width": 295.0,
-              "x": 15.0,
-              "y": 15.0,
+              "width": 315.0,
+              "x": 5.0,
+              "y": 5.0,
               "z": 0.0
             },
             "id": 5,
@@ -56,9 +55,9 @@
             "triangle_count": 84060
           }
         ],
-        "sliced_time": 9452,
-        "sliced_time_with_cache": 4895,
-        "total_predication": 53531.11328125,
+        "sliced_time": 13244,
+        "sliced_time_with_cache": 6423,
+        "total_predication": 58736.01171875,
         "triangle_count": 84060,
         "warning_message": ""
       }
@@ -75,7 +74,6 @@
   "features": [
     "Bottom surface",
     "Bridge",
-    "Brim",
     "Custom",
     "Floating vertical shell",
     "Gap infill",
@@ -86,16 +84,16 @@
     "Top surface"
   ],
   "layers": 917,
-  "estimated_seconds": 53531.11328125,
-  "estimated_filament_g": 846.4520263671875,
+  "estimated_seconds": 58736.01171875,
+  "estimated_filament_g": 931.5325927734375,
   "plate_trim_commands_mm": [
     0.0,
-    0.02
+    -0.02
   ],
-  "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-  "archive_sha256": "fd311570065ce3d746c15a6c7241a9bb068d066f1f540dae4789951c652b8aad",
-  "gcode_sha256": "41008f3f57b9f78d17a260a41ed9798a6428a8cd1f538a862bbf840837f16f36",
-  "project_sha256": "9811686b0845562a73dc24b7fd068b70144c2dacf3f9909697008ae116b60836",
-  "source_stl_sha256": "468383b97805ce1effdab23bee421912187cab24227093970fc184f69db19656",
+  "archive": "fake-countertop-petgf-z000-mark2.gcode.3mf",
+  "archive_sha256": "7b01a93488ebcdffc874f5afd26b24f70952d52a43e07b4d48f2fb416822882f",
+  "gcode_sha256": "d8f452f6cc77894523fc4ccb6fc6efcfd06476bd8ae5a3370b3b1db11549578f",
+  "project_sha256": "75c996758625366323bf0f0b8728af5ebeb256b5cf55d559b12b7c11e925c36f",
+  "source_stl_sha256": "d1c6fe94e19db1ac8409d91f9b25462603c8054b3ea3d5151c7829a123fc15b6",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
 }

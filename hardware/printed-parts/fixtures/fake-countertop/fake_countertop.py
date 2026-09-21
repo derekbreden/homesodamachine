@@ -39,12 +39,11 @@ INCH = 25.4
 
 # The H2C's plate, per its Bambu Studio machine profile: 330 x 320 x 325, of which the left
 # nozzle, the one this job prints with, reaches X 0..325. The project stands inside that
-# reach with the 15 mm border every print here keeps (`faucet/refresh_print_project.py`):
-# an outline laid 5 mm from the plate's edge lifted within a dozen lines, three times.
+# reach with a 5 mm border (`faucet/refresh_print_project.py`, `plate_border`).
 BED_Z = 325.0
 LEFT_REACH_X = 325.0
 LEFT_REACH_Y = 320.0
-PLATE_BORDER = 15.0
+PLATE_BORDER = 5.0
 
 # The counter hole the shank is sized for (`hardware/faucet-layout/faucet_assembly.py`).
 COUNTER_HOLE_D = 1.375 * INCH
