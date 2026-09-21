@@ -3400,7 +3400,6 @@ C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # A printed cutout to the moulded boss that passes it, on each side. It is what the CORD is
 # drawn to as well: the tunnel behind this hole is bored to the same rectangle, so the housing
 # on the end of the C13 cordset comes down the whole depth of it to reach the blades.
-C14_CUTOUT_SLIP = _enc.c14_cutout_slip
 
 
 def c14_mount_half() -> tuple:
@@ -3408,7 +3407,7 @@ def c14_mount_half() -> tuple:
     pocket."""
     _kind, _cx, _cz, wx, wz, _r = c14_cutout()
     return _enc.c14_mount_half(wx, wz,
-                               max(abs(dx) for dx, _dz in _c14.panel_screws()))
+                               _enc.c14_screw_pitch / 2.0)
 
 
 # WHERE IT SITS ON THAT WALL IS STRUCK ON BOTH AXES, and neither figure is its own.
@@ -3438,15 +3437,15 @@ def c14_seat_y() -> float:
 
 
 def build_c14():
-    """The receptacle seated on the tunnel's fore face, its shroud back out through the cutout.
+    """The receptacle seated in the tunnel's pocket, its rim on the pocket floor.
 
-    `iec_c14_inlet` states the seating planes: the flange's outboard face is its own Y = 0 and
-    bears on `c14_seat_y`, the housing hangs inboard and the mating shroud rises through the
-    established tunnel toward the wall."""
+    `iec_c14_inlet` puts its ears' outboard face at Y = 0 and its rim face at `RIM_PROUD`; the
+    rim face bears on `c14_seat_y`, so the ears stand `RIM_PROUD` off the floor, the housing
+    hangs inboard and the cavity looks out through the bore."""
     body = import_step(str(C14_STEP)).val()
     return seat_body(body, (), seat="c14-inlet",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
-                              (C14_STATION[0], c14_seat_y(), C14_STATION[1])))
+                              (C14_STATION[0], c14_seat_y() - _c14.RIM_PROUD, C14_STATION[1])))
 
 
 def c14_stations():
@@ -3454,19 +3453,18 @@ def c14_stations():
     bores one into its fore face at each. Both sit ON the mating axis, so the pair follows the
     one station the receptacle is placed at, and the tunnel's own width across X is struck to
     reach them."""
-    return tuple((C14_STATION[0] + dx, C14_STATION[1] + dz) for dx, dz in _c14.panel_screws())
+    return tuple((C14_STATION[0] + dx, C14_STATION[1])
+                 for dx in (-_enc.c14_screw_pitch / 2.0, _enc.c14_screw_pitch / 2.0))
 
 
 def c14_cutout():
-    """The rounded rectangle the shroud reaches out through, in `back_ports` shape — struck on
-    the same station the body is, one `C14_CUTOUT_SLIP` over the shroud on every side.
+    """The bore in the wall, in `back_ports` shape — struck on the same station the body is.
 
-    The flange never passes this wall: it bears on the seating face inside the tunnel and its
-    ears are the pocket's. What stands in the wall's opening is the shroud alone, so the opening
-    is the shroud's own outline and the flange's face is not on show round it."""
+    The flange never passes this wall: the inlet's rim bears on the pocket floor around this
+    bore and its ears are the pocket's. What the wall's opening shows is the cavity the rim
+    frames, and the C13 nose comes down this bore to it."""
     return ("rect", C14_STATION[0], C14_STATION[1],
-            _c14.SHROUD_W + 2 * C14_CUTOUT_SLIP,
-            _c14.SHROUD_H + 2 * C14_CUTOUT_SLIP, _c14.SHROUD_FILLET)
+            _enc.c14_bore_w, _enc.c14_bore_h, _enc.c14_bore_r)
 
 
 # WHAT THE PLACEMENT AND THE PRINTED WALL HAVE TO AGREE ON. `enclosure.c14_station_x` is the one
@@ -3479,21 +3477,20 @@ _c14_relief = next((x, z, w, h) for who, x, z, w, h in _enc.back_top_wall_relief
 
 _stated.state(
     "c14-surround", "The C14 flange pockets into one block at its ceiling-clear mount",
-    "3 mm in XZ, 3 mm of lip beyond the flange's Y- edge, a 9 mm entry relief, and one "
+    "3 mm in XZ, a 5 mm pocket the rim seats at the floor of, a 9 mm entry relief, and one "
     "ceiling-bedded rectangular block",
-    (_enc.c14_pocket_wall >= 3.0 and _enc.c14_pocket_lip >= 3.0
+    (_enc.c14_pocket_wall >= 3.0 and _enc.c14_pocket_depth >= 5.0
      and _enc.c14_insertion_relief >= 9.0
      and _c14_relief[0] == C14_STATION[0]
      and _c14_relief[1] == C14_STATION[1]
      and _c14_relief[2] == _enc.c14_wall_relief_w
      and abs(_c14_relief[3] - 2.0 * c14_mount_half()[1]) < 1e-9
      and c14_cutout()[1] == C14_STATION[0]
-     and abs(sum(x for x, _z in c14_stations()) / 2.0 - C14_STATION[0]) < 1e-9
-     and abs(c14_seat_y() - 458.75) < 1e-9),
+     and abs(sum(x for x, _z in c14_stations()) / 2.0 - C14_STATION[0]) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_pocket_wall:g} mm of the tunnel block around the flange and its lip stands "
-    f"{_enc.c14_pocket_lip:g} mm beyond the flange's {_c14.FLANGE_T:g} mm edge; the block is "
+    f"{_enc.c14_pocket_depth:g} mm deep, the rim on its floor; the block is "
     f"one rectangle from that mouth to the wall, with its crown rooted in the ceiling slab. "
     f"Its exact slipped "
     f"pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip for "
@@ -5745,7 +5742,7 @@ def ceiling_reliefs(placed: dict) -> tuple:
             y1 = max(b.ymax for b in boxes) + plan_slip
             cx, cz = C14_STATION
             shaped = raw.intersect(
-                _c14.flange_prism(_enc.c14_pocket_slip, y0, y1)
+                _enc.c14_pocket_prism(_enc.c14_pocket_slip, y0, y1)
                 .translate((cx, 0.0, cz)).val())
             if abs(shaped.Volume()) <= 1e-6:
                 raise ValueError("the C14's flange-profile ceiling passage misses the slab")
@@ -6880,7 +6877,7 @@ def selftest():
         up=_enc.BACK_TOP_UP)
     hx, hz = c14_mount_half()
     fore = c14_seat_y()
-    mouth = fore - _c14.FLANGE_T - _enc.c14_pocket_lip
+    mouth = fore - _enc.c14_pocket_depth
     aft = _enc.rear_plane_y
     bridge = _enc.fits.supported_surface
     block_bottom = C14_STATION[1] - hz - bridge
@@ -6948,7 +6945,7 @@ def selftest():
             f"section planes with no diagonal underside: {planes}")
     # The seat is the pocket's floor less what the aperture takes of it and the two insert bores
     # — read as area because its square corners reach past the flange's tapered shoulders.
-    pocket = _c14.flange_prism(_enc.c14_pocket_slip, 0.0, 1.0).val()
+    pocket = _enc.c14_pocket_prism(_enc.c14_pocket_slip, 0.0, 1.0).val()
     pocket = pocket.fuse(pocket.translate((0.0, 0.0, -bridge)))
     taken = pocket.intersect(_enc._rect_cut_y(
         0.0, -bridge / 2.0, wx, wz + bridge, r, 0.0, 1.0)).Volume()

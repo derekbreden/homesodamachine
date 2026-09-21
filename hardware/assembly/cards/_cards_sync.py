@@ -160,8 +160,7 @@ def enclosure(m: Machine):
     import _scorecard as _card
     import iec_c14_inlet as _c14
     import jg_bulkhead_union as _jg
-    from _y_wall_dimensions import (ac_inlet_recess_depth_max,
-                                        ac_inlet_recess_depth_min)
+    from _y_wall_dimensions import c14_rim_inset
     from _cold_core_interface import (cap_conduits,
                                       outer_shell_x_length, outer_shell_y_length)
 
@@ -308,8 +307,7 @@ def enclosure(m: Machine):
         "PORT_NUT_D": f"{nut_d:.4g} mm",
         "PORT_CHAIN_3": f"{chain_3:.4g} mm",
         "C14_FLANGE_W": f"{c14_w:.4g} mm",
-        "AC_RECESS": f"{ac_inlet_recess_depth_min:.4g}{NDASH}"
-                     f"{ac_inlet_recess_depth_max:.4g} mm",
+        "C14_RIM_INSET": f"{c14_rim_inset():.4g} mm",
         # The compressor bay (EN-03, EN-04). The compressor's figures are the
         # donor's own — a plate and a bolt pattern a bench measures with calipers —
         # and its crown is read off the placed body, which stands on the slab.

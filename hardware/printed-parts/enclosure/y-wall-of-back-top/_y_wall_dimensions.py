@@ -20,8 +20,13 @@ from docgen import substitute_md  # noqa: E402
 # flange seated at its floor and its shroud standing back up it. The depth range
 # is how far the housing comes down that bore. Typed off the cordset, which this
 # tree carries no body for — there is nothing to read it off.
-ac_inlet_recess_depth_min = 3.0
-ac_inlet_recess_depth_max = 5.0
+
+
+def c14_rim_inset():
+    """How far the inlet's rim face, on the pocket floor, sits inside the wall's outer plane: the
+    bore the C13 nose crosses before it reaches the inlet."""
+    import enclosure_assembly as _ea
+    return (_ea._enc.rear_plane_y + _ea._enc.wall) - _ea.c14_seat_y()
 
 
 # The wall's identification colours, by the fluid each names — the one
@@ -164,7 +169,8 @@ def main():
     pocket_section = pocket_cut.intersect(_ea._enc._ybox(
         -100.0, 100.0, back_y + 0.1, lip_y - 0.1, -100.0, 100.0)).BoundingBox()
     variables = {
-        "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm",
+        "C14_RIM_INSET": f"{c14_rim_inset():.4g} mm",
+        "C14_RIM_PROUD": f"{_ea._c14.RIM_PROUD:g} mm",
         "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
         "PANEL_HOLE_D_SHORT": f"{bulkhead_panel_hole_diameter:.4g}",
         "CO2_HOLE_D": f"{co2_panel_hole_diameter:.4g}",
@@ -174,24 +180,22 @@ def main():
         "FLAVOR_COLOR": port_color_hex("flavor"),
         "CARB_END": carb_union_end(_ea.PANEL_X),
         "FLAVOR_B_END": dropped_union_end(_ea.PANEL_ON_GATE_LANE, _ea.PANEL_X),
+        "C14_POCKET": f"{_ea._enc.c14_pocket_w:g} × {_ea._enc.c14_pocket_h:g} mm",
         "C14_FLANGE": f"{_ea._c14.FLANGE_W:g} × {_ea._c14.FLANGE_H:g} mm",
+        "C14_RIM": f"{_ea._c14.RIM_W:g} × {_ea._c14.RIM_H:g} mm",
         "C14_OPENING": (
             f"{_ea.c14_cutout()[3]:g} × {_ea.c14_cutout()[4]:g} mm "
             f"R{_ea.c14_cutout()[5]:g}"),
         "C14_SEAT": (
             f"x {_ea.C14_STATION[0]:g}, z {_ea.C14_STATION[1]:.2f}, "
             f"seat y {_ea.c14_seat_y():.2f}"),
-        # What the shroud has left when it has crossed the wall: its rise off the
-        # seating face less the depth of bore in front of that face.
-        "C14_SHROUD_PROUD": (
-            f"{_ea.c14_seat_y() + _ea._c14.SHROUD_PROUD - (_ea._enc.rear_plane_y + _ea._enc.wall):.4g} mm"),
         "C14_SCREWS": f"x {_ea.c14_stations()[0][0]:g} and {_ea.c14_stations()[1][0]:g}",
         "C14_POCKET_SLIP": f"{_ea._enc.c14_pocket_slip:g} mm",
         "C14_POCKET_WALL": f"{_ea._enc.c14_pocket_wall:g} mm",
-        "C14_POCKET_LIP": f"{_ea._enc.c14_pocket_lip:g} mm",
+        "C14_POCKET_DEPTH": f"{_ea._enc.c14_pocket_depth:g} mm",
         "C14_BLOCK": (f"{2.0 * _ea.c14_mount_half()[0]:.4g} × "
                       f"{2.0 * _ea.c14_mount_half()[1] + _ea._enc.fits.supported_surface:.4g} mm"),
-        "C14_RUN": (f"{_ea._enc.rear_plane_y - (_ea.c14_seat_y() - _ea._c14.FLANGE_T - _ea._enc.c14_pocket_lip):.4g} mm"),
+        "C14_RUN": (f"{_ea._enc.rear_plane_y - (_ea.c14_seat_y() - _ea._enc.c14_pocket_depth):.4g} mm"),
         "KEYSTONE_W": f"{keystone_aperture[3]:.4g}",
         "KEYSTONE_H": f"{keystone_aperture[4]:.4g}",
         "KEYSTONE_LIP": f"{_ea._keystone.LIP_D:.4g} mm",
