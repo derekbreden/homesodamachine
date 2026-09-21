@@ -6,9 +6,13 @@ rigid round neck, then its two broad lips seat against the roots of side grooves
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
-Both complete covers in the [physical trial](../../fixtures/faucet-display-snap/print-log.md)
-snapped onto the tip and retained firmly. Repeated operation, permanent
-spreading and long-term preload require further physical readings.
+The cover is **physically accepted in PET-GF**: Derek confirms it is solid and successful,
+with the broad, long, thin walls supplying the necessary give and spring. Both complete
+covers in the [physical trial](../../fixtures/faucet-display-snap/print-log.md) snapped onto
+the tip and retained firmly. The [acceptance record](physical-acceptance.json) identifies
+the successful STL, which matches the current model. The broad walls and retaining lips
+are a proven example for other PET-GF retention features. Numerical force and cycle life
+have not been measured.
 
 ## Geometry
 

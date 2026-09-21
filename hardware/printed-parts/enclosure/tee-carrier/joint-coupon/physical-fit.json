@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "reported_by": "Derek",
+  "reported_date": "2026-09-20",
+  "status": "interlocking_fit_accepted_keeper_catch_inadequate",
+  "job": "carrier-joint-coupon-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "16f7a517536f1fc88b7c39546f03f2cdb26c52d02f61f9db01c3ef44c457a380",
+  "source_parts": [
+    {
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-left.stl",
+      "stl_sha256": "d0afd35f18df2a34753d04c91184e6f60c4eafd369c5f486042e402c6707f734"
+    },
+    {
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.stl",
+      "stl_sha256": "0d8a10c9478f478da9c65cd4cf3b3c1ce30b8ea4f5bbd2bdf34d1bfc4babf090"
+    },
+    {
+      "source": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-keeper.stl",
+      "stl_sha256": "9646eabf1b8d72d70b4779670b29d579c74329878d1d4af6574364ac1c6c7324"
+    }
+  ],
+  "user_statement": "There is no rocking our play, it takes some small amount of force to get the joints to connect, but it is possible, and the friction fit is tight. The keeper inserts, and I suppose that is the lock, but the little tiny bit on the keeper is incredibly flimsy, no tension at all at that size. I would say that the friction fit of all pieces (both the two interlocking halves as they slide together and the keeper itself into that final slot) is many orders of magnitude more force than what that tiny bit provides, and that is true, but also we are talking 0 tension at all on the tiny bit.",
+  "observations": {
+    "keys_assemble": true,
+    "assembly_force_description": "Small force required; tight friction fit.",
+    "rocking_or_play_observed": false,
+    "keeper_inserts": true,
+    "keeper_catch_description": "Very flimsy with essentially zero observed spring tension; retention is dominated by friction.",
+    "positive_keeper_lock_qualified": false
+  },
+  "decision": "Preserve the successful key and lap fit. Integrate broad compliant walls and retaining lips into the mating halves so their normal assembly movement locks the joint without a separate keeper.",
+  "faucet_cover_precedent": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
+  "production_carrier_ready": false,
+  "limits": "No measured assembly force or full-width carrier stiffness result; friction alone is not accepted as positive keeper retention.",
+  "assembly_acceptance": "Two mating halves assemble and retain themselves in the normal seating motion; no separate keeper or extra fastening step. Simpler assembly is a required benefit of the snap fit.",
+  "user_assembly_priority": "Half the value of moving to snap fit is simpler assembly; a separate keeper does not supply that benefit."
+}

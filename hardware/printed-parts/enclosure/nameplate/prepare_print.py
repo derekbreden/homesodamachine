@@ -1,7 +1,7 @@
-"""Prepare a face-down, two-colour PET-GF nameplate and matching receiver coupon.
+"""Prepare a face-down, two-hotend PET-GF nameplate and receiver for Mark2.
 
 Writes an editable Bambu project. Optional slicing is local and does not
-connect to a printer. Settings start with the saved faucet PET-GF profile.
+connect to a printer. Black uses the left hotend and white the right hotend.
 """
 import argparse
 import copy
@@ -21,7 +21,7 @@ import nameplate as plate
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p/"tools").is_dir())
-PROFILE = ROOT/"hardware/printed-parts/faucet/faucet-petgf.3mf"
+PROFILE = ROOT/"hardware/printed-parts/petgf.3mf"
 CORE = "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"
 ET.register_namespace("", CORE)
 Q = lambda name: f"{{{CORE}}}{name}"
@@ -38,15 +38,26 @@ def sha(path):
 def prepare(unit=1):
     with zipfile.ZipFile(PROFILE) as source:
         settings = json.loads(source.read("Metadata/project_settings.config"))
-        filament = source.read("Metadata/filament_settings_1.config")
-    # Both colours use the same PET-GF process and the profile-compatible
-    # extruder and remain registered as parts of a single object.
+        filament_values = json.loads(source.read("Metadata/filament_settings_1.config"))
+    # Polymaker's H2C PET-GF15 preset explicitly enables both hotends (bitmask 3)
+    # while retaining PET-CF as its slicer type. This is material compatibility;
+    # the machine's established PET-GF temperature/flow settings stay intact.
+    filament_values["filament_printable"] = ["3"]
+    filament = json.dumps(filament_values, indent=2).encode()
+    # Both colours use the same PET-GF process and remain registered as parts
+    # of a single object; each feeds its own hotend from an external spool.
     original = copy.deepcopy(settings)
     for key,value in list(settings.items()):
         if isinstance(value,list) and len(value) in (1, len(original["filament_extruder_variant"])):
             settings[key] = value*2
-    settings.update(filament_colour=["#000000","#FFFFFF"], filament_map=["1","1"],
-                    filament_map_2=["1","1"], filament_prime_volume=["45","45"],
+    settings.update(filament_colour=["#000000","#FFFFFF"], filament_map=["1","2"],
+                    filament_map_2=["1","2"], filament_nozzle_map=["0","1"],
+                    filament_map_mode="Manual", filament_volume_map=["0","0"],
+                    filament_self_index=["1"]*len(original["filament_extruder_variant"])
+                                        +["2"]*len(original["filament_extruder_variant"]),
+                    filament_printable=["3","3"],
+                    extruder_ams_count=["1#0|4#0","1#0|4#0"],
+                    filament_prime_volume=["45","45"],
                     flush_volumes_vector=["140"]*4,
                     flush_volumes_matrix=["0","140","140","0"]*2)
     # Accessible supports preserve the square bearing faces below the catches.
@@ -60,7 +71,7 @@ def prepare(unit=1):
     plater = ET.Element("plate")
     for key,value in {"plater_id":1,"plater_name":f"Nameplate {unit:04d} and receiver",
                       "locked":"false","bed_type":settings["curr_bed_type"],
-                      "filament_map_mode":"Manual","filament_maps":"1 1",
+                      "filament_map_mode":"Manual","filament_maps":"1 2",
                       "filament_volume_maps":"0 0"}.items():meta(plater,key,value)
     meshes = []
     body,ink = plate.split(cq.importers.importStep(str(plate.step_path(unit))).val())
@@ -115,7 +126,10 @@ def prepare(unit=1):
             "profile_source":str(PROFILE.relative_to(ROOT)),"profile_sha256":sha(PROFILE),
             "settings_changes":{k:{"from":original.get(k),"to":v} for k,v in settings.items() if original.get(k)!=v},
             "meshes":meshes,"orientation":"artwork down; receiver in back-top orientation",
-            "printer_submission":False,"physical_fit_tested":False}
+            "printer_submission":False,"physical_fit_tested":False,
+            "printer":"Mark2", "requested_z_trim_mm":0.04,
+            "physical_filament_mapping":{"left":"Black PET-GF, external 254, PET-CF metadata",
+                                         "right":"White PET-GF, external 255, PET-CF metadata"}}
     out.with_suffix(".print.json").write_text(json.dumps(report,indent=2)+"\n")
     return out
 
@@ -124,6 +138,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--unit",type=int,default=1)
     parser.add_argument("--slice-output",type=Path)
+    parser.add_argument("--export-name",default="nameplate-001-black-white-z004-mark2-v1.gcode.3mf")
     args=parser.parse_args();project=prepare(args.unit);print(project,flush=True)
     if args.slice_output:
         directory=args.slice_output.resolve();directory.mkdir(parents=True,exist_ok=True)
@@ -131,7 +146,8 @@ def main():
         with (directory/"bambu-cli.log").open("w") as log:
             result=subprocess.run(["/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
                                    "--slice","0","--arrange","0","--orient","0",
-                                   "--outputdir",str(directory),str(project)],cwd=directory,
+                                   "--outputdir",str(directory),"--export-3mf",args.export_name,
+                                   str(project)],cwd=directory,
                                    stdout=log,stderr=subprocess.STDOUT)
         print(f"Local slice exit {result.returncode}: {directory}",flush=True)
         raise SystemExit(result.returncode)

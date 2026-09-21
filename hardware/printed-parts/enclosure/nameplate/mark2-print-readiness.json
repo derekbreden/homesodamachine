@@ -1,0 +1,196 @@
+{
+  "status": "printer_accepted_preparing",
+  "submitted": true,
+  "printer": "Mark2",
+  "native_archive": ".cache/prints/2026-09-20-nameplate-001-black-white-z004-mark2-v1/slice-2/nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "7ca26fa32a692316c6b3e0962b7c313a1d366493b8d1871625fb587f693bfab2",
+  "gcode_sha256": "141f3c5211b84f8f1177eb68f54b521db1b2ed6ee5d59e70d0624c1b53d116f7",
+  "project": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
+  "project_sha256": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
+  "source_step_sha256": "74964b0ab4a4e4ec0d8f27dc10eeaf110bead3e81812f4cf714d9045f6b4469b",
+  "receiver_step_sha256": "8c2df89a86b98d1c2cbe99abdc96d59b7416672cd14b028c42259eb71b0f36aa",
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "physical_filament_mapping": {
+    "left": "Black PET-GF, external 254, PET-CF metadata",
+    "right": "White PET-GF, external 255, PET-CF metadata"
+  },
+  "hotend_compatibility_evidence": "hardware/printed-parts/enclosure/nameplate/petgf-hotend-compatibility.json",
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "estimated_seconds": 4966.85791015625,
+  "estimated_grams_saved_profile_density": 35.11962378025055,
+  "layers": 192,
+  "white_artwork_layers_z_mm": [
+    0.2,
+    0.44,
+    0.68
+  ],
+  "black_receiver_verified": true,
+  "tab_toolpath_sections": [
+    {
+      "z_mm": 5.0,
+      "tab": "left",
+      "toolpath_width_mm": 1.299999999999983
+    },
+    {
+      "z_mm": 5.0,
+      "tab": "right",
+      "toolpath_width_mm": 1.3000000000000114
+    },
+    {
+      "z_mm": 9.8,
+      "tab": "left",
+      "toolpath_width_mm": 1.299999999999983
+    },
+    {
+      "z_mm": 9.8,
+      "tab": "right",
+      "toolpath_width_mm": 1.3000000000000114
+    },
+    {
+      "z_mm": 11.0,
+      "tab": "left",
+      "toolpath_width_mm": 1.299999999999983
+    },
+    {
+      "z_mm": 11.0,
+      "tab": "right",
+      "toolpath_width_mm": 1.3000000000000114
+    },
+    {
+      "z_mm": 11.24,
+      "tab": "left",
+      "toolpath_width_mm": 3.1149999999999807
+    },
+    {
+      "z_mm": 11.24,
+      "tab": "right",
+      "toolpath_width_mm": 3.115000000000009
+    },
+    {
+      "z_mm": 11.48,
+      "tab": "left",
+      "toolpath_width_mm": 3.09999999999998
+    },
+    {
+      "z_mm": 11.48,
+      "tab": "right",
+      "toolpath_width_mm": 3.1000000000000227
+    },
+    {
+      "z_mm": 11.72,
+      "tab": "left",
+      "toolpath_width_mm": 3.09999999999998
+    },
+    {
+      "z_mm": 11.72,
+      "tab": "right",
+      "toolpath_width_mm": 3.1000000000000227
+    },
+    {
+      "z_mm": 11.96,
+      "tab": "left",
+      "toolpath_width_mm": 3.09999999999998
+    },
+    {
+      "z_mm": 11.96,
+      "tab": "right",
+      "toolpath_width_mm": 3.1000000000000227
+    },
+    {
+      "z_mm": 12.2,
+      "tab": "left",
+      "toolpath_width_mm": 3.09999999999998
+    },
+    {
+      "z_mm": 12.2,
+      "tab": "right",
+      "toolpath_width_mm": 3.1000000000000227
+    }
+  ],
+  "support_audit_sha256": "5c9011a22ab840afa23181e14c83c6e7e13c19e982286e5ae5cc65b8364ecd23",
+  "toolpath_bounds": {
+    "2303": {
+      "bounds_xy_mm": [
+        [
+          105.907,
+          105.71
+        ],
+        [
+          223.801,
+          144.29
+        ]
+      ],
+      "shared_bed_margin_mm": 80.907
+    },
+    "2305": {
+      "bounds_xy_mm": [
+        [
+          108.445,
+          189.775
+        ],
+        [
+          222.648,
+          219.22
+        ]
+      ],
+      "shared_bed_margin_mm": 83.445
+    }
+  },
+  "object_separation_mm": 45.485000000000014,
+  "native_log_diagnostics": [
+    "ZFiller: encounter idx from clip: 4",
+    "Invalid T command (T1001).",
+    "Invalid T command (T65535).",
+    "Invalid T command (T65279)."
+  ],
+  "physical_fit_tested": false,
+  "part_scope": "Unit 0001 production nameplate with matching receiver coupon for retention testing.",
+  "qr_verification": {
+    "decoder": "Apple Vision VNDetectBarcodesRequest",
+    "input": "mark2-first-layer.png",
+    "image_sha256": "4451dc2a3563ce9967daeec1c47228292acb3a579e20eb1aa1434bbc80bdbf66",
+    "decoded_payloads": [
+      "HTTPS://HOSM.US/0001"
+    ],
+    "matches_unit": true,
+    "source": "Rendered commanded first-layer extrusion paths, viewed from the bed face; not a physical scan."
+  },
+  "live_preflight": {
+    "observed_utc": "2026-09-21T00:04:35.985987+00:00",
+    "application": "Bambu Connect Beta",
+    "printer": "Mark2",
+    "black": "Left nozzle, black external spool, PET-CF metadata",
+    "white": "Right nozzle R, white external spool, PET-CF metadata",
+    "hotend_warning": false,
+    "send_enabled": true,
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "right_white_petgf_first_use": true
+  },
+  "printer_acknowledgement": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-21T00:04:59.530906+00:00",
+    "gcode_state": "PREPARE",
+    "subtask_name": "nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "layer_counters": "Not recorded during PREPARE; the printer still exposed the previous job counters."
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "status": "print_completed_bench_qualification_pending",
+  "status": "bench_fit_pass_keeper_catch_requires_revision",
   "production_carrier_ready": false,
   "coupon_only": true,
   "submitted": true,
@@ -310,5 +310,8 @@
     "print_error": 0,
     "hms": []
   },
-  "bench_fit_qualified": false
+  "bench_fit_qualified": false,
+  "interlocking_fit_qualified": true,
+  "positive_keeper_retention_qualified": false,
+  "physical_fit_record": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/physical-fit.json"
 }

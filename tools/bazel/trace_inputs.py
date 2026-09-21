@@ -155,6 +155,10 @@ sys.path.insert(0, os.path.dirname(os.path.join(ROOT, GEN)))
 raised = None
 try:
     runpy.run_path(os.path.join(ROOT, GEN), run_name="__main__")
+except SystemExit as exc:
+    if exc.code not in (None, 0):
+        raised = f"SystemExit({exc.code!r})"
+        print(f"  (raised {raised}; keeping what it read)", file=sys.stderr)
 except BaseException as exc:
     raised = type(exc).__name__
     print(f"  (raised {raised}; keeping what it read)", file=sys.stderr)
