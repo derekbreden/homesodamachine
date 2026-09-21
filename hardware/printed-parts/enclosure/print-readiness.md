@@ -8,11 +8,12 @@ the selected G Ganen placement intersects the rear shell and nameplate. Those pa
 require correction. The [cancellation record](tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json)
 and [print job](enclosure/print-jobs.json) retain the observations.
 
-The first productive replacement is the full front-bottom, with its unchanged mating
-datums being checked before an H2C slice. The carrier pair and cartridge/cap have
-passing offline slice/support reviews; their affected assembly interfaces are being
-reconciled before dispatch. Plate clearance is required after the cancelled job.
-Mark2 remains allocated to the other agent’s countertop.
+The full pump cartridge and raised open cap are **running on H2C**, confirmed at
+2026-09-21 07:47:46 UTC, layer0/496, no error. Derek confirmed the plate clear.
+The exact H2C slice and current-source native mating comparison pass; the estimate is
+10h9m12s, and the saved auto-brim setting emits no brim. The [launch record](tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json) binds these inputs.
+Mark2 is printing the countertop. The remaining shell, manifold and routing corrections
+continue during these complete prints.
 
 Derek’s operating rule is to keep potentially productive prints running while checks
 continue, or cancel and switch to productive work. **Do not pause a print for design

@@ -695,6 +695,50 @@
       "last_running_total_layers": 813,
       "plate_clearance_confirmed": false,
       "resumed_by_user_before_cancellation": true
+    },
+    {
+      "date": "2026-09-21",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "0c0371383599b007c6ed8750964b6a3bfc0a114548089ff6d6a9f5101b21f929",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063"
+      },
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "project": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/pump-cartridge-cap-black-z018-h2c-v1-input.3mf",
+      "project_sha256": "d445658ea4b08b3270c64c289d36172c35644655093553781324e6608728f2d2",
+      "sliced_file": ".cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "sliced_file_sha256": "8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562",
+      "gcode_sha256": "0080b646ccd07f37d715fb70c561db6fddb24fc98871d93cb66ca38f9785eca7",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "brim_type": "auto_brim",
+      "emitted_brim_paths": 0,
+      "nozzle": "fixed left0.4 mm diamond PCD",
+      "filament": "black PET-GF; PET-CF metadata on left external254",
+      "layers": 496,
+      "estimated_seconds": 36552.3125,
+      "filament_grams_saved_profile_density": 419.9352111816406,
+      "filament_grams_petgf_density_1p43": 465.50957518584966,
+      "sent_via": "Bambu Connect",
+      "started_by": "agent",
+      "status": "started",
+      "job_name": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-21T07:47:46.755410+00:00",
+      "observed_print_error": 0,
+      "observed_layer": 0,
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json"
     }
   ]
 }
