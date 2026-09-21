@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "jobs": [
+    {
+      "job_id": "2026-09-20-tube-miter-box-black-z004-mark2",
+      "archive": "tube-miter-box-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "7a8def865a4fd5ff93f8d0d43b037b9f649323f78e1e840a2eb6dcd0209610de",
+      "gcode_sha256": "ef4af35e1a289ab11acfb21f0181055504224d58aa844328d0f60b971c34076e",
+      "source_project": "tube-miter-box-petgf-mark2.3mf",
+      "source_project_sha256": "82b4a29759bcb882ca4d94a473271321da2e73723f85ac16d8570a0f6aeb9c33",
+      "source_stl": "tube-miter-box.stl",
+      "source_stl_sha256": "d9a43dbeb8c3f151e3e4bbcb1763e0f324dc93b269d36fc99c529372dcdff27b",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "physical_filament": "black PET-GF, left external spool",
+      "physical_nozzle": "0.4 mm (the printer's fixed left hotend as reported over MQTT)",
+      "physical_setup_authority": "Derek: both printers loaded with black PET-GF on the left hotend, all plates clear; the Scan results task allocated Mark2 to this job.",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect",
+        "printer_selection": "the dialog offered H2C after Mark2's device page was opened; Mark2 was chosen in the dialog's printer popover by position and the selector read Mark2 before Send",
+        "filament_mapping": "left nozzle, Ext PET-CF (the dialog resolved it)",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-21T03:16:56.539657+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "tube-miter-box-petgf-z004-mark2.gcode.3mf",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 75,
+        "mc_remaining_time": 20,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
+      "physical_fit": null,
+      "estimate": {
+        "seconds": 1253.233642578125,
+        "grams": 9.222639083862305
+      }
+    }
+  ]
+}

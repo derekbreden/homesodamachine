@@ -33,6 +33,11 @@ STANDING_OPTIONS = {
 # above the External spool.
 TILE_CENTRE = (47, 30)
 EXTERNAL_SPOOL = (-245, 282)
+# The printer selector at the dialog's top, from its own origin: its name text, and the first
+# row of the popover that opens under it, one row per printer in PRINTERS order.
+SELECTOR_TEXT = (70, 32)
+PRINTER_ROW = (74, 84)
+PRINTER_ROW_PITCH = 34
 BUSY = ("PREPARE", "RUNNING", "PAUSE")
 
 NODE = re.compile(
@@ -193,8 +198,20 @@ def main():
         fail("the Send to print dialog did not open")
     name = selector(nodes)
     if name != args.printer:
-        ax("press", "cancel", "--role", "AXButton", check=False)
-        fail(f"the dialog offers {name}, not {args.printer}; its device page was not the last one viewed")
+        # The printer popover is out of the tree, like the filament one: clicked by position
+        # from the selector's own origin, and judged by what the selector reads afterwards.
+        sel = [g for g in find(nodes, role="AXGroup", ends=" chevron_down")
+               if g["label"].rsplit(" ", 1)[0] in PRINTERS][0]
+        x, y = sel["x"], sel["y"]
+        row = PRINTERS.index(args.printer)
+        ax("click", str(x + SELECTOR_TEXT[0]), str(y + SELECTOR_TEXT[1]),
+           str(x + PRINTER_ROW[0]), str(y + PRINTER_ROW[1] + PRINTER_ROW_PITCH * row))
+        nodes = wait_for(5, lambda n: dialog(n) and selector(n) == args.printer and n)
+        if not nodes:
+            ax("press", "cancel", "--role", "AXButton", check=False)
+            fail(f"the dialog offers {name}, not {args.printer}, and the printer popover did not take it")
+        print(f"dialog: offered {name}; chose {args.printer} in the printer popover")
+        name = selector(nodes)
     print(f"dialog: printer {name}")
 
     # 4. The filament mapping, by the tile it fills in.
