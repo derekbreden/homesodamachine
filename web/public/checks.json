@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 36 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 65 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,7 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 4a62d35020292efe60d14cbf7fe6fb7b for the 382 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 9b2468eea2ab4185b18a2e81c0a06865 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 4a62d35020292efe60d14cbf7fe6fb7b for the 382 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a7580157039887bed5763657fc05e8ba here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -202,6 +202,31 @@
       "hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
       "  git add hardware/reference/iec-c14-inlet/README.figures.json",
       "65/66 artifacts have their record in the index"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  --- BUILD.bazel",
+      "  +++ what gen_build.py writes now",
+      "  @@ -4675,6 +4675,7 @@",
+      "           \"pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py\",",
+      "           \"pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py\",",
+      "           \"pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py\",",
+      "  +        \"hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json\",",
+      "           \":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step\",",
+      "           \"pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py\",",
+      "           \":out/tee-connector/hardware/reference/tee-connector/tee-connector.step\",",
+      "  @@ -6162,7 +6163,12 @@",
+      "   genrule(",
+      "       name = \"enclosure\",",
+      "       srcs = [",
+      "  +        \"pysrc/hardware/manifold-layout/_gas_chain.py\",",
+      "  +        \"pysrc/hardware/manifold-layout/_lines.py\",",
+      "  +        \"pysrc/hardware/manifold-layout/_scorecard.py\",",
+      "           \":out/enclosure-box/hardware/manifold-layout/enclosure-box.json\",",
+      "  +        \"pysrc/hardware/manifold-layout/enclosure_assembly.py\",",
+      "  +        \"pysrc/hardware/manifold-layout/manifold_layout.py\",",
+      "  … 31 more line(s)",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
       "8 test(s) in web/ fail:",
