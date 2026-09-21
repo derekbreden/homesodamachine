@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2650 tracked, 539 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2657 tracked, 539 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -87,23 +87,23 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 26 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 29 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 39 of 217 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 536 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 39 of 235 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 112",
+      "lock-taking scripts scanned: 113",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 1640a4fadb4b997c2b694381b176e74d here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 5e8e76178ae6b27ac9673b726aed7da8 for the 147 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 707dc2cd9cb33891ab39858aef5bf317 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -209,11 +209,12 @@
       "           \"hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.lint-answers\",",
       "           \"hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.support-audit.json\",",
       "           \"hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.lint-answers\",",
-      "  @@ -11894,6 +11896,22 @@",
-      "   )",
-      "   genrule(",
-      "  +    name = \"pysrc-62f7daabbb06\",",
-      "  … 292 more line(s)",
+      "  @@ -7110,6 +7112,51 @@",
+      "   cp hardware/printed-parts/faucet/tube-collar/tube-collar-water.step $$O4",
+      "   cp hardware/printed-parts/faucet/tube-collar/README.figures.json $$O5",
+      "   cp hardware/printed-parts/faucet/tube-collar/README.md $$O6",
+      "  +\"\"\",",
+      "  … 393 more line(s)",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
