@@ -91,12 +91,17 @@ print bed, and QR size/quiet-zone geometry.
 
 [`nameplate-001-petgf.3mf`](nameplate-001-petgf.3mf) is an editable two-colour project with
 the nameplate artwork-down and the receiver coupon in the back-top print orientation.
-Both PET-GF colours map to the profile-compatible extruder. The slice and support audit
-are regenerated from these meshes. The project uses black and
-white PET-GF; filament assignment and two-colour purge are setup items before sending it
-to a printer. No printer has been started.
+Black PET-GF maps to Mark2's left external spool and white PET-GF to its right external
+spool. Both use the printer's PET-CF label and hardened 0.4 mm nozzles. The
+[material compatibility record](petgf-hotend-compatibility.json) records Polymaker's
+H2C PET-GF support for both hotends. The project retains the shared PET-GF temperatures
+and flow settings and uses Mark2's requested 0.04 mm bed trim.
 
-The [slice reading](nameplate-001-petgf.print.json) records 1.3 mm stem toolpath envelopes
+The [native print record](mark2-print-readiness.json) identifies the exact archive accepted
+by Mark2, its live spool mapping and the right hotend's first use with white PET-GF.
+Physical printing, support removal and snap retention remain separate checks.
+
+The [native slice reading](mark2-print-readiness.json) records 1.3 mm stem toolpath envelopes
 and five consecutive full-depth catch layers. The total catch section is 3.10–3.115 mm:
 1.3 mm stem plus 1.8 mm lip. This is commanded extrusion geometry, not measured edge finish.
 The first-layer artwork decodes to `HTTPS://HOSM.US/0001`.
@@ -108,11 +113,12 @@ serving its ledge, shoulders and rim, plus two small bodies without labelled int
 the pad corners. Those two bodies' contact area and build-up are unmeasured. Support count
 is an observation; preserve the working faces when removing them.
 
-The local slice estimates 1 h 25 min and 35.32 g, including the coupon, purge and supports,
+The native slice estimates 1 h 23 min and 35.12 g, including the coupon, purge and supports,
 using the saved profile's 1.29 g/cm³ density. Its native log notices are retained in the slice
 reading. Physical catch finish, insertion force and retention are established with the
 included receiver coupon.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/prepare_print.py
+tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/verify_mark2_print.py
 ```

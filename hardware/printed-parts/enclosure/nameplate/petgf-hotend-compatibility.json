@@ -1,0 +1,30 @@
+{
+  "manufacturer": "Polymaker",
+  "material": "Fiberon PET-GF15",
+  "printer": "Bambu Lab H2C 0.4 nozzle",
+  "source_url": "https://raw.githubusercontent.com/Polymaker3D/Polymaker-Preset/main/preset/Fiberon%20PET-GF15/BBL/H2C/BambuStudio/Fiberon%20PET-GF15%20@BBL%20H2C.json",
+  "repository_tree_sha": "31cec5acaf670a6f3dba67b81dba061c3de4569d",
+  "git_blob_sha": "3882d226019924405b4bd57b7050cc1570a3c451",
+  "download_sha256": "b983e6ae821d1d7a9cbb00fcef909e6a06ad869e1db4673dc58c4b8498cff12d",
+  "manufacturer_values": {
+    "filament_type": [
+      "PET-CF"
+    ],
+    "filament_printable": [
+      "3"
+    ],
+    "filament_extruder_compatibility": [
+      "0"
+    ],
+    "filament_extruder_variant": [
+      "Direct Drive Standard",
+      "Direct Drive High Flow"
+    ]
+  },
+  "applied_change": "Set the custom PET-GF filament printable mask to 3 for both colours (both hotends), preserving established temperature/flow/process values.",
+  "printer_mapping": {
+    "left": "black PET-GF, external 254, PET-CF label",
+    "right": "white PET-GF, external 255, PET-CF label"
+  },
+  "right_hotend_prior_petgf_use": "Derek reports first use; no completed right-hotend PET-GF print claimed."
+}

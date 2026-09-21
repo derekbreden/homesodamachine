@@ -40,8 +40,8 @@ printed PET-GF strength, the stress at its root, required snap force or fatigue 
 
 The nominal fore/aft key clearance is **0.15 mm**, and supported vertical clearance is
 **0.40 mm per opposing contact**. This coupon has geometric retention, not modeled
-clamping preload. Its measured play matters: a stronger bearing arrangement with
-perceptible lash is not automatically a stiffer assembled carrier.
+clamping preload. The printed coupon has no observed rocking or play in Derek's hand-fit test; full-width
+carrier rigidity remains a separate physical comparison.
 
 ## Print and assemble
 
@@ -68,7 +68,15 @@ material width and **0.65 mm** open space beside the beam in the commanded road 
 [print-readiness.json](print-readiness.json) records exact source/profile/archive hashes.
 Mark2 completed this exact job at the **2026-09-20 23:23:54 UTC** status reading, with
 **220/220 layers, 100% progress and no printer error**; [print-status.json](print-status.json)
-retains that reading. Physical support removal, fit and keeper retention remain unverified.
+retains that reading. Derek reports successful tight assembly with a small amount of force
+and **no rocking or play**. The keeper inserts with a tight friction fit, but its tiny catch
+is flimsy and supplies essentially no observed spring tension. The
+[physical fit report](physical-fit.json) accepts the interlocking fit and rejects the catch
+as a meaningful positive lock. Broad compliant walls and retaining lips, patterned on the
+[accepted faucet display cover](../../../faucet/faucet-display-cover/physical-acceptance.json),
+are the integral latch direction: the two mating halves should lock during their normal
+seating movement, with no separate keeper or fastening step. Simpler assembly is an
+acceptance condition.
 The left external spool is mapped as PET-CF in Bambu Connect and carries Derek's black
 PET-GF. Timelapse and bed leveling are On; flow and nozzle-offset calibration are Auto.
 This coupon does not release the production carrier or enclosure.
@@ -93,9 +101,9 @@ full-width comparison under equal centre and unequal hand loads.
 
 The current rear-insert keeper does not preload the broad lap. A rigid draw-in wedge would
 need to enter under the keys' fore faces along X or Z; thickening the adjacent keeper blocks
-alone does not remove fore/aft lash. Until a draw-in fit is demonstrated, the keyed joint
-may still need the existing screw clamping in production. This coupon establishes whether
-the screwless engagement and keeper work in the actual material, and how much play remains.
+alone does not remove fore/aft lash. Derek's physical coupon has a tight, play-free fit. Production integration must preserve
+that fit, provide integral positive retention without a separate keeper and establish
+full-width rigidity.
 
 ## Remaining carrier work
 
