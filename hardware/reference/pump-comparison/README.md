@@ -9,7 +9,8 @@ Scan-derived dimensions remain pending processing and review.
 The generated enclosure still uses the
 [SeaFlo SFDP1-013-100-22 reference](/hardware/reference/seaflo-22-pump/README.md)
 and is not released for printing with the G Ganen. The pump reference, mounting
-and tube routes must agree before that release. The power supply reference is
+and tube routes must agree before that release. The [integration map](g-ganen-integration.md)
+names the affected interfaces. The power supply reference is
 the [Mean Well IRM-90-12ST](/hardware/reference/meanwell-irm90/README.md).
 
 | Sample | Purchase | Current record |

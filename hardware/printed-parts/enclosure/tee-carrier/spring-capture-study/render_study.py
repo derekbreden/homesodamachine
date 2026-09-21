@@ -90,6 +90,8 @@ def main():
                 fontsize=10.5,color='#8b5b29')
     figure.savefig(HERE/'axial-capture-study.png',dpi=160,facecolor=figure.get_facecolor())
     figure.savefig(HERE/'axial-capture-study.svg',facecolor=figure.get_facecolor())
+    svg = HERE/'axial-capture-study.svg'
+    svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     plt.close(figure)
     print('Rendered native axial spring-capture study')
 
