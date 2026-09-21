@@ -1,0 +1,785 @@
+{
+  "scope": "Exact class-and-anchor reconciliation of completed postpublish full STL lint with source/native feature review and the final carrier-pair slice support ledger. Geometry bytes unchanged; physical cleanup, fit and stiffness remain trial observations.",
+  "native_geometry_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
+  "native_geometry_evidence_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6",
+  "parts": [
+    {
+      "side": "left",
+      "stl_sha256": "8ee7f1f2826abcc12ad4a5acc93eb9c882c7ad82746147af8368ab26880c1f48",
+      "step_sha256": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
+      "answers_sha256": "5e8b5bd7e0ee312ed4c5e9edc991628aa4261fa8009193a53861872b9f3ffddb",
+      "raw_lint_log": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-carrier-left-lint.txt",
+      "raw_log_sha256": "696f09742a3444a6e53e23d6e00c86885d8a43040608d5d79eb6c89b78250096",
+      "open_count": 0,
+      "answered_count": 33,
+      "findings": [
+        {
+          "class": "step",
+          "anchor": [
+            -34.91,
+            115.19,
+            195.625
+          ],
+          "answered": true,
+          "reason": "[step] The broad inner-web backing adds 0.90 mm behind the 6 mm web, making a continuous 6.90 mm section where it is present. Its lower edge at Z182.175 clears the actual valve-coil entry by 0.25 mm. This is a backed stock addition, not a 0.90 mm freestanding wall; current native sections and full-wall insertion checks retain it."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            8.875,
+            110.49,
+            194.799
+          ],
+          "answered": true,
+          "reason": "[sliver] The full-height rail head extends 0.75 mm beyond the neck on this side. The head itself is 2 mm thick through Y and 15.75 mm wide; this face is the exposed shoulder beside the 11 mm-wide neck, not a 0.75 mm independent wall. Its native engagement, broad load-bearing contacts and complete lateral assembly motion are checked."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -34.91,
+            114.74,
+            182.175
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -22.35,
+            114.74,
+            199.424
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -22.35,
+            114.74,
+            196.924
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -29.0,
+            135.995,
+            215.5
+          ],
+          "answered": true,
+          "reason": "[sliver] The 3 \u00d7 3 \u00d7 9 mm retaining stop ends at Y136.000, while its broad upper-cheek/root ends at Y135.990. These are the 0.010 mm exposed edge faces at their union. The stop overlaps the root through its remaining 2.99 mm Y depth; no freestanding 0.010 mm sheet is present. The root is continuous with the shelf and upper cheek, and the native retaining-wall motion checks use this exact body."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -32.24,
+            111.74,
+            200.174
+          ],
+          "answered": true,
+          "reason": "[sliver] The inner tie slot is 1.5 mm across and passes through the complete 6.90 mm web-plus-backing depth. Its roof has the supported-face allowance, and its floor and roof keep the same declared strap passage. Native tie-slot, head and valve-entry checks cover the complete added stock."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -32.24,
+            111.74,
+            196.424
+          ],
+          "answered": true,
+          "reason": "[sliver] The inner tie slot is 1.5 mm across and passes through the complete 6.90 mm web-plus-backing depth. Its roof has the supported-face allowance, and its floor and roof keep the same declared strap passage. Native tie-slot, head and valve-entry checks cover the complete added stock."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -31.5,
+            135.995,
+            211.0
+          ],
+          "answered": true,
+          "reason": "[sliver] The 3 \u00d7 3 \u00d7 9 mm retaining stop ends at Y136.000, while its broad upper-cheek/root ends at Y135.990. These are the 0.010 mm exposed edge faces at their union. The stop overlaps the root through its remaining 2.99 mm Y depth; no freestanding 0.010 mm sheet is present. The root is continuous with the shelf and upper cheek, and the native retaining-wall motion checks use this exact body."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -23.485,
+            125.145,
+            209.075
+          ],
+          "answered": true,
+          "reason": "[ceiling] The lower structural shelf keeps its flat bearing section. The current carrier-pair Mark2 slice places tree-2/interface-8 below it; detach that contact branch from the bed stem and remove it through the exposed underside while the half is loose. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json. Cleanup force and finish remain physical observations.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -92.425,
+            102.915,
+            207.674
+          ],
+          "answered": true,
+          "reason": "[ceiling] This flat roof clears the outer tee during lateral half insertion while preserving the grip backing and upper trough stock. Current carrier-pair tree-3/interface-7 carries the entry-corner relief; detach its branch through the open fore/outboard side before installing the tee, ties or spring. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -2.75,
+            128.245,
+            222.525
+          ],
+          "answered": true,
+          "reason": "[ceiling] The upper overlap cheek retains its flat bearing face above the shelf. Current carrier-pair tree-2/interface-10 is a separate contact branch: detach it from its stem and withdraw it through the open inboard +X end between the shelf plies before joining the other half. The lane is recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json; intact-tree extraction and cleanup effort are not inferred.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -34.91,
+            114.74,
+            182.175
+          ],
+          "answered": true,
+          "reason": "[ceiling] This is the 0.90 mm external lower overhang of the broad backing, rooted along the continuous 6 mm web. Its Z182.175 face preserves 0.25 mm native valve-entry air. The exact carrier-pair slice has no distinct support island here; the small exposed edge is accessible for cleanup before valve insertion. No supported-bridge or measured extrusion-width claim is made. Printed finish and retained entry clearance are full-enclosure trial observations.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json",
+          "support_qualification": "Exposed 0.90 mm rooted overhang; no distinct emitted support island and no measured local extrusion-width claim."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            1.375,
+            110.39,
+            172.174
+          ],
+          "answered": true,
+          "reason": "[ceiling] The captured centre rail retains its square lower end and full-height engagement. Current carrier-pair tree-2/interface-1 supports its foot. That short branch is exposed from below and is removed while the half is loose, before it enters the right receiver. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "slope",
+          "anchor": [
+            -96.374,
+            103.84,
+            214.693
+          ],
+          "answered": true,
+          "reason": "[slope] The closed spring bore has two tangent 45-degree roof faces that preserve its full \u00d86.57 mm circular passage. They print without interior support in the declared +Z orientation; these are bore roofs, not bearing planes. The exact current halves and 2 mm loading tool pass the complete native wall sequence."
+        },
+        {
+          "class": "step",
+          "anchor": [
+            -90.85,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[step] The outer bowed-tube recess ends at absolute X90.850 beside the grip back at X91.000. Its 0.150 mm lateral offset is the edge of a 0.496 mm-deep open recess, backed by the continuous 5.504 mm upper web. It is not the grip's wall thickness; native probes preserve the full grip root and 3 mm finger-pocket backing."
+        },
+        {
+          "class": "step",
+          "anchor": [
+            -74.225,
+            108.786,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[step] The flat bowed-tube relief ends 0.496 mm behind the web fore face. The retained upper backing is 5.504 mm thick and joins the complete web; this is the edge of a shallow open recess, not a separate thin wall."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -73.35,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -90.85,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -31.1,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -90.0,
+            111.29,
+            200.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -72.21,
+            111.29,
+            200.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -90.0,
+            111.29,
+            176.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -72.21,
+            111.29,
+            176.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -90.0,
+            111.29,
+            172.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -72.21,
+            111.29,
+            172.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -90.0,
+            111.29,
+            196.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -72.21,
+            111.29,
+            196.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -82.1,
+            110.288,
+            207.724
+          ],
+          "answered": true,
+          "reason": "[ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -22.35,
+            110.288,
+            207.724
+          ],
+          "answered": true,
+          "reason": "[ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -99.25,
+            106.29,
+            175.3
+          ],
+          "answered": true,
+          "reason": "[ceiling] The solid grip bar's flat underside at Z175.300 clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including the 0.25 mm supported-surface allowance. The full 16 mm Y section rises from this face. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            -99.125,
+            131.79,
+            175.3
+          ],
+          "answered": true,
+          "reason": "[ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly."
+        },
+        {
+          "class": "slope",
+          "anchor": [
+            -98.696,
+            103.84,
+            214.693
+          ],
+          "answered": true,
+          "reason": "[slope] The spring channel's tangent 45-degree roof runs along its Y axis and preserves the complete 6.57 mm round passage. It builds without interior support on the Z-up print. This is a bore roof, not a load-bearing seating face."
+        }
+      ]
+    },
+    {
+      "side": "right",
+      "stl_sha256": "4f21c9cb7dd0d230f0f187c3192741761c4fc0a5bee7b45d065eeefd29df5232",
+      "step_sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+      "answers_sha256": "a0311d60d1e9f503cd4b895084078aedcb63462215350bec260b87e0c0688f99",
+      "raw_lint_log": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-carrier-right-lint.txt",
+      "raw_log_sha256": "45534458963df6feedf115415c789eb8ebb6e4884318b75ffae60f328246bab3",
+      "open_count": 0,
+      "answered_count": 39,
+      "findings": [
+        {
+          "class": "step",
+          "anchor": [
+            35.91,
+            115.19,
+            195.625
+          ],
+          "answered": true,
+          "reason": "[step] The broad inner-web backing adds 0.90 mm behind the 6 mm web, making a continuous 6.90 mm section where it is present. Its lower edge at Z182.175 clears the actual valve-coil entry by 0.25 mm. This is a backed stock addition, not a 0.90 mm freestanding wall; current native sections and full-wall insertion checks retain it."
+        },
+        {
+          "class": "step",
+          "anchor": [
+            -24.25,
+            134.6,
+            211.5
+          ],
+          "answered": true,
+          "reason": "[step] The integral retaining wall is 9 mm high, while its 3 mm-wide by 1.2 mm-deep shoulder is 8 mm high, leaving a 0.50 mm margin at each end. This offset is the shoulder extent on a continuous 3 mm wall, not a thinned beam interface. Native entry, flex-envelope clearance and seated contact are checked; actual retention force remains a full-enclosure trial outcome."
+        },
+        {
+          "class": "step",
+          "anchor": [
+            -24.25,
+            134.6,
+            219.5
+          ],
+          "answered": true,
+          "reason": "[step] The integral retaining wall is 9 mm high, while its 3 mm-wide by 1.2 mm-deep shoulder is 8 mm high, leaving a 0.50 mm margin at each end. This offset is the shoulder extent on a continuous 3 mm wall, not a thinned beam interface. Native entry, flex-envelope clearance and seated contact are checked; actual retention force remains a full-enclosure trial outcome."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            35.91,
+            114.74,
+            182.175
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            23.245,
+            114.74,
+            199.424
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            23.245,
+            114.74,
+            196.924
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            15.0,
+            114.74,
+            189.549
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            20.5,
+            114.74,
+            209.075
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            15.0,
+            114.74,
+            204.249
+          ],
+          "answered": true,
+          "reason": "[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            -22.75,
+            134.6,
+            215.5
+          ],
+          "answered": true,
+          "reason": "[sliver] This is the end face of the 1.2 mm-projecting integral retention shoulder. The shoulder is 3 mm wide along X and 8 mm high, directly backed by the broad 3 mm-thick flexible wall. Its native engagement is checked; no quantified spring force or physical latch acceptance is inferred."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            32.24,
+            111.74,
+            200.174
+          ],
+          "answered": true,
+          "reason": "[sliver] The inner tie slot is 1.5 mm across and passes through the complete 6.90 mm web-plus-backing depth. Its roof has the supported-face allowance, and its floor and roof keep the same declared strap passage. Native tie-slot, head and valve-entry checks cover the complete added stock."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            32.24,
+            111.74,
+            196.424
+          ],
+          "answered": true,
+          "reason": "[sliver] The inner tie slot is 1.5 mm across and passes through the complete 6.90 mm web-plus-backing depth. Its roof has the supported-face allowance, and its floor and roof keep the same declared strap passage. Native tie-slot, head and valve-entry checks cover the complete added stock."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            12.75,
+            110.465,
+            172.224
+          ],
+          "answered": true,
+          "reason": "[sliver] The receiver pocket begins at Z172.024 and the intersecting tie-slot floor is at Z172.424. Their 0.400 mm exposed end face at X12.75 belongs to the continuous 2.25 mm receiver side wall reaching X15.00. The receiver has full end bridges and backing; this reading is the short exposed face between two openings, not a separate 0.4 mm wall."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            41.41,
+            123.74,
+            209.075
+          ],
+          "answered": true,
+          "reason": "[ceiling] The outboard structural shelf keeps its flat bearing section. Current carrier-pair tree-1/interface-7 is detached from its bed stem and removed downward through the exposed underside while the half is loose. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json. Cleanup force and finish remain physical observations.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            3.125,
+            135.245,
+            211.0
+          ],
+          "answered": true,
+          "reason": "[ceiling] The broad integral retaining wall keeps its full 3 mm thickness and flat lower edge. Current carrier-pair tree-1/interface-8 contacts the wall and root underside; detach that branch and remove it downward while the halves are separate. The current slice preserves connected wall extrusion across every expected layer; removal force and latch feel remain unmeasured. Contact, lane and wall readings are in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            3.05,
+            110.465,
+            217.575
+          ],
+          "answered": true,
+          "reason": "[ceiling] The receiver roof has a support-removal route through its broad shelf entry while the half is loose. Detach current carrier-pair tree-1/interface-11 from its lower stem, release its nominal rear-wall contact, lower it 2 mm, then withdraw it 6 mm fore. Six passing native readings in tee-readiness/full-enclosure-print/carrier-pair-receiver-access.json bind this route to the current STEP and exact two-carrier slice; after the 0.05 mm fore release, the branch envelope with 0.02 mm added XY allowance has zero swept overlap. This covers a detached branch, not intact-tree extraction or measured cleanup effort.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            92.425,
+            102.915,
+            207.674
+          ],
+          "answered": true,
+          "reason": "[ceiling] This flat roof clears the outer tee during lateral half insertion while preserving the grip backing and upper trough stock. Current carrier-pair tree-3/interface-6 carries the entry-corner relief; detach its branch through the open fore/outboard side before installing the tee, ties or spring. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            2.0,
+            120.29,
+            215.8
+          ],
+          "answered": true,
+          "reason": "[ceiling] The upper overlap shelf keeps its flat mating face and 31.85 mm X engagement. Current carrier-pair tree-1/interface-9 is detached from its stem and withdrawn through the free inboard -X edge before the left half is joined. The exact contact and open lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json; cleanup effort and contact finish remain physical observations.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json"
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            35.91,
+            114.74,
+            182.175
+          ],
+          "answered": true,
+          "reason": "[ceiling] This is the 0.90 mm external lower overhang of the broad backing, rooted along the continuous 6 mm web. Its Z182.175 face preserves 0.25 mm native valve-entry air. The exact carrier-pair slice has no distinct support island here; the small exposed edge is accessible for cleanup before valve insertion. No supported-bridge or measured extrusion-width claim is made. Printed finish and retained entry clearance are full-enclosure trial observations.",
+          "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json",
+          "support_qualification": "Exposed 0.90 mm rooted overhang; no distinct emitted support island and no measured local extrusion-width claim."
+        },
+        {
+          "class": "slope",
+          "anchor": [
+            96.374,
+            103.84,
+            214.693
+          ],
+          "answered": true,
+          "reason": "[slope] The closed spring bore has two tangent 45-degree roof faces that preserve its full \u00d86.57 mm circular passage. They print without interior support in the declared +Z orientation; these are bore roofs, not bearing planes. The exact current halves and 2 mm loading tool pass the complete native wall sequence."
+        },
+        {
+          "class": "slope",
+          "anchor": [
+            98.696,
+            103.84,
+            214.693
+          ],
+          "answered": true,
+          "reason": "[slope] The closed spring bore has two tangent 45-degree roof faces that preserve its full \u00d86.57 mm circular passage. They print without interior support in the declared +Z orientation; these are bore roofs, not bearing planes. The exact current halves and 2 mm loading tool pass the complete native wall sequence."
+        },
+        {
+          "class": "step",
+          "anchor": [
+            90.85,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[step] The outer bowed-tube recess ends at absolute X90.850 beside the grip back at X91.000. Its 0.150 mm lateral offset is the edge of a 0.496 mm-deep open recess, backed by the continuous 5.504 mm upper web. It is not the grip's wall thickness; native probes preserve the full grip root and 3 mm finger-pocket backing."
+        },
+        {
+          "class": "step",
+          "anchor": [
+            30.225,
+            108.786,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[step] The flat bowed-tube relief ends 0.496 mm behind the web fore face. The retained upper backing is 5.504 mm thick and joins the complete web; this is the edge of a shallow open recess, not a separate thin wall."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            90.85,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            31.1,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            13.6,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            73.35,
+            108.538,
+            214.774
+          ],
+          "answered": true,
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            72.21,
+            111.29,
+            200.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            90.0,
+            111.29,
+            200.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            72.21,
+            111.29,
+            176.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            90.0,
+            111.29,
+            176.174
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            72.21,
+            111.29,
+            172.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            90.0,
+            111.29,
+            172.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            72.21,
+            111.29,
+            196.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "sliver",
+          "anchor": [
+            90.0,
+            111.29,
+            196.424
+          ],
+          "answered": true,
+          "reason": "[sliver] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            82.1,
+            110.288,
+            207.724
+          ],
+          "answered": true,
+          "reason": "[ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            22.35,
+            110.288,
+            207.724
+          ],
+          "answered": true,
+          "reason": "[ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            99.25,
+            106.29,
+            175.3
+          ],
+          "answered": true,
+          "reason": "[ceiling] The solid grip bar's flat underside at Z175.300 clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including the 0.25 mm supported-surface allowance. The full 16 mm Y section rises from this face. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly."
+        },
+        {
+          "class": "ceiling",
+          "anchor": [
+            99.125,
+            131.79,
+            175.3
+          ],
+          "answered": true,
+          "reason": "[ceiling] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly."
+        }
+      ]
+    }
+  ],
+  "support_issue": "The exact current carrier-pair slice has a passing detached receiver-branch route and named removal lanes for all seven trees/21 interfaces. The two 0.90 mm backing edges have no distinct support island and remain explicit external overhangs; their printed finish is unmeasured.",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f"
+  },
+  "receiver_support_evidence": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-pair-receiver-access.json",
+    "sha256": "a775de5e3b4fba39a4b189df8c5139e50d3c7ecfff75877bbe59f9c15dd91095",
+    "scope": "One loose right carrier and one detached receiver-roof support branch; no mechanism geometry change or physical cleanup measurement."
+  },
+  "current_support_slice_evidence": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json",
+    "sha256": "37aaa1b940ea7e2d6628491eda60384ccd061e4b67e369f0bdc6642f6805cd97",
+    "native_archive_sha256": "2d475a99e359c809e998da7e999f3463e2f2d0099b3aa59f49d087614f2df95a",
+    "gcode_sha256": "6f8c642d94455c102b8daae1aeec94608e8e9777f5ccfc90ca12a7824fd2694d",
+    "support_ledger_sha256": "3e4c59fbc7374fa196da0891f90d6c0070e85c1e2feb24545839bfafb3360862",
+    "support_bodies": 7,
+    "interface_islands": 21,
+    "submitted": false,
+    "physical_cleanup_effort_measured": false
+  }
+}

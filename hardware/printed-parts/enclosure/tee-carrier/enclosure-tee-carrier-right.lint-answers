@@ -24,8 +24,6 @@ click: x=12.460 y=111.290 z=196.424
 click: x=72.210 y=111.290 z=196.424
 click: x=90.000 y=111.290 z=196.424
 
-[ceiling] The aft shelf's flat underside at Z209.075 runs 14 mm behind the web and clears the inner aft coil cases. Removable support rises 41.901 mm from the bed and leaves through the loose half's open aft face before hardware assembly. The final slice must verify its emitted support bodies.
-click: x=27.085 y=121.290 z=209.075
 
 [ceiling] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies.
 click: x=82.100 y=110.288 z=207.724
@@ -39,3 +37,63 @@ click: x=99.125 y=131.790 z=175.300
 
 [slope] The spring channel's tangent 45-degree roof runs along its Y axis and preserves the complete 6.57 mm round passage. It builds without interior support on the Z-up print. This is a bore roof, not a load-bearing seating face.
 click: x=98.717 y=103.840 z=214.713
+
+[step] The broad inner-web backing adds 0.90 mm behind the 6 mm web, making a continuous 6.90 mm section where it is present. Its lower edge at Z182.175 clears the actual valve-coil entry by 0.25 mm. This is a backed stock addition, not a 0.90 mm freestanding wall; current native sections and full-wall insertion checks retain it.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=35.910 y=115.190 z=195.625
+
+[sliver] These exposed edge faces bound the 0.90 mm stock added directly behind the continuous 6 mm web. The band is 6.90 mm thick through Y except at the declared through tie slots and shallow strap relief. The small face width names the addition, not the complete load-bearing section.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=35.910 y=114.740 z=182.175
+click: x=23.245 y=114.740 z=199.424
+click: x=23.245 y=114.740 z=196.924
+click: x=15.000 y=114.740 z=189.549
+click: x=20.500 y=114.740 z=209.075
+click: x=15.000 y=114.740 z=204.249
+
+[sliver] The inner tie slot is 1.5 mm across and passes through the complete 6.90 mm web-plus-backing depth. Its roof has the supported-face allowance, and its floor and roof keep the same declared strap passage. Native tie-slot, head and valve-entry checks cover the complete added stock.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=32.240 y=111.740 z=200.174
+click: x=32.240 y=111.740 z=196.424
+
+[slope] The closed spring bore has two tangent 45-degree roof faces that preserve its full Ø6.57 mm circular passage. They print without interior support in the declared +Z orientation; these are bore roofs, not bearing planes. The exact current halves and 2 mm loading tool pass the complete native wall sequence.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=96.374 y=103.840 z=214.693
+click: x=98.696 y=103.840 z=214.693
+
+[step] The integral retaining wall is 9 mm high, while its 3 mm-wide by 1.2 mm-deep shoulder is 8 mm high, leaving a 0.50 mm margin at each end. This offset is the shoulder extent on a continuous 3 mm wall, not a thinned beam interface. Native entry, flex-envelope clearance and seated contact are checked; actual retention force remains a full-enclosure trial outcome.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=-24.250 y=134.600 z=211.500
+click: x=-24.250 y=134.600 z=219.500
+
+[sliver] This is the end face of the 1.2 mm-projecting integral retention shoulder. The shoulder is 3 mm wide along X and 8 mm high, directly backed by the broad 3 mm-thick flexible wall. Its native engagement is checked; no quantified spring force or physical latch acceptance is inferred.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=-22.750 y=134.600 z=215.500
+
+[sliver] The receiver pocket begins at Z172.024 and the intersecting tie-slot floor is at Z172.424. Their 0.400 mm exposed end face at X12.75 belongs to the continuous 2.25 mm receiver side wall reaching X15.00. The receiver has full end bridges and backing; this reading is the short exposed face between two openings, not a separate 0.4 mm wall.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=12.750 y=110.465 z=172.224
+
+[ceiling] The receiver roof has a support-removal route through its broad shelf entry while the half is loose. Detach current carrier-pair tree-1/interface-11 from its lower stem, release its nominal rear-wall contact, lower it 2 mm, then withdraw it 6 mm fore. Six passing native readings in tee-readiness/full-enclosure-print/carrier-pair-receiver-access.json bind this route to the current STEP and exact two-carrier slice; after the 0.05 mm fore release, the branch envelope with 0.02 mm added XY allowance has zero swept overlap. This covers a detached branch, not intact-tree extraction or measured cleanup effort.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=3.050 y=110.465 z=217.575
+
+[ceiling] The outboard structural shelf keeps its flat bearing section. Current carrier-pair tree-1/interface-7 is detached from its bed stem and removed downward through the exposed underside while the half is loose. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json. Cleanup force and finish remain physical observations.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=41.410 y=123.740 z=209.075
+
+[ceiling] The broad integral retaining wall keeps its full 3 mm thickness and flat lower edge. Current carrier-pair tree-1/interface-8 contacts the wall and root underside; detach that branch and remove it downward while the halves are separate. The current slice preserves connected wall extrusion across every expected layer; removal force and latch feel remain unmeasured. Contact, lane and wall readings are in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=3.125 y=135.245 z=211.000
+
+[ceiling] This flat roof clears the outer tee during lateral half insertion while preserving the grip backing and upper trough stock. Current carrier-pair tree-3/interface-6 carries the entry-corner relief; detach its branch through the open fore/outboard side before installing the tee, ties or spring. The exact contact and lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=92.425 y=102.915 z=207.674
+
+[ceiling] The upper overlap shelf keeps its flat mating face and 31.85 mm X engagement. Current carrier-pair tree-1/interface-9 is detached from its stem and withdrawn through the free inboard -X edge before the left half is joined. The exact contact and open lane are recorded in tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json; cleanup effort and contact finish remain physical observations.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=2.000 y=120.290 z=215.800
+
+[ceiling] This is the 0.90 mm external lower overhang of the broad backing, rooted along the continuous 6 mm web. Its Z182.175 face preserves 0.25 mm native valve-entry air. The exact carrier-pair slice has no distinct support island here; the small exposed edge is accessible for cleanup before valve insertion. No supported-bridge or measured extrusion-width claim is made. Printed finish and retained entry clearance are full-enclosure trial observations.
+file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+click: x=35.910 y=114.740 z=182.175

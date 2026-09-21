@@ -366,3 +366,28 @@ The job is **cancelled**, confirmed by Bambu Connect and printer status at
 2026-09-20T21:34:13.528173+00:00, after the last observed running layer 51/813.
 The sliced valve-tray region is 2 mm above the corrected model. Both heater targets
 are zero. The replacement is held for the [front-top and tee-carrier readiness audit](../print-readiness.md).
+
+## 2026-09-21 — complete front-top on H2C
+
+The current full `enclosure-front-top` and one reusable carrier spring pusher started
+on H2C at 2026-09-21T06:24:35.628199+00:00. The job is **cancelled**, confirmed by Bambu Connect and MQTT at
+2026-09-21T07:20:31.779542+00:00. The last observed running layer was 3/813.
+The actual cold-core shell intersects the printed aft tray by 3.29 mm in Y; the
+front-top requires correction. Both heater targets are zero. Derek resumed the
+brief design-review pause before cancellation and instructs agents to keep potentially
+productive prints running or cancel and replace them, never pause for design analysis.
+
+- Black PET-GF on the left external spool, mapped as PET-CF; fixed left 0.4 mm nozzle.
+- Saved `petgf.3mf` process and support settings; this prepared plate uses `no_brim`,
+  with zero emitted brim paths. The saved default for future projects is `auto_brim`.
+- Requested Z trim +0.18 mm; emitted textured-plate trim +0.16 mm.
+- Timelapse and bed leveling On; flow and nozzle-offset calibration Auto.
+- Estimate: 24 h 16 min 20 s, 818.17 g at the saved 1.29 g/cm³ density,
+  approximately 906.96 g at the PET-GF accounting density of 1.43 g/cm³.
+- Actual object/support paths retain at least 20.851 mm bed-edge distance and
+  12.639 mm mutual separation. Support-removal lanes are recorded for every body.
+
+The [print job](print-jobs.json) binds the source, project, archive and G-code hashes.
+The [release report](../tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json)
+carries the native slice and support review. Spring feel, retention, rigidity and physical
+support removal remain readings of the complete enclosure trial.

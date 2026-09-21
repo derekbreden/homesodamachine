@@ -1,0 +1,80 @@
+{
+  "observation": {
+    "printer": "H2C",
+    "observed_at": "2026-09-21T07:20:31.779542+00:00",
+    "gcode_state": "FAILED",
+    "subtask_name": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 813,
+    "mc_remaining_time": 0,
+    "print_error": 50348044,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "nozzle_temper": 257.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 79.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    },
+    "nozzle_type": "HS01-0.6",
+    "nozzles": [
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A610715877"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907799"
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737"
+      }
+    ]
+  },
+  "ui_state": "Failed; The task was canceled.",
+  "last_observed_running_layer": 3,
+  "last_observed_running_total_layers": 813,
+  "reason": "Native actual foam-shell intersects the printed front-top by 30747.278 mm3 at Y178..181.29, requiring geometry correction.",
+  "user_policy": "Do not pause prints for design review. Continue potentially productive printing while checking, or cancel and switch to productive work.",
+  "plate_clearance_confirmed": false
+}

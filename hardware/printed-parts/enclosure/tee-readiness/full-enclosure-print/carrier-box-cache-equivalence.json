@@ -1,0 +1,538 @@
+{
+  "status": "geometry_and_guard_equivalent",
+  "created_at_utc": "2026-09-21T06:59:49.108959+00:00",
+  "source_path": "hardware/manifold-layout/enclosure_assembly.py",
+  "old_revision": "987f5d91b303bcc19dd523bb719863db824b2a70",
+  "old_sha256": "fd28eef61a1a92b6c5ef3b5c7fd87d1ac055e07a24a34d00d4344fe54e9c4c30",
+  "new_sha256": "999ec78472f9b2c4028733e41d8c379c284b4eb89b3879af8cfcd07c1577a029",
+  "cache_source_path": "hardware/scripts/_boxes.py",
+  "cache_source_sha256": "b4ef9757879de112561a56d294a7705075a9006e2826e534cb1779781eaebc23",
+  "reproducer_sha256": "73da62332ef212bb6e116554e554b694abdb6a0e40c69ea6505177bf1d3e0dfd",
+  "command": [
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_carrier_box_cache_equivalence.py"
+  ],
+  "scope": "One carrier clearance-loop obstacle-box query. No appliance or part geometry is constructed or exported; existing native obstacles and one translated identity witness are inspected.",
+  "ast": {
+    "only_named_assignment_changed": true,
+    "all_geometry_constructors_identical": true,
+    "box_disjoint_condition_identical": true,
+    "exact_overlap_call_identical": true,
+    "overlap_failure_threshold_and_reporting_identical": true,
+    "returned_bound_identical": true
+  },
+  "cache_contract": "The existing cache computes the same Shape.BoundingBox result, keys the placed native shape, verifies IsSame, pins it, and includes placement in its persistent BREP key.",
+  "input_sha256": {
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/frames.json": "e49f81ec1b5ab6d8112f680f22df33912881b9efff8bf89288d0ff2618686a1e",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-a.brep": "90fc45342c4df85a4cbf5f1615e2a4e103eee1ed299c4baab6c43f6198eb5a42",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-a.brep": "6a7b4ccde6dbb245fe02175890b2b2b1619d54552636e44a4aaddc595886a835",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-c.brep": "02cc6a238a15196d8d3281b30bf61d14fa0de7ad3732028eefdb6b5070b3f850",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-c.brep": "3a9f79117b2e1c49f7417408af8bc673417f9ada58a267d8655ec22b43b49ecd",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-e.brep": "82622cee18aa66e68d9a6d32c7916ffc76ce82e594c6d0f1451e0f787ca35554",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-e.brep": "36b92c26ace08031552f69f4c86082675864703dc38363ec8e4a0d565a464007",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-g.brep": "db1f566540a97ddd0c5f2eb60d7d0c2df272718757778e5e8e5c16c7c38d2f18",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-g.brep": "3b613b799197324db4926f717fe50f1944b750698a8746c4c339be95ed5b13f7",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-f.brep": "81d22bdeb541097cbc4e34c17af1c7251c789b36c666474a7f0f6f00a4ca9e4d",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-f.brep": "d73d77c569d964494ee1f23e284685a32cd75e0bb4a3be06eef293b87a588eb8",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-b.brep": "26b337cc1767378b8a4f9c6b46445d8e34aa0c2e073d65f5762b76219db5d2fa",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-b.brep": "c3cc72930de5a4f8e89491893ad622876329848f91844e415ce3182da5d4dd4e",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-d.brep": "e9672865b53bf84bc1597dbe3db6fad44ae26bedee7cb0113c05b1ebd8e6fe82",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-d.brep": "a960e368a687df474082d9490d39ed9bd30dec6816e1436fdb49da5b565d7e85",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-h.brep": "211016b5054a8318c82a77315d0e835b6fa63d808ad3992fa2088c58c3d4e6e8",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-h.brep": "6cb4fd37fedf2c60cb59c955c80cb14b8a3f7d56c27768ad57dcb03918a58a4d",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-j.brep": "afd5b58a070a6b25c9e500ddd9bcaae181417e4a6e578c1885a9799cbfcda147",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-j.brep": "d0d33fcbadffee7d92455485b834ea4d12226be0534fc5d5b100a9ce56c99701",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-i.brep": "1f27df8f5a0f5962c9b89ae7e945af2546aad06a1d2e9a937dbfda628f7ac838",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-i.brep": "61ab0e68a261f2e033a76ef825f33e4aca95485c3913c8a5b400d222b088a2ce",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "45bb2b809c6f571dafbf75270365f539825306b466193fa5429168b83feeca67",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "734a980ae00a795071a703ecebfd1c4f4c224c5eb064e7d7593d1166cfdd1bc7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "f8d3869ab7e98025488b676744b6a99c6f5c74b53f36c6e44607f030c3e47786",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "f1152a2862d3058fe21a4d567c4d4c29c35e0a63a2e359d4be11fa9553773795"
+  },
+  "immutable_obstacles": [
+    {
+      "name": "valve-v-a",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-a.brep",
+      "coordinates_mm": [
+        8.020000000000024,
+        199.95999989999993,
+        260.1250001,
+        41.520000100000026,
+        259.46,
+        286.1250001000001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.027008166012819856,
+      "direct_optimal_seconds": 0.9787382909853477
+    },
+    {
+      "name": "coil-v-a",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-a.brep",
+      "coordinates_mm": [
+        8.020000000000021,
+        202.6099999999999,
+        286.1250001,
+        41.52000000000003,
+        246.60999999999996,
+        317.42500020000006
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.7678148749982938,
+      "direct_optimal_seconds": 0.7008123329724185
+    },
+    {
+      "name": "valve-v-c",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-c.brep",
+      "coordinates_mm": [
+        5.599999900000015,
+        151.29,
+        162.1750001,
+        39.10000000000002,
+        177.29000000000005,
+        221.67500009999998
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.024441374989692122,
+      "direct_optimal_seconds": 0.8184750840009656
+    },
+    {
+      "name": "coil-v-c",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-c.brep",
+      "coordinates_mm": [
+        5.600000000000016,
+        119.98999989999999,
+        164.8250001,
+        39.100000000000016,
+        151.29000000000002,
+        208.8250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.18105033299070783,
+      "direct_optimal_seconds": 0.1820771660131868
+    },
+    {
+      "name": "valve-v-e",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-e.brep",
+      "coordinates_mm": [
+        5.600000000000012,
+        94.23999999999998,
+        222.67500009999998,
+        39.100000000000016,
+        120.24,
+        282.1750001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.02360820898320526,
+      "direct_optimal_seconds": 0.8599346250121016
+    },
+    {
+      "name": "coil-v-e",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-e.brep",
+      "coordinates_mm": [
+        5.600000000000012,
+        120.24,
+        225.3250001,
+        39.100000000000016,
+        151.54000010000001,
+        269.3250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.20285029101069085,
+      "direct_optimal_seconds": 0.1657511249941308
+    },
+    {
+      "name": "valve-v-g",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-g.brep",
+      "coordinates_mm": [
+        57.06999999999999,
+        151.29,
+        170.1750001,
+        90.57,
+        177.29000000000005,
+        229.67500019999997
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.017028875008691102,
+      "direct_optimal_seconds": 0.6049612500064541
+    },
+    {
+      "name": "coil-v-g",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-g.brep",
+      "coordinates_mm": [
+        57.06999999999999,
+        119.98999989999999,
+        183.0250001,
+        90.57,
+        151.29000000000002,
+        227.0250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.16949374999967404,
+      "direct_optimal_seconds": 0.16793987501296215
+    },
+    {
+      "name": "valve-v-f",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-f.brep",
+      "coordinates_mm": [
+        65.35000000000002,
+        94.23999989999999,
+        222.67500009999998,
+        98.85000000000002,
+        120.24,
+        282.1750002
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.016932250000536442,
+      "direct_optimal_seconds": 0.5353017919987906
+    },
+    {
+      "name": "coil-v-f",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-f.brep",
+      "coordinates_mm": [
+        65.35000000000002,
+        120.24,
+        235.5250001,
+        98.85000000000002,
+        151.54000010000001,
+        279.5250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.12395624999771826,
+      "direct_optimal_seconds": 0.10911383299389854
+    },
+    {
+      "name": "valve-v-b",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-b.brep",
+      "coordinates_mm": [
+        -39.09999999999998,
+        199.95999989999993,
+        260.1250001,
+        -5.5999999999999766,
+        259.46,
+        286.1250001000001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.012897875014459714,
+      "direct_optimal_seconds": 0.4454409169848077
+    },
+    {
+      "name": "coil-v-b",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-b.brep",
+      "coordinates_mm": [
+        -39.09999999999998,
+        202.6099999999999,
+        286.1250001,
+        -5.5999999999999766,
+        246.60999999999996,
+        317.42500020000006
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.16473666700767353,
+      "direct_optimal_seconds": 0.19893583399243653
+    },
+    {
+      "name": "valve-v-d",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-d.brep",
+      "coordinates_mm": [
+        -39.10000009999999,
+        151.29,
+        162.1750001,
+        -5.599999999999984,
+        177.29000000000005,
+        221.67500009999998
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.020815500000026077,
+      "direct_optimal_seconds": 0.8635083330154885
+    },
+    {
+      "name": "coil-v-d",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-d.brep",
+      "coordinates_mm": [
+        -39.09999999999999,
+        119.98999989999999,
+        164.8250001,
+        -5.599999999999984,
+        151.29000000000002,
+        208.8250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.1753886669757776,
+      "direct_optimal_seconds": 0.2223515410150867
+    },
+    {
+      "name": "valve-v-h",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-h.brep",
+      "coordinates_mm": [
+        -39.099999999999994,
+        94.23999999999998,
+        222.67500009999998,
+        -5.599999999999987,
+        120.24,
+        282.1750001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.023683292005443946,
+      "direct_optimal_seconds": 0.7567542080068961
+    },
+    {
+      "name": "coil-v-h",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-h.brep",
+      "coordinates_mm": [
+        -39.09999999999999,
+        120.24,
+        225.3250001,
+        -5.599999999999987,
+        151.54000010000001,
+        269.3250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.19208545799483545,
+      "direct_optimal_seconds": 0.20656179200159386
+    },
+    {
+      "name": "valve-v-j",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-j.brep",
+      "coordinates_mm": [
+        -90.57000009999999,
+        151.2899999,
+        170.1750001,
+        -57.069999999999986,
+        177.29000000000005,
+        229.67500019999997
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.017566499998793006,
+      "direct_optimal_seconds": 0.7829415000160225
+    },
+    {
+      "name": "coil-v-j",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-j.brep",
+      "coordinates_mm": [
+        -90.57,
+        119.98999989999999,
+        183.0250001,
+        -57.06999999999999,
+        151.29000000000002,
+        227.0250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.2065566669916734,
+      "direct_optimal_seconds": 0.19638550002127886
+    },
+    {
+      "name": "valve-v-i",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/valve-v-i.brep",
+      "coordinates_mm": [
+        -98.84999999999997,
+        94.23999989999999,
+        222.67500009999998,
+        -65.34999999999997,
+        120.24,
+        282.1750002
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.017114791000494733,
+      "direct_optimal_seconds": 0.7579940420109779
+    },
+    {
+      "name": "coil-v-i",
+      "native_path": "/private/tmp/scanner-review/full-enclosure-current/route-pack/coil-v-i.brep",
+      "coordinates_mm": [
+        -98.84999999999997,
+        120.24,
+        235.5250001,
+        -65.34999999999997,
+        151.54000010000001,
+        279.5250001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.13600916700670496,
+      "direct_optimal_seconds": 0.14759537499048747
+    },
+    {
+      "name": "enclosure-front-top",
+      "native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "coordinates_mm": [
+        -107.50000010000001,
+        4.999999899999999,
+        159.9999999,
+        107.50000010000002,
+        212.55000010000006,
+        355.0
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.061307875002967194,
+      "direct_optimal_seconds": 0.042650624993257225
+    },
+    {
+      "name": "enclosure-front-bottom",
+      "native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "coordinates_mm": [
+        -107.5000001,
+        5.0,
+        -6.0000000000009965,
+        107.5,
+        212.55,
+        174.8
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.06537945798481815,
+      "direct_optimal_seconds": 0.030414999986533076
+    },
+    {
+      "name": "enclosure-back-top",
+      "native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "coordinates_mm": [
+        -107.5000001,
+        199.9999999,
+        159.9999999,
+        107.5000001,
+        467.0000001,
+        355.0000001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.024846750020515174,
+      "direct_optimal_seconds": 0.0034325000015087426
+    },
+    {
+      "name": "enclosure-back-bottom",
+      "native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+      "coordinates_mm": [
+        -107.5,
+        200.0,
+        -6.0000001,
+        107.5,
+        467.60000010000005,
+        174.8
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.2583142920047976,
+      "direct_optimal_seconds": 0.15827145898947492
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "coordinates_mm": [
+        -87.225,
+        10.859,
+        216.925,
+        87.225,
+        79.269,
+        284.1740001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.003211709001334384,
+      "direct_optimal_seconds": 9.679101640358567e-05
+    },
+    {
+      "name": "enclosure-pump-cartridge",
+      "native_path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "coordinates_mm": [
+        -107.5,
+        5.0,
+        165.1949999,
+        107.5,
+        79.269,
+        284.1740001
+      ],
+      "direct_equals_cached_exactly": true,
+      "maximum_coordinate_delta_mm": 0.0,
+      "same_native_shape_new_python_wrapper": true,
+      "cache_identity_hits": 20,
+      "initial_cached_seconds": 0.15617929099244066,
+      "direct_optimal_seconds": 0.14133275000494905
+    }
+  ],
+  "different_location_probe": {
+    "translation_mm": [
+      0.125,
+      0.25,
+      0.375
+    ],
+    "original_cache_not_reused": true,
+    "direct_equals_cached_exactly": true
+  },
+  "input_drift": [],
+  "elapsed_seconds": 16.66705187500338,
+  "geometry_outputs_written": false,
+  "full_assembly_regenerated": false,
+  "current_geometry_receipt_modified": false,
+  "print_released": false
+}

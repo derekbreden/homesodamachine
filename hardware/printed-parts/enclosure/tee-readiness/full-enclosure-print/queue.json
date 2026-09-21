@@ -1,6 +1,6 @@
 {
-  "status": "preparation_only_waiting_for_full_current_geometry",
-  "submitted": false,
+  "status": "geometry_repairs_in_progress_countertop_running_on_mark2",
+  "submitted": true,
   "all_shell_quadrants_fresh": true,
   "source_profile": "hardware/printed-parts/petgf.3mf",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
@@ -17,17 +17,53 @@
   "first_jobs": [
     {
       "printer": "H2C",
-      "directory": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1",
+      "directory": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v3",
       "parts": [
         "enclosure-front-top",
-        "enclosure-tee-carrier-left",
-        "enclosure-tee-carrier-right",
         "carrier-spring-pusher"
       ],
       "requested_z_trim_mm": 0.18,
       "effective_textured_z_trim_mm": 0.16,
       "pusher_geometry": "verified canonical flat 13.15 x 6.3 x 2.0 mm tool; current native wall installation/removal passed",
-      "pusher_declaration": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/pusher-declaration.json"
+      "pusher_declaration": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v3/pusher-declaration.json",
+      "current_pusher_proof": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/current-pusher-proof.json",
+      "current_pusher_proof_sha256": "83ceee963a8a4eca439ec270b5ae40b9ae1830f44955800431c697aa67c08adb",
+      "brim_type": "no_brim",
+      "model_centers_xy_mm": {
+        "enclosure-front-top": [
+          138.275,
+          156.7635
+        ],
+        "carrier-spring-pusher": [
+          296.5,
+          157.375
+        ]
+      },
+      "native_status": "submitted_canceled",
+      "print_released": false,
+      "native_archive_sha256": "aa7bd43e332c8a84535ab3db57a031af6bb7328240c00fa4de9e36bc568d64ae",
+      "submitted": true,
+      "started_at_utc": "2026-09-21T06:24:35.628199+00:00",
+      "native_archive": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v3/ready/enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+      "initial_live_state": {
+        "state": "RUNNING",
+        "layer": 0,
+        "total_layers": 813,
+        "remaining_minutes": 1456,
+        "print_error": 0,
+        "hms": []
+      },
+      "current_live_state": {
+        "state": "FAILED",
+        "interpretation": "User/task cancellation, explicitly confirmed by printer UI",
+        "layer": 3,
+        "total_layers": 813,
+        "observed_at_utc": "2026-09-21T07:20:31.779542Z",
+        "authority": "Coordinating task MQTT and UI observation"
+      },
+      "paused_at_utc": "2026-09-21T07:12:13+00:00",
+      "canceled_at_utc": "2026-09-21T07:20:31.779542Z",
+      "cancellation_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json"
     },
     {
       "printer": "Mark2",
@@ -39,31 +75,139 @@
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
       "queue_after": "current fake-countertop job",
-      "native_support_packing": "pending exact native support/toolpath bounds",
-      "printer_handoff": "Mark2 remains assigned to Tube miter box; fresh mounted-nozzle confirmation required after hotend change"
+      "native_support_packing": "Native supports/brim/model paths fit; 29.275 mm minimum bed margin and 31.799 mm inter-object separation",
+      "printer_handoff": "Mark2 remains assigned to Tube miter box; fresh mounted-nozzle confirmation required after hotend change",
+      "brim_type": "auto_brim",
+      "native_status": "offline print review pass; pending Mark2 handoff and parent release",
+      "print_released": false,
+      "calibration_note": "The current countertop z000 job is an explicitly limited single-print trial. It does not replace the saved Mark2 +0.04 mm requested trim. Fresh hotend first-layer behavior awaits the owning task.",
+      "native_archive_sha256": "5df9a09154864e1916fd3de02e76441c23a91f92d70547785c7c35ff0e6dda01",
+      "estimated_seconds": 36556.6953125,
+      "estimated_grams_saved_profile_density": 419.9352722167969,
+      "support_review": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/support-removal-review.json",
+      "support_review_sha256": "3aec2af5bb8991a9f0defb7b314ac17811017268019dd05ffc1c14420bf8dd7c",
+      "readiness": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/readiness.json",
+      "queue_hold": "complete_assembly_integration_findings"
     }
   ],
   "remaining_shell_jobs": [
     {
       "part": "enclosure-front-bottom",
       "orientation": "upright",
-      "printer": null
+      "printer": "Mark2",
+      "offline_project_prepared": true,
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "brim_type": "auto_brim",
+      "preparation_status": "Existing saved-profile staging retained unchanged; native slicing follows priority first shell",
+      "native_status": "offline print review pass; pending parent release",
+      "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/ready/enclosure-front-bottom-black-z004-mark2-v1.gcode.3mf",
+      "native_archive_sha256": "1454b147ced20f2b9c64731f5e854d9b19c78ddfbd20c17c815b33338399f68c",
+      "estimated_seconds": 63335.83203125,
+      "estimated_grams_saved_profile_density": 560.4927978515625,
+      "estimated_grams_petgf_density_1p43": 621.321473587391,
+      "support_review": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/support-removal-review.json",
+      "support_review_sha256": "d9d99c8c11b174a4cc1b89f626def6e07c2a2aea86abd04a846daba2000dd3cb",
+      "readiness": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/readiness.json",
+      "print_released": false,
+      "submitted": false,
+      "queue_hold": "complete_assembly_integration_findings",
+      "compatibility_pending": "Selected whole-core +4.3 mm aft movement can move its floor core-stop blocks. Shell seams Y200/Z160 remain fixed, but old quadrant is not released pending fresh Box/native compatibility."
     },
     {
       "part": "enclosure-back-bottom",
       "orientation": "upright",
-      "printer": null
+      "printer": "Mark2",
+      "offline_project_prepared": true,
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "brim_type": "auto_brim",
+      "preparation_status": "Existing saved-profile staging retained unchanged; native slicing follows priority first shell",
+      "queue_hold": "complete_assembly_integration_findings",
+      "print_released": false
     },
     {
       "part": "enclosure-back-top",
       "orientation": "ceiling-down X180",
-      "printer": null
+      "printer": "H2C",
+      "offline_project_prepared": true,
+      "requested_z_trim_mm": 0.18,
+      "effective_textured_z_trim_mm": 0.16,
+      "brim_type": "auto_brim",
+      "preparation_status": "Existing saved-profile staging retained unchanged; native slicing follows priority first shell",
+      "queue_hold": "complete_assembly_integration_findings",
+      "print_released": false
     }
   ],
   "print_sequence": "by layer",
-  "staged_projects": [],
-  "native_slices": [],
-  "packing_qualification": "Native support and extrusion bounds pending; model-box planning alone does not qualify fit.",
+  "staged_projects": [
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/enclosure-front-mechanism-black-z018-h2c-v1-input.3mf",
+      "sha256": "7c5afc2532dc47ca2cb2b502579161bee4098a8dc95a091773485f59cf4b6aee",
+      "printer": "H2C",
+      "status": "existing_staging_retained_unchanged"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/pump-cartridge-cap-black-z004-mark2-v2-input.3mf",
+      "sha256": "eab13413251f62b6c67c4a3290021aade4d08a98c2142ac1b885865bbccdb6ec",
+      "printer": "Mark2",
+      "status": "existing_staging_retained_unchanged"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/enclosure-front-bottom-black-z004-mark2-v1-input.3mf",
+      "sha256": "fa93fe205d85780463bab26934c19133e3c99a670be64b48a488972953341913",
+      "printer": "Mark2",
+      "status": "existing_staging_retained_unchanged"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v1/enclosure-back-bottom-black-z004-mark2-v1-input.3mf",
+      "sha256": "d40ea2c00bfc3fc4505f12a33e7d89ab06abb1ccebd51acd0a135c5e6bf6dbcf",
+      "printer": "Mark2",
+      "status": "existing_staging_retained_unchanged"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v1/enclosure-back-top-black-z018-h2c-v1-input.3mf",
+      "sha256": "472fd7a4eebdf53769613c36e89c282d39ff473461dbd514cfd7584734f86103",
+      "printer": "H2C",
+      "status": "existing_staging_retained_unchanged"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/enclosure-carrier-pair-black-z004-mark2-v1-input.3mf",
+      "sha256": "ed9c07f34fe8d14389c4264e577f02a1bb14502f404ea9c5a83375d0b56dc66a",
+      "printer": "Mark2",
+      "status": "new complete pair staged; native slice pending memory-lane release"
+    }
+  ],
+  "native_slices": [
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/ready/enclosure-front-mechanism-black-z018-h2c-v1.gcode.3mf",
+      "sha256": "2cd322df6794764271d852d553a93a5efece41d238b4091dee945e5294eca0f4",
+      "status": "retained_native_archive_not_current_release_input"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/ready/pump-cartridge-cap-black-z004-mark2-v2.gcode.3mf",
+      "sha256": "5df9a09154864e1916fd3de02e76441c23a91f92d70547785c7c35ff0e6dda01",
+      "status": "offline_print_review_pass_pending_parent_release"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v3/ready/enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+      "status": "submitted_canceled_due_to_native_front_top_core_interference",
+      "sha256": "aa7bd43e332c8a84535ab3db57a031af6bb7328240c00fa4de9e36bc568d64ae",
+      "submitted": true,
+      "started_at_utc": "2026-09-21T06:24:35.628199+00:00"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/ready/enclosure-carrier-pair-black-z004-mark2-v1.gcode.3mf",
+      "sha256": "2d475a99e359c809e998da7e999f3463e2f2d0099b3aa59f49d087614f2df95a",
+      "status": "offline_print_review_pass_pending_parent_release"
+    },
+    {
+      "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/ready/enclosure-front-bottom-black-z004-mark2-v1.gcode.3mf",
+      "sha256": "1454b147ced20f2b9c64731f5e854d9b19c78ddfbd20c17c815b33338399f68c",
+      "status": "offline_print_review_pass_pending_parent_release"
+    }
+  ],
+  "packing_qualification": "Keep the established15 mm model border; inspect actual native model/support/brim paths against325 x320 mm area and report separation. Inherit auto_brim for future projects without forced adhesion changes.",
   "print_released": false,
   "existing_nameplate": "Physically accepted; no repeat print required",
   "matching_cold_core_mounting_parts": [
@@ -79,10 +223,26 @@
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "4aee46ca8a6f6c7921492c69c44f5c603413230cb7222dcec091b261d621b3e7"
       },
       "missing_canonical_artifacts": [],
-      "printer": null,
+      "printer": "H2C",
       "print_profile": null,
-      "offline_project_prepared": false,
-      "print_released": false
+      "offline_project_prepared": true,
+      "print_released": false,
+      "print_input_manifest": ".cache/prints/2026-09-21-g-ganen-mounts/print-inputs.json",
+      "print_input_manifest_sha256": "4418b7b8088477c7251ea8037a67f8d39eae19b40353fac022c1149928895d07",
+      "ready_print_mesh": ".cache/prints/2026-09-21-g-ganen-mounts/foam-cap-top.stl",
+      "ready_print_mesh_sha256": "4aee46ca8a6f6c7921492c69c44f5c603413230cb7222dcec091b261d621b3e7",
+      "orientation": "native +Z up; broad Z=0 underside on bed",
+      "footprint_mm": [
+        283,
+        181
+      ],
+      "requested_z_trim_mm": 0.18,
+      "effective_textured_z_trim_mm": 0.16,
+      "brim_type": "no_brim retained prepared-input exception",
+      "staging_owner": "tee_reference",
+      "staged_manifest": ".cache/prints/2026-09-21-g-ganen-mounts/staged-plates.json",
+      "staged_manifest_sha256": "9ff32fa801a1e9eec46e7eec3715f55330c79346f81de41d195904f7b9578dcb",
+      "queue_hold": "complete_assembly_integration_findings"
     },
     {
       "part": "foam-cap-lid-top",
@@ -97,10 +257,26 @@
       "missing_canonical_artifacts": [
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl"
       ],
-      "printer": null,
+      "printer": "H2C",
       "print_profile": null,
-      "offline_project_prepared": false,
-      "print_released": false
+      "offline_project_prepared": true,
+      "print_released": false,
+      "print_input_manifest": ".cache/prints/2026-09-21-g-ganen-mounts/print-inputs.json",
+      "print_input_manifest_sha256": "4418b7b8088477c7251ea8037a67f8d39eae19b40353fac022c1149928895d07",
+      "ready_print_mesh": ".cache/prints/2026-09-21-g-ganen-mounts/foam-cap-lid-top.stl",
+      "ready_print_mesh_sha256": "5e13a33f748b90a5d4aae13b70b7754a9e21c08f140f8d6e10dcfe1cc7c07488",
+      "orientation": "native +Z up; broad Z=0 underside on bed",
+      "footprint_mm": [
+        283,
+        181
+      ],
+      "requested_z_trim_mm": 0.18,
+      "effective_textured_z_trim_mm": 0.16,
+      "brim_type": "no_brim retained prepared-input exception",
+      "staging_owner": "tee_reference",
+      "staged_manifest": ".cache/prints/2026-09-21-g-ganen-mounts/staged-plates.json",
+      "staged_manifest_sha256": "9ff32fa801a1e9eec46e7eec3715f55330c79346f81de41d195904f7b9578dcb",
+      "queue_hold": "complete_assembly_integration_findings"
     }
   ],
   "complete_pump_installation_scope": "The four shell quadrants do not provide the selected pump mounting by themselves; matching foam-cap-top and foam-cap-lid-top are required.",
@@ -121,5 +297,75 @@
     "sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6",
     "status": "current_front_top_native_pass",
     "print_released": false
+  },
+  "geometry_confirmation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-geometry.json",
+    "sha256": "8f578fa90c11a6b6ed6c2c1cd51bdd30a718b18d3f037addb23c156e4f17a0bd"
+  },
+  "resource_scheduling": "No enclosure slicer/reviewer is active. Mark2 is printing the user-requested countertop trial. H2C is available after plate clearance for a specifically qualified enclosure part. Front-bottom requires the selected core-stop +4.3 mm change to be resolved before its print can be released.",
+  "brim_policy": {
+    "default": "auto_brim from the saved production profile",
+    "authority": "Derek allows current prepared no_brim inputs to remain unchanged and wants future projects to inherit automatic selection. No manually forced enclosure brim.",
+    "current_prepared_exception": "First H2C v3 and the two G Ganen mounting plates retain no_brim. Earlier cartridge/cap and shell staging retain auto_brim.",
+    "actual_toolpath_check": "Report actual native Brim roads; verify zero where the staged project explicitly disables brim."
+  },
+  "guard_source_equivalence": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/fluid-2-guard-equivalence.json",
+    "sha256": "ac261abf111309b1f3264ea14bfe84de835b3acef5df9145c66b0a2229aba366",
+    "scope": "Sole guard-only _lines.py change; frozen print meshes and construction unchanged"
+  },
+  "deferred_complete_carrier_pair": {
+    "parts": [
+      "enclosure-tee-carrier-left",
+      "enclosure-tee-carrier-right"
+    ],
+    "quantity_each": 1,
+    "scope": "Complete final mechanism parts, not coupons",
+    "printer": "Mark2",
+    "brim_type": "auto_brim inherited for new project",
+    "native_status": "offline print review pass; pending Mark2 handoff and parent release",
+    "support_access_followup": "Exact new pair slice receiver branch passes the six-reading continuous withdrawal proof; all seven support bodies and21 interfaces have named cleanup lanes.",
+    "receiver_access_evidence": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-pair-receiver-access.json",
+      "sha256": "a775de5e3b4fba39a4b189df8c5139e50d3c7ecfff75877bbe59f9c15dd91095"
+    },
+    "directory": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1",
+    "requested_z_trim_mm": 0.04,
+    "effective_textured_z_trim_mm": 0.02,
+    "offline_project_prepared": true,
+    "staged_input": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/enclosure-carrier-pair-black-z004-mark2-v1-input.3mf",
+    "staged_input_sha256": "ed9c07f34fe8d14389c4264e577f02a1bb14502f404ea9c5a83375d0b56dc66a",
+    "orientation": "native upright; Z90 plate rotation preserves original +Z print-up",
+    "model_gap_mm": 40.0,
+    "minimum_model_bed_border_mm": 93.375,
+    "print_released": false,
+    "submitted": false,
+    "native_archive": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/ready/enclosure-carrier-pair-black-z004-mark2-v1.gcode.3mf",
+    "native_archive_sha256": "2d475a99e359c809e998da7e999f3463e2f2d0099b3aa59f49d087614f2df95a",
+    "estimated_seconds": 13370.5693359375,
+    "estimated_grams_saved_profile_density": 101.85890197753906,
+    "support_review": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/support-removal-review.json",
+    "support_review_sha256": "3e4c59fbc7374fa196da0891f90d6c0070e85c1e2feb24545839bfafb3360862",
+    "readiness": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/readiness.json",
+    "queue_hold": "complete_assembly_integration_findings"
+  },
+  "additional_guard_source_equivalence": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-box-cache-equivalence.json",
+    "sha256": "b39d93896cedd26c4ec6d673a0bc83389e08bc0286e99042a8ab3768c765be03",
+    "scope": "Only memoizes the same immutable native obstacle-box query; all frozen part geometry remains unchanged."
+  },
+  "queue_progression_hold": {
+    "active": true,
+    "authority": "Coordinating task: canonical full assembly reports complete-pack overlaps and carrier-envelope failures; assembly qualification requires triage.",
+    "scope": "No further native slices or new printer submissions. Preserve exact prepared archives. Offline toolpath/support results do not establish complete-assembly fit.",
+    "active_worker": null,
+    "last_completed_offline_job": "enclosure-front-bottom-black-z004-mark2-v1",
+    "first_h2c_job": "Paused, confirmed by coordinating task MQTT at2026-09-21T07:12:13+00:00; layer3/813,error0."
+  },
+  "operational_rule": {
+    "authority": "Derek, relayed by coordinating task on 2026-09-21",
+    "printer_pauses": "Do not pause a running job for agent reviews. A known defective job is canceled, with the exact reason and printer result recorded.",
+    "idle_holds": "Do not reserve an idle printer for indefinite whole-machine verification. Continue authorized useful prints whose geometry and mating interfaces are qualified.",
+    "current_priority": "The user-requested fake-countertop retry is running on Mark2 at requested +0.04, reported by its owner at 07:24:50 UTC. H2C may take the next qualified enclosure part after plate clearance; no idle-printer hold is created."
   }
 }

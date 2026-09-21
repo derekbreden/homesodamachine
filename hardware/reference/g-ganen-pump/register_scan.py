@@ -154,7 +154,7 @@ if __name__ == '__main__':
     parser.add_argument('--out', type=Path)
     parser.add_argument('--selftest', action='store_true')
     args = parser.parse_args()
-    if args.selftest:
+    if args.selftest or (args.configuration == 'selftest' and args.out is None):
         selftest()
     else:
         if not args.configuration or not args.out:

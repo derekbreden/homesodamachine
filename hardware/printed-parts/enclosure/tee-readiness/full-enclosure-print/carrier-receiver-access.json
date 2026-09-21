@@ -1,0 +1,242 @@
+{
+  "status": "pass",
+  "scope": "One loose right carrier and one detached receiver-roof support branch; no mechanism geometry change or physical cleanup measurement.",
+  "input_sha256": {
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+    ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/enclosure-front-mechanism-black-z018-h2c-v1-input.support-audit.json": "4b3f7691d6e0a6c4182196313e32ace27324b8be79af201900105bbfa07b2f2e",
+    ".cache/prints/2026-09-21-enclosure-front-mechanism-h2c-v1/ready/support-labels-enclosure-tee-carrier-right.gcode": "d6fd4266f046aeae6b1e678accc70f46f5008e97a96135fae96de166164e9157",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f",
+    "hardware/printed-parts/enclosure/tee-carrier/entry-backing-check.json": "39224401478cea4e62d391c2b233049db049d0a7f473de77430a8fb4e840d865"
+  },
+  "script_sha256": "92ff202eb2f267e3f18c44f0fdd4a70add2a772f49a7198c890f2a8274af497d",
+  "analysis_gcode_sha256": "fed34fa5b40854560edc474c9e9a7357fbc30b7e47888f207c019d5153f9ce20",
+  "native_support_island": "interface-11 in the retained four-part native slice",
+  "native_roads": 882,
+  "native_layers_z_mm": [
+    215.613996,
+    215.853996,
+    216.093996,
+    216.333996,
+    216.573996,
+    216.813996,
+    217.053996
+  ],
+  "maximum_native_width_mm": 0.62,
+  "additional_xy_buffer_mm": 0.0,
+  "selected_branch_region_xy_mm": [
+    -8.0,
+    107.0,
+    14.0,
+    113.5
+  ],
+  "all_selected_roads_inside_region": true,
+  "conservative_xy_envelopes_mm": [
+    [
+      -6.051999895002499,
+      110.62403979118857,
+      -3.5,
+      112.64000091600002
+    ],
+    [
+      -3.5,
+      108.00800091600001,
+      12.417,
+      112.64000091600002
+    ]
+  ],
+  "emitted_envelope_covers_roads": true,
+  "positive_extruding_support_arcs": 0,
+  "coincident_contact_tolerance_mm": 1e-05,
+  "post_release_additional_xy_envelope_mm": 0.02,
+  "post_release_xy_envelopes_mm": [
+    [
+      -6.0719766050588,
+      110.60404249138286,
+      -3.5,
+      112.66000091600002
+    ],
+    [
+      -3.5,
+      107.9880248670293,
+      12.436975909124103,
+      112.66000091600002
+    ]
+  ],
+  "post_release_envelope_covers_roads": true,
+  "branch_cut_plane_z_mm": 215.5,
+  "branch_top_z_mm": 217.053995972,
+  "motions_mm": [
+    [
+      0,
+      -0.05,
+      0
+    ],
+    [
+      0,
+      0,
+      -2
+    ],
+    [
+      0,
+      -6,
+      0
+    ]
+  ],
+  "native_checks": [
+    {
+      "name": "Emitted branch envelope in existing receiver; rear-wall contact retained",
+      "probe_bounds_mm": [
+        [
+          -6.051999895002499,
+          108.00800091600001,
+          215.5
+        ],
+        [
+          12.417,
+          112.64000091600002,
+          217.053995972
+        ]
+      ],
+      "overlap_mm3": 2.121460759009232e-05,
+      "overlap_bounds_mm": [
+        [
+          -6.051999895002499,
+          112.64,
+          215.8
+        ],
+        [
+          12.417000000000002,
+          112.64000091600002,
+          217.053995972
+        ]
+      ],
+      "coincident_rear_contact": true,
+      "pass": true
+    },
+    {
+      "name": "Continuous 0.05 mm fore release of the detached emitted branch",
+      "probe_bounds_mm": [
+        [
+          -6.051999895002499,
+          107.95800091600002,
+          215.5
+        ],
+        [
+          12.417,
+          112.64000091600002,
+          217.053995972
+        ]
+      ],
+      "overlap_mm3": 2.121460759009232e-05,
+      "overlap_bounds_mm": [
+        [
+          -6.051999895002499,
+          112.64,
+          215.8
+        ],
+        [
+          12.417000000000002,
+          112.64000091600002,
+          217.053995972
+        ]
+      ],
+      "coincident_rear_contact": true,
+      "pass": true
+    },
+    {
+      "name": "Released branch with 0.02 mm additional XY envelope",
+      "probe_bounds_mm": [
+        [
+          -6.0719766050588,
+          107.9380248670293,
+          215.5
+        ],
+        [
+          12.436975909124103,
+          112.61000091600002,
+          217.053995972
+        ]
+      ],
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "coincident_rear_contact": false,
+      "pass": true
+    },
+    {
+      "name": "Continuous 2 mm downward sweep into the shelf-entry opening",
+      "probe_bounds_mm": [
+        [
+          -6.0719766050588,
+          107.9380248670293,
+          213.5
+        ],
+        [
+          12.436975909124103,
+          112.61000091600002,
+          217.053995972
+        ]
+      ],
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "coincident_rear_contact": false,
+      "pass": true
+    },
+    {
+      "name": "Continuous 6 mm forward withdrawal after lowering",
+      "probe_bounds_mm": [
+        [
+          -6.0719766050588,
+          101.9380248670293,
+          213.5
+        ],
+        [
+          12.436975909124103,
+          112.61000091600002,
+          215.053995972
+        ]
+      ],
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "coincident_rear_contact": false,
+      "pass": true
+    },
+    {
+      "name": "Open fore access for detaching the lower branch stem",
+      "probe_bounds_mm": [
+        [
+          -8.0,
+          100.0,
+          209.225
+        ],
+        [
+          13.0,
+          114.65,
+          215.55
+        ]
+      ],
+      "overlap_mm3": 0.0,
+      "overlap_bounds_mm": null,
+      "coincident_rear_contact": false,
+      "pass": true
+    }
+  ],
+  "assembly_sequence": [
+    "While the right half is loose, detach the short roof branch from its lower support stem through the broad shelf-entry opening.",
+    "Free its rear-wall contact and move it 0.05 mm fore; the following swept envelope includes an extra 0.02 mm XY allowance.",
+    "Lower the detached branch 2 mm into that opening.",
+    "Withdraw it 6 mm fore (\u2212Y), then remove it from the open front.",
+    "Complete support cleanup before joining halves or installing tees/springs."
+  ],
+  "limits": [
+    "The check covers a detached short branch, not the entire connected bed-rooted support tree.",
+    "Rear-wall contact is present in the emitted support envelope; no positive starting wall gap or low detachment force is inferred.",
+    "Detachment force, cleanup time and contact finish remain physical observations.",
+    "The final carrier plate must still be sliced in the accepted upright orientation and its actual branch topology/removal route checked."
+  ],
+  "source_geometry_modified": false,
+  "native_exports_written": false,
+  "elapsed_seconds": 7.769650375004858,
+  "source_drift": []
+}

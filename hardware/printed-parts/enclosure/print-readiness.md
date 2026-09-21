@@ -1,19 +1,29 @@
 # Front-top and tee-carrier print readiness
 
-**The complete enclosure test print is being prepared.** Measured tee geometry, the
-simpler two-piece carrier, G Ganen mounts and tube routes need one coherent regenerated
-assembly and current slices. The assembled print supplies the spring-retention, tension,
-rigidity and feel results.
+**H2C’s front-top/pusher v3 job is cancelled.** Bambu Connect and MQTT confirmed
+the cancellation at 2026-09-21 07:20:31 UTC, after the last observed running layer 3/813.
+The completed full assembly report failed its fit gates. Native intersections confirm
+that the front-top aft valve tray enters the actual cold-core shell by 3.29 mm, and
+the selected G Ganen placement intersects the rear shell and nameplate. Those parts
+require correction. The [cancellation record](tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json)
+and [print job](enclosure/print-jobs.json) retain the observations.
 
-The regenerated Box and complete front-top pass their current carrier checks. The
-[fresh native report](tee-readiness/full-enclosure-print/current-front-top-check.json)
-records 152 readings and 36 continuous sweeps using both canonical halves and the reusable
-2 mm pusher. Complete assembly closure and current slices have their separate checks.
+The first productive replacement is the full front-bottom, with its unchanged mating
+datums being checked before an H2C slice. The carrier pair and cartridge/cap have
+passing offline slice/support reviews; their affected assembly interfaces are being
+reconciled before dispatch. Plate clearance is required after the cancelled job.
+Mark2 remains allocated to the other agent’s countertop.
 
-H2C's earlier front-top and the cap-rail cartridge jobs are cancelled. The latest cap-rail
-job was paused at layer 1; cancellation and zero heater targets are recorded in
-[print-jobs.json](enclosure/print-jobs.json). Derek has cleared both beds. H2C is available
-for the corrected enclosure work; Mark2 is allocated to the other agent's fake-countertop job.
+Derek’s operating rule is to keep potentially productive prints running while checks
+continue, or cancel and switch to productive work. **Do not pause a print for design
+analysis.** The requested test is the complete enclosure; no further coupons are required.
+New print projects inherit the saved auto-brim default and each printer’s established trim.
+
+The earlier 152 local readings and 36 continuous sweeps cover the loose front-top,
+carrier and pusher interfaces. They do not establish clearance to the complete cold core
+or every installed appliance component. The completed aggregate exposes the additional
+failures now being corrected. Physical spring retention, tension, rigidity, feel and
+assembly effort will be evaluated in the complete printed enclosure.
 
 ## Scans and fitted parts
 
@@ -101,6 +111,15 @@ their verified digests are in the [readiness record](print-readiness.json). The
 [fresh wall report](tee-readiness/full-enclosure-print/current-front-top-check.json)
 proves their native equality, actual Box agreement and complete placement/working paths
 through the canonical front-top. The actual slice and support-removal lanes are separate.
+The right receiver's exact two-carrier slice passes six native support-access readings:
+detach the short roof branch through the broad shelf entry, release rear-wall contact,
+lower it 2 mm, then withdraw it 6 mm fore. This qualifies detached-branch removal;
+intact-tree extraction and cleanup effort remain unmeasured. All seven trees and 21
+interfaces have named contacts and removal lanes while the halves are loose. The two
+0.90 mm backing edges have no separate support islands; they remain exposed overhangs
+rooted in the continuous web, with printed finish checked in the complete trial. The
+[carrier lint review](tee-readiness/full-enclosure-print/postpublish-carrier-lint-review.json)
+has zero open findings: 33 answered on the left and 39 on the right.
 Each source-built half is an exact subset of the frozen study: only the declared
 0.05 mm backing strip is absent, with no change to cups, joint, guides or bearing faces.
 Those bounds carry the baseline collision-free paths to the current halves. Checks pass for five
@@ -239,23 +258,25 @@ physical mechanism.
 
 Derek requests fresh prints of all four shell quadrants and the complete pump mechanism.
 No earlier shell print constrains the design or needs to be reused. The first H2C plate
-contains front-top, both carrier halves and the required spring-loading tool;
-the matching cartridge and raised cap are prepared for Mark2 after its countertop job. The remaining
-three quadrants receive current slices for subsequent available beds. Physical testing uses
-the complete enclosure; no additional test coupons are required.
+is printing front-top and the required spring-loading tool. The separate carrier-pair
+and matching cartridge/raised-cap plates pass their offline reviews and remain unsubmitted
+for Mark2 after its countertop job and a clear-bed check. The remaining three quadrants
+receive current slices for subsequent available beds. Physical testing uses the complete
+enclosure; no additional test coupons are required.
 
-1. Verify both carrier halves, the closed fixed/moving cups and the canonical 2 mm pusher
-   against the regenerated front-top: complete installation/removal paths and working stops.
-2. Complete affected part generation and the combined native assembly checks. Verify the
-   actual final STEP/STL/payload digests, motion, neighbors and lower-shell interfaces.
-3. Prepare the complete enclosure and mating parts as one assembly trial. Spring capture,
-   tension, rigidity and feel are checked in that assembly after printing.
-4. Slice the final enclosure with the current PET-GF profile and H2C +0.18 mm requested
-   trim; confirm the emitted +0.16 mm Textured PEI compensation. Inspect actual support
-   contacts and straight extraction lanes. Retained old support audits do not qualify a
-   changed STL or profile.
-5. Check H2C's live state against Derek's confirmed availability, send a uniquely named
-   replacement and verify that exact job on the printer.
+1. The fresh front-top installation, working-stop and canonical pusher checks pass.
+   Its exact native slice, support-access review and live printer release are complete;
+   the uniquely named v3 job is confirmed running.
+2. Complete the resumed combined native assembly build and its remaining neighbor and
+   lower-shell interface checks. Review the later plates against their current part digests.
+3. The exact carrier and cartridge/cap slice reviews pass. Prepare the remaining shell and
+   G Ganen mounting jobs with their actual material, nozzle and Z settings. Inspect each
+   exact slice's support contacts and removal access; retained old audits do not qualify
+   a changed STL or profile.
+4. Check each assigned printer's live state and confirm its plate is clear before sending
+   the next reviewed archive, then verify that exact job on the printer.
+5. Assemble the complete printed enclosure and mechanism. Record spring capture at both
+   ends, tension, feel, full-span rigidity, tube insertion/release, pump fit and assembly effort.
 
 The prior assembly's 107 passing checks, 398 carrier motion/envelope readings and source
 hashes are retained as baseline evidence. A fresh combined build is required for the current

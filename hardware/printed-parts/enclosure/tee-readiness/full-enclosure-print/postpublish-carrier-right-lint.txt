@@ -1,0 +1,225 @@
+enclosure-tee-carrier-right.stl · 4938 printed facets · 21 findings · 18 answered
+
+  [step] Δ0.900 mm between parallel planes · footprint met 41.8 × 26.9 mm
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    faceA: plane · n x=0.000 y=1.000 z=0.000 · thru x=40.750 y=114.290 z=194.799
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=35.910 y=115.190 z=195.625
+    click: x=35.910 y=115.190 z=195.625
+
+  [step] Δ0.500 mm between parallel planes · footprint met 3.0 × 1.2 mm
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    faceA: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-24.250 y=134.600 z=211.500
+    faceB: plane · n x=0.000 y=0.000 z=-1.000 · thru x=3.125 y=135.245 z=211.000
+    click: x=-24.250 y=134.600 z=211.500
+
+  [step] Δ0.500 mm between parallel planes · footprint met 3.0 × 1.2 mm
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=-24.250 y=134.600 z=219.500
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=3.125 y=135.245 z=220.000
+    click: x=-24.250 y=134.600 z=219.500
+
+  [sliver] 0.900 mm strip, 41.8 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=35.910 y=114.740 z=182.175
+    edge: x=56.820 y=114.740 z=182.175 → x=15.000 y=114.740 z=182.175 · len 41.820 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=35.910 y=114.740 z=182.175
+
+  [sliver] 0.900 mm strip, 16.5 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=23.245 y=114.740 z=199.424
+    edge: x=31.490 y=114.740 z=199.424 → x=15.000 y=114.740 z=199.424 · len 16.490 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=23.245 y=114.740 z=199.424
+
+  [sliver] 0.900 mm strip, 16.5 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=23.245 y=114.740 z=196.924
+    edge: x=31.490 y=114.740 z=196.924 → x=15.000 y=114.740 z=196.924 · len 16.490 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=23.245 y=114.740 z=196.924
+
+  [sliver] 0.900 mm strip, 14.7 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=15.000 y=114.740 z=189.549
+    edge: x=15.000 y=114.740 z=196.924 → x=15.000 y=114.740 z=182.175 · len 14.749 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.000 y=114.740 z=189.549
+
+  [sliver] 0.900 mm strip, 11.0 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=20.500 y=114.740 z=209.075
+    edge: x=26.000 y=114.740 z=209.075 → x=15.000 y=114.740 z=209.075 · len 11.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=20.500 y=114.740 z=209.075
+
+  [sliver] 0.900 mm strip, 9.7 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=15.000 y=114.740 z=204.249
+    edge: x=15.000 y=114.740 z=209.075 → x=15.000 y=114.740 z=199.424 · len 9.651 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=15.000 y=114.740 z=204.249
+
+  [sliver] 1.200 mm strip, 8.0 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-22.750 y=134.600 z=215.500
+    edge: x=-22.750 y=134.600 z=219.500 → x=-22.750 y=134.600 z=211.500 · len 8.000 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-22.750 y=134.600 z=215.500
+
+  [sliver] 1.500 mm strip, 6.9 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=32.240 y=111.740 z=200.174
+    edge: x=32.240 y=115.190 z=200.174 → x=32.240 y=108.290 z=200.174 · len 6.900 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=32.240 y=111.740 z=200.174
+
+  [sliver] 1.500 mm strip, 6.9 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=32.240 y=111.740 z=196.424
+    edge: x=32.240 y=108.290 z=196.424 → x=32.240 y=115.190 z=196.424 · len 6.900 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=32.240 y=111.740 z=196.424
+
+  [sliver] 0.400 mm strip, 4.3 mm long
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=12.750 y=110.465 z=172.224
+    edge: x=12.750 y=108.290 z=172.224 → x=12.750 y=112.640 z=172.224 · len 4.350 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=12.750 y=110.465 z=172.224
+
+  [ceiling] 527 mm² flat print-down face at z=209.075 · 30.8 × 17.1 mm · open to the bed (41.9 mm up)
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=41.410 y=123.740 z=209.075
+    click: x=41.410 y=123.740 z=209.075
+
+  [ceiling] 191 mm² flat print-down face at z=211.000 · 57.8 × 5.9 mm · open to the bed (43.8 mm up)
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=3.125 y=135.245 z=211.000
+    click: x=3.125 y=135.245 z=211.000
+
+  [ceiling] 77 mm² flat print-down face at z=217.575 · 19.4 × 4.3 mm · drop 45.6–45.6 mm to material below
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=3.050 y=110.465 z=217.575
+    click: x=3.050 y=110.465 z=217.575
+
+  [ceiling] 26 mm² flat print-down face at z=207.674 · 9.2 × 2.8 mm · open to the bed (40.5 mm up)
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=92.425 y=102.915 z=207.674
+    click: x=92.425 y=102.915 z=207.674
+
+  [ceiling] 924 mm² flat print-down face at z=215.800 · 48.0 × 24.0 mm · drop 6.8–6.8 mm to material below
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=2.000 y=120.290 z=215.800
+    click: x=2.000 y=120.290 z=215.800
+
+  [ceiling] 38 mm² flat print-down face at z=182.175 · 41.8 × 0.9 mm · open to the bed (15.0 mm up)
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=35.910 y=114.740 z=182.175
+    click: x=35.910 y=114.740 z=182.175
+
+  [slope] 45° underside runs along a wall with no level foot · slope dir +1.00,+0.00 vs wall n +0.00,-1.00 · along 3.3 mm · 36 mm²
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    faceA: plane · n x=0.707 y=0.000 z=-0.707 · thru x=96.374 y=103.840 z=214.693
+    faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=98.250 y=98.290 z=200.460
+    click: x=96.374 y=103.840 z=214.693
+
+  [slope] 45° underside runs along a wall with no level foot · slope dir -1.00,+0.00 vs wall n +0.00,-1.00 · along 3.3 mm · 36 mm²
+    file: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
+    faceA: plane · n x=-0.707 y=0.000 z=-0.707 · thru x=98.696 y=103.840 z=214.693
+    faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=98.250 y=98.290 z=200.460
+    click: x=98.696 y=103.840 z=214.693
+
+  [step · answered] The outer bowed-tube recess ends at absolute X90.850 beside the grip back at X91.000. Its 0.150 mm lateral offset is the edge of a 0.496 mm-deep open recess, backed by the continuous 5.504 mm upper web. It is not the grip's wall thickness; native probes preserve the full grip root and 3 mm finger-pocket backing.
+    Δ0.150 mm between parallel planes · footprint met 15.3 × 0.5 mm
+    faceA: plane · n x=-1.000 y=0.000 z=0.000 · thru x=91.000 y=115.790 z=198.146
+    faceB: plane · n x=-1.000 y=0.000 z=0.000 · thru x=90.850 y=108.538 z=214.774
+    click: x=90.850 y=108.538 z=214.774
+
+  [step · answered] The flat bowed-tube relief ends 0.496 mm behind the web fore face. The retained upper backing is 5.504 mm thick and joins the complete web; this is the edge of a shallow open recess, not a separate thin wall.
+    Δ0.496 mm between parallel planes · footprint met 15.3 × 1.8 mm
+    faceA: plane · n x=0.000 y=-1.000 z=0.000 · thru x=22.350 y=108.786 z=214.774
+    faceB: plane · n x=0.000 y=-1.000 z=0.000 · thru x=52.225 y=108.290 z=194.799
+    click: x=30.225 y=108.786 z=214.774
+
+  [sliver · answered] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py.
+    0.496 mm strip, 15.3 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=90.850 y=108.538 z=214.774
+    edge: x=90.850 y=108.538 z=222.425 → x=90.850 y=108.538 z=207.124 · len 15.301 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=90.850 y=108.538 z=214.774
+
+  [sliver · answered] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py.
+    0.496 mm strip, 15.3 mm long
+    face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=31.100 y=108.538 z=214.774
+    edge: x=31.100 y=108.538 z=222.425 → x=31.100 y=108.538 z=207.124 · len 15.301 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=31.100 y=108.538 z=214.774
+
+  [sliver · answered] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py.
+    0.496 mm strip, 15.3 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=13.600 y=108.538 z=214.774
+    edge: x=13.600 y=108.538 z=222.425 → x=13.600 y=108.538 z=207.124 · len 15.301 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=13.600 y=108.538 z=214.774
+
+  [sliver · answered] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py.
+    0.496 mm strip, 15.3 mm long
+    face: plane · n x=1.000 y=0.000 z=0.000 · thru x=73.350 y=108.538 z=214.774
+    edge: x=73.350 y=108.538 z=222.425 → x=73.350 y=108.538 z=207.124 · len 15.301 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=73.350 y=108.538 z=214.774
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=72.210 y=111.290 z=200.174
+    edge: x=72.210 y=114.290 z=200.174 → x=72.210 y=108.290 z=200.174 · len 6.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=72.210 y=111.290 z=200.174
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.000 y=111.290 z=200.174
+    edge: x=90.000 y=114.290 z=200.174 → x=90.000 y=108.290 z=200.174 · len 6.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=90.000 y=111.290 z=200.174
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=72.210 y=111.290 z=176.174
+    edge: x=72.210 y=114.290 z=176.174 → x=72.210 y=108.290 z=176.174 · len 6.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=72.210 y=111.290 z=176.174
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.000 y=111.290 z=176.174
+    edge: x=90.000 y=114.290 z=176.174 → x=90.000 y=108.290 z=176.174 · len 6.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=90.000 y=111.290 z=176.174
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=72.210 y=111.290 z=172.424
+    edge: x=72.210 y=108.290 z=172.424 → x=72.210 y=114.290 z=172.424 · len 6.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=72.210 y=111.290 z=172.424
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=90.000 y=111.290 z=172.424
+    edge: x=90.000 y=108.290 z=172.424 → x=90.000 y=114.290 z=172.424 · len 6.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=90.000 y=111.290 z=172.424
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=72.210 y=111.290 z=196.424
+    edge: x=72.210 y=108.290 z=196.424 → x=72.210 y=114.290 z=196.424 · len 6.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=72.210 y=111.290 z=196.424
+
+  [sliver · answered] A tie slot's flat roof and floor: 1.5 mm strips across the slot width through the 6 mm web. The roof is a bridge with its crown raised by the supported allowance; the strap passes between them. Outer slots end before the full grip backing, and their lock envelopes clear the collar and carrier.
+    1.500 mm strip, 6.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=90.000 y=111.290 z=196.424
+    edge: x=90.000 y=108.290 z=196.424 → x=90.000 y=114.290 z=196.424 · len 6.000 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=90.000 y=111.290 z=196.424
+
+  [ceiling · answered] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies.
+    27 mm² flat print-down face at z=207.724 · 13.2 × 3.0 mm · open to the bed (40.6 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=82.100 y=110.288 z=207.724
+    click: x=82.100 y=110.288 z=207.724
+
+  [ceiling · answered] The tee trough terminates at the upper run end plus 0.3 mm axial air. Its flat roof retains the reinforced upper web. Support is exposed through the open fore trough and its open lower end before the tee is fitted; the final slice must verify its emitted support bodies.
+    27 mm² flat print-down face at z=207.724 · 13.2 × 3.0 mm · open to the bed (40.6 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=22.350 y=110.288 z=207.724
+    click: x=22.350 y=110.288 z=207.724
+
+  [ceiling · answered] The solid grip bar's flat underside at Z175.300 clears the opening's lower edge and the closed enclosure's seam rail by 0.50 mm, including the 0.25 mm supported-surface allowance. The full 16 mm Y section rises from this face. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly.
+    218 mm² flat print-down face at z=175.300 · 16.5 × 16.0 mm · open to the bed (8.1 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.250 y=106.290 z=175.300
+    click: x=99.250 y=106.290 z=175.300
+
+  [ceiling · answered] Flat underside of the 3 mm aft wall, recessed 3.25 mm behind the exterior face and joined to the backing along its full height. Support reaches the bed 8.126 mm below and is exposed beneath the loose half before assembly.
+    31 mm² flat print-down face at z=175.300 · 10.2 × 3.0 mm · open to the bed (8.1 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.125 y=131.790 z=175.300
+    click: x=99.125 y=131.790 z=175.300
