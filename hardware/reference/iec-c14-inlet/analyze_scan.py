@@ -31,8 +31,9 @@ ARCHIVE = Path.home() / 'Documents/3D Scans/2026-09-21-iec-c14-inlet'
 
 # --- frames -----------------------------------------------------------------------------------
 
-def table_frame(points):
-    """z = 0 on the turntable marker plane, +z toward the scanner, origin under the part."""
+def table_frame(points, normals):
+    """z = 0 on the turntable marker plane, +z toward the scanner, origin under the part; the
+    normals turn with the points."""
     c = points.mean(0)
     _, _, vt = np.linalg.svd(points - c, full_matrices=False)
     n0 = unit(vt[-1])
@@ -52,7 +53,7 @@ def table_frame(points):
     tall = q[q[:, 2] > 5.0]
     q[:, 0] -= np.median(tall[:, 0])
     q[:, 1] -= np.median(tall[:, 1])
-    return q, {'marker_plane_rms_mm': st['rms'], 'marker_points': int(len(ring))}
+    return q, normals @ R.T, {'marker_plane_rms_mm': st['rms'], 'marker_points': int(len(ring))}
 
 
 def axes_from_normals(n, cone_deg=8.0, refine_deg=12.0):
@@ -332,7 +333,8 @@ def main():
     if args.selftest:
         rng = np.random.default_rng(0)
         pts = rng.normal(size=(500, 3)) * [30, 30, 0.02]
-        q, info = table_frame(np.vstack([pts + [0, 0, 200], rng.normal(size=(200, 3)) * 2 + [0, 0, 190]]))
+        cloud = np.vstack([pts + [0, 0, 200], rng.normal(size=(200, 3)) * 2 + [0, 0, 190]])
+        q, _, info = table_frame(cloud, np.tile([0.0, 0.0, -1.0], (len(cloud), 1)))
         assert info['marker_plane_rms_mm'] < 0.1
         print('table frame recovered on a synthetic marker plane')
         return 0
@@ -340,8 +342,8 @@ def main():
     frames, clouds = {}, {}
     for entry in manifest['passes']:
         pts, nrm, meta = load_cloud(entry['cloud'], entry['sha256'])
-        q, tinfo = table_frame(pts)
-        p, m, pinfo = part_frame(q, nrm)
+        q, qn, tinfo = table_frame(pts, nrm)
+        p, m, pinfo = part_frame(q, qn)
         clouds[entry['name']] = (p, m)
         frames[entry['name']] = {'table': tinfo, 'part': pinfo, 'sha256': meta['sha256']}
     p1, n1 = clouds['pass-01']
