@@ -1,5 +1,5 @@
 {
-  "status": "submitted_for_socket_fit_trial",
+  "status": "print_complete_socket_fit_physically_accepted_with_zip_tie_retention",
   "production_enclosure_ready": false,
   "coupon_only": true,
   "submitted": true,
@@ -153,5 +153,7 @@
     "findings": 0,
     "stl_sha256": "bb30ef9291b95ea2a0c780a3b755fbf326a582641cf3be180d9b2ddb8c20d98a"
   },
-  "toolpath_visual_review": "Four distinct open sockets; nominal valve posts fit within the commanded section envelopes."
+  "toolpath_visual_review": "Four distinct open sockets; nominal valve posts fit within the commanded section envelopes.",
+  "physical_fit_accepted": true,
+  "physical_acceptance": "hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json"
 }

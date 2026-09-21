@@ -20,9 +20,11 @@ import cadquery as cq
 
 ml, enc, carrier, tee = ea.ml, ea._enc, ea._carrier, ea.ml.tee
 INPUTS = (
+    'hardware/printed-parts/enclosure/tee-readiness/verify_tee_integration.py',
     'hardware/reference/tee-connector/tee_connector.py',
     'hardware/reference/tee-connector/tee-connector.step',
     'hardware/reference/jg-pp0208e-tee/scan-registration.json',
+    'hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json',
     'hardware/reference/kamoer-kphm400/kamoer_kphm400.py',
     'hardware/reference/kamoer-kphm400/kamoer-kphm400.step',
     'hardware/reference/water-split/water_split.py',
@@ -95,7 +97,12 @@ def main():
         envelope = tee.BARREL_R if 'collar' in patch['name'] else tee.ARM_R
         check(patch['name']+' fitted draft exceeds reference envelope', max(0,outside-envelope))
     check('measured 42.5 run span',abs(tee.RUN_SPAN-42.5),1e-8)
-    check('measured 39.2 pressed run span',abs(2*(tee.RUN_HALF-tee.COLLET_TRAVEL)-39.2),1e-8)
+    check('measured 39.2 pressed run span',abs(2*(tee.RUN_HALF-tee.RUN_COLLET_TRAVEL)-39.2),1e-8)
+    check('measured branch extended caliper width',
+          abs(tee.BRANCH_REACH+tee.COLLAR_NOMINAL_D/2-30.5),1e-8)
+    check('measured branch pressed caliper width',
+          abs(tee.BRANCH_PRESSED_REACH+tee.COLLAR_NOMINAL_D/2-29.0),1e-8)
+    check('branch carrier seating travel',abs(tee.CARRIER_STROKE-2.0),1e-8)
     lift, carry, stood = small_placed_region()
     solids = {n:s for n,s,c in stood}
     trays = ea.pump_tray_stations(solids)
@@ -121,6 +128,15 @@ def main():
     wall = wall.fuse(enc._tee_carrier_fixed_features(inner,plate,interface))
     for cut in enc._tee_carrier_service_slots(interface):
         wall = wall.cut(cut)
+    # Circular openings preserve the complete annulus. R5.0 is an explicit
+    # geometric probe, not a caliper-qualified minimum terminal-ring radius.
+    for x,z in plate['holes']:
+        annulus = enc._ycyl(5.0,x,z,plate['aft_y']-.10,plate['aft_y']-.01).cut(
+            enc._ycyl(plate['hole_d']/2+.01,x,z,plate['aft_y']-.11,plate['aft_y']))
+        check(f'X{x:g} circular release face R4.26..5.0 annulus missing stock',
+              annulus.cut(wall).Volume())
+        tube = enc._ycyl(tee.TUBE_D/2,x,z,plate['fore_y']-.1,plate['aft_y']+.1)
+        check(f'X{x:g} circular plate tube clearance',tube.intersect(wall).Volume())
     tee_solids = {name:solids[ml.body_name(name)] for name in ml.CARRIER_TEES}
     for state,row in plate['carrier_states'].items():
         dy = row['offset_y']
@@ -131,6 +147,12 @@ def main():
                 check(f'{state} {name} / carrier {side:+d}',shape.intersect(half.translate((0,dy,0))).Volume())
         for side,half in halves.items():
             check(f'{state} carrier {side:+d} / local fixed guide body',half.translate((0,dy,0)).intersect(wall).Volume())
+        for index, head in enumerate(carrier.tie_head_envelopes(spec), 1):
+            moved = head.translate((0,dy,0))
+            check(f'{state} tie {index} lock / local fixed guide body',moved.intersect(wall).Volume())
+            for name,shape in solids.items():
+                if name.startswith(('valve-','coil-')):
+                    check(f'{state} tie {index} lock / {name}',moved.intersect(shape).Volume())
     # Native positive stock read from the files a printer will receive.
     for side,half in halves.items():
         for x in spec.tee_xs:
@@ -156,6 +178,14 @@ def main():
         'inputs_sha256':after,'checks':rows,
         'dimensions':{'collar_nominal_diameter':tee.COLLAR_NOMINAL_D,
             'collar_sample_envelope_diameter':tee.COLLAR_ENVELOPE_D,
+            'branch_extended_caliper_width':tee.BRANCH_WIDTH_EXTENDED,
+            'branch_pressed_caliper_width':tee.BRANCH_WIDTH_PRESSED,
+            'branch_extended_face':tee.BRANCH_REACH,
+            'branch_pressed_face':tee.BRANCH_PRESSED_REACH,
+            'run_collet_travel':tee.RUN_COLLET_TRAVEL,
+            'branch_collet_travel':tee.BRANCH_COLLET_TRAVEL,
+            'carrier_seating_travel':tee.CARRIER_STROKE,
+            'pump_to_release_span':ml.PUMP_BARBS_TO_RELEASE_PLANE,
             'journal_diameter':2*plate['bore_r'],'trough_radius':spec.trough_r,
             'retained_upper_backing':spec.web_aft_y-spec.stub_relief_y,
             'aft_deck_separation':ml.DECK_SEP,
@@ -165,7 +195,7 @@ def main():
         'pump_trays':trays,'pump_to_tee_axes':axes,
         'carrier_spec':dataclasses.asdict(spec),'collet_plate':plate,'carrier_interface':interface,
         'remaining_release_checks':[
-            'Absolute extended branch sleeve station and fixed/moving nose seam/release rim qualification.',
+            'Terminal-ring OD, fixed/moving seam and physical release-ring bearing qualification; nominal branch face stations are caliper-derived.',
             'Spring ID and positive capture design/physical qualification.',
             'Complete regenerated enclosure interference and insertion checks, current support-removal audit and exact slice identity.'],
     }

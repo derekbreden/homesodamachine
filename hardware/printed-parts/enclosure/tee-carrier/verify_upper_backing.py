@@ -29,10 +29,13 @@ HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / '.git').exists())
 SPEC = carrier.DEFAULT_SPEC
 BASELINE_COMMIT = '583b5e2a32ed9c6b7a546e954510b3aa0a5cd71f'
-SAMPLES = ((20.07, 'inner tee centre'), (28.57, 'inner tie slot'),
+_inner_x = min(x for x in SPEC.tee_xs if x > 0)
+_outer_x = max(SPEC.tee_xs)
+SAMPLES = ((_inner_x, 'inner tee centre'),
+           (_inner_x + SPEC.tie_slot_offset_x, 'inner tie slot'),
            (40.0, 'inner web and shelf'), (49.945, 'previous spring station'),
-           (60.0, 'outer web'), (71.32, 'outer tie slot'),
-           (79.82, 'outer tee centre'), (90.0, 'web beside grip'), (92.0, 'grip root'))
+           (60.0, 'outer web'), (_outer_x - SPEC.tie_slot_offset_x, 'outer tie slot'),
+           (_outer_x, 'outer tee centre'), (90.0, 'outermost tie slot'), (92.0, 'grip root'))
 REPRODUCE = 'tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/verify_upper_backing.py'
 
 

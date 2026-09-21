@@ -25,6 +25,7 @@
       "socket_depth_mm": 6.2
     }
   },
-  "physical_acceptance_of_current_coupon": false,
-  "test": "Compare the current production-profile coupon with the existing fit before accepting the scan-corrected sockets."
+  "physical_acceptance_of_current_coupon": true,
+  "test": "Current coupon accepted for easy location with separate zip-tie retention.",
+  "physical_acceptance": "physical-acceptance.json"
 }

@@ -37,7 +37,8 @@ The production clearance reference in [`../tee-connector/`](../tee-connector/) u
 **42.5 mm extended run span**. Journals add **0.25 mm radial running air**, giving **Ø17.0 mm**.
 The carrier troughs, insertion route and tie clearances consume that same envelope.
 Conservative connecting shoulders precede the observed widening; the fit-band endpoints
-are not treated as exact molded shoulder edges. Axial release qualification remains open.
+are not treated as exact molded shoulder edges. The terminal detail and physical release
+qualification remain open.
 
 ![Registered external profiles](scan-profiles.svg)
 
@@ -49,7 +50,10 @@ Derek's measurements on the production tee control the mechanism:
 |---|---:|
 | Run span, sleeves extended | 42.5 mm |
 | Run span, both sleeves pressed | 39.2 mm |
-| One sleeve's stroke | 1.65 mm |
+| One run sleeve's stroke | 1.65 mm |
+| Branch outside width, terminal extended / pressed | 30.5 / 29.0 mm |
+| Branch terminal stroke | 1.50 mm |
+| Nominal branch face from run axis, extended / pressed | 22.35 / 20.85 mm |
 | Carrier nose gap at connected | 0.5 mm |
 | Tube first meets resistance, from pressed sleeve face | 7.0 mm |
 | Tube held, from pressed sleeve face | 8.5 mm |
@@ -59,19 +63,26 @@ Their complete context and observed release/relocking action are in
 [`../tee-connector/README.md`](../tee-connector/README.md#measured-on-the-pp0208e-in-hand).
 These internal operating measurements are not inferred from the scan.
 
-The **absolute fully extended branch sleeve station remains open** pending the width in
-[`branch-measurement.svg`](branch-measurement.svg). Subtract approximately 8.15 mm from that
-width to reach the run axis. Its pressed station is then 1.65 mm inward. The existing sleeve
-stroke does not establish that absolute branch location.
+[`branch-operating-measurements.json`](branch-operating-measurements.json) records the
+outside widths on the contact surfaces in [`branch-measurement.svg`](branch-measurement.svg).
+The nominal run-collar back radius is 8.15 mm: subtracting it gives the 22.35 / 20.85 mm
+branch-axis stations. The conservative 8.25 mm clearance radius is a separate datum and is
+not subtracted from the caliper readings. Derek identifies the small outermost terminal
+ring as the moving part; the larger reduced barrel behind it stays fixed.
 
-The thin terminal rims occupy different positions in the merged surface, especially at the
-−Z end. The capture does not encode a qualified common collet state. Derek also identifies
-both a collet and a small fixed barrel near an open end. Moving the entire small-diameter
-nose as one sleeve does not preserve that distinction. The fixed-body seam and the actual
-moving sleeve remain explicit unqualified datums in the production clearance reference.
-Its retained proxies are a 20.07 mm extended branch face, 16.95 mm body/sleeve split and
-5.715 mm release-nose radius. Moving that terminal proxy leaves every measured fixed
-collar patch in place; it does not establish the real rim's release contact.
+[`terminal-ring-scan.json`](terminal-ring-scan.json) fits the terminal surface independently
+without changing the registered frame or scale. The branch terminal face is near 21.36 mm,
+between the measured operating endpoints. The approximate terminal wall is Ø10.62 mm,
+with 0.235 mm held-out radial p95 and 33 of 36 angular bins present. The merged surface
+therefore supports an intermediate captured state, not a qualified terminal seam or OD.
+
+The production clearance reference preserves a fixed reduced barrel at R7.75, bounded at
+18.50 mm on the run and 20.25 mm on the branch. These conservative envelope ends are not
+manufactured seam measurements. Its moving terminal clearance radius remains 5.715 mm.
+The circular Ø8.5 release opening retains the flat annular bearing. Actual contact area and
+release force require the physical terminal ring and printed mechanism.
+
+![Terminal surface and measured operating faces](terminal-ring-scan.svg)
 
 ## Production consumers
 

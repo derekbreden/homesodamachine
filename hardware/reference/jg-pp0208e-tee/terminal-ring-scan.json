@@ -1,0 +1,104 @@
+{
+  "scope": "Read terminal-ring evidence without changing the registered scan frame or scale.\n\nThe merged scan's sleeve state is unknown. This report separates the terminal\nsurface from the larger fixed reduced barrel; it does not claim an exact seam,\nproduction tolerance, minimum rim thickness, or physical release force.\n",
+  "input_sha256": {
+    "scan": "c25584adca577ac559a11117579a8c65f0340413d2ddfa3e05e9e4555790942e",
+    "scan-registration.json": "2120e0521b8e4d865cc25d422ca8560ec3e38895227d31fa6cc0eaf8ba143962",
+    "branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2"
+  },
+  "source_sha256": "2c53792041f358989514e1c696e7cc015f7feece46dc6bcf3edc83eaf864d53d",
+  "scale": 1.0,
+  "method": "Registered triangle centers and areas; alternate selected triangles held out of area-weighted soft-L1 fits. No scan rescaling or collet relocation.",
+  "terminal_wall": {
+    "selection": "Y20.0..20.75, radius4.5..6.0, absolute axial normal below0.35.",
+    "mid_station_mm": 20.375,
+    "diameter_at_mid_station_mm": 10.618188436581288,
+    "center_at_mid_station_xz_mm": [
+      -0.13984502323231676,
+      0.04294179866849307
+    ],
+    "axis_slopes_xz_per_y": [
+      0.11949625570743583,
+      0.013942150834699147
+    ],
+    "radius_taper_per_y": -0.011588790763027868,
+    "angular_bins_10_degrees_present": 33,
+    "all_surface_residual": {
+      "count": 1777,
+      "signed_median_mm": -0.0005403921325990517,
+      "absolute_p95_mm": 0.23719392758293292,
+      "absolute_max_mm": 0.2839056807779628
+    },
+    "held_out_surface_residual": {
+      "count": 888,
+      "signed_median_mm": -0.0011854077124515494,
+      "absolute_p95_mm": 0.23475675274560753,
+      "absolute_max_mm": 0.2839056807779628
+    },
+    "qualification": "Approximate observed terminal surface only; reconstructed wall distortion and unknown sleeve state prevent an exact seam/OD claim."
+  },
+  "terminal_face": {
+    "axis_intercept_y_mm": 21.359426676863862,
+    "plane_slopes_xz": [
+      -0.004077519718320382,
+      0.0017299238148839955
+    ],
+    "all_surface_residual": {
+      "count": 2852,
+      "signed_median_mm": 0.002598934042247061,
+      "absolute_p95_mm": 0.1390894618162293,
+      "absolute_max_mm": 0.263050106477841
+    },
+    "held_out_surface_residual": {
+      "count": 1426,
+      "signed_median_mm": 0.003450919259234726,
+      "absolute_p95_mm": 0.1391035230965907,
+      "absolute_max_mm": 0.26273012706281745
+    }
+  },
+  "fixed_reduced_barrel_face_candidates": [
+    {
+      "arm": "branch",
+      "count": 6431,
+      "outer_face_station_quantiles_mm": {
+        "p95": 19.63246255389481,
+        "p99": 19.83778141812601,
+        "p99_9": 20.030512875539284,
+        "max": 20.085154911000558
+      }
+    },
+    {
+      "arm": "run_plus",
+      "count": 6909,
+      "outer_face_station_quantiles_mm": {
+        "p95": 18.014006789618552,
+        "p99": 18.097467852062067,
+        "p99_9": 18.28413174568019,
+        "max": 18.361209120952566
+      }
+    },
+    {
+      "arm": "run_minus",
+      "count": 7357,
+      "outer_face_station_quantiles_mm": {
+        "p95": 18.0124664636799,
+        "p99": 18.138285773136786,
+        "p99_9": 18.363173064655033,
+        "max": 18.44535509986601
+      }
+    }
+  ],
+  "capture_state": {
+    "nominal_extended_y_mm": 22.35,
+    "nominal_pressed_y_mm": 20.85,
+    "observed_face_y_mm": 21.359426676863862,
+    "inference": "The observed face lies between the measured nominal pressed and extended stations. Its state is intermediate or merged; it cannot qualify an absolute moving-ring seam."
+  },
+  "release_qualification": {
+    "exact_terminal_od_qualified": false,
+    "exact_terminal_seam_qualified": false,
+    "physical_release_qualified": false,
+    "circular_bore_diameter_mm": 8.5,
+    "approximate_fitted_radial_bearing_mm": 1.0590942182906442,
+    "qualification": "This approximate radial difference is not a guaranteed minimum annular bearing or a manufacturing tolerance."
+  }
+}
