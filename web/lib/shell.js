@@ -25,6 +25,7 @@
 
 import fs from "fs";
 import path from "path";
+import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
@@ -41,7 +42,8 @@ import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, 
 //
 // The cost is a stat per render; the parse happens only when the file has actually moved. A disk
 // that holds no such file, or holds one this cannot parse, reads as null the way it always did.
-const CHECKS_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", "checks.json");
+const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
+const CHECKS_FILE = path.join(PUBLIC_DIR, "checks.json");
 
 let checksCache = { key: null, value: null };
 
@@ -394,6 +396,24 @@ html.dev-mode .site-nav-public a[data-nav="updates"] {
 }
 `;
 
+// The artwork's own fingerprint, carried by every icon href below.
+//
+// Safari keys its favicon cache by page URL and keeps what it stored there for weeks —
+// art replaced at an unchanged URL goes on being drawn from that cache long after the
+// deploy that replaced it, and a page whose entry was written wrong keeps the wrong icon.
+// New bytes are a new URL, so the cache has nothing to hold and re-resolves.
+//
+// Read once at load, unlike checks.json above: the icons ship with the deploy, and a deploy
+// that moves them restarts this process.
+const ICON_V = (() => {
+  try {
+    const bytes = fs.readFileSync(path.join(PUBLIC_DIR, "pwa-icons", "favicon-32.png"));
+    return "?v=" + createHash("sha256").update(bytes).digest("hex").slice(0, 8);
+  } catch {
+    return "";
+  }
+})();
+
 // HEAD_TAGS — runs on every page via renderHead below.
 //
 // Synchronous flicker-prevention only: the localStorage class flips for
@@ -408,12 +428,12 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")===
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="32x32" href="/pwa-icons/favicon-32.png">
-<link rel="icon" type="image/png" sizes="64x64" href="/pwa-icons/favicon-64.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/pwa-icons/apple-touch-icon-152.png">
-<link rel="apple-touch-icon" sizes="167x167" href="/pwa-icons/apple-touch-icon-167.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-touch-icon-180.png">
-<link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/pwa-icons/favicon-32.png${ICON_V}">
+<link rel="icon" type="image/png" sizes="64x64" href="/pwa-icons/favicon-64.png${ICON_V}">
+<link rel="apple-touch-icon" sizes="152x152" href="/pwa-icons/apple-touch-icon-152.png${ICON_V}">
+<link rel="apple-touch-icon" sizes="167x167" href="/pwa-icons/apple-touch-icon-167.png${ICON_V}">
+<link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-touch-icon-180.png${ICON_V}">
+<link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon-180.png${ICON_V}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`;
