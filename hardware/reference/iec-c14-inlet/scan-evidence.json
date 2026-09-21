@@ -1,0 +1,653 @@
+{
+ "part": "IEC 60320 C14 panel-mount inlet, MXR AC-04",
+ "asin": "B07DCXKNXQ",
+ "capture_date": "2026-09-21",
+ "scanner": "Revopoint MINI 2",
+ "scanner_sn": "A26303035A6H01AB8",
+ "application": "Revo Scan 6.3.2",
+ "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-21-iec-c14-inlet",
+ "capture_manifest_sha256": "2e1b08b0e76eaa9947822d10068d93f090d3bdd32f361aa49dd351ade188694b",
+ "passes": [
+  {
+   "name": "pass-01",
+   "orientation": "standing on its +X ear in putty, mating axis horizontal; the -X ear clear",
+   "frames": 1288,
+   "depth_exposure": 2,
+   "table_tilt_degrees": 0,
+   "table_seconds_per_revolution": 35,
+   "fusion_point_spacing_mm": 0.1,
+   "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-21-iec-c14-inlet/pass-01/Fused 0921_1 (0.10mm).ply",
+   "sha256": "521874e4311e3e87b07f830923ad8bb0c5ef59361c6e8d395b42beb6029e4e63",
+   "point_count": null
+  },
+  {
+   "name": "pass-02",
+   "orientation": "flipped by Derek onto its -X ear in putty, mating axis horizontal; the +X ear clear",
+   "frames": 1532,
+   "depth_exposure": 2,
+   "table_tilt_degrees": 0,
+   "table_seconds_per_revolution": 35,
+   "fusion_point_spacing_mm": 0.1,
+   "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-21-iec-c14-inlet/pass-02/Fused 0921_1 (0.10mm).ply",
+   "sha256": "5c218d23f5041620b3207d26670ee2fa922f887ba6f89f346ecbdb398f06fe2c",
+   "point_count": null
+  },
+  {
+   "name": "pass-03",
+   "orientation": "same pose as pass 2, turntable tilted -20 degrees on Derek's suggestion to see further into the cavity",
+   "frames": 1224,
+   "depth_exposure": 2,
+   "table_tilt_degrees": -20,
+   "table_seconds_per_revolution": 35,
+   "fusion_point_spacing_mm": 0.1,
+   "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-21-iec-c14-inlet/pass-03/Fused 0921_1 (0.10mm).ply",
+   "sha256": "3fbd44ab7679c8d0434c2b674175f906012467f9649b2641bfbed9cb1dab0d8e",
+   "point_count": null
+  }
+ ],
+ "registered_cloud": {
+  "file": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-21-iec-c14-inlet/c14-inlet-measured-cloud.ply",
+  "sha256": "abc24cc993f71af6954de08055b8ca3aa17e6f81b43f252c94b53008c06013af",
+  "bytes": 25022748,
+  "method": "pass frames from the flange front-face plane and long-flat edges; passes 2 and 3 registered onto pass 1 by point-to-plane ICP (hardware/reference/g-ganen-pump/register_scan.refine), the 180-degree-about-Y candidate settled by which ear each pass buried and by the earth tab; each pass's buried ear removed; origin moved to the screw-hole midpoint",
+  "frame": "Y mating axis (+Y outboard), X along the flange centred between the screw holes, Z up (earth below), Y=0 at the ear front face"
+ },
+ "frames": {
+  "method": "per pass: marker-plane table frame, then the part frame from the dominant face-normal families, the flange front-face/back-face pair (Y), the flange long flats (Z centre) and the housing X faces (X centre)",
+  "pass1_table_to_part_rotation": [
+   [
+    0.03664796575835763,
+    -0.017617790823682006,
+    0.9991729280020887
+   ],
+   [
+    0.9950764134172467,
+    -0.09149038399070607,
+    -0.038110905235926876
+   ],
+   [
+    0.09208614481257692,
+    0.9956501007300336,
+    0.014178111645454385
+   ]
+  ],
+  "pass2_table_to_part_rotation": [
+   [
+    -0.09342550562488389,
+    0.035614927922511946,
+    0.994989071200186
+   ],
+   [
+    -0.9102618764709455,
+    -0.40792272543695,
+    -0.07086865538222092
+   ],
+   [
+    0.4033546716505563,
+    -0.9123215589808041,
+    0.07052929800095094
+   ]
+  ],
+  "pass3_table_to_part_rotation": [
+   [
+    -0.004284332684081211,
+    0.08957718370676987,
+    0.995970668570423
+   ],
+   [
+    -0.6842677578200208,
+    0.7260307237924972,
+    -0.06824238944603524
+   ],
+   [
+    -0.7292182664342781,
+    -0.681802989336734,
+    0.05818422148727218
+   ]
+  ],
+  "pass2_part_to_pass1_part": [
+   [
+    -0.9999990420501186,
+    0.0012988639306509464,
+    0.00047838408706728474,
+    -12.040541837919655
+   ],
+   [
+    0.0012960476758869014,
+    0.9999821012463223,
+    -0.005841014245145256,
+    0.05482615314092871
+   ],
+   [
+    -0.00048596220730979015,
+    -0.0058403886411621305,
+    -0.9999828267031664,
+    -0.008606072607684648
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "pass3_part_to_pass1_part": [
+   [
+    -0.9999735325381591,
+    0.0036321308156803934,
+    0.006304113648580782,
+    -9.493937833864946
+   ],
+   [
+    0.0036394076355018433,
+    0.9999927238657255,
+    0.0011432093727990074,
+    0.03851795989558582
+   ],
+   [
+    -0.006299915493011675,
+    0.0011661223542962726,
+    -0.9999794754010886,
+    -0.024828257764199273
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  ],
+  "final_origin_shift_in_pass1_frame_xz": [
+   -0.4917,
+   -0.0559
+  ],
+  "final_origin": "screw-hole midpoint on the ear front-face plane"
+ },
+ "registration_quality": {
+  "pass2": {
+   "overlap_within_0_75mm_fraction": 0.556,
+   "point_plane_abs_p95_mm": 0.294
+  },
+  "pass3": {
+   "overlap_within_0_75mm_fraction": 0.552,
+   "point_plane_abs_p95_mm": 0.256
+  },
+  "ambiguity": "the 180-degree turn about Y scores within 0.05 of overlap either way; the buried ear (putty side) and the earth tab below the line pair settle it"
+ },
+ "measurements_mm": {
+  "flange_front_face_rms": 0.1004,
+  "flange_back_face_y": -3.2477,
+  "long_flats_z": [
+   10.958648491257453,
+   -10.920002078680776
+  ],
+  "screw_hole_plus_x_pass1": {
+   "n": 858,
+   "axis_xz": [
+    19.612852424786134,
+    -0.04719492058527029
+   ],
+   "radius": 1.5972491106735125,
+   "abs_p95": 0.063861254476771,
+   "axis_dir": [
+    -0.06958814827293706,
+    0.9959252518202593,
+    0.05736185497956934
+   ]
+  },
+  "screw_hole_minus_x_pooled_passes_2_3": {
+   "n": 2181,
+   "axis_xz": [
+    -20.596190404730045,
+    -0.06455900648038952
+   ],
+   "radius": 1.640764960484459,
+   "abs_p95": 0.285825181888248,
+   "axis_dir": [
+    0.07270861821635581,
+    0.9966563507183468,
+    -0.03727700913238241
+   ]
+  },
+  "screw_pitch": 40.20904657881539,
+  "countersink_profile_r_to_y": {
+   "-1": {
+    "n": 6928,
+    "min_r_face_points": 2.1502527413163586,
+    "r_p1": 3.078370009658853,
+    "countersink_profile": [
+     [
+      1.6,
+      -1.2316760162073077
+     ],
+     [
+      1.8,
+      -0.9715083088034074
+     ],
+     [
+      2.0,
+      -0.7854480131310266
+     ],
+     [
+      2.2,
+      -0.6066423908305923
+     ],
+     [
+      2.4,
+      -0.41017917435795814
+     ],
+     [
+      2.5999999999999996,
+      -0.20902050094877678
+     ],
+     [
+      2.8,
+      -0.01961475804609613
+     ],
+     [
+      3.0,
+      0.06574090199448589
+     ]
+    ]
+   },
+   "1": {
+    "n": 4651,
+    "min_r_face_points": 2.9869599619694096,
+    "r_p1": 3.070835115744511,
+    "countersink_profile": [
+     [
+      1.6,
+      -1.2670730180296628
+     ],
+     [
+      1.8,
+      -1.0248177945640047
+     ],
+     [
+      2.0,
+      -0.8367096095246199
+     ],
+     [
+      2.2,
+      -0.6509130909310795
+     ],
+     [
+      2.4,
+      -0.453902047523508
+     ],
+     [
+      2.5999999999999996,
+      -0.226813590038318
+     ],
+     [
+      2.8,
+      -0.04811799293642209
+     ],
+     [
+      3.0,
+      0.05475093825795526
+     ]
+    ]
+   }
+  },
+  "ear_plus_x_arc_pass1": {
+   "n": 2643,
+   "centre_xz": [
+    19.31772605877925,
+    -0.010794822862921806
+   ],
+   "radius": 5.175129032501412,
+   "abs_p95": 0.13147560062117006,
+   "nose_x_p99": 24.548771635296923
+  },
+  "taper_line_plus_x_plus_z_pass1": {
+   "n": 1526,
+   "slope": -0.6449172397361399,
+   "intercept": 18.57737197612971,
+   "angle_deg": -32.818667270538256,
+   "abs_p95": 0.060538540407644614
+  },
+  "rim_outer_walls": {
+   "x-": {
+    "n": 2882,
+    "median": -15.928814560934788,
+    "p05_p95": [
+     -15.966689660838918,
+     -15.872926982547373
+    ]
+   },
+   "x+": {
+    "n": 1393,
+    "median": 15.09815502046536,
+    "p05_p95": [
+     15.01566879445229,
+     15.147247817868724
+    ]
+   },
+   "z-": {
+    "n": 9757,
+    "median": -11.093127844446286,
+    "p05_p95": [
+     -11.21736796060318,
+     -10.992768107853218
+    ]
+   },
+   "z+": {
+    "n": 8625,
+    "median": 11.044486981321686,
+    "p05_p95": [
+     10.979127047679814,
+     11.146641733771697
+    ]
+   }
+  },
+  "mouth_walls": {
+   "x-": {
+    "n": 2894,
+    "median": -12.860524572080504,
+    "p05_p95": [
+     -12.91778142480473,
+     -12.811667877501758
+    ]
+   },
+   "x+": {
+    "n": 6184,
+    "median": 11.95520064300911,
+    "p05_p95": [
+     11.906842048288556,
+     12.025978455957874
+    ]
+   },
+   "z-": {
+    "n": 17359,
+    "median": -8.071163657797936,
+    "p05_p95": [
+     -8.151412064620708,
+     -8.007278742738182
+    ]
+   },
+   "z+": {
+    "n": 20400,
+    "median": 8.194344467541605,
+    "p05_p95": [
+     8.091435774137523,
+     8.26593766952139
+    ]
+   },
+   "chamfer_-1": {
+    "n": 3471,
+    "u_median": -11.00756009386145,
+    "x_range": [
+     8.074145067813769,
+     12.094672306794953
+    ],
+    "z_range": [
+     -8.711421512912851,
+     -4.071272881851866
+    ]
+   },
+   "chamfer_+1": {
+    "n": 3602,
+    "u_median": -11.598558395732653,
+    "x_range": [
+     -12.49836120752425,
+     -8.248241246125273
+    ],
+    "z_range": [
+     -8.02327892839853,
+     -4.162341255888848
+    ]
+   }
+  },
+  "mouth_top_corners": [
+   {
+    "n": 3113,
+    "centre": [
+     -10.647397911220132,
+     5.925281965747488
+    ],
+    "radius": 2.3137372705274175,
+    "abs_p95": 0.12610557439276043
+   },
+   {
+    "n": 3497,
+    "centre": [
+     9.718890759871528,
+     5.971149569757382
+    ],
+    "radius": 2.267096885621651,
+    "abs_p95": 0.1017894121272576
+   }
+  ],
+  "rim_corner_-x+z": {
+   "n": 943,
+   "centre": [
+    -10.995400082263277,
+    6.218348758549414
+   ],
+   "radius": 4.9426490329083475,
+   "abs_p95": 0.03650051121775126
+  },
+  "cavity_floor_y_histogram_top": [
+   [
+    -14.300000000000006,
+    1267
+   ],
+   [
+    -15.000000000000004,
+    1036
+   ],
+   [
+    -14.200000000000006,
+    800
+   ],
+   [
+    -14.100000000000007,
+    588
+   ],
+   [
+    -14.900000000000004,
+    369
+   ],
+   [
+    -14.400000000000006,
+    354
+   ]
+  ],
+  "body_faces_by_source": {
+   "1": {
+    "x-": null,
+    "x+": 12.660809013243085,
+    "z-": -9.064787389656729,
+    "z+": 8.905885675809024
+   },
+   "2": {
+    "x-": -13.545930394947783,
+    "x+": null,
+    "z-": -9.08801977008697,
+    "z+": 8.919197686812009
+   },
+   "3": {
+    "x-": -13.407342189927743,
+    "x+": null,
+    "z-": -9.105836574251866,
+    "z+": 8.896007247422249
+   }
+  },
+  "body_end_face": {
+   "n": 81965,
+   "y": -16.895306887283105,
+   "rms": 0.0875,
+   "x_p1_p99": [
+    -13.026511974017494,
+    12.07418327808565
+   ],
+   "z_p1_p99": [
+    -8.765435547453999,
+    8.757450283387541
+   ]
+  },
+  "end_block": {
+   "n": 19188,
+   "y": -18.061653894328195,
+   "rms": 0.1013,
+   "x_p1_p99": [
+    -9.528521526507472,
+    8.486206095162263
+   ],
+   "z_p1_p99": [
+    -6.867751563721682,
+    6.930616385753575
+   ]
+  },
+  "body_chamfers": {
+   "x+z-": {
+    "n": 16474,
+    "normal": [
+     -0.698,
+     0.0069,
+     0.7161
+    ],
+    "rms": 0.1896,
+    "u_median": 11.942420324229882,
+    "v_p2_p98": [
+     -0.7333317272720823,
+     5.939541867822406
+    ],
+    "by_source": {
+     "1": 9344,
+     "2": 131,
+     "3": 6999
+    }
+   },
+   "x-z-": {
+    "n": 19030,
+    "normal": [
+     -0.6961,
+     -0.0015,
+     -0.718
+    ],
+    "rms": 0.1306,
+    "u_median": 12.560782059319543,
+    "v_p2_p98": [
+     -0.19975342660165502,
+     6.286437497472908
+    ],
+    "by_source": {
+     "1": 19,
+     "2": 9796,
+     "3": 9215
+    }
+   }
+  },
+  "tabs": [
+   {
+    "n": 12293,
+    "centre_xz": [
+     -7.180511928111692,
+     2.3962918557557864
+    ],
+    "x_p2_p98": [
+     -7.584880367613889,
+     -6.386867877062986
+    ],
+    "z_p2_p98": [
+     -0.7666509892426088,
+     5.224600072312348
+    ],
+    "y_tip_p1": -25.042964198295977,
+    "sources": {
+     "1": 3116,
+     "2": 4153,
+     "3": 5024
+    }
+   },
+   {
+    "n": 13040,
+    "centre_xz": [
+     -0.11957897477859092,
+     -2.6452626535590653
+    ],
+    "x_p2_p98": [
+     -0.5743743692730118,
+     0.6497630960436311
+    ],
+    "z_p2_p98": [
+     -5.956739614684678,
+     0.7289341689467379
+    ],
+    "y_tip_p1": -24.86985321187901,
+    "sources": {
+     "1": 3647,
+     "2": 3870,
+     "3": 5523
+    }
+   },
+   {
+    "n": 115,
+    "centre_xz": [
+     2.3754885646759223,
+     2.4763425061698756
+    ],
+    "x_p2_p98": [
+     1.4767884003984169,
+     3.2987591759072545
+    ],
+    "z_p2_p98": [
+     1.8597688745777416,
+     2.922687597281281
+    ],
+    "y_tip_p1": -19.286911672851847,
+    "sources": {
+     "1": 115
+    }
+   },
+   {
+    "n": 11869,
+    "centre_xz": [
+     6.591478679313573,
+     2.596505971487955
+    ],
+    "x_p2_p98": [
+     6.061417927757949,
+     7.462339733149509
+    ],
+    "z_p2_p98": [
+     -0.9494573559152163,
+     5.209243983594094
+    ],
+    "y_tip_p1": -25.011988313678973,
+    "sources": {
+     "1": 4141,
+     "2": 3026,
+     "3": 4702
+    }
+   }
+  ],
+  "note": "values in the pass-1 part frame before the final origin shift; add +0.4917 to x and +0.0559 to z for the model frame"
+ },
+ "other_readings": {
+  "calipers_before_the_scan": {
+   "flange_nose_to_nose": 49.77,
+   "across_long_flats": 22.17,
+   "shoulder_to_nose_chord": 17.98,
+   "screw_pitch": 40.0,
+   "housing": [
+    26.46,
+    18.18
+   ],
+   "housing_chamfer_straight": 7.04
+  },
+  "source": "iec_c14_inlet.py docstring as it stood before this scan"
+ },
+ "authority": {
+  "depth_exposure": "Derek chose 2 from the live preview",
+  "third_pass_tilt": "Derek's suggestion",
+  "part_identity": "purchases.md and the part on the table"
+ },
+ "limits": [
+  "Coating thickness unmeasured; scan spacing is not an absolute accuracy claim.",
+  "Each pass buries one ear in putty; those regions are excluded and the two ears are measured from different passes.",
+  "The cavity floor and blade roots are seen only at the deepest plane the scanner reached."
+ ]
+}
