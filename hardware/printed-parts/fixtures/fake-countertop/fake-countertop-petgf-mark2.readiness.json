@@ -3,26 +3,26 @@
   "printer_submission": false,
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 6669,
+    "export_time": 3509,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 2379,
+    "prepare_time": 490,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
           "Bottom surface": 2205.7587890625,
-          "Bridge": 8262.4111328125,
+          "Bridge": 8262.380859375,
           "Custom": 297.3392028808594,
           "Flush": 15.0,
-          "Gap infill": 1.6267926692962646,
+          "Gap infill": 1.6264888048171997,
           "Inner wall": 6469.50146484375,
-          "Internal solid infill": 6830.322265625,
-          "Outer wall": 6262.158203125,
+          "Internal solid infill": 6830.32373046875,
+          "Outer wall": 6262.15966796875,
           "Sparse infill": 25342.810546875,
           "Top surface": 1305.983642578125,
-          "Travel": 1759.8955078125,
-          "Undefined": 1758.3265380859375
+          "Travel": 1763.033935546875,
+          "Undefined": 1761.4649658203125
         },
         "filament_change_times": 0,
         "filaments": [
@@ -33,12 +33,12 @@
             "total_used_g": 931.5325927734375
           }
         ],
-        "generate_support_material_time": 872,
+        "generate_support_material_time": 687,
         "id": 1,
-        "infill_time": 1865,
+        "infill_time": 1443,
         "layer_filament_change": 0,
-        "main_predication": 58410.2421875,
-        "make_perimeters_time": 3840,
+        "main_predication": 58413.3984375,
+        "make_perimeters_time": 2301,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -55,9 +55,9 @@
             "triangle_count": 84060
           }
         ],
-        "sliced_time": 13244,
-        "sliced_time_with_cache": 6423,
-        "total_predication": 58736.01171875,
+        "sliced_time": 8747,
+        "sliced_time_with_cache": 4187,
+        "total_predication": 58739.16796875,
         "triangle_count": 84060,
         "warning_message": ""
       }
@@ -84,16 +84,16 @@
     "Top surface"
   ],
   "layers": 917,
-  "estimated_seconds": 58736.01171875,
+  "estimated_seconds": 58739.16796875,
   "estimated_filament_g": 931.5325927734375,
   "plate_trim_commands_mm": [
     0.0,
-    -0.02
+    0.02
   ],
-  "archive": "fake-countertop-petgf-z000-mark2.gcode.3mf",
-  "archive_sha256": "7b01a93488ebcdffc874f5afd26b24f70952d52a43e07b4d48f2fb416822882f",
-  "gcode_sha256": "d8f452f6cc77894523fc4ccb6fc6efcfd06476bd8ae5a3370b3b1db11549578f",
-  "project_sha256": "75c996758625366323bf0f0b8728af5ebeb256b5cf55d559b12b7c11e925c36f",
+  "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+  "archive_sha256": "05c9ca0ce4769859fd0980c9e2eabceb6484345e1f05e68b915354763d6f7218",
+  "gcode_sha256": "0026430bb9261a19dadc6e78355b304114427549c696dd695127056cd01c715f",
+  "project_sha256": "17a5368f6e765f4a2fa30d0fb4e06e0bc36fbc57aa020fb814b67646dd806851",
   "source_stl_sha256": "d1c6fe94e19db1ac8409d91f9b25462603c8054b3ea3d5151c7829a123fc15b6",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
 }

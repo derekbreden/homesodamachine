@@ -24,11 +24,14 @@ VARIANTS = {
     "black-h2c": {"project": "fake-countertop-petgf.3mf",
                   "archive": "fake-countertop-petgf-z018-h2c.gcode.3mf",
                   "z_trim": 0.18, "title": "Fake countertop black PET-GF H2C"},
+    "black-mark2": {"project": "fake-countertop-petgf-mark2.3mf",
+                    "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+                    "z_trim": 0.04, "title": "Fake countertop black PET-GF Mark2"},
     # Mark2 at Bambu's own first-layer offset: +0.00 over the stock branches, so textured PEI
     # with the 0.4 nozzle emits the stock G29.1 Z-0.02 and nothing of the +0.04 (z-trim.md).
-    "black-mark2": {"project": "fake-countertop-petgf-mark2.3mf",
-                    "archive": "fake-countertop-petgf-z000-mark2.gcode.3mf",
-                    "z_trim": 0.0, "title": "Fake countertop black PET-GF Mark2 stock first layer"},
+    "black-mark2-stock": {"project": "fake-countertop-petgf-mark2-stock.3mf",
+                          "archive": "fake-countertop-petgf-z000-mark2.gcode.3mf",
+                          "z_trim": 0.0, "title": "Fake countertop black PET-GF Mark2 stock first layer"},
 }
 
 BAMBU_STUDIO = "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"
