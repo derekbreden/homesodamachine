@@ -154,7 +154,8 @@ def main():
         'diagnostic_scope':'The retained successful PET-GF jobs contain these same three H2C template diagnostics; the native slice reports Success with no geometry warning. No command is removed.',
         'physical_status':'Integral receiver unprinted; automatic engagement, retention, release and fatigue remain unqualified.'}
     output=HERE/'toolpath-review.json';output.write_text(json.dumps(result,indent=2)+'\n')
-    readiness['status']='integral_coupon_toolpath_review_failed' if errors else 'ready_for_integral_coupon_trial'
+    readiness['status']='withdrawn_from_print_queue_for_complete_joint_redesign'
+    readiness['print_released']=False
     readiness['toolpath_review']=str(output.relative_to(ROOT))
     readiness['toolpath_review_sha256']=hashlib.sha256(output.read_bytes()).hexdigest()
     (HERE/'print-readiness.json').write_text(json.dumps(readiness,indent=2)+'\n')

@@ -101,9 +101,10 @@ full-width comparison under equal centre and unequal hand loads.
 
 The current rear-insert keeper does not preload the broad lap. A rigid draw-in wedge would
 need to enter under the keys' fore faces along X or Z; thickening the adjacent keeper blocks
-alone does not remove fore/aft lash. Derek's physical coupon has a tight, play-free fit. Production integration must preserve
-that fit, provide integral positive retention without a separate keeper and establish
-full-width rigidity.
+alone does not remove fore/aft lash. Derek observes a tight, play-free coupon fit and does
+not accept the design's complexity. Neither half is selected for reuse. The complete carrier
+assembly is under redesign for simplicity and full-width rigidity, with the faucet display
+cover as the sole physically proven snap-fit example.
 
 ## Remaining carrier work
 
