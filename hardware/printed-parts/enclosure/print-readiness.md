@@ -18,7 +18,7 @@ Removal of that object from H2C is not yet confirmed.
 | DIGITEN flow meter | Measured offset body and mounting collars; placement, anchors, ties and adjacent tubing follow that envelope. | Confirm the molded flow arrow and actual installed direction. No new full scan is indicated. |
 | John Guest PP0208E tee | Registered fixed surfaces support the conservative Ø16.5 collar and Ø14 root envelopes. Derek measures branch width at 30.5 mm extended and 29.0 mm pressed, from the back of the widest fixed run collar. Only the small outermost ring moves. | Propagate the measured 1.5 mm branch travel and branch face position; qualify the terminal ring boundary and diameter. |
 | Kamoer pump | Two complementary native scans are complete. The short terminal pieces are Derek's inserted ¼-inch LLDPE stubs in silicone, excluded from rigid registration and integral pump dimensions. Cap pressing rails, floor relief and outlet stations are corrected. | Fit both actual pumps in the corrected cartridge/cap, then test four-tube insertion, capture, release and primed pumping. No third scan is needed for these contact corrections. |
-| G Ganen water pump | Derek selected the received G Ganen sample on September 20. No caliper dimensions were recorded. Three native views contain 1,033, 1,146 and 1,114 frames. Feet-up and on-back clouds are archived at 0.10 mm fusion; feet-down processing and dimensional analysis are active. | Update the pump reference, mounts and affected tube routes from the scan, then check installation and operation. Existing SeaFlo assembly checks do not qualify this pump. |
+| G Ganen water pump | Derek selected the received G Ganen sample on September 20. No caliper dimensions were recorded. Three native views containing 1,033, 1,146 and 1,114 frames are fused at 0.10 mm and archived with hashes. Its feet are flexible rubber. Dimensional analysis is active. | Update the pump reference, mounts and affected tube routes from the scan, then check installation and operation. Map the observed label-frame flow arrow to model coordinates. Existing SeaFlo assembly checks do not qualify this pump. |
 | Faucet lever | The accepted flat-sided model with the 9 mm cylinder channel is primary. The printed mesh is byte-identical to the successful Mark2 artifact, with Derek's fit/function confirmation on record. | The complete faucet assembly needs a measured installed pose for its lever representation; that is separate from enclosure readiness. |
 | Faucet display cover | **Physically accepted in PET-GF.** Derek confirms that its broad, long, thin walls provide successful give and spring. The current STL matches the successful complete-cover trial. | Use its broad-wall geometry as a proven example for new retention features; each new geometry still needs its own fit test. |
 
@@ -84,7 +84,7 @@ The [joint coupon physical report](tee-carrier/joint-coupon/physical-fit.json) e
 selected for reuse. The tight fit and absence of play are observations; Derek does not accept
 the joint's design or complexity. The right-only integral latch trial is withdrawn from the
 print queue. The [faucet display cover](../faucet/faucet-display-cover/physical-acceptance.json)
-is the sole physically proven example for the snap-fit approach: simple, broad, substantial
+is Derek's preferred example for the snap-fit approach: simple, broad, substantial
 walls provide the give and spring. Its success does not qualify a differently proportioned
 part. The nameplate is also not accepted as an example of the desired simplicity.
 
@@ -123,13 +123,14 @@ preserve the reaction-floor stations and cartridge path while keeping assembly s
 
 ## Nameplate print
 
-Mark2 has accepted the black-and-white unit-0001 nameplate and its matching receiver coupon.
+Mark2 has completed the black-and-white unit-0001 nameplate and its matching receiver coupon.
 The [native job record](nameplate/mark2-print-readiness.json) records black PET-GF on the left,
 white PET-GF on the right, both carrying the printer's PET-CF label. This is the right
-hotend's first use with white PET-GF. The commanded first-layer paths decode to
-`HTTPS://HOSM.US/0001`; physical QR readability, support removal and snap retention remain
-to be checked after printing. The estimate is 1 h 23 min and 35.12 g using the saved profile
-density.
+hotend's first use with white PET-GF. Derek reports clear appearance, reliable QR scanning
+from 2 feet, intermittent scanning from 3 feet, and working snaps. The
+[physical result and photographs](nameplate/physical-acceptance.json) identify the exact
+print; its photographed QR independently decodes to `HTTPS://HOSM.US/0001`. The nameplate
+remains more complex than Derek prefers for the carrier's design example.
 
 ## Other readiness evidence
 

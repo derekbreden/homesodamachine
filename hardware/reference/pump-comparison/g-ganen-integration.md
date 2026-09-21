@@ -2,6 +2,12 @@
 
 The selected received pump is G Ganen B07F35PTFR. Derek confirmed that no caliper measurements were recorded. The scan-reference agent owns its measured model; this map does not qualify dimensions, inlet/outlet identity, electrical demand or hydraulic performance. All current build results below use the SeaFlo reference.
 
+Three complementary 0.10 mm fused clouds and their native projects are archived in
+`~/Documents/3D Scans/2026-09-20-g-ganen-pump/`. Derek identifies the feet as flexible rubber.
+Its flow arrow points right with `4002` upright and readable. That label-frame direction is
+recorded; its mapping to the scan reference's signed Y ports remains open. Unloaded foot
+poses do not establish the compressed mounting stack.
+
 ## Reference interface
 
 Current source: `hardware/reference/seaflo-22-pump/seaflo_22_pump.py`.

@@ -195,23 +195,26 @@
     "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
     "native_qr_payload_verified": "HTTPS://HOSM.US/0001",
     "submitted_to": "Mark2",
-    "physical_qr_and_snap_fit_accepted": false,
+    "physical_qr_and_snap_fit_accepted": true,
     "user_design_acceptance": false,
     "user_design_feedback": "Derek finds the nameplate unnecessarily complex; it is not the preferred snap-fit precedent.",
-    "status": "print_finished_physical_verification_pending"
+    "status": "physically_successful_appearance_qr_and_snaps",
+    "physical_acceptance_record": "hardware/printed-parts/enclosure/nameplate/physical-acceptance.json"
   },
   "water_pump": {
     "selected": "G Ganen",
     "asin": "B07F35PTFR",
     "authority": "Derek, September 20, 2026",
     "calipers_recorded": false,
-    "scan_status": "Three native passes captured: feet-up 1,033 frames, on-back 1,146 frames and feet-down 1,114 frames. First two fused clouds are archived; feet-down fusion and dimensional analysis are processing.",
+    "scan_status": "Three native passes fused at 0.10 mm and archived with hashes: feet-up 1,033 frames, on-back 1,146 frames and feet-down 1,114 frames. Combined dimensional analysis is active.",
     "production_reference_integrated": false,
     "existing_seaflo_baseline_qualifies_selected_pump": false,
     "selection_record": "hardware/reference/pump-comparison/README.md",
     "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump",
     "pass_1_cloud_sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
-    "pass_1_points": 3235134
+    "pass_1_points": 3235134,
+    "pass_3_cloud_sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+    "pass_3_points": 2989594
   },
   "cartridge_print": {
     "status": "held_for_measured_branch_datum_propagation",

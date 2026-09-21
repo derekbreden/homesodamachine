@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "part": "nameplate, unit 0001 and receiver coupon",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-20",
+  "status": "physically_successful_appearance_qr_and_snaps",
+  "printer": "Mark2",
+  "physical_filaments": {
+    "left": "black PET-GF",
+    "right": "white PET-GF"
+  },
+  "white_right_hotend_first_use_successful": true,
+  "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
+  "native_archive": ".cache/prints/2026-09-20-nameplate-001-black-white-z004-mark2-v1/slice-2/nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "7ca26fa32a692316c6b3e0962b7c313a1d366493b8d1871625fb587f693bfab2",
+  "source_step_sha256": "74964b0ab4a4e4ec0d8f27dc10eeaf110bead3e81812f4cf714d9045f6b4469b",
+  "receiver_step_sha256": "8c2df89a86b98d1c2cbe99abdc96d59b7416672cd14b028c42259eb71b0f36aa",
+  "printed_model_files": [
+    {
+      "file": "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
+      "sha256": "5008bbeb73bb1a9f7134e5d7ff5d859978b29f823ca20c4d175c5dcbfa558aa5"
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
+      "sha256": "4adb8dd736730bd70d3adb3ed091f1e4335b27e6f947a1d6e9f54421ecdea08b"
+    }
+  ],
+  "user_statement": "The nameplate worked well, and is clear and looks great. The QR code scans clean from 2 feet away, but gets spotty at 3 feet, which is stellar performance as far as I\u2019m concerned. It\u2019s snaps do work.",
+  "observations": {
+    "appearance_accepted": true,
+    "qr_reliable_distance_feet": 2,
+    "qr_intermittent_distance_feet": 3,
+    "qr_performance_accepted": true,
+    "snap_retention_works": true
+  },
+  "design_preference": {
+    "simplicity_concern_remains": true,
+    "preferred_simple_snap_example": "faucet display cover",
+    "existing_carrier_joint_reuse_selected": false
+  },
+  "scope": "Printed plate and receiver coupon. Full enclosure installation and retention force/cycle life have not been measured.",
+  "photos": [
+    {
+      "file": "hardware/printed-parts/enclosure/nameplate/physical-fit/front.jpg",
+      "sha256": "a02e211d2da582a93e6111786609dc426ed1b3d5d110c40e8e0fbf555228535e",
+      "original_file": "1-Photo-1.jpg",
+      "modified": false
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/nameplate/physical-fit/rear.jpg",
+      "sha256": "ff02726435662f2b9acd874245317cfdc3ecf858bcd1505d2f362752b723fb66",
+      "original_file": "2-Photo-2.jpg",
+      "modified": false
+    }
+  ],
+  "photo_qr_verification": {
+    "decoder": "Apple Vision VNDetectBarcodesRequest",
+    "photo": "hardware/printed-parts/enclosure/nameplate/physical-fit/front.jpg",
+    "photo_sha256": "a02e211d2da582a93e6111786609dc426ed1b3d5d110c40e8e0fbf555228535e",
+    "decoded_payloads": [
+      "HTTPS://HOSM.US/0001"
+    ],
+    "matches_unit": true,
+    "scope": "Original attached photograph; does not independently establish scan distance."
+  }
+}
