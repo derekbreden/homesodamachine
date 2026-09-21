@@ -68,6 +68,86 @@
         "print_error": 0,
         "hms": []
       },
+      "print_completion": {
+        "gcode_state": "FAILED",
+        "layer_num": 0,
+        "mc_percent": 0,
+        "note": "Nozzle clumping in the first half layer; Derek stopped it and read the half layer as normal apart from the clump, the first clump in many kg of PET-GF, and wrote it off as a fluke. Resubmitted as the next job."
+      },
+      "physical_fit": null,
+      "estimate": {
+        "seconds": 58737.38671875,
+        "grams": 931.5325927734375,
+        "layers": 917
+      }
+    },
+    {
+      "job_id": "2026-09-20-fake-countertop-black-z004-mark2-resend",
+      "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "5ebbb688cd67fca874c28b4196a20d552bd9998a16b959e6bb130f0134031acc",
+      "gcode_sha256": "b2cae8acff0d1a6d506cb429c46b394ac1cb01fe2eff617ba4a1f6c0b37cc2bd",
+      "source_project": "fake-countertop-petgf-mark2.3mf",
+      "source_project_sha256": "17a5368f6e765f4a2fa30d0fb4e06e0bc36fbc57aa020fb814b67646dd806851",
+      "source_stl": "fake-countertop.stl",
+      "source_stl_sha256": "d1c6fe94e19db1ac8409d91f9b25462603c8054b3ea3d5151c7829a123fc15b6",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "physical_filament": "black PET-GF, left external spool",
+      "physical_nozzle": "0.4 mm, the fixed left hotend",
+      "physical_setup_authority": "Derek: 'Please start it again' after the clump; same archive, same plate, same spool.",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "plate": {
+        "printable_area_extruders": [
+          0
+        ],
+        "plate_border_mm": 5.0,
+        "footprint_mm": [
+          315.0,
+          310.0
+        ]
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect",
+        "tool": "tools/bambu_send.py, printer chosen in the selector popover",
+        "filament_mapping": "left nozzle, Ext PET-CF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-21T04:24:21.488264+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 917,
+        "mc_remaining_time": 978,
+        "print_error": 0,
+        "hms": []
+      },
       "print_completion": null,
       "physical_fit": null,
       "estimate": {
