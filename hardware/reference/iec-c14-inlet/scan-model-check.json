@@ -1,29 +1,29 @@
 {
   "units": "mm",
   "method": "Registered scan observations to the closest tessellated model surface.",
-  "model_source_sha256": "6267b363cbf33233d9d407b5b15113f0447a8a5c06a383b6d103cfd0099008e4",
+  "model_source_sha256": "cea7f1ba0ca8733c4d44599265cbf1dc31719f9e9251d10b2bceb5d9d256cc43",
   "observations_sha256": "abc24cc993f71af6954de08055b8ca3aa17e6f81b43f252c94b53008c06013af",
   "observation_voxel_mm": 0.3,
   "cad_tessellation_tolerance_mm": 0.03,
-  "cad_triangles": 7112,
+  "cad_triangles": 7120,
   "sampling": "Deterministic first observation in each voxel; regional geometry and normal masks, no distance-based exclusion.",
   "all_retained_observations": {
     "samples": 71424,
     "distance_p50_p90_p95_p99_max_mm": [
-      0.10149945735931354,
-      0.5133440732955933,
-      0.8007904529571511,
-      1.4620863294601443,
+      0.11174591064453121,
+      0.5404732151031497,
+      0.7914202020168313,
+      1.4469419515132904,
       2.472111165523529
     ],
-    "fraction_over_0_25mm": 0.2309027777777778,
-    "fraction_over_0_5mm": 0.10497871863799284
+    "fraction_over_0_25mm": 0.2685931899641577,
+    "fraction_over_0_5mm": 0.11717349910394265
   },
   "features": {
     "flange_front_faces_ears": {
       "samples": 1844,
       "distance_p50_p90_p95_p99_max_mm": [
-        0.07528070732951164,
+        0.07486581802368164,
         0.25475187897682194,
         0.3080224364995956,
         0.36683706581592557,
@@ -31,33 +31,33 @@
       ],
       "fraction_over_0_25mm": 0.10900216919739697,
       "fraction_over_0_5mm": 0.0027114967462039045,
-      "signed_median_mm": 0.04540767733896482
+      "signed_median_mm": 0.04540767733896481
     },
     "flange_back_face": {
       "samples": 3789,
       "distance_p50_p90_p95_p99_max_mm": [
-        0.06994390487670898,
-        0.23045806884765627,
-        0.2679271697998047,
-        0.4689586830139159,
+        0.07408809661865234,
+        0.24009480476379405,
+        0.29345461700197045,
+        0.48753735384950886,
         0.6988861560821533
       ],
-      "fraction_over_0_25mm": 0.07205067300079177,
-      "fraction_over_0_5mm": 0.007653734494589602,
-      "signed_median_mm": -0.010933815340223396
+      "fraction_over_0_25mm": 0.09105304829770387,
+      "fraction_over_0_5mm": 0.00870942201108472,
+      "signed_median_mm": -0.009377099487238945
     },
     "flange_outline_edges": {
       "samples": 8296,
       "distance_p50_p90_p95_p99_max_mm": [
-        0.10165283970260477,
-        0.7818419933319092,
-        1.166328304882375,
-        1.4933407247066481,
-        2.2858865571474754
+        0.17240238547137507,
+        0.776692714691162,
+        1.1513821698732152,
+        1.4461104148774069,
+        2.0515731108502138
       ],
-      "fraction_over_0_25mm": 0.1765911282545805,
-      "fraction_over_0_5mm": 0.14657666345226616,
-      "signed_median_mm": -0.012055803561915022
+      "fraction_over_0_25mm": 0.37716972034715524,
+      "fraction_over_0_5mm": 0.22516875602700095,
+      "signed_median_mm": 0.08140092913132731
     },
     "screw_hole_walls": {
       "samples": 274,
@@ -88,41 +88,41 @@
     "rim_top_face": {
       "samples": 3353,
       "distance_p50_p90_p95_p99_max_mm": [
-        0.042947258949279865,
-        0.11128061771392837,
-        0.14885753917694086,
-        0.19194337989163263,
+        0.04267140865325936,
+        0.11122592449188247,
+        0.1506446905136107,
+        0.21268381484916765,
         0.35131684303283706
       ],
-      "fraction_over_0_25mm": 0.0047718461079630185,
+      "fraction_over_0_25mm": 0.005070086489710707,
       "fraction_over_0_5mm": 0.0,
-      "signed_median_mm": -0.010002269643201013
+      "signed_median_mm": -0.008054712237663545
     },
     "rim_outer_walls": {
       "samples": 1775,
       "distance_p50_p90_p95_p99_max_mm": [
-        0.07694107055664112,
-        0.19035608295567788,
-        0.40732563354398527,
-        0.5495879522325097,
-        0.6043214272639862
+        0.09813912033085005,
+        0.4733728752897213,
+        0.5457150637605495,
+        0.6054903146144739,
+        0.6517719238772598
       ],
-      "fraction_over_0_25mm": 0.07774647887323943,
-      "fraction_over_0_5mm": 0.016338028169014085,
-      "signed_median_mm": 0.04579149710713928
+      "fraction_over_0_25mm": 0.3177464788732394,
+      "fraction_over_0_5mm": 0.07830985915492958,
+      "signed_median_mm": 0.08769414627396772
     },
     "cavity_mouth_walls": {
       "samples": 5229,
       "distance_p50_p90_p95_p99_max_mm": [
         0.12728702545165937,
         0.7775183105468747,
-        1.1440426032156863,
-        1.3925046926436428,
-        2.2858865571474754
+        1.1366383697688618,
+        1.3266330805035498,
+        2.0732112761468606
       ],
       "fraction_over_0_25mm": 0.21629374641422836,
       "fraction_over_0_5mm": 0.13941480206540446,
-      "signed_median_mm": -0.03246526750992632
+      "signed_median_mm": -0.029692326148217808
     },
     "cavity_walls_deep": {
       "samples": 11206,

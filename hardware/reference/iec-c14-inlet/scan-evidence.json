@@ -649,5 +649,122 @@
   "Coating thickness unmeasured; scan spacing is not an absolute accuracy claim.",
   "Each pass buries one ear in putty; those regions are excluded and the two ears are measured from different passes.",
   "The cavity floor and blade roots are seen only at the deepest plane the scanner reached."
- ]
+ ],
+ "plan_outline": {
+  "what_the_model_carries": "the calipered plan outline (49.77 nose to nose, 17.98 shoulder-to-nose chord, R4.885 ears centred 20.0 from the axis) with the scanned 21.9 across the long flats; rim corners R6.0",
+  "why_three_readings": "the printed pocket, cut to the calipered outline plus 0.15 mm, holds the part (Derek, 2026-09-21); three scan readings of the flange edge disagree by up to 0.4 mm",
+  "readings_upper_z_at_x_mm": {
+   "x": [
+    10.0,
+    11.0,
+    12.0,
+    12.5,
+    13.0,
+    13.5,
+    14.0,
+    15.0,
+    16.0,
+    17.0,
+    18.0,
+    19.0,
+    20.0
+   ],
+   "printed_pocket_outline_plus_slip": [
+    11.24,
+    11.21,
+    10.71,
+    10.41,
+    10.1,
+    9.8,
+    9.5,
+    8.91,
+    8.3,
+    7.7,
+    7.1,
+    6.49,
+    5.89
+   ],
+   "thin_edge_band_median_plus_x_pass1": [
+    9.66,
+    9.58,
+    10.89,
+    10.74,
+    10.5,
+    10.2,
+    9.88,
+    9.26,
+    8.63,
+    7.99,
+    7.34,
+    6.67,
+    6.01
+   ],
+   "back_face_boundary_p99_5_plus_x_pass1": [
+    11.05,
+    11.08,
+    10.72,
+    10.61,
+    10.54,
+    10.05,
+    9.65,
+    8.95,
+    8.41,
+    7.72,
+    7.05,
+    6.39,
+    5.76
+   ],
+   "back_face_boundary_p99_5_minus_x_passes_2_3": [
+    10.89,
+    10.88,
+    10.65,
+    10.49,
+    10.29,
+    9.91,
+    9.53,
+    8.87,
+    8.28,
+    7.55,
+    6.97,
+    6.32,
+    5.63
+   ],
+   "front_face_boundary_p99_5_plus_x_pass1": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    7.9,
+    7.36,
+    6.84,
+    6.15,
+    5.5
+   ],
+   "rim_top_face_boundary_p99_5_plus_x_pass1": [
+    10.69,
+    10.5,
+    10.34,
+    10.21,
+    9.99,
+    9.67,
+    9.26,
+    7.9,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "note": "x bins are 0.5 mm wide, so a p99.5 boundary on a descending edge reads about 0.16 mm high along the tapers"
+  },
+  "reading": "the broad faces end at or inside the printed pocket outline, as the fit requires; the thin edge band reads 0.1 (ears) to 0.3 mm (tapers) outside it and is what the earlier model outline was built from",
+  "model_vs_printed_pocket_clearance_mm": {
+   "flange_min": 0.15,
+   "rim_corners_min": 0.105
+  }
+ }
 }

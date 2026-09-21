@@ -26,9 +26,9 @@ ears, the plane the wall's seating face carries.
 | Interface | Model dimension |
 |---|---|
 | Flange, nose to nose × across the long flats | [49.97](FLANGE_W) × [21.88](FLANGE_H) mm, [3.25](FLANGE_T) thick |
-| Long flats end, taper to the ear arc | x ±[12.33](FLANGE_SHOULDER_X), 32.7°, tangent to R[5.175](EAR_R) |
+| Ears and tapers | R[4.885](EAR_R) arcs centred [20](EAR_CX) from the axis, [17.98](FLANGE_END_CHORD) mm from shoulder to nose |
 | Screw holes | Ø[3.24](SCREW_D), [40.21](SCREW_PITCH) mm apart on the mating axis, 90° countersunk to Ø[6.1](CSK_D) outboard |
-| Rim round the cavity mouth | [31.03](RIM_W) × [22.13](RIM_H) mm R[5](RIM_R), [1.84](RIM_PROUD) proud of the ears |
+| Rim round the cavity mouth | [31.03](RIM_W) × [22.13](RIM_H) mm R[6](RIM_R), [1.84](RIM_PROUD) proud of the ears |
 | Cavity mouth | [24.82](MOUTH_W) × [16.26](MOUTH_H) mm, R[2.3](MOUTH_TOP_R) above, [4.8](MOUTH_CHAMFER) mm chamfers below |
 | Cavity floor | [14.3](CAVITY_FLOOR_Y) mm below the seating plane |
 | Housing | [26.1](BODY_W) × [18](BODY_H) mm, [13.65](BODY_DEPTH) deep behind the flange, lower edges chamfered [4.85](BODY_CHAMFER_LEG) |
@@ -50,14 +50,18 @@ cord mates through that bore.
 
 ## Chosen fidelity
 
-The STEP is one solid. The flange, rim, cavity, housing and tab bosses are the
-measured forms. Blade and tab sections are IEC nominal at the measured stations.
+The STEP is one solid. The flange's plan outline is the calipered one, which the
+scan's broad faces end on and the printed pocket holds; the scan's thin edge band
+reads 0.1–0.3 mm outside it and is not used ([scan-evidence.json](scan-evidence.json)
+carries the three readings side by side). The flange thickness, rim, cavity,
+housing and tab bosses are the measured forms. Blade and tab sections are IEC
+nominal at the measured stations.
 The knuckle round between flat and taper, the housing's upper edge rounds and
 the tab holes are estimates; two small windows in the rim's side walls are
 omitted; the ear front faces, which crown about 0.2 mm toward the tips, are flat.
 
 Across 71,424 sampled observations the median distance to the model surface is
-0.10 mm and the 95th percentile 0.80 mm. The surfaces the enclosure fits to —
+0.11 mm and the 95th percentile 0.79 mm. The surfaces the enclosure fits to —
 flange faces, screw-hole walls, rim face and walls, housing faces and chamfers,
 tabs — sit at 0.04–0.14 mm median; the tails are the rim windows, the cavity's
 internal structure and the nominal blades. [scan-model-check.json](scan-model-check.json)
