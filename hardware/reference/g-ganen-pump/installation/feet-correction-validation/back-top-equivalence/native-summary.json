@@ -1,0 +1,61 @@
+{
+  "scope": "Current canonical native back-top minus/against the exact placed leaf extracted from the prior qualified aggregate. No tessellated-surface comparison is substituted for native booleans.",
+  "inputs_sha256": {
+    "/private/tmp/scanner-review/g-ganen-feet-correction/enclosure-back-top.brep": "453c9eddc32167f42c17c5e7508d9130218f5f068991d1662ad347c8a3f048ea",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "44b016cdb0cc5d3e88f0ff73e852989448dd16b79ea1550cffb145d9bbb07fdc",
+    "/private/tmp/scanner-review/g-ganen-feet-correction/current-native.json": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a",
+    "/private/tmp/scanner-review/g-ganen-feet-correction/before/hardware/manifold-layout/enclosure-assembly.step": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67"
+  },
+  "source_sha256": {
+    "/tmp/scanner-review/g-ganen-feet-correction/back-top-native-delta/compare.py": "71ec0ad930a786c78798680639d616d776c7367149e5129a68ec606f04a9955e"
+  },
+  "prior": {
+    "valid": true,
+    "solids": 1,
+    "faces": 718,
+    "volume_mm3": 1573537.3286811926,
+    "area_mm2": 438232.3533085754,
+    "bounds_mm": [
+      -107.5000001,
+      199.9999999,
+      159.9999999,
+      107.5000001,
+      471.30000010000003,
+      355.0000001
+    ]
+  },
+  "current": {
+    "valid": true,
+    "solids": 1,
+    "faces": 718,
+    "volume_mm3": 1573537.3288276216,
+    "area_mm2": 438232.35330510547,
+    "bounds_mm": [
+      -107.5000001,
+      199.9999999,
+      159.9999999,
+      107.5000001,
+      471.30000010000003,
+      355.0000001
+    ]
+  },
+  "operations": {
+    "added": {
+      "volume_mm3": 0,
+      "valid": true,
+      "solids": 0,
+      "elapsed_seconds": 2.9820423329947516,
+      "components": []
+    },
+    "removed": {
+      "volume_mm3": 0,
+      "valid": true,
+      "solids": 0,
+      "elapsed_seconds": 3.1882926670077723,
+      "components": []
+    }
+  },
+  "inputs_stable": true,
+  "elapsed_seconds": 8.7858788750018,
+  "status": "geometrically_equal_within_native_tolerance"
+}

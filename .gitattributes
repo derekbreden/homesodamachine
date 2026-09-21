@@ -25,6 +25,9 @@
 # release asset they arrive in, and web/scripts/fetch-cad-artifacts.mjs puts them on the disk.
 *.step  -diff linguist-generated=true
 
+# Native solid extracted for the enclosure back-top equivalence check.
+hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/prior-back-top.brep  -diff linguist-generated=true
+
 # TWO PUBLISHES ALWAYS MEET ON THE POINTER FILE: source.commit and the bundle move on every one, so a
 # rebase of one publish onto another stops there every time, textually, with one right answer
 # — main's pointers plus the members the incoming publish moved. tools/cad-artifacts/merge_pointers.py

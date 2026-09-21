@@ -1,0 +1,570 @@
+"""Read exact native archive, per-object supports and conservative toolpath bounds.
+
+The 325 x 320 mm left-nozzle area is the printer constraint. The preferred model
+border is reported separately; no faucet-specific toolpath separation is imposed.
+"""
+from pathlib import Path
+import json
+import re
+import sys
+import xml.etree.ElementTree as ET
+import zipfile
+
+import numpy as np
+
+from print_workflow import ROOT, AREA, PROFILE, PROFILE_SHA, sha, rel, write_json, writer, verify_report, resolve, HERE, staged_report
+sys.path.insert(0, str(ROOT / 'hardware/scripts'))
+from enclosure_support_audit import audit
+from prepare_display_print import extrusion_segments
+import enclosure_support_audit
+import prepare_display_print
+
+
+CRITICAL = (
+    'layer_height', 'initial_layer_print_height', 'wall_loops', 'sparse_infill_density',
+    'sparse_infill_pattern', 'print_sequence', 'nozzle_diameter', 'filament_colour',
+    'filament_flow_ratio', 'filament_nozzle_map', 'filament_map', 'curr_bed_type',
+    'enable_support', 'support_type', 'support_top_z_distance', 'support_interface_top_layers',
+    'support_interface_spacing', 'support_interface_pattern', 'support_object_xy_distance',
+    'nozzle_temperature', 'nozzle_temperature_initial_layer', 'textured_plate_temp',
+    'textured_plate_temp_initial_layer', 'brim_type', 'brim_width', 'enable_arc_fitting',
+)
+
+
+def tagged_input(gcode, parts, ready):
+    labels = set()
+    current, feature, layer_seen = None, '', False
+    unlabelled = []
+    with gcode.open() as stream:
+        for line_number, line in enumerate(stream, 1):
+            if match := re.match(r'; start printing object, unique label id: (\d+)', line):
+                current = int(match[1])
+                labels.add(current)
+            elif line.startswith('; stop printing object'):
+                current = None
+            elif line.startswith('; FEATURE:'):
+                feature = line.split(':', 1)[1].strip()
+            elif line.startswith('; Z_HEIGHT:'):
+                layer_seen = True
+            # A conservative scope check: any native layer extrusion command
+            # outside the object tags needs an explicit reading before bounds
+            # from the tagged-object parser can describe the whole plate.
+            if (layer_seen and current is None and feature not in ('', 'Custom')
+                    and re.match(r'G[123] ', line)
+                    and re.search(r' E[+]?[0-9]', line)
+                    and re.search(r' [XY][-+0-9.]', line)):
+                unlabelled.append({'line': line_number, 'feature': feature, 'command': line.strip()})
+                if len(unlabelled) >= 5:
+                    break
+    expected = {part['identify_id'] for part in parts}
+    if labels:
+        if unlabelled:
+            raise ValueError(f'Native non-custom extrusion is outside object tags: {unlabelled}')
+        if labels != expected:
+            raise ValueError(f'Native object labels {labels} do not match {expected}')
+        return gcode, 'Native per-object labels'
+    if len(parts) != 1:
+        raise ValueError('A multi-object plate has no reliable native object labels')
+    target = ready / 'analysis-labelled-single-object.gcode'
+    started = False
+    with gcode.open() as source, target.open('w') as out:
+        for line in source:
+            if not started and line.startswith('; Z_HEIGHT:'):
+                out.write(f'; start printing object, unique label id: {parts[0]["identify_id"]}\n')
+                started = True
+            out.write(line)
+    return target, 'Analysis-only label for the sole object; original printing bytes are unchanged'
+
+
+def extrusion_bounds(gcode, parts):
+    values = {part['identify_id']: {'low': [float('inf'), float('inf')],
+                                   'high': [float('-inf'), float('-inf')],
+                                   'segments': 0, 'maximum_width': 0., 'features': {}}
+              for part in parts}
+    for segment in extrusion_segments(gcode):
+        if segment['feature'] in ('', 'Custom'):
+            continue
+        row = values[segment['object']]
+        width = segment['width']
+        if width <= 0.:
+            raise ValueError('A model/support path has no positive emitted line width')
+        pad = width / 2 + .1
+        a, b = segment['a'], segment['b']
+        for axis in (0, 1):
+            row['low'][axis] = min(row['low'][axis], min(a[axis], b[axis]) - pad)
+            row['high'][axis] = max(row['high'][axis], max(a[axis], b[axis]) + pad)
+        row['segments'] += 1
+        row['maximum_width'] = max(row['maximum_width'], width)
+        row['features'][segment['feature']] = row['features'].get(segment['feature'], 0) + 1
+    for row in values.values():
+        row['low'], row['high'] = np.array(row['low']), np.array(row['high'])
+        if not np.all(np.isfinite(row['low'])):
+            raise ValueError('A plate object has no emitted extrusion paths')
+    return values
+
+
+def original_bbox(bounds, rotation):
+    low, high = np.asarray(bounds[:3]), np.asarray(bounds[3:])
+    corners = np.array([[x, y, z] for x in (low[0], high[0]) for y in (low[1], high[1])
+                        for z in (low[2], high[2])]) @ rotation
+    return [*corners.min(axis=0).tolist(), *corners.max(axis=0).tolist()]
+
+
+def mask_object(gcode, output, selected, maximum_z):
+    """Analysis-only feature mask; preserve every move before the object's top.
+
+    The complete plate already passed label/bounds validation. No support for a
+    selected part can extend above that part plus one complete layer.
+    """
+    current = None
+    with gcode.open() as source, output.open('w') as target:
+        for raw in source:
+            if raw.startswith('; Z_HEIGHT:') and float(raw.split(':', 1)[1]) > maximum_z:
+                break
+            match = re.match(r'; start printing object, unique label id: (\d+)', raw)
+            if match:
+                current = int(match[1])
+                target.write('; FEATURE: Other object\n')
+            elif raw.startswith('; stop printing object'):
+                current = None
+                target.write('; FEATURE: Other object\n')
+            if raw.startswith('; FEATURE:') and current != selected:
+                target.write('; FEATURE: Other object\n')
+            else:
+                target.write(raw)
+
+
+def per_object_support(staged, report, gcode, ready):
+    with zipfile.ZipFile(staged) as archive:
+        members = {name: archive.read(name) for name in archive.namelist()}
+    tagged, policy = tagged_input(gcode, report['parts'], ready)
+    bounds = extrusion_bounds(tagged, report['parts'])
+    write_json(ready / 'path-bounds-checkpoint.json', {str(k): {**v, 'low': v['low'].tolist(), 'high': v['high'].tolist()} for k, v in bounds.items()})
+    originals = {row['name']: row for row in report['original_sources']}
+    readings = []
+    for part in report['parts']:
+        print(f'Reading supports: {part["name"]}', flush=True)
+        one = dict(members)
+        model = ET.fromstring(one['3D/3dmodel.model'])
+        resources, build = model.find(writer.qn('resources')), model.find(writer.qn('build'))
+        for item in list(resources):
+            if item.get('id') != part['object_id']:
+                resources.remove(item)
+        for item in list(build):
+            if item.get('objectid') != part['object_id']:
+                build.remove(item)
+        config = ET.fromstring(one['Metadata/model_settings.config'])
+        for item in list(config):
+            if item.tag != 'object' or item.get('id') != part['object_id']:
+                config.remove(item)
+        one['3D/3dmodel.model'], one['Metadata/model_settings.config'] = writer.xml(model), writer.xml(config)
+        coordinates = ready / f'coordinates-{part["name"]}.3mf'
+        writer.archive_write(coordinates, one)
+        filtered = ready / f'support-labels-{part["name"]}.gcode'
+        mask_object(tagged, filtered, part['identify_id'],
+                    part['plate_bounds_mm'][1][2] + report['layer_height_mm'])
+        reading = audit(filtered, part['name'], ROOT / part['source'], staged, coordinates,
+                        profile_label=rel(staged), include_unlabelled_support=True)
+        original = originals[part['name']]
+        rotation = np.asarray(original['pretransform_rotation_matrix'])
+        for row in (*reading['trees'], *reading['interfaces']):
+            if 'bbox_cad_xyz_mm' in row:
+                row['bbox_original_cad_xyz_mm'] = original_bbox(row['bbox_cad_xyz_mm'], rotation)
+        original_transform = reading['coordinate_frame']['plate_to_cad_transform']
+        matrix = np.array(original_transform[:9]).reshape((3, 3)) @ rotation
+        translation = np.array(original_transform[9:]) @ rotation
+        reading['coordinate_frame']['plate_to_original_cad_transform'] = [*matrix.reshape(-1).tolist(), *translation.tolist()]
+        row = bounds[part['identify_id']]
+        reading['toolpaths'] = {
+            'extrusion_bounds_xy_mm': [row['low'].tolist(), row['high'].tolist()],
+            'segments': row['segments'], 'features': row['features'],
+            'maximum_line_width_mm': row['maximum_width'],
+            'arc_sampling_allowance_mm': .1,
+            'method': 'Native non-custom layer extrusions, buffered by each emitted half-width plus arc allowance.',
+        }
+        reading['inputs'].update({
+            'native_plate_gcode_sha256': sha(gcode), 'object_label': part['identify_id'],
+            'object_scope': policy, 'original_stl': original['source'],
+            'original_stl_sha256': original['source_stl_sha256'],
+            'pretransform_rotation_matrix': rotation.tolist(),
+            'feature_filter': 'Other-object feature labels masked in analysis copy; every movement retained.',
+        })
+        write_json(ready / f'support-{part["name"]}.json', reading)
+        readings.append(reading)
+        print(f'  {part["name"]}: {reading["summary"]}', flush=True)
+    margins, pairs = [], []
+    for i, row in enumerate(readings):
+        low, high = np.array(row['toolpaths']['extrusion_bounds_xy_mm'])
+        side_margins = [low[0], low[1], AREA[1, 0] - high[0], AREA[1, 1] - high[1]]
+        margins.append({'piece': row['piece'], 'side_margins_mm': side_margins,
+                        'minimum_margin_mm': min(side_margins)})
+        for other in readings[:i]:
+            other_low, other_high = np.array(other['toolpaths']['extrusion_bounds_xy_mm'])
+            gap = float(np.linalg.norm(np.maximum(0., np.maximum(low - other_high, other_low - high))))
+            pairs.append({'pieces': [other['piece'], row['piece']],
+                          'projected_extrusion_box_gap_mm': gap,
+                          'geometric_intersection_ruled_out_by_bounds': gap > 0.,
+                          'needs_layerwise_overlap_investigation': gap == 0.})
+    return {
+        'parts': readings, 'source_gcode_sha256': sha(gcode),
+        'fit': {'left_nozzle_area_mm': AREA.tolist(), 'toolpath_margins': margins,
+                'minimum_toolpath_bed_margin_mm': min(row['minimum_margin_mm'] for row in margins),
+                'pairwise_conservative_gaps': pairs,
+                'minimum_pair_gap_mm': min((row['projected_extrusion_box_gap_mm'] for row in pairs), default=None),
+                'bounds_inside_nozzle_area': all(row['minimum_margin_mm'] >= 0 for row in margins),
+                'overlap_investigation_needed': any(row['needs_layerwise_overlap_investigation'] for row in pairs),
+                'separation_policy': 'The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting.'},
+    }
+
+
+def pusher_toolpaths(report, support, gcode):
+    """Measure the supplied flat tool's actual head/tongue paths on every layer."""
+    part = next((row for row in report['parts'] if row['name'] == 'carrier-spring-pusher'), None)
+    if part is None:
+        return None
+    from collections import defaultdict
+    from shapely.geometry import LineString, Polygon
+    from shapely.ops import unary_union
+    import trimesh
+    original = next(row for row in report['original_sources'] if row['name'] == part['name'])
+    mesh = trimesh.load(ROOT / original['source'], force='mesh', process=True)
+    top = mesh.face_normals[:, 2] > .999
+    footprint = unary_union([Polygon(face[:, :2]) for face in mesh.triangles[top]])
+    reading = next(row for row in support['parts'] if row['piece'] == part['name'])
+    transform = reading['coordinate_frame']['plate_to_original_cad_transform']
+    matrix, translation = np.array(transform[:9]).reshape((3, 3)), np.array(transform[9:])
+    roads = defaultdict(list)
+    class ToolLayers:
+        def open(self):
+            # Whole-layer printing and this bed-rooted constant-height tool make
+            # later layers irrelevant; retain all coordinates before the cutoff.
+            for line in gcode.open():
+                if line.startswith('; Z_HEIGHT:') and float(line.split(':', 1)[1]) > mesh.extents[2] + .3:
+                    break
+                yield line
+    for segment in extrusion_segments(ToolLayers()):
+        if segment['object'] != part['identify_id'] or segment['feature'] in ('', 'Custom', 'Brim'):
+            continue
+        if segment['feature'].startswith('Support'):
+            continue
+        points = np.array([segment['a'], segment['b']]) @ matrix + translation
+        roads[segment['layer']].append(LineString(points[:, :2]).buffer(segment['width'] / 2))
+    rows = []
+    for z, paths in sorted(roads.items()):
+        material = unary_union(paths)
+        connected = material.buffer(.003)
+        components = [connected] if connected.geom_type == 'Polygon' else list(connected.geoms)
+        # This is a connectivity witness, not a strength threshold. A component
+        # must span from the actual tongue end region into the round head.
+        spans_tool = any(body.bounds[0] <= footprint.bounds[0] + .5
+                         and body.bounds[2] >= footprint.bounds[2] - .5 for body in components)
+        cross_sections = []
+        for x in np.linspace(footprint.bounds[0] + .25 * (footprint.bounds[2] - footprint.bounds[0]),
+                             footprint.bounds[0] + .75 * (footprint.bounds[2] - footprint.bounds[0]), 3):
+            cross = LineString([(x, -10.), (x, 10.)])
+            cross_sections.append({'x_original_mm': x,
+                                   'extruded_width_sum_mm': material.intersection(cross).length})
+        rows.append({'z_mm': z, 'buffered_extrusion_area_mm2': material.area,
+                     'covered_nominal_footprint_area_mm2': material.intersection(footprint).area,
+                     'extrusion_bounds_xy_mm': list(material.bounds),
+                     'connected_component_spans_tongue_and_head': spans_tool,
+                     'tongue_cross_sections': cross_sections})
+    if not rows or not all(row['connected_component_spans_tongue_and_head'] for row in rows):
+        raise ValueError('The spring pusher loses its connected head/tongue path on a native layer')
+    layer_height = report['layer_height_mm']
+    heights = [row['z_mm'] for row in rows]
+    if (heights[0] > 1.5 * layer_height
+            or mesh.extents[2] - heights[-1] > 1.5 * layer_height
+            or max(np.diff(heights), default=0.) > layer_height + 1e-5):
+        raise ValueError('The spring pusher is missing an expected emitted layer')
+    return {
+        'original_stl_sha256': original['source_stl_sha256'], 'native_layers': len(rows),
+        'nominal_mesh_thickness_mm': mesh.extents[2],
+        'last_emitted_layer_z_mm': rows[-1]['z_mm'],
+        'nominal_footprint_area_mm2': footprint.area,
+        'all_layers_have_connected_head_and_tongue': True,
+        'connectivity_quantization_allowance_mm': .003,
+        'layers': rows,
+        'support_bodies': reading['summary']['support_bodies'],
+        'limit': 'Emitted roads and connectivity only. Spring force, physical tool stiffness and handling effort remain trial outcomes.',
+    }
+
+
+def retaining_wall_toolpaths(report, support, gcode):
+    """Read a fresh receipt-bound native region; no historical support approval."""
+    part = next((row for row in report['parts'] if row['name'] == 'enclosure-tee-carrier-right'), None)
+    if part is None:
+        return None
+    from collections import defaultdict
+    from shapely.geometry import LineString, box
+    from shapely.ops import unary_union
+    import cadquery as cq
+    original = next(row for row in report['original_sources'] if row['name'] == part['name'])
+    if original['print_up_in_original_cad'] != [0, 0, 1]:
+        raise ValueError('The retaining-wall reading expects the upright carrier orientation')
+    if not report.get('functional_regions'):
+        return None
+    proof_path = resolve(report['functional_regions'])
+    proof = json.loads(proof_path.read_text())
+    if proof.get('status') != 'current_native_regions_declared' or not proof.get('authority'):
+        raise ValueError('Functional regions need current explicit authority')
+    receipt = json.loads(resolve(report['geometry_confirmation']).read_text())
+    if receipt['evidence_sha256'].get(rel(proof_path)) != sha(proof_path):
+        raise ValueError('The native region declaration is not in the fresh receipt')
+    regions = [r for r in proof['regions'] if r['id'] == 'carrier-retaining-wall']
+    if len(regions) != 1:
+        raise ValueError('Declare exactly one carrier-retaining-wall region')
+    declaration = regions[0]
+    if (declaration['part'] != part['name']
+            or declaration['source_step_sha256'] != original['source_step_sha256']
+            or declaration['source_stl_sha256'] != original['source_stl_sha256']):
+        raise ValueError('The native region declaration describes another carrier')
+    low, high = np.asarray(declaration['bounds_original_cad_mm'], dtype=float)
+    if low.shape != (3,) or np.any(high <= low) or not np.all(np.isfinite([low, high])):
+        raise ValueError('Invalid declared native region')
+    region = cq.Solid.makeBox(*(high-low), cq.Vector(*low))
+    native = cq.importers.importStep(str(ROOT / original['source_step'])).val()
+    missing = abs(region.cut(native).Volume())
+    if missing > 1e-5:
+        raise ValueError(f'The declared retaining wall loses {missing:g} mm3 of native stock')
+    reading = next(row for row in support['parts'] if row['piece'] == part['name'])
+    transform = reading['coordinate_frame']['plate_to_original_cad_transform']
+    matrix, translation = np.array(transform[:9]).reshape((3, 3)), np.array(transform[9:])
+    top_plate_z = high[2] - original['original_bounds_mm'][0][2]
+    footprint = box(low[0], low[1], high[0], high[1])
+    roads, heights = defaultdict(list), {}
+    layer_height = report['layer_height_mm']
+    class WallLayers:
+        def open(self):
+            for line in gcode.open():
+                if line.startswith('; Z_HEIGHT:') and float(line.split(':', 1)[1]) > top_plate_z + layer_height:
+                    break
+                yield line
+    for segment in extrusion_segments(WallLayers()):
+        if (segment['object'] != part['identify_id']
+                or segment['feature'] in ('', 'Custom', 'Brim')
+                or segment['feature'].startswith('Support')):
+            continue
+        points = np.array([segment['a'], segment['b']]) @ matrix + translation
+        z = points[:, 2].mean()
+        if not (low[2] < z and z-layer_height/2 < high[2]):
+            continue
+        xy_low, xy_high = points[:, :2].min(axis=0), points[:, :2].max(axis=0)
+        pad = segment['width'] / 2
+        if np.any(xy_low-pad > high[:2]) or np.any(xy_high+pad < low[:2]):
+            continue
+        material = LineString(points[:, :2]).buffer(pad).intersection(footprint)
+        if not material.is_empty:
+            roads[segment['layer']].append(material)
+            heights[segment['layer']] = float(z)
+    rows = []
+    for layer, paths in sorted(roads.items()):
+        material = unary_union(paths)
+        connected = material.buffer(.003)
+        components = [connected] if connected.geom_type == 'Polygon' else list(connected.geoms)
+        spans = any(body.bounds[0] <= low[0]+.5 and body.bounds[2] >= high[0]-.5
+                    for body in components)
+        rows.append({
+            'plate_z_mm': layer, 'original_z_mm': heights[layer],
+            'connected_extrusion_spans_free_end_to_root': spans,
+            'buffered_extruded_wall_area_mm2': material.area,
+            'width_readings': [{'x_original_mm': x,
+                                'extruded_width_sum_mm': material.intersection(
+                                    LineString([(x, low[1]-1), (x, high[1]+1)])).length}
+                               for x in declaration.get('cross_section_x_mm', np.linspace(low[0] + .5, high[0] - .5, 3))],
+        })
+    zs = [row['original_z_mm'] for row in rows]
+    max_gap = float(max(np.diff(zs), default=0.))
+    continuous = bool(rows and all(row['connected_extrusion_spans_free_end_to_root'] for row in rows)
+                  and zs[0]-low[2] <= 1.5*layer_height+1e-5
+                  and high[2]-zs[-1] <= 1.5*layer_height+1e-5
+                  and max_gap <= layer_height+1e-5)
+    if not continuous:
+        raise ValueError('The broad retaining wall loses an expected native layer or connected path')
+    return {
+        'source_step_sha256': original['source_step_sha256'],
+        'source_stl_sha256': original['source_stl_sha256'],
+        'id': 'carrier-retaining-wall', 'status': 'pass',
+        'current_region_declaration_sha256': sha(proof_path),
+        'region_original_cad_bounds_mm': [low.tolist(), high.tolist()],
+        'nominal_region_volume_mm3': region.Volume(), 'missing_native_stock_mm3': missing,
+        'native_layers': len(rows), 'maximum_emitted_layer_gap_mm': max_gap,
+        'connected_extrusion_on_all_expected_layers': continuous,
+        'connectivity_quantization_allowance_mm': .003, 'layers': rows,
+        'limit': 'Native stock and emitted-path connectivity only; physical snap force, stiffness and endurance remain trial outcomes.',
+    }
+
+
+def review(staged, report, archive, ready):
+    verify_report(report)
+    immutable_archive_hash = sha(archive)
+    if sha(staged) != report['project_sha256'] or sha(PROFILE) != PROFILE_SHA:
+        raise ValueError('Staged input or inherited profile changed')
+    with zipfile.ZipFile(PROFILE) as source, zipfile.ZipFile(staged) as project:
+        base = json.loads(source.read(writer.SETTINGS_MEMBER))
+        expected = json.loads(project.read(writer.SETTINGS_MEMBER))
+        for name in source.namelist():
+            if name.startswith('Metadata/filament_settings_') and name.endswith('.config'):
+                if source.read(name) != project.read(name):
+                    raise ValueError(f'Inherited filament member changed: {name}')
+    intentional = {k: [base.get(k), expected.get(k)] for k in set(base) | set(expected)
+                   if base.get(k) != expected.get(k)}
+    allowed_changes = {'machine_start_gcode', 'printer_settings_id', 'extruder_ams_count'}
+    if expected['brim_type'] != 'auto_brim' or expected['brim_type'] != base['brim_type']:
+        raise ValueError('The production project must inherit saved auto_brim')
+    if set(intentional) != allowed_changes:
+        raise ValueError(f'Unexpected profile changes: {list(intentional)}')
+    with zipfile.ZipFile(archive) as native:
+        if native.testzip() is not None:
+            raise ValueError('Damaged native archive')
+        effective = json.loads(native.read(writer.SETTINGS_MEMBER))
+        differences = {k: [expected.get(k), effective.get(k)] for k in set(expected) | set(effective)
+                       if expected.get(k) != effective.get(k)}
+        allowed = {'filament_prime_volume': [['30'], ['45']], 'filament_map_2': [None, ['1']]}
+        if any(k not in allowed or value != allowed[k] for k, value in differences.items()):
+            raise ValueError(f'Unexpected native normalization: {differences}')
+        import hashlib
+        gcode_path = ready / 'plate_1.gcode'
+        md5 = hashlib.md5()
+        with native.open('Metadata/plate_1.gcode') as source, gcode_path.open('wb') as target:
+            for chunk in iter(lambda: source.read(1024 * 1024), b''):
+                md5.update(chunk)
+                target.write(chunk)
+        if native.read('Metadata/plate_1.gcode.md5').decode().strip().lower() != md5.hexdigest():
+            raise ValueError('Native G-code MD5 mismatch')
+        slices = ET.fromstring(native.read('Metadata/slice_info.config')).findall('plate')
+        if len(slices) != 1:
+            raise ValueError('Expected exactly one native plate')
+        metadata = {node.get('key'): node.get('value') for node in slices[0].findall('metadata')}
+        objects = slices[0].findall('object')
+        if metadata.get('outside') != 'false' or any(row.get('skipped') != 'false' for row in objects):
+            raise ValueError('Native slice reports an outside or skipped object')
+        if {row.get('name') for row in objects} != {row['name'] for row in report['parts']}:
+            raise ValueError('Native object set differs from the staged set')
+    config, trims, total_layers = {}, [], None
+    setting_pattern = re.compile(r'^; ([a-z0-9_]+) = (.*)$')
+    trim_pattern = re.compile(r'^\s*G29\.1 Z([-+.\d]+)')
+    layer_pattern = re.compile(r'^; total layer number: (\d+)')
+    with gcode_path.open() as source:
+        for line in source:
+            if match := setting_pattern.match(line):
+                config[match[1]] = match[2]
+            if match := trim_pattern.match(line):
+                trims.append(float(match[1]))
+            if match := layer_pattern.match(line):
+                total_layers = int(match[1])
+    if total_layers is None:
+        raise ValueError('Native layer count is absent')
+    if trims != [0., report['actual_textured_z_trim_mm']]:
+        raise ValueError(f'Incorrect native Z trims {trims}')
+    emitted = {}
+    for key in CRITICAL:
+        required = expected['brim_type'] if key == 'brim_type' else base[key]
+        if effective[key] != required:
+            raise ValueError(f'Unexpected process/filament setting: {key}')
+        value = effective[key]
+        rendered = (','.join(value) if key == 'nozzle_diameter' else value[0]) if isinstance(value, list) else str(value)
+        if config.get(key) != rendered:
+            raise ValueError(f'Emitted {key}: {config.get(key)!r}, expected {rendered!r}')
+        emitted[key] = config[key]
+    result = json.loads((ready / 'result.json').read_text())
+    if result.get('return_code') != 0 or len(result['sliced_plates']) != 1:
+        raise ValueError('Native slice did not finish with one plate')
+    plate, = result['sliced_plates']
+    if plate['warning_message'] or plate['obj_cached_cnt'] != 0:
+        raise ValueError(f'Native warning or cached object: {plate}')
+    if plate['triangle_count'] != sum(row['triangles'] for row in report['parts']):
+        raise ValueError('Native slice triangle count changed')
+    support = per_object_support(staged, report, gcode_path, ready)
+    pusher = pusher_toolpaths(report, support, gcode_path)
+    retaining_wall = retaining_wall_toolpaths(report, support, gcode_path)
+    support_path = staged.with_suffix('.support-audit.json')
+    write_json(support_path, support)
+    lanes_path = staged.parent / 'support-removal-review.json'
+    old = json.loads(lanes_path.read_text()) if lanes_path.is_file() else None
+    if old and (old.get('gcode_sha256') != sha(gcode_path)
+                or old.get('native_archive_sha256') != immutable_archive_hash):
+        raise ValueError('A different support ledger exists; use a separate job version')
+    if old is None:
+        lanes = {
+            'status': 'support_contact_and_removal_lane_review_pending',
+            'native_archive_sha256': immutable_archive_hash,
+            'gcode_sha256': sha(gcode_path),
+            'support_audit_sha256': sha(support_path),
+            'geometry_confirmation_sha256': report['geometry_confirmation_sha256'],
+            'parts': [{
+                'name': row['piece'], 'support_summary': row['summary'],
+                'model_overhangs_review': None,
+                'trees': [{'measurement': tree, 'contact_region': None, 'removal_lane': None,
+                           'removal_direction_original_cad': None, 'accessible_before_hardware': None,
+                           'preserved_working_face_reason': None, 'reviewed': False}
+                          for tree in row['trees']],
+                'interfaces': [{'measurement': item, 'contact_region': None, 'reviewed': False}
+                               for item in row['interfaces']],
+            } for row in support['parts']],
+            'native_log_diagnostics': None, 'native_log_diagnostics_review': None,
+            'pairwise_path_overlap_evidence': None,
+            'additional_functional_toolpath_evidence': [],
+            'physical_cleanup_effort_measured': False,
+        }
+        write_json(lanes_path, lanes)
+    diagnostics = [line for line in (ready / 'bambu-cli.log').read_text(errors='replace').splitlines()
+                   if re.search(r'\b(error|warning|exception|failed|unsupported)\b', line, re.I)]
+    for original in report['original_sources']:
+        if sha(ROOT / original['source']) != original['source_stl_sha256']:
+            raise ValueError('An original mesh changed while slicing/reviewing')
+        if sha(ROOT / original['source_step']) != original['source_step_sha256']:
+            raise ValueError('An original native solid changed while slicing/reviewing')
+    verify_report(report)
+    if sha(archive) != immutable_archive_hash:
+        raise ValueError('The native printing archive changed during review')
+    fit = support['fit']
+    readiness = {
+        'status': 'native_slice_verified_support_removal_review_pending', 'submitted': False,
+        'print_released': False, 'final_print_release': 'pending_coordinating_task_assembly_checks',
+        'printer': report['assigned_printer'], 'job': report['job_key'], 'layerwise_print': True,
+        'staged_input': rel(staged), 'staged_input_sha256': sha(staged),
+        'native_archive': rel(archive), 'native_archive_sha256': sha(archive),
+        'gcode_sha256': sha(gcode_path), 'source_profile_sha256': PROFILE_SHA,
+        'original_sources': report['original_sources'],
+        'geometry_confirmation_sha256': report['geometry_confirmation_sha256'],
+        'exact_receipt_inputs_verified': True,
+        'required_functional_toolpath_checks': report.get('required_functional_toolpath_checks', []),
+        'requested_z_trim_mm': report['requested_z_trim_mm'], 'actual_z_trim_commands_mm': trims,
+        'exact_emitted_critical_settings': emitted, 'intentional_setting_changes': list(intentional),
+        'native_normalizations': differences, 'slicer_warning': plate['warning_message'],
+        'native_log_diagnostics': diagnostics, 'layers': total_layers,
+        'native_log_diagnostics_review': 'pending' if diagnostics else 'no_matching_diagnostics',
+        'estimated_seconds': plate['total_predication'],
+        'estimated_grams_saved_profile_density': sum(r['total_used_g'] for r in plate['filaments']),
+        'toolpath_fit': fit, 'support_audit': rel(support_path), 'support_audit_sha256': sha(support_path),
+        'spring_pusher_toolpath_reading': pusher,
+        'carrier_retaining_wall_toolpath_reading': retaining_wall,
+        'support_removal_review': rel(lanes_path),
+        'review_script_sha256': sha(Path(__file__)),
+        'review_dependencies_sha256': {
+            rel(enclosure_support_audit.__file__): sha(enclosure_support_audit.__file__),
+            rel(prepare_display_print.__file__): sha(prepare_display_print.__file__),
+            rel(writer.__file__): sha(writer.__file__),
+        },
+        'physical_fit_and_support_removal_tested': False,
+    }
+    if not fit['bounds_inside_nozzle_area'] or fit['overlap_investigation_needed']:
+        readiness['status'] = 'native_slice_fit_investigation_required'
+    write_json(staged.parent / 'readiness.json', readiness)
+    return {key: readiness[key] for key in ('status', 'native_archive', 'layers', 'estimated_seconds',
+                                           'estimated_grams_saved_profile_density', 'toolpath_fit')}
+
+
+def main():
+    staged, report = staged_report()
+    ready = HERE / 'ready'
+    archive = ready / (report['archive_stem'] + '.gcode.3mf')
+    binding = json.loads((HERE / 'slice-input.json').read_text())
+    if binding['input_sha256'] != sha(staged) or binding['archive_sha256'] != sha(archive):
+        raise ValueError('Native archive does not match its immutable slice input binding')
+    print(json.dumps(review(staged, report, archive, ready), indent=2), flush=True)
+
+
+if __name__ == '__main__':
+    main()

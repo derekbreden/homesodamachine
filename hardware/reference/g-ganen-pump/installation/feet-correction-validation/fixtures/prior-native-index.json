@@ -1,0 +1,176 @@
+{
+  "source_step": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure-assembly.step",
+  "source_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "stable_input": true,
+  "bodies": {
+    "cold-core/foam-cap-top": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--foam-cap-top.brep",
+      "sha256": "d083dcfc5704635f8b669819152d1729d9df50c1c0c79727aa0eef148ae275a9",
+      "bounds": [
+        -90.49999999302005,
+        182.29999999999998,
+        233.4000002,
+        90.50000000697506,
+        465.30000000000007,
+        248.0000002
+      ]
+    },
+    "cold-core/foam-cap-lid-top": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--foam-cap-lid-top.brep",
+      "sha256": "2ebdf0c28b8aea2b4edb080d21b85b08c8a1d5d2e9f8a96124cbeebbf1f85e0b",
+      "bounds": [
+        -90.49999999302005,
+        182.29999999999998,
+        248.0000002,
+        90.50000000697506,
+        465.30000000000007,
+        305.7750002
+      ]
+    },
+    "cold-core/line-co2-in": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--line-co2-in.brep",
+      "sha256": "d86e934bc32c3289d8a18be7cd55e9f96fd61bdc27ed1b72e340dde8bf48f808",
+      "bounds": [
+        29.491246845956177,
+        319.125,
+        33.8250001,
+        80.67500010697499,
+        373.80384389448005,
+        253.4000001
+      ]
+    },
+    "cold-core/line-reservoir-a": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--line-reservoir-a.brep",
+      "sha256": "42132e3c80e54d8b56bd0e4f1e60af73e18b7207d98175aa79f2160f33b6541a",
+      "bounds": [
+        14.712742997140856,
+        185.7249999,
+        22.825,
+        80.675000006975,
+        427.90777257861487,
+        253.4000001
+      ]
+    },
+    "cold-core/line-reservoir-a-fill": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/cold-core--line-reservoir-a-fill.brep",
+      "sha256": "ddc45901b2d67b6f36a84ccf1b17935414a51c5709df2a02c58357983dde93bb",
+      "bounds": [
+        54.325000006975,
+        423.125,
+        233.1500001,
+        60.675000006975,
+        429.475,
+        253.4000001
+      ]
+    },
+    "g-ganen-pump": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/g-ganen-pump.brep",
+      "sha256": "fa7dba128cd0108c335510d3ded6c0fbd1c2e60c711ca8fc71c16d6252e25749",
+      "bounds": [
+        -45.282223190070916,
+        296.33547452776077,
+        251.61545406512934,
+        49.89457775083596,
+        456.6,
+        313.93392779614
+      ]
+    },
+    "keystone-jack": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/keystone-jack.brep",
+      "sha256": "3140ee35d17c6d6ddc167abeab9ee6db342b98e747a30e588cc57413b5eeac5b",
+      "bounds": [
+        -45.135,
+        441.3,
+        291.91729046877,
+        -30.485,
+        471.3,
+        316.06729046877
+      ]
+    },
+    "asse-drip-pan": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/asse-drip-pan.brep",
+      "sha256": "ad3dc3e762f43ac1465fa528631efa9f4b2b11db326ce14dd477a32b06456acb",
+      "bounds": [
+        -113.45,
+        369.75002725063,
+        284.96058083755,
+        -54.45,
+        453.75002725063,
+        299.96058083755
+      ]
+    },
+    "bulkhead-flavor-a": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/bulkhead-flavor-a.brep",
+      "sha256": "fe7e2868ba990e36819c03daa25a7bd9da08d56d2945e23a33f777446172204c",
+      "bounds": [
+        -49.24,
+        446.51,
+        259.14400009999997,
+        -26.38,
+        480.8,
+        282.0040001
+      ]
+    },
+    "nameplate": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/nameplate.brep",
+      "sha256": "f9c34448cf23aef87fae243a458eb5dee2a21e3cbdfba1fb245e4c16d0a98ee9",
+      "bounds": [
+        -14.1050001,
+        457.6,
+        243.8999999,
+        90.42500009999999,
+        471.30000010000003,
+        281.9000001
+      ]
+    },
+    "tube-co2-2": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/tube-co2-2.brep",
+      "sha256": "a4277e95723e3ad76a151fe8094a961c040378d4571a31b2a72c856a2478e4b6",
+      "bounds": [
+        35.275000000000006,
+        319.125,
+        253.4000001,
+        80.67500010697499,
+        431.57760010000004,
+        339.13558093755006
+      ]
+    },
+    "tube-fluid-18": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/tube-fluid-18.brep",
+      "sha256": "230f0820e0598156db46097f7983e2cb63a85c0ffa91f0f4563c97949331dc60",
+      "bounds": [
+        -40.9850001,
+        163.065,
+        229.6750001,
+        89.65000010697499,
+        446.51,
+        302.37500020000004
+      ]
+    },
+    "tube-fluid-14": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/tube-fluid-14.brep",
+      "sha256": "cf9b04818f3dca26868474a16309134462cf408a6f8d3780d72bfcc3f0fe1dc4",
+      "bounds": [
+        41.574999906975,
+        102.11500000000001,
+        253.4000001,
+        85.27500010000166,
+        429.475,
+        300.71733896652006
+      ]
+    },
+    "enclosure-back-top": {
+      "path": "/tmp/scanner-review/g-ganen-feet-correction/enclosure-back-top.brep",
+      "sha256": "453c9eddc32167f42c17c5e7508d9130218f5f068991d1662ad347c8a3f048ea",
+      "bounds": [
+        -107.5000001,
+        199.9999999,
+        159.9999999,
+        107.5000001,
+        471.30000010000003,
+        355.0000001
+      ]
+    }
+  },
+  "elapsed_seconds": 23.90197462501237
+}

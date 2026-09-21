@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "scope": "Source snapshot extension cleanup and final reference binding; geometry unchanged.",
+  "archive_selftest_modules": [],
+  "sha256": {
+    "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "common-foot/native-update.json": "2eeb068abfb3dee0a9f96ba6e68377959111acf381467e3d699f3a9a8c1998e0",
+    "reference-parameters.json": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+    "g-ganen-pump.step": "905710b0b79a803e9969bf9b8677e3cbd5cfe2b4c0fdcf15a7d62842a77f4388",
+    "integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "artifact-manifest.json": "80c5f771d41257f314d74b2ccc4e99c01080b383c6f770b7de1510d3e3f2e27f",
+    "integration-envelope/native-validation.json": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+    "integration-envelope/containment.json": "c08419cee266bce275035aab5485c10bfdb6162b275128e8357afe7b4c1267b5",
+    "integration-envelope/envelope-parameters.json": "08e09d45e192cc4f867616daf9b99b47ac6f7ee4a94e68ff0d8c3de4cd11be18",
+    "integration-envelope/artifact-manifest.json": "480c414b18d221325d647af4f4de6a7fe57cb2e2b4d9175a66a7640e2b680ddc"
+  }
+}

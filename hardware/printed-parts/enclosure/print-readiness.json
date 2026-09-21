@@ -4,13 +4,17 @@
   "report": "hardware/printed-parts/enclosure/print-readiness.md",
   "status": "offline_ready_awaiting_machine_handoffs",
   "ready_to_print": true,
-  "ready_to_print_scope": "Seven production jobs after current offline review. Printer availability, latest plate removal and physical filament supply are normal execution conditions, not another design or permission approval.",
+  "ready_to_print_scope": "All seven required production plates have current geometry qualification and exact native/support reviews; normal physical printer handoff remains.",
   "final_physical_acceptance": false,
   "current_regeneration": {
-    "status": "all_generation_native_gates_and_exact_print_receipt_pass",
+    "status": "current_geometry_verified",
     "core_sources_frozen": true,
     "flute_count": 262,
     "completed_phases": [
+      "foam_cap",
+      "flute_payload_cold_core",
+      "foam_assembly",
+      "cold_core_assembly",
       "enclosure_box",
       "enclosure",
       "tee_carrier",
@@ -20,64 +24,50 @@
     "assembly_current": true,
     "gates_pass": true,
     "geometry_confirmation": {
-      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
-      "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+      "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
     },
-    "exact_current_geometry_claim": "The current native assembly, active geometry gates, canonical pusher and source/mesh/profile closure are qualified by the accepted exact print receipt. Every production plate still requires its own fresh offline review before normal printer handoff.",
+    "exact_current_geometry_claim": "Updated assembly and the corrected G Ganen cap/lid; unchanged shell/carrier/tool geometry retains its original exact native/support reviews. Back-top has only a native-equal 0.000016 mm maximum mesh variation.",
     "production_print_released": false,
     "remaining_gates": [],
-    "completed_gate_summary": "105 scorecard checks: 104 pass and one inactive physical gas-fit goal warning. Pack: 0 clashes, 0 unanswered. Port leads: 67/67 clear. Clearance floor: 0 under. Carrier: 638 native solid/sweep checks pass.",
+    "completed_gate_summary": "104/105 assembly checks pass; inactive physical gas-fit goal remains. Corrected mounts pass 53 checks; pump/routes pass 830 neighbor rows.",
     "evidence": {
       "assembly_step": {
         "path": "hardware/manifold-layout/enclosure-assembly.step",
-        "sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67"
+        "sha256": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a"
       },
       "box": {
         "path": "hardware/manifold-layout/enclosure-box.json",
         "sha256": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35"
       },
+      "facts": {
+        "path": "hardware/manifold-layout/enclosure-assembly.facts.json",
+        "sha256": "b9949ded5b4873d35e0f9f818d10feb1589b8dc465197c553e89b339ae926bd4"
+      },
       "scorecard": {
         "path": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
-        "sha256": "6705d1a1d90cc63e36add0e6d608b6164144e6817869a1db2c96c98f73237cb3"
-      },
-      "facts": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/assembly/enclosure-assembly.facts.json",
-        "sha256": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260"
-      },
-      "completed_chain": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-chain.json",
-        "sha256": "caefd9509c8a5f5f1cab71c5582e2dac3f80cbeb3d75d32ae62dd3f2de45f683",
-        "phases": 5,
-        "all_exit_zero": true
-      },
-      "assembly_generation": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/generation/enclosure_assembly.generation.json",
-        "sha256": "b4bc8b0fd98b32dc637945bc3b8f05096dba81ecdfd12275c65f96a00d8087ba",
-        "loaded_source_drift": []
-      },
-      "canonical_pusher": {
-        "path": "/tmp/scanner-review/integration-correction/canonical-pusher-v4/focused-native-check.json",
-        "sha256": "47d913db5af25c7f621af13269e49213a036eb98aa5a4c186c172c685671be13",
-        "created_at_utc": "2026-09-21T13:43:25.639332+00:00",
-        "status": "pass",
-        "checks": 38,
-        "continuous_sweeps": 19,
-        "actual_thickness_mm": 2,
-        "source_and_input_hashes_match": true
-      },
-      "geometry_receipt": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
-        "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+        "sha256": "8ed2b5c835aa10eece1f4705b72f80b58a98a2c7bf3a9a37117530ef301dd3af"
       },
       "published_assembly_payload": {
         "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-        "sha256": "b9aa01edac9c9bc45c45f03eaa58b6f12e9a8cd59dd56c0b635bcb3c3fe12137"
+        "sha256": "1ce3e2e9dbdf94e4ed9191b845f18d7d895ead7b1bab1f57b39f5750175ac7c1"
+      },
+      "geometry_receipt": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+        "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
       }
     },
     "scorecard_counts": {
       "total": 105,
       "pass": 104,
-      "inactive_goal_warn": 1
+      "inactive": [
+        "wedge-fills",
+        "placed",
+        "routed",
+        "located",
+        "tube-anchored",
+        "gas-chain-qualified"
+      ]
     },
     "inactive_goal": {
       "id": "gas-chain-qualified",
@@ -104,17 +94,16 @@
       "launch_observed_at": "2026-09-21T07:47:46.755410+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "/tmp/scanner-review/printer-status-1449.json",
-        "record_sha256": "30467927122d85368c26fc33e8619caac63414070e4a9bace7fad4c8e8c4b7ef",
-        "observed_at": "2026-09-21T14:49:32.201757+00:00",
+        "record": "/private/tmp/scanner-review/g-ganen-feet-correction/printer-status.json",
+        "record_sha256": "dc28936a8cd561b3cf952b207367d60da680d962830d15b5881767c4b007fbfc",
+        "observed_at": "2026-09-21T17:06:30.288739+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 69,
-        "layer_num": 253,
+        "mc_percent": 93,
+        "layer_num": 440,
         "total_layer_num": 496,
-        "mc_remaining_time": 187,
+        "mc_remaining_time": 42,
         "print_error": 0,
-        "hms": [],
-        "time_units": "mc_remaining_time is the printer estimate in minutes"
+        "hms": []
       }
     },
     {
@@ -126,17 +115,16 @@
       "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
       "available_for_enclosure": false,
       "latest_observation": {
-        "record": "/tmp/scanner-review/printer-status-1449.json",
-        "record_sha256": "30467927122d85368c26fc33e8619caac63414070e4a9bace7fad4c8e8c4b7ef",
-        "observed_at": "2026-09-21T14:49:31.478998+00:00",
+        "record": "/private/tmp/scanner-review/g-ganen-feet-correction/printer-status.json",
+        "record_sha256": "dc28936a8cd561b3cf952b207367d60da680d962830d15b5881767c4b007fbfc",
+        "observed_at": "2026-09-21T17:06:30.297997+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 44,
-        "layer_num": 50,
+        "mc_percent": 58,
+        "layer_num": 246,
         "total_layer_num": 917,
-        "mc_remaining_time": 544,
+        "mc_remaining_time": 407,
         "print_error": 0,
-        "hms": [],
-        "time_units": "mc_remaining_time is the printer estimate in minutes"
+        "hms": []
       }
     }
   ],
@@ -273,12 +261,12 @@
       "print_released": false,
       "slice_estimate": {
         "layers": 61,
-        "seconds": 18595.923828125,
-        "hours": 5.165534396701389,
-        "grams_saved_profile_density": 164.7452850341797,
-        "grams_actual_petgf_density_1p43": 182.62461829370304,
+        "seconds": 18544.111328125,
+        "hours": 5.1511420355902775,
+        "grams_saved_profile_density": 164.748779296875,
+        "grams_actual_petgf_density_1p43": 182.62849177870638,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Exact native slice, including emitted supports; mass uses actual PET-GF density."
       }
     },
     {
@@ -296,12 +284,12 @@
       "print_released": false,
       "slice_estimate": {
         "layers": 241,
-        "seconds": 16105.6376953125,
-        "hours": 4.473788248697916,
-        "grams_saved_profile_density": 183.039306640625,
-        "grams_actual_petgf_density_1p43": 202.90403759387112,
+        "seconds": 16102.5966796875,
+        "hours": 4.472943522135417,
+        "grams_saved_profile_density": 183.0547637939453,
+        "grams_actual_petgf_density_1p43": 202.9211722677068,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Exact native slice, including emitted supports; mass uses actual PET-GF density."
       }
     }
   ],
@@ -386,7 +374,9 @@
       "discharge_reference_direction": "+Y",
       "installation_yaw_degrees": 90,
       "installation": "hardware/reference/g-ganen-pump/installation/README.md",
-      "actual_slot_washer_loaded_clamp_and_hose_fit_tested": false
+      "actual_slot_washer_loaded_clamp_and_hose_fit_tested": false,
+      "identical_feet": true,
+      "pad_thickness_mm_approximate": 7
     }
   },
   "measured_tee": {
@@ -519,7 +509,7 @@
     "idle_printer_hold_for_agent_review": false,
     "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
   },
-  "updated_at_utc": "2026-09-21T14:52:57.988086+00:00",
+  "updated_at_utc": "2026-09-21T17:07:09.461114+00:00",
   "printing_authorized": true,
   "native_slices_complete": 7,
   "offline_reviews_complete": 7,
@@ -542,14 +532,14 @@
       {
         "printer": "Mark2",
         "jobs": 5,
-        "estimated_seconds": 175585.0419921875,
-        "estimated_grams_petgf_density_1p43": 1829.1017702087875
+        "estimated_seconds": 175530.1884765625,
+        "estimated_grams_petgf_density_1p43": 1829.1227783676266
       }
     ],
     "total": {
       "jobs": 7,
-      "printer_seconds": 363300.0419921875,
-      "grams_petgf_density_1p43": 3694.2513758932896
+      "printer_seconds": 363245.1884765625,
+      "grams_petgf_density_1p43": 3694.2723840521285
     },
     "scope": "Queued production jobs only; excludes currently running jobs, plate changes, support cleanup and assembly. Printer lanes can run in parallel; per-printer sums are serial slicer estimates, not wall-clock commitments."
   },
@@ -572,12 +562,35 @@
   "mount_printer_allocation": {
     "status": "assigned",
     "assigned_printer": "Mark2",
-    "current_h2c_attempts": "Preserved as unsubmitted alternatives, not additional required prints. The selected Mark2 variants need their own exact trim-specific reviewed archives.",
+    "current_h2c_attempts": "Earlier H2C variants have superseded mounting geometry and are ineligible. The two current Mark2 v2 archives are the required mounting plates.",
     "scope": "Scheduling choice within already authorized printing, not a design or user-permission gate."
   },
   "native_preview_review": {
     "status": "pass",
-    "authority": "Coordinating task visually inspected all seven active native previews.",
-    "scope": "Intended complete parts and print orientations; native/support acceptance is separately bound by each exact offline review."
+    "authority": "Coordinating task inspected the two new mount native previews; the five unchanged job previews retain their recorded inspection.",
+    "scope": "Complete parts and declared orientations; exact support reviews remain bound per archive."
+  },
+  "g_ganen_foot_correction": {
+    "status": "complete",
+    "authority": "Derek",
+    "identical_feet": true,
+    "nominal_pad_thickness_mm": 7,
+    "installed_pose": "Outermost positions with the complete visible clip engaged on the rail",
+    "slot_stations_x_mm": [
+      9.5,
+      67.5
+    ],
+    "fore_aft_span_mm": 58,
+    "screw_offset_outward_mm": 1.5,
+    "pump_shift_forward_mm": 1,
+    "affected_print_jobs": [
+      "foam-cap-top",
+      "foam-cap-lid-top"
+    ],
+    "running_jobs_affected": false,
+    "native_validation": {
+      "path": "hardware/reference/g-ganen-pump/installation/feet-correction-validation/validation.json",
+      "sha256": "d69dd8505d7317a07697cbb2bbe01b605314d8436638225b50970aefd7951712"
+    }
   }
 }

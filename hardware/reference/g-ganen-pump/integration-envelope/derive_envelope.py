@@ -29,7 +29,9 @@ BOUND_MM = .15
 GUARD_MM = .00001
 GEOMETRY_TOLERANCE_MM = .000002
 EXACT = {'rigid_casing_envelope', 'motor_can_vent_filled_envelope',
-         'port_yminus_barb_envelope', 'port_yplus_barb_envelope'}
+         'port_yminus_barb_envelope', 'port_yplus_barb_envelope',
+         *(name+'_observed_rubber_slider_envelope' for name in
+           ('head_yminus', 'head_yplus', 'rear_yminus', 'rear_yplus'))}
 
 
 def digest(path):

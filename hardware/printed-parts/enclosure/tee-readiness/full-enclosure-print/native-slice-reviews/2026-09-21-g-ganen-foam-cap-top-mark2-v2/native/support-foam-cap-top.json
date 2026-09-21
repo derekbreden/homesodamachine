@@ -1,0 +1,125 @@
+{
+  "schema": 1,
+  "piece": "foam-cap-top",
+  "inputs": {
+    "gcode": "support-labels-foam-cap-top.gcode",
+    "gcode_sha256": "abbe0a523c6d946460086696efcfa44de9109db138778608e1355075636ff378",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/oriented-meshes/foam-cap-top.stl",
+    "model_sha256": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+    "profile": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/g-ganen-foam-cap-top-black-z004-mark2-v2-input.3mf",
+    "profile_sha256": "159c52fc0b986287ca99ce7212a53f516189aa1bf81b2442abc03664f6a632af",
+    "native_plate_gcode_sha256": "219b895745c951a418e92c1177f78200383a25da52c9be8ce1d82847dac61796",
+    "object_label": 1901,
+    "object_scope": "Analysis-only label for the sole object; original printing bytes are unchanged",
+    "original_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+    "original_stl_sha256": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+    "pretransform_rotation_matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "feature_filter": "Other-object feature labels masked in analysis copy; every movement retained."
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -160.0,
+      -0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -160.0,
+      -0.0
+    ],
+    "plate_to_original_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -160.0,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "toolpaths": {
+    "extrusion_bounds_xy_mm": [
+      [
+        20.900000000000002,
+        69.39999999999999
+      ],
+      [
+        304.1,
+        250.6
+      ]
+    ],
+    "segments": 650431,
+    "features": {
+      "Inner wall": 213775,
+      "Outer wall": 226081,
+      "Gap infill": 54750,
+      "Bottom surface": 2059,
+      "Internal solid infill": 78385,
+      "Sparse infill": 35115,
+      "Bridge": 2472,
+      "Floating vertical shell": 34548,
+      "Top surface": 3246
+    },
+    "maximum_line_width_mm": 0.725188,
+    "arc_sampling_allowance_mm": 0.1,
+    "method": "Native non-custom layer extrusions, buffered by each emitted half-width plus arc allowance."
+  }
+}

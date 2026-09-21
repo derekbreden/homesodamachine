@@ -1,0 +1,5422 @@
+{
+  "scope": "Current-source pump andwater6/7/fluid14 plus current-source cap/cup in completeexact210-body priorassembly frame. No fullgenerator/export.",
+  "baseline_assembly_step_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "inputs_sha256": {
+    "/tmp/scanner-review/g-ganen-feet-correction/verify_final_neighbors.py": "d7b311002628d26e7da342929fefe8b5d6df6f104eb41e31d35ab9e6c523717d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure_assembly.py": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/_lines.py": "b1177744b54260ac91e4289b5da8452b68bb37008bd1e0080c23ce23d2840c4d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/_cold_core_interface.py": "bf49fcdd456af8ad59a6d3cd7bada740eed08c594514f4b07692f9551829702f",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "93ec8453d084730d3d6cfe81b8445426c824210064f50c65a5be90e1c29a100b",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": "482c8ab3b07e53e3dbad4c2f2e42c1a6b5b42a345840cb259a87a5ae578dba70",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/reference-parameters.json": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "537930083b3bf8a248cb06b21dd5e1853253991f6a70b489766d9bef29a79d0a",
+    "/tmp/scanner-review/g-ganen-feet-correction/before/hardware/manifold-layout/enclosure-assembly.step": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+    "/tmp/scanner-review/g-ganen-feet-correction/before/hardware/manifold-layout/enclosure-assembly.facts.json": "1491ba4cf3108b32797bcde9103c55084c0484e7156a72ee3f1ad4f5d2bac260",
+    "/tmp/scanner-review/integration-correction/route-pack/frames.json": "e5eedde700a5ddf5974f55f3eb935e48498bf88b2163d672cd6a09fcf3c633f2",
+    "/tmp/scanner-review/integration-correction/route-pack/valve-v-f.brep": "81d22bdeb541097cbc4e34c17af1c7251c789b36c666474a7f0f6f00a4ca9e4d"
+  },
+  "source_frame_checks": [
+    {
+      "body": "suction-chain",
+      "added_mm3": 0.0,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "body": "discharge-chain",
+      "added_mm3": 0.0,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "body": "vk-solenoid",
+      "added_mm3": 0.0,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "body": "valve-v-f",
+      "added_mm3": 0.0,
+      "missing_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "pump_origin_world_mm": [
+    2.0711351519419985,
+    373.235458276122,
+    253.4
+  ],
+  "rigid_body_pose_delta_from_prior_mm": [
+    0.0,
+    -1.0,
+    0.0
+  ],
+  "runs": [
+    {
+      "id": "water-6",
+      "frm": "g-ganen-pump.discharge",
+      "to": "discharge-chain.barb-tip",
+      "diameter_mm": 15.1,
+      "minimum_radius_mm": 15.9,
+      "requested_radius_mm": 15.9,
+      "waypoints_mm": [
+        [
+          -34.946262427903676,
+          339.9764884721693,
+          280.1688222682448
+        ],
+        [
+          -50.84534303853151,
+          340.0167733250191,
+          280.33499346728024
+        ],
+        [
+          -60.499999993025185,
+          327.0999999999999,
+          268.1000001
+        ],
+        [
+          -60.499999993025185,
+          311.19999999999993,
+          268.1000001
+        ]
+      ],
+      "radii_mm": {
+        "1": 15.9,
+        "2": 15.9
+      },
+      "length_mm": 49.1628231815976,
+      "brep": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/tube-water-6.brep",
+      "sha256": "b5733b1274f81626d9578a7ffff48087ceb170f497d334ca4e59485f08214b4d",
+      "valid": true
+    },
+    {
+      "id": "water-7",
+      "frm": "g-ganen-pump.suction",
+      "to": "suction-chain.barb-tip",
+      "diameter_mm": 15.1,
+      "minimum_radius_mm": 15.9,
+      "requested_radius_mm": 15.9,
+      "waypoints_mm": [
+        [
+          39.332170894531146,
+          339.9470234175444,
+          280.1243022039962
+        ],
+        [
+          55.23196019760069,
+          340.02098008839795,
+          280.1593810983864
+        ],
+        [
+          65.05000000697481,
+          329.5799999999999,
+          268.1000001
+        ],
+        [
+          65.05000000697481,
+          313.67999999999995,
+          268.1000001
+        ]
+      ],
+      "radii_mm": {
+        "1": 15.9,
+        "2": 15.9
+      },
+      "length_mm": 47.56465415702367,
+      "brep": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/tube-water-7.brep",
+      "sha256": "52df97c78d4aba9e9e5ef2f03e913fb6109c5b4cab038cca38a7adf05a865968",
+      "valid": true
+    },
+    {
+      "id": "fluid-14",
+      "frm": "valve-v-f.outlet",
+      "to": "foam-assembly.reservoir-a-fill",
+      "diameter_mm": 6.35,
+      "minimum_radius_mm": 14.0,
+      "requested_radius_mm": 14.0,
+      "waypoints_mm": [
+        [
+          82.1,
+          105.29,
+          282.1750001
+        ],
+        [
+          82.1,
+          105.29,
+          299.1750001
+        ],
+        [
+          44.750000006974815,
+          189.42999999999998,
+          289.0
+        ],
+        [
+          44.750000006974815,
+          203.42999999999998,
+          289.0
+        ],
+        [
+          44.750000006974815,
+          209.42999999999998,
+          267.7940001
+        ],
+        [
+          44.750000006974815,
+          244.39999999999995,
+          267.7940001
+        ],
+        [
+          44.750000006974815,
+          252.39999999999995,
+          269.2940001
+        ],
+        [
+          44.750000006974815,
+          288.1470234175444,
+          269.2940001
+        ],
+        [
+          44.750000006974815,
+          308.1470234175444,
+          268.0440001
+        ],
+        [
+          44.750000006974815,
+          354.67202341754444,
+          268.0440001
+        ],
+        [
+          57.50000000697483,
+          426.29999999999995,
+          269.2940001
+        ],
+        [
+          57.50000000697483,
+          426.29999999999995,
+          253.4000001
+        ]
+      ],
+      "radii_mm": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0,
+        "6": 14.0,
+        "7": 14.0,
+        "8": 14.0,
+        "9": 14.0,
+        "10": 14.0
+      },
+      "length_mm": 359.53972422690083,
+      "brep": "/tmp/scanner-review/g-ganen-feet-correction/final-neighbor-check/tube-fluid-14.brep",
+      "sha256": "b951fc8aeb45930e6a3d9f1f3e3a74bc87e136c6923d5ddbcaaef67a43857762",
+      "valid": true
+    }
+  ],
+  "native_route_blockers": [],
+  "pump_lid_bearing": {
+    "plane_z_mm": 253.4,
+    "rigid_native_lid_gap_mm": 1.9609529419760179,
+    "feet": [
+      {
+        "foot": "rear_yminus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      },
+      {
+        "foot": "rear_yplus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      },
+      {
+        "foot": "head_yminus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      },
+      {
+        "foot": "head_yplus_observed_rubber_slider_envelope",
+        "full_native_lid_overlap_mm3": 0.0,
+        "above_bearing_native_lid_overlap_mm3": 0.0
+      }
+    ],
+    "pass": true
+  },
+  "fluid14_bearing_required_mm": [
+    254.4,
+    263.2
+  ],
+  "fluid14_bearing_actual_straight_mm": [
+    253.7011627817986,
+    287.7099498312048
+  ],
+  "all210_neighbors_considered": true,
+  "readings": [
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "compressor",
+      "bbox_clearance_lower_bound_mm": 171.69120602419898,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "condenser+fan",
+      "bbox_clearance_lower_bound_mm": 166.58056031005094,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "mq6-sensor",
+      "bbox_clearance_lower_bound_mm": 323.9033558865959,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "thermal-fuse",
+      "bbox_clearance_lower_bound_mm": 328.9532428149061,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "fuse-clamp",
+      "bbox_clearance_lower_bound_mm": 324.4561033235695,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-a",
+      "bbox_clearance_lower_bound_mm": 35.875474427762754,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-a",
+      "bbox_clearance_lower_bound_mm": 48.72547452776274,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-y-a",
+      "bbox_clearance_lower_bound_mm": 120.84547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-c",
+      "bbox_clearance_lower_bound_mm": 122.63211110814201,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-c",
+      "bbox_clearance_lower_bound_mm": 151.2349309773154,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-y-c",
+      "bbox_clearance_lower_bound_mm": 187.2766720344938,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-e",
+      "bbox_clearance_lower_bound_mm": 175.09547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-e",
+      "bbox_clearance_lower_bound_mm": 143.79547442776277,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-g",
+      "bbox_clearance_lower_bound_mm": 120.6393080664388,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-g",
+      "bbox_clearance_lower_bound_mm": 146.6320985516568,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-y-d",
+      "bbox_clearance_lower_bound_mm": 188.8438909963084,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-f",
+      "bbox_clearance_lower_bound_mm": 175.80499929181676,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-f",
+      "bbox_clearance_lower_bound_mm": 144.65860168617232,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-b",
+      "bbox_clearance_lower_bound_mm": 35.875474427762754,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-b",
+      "bbox_clearance_lower_bound_mm": 48.72547452776274,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-y-b",
+      "bbox_clearance_lower_bound_mm": 120.84547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-d",
+      "bbox_clearance_lower_bound_mm": 122.63211110814201,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-d",
+      "bbox_clearance_lower_bound_mm": 151.2349309773154,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-y-f",
+      "bbox_clearance_lower_bound_mm": 187.2766720344938,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-h",
+      "bbox_clearance_lower_bound_mm": 175.09547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-h",
+      "bbox_clearance_lower_bound_mm": 143.79547442776277,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-j",
+      "bbox_clearance_lower_bound_mm": 120.96745721211745,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-j",
+      "bbox_clearance_lower_bound_mm": 146.90219664552035,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-y-g",
+      "bbox_clearance_lower_bound_mm": 189.4209935874065,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "valve-v-i",
+      "bbox_clearance_lower_bound_mm": 176.22507432786097,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "coil-v-i",
+      "bbox_clearance_lower_bound_mm": 145.16883305877786,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-a-head",
+      "bbox_clearance_lower_bound_mm": 222.75850862172672,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-a-boss",
+      "bbox_clearance_lower_bound_mm": 224.67681726057177,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-a-motor",
+      "bbox_clearance_lower_bound_mm": 232.61147452776277,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-b-head",
+      "bbox_clearance_lower_bound_mm": 222.75850862172672,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-b-boss",
+      "bbox_clearance_lower_bound_mm": 224.67681726057177,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-b-motor",
+      "bbox_clearance_lower_bound_mm": 232.61147452776277,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-10",
+      "bbox_clearance_lower_bound_mm": 189.13240833697677,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-11",
+      "bbox_clearance_lower_bound_mm": 210.62083713787888,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-12",
+      "bbox_clearance_lower_bound_mm": 212.65649865023866,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-13",
+      "bbox_clearance_lower_bound_mm": 191.15364492455518,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-20",
+      "bbox_clearance_lower_bound_mm": 189.1324083369768,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-21",
+      "bbox_clearance_lower_bound_mm": 210.62083713787888,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-22",
+      "bbox_clearance_lower_bound_mm": 213.26773808238804,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-23",
+      "bbox_clearance_lower_bound_mm": 191.79822508260222,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-9",
+      "bbox_clearance_lower_bound_mm": 153.89596636559955,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-17",
+      "bbox_clearance_lower_bound_mm": 152.40234346389218,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-19",
+      "bbox_clearance_lower_bound_mm": 153.89596636559955,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-27",
+      "bbox_clearance_lower_bound_mm": 153.03012770579835,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "turn-fluid-3",
+      "bbox_clearance_lower_bound_mm": 115.09547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "turn-fluid-5",
+      "bbox_clearance_lower_bound_mm": 115.09547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "step-fluid-3",
+      "bbox_clearance_lower_bound_mm": 95.37547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "step-fluid-5",
+      "bbox_clearance_lower_bound_mm": 95.37547452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-tee-carrier-left",
+      "bbox_clearance_lower_bound_mm": 159.1980480440011,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-tee-carrier-right",
+      "bbox_clearance_lower_bound_mm": 157.02414595563934,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-carrier-spring-envelope-west",
+      "bbox_clearance_lower_bound_mm": 194.3792287822092,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tee-carrier-spring-envelope-east",
+      "bbox_clearance_lower_bound_mm": 193.37430339753018,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/foam-shell",
+      "bbox_clearance_lower_bound_mm": 19.999999800000012,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/foam-cap-top",
+      "bbox_clearance_lower_bound_mm": 5.399999900000012,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/foam-cap-lid-top",
+      "production_mesh_gap_mm": 0.0,
+      "mesh_overlap_mm3": -1.982802959907097e-13,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Four flat rubber pad bearing faces only",
+      "pass": true,
+      "native_gap_mm": 0.0
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/foam-cap-bottom",
+      "bbox_clearance_lower_bound_mm": 233.4,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/foam-cap-lid-bottom",
+      "bbox_clearance_lower_bound_mm": 248.0,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/carbonator-tube",
+      "bbox_clearance_lower_bound_mm": 48.999999900000006,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/endcap-bottom",
+      "bbox_clearance_lower_bound_mm": 188.69999990000002,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/endcap-top",
+      "bbox_clearance_lower_bound_mm": 55.3499999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/float-rod-carb",
+      "bbox_clearance_lower_bound_mm": 59.1599999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/carbonator-elbow-co2-in",
+      "bbox_clearance_lower_bound_mm": 188.4459999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/carbonator-elbow-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 188.4459999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/carbonator-elbow-water-in",
+      "bbox_clearance_lower_bound_mm": 24.857378280790016,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/carbonator-elbow-prv",
+      "bbox_clearance_lower_bound_mm": 26.062499900000006,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reservoir-a",
+      "bbox_clearance_lower_bound_mm": 31.249999900000006,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reservoir-a-cap",
+      "bbox_clearance_lower_bound_mm": 20.249999900000006,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reservoir-b",
+      "bbox_clearance_lower_bound_mm": 39.29534493673569,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reservoir-b-cap",
+      "bbox_clearance_lower_bound_mm": 31.266981560378333,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/copper-plug-west",
+      "bbox_clearance_lower_bound_mm": 113.84486501332377,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/copper-plug-port",
+      "bbox_clearance_lower_bound_mm": 112.90680985004438,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/evap-coil",
+      "bbox_clearance_lower_bound_mm": 63.826373086611,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/evap-tail-inlet",
+      "bbox_clearance_lower_bound_mm": 183.36611921277975,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/evap-tail-outlet",
+      "bbox_clearance_lower_bound_mm": 64.6286203628336,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/water-inlet-jet-cap-nominal",
+      "bbox_clearance_lower_bound_mm": 61.953999900000014,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/collet-co2-in",
+      "bbox_clearance_lower_bound_mm": 208.1499998999994,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/collet-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 208.14999989999913,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/collet-water-in",
+      "bbox_clearance_lower_bound_mm": 25.74999989999938,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/bulkhead-reservoir-a",
+      "bbox_clearance_lower_bound_mm": 195.1499999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/bulkhead-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 205.32479751691554,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/float-carb",
+      "bbox_clearance_lower_bound_mm": 100.14999990000001,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-carb-1",
+      "bbox_clearance_lower_bound_mm": 127.28350328260001,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-carb-2",
+      "bbox_clearance_lower_bound_mm": 99.14999990000001,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/float-rod-a",
+      "bbox_clearance_lower_bound_mm": 24.399999899999983,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/float-a",
+      "bbox_clearance_lower_bound_mm": 102.39999990000001,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-a-1",
+      "bbox_clearance_lower_bound_mm": 168.9062238824254,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-a-2",
+      "bbox_clearance_lower_bound_mm": 123.90848427456453,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-a-3",
+      "bbox_clearance_lower_bound_mm": 78.91332260284065,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-a-4",
+      "bbox_clearance_lower_bound_mm": 33.93099605405065,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/float-rod-b",
+      "bbox_clearance_lower_bound_mm": 88.1425373144292,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/float-b",
+      "bbox_clearance_lower_bound_mm": 123.9184103940372,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-b-1",
+      "bbox_clearance_lower_bound_mm": 198.76419606717005,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-b-2",
+      "bbox_clearance_lower_bound_mm": 162.2689300119663,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-b-3",
+      "bbox_clearance_lower_bound_mm": 131.16861536293055,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-b-4",
+      "bbox_clearance_lower_bound_mm": 110.13267301408976,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/bulkhead-seal-a",
+      "bbox_clearance_lower_bound_mm": 201.1499999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/vent-membrane-a",
+      "bbox_clearance_lower_bound_mm": 22.8499999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/bulkhead-seal-b",
+      "bbox_clearance_lower_bound_mm": 211.24902350613013,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/vent-membrane-b",
+      "bbox_clearance_lower_bound_mm": 65.17247614030921,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/probe-carbonator-ds18b20",
+      "bbox_clearance_lower_bound_mm": 123.29135756502689,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/probe-coil-ds18s20",
+      "bbox_clearance_lower_bound_mm": 83.4924573275925,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/prv-sv125",
+      "bbox_clearance_lower_bound_mm": 26.12599990000001,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/prv-shroud",
+      "bbox_clearance_lower_bound_mm": 22.4499998,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/reed-bridge",
+      "bbox_clearance_lower_bound_mm": 85.9999999,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-carb-water-out",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-co2-in",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-prv-vent",
+      "bbox_clearance_lower_bound_mm": 53.94381676657902,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-reservoir-a",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-reservoir-a-fill",
+      "bbox_clearance_lower_bound_mm": 4.753864855033001,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 73.36047442776274,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-reservoir-b-fill",
+      "bbox_clearance_lower_bound_mm": 58.86047452776273,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "cold-core/line-water-in",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "suction-chain",
+      "bbox_clearance_lower_bound_mm": 6.978864855032995,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "psu",
+      "bbox_clearance_lower_bound_mm": 15.178864848057998,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "relay-2",
+      "bbox_clearance_lower_bound_mm": 29.678864848057998,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pcba",
+      "bbox_clearance_lower_bound_mm": 27.578857648058005,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "c14-inlet",
+      "bbox_clearance_lower_bound_mm": 11.21165304140834,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-h",
+      "bbox_clearance_lower_bound_mm": 36.328864848058004,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-n",
+      "bbox_clearance_lower_bound_mm": 36.328864848058004,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-g",
+      "bbox_clearance_lower_bound_mm": 36.328864848058004,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-v12",
+      "bbox_clearance_lower_bound_mm": 36.328864848058004,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-gnd",
+      "bbox_clearance_lower_bound_mm": 36.328864848058004,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "relay-1",
+      "bbox_clearance_lower_bound_mm": 33.14923689919346,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "ground-stack",
+      "bbox_clearance_lower_bound_mm": 37.87574555594439,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-mana",
+      "bbox_clearance_lower_bound_mm": 170.41842893695173,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-manb",
+      "bbox_clearance_lower_bound_mm": 176.82911064466964,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-reeds-b",
+      "bbox_clearance_lower_bound_mm": 40.771135151942005,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-reeds-a",
+      "bbox_clearance_lower_bound_mm": 40.47113515194201,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wago-sensors",
+      "bbox_clearance_lower_bound_mm": 40.47113515194201,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "vk-solenoid",
+      "bbox_clearance_lower_bound_mm": 36.05547452776278,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "keystone-jack",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "co2-inlet",
+      "bbox_clearance_lower_bound_mm": 9.898948756865366,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "wr1110",
+      "bbox_clearance_lower_bound_mm": 12.526653041408338,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "gasher-co2",
+      "bbox_clearance_lower_bound_mm": 14.276653041408338,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "co2-adapter-regulator-in",
+      "bbox_clearance_lower_bound_mm": 13.776653041406632,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "co2-adapter-regulator-out",
+      "bbox_clearance_lower_bound_mm": 13.776653041406632,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "co2-adapter-check-in",
+      "bbox_clearance_lower_bound_mm": 13.776653041406632,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "co2-adapter-check-out",
+      "bbox_clearance_lower_bound_mm": 13.776653041406632,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "co2-check-coupling-nominal",
+      "bbox_clearance_lower_bound_mm": 11.026653041408338,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "asse1022-assembly",
+      "bbox_clearance_lower_bound_mm": 16.141135151940254,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "asse-drip-pan",
+      "bbox_clearance_lower_bound_mm": 9.021135151942005,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "moisture-plate",
+      "bbox_clearance_lower_bound_mm": 18.521135151941998,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "water-split",
+      "bbox_clearance_lower_bound_mm": 47.52431901712853,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "flow-regulator",
+      "bbox_clearance_lower_bound_mm": 31.639225142873865,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "discharge-chain",
+      "bbox_clearance_lower_bound_mm": 6.571135144962,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-water",
+      "bbox_clearance_lower_bound_mm": 23.82356263522821,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-flavor-b",
+      "bbox_clearance_lower_bound_mm": 21.21113515194199,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-flavor-a",
+      "production_mesh_gap_mm": 1.274566650390625,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true,
+      "native_gap_mm": 1.2745417238779737
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-carb",
+      "bbox_clearance_lower_bound_mm": 10.84665304140833,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "digiten-flow",
+      "bbox_clearance_lower_bound_mm": 8.7660722038583,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-water",
+      "bbox_clearance_lower_bound_mm": 20.065949274235077,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-water-word",
+      "bbox_clearance_lower_bound_mm": 46.22481941996043,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-carb",
+      "bbox_clearance_lower_bound_mm": 14.216348839165235,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-carb-word",
+      "bbox_clearance_lower_bound_mm": 37.87925142521124,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-flavor-a",
+      "bbox_clearance_lower_bound_mm": 13.699999999999989,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-flavor-a-word",
+      "bbox_clearance_lower_bound_mm": 14.699999999999932,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-flavor-b",
+      "bbox_clearance_lower_bound_mm": 19.70349578017414,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-flavor-b-word",
+      "bbox_clearance_lower_bound_mm": 24.551981967124323,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-co2",
+      "bbox_clearance_lower_bound_mm": 14.274093109717446,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "bulkhead-ring-co2-word",
+      "bbox_clearance_lower_bound_mm": 37.5519551139693,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-customer-water",
+      "bbox_clearance_lower_bound_mm": 43.22228903825959,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-collar-water",
+      "bbox_clearance_lower_bound_mm": 45.57323232387843,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-collar-water-word",
+      "bbox_clearance_lower_bound_mm": 54.89493567446178,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-customer-co2",
+      "bbox_clearance_lower_bound_mm": 37.65047281766375,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-collar-co2",
+      "bbox_clearance_lower_bound_mm": 43.64038130666914,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-collar-co2-word",
+      "bbox_clearance_lower_bound_mm": 54.328928602660625,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "nameplate",
+      "bbox_clearance_lower_bound_mm": 2.0,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "nameplate-ink",
+      "bbox_clearance_lower_bound_mm": 14.979999899999939,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-refrig-3",
+      "bbox_clearance_lower_bound_mm": 223.15365942549317,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-refrig-1",
+      "bbox_clearance_lower_bound_mm": 259.3185833037799,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-refrig-2",
+      "bbox_clearance_lower_bound_mm": 232.32195137961725,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-water-7",
+      "production_mesh_gap_mm": 0.0,
+      "mesh_overlap_mm3": 9.030945910207763e-06,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Own measured barb tip connection; allpump components also checked for positive overlap",
+      "pass": true,
+      "native_gap_mm": 8.199860199218967e-12
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-water-6",
+      "production_mesh_gap_mm": 0.0,
+      "mesh_overlap_mm3": 2.3804312081332278e-05,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Own measured barb tip connection; allpump components also checked for positive overlap",
+      "pass": true,
+      "native_gap_mm": 1.4921397450962104e-13
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-water-5",
+      "bbox_clearance_lower_bound_mm": 67.9392606178007,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-water-2",
+      "bbox_clearance_lower_bound_mm": 29.466135051929513,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-1",
+      "bbox_clearance_lower_bound_mm": 84.13007114845811,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-water-3",
+      "bbox_clearance_lower_bound_mm": 48.90047452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-co2-0",
+      "bbox_clearance_lower_bound_mm": 18.851653041408326,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-co2-1",
+      "bbox_clearance_lower_bound_mm": 18.851653041408326,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-co2-2",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-2",
+      "bbox_clearance_lower_bound_mm": 10.900474427767051,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-carb-1",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-carb-2",
+      "bbox_clearance_lower_bound_mm": 14.991072103853355,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-28",
+      "bbox_clearance_lower_bound_mm": 25.216135051935368,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-18",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-24",
+      "bbox_clearance_lower_bound_mm": 58.86047452776273,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-26",
+      "bbox_clearance_lower_bound_mm": 103.2604744277642,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-14",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-16",
+      "bbox_clearance_lower_bound_mm": 103.26047442776215,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "funnel",
+      "bbox_clearance_lower_bound_mm": 30.335474427762733,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "funnel-drain-stub",
+      "bbox_clearance_lower_bound_mm": 109.66047452776274,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "funnel-drain-clamp",
+      "bbox_clearance_lower_bound_mm": 104.56047452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "funnel-drain-union",
+      "bbox_clearance_lower_bound_mm": 105.46947452776277,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "tube-fluid-4",
+      "bbox_clearance_lower_bound_mm": 15.700474527762765,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "display",
+      "bbox_clearance_lower_bound_mm": 207.15151843635556,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "display-cover",
+      "bbox_clearance_lower_bound_mm": 209.72331520608577,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "display-gasket",
+      "bbox_clearance_lower_bound_mm": 211.82139141743875,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "pump-jack",
+      "bbox_clearance_lower_bound_mm": 182.64547452776276,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-front-bottom",
+      "bbox_clearance_lower_bound_mm": 114.15513476312336,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-front-top",
+      "bbox_clearance_lower_bound_mm": 82.7854744277627,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-back-bottom",
+      "bbox_clearance_lower_bound_mm": 78.6,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-back-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-pump-cartridge",
+      "bbox_clearance_lower_bound_mm": 216.06647452776275,
+      "pass": true
+    },
+    {
+      "target": "g-ganen-pump",
+      "neighbor": "enclosure-pump-cap",
+      "bbox_clearance_lower_bound_mm": 216.06647452776275,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "compressor",
+      "bbox_clearance_lower_bound_mm": 188.19894393965114,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "condenser+fan",
+      "bbox_clearance_lower_bound_mm": 198.64432200275567,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "mq6-sensor",
+      "bbox_clearance_lower_bound_mm": 338.5309956234366,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "thermal-fuse",
+      "bbox_clearance_lower_bound_mm": 347.8315115394188,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "fuse-clamp",
+      "bbox_clearance_lower_bound_mm": 341.7935118875132,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-a",
+      "bbox_clearance_lower_bound_mm": 67.20235827508566,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-a",
+      "bbox_clearance_lower_bound_mm": 77.53062277630026,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-y-a",
+      "bbox_clearance_lower_bound_mm": 141.08578000370355,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-c",
+      "bbox_clearance_lower_bound_mm": 145.600311601151,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-c",
+      "bbox_clearance_lower_bound_mm": 173.32492820071283,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-y-c",
+      "bbox_clearance_lower_bound_mm": 210.21574204703919,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-e",
+      "bbox_clearance_lower_bound_mm": 195.2002654235574,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-e",
+      "bbox_clearance_lower_bound_mm": 164.70803741619676,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-g",
+      "bbox_clearance_lower_bound_mm": 165.33968402379767,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-g",
+      "bbox_clearance_lower_bound_mm": 187.47584141045812,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-y-d",
+      "bbox_clearance_lower_bound_mm": 231.54275364022,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-f",
+      "bbox_clearance_lower_bound_mm": 215.6589487601559,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-f",
+      "bbox_clearance_lower_bound_mm": 188.5056395665752,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-b",
+      "bbox_clearance_lower_bound_mm": 51.73999989999993,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-b",
+      "bbox_clearance_lower_bound_mm": 64.58999999999992,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-y-b",
+      "bbox_clearance_lower_bound_mm": 136.77651456279483,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-d",
+      "bbox_clearance_lower_bound_mm": 139.86432253053306,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-d",
+      "bbox_clearance_lower_bound_mm": 168.5351853897428,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-y-f",
+      "bbox_clearance_lower_bound_mm": 204.47804479044007,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-h",
+      "bbox_clearance_lower_bound_mm": 190.95999999999992,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-h",
+      "bbox_clearance_lower_bound_mm": 159.65999989999995,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-j",
+      "bbox_clearance_lower_bound_mm": 137.42326483832707,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-j",
+      "bbox_clearance_lower_bound_mm": 163.3864551249429,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-y-g",
+      "bbox_clearance_lower_bound_mm": 204.51581837182098,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "valve-v-i",
+      "bbox_clearance_lower_bound_mm": 190.95999999999992,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "coil-v-i",
+      "bbox_clearance_lower_bound_mm": 159.65999989999995,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-a-head",
+      "bbox_clearance_lower_bound_mm": 246.0695122854354,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-a-boss",
+      "bbox_clearance_lower_bound_mm": 248.6235657198735,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-a-motor",
+      "bbox_clearance_lower_bound_mm": 257.9388166158069,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-b-head",
+      "bbox_clearance_lower_bound_mm": 239.66274360359677,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-b-boss",
+      "bbox_clearance_lower_bound_mm": 241.12760242665038,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-b-motor",
+      "bbox_clearance_lower_bound_mm": 248.47599999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-10",
+      "bbox_clearance_lower_bound_mm": 212.55916961751555,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-11",
+      "bbox_clearance_lower_bound_mm": 234.23597466602428,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-12",
+      "bbox_clearance_lower_bound_mm": 254.7436807590144,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-13",
+      "bbox_clearance_lower_bound_mm": 234.55179160549517,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-20",
+      "bbox_clearance_lower_bound_mm": 206.08070838843312,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-21",
+      "bbox_clearance_lower_bound_mm": 228.10830634739332,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-22",
+      "bbox_clearance_lower_bound_mm": 228.1763092648675,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-23",
+      "bbox_clearance_lower_bound_mm": 206.2037824204495,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-9",
+      "bbox_clearance_lower_bound_mm": 179.3534148324178,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-17",
+      "bbox_clearance_lower_bound_mm": 198.50189431273583,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-19",
+      "bbox_clearance_lower_bound_mm": 171.27333422901307,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-27",
+      "bbox_clearance_lower_bound_mm": 168.15873708030205,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "turn-fluid-3",
+      "bbox_clearance_lower_bound_mm": 141.67163064698087,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "turn-fluid-5",
+      "bbox_clearance_lower_bound_mm": 131.2926446380316,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "step-fluid-3",
+      "bbox_clearance_lower_bound_mm": 123.67160923257651,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "step-fluid-5",
+      "bbox_clearance_lower_bound_mm": 111.63142271742517,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-tee-carrier-left",
+      "bbox_clearance_lower_bound_mm": 176.02882648791865,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-tee-carrier-right",
+      "bbox_clearance_lower_bound_mm": 174.1033953873389,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-carrier-spring-envelope-west",
+      "bbox_clearance_lower_bound_mm": 206.81629430923527,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tee-carrier-spring-envelope-east",
+      "bbox_clearance_lower_bound_mm": 242.5199020857509,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/foam-shell",
+      "bbox_clearance_lower_bound_mm": 27.149999799999904,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/foam-cap-top",
+      "bbox_clearance_lower_bound_mm": 12.549999899999904,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/foam-cap-lid-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/foam-cap-bottom",
+      "bbox_clearance_lower_bound_mm": 240.5499999999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/foam-cap-lid-bottom",
+      "bbox_clearance_lower_bound_mm": 255.1499999999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/carbonator-tube",
+      "bbox_clearance_lower_bound_mm": 56.1499998999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/endcap-bottom",
+      "bbox_clearance_lower_bound_mm": 195.8499998999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/endcap-top",
+      "bbox_clearance_lower_bound_mm": 62.49999989999989,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/float-rod-carb",
+      "bbox_clearance_lower_bound_mm": 78.4985430572282,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/carbonator-elbow-co2-in",
+      "bbox_clearance_lower_bound_mm": 200.92718151071372,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/carbonator-elbow-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 195.75456906969228,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/carbonator-elbow-water-in",
+      "bbox_clearance_lower_bound_mm": 45.125565538558135,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/carbonator-elbow-prv",
+      "bbox_clearance_lower_bound_mm": 33.2124998999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reservoir-a",
+      "bbox_clearance_lower_bound_mm": 47.84770576196709,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reservoir-a-cap",
+      "bbox_clearance_lower_bound_mm": 39.567700828880376,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reservoir-b",
+      "bbox_clearance_lower_bound_mm": 55.22412065850685,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reservoir-b-cap",
+      "bbox_clearance_lower_bound_mm": 48.22762180229629,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/copper-plug-west",
+      "bbox_clearance_lower_bound_mm": 127.48015774443067,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/copper-plug-port",
+      "bbox_clearance_lower_bound_mm": 167.02569285085275,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/evap-coil",
+      "bbox_clearance_lower_bound_mm": 70.97637308661089,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/evap-tail-inlet",
+      "bbox_clearance_lower_bound_mm": 211.09704062194987,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/evap-tail-outlet",
+      "bbox_clearance_lower_bound_mm": 74.2307432871345,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/water-inlet-jet-cap-nominal",
+      "bbox_clearance_lower_bound_mm": 84.8090034756138,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/collet-co2-in",
+      "bbox_clearance_lower_bound_mm": 222.11325971931362,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/collet-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 215.47451156689118,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/collet-water-in",
+      "bbox_clearance_lower_bound_mm": 36.46217676837962,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/bulkhead-reservoir-a",
+      "bbox_clearance_lower_bound_mm": 214.92955025174876,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/bulkhead-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 218.24985443815257,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/float-carb",
+      "bbox_clearance_lower_bound_mm": 109.77604492125383,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-carb-1",
+      "bbox_clearance_lower_bound_mm": 144.16306333953537,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-carb-2",
+      "bbox_clearance_lower_bound_mm": 118.36516381666551,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/float-rod-a",
+      "bbox_clearance_lower_bound_mm": 94.82574241261862,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/float-a",
+      "bbox_clearance_lower_bound_mm": 132.48604315392802,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-a-1",
+      "bbox_clearance_lower_bound_mm": 207.33236929343525,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-a-2",
+      "bbox_clearance_lower_bound_mm": 170.78410747440591,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-a-3",
+      "bbox_clearance_lower_bound_mm": 139.2756668439589,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-a-4",
+      "bbox_clearance_lower_bound_mm": 116.95388571496649,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/float-rod-b",
+      "bbox_clearance_lower_bound_mm": 105.39840377149552,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/float-b",
+      "bbox_clearance_lower_bound_mm": 139.0579914211692,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-b-1",
+      "bbox_clearance_lower_bound_mm": 213.42743110839615,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-b-2",
+      "bbox_clearance_lower_bound_mm": 178.13413024608505,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-b-3",
+      "bbox_clearance_lower_bound_mm": 148.1967218514944,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-b-4",
+      "bbox_clearance_lower_bound_mm": 127.44711992245729,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/bulkhead-seal-a",
+      "bbox_clearance_lower_bound_mm": 220.69953705942342,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/vent-membrane-a",
+      "bbox_clearance_lower_bound_mm": 94.49121388931331,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/bulkhead-seal-b",
+      "bbox_clearance_lower_bound_mm": 224.4456759640703,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/vent-membrane-b",
+      "bbox_clearance_lower_bound_mm": 102.55811493236901,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/probe-carbonator-ds18b20",
+      "bbox_clearance_lower_bound_mm": 139.28616652767428,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/probe-coil-ds18s20",
+      "bbox_clearance_lower_bound_mm": 92.72693025420224,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/prv-sv125",
+      "bbox_clearance_lower_bound_mm": 33.2759998999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/prv-shroud",
+      "bbox_clearance_lower_bound_mm": 29.599999799999893,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/reed-bridge",
+      "bbox_clearance_lower_bound_mm": 99.99206103341584,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 16.56739517378565,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-co2-in",
+      "bbox_clearance_lower_bound_mm": 64.75228355358908,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-prv-vent",
+      "bbox_clearance_lower_bound_mm": 53.071846886326874,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-reservoir-a",
+      "bbox_clearance_lower_bound_mm": 50.09073967357329,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-reservoir-a-fill",
+      "bbox_clearance_lower_bound_mm": 117.12679886701859,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 89.511022258295,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-reservoir-b-fill",
+      "bbox_clearance_lower_bound_mm": 75.06629152668982,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "cold-core/line-water-in",
+      "bbox_clearance_lower_bound_mm": 7.149999899999898,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "suction-chain",
+      "bbox_clearance_lower_bound_mm": 91.41507162963853,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "psu",
+      "bbox_clearance_lower_bound_mm": 99.95672444115479,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "relay-2",
+      "bbox_clearance_lower_bound_mm": 114.11507162266354,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pcba",
+      "bbox_clearance_lower_bound_mm": 112.01506442266354,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "c14-inlet",
+      "bbox_clearance_lower_bound_mm": 123.1590904436729,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-h",
+      "bbox_clearance_lower_bound_mm": 123.6861899555081,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-n",
+      "bbox_clearance_lower_bound_mm": 125.95048956581762,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-g",
+      "bbox_clearance_lower_bound_mm": 130.21867399888635,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-v12",
+      "bbox_clearance_lower_bound_mm": 136.30262394461576,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-gnd",
+      "bbox_clearance_lower_bound_mm": 143.97233251686396,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "relay-1",
+      "bbox_clearance_lower_bound_mm": 121.22778858329997,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "ground-stack",
+      "bbox_clearance_lower_bound_mm": 126.1349018696766,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-mana",
+      "bbox_clearance_lower_bound_mm": 218.83793447892123,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-manb",
+      "bbox_clearance_lower_bound_mm": 188.84549901090833,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-reeds-b",
+      "bbox_clearance_lower_bound_mm": 18.16762220608929,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-reeds-a",
+      "bbox_clearance_lower_bound_mm": 17.8499999069749,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wago-sensors",
+      "bbox_clearance_lower_bound_mm": 17.8499999069749,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "vk-solenoid",
+      "bbox_clearance_lower_bound_mm": 98.04139706860008,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "keystone-jack",
+      "bbox_clearance_lower_bound_mm": 93.84833699582435,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "co2-inlet",
+      "bbox_clearance_lower_bound_mm": 115.18455840756317,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "wr1110",
+      "bbox_clearance_lower_bound_mm": 47.06107279166245,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "gasher-co2",
+      "bbox_clearance_lower_bound_mm": 76.38790703074659,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "co2-adapter-regulator-in",
+      "bbox_clearance_lower_bound_mm": 69.66035216117368,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "co2-adapter-regulator-out",
+      "bbox_clearance_lower_bound_mm": 50.04193582495836,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "co2-adapter-check-in",
+      "bbox_clearance_lower_bound_mm": 77.28170163818237,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "co2-adapter-check-out",
+      "bbox_clearance_lower_bound_mm": 84.57582038018548,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "co2-check-coupling-nominal",
+      "bbox_clearance_lower_bound_mm": 73.1120587131365,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "asse1022-assembly",
+      "bbox_clearance_lower_bound_mm": 19.424235689587476,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "asse-drip-pan",
+      "bbox_clearance_lower_bound_mm": 22.20740374783321,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "moisture-plate",
+      "bbox_clearance_lower_bound_mm": 37.20781170305234,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "water-split",
+      "bbox_clearance_lower_bound_mm": 48.61644369427914,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "flow-regulator",
+      "bbox_clearance_lower_bound_mm": 46.75319923182726,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "discharge-chain",
+      "production_mesh_gap_mm": 0.0,
+      "mesh_overlap_mm3": 1.607047828144914e-14,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Own named endpoint",
+      "pass": true,
+      "native_gap_mm": 1.1368683772161603e-13
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-water",
+      "bbox_clearance_lower_bound_mm": 105.65564388614511,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-flavor-b",
+      "bbox_clearance_lower_bound_mm": 98.96737649720319,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-flavor-a",
+      "bbox_clearance_lower_bound_mm": 98.96737649720319,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-carb",
+      "bbox_clearance_lower_bound_mm": 105.65564388614511,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "digiten-flow",
+      "bbox_clearance_lower_bound_mm": 38.39167106718115,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-water",
+      "bbox_clearance_lower_bound_mm": 125.38546958286376,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-water-word",
+      "bbox_clearance_lower_bound_mm": 137.21436461912324,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-carb",
+      "bbox_clearance_lower_bound_mm": 125.38546958286376,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-carb-word",
+      "bbox_clearance_lower_bound_mm": 137.1038698338336,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-flavor-a",
+      "bbox_clearance_lower_bound_mm": 121.75737649720321,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-flavor-a-word",
+      "bbox_clearance_lower_bound_mm": 122.75737649720315,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-flavor-b",
+      "bbox_clearance_lower_bound_mm": 121.75737649720321,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-flavor-b-word",
+      "bbox_clearance_lower_bound_mm": 122.75737649720315,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-co2",
+      "bbox_clearance_lower_bound_mm": 126.91145037337185,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "bulkhead-ring-co2-word",
+      "bbox_clearance_lower_bound_mm": 140.39068555621975,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-customer-water",
+      "bbox_clearance_lower_bound_mm": 140.8966846491985,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-collar-water",
+      "bbox_clearance_lower_bound_mm": 147.54532374465444,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-collar-water-word",
+      "bbox_clearance_lower_bound_mm": 157.9745512826759,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-customer-co2",
+      "bbox_clearance_lower_bound_mm": 151.5666240118406,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-collar-co2",
+      "bbox_clearance_lower_bound_mm": 157.65671462387826,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-collar-co2-word",
+      "bbox_clearance_lower_bound_mm": 167.71597813130253,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "nameplate",
+      "bbox_clearance_lower_bound_mm": 111.99824414281343,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "nameplate-ink",
+      "bbox_clearance_lower_bound_mm": 125.71213082504175,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-refrig-3",
+      "bbox_clearance_lower_bound_mm": 235.82085617958285,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-refrig-1",
+      "bbox_clearance_lower_bound_mm": 284.3389286138463,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-refrig-2",
+      "bbox_clearance_lower_bound_mm": 267.4913900449846,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-water-7",
+      "bbox_clearance_lower_bound_mm": 74.15837461932801,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-water-5",
+      "bbox_clearance_lower_bound_mm": 83.39999999999992,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-water-2",
+      "bbox_clearance_lower_bound_mm": 8.840133519804352,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-1",
+      "bbox_clearance_lower_bound_mm": 91.16493051327693,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-water-3",
+      "bbox_clearance_lower_bound_mm": 64.76499999999993,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-co2-0",
+      "bbox_clearance_lower_bound_mm": 87.6020214124859,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-co2-1",
+      "bbox_clearance_lower_bound_mm": 56.48429607464041,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-co2-2",
+      "bbox_clearance_lower_bound_mm": 70.14007162266354,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-2",
+      "bbox_clearance_lower_bound_mm": 26.764999900004227,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-carb-1",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-carb-2",
+      "bbox_clearance_lower_bound_mm": 87.27179360864054,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-28",
+      "bbox_clearance_lower_bound_mm": 2.5949998069682607,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-18",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-24",
+      "bbox_clearance_lower_bound_mm": 74.72499999999991,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-26",
+      "bbox_clearance_lower_bound_mm": 119.12499990000137,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-14",
+      "bbox_clearance_lower_bound_mm": 76.44007152963835,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-16",
+      "bbox_clearance_lower_bound_mm": 130.8093839988456,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "funnel",
+      "bbox_clearance_lower_bound_mm": 47.5567450320994,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "funnel-drain-stub",
+      "bbox_clearance_lower_bound_mm": 129.92868054995932,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "funnel-drain-clamp",
+      "bbox_clearance_lower_bound_mm": 124.37033809228427,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "funnel-drain-union",
+      "bbox_clearance_lower_bound_mm": 124.83311882366156,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "tube-fluid-4",
+      "bbox_clearance_lower_bound_mm": 31.56499999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "display",
+      "bbox_clearance_lower_bound_mm": 223.12953031822352,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "display-cover",
+      "bbox_clearance_lower_bound_mm": 225.7160696317346,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "display-gasket",
+      "bbox_clearance_lower_bound_mm": 228.67113479561422,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "pump-jack",
+      "bbox_clearance_lower_bound_mm": 200.41126626260663,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-front-bottom",
+      "bbox_clearance_lower_bound_mm": 130.709161882402,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-front-top",
+      "bbox_clearance_lower_bound_mm": 98.64999989999987,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-back-bottom",
+      "bbox_clearance_lower_bound_mm": 85.74999999999989,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-back-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-pump-cartridge",
+      "bbox_clearance_lower_bound_mm": 231.93099999999993,
+      "pass": true
+    },
+    {
+      "target": "tube-water-6",
+      "neighbor": "enclosure-pump-cap",
+      "bbox_clearance_lower_bound_mm": 231.93099999999993,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "compressor",
+      "bbox_clearance_lower_bound_mm": 190.1301465239371,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "condenser+fan",
+      "bbox_clearance_lower_bound_mm": 185.32232704129302,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "mq6-sensor",
+      "bbox_clearance_lower_bound_mm": 360.37601249147343,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "thermal-fuse",
+      "bbox_clearance_lower_bound_mm": 349.5591882168526,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "fuse-clamp",
+      "bbox_clearance_lower_bound_mm": 344.9270024974004,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-a",
+      "bbox_clearance_lower_bound_mm": 54.21999989999995,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-a",
+      "bbox_clearance_lower_bound_mm": 67.06999999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-y-a",
+      "bbox_clearance_lower_bound_mm": 139.461211872663,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-c",
+      "bbox_clearance_lower_bound_mm": 142.24067661176778,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-c",
+      "bbox_clearance_lower_bound_mm": 170.89016964238607,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-y-c",
+      "bbox_clearance_lower_bound_mm": 207.0119742487535,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-e",
+      "bbox_clearance_lower_bound_mm": 193.44009658302102,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-e",
+      "bbox_clearance_lower_bound_mm": 162.14011512768982,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-g",
+      "bbox_clearance_lower_bound_mm": 139.8409729615215,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-g",
+      "bbox_clearance_lower_bound_mm": 165.81446775928504,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-y-d",
+      "bbox_clearance_lower_bound_mm": 206.83313676755793,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-f",
+      "bbox_clearance_lower_bound_mm": 193.43999999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-f",
+      "bbox_clearance_lower_bound_mm": 162.13999989999996,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-b",
+      "bbox_clearance_lower_bound_mm": 70.3933025443921,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-b",
+      "bbox_clearance_lower_bound_mm": 80.70807613832903,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-y-b",
+      "bbox_clearance_lower_bound_mm": 144.62994074667824,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-d",
+      "bbox_clearance_lower_bound_mm": 149.15690185464197,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-d",
+      "bbox_clearance_lower_bound_mm": 176.68848680178712,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-y-f",
+      "bbox_clearance_lower_bound_mm": 213.60999220604916,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-h",
+      "bbox_clearance_lower_bound_mm": 198.58107224494057,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-h",
+      "bbox_clearance_lower_bound_mm": 168.24026932195014,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-j",
+      "bbox_clearance_lower_bound_mm": 169.82751215056985,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-j",
+      "bbox_clearance_lower_bound_mm": 191.7819696497091,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-y-g",
+      "bbox_clearance_lower_bound_mm": 235.7536658853257,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "valve-v-i",
+      "bbox_clearance_lower_bound_mm": 219.93011262926922,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "coil-v-i",
+      "bbox_clearance_lower_bound_mm": 192.97564724499233,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-a-head",
+      "bbox_clearance_lower_bound_mm": 242.0973499051722,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-a-boss",
+      "bbox_clearance_lower_bound_mm": 243.594504067774,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-a-motor",
+      "bbox_clearance_lower_bound_mm": 250.95599999999996,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-b-head",
+      "bbox_clearance_lower_bound_mm": 249.47298185742045,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-b-boss",
+      "bbox_clearance_lower_bound_mm": 252.12231582426506,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-b-motor",
+      "bbox_clearance_lower_bound_mm": 261.541054097284,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-10",
+      "bbox_clearance_lower_bound_mm": 208.69006274502954,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-11",
+      "bbox_clearance_lower_bound_mm": 230.68543225389791,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-12",
+      "bbox_clearance_lower_bound_mm": 230.3610386120156,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-13",
+      "bbox_clearance_lower_bound_mm": 208.48750792050942,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-20",
+      "bbox_clearance_lower_bound_mm": 216.04549800216978,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-21",
+      "bbox_clearance_lower_bound_mm": 237.5810281610666,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-22",
+      "bbox_clearance_lower_bound_mm": 258.8470004658561,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-23",
+      "bbox_clearance_lower_bound_mm": 238.8262406291623,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-9",
+      "bbox_clearance_lower_bound_mm": 173.62686499078725,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-17",
+      "bbox_clearance_lower_bound_mm": 170.2352220661898,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-19",
+      "bbox_clearance_lower_bound_mm": 182.68898304356193,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-27",
+      "bbox_clearance_lower_bound_mm": 202.64861533627948,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "turn-fluid-3",
+      "bbox_clearance_lower_bound_mm": 134.1484243837932,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "turn-fluid-5",
+      "bbox_clearance_lower_bound_mm": 145.68725422498733,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "step-fluid-3",
+      "bbox_clearance_lower_bound_mm": 114.28483005589189,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "step-fluid-5",
+      "bbox_clearance_lower_bound_mm": 127.870171829149,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-tee-carrier-left",
+      "bbox_clearance_lower_bound_mm": 179.45628546316848,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-tee-carrier-right",
+      "bbox_clearance_lower_bound_mm": 176.30433390791555,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-carrier-spring-envelope-west",
+      "bbox_clearance_lower_bound_mm": 246.93875162618525,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tee-carrier-spring-envelope-east",
+      "bbox_clearance_lower_bound_mm": 208.68607186882116,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/foam-shell",
+      "bbox_clearance_lower_bound_mm": 27.149999799999904,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/foam-cap-top",
+      "bbox_clearance_lower_bound_mm": 12.549999899999904,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/foam-cap-lid-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/foam-cap-bottom",
+      "bbox_clearance_lower_bound_mm": 240.5499999999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/foam-cap-lid-bottom",
+      "bbox_clearance_lower_bound_mm": 255.1499999999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/carbonator-tube",
+      "bbox_clearance_lower_bound_mm": 56.1499998999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/endcap-bottom",
+      "bbox_clearance_lower_bound_mm": 195.8499998999999,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/endcap-top",
+      "bbox_clearance_lower_bound_mm": 62.49999989999989,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/float-rod-carb",
+      "bbox_clearance_lower_bound_mm": 80.47990749670065,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/carbonator-elbow-co2-in",
+      "bbox_clearance_lower_bound_mm": 195.59620088637732,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/carbonator-elbow-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 201.98648507243163,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/carbonator-elbow-water-in",
+      "bbox_clearance_lower_bound_mm": 34.29147199568184,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/carbonator-elbow-prv",
+      "bbox_clearance_lower_bound_mm": 60.364021773258095,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reservoir-a",
+      "bbox_clearance_lower_bound_mm": 47.855422249532026,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reservoir-a-cap",
+      "bbox_clearance_lower_bound_mm": 39.57703173408798,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reservoir-b",
+      "bbox_clearance_lower_bound_mm": 57.03250623823091,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reservoir-b-cap",
+      "bbox_clearance_lower_bound_mm": 50.28823689506174,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/copper-plug-west",
+      "bbox_clearance_lower_bound_mm": 171.74826512063945,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/copper-plug-port",
+      "bbox_clearance_lower_bound_mm": 129.80245767879353,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/evap-coil",
+      "bbox_clearance_lower_bound_mm": 70.97637308661089,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/evap-tail-inlet",
+      "bbox_clearance_lower_bound_mm": 191.90984420746497,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/evap-tail-outlet",
+      "bbox_clearance_lower_bound_mm": 119.47756224024113,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/water-inlet-jet-cap-nominal",
+      "bbox_clearance_lower_bound_mm": 70.81952583651989,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/collet-co2-in",
+      "bbox_clearance_lower_bound_mm": 215.29999989999925,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/collet-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 221.30383169738573,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/collet-water-in",
+      "bbox_clearance_lower_bound_mm": 41.84263827227367,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/bulkhead-reservoir-a",
+      "bbox_clearance_lower_bound_mm": 214.844609811246,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/bulkhead-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 220.17963795761997,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/float-carb",
+      "bbox_clearance_lower_bound_mm": 110.70429787517556,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-carb-1",
+      "bbox_clearance_lower_bound_mm": 145.2629931543541,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-carb-2",
+      "bbox_clearance_lower_bound_mm": 119.70238240765761,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/float-rod-a",
+      "bbox_clearance_lower_bound_mm": 117.99357856053814,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/float-a",
+      "bbox_clearance_lower_bound_mm": 144.54945448754958,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-a-1",
+      "bbox_clearance_lower_bound_mm": 219.00835173845232,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-a-2",
+      "bbox_clearance_lower_bound_mm": 184.78408519186294,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-a-3",
+      "bbox_clearance_lower_bound_mm": 156.12705771003843,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-a-4",
+      "bbox_clearance_lower_bound_mm": 136.587547595649,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/float-rod-b",
+      "bbox_clearance_lower_bound_mm": 128.61576137226095,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/float-b",
+      "bbox_clearance_lower_bound_mm": 152.01370085800636,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-b-1",
+      "bbox_clearance_lower_bound_mm": 226.12155350935564,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-b-2",
+      "bbox_clearance_lower_bound_mm": 193.1617378532415,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-b-3",
+      "bbox_clearance_lower_bound_mm": 165.95769635507838,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-b-4",
+      "bbox_clearance_lower_bound_mm": 147.72425998624738,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/bulkhead-seal-a",
+      "bbox_clearance_lower_bound_mm": 221.20621611222438,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/vent-membrane-a",
+      "bbox_clearance_lower_bound_mm": 72.2898302553285,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/bulkhead-seal-b",
+      "bbox_clearance_lower_bound_mm": 225.83823579373566,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/vent-membrane-b",
+      "bbox_clearance_lower_bound_mm": 84.86029943762716,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/probe-carbonator-ds18b20",
+      "bbox_clearance_lower_bound_mm": 141.32614234891756,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/probe-coil-ds18s20",
+      "bbox_clearance_lower_bound_mm": 131.43097249285987,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/prv-sv125",
+      "bbox_clearance_lower_bound_mm": 74.10818702796925,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/prv-shroud",
+      "bbox_clearance_lower_bound_mm": 84.28582729938762,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/reed-bridge",
+      "bbox_clearance_lower_bound_mm": 100.53413676763202,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 12.66525225054746,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-co2-in",
+      "bbox_clearance_lower_bound_mm": 7.149999899999898,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-prv-vent",
+      "bbox_clearance_lower_bound_mm": 125.24859084378485,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-reservoir-a",
+      "bbox_clearance_lower_bound_mm": 7.149999899999898,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-reservoir-a-fill",
+      "bbox_clearance_lower_bound_mm": 75.93268882297849,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 107.32324473634795,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-reservoir-b-fill",
+      "bbox_clearance_lower_bound_mm": 111.13419228359555,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "cold-core/line-water-in",
+      "bbox_clearance_lower_bound_mm": 38.03043284375203,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "suction-chain",
+      "production_mesh_gap_mm": 0.0,
+      "mesh_overlap_mm3": 3.230922474006803e-14,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Own named endpoint",
+      "pass": true,
+      "native_gap_mm": 1.1368683772161603e-13
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "psu",
+      "bbox_clearance_lower_bound_mm": 8.270308937243499,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "relay-2",
+      "bbox_clearance_lower_bound_mm": 6.649999893025239,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pcba",
+      "bbox_clearance_lower_bound_mm": 4.549992693025246,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "c14-inlet",
+      "bbox_clearance_lower_bound_mm": 96.26597745569195,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-h",
+      "bbox_clearance_lower_bound_mm": 29.934154853882248,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-n",
+      "bbox_clearance_lower_bound_mm": 38.23252760774018,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-g",
+      "bbox_clearance_lower_bound_mm": 50.552187961917426,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-v12",
+      "bbox_clearance_lower_bound_mm": 64.63316678144002,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-gnd",
+      "bbox_clearance_lower_bound_mm": 79.54554537281051,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "relay-1",
+      "bbox_clearance_lower_bound_mm": 41.54594141506207,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "ground-stack",
+      "bbox_clearance_lower_bound_mm": 42.68799886327771,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-mana",
+      "bbox_clearance_lower_bound_mm": 185.2798110887699,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-manb",
+      "bbox_clearance_lower_bound_mm": 227.938573995747,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-reeds-b",
+      "bbox_clearance_lower_bound_mm": 125.53616011736474,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-reeds-a",
+      "bbox_clearance_lower_bound_mm": 125.19330299666449,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wago-sensors",
+      "bbox_clearance_lower_bound_mm": 125.19330299666449,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "vk-solenoid",
+      "bbox_clearance_lower_bound_mm": 54.39999999999998,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "keystone-jack",
+      "bbox_clearance_lower_bound_mm": 116.9604836120046,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "co2-inlet",
+      "bbox_clearance_lower_bound_mm": 115.12457880142843,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "wr1110",
+      "bbox_clearance_lower_bound_mm": 46.87375559876701,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "gasher-co2",
+      "bbox_clearance_lower_bound_mm": 40.52085698251807,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "co2-adapter-regulator-in",
+      "bbox_clearance_lower_bound_mm": 69.52192708282107,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "co2-adapter-regulator-out",
+      "bbox_clearance_lower_bound_mm": 49.836487079957706,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "co2-adapter-check-in",
+      "bbox_clearance_lower_bound_mm": 40.020856982516364,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "co2-adapter-check-out",
+      "bbox_clearance_lower_bound_mm": 52.75571876510699,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "co2-check-coupling-nominal",
+      "bbox_clearance_lower_bound_mm": 38.335751916551466,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "asse1022-assembly",
+      "bbox_clearance_lower_bound_mm": 102.73494901312073,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "asse-drip-pan",
+      "bbox_clearance_lower_bound_mm": 96.34080234784514,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "moisture-plate",
+      "bbox_clearance_lower_bound_mm": 109.74792209014426,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "water-split",
+      "bbox_clearance_lower_bound_mm": 130.51007474307613,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "flow-regulator",
+      "bbox_clearance_lower_bound_mm": 108.92636072649705,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "discharge-chain",
+      "bbox_clearance_lower_bound_mm": 91.32698161423235,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-water",
+      "bbox_clearance_lower_bound_mm": 149.64858139251734,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-flavor-b",
+      "bbox_clearance_lower_bound_mm": 144.97919244186485,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-flavor-a",
+      "bbox_clearance_lower_bound_mm": 118.78587577571611,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-carb",
+      "bbox_clearance_lower_bound_mm": 124.44201844835798,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "digiten-flow",
+      "bbox_clearance_lower_bound_mm": 65.98790648011862,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-water",
+      "bbox_clearance_lower_bound_mm": 159.71339586480943,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-water-word",
+      "bbox_clearance_lower_bound_mm": 176.51591386402137,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-carb",
+      "bbox_clearance_lower_bound_mm": 138.44548699553155,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-carb-word",
+      "bbox_clearance_lower_bound_mm": 153.04424463733815,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-flavor-a",
+      "bbox_clearance_lower_bound_mm": 135.1469562409224,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-flavor-a-word",
+      "bbox_clearance_lower_bound_mm": 138.50933024464703,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-flavor-b",
+      "bbox_clearance_lower_bound_mm": 156.86272893974916,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-flavor-b-word",
+      "bbox_clearance_lower_bound_mm": 161.14967202228556,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-co2",
+      "bbox_clearance_lower_bound_mm": 126.87599616467672,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "bulkhead-ring-co2-word",
+      "bbox_clearance_lower_bound_mm": 140.3407232795957,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-customer-water",
+      "bbox_clearance_lower_bound_mm": 181.2627665323614,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-collar-water",
+      "bbox_clearance_lower_bound_mm": 184.84347072469762,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-collar-water-word",
+      "bbox_clearance_lower_bound_mm": 193.27456606893978,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-customer-co2",
+      "bbox_clearance_lower_bound_mm": 151.50179792861064,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-collar-co2",
+      "bbox_clearance_lower_bound_mm": 157.6017748276147,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-collar-co2-word",
+      "bbox_clearance_lower_bound_mm": 167.66905976775544,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "nameplate",
+      "bbox_clearance_lower_bound_mm": 110.07030893724351,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "nameplate-ink",
+      "bbox_clearance_lower_bound_mm": 123.05030883724345,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-refrig-3",
+      "bbox_clearance_lower_bound_mm": 262.9195956177141,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-refrig-1",
+      "bbox_clearance_lower_bound_mm": 277.764262730107,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-refrig-2",
+      "bbox_clearance_lower_bound_mm": 246.82140680704734,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-water-5",
+      "bbox_clearance_lower_bound_mm": 125.94108196802242,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-water-2",
+      "bbox_clearance_lower_bound_mm": 114.45642766822664,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-1",
+      "bbox_clearance_lower_bound_mm": 155.8245765281943,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-water-3",
+      "bbox_clearance_lower_bound_mm": 67.24499999999995,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-co2-0",
+      "bbox_clearance_lower_bound_mm": 87.47892017611576,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-co2-1",
+      "bbox_clearance_lower_bound_mm": 45.09585698251806,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-co2-2",
+      "production_mesh_gap_mm": 1.7446363448810354,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-2",
+      "bbox_clearance_lower_bound_mm": 31.369635000352687,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-carb-1",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-carb-2",
+      "bbox_clearance_lower_bound_mm": 114.4190103896393,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-28",
+      "bbox_clearance_lower_bound_mm": 109.93830289665785,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-18",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-24",
+      "bbox_clearance_lower_bound_mm": 110.90395024539716,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-26",
+      "bbox_clearance_lower_bound_mm": 134.93079135612118,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-14",
+      "production_mesh_gap_mm": 1.3699220229110713,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-16",
+      "bbox_clearance_lower_bound_mm": 121.60499989999934,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "funnel",
+      "bbox_clearance_lower_bound_mm": 49.9913514017846,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "funnel-drain-stub",
+      "bbox_clearance_lower_bound_mm": 132.5126281350996,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "funnel-drain-clamp",
+      "bbox_clearance_lower_bound_mm": 125.5247615082978,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "funnel-drain-union",
+      "bbox_clearance_lower_bound_mm": 127.41487646871418,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "tube-fluid-4",
+      "bbox_clearance_lower_bound_mm": 48.305057864277536,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "display",
+      "bbox_clearance_lower_bound_mm": 225.6113508809083,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "display-cover",
+      "bbox_clearance_lower_bound_mm": 228.1979175185156,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "display-gasket",
+      "bbox_clearance_lower_bound_mm": 231.14944796579275,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "pump-jack",
+      "bbox_clearance_lower_bound_mm": 203.51646738405844,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-front-bottom",
+      "bbox_clearance_lower_bound_mm": 132.59087223485622,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-front-top",
+      "bbox_clearance_lower_bound_mm": 101.12999989999989,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-back-bottom",
+      "bbox_clearance_lower_bound_mm": 85.74999999999989,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-back-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-pump-cartridge",
+      "bbox_clearance_lower_bound_mm": 234.41099999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-water-7",
+      "neighbor": "enclosure-pump-cap",
+      "bbox_clearance_lower_bound_mm": 234.41099999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "compressor",
+      "bbox_clearance_lower_bound_mm": 118.64849618622253,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "condenser+fan",
+      "bbox_clearance_lower_bound_mm": 107.4000001,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "mq6-sensor",
+      "bbox_clearance_lower_bound_mm": 262.39765598632266,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "thermal-fuse",
+      "bbox_clearance_lower_bound_mm": 213.44326850311737,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "fuse-clamp",
+      "bbox_clearance_lower_bound_mm": 206.49249712396082,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-a",
+      "production_mesh_gap_mm": 1.0754158609219209,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true,
+      "native_gap_mm": 1.1550000069748172
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-a",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-y-a",
+      "bbox_clearance_lower_bound_mm": 10.974999906974801,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-c",
+      "bbox_clearance_lower_bound_mm": 33.31705643569859,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-c",
+      "bbox_clearance_lower_bound_mm": 46.14142660927948,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-y-c",
+      "bbox_clearance_lower_bound_mm": 47.2677818281977,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-e",
+      "bbox_clearance_lower_bound_mm": 2.4749999069748014,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-e",
+      "bbox_clearance_lower_bound_mm": 2.4749999069748014,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-g",
+      "bbox_clearance_lower_bound_mm": 23.724999999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-g",
+      "bbox_clearance_lower_bound_mm": 26.375,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-y-d",
+      "bbox_clearance_lower_bound_mm": 45.976,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-f",
+      "production_mesh_gap_mm": 0.02399900113593381,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Own named endpoint",
+      "pass": true,
+      "native_gap_mm": 0.024999999999991473
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-f",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-b",
+      "bbox_clearance_lower_bound_mm": 47.174999906974804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-b",
+      "bbox_clearance_lower_bound_mm": 47.174999906974804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-y-b",
+      "bbox_clearance_lower_bound_mm": 41.57499990697478,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-d",
+      "bbox_clearance_lower_bound_mm": 57.70079064642938,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-d",
+      "bbox_clearance_lower_bound_mm": 65.94229478281046,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-y-f",
+      "bbox_clearance_lower_bound_mm": 72.20455796306521,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-h",
+      "bbox_clearance_lower_bound_mm": 47.174999906974804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-h",
+      "bbox_clearance_lower_bound_mm": 47.174999906974804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-j",
+      "bbox_clearance_lower_bound_mm": 101.45793035365476,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-j",
+      "bbox_clearance_lower_bound_mm": 102.11012012355611,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-y-g",
+      "bbox_clearance_lower_bound_mm": 124.24461026348439,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "valve-v-i",
+      "bbox_clearance_lower_bound_mm": 106.9249998069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "coil-v-i",
+      "bbox_clearance_lower_bound_mm": 106.92499990697479,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-a-head",
+      "bbox_clearance_lower_bound_mm": 46.725971084573544,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-a-boss",
+      "bbox_clearance_lower_bound_mm": 35.49848737409528,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-a-motor",
+      "bbox_clearance_lower_bound_mm": 39.390999900000025,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-b-head",
+      "bbox_clearance_lower_bound_mm": 78.03166904962485,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-b-boss",
+      "bbox_clearance_lower_bound_mm": 76.088321004785,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-b-motor",
+      "bbox_clearance_lower_bound_mm": 85.54399502007179,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-10",
+      "bbox_clearance_lower_bound_mm": 33.209741542770644,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-11",
+      "bbox_clearance_lower_bound_mm": 66.44745082792033,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-12",
+      "bbox_clearance_lower_bound_mm": 64.47992885010807,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-13",
+      "bbox_clearance_lower_bound_mm": 30.72499989999983,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-20",
+      "bbox_clearance_lower_bound_mm": 66.62788831813847,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-21",
+      "bbox_clearance_lower_bound_mm": 88.59020099995506,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-22",
+      "bbox_clearance_lower_bound_mm": 136.66715480354426,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-23",
+      "bbox_clearance_lower_bound_mm": 122.77725476882685,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-9",
+      "bbox_clearance_lower_bound_mm": 89.9199926034466,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-17",
+      "bbox_clearance_lower_bound_mm": 83.225,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-19",
+      "bbox_clearance_lower_bound_mm": 107.32457804504725,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-27",
+      "bbox_clearance_lower_bound_mm": 139.71302374553858,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "turn-fluid-3",
+      "bbox_clearance_lower_bound_mm": 16.0499998069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "turn-fluid-5",
+      "bbox_clearance_lower_bound_mm": 60.7499998069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "step-fluid-3",
+      "bbox_clearance_lower_bound_mm": 13.629999906974803,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "step-fluid-5",
+      "bbox_clearance_lower_bound_mm": 60.7499998069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-tee-carrier-left",
+      "bbox_clearance_lower_bound_mm": 32.15155644877847,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-tee-carrier-right",
+      "bbox_clearance_lower_bound_mm": 24.281000000000006,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-carrier-spring-envelope-west",
+      "bbox_clearance_lower_bound_mm": 141.6399186517582,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tee-carrier-spring-envelope-east",
+      "bbox_clearance_lower_bound_mm": 40.27011396989088,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/foam-shell",
+      "bbox_clearance_lower_bound_mm": 19.999999900000006,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/foam-cap-top",
+      "bbox_clearance_lower_bound_mm": 5.400000000000006,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/foam-cap-lid-top",
+      "production_mesh_gap_mm": 0.14941870176995245,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Measured0.15mm cap bearing and own routed fill conduit",
+      "pass": true,
+      "native_gap_mm": 0.14999999999999858
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/foam-cap-bottom",
+      "bbox_clearance_lower_bound_mm": 233.4000001,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/foam-cap-lid-bottom",
+      "bbox_clearance_lower_bound_mm": 248.0000001,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/carbonator-tube",
+      "bbox_clearance_lower_bound_mm": 49.0,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/endcap-bottom",
+      "bbox_clearance_lower_bound_mm": 188.7,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/endcap-top",
+      "bbox_clearance_lower_bound_mm": 55.349999999999994,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/float-rod-carb",
+      "bbox_clearance_lower_bound_mm": 71.40662257978946,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/carbonator-elbow-co2-in",
+      "bbox_clearance_lower_bound_mm": 188.46341623213598,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/carbonator-elbow-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 195.67285852082796,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/carbonator-elbow-water-in",
+      "bbox_clearance_lower_bound_mm": 28.821596300313775,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/carbonator-elbow-prv",
+      "bbox_clearance_lower_bound_mm": 58.781175149548964,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reservoir-a",
+      "bbox_clearance_lower_bound_mm": 31.25,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reservoir-a-cap",
+      "bbox_clearance_lower_bound_mm": 20.25,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reservoir-b",
+      "bbox_clearance_lower_bound_mm": 31.25,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reservoir-b-cap",
+      "bbox_clearance_lower_bound_mm": 20.25,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/copper-plug-west",
+      "bbox_clearance_lower_bound_mm": 116.479880138369,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/copper-plug-port",
+      "bbox_clearance_lower_bound_mm": 20.0,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/evap-coil",
+      "bbox_clearance_lower_bound_mm": 63.826373186610994,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/evap-tail-inlet",
+      "bbox_clearance_lower_bound_mm": 183.22500000000002,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/evap-tail-outlet",
+      "bbox_clearance_lower_bound_mm": 114.69072932981226,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/water-inlet-jet-cap-nominal",
+      "bbox_clearance_lower_bound_mm": 64.45346179566303,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/collet-co2-in",
+      "bbox_clearance_lower_bound_mm": 208.14999999999935,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/collet-carb-water-out",
+      "bbox_clearance_lower_bound_mm": 214.9105952543524,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/collet-water-in",
+      "bbox_clearance_lower_bound_mm": 38.139796832432324,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/bulkhead-reservoir-a",
+      "bbox_clearance_lower_bound_mm": 196.78712877801837,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/bulkhead-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 197.53063843081398,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/float-carb",
+      "bbox_clearance_lower_bound_mm": 103.87686517933143,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-carb-1",
+      "bbox_clearance_lower_bound_mm": 133.51852249887781,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-carb-2",
+      "bbox_clearance_lower_bound_mm": 107.03657373503226,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/float-rod-a",
+      "bbox_clearance_lower_bound_mm": 76.84959529174013,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/float-a",
+      "bbox_clearance_lower_bound_mm": 118.72137807903165,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-a-1",
+      "bbox_clearance_lower_bound_mm": 185.9867501461307,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-a-2",
+      "bbox_clearance_lower_bound_mm": 146.33889172027799,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-a-3",
+      "bbox_clearance_lower_bound_mm": 110.85608341412413,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-a-4",
+      "bbox_clearance_lower_bound_mm": 84.92980177722804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/float-rod-b",
+      "bbox_clearance_lower_bound_mm": 76.48396983519974,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/float-b",
+      "bbox_clearance_lower_bound_mm": 118.72137807903165,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-b-1",
+      "bbox_clearance_lower_bound_mm": 183.93121162661393,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-b-2",
+      "bbox_clearance_lower_bound_mm": 143.71739842633613,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-b-3",
+      "bbox_clearance_lower_bound_mm": 107.37174027850271,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-b-4",
+      "bbox_clearance_lower_bound_mm": 80.32864128338187,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/bulkhead-seal-a",
+      "bbox_clearance_lower_bound_mm": 203.3125749162727,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/vent-membrane-a",
+      "bbox_clearance_lower_bound_mm": 22.994632514676088,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/bulkhead-seal-b",
+      "bbox_clearance_lower_bound_mm": 203.3125749162727,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/vent-membrane-b",
+      "bbox_clearance_lower_bound_mm": 22.994632514676088,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/probe-carbonator-ds18b20",
+      "bbox_clearance_lower_bound_mm": 124.35238453502645,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/probe-coil-ds18s20",
+      "bbox_clearance_lower_bound_mm": 125.92699124431898,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/prv-sv125",
+      "bbox_clearance_lower_bound_mm": 73.31221496653534,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/prv-shroud",
+      "bbox_clearance_lower_bound_mm": 84.24535633510938,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/reed-bridge",
+      "bbox_clearance_lower_bound_mm": 87.6002135111823,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-carb-water-out",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-co2-in",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-prv-vent",
+      "bbox_clearance_lower_bound_mm": 124.53290312741831,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-reservoir-a",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-reservoir-a-fill",
+      "production_mesh_gap_mm": 0.0,
+      "mesh_overlap_mm3": -6.765421556309548e-17,
+      "required_gap_mm": 0.0,
+      "intentional_contact": "Own named endpoint",
+      "pass": true,
+      "native_gap_mm": 5.684341886080802e-14
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-reservoir-b",
+      "bbox_clearance_lower_bound_mm": 57.5749998999948,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-reservoir-b-fill",
+      "bbox_clearance_lower_bound_mm": 81.89999989999481,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "cold-core/line-water-in",
+      "bbox_clearance_lower_bound_mm": 39.63395686487177,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "suction-chain",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "psu",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "relay-2",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pcba",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "c14-inlet",
+      "bbox_clearance_lower_bound_mm": 25.339676883538857,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-h",
+      "bbox_clearance_lower_bound_mm": 12.148748438754092,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-n",
+      "bbox_clearance_lower_bound_mm": 12.148748438754092,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-g",
+      "bbox_clearance_lower_bound_mm": 12.148748438754092,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-v12",
+      "bbox_clearance_lower_bound_mm": 12.148748438754092,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-gnd",
+      "bbox_clearance_lower_bound_mm": 12.148748438754092,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "relay-1",
+      "bbox_clearance_lower_bound_mm": 27.98266103347197,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "ground-stack",
+      "bbox_clearance_lower_bound_mm": 27.982661033471572,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-mana",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-manb",
+      "bbox_clearance_lower_bound_mm": 127.4749999069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-reeds-b",
+      "bbox_clearance_lower_bound_mm": 127.77499990697481,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-reeds-a",
+      "bbox_clearance_lower_bound_mm": 127.4749999069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wago-sensors",
+      "bbox_clearance_lower_bound_mm": 127.4749999069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "vk-solenoid",
+      "production_mesh_gap_mm": 1.1251182556152344,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true,
+      "native_gap_mm": 1.1250000000002496
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "keystone-jack",
+      "bbox_clearance_lower_bound_mm": 73.02379207647472,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "co2-inlet",
+      "bbox_clearance_lower_bound_mm": 43.18315882020887,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "wr1110",
+      "bbox_clearance_lower_bound_mm": 38.49811841771294,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "gasher-co2",
+      "bbox_clearance_lower_bound_mm": 27.493241871022008,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "co2-adapter-regulator-in",
+      "bbox_clearance_lower_bound_mm": 41.84942145390831,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "co2-adapter-regulator-out",
+      "bbox_clearance_lower_bound_mm": 41.84942145390831,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "co2-adapter-check-in",
+      "bbox_clearance_lower_bound_mm": 26.993241871020302,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "co2-adapter-check-out",
+      "bbox_clearance_lower_bound_mm": 26.993241871020302,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "co2-check-coupling-nominal",
+      "bbox_clearance_lower_bound_mm": 24.243241871022008,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "asse1022-assembly",
+      "bbox_clearance_lower_bound_mm": 103.34918091501773,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "asse-drip-pan",
+      "bbox_clearance_lower_bound_mm": 96.02499990697481,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "moisture-plate",
+      "bbox_clearance_lower_bound_mm": 105.5249999069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "water-split",
+      "bbox_clearance_lower_bound_mm": 123.17499990697479,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "flow-regulator",
+      "bbox_clearance_lower_bound_mm": 99.48013617829386,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "discharge-chain",
+      "bbox_clearance_lower_bound_mm": 93.5749998999948,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-water",
+      "bbox_clearance_lower_bound_mm": 112.15933771114584,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-flavor-b",
+      "bbox_clearance_lower_bound_mm": 109.54760347200461,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-flavor-a",
+      "bbox_clearance_lower_bound_mm": 70.05764222374279,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-carb",
+      "bbox_clearance_lower_bound_mm": 74.0750487228544,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "digiten-flow",
+      "bbox_clearance_lower_bound_mm": 60.05306487361907,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-water",
+      "bbox_clearance_lower_bound_mm": 110.04471001344007,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-water-word",
+      "bbox_clearance_lower_bound_mm": 129.7561640421877,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-carb",
+      "bbox_clearance_lower_bound_mm": 74.73218863036531,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-carb-word",
+      "bbox_clearance_lower_bound_mm": 94.38241092113998,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-flavor-a",
+      "bbox_clearance_lower_bound_mm": 72.76984003364723,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-flavor-a-word",
+      "bbox_clearance_lower_bound_mm": 77.95389540077883,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-flavor-b",
+      "bbox_clearance_lower_bound_mm": 108.72160688188995,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-flavor-b-word",
+      "bbox_clearance_lower_bound_mm": 114.21433478965442,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-co2",
+      "bbox_clearance_lower_bound_mm": 48.25094340581941,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "bulkhead-ring-co2-word",
+      "bbox_clearance_lower_bound_mm": 70.84722683364807,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-customer-water",
+      "bbox_clearance_lower_bound_mm": 131.316355610029,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-collar-water",
+      "bbox_clearance_lower_bound_mm": 131.54654270812256,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-collar-water-word",
+      "bbox_clearance_lower_bound_mm": 137.41926065988935,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-customer-co2",
+      "bbox_clearance_lower_bound_mm": 75.94961009950387,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-collar-co2",
+      "bbox_clearance_lower_bound_mm": 80.02160606144304,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-collar-co2-word",
+      "bbox_clearance_lower_bound_mm": 89.92198015541337,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "nameplate",
+      "bbox_clearance_lower_bound_mm": 28.12499990000009,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "nameplate-ink",
+      "bbox_clearance_lower_bound_mm": 41.10499980000003,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-refrig-3",
+      "bbox_clearance_lower_bound_mm": 222.75179146714032,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-refrig-1",
+      "bbox_clearance_lower_bound_mm": 175.22501615075126,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-refrig-2",
+      "bbox_clearance_lower_bound_mm": 201.8,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-water-5",
+      "bbox_clearance_lower_bound_mm": 94.3999997999975,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-water-2",
+      "bbox_clearance_lower_bound_mm": 116.4699998069623,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-1",
+      "bbox_clearance_lower_bound_mm": 128.2499998069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-water-3",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-co2-0",
+      "bbox_clearance_lower_bound_mm": 48.17441883416817,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-co2-1",
+      "bbox_clearance_lower_bound_mm": 32.068241871021996,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-co2-2",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-2",
+      "bbox_clearance_lower_bound_mm": 13.629999906974803,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-carb-1",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-carb-2",
+      "bbox_clearance_lower_bound_mm": 81.26276035896481,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-28",
+      "bbox_clearance_lower_bound_mm": 112.21999980696816,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-18",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-24",
+      "bbox_clearance_lower_bound_mm": 81.8999997999948,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-26",
+      "bbox_clearance_lower_bound_mm": 60.74999990697481,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-16",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "funnel",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "funnel-drain-stub",
+      "bbox_clearance_lower_bound_mm": 36.549999906974804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "funnel-drain-clamp",
+      "bbox_clearance_lower_bound_mm": 24.449999906974803,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "funnel-drain-union",
+      "bbox_clearance_lower_bound_mm": 32.3589998069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "tube-fluid-4",
+      "bbox_clearance_lower_bound_mm": 36.549999906974804,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "display",
+      "bbox_clearance_lower_bound_mm": 13.931043808592833,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "display-cover",
+      "bbox_clearance_lower_bound_mm": 16.50284057832303,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "display-gasket",
+      "bbox_clearance_lower_bound_mm": 20.357733931928525,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "pump-jack",
+      "bbox_clearance_lower_bound_mm": 34.2499999069748,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-front-bottom",
+      "bbox_clearance_lower_bound_mm": 78.60000009999999,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-front-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-back-bottom",
+      "bbox_clearance_lower_bound_mm": 78.60000009999999,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-back-top",
+      "production_mesh_gap_mm": 2.0,
+      "mesh_overlap_mm3": 0.0,
+      "required_gap_mm": 1.0,
+      "intentional_contact": null,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-pump-cartridge",
+      "bbox_clearance_lower_bound_mm": 22.845999900000024,
+      "pass": true
+    },
+    {
+      "target": "tube-fluid-14",
+      "neighbor": "enclosure-pump-cap",
+      "bbox_clearance_lower_bound_mm": 22.845999900000024,
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "elapsed_seconds": 76.25853270897642,
+  "stable_inputs": {
+    "/tmp/scanner-review/g-ganen-feet-correction/verify_final_neighbors.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/enclosure_assembly.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/manifold-layout/_lines.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/_cold_core_interface.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-cap/foam_cap.py": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/reference-parameters.json": true,
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": true,
+    "/tmp/scanner-review/g-ganen-feet-correction/before/hardware/manifold-layout/enclosure-assembly.step": true,
+    "/tmp/scanner-review/g-ganen-feet-correction/before/hardware/manifold-layout/enclosure-assembly.facts.json": true,
+    "/tmp/scanner-review/integration-correction/route-pack/frames.json": true,
+    "/tmp/scanner-review/integration-correction/route-pack/valve-v-f.brep": true
+  },
+  "limits": [
+    "Complete production rebuild/scorecard independently follows; thisprobe replaces only listedchangedbodies.",
+    "Rubber preload, retention force and screw torque remain physical observations.",
+    "Ownendpoint and bearingcontacts are named; every other neighbor retains1mmgapfloor."
+  ]
+}

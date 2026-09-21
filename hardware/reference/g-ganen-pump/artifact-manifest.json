@@ -8,8 +8,8 @@
   "envelope_only_not_material_mass_or_strength": true,
   "files": {
     "README.md": {
-      "sha256": "8dfd19e28a03f2b2db5af3d1d4bf4f97717af9c4ee559c6c85e502e0cf948eb4",
-      "bytes": 9192
+      "sha256": "0a2891f13c1b989e4c5f05263e7d6a569e190f94274a434bdab410558825d500",
+      "bytes": 9525
     },
     "analyze_registered.py": {
       "sha256": "1a397ea07e300cb7c32440f16b96ecff5bb839138cb1916566f2010c798a7c38",
@@ -35,33 +35,161 @@
       "sha256": "09554da6021d45deea11d364befd27180d15c04292c747d0fd932efa9e6dff34",
       "bytes": 370159
     },
+    "common-foot/README.md": {
+      "sha256": "1c6ef0f47eac92d006260ceb458b9f0f0b44d485b4f616496ae5955bc4c6c811",
+      "bytes": 3755
+    },
+    "common-foot/axial-rubber-faces.png": {
+      "sha256": "e103291fb85fe81651c66d0c3947c4f3ffda0d10639c21c60fbd3c600c05ddd8",
+      "bytes": 1220795
+    },
+    "common-foot/cli-dispatch-equivalence.json": {
+      "sha256": "2d497dfcc447b69ebd2951a36dc3e4e8a4ccc0039cc0d8b569314ec8ab4ed3a9",
+      "bytes": 679
+    },
+    "common-foot/common-foot-comparison.png": {
+      "sha256": "30f55019adb0d6be02062df464fdd14032800bacfe2c94f257d370ca13fa7953",
+      "bytes": 1203881
+    },
+    "common-foot/foot-cross-sections.png": {
+      "sha256": "87d8e80432eb96e3c8904364787ef54763d6d9fdeb94febdb950fe0a74a86335",
+      "bytes": 551595
+    },
+    "common-foot/g_ganen_foot.py": {
+      "sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+      "bytes": 5340
+    },
+    "common-foot/inspect_axial_faces.py": {
+      "sha256": "d9f81772eef3a05129e5bb27df326bc63e8ce7cd05cc5d0a06664b246eebf1c6",
+      "bytes": 1395
+    },
+    "common-foot/inspect_common_foot.py": {
+      "sha256": "cc32b8dae1051343e9c07c0a0b0e637eabde7a4be038324a28fe1ce86e3524a2",
+      "bytes": 4650
+    },
+    "common-foot/inspection-inputs.json": {
+      "sha256": "382e820bd3cfc9b5180a19bce7f2ae00e7ab114ac15566d018d11785494b8a7a",
+      "bytes": 14824
+    },
+    "common-foot/measure_common_foot.py": {
+      "sha256": "0631abe6a6b698c5f0d8002d92bebd186c987c7197010dcc34fe9120eacb9ae1",
+      "bytes": 4560
+    },
+    "common-foot/measurement-review.json": {
+      "sha256": "630fd2ad772da9c4e4ef90e58891ecde3090f7726e5278287f2b899e20bcbb02",
+      "bytes": 8708
+    },
+    "common-foot/native-update.json": {
+      "sha256": "2eeb068abfb3dee0a9f96ba6e68377959111acf381467e3d699f3a9a8c1998e0",
+      "bytes": 34275
+    },
+    "common-foot/plot_sections.py": {
+      "sha256": "d8780120f3bc70a662a5fe865609165b4d635e4f6b69eeeea1397581db48b31e",
+      "bytes": 1561
+    },
+    "common-foot/preview_common_foot.py": {
+      "sha256": "d3d794893dddce8ab7c11e7caadc22e8e59e1fed5c32b266681a2f69335aa45b",
+      "bytes": 2771
+    },
+    "common-foot/prior-evidence/artifact-manifest.json": {
+      "sha256": "d0d7a798c7da13d9bb393cd4a8965f19050dd0e9a45615385aa07271f0b894ed",
+      "bytes": 8167
+    },
+    "common-foot/prior-evidence/baseline.json": {
+      "sha256": "fc19ade64a4712fa38c3afcea728bc73c0346b565cfd523ccb249138f3d7e6b7",
+      "bytes": 175664
+    },
+    "common-foot/prior-evidence/freeze_reference.py": {
+      "sha256": "4b70b613f3355d1375a5dfb929ec49ca3fdf745663cddb6b43ee91fe5006b4c1",
+      "bytes": 7285
+    },
+    "common-foot/prior-evidence/g_ganen_pump.py": {
+      "sha256": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+      "bytes": 4938
+    },
+    "common-foot/prior-evidence/integration-envelope/artifact-manifest.json": {
+      "sha256": "0e25ed5dda004ee3cde65690c85f8eb926a6610845c615d3d152448da2d9c731",
+      "bytes": 3735
+    },
+    "common-foot/prior-evidence/integration-envelope/component-section-cost.json": {
+      "sha256": "5f059bea9b718d480a9b91239fcaf141412bee040c9488a5aad3968b9ee31ac0",
+      "bytes": 1445
+    },
+    "common-foot/prior-evidence/integration-envelope/containment.json": {
+      "sha256": "4a5118e1d7be48cc2be7491e2dbdeaa56fe2b3b494a1c825abca4e9dabcc96a4",
+      "bytes": 75229
+    },
+    "common-foot/prior-evidence/integration-envelope/derive_envelope.py": {
+      "sha256": "74bc334a33f779a5f2417ff13bea04b745c97e34d3069b7b313ac6b3dcba6e14",
+      "bytes": 14765
+    },
+    "common-foot/prior-evidence/integration-envelope/envelope-parameters.json": {
+      "sha256": "000df84a461127bc8daebd33869c0e96c69c35590573a4cab693aae30cea9609",
+      "bytes": 521254
+    },
+    "common-foot/prior-evidence/integration-envelope/freeze_envelope.py": {
+      "sha256": "e99ffa8570eec603b7695b8fa0b6e910b68a36ff7747870245b0689f8d76616d",
+      "bytes": 6163
+    },
+    "common-foot/prior-evidence/integration-envelope/native-query-cost.json": {
+      "sha256": "5296c65d0a93769a9d8ba4bfb2a8e3ae1bc34359adf8f69ffdf3887873442ceb",
+      "bytes": 1803
+    },
+    "common-foot/prior-evidence/integration-envelope/native-validation.json": {
+      "sha256": "7e86285e8991d6cde45830d7997cb30eb026d4998f3d54948d4dd480c32e0236",
+      "bytes": 15028
+    },
+    "common-foot/prior-evidence/native-query-cost.json": {
+      "sha256": "4d09b764460bb56ced9683321fbbfead005e8acfcb6037fb7a2880a954025851",
+      "bytes": 1224
+    },
+    "common-foot/prior-evidence/native-validation.json": {
+      "sha256": "3a8af6ae8c4f217b6a13a0a9b62325d3c37cc5d88fdab767ae893c27fa1a012b",
+      "bytes": 51573
+    },
+    "common-foot/prior-evidence/register_scan.py.txt": {
+      "sha256": "579de2761b7d8107a0ff509a80d4ebfc074d5ec094f2c158cfb0fe5823fca27e",
+      "bytes": 8075
+    },
+    "common-foot/prior-evidence/scan-evidence.json": {
+      "sha256": "bfe1b021c43194d2ae332a15fe063027f7dc6cbfe165fd1aca7bec10fb306ec1",
+      "bytes": 6088
+    },
+    "common-foot/registered-foot-views.png": {
+      "sha256": "5a721af42bd9b77e2721da0186f2b9e0b4f46c4dda1f3020dde191449fba8547",
+      "bytes": 4020869
+    },
+    "common-foot/update_native_reference.py": {
+      "sha256": "c16557764ebc7d752a4d6f0a10d23081d69a0df382067e84c1c195494e843446",
+      "bytes": 10950
+    },
     "derive_casing.py": {
       "sha256": "642682a70c8d27711c8df3deb6f1a610a5c2f55731d4e276e197be5c2e831462",
       "bytes": 7887
     },
     "freeze_reference.py": {
-      "sha256": "4b70b613f3355d1375a5dfb929ec49ca3fdf745663cddb6b43ee91fe5006b4c1",
-      "bytes": 7285
+      "sha256": "587763463df7e9f62ef02d187aef5376f3305defbf79d98ba9975b10f8d4e8eb",
+      "bytes": 8055
     },
     "g-ganen-pump.step": {
-      "sha256": "5489c2d4ed0748b0b47c5f02d09d1453a0bf613e822a5f546935f901e7837494",
-      "bytes": 79932675
+      "sha256": "905710b0b79a803e9969bf9b8677e3cbd5cfe2b4c0fdcf15a7d62842a77f4388",
+      "bytes": 69219849
     },
     "g-ganen-pump.step.mesh": {
-      "sha256": "80b5eed4da1b67a24c3187512709c0c47a84c501259222292d65f0c67f4eae14",
-      "bytes": 3256396
+      "sha256": "0b02fb2bc7e11bc2ab282cde54cf00fd4249b78f4bf743517ca644603ed6f754",
+      "bytes": 3013676
     },
     "g_ganen_pump.py": {
-      "sha256": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
-      "bytes": 4938
+      "sha256": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+      "bytes": 4943
     },
     "inspect_scan.py": {
       "sha256": "59bd0fe615343d6499d830d1af274526669544f091728b5a8d98f4e66c9ad4dc",
       "bytes": 2071
     },
     "integration-handoff.md": {
-      "sha256": "f1a57e42e908b993973d4c6c8635ed8420164e5e9a777c1ea97cfd5bd249c9ff",
-      "bytes": 5131
+      "sha256": "15a7624469f02756e9209625eeb127db1028ffcb45f39a430df00cbce9e97c38",
+      "bytes": 4361
     },
     "interface-measurements.json": {
       "sha256": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
@@ -76,8 +204,8 @@
       "bytes": 1224
     },
     "native-validation.json": {
-      "sha256": "3a8af6ae8c4f217b6a13a0a9b62325d3c37cc5d88fdab767ae893c27fa1a012b",
-      "bytes": 51573
+      "sha256": "49ea2543ec01646c8b979c087b37c48ad11d1cfb811d27261325d2119d0ce04f",
+      "bytes": 52224
     },
     "native-validation.png": {
       "sha256": "945b78f74c0a5f837b793c49f19f8eee72f64f4145f765686b6db26b046cccf8",
@@ -140,20 +268,20 @@
       "bytes": 28517
     },
     "reference-parameters.json": {
-      "sha256": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
-      "bytes": 4151215
+      "sha256": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+      "bytes": 4151318
     },
     "register_scan.py": {
-      "sha256": "579de2761b7d8107a0ff509a80d4ebfc074d5ec094f2c158cfb0fe5823fca27e",
-      "bytes": 8075
+      "sha256": "aba1151e7c52562666e75cbb52e0cac2fce560cec6ca3883f6cb4c15ef63dba0",
+      "bytes": 8134
     },
     "registered-measurements.json": {
       "sha256": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
       "bytes": 420938
     },
     "scan-evidence.json": {
-      "sha256": "bfe1b021c43194d2ae332a15fe063027f7dc6cbfe165fd1aca7bec10fb306ec1",
-      "bytes": 6088
+      "sha256": "a7afc93368e635dc038ca999542cbba2144737f34721bc3f30e109a0eedff0ea",
+      "bytes": 6872
     },
     "scan-measurements.json": {
       "sha256": "80636440024dce04dda4bc3b649cda74e835ae8b3e8f4c479feccce644a41045",
@@ -172,18 +300,18 @@
       "bytes": 14048
     }
   },
-  "report_dependency_hashes_verified": 44,
+  "report_dependency_hashes_verified": 47,
   "native_reimport": {
     "valid_solids": 26,
     "bounds_mm": [
       [
         -77.89997331756443,
-        -47.82341394262818,
-        -1.7845319690664259
+        -47.475784787435664,
+        -1.5516143433265683
       ],
       [
-        83.45110402020678,
-        47.353334671446,
+        83.61824940375202,
+        47.49636890718399,
         60.53391690220148
       ]
     ],
@@ -214,7 +342,7 @@
     "Loaded rubber clamp stack, chosen slider positions and production mount/tube/wire integration."
   ],
   "limits": [
-    "Filled foot slots/clip cavities cannot qualify hardware passage or material properties.",
+    "The identical nominal 7 mm feet describe visible purchased-part geometry; hidden clip retention and rubber compression are not qualified.",
     "Rail face extent is observed; hidden clip geometry and hard travel limits are unqualified.",
     "Lead transition regions are retained, while flexible wire routes and any distinct rigid strain-relief boundary remain unqualified.",
     "Native scan residuals do not establish absolute scanner or sprayed-part dimensional tolerance."

@@ -60,11 +60,11 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 4.198",
+    "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 4.461",
     "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 9.832",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 10.217",
-    "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 5.748",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
-    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 20.576",
+    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 20.630",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
    ],
    "active": true
@@ -76,9 +76,7 @@
    "status": "pass",
    "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "G Ganen cap bearing: 4 named free-rubber foot envelopes; 722.157 mm\u00b3 contact, 0.000000 mm\u00b3 rigid interference, 0.000055 mm\u00b3 outside the contact masks"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -109,7 +107,7 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "pass",
-   "value": "0 under, tightest 1.000 mm",
+   "value": "0 under, tightest 1.050 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
@@ -154,8 +152,6 @@
     "discharge-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.150 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
-    "g-ganen-pump \u2014 nameplate: 1.000 mm",
-    "fluid-18 \u2014 g-ganen-pump: 1.048 mm",
     "fluid-18 \u2014 enclosure-front-top: 1.050 mm",
     "fluid-14 \u2014 valve-v-a: 1.075 mm",
     "carb-1 \u2014 suction-chain: 1.114 mm",
@@ -165,7 +161,7 @@
     "coil-v-b \u2014 funnel: 1.217 mm",
     "fluid-24 \u2014 valve-v-b: 1.225 mm",
     "fluid-24 \u2014 coil-v-b: 1.225 mm",
-    "g-ganen-pump \u2014 bulkhead-flavor-a: 1.266 mm",
+    "g-ganen-pump \u2014 bulkhead-flavor-a: 1.275 mm",
     "water-3 \u2014 enclosure-front-top: 1.325 mm",
     "water-3 \u2014 enclosure-back-top: 1.325 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
@@ -180,7 +176,7 @@
     "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
     "wago-sensors \u2014 foam-assembly: 1.600 mm",
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
-    "water-7 \u2014 co2-2: 1.738 mm",
+    "water-7 \u2014 co2-2: 1.745 mm",
     "water-3 \u2014 fluid-26: 1.751 mm",
     "fluid-18 \u2014 vk-solenoid: 1.866 mm",
     "co2-2 \u2014 pcba: 1.875 mm",

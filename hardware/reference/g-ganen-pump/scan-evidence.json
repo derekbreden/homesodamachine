@@ -3,10 +3,14 @@
   "part": "G Ganen diaphragm pump",
   "purchase_asin": "B07F35PTFR",
   "sample_identity_authority": "Derek, direct identification in this task on 2026-09-20",
-  "dimensional_authority": "Native scan coordinates at unit scale; Derek confirms no caliper measurements were recorded.",
-  "status": "Three archived native passes under measurement",
+  "dimensional_authority": "Native scan coordinates at unit scale, plus Derek\u2019s direct approximately 7 mm rubber pad-thickness observation on 2026-09-21.",
+  "status": "Three archived native passes registered; common identical rubber-foot geometry uses direct owner observations and visible scan surfaces.",
   "scale_factor": 1.0,
-  "caliper_measurements": null,
+  "caliper_measurements": {
+    "rubber_pad_thickness_mm": 7.0,
+    "qualifier": "approximately",
+    "authority": "Derek, direct observation on 2026-09-21; not a measured compressed height"
+  },
   "capture_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump",
   "captures": [
     {
@@ -133,7 +137,7 @@
     "placement_authority": "Derek identifies flow toward enclosure \u2212X. Intended +90\u00b0 Z placement maps local +Y to enclosure \u2212X; source pattern enclosure_assembly.SEAFLO_YAW and seat_body verified by parent. Translation and G Ganen production integration remain separate."
   },
   "limits": [
-    "No caliper or external scale calibration is available.",
+    "No independent scan scale calibration is available; the approximately 7 mm pad observation is a local size check.",
     "Fusion spacing is not a dimensional tolerance.",
     "Spray thickness and absolute scanner dimensional accuracy are unmeasured.",
     "Loose wires and scanning putty do not define the rigid pump envelope.",
@@ -146,6 +150,12 @@
     "loaded_height_or_stiffness_measurements": null,
     "motion": "Four independently removable rubber feet slide fore and aft on fixed casing channels, along the motor axis.",
     "motion_authority": "Derek, direct description in this task: the flexible rubber feet slide fore and aft and can be removed entirely.",
-    "scan_pose_interpretation": "The four observed foot/slot positions are sample poses, not a fixed mounting pattern."
+    "scan_pose_interpretation": "The four observed foot/slot positions are sample poses, not a fixed mounting pattern.",
+    "identical_geometry": true,
+    "identical_geometry_authority": "Derek, direct observation on 2026-09-21: all four feet are identical.",
+    "nominal_pad_thickness_mm": 7.0,
+    "pad_thickness_scope": "Approximately 7 mm direct observation; nominal installed reference thickness, not a rubber-compression target.",
+    "geometry_reference": "common-foot/g_ganen_foot.py",
+    "raw_pose_evidence": "registered-measurements.json"
   }
 }

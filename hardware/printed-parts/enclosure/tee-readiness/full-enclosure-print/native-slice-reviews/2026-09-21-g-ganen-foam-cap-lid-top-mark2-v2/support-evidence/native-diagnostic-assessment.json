@@ -1,0 +1,46 @@
+{
+  "status": "pass_for_this_exact_native_archive",
+  "native_archive_sha256": "7fa3dbf1b31c4161365ff8f4d40c41eecd2e825def4f202ed3877165ff3ca6ce",
+  "gcode_sha256": "0cfd4612842405233cb51f069ef25106b8b8f815bf9357c3140e68b44b6468d3",
+  "native_log_diagnostics": [
+    "[2026-09-21 11:45:59.772146] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 327",
+    "[2026-09-21 11:45:59.772296] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 330",
+    "[2026-09-21 11:45:59.772314] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 332",
+    "[2026-09-21 11:45:59.772326] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 337",
+    "[2026-09-21 11:45:59.772336] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 341",
+    "[2026-09-21 11:45:59.772345] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 343",
+    "[2026-09-21 11:45:59.774306] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 705",
+    "[2026-09-21 11:45:59.774327] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 709",
+    "[2026-09-21 11:45:59.774336] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 713",
+    "[2026-09-21 11:45:59.774345] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 718",
+    "[2026-09-21 11:45:59.774353] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 672",
+    "[2026-09-21 11:45:59.775204] [0x000000016e997000] [error]   ZFiller: encounter idx from clip: 907",
+    "[2026-09-21 11:46:06.568558] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 11:46:08.781529] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 11:46:08.782136] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "clip_diagnostic_meaning": "Bambu Studio 02.08.02.61 logs a clipping-polygon vertex tag retained by floating contour clipping. The index is neither a layer nor a coordinate; the message alone does not establish harmlessness or path loss.",
+  "upstream_source": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Fill/FillFloatingConcentric.cpp#L446-L454",
+  "exact_archive_assessment": {
+    "model_layers": 241,
+    "all_native_layer_values_match_model_paths": true,
+    "declared_layer_schedule_verified": true,
+    "component_sections": 785,
+    "boundary_samples": 182505,
+    "sample_spacing_mm": 0.5,
+    "permitted_gap_beyond_emitted_halfwidth_mm": 0.2,
+    "maximum_actual_gap_beyond_emitted_halfwidth_mm": 0.15768385492009812,
+    "missing_components": 0,
+    "perimeter_findings": 0,
+    "tiny_components": 0
+  },
+  "emission_report": {
+    "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/support-evidence/emission-presence.json",
+    "sha256": "47b07317d33a3f14827db3530d03d3896b7898eb9295a972c84a7814c708a13a"
+  },
+  "limits": [
+    "This verifies actual model-layer components and sampled boundaries, not interior infill density or physical strength.",
+    "Every native diagnostic and raw section reading is retained.",
+    "The three T-code diagnostics come from saved-profile startup/end control tokens; native review owns the intended printer/nozzle mapping."
+  ]
+}

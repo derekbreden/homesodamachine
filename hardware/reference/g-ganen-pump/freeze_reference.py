@@ -21,6 +21,26 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def current_files():
+    paths = list(HERE.iterdir()) + list((HERE/'common-foot').rglob('*'))
+    return {str(path.relative_to(HERE)): {'sha256': digest(path), 'bytes': path.stat().st_size}
+            for path in sorted(set(paths)) if path.is_file() and path != MANIFEST
+            and path.suffix in ('.py', '.md', '.json', '.png', '.step', '.mesh', '.txt')}
+
+
+def unchanged_registration_algorithm(filename, expected):
+    if filename != 'register_scan.py':
+        return False
+    proof = json.loads((HERE/'common-foot/cli-dispatch-equivalence.json').read_text())
+    before = (HERE/proof['before_source']).read_bytes()
+    after = (HERE/filename).read_bytes()
+    old_line, new_line = proof['before_line'].encode(), proof['after_line'].encode()
+    return (proof['status'] == 'pass' and expected == proof['before_sha256']
+            and hashlib.sha256(before).hexdigest() == expected
+            and hashlib.sha256(after).hexdigest() == proof['after_sha256']
+            and before.count(old_line) == 1 and before.replace(old_line, new_line) == after)
+
+
 def report_dependencies():
     checked = 0
     for name in ('scan-measurements.json', 'pass-02-registration.json', 'pass-03-registration.json',
@@ -29,7 +49,7 @@ def report_dependencies():
         report = json.loads((HERE/name).read_text())
         for group in ('input_sha256', 'tool_sha256', 'diagnostic_sha256', 'verified_parameter_input_digests'):
             for filename, expected in report.get(group, {}).items():
-                if digest(HERE/filename) != expected:
+                if digest(HERE/filename) != expected and not unchanged_registration_algorithm(filename, expected):
                     raise ValueError(f'Stale {name} dependency: {filename}')
                 checked += 1
     return checked
@@ -73,9 +93,7 @@ def manifest():
     actual = np.array([[b.xmin, b.ymin, b.zmin], [b.xmax, b.ymax, b.zmax]])
     if not np.allclose(expected, actual, atol=1e-5):
         raise ValueError('Exported native bounds differ from validated solids')
-    files = {path.name: {'sha256': digest(path), 'bytes': path.stat().st_size}
-             for path in sorted(HERE.iterdir()) if path.is_file() and path != MANIFEST
-             and path.suffix in ('.py', '.md', '.json', '.png', '.step', '.mesh')}
+    files = current_files()
     evidence = json.loads((HERE/'scan-evidence.json').read_text())
     return {'schema': 1, 'part': 'G Ganen B07F35PTFR diaphragm-pump external reference',
             'status': 'standalone_native_reference_frozen_with_explicit_interface_limits',
@@ -91,7 +109,7 @@ def manifest():
             'remaining_physical_fit': ['Actual M3 screw passage through all four rubber slots.',
                                        'Selected washer flat seating and upstand clearance.',
                                        'Loaded rubber clamp stack, chosen slider positions and production mount/tube/wire integration.'],
-            'limits': ['Filled foot slots/clip cavities cannot qualify hardware passage or material properties.',
+            'limits': ['The identical nominal 7 mm feet describe visible purchased-part geometry; hidden clip retention and rubber compression are not qualified.',
                        'Rail face extent is observed; hidden clip geometry and hard travel limits are unqualified.',
                        'Lead transition regions are retained, while flexible wire routes and any distinct rigid strain-relief boundary remain unqualified.',
                        'Native scan residuals do not establish absolute scanner or sprayed-part dimensional tolerance.']}
@@ -100,9 +118,7 @@ def manifest():
 def check():
     saved = json.loads(MANIFEST.read_text())
     report_dependencies()
-    current_names = {path.name for path in HERE.iterdir() if path.is_file() and path != MANIFEST
-                     and path.suffix in ('.py', '.md', '.json', '.png', '.step', '.mesh')}
-    if current_names != set(saved['files']):
+    if set(current_files()) != set(saved['files']):
         raise ValueError('Reference manifest inventory is stale')
     for filename, expected in saved['files'].items():
         path = HERE/filename

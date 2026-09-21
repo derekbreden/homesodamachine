@@ -1,15 +1,14 @@
 # SEAFLO 22-Series diaphragm pump
 
 SEAFLO 22-Series 12V 1.3 GPM 100 psi on-demand diaphragm pump, model
-SFDP1-013-100-22 ([B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4)), the
-appliance's `seaflo-pump` — transfers tap water against CO2 back-pressure into
-the carbonator. 3/8" hose-barb inlet + outlet on the head (plumbing in
-`hardware/assembly/internal-plumbing.md`).
+SFDP1-013-100-22 ([B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4)), retained
+as a purchased-part reference with 3/8" hose-barb inlet and outlet on the head.
 
-The SeaFlo and Mean Well IRM-90-12ST remain the production and enclosure
-baseline. The [G Ganen and IEIK samples](/hardware/reference/pump-comparison/README.md)
-are measurement-only stock. Changes to pump pressure/flow capability are
-conditional on the [refill measurements](/future/carbonation-plan-b.md).
+The enclosure uses the selected [G Ganen pump](/hardware/reference/g-ganen-pump/README.md).
+Its installation and current print inputs are recorded in
+[print readiness](/hardware/printed-parts/enclosure/print-readiness.md).
+The [pump comparison](/hardware/reference/pump-comparison/README.md) separates
+measured geometry from advertised and physically tested hydraulic performance.
 
 ## Ports
 

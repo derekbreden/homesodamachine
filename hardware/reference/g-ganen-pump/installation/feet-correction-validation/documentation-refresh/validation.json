@@ -1,0 +1,131 @@
+{
+  "status": "pass",
+  "scope": "Documentation and manifest dependency links only. No source, native geometry, payload, dimensions or native check results changed.",
+  "reference_manifest": {
+    "before_sha256": "80c5f771d41257f314d74b2ccc4e99c01080b383c6f770b7de1510d3e3f2e27f",
+    "after_sha256": "e97eedf775b60a245bd87736e0dea46afd774248f6f8416ac9d903b78582412b",
+    "changed_inventory_entries": [
+      "integration-handoff.md"
+    ],
+    "all_other_fields_identical": true
+  },
+  "metadata_changes": [
+    {
+      "file": "hardware/reference/g-ganen-pump/integration-envelope/containment.json",
+      "pointer": "/frozen_reference_manifest_sha256",
+      "before": "80c5f771d41257f314d74b2ccc4e99c01080b383c6f770b7de1510d3e3f2e27f",
+      "after": "e97eedf775b60a245bd87736e0dea46afd774248f6f8416ac9d903b78582412b",
+      "before_sha256": "c08419cee266bce275035aab5485c10bfdb6162b275128e8357afe7b4c1267b5",
+      "after_sha256": "a1dc94e8618c5cc316545c5c831a99734e5b84c6bc6452cb358621387b366532",
+      "all_other_fields_identical": true
+    },
+    {
+      "file": "hardware/reference/g-ganen-pump/integration-envelope/envelope-parameters.json",
+      "pointer": "/containment_sha256",
+      "before": "c08419cee266bce275035aab5485c10bfdb6162b275128e8357afe7b4c1267b5",
+      "after": "a1dc94e8618c5cc316545c5c831a99734e5b84c6bc6452cb358621387b366532",
+      "before_sha256": "08e09d45e192cc4f867616daf9b99b47ac6f7ee4a94e68ff0d8c3de4cd11be18",
+      "after_sha256": "3b51eb1cb016319927f6810b4121161fb601b7ccd6ae31ba93b83e61059ae8e1",
+      "all_other_fields_identical": true
+    },
+    {
+      "file": "hardware/reference/g-ganen-pump/integration-envelope/native-validation.json",
+      "pointer": "/native_containment_sha256",
+      "before": "c08419cee266bce275035aab5485c10bfdb6162b275128e8357afe7b4c1267b5",
+      "after": "a1dc94e8618c5cc316545c5c831a99734e5b84c6bc6452cb358621387b366532",
+      "before_sha256": "f086c33ea69ab6aef20108dec546efeaf9635c02aa67252376ee5b029ebce666",
+      "after_sha256": "4066d7173283123de642523096eed28c83a6083384e361d1d46d5273f1a0eb6e",
+      "all_other_fields_identical": true
+    }
+  ],
+  "integration_manifest": {
+    "before_sha256": "480c414b18d221325d647af4f4de6a7fe57cb2e2b4d9175a66a7640e2b680ddc",
+    "after_sha256": "475759a01d4bd37c30c1e15d110d639b5c3f8e0b89a23468f1286157a796da7c",
+    "changed_inventory_entries": [
+      "containment.json",
+      "envelope-parameters.json",
+      "native-validation.json"
+    ],
+    "other_fields_identical": true
+  },
+  "geometry_source_native_payload_and_parameter_hashes_unchanged": {
+    "hardware/reference/g-ganen-pump/_scratch/detail_plots.py": true,
+    "hardware/reference/g-ganen-pump/_scratch/feature_trials.py": true,
+    "hardware/reference/g-ganen-pump/_scratch/head_flange.py": true,
+    "hardware/reference/g-ganen-pump/_scratch/precheck.py": true,
+    "hardware/reference/g-ganen-pump/_scratch/rail_sections.py": true,
+    "hardware/reference/g-ganen-pump/_scratch/residual_plot.py": true,
+    "hardware/reference/g-ganen-pump/analyze_registered.py": true,
+    "hardware/reference/g-ganen-pump/analyze_scan.py": true,
+    "hardware/reference/g-ganen-pump/benchmark_native.py": true,
+    "hardware/reference/g-ganen-pump/build_reference.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/inspect_axial_faces.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/inspect_common_foot.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/measure_common_foot.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/plot_sections.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/preview_common_foot.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/freeze_reference.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/g_ganen_pump.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/derive_envelope.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/prior-evidence/integration-envelope/freeze_envelope.py": true,
+    "hardware/reference/g-ganen-pump/common-foot/update_native_reference.py": true,
+    "hardware/reference/g-ganen-pump/derive_casing.py": true,
+    "hardware/reference/g-ganen-pump/freeze_reference.py": true,
+    "hardware/reference/g-ganen-pump/g-ganen-pump.step": true,
+    "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": true,
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": true,
+    "hardware/reference/g-ganen-pump/inspect_scan.py": true,
+    "hardware/reference/g-ganen-pump/installation/feet-correction-validation/reproduce.py": true,
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": true,
+    "hardware/reference/g-ganen-pump/installation/inspect_placement.py": true,
+    "hardware/reference/g-ganen-pump/installation/validate_installation.py": true,
+    "hardware/reference/g-ganen-pump/installation/verify_cap_contact.py": true,
+    "hardware/reference/g-ganen-pump/installation/verify_placement_clearance.py": true,
+    "hardware/reference/g-ganen-pump/installation/verify_pump_routes.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/benchmark_component_sections.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/benchmark_integration.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/derive_envelope.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/export_envelope.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/freeze_envelope.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": true,
+    "hardware/reference/g-ganen-pump/integration-envelope/selftest_envelope.py": true,
+    "hardware/reference/g-ganen-pump/measure_interfaces.py": true,
+    "hardware/reference/g-ganen-pump/reference-parameters.json": true,
+    "hardware/reference/g-ganen-pump/register_scan.py": true,
+    "hardware/reference/g-ganen-pump/scan_tools.py": true,
+    "hardware/reference/g-ganen-pump/selftest_analysis.py": true,
+    "hardware/reference/g-ganen-pump/validate_reference.py": true
+  },
+  "original_native_and_generation_evidence_preserved": true,
+  "current_metadata_sha256": {
+    "hardware/reference/g-ganen-pump/artifact-manifest.json": "e97eedf775b60a245bd87736e0dea46afd774248f6f8416ac9d903b78582412b",
+    "hardware/reference/g-ganen-pump/integration-envelope/containment.json": "a1dc94e8618c5cc316545c5c831a99734e5b84c6bc6452cb358621387b366532",
+    "hardware/reference/g-ganen-pump/integration-envelope/envelope-parameters.json": "3b51eb1cb016319927f6810b4121161fb601b7ccd6ae31ba93b83e61059ae8e1",
+    "hardware/reference/g-ganen-pump/integration-envelope/native-validation.json": "4066d7173283123de642523096eed28c83a6083384e361d1d46d5273f1a0eb6e",
+    "hardware/reference/g-ganen-pump/integration-envelope/artifact-manifest.json": "475759a01d4bd37c30c1e15d110d639b5c3f8e0b89a23468f1286157a796da7c"
+  },
+  "documentation_sha256": {
+    "hardware/reference/g-ganen-pump/integration-handoff.md": "15a7624469f02756e9209625eeb127db1028ffcb45f39a430df00cbce9e97c38",
+    "hardware/ledger/bom.md": "6d4f689963a4ee2ad1fb0f222eab674cba72f47bfacd83df08317a8b42e6d368",
+    "hardware/ledger/inventory.md": "027e1c761744bfabf7ea95fda1edd60516252378025254726f5dac1f8c1409c2"
+  },
+  "executed_script_sha256": "722d1baeb35772e1f5c7ff169f1bf0914d3de63b738bbc29547ff7e71e0d76de",
+  "freeze_checks": [
+    {
+      "check": "documentation-reference-check.log",
+      "pass": true,
+      "result": "Reference hashes pass; identical STEP bytes retain the recorded native reimport proof."
+    },
+    {
+      "check": "documentation-envelope-check.log",
+      "pass": true,
+      "result": "Detailed reference and conservative integration envelope hashes pass."
+    }
+  ],
+  "cost_markers_current": true,
+  "diff_check": "pass"
+}

@@ -1,0 +1,40 @@
+"""Complete only the exact corrected-foot lid support ledger after native proofs pass."""
+from pathlib import Path
+import hashlib,json,re,shutil,sys
+R=Path('/Users/derekbredensteiner/Developer/homesodamachine');J=Path(sys.argv[1]).resolve();HERE=Path(__file__).parent;O=J/'support-evidence';O.mkdir(exist_ok=True)
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+rel=lambda p:str(Path(p).relative_to(R))
+r=json.loads((J/'readiness.json').read_text());lp=J/'support-removal-review.json';ledger=json.loads(lp.read_text());q=json.loads((O/'lid-support-lanes.json').read_text());ep=HERE/'emission/emission-presence.json';e=json.loads(ep.read_text())
+assert q['status']=='pass' and e['status']=='all_components_and_sampled_perimeters_present'
+assert q['each_support_road_assigned_exactly_once'] and q['positive_extruding_support_arcs']==0
+assert not q['source_drift'] and not e['whole_missing_components'] and not e['perimeter_findings'] and not e['tiny_components']
+assert q['native_archive_sha256']==e['native_archive_sha256']==r['native_archive_sha256']==ledger['native_archive_sha256']
+assert q['gcode_sha256']==e['gcode_sha256']==r['gcode_sha256']==ledger['gcode_sha256']
+assert e['native_layer_schedule_matches_model_paths'] and e['native_layer_schedule_matches_declared_0p20_then_0p24']
+assert all(sha(path)==h for path,h in e['bindings'].items())
+assert all(sha(R/path)==h for path,h in q['input_sha256'].items())
+for src,name in [(ep,'emission-presence.json'),(HERE/'emission/verify_emission.py','verify_emission.py'),(HERE/'verify_lid_support_lanes.py','verify_lid_support_lanes.py'),(Path(__file__),'complete_review.py')]:
+ shutil.copyfile(src,O/name);assert sha(src)==sha(O/name)
+diags=r['native_log_diagnostics'];tags=[x for x in diags if 'ZFiller: encounter idx from clip:' in x];tokens=[x for x in diags if re.search(r'Invalid T command \(T(?:1001|65535|65279)\)',x)];assert len(tags)+len(tokens)==len(diags),diags
+samples=sum(c['boundary_samples'] for row in e['rows'] for c in row['components']);worst=max(c['maximum_boundary_gap_beyond_emitted_halfwidth_mm'] for row in e['rows'] for c in row['components'])
+assessment={'status':'pass_for_this_exact_native_archive','native_archive_sha256':r['native_archive_sha256'],'gcode_sha256':r['gcode_sha256'],'native_log_diagnostics':diags,'clip_diagnostic_meaning':'Bambu Studio 02.08.02.61 logs a clipping-polygon vertex tag retained by floating contour clipping. The index is neither a layer nor a coordinate; the message alone does not establish harmlessness or path loss.','upstream_source':'https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Fill/FillFloatingConcentric.cpp#L446-L454','exact_archive_assessment':{'model_layers':e['layers'],'all_native_layer_values_match_model_paths':True,'declared_layer_schedule_verified':True,'component_sections':e['component_sections'],'boundary_samples':samples,'sample_spacing_mm':e['boundary_sample_spacing_mm'],'permitted_gap_beyond_emitted_halfwidth_mm':e['permitted_gap_beyond_emitted_halfwidth_mm'],'maximum_actual_gap_beyond_emitted_halfwidth_mm':worst,'missing_components':0,'perimeter_findings':0,'tiny_components':0},'emission_report':{'path':rel(O/'emission-presence.json'),'sha256':sha(O/'emission-presence.json')},'limits':['This verifies actual model-layer components and sampled boundaries, not interior infill density or physical strength.','Every native diagnostic and raw section reading is retained.','The three T-code diagnostics come from saved-profile startup/end control tokens; native review owns the intended printer/nozzle mapping.']}
+(O/'native-diagnostic-assessment.json').write_text(json.dumps(assessment,indent=2)+'\n')
+part=ledger['parts'][0];assert part['name']=='foam-cap-lid-top';bytree={x['tree']:x for x in q['supports']};names=[]
+for row in part['trees']:
+ s=bytree[row['measurement']['id']];d=s['motions_mm'][1];name=s['contact'];names.append(name)
+ axis=next(i for i,v in enumerate(d) if v);dist=abs(d[axis]);signed=('−' if d[axis]<0 else '+')+'XYZ'[axis]
+ lane=f'After detachment, lift the branch 0.25 mm to clear the recessed-floor lip, then withdraw {dist:g} mm along {signed} through its open tie-channel/window mouth while the lid is loose. The complete conservative envelope of this slice\'s actual roads clears the whole native lid throughout both continuous motions.'
+ direction=f'+Z 0.25 mm, then {signed} {dist:g} mm.'
+ row.update(contact_region=name,removal_lane=lane+' Clean before purchased hardware, tubes or ties are installed; physical detachment effort is unmeasured.',removal_direction_original_cad=direction,accessible_before_hardware=True,preserved_working_face_reason='Keep the flat supported roof, circular locating seat, complete rib/post bearing stock and all mounting faces.',reviewed=True)
+ for ir in part['interfaces']:
+  if ir['measurement']['id'] in s['interface_ids']:ir.update(contact_region=name+' supported flat roof.',removal_lane=lane,removal_direction_original_cad=direction,reviewed=True)
+checks=sum(len(x['native_checks']) for x in q['supports']);count=len(q['supports'])
+part['model_overhangs_review']=f'This exact corrected-foot Mark2 lid has {count} model-rooted support bodies at '+', '.join(names)+f'. All {q["native_support_roads"]} emitted support roads are assigned once; their actual full-width/full-layer-height envelopes pass {checks} initial/lift/withdrawal native readings. Zero build-up, where present, remains a topology measurement, not an easy-removal claim. The source locating and bearing faces remain intact. Exact model-path inspection covers {e["layers"]} layers and {e["component_sections"]} section components. Physical cleanup, bond and fit are trial observations.'
+ledger['native_log_diagnostics']=diags
+ledger['native_log_diagnostics_review']=f'The {len(tags)} ZFiller clipping-tag diagnostics are retained and checked against this exact corrected-foot archive. All {e["layers"]} expected native/model layers and {e["component_sections"]} current STL components have emitted paths; {samples} boundary samples have zero findings at the unchanged 0.20 mm margin beyond actual emitted half-width (worst {worst:.6f} mm). This is bounded component/boundary presence, not a blanket warning waiver or infill-strength claim. The {len(tokens)} other diagnostics are saved-profile T1001/T65535/T65279 control tokens.'
+ledger['additional_support_access_evidence']=[{'path':rel(O/'lid-support-lanes.json'),'sha256':sha(O/'lid-support-lanes.json'),'status':'pass','checks':checks,'native_archive_sha256':r['native_archive_sha256'],'gcode_sha256':r['gcode_sha256']}]
+ledger['native_diagnostic_assessment']={'path':rel(O/'native-diagnostic-assessment.json'),'sha256':sha(O/'native-diagnostic-assessment.json'),'status':'pass_for_this_exact_native_archive'}
+ledger['status']='current_support_contacts_and_removal_lanes_reviewed';ledger['physical_cleanup_effort_measured']=False;ledger['review_scope']='This exact corrected-foot Mark2 v2 lid archive only. All current measured roots, build-ups, tree bounds and interface rows are preserved; no earlier support approval carries forward.'
+sys.path.insert(0,str(J));from finalize_review import validate_ledger
+validate_ledger(r,json.loads((R/r['support_audit']).read_text()),ledger)
+lp.write_text(json.dumps(ledger,indent=2)+'\n');print('PASS',sha(lp),'native_readings',checks,'support_roads',q['native_support_roads'],'layers',e['layers'],'sections',e['component_sections'],'boundary_samples',samples,'worst',worst)

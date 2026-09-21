@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "path": "hardware/manifold-layout/enclosure-assembly.step",
+  "sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+  "bytes": 92949843,
+  "object_url": "https://homesodamachine.com/objects/s-0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67.gz",
+  "release_object_url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/s-0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67.gz",
+  "release": {
+    "tag": "cad-artifacts",
+    "asset": "cad-e45bae681124c5f3.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e45bae681124c5f3.tar.gz",
+    "objects": "s-"
+  },
+  "bundle": {
+    "sha256": "e45bae681124c5f3bee7eb5e0d70eb843f6a2a2cc4385e85b566d69025472b13",
+    "bytes": 175790806,
+    "solids": 372,
+    "behind": true
+  },
+  "publication_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "pointer_file_sha256": "763e1a9155fb6c73ca731def647380886caf90af44b9913e83616f953b080f9d",
+  "encoding": "gzip; SHA256 applies to decompressed STEP bytes",
+  "scope": "Exact prior complete assembly, retained as the 210-body neighbor context. Only the documented changed bodies are replaced in the bounded check."
+}

@@ -224988,14 +224988,15 @@
   "input_sha256": {
     "registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
     "casing-sections.json": "48214ef1eedb0471164e6c19cc12e0056a61d1eb29cbc37c2b8c3a14fcf35efa",
-    "scan-evidence.json": "bfe1b021c43194d2ae332a15fe063027f7dc6cbfe165fd1aca7bec10fb306ec1",
+    "scan-evidence.json": "a7afc93368e635dc038ca999542cbba2144737f34721bc3f30e109a0eedff0ea",
     "scan-measurements.json": "80636440024dce04dda4bc3b649cda74e835ae8b3e8f4c479feccce644a41045",
     "interface-measurements.json": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2"
   },
   "tool_sha256": {
     "build_reference.py": "ef3a0d53b0970dde2a016ab549155aefc65f94b3826e0fad0434bcc1408360a8",
-    "g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
-    "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8"
+    "g_ganen_pump.py": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
+    "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8",
+    "common-foot/g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
   },
   "limits": [
     "Occupied envelopes are not actual material or mass volumes.",

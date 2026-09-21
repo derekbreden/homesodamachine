@@ -48,15 +48,29 @@ def checks():
             raise ValueError('Stale benchmark tool: '+name)
     if costs['detailed_reference_costs_sha256'] != digest(REFERENCE/'native-query-cost.json'):
         raise ValueError('Benchmark detailed baseline changed')
+    benchmark_current = costs['native_sha256'] == native['native_sha256']
+    baseline_dir = REFERENCE/'common-foot/prior-evidence'
+    baseline = json.loads((baseline_dir/'baseline.json').read_text())
+    if not benchmark_current:
+        # Host timings belong to their exact predecessor STEP. Preserve them as
+        # historical evidence; they are not geometry or current performance gates.
+        for filename in ('native-query-cost.json', 'component-section-cost.json'):
+            if digest(HERE/filename) != digest(baseline_dir/'integration-envelope'/filename):
+                raise ValueError('Historical benchmark record changed: '+filename)
+        if costs['native_sha256'] != baseline['prior_sha256']['integration-envelope/g-ganen-integration-envelope.step']:
+            raise ValueError('Historical benchmark STEP identity changed')
     for name, expected in component_cost['input_sha256'].items():
-        if digest(HERE/name) != expected:
+        if name == 'g-ganen-integration-envelope.step' and not benchmark_current:
+            if expected != costs['native_sha256']:
+                raise ValueError('Historical component benchmark STEP mismatch')
+        elif digest(HERE/name) != expected:
             raise ValueError('Stale component-section input: '+name)
     if not component_cost['all_fragments_valid'] or not component_cost['empty_case_pass']:
         raise ValueError('Component-wise section helper is not qualified')
     if component_cost['maximum_bound_difference_mm'] > 1e-5:
         raise ValueError('Component-wise bounds differ from the standard native section')
     step = HERE/'g-ganen-integration-envelope.step'
-    if native['native_sha256'] != digest(step) or costs['native_sha256'] != digest(step):
+    if native['native_sha256'] != digest(step):
         raise ValueError('Native proof/benchmark STEP changed')
     if native['native_containment_sha256'] != digest(HERE/'containment.json'):
         raise ValueError('Native containment evidence changed')
@@ -91,10 +105,12 @@ def manifest():
             'exact_components': [row['name'] for row in bound['components']
                                  if row['method'] == 'exact_frozen_native_copy'],
             'benchmarks': {row['operation']: row['status'] for row in costs['operations']},
-            'component_section_bounds_verified': True,
+            'benchmark_native_sha256': costs['native_sha256'],
+            'benchmark_scope': ('current_native' if costs['native_sha256'] == native['native_sha256'] else 'historical_exact_predecessor_native; not a current performance claim'),
+            'component_section_bounds_verified_on_current_native': costs['native_sha256'] == native['native_sha256'],
             'limits': ['The outward bound is relative to the detailed native envelope; scanner absolute accuracy remains unqualified.',
                        'The four feet remain independently removable/sliding, at recorded observed poses.',
-                       'Filled slots and rail-clip cavities do not qualify screw passage, clamping or replacement feet.',
+                       'The common foot retains visible openings; hidden clip retention, clamping and replacement manufacture remain outside the reference scope.',
                        'The measured port exterior does not qualify hose engagement or retention.',
                        'This is a conservative rigid-neighbor clearance model; a flagged contact can be checked against the detailed source.']}
 

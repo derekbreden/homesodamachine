@@ -1,0 +1,307 @@
+{
+  "schema": 1,
+  "status": "visible_surface_dimensions_recorded",
+  "unit_scale": 1.0,
+  "owner_authority": "All four purchased feet are identical, removable rubber sliders; pads approximately 7 mm thick. Derek, 2026-09-21.",
+  "parameters": {
+    "frame": "slot centre; X rail, +Y outward, Z0 bearing",
+    "identical_feet": true,
+    "pad_thickness_mm": 7.0,
+    "axial_width_mm": 18.0,
+    "outward_nose_radius_mm": 9.0,
+    "slot_width_mm": 4.5,
+    "slot_length_mm": 6.8,
+    "slot_long_axis": "+Y",
+    "installed_slot_y_abs_mm": 38.5,
+    "clip_axial_interval_mm": [
+      -9.0,
+      9.0
+    ],
+    "visible_profile_yz_mm": [
+      [
+        -10.5,
+        0.0
+      ],
+      [
+        9.0,
+        0.0
+      ],
+      [
+        9.0,
+        7.0
+      ],
+      [
+        -3.5,
+        7.0
+      ],
+      [
+        -5.5,
+        9.4
+      ],
+      [
+        -10.0,
+        9.4
+      ],
+      [
+        -10.5,
+        10.0
+      ],
+      [
+        -10.5,
+        12.0
+      ],
+      [
+        -10.0,
+        15.4
+      ],
+      [
+        -10.9,
+        15.8
+      ],
+      [
+        -11.2,
+        16.2
+      ],
+      [
+        -13.5,
+        15.1
+      ],
+      [
+        -14.4,
+        15.6
+      ],
+      [
+        -14.5,
+        16.3
+      ],
+      [
+        -12.8,
+        17.8
+      ],
+      [
+        -13.5,
+        18.4
+      ],
+      [
+        -14.2,
+        18.4
+      ],
+      [
+        -14.9,
+        18.0
+      ],
+      [
+        -15.7,
+        17.9
+      ],
+      [
+        -16.0,
+        9.7
+      ],
+      [
+        -12.2,
+        8.4
+      ],
+      [
+        -12.2,
+        7.5
+      ],
+      [
+        -13.5,
+        4.2
+      ],
+      [
+        -12.2,
+        2.1
+      ]
+    ],
+    "undercuts": "two visible underside reliefs, separated by a central rib",
+    "qualification": "Purchased-part visible geometry reference. The hidden rail cavity and elastomer compliance are not qualified for manufacture.",
+    "travel_scope": "Full axial engagement is a chosen mounting datum; scan observations include partially overhanging feet and do not establish hard stops."
+  },
+  "per_foot_visible_measurements": [
+    {
+      "foot": "rear_yminus",
+      "pass": "pass-01-feet-up",
+      "outer_nose_circle": {
+        "center_xy_mm": [
+          0.14442786966948343,
+          -0.29204739158976245
+        ],
+        "radius_mm": 8.911090557851141,
+        "radial_residual_mm": {
+          "count": 7937,
+          "median": -0.0002132695785110883,
+          "abs_p95": 0.25762984736476785,
+          "min": -0.45437579346974033,
+          "max": 0.4675328863502717
+        }
+      },
+      "visible_axial_end_medians_mm": [
+        -9.150737124971098,
+        8.813184895465971
+      ],
+      "visible_width_mm": 17.963922020437067,
+      "complete_lower_slot_sections": [
+        {
+          "height_mm": 0.5,
+          "width_mm": 4.393441937302033,
+          "length_mm": 6.861330463891986,
+          "observed_sectors": 13
+        },
+        {
+          "height_mm": 1.5,
+          "width_mm": 4.068746616166572,
+          "length_mm": 6.381579031309544,
+          "observed_sectors": 12
+        }
+      ],
+      "scope": "Independent free-foot bearing frame; no scale fit and no union of bent poses. Rounded nominal geometry follows shared observations plus the direct identical/7 mm authority."
+    },
+    {
+      "foot": "rear_yplus",
+      "pass": "pass-01-feet-up",
+      "outer_nose_circle": {
+        "center_xy_mm": [
+          -0.7017986307752673,
+          -0.3874157378756804
+        ],
+        "radius_mm": 8.90565404395938,
+        "radial_residual_mm": {
+          "count": 2920,
+          "median": -0.004957274502385367,
+          "abs_p95": 0.337260081536567,
+          "min": -0.33011715938456554,
+          "max": 0.5742979334475926
+        }
+      },
+      "visible_axial_end_medians_mm": [
+        -9.354321540219578,
+        8.41291170237812
+      ],
+      "visible_width_mm": 17.767233242597698,
+      "complete_lower_slot_sections": [],
+      "scope": "Independent free-foot bearing frame; no scale fit and no union of bent poses. Rounded nominal geometry follows shared observations plus the direct identical/7 mm authority."
+    },
+    {
+      "foot": "head_yminus",
+      "pass": "pass-01-feet-up",
+      "outer_nose_circle": {
+        "center_xy_mm": [
+          0.19846871317930181,
+          0.40623237561417536
+        ],
+        "radius_mm": 8.88800707121628,
+        "radial_residual_mm": {
+          "count": 8268,
+          "median": -0.001954396665477809,
+          "abs_p95": 0.3430473227923194,
+          "min": -0.3934853342479361,
+          "max": 0.6680120299546015
+        }
+      },
+      "visible_axial_end_medians_mm": [
+        -8.398906732815323,
+        9.449053531727026
+      ],
+      "visible_width_mm": 17.84796026454235,
+      "complete_lower_slot_sections": [
+        {
+          "height_mm": 0.5,
+          "width_mm": 4.321962290860652,
+          "length_mm": 6.537401767063972,
+          "observed_sectors": 11
+        }
+      ],
+      "scope": "Independent free-foot bearing frame; no scale fit and no union of bent poses. Rounded nominal geometry follows shared observations plus the direct identical/7 mm authority."
+    },
+    {
+      "foot": "head_yplus",
+      "pass": "pass-01-feet-up",
+      "outer_nose_circle": {
+        "center_xy_mm": [
+          -0.21969513589821607,
+          -0.4894093066929611
+        ],
+        "radius_mm": 8.720503061162061,
+        "radial_residual_mm": {
+          "count": 6665,
+          "median": -0.005721388627431878,
+          "abs_p95": 0.2994278563218259,
+          "min": -0.371132035082848,
+          "max": 0.4396483598092953
+        }
+      },
+      "visible_axial_end_medians_mm": [
+        -9.260519104170074,
+        8.300919074095734
+      ],
+      "visible_width_mm": 17.56143817826581,
+      "complete_lower_slot_sections": [
+        {
+          "height_mm": 0.5,
+          "width_mm": 4.527671634730313,
+          "length_mm": 6.917965925270018,
+          "observed_sectors": 13
+        },
+        {
+          "height_mm": 1.5,
+          "width_mm": 4.665095525455197,
+          "length_mm": 6.773485871862757,
+          "observed_sectors": 12
+        }
+      ],
+      "scope": "Independent free-foot bearing frame; no scale fit and no union of bent poses. Rounded nominal geometry follows shared observations plus the direct identical/7 mm authority."
+    }
+  ],
+  "exposed_clip_face": {
+    "source": "pass-02-on-back rear_yplus",
+    "selection": "|local Nx| > .94, 7.2 < |local X| < 10.8, local Y < -8, 9 < Z < 19.5. Axial end faces distinguish rubber from the fixed axially continuous rail.",
+    "outside_nominal_profile_distance_mm": {
+      "count": 7974,
+      "median": 0.0,
+      "abs_p95": 0.0,
+      "min": 0.0,
+      "max": 0.15972567514274738
+    },
+    "scope": "Agreement of observed end-face samples with the simplified exterior clip profile; not an assertion that the unobserved inner gripping cavity is manufactured to this polygon."
+  },
+  "rail_end_evidence": {
+    "observed_fixed_face_extent_mm": [
+      0.4,
+      76.9
+    ],
+    "conservative_fully_supported_interval_mm": [
+      0.5,
+      76.5
+    ],
+    "common_clip_axial_interval_mm": [
+      -9,
+      9
+    ],
+    "fully_engaged_slot_stations_mm": [
+      9.5,
+      67.5
+    ],
+    "physical_hard_stop_observed": false,
+    "partial_overhang_observed": true,
+    "captured_rear_positive_slot_x_mm": 74.43728463507625,
+    "scope": "The farthest fully engaged positions do not establish the furthest mechanically possible partially overhanging positions or their retention."
+  },
+  "input_sha256": {
+    "registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc",
+    "interface-measurements.json": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
+    "scan-evidence.json": "a7afc93368e635dc038ca999542cbba2144737f34721bc3f30e109a0eedff0ea",
+    "common-foot/inspection-inputs.json": "382e820bd3cfc9b5180a19bce7f2ae00e7ab114ac15566d018d11785494b8a7a"
+  },
+  "source_sha256": {
+    "measure_common_foot.py": "0631abe6a6b698c5f0d8002d92bebd186c987c7197010dcc34fe9120eacb9ae1",
+    "g_ganen_foot.py": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
+  },
+  "limits": [
+    "Rounded common geometry describes visible rubber surfaces; spray and scanner absolute accuracy are unmeasured.",
+    "The 7 mm pad is nominal installed thickness, not measured loaded compression.",
+    "Simplified underside relief depths retain the observed mouths but are not a replacement-foot tooling specification.",
+    "The shared obround mouth does not certify the minimum hidden through-depth throat or grip retention."
+  ]
+}

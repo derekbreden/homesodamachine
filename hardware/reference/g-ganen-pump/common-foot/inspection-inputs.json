@@ -1,0 +1,429 @@
+{
+  "status": "native_scan_inspection",
+  "records": [
+    {
+      "pass": "pass-01-feet-up",
+      "foot": "rear_yminus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+        "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+        "points": 3235134,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 167552,
+      "origin_reference_mm": [
+        68.6,
+        -38.5,
+        -0.08085940481912368
+      ],
+      "reference_to_local_rotation": [
+        [
+          -0.9998102900536315,
+          0.0,
+          -0.019477779721343885
+        ],
+        [
+          -0.0014278579809527988,
+          -0.9973094208261875,
+          0.07329311258856937
+        ],
+        [
+          -0.019425373212873527,
+          0.07330701965933738,
+          0.9971202213094498
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-01-feet-up-rear_yminus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "foot": "rear_yplus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+        "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+        "points": 3235134,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 90873,
+      "origin_reference_mm": [
+        74.5,
+        38.5,
+        0.03455371384291201
+      ],
+      "reference_to_local_rotation": [
+        [
+          0.9999777368100384,
+          -5.421010862427522e-20,
+          -0.006672771858352552
+        ],
+        [
+          0.0003108122595684109,
+          0.9989146008233755,
+          0.04657814570821679
+        ],
+        [
+          0.006665529237271693,
+          -0.04657918270940971,
+          0.9988923617978619
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-01-feet-up-rear_yplus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "foot": "head_yminus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+        "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+        "points": 3235134,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 165533,
+      "origin_reference_mm": [
+        11.8,
+        -38.5,
+        0.26967968351601046
+      ],
+      "reference_to_local_rotation": [
+        [
+          -0.9996572840448237,
+          8.673617379884035e-19,
+          0.026178511342826786
+        ],
+        [
+          0.003954777864060026,
+          -0.9885231250306855,
+          0.15101784997679477
+        ],
+        [
+          0.02587806384126238,
+          0.15106962394726398,
+          0.9881843423836767
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-01-feet-up-head_yminus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-01-feet-up",
+      "foot": "head_yplus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+        "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+        "points": 3235134,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 113398,
+      "origin_reference_mm": [
+        10.3,
+        38.5,
+        -0.12481570934341302
+      ],
+      "reference_to_local_rotation": [
+        [
+          0.999615554193947,
+          0.0,
+          -0.027726229702726597
+        ],
+        [
+          0.0007875160726192944,
+          0.9995965452426663,
+          0.02839236794213539
+        ],
+        [
+          0.027715043423450103,
+          -0.02840328746688015,
+          0.9992122545431027
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-01-feet-up-head_yplus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-02-on-back",
+      "foot": "rear_yminus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+        "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+        "points": 3478141,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 110171,
+      "origin_reference_mm": [
+        68.6,
+        -38.5,
+        -0.21601978196484378
+      ],
+      "reference_to_local_rotation": [
+        [
+          -0.9998588231506901,
+          0.0,
+          -0.016802790474108893
+        ],
+        [
+          -0.0011756159327461454,
+          -0.997549410478561,
+          0.0699556400946611
+        ],
+        [
+          -0.016761613731842113,
+          0.06996551760599705,
+          0.9974085795957589
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-02-on-back-rear_yminus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-02-on-back",
+      "foot": "rear_yplus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+        "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+        "points": 3478141,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 124159,
+      "origin_reference_mm": [
+        74.5,
+        38.5,
+        0.0740638916589442
+      ],
+      "reference_to_local_rotation": [
+        [
+          0.9999510708676806,
+          0.0,
+          0.00989221262302061
+        ],
+        [
+          -0.0004276401072473451,
+          0.9990651476437895,
+          0.04322786008388262
+        ],
+        [
+          -0.009882964864741845,
+          -0.04322997528906371,
+          0.9990162642529847
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-02-on-back-rear_yplus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-02-on-back",
+      "foot": "head_yminus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+        "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+        "points": 3478141,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 112887,
+      "origin_reference_mm": [
+        11.8,
+        -38.5,
+        0.18357544703093212
+      ],
+      "reference_to_local_rotation": [
+        [
+          -0.9996372180258573,
+          0.0,
+          0.02693385114543298
+        ],
+        [
+          0.003915659800943223,
+          -0.9893758018292771,
+          0.1453278719413388
+        ],
+        [
+          0.026647700573363152,
+          0.1453806134072728,
+          0.9890168741227205
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-02-on-back-head_yminus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-02-on-back",
+      "foot": "head_yplus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+        "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+        "points": 3478141,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 149005,
+      "origin_reference_mm": [
+        10.3,
+        38.5,
+        0.03137072079742731
+      ],
+      "reference_to_local_rotation": [
+        [
+          0.9994883757173609,
+          0.0,
+          -0.031984164923777494
+        ],
+        [
+          0.000998553347315395,
+          0.999512529452216,
+          0.031204268285692796
+        ],
+        [
+          0.03196857358538169,
+          -0.03122024131926158,
+          0.9990011545713463
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-02-on-back-head_yplus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "foot": "rear_yminus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+        "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+        "points": 2989594,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 94116,
+      "origin_reference_mm": [
+        68.6,
+        -38.5,
+        -0.08085940481912368
+      ],
+      "reference_to_local_rotation": [
+        [
+          -0.9998102900536315,
+          0.0,
+          -0.019477779721343885
+        ],
+        [
+          -0.0014278579809527988,
+          -0.9973094208261875,
+          0.07329311258856937
+        ],
+        [
+          -0.019425373212873527,
+          0.07330701965933738,
+          0.9971202213094498
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-03-feet-down-rear_yminus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "foot": "rear_yplus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+        "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+        "points": 2989594,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 83619,
+      "origin_reference_mm": [
+        74.5,
+        38.5,
+        0.03455371384291201
+      ],
+      "reference_to_local_rotation": [
+        [
+          0.9999777368100384,
+          -5.421010862427522e-20,
+          -0.006672771858352552
+        ],
+        [
+          0.0003108122595684109,
+          0.9989146008233755,
+          0.04657814570821679
+        ],
+        [
+          0.006665529237271693,
+          -0.04657918270940971,
+          0.9988923617978619
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-03-feet-down-rear_yplus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "foot": "head_yminus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+        "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+        "points": 2989594,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 74334,
+      "origin_reference_mm": [
+        11.8,
+        -38.5,
+        0.26967968351601046
+      ],
+      "reference_to_local_rotation": [
+        [
+          -0.9996572840448237,
+          8.673617379884035e-19,
+          0.026178511342826786
+        ],
+        [
+          0.003954777864060026,
+          -0.9885231250306855,
+          0.15101784997679477
+        ],
+        [
+          0.02587806384126238,
+          0.15106962394726398,
+          0.9881843423836767
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-03-feet-down-head_yminus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "foot": "head_yplus",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+        "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+        "points": 2989594,
+        "coordinate_scale_factor": 1.0
+      },
+      "points": 103428,
+      "origin_reference_mm": [
+        10.3,
+        38.5,
+        -0.12481570934341302
+      ],
+      "reference_to_local_rotation": [
+        [
+          0.999615554193947,
+          0.0,
+          -0.027726229702726597
+        ],
+        [
+          0.0007875160726192944,
+          0.9995965452426663,
+          0.02839236794213539
+        ],
+        [
+          0.027715043423450103,
+          -0.02840328746688015,
+          0.9992122545431027
+        ]
+      ],
+      "cache": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/g-ganen-common-foot/pass-03-feet-down-head_yplus.npz",
+      "scope": "Unit scale; rigid per-foot frame. Local +Y is outward; +Z is above the observed bearing plane. Pump/rail points near the inner edge remain visible for classification."
+    }
+  ],
+  "input_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/reference-parameters.json": "b680d40839ffd4a32e13914e2bedad4b5670357632fa44b0f43a90604f6a4802",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc"
+  }
+}

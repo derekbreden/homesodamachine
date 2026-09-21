@@ -1,0 +1,97 @@
+{
+  "status": "pass",
+  "scope": "Back-top native/print-mesh equivalence for retaining the exact previously reviewed H2C v2 archive after the G Ganen foot update. This does not claim byte-identical canonical STEP/STL or qualify the complete regenerated assembly.",
+  "old_step_sha256": "73f21c065154de8532ccf2a69be35b79be45670ef04e59d1ce5e1dc8ed875b9b",
+  "new_step_sha256": "44b016cdb0cc5d3e88f0ff73e852989448dd16b79ea1550cffb145d9bbb07fdc",
+  "old_stl_sha256": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5",
+  "new_stl_sha256": "0bfacdd733469ad3966a0b193d23eff669308567d254c20814c2b2f2dc68897a",
+  "old_native_comparison_authority": {
+    "prior_leaf_step_bytes_available": false,
+    "canonical_leaf_step_sha256_authority": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/geometry-confirmation.json",
+    "aggregate_step_sha256": "0bf745015625bde33b3672941b49fe7acb1cbbfcdbc652e2b2dc55959f883a67",
+    "extracted_leaf": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/prior-back-top.brep",
+    "extracted_leaf_sha256": "453c9eddc32167f42c17c5e7508d9130218f5f068991d1662ad347c8a3f048ea",
+    "extraction_manifest": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/prior-native-extraction.json",
+    "extraction_manifest_sha256": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a"
+  },
+  "added_mm3": 0,
+  "removed_mm3": 0,
+  "native_solids_each": 1,
+  "native_faces_each": 718,
+  "bounds_identical": true,
+  "native_integrated_volume_difference_mm3": 0.00014642905443906784,
+  "max_corresponding_corner_distance_mm": 1.52587890625e-05,
+  "triangle_count_each": 1124732,
+  "differing_triangles": 43,
+  "differing_corners": 47,
+  "changed_triangle_bounds_mm": [
+    44.278839111328125,
+    244.62379455566406,
+    343.0,
+    83.6366958618164,
+    307.0025939941406,
+    348.0
+  ],
+  "mesh_comparison_tolerance_mm": 0.0001,
+  "mesh_method": "Exact triangle/corner correspondence after inverse of declared X180 print orientation. No registration, resampling, mesh repair or closest-point matching.",
+  "interpretation": "Native booleans contain no added or removed solids. The mesh changes are confined to 47 corners and at most 0.0000152587890625 mm (15.26 nm), consistent with floating-point rounding; no printable feature changes.",
+  "archive": {
+    "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+    "sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+    "gcode_sha256": "eab7b3a8dbd6573296a8f1dcf1de5bcad5ce5ab77c27ef68f7ab6ff73e0337db",
+    "staged_input": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.3mf",
+    "staged_input_sha256": "7d827c4982a34ece1ced6bf9046f359d02db31c6f2a9e226537379a3e9c81ab0",
+    "offline_review": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/offline-review.json",
+    "offline_review_sha256": "28ca3c4c2eed4d85f70763dbd33c7cc0d18c2ad53329d74a243da4b3402643c6",
+    "support_ledger": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-removal-review.json",
+    "support_ledger_sha256": "9037f811804e679a057c8170e81df8f85d23ff594efae1fcca9b530910cde803"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "checks": [
+    {
+      "check": "native_boolean_added_empty",
+      "pass": true
+    },
+    {
+      "check": "native_boolean_removed_empty",
+      "pass": true
+    },
+    {
+      "check": "native_inputs_stable",
+      "pass": true
+    },
+    {
+      "check": "triangle_and_corner_correspondence_within_0_0001_mm",
+      "pass": true
+    },
+    {
+      "check": "archive_and_support_ledger_match_completed_review",
+      "pass": true
+    }
+  ],
+  "input_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "44b016cdb0cc5d3e88f0ff73e852989448dd16b79ea1550cffb145d9bbb07fdc",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "0bfacdd733469ad3966a0b193d23eff669308567d254c20814c2b2f2dc68897a",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/oriented-meshes/enclosure-back-top.stl": "4dc284096450ecf764446d66c3bda56ac4d40f2682e594a929f32f123b3ec91d",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/job-config.json": "648f36b96657d51b6ba57b76bef3fd5cb918e20c1d4f722e4944fe6ae7e869ea",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/geometry-confirmation.json": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.print.json": "2375484980f375d0eda6aa501c52af90d9ed0657befeb48dc6f7f21c700d1f14",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/offline-review.json": "28ca3c4c2eed4d85f70763dbd33c7cc0d18c2ad53329d74a243da4b3402643c6",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-removal-review.json": "9037f811804e679a057c8170e81df8f85d23ff594efae1fcca9b530910cde803",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1"
+  },
+  "source_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/compare.py.txt": "71ec0ad930a786c78798680639d616d776c7367149e5129a68ec606f04a9955e",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/compare_mesh.py.txt": "04774701a0cfbd8a7bbf781a5af5a98193380aafae13c15d1f3b8cd8d61c3e0b"
+  },
+  "evidence_sha256": {
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/compare.log": "dea8994616371580f277ff0e981616447e197041f8f8696e044fffd455877a66",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/compare.py.txt": "71ec0ad930a786c78798680639d616d776c7367149e5129a68ec606f04a9955e",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/compare_mesh.py.txt": "04774701a0cfbd8a7bbf781a5af5a98193380aafae13c15d1f3b8cd8d61c3e0b",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/mesh-corner-witness.json": "74c8efac237e5db165452f241208db4feea73a554081ca6482a6bcd28d5bb3a1",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/mesh-summary.json": "9696eed37bb91cdc6af87d33047d23c9622c54dcdbeaa1c105f999f17f515562",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/native-summary.json": "8ba72ee86da996836f09f876fa9e90220a08db34f8759867ace4df7b41433065",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/prior-back-top.brep": "453c9eddc32167f42c17c5e7508d9130218f5f068991d1662ad347c8a3f048ea",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/g-ganen-pump/installation/feet-correction-validation/back-top-equivalence/prior-native-extraction.json": "98e60547aa4e9f192209f8fdd8c942bafa40ad8aad86220f1ac3022e8ee3bf4a"
+  }
+}

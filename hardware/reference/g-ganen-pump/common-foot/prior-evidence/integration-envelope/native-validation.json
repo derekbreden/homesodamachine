@@ -1,0 +1,543 @@
+{
+  "schema": 1,
+  "status": "native_envelope_roundtrip_pass",
+  "input_sha256": {
+    "hardware/reference/g-ganen-pump/integration-envelope/containment.json": "4a5118e1d7be48cc2be7491e2dbdeaa56fe2b3b494a1c825abca4e9dabcc96a4",
+    "hardware/reference/g-ganen-pump/integration-envelope/envelope-parameters.json": "000df84a461127bc8daebd33869c0e96c69c35590573a4cab693aae30cea9609",
+    "hardware/reference/g-ganen-pump/integration-envelope/export_envelope.py": "9ea843ffb91113a36a89c7effa81de85fb1d33b5fafa8555c13a43c10bc71897",
+    "hardware/reference/g-ganen-pump/g-ganen-pump.step": "5489c2d4ed0748b0b47c5f02d09d1453a0bf613e822a5f546935f901e7837494",
+    "hardware/reference/g-ganen-pump/artifact-manifest.json": "d0d7a798c7da13d9bb393cd4a8965f19050dd0e9a45615385aa07271f0b894ed"
+  },
+  "native_sha256": "12919401b676812a05fb1429de6bcbd0526b53cfac96996dd896ade08daf9755",
+  "native_bytes": 20344939,
+  "viewer_payload_sha256": "9bfce013cf3b01d57fb24df67235e67398e6e20f82a78c48530cdabc6db35c48",
+  "viewer_payload_matches_step": true,
+  "native_reimport_and_checks_seconds": 11.78124683299393,
+  "native_containment_proof": "containment.json",
+  "native_containment_sha256": "4a5118e1d7be48cc2be7491e2dbdeaa56fe2b3b494a1c825abca4e9dabcc96a4",
+  "all_native_solids_valid": true,
+  "solids": 26,
+  "faces": 5691,
+  "components": [
+    {
+      "name": "rigid_casing_envelope",
+      "valid": true,
+      "faces": 3962,
+      "bounds_mm": [
+        [
+          -77.69745347073,
+          -30.995935142551538,
+          1.9609650148909998
+        ],
+        [
+          82.36454172387799,
+          30.929374367366,
+          60.422089931628
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 2.3283064365386963e-10,
+      "vertex_roundtrip_max_distance_mm": null,
+      "method": "exact_frozen_native_copy"
+    },
+    {
+      "name": "head_outer_shell_external_envelope",
+      "valid": true,
+      "faces": 114,
+      "bounds_mm": [
+        [
+          -45.49996401865056,
+          -24.500006266913847,
+          13.999991326998188
+        ],
+        [
+          -0.40007272999539745,
+          24.499993843853506,
+          60.533927796141256
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 2.0096194930374622e-08,
+      "vertex_roundtrip_max_distance_mm": 1.4142136796087733e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "switch_outer_shell_external_envelope",
+      "valid": true,
+      "faces": 109,
+      "bounds_mm": [
+        [
+          -77.89998374835908,
+          -22.999988351084554,
+          14.000092750465997
+        ],
+        [
+          -45.900023135039014,
+          22.99987515889593,
+          50.181893658619025
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 7.363269105553627e-09,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "head_side_yminus_external_envelope",
+      "valid": true,
+      "faces": 64,
+      "bounds_mm": [
+        [
+          -17.999244262884595,
+          -32.40881458951,
+          25.000988307007997
+        ],
+        [
+          -0.0007574316125657765,
+          -19.8036918259072,
+          41.99987431773485
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 2.837623469531536e-09,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "head_side_yplus_external_envelope",
+      "valid": true,
+      "faces": 68,
+      "bounds_mm": [
+        [
+          -17.99891719875091,
+          19.309645139419988,
+          25.00255505659556
+        ],
+        [
+          -0.0002411504454272077,
+          32.190104217775,
+          41.99958070185819
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 5.411493475548923e-10,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "lower_cradle_occupied_external_envelope",
+      "valid": true,
+      "faces": 49,
+      "bounds_mm": [
+        [
+          0.9999641922814471,
+          -27.40310350442361,
+          1.9609530419759982
+        ],
+        [
+          76.00003940404932,
+          27.451135151942,
+          23.971751855
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 5.454858182929456e-07,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "motor_surface_yminus_external_envelope",
+      "valid": true,
+      "faces": 43,
+      "bounds_mm": [
+        [
+          5.503509285151333,
+          -26.59771412010076,
+          30.004108825539916
+        ],
+        [
+          10.799881043699456,
+          -23.91746727347,
+          40.99868789914013
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 6.362199655995937e-11,
+      "vertex_roundtrip_max_distance_mm": 0.0,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "motor_surface_yplus_external_envelope",
+      "valid": true,
+      "faces": 44,
+      "bounds_mm": [
+        [
+          5.500532065242986,
+          23.753688620572987,
+          30.000531984174643
+        ],
+        [
+          10.799445785853038,
+          26.599643521513695,
+          40.99823118293521
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.7195134205394424e-12,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "motor_can_vent_filled_envelope",
+      "valid": true,
+      "faces": 3,
+      "bounds_mm": [
+        [
+          -0.07438680986634094,
+          -24.55512219327397,
+          9.439279805718439
+        ],
+        [
+          76.07438680986634,
+          24.555122193274027,
+          58.779532824943
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.4551915228366852e-10,
+      "vertex_roundtrip_max_distance_mm": null,
+      "method": "exact_frozen_native_copy"
+    },
+    {
+      "name": "crown_round_head_01_external_envelope",
+      "valid": true,
+      "faces": 61,
+      "bounds_mm": [
+        [
+          -45.15763420946414,
+          14.542677833677,
+          56.800071079995746
+        ],
+        [
+          -38.754824886525796,
+          21.174516818734503,
+          58.75317251720064
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.2818190953112207e-11,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_head_02_external_envelope",
+      "valid": true,
+      "faces": 65,
+      "bounds_mm": [
+        [
+          -45.24915792668337,
+          -21.580908239094754,
+          56.80011344699895
+        ],
+        [
+          -38.73385370889,
+          -15.4906141815,
+          58.6772200386404
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 2.440714297335944e-11,
+      "vertex_roundtrip_max_distance_mm": 1.4141759976686827e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_head_03_external_envelope",
+      "valid": true,
+      "faces": 62,
+      "bounds_mm": [
+        [
+          -7.286503017631007,
+          15.021281436179724,
+          56.800964277837
+        ],
+        [
+          -0.3895960431797083,
+          22.156773417900236,
+          59.16906310750142
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 6.821210263296962e-12,
+      "vertex_roundtrip_max_distance_mm": 1.000000082740371e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_head_04_external_envelope",
+      "valid": true,
+      "faces": 56,
+      "bounds_mm": [
+        [
+          -7.228554692121046,
+          -22.24933063201,
+          56.80009990614772
+        ],
+        [
+          -0.4328236056465967,
+          -15.490574748,
+          59.034878910600476
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 4.133937636652263e-11,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_head_05_external_envelope",
+      "valid": true,
+      "faces": 61,
+      "bounds_mm": [
+        [
+          -26.70369683562,
+          12.515220997622993,
+          56.8003004944274
+        ],
+        [
+          -19.50831791131,
+          19.119085498137263,
+          58.94552734380032
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.0942358130705543e-11,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_head_06_external_envelope",
+      "valid": true,
+      "faces": 62,
+      "bounds_mm": [
+        [
+          -26.511194850522546,
+          -19.62386508129,
+          56.800582590067066
+        ],
+        [
+          -19.552817894606573,
+          -13.02987683974,
+          58.85804396357508
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 8.277822871605167e-12,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_head_07_external_envelope",
+      "valid": true,
+      "faces": 60,
+      "bounds_mm": [
+        [
+          -43.40923071214,
+          -3.5699291259756625,
+          56.801046865247855
+        ],
+        [
+          -36.94511120022,
+          2.9278901671765682,
+          58.82016393460032
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.5504042494285386e-11,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_round_molded_boss_external_envelope",
+      "valid": true,
+      "faces": 103,
+      "bounds_mm": [
+        [
+          -39.572916337950005,
+          -15.81113063286199,
+          56.700241147159055
+        ],
+        [
+          -27.215037936186746,
+          -3.6453592386304288,
+          59.57088054757338
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.816147232602816e-10,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "crown_long_molded_boss_external_envelope",
+      "valid": true,
+      "faces": 91,
+      "bounds_mm": [
+        [
+          -18.69887235779,
+          -12.429612130500004,
+          57.196608810112494
+        ],
+        [
+          -5.3021547508660625,
+          12.141988126151317,
+          59.93637778150048
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 3.4378899727016687e-10,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "port_yminus_barb_envelope",
+      "valid": true,
+      "faces": 56,
+      "bounds_mm": [
+        [
+          -39.027843172995226,
+          -37.2820497413063,
+          21.01757749987396
+        ],
+        [
+          -27.67355481564477,
+          -23.845773271754116,
+          32.37196105194004
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.0231815394945443e-12,
+      "vertex_roundtrip_max_distance_mm": null,
+      "method": "exact_frozen_native_copy"
+    },
+    {
+      "name": "port_yminus_root_envelope",
+      "valid": true,
+      "faces": 67,
+      "bounds_mm": [
+        [
+          -41.999525932433535,
+          -24.149981175000054,
+          17.702509885153997
+        ],
+        [
+          -26.235347227036847,
+          -20.300194391342924,
+          36.4996736437175
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.2573764252010733e-10,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "port_yplus_barb_envelope",
+      "valid": true,
+      "faces": 53,
+      "bounds_mm": [
+        [
+          -38.86693389835395,
+          23.81505117012894,
+          21.057085356970347
+        ],
+        [
+          -27.717605730706055,
+          37.0614982910634,
+          32.205840405833655
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.7053025658242404e-12,
+      "vertex_roundtrip_max_distance_mm": null,
+      "method": "exact_frozen_native_copy"
+    },
+    {
+      "name": "port_yplus_root_envelope",
+      "valid": true,
+      "faces": 67,
+      "bounds_mm": [
+        [
+          -41.99976595574543,
+          20.30003315135263,
+          17.70018755561772
+        ],
+        [
+          -26.43543102548844,
+          24.14977520760305,
+          36.49868446550534
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.5575096767861396e-10,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "rear_yminus_observed_rubber_slider_envelope",
+      "valid": true,
+      "faces": 87,
+      "bounds_mm": [
+        [
+          59.047492564147646,
+          -47.72027668287112,
+          -0.992639959543
+        ],
+        [
+          78.20173381308163,
+          -27.00000465253915,
+          18.397797967462175
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 1.5288605936802924e-09,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "rear_yplus_observed_rubber_slider_envelope",
+      "valid": true,
+      "faces": 92,
+      "bounds_mm": [
+        [
+          64.40095741123699,
+          27.00000957619357,
+          -0.8373001194711783
+        ],
+        [
+          83.451124024103,
+          47.12539765500542,
+          18.49272800630215
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 4.447429091669619e-10,
+      "vertex_roundtrip_max_distance_mm": 9.99875737761613e-11,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "head_yminus_observed_rubber_slider_envelope",
+      "valid": true,
+      "faces": 96,
+      "bounds_mm": [
+        [
+          1.569465860441,
+          -47.82344259889424,
+          -1.7845459348616461
+        ],
+        [
+          21.082147959600253,
+          -27.74788683322287,
+          16.846250039322
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 7.967173587530851e-10,
+      "vertex_roundtrip_max_distance_mm": 1.000017846308765e-10,
+      "method": "convex_native_outer_supporting_planes"
+    },
+    {
+      "name": "head_yplus_observed_rubber_slider_envelope",
+      "valid": true,
+      "faces": 96,
+      "bounds_mm": [
+        [
+          0.3848962314579975,
+          27.000211115842955,
+          -0.8748842305
+        ],
+        [
+          19.560455660169712,
+          47.3533583420132,
+          18.49769575478454
+        ]
+      ],
+      "volume_roundtrip_delta_mm3": 2.3646862246096134e-11,
+      "vertex_roundtrip_max_distance_mm": 1.000000082740371e-10,
+      "method": "convex_native_outer_supporting_planes"
+    }
+  ]
+}
