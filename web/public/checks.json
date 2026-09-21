@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 2818 tracked, 540 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 2855 tracked, 540 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 65 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 22 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -229,7 +229,7 @@
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_web_tests.py": [
-      "8 test(s) in web/ fail:",
+      "9 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    a part's STEP consumers include the assembly that only _loads it (regression)",
@@ -237,6 +237,7 @@
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
+      "    the artifact pointer file points at every committed viewer scorecard",
       "    every highlighted, framed, contextual and labelled body exists in the assembly",
       "  cd web && npm test"
     ]
