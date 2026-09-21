@@ -24,7 +24,7 @@
     {
       "file": "axial-capture-study.svg",
       "sha256": "651a3b6811b66e4219b2079f685bf8b7046266359ce03e3b917ea4837cd951ff",
-      "bytes": 1129448
+      "bytes": 1106619
     },
     {
       "file": "axial-checks.json",
@@ -78,8 +78,8 @@
     },
     {
       "file": "render_study.py",
-      "sha256": "819aed714f8f8ef59c6c4a4f182cf86080c13e0eec3fc343517cab6d844d5741",
-      "bytes": 5169
+      "sha256": "8ea41df498bcd83a566fe326f71b71ba4bb50e2d0d19179e850fe6060f6cca3f",
+      "bytes": 5301
     }
   ],
   "alternative": [
