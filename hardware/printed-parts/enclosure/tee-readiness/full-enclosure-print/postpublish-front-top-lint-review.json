@@ -1,0 +1,413 @@
+{
+  "scope": "Exact class-and-anchor reconciliation of the completed postpublish full STL lint. Geometry bytes unchanged; source/native feature review is recorded in the answers and stock check. This is not a fresh slice/support audit or physical acceptance.",
+  "stl_sha256": "607507f512371522ce26aa029bf81f8aa60ac63c9037ca16710efaf8242001c2",
+  "raw_lint_log": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-front-top-lint.txt",
+  "raw_log_sha256": "96e906126e4cff2a80f85a9144afb90ee61454e7ec3c39715f51cefce56abc4f",
+  "answers_sha256": "a7160d0bef9d34a78013196e28419d5f37f4de640516e37becc692d746d86071",
+  "open_count": 0,
+  "answered_count": 40,
+  "findings": [
+    {
+      "class": "step",
+      "anchor": [
+        -87.917,
+        197.0,
+        340.483
+      ],
+      "answered": true,
+      "reason": "[step] The Y-seam socket entry relief at Y196.75 runs beside the fusion shoulder at Y197.00. Their 0.25 mm offset is the running-fit clearance of the pin passage. Both faces join the complete collar and forward wall stock."
+    },
+    {
+      "class": "step",
+      "anchor": [
+        -95.09,
+        93.836,
+        163.462
+      ],
+      "answered": true,
+      "reason": "[step] The carrier floor starts at Y93.836 and the constant-section tee well starts at Y94.040. The 0.204 mm difference is the short floor end before the well opens. The floor remains 6.924 mm tall and continues inboard; native stock probes verify 9.998 mm of continuous inboard width at this end."
+    },
+    {
+      "class": "step",
+      "anchor": [
+        103.723,
+        95.938,
+        171.875
+      ],
+      "answered": true,
+      "reason": "[step] The standing Z-seam rail-channel walls at nominal |X|103.75 lie 0.75 mm inward from the |X|104.5 flank face. `_rail_channel_span` derives them from the rail head and 0.25 mm running clearance. The common floor and continuous exterior wall back the channel; this offset is the rail's sliding passage."
+    },
+    {
+      "class": "step",
+      "anchor": [
+        -103.75,
+        95.938,
+        171.875
+      ],
+      "answered": true,
+      "reason": "[step] The standing Z-seam rail-channel walls at nominal |X|103.75 lie 0.75 mm inward from the |X|104.5 flank face. `_rail_channel_span` derives them from the rail head and 0.25 mm running clearance. The common floor and continuous exterior wall back the channel; this offset is the rail's sliding passage."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -99.175,
+        121.24,
+        252.425
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer valve's body-clearance recess enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These four narrow Y-normal faces are the two axial ends of that recess, not freestanding strips. The nominal residual flank is 7.65 mm; native full-stock probes retain 7.639 mm of continuous X stock behind the recess on both sides across its height. The source is _valve_trays / build_body_clearance; see postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        99.175,
+        121.24,
+        252.425
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer valve's body-clearance recess enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These four narrow Y-normal faces are the two axial ends of that recess, not freestanding strips. The nominal residual flank is 7.65 mm; native full-stock probes retain 7.639 mm of continuous X stock behind the recess on both sides across its height. The source is _valve_trays / build_body_clearance; see postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -99.175,
+        117.54,
+        252.425
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer valve's body-clearance recess enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These four narrow Y-normal faces are the two axial ends of that recess, not freestanding strips. The nominal residual flank is 7.65 mm; native full-stock probes retain 7.639 mm of continuous X stock behind the recess on both sides across its height. The source is _valve_trays / build_body_clearance; see postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        99.175,
+        117.54,
+        252.425
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer valve's body-clearance recess enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These four narrow Y-normal faces are the two axial ends of that recess, not freestanding strips. The nominal residual flank is 7.65 mm; native full-stock probes retain 7.639 mm of continuous X stock behind the recess on both sides across its height. The source is _valve_trays / build_body_clearance; see postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -97.715,
+        109.59,
+        235.925
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer tee well ends at |X|96.9297 and the 9 mm flank begins at |X|98.5. The exposed top and aft faces of their joined guide land are 1.5703 mm across. The land runs from the recess roof at Z229.619 to the fixed-body top at Z235.925 and joins the flank along its length. Native probes retain a complete 5.98 mm-wide wall-root block behind that land on both sides; its exposed face width is not a separate thin wall. See postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        97.715,
+        109.59,
+        235.925
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer tee well ends at |X|96.9297 and the 9 mm flank begins at |X|98.5. The exposed top and aft faces of their joined guide land are 1.5703 mm across. The land runs from the recess roof at Z229.619 to the fixed-body top at Z235.925 and joins the flank along its length. Native probes retain a complete 5.98 mm-wide wall-root block behind that land on both sides; its exposed face width is not a separate thin wall. See postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        0.0,
+        91.69,
+        310.074
+      ],
+      "answered": true,
+      "reason": "[sliver] The pump jack's two snap catches are the module's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper. Both retain their complete sections, backed by the receptacle boss on the ridge wall. The upper catch translates upward by the 0.25 mm supported-face allowance; it is not thinned."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        0.0,
+        91.74,
+        290.024
+      ],
+      "answered": true,
+      "reason": "[sliver] The pump jack's two snap catches are the module's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper. Both retain their complete sections, backed by the receptacle boss on the ridge wall. The upper catch translates upward by the 0.25 mm supported-face allowance; it is not thinned."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -98.528,
+        176.69,
+        180.55
+      ],
+      "answered": true,
+      "reason": "[sliver] The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y172.09..181.29 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        98.5,
+        176.69,
+        180.55
+      ],
+      "answered": true,
+      "reason": "[sliver] The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y172.09..181.29 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -93.276,
+        93.938,
+        163.462
+      ],
+      "answered": true,
+      "reason": "[sliver] These are the exposed ends of the carrier floor between its fore plane at Y93.836 and the tee wells' front plane at Y94.040. The floor runs from Z160 to Z166.924. Native probes verify a continuous 9.998 mm-wide section extending inboard from these faces; the 0.204 mm reading is the exposed Y length of the floor end, not its material thickness. See postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        93.25,
+        93.938,
+        163.462
+      ],
+      "answered": true,
+      "reason": "[sliver] These are the exposed ends of the carrier floor between its fore plane at Y93.836 and the tee wells' front plane at Y94.040. The floor runs from Z160 to Z166.924. Native probes verify a continuous 9.998 mm-wide section extending inboard from these faces; the 0.204 mm reading is the exposed Y length of the floor end, not its material thickness. See postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -97.715,
+        119.74,
+        232.772
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer tee well ends at |X|96.9297 and the 9 mm flank begins at |X|98.5. The exposed top and aft faces of their joined guide land are 1.5703 mm across. The land runs from the recess roof at Z229.619 to the fixed-body top at Z235.925 and joins the flank along its length. Native probes retain a complete 5.98 mm-wide wall-root block behind that land on both sides; its exposed face width is not a separate thin wall. See postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        97.715,
+        119.74,
+        232.772
+      ],
+      "answered": true,
+      "reason": "[sliver] The outer tee well ends at |X|96.9297 and the 9 mm flank begins at |X|98.5. The exposed top and aft faces of their joined guide land are 1.5703 mm across. The land runs from the recess roof at Z229.619 to the fixed-body top at Z235.925 and joins the flank along its length. Native probes retain a complete 5.98 mm-wide wall-root block behind that land on both sides; its exposed face width is not a separate thin wall. See postpublish-front-top-stock-check.json."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        0.0,
+        42.257,
+        284.674
+      ],
+      "answered": true,
+      "reason": "[ceiling] The pump-bay lintel is the complete fixed roof at Z284.674, joining the front opening to the planar bay bulkhead and carrying the display/ridge storey. Its flat underside includes the 0.25 mm supported-face allowance and preserves the cartridge withdrawal envelope. The bay floor remains below this roof. Support is exposed in the empty cartridge bay and leaves through the front opening before assembly."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        -96.0,
+        132.065,
+        229.619
+      ],
+      "answered": true,
+      "reason": "[ceiling] The internal grip-recess roof at Z229.619 clears the printed retaining rim at Z229.1190 by 0.50 mm: 0.25 mm running fit plus 0.25 mm supported-face allowance. It joins the filled guide body and flank above the full-height inside-out entry passage. Support is accessible through that passage and the flank opening before hardware installation. The reported anchors are the centres of these concave roof groups; the native roof faces surround their open centres."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        96.0,
+        132.065,
+        229.619
+      ],
+      "answered": true,
+      "reason": "[ceiling] The internal grip-recess roof at Z229.619 clears the printed retaining rim at Z229.1190 by 0.50 mm: 0.25 mm running fit plus 0.25 mm supported-face allowance. It joins the filled guide body and flank above the full-height inside-out entry passage. Support is accessible through that passage and the flank opening before hardware installation. The reported anchors are the centres of these concave roof groups; the native roof faces surround their open centres."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        -50.075,
+        110.89,
+        222.925
+      ],
+      "answered": true,
+      "reason": "[ceiling] The upper web-bearing lands stand 0.50 mm above the carrier: 0.25 mm running fit plus 0.25 mm supported-face allowance. They retain the moving web through its stroke and join the filled body and flank guides. The flat undersides preserve the sliding bearing; support is accessible through the open aft bay before assembly."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        50.075,
+        110.89,
+        222.925
+      ],
+      "answered": true,
+      "reason": "[ceiling] The upper web-bearing lands stand 0.50 mm above the carrier: 0.25 mm running fit plus 0.25 mm supported-face allowance. They retain the moving web through its stroke and join the filled body and flank guides. The flat undersides preserve the sliding bearing; support is accessible through the open aft bay before assembly."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        79.95,
+        96.74,
+        236.175
+      ],
+      "answered": true,
+      "reason": "[ceiling] The four constant-section tee wells end at Z236.175: the measured valve's body-clearance plane at Z235.925 plus 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        0.0,
+        110.89,
+        222.925
+      ],
+      "answered": true,
+      "reason": "[ceiling] The upper web-bearing lands stand 0.50 mm above the carrier: 0.25 mm running fit plus 0.25 mm supported-face allowance. They retain the moving web through its stroke and join the filled body and flank guides. The flat undersides preserve the sliding bearing; support is accessible through the open aft bay before assembly."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        -22.35,
+        96.74,
+        236.175
+      ],
+      "answered": true,
+      "reason": "[ceiling] The four constant-section tee wells end at Z236.175: the measured valve's body-clearance plane at Z235.925 plus 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        22.35,
+        96.74,
+        236.175
+      ],
+      "answered": true,
+      "reason": "[ceiling] The four constant-section tee wells end at Z236.175: the measured valve's body-clearance plane at Z235.925 plus 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        -104.375,
+        135.19,
+        226.119
+      ],
+      "answered": true,
+      "reason": "[ceiling] The internal aft-stop undersides and outer finger-opening roofs share Z226.119, leaving 0.50 mm above the moving grip bar's Z225.619 crown: 0.25 mm running fit plus 0.25 mm supported-face allowance. The retaining rim reaches Z229.119, preserving 3 mm overlap above the opening. The fixed recess roof joins the full flank and filled guide body. Flat guides retain the carrier through its stroke; removable support leaves through the flank opening and internal recess."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        104.375,
+        135.19,
+        226.119
+      ],
+      "answered": true,
+      "reason": "[ceiling] The internal aft-stop undersides and outer finger-opening roofs share Z226.119, leaving 0.50 mm above the moving grip bar's Z225.619 crown: 0.25 mm running fit plus 0.25 mm supported-face allowance. The retaining rim reaches Z229.119, preserving 3 mm overlap above the opening. The fixed recess roof joins the full flank and filled guide body. Flat guides retain the carrier through its stroke; removable support leaves through the flank opening and internal recess."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        -79.95,
+        96.74,
+        236.175
+      ],
+      "answered": true,
+      "reason": "[ceiling] The four constant-section tee wells end at Z236.175: the measured valve's body-clearance plane at Z235.925 plus 0.25 mm supported-face allowance. These flat crowns are the undersides of the filled bridge joining the valve tray around its round ports. Support is removed through each open well before hardware installation."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        0.0,
+        89.035,
+        312.099
+      ],
+      "answered": true,
+      "reason": "[ceiling] The pump jack's pocket roof and upper snap catch are flat module-engagement surfaces. The pocket bridges its two side walls with a 14.95 mm internal width; the catch spans 14.9 mm. `_ridge_keystone` grows the surrounding boss with the 0.25 mm supported relief, preserving its 3 mm surround. Support is accessible through the receptacle mouth."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        0.0,
+        91.69,
+        310.074
+      ],
+      "answered": true,
+      "reason": "[ceiling] The pump jack's pocket roof and upper snap catch are flat module-engagement surfaces. The pocket bridges its two side walls with a 14.95 mm internal width; the catch spans 14.9 mm. `_ridge_keystone` grows the surrounding boss with the 0.25 mm supported relief, preserving its 3 mm surround. Support is accessible through the receptacle mouth."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -94.5,
+        196.875,
+        341.95
+      ],
+      "answered": true,
+      "reason": "[sliver] These four faces expose the ends of the 0.25 mm Y-seam running-fit relief beside the upper socket passages. Each is backed by the socket collar or the full 3 mm ceiling tongue; its 0.25 mm plan width is the clearance margin, not a freestanding ligament. The ceiling tongue occupies Z339.75..342.75 beneath the funnel bearing."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        94.5,
+        196.875,
+        341.95
+      ],
+      "answered": true,
+      "reason": "[sliver] These four faces expose the ends of the 0.25 mm Y-seam running-fit relief beside the upper socket passages. Each is backed by the socket collar or the full 3 mm ceiling tongue; its 0.25 mm plan width is the clearance margin, not a freestanding ligament. The ceiling tongue occupies Z339.75..342.75 beneath the funnel bearing."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -86.625,
+        196.875,
+        339.75
+      ],
+      "answered": true,
+      "reason": "[sliver] These four faces expose the ends of the 0.25 mm Y-seam running-fit relief beside the upper socket passages. Each is backed by the socket collar or the full 3 mm ceiling tongue; its 0.25 mm plan width is the clearance margin, not a freestanding ligament. The ceiling tongue occupies Z339.75..342.75 beneath the funnel bearing."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        86.625,
+        196.875,
+        339.75
+      ],
+      "answered": true,
+      "reason": "[sliver] These four faces expose the ends of the 0.25 mm Y-seam running-fit relief beside the upper socket passages. Each is backed by the socket collar or the full 3 mm ceiling tongue; its 0.25 mm plan width is the clearance margin, not a freestanding ligament. The ceiling tongue occupies Z339.75..342.75 beneath the funnel bearing."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        -95.125,
+        196.75,
+        342.475
+      ],
+      "answered": true,
+      "reason": "[sliver] These are the short exposed end faces where the socket passage meets the Z343 underside of the filled funnel surround. They connect the complete socket, flank and roof stock. The 1.05 mm measure is the exposed height at that junction, not the thickness of a separate printed strip."
+    },
+    {
+      "class": "sliver",
+      "anchor": [
+        95.125,
+        196.75,
+        342.475
+      ],
+      "answered": true,
+      "reason": "[sliver] These are the short exposed end faces where the socket passage meets the Z343 underside of the filled funnel surround. They connect the complete socket, flank and roof stock. The 1.05 mm measure is the exposed height at that junction, not the thickness of a separate printed strip."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        -80.5,
+        151.875,
+        343.0
+      ],
+      "answered": true,
+      "reason": "[ceiling] These flat undersides carry the continuous 6 mm funnel bearing at Z343..349 and join the surrounding roof and side walls. Their full section supports the silicone brim. Supports enter from the print bed and are removed through the open shell before assembly."
+    },
+    {
+      "class": "ceiling",
+      "anchor": [
+        80.5,
+        151.875,
+        343.0
+      ],
+      "answered": true,
+      "reason": "[ceiling] These flat undersides carry the continuous 6 mm funnel bearing at Z343..349 and join the surrounding roof and side walls. Their full section supports the silicone brim. Supports enter from the print bed and are removed through the open shell before assembly."
+    }
+  ],
+  "native_stock_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-front-top-stock-check.json",
+  "native_stock_evidence_sha256": "0c90b6177e4b3516796ff74ce9f90f3a6d8e0af4081cf55396fe0278de80ad3b"
+}

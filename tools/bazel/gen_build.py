@@ -438,6 +438,10 @@ def render_build(only: str = None) -> tuple:
     # no entry at all for `sync_tree.py`, because the machinery that writes the graph is not a
     # step in the graph it writes. So a selftest is watched the same way a generator is —
     # `trace_inputs.py --selftests`, which runs the module on the word and keeps what it opened.
+    selftest_seen, selftest_shared = set(), set()
+    for gen in selftests:
+        stem = target_name(gen)
+        (selftest_shared if stem in selftest_seen else selftest_seen).add(stem)
     for gen, data in sorted(selftests.items()):
         if gen not in held:
             continue
@@ -456,7 +460,7 @@ def render_build(only: str = None) -> tuple:
                 break
             want |= more
         blocks.append(
-            f'sh_test(\n    name = "{target_name(gen)}-selftest",\n'
+            f'sh_test(\n    name = "{target_name(gen, selftest_shared)}-selftest",\n'
             + '    srcs = ["tools/bazel/selftest.sh"],\n    data = [\n'
             + "".join(f'        "{s}",\n' for s in sorted(want & held))
             + f'    ],\n    args = ["{gen}"],\n'

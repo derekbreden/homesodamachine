@@ -1,43 +1,45 @@
-# Cartridge and cap: prepared bench-fit plate
+# Cartridge and cap support review
 
-The native two-part plate uses the current cartridge upright and the current cap
-crown-down. It contains 496 layers and 177,630 source triangles, with no native
-geometry warning. The saved profile estimates **9 h 43 min and 413.1 g**. Its actual
-support/brim toolpaths retain 16.68 mm to the common printable-area boundary and
-28.25 mm between the two objects.
+The complete production cartridge and cap are prepared for the fresh enclosure
+assembly. The cartridge prints upright and the cap prints crown-down. The exact
+two-part native archive passes its offline geometry, settings, toolpath-bound and
+support-access review. Full-assembly integration findings currently hold further
+submissions; Mark2 release remains with the coordinating task.
 
-The four cap rails finish print-up. Sixteen interior-layer readings retain a
-minimum **3.000 mm road width** and **95.959 mm² of each 96 mm² bearing footprint**.
-No support interface touches a new bearing rail. The recorded temperatures are
-265°C nozzle / 80°C bed on the first layer and 280°C / 80°C thereafter. The requested
-+0.04 mm user trim produces `G29.1 Z0.02` with this textured-plate compensation.
+The plate has **496 layers and 179,260 source triangles**, with no native geometry
+warning. Estimated time is **10 h 9 min 17 s**. The saved profile reports **419.9 g**
+at 1.29 g/cm³; the same material volume is **465.5 g** at the repository's PET-GF
+density of 1.43 g/cm³. Actual model and support paths retain **29.275 mm** minimum
+clearance to the 325 × 320 mm nozzle area and **31.799 mm** between the two objects.
+
+The plate inherits `petgf.3mf`: left 0.4 mm nozzle, black PET-GF, whole-layer
+printing, 0.24 mm layers with a 0.20 mm first layer, two walls and 15% infill.
+Automatic tree support uses a 0.45 mm top gap, two interface layers, 0.5 mm interface
+spacing and 0.4 mm object clearance. Temperatures are 265°C nozzle / 80°C bed on
+the first layer and 280°C / 80°C thereafter. The inherited `auto_brim` setting
+produces **zero Brim extrusion roads** in this archive. Requested +0.04 mm trim
+emits `G29.1 Z0.02` after the textured-plate compensation.
 
 | Piece / support | Contact region | Root | Build-up | Removal lane before hardware installation |
 | --- | --- | --- | --- | --- |
-| Cartridge left | Flat roof of left pull pocket | Bed | 105.84 mm | Straight outward through the open −X pocket mouth |
-| Cartridge right | Flat roof of right pull pocket | Bed | 105.84 mm | Straight outward through the open +X pocket mouth |
-| Cap aft screw | Flat screw-head seat | Bed | 9.12 mm | Through its counterbore toward the crown, the bed-facing mouth |
-| Cap fore screw | Flat screw-head seat | Bed | 9.12 mm | Through its counterbore toward the crown, the bed-facing mouth |
+| Cartridge west | Flat hand-pull roof and rounded roof/end junction | Bed | 105.84 mm | Detach the interface and withdraw outward through the open −X hand-pull mouth; the lower stem stands outside the cartridge |
+| Cartridge east | Flat hand-pull roof and rounded roof/end junction | Bed | 105.84 mm | Detach the interface and withdraw outward through the open +X hand-pull mouth; the lower stem stands outside the cartridge |
+| Cap west motor opening | Annulus at the wider terminal well | Bed | 4.08 mm | Detach and withdraw through the open Ø45 mm well toward the crown, original +Z |
+| Cap east motor opening | Annulus at the wider terminal well | Bed | 4.08 mm | Detach and withdraw through the open Ø45 mm well toward the crown, original +Z |
+| Cap aft screw | Flat screw-head seat | Bed | 14.16 mm | Withdraw through its open crown-side counterbore in original +Z |
+| Cap fore screw | Flat screw-head seat | Bed | 14.16 mm | Withdraw through its open crown-side counterbore in original +Z |
 
-The pull roofs remain flat hand-contact surfaces; the screw seats remain flat
-annuli. Those working faces are carried by supports. Each tree and interface is
-located in the named native opening in
-[`pump-toolpath-review.json`](pump-toolpath-review.json), which also identifies the
-exact G-code. The counts and build-up describe the slice; physical removal effort
-and contact finish remain unmeasured.
+The flat hand-bearing roofs, circular motor shoulders and flat screw-head seats
+keep their working shapes. Remove support while both parts are loose, before
+installing pumps, wires or screws. The screw-seat support leaves through the head
+counterbore; its route does not use the smaller screw-shaft bore. The six bodies
+and six interface islands describe the slice. Physical removal effort and contact
+finish are observations from the printed parts.
 
-![Native model sections, actual support paths and bearing-rail roads](pump-toolpath-review.svg)
-
-The retained archive is
-`.cache/prints/2026-09-20-pump-cartridge-scan-corrected-black-z004-mark2-v1/ready/pump-cartridge-scan-corrected-black-z004-mark2-v1.gcode.3mf`.
-Its SHA-256 is `2d8fe33341bc5e998a0baee25e2ef92ca8939a21e06b4b2cf0be84129fe952cf`;
-the G-code SHA-256 is
-`00f9df1f571acd996e92cd7da71f8430da5f4add4ecaa2c2683ec6c088f11ad1`.
-[`pump-print-readiness.json`](pump-print-readiness.json) carries all profile,
-geometry, archive and audit identities.
-
-This is a **pump-seat and cap bench-fit print**. Physical fit is pending;
-`assembly_current` and `production_enclosure_released` remain false. The complete
-collet/carrier mechanism, remaining tee datums and complete enclosure retain their
-own qualification requirements. Live printer spool mapping and an empty plate
-must be checked at submission; these scripts do not contact a printer.
+The [current offline review](../tee-readiness/full-enclosure-print/2026-09-21-pump-cartridge-mark2-v2.json)
+binds the exact source STEP/STL files, saved profile, native G-code, support ledger
+and the qualified fluid-2 guard-only source equivalence. The native archive is
+`.cache/prints/2026-09-21-pump-cartridge-mark2-v2/ready/pump-cartridge-cap-black-z004-mark2-v2.gcode.3mf`,
+SHA-256 `5df9a09154864e1916fd3de02e76441c23a91f92d70547785c7c35ff0e6dda01`.
+The G-code SHA-256 is
+`fa57cf15e877a9d2854bea8adfbe0309ce694bcfc24bad55341b422595ec4133`.

@@ -1,0 +1,233 @@
+{
+  "step_sha256": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+  "probes": [
+    {
+      "name": "outer-valve shallow side recess backing",
+      "side": -1,
+      "bounds_mm": [
+        -107.49,
+        -99.851,
+        117.541,
+        121.239,
+        236.5,
+        268.3
+      ],
+      "expected_stock_mm3": 898.3188996000016,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "outer-well land continuous wall root",
+      "side": -1,
+      "bounds_mm": [
+        -104.49,
+        -98.51,
+        99.45,
+        119.73,
+        229.63,
+        235.915
+      ],
+      "expected_stock_mm3": 762.2096039999984,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "carrier floor exposed end full backing",
+      "side": -1,
+      "bounds_mm": [
+        -93.249,
+        -83.251,
+        93.837,
+        94.039,
+        160.01,
+        166.91
+      ],
+      "expected_stock_mm3": 13.935212399999871,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "aft valve tray end full plate root",
+      "side": -1,
+      "bounds_mm": [
+        -104.4,
+        -98.6,
+        172.1,
+        181.28,
+        180.81,
+        181.25
+      ],
+      "expected_stock_mm3": 23.427359999999943,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "outer-valve shallow side recess backing",
+      "side": 1,
+      "bounds_mm": [
+        99.851,
+        107.49,
+        117.541,
+        121.239,
+        236.5,
+        268.3
+      ],
+      "expected_stock_mm3": 898.3188996000016,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "outer-well land continuous wall root",
+      "side": 1,
+      "bounds_mm": [
+        98.51,
+        104.49,
+        99.45,
+        119.73,
+        229.63,
+        235.915
+      ],
+      "expected_stock_mm3": 762.2096039999984,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "carrier floor exposed end full backing",
+      "side": 1,
+      "bounds_mm": [
+        83.251,
+        93.249,
+        93.837,
+        94.039,
+        160.01,
+        166.91
+      ],
+      "expected_stock_mm3": 13.935212399999871,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "aft valve tray end full plate root",
+      "side": 1,
+      "bounds_mm": [
+        98.6,
+        104.4,
+        172.1,
+        181.28,
+        180.81,
+        181.25
+      ],
+      "expected_stock_mm3": 23.427359999999943,
+      "missing_stock_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "faces": [
+    {
+      "anchor": [
+        99.175,
+        121.24,
+        252.425
+      ],
+      "faces": [
+        {
+          "area_mm2": 40.15515685138059,
+          "bounds_mm": [
+            98.49999999999741,
+            99.85,
+            121.24,
+            121.24,
+            236.41563717534,
+            268.43436282465206
+          ],
+          "distance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "anchor": [
+        99.175,
+        117.54,
+        252.425
+      ],
+      "faces": [
+        {
+          "area_mm2": 36.14598888608982,
+          "bounds_mm": [
+            98.49999999999741,
+            99.85,
+            117.54,
+            117.54,
+            236.41563717534,
+            268.43436282465206
+          ],
+          "distance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "anchor": [
+        97.715,
+        109.59,
+        235.925
+      ],
+      "faces": [
+        {
+          "area_mm2": 29.487106028498047,
+          "bounds_mm": [
+            96.929699486187,
+            98.5,
+            99.44,
+            119.73999990000002,
+            235.925,
+            235.925
+          ],
+          "distance_mm": 0.0
+        }
+      ]
+    },
+    {
+      "anchor": [
+        97.715,
+        119.74,
+        232.772
+      ],
+      "faces": [
+        {
+          "area_mm2": 9.455514634466395,
+          "bounds_mm": [
+            96.92969948618686,
+            98.5,
+            119.7399999,
+            119.7399999,
+            229.6190001,
+            235.92500000000018
+          ],
+          "distance_mm": 9.999999406318238e-08
+        }
+      ]
+    },
+    {
+      "anchor": [
+        93.25,
+        93.938,
+        163.462
+      ],
+      "faces": [
+        {
+          "area_mm2": 1.4124960204000536,
+          "bounds_mm": [
+            93.25,
+            93.25,
+            93.836,
+            94.04,
+            160.0,
+            166.9240001
+          ],
+          "distance_mm": 0.0
+        }
+      ]
+    }
+  ],
+  "scope": "Read-only native full-stock probes for newly exposed narrow front-top lint faces; no shape changes or stiffness claim."
+}

@@ -545,6 +545,156 @@
       "nozzle_target_c": 0,
       "bed_target_c": 0,
       "geometry_manifest_archive": ".cache/prints/2026-09-20-pump-cartridge-measured-tee-black-z018-h2c-v1/submitted-pump-cartridge-generation.json"
+    },
+    {
+      "date": "2026-09-21",
+      "printer": "H2C",
+      "printer_serial": "31B8AP612000452",
+      "job_name": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+      "status": "cancelled",
+      "started_by": "agent",
+      "sent_via": "Bambu Connect; verified Send-dialog H2C selection and left external PET-CF mapping",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "607507f512371522ce26aa029bf81f8aa60ac63c9037ca16710efaf8242001c2",
+        "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.stl": "0794cada206d901203605e9400b9dae63d5476a896ac8deaa6e3a6ebad8a922a"
+      },
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "project": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v3/enclosure-front-top-pusher-black-z018-h2c-v3-input.3mf",
+      "project_sha256": "871a037a5938b11c2f7c5a44f52263bee7f38ba348459d6f39f5d42018ce0d8d",
+      "sliced_file": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v3/ready/enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+      "sliced_file_sha256": "aa7bd43e332c8a84535ab3db57a031af6bb7328240c00fa4de9e36bc568d64ae",
+      "gcode_sha256": "ba76e80dd76895a7e008c936202f304a9e759d89c5d39f564db5c9b9137f9eb3",
+      "readiness_report": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json",
+      "readiness_report_sha256": "6dbd13c2319c64e81de162bddb304f99a23cc811618956c3ca153fe9975607b3",
+      "nozzle": "Fixed left 0.4 mm diamond PCD; id 1 HS01 0.4 mm reported",
+      "filament": "Black PET-GF, left external spool 254, PET-CF metadata",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "brim_type": "no_brim",
+      "actual_brim_paths": 0,
+      "brim_authority": "Derek accepts the current prepared plates; future projects retain the saved auto_brim default.",
+      "layers": 813,
+      "estimated_seconds": 87380.40625,
+      "filament_grams_saved_density_1_29": 818.1680297851562,
+      "material_consumption": {
+        "filament_length_m": 263.68584999999996,
+        "filament_volume_cm3": 634.2388000000001,
+        "saved_profile_density_g_cm3": 1.29,
+        "saved_profile_weight_g": 818.1680297851562,
+        "repo_petgf_accounting_density_g_cm3": 1.43,
+        "estimated_weight_at_repo_density_g": 906.961484,
+        "note": "The native header labels the raw volume cm3 but reports its mm3 magnitude; conversion is checked against length and the 1.75 mm filament diameter."
+      },
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-21T06:24:35.628199+00:00",
+      "observed_layer": 0,
+      "observed_total_layers": 813,
+      "observed_remaining_minutes": 1456,
+      "observed_print_error": 0,
+      "hms": [],
+      "physical_fit_and_support_removal_tested": false,
+      "complete_enclosure_trial": true,
+      "test_coupon": false,
+      "pause_observation": {
+        "observed_at": "2026-09-21T07:12:13.288292+00:00",
+        "gcode_state": "PAUSE",
+        "layer_num": 3,
+        "total_layer_num": 813,
+        "print_error": 0,
+        "hms": [],
+        "bed_target_temper": 80.0,
+        "nozzle_target_temper": 40.0
+      },
+      "pause_reason": "The completed full assembly report flags front-top, carrier-entry and neighboring component overlaps; actual interference and required changes are under review.",
+      "cancelled_at_utc": "2026-09-21T07:20:31.779542+00:00",
+      "cancel_observation": {
+        "printer": "H2C",
+        "observed_at": "2026-09-21T07:20:31.779542+00:00",
+        "gcode_state": "FAILED",
+        "subtask_name": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 813,
+        "mc_remaining_time": 0,
+        "print_error": 50348044,
+        "hms": [
+          {
+            "attr": 201326848,
+            "code": 131095
+          }
+        ],
+        "nozzle_temper": 257.0,
+        "nozzle_target_temper": 0.0,
+        "bed_temper": 79.0,
+        "bed_target_temper": 0.0,
+        "lights_report": [
+          {
+            "mode": "on",
+            "node": "chamber_light"
+          },
+          {
+            "mode": "flashing",
+            "node": "work_light"
+          },
+          {
+            "mode": "on",
+            "node": "chamber_light2"
+          }
+        ],
+        "external_spools": {
+          "254": {
+            "type": "PET-CF",
+            "colour": "000000FF"
+          },
+          "255": {
+            "type": "TPU",
+            "colour": "161616FF"
+          }
+        },
+        "nozzle_type": "HS01-0.6",
+        "nozzles": [
+          {
+            "id": 16,
+            "type": "HS01",
+            "diameter": 0.6,
+            "sn": "20D06A610715877"
+          },
+          {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.4,
+            "sn": "N/A"
+          },
+          {
+            "id": 17,
+            "type": "HS00",
+            "diameter": 0.2,
+            "sn": "20D06A5C1907799"
+          },
+          {
+            "id": 0,
+            "type": "HS00",
+            "diameter": 0.2,
+            "sn": "20D06A5C1907737"
+          }
+        ]
+      },
+      "cancel_reason": "Confirmed native interference between front-top aft valve tray and actual cold-core foam shell, plus outer coils and fluid-18. Front-top correction required.",
+      "last_running_layer": 3,
+      "last_running_total_layers": 813,
+      "plate_clearance_confirmed": false,
+      "resumed_by_user_before_cancellation": true
     }
   ]
 }

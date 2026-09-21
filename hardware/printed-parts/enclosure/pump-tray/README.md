@@ -14,7 +14,7 @@ The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
 | source footprint | [70](TRAY_W) across × [70.909](TRAY_L) mm |
 | case footprint | [70](CASE_W) mm square, ramp [18](RAMP_H) mm high |
 | octagonal location | [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
-| shoulder | [3](SHOULDER) mm over the boss, bored Ø[36.23](CAN_BORE) for the can |
+| shoulder | [3](SHOULDER) mm over the boss, bored Ø[37](CAN_BORE) for the can |
 | complete collar rise | [24](TRAY_D) mm |
 | pump envelope below it | [62.61](HEAD_W) mm head, [47.88](HEAD_D) mm deep |
 | molded flange envelope | [62.61](BRACKET_W) mm across, with an 8 mm skirt between bearing faces |
@@ -23,9 +23,10 @@ The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
 ## How it becomes the clamp
 
 `enclosure._pump_clamp_gross` uses the case-derived octagon and can openings on the reference
-pump's offset rear-stack axis. Its bridge stays above the cradle spine. Four exposed flat
-rails reach the independently measured motor-facing flange rims directly over the skirt lands.
-Two top-access M3 screws establish that contact while the lower cradle takes the load.
+pump's offset rear-stack axis. Its broad underside, locating profiles and screw seats share
+the physically accepted holder datums. Two top-access M3 screws close the cap onto the pumps
+while the lower cradle takes the load. The surrounding crown reaches the cartridge's top edge;
+two wider terminal wells leave the motor ends open.
 
 The pump's front rim clears the continuous bay floor; the floor is not a competing pump seat.
 The physical pump pose includes the holder's seated drop, and the four outlet paths read that
@@ -43,7 +44,7 @@ The new cap and relieved floor still require a dry assembly check with the physi
 ## Print
 
 Both collars print inside the top clamp. Their ramps and octagonal walls grow from the
-pressing plate; the two screw heads remain accessible from above. PETG, the clamp's own stock
+pressing plate; the two screw heads remain accessible from above. Black PET-GF, the clamp's own stock
 ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 ## Files

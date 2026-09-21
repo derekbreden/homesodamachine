@@ -472,6 +472,13 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/reference/g-ganen-pump/register_scan.py": [
+    "hardware/reference/g-ganen-pump/register_scan.py",
+    "hardware/reference/g-ganen-pump/scan_tools.py"
+  ],
+  "hardware/reference/g-ganen-pump/scan_tools.py": [
+    "hardware/reference/g-ganen-pump/scan_tools.py"
+  ],
   "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

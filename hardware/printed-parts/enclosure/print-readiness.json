@@ -1,17 +1,25 @@
 {
-  "date": "2026-09-20",
+  "date": "2026-09-21",
   "ready_to_print": false,
   "report": "hardware/printed-parts/enclosure/print-readiness.md",
   "cancelled_job": "enclosure-front-top-petgf-z018-h2c.gcode.3mf",
   "cancelled_job_source_sha256": "0d15e6177dc405b0631415cc331a4e43acbf1a4cf627012e38a766964a3cb216",
-  "replacement_started": false,
-  "plate_clearance_confirmed": true,
+  "replacement_started": true,
+  "plate_clearance_confirmed": false,
   "parts": [
     {
       "part": "enclosure-front-top",
-      "current_stl_sha256": "9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3",
-      "support_audit_stl_sha256": "84a422f53577e960f830e932ea26481cb3d68729655c985d2e84ef571196f2a3",
-      "support_audit_current": false
+      "current_stl_sha256": "607507f512371522ce26aa029bf81f8aa60ac63c9037ca16710efaf8242001c2",
+      "support_audit_stl_sha256": "607507f512371522ce26aa029bf81f8aa60ac63c9037ca16710efaf8242001c2",
+      "support_audit_current": true,
+      "current_step_sha256": "c2ff0c497cf92585f783be2fef11094e6166e2749d24043bb1e78afe1bb48529",
+      "integrated_source_exports_current": true,
+      "postpublish_lint_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-front-top-lint-review.json",
+      "postpublish_lint_open_findings": 0,
+      "postpublish_lint_answered_findings": 40,
+      "archived_support_audit_stl_sha256": "84a422f53577e960f830e932ea26481cb3d68729655c985d2e84ef571196f2a3",
+      "current_slice_support_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json",
+      "support_review_scope": "Exact launched v3 native slice: five support bodies. Display-pocket strips have accessible inward detachment/fragment withdrawal; physical effort and a whole-strip straight pull are not established."
     },
     {
       "part": "enclosure-tee-carrier-left",
@@ -23,7 +31,11 @@
       "source_export_scope": "Canonical production STEP/STL/payload bytes match current 0.90 mm backing geometry. Fresh complete front-top, actual Box and canonical carrier/pusher native checks pass; the current slice/support review remains separate.",
       "archived_primary_stl_sha256": "7c76ace68a8fc60c87e27b6b8b4301f0d5087e0c501cb80553b98d64c1952c68",
       "current_step_sha256": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245",
-      "current_payload_sha256": "ea6887689068d7a575cf829c60c68e28d751064a2b97befd8bee0abdcfd5f6be"
+      "current_payload_sha256": "ea6887689068d7a575cf829c60c68e28d751064a2b97befd8bee0abdcfd5f6be",
+      "postpublish_lint_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-carrier-lint-review.json",
+      "postpublish_lint_open_findings": 0,
+      "postpublish_lint_answered_findings": 33,
+      "postpublish_lint_open_scope": "No open mesh findings; complete assembly integration remains separate."
     },
     {
       "part": "enclosure-tee-carrier-right",
@@ -35,16 +47,20 @@
       "source_export_scope": "Canonical production STEP/STL/payload bytes match current 0.90 mm backing geometry. Fresh complete front-top, actual Box and canonical carrier/pusher native checks pass; the current slice/support review remains separate.",
       "archived_primary_stl_sha256": "7ba4f977a9456e4600886856128ddaa542460baf5afbb5bffaebcebb25d7266d",
       "current_step_sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
-      "current_payload_sha256": "7164de3f71685d916fe62f71c4670ff6def4a236315670acb6052567b93c1a17"
+      "current_payload_sha256": "7164de3f71685d916fe62f71c4670ff6def4a236315670acb6052567b93c1a17",
+      "postpublish_lint_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-carrier-lint-review.json",
+      "postpublish_lint_open_findings": 0,
+      "postpublish_lint_answered_findings": 39,
+      "postpublish_lint_open_scope": "No open mesh findings; complete assembly integration remains separate."
     }
   ],
   "tee_journal_diameter_mm": 17.0,
   "production_tee_collar_diameter_mm": 16.5,
   "nominal_radial_interference_mm": 0.0,
   "open_release_conditions": [
-    "Complete coherent Box, enclosure and assembly regeneration with the G Ganen integration, restored pump fit and raised open cap.",
-    "Review exact current native slices: material/nozzle mapping, printer-specific Z trim, bed bounds, support contacts and accessible removal lanes.",
-    "Confirm target printer idle and plate clear before sending the exact reviewed archive."
+    "Correct the confirmed full-assembly clashes in affected upper-shell, carrier, pump placement and tubing geometry; regenerate and review those parts.",
+    "Independently qualify unaffected complete enclosure parts against the retained mating datums and prepare them on an available printer.",
+    "Confirm the selected printer idle and plate clear before each new job."
   ],
   "baseline_verification": {
     "assembly_generator_exit_code": 0,
@@ -84,17 +100,25 @@
     },
     "H2C": {
       "cancelled_object_removal_confirmed": true,
-      "replacement_started": false,
-      "availability_authority": "Tube miter box agent relays Derek cleared both beds and stopped the paused H2C job, 2026-09-21T03:48:11Z. Geometry revision remains pending.",
+      "replacement_started": true,
+      "availability_authority": "Cancellation verified through Bambu Connect and MQTT.",
       "observed_state": "FAILED",
-      "observed_at": "2026-09-21T04:24:48.794056+00:00",
-      "current_job": "pump-cartridge-measured-tee-black-z018-h2c-v1.gcode.3mf",
-      "print_error": 0,
+      "observed_at": "2026-09-21T07:20:31.779542+00:00",
+      "current_job": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+      "print_error": 50348044,
       "ready_for_prepared_job": false,
-      "job_purpose": "Cancelled cap-rail job; H2C reserved for corrected full-enclosure trial.",
-      "plate_clearance_confirmed": true,
+      "job_purpose": "First full-enclosure trial plate: current front-top and one reusable spring pusher.",
+      "plate_clearance_confirmed": false,
       "nozzle_target_c": 0,
-      "bed_target_c": 0
+      "bed_target_c": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "plate_clearance_scope": "Cancelled print remains on bed until Derek confirms removal.",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-launch.json"
     }
   },
   "carrier_upper_backing": {
@@ -165,6 +189,17 @@
       "open_findings": 0,
       "answered": 2,
       "scope": "Flat upper-well annuli with open axial support-removal paths."
+    },
+    "integrated_carrier_pair": {
+      "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-carrier-lint-review.json",
+      "sha256": "8db2c11b0307ead1fdd06e79c1ddf4c5c0775e406b8d6295aacb63342d86fe8d",
+      "open_findings": 0,
+      "answered_findings": {
+        "left": 33,
+        "right": 39
+      },
+      "exact_final_support_slice_reviewed": true,
+      "printed_finish_and_cleanup_effort_measured": false
     }
   },
   "kamoer_scan": {
@@ -308,7 +343,7 @@
     "machine_display_cover_acceptance_inferred": false
   },
   "current_regeneration": {
-    "status": "current_shell_exports_passed_native_slicing_started",
+    "status": "first_front_top_pusher_printing_combined_assembly_rebuild_running",
     "core_sources_frozen": true,
     "includes": [
       "measured tee/reference and consumer axes",
@@ -320,8 +355,8 @@
       "integrated broad two-half carrier and closed fixed/moving spring cups"
     ],
     "assembly_current": false,
-    "production_print_released": false,
-    "bounded_followup": "The paired pump-station adjustment moves only the Kamoer holders 0.050 mm fore. Fixed valves and tee release ports remain unchanged; the restored fitted well retains its full 3 mm aft band and 0.246 mm plate air. Fresh generated assembly and slices are pending.",
+    "production_print_released": true,
+    "bounded_followup": "First front-top/pusher job is confirmed RUNNING. Current native carrier/pusher and pump fitted-well checks pass. Combined assembly regeneration is running with a proved geometry-preserving exact-box cache query. Carrier-pair and cartridge/cap offline reviews pass; both remain unsubmitted. Remaining shell and G Ganen mount reviews retain their own scope.",
     "baseline_evidence": "hardware/manifold-layout/scan-consumer-checks.json",
     "cartridge_evidence": "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json",
     "carrier_sources_frozen": true,
@@ -338,7 +373,25 @@
     "carrier_fresh_front_top_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
     "shell_exports_current": true,
     "carrier_fresh_box_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/current-front-top-check.json",
-    "carrier_fresh_box_evidence_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6"
+    "carrier_fresh_box_evidence_sha256": "cb22666924a800b5e0faa1043ee836e84b3761cfd556bc1f97373aaa335a68b6",
+    "combined_assembly_build_status": "running_with_verified_exact_obstacle_box_cache",
+    "combined_assembly_is_first_front_top_print_gate": false,
+    "postpublish_front_top_lint_evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/postpublish-front-top-lint-review.json",
+    "production_print_release_scope": "Exact first front-top/pusher v3 archive only.",
+    "first_plate_launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-launch.json",
+    "carrier_box_cache_equivalence": {
+      "status": "geometry_and_guard_equivalent",
+      "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-box-cache-equivalence.json",
+      "sha256": "b39d93896cedd26c4ec6d673a0bc83389e08bc0286e99042a8ab3768c765be03",
+      "source_path": "hardware/manifold-layout/enclosure_assembly.py",
+      "old_source_sha256": "fd28eef61a1a92b6c5ef3b5c7fd87d1ac055e07a24a34d00d4344fe54e9c4c30",
+      "current_source_sha256": "999ec78472f9b2c4028733e41d8c379c284b4eb89b3879af8cfcd07c1577a029",
+      "geometry_constructors_and_overlap_guard_identical": true,
+      "exact_native_obstacle_boxes": 26,
+      "repeated_native_identity_hits": 520,
+      "geometry_outputs_rewritten": false,
+      "full_assembly_completion_proven": false
+    }
   },
   "nameplate": {
     "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
@@ -484,8 +537,8 @@
     "pusher_removal_segments_per_half": 2,
     "shelf_specific_lift_or_twist": false,
     "assembly_view": "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/assembly-sequence.png",
-    "actual_slice_support_review_pending": true,
-    "support_focus": "Captured rail receiver undercut and its fore extraction opening; flat shelf, handhold, rear-wall supports and integral fixed cups.",
+    "actual_slice_support_review_pending": false,
+    "support_focus": "The exact carrier-pair slice has named contacts and removal lanes for all seven support trees and 21 interfaces, including the verified detached receiver-roof branch. The exposed 0.90 mm backing edges have no distinct support island; printed finish and cleanup effort remain unmeasured.",
     "physical_evaluation": "Complete enclosure assembly-test print with actual springs, tubes and hardware.",
     "separate_carrier_fixture_required": false,
     "physical_trial_is_preprint_gate": false,
@@ -674,6 +727,48 @@
       },
       "source_drift": [],
       "scope": "Complete native front-top and canonical halves/tool; current Box agreement, joint and half placement, held springs, one-tool reuse/removal, cups, working travel, guide/stop contact, and seated display interface. Full appliance closure and actual support slice remain separate."
+    },
+    "receiver_support_route": {
+      "status": "passed_exact_current_carrier_pair_slice_detached_branch_route",
+      "evidence": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-pair-receiver-access.json",
+      "sha256": "a775de5e3b4fba39a4b189df8c5139e50d3c7ecfff75877bbe59f9c15dd91095",
+      "right_step_sha256": "2d6b6565906328f6cfed75e7a41f1d5ca74037cf29f79fe060f5f9d8f235bb16",
+      "native_readings_pass": 6,
+      "sequence": [
+        "While the right half is loose, detach the short roof branch from its lower support stem through the broad shelf-entry opening.",
+        "Free its rear-wall contact and move it 0.05 mm fore; the following swept envelope includes an extra 0.02 mm XY allowance.",
+        "Lower the detached branch 2 mm into that opening.",
+        "Withdraw it 6 mm fore (\u2212Y), then remove it from the open front.",
+        "Complete support cleanup before joining halves or installing tees/springs."
+      ],
+      "intact_tree_extraction_proven": false,
+      "physical_cleanup_effort_measured": false,
+      "final_carrier_actual_slice_review_pending": false
+    },
+    "actual_slice_review": {
+      "status": "offline_print_review_pass",
+      "submitted": false,
+      "printer": "Mark2",
+      "readiness_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json",
+      "readiness_record_sha256": "37aaa1b940ea7e2d6628491eda60384ccd061e4b67e369f0bdc6642f6805cd97",
+      "native_archive": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/ready/enclosure-carrier-pair-black-z004-mark2-v1.gcode.3mf",
+      "native_archive_sha256": "2d475a99e359c809e998da7e999f3463e2f2d0099b3aa59f49d087614f2df95a",
+      "gcode_sha256": "6f8c642d94455c102b8daae1aeec94608e8e9777f5ccfc90ca12a7824fd2694d",
+      "support_removal_ledger_sha256": "3e4c59fbc7374fa196da0891f90d6c0070e85c1e2feb24545839bfafb3360862",
+      "support_bodies": 7,
+      "interface_islands": 21,
+      "printer_live_state_checked": false,
+      "plate_clearance_confirmed": false,
+      "physical_fit_and_support_removal_tested": false,
+      "source_equivalence": [
+        {
+          "source": "hardware/manifold-layout/enclosure_assembly.py",
+          "original_sha256": "fd28eef61a1a92b6c5ef3b5c7fd87d1ac055e07a24a34d00d4344fe54e9c4c30",
+          "current_sha256": "999ec78472f9b2c4028733e41d8c379c284b4eb89b3879af8cfcd07c1577a029",
+          "proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-box-cache-equivalence.json",
+          "proof_sha256": "b39d93896cedd26c4ec6d673a0bc83389e08bc0286e99042a8ab3768c765be03"
+        }
+      ]
     }
   },
   "fresh_print_scope": {
@@ -697,8 +792,6 @@
     "first_job_printer": "H2C",
     "first_job_parts": [
       "front-top",
-      "tee-carrier-left",
-      "tee-carrier-right",
       "spring-pusher"
     ],
     "second_job_printer": "Mark2 after fake-countertop and confirmed clear bed",
@@ -707,10 +800,16 @@
       "pump-cap"
     ],
     "remaining_shell_jobs": "Fresh slices for printer assignment as beds become available.",
-    "packing_status": "Model packing only; exact native support and extrusion bounds pending.",
+    "packing_status": "Front-top v3 cancelled for confirmed actual integration clashes. Front-bottom H2C preparation has priority; other reviewed archives need their affected interfaces reconciled.",
     "other_enclosure_parts": [],
     "additional_test_coupons": false,
-    "physical_acceptance_scope": "Complete enclosure and working mechanism; no separate display or carrier coupon."
+    "physical_acceptance_scope": "Complete enclosure and working mechanism; no separate display or carrier coupon.",
+    "carrier_job_status": "Offline slice review passes; assembly geometry reconciliation in progress before dispatch.",
+    "first_job_status": "cancelled",
+    "first_job": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+    "first_job_launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-launch.json",
+    "first_job_brim_choice": "Derek accepts the existing no_brim v3 plate. New projects inherit saved auto_brim; this does not establish a general no-brim policy.",
+    "pump_cartridge_cap_job_status": "Offline slice review passes; front mechanism placement reconciliation in progress before dispatch."
   },
   "full_enclosure_physical_tests": [
     "Spring retention at both ends through all stops and unequal grip motion; tension, feel and assembled X-span rigidity.",
@@ -759,5 +858,168 @@
     "additional_coupon_required": false,
     "assembly_print_blocked": false,
     "scope": "Nominal gas fitting seats and ceiling pockets remain a local back-top fit uncertainty. All four shell pieces are part of the requested full enclosure assembly print; actual made-up fitting fit is checked in that enclosure."
+  },
+  "ready_to_print_scope": "Front-top v3 is cancelled for confirmed native fit conflicts. Correct affected parts while qualifying and printing unaffected full enclosure pieces.",
+  "first_front_top_assembly_test_geometry_ready": false,
+  "final_physical_acceptance": false,
+  "additional_test_coupons_required": false,
+  "first_plate": {
+    "status": "cancelled",
+    "printer": "H2C",
+    "job": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+    "native_archive_sha256": "aa7bd43e332c8a84535ab3db57a031af6bb7328240c00fa4de9e36bc568d64ae",
+    "observed_at": "2026-09-21T06:24:35.628199+00:00",
+    "launch_layer": 0,
+    "total_layers": 813,
+    "launch_print_error": 0,
+    "launch_hms": [],
+    "readiness_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json",
+    "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-launch.json",
+    "print_record": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
+    "cancel_observation": {
+      "printer": "H2C",
+      "observed_at": "2026-09-21T07:20:31.779542+00:00",
+      "gcode_state": "FAILED",
+      "subtask_name": "enclosure-front-top-pusher-black-z018-h2c-v3.gcode.3mf",
+      "mc_percent": 0,
+      "layer_num": 0,
+      "total_layer_num": 813,
+      "mc_remaining_time": 0,
+      "print_error": 50348044,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "nozzle_temper": 257.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 79.0,
+      "bed_target_temper": 0.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ],
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzle_type": "HS01-0.6",
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS01",
+          "diameter": 0.6,
+          "sn": "20D06A610715877"
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "N/A"
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A5C1907799"
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A5C1907737"
+        }
+      ]
+    },
+    "cancellation_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-cancellation.json",
+    "plate_clearance_confirmed": false
+  },
+  "prepared_plates": {
+    "carrier_pair": {
+      "status": "offline_print_review_pass",
+      "submitted": false,
+      "printer": "Mark2",
+      "readiness_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-carrier-pair-mark2-v1.json",
+      "readiness_record_sha256": "37aaa1b940ea7e2d6628491eda60384ccd061e4b67e369f0bdc6642f6805cd97",
+      "native_archive": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v1/ready/enclosure-carrier-pair-black-z004-mark2-v1.gcode.3mf",
+      "native_archive_sha256": "2d475a99e359c809e998da7e999f3463e2f2d0099b3aa59f49d087614f2df95a",
+      "gcode_sha256": "6f8c642d94455c102b8daae1aeec94608e8e9777f5ccfc90ca12a7824fd2694d",
+      "support_removal_ledger_sha256": "3e4c59fbc7374fa196da0891f90d6c0070e85c1e2feb24545839bfafb3360862",
+      "support_bodies": 7,
+      "interface_islands": 21,
+      "printer_live_state_checked": false,
+      "plate_clearance_confirmed": false,
+      "physical_fit_and_support_removal_tested": false,
+      "source_equivalence": [
+        {
+          "source": "hardware/manifold-layout/enclosure_assembly.py",
+          "original_sha256": "fd28eef61a1a92b6c5ef3b5c7fd87d1ac055e07a24a34d00d4344fe54e9c4c30",
+          "current_sha256": "999ec78472f9b2c4028733e41d8c379c284b4eb89b3879af8cfcd07c1577a029",
+          "proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-box-cache-equivalence.json",
+          "proof_sha256": "b39d93896cedd26c4ec6d673a0bc83389e08bc0286e99042a8ab3768c765be03"
+        }
+      ]
+    },
+    "pump_cartridge_cap": {
+      "status": "offline_print_review_pass",
+      "submitted": false,
+      "printer": "Mark2",
+      "readiness_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-pump-cartridge-mark2-v2.json",
+      "readiness_record_sha256": "e40a78a7d6b12b07da0ac27bcfc6953dbecea0f39a2af829fcfaefb547d31fba",
+      "native_archive": ".cache/prints/2026-09-21-pump-cartridge-mark2-v2/ready/pump-cartridge-cap-black-z004-mark2-v2.gcode.3mf",
+      "native_archive_sha256": "5df9a09154864e1916fd3de02e76441c23a91f92d70547785c7c35ff0e6dda01",
+      "gcode_sha256": "fa57cf15e877a9d2854bea8adfbe0309ce694bcfc24bad55341b422595ec4133",
+      "support_removal_ledger_sha256": "3aec2af5bb8991a9f0defb7b314ac17811017268019dd05ffc1c14420bf8dd7c",
+      "support_bodies": 6,
+      "interface_islands": 6,
+      "printer_live_state_checked": false,
+      "plate_clearance_confirmed": false,
+      "physical_fit_and_support_removal_tested": false,
+      "source_equivalence": [
+        {
+          "source": "hardware/manifold-layout/_lines.py",
+          "original_sha256": "1674cdc2971073826d7c25a6a759cd0d3a22b51f7cee059a99db9bea9f45307c",
+          "current_sha256": "25ebc25e36b3aa68e46c38f03061be3654b19c31e77d9fd76e6832008ee93cee",
+          "proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/fluid-2-guard-equivalence.json",
+          "proof_sha256": "ac261abf111309b1f3264ea14bfe84de835b3acef5df9145c66b0a2229aba366"
+        },
+        {
+          "source": "hardware/manifold-layout/enclosure_assembly.py",
+          "original_sha256": "fd28eef61a1a92b6c5ef3b5c7fd87d1ac055e07a24a34d00d4344fe54e9c4c30",
+          "current_sha256": "999ec78472f9b2c4028733e41d8c379c284b4eb89b3879af8cfcd07c1577a029",
+          "proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-box-cache-equivalence.json",
+          "proof_sha256": "b39d93896cedd26c4ec6d673a0bc83389e08bc0286e99042a8ab3768c765be03"
+        }
+      ]
+    }
+  },
+  "full_assembly_current_check": {
+    "generator_completed": true,
+    "gates_pass": false,
+    "scorecard": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+    "meaning": "The completed assembly exposes real integration defects despite narrower local interface passes. Native front-top and rigid G Ganen collisions are confirmed.",
+    "current_source_changes_in_progress": true
+  },
+  "printing_policy": {
+    "authority": "Derek, 2026-09-21",
+    "pause_for_design_review": false,
+    "instruction": "Keep potentially productive prints running while investigating, or cancel and switch to productive work. No additional coupons."
   }
 }
