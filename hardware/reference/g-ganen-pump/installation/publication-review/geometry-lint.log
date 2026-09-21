@@ -1,0 +1,34 @@
+foam-cap-top.stl · 196166 printed facets · 0 findings
+
+foam-cap-lid-top.stl · 72176 printed facets · 6 findings
+
+  [step] Δ0.250 mm between parallel planes · footprint met 23.3 × 2.8 mm
+    file: .cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.step
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=61.000 y=-60.500 z=5.150
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=0.000 z=5.400
+    click: x=61.000 y=-60.500 z=5.150
+
+  [ceiling] 81 mm² flat print-down face at z=44.875 · 28.8 × 2.8 mm · drop 3.2–3.2 mm to material below
+    file: .cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=37.275 y=34.000 z=44.875
+    click: x=37.275 y=34.000 z=44.875
+
+  [ceiling] 65 mm² flat print-down face at z=8.400 · 23.3 × 2.8 mm · drop 3.2–3.2 mm to material below
+    file: .cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=61.000 y=-60.500 z=8.400
+    click: x=61.000 y=-60.500 z=8.400
+
+  [ceiling] 65 mm² flat print-down face at z=8.400 · 23.3 × 2.8 mm · drop 3.2–3.2 mm to material below
+    file: .cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=35.120 y=65.050 z=8.400
+    click: x=35.120 y=65.050 z=8.400
+
+  [ceiling] 35 mm² flat print-down face at z=8.400 · 12.7 × 2.8 mm · drop 3.2–3.2 mm to material below
+    file: .cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=65.000 y=44.750 z=8.400
+    click: x=65.000 y=44.750 z=8.400
+
+  [ceiling] 21 mm² flat print-down face at z=6.675 · 7.6 × 2.8 mm · drop 1.5–1.5 mm to material below
+    file: .cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=134.200 y=-13.000 z=6.675
+    click: x=134.200 y=-13.000 z=6.675

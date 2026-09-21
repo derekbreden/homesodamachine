@@ -1,0 +1,32 @@
+foam-cap-lid-top.stl · 72176 printed facets · 0 findings · 6 answered
+
+  [step · answered] The 0.25 mm recess is the floor allowance beneath the discharge-chain zip-tie tunnel. It gives the supported roof strands clearance while retaining the seated body's axis, the tunnel roof and the full anchor feet. The surrounding lid face is the locating datum. The recess ends at the open tunnel mouths, leaving a 0.25 mm lip to clear during cleanout.
+    Δ0.250 mm between parallel planes · footprint met 23.3 × 2.8 mm
+    faceA: plane · n x=0.000 y=0.000 z=1.000 · thru x=61.000 y=-60.500 z=5.150
+    faceB: plane · n x=0.000 y=0.000 z=1.000 · thru x=0.000 y=0.000 z=5.400
+    click: x=61.000 y=-60.500 z=5.150
+
+  [ceiling · answered] The fluid-18 side-anchor window carries the tie under the tube seat while retaining a solid column beneath it. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 28.8 mm transverse extent is the post depth above the window. The window is 3.25 mm high. Support cleanout runs straight along X through the open front or relieved rear mouth before tubing, ties or the adjacent pump hardware are installed. No branch turns into a blind pocket; the tie's rear channel continues openly from the window floor to the post crown.
+    81 mm² flat print-down face at z=44.875 · 28.8 × 2.8 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=37.275 y=34.000 z=44.875
+    click: x=37.275 y=34.000 z=44.875
+
+  [ceiling · answered] The suction-chain, discharge-chain and fluid-14 tunnel roofs are the backs of the clamping ribs: the zip tie passes under each rib and pulls its body into the seat. Each roof bridges 2.8 mm along X between complete 3 mm feet; the 23.3 mm or 12.7 mm transverse extent is the rib's width. The recessed floor provides 3.25 mm of clear height. The cleanout lane runs along Y through either open mouth, before the purchased body and tie are fitted. Release any attached support at its contact faces and clear the 0.25 mm floor-relief lip before withdrawing it through a mouth; the relief is not a flush floor-level slide path.
+    65 mm² flat print-down face at z=8.400 · 23.3 × 2.8 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=61.000 y=-60.500 z=8.400
+    click: x=61.000 y=-60.500 z=8.400
+
+  [ceiling · answered] The suction-chain, discharge-chain and fluid-14 tunnel roofs are the backs of the clamping ribs: the zip tie passes under each rib and pulls its body into the seat. Each roof bridges 2.8 mm along X between complete 3 mm feet; the 23.3 mm or 12.7 mm transverse extent is the rib's width. The recessed floor provides 3.25 mm of clear height. The cleanout lane runs along Y through either open mouth, before the purchased body and tie are fitted. Release any attached support at its contact faces and clear the 0.25 mm floor-relief lip before withdrawing it through a mouth; the relief is not a flush floor-level slide path.
+    65 mm² flat print-down face at z=8.400 · 23.3 × 2.8 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=35.120 y=65.050 z=8.400
+    click: x=35.120 y=65.050 z=8.400
+
+  [ceiling · answered] The fluid-14 tie tunnel is the open passage beneath its clamping rib. Its flat roof bridges 2.8 mm along X between full 3 mm feet and spans 12.7 mm along Y. Native mouth probes verify 3.0 mm openings along both Y directions above the 0.25 mm floor-relief lip. Detach any emitted support from the roof, clear that lip and withdraw through an open mouth before fitting tubing or ties. The current production slice supplies the actual branch and contact geometry.
+    35 mm² flat print-down face at z=8.400 · 12.7 × 2.8 mm · drop 3.2–3.2 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=65.000 y=44.750 z=8.400
+    click: x=65.000 y=44.750 z=8.400
+
+  [ceiling · answered] The water-3 side-anchor window lets the tie pass beneath the low tube seat. Its roof bridges 2.8 mm along Y between complete 3 mm flanks; the 7.6 mm transverse extent is the post depth above the window. The available height is 1.525 mm, including the 0.25 mm floor relief for roof strands. Both X mouths are open for cleanout before the tube and tie are fitted. Any attached support must be released and lifted clear of the 0.25 mm floor-relief lip before it leaves through a mouth; the surrounding lid surface is above the recessed floor.
+    21 mm² flat print-down face at z=6.675 · 7.6 × 2.8 mm · drop 1.5–1.5 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=134.200 y=-13.000 z=6.675
+    click: x=134.200 y=-13.000 z=6.675

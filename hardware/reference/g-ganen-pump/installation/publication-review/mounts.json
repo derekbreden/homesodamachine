@@ -1,0 +1,34 @@
+{
+  "status": "pass",
+  "created_at_utc": "2026-09-21T17:13:48.018197+00:00",
+  "scope": "Published corrected G Ganen and mount artifact identities; post-publication lint of the two changed printed mounting parts. This does not qualify carrier payload placement.",
+  "published_artifact_sha256": {
+    "hardware/reference/g-ganen-pump/g-ganen-pump.step": "905710b0b79a803e9969bf9b8677e3cbd5cfe2b4c0fdcf15a7d62842a77f4388",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "hardware/manifold-layout/enclosure-assembly.step": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "1ce3e2e9dbdf94e4ed9191b845f18d7d895ead7b1bab1f57b39f5750175ac7c1",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "b84ed5c8545a4bfc02e4e3dd91cc87a49e8979ce9aae89d94d7f00bc6b7a5186",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "009fafcdce5dbf0197d4b73815b4a4774ae1230b7cafbb906b3dd3025fe433b6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "2a313e5291da45262032d8e4b02213de7177c0aa46f7e75e41791f9958d97682",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "88413ba1a355cc8838e1d570670772f2190a75150a50477a9dd6da9da51ed58f"
+  },
+  "lint": {
+    "foam-cap-top": {
+      "unanswered": 0,
+      "answered": 0
+    },
+    "foam-cap-lid-top": {
+      "unanswered": 0,
+      "answered": 6
+    }
+  },
+  "lint_input_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "db24e1d1e2cc10f888b4cdd3477120830545941db6fe1890cd78af338a8e6052",
+    ".cache/prints/2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/inputs/foam-cap-lid-top.stl": "6d73f9bd3cab919b9bc320eccdaa8b3f27c6e527a93db5bf0f870372242bfe3b"
+  },
+  "evidence_sha256": {
+    "foam-cap-lid-top.lint-answers.txt": "a4d2ac938ec2cd4a85928d733c9852649b3a2d403ec054da9b6973827714c05b",
+    "geometry-lint-answered.log": "4c749d38e6e25aea63a4a3b38411ef40849b40519a39c6a186613dde5d4f8211",
+    "geometry-lint.log": "1115f1d4de0db9326349e9fe512044ae8ed351bf0124f5d6139a2bf2a86123b7"
+  }
+}
