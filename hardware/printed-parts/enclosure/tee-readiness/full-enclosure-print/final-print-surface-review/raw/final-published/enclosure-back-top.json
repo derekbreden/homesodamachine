@@ -1,0 +1,468 @@
+{
+  "status": "read_only_lint_complete",
+  "created_at_utc": "2026-09-21T13:48:21.671670+00:00",
+  "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "mesh_sha256": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5",
+  "native": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+  "published_member_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "73f21c065154de8532ccf2a69be35b79be45670ef04e59d1ce5e1dc8ed875b9b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "34bba0b1a65192ba829548b6f752b3e918a35137fda20284494a51727eedae51",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "a8f9a8ac572c5069f24b5aeaf29a88b6c8fb59896c716f875df40c9710676ba5"
+  },
+  "publication_pointer_sha256_at_start": "3db373cd3b763dec2c5bf849e1c99bff02115556f7aa0ba64da529fb2dbc1495",
+  "publication_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "derivative_print_mesh_from_published_native": false,
+  "derivative_manifest_sha256": null,
+  "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
+  "answers_sha256": "44bc3aa329bfa3a5c5a125dde288e794372740e8a328bd76ed3fa3b4087ad9b4",
+  "printed_facets": 1124732,
+  "lint_source_sha256": "4dde8aeddd61ecaee129f1743f895bc71a286dfb3022cbe680d253eec1ceb0d5",
+  "errors": "",
+  "input_drift": [],
+  "unanswered_count": 42,
+  "answered_count": 3,
+  "open": {
+    "step": [
+      {
+        "class": "step",
+        "score": 30.000000953674316,
+        "line": "\u03941.000 mm between parallel planes \u00b7 footprint met 30.0 \u00d7 26.7 mm",
+        "pick": [
+          "faceA: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=2.450 y=466.300 z=336.461",
+          "faceB: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=0.000 y=465.300 z=261.720",
+          "click: x=13.216 y=466.300 z=331.384"
+        ]
+      },
+      {
+        "class": "step",
+        "score": 16.0,
+        "line": "\u03940.750 mm between parallel planes \u00b7 footprint met 12.0 \u00d7 4.9 mm",
+        "pick": [
+          "faceA: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-104.500 y=323.800 z=172.325",
+          "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-103.750 y=335.425 z=171.875",
+          "click: x=-104.500 y=323.800 z=172.325"
+        ]
+      }
+    ],
+    "sliver": [
+      {
+        "class": "sliver",
+        "score": 34.000000953674316,
+        "line": "0.480 mm strip, 34.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=2.450 y=465.540 z=352.000",
+          "edge: x=19.450 y=465.540 z=352.000 \u2192 x=-14.550 y=465.540 z=352.000 \u00b7 len 34.000 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=2.450 y=465.540 z=352.000"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 14.89999771118164,
+        "line": "1.400 mm strip, 14.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-37.810 y=462.300 z=314.192",
+          "edge: x=-30.360 y=462.300 z=314.192 \u2192 x=-45.260 y=462.300 z=314.192 \u00b7 len 14.900 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-37.810 y=462.300 z=314.192"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 14.89999771118164,
+        "line": "1.300 mm strip, 14.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-37.810 y=462.250 z=294.142",
+          "edge: x=-30.360 y=462.250 z=294.142 \u2192 x=-45.260 y=462.250 z=294.142 \u00b7 len 14.900 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-37.810 y=462.250 z=294.142"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 14.300003051757812,
+        "line": "1.062 mm strip, 14.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-99.031 y=243.260 z=321.438",
+          "edge: x=-99.031 y=250.410 z=321.438 \u2192 x=-99.031 y=236.110 z=321.438 \u00b7 len 14.300 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+          "click: x=-99.031 y=243.260 z=321.438"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 13.5,
+        "line": "1.304 mm strip, 13.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-78.070 y=404.760 z=322.323",
+          "edge: x=-78.070 y=411.510 z=322.323 \u2192 x=-78.070 y=398.010 z=322.323 \u00b7 len 13.500 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+          "click: x=-78.070 y=404.760 z=322.323"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 12.0,
+        "line": "0.750 mm strip, 12.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-104.125 y=323.800 z=174.800",
+          "edge: x=-104.125 y=329.800 z=174.800 \u2192 x=-104.125 y=317.800 z=174.800 \u00b7 len 12.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+          "click: x=-104.125 y=323.800 z=174.800"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 9.0,
+        "line": "0.100 mm strip, 9.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-12.360 y=399.010 z=347.500",
+          "edge: x=-12.360 y=399.010 z=352.000 \u2192 x=-12.360 y=399.010 z=343.000 \u00b7 len 9.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-12.360 y=399.010 z=347.500"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 9.0,
+        "line": "0.100 mm strip, 9.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-12.360 y=389.010 z=347.500",
+          "edge: x=-12.360 y=389.010 z=352.000 \u2192 x=-12.360 y=389.010 z=343.000 \u00b7 len 9.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-12.360 y=389.010 z=347.500"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 8.5,
+        "line": "1.000 mm strip, 8.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-93.227 y=412.010 z=347.250",
+          "edge: x=-93.227 y=412.010 z=351.500 \u2192 x=-93.227 y=412.010 z=343.000 \u00b7 len 8.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-93.227 y=412.010 z=347.250"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.9605712890625,
+        "line": "1.184 mm strip, 5.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=32.029 y=325.503 z=345.480",
+          "edge: x=32.029 y=325.503 z=347.961 \u2192 x=32.029 y=325.503 z=343.000 \u00b7 len 4.961 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=32.029 y=325.503 z=345.480"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.9605712890625,
+        "line": "1.184 mm strip, 5.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=44.871 y=325.503 z=345.480",
+          "edge: x=44.871 y=325.503 z=347.961 \u2192 x=44.871 y=325.503 z=343.000 \u00b7 len 4.961 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=44.871 y=325.503 z=345.480"
+        ]
+      }
+    ],
+    "ceiling": [
+      {
+        "class": "ceiling",
+        "score": 3594.994856137841,
+        "line": "3771 mm\u00b2 flat print-down face at z=284.461 \u00b7 76.5 \u00d7 49.3 mm \u00b7 drop 37.2\u201358.5 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-82.850 y=411.750 z=284.461",
+          "click: x=-82.850 y=411.750 z=284.461"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 1688.494909701542,
+        "line": "1198 mm\u00b2 flat print-down face at z=303.211 \u00b7 90.5 \u00d7 47.3 mm \u00b7 drop 39.8\u201348.8 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-74.850 y=411.750 z=303.211",
+          "click: x=-74.850 y=411.750 z=303.211"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 1544.9317476392514,
+        "line": "347 mm\u00b2 flat print-down face at z=266.150 \u00b7 67.3 \u00d7 6.4 mm \u00b7 drop 76.9\u201382.9 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=22.947 y=462.090 z=266.150",
+          "click: x=22.947 y=462.090 z=266.150"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 767.1990193880087,
+        "line": "135 mm\u00b2 flat print-down face at z=276.899 \u00b7 20.4 \u00d7 9.5 mm \u00b7 drop 66.1\u201366.1 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-88.285 y=282.000 z=276.899",
+          "click: x=-88.285 y=282.000 z=276.899"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 592.7163070082635,
+        "line": "118 mm\u00b2 flat print-down face at z=266.150 \u00b7 21.4 \u00d7 6.4 mm \u00b7 drop 54.7\u201354.7 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=76.312 y=462.090 z=266.150",
+          "click: x=76.312 y=462.090 z=266.150"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 549.4930904557801,
+        "line": "203 mm\u00b2 flat print-down face at z=243.500 \u00b7 98.5 \u00d7 2.1 mm \u00b7 drop 38.5\u201338.5 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=38.160 y=470.269 z=243.500",
+          "click: x=38.160 y=470.269 z=243.500"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 342.75902613935637,
+        "line": "34 mm\u00b2 flat print-down face at z=258.900 \u00b7 15.0 \u00d7 2.2 mm \u00b7 drop 59.0\u201359.0 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=97.375 y=341.300 z=258.900",
+          "click: x=97.375 y=341.300 z=258.900"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 295.2554685298148,
+        "line": "95 mm\u00b2 flat print-down face at z=321.671 \u00b7 31.6 \u00d7 3.0 mm \u00b7 drop 30.3\u201330.3 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-100.000 y=378.510 z=321.671",
+          "click: x=-100.000 y=378.510 z=321.671"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 248.77269523016054,
+        "line": "44 mm\u00b2 flat print-down face at z=305.411 \u00b7 11.4 \u00d7 9.5 mm \u00b7 drop 37.6\u201337.6 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-95.550 y=256.810 z=305.411",
+          "click: x=-95.550 y=256.810 z=305.411"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 245.84004826280517,
+        "line": "176 mm\u00b2 flat print-down face at z=326.811 \u00b7 21.3 \u00d7 8.2 mm \u00b7 drop 18.6\u201318.6 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=66.900 y=467.175 z=326.811",
+          "click: x=66.900 y=467.175 z=326.811"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 235.3315826090824,
+        "line": "107 mm\u00b2 flat print-down face at z=324.726 \u00b7 21.5 \u00d7 5.0 mm \u00b7 drop 22.7\u201322.7 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=66.900 y=460.550 z=324.726",
+          "click: x=66.900 y=460.550 z=324.726"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 224.34378527479828,
+        "line": "1248 mm\u00b2 flat print-down face at z=168.700 \u00b7 237.7 \u00d7 5.2 mm \u00b7 drop 6.4\u20136.4 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=101.125 y=337.425 z=168.700",
+          "click: x=101.125 y=337.425 z=168.700"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 222.22374930471085,
+        "line": "81 mm\u00b2 flat print-down face at z=291.517 \u00b7 15.0 \u00d7 6.7 mm \u00b7 drop 24.7\u201324.7 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-37.810 y=464.955 z=291.517",
+          "click: x=-37.810 y=464.955 z=291.517"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 163.64361213301495,
+        "line": "664 mm\u00b2 flat print-down face at z=168.700 \u00b7 126.5 \u00d7 5.2 mm \u00b7 drop 6.4\u20136.4 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-101.125 y=393.050 z=168.700",
+          "click: x=-101.125 y=393.050 z=168.700"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 144.95026669881972,
+        "line": "521 mm\u00b2 flat print-down face at z=168.700 \u00b7 99.2 \u00d7 5.2 mm \u00b7 drop 6.4\u20136.4 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-101.125 y=268.175 z=168.700",
+          "click: x=-101.125 y=268.175 z=168.700"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 132.0,
+        "line": "36 mm\u00b2 flat print-down face at z=185.600 \u00b7 12.0 \u00d7 3.0 mm \u00b7 drop 21.0\u201322.0 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-92.000 y=323.800 z=185.600",
+          "click: x=-92.000 y=323.800 z=185.600"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 125.96715999701804,
+        "line": "44 mm\u00b2 flat print-down face at z=293.922 \u00b7 14.8 \u00d7 3.0 mm \u00b7 drop 17.7\u201318.9 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-37.810 y=469.805 z=293.922",
+          "click: x=-37.810 y=469.805 z=293.922"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 122.8129726851718,
+        "line": "21 mm\u00b2 flat print-down face at z=280.611 \u00b7 6.0 \u00d7 3.5 mm \u00b7 drop 1.8\u201326.8 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-101.500 y=256.810 z=280.611",
+          "click: x=-101.500 y=256.810 z=280.611"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 113.66111928821354,
+        "line": "52 mm\u00b2 flat print-down face at z=327.200 \u00b7 23.0 \u00d7 2.2 mm \u00b7 drop 7.5\u201315.8 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=97.375 y=339.800 z=327.200",
+          "click: x=97.375 y=339.800 z=327.200"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 108.24837433515951,
+        "line": "732 mm\u00b2 flat print-down face at z=296.211 \u00b7 84.5 \u00d7 53.3 mm \u00b7 drop 4.0\u20134.0 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-80.850 y=411.750 z=296.211",
+          "click: x=-80.850 y=411.750 z=296.211"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 65.01422869793564,
+        "line": "35 mm\u00b2 flat print-down face at z=332.011 \u00b7 10.0 \u00d7 3.5 mm \u00b7 drop 11.0\u201311.0 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-94.850 y=228.260 z=332.011",
+          "click: x=-94.850 y=228.260 z=332.011"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 57.56179014146187,
+        "line": "42 mm\u00b2 flat print-down face at z=255.850 \u00b7 10.0 \u00d7 6.3 mm \u00b7 drop 8.9\u20138.9 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=83.868 y=463.890 z=255.850",
+          "click: x=83.868 y=463.890 z=255.850"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 57.56176348155274,
+        "line": "42 mm\u00b2 flat print-down face at z=255.850 \u00b7 10.0 \u00d7 6.3 mm \u00b7 drop 8.9\u20138.9 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-7.547 y=463.890 z=255.850",
+          "click: x=-7.547 y=463.890 z=255.850"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 30.582828221916127,
+        "line": "89 mm\u00b2 flat print-down face at z=348.611 \u00b7 25.3 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=2.450 y=367.503 z=348.611",
+          "click: x=2.450 y=367.503 z=348.611"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 30.156778078940906,
+        "line": "86 mm\u00b2 flat print-down face at z=344.400 \u00b7 24.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.3 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-40.810 y=370.810 z=344.400",
+          "click: x=-40.810 y=370.810 z=344.400"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 30.156778078940906,
+        "line": "86 mm\u00b2 flat print-down face at z=344.400 \u00b7 24.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.3 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-40.810 y=417.210 z=344.400",
+          "click: x=-40.810 y=417.210 z=344.400"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 28.388707645736222,
+        "line": "76 mm\u00b2 flat print-down face at z=346.861 \u00b7 21.8 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=38.450 y=333.003 z=346.861",
+          "click: x=38.450 y=333.003 z=346.861"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 21.62531992504751,
+        "line": "44 mm\u00b2 flat print-down face at z=338.425 \u00b7 12.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=18.345 y=270.600 z=338.425",
+          "click: x=18.345 y=270.600 z=338.425"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 21.62531992504751,
+        "line": "44 mm\u00b2 flat print-down face at z=342.286 \u00b7 12.6 \u00d7 3.5 mm \u00b7 drop 3.2\u20133.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=57.975 y=428.403 z=342.286",
+          "click: x=57.975 y=428.403 z=342.286"
+        ]
+      }
+    ],
+    "slope": []
+  },
+  "answered": [
+    {
+      "finding": {
+        "class": "sliver",
+        "score": 4.0,
+        "line": "0.750 mm strip, 4.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-104.125 y=216.550 z=168.700",
+          "edge: x=-104.125 y=218.550 z=168.700 \u2192 x=-104.125 y=214.550 z=168.700 \u00b7 len 4.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+          "click: x=-104.125 y=216.550 z=168.700"
+        ]
+      },
+      "reason": "The flank-section bottoms ahead of the rail feet show the 0.75 mm difference between the interior skin and the slide-channel wall. They extend across the 4 mm stop-block lane and face print-up. Each bounds the full wall section; no thin load-bearing strip crosses the lane."
+    },
+    {
+      "finding": {
+        "class": "sliver",
+        "score": 4.0,
+        "line": "0.750 mm strip, 4.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=104.125 y=216.550 z=168.700",
+          "edge: x=104.125 y=218.550 z=168.700 \u2192 x=104.125 y=214.550 z=168.700 \u00b7 len 4.000 \u00b7 straight \u00b7 dir x=0.000 y=-1.000 z=0.000",
+          "click: x=104.125 y=216.550 z=168.700"
+        ]
+      },
+      "reason": "The flank-section bottoms ahead of the rail feet show the 0.75 mm difference between the interior skin and the slide-channel wall. They extend across the 4 mm stop-block lane and face print-up. Each bounds the full wall section; no thin load-bearing strip crosses the lane."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 263.5383868663904,
+        "line": "1929 mm\u00b2 flat print-down face at z=349.000 \u00b7 179.5 \u00d7 65.2 mm \u00b7 open to the bed (6.0 mm up)",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=0.000 y=232.625 z=349.000",
+          "click: x=0.000 y=232.625 z=349.000"
+        ]
+      },
+      "reason": "The funnel brim rests on this Z349 plane, with a complete 6 mm bearing section behind it. Back-top prints with its Z355 roof on the bed, so supports carry the inset seat 6 mm above the bed. The open funnel recess gives direct access for support removal."
+    }
+  ],
+  "scope": "Mesh anomalies and exact existing answer-anchor matches only; no new physical acceptance or support approval.",
+  "seconds": 20.450459750019945
+}

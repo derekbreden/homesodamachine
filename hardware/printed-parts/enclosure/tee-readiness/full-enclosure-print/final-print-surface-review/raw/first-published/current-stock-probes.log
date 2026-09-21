@@ -1,0 +1,241 @@
+{
+  "status": "native_stock_probe_failure",
+  "input_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e8ceab1f51c8894959acb2fec11daf61148267b619a873344b17f0847703d0d0",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.step": "4ac9a58bd3c34823c26de0d251d1970a9616d02a313b6de127580cdd79e28245"
+  },
+  "probes": [
+    {
+      "name": "expanded yoke pocket complete flank backing",
+      "body": "front",
+      "bounds_mm": [
+        [
+          -107.49,
+          119.241,
+          235.821
+        ],
+        [
+          -99.851,
+          151.1514591498905,
+          269.028
+        ]
+      ],
+      "expected_mm3": 8094.671063189774,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "outer well guide land root",
+      "body": "front",
+      "bounds_mm": [
+        [
+          -104.49,
+          99.45,
+          229.63
+        ],
+        [
+          -98.51,
+          119.23,
+          235.915
+        ]
+      ],
+      "expected_mm3": 743.4174539999984,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "carrier floor exposed end backing",
+      "body": "front",
+      "bounds_mm": [
+        [
+          -93.249,
+          93.837,
+          160.01
+        ],
+        [
+          -83.251,
+          94.039,
+          166.91
+        ]
+      ],
+      "expected_mm3": 13.935212399999871,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "aft tray root",
+      "body": "front",
+      "bounds_mm": [
+        [
+          -104.4,
+          172.1,
+          180.81
+        ],
+        [
+          -98.6,
+          181.28,
+          181.25
+        ]
+      ],
+      "expected_mm3": 23.427359999999943,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "expanded yoke pocket complete flank backing",
+      "body": "front",
+      "bounds_mm": [
+        [
+          99.851,
+          119.241,
+          235.821
+        ],
+        [
+          107.49,
+          150.88140677056572,
+          269.028
+        ]
+      ],
+      "expected_mm3": 8026.167342506913,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "outer well guide land root",
+      "body": "front",
+      "bounds_mm": [
+        [
+          98.51,
+          99.45,
+          229.63
+        ],
+        [
+          104.49,
+          119.23,
+          235.915
+        ]
+      ],
+      "expected_mm3": 743.4174539999984,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "carrier floor exposed end backing",
+      "body": "front",
+      "bounds_mm": [
+        [
+          83.251,
+          93.837,
+          160.01
+        ],
+        [
+          93.249,
+          94.039,
+          166.91
+        ]
+      ],
+      "expected_mm3": 13.935212399999871,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "aft tray root",
+      "body": "front",
+      "bounds_mm": [
+        [
+          98.6,
+          172.1,
+          180.81
+        ],
+        [
+          104.4,
+          181.28,
+          181.25
+        ]
+      ],
+      "expected_mm3": 23.427359999999943,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "left Wago full 3 mm floor inside boundary margins",
+      "body": "front",
+      "bounds_mm": [
+        [
+          -104.49,
+          111.66,
+          272.851
+        ],
+        [
+          -95.21,
+          126.34,
+          275.849
+        ]
+      ],
+      "expected_mm3": 408.418739199999,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "left Wago inward root above clipped corbel edge",
+      "body": "front",
+      "bounds_mm": [
+        [
+          -97.49,
+          119.25,
+          271.4
+        ],
+        [
+          -95.21,
+          126.34,
+          275.849
+        ]
+      ],
+      "expected_mm3": 71.91897480000027,
+      "missing_mm3": 7.350912000000625,
+      "pass": false
+    },
+    {
+      "name": "left carrier full upper web backing",
+      "body": "left",
+      "bounds_mm": [
+        [
+          -74,
+          108.787,
+          211.1
+        ],
+        [
+          -73,
+          114.289,
+          219.0
+        ]
+      ],
+      "expected_mm3": 43.46579999999999,
+      "missing_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "name": "left carrier full 3 x 3 x 9 stop with boundary margin",
+      "body": "left",
+      "bounds_mm": [
+        [
+          -28.999,
+          133.001,
+          211.001
+        ],
+        [
+          -26.001,
+          135.999,
+          219.999
+        ]
+      ],
+      "expected_mm3": 80.87405999199959,
+      "missing_mm3": 0.0,
+      "pass": true
+    }
+  ],
+  "input_drift": [],
+  "scope": "Read-only native containment. No geometry change, support-path approval or physical force claim.",
+  "wago_note": "The 0.838643 mm face is the yoke relief meeting the underside corbel below the complete Wago floor.",
+  "script_sha256": "04a8c8d34551b63e6d284b984db2375ba2f7c644eee82e796e1fc026c3fde268"
+}

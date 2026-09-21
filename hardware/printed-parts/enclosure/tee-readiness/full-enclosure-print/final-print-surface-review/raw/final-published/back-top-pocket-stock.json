@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "native_sha256": "73f21c065154de8532ccf2a69be35b79be45670ef04e59d1ce5e1dc8ed875b9b",
+  "regulator_pocket_backing_probe": {
+    "bounds_mm": [
+      [
+        -107.49,
+        236.111,
+        318.6862
+      ],
+      [
+        -99.56317782649107,
+        250.409,
+        321.4371
+      ]
+    ],
+    "missing_mm3": 0.0,
+    "native_continuous_stock_mm": 7.937822173508925,
+    "minimum_with_1_2mm_flutes_mm": 6.737822173508925
+  },
+  "seconds": 0.3867891659901943,
+  "scope": "Existing published native solid only; no geometry generation or support topology inference."
+}

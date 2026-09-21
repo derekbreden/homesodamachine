@@ -1,0 +1,118 @@
+{
+  "status": "read_only_lint_complete",
+  "created_at_utc": "2026-09-21T09:08:06.289211+00:00",
+  "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+  "mesh_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+  "native": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+  "published_member_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2fcd9a02a24c0e5393ec1227bf1aa1d9b3b6e849d35d043aee3bed1bfea96daf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "42163fbc8dcb4ad806d8a3dea806b662d8f923a51bc84e4e3276f2f92dba2bbc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
+  },
+  "publication_pointer_sha256_at_start": "9aa6d5eefc48896a47bda48cf468a5d7a032d80e17dd6220b33f009fe2be599a",
+  "publication_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "derivative_print_mesh_from_published_native": false,
+  "derivative_manifest_sha256": null,
+  "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.lint-answers",
+  "answers_sha256": "f266af9281f7c06406e322d24ba211f8fbbfb3c0c7ea0e5de1d7f85354cec732",
+  "printed_facets": 272394,
+  "lint_source_sha256": "4dde8aeddd61ecaee129f1743f895bc71a286dfb3022cbe680d253eec1ceb0d5",
+  "errors": "",
+  "input_drift": [],
+  "unanswered_count": 2,
+  "answered_count": 5,
+  "open": {
+    "step": [],
+    "sliver": [],
+    "ceiling": [
+      {
+        "class": "ceiling",
+        "score": 206.88766233592136,
+        "line": "506 mm\u00b2 flat print-down face at z=169.200 \u00b7 97.2 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=142.418 z=169.200",
+          "click: x=100.875 y=142.418 z=169.200"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 206.8876623359207,
+        "line": "506 mm\u00b2 flat print-down face at z=169.200 \u00b7 97.2 \u00d7 5.2 mm \u00b7 drop 9.2\u20139.2 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=142.418 z=169.200",
+          "click: x=-100.875 y=142.418 z=169.200"
+        ]
+      }
+    ],
+    "slope": []
+  },
+  "answered": [
+    {
+      "finding": {
+        "class": "step",
+        "score": 9.66916191859487,
+        "line": "\u03940.530 mm between parallel planes \u00b7 footprint met 5.1 \u00d7 3.2 mm",
+        "pick": [
+          "faceA: plane \u00b7 n x=0.000 y=0.707 z=-0.707 \u00b7 thru x=93.500 y=17.256 z=150.256",
+          "faceB: plane \u00b7 n x=0.000 y=0.707 z=-0.707 \u00b7 thru x=96.375 y=16.000 z=148.250",
+          "click: x=96.750 y=16.917 z=149.167"
+        ]
+      },
+      "reason": "The condenser groove roof and corner-column pocket ceiling are independent 45-degree clearance faces. The groove keeps 0.25 mm of running clearance at the seated flange; the pocket follows its own room envelope. Their 0.75 mm Z/Y offset reads as 0.530 mm between parallel planes. Both faces rise toward the open insertion mouth and retain the full rail and column backing; the apparent step is the overlap of two open voids, not a thin load-bearing web."
+    },
+    {
+      "finding": {
+        "class": "step",
+        "score": 9.666639745807263,
+        "line": "\u03940.530 mm between parallel planes \u00b7 footprint met 5.1 \u00d7 3.2 mm",
+        "pick": [
+          "faceA: plane \u00b7 n x=0.000 y=0.707 z=-0.707 \u00b7 thru x=93.500 y=17.256 z=13.656",
+          "faceB: plane \u00b7 n x=0.000 y=0.707 z=-0.707 \u00b7 thru x=96.375 y=16.000 z=11.650",
+          "click: x=96.750 y=16.917 z=12.567"
+        ]
+      },
+      "reason": "The condenser groove roof and corner-column pocket ceiling are independent 45-degree clearance faces. The groove keeps 0.25 mm of running clearance at the seated flange; the pocket follows its own room envelope. Their 0.75 mm Z/Y offset reads as 0.530 mm between parallel planes. Both faces rise toward the open insertion mouth and retain the full rail and column backing; the apparent step is the overlap of two open voids, not a thin load-bearing web."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 532.6258663464985,
+        "line": "228 mm\u00b2 flat print-down face at z=29.250 \u00b7 32.6 \u00d7 11.0 mm \u00b7 open to the bed (35.2 mm up)",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-96.000 y=196.275 z=29.250",
+          "click: x=-96.000 y=196.275 z=29.250"
+        ]
+      },
+      "reason": "The bottom handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 532.6258663464985,
+        "line": "228 mm\u00b2 flat print-down face at z=29.250 \u00b7 32.6 \u00d7 11.0 mm \u00b7 open to the bed (35.2 mm up)",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=96.000 y=196.275 z=29.250",
+          "click: x=96.000 y=196.275 z=29.250"
+        ]
+      },
+      "reason": "The bottom handholds' flat lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance, with 12 mm of roof section above them. Fingers enter upward through the removed floor and bear against these faces. Each roof joins the opening's end walls, its blind inner wall and the seam jamb above it; slicer support reaches the ceiling directly from the bed through the open bottom."
+    },
+    {
+      "finding": {
+        "class": "slope",
+        "score": 1535.8359287371811,
+        "line": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,+1.00 vs wall n +1.00,+0.00 \u00b7 along 4.2 mm \u00b7 1536 mm\u00b2",
+        "pick": [
+          "faceA: plane \u00b7 n x=0.000 y=0.707 z=-0.707 \u00b7 thru x=0.000 y=209.196 z=-3.000",
+          "faceB: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=90.500 y=210.696 z=-1.500",
+          "click: x=0.000 y=209.196 z=-3.000"
+        ]
+      },
+      "reason": "The Y-seam floor tongue's full-width 45-degree scarf nose \u2014 this is the bed-side face of the six-millimetre floor overlap, not a corbel hanging from either X wall. The tongue's broad underside is on the print bed and this face rises one millimetre per millimetre from it, leaving the cold-core bearing surface flat while lapping the front and back floor slabs."
+    }
+  ],
+  "scope": "Mesh anomalies and exact existing answer-anchor matches only; no new physical acceptance or support approval.",
+  "seconds": 16.311718832992483
+}

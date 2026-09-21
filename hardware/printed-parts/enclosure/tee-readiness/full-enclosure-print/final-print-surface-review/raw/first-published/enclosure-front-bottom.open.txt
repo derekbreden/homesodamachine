@@ -1,0 +1,11 @@
+enclosure-front-bottom: 2 open / 5 existing matches
+Native: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+Mesh SHA256: aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd
+[ceiling] 506 mm² flat print-down face at z=169.200 · 97.2 × 5.2 mm · drop 9.2–9.2 mm to material below
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.875 y=142.418 z=169.200
+click: x=100.875 y=142.418 z=169.200
+
+[ceiling] 506 mm² flat print-down face at z=169.200 · 97.2 × 5.2 mm · drop 9.2–9.2 mm to material below
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=142.418 z=169.200
+click: x=-100.875 y=142.418 z=169.200
+

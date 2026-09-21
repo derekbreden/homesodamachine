@@ -1,0 +1,765 @@
+enclosure-back-bottom: 153 open / 4 existing matches
+Native: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+Mesh SHA256: 3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=58.339 y=471.600 z=48.948
+edge: x=58.339 y=471.600 z=52.198 → x=58.339 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=58.339 y=471.600 z=48.948
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=53.050 y=471.599 z=11.431
+edge: x=53.050 y=471.599 z=14.681 → x=53.050 y=471.599 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=53.050 y=471.599 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=51.067 y=471.600 z=39.569
+edge: x=51.067 y=471.600 z=42.819 → x=51.067 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=51.067 y=471.600 z=39.569
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=45.526 y=471.597 z=11.431
+edge: x=45.526 y=471.597 z=14.681 → x=45.526 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=45.526 y=471.597 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=33.622 y=471.600 z=30.189
+edge: x=33.622 y=471.600 z=33.439 → x=33.622 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=33.622 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=20.208 y=471.600 z=48.948
+edge: x=20.208 y=471.600 z=52.198 → x=20.208 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=20.208 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=7.534 y=471.600 z=30.189
+edge: x=7.534 y=471.600 z=33.439 → x=7.534 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=7.534 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-4.489 y=471.600 z=30.189
+edge: x=-4.489 y=471.600 z=33.439 → x=-4.489 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-4.489 y=471.600 z=30.189
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-6.531 y=471.598 z=58.327
+edge: x=-6.531 y=471.598 z=61.577 → x=-6.531 y=471.598 z=55.077 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-6.531 y=471.598 z=58.327
+
+[sliver] 0.604 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-8.656 y=471.598 z=11.431
+edge: x=-8.656 y=471.598 z=14.681 → x=-8.656 y=471.598 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-8.656 y=471.598 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-19.022 y=471.600 z=30.189
+edge: x=-19.022 y=471.600 z=33.439 → x=-19.022 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-19.022 y=471.600 z=30.189
+
+[sliver] 0.604 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-20.078 y=471.598 z=58.327
+edge: x=-20.078 y=471.598 z=61.577 → x=-20.078 y=471.598 z=55.077 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-20.078 y=471.598 z=58.327
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-41.271 y=471.597 z=11.431
+edge: x=-41.271 y=471.597 z=14.681 → x=-41.271 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-41.271 y=471.597 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-50.049 y=471.600 z=48.948
+edge: x=-50.049 y=471.600 z=52.198 → x=-50.049 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-50.049 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-52.311 y=471.600 z=39.569
+edge: x=-52.311 y=471.600 z=42.819 → x=-52.311 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-52.311 y=471.600 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-58.833 y=471.600 z=39.569
+edge: x=-58.833 y=471.600 z=42.819 → x=-58.833 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-58.833 y=471.600 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-63.595 y=471.600 z=48.948
+edge: x=-63.595 y=471.600 z=52.198 → x=-63.595 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-63.595 y=471.600 z=48.948
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-72.380 y=471.599 z=20.810
+edge: x=-72.380 y=471.599 z=24.060 → x=-72.380 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-72.380 y=471.599 z=20.810
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-51.636 y=471.900 z=39.569
+edge: x=-51.636 y=471.900 z=42.819 → x=-51.636 y=471.900 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-51.636 y=471.900 z=39.569
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=59.014 y=471.900 z=48.948
+edge: x=59.014 y=471.900 z=52.198 → x=59.014 y=471.900 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=59.014 y=471.900 z=48.948
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=20.882 y=471.900 z=48.948
+edge: x=20.882 y=471.900 z=52.198 → x=20.882 y=471.900 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=20.882 y=471.900 z=48.948
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-5.856 y=471.900 z=58.327
+edge: x=-5.856 y=471.900 z=61.577 → x=-5.856 y=471.900 z=55.077 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-5.856 y=471.900 z=58.327
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=8.209 y=471.900 z=30.189
+edge: x=8.209 y=471.900 z=33.439 → x=8.209 y=471.900 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=8.209 y=471.900 z=30.189
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-53.506 y=471.900 z=30.189
+edge: x=-53.506 y=471.900 z=33.439 → x=-53.506 y=471.900 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-53.506 y=471.900 z=30.189
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-49.374 y=471.900 z=48.948
+edge: x=-49.374 y=471.900 z=52.198 → x=-49.374 y=471.900 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-49.374 y=471.900 z=48.948
+
+[sliver] 1.349 mm strip, 6.5 mm long
+face: plane · n x=0.000 y=1.000 z=0.000 · thru x=51.742 y=471.900 z=39.569
+edge: x=51.742 y=471.900 z=42.819 → x=51.742 y=471.900 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=51.742 y=471.900 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-80.569 y=471.600 z=30.189
+edge: x=-80.569 y=471.600 z=33.439 → x=-80.569 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-80.569 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-75.012 y=471.600 z=30.189
+edge: x=-75.012 y=471.600 z=33.439 → x=-75.012 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-75.012 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-69.132 y=471.600 z=11.431
+edge: x=-69.132 y=471.600 z=14.681 → x=-69.132 y=471.600 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-69.132 y=471.600 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-68.512 y=471.600 z=30.189
+edge: x=-68.512 y=471.600 z=33.439 → x=-68.512 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-68.512 y=471.600 z=30.189
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-67.101 y=471.599 z=20.810
+edge: x=-67.101 y=471.599 z=24.060 → x=-67.101 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-67.101 y=471.599 z=20.810
+
+[sliver] 0.604 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-63.148 y=471.598 z=11.431
+edge: x=-63.148 y=471.598 z=14.681 → x=-63.148 y=471.598 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-63.148 y=471.598 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-58.317 y=471.600 z=48.948
+edge: x=-58.317 y=471.600 z=52.198 → x=-58.317 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-58.317 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-48.699 y=471.600 z=48.948
+edge: x=-48.699 y=471.600 z=52.198 → x=-48.699 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-48.699 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-47.420 y=471.600 z=30.189
+edge: x=-47.420 y=471.600 z=33.439 → x=-47.420 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-47.420 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-41.428 y=471.600 z=30.189
+edge: x=-41.428 y=471.600 z=33.439 → x=-41.428 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-41.428 y=471.600 z=30.189
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-40.034 y=471.599 z=20.810
+edge: x=-40.034 y=471.599 z=24.060 → x=-40.034 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-40.034 y=471.599 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-37.018 y=471.600 z=39.569
+edge: x=-37.018 y=471.600 z=42.819 → x=-37.018 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-37.018 y=471.600 z=39.569
+
+[sliver] 0.607 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-35.993 y=471.597 z=11.431
+edge: x=-35.993 y=471.597 z=14.681 → x=-35.993 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-35.993 y=471.597 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-35.404 y=471.600 z=30.189
+edge: x=-35.404 y=471.600 z=33.439 → x=-35.404 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-35.404 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-30.527 y=471.600 z=39.569
+edge: x=-30.527 y=471.600 z=42.819 → x=-30.527 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-30.527 y=471.600 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-30.240 y=471.600 z=48.948
+edge: x=-30.240 y=471.600 z=52.198 → x=-30.240 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-30.240 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-24.512 y=471.600 z=39.569
+edge: x=-24.512 y=471.600 z=42.819 → x=-24.512 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-24.512 y=471.600 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-24.247 y=471.600 z=48.948
+edge: x=-24.247 y=471.600 z=52.198 → x=-24.247 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-24.247 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-23.001 y=471.600 z=11.431
+edge: x=-23.001 y=471.600 z=14.681 → x=-23.001 y=471.600 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-23.001 y=471.600 z=11.431
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-20.503 y=471.599 z=20.810
+edge: x=-20.503 y=471.599 z=24.060 → x=-20.503 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-20.503 y=471.599 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-20.358 y=471.600 z=30.189
+edge: x=-20.358 y=471.600 z=33.439 → x=-20.358 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-20.358 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-18.479 y=471.600 z=39.569
+edge: x=-18.479 y=471.600 z=42.819 → x=-18.479 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-18.479 y=471.600 z=39.569
+
+[sliver] 0.604 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-16.986 y=471.598 z=11.431
+edge: x=-16.986 y=471.598 z=14.681 → x=-16.986 y=471.598 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-16.986 y=471.598 z=11.431
+
+[sliver] 0.604 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-14.799 y=471.598 z=58.327
+edge: x=-14.799 y=471.598 z=61.577 → x=-14.799 y=471.598 z=55.077 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-14.799 y=471.598 z=58.327
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-13.972 y=471.599 z=20.810
+edge: x=-13.972 y=471.599 z=24.060 → x=-13.972 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-13.972 y=471.599 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-12.208 y=471.600 z=48.948
+edge: x=-12.208 y=471.600 z=52.198 → x=-12.208 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-12.208 y=471.600 z=48.948
+
+[sliver] 0.601 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-7.307 y=471.600 z=11.431
+edge: x=-7.307 y=471.600 z=14.681 → x=-7.307 y=471.600 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-7.307 y=471.600 z=11.431
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-5.916 y=471.599 z=20.810
+edge: x=-5.916 y=471.599 z=24.060 → x=-5.916 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-5.916 y=471.599 z=20.810
+
+[sliver] 0.604 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-5.181 y=471.598 z=58.327
+edge: x=-5.181 y=471.598 z=61.577 → x=-5.181 y=471.598 z=55.077 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-5.181 y=471.598 z=58.327
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-4.932 y=471.600 z=39.569
+edge: x=-4.932 y=471.600 z=42.819 → x=-4.932 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-4.932 y=471.600 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-3.168 y=471.600 z=48.948
+edge: x=-3.168 y=471.600 z=52.198 → x=-3.168 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-3.168 y=471.600 z=48.948
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-0.922 y=471.597 z=11.431
+edge: x=-0.922 y=471.597 z=14.681 → x=-0.922 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-0.922 y=471.597 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=0.766 y=471.600 z=30.189
+edge: x=0.766 y=471.600 z=33.439 → x=0.766 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=0.766 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=1.091 y=471.600 z=39.569
+edge: x=1.091 y=471.600 z=42.819 → x=1.091 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=1.091 y=471.600 z=39.569
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=10.610 y=471.597 z=11.431
+edge: x=10.610 y=471.597 z=14.681 → x=10.610 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=10.610 y=471.597 z=11.431
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=17.141 y=471.599 z=11.431
+edge: x=17.141 y=471.599 z=14.681 → x=17.141 y=471.599 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=17.141 y=471.599 z=11.431
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=19.670 y=471.599 z=20.810
+edge: x=19.670 y=471.599 z=24.060 → x=19.670 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=19.670 y=471.599 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=21.557 y=471.600 z=48.948
+edge: x=21.557 y=471.600 z=52.198 → x=21.557 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=21.557 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=24.666 y=471.600 z=39.569
+edge: x=24.666 y=471.600 z=42.819 → x=24.666 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=24.666 y=471.600 z=39.569
+
+[sliver] 0.607 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=25.665 y=471.597 z=11.431
+edge: x=25.665 y=471.597 z=14.681 → x=25.665 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=25.665 y=471.597 z=11.431
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=31.221 y=471.597 z=11.431
+edge: x=31.221 y=471.597 z=14.681 → x=31.221 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=31.221 y=471.597 z=11.431
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=37.721 y=471.599 z=11.431
+edge: x=37.721 y=471.599 z=14.681 → x=37.721 y=471.599 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=37.721 y=471.599 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=38.901 y=471.600 z=30.189
+edge: x=38.901 y=471.600 z=33.439 → x=38.901 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=38.901 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=43.750 y=471.600 z=39.569
+edge: x=43.750 y=471.600 z=42.819 → x=43.750 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=43.750 y=471.600 z=39.569
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=43.750 y=471.600 z=20.810
+edge: x=43.750 y=471.600 z=24.060 → x=43.750 y=471.600 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=43.750 y=471.600 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=51.028 y=471.600 z=48.948
+edge: x=51.028 y=471.600 z=52.198 → x=51.028 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=51.028 y=471.600 z=48.948
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=51.810 y=471.597 z=11.431
+edge: x=51.810 y=471.597 z=14.681 → x=51.810 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=51.810 y=471.597 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=51.923 y=471.600 z=30.189
+edge: x=51.923 y=471.600 z=33.439 → x=51.923 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=51.923 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=52.417 y=471.600 z=39.569
+edge: x=52.417 y=471.600 z=42.819 → x=52.417 y=471.600 z=36.319 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=52.417 y=471.600 z=39.569
+
+[sliver] 0.603 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=56.765 y=471.599 z=20.810
+edge: x=56.765 y=471.599 z=24.060 → x=56.765 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=56.765 y=471.599 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=58.414 y=471.600 z=30.189
+edge: x=58.414 y=471.600 z=33.439 → x=58.414 y=471.600 z=26.939 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=58.414 y=471.600 z=30.189
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=59.333 y=471.600 z=11.431
+edge: x=59.333 y=471.600 z=14.681 → x=59.333 y=471.600 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=59.333 y=471.600 z=11.431
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=59.688 y=471.600 z=48.948
+edge: x=59.688 y=471.600 z=52.198 → x=59.688 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=59.688 y=471.600 z=48.948
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=62.780 y=471.599 z=20.810
+edge: x=62.780 y=471.599 z=24.060 → x=62.780 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=62.780 y=471.599 z=20.810
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=66.074 y=471.600 z=48.948
+edge: x=66.074 y=471.600 z=52.198 → x=66.074 y=471.600 z=45.698 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=66.074 y=471.600 z=48.948
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=69.341 y=471.600 z=20.810
+edge: x=69.341 y=471.600 z=24.060 → x=69.341 y=471.600 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=69.341 y=471.600 z=20.810
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=71.350 y=471.597 z=11.431
+edge: x=71.350 y=471.597 z=14.681 → x=71.350 y=471.597 z=8.181 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=71.350 y=471.597 z=11.431
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=75.325 y=471.599 z=20.810
+edge: x=75.325 y=471.599 z=24.060 → x=75.325 y=471.599 z=17.560 · len 6.500 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=75.325 y=471.599 z=20.810
+
+[sliver] 0.606 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=4.626 y=471.597 z=11.426
+edge: x=4.626 y=471.597 z=14.672 → x=4.626 y=471.597 z=8.181 · len 6.491 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=4.626 y=471.597 z=11.426
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=26.968 y=471.600 z=48.943
+edge: x=26.968 y=471.600 z=52.189 → x=26.968 y=471.600 z=45.698 · len 6.491 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=26.968 y=471.600 z=48.943
+
+[sliver] 0.600 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=34.994 y=471.600 z=48.943
+edge: x=34.994 y=471.600 z=52.189 → x=34.994 y=471.600 z=45.698 · len 6.491 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=34.994 y=471.600 z=48.943
+
+[sliver] 0.607 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=76.867 y=471.597 z=11.426
+edge: x=76.867 y=471.597 z=14.672 → x=76.867 y=471.597 z=8.181 · len 6.491 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=76.867 y=471.597 z=11.426
+
+[sliver] 0.602 mm strip, 6.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=80.882 y=471.599 z=20.806
+edge: x=80.882 y=471.599 z=24.051 → x=80.882 y=471.599 z=17.560 · len 6.491 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=80.882 y=471.599 z=20.806
+
+[sliver] 0.606 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-45.315 y=471.597 z=10.855
+edge: x=-45.315 y=471.597 z=13.530 → x=-45.315 y=471.597 z=8.181 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-45.315 y=471.597 z=10.855
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-43.948 y=471.600 z=10.855
+edge: x=-43.948 y=471.600 z=13.530 → x=-43.948 y=471.600 z=8.181 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-43.948 y=471.600 z=10.855
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=3.490 y=471.600 z=29.614
+edge: x=3.490 y=471.600 z=32.288 → x=3.490 y=471.600 z=26.939 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=3.490 y=471.600 z=29.614
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-2.549 y=471.600 z=57.752
+edge: x=-2.549 y=471.600 z=60.426 → x=-2.549 y=471.600 z=55.077 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-2.549 y=471.600 z=57.752
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-11.057 y=471.600 z=29.614
+edge: x=-11.057 y=471.600 z=32.288 → x=-11.057 y=471.600 z=26.939 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-11.057 y=471.600 z=29.614
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-9.690 y=471.600 z=29.614
+edge: x=-9.690 y=471.600 z=32.288 → x=-9.690 y=471.600 z=26.939 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-9.690 y=471.600 z=29.614
+
+[sliver] 0.603 mm strip, 5.3 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-1.182 y=471.599 z=57.752
+edge: x=-1.182 y=471.599 z=60.426 → x=-1.182 y=471.599 z=55.077 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-1.182 y=471.599 z=57.752
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=4.857 y=471.600 z=29.614
+edge: x=4.857 y=471.600 z=32.288 → x=4.857 y=471.600 z=26.939 · len 5.349 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=4.857 y=471.600 z=29.614
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-38.376 y=471.600 z=40.153
+edge: x=-38.376 y=471.600 z=42.819 → x=-38.376 y=471.600 z=37.487 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-38.376 y=471.600 z=40.153
+
+[sliver] 0.603 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=69.992 y=471.598 z=12.015
+edge: x=69.992 y=471.598 z=14.681 → x=69.992 y=471.598 z=9.349 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=69.992 y=471.598 z=12.015
+
+[sliver] 0.601 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=42.396 y=471.599 z=21.394
+edge: x=42.396 y=471.599 z=24.060 → x=42.396 y=471.599 z=18.729 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=42.396 y=471.599 z=21.394
+
+[sliver] 0.605 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=29.863 y=471.597 z=12.015
+edge: x=29.863 y=471.597 z=14.681 → x=29.863 y=471.597 z=9.349 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=29.863 y=471.597 z=12.015
+
+[sliver] 0.601 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=18.312 y=471.600 z=21.394
+edge: x=18.312 y=471.600 z=24.060 → x=18.312 y=471.600 z=18.729 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=18.312 y=471.600 z=21.394
+
+[sliver] 0.602 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-41.392 y=471.599 z=21.394
+edge: x=-41.392 y=471.599 z=24.060 → x=-41.392 y=471.599 z=18.729 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-41.392 y=471.599 z=21.394
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-48.779 y=471.600 z=30.774
+edge: x=-48.779 y=471.600 z=33.439 → x=-48.779 y=471.600 z=28.108 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-48.779 y=471.600 z=30.774
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-76.371 y=471.600 z=30.774
+edge: x=-76.371 y=471.600 z=33.439 → x=-76.371 y=471.600 z=28.108 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-76.371 y=471.600 z=30.774
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-31.598 y=471.600 z=49.532
+edge: x=-31.598 y=471.600 z=52.198 → x=-31.598 y=471.600 z=46.866 · len 5.331 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-31.598 y=471.600 z=49.532
+
+[sliver] 0.604 mm strip, 5.3 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-44.627 y=471.598 z=14.680
+edge: x=-41.994 y=471.598 z=14.680 → x=-47.259 y=471.598 z=14.680 · len 5.265 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-44.627 y=471.598 z=14.680
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=4.178 y=471.600 z=33.439
+edge: x=6.811 y=471.600 z=33.439 → x=1.546 y=471.600 z=33.439 · len 5.265 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=4.178 y=471.600 z=33.439
+
+[sliver] 0.604 mm strip, 5.3 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-1.861 y=471.598 z=61.577
+edge: x=0.772 y=471.598 z=61.577 → x=-4.494 y=471.598 z=61.577 · len 5.265 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-1.861 y=471.598 z=61.577
+
+[sliver] 0.600 mm strip, 5.3 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-10.370 y=471.600 z=33.439
+edge: x=-7.737 y=471.600 z=33.439 → x=-13.002 y=471.600 z=33.439 · len 5.265 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-10.370 y=471.600 z=33.439
+
+[sliver] 0.600 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-83.032 y=471.600 z=26.939
+edge: x=-80.569 y=471.600 z=26.939 → x=-85.494 y=471.600 z=26.939 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-83.032 y=471.600 z=26.939
+
+[sliver] 0.603 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=60.317 y=471.599 z=17.560
+edge: x=62.780 y=471.599 z=17.560 → x=57.854 y=471.599 z=17.560 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=60.317 y=471.599 z=17.560
+
+[sliver] 0.603 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=72.863 y=471.599 z=17.560
+edge: x=75.325 y=471.599 z=17.560 → x=70.400 y=471.599 z=17.560 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=72.863 y=471.599 z=17.560
+
+[sliver] 0.607 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-65.611 y=471.597 z=8.181
+edge: x=-63.148 y=471.597 z=8.181 → x=-68.074 y=471.597 z=8.181 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-65.611 y=471.597 z=8.181
+
+[sliver] 0.607 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-19.449 y=471.597 z=8.181
+edge: x=-16.986 y=471.597 z=8.181 → x=-21.912 y=471.597 z=8.181 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-19.449 y=471.597 z=8.181
+
+[sliver] 0.607 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=23.202 y=471.597 z=8.181
+edge: x=25.665 y=471.597 z=8.181 → x=20.739 y=471.597 z=8.181 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=23.202 y=471.597 z=8.181
+
+[sliver] 0.607 mm strip, 4.9 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=8.147 y=471.597 z=8.181
+edge: x=10.610 y=471.597 z=8.181 → x=5.684 y=471.597 z=8.181 · len 4.926 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=8.147 y=471.597 z=8.181
+
+[sliver] 0.600 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=60.396 y=471.600 z=24.060
+edge: x=62.780 y=471.600 z=24.060 → x=58.013 y=471.600 z=24.060 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=60.396 y=471.600 z=24.060
+
+[sliver] 0.600 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-14.592 y=471.600 z=52.197
+edge: x=-12.208 y=471.600 z=52.197 → x=-16.975 y=471.600 z=52.197 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-14.592 y=471.600 z=52.197
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=37.635 y=471.600 z=29.248
+edge: x=37.635 y=471.600 z=31.556 → x=37.635 y=471.600 z=26.939 · len 4.617 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=37.635 y=471.600 z=29.248
+
+[sliver] 0.605 mm strip, 4.6 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-37.258 y=471.598 z=10.489
+edge: x=-37.258 y=471.598 z=12.798 → x=-37.258 y=471.598 z=8.181 · len 4.617 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-37.258 y=471.598 z=10.489
+
+[sliver] 0.603 mm strip, 4.6 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-16.065 y=471.599 z=57.386
+edge: x=-16.065 y=471.599 z=59.694 → x=-16.065 y=471.599 z=55.077 · len 4.617 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-16.065 y=471.599 z=57.386
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-59.583 y=471.600 z=48.006
+edge: x=-59.583 y=471.600 z=50.315 → x=-59.583 y=471.600 z=45.698 · len 4.617 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-59.583 y=471.600 z=48.006
+
+[sliver] 0.602 mm strip, 4.6 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-68.367 y=471.599 z=19.869
+edge: x=-68.367 y=471.599 z=22.177 → x=-68.367 y=471.599 z=17.560 · len 4.617 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-68.367 y=471.599 z=19.869
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=24.664 y=471.600 z=52.197
+edge: x=26.968 y=471.600 z=52.197 → x=22.360 y=471.600 z=52.197 · len 4.608 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=24.664 y=471.600 z=52.197
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=6.844 y=471.600 z=42.818
+edge: x=9.148 y=471.600 z=42.818 → x=4.540 y=471.600 z=42.818 · len 4.608 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=6.844 y=471.600 z=42.818
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=78.578 y=471.600 z=24.060
+edge: x=80.882 y=471.600 z=24.060 → x=76.274 y=471.600 z=24.060 · len 4.608 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=78.578 y=471.600 z=24.060
+
+[sliver] 0.607 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=28.932 y=471.597 z=8.181
+edge: x=31.221 y=471.597 z=8.181 → x=26.644 y=471.597 z=8.181 · len 4.577 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=28.932 y=471.597 z=8.181
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-77.301 y=471.600 z=26.939
+edge: x=-75.012 y=471.600 z=26.939 → x=-79.590 y=471.600 z=26.939 · len 4.577 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-77.301 y=471.600 z=26.939
+
+[sliver] 0.606 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=69.061 y=471.597 z=8.181
+edge: x=71.350 y=471.597 z=8.181 → x=66.773 y=471.597 z=8.181 · len 4.577 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=69.061 y=471.597 z=8.181
+
+[sliver] 0.601 mm strip, 4.2 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=68.023 y=471.599 z=20.810
+edge: x=68.023 y=471.599 z=22.931 → x=68.023 y=471.599 z=18.689 · len 4.242 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=68.023 y=471.599 z=20.810
+
+[sliver] 0.604 mm strip, 4.2 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-70.450 y=471.598 z=11.431
+edge: x=-70.450 y=471.598 z=13.552 → x=-70.450 y=471.598 z=9.310 · len 4.242 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-70.450 y=471.598 z=11.431
+
+[sliver] nan mm strip, nan mm long
+face: plane · n x=0.000 y=0.000 z=0.000 · thru x=-76.834 y=471.725 z=19.974
+edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+click: x=-76.834 y=471.725 z=19.974
+
+[sliver] nan mm strip, nan mm long
+face: plane · n x=0.000 y=0.000 z=0.000 · thru x=29.562 y=471.775 z=40.714
+edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+click: x=29.562 y=471.775 z=40.714
+
+[sliver] nan mm strip, nan mm long
+face: plane · n x=0.000 y=0.000 z=0.000 · thru x=48.586 y=471.750 z=40.660
+edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+click: x=48.586 y=471.750 z=40.660
+
+[sliver] nan mm strip, nan mm long
+face: plane · n x=0.000 y=0.000 z=0.000 · thru x=48.740 y=471.700 z=40.943
+edge: x=nan y=nan z=nan → x=nan y=nan z=nan · len nan · straight · dir x=nan y=nan z=nan
+click: x=48.740 y=471.700 z=40.943
+
+[sliver] 0.604 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-65.531 y=471.598 z=14.680
+edge: x=-63.148 y=471.598 z=14.680 → x=-67.915 y=471.598 z=14.680 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-65.531 y=471.598 z=14.680
+
+[sliver] 0.604 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-19.370 y=471.598 z=14.680
+edge: x=-16.986 y=471.598 z=14.680 → x=-21.753 y=471.598 z=14.680 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-19.370 y=471.598 z=14.680
+
+[sliver] 0.604 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=23.281 y=471.598 z=14.680
+edge: x=25.665 y=471.598 z=14.680 → x=20.898 y=471.598 z=14.680 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=23.281 y=471.598 z=14.680
+
+[sliver] 0.600 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=72.942 y=471.600 z=24.060
+edge: x=75.325 y=471.600 z=24.060 → x=70.559 y=471.600 z=24.060 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=72.942 y=471.600 z=24.060
+
+[sliver] 0.600 mm strip, 4.8 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-82.952 y=471.600 z=33.439
+edge: x=-80.569 y=471.600 z=33.439 → x=-85.336 y=471.600 z=33.439 · len 4.767 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=-82.952 y=471.600 z=33.439
+
+[sliver] 0.600 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=32.690 y=471.600 z=52.197
+edge: x=34.994 y=471.600 z=52.197 → x=30.386 y=471.600 z=52.197 · len 4.608 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=32.690 y=471.600 z=52.197
+
+[sliver] 0.604 mm strip, 4.6 mm long
+face: plane · n x=0.000 y=0.000 z=1.000 · thru x=74.563 y=471.598 z=14.680
+edge: x=76.867 y=471.598 z=14.680 → x=72.258 y=471.598 z=14.680 · len 4.608 · straight · dir x=-1.000 y=0.000 z=0.000
+click: x=74.563 y=471.598 z=14.680
+
+[sliver] 0.600 mm strip, 4.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-57.567 y=471.600 z=40.550
+edge: x=-57.567 y=471.600 z=42.819 → x=-57.567 y=471.600 z=38.281 · len 4.538 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-57.567 y=471.600 z=40.550
+
+[sliver] 0.603 mm strip, 4.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-18.812 y=471.598 z=59.308
+edge: x=-18.812 y=471.598 z=61.577 → x=-18.812 y=471.598 z=57.039 · len 4.538 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-18.812 y=471.598 z=59.308
+
+[sliver] 0.602 mm strip, 4.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-71.114 y=471.599 z=21.791
+edge: x=-71.114 y=471.599 z=24.060 → x=-71.114 y=471.599 z=19.522 · len 4.538 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-71.114 y=471.599 z=21.791
+
+[sliver] 0.600 mm strip, 4.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=34.888 y=471.600 z=31.170
+edge: x=34.888 y=471.600 z=33.439 → x=34.888 y=471.600 z=28.902 · len 4.538 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=34.888 y=471.600 z=31.170
+
+[sliver] 0.605 mm strip, 4.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-40.005 y=471.598 z=12.412
+edge: x=-40.005 y=471.598 z=14.681 → x=-40.005 y=471.598 z=10.143 · len 4.538 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-40.005 y=471.598 z=12.412
+
+[sliver] 0.600 mm strip, 4.5 mm long
+face: plane · n x=1.000 y=0.000 z=0.000 · thru x=-62.330 y=471.600 z=49.929
+edge: x=-62.330 y=471.600 z=52.198 → x=-62.330 y=471.600 z=47.660 · len 4.538 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=-62.330 y=471.600 z=49.929
+
+[sliver] 0.600 mm strip, 4.2 mm long
+face: plane · n x=-1.000 y=0.000 z=0.000 · thru x=50.604 y=471.600 z=30.189
+edge: x=50.604 y=471.600 z=32.310 → x=50.604 y=471.600 z=28.068 · len 4.242 · straight · dir x=0.000 y=0.000 z=-1.000
+click: x=50.604 y=471.600 z=30.189
+
+[ceiling] 1244 mm² flat print-down face at z=169.450 · 237.7 × 5.2 mm · drop 9.4–9.4 mm to material below
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.875 y=337.425 z=169.450
+click: x=100.875 y=337.425 z=169.450
+
+[ceiling] 660 mm² flat print-down face at z=169.450 · 126.5 × 5.2 mm · drop 9.4–9.4 mm to material below
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=393.050 z=169.450
+click: x=-100.875 y=393.050 z=169.450
+
+[ceiling] 521 mm² flat print-down face at z=169.450 · 99.2 × 5.2 mm · drop 9.4–9.4 mm to material below
+face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.875 y=268.175 z=169.450
+click: x=-100.875 y=268.175 z=169.450
+

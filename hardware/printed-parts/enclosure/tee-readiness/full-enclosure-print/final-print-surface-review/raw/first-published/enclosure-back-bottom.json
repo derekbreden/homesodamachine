@@ -1,0 +1,1615 @@
+{
+  "status": "read_only_lint_complete",
+  "created_at_utc": "2026-09-21T09:09:43.933140+00:00",
+  "mesh": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+  "mesh_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+  "native": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+  "published_member_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "7ffd112745203620884174253b19f437d03b560381efbf8ec9a01de5167e82dc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "60a4bd2efbbad9d713d2ff48c1810eda838ba80bf7c806afb393f309cb873875",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b"
+  },
+  "publication_pointer_sha256_at_start": "9aa6d5eefc48896a47bda48cf468a5d7a032d80e17dd6220b33f009fe2be599a",
+  "publication_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "derivative_print_mesh_from_published_native": false,
+  "derivative_manifest_sha256": null,
+  "answers": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.lint-answers",
+  "answers_sha256": "aab89af7c2a4ebc7dae17bdf57641f364c412084cbd5c55133d025fa92176b3d",
+  "printed_facets": 1291828,
+  "lint_source_sha256": "4dde8aeddd61ecaee129f1743f895bc71a286dfb3022cbe680d253eec1ceb0d5",
+  "errors": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:104: RuntimeWarning: invalid value encountered in divide\n  u /= np.linalg.norm(u)\n",
+  "input_drift": [],
+  "unanswered_count": 153,
+  "answered_count": 4,
+  "open": {
+    "step": [],
+    "sliver": [
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=58.339 y=471.600 z=48.948",
+          "edge: x=58.339 y=471.600 z=52.198 \u2192 x=58.339 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=58.339 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=53.050 y=471.599 z=11.431",
+          "edge: x=53.050 y=471.599 z=14.681 \u2192 x=53.050 y=471.599 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=53.050 y=471.599 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=51.067 y=471.600 z=39.569",
+          "edge: x=51.067 y=471.600 z=42.819 \u2192 x=51.067 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=51.067 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=45.526 y=471.597 z=11.431",
+          "edge: x=45.526 y=471.597 z=14.681 \u2192 x=45.526 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=45.526 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=33.622 y=471.600 z=30.189",
+          "edge: x=33.622 y=471.600 z=33.439 \u2192 x=33.622 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=33.622 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=20.208 y=471.600 z=48.948",
+          "edge: x=20.208 y=471.600 z=52.198 \u2192 x=20.208 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=20.208 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=7.534 y=471.600 z=30.189",
+          "edge: x=7.534 y=471.600 z=33.439 \u2192 x=7.534 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=7.534 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-4.489 y=471.600 z=30.189",
+          "edge: x=-4.489 y=471.600 z=33.439 \u2192 x=-4.489 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-4.489 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-6.531 y=471.598 z=58.327",
+          "edge: x=-6.531 y=471.598 z=61.577 \u2192 x=-6.531 y=471.598 z=55.077 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-6.531 y=471.598 z=58.327"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.604 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-8.656 y=471.598 z=11.431",
+          "edge: x=-8.656 y=471.598 z=14.681 \u2192 x=-8.656 y=471.598 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-8.656 y=471.598 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-19.022 y=471.600 z=30.189",
+          "edge: x=-19.022 y=471.600 z=33.439 \u2192 x=-19.022 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-19.022 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.604 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-20.078 y=471.598 z=58.327",
+          "edge: x=-20.078 y=471.598 z=61.577 \u2192 x=-20.078 y=471.598 z=55.077 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-20.078 y=471.598 z=58.327"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-41.271 y=471.597 z=11.431",
+          "edge: x=-41.271 y=471.597 z=14.681 \u2192 x=-41.271 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-41.271 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-50.049 y=471.600 z=48.948",
+          "edge: x=-50.049 y=471.600 z=52.198 \u2192 x=-50.049 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-50.049 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-52.311 y=471.600 z=39.569",
+          "edge: x=-52.311 y=471.600 z=42.819 \u2192 x=-52.311 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-52.311 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-58.833 y=471.600 z=39.569",
+          "edge: x=-58.833 y=471.600 z=42.819 \u2192 x=-58.833 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-58.833 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-63.595 y=471.600 z=48.948",
+          "edge: x=-63.595 y=471.600 z=52.198 \u2192 x=-63.595 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-63.595 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-72.380 y=471.599 z=20.810",
+          "edge: x=-72.380 y=471.599 z=24.060 \u2192 x=-72.380 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-72.380 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-51.636 y=471.900 z=39.569",
+          "edge: x=-51.636 y=471.900 z=42.819 \u2192 x=-51.636 y=471.900 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-51.636 y=471.900 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=59.014 y=471.900 z=48.948",
+          "edge: x=59.014 y=471.900 z=52.198 \u2192 x=59.014 y=471.900 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=59.014 y=471.900 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=20.882 y=471.900 z=48.948",
+          "edge: x=20.882 y=471.900 z=52.198 \u2192 x=20.882 y=471.900 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=20.882 y=471.900 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-5.856 y=471.900 z=58.327",
+          "edge: x=-5.856 y=471.900 z=61.577 \u2192 x=-5.856 y=471.900 z=55.077 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-5.856 y=471.900 z=58.327"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=8.209 y=471.900 z=30.189",
+          "edge: x=8.209 y=471.900 z=33.439 \u2192 x=8.209 y=471.900 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=8.209 y=471.900 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-53.506 y=471.900 z=30.189",
+          "edge: x=-53.506 y=471.900 z=33.439 \u2192 x=-53.506 y=471.900 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-53.506 y=471.900 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=-49.374 y=471.900 z=48.948",
+          "edge: x=-49.374 y=471.900 z=52.198 \u2192 x=-49.374 y=471.900 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-49.374 y=471.900 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "1.349 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=1.000 z=0.000 \u00b7 thru x=51.742 y=471.900 z=39.569",
+          "edge: x=51.742 y=471.900 z=42.819 \u2192 x=51.742 y=471.900 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=51.742 y=471.900 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-80.569 y=471.600 z=30.189",
+          "edge: x=-80.569 y=471.600 z=33.439 \u2192 x=-80.569 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-80.569 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-75.012 y=471.600 z=30.189",
+          "edge: x=-75.012 y=471.600 z=33.439 \u2192 x=-75.012 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-75.012 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-69.132 y=471.600 z=11.431",
+          "edge: x=-69.132 y=471.600 z=14.681 \u2192 x=-69.132 y=471.600 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-69.132 y=471.600 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-68.512 y=471.600 z=30.189",
+          "edge: x=-68.512 y=471.600 z=33.439 \u2192 x=-68.512 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-68.512 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-67.101 y=471.599 z=20.810",
+          "edge: x=-67.101 y=471.599 z=24.060 \u2192 x=-67.101 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-67.101 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.604 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-63.148 y=471.598 z=11.431",
+          "edge: x=-63.148 y=471.598 z=14.681 \u2192 x=-63.148 y=471.598 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-63.148 y=471.598 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-58.317 y=471.600 z=48.948",
+          "edge: x=-58.317 y=471.600 z=52.198 \u2192 x=-58.317 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-58.317 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-48.699 y=471.600 z=48.948",
+          "edge: x=-48.699 y=471.600 z=52.198 \u2192 x=-48.699 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-48.699 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-47.420 y=471.600 z=30.189",
+          "edge: x=-47.420 y=471.600 z=33.439 \u2192 x=-47.420 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-47.420 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-41.428 y=471.600 z=30.189",
+          "edge: x=-41.428 y=471.600 z=33.439 \u2192 x=-41.428 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-41.428 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-40.034 y=471.599 z=20.810",
+          "edge: x=-40.034 y=471.599 z=24.060 \u2192 x=-40.034 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-40.034 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-37.018 y=471.600 z=39.569",
+          "edge: x=-37.018 y=471.600 z=42.819 \u2192 x=-37.018 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-37.018 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.607 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-35.993 y=471.597 z=11.431",
+          "edge: x=-35.993 y=471.597 z=14.681 \u2192 x=-35.993 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-35.993 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-35.404 y=471.600 z=30.189",
+          "edge: x=-35.404 y=471.600 z=33.439 \u2192 x=-35.404 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-35.404 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-30.527 y=471.600 z=39.569",
+          "edge: x=-30.527 y=471.600 z=42.819 \u2192 x=-30.527 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-30.527 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-30.240 y=471.600 z=48.948",
+          "edge: x=-30.240 y=471.600 z=52.198 \u2192 x=-30.240 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-30.240 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-24.512 y=471.600 z=39.569",
+          "edge: x=-24.512 y=471.600 z=42.819 \u2192 x=-24.512 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-24.512 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-24.247 y=471.600 z=48.948",
+          "edge: x=-24.247 y=471.600 z=52.198 \u2192 x=-24.247 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-24.247 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-23.001 y=471.600 z=11.431",
+          "edge: x=-23.001 y=471.600 z=14.681 \u2192 x=-23.001 y=471.600 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-23.001 y=471.600 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-20.503 y=471.599 z=20.810",
+          "edge: x=-20.503 y=471.599 z=24.060 \u2192 x=-20.503 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-20.503 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-20.358 y=471.600 z=30.189",
+          "edge: x=-20.358 y=471.600 z=33.439 \u2192 x=-20.358 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-20.358 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-18.479 y=471.600 z=39.569",
+          "edge: x=-18.479 y=471.600 z=42.819 \u2192 x=-18.479 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-18.479 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.604 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-16.986 y=471.598 z=11.431",
+          "edge: x=-16.986 y=471.598 z=14.681 \u2192 x=-16.986 y=471.598 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-16.986 y=471.598 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.604 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-14.799 y=471.598 z=58.327",
+          "edge: x=-14.799 y=471.598 z=61.577 \u2192 x=-14.799 y=471.598 z=55.077 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-14.799 y=471.598 z=58.327"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-13.972 y=471.599 z=20.810",
+          "edge: x=-13.972 y=471.599 z=24.060 \u2192 x=-13.972 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-13.972 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-12.208 y=471.600 z=48.948",
+          "edge: x=-12.208 y=471.600 z=52.198 \u2192 x=-12.208 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-12.208 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.601 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-7.307 y=471.600 z=11.431",
+          "edge: x=-7.307 y=471.600 z=14.681 \u2192 x=-7.307 y=471.600 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-7.307 y=471.600 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-5.916 y=471.599 z=20.810",
+          "edge: x=-5.916 y=471.599 z=24.060 \u2192 x=-5.916 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-5.916 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.604 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-5.181 y=471.598 z=58.327",
+          "edge: x=-5.181 y=471.598 z=61.577 \u2192 x=-5.181 y=471.598 z=55.077 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-5.181 y=471.598 z=58.327"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-4.932 y=471.600 z=39.569",
+          "edge: x=-4.932 y=471.600 z=42.819 \u2192 x=-4.932 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-4.932 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-3.168 y=471.600 z=48.948",
+          "edge: x=-3.168 y=471.600 z=52.198 \u2192 x=-3.168 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-3.168 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-0.922 y=471.597 z=11.431",
+          "edge: x=-0.922 y=471.597 z=14.681 \u2192 x=-0.922 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-0.922 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=0.766 y=471.600 z=30.189",
+          "edge: x=0.766 y=471.600 z=33.439 \u2192 x=0.766 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=0.766 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=1.091 y=471.600 z=39.569",
+          "edge: x=1.091 y=471.600 z=42.819 \u2192 x=1.091 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=1.091 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=10.610 y=471.597 z=11.431",
+          "edge: x=10.610 y=471.597 z=14.681 \u2192 x=10.610 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=10.610 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=17.141 y=471.599 z=11.431",
+          "edge: x=17.141 y=471.599 z=14.681 \u2192 x=17.141 y=471.599 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=17.141 y=471.599 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=19.670 y=471.599 z=20.810",
+          "edge: x=19.670 y=471.599 z=24.060 \u2192 x=19.670 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=19.670 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=21.557 y=471.600 z=48.948",
+          "edge: x=21.557 y=471.600 z=52.198 \u2192 x=21.557 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=21.557 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=24.666 y=471.600 z=39.569",
+          "edge: x=24.666 y=471.600 z=42.819 \u2192 x=24.666 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=24.666 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.607 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=25.665 y=471.597 z=11.431",
+          "edge: x=25.665 y=471.597 z=14.681 \u2192 x=25.665 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=25.665 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=31.221 y=471.597 z=11.431",
+          "edge: x=31.221 y=471.597 z=14.681 \u2192 x=31.221 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=31.221 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=37.721 y=471.599 z=11.431",
+          "edge: x=37.721 y=471.599 z=14.681 \u2192 x=37.721 y=471.599 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=37.721 y=471.599 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=38.901 y=471.600 z=30.189",
+          "edge: x=38.901 y=471.600 z=33.439 \u2192 x=38.901 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=38.901 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=43.750 y=471.600 z=39.569",
+          "edge: x=43.750 y=471.600 z=42.819 \u2192 x=43.750 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=43.750 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=43.750 y=471.600 z=20.810",
+          "edge: x=43.750 y=471.600 z=24.060 \u2192 x=43.750 y=471.600 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=43.750 y=471.600 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=51.028 y=471.600 z=48.948",
+          "edge: x=51.028 y=471.600 z=52.198 \u2192 x=51.028 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=51.028 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=51.810 y=471.597 z=11.431",
+          "edge: x=51.810 y=471.597 z=14.681 \u2192 x=51.810 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=51.810 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=51.923 y=471.600 z=30.189",
+          "edge: x=51.923 y=471.600 z=33.439 \u2192 x=51.923 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=51.923 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=52.417 y=471.600 z=39.569",
+          "edge: x=52.417 y=471.600 z=42.819 \u2192 x=52.417 y=471.600 z=36.319 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=52.417 y=471.600 z=39.569"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.603 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=56.765 y=471.599 z=20.810",
+          "edge: x=56.765 y=471.599 z=24.060 \u2192 x=56.765 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=56.765 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=58.414 y=471.600 z=30.189",
+          "edge: x=58.414 y=471.600 z=33.439 \u2192 x=58.414 y=471.600 z=26.939 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=58.414 y=471.600 z=30.189"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=59.333 y=471.600 z=11.431",
+          "edge: x=59.333 y=471.600 z=14.681 \u2192 x=59.333 y=471.600 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=59.333 y=471.600 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=59.688 y=471.600 z=48.948",
+          "edge: x=59.688 y=471.600 z=52.198 \u2192 x=59.688 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=59.688 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=62.780 y=471.599 z=20.810",
+          "edge: x=62.780 y=471.599 z=24.060 \u2192 x=62.780 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=62.780 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=66.074 y=471.600 z=48.948",
+          "edge: x=66.074 y=471.600 z=52.198 \u2192 x=66.074 y=471.600 z=45.698 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=66.074 y=471.600 z=48.948"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=69.341 y=471.600 z=20.810",
+          "edge: x=69.341 y=471.600 z=24.060 \u2192 x=69.341 y=471.600 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=69.341 y=471.600 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=71.350 y=471.597 z=11.431",
+          "edge: x=71.350 y=471.597 z=14.681 \u2192 x=71.350 y=471.597 z=8.181 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=71.350 y=471.597 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.5,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=75.325 y=471.599 z=20.810",
+          "edge: x=75.325 y=471.599 z=24.060 \u2192 x=75.325 y=471.599 z=17.560 \u00b7 len 6.500 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=75.325 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.491180419921875,
+        "line": "0.606 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=4.626 y=471.597 z=11.426",
+          "edge: x=4.626 y=471.597 z=14.672 \u2192 x=4.626 y=471.597 z=8.181 \u00b7 len 6.491 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=4.626 y=471.597 z=11.426"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.491180419921875,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=26.968 y=471.600 z=48.943",
+          "edge: x=26.968 y=471.600 z=52.189 \u2192 x=26.968 y=471.600 z=45.698 \u00b7 len 6.491 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=26.968 y=471.600 z=48.943"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.491180419921875,
+        "line": "0.600 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=34.994 y=471.600 z=48.943",
+          "edge: x=34.994 y=471.600 z=52.189 \u2192 x=34.994 y=471.600 z=45.698 \u00b7 len 6.491 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=34.994 y=471.600 z=48.943"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.491180419921875,
+        "line": "0.607 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=76.867 y=471.597 z=11.426",
+          "edge: x=76.867 y=471.597 z=14.672 \u2192 x=76.867 y=471.597 z=8.181 \u00b7 len 6.491 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=76.867 y=471.597 z=11.426"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 6.491180419921875,
+        "line": "0.602 mm strip, 6.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=80.882 y=471.599 z=20.806",
+          "edge: x=80.882 y=471.599 z=24.051 \u2192 x=80.882 y=471.599 z=17.560 \u00b7 len 6.491 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=80.882 y=471.599 z=20.806"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349050521850586,
+        "line": "0.606 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-45.315 y=471.597 z=10.855",
+          "edge: x=-45.315 y=471.597 z=13.530 \u2192 x=-45.315 y=471.597 z=8.181 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-45.315 y=471.597 z=10.855"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349050521850586,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-43.948 y=471.600 z=10.855",
+          "edge: x=-43.948 y=471.600 z=13.530 \u2192 x=-43.948 y=471.600 z=8.181 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-43.948 y=471.600 z=10.855"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349048614501953,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=3.490 y=471.600 z=29.614",
+          "edge: x=3.490 y=471.600 z=32.288 \u2192 x=3.490 y=471.600 z=26.939 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=3.490 y=471.600 z=29.614"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349048614501953,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-2.549 y=471.600 z=57.752",
+          "edge: x=-2.549 y=471.600 z=60.426 \u2192 x=-2.549 y=471.600 z=55.077 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-2.549 y=471.600 z=57.752"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349048614501953,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-11.057 y=471.600 z=29.614",
+          "edge: x=-11.057 y=471.600 z=32.288 \u2192 x=-11.057 y=471.600 z=26.939 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-11.057 y=471.600 z=29.614"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349048614501953,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-9.690 y=471.600 z=29.614",
+          "edge: x=-9.690 y=471.600 z=32.288 \u2192 x=-9.690 y=471.600 z=26.939 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-9.690 y=471.600 z=29.614"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349048614501953,
+        "line": "0.603 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-1.182 y=471.599 z=57.752",
+          "edge: x=-1.182 y=471.599 z=60.426 \u2192 x=-1.182 y=471.599 z=55.077 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-1.182 y=471.599 z=57.752"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.349048614501953,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=4.857 y=471.600 z=29.614",
+          "edge: x=4.857 y=471.600 z=32.288 \u2192 x=4.857 y=471.600 z=26.939 \u00b7 len 5.349 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=4.857 y=471.600 z=29.614"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331413269042969,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-38.376 y=471.600 z=40.153",
+          "edge: x=-38.376 y=471.600 z=42.819 \u2192 x=-38.376 y=471.600 z=37.487 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-38.376 y=471.600 z=40.153"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.603 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=69.992 y=471.598 z=12.015",
+          "edge: x=69.992 y=471.598 z=14.681 \u2192 x=69.992 y=471.598 z=9.349 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=69.992 y=471.598 z=12.015"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.601 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=42.396 y=471.599 z=21.394",
+          "edge: x=42.396 y=471.599 z=24.060 \u2192 x=42.396 y=471.599 z=18.729 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=42.396 y=471.599 z=21.394"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.605 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=29.863 y=471.597 z=12.015",
+          "edge: x=29.863 y=471.597 z=14.681 \u2192 x=29.863 y=471.597 z=9.349 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=29.863 y=471.597 z=12.015"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.601 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=18.312 y=471.600 z=21.394",
+          "edge: x=18.312 y=471.600 z=24.060 \u2192 x=18.312 y=471.600 z=18.729 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=18.312 y=471.600 z=21.394"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.602 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-41.392 y=471.599 z=21.394",
+          "edge: x=-41.392 y=471.599 z=24.060 \u2192 x=-41.392 y=471.599 z=18.729 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-41.392 y=471.599 z=21.394"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-48.779 y=471.600 z=30.774",
+          "edge: x=-48.779 y=471.600 z=33.439 \u2192 x=-48.779 y=471.600 z=28.108 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-48.779 y=471.600 z=30.774"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331411361694336,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-76.371 y=471.600 z=30.774",
+          "edge: x=-76.371 y=471.600 z=33.439 \u2192 x=-76.371 y=471.600 z=28.108 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-76.371 y=471.600 z=30.774"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.331409454345703,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-31.598 y=471.600 z=49.532",
+          "edge: x=-31.598 y=471.600 z=52.198 \u2192 x=-31.598 y=471.600 z=46.866 \u00b7 len 5.331 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-31.598 y=471.600 z=49.532"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.265266418457031,
+        "line": "0.604 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-44.627 y=471.598 z=14.680",
+          "edge: x=-41.994 y=471.598 z=14.680 \u2192 x=-47.259 y=471.598 z=14.680 \u00b7 len 5.265 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-44.627 y=471.598 z=14.680"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.265264630317688,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=4.178 y=471.600 z=33.439",
+          "edge: x=6.811 y=471.600 z=33.439 \u2192 x=1.546 y=471.600 z=33.439 \u00b7 len 5.265 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=4.178 y=471.600 z=33.439"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.265264630317688,
+        "line": "0.604 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-1.861 y=471.598 z=61.577",
+          "edge: x=0.772 y=471.598 z=61.577 \u2192 x=-4.494 y=471.598 z=61.577 \u00b7 len 5.265 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-1.861 y=471.598 z=61.577"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 5.265264511108398,
+        "line": "0.600 mm strip, 5.3 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-10.370 y=471.600 z=33.439",
+          "edge: x=-7.737 y=471.600 z=33.439 \u2192 x=-13.002 y=471.600 z=33.439 \u00b7 len 5.265 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-10.370 y=471.600 z=33.439"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.600 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-83.032 y=471.600 z=26.939",
+          "edge: x=-80.569 y=471.600 z=26.939 \u2192 x=-85.494 y=471.600 z=26.939 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-83.032 y=471.600 z=26.939"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.603 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=60.317 y=471.599 z=17.560",
+          "edge: x=62.780 y=471.599 z=17.560 \u2192 x=57.854 y=471.599 z=17.560 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=60.317 y=471.599 z=17.560"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.603 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=72.863 y=471.599 z=17.560",
+          "edge: x=75.325 y=471.599 z=17.560 \u2192 x=70.400 y=471.599 z=17.560 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=72.863 y=471.599 z=17.560"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.607 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-65.611 y=471.597 z=8.181",
+          "edge: x=-63.148 y=471.597 z=8.181 \u2192 x=-68.074 y=471.597 z=8.181 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-65.611 y=471.597 z=8.181"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.607 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-19.449 y=471.597 z=8.181",
+          "edge: x=-16.986 y=471.597 z=8.181 \u2192 x=-21.912 y=471.597 z=8.181 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-19.449 y=471.597 z=8.181"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.607 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=23.202 y=471.597 z=8.181",
+          "edge: x=25.665 y=471.597 z=8.181 \u2192 x=20.739 y=471.597 z=8.181 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=23.202 y=471.597 z=8.181"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.925712585449219,
+        "line": "0.607 mm strip, 4.9 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=8.147 y=471.597 z=8.181",
+          "edge: x=10.610 y=471.597 z=8.181 \u2192 x=5.684 y=471.597 z=8.181 \u00b7 len 4.926 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=8.147 y=471.597 z=8.181"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.600 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=60.396 y=471.600 z=24.060",
+          "edge: x=62.780 y=471.600 z=24.060 \u2192 x=58.013 y=471.600 z=24.060 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=60.396 y=471.600 z=24.060"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.600 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-14.592 y=471.600 z=52.197",
+          "edge: x=-12.208 y=471.600 z=52.197 \u2192 x=-16.975 y=471.600 z=52.197 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-14.592 y=471.600 z=52.197"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.617029190063477,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=37.635 y=471.600 z=29.248",
+          "edge: x=37.635 y=471.600 z=31.556 \u2192 x=37.635 y=471.600 z=26.939 \u00b7 len 4.617 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=37.635 y=471.600 z=29.248"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.61702823638916,
+        "line": "0.605 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-37.258 y=471.598 z=10.489",
+          "edge: x=-37.258 y=471.598 z=12.798 \u2192 x=-37.258 y=471.598 z=8.181 \u00b7 len 4.617 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-37.258 y=471.598 z=10.489"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.617027282714844,
+        "line": "0.603 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-16.065 y=471.599 z=57.386",
+          "edge: x=-16.065 y=471.599 z=59.694 \u2192 x=-16.065 y=471.599 z=55.077 \u00b7 len 4.617 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-16.065 y=471.599 z=57.386"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.617027282714844,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-59.583 y=471.600 z=48.006",
+          "edge: x=-59.583 y=471.600 z=50.315 \u2192 x=-59.583 y=471.600 z=45.698 \u00b7 len 4.617 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-59.583 y=471.600 z=48.006"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.617027282714844,
+        "line": "0.602 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-68.367 y=471.599 z=19.869",
+          "edge: x=-68.367 y=471.599 z=22.177 \u2192 x=-68.367 y=471.599 z=17.560 \u00b7 len 4.617 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-68.367 y=471.599 z=19.869"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.608209609985352,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=24.664 y=471.600 z=52.197",
+          "edge: x=26.968 y=471.600 z=52.197 \u2192 x=22.360 y=471.600 z=52.197 \u00b7 len 4.608 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=24.664 y=471.600 z=52.197"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.608209133148193,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=6.844 y=471.600 z=42.818",
+          "edge: x=9.148 y=471.600 z=42.818 \u2192 x=4.540 y=471.600 z=42.818 \u00b7 len 4.608 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=6.844 y=471.600 z=42.818"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.608207702636719,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=78.578 y=471.600 z=24.060",
+          "edge: x=80.882 y=471.600 z=24.060 \u2192 x=76.274 y=471.600 z=24.060 \u00b7 len 4.608 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=78.578 y=471.600 z=24.060"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.577341079711914,
+        "line": "0.607 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=28.932 y=471.597 z=8.181",
+          "edge: x=31.221 y=471.597 z=8.181 \u2192 x=26.644 y=471.597 z=8.181 \u00b7 len 4.577 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=28.932 y=471.597 z=8.181"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.577339172363281,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-77.301 y=471.600 z=26.939",
+          "edge: x=-75.012 y=471.600 z=26.939 \u2192 x=-79.590 y=471.600 z=26.939 \u00b7 len 4.577 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-77.301 y=471.600 z=26.939"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.577339172363281,
+        "line": "0.606 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=69.061 y=471.597 z=8.181",
+          "edge: x=71.350 y=471.597 z=8.181 \u2192 x=66.773 y=471.597 z=8.181 \u00b7 len 4.577 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=69.061 y=471.597 z=8.181"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.242198944091797,
+        "line": "0.601 mm strip, 4.2 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=68.023 y=471.599 z=20.810",
+          "edge: x=68.023 y=471.599 z=22.931 \u2192 x=68.023 y=471.599 z=18.689 \u00b7 len 4.242 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=68.023 y=471.599 z=20.810"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.2421979904174805,
+        "line": "0.604 mm strip, 4.2 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=-70.450 y=471.598 z=11.431",
+          "edge: x=-70.450 y=471.598 z=13.552 \u2192 x=-70.450 y=471.598 z=9.310 \u00b7 len 4.242 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-70.450 y=471.598 z=11.431"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": NaN,
+        "line": "nan mm strip, nan mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=-76.834 y=471.725 z=19.974",
+          "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+          "click: x=-76.834 y=471.725 z=19.974"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": NaN,
+        "line": "nan mm strip, nan mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=29.562 y=471.775 z=40.714",
+          "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+          "click: x=29.562 y=471.775 z=40.714"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": NaN,
+        "line": "nan mm strip, nan mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=48.586 y=471.750 z=40.660",
+          "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+          "click: x=48.586 y=471.750 z=40.660"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": NaN,
+        "line": "nan mm strip, nan mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=0.000 \u00b7 thru x=48.740 y=471.700 z=40.943",
+          "edge: x=nan y=nan z=nan \u2192 x=nan y=nan z=nan \u00b7 len nan \u00b7 straight \u00b7 dir x=nan y=nan z=nan",
+          "click: x=48.740 y=471.700 z=40.943"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.604 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-65.531 y=471.598 z=14.680",
+          "edge: x=-63.148 y=471.598 z=14.680 \u2192 x=-67.915 y=471.598 z=14.680 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-65.531 y=471.598 z=14.680"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.604 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-19.370 y=471.598 z=14.680",
+          "edge: x=-16.986 y=471.598 z=14.680 \u2192 x=-21.753 y=471.598 z=14.680 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-19.370 y=471.598 z=14.680"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.604 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=23.281 y=471.598 z=14.680",
+          "edge: x=25.665 y=471.598 z=14.680 \u2192 x=20.898 y=471.598 z=14.680 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=23.281 y=471.598 z=14.680"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.600 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=72.942 y=471.600 z=24.060",
+          "edge: x=75.325 y=471.600 z=24.060 \u2192 x=70.559 y=471.600 z=24.060 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=72.942 y=471.600 z=24.060"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.766960144042969,
+        "line": "0.600 mm strip, 4.8 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=-82.952 y=471.600 z=33.439",
+          "edge: x=-80.569 y=471.600 z=33.439 \u2192 x=-85.336 y=471.600 z=33.439 \u00b7 len 4.767 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=-82.952 y=471.600 z=33.439"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.608209609985352,
+        "line": "0.600 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=32.690 y=471.600 z=52.197",
+          "edge: x=34.994 y=471.600 z=52.197 \u2192 x=30.386 y=471.600 z=52.197 \u00b7 len 4.608 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=32.690 y=471.600 z=52.197"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.608207702636719,
+        "line": "0.604 mm strip, 4.6 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=1.000 \u00b7 thru x=74.563 y=471.598 z=14.680",
+          "edge: x=76.867 y=471.598 z=14.680 \u2192 x=72.258 y=471.598 z=14.680 \u00b7 len 4.608 \u00b7 straight \u00b7 dir x=-1.000 y=0.000 z=0.000",
+          "click: x=74.563 y=471.598 z=14.680"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.537654876708984,
+        "line": "0.600 mm strip, 4.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-57.567 y=471.600 z=40.550",
+          "edge: x=-57.567 y=471.600 z=42.819 \u2192 x=-57.567 y=471.600 z=38.281 \u00b7 len 4.538 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-57.567 y=471.600 z=40.550"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.537654876708984,
+        "line": "0.603 mm strip, 4.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-18.812 y=471.598 z=59.308",
+          "edge: x=-18.812 y=471.598 z=61.577 \u2192 x=-18.812 y=471.598 z=57.039 \u00b7 len 4.538 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-18.812 y=471.598 z=59.308"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.537652969360352,
+        "line": "0.602 mm strip, 4.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-71.114 y=471.599 z=21.791",
+          "edge: x=-71.114 y=471.599 z=24.060 \u2192 x=-71.114 y=471.599 z=19.522 \u00b7 len 4.538 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-71.114 y=471.599 z=21.791"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.537652969360352,
+        "line": "0.600 mm strip, 4.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=34.888 y=471.600 z=31.170",
+          "edge: x=34.888 y=471.600 z=33.439 \u2192 x=34.888 y=471.600 z=28.902 \u00b7 len 4.538 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=34.888 y=471.600 z=31.170"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.537652015686035,
+        "line": "0.605 mm strip, 4.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-40.005 y=471.598 z=12.412",
+          "edge: x=-40.005 y=471.598 z=14.681 \u2192 x=-40.005 y=471.598 z=10.143 \u00b7 len 4.538 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-40.005 y=471.598 z=12.412"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.537651062011719,
+        "line": "0.600 mm strip, 4.5 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=1.000 y=0.000 z=0.000 \u00b7 thru x=-62.330 y=471.600 z=49.929",
+          "edge: x=-62.330 y=471.600 z=52.198 \u2192 x=-62.330 y=471.600 z=47.660 \u00b7 len 4.538 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-62.330 y=471.600 z=49.929"
+        ]
+      },
+      {
+        "class": "sliver",
+        "score": 4.242197036743164,
+        "line": "0.600 mm strip, 4.2 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=-1.000 y=0.000 z=0.000 \u00b7 thru x=50.604 y=471.600 z=30.189",
+          "edge: x=50.604 y=471.600 z=32.310 \u2192 x=50.604 y=471.600 z=28.068 \u00b7 len 4.242 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=50.604 y=471.600 z=30.189"
+        ]
+      }
+    ],
+    "ceiling": [
+      {
+        "class": "ceiling",
+        "score": 333.2752061253941,
+        "line": "1244 mm\u00b2 flat print-down face at z=169.450 \u00b7 237.7 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=100.875 y=337.425 z=169.450",
+          "click: x=100.875 y=337.425 z=169.450"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 242.72239792250912,
+        "line": "660 mm\u00b2 flat print-down face at z=169.450 \u00b7 126.5 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=393.050 z=169.450",
+          "click: x=-100.875 y=393.050 z=169.450"
+        ]
+      },
+      {
+        "class": "ceiling",
+        "score": 215.71311202242325,
+        "line": "521 mm\u00b2 flat print-down face at z=169.450 \u00b7 99.2 \u00d7 5.2 mm \u00b7 drop 9.4\u20139.4 mm to material below",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-100.875 y=268.175 z=169.450",
+          "click: x=-100.875 y=268.175 z=169.450"
+        ]
+      }
+    ],
+    "slope": []
+  },
+  "answered": [
+    {
+      "finding": {
+        "class": "sliver",
+        "score": 6.0,
+        "line": "0.250 mm strip, 6.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=-90.375 y=212.800 z=-3.000",
+          "edge: x=-90.375 y=212.800 z=0.000 \u2192 x=-90.375 y=212.800 z=-6.000 \u00b7 len 6.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=-90.375 y=212.800 z=-3.000"
+        ]
+      },
+      "reason": "The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip."
+    },
+    {
+      "finding": {
+        "class": "sliver",
+        "score": 6.0,
+        "line": "0.250 mm strip, 6.0 mm long",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=-1.000 z=0.000 \u00b7 thru x=90.375 y=212.800 z=-3.000",
+          "edge: x=90.375 y=212.800 z=0.000 \u2192 x=90.375 y=212.800 z=-6.000 \u00b7 len 6.000 \u00b7 straight \u00b7 dir x=0.000 y=0.000 z=-1.000",
+          "click: x=90.375 y=212.800 z=-3.000"
+        ]
+      },
+      "reason": "The floor recess's 0.25 mm running-clearance returns end beside the handhold inner walls at Y212.8. Each 0.25 by 6 mm face closes a clearance slot and is backed by the continuous floor slab aft of it. The clearance keeps the front floor tongue free of the back piece as their floor and inner-wall scarfs telescope together; the narrow face is not a load-bearing strip."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 630.5711546209523,
+        "line": "320 mm\u00b2 flat print-down face at z=29.250 \u00b7 48.0 \u00d7 8.0 mm \u00b7 open to the bed (35.2 mm up)",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=-97.500 y=224.000 z=29.250",
+          "click: x=-97.500 y=224.000 z=29.250"
+        ]
+      },
+      "reason": "The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom."
+    },
+    {
+      "finding": {
+        "class": "ceiling",
+        "score": 630.5711546209523,
+        "line": "320 mm\u00b2 flat print-down face at z=29.250 \u00b7 48.0 \u00d7 8.0 mm \u00b7 open to the bed (35.2 mm up)",
+        "pick": [
+          "face: plane \u00b7 n x=0.000 y=0.000 z=-1.000 \u00b7 thru x=97.500 y=224.000 z=29.250",
+          "click: x=97.500 y=224.000 z=29.250"
+        ]
+      },
+      "reason": "The handholds' lifting ceilings stand 35.25 mm above the standing underside, including the 0.25 mm supported-face allowance. The roof grows with the opening to retain its full 12 mm section. Each roof joins the end walls, blind inner wall and seam jamb. Fingers and removable support enter through the open bottom."
+    }
+  ],
+  "scope": "Mesh anomalies and exact existing answer-anchor matches only; no new physical acceptance or support approval.",
+  "seconds": 97.57653929200023
+}

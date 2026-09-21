@@ -1,0 +1,1627 @@
+{
+  "status": "retained_published_mesh_findings_classified",
+  "production_files_changed": false,
+  "scope": "First published attempt; exact per-mesh hashes retained. Later native exports must be rebound after publication. These are geometry explanations, not print release.",
+  "parts": [
+    {
+      "part": "enclosure-front-top",
+      "mesh_sha256": "1e7052c9381423ca0e4f5c98cde6be60e4aa06590df2af19b7cd0c74f8b39d08",
+      "measured_report_sha256": "a16ea535604754bcb74aa7e6b2189b65a782d17a4659e09062ce05997ec858ad",
+      "unanswered_in_original_file": 10,
+      "existing_exact_matches": 31,
+      "classified": [
+        {
+          "pick": [
+            103.75,
+            95.938,
+            171.875
+          ],
+          "class": "step",
+          "reason": "[step] The standing Z-seam rail-channel walls at nominal |X|103.75 lie 0.75 mm inward from the |X|104.5 flank face. `_rail_channel_span` derives them from the rail head and 0.25 mm running clearance. The common floor and continuous exterior wall back the channel; this offset is the rail's sliding passage."
+        },
+        {
+          "pick": [
+            -98.5,
+            176.69,
+            180.55
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The aft flavour-valve tray's end lands expose its solid plate-to-flank root. The plate is 9.2 mm deep at Y172.09..181.29 and finishes on the flank's 45-degree bedding plane. The 0.5 mm exposed height is the end of that intersection, backed by the complete plate depth and the adjoining wall. The lower band stays inset from the lip; each wall root begins at Z177.9."
+        },
+        {
+          "pick": [
+            -93.25,
+            93.938,
+            163.462
+          ],
+          "class": "sliver",
+          "reason": "[sliver] These are the exposed ends of the carrier floor between its fore plane at Y93.836 and the tee wells' front plane at Y94.040. The floor runs from Z160 to Z166.924. Native probes verify a continuous 9.998 mm-wide section extending inboard from these faces; the 0.204 mm reading is the exposed Y length of the floor end, not its material thickness. See postpublish-front-top-stock-check.json."
+        },
+        {
+          "pick": [
+            -97.715,
+            109.34,
+            235.925
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The outer tee well ends at |X|96.9297 and the 9 mm flank begins at |X|98.5. The exposed top and aft faces of their joined guide land are 1.5703 mm across. The land runs from the recess roof at Z229.619 to the fixed-body top at Z235.925 and joins the flank along its length. Native probes retain a complete 5.98 mm-wide wall-root block behind that land on both sides; its exposed face width is not a separate thin wall. See postpublish-front-top-stock-check.json."
+        },
+        {
+          "pick": [
+            97.715,
+            109.34,
+            235.925
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The outer tee well ends at |X|96.9297 and the 9 mm flank begins at |X|98.5. The exposed top and aft faces of their joined guide land are 1.5703 mm across. The land runs from the recess roof at Z229.619 to the fixed-body top at Z235.925 and joins the flank along its length. Native probes retain a complete 5.98 mm-wide wall-root block behind that land on both sides; its exposed face width is not a separate thin wall. See postpublish-front-top-stock-check.json."
+        },
+        {
+          "pick": [
+            -99.175,
+            151.152,
+            253.1
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+        },
+        {
+          "pick": [
+            99.175,
+            150.882,
+            253.1
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+        },
+        {
+          "pick": [
+            -98.5,
+            176.69,
+            180.55
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing."
+        },
+        {
+          "pick": [
+            -97.5,
+            122.795,
+            270.969
+          ],
+          "class": "sliver",
+          "reason": "The yoke-entry pocket roof meets the underside corbel of the left front Wago well here. Its 0.838643 mm exposed edge is below the well floor, not a separate ligament. The complete 3 mm floor occupies Z272.85..275.85 and remains present across the full tower. The pocket edge ends at Z271.388643, 1.461357 mm below that floor; the remaining corbel joins the tower to the full flank."
+        },
+        {
+          "pick": [
+            -107.433,
+            156.194,
+            349.894
+          ],
+          "class": "sliver",
+          "reason": "These collinear STL triangles have zero area and a zero normal; their strip dimensions are undefined. They add no surface area or volume and do not describe a physical thin section. The complete unmodified mesh is one watertight, consistently wound body. Removing these triangles alone would break indexed edge adjacency and is not a geometry correction."
+        },
+        {
+          "pick": [
+            107.433,
+            156.218,
+            349.894
+          ],
+          "class": "sliver",
+          "reason": "These collinear STL triangles have zero area and a zero normal; their strip dimensions are undefined. They add no surface area or volume and do not describe a physical thin section. The complete unmodified mesh is one watertight, consistently wound body. Removing these triangles alone would break indexed edge adjacency and is not a geometry correction."
+        }
+      ],
+      "private_proposal": ".cache/scanner-review/postpublish-lint-current-v1/proposed-answers/enclosure-front-top.lint-answers",
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    },
+    {
+      "part": "enclosure-front-bottom",
+      "mesh_sha256": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd",
+      "measured_report_sha256": "056788077904977f77ee565d3f63e692adf29921b71f4ba4ec4ff140664adaa5",
+      "unanswered_in_original_file": 2,
+      "existing_exact_matches": 5,
+      "classified": [
+        {
+          "pick": [
+            100.875,
+            142.418,
+            169.2
+          ],
+          "class": "ceiling",
+          "reason": "[ceiling] The front Z-slide heads' square catches stand at z=160.00 + 8.70 + 0.25 running clearance + 0.25 supported-face allowance = 169.20. Each overlaps the top's full-section foot and retains at least 3 mm of head stock. Lifting the seated top lands the flat foot on this face along the rail; its flat bearing resists lift without camming the seam open. The arm returns to the wall on its 45-degree under-flare, and slicer support carries the catch underside. The groove under the catch is open air from the arm's sliding face out past the exterior plane, so that support stands on the outside of the flank with a face exposed down the whole run; it comes off in one piece without reaching into the cavity."
+        },
+        {
+          "pick": [
+            -100.875,
+            142.418,
+            169.2
+          ],
+          "class": "ceiling",
+          "reason": "[ceiling] The front Z-slide heads' square catches stand at z=160.00 + 8.70 + 0.25 running clearance + 0.25 supported-face allowance = 169.20. Each overlaps the top's full-section foot and retains at least 3 mm of head stock. Lifting the seated top lands the flat foot on this face along the rail; its flat bearing resists lift without camming the seam open. The arm returns to the wall on its 45-degree under-flare, and slicer support carries the catch underside. The groove under the catch is open air from the arm's sliding face out past the exterior plane, so that support stands on the outside of the flank with a face exposed down the whole run; it comes off in one piece without reaching into the cavity."
+        }
+      ],
+      "private_proposal": ".cache/scanner-review/postpublish-lint-current-v1/proposed-answers/enclosure-front-bottom.lint-answers",
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    },
+    {
+      "part": "enclosure-back-bottom",
+      "mesh_sha256": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b",
+      "measured_report_sha256": "a19105f2b68a67354f4d789e164e2453117521c938a47da9673ce4a0d0c18bde",
+      "unanswered_in_original_file": 153,
+      "existing_exact_matches": 4,
+      "classified": [
+        {
+          "pick": [
+            100.875,
+            337.425,
+            169.45
+          ],
+          "class": "ceiling",
+          "reason": "[ceiling] The rear Z-slide heads' square catches stand at Z160.00 + 8.70 + 0.25 running fit + two 0.25 supported-face allowances = 169.45. Both this head underside and the mating back-top foot print down, so the complete 0.75 mm gap is allocated here while the foot remains on its nominal plane. The head retains 5.35 mm of stock up to Z174.8. Its flat bearing resists lift without camming the seam open; the arm returns to the wall on its 45-degree under-flare. The west run is interrupted by the PRV passage, and support is removed through the open slide channels."
+        },
+        {
+          "pick": [
+            -100.875,
+            393.05,
+            169.45
+          ],
+          "class": "ceiling",
+          "reason": "[ceiling] The rear Z-slide heads' square catches stand at Z160.00 + 8.70 + 0.25 running fit + two 0.25 supported-face allowances = 169.45. Both this head underside and the mating back-top foot print down, so the complete 0.75 mm gap is allocated here while the foot remains on its nominal plane. The head retains 5.35 mm of stock up to Z174.8. Its flat bearing resists lift without camming the seam open; the arm returns to the wall on its 45-degree under-flare. The west run is interrupted by the PRV passage, and support is removed through the open slide channels."
+        },
+        {
+          "pick": [
+            -100.875,
+            268.175,
+            169.45
+          ],
+          "class": "ceiling",
+          "reason": "[ceiling] The rear Z-slide heads' square catches stand at Z160.00 + 8.70 + 0.25 running fit + two 0.25 supported-face allowances = 169.45. Both this head underside and the mating back-top foot print down, so the complete 0.75 mm gap is allocated here while the foot remains on its nominal plane. The head retains 5.35 mm of stock up to Z174.8. Its flat bearing resists lift without camming the seam open; the arm returns to the wall on its 45-degree under-flare. The west run is interrupted by the PRV passage, and support is removed through the open slide channels."
+        },
+        {
+          "pick": [
+            -76.834,
+            471.725,
+            19.974
+          ],
+          "class": "sliver",
+          "reason": "[sliver] These diagnostics are collinear STL triangles on the integral disposal lettering. Each has zero area and a zero normal, so its strip dimensions are undefined. They contribute no surface area or volume and do not describe a physical thin section."
+        },
+        {
+          "pick": [
+            29.562,
+            471.775,
+            40.714
+          ],
+          "class": "sliver",
+          "reason": "[sliver] These diagnostics are collinear STL triangles on the integral disposal lettering. Each has zero area and a zero normal, so its strip dimensions are undefined. They contribute no surface area or volume and do not describe a physical thin section."
+        },
+        {
+          "pick": [
+            48.586,
+            471.75,
+            40.66
+          ],
+          "class": "sliver",
+          "reason": "[sliver] These diagnostics are collinear STL triangles on the integral disposal lettering. Each has zero area and a zero normal, so its strip dimensions are undefined. They contribute no surface area or volume and do not describe a physical thin section."
+        },
+        {
+          "pick": [
+            48.74,
+            471.7,
+            40.943
+          ],
+          "class": "sliver",
+          "reason": "[sliver] These diagnostics are collinear STL triangles on the integral disposal lettering. Each has zero area and a zero normal, so its strip dimensions are undefined. They contribute no surface area or volume and do not describe a physical thin section."
+        },
+        {
+          "pick": [
+            58.339,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            53.05,
+            471.599,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            51.067,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            45.526,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            33.622,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            20.208,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            7.534,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -4.489,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -6.531,
+            471.598,
+            58.327
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -8.656,
+            471.598,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -19.022,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -20.078,
+            471.598,
+            58.327
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -41.271,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -50.049,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -52.311,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -58.833,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -63.595,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -72.38,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -51.636,
+            471.9,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            59.014,
+            471.9,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            20.882,
+            471.9,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -5.856,
+            471.9,
+            58.327
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            8.209,
+            471.9,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -53.506,
+            471.9,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -49.374,
+            471.9,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            51.742,
+            471.9,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -80.569,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -75.012,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -69.132,
+            471.6,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -68.512,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -67.101,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -63.148,
+            471.598,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -58.317,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -48.699,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -47.42,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -41.428,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -40.034,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -37.018,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -35.993,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -35.404,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -30.527,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -30.24,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -24.512,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -24.247,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -23.001,
+            471.6,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -20.503,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -20.358,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -18.479,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -16.986,
+            471.598,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -14.799,
+            471.598,
+            58.327
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -13.972,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -12.208,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -7.307,
+            471.6,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -5.916,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -5.181,
+            471.598,
+            58.327
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -4.932,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -3.168,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -0.922,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            0.766,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            1.091,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            10.61,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            17.141,
+            471.599,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            19.67,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            21.557,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            24.666,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            25.665,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            31.221,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            37.721,
+            471.599,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            38.901,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            43.75,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            43.75,
+            471.6,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            51.028,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            51.81,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            51.923,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            52.417,
+            471.6,
+            39.569
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            56.765,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            58.414,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            59.333,
+            471.6,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            59.688,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            62.78,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            66.074,
+            471.6,
+            48.948
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            69.341,
+            471.6,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            71.35,
+            471.597,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            75.325,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            4.626,
+            471.597,
+            11.426
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            26.968,
+            471.6,
+            48.943
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            34.994,
+            471.6,
+            48.943
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            76.867,
+            471.597,
+            11.426
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            80.882,
+            471.599,
+            20.806
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -45.315,
+            471.597,
+            10.855
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -43.948,
+            471.6,
+            10.855
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            3.49,
+            471.6,
+            29.614
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -2.549,
+            471.6,
+            57.752
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -11.057,
+            471.6,
+            29.614
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -9.69,
+            471.6,
+            29.614
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -1.182,
+            471.599,
+            57.752
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            4.857,
+            471.6,
+            29.614
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -38.376,
+            471.6,
+            40.153
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            69.992,
+            471.598,
+            12.015
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            42.396,
+            471.599,
+            21.394
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            29.863,
+            471.597,
+            12.015
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            18.312,
+            471.6,
+            21.394
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -41.392,
+            471.599,
+            21.394
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -48.779,
+            471.6,
+            30.774
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -76.371,
+            471.6,
+            30.774
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -31.598,
+            471.6,
+            49.532
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -44.627,
+            471.598,
+            14.68
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            4.178,
+            471.6,
+            33.439
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -1.861,
+            471.598,
+            61.577
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -10.37,
+            471.6,
+            33.439
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -83.032,
+            471.6,
+            26.939
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            60.317,
+            471.599,
+            17.56
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            72.863,
+            471.599,
+            17.56
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -65.611,
+            471.597,
+            8.181
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -19.449,
+            471.597,
+            8.181
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            23.202,
+            471.597,
+            8.181
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            8.147,
+            471.597,
+            8.181
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            60.396,
+            471.6,
+            24.06
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -14.592,
+            471.6,
+            52.197
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            37.635,
+            471.6,
+            29.248
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -37.258,
+            471.598,
+            10.489
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -16.065,
+            471.599,
+            57.386
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -59.583,
+            471.6,
+            48.006
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -68.367,
+            471.599,
+            19.869
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            24.664,
+            471.6,
+            52.197
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            6.844,
+            471.6,
+            42.818
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            78.578,
+            471.6,
+            24.06
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            28.932,
+            471.597,
+            8.181
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -77.301,
+            471.6,
+            26.939
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            69.061,
+            471.597,
+            8.181
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            68.023,
+            471.599,
+            20.81
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -70.45,
+            471.598,
+            11.431
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -65.531,
+            471.598,
+            14.68
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -19.37,
+            471.598,
+            14.68
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            23.281,
+            471.598,
+            14.68
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            72.942,
+            471.6,
+            24.06
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -82.952,
+            471.6,
+            33.439
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            32.69,
+            471.6,
+            52.197
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            74.563,
+            471.598,
+            14.68
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -57.567,
+            471.6,
+            40.55
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -18.812,
+            471.598,
+            59.308
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -71.114,
+            471.599,
+            21.791
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            34.888,
+            471.6,
+            31.17
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -40.005,
+            471.598,
+            12.412
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            -62.33,
+            471.6,
+            49.929
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        },
+        {
+          "pick": [
+            50.604,
+            471.6,
+            30.189
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The disposal warning has integral raised letters with 6.5 mm H capitals. These narrow faces are the letter strokes and the sides of their 0.6 mm outward projection. Every glyph is fused into the continuous rear wall behind the smooth field. The complete STL is one watertight, consistently wound body. The current production slice determines whether support contacts occur beneath the lettering; any contacts remain exposed on the rear exterior before assembly."
+        }
+      ],
+      "private_proposal": ".cache/scanner-review/postpublish-lint-current-v1/proposed-answers/enclosure-back-bottom.lint-answers",
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    },
+    {
+      "part": "enclosure-tee-carrier-left",
+      "mesh_sha256": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c",
+      "measured_report_sha256": "68c8699e9ebaf6e27dd72b5a2bd8d71d2cedc215d67878e3ec62856d3c4c0a8f",
+      "unanswered_in_original_file": 2,
+      "existing_exact_matches": 31,
+      "classified": [
+        {
+          "pick": [
+            -73.258,
+            108.538,
+            214.774
+          ],
+          "class": "sliver",
+          "reason": "[sliver] These 0.496 mm strips are the exposed side faces of the shallow bowed-tube recess. The material behind the recess is a continuous 5.504 mm backing, verified by the native upper-backing probes in tee_carrier.py."
+        },
+        {
+          "pick": [
+            -28.907,
+            135.995,
+            215.5
+          ],
+          "class": "sliver",
+          "reason": "[sliver] The 3 \u00d7 3 \u00d7 9 mm retaining stop ends at Y136.000, while its broad upper-cheek/root ends at Y135.990. These are the 0.010 mm exposed edge faces at their union. The stop overlaps the root through its remaining 2.99 mm Y depth; no freestanding 0.010 mm sheet is present. The root is continuous with the shelf and upper cheek, and the native retaining-wall motion checks use this exact body."
+        }
+      ],
+      "private_proposal": ".cache/scanner-review/postpublish-lint-current-v1/proposed-answers/enclosure-tee-carrier-left.lint-answers",
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    },
+    {
+      "part": "enclosure-tee-carrier-right",
+      "mesh_sha256": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4",
+      "measured_report_sha256": "f46bcf718893fb35c9ddac3b2259b70c959007e080802fe573e42658a0548e70",
+      "unanswered_in_original_file": 0,
+      "existing_exact_matches": 39,
+      "classified": [],
+      "private_proposal": null,
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    },
+    {
+      "part": "foam-cap-top",
+      "mesh_sha256": "8e23f80fb6af7a29be3674ea6894f287e6b585a86cd695187434112a09dcb785",
+      "measured_report_sha256": "b90105c9be48bdaa10cf0d01737cde32efeb0c9c0962a0a687a688d37e6718ef",
+      "unanswered_in_original_file": 0,
+      "existing_exact_matches": 0,
+      "classified": [],
+      "private_proposal": null,
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    },
+    {
+      "part": "foam-cap-lid-top",
+      "mesh_sha256": "3480420b4d4c35efeafb0aaa8753300833a7838cce5a8543a7dd5db3ac608111",
+      "measured_report_sha256": "370d21601dc0f82d194cc48e3ef41301e9a50a312279c95c56d02a777026f986",
+      "unanswered_in_original_file": 1,
+      "existing_exact_matches": 5,
+      "classified": [
+        {
+          "pick": [
+            65.0,
+            44.75,
+            8.4
+          ],
+          "class": "ceiling",
+          "reason": "The fluid-14 tie tunnel is the open passage beneath its clamping rib. Its flat roof bridges 2.8 mm along X between full 3 mm feet and spans 12.7 mm along Y. Native mouth probes verify 3.0 mm openings along both Y directions above the 0.25 mm floor-relief lip. Detach any emitted support from the roof, clear that lip and withdraw through an open mouth before fitting tubing or ties. The current production slice supplies the actual branch and contact geometry."
+        }
+      ],
+      "private_proposal": ".cache/scanner-review/postpublish-lint-current-v1/proposed-answers/foam-cap-lid-top.lint-answers",
+      "unanswered_after_proposed_exact_anchors": 0,
+      "fresh_slice_support_approval": false
+    }
+  ],
+  "native_stock": {
+    "complete_stock_probes_passed": 11,
+    "expected_corbel_air": {
+      "original_report_preserved": true,
+      "original_report_sha256": "e2be69ded24f2fd6986b38b15a7d82d49267911822c91bf12762203e2ae5a621",
+      "original_probe_missing_mm3": 7.350912000000625,
+      "expected_45_degree_air_wedge_mm3": 7.350912000000126,
+      "absolute_difference_mm3": 4.991562718714704e-13,
+      "pass": true,
+      "reason": "The over-broad rectangular probe crossed the intended underside corbel. The independently tested complete 3 mm Wago floor is present. The 0.838643 mm edge lies 1.461357 mm below that floor."
+    }
+  },
+  "front_warning": "The numerical zero-normal warning is explained by two zero-area mesh triangles. No lint class failed. The original attempt/status is preserved.",
+  "support_limit": "Carrier existing answer paragraphs cite prior v1 slice tree/interface IDs. They do not qualify future v2 support branches. Each fresh slice needs its own ledger.",
+  "confirmed_physical_defects": [],
+  "back_top_not_read": "Awaiting corrected regulator placement and final publication.",
+  "script_sha256": "273516de0bbef9d4c0746c8a034f6aa8e2545f4bfac75e3e1bb54934813f15af"
+}
