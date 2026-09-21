@@ -1,0 +1,426 @@
+{
+  "status": "geometry_and_near_guard_equivalent",
+  "created_at_utc": "2026-09-21T06:00:58.740456+00:00",
+  "old_revision": "7aa2c76e98f59db6c35b661c77eb0e5b852eaeef",
+  "source_path": "hardware/manifold-layout/_lines.py",
+  "old_sha256": "1674cdc2971073826d7c25a6a759cd0d3a22b51f7cee059a99db9bea9f45307c",
+  "new_sha256": "25ebc25e36b3aa68e46c38f03061be3654b19c31e77d9fd76e6832008ee93cee",
+  "reproducer_sha256": "58718c10682d52b69ff3f0ca3f31a7fca9d8b03a524f6214573591af3b949931",
+  "command": [
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_fluid2_guard_equivalence.py"
+  ],
+  "ast": {
+    "all_other_module_nodes_identical": true,
+    "function_signature_and_geometry_prefix_identical": true,
+    "geometry_prefix_sha256": "2f7509b854afa0162929400995fcd707d06a1449a1af8aca6d346c2af02ca435",
+    "tube_constructor_expression_identical": true,
+    "tube_constructor_calls_per_valid_radius": 1,
+    "return_statement_identical": true,
+    "near_distance_expression_identical": true,
+    "near_guard_condition_and_error_identical": true,
+    "bbox_condition": "pump_fore - tube.BoundingBox().ymax < _card.CLEARANCE_FLOOR - 1e-06"
+  },
+  "bound_proof": "For every pump point p and tube point t, p.y - t.y >= pump_bbox.ymin - tube_bbox.ymax. If that separation is at least the existing floor minus 1e-6, Euclidean separation is at least the same bound; otherwise the unchanged exact-distance guard executes.",
+  "behavior_cases": [
+    {
+      "case": "separated",
+      "box_gap_mm": 2.0,
+      "exact_gap_mm": 2.5,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 0,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "at floor",
+      "box_gap_mm": 1.0,
+      "exact_gap_mm": 1.0,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 0,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "within existing tolerance",
+      "box_gap_mm": 0.9999995,
+      "exact_gap_mm": 0.9999995,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 0,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "near but clear",
+      "box_gap_mm": 0.1,
+      "exact_gap_mm": 1.4,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "near and below floor",
+      "box_gap_mm": 0.1,
+      "exact_gap_mm": 0.5,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "fluid-2's finished sweep clears the pump by 0.500 mm, below the 1 mm clearance floor",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "fluid-2's finished sweep clears the pump by 0.500 mm, below the 1 mm clearance floor",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "overlapping boxes but clear",
+      "box_gap_mm": -4.0,
+      "exact_gap_mm": 1.4,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "returned_identical_run",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "overlapping boxes and collision",
+      "box_gap_mm": -4.0,
+      "exact_gap_mm": 0.0,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "fluid-2's finished sweep clears the pump by 0.000 mm, below the 1 mm clearance floor",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "fluid-2's finished sweep clears the pump by 0.000 mm, below the 1 mm clearance floor",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "just below tolerance",
+      "box_gap_mm": 0.999998,
+      "exact_gap_mm": 0.999998,
+      "minimum_bend_mm": 14.0,
+      "old": {
+        "outcome": "fluid-2's finished sweep clears the pump by 1.000 mm, below the 1 mm clearance floor",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "fluid-2's finished sweep clears the pump by 1.000 mm, below the 1 mm clearance floor",
+        "calls": {
+          "bent": 1,
+          "tube": 1,
+          "exact_distance": 1,
+          "bounding_box": 1
+        }
+      },
+      "same_outcome": true
+    },
+    {
+      "case": "stock bend rejected",
+      "box_gap_mm": 2.0,
+      "exact_gap_mm": 2.5,
+      "minimum_bend_mm": 13.9,
+      "old": {
+        "outcome": "fluid-2's inlet approach seats R13.900, below its R14 stock",
+        "calls": {
+          "bent": 1,
+          "tube": 0,
+          "exact_distance": 0,
+          "bounding_box": 0
+        }
+      },
+      "new": {
+        "outcome": "fluid-2's inlet approach seats R13.900, below its R14 stock",
+        "calls": {
+          "bent": 1,
+          "tube": 0,
+          "exact_distance": 0,
+          "bounding_box": 0
+        }
+      },
+      "same_outcome": true
+    }
+  ],
+  "input_sha256": {
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/frames.json": "e49f81ec1b5ab6d8112f680f22df33912881b9efff8bf89288d0ff2618686a1e",
+    "/private/tmp/scanner-review/full-enclosure-current/route-pack/g-ganen-pump.brep": "94eafe50d515e45099478d3a41629e3dafccd698df1cd1d9b21e40cb305b6d8e",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/tee-readiness/routing-clearance/fluid18-current-pack.json": "4786bb253db78582243ae4dc51e406ad312e740d99c136a8a57b537905494d1d"
+  },
+  "loaded_source_sha256": {
+    "hardware/manifold-layout/_gas_chain.py": "231fe7d0ad88c5f70dff0bf3bdcac4cfc1de500b18c97f0694d7f63c6da86c64",
+    "hardware/manifold-layout/_lines.py": "25ebc25e36b3aa68e46c38f03061be3654b19c31e77d9fd76e6832008ee93cee",
+    "hardware/manifold-layout/_scorecard.py": "4886fcef581bdec8dd29ba6d42bb62ec7eee6e7f31120c5793d4adb600300c69",
+    "hardware/manifold-layout/manifold_layout.py": "4e6d9d70fb49b0dad8a79a921e15216ba4c9dd8250b28cab3cf85ee2fe6c1b71",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "c5e9d168ea0508f434d1848ed2996e2db9257e0eb3e57bc2358f2e6262f7f2a7",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "a89cffe69231aa3410cad08a25e036486ee49095016efba334168092870af194",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e6c5057c37cdafe5a6e1d3330cb9a97daec6bbeb70dc763972123c5c3fe7fdaa",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_fluid2_guard_equivalence.py": "58718c10682d52b69ff3f0ca3f31a7fca9d8b03a524f6214573591af3b949931",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "e8f01c85a332ccfa56c9c642457b894d9b413658acf2a6387f7bc6d0f430a246",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "b5c9728cb8f963e5d60328d4068e1d4f87e0bd49742fbf375eb05c36cd8f393d",
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4b499dc098a6a8aae034acc77939dfd66390fd77b935d1772f815c9395bd8cf2",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/reference/compressor/compressor.py": "ff12da248ef330578938778a48767252999fbb6348d522183624a2be9d64b0bb",
+    "hardware/reference/condenser-block/condenser_block.py": "07a435cdf2301c71903a00fecc3b78eafbd41854d1c721736a396d3a67259c71",
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": "3d25061f40a0a65bd758b513ee798af3112a030f686cc4ad201e8a9c94cbf513",
+    "hardware/reference/elbow-connector/elbow_connector.py": "292a3c417d281529b58cca38f4b96ff7bad74ee44c1250a4c2648a230aa6938a",
+    "hardware/reference/flare38-14ptc/flare38_14ptc.py": "76008e6a6280fcf895e989d21b6086cd2b2d388ba48de709995e7f6a357dc630",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "693da7106532d92fdfb7b14eb0229bd59e403b1397819462cef9056b58cfd30e",
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "b29462d3240e81ccd987f4b5d874ca75fe5f4f0d155de57553028d64e8e63545",
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+    "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py": "214616588d7c7286d40c4116bfd9fd406007f7d03e75a2d6be94b2e243aa0e11",
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py": "0ecb5233f29a225d81d2cc834c98aad42e38115bdfe3d6ad5b3108c3682462c6",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "e06619c1c89589e3bd276e10414d433c93425a17d80ee2382a4a1989781e4d22",
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": "fa61dacd4e75d249ef4c1973d1e176aba20c592a54e0a480d1227ffd40456528",
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "8a2a0ab57951a0251673d070475e09b8f536826dfc8a2dd52e7dedf74d265ded",
+    "hardware/reference/neofit-flow-control/neofit_flow_control.py": "3b4d571d757042b8bafc7834246b52746acc0283533357d493a6c8c94c8e4fa9",
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": "6705f235e34c6a2b1fa3451c9ff06f890f9ca4dab7768533021ca9a8c80b8585",
+    "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py": "e0c0c3867a5f001184aa4d69e8b84bfc6206822dbe25d2624d7ae80e6f242771",
+    "hardware/reference/tee-connector/tee_connector.py": "9d9a973f1f124fa4eb2d14d6fd2f73457de9288ff2c62bae6a4c055e3df4e7b9",
+    "hardware/reference/water-split/water_split.py": "af59f438113242eb0ebbaf5eb762cddbffa285a5792a3a92c4085a626f9aded1",
+    "hardware/reference/worm-clamp/worm_clamp.py": "3faf968f69a863eb257830748e292b0ee040d007e554b79c61257b63759ca786",
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "d6960cc4d28ac552b5c69dddc0704558394851fa6539e4d4bbaebe8b686d2bde",
+    "hardware/reference/y-divider/y_divider.py": "eee4b08107633bcab7a17c3add8de464fb63fbf2fee2d6ba2d48df19c188b607",
+    "hardware/scripts/_boxes.py": "b4ef9757879de112561a56d294a7705075a9006e2826e534cb1779781eaebc23",
+    "hardware/scripts/_cadq_export.py": "f96535e6735a51886f23e43813ce20e89c44d56d6cc25e48b0fd3c50170823a6",
+    "hardware/scripts/_card.py": "c4d44163993814b5a69f2c52964019ad3cb27b0bf023ccba1e034c54e25fef8f",
+    "hardware/scripts/_clearing.py": "d2283cf6a50e51f48f743b35a1e48551334cbbfe8416519c7e387775acc218ea",
+    "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
+    "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
+    "hardware/scripts/_measuring.py": "3978b06f38f46681c022f0e7ec2ca862f5750bd6f544c25dfb8e7d8ac7eebcb5",
+    "hardware/scripts/_meshes.py": "5501724d14a9f1262aa62b9f035ac1359e16dae11c45718daa3f67946d84f64b",
+    "hardware/scripts/_overlap.py": "df36898148ab89f8a187c3d627376a86f673cf31ba0ee30cf03549d04f2c1f0f",
+    "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
+    "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
+    "hardware/scripts/_run_lock.py": "2f6483e0829c0119a6d72b90504bcf6b62ee11f1ddbfdf5cd9e4ad4bc5dc0e8a",
+    "hardware/scripts/_seating.py": "bc953256c777dc4766e38168f2fe52a1ba870e381484f589b09ab57f3a4470f2",
+    "hardware/scripts/_stated_bounds.py": "47b284a21eb19e7f39c61965290adfad16e1e3515a62fc27a5b9db809537f0de",
+    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
+  },
+  "retained_native_geometry": {
+    "tube_brep_available": false,
+    "tube_scope": "One fluid-2 tube reconstructed from the retained current port frames; no full CAD assembly or other route is built.",
+    "old_geometry_prefix_and_new_returned_run_equal": true,
+    "run": {
+      "id": "fluid-2",
+      "kind": "fluid",
+      "frm": "flow-regulator.outlet",
+      "to": "valve-v-a.inlet",
+      "pts": [
+        [
+          -91.35,
+          261.96,
+          318.8105808375568
+        ],
+        [
+          -91.35,
+          276.96,
+          318.8105808375568
+        ],
+        [
+          -48.16,
+          276.96,
+          318.8105808375568
+        ],
+        [
+          -48.16,
+          278.46,
+          289.0
+        ],
+        [
+          -16.35,
+          278.46,
+          289.0
+        ],
+        [
+          24.770000000000003,
+          278.46,
+          271.1750001
+        ],
+        [
+          24.770000000000003,
+          259.46,
+          271.1750001
+        ]
+      ],
+      "diam": 6.35,
+      "bend": 14.0,
+      "note": "tap water: flow regulator outlet \u2192 V-A inlet, aft off the regulator, level east across the lane into the strip west of the flavor-A line, forward and down that strip, and east through the window the drain leaves",
+      "min_bend": null,
+      "bends": [
+        [
+          1,
+          90.0,
+          15.0,
+          43.19
+        ],
+        [
+          2,
+          90.0,
+          43.19,
+          29.848295259068138
+        ],
+        [
+          3,
+          90.0,
+          29.848295259068138,
+          31.809999999999995
+        ],
+        [
+          4,
+          23.436121895240777,
+          31.809999999999995,
+          44.81724022555384
+        ],
+        [
+          5,
+          90.0,
+          44.81724022555384,
+          19.0
+        ]
+      ],
+      "radii": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0
+      },
+      "caps": {
+        "1": 14.0,
+        "2": 14.0,
+        "3": 14.0,
+        "4": 14.0,
+        "5": 14.0
+      }
+    },
+    "pump_bbox_ymin_mm": 300.7354745277629,
+    "tube_bbox_ymax_mm": 281.6350001,
+    "proved_minimum_air_mm": 19.10047442776289,
+    "clearance_floor_mm": 1.0,
+    "tolerance_mm": 1e-06,
+    "fast_path_taken": true,
+    "tube_valid": true,
+    "tube_solids": 1,
+    "tube_volume_mm3": 5052.789695137619,
+    "exact_compound_distance_recomputed": false
+  },
+  "scope": "Only the named _lines.py source transition. Current geometry/slice receipt is not modified; unchanged geometry may retain its existing native/artifact evidence across this guard-only transition.",
+  "full_assembly_regenerated": false,
+  "print_released": false
+}

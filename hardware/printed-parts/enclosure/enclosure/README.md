@@ -675,6 +675,9 @@ Finger openings, flexible-tube routing and vibration-isolation spaces have their
 0.50 mm top interface spacing and the automatic interface pattern. At the profile's 0.24 mm
 layer height, the organic-support slice produces a 0.48 mm interface-to-model gap.
 
+Enclosure production projects set `brim_type` to `no_brim`. Brims are acceptable on tooling
+prints when needed.
+
 ## Support-removal strategy
 
 A production-profile slice reports the connected support bodies which reach the model and their

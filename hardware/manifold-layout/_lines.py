@@ -711,11 +711,14 @@ def _fluid_2(F, solids):
     radius = min(run.radii.values(), default=run.bend)
     if radius < TUBE_BEND - 1e-6:
         raise ValueError(f"fluid-2's inlet approach seats R{radius:.3f}, below its R{TUBE_BEND:g} stock")
-    pump_gap = R.tube(run).distance(solids["g-ganen-pump"])
-    if pump_gap < _card.CLEARANCE_FLOOR - 1e-6:
-        raise ValueError(
-            f"fluid-2's finished sweep clears the pump by {pump_gap:.3f} mm, below "
-            f"the {_card.CLEARANCE_FLOOR:g} mm clearance floor")
+    tube = R.tube(run)
+    # Fore/aft box separation is a lower bound on the finished sweep's clearance.
+    if pump_fore - tube.BoundingBox().ymax < _card.CLEARANCE_FLOOR - 1e-6:
+        pump_gap = tube.distance(solids["g-ganen-pump"])
+        if pump_gap < _card.CLEARANCE_FLOOR - 1e-6:
+            raise ValueError(
+                f"fluid-2's finished sweep clears the pump by {pump_gap:.3f} mm, below "
+                f"the {_card.CLEARANCE_FLOOR:g} mm clearance floor")
     return run
 
 
