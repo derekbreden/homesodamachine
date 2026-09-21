@@ -1,0 +1,157 @@
+{
+  "status": "submitted_for_socket_fit_trial",
+  "production_enclosure_ready": false,
+  "coupon_only": true,
+  "submitted": true,
+  "printer": "Mark2",
+  "physical_filament": "Black Polymaker PET-GF",
+  "filament_metadata": [
+    "PET-CF"
+  ],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "source_profile": "hardware/printed-parts/petgf.3mf",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "source_parts": [
+    {
+      "name": "valve-socket-fit",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl",
+      "stl_sha256": "bb30ef9291b95ea2a0c780a3b755fbf326a582641cf3be180d9b2ddb8c20d98a",
+      "triangles": 2232,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.5999999046325684,
+        22.024999618530273
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        175.0,
+        160.0,
+        22.024999618530273
+      ],
+      "plate_translation_mm": [
+        175.0,
+        160.0,
+        22.024999618530273
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          153.20000076293945,
+          155.40000009536743,
+          0.0
+        ],
+        [
+          196.79999923706055,
+          164.59999990463257,
+          44.04999923706055
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.990230451085154e-10
+    }
+  ],
+  "geometry_checks_sha256": "000fe7a3e6bd87ee1d194d0df22699ab2fef702c91f8475f519883c455099fe3",
+  "staged_input": ".cache/prints/2026-09-20-valve-socket-fit-black-z004-mark2-v1/valve-socket-fit-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "69433817c7e59d0f4f23c729a291326449b333300d90d0bcedfc8a744911d3d9",
+  "native_archive": ".cache/prints/2026-09-20-valve-socket-fit-black-z004-mark2-v1/ready/valve-socket-fit-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "e56dae683f9ee066904794c9100d4039afab9dabd86577cd54ef91eb4bb89474",
+  "gcode_sha256": "b0378c1d23b7e76eb76ddcc9ef751bfd451545199693e975c0356423c8430de1",
+  "process": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "nozzle_diameter": [
+      "0.4",
+      "0.4"
+    ],
+    "filament_colour": [
+      "#000000"
+    ],
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_arc_fitting": "0",
+    "filament_nozzle_map": [
+      "0"
+    ],
+    "filament_map": [
+      "1"
+    ]
+  },
+  "intentional_settings_changed": [
+    "extruder_ams_count",
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "layers": 184,
+  "estimated_seconds": 1204.094482421875,
+  "estimated_filament_g": 8.169325828552246,
+  "slicer_warning": "",
+  "toolpath_fit": {
+    "minimum_shared_bed_margin_mm": 127.98769300000001,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  },
+  "support_audit": ".cache/prints/2026-09-20-valve-socket-fit-black-z004-mark2-v1/valve-socket-fit-black-z004-mark2-v1-input.support-audit.json",
+  "support_audit_sha256": "d0fa8354d0b3c590416f2603690146be6fa573c5ff41a2bd09c8e4a05d045eea",
+  "live_printer_mapping_and_empty_plate_still_required": false,
+  "toolpath_review": "hardware/printed-parts/fixtures/valve-socket-fit/toolpath-review.json",
+  "toolpath_review_sha256": "de05cf1fb112128a862c9509f47130fbe0f6d19274aad8303f94059d60d719b6",
+  "print_status": "hardware/printed-parts/fixtures/valve-socket-fit/print-status.json",
+  "post_publication_geometry_lint": {
+    "findings": 0,
+    "stl_sha256": "bb30ef9291b95ea2a0c780a3b755fbf326a582641cf3be180d9b2ddb8c20d98a"
+  },
+  "toolpath_visual_review": "Four distinct open sockets; nominal valve posts fit within the commanded section envelopes."
+}

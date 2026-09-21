@@ -1,8 +1,9 @@
 # Tee-carrier interlocking joint coupon
 
-**A bench coupon, not a production carrier.** The current carrier source and its two
-printed meshes are unchanged. This study makes the proposed screwless load path tangible
-while the production tee reference, spring capture and enclosure clearances are settled.
+**A tested bench coupon whose design is not accepted for the production carrier.**
+Derek reports secure, play-free assembly but excessive bending along X, unnecessary
+complexity and an ineffective tiny keeper catch. Neither half is selected for reuse.
+The complete carrier is under redesign for simple assembly and full-width rigidity.
 
 ![Exploded native geometry: left lap, right receiver, snap keeper](geometry.svg)
 
@@ -17,9 +18,8 @@ root overlap** and **28.93 mm key spacing**. The two heads are 5.6 × 2.0 × 14.
 has a 3.0 × 2.0 × 8.0 mm neck. Each keeper block is 3.1 mm wide. Broad plain side wings
 provide hand and clamp surfaces for a bench check. There are no screws or inserts.
 
-The final tee layout must leave this joint's entry windows and surrounding stock intact.
-The receiver's entry window ends at X=7.20 mm; these dimensions are not an authorization
-to consume a future tee, tie or valve clearance.
+The receiver's entry window ends at X=7.20 mm. These coupon dimensions do not constrain
+the production carrier redesign or authorize consuming a tee, tie or valve clearance.
 
 ## Geometry evidence
 
@@ -40,8 +40,9 @@ printed PET-GF strength, the stress at its root, required snap force or fatigue 
 
 The nominal fore/aft key clearance is **0.15 mm**, and supported vertical clearance is
 **0.40 mm per opposing contact**. This coupon has geometric retention, not modeled
-clamping preload. The printed coupon has no observed rocking or play in Derek's hand-fit test; full-width
-carrier rigidity remains a separate physical comparison.
+clamping preload. The printed coupon has no observed rocking or play in Derek's hand-fit test, but bows
+along X more readily than acceptable for the carrier's function. Tight engagement does
+not establish bending stiffness. The applied force and bending mode are unmeasured.
 
 ## Print and assemble
 
@@ -71,8 +72,8 @@ Mark2 completed this exact job at the **2026-09-20 23:23:54 UTC** status reading
 retains that reading. Derek reports successful tight assembly with a small amount of force
 and **no rocking or play**. The keeper inserts with a tight friction fit, but its tiny catch
 is flimsy and supplies essentially no observed spring tension. The
-[physical fit report](physical-fit.json) accepts the interlocking fit and rejects the catch
-as a meaningful positive lock. Broad compliant walls and retaining lips, patterned on the
+[physical fit report](physical-fit.json) records the tight fit without design acceptance
+and rejects the catch as a meaningful positive lock. Broad compliant walls and retaining lips, patterned on the
 [accepted faucet display cover](../../../faucet/faucet-display-cover/physical-acceptance.json),
 are the integral latch direction: the two mating halves should lock during their normal
 seating movement, with no separate keeper or fastening step. Simpler assembly is an
@@ -104,7 +105,7 @@ need to enter under the keys' fore faces along X or Z; thickening the adjacent k
 alone does not remove fore/aft lash. Derek observes a tight, play-free coupon fit and does
 not accept the design's complexity. Neither half is selected for reuse. The complete carrier
 assembly is under redesign for simplicity and full-width rigidity, with the faucet display
-cover as the sole physically proven snap-fit example.
+cover as the preferred physically proven example for simple snap assembly.
 
 ## Remaining carrier work
 

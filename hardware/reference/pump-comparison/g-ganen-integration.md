@@ -4,9 +4,10 @@ The selected received pump is G Ganen B07F35PTFR. Derek confirmed that no calipe
 
 Three complementary 0.10 mm fused clouds and their native projects are archived in
 `~/Documents/3D Scans/2026-09-20-g-ganen-pump/`. Derek identifies the feet as flexible rubber.
-Its flow arrow points right with `4002` upright and readable. That label-frame direction is
-recorded; its mapping to the scan reference's signed Y ports remains open. Unloaded foot
-poses do not establish the compressed mounting stack.
+Its flow arrow points right with `4002` upright and readable. Derek identifies installed flow toward enclosure −X. With the intended +90° Z rotation,
+local +Y is discharge and local −Y is suction. The feet are removable fore/aft sliders on
+fixed casing rails. Scan foot poses are individual positions; unloaded poses do not establish
+the compressed mounting stack or one mandatory hole pattern.
 
 ## Reference interface
 

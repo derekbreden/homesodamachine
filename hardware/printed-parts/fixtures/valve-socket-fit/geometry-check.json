@@ -1,0 +1,70 @@
+{
+  "status": "native_socket_panel_checks_pass",
+  "physical_fit_tested": false,
+  "scope": "Beduan post/socket and bearing-face fit only. No carrier, tee, tube or complete enclosure release.",
+  "dimensions": {
+    "width_mm": 43.599999999999994,
+    "height_mm": 44.05,
+    "thickness_mm": 9.2,
+    "bearing_face_y_mm": 5.2,
+    "socket_floor_y_mm": -1.0,
+    "socket_diameter_mm": 7.2,
+    "socket_depth_mm": 6.2,
+    "post_pitch_x_mm": 24.4,
+    "post_pitch_z_mm": 24.85,
+    "station_z_mm": 22.025
+  },
+  "native_valve_insertion_samples": [
+    {
+      "valve_outward_offset_mm": 20.0,
+      "interference_mm3": 0.0
+    },
+    {
+      "valve_outward_offset_mm": 10.0,
+      "interference_mm3": 0.0
+    },
+    {
+      "valve_outward_offset_mm": 5.2,
+      "interference_mm3": 0.0
+    },
+    {
+      "valve_outward_offset_mm": 2.0,
+      "interference_mm3": 0.0
+    },
+    {
+      "valve_outward_offset_mm": 0.0,
+      "interference_mm3": 0.0
+    }
+  ],
+  "print_orientation": "Enclosure +Z up; four socket axes horizontal on Y; port channel vertical and open at both ends.",
+  "source_sha256": {
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "d33b372148b48d5e893070be7b22bdcda099d6c5fa2fcf83b7699009df8c22af",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
+    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97"
+  },
+  "production_function_ast_sha256": {
+    "enclosure._valve_socket_cutters": "e4c5e908ec84c7383ff1f4424c4d427c4f751ba1d3f58188ab0609bce86e092f",
+    "enclosure._teardrop_y": "f1a8fd458777c091e6ab65da631c8c4e1c34e0da7e3951c98d333cc9c7cb74bb",
+    "valve_tray.build_body_clearance": "c412544cbff57082e6d251a2ae41a3f42281abb1f9dc17fdba24e57e4f0b3836",
+    "valve_tray.build_port_channel": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e"
+  },
+  "artifacts": {
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "7bd7cc27caac20bc82d1b2c3ae583ccd27f2aaaaacb54017d7ee62e71ec3b2a7",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "bb30ef9291b95ea2a0c780a3b755fbf326a582641cf3be180d9b2ddb8c20d98a",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "9a1e07b3620d613091795fe41ed982c4cf14452c8a1be1ddc3a279b1890942b2"
+  },
+  "mesh_watertight": true,
+  "mesh_bodies": 1,
+  "triangles": 2232,
+  "nominal_radial_clearance_mm": 0.15,
+  "retention_qualified": false,
+  "physical_readings_required": [
+    "Full insertion of all four posts without reaming.",
+    "Broad body bearing face seated with no rocking.",
+    "Fit on the other received valves.",
+    "Whether the valve remains seated when the panel faces down."
+  ],
+  "errors": []
+}

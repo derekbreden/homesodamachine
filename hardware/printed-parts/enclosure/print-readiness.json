@@ -5,7 +5,7 @@
   "cancelled_job": "enclosure-front-top-petgf-z018-h2c.gcode.3mf",
   "cancelled_job_source_sha256": "0d15e6177dc405b0631415cc331a4e43acbf1a4cf627012e38a766964a3cb216",
   "replacement_started": false,
-  "plate_clearance_confirmed": false,
+  "plate_clearance_confirmed": true,
   "parts": [
     {
       "part": "enclosure-front-top",
@@ -36,8 +36,7 @@
     "Provide positive capture and guidance at both spring ends with simple assembly and the measured spring pair.",
     "Dry-fit both Kamoer pumps in the corrected cradle/cap and cycle all four actual tubes; verify return, release and primed leak-tight pumping.",
     "Verify actual Beduan socket fit, DIGITEN flow direction and machine-display retention using physical parts.",
-    "Complete current combined regeneration and native assembly checks; reslice final geometry and inspect support-removal lanes.",
-    "Confirm H2C plate clear before sending a unique replacement job."
+    "Complete current combined regeneration and native assembly checks; reslice final geometry and inspect support-removal lanes."
   ],
   "baseline_verification": {
     "assembly_generator_exit_code": 0,
@@ -61,19 +60,21 @@
         "left": "black PET-GF, external 254, PET-CF metadata",
         "right": "white PET-GF, external 255, PET-CF metadata"
       },
-      "authority": "Derek loading reports in this task; right hotend white PET-GF is first use.",
+      "authority": "Derek loading reports; both black left and white right PET-GF have printed successfully.",
       "ready_for_prepared_job": false,
-      "observed_at": "2026-09-21T01:43:36.791743+00:00",
-      "current_job": "nameplate-001-black-white-z004-mark2-v1.gcode.3mf",
-      "observed_state": "FINISH",
+      "observed_at": "2026-09-21T02:19:32.961273+00:00",
+      "current_job": "valve-socket-fit-black-z004-mark2-v1.gcode.3mf",
+      "observed_state": "RUNNING",
       "print_error": 0,
-      "print_record": "hardware/printed-parts/enclosure/nameplate/mark2-print-readiness.json",
-      "job_purpose": "Unit 0001 nameplate and matching receiver coupon.",
-      "plate_clearance_confirmed": false
+      "print_record": "hardware/printed-parts/fixtures/valve-socket-fit/print-status.json",
+      "job_purpose": "Beduan production-profile socket and bearing fit trial.",
+      "plate_clearance_confirmed": false,
+      "availability_authority": "Derek: both printers are available right now, September 20, 2026"
     },
     "H2C": {
-      "cancelled_object_removal_confirmed": false,
-      "replacement_started": false
+      "cancelled_object_removal_confirmed": true,
+      "replacement_started": false,
+      "availability_authority": "Derek: both printers are available right now, September 20, 2026"
     }
   },
   "carrier_upper_backing": {
@@ -161,12 +162,14 @@
     "rocking_or_play_observed": false,
     "tiny_catch_qualified": false,
     "production_joint_integrated": false,
-    "revision_requirement": "Simple complete assembly with broad substantial flexing walls. Neither coupon half is selected for reuse. The faucet display cover is the sole proven snap-fit reference.",
+    "revision_requirement": "Simple complete assembly with broad substantial flexing walls. Neither coupon half is selected for reuse. The faucet display cover is the preferred physically proven example for simple snap retention.",
     "integral_trial_record": "hardware/printed-parts/enclosure/tee-carrier/joint-coupon/integral-latch-study/print-readiness.json",
     "integral_trial_status": "withdrawn_from_print_queue_for_complete_joint_redesign",
     "tight_fit_observed": true,
     "design_accepted": false,
-    "geometry_preservation_required": false
+    "geometry_preservation_required": false,
+    "x_span_bowing_observed": true,
+    "coupon_bending_acceptable_for_carrier": false
   },
   "faucet_display_cover": {
     "physical_acceptance": "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
@@ -214,7 +217,12 @@
     "pass_1_cloud_sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
     "pass_1_points": 3235134,
     "pass_3_cloud_sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
-    "pass_3_points": 2989594
+    "pass_3_points": 2989594,
+    "feet_material": "Flexible rubber",
+    "feet_mounting": "Removable sliders on fore/aft channels; captured poses are not a fixed bolt pattern.",
+    "flow_direction_enclosure": "-X",
+    "flow_direction_reference": "+Y at the intended +90 degree Z yaw",
+    "suction_direction_reference": "-Y"
   },
   "cartridge_print": {
     "status": "held_for_measured_branch_datum_propagation",
@@ -232,5 +240,12 @@
       "integral_right_coupon": 5
     },
     "scope": "Current mesh features and accessible support paths; no physical latch or complete assembly acceptance implied."
+  },
+  "beduan_socket_fit": {
+    "physical_baseline": "hardware/printed-parts/fixtures/valve-socket-fit/physical-baseline.json",
+    "existing_fit_pretty_good": true,
+    "current_scan_corrected_coupon_accepted": false,
+    "trial_status": "submitted_to_Mark2",
+    "print_record": "hardware/printed-parts/fixtures/valve-socket-fit/print-status.json"
   }
 }

@@ -1,0 +1,30 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-09-20",
+  "user_statement": "The existing ones are pretty good, even if only by luck and trial and error, so that is worth considering in your redesign.",
+  "scope": "Existing printed valve sockets; the exact physical print is not identified in this report.",
+  "existing_fit_pretty_good": true,
+  "pre_scan_source_reference": "d3030589c^",
+  "dimensions_from_source": {
+    "pre_scan": {
+      "socket_diameter_mm": 7.1,
+      "post_pitch_mm": [
+        24.4,
+        24.4
+      ],
+      "bearing_height_mm": 6.0,
+      "socket_depth_mm": 7.0
+    },
+    "current_scan_corrected": {
+      "socket_diameter_mm": 7.2,
+      "post_pitch_mm": [
+        24.4,
+        24.85
+      ],
+      "bearing_height_mm": 5.2,
+      "socket_depth_mm": 6.2
+    }
+  },
+  "physical_acceptance_of_current_coupon": false,
+  "test": "Compare the current production-profile coupon with the existing fit before accepting the scan-corrected sockets."
+}
