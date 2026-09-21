@@ -1,0 +1,540 @@
+{
+  "status": "offline_print_review_pass_assembly_release_held",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "held_for_complete_assembly_integration_findings",
+  "printer": "Mark2",
+  "job": "front-bottom",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/enclosure-front-bottom-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "fa93fe205d85780463bab26934c19133e3c99a670be64b48a488972953341913",
+  "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/ready/enclosure-front-bottom-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "1454b147ced20f2b9c64731f5e854d9b19c78ddfbd20c17c815b33338399f68c",
+  "gcode_sha256": "257c91887eca4197210f348319956d4dae5a0850c6cf930225c01dc8ef4bf406",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-front-bottom",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "source_stl_sha256": "53d7b009b7e378ee4a06810b3c9fb2ee2e119f291e6f6215f1bcff088ed870ed",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "source_step_sha256": "45bb2b809c6f571dafbf75270365f539825306b466193fa5429168b83feeca67",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "original_mesh_triangles": 269836,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/oriented-meshes/enclosure-front-bottom.stl",
+      "oriented_stl_sha256": "53d7b009b7e378ee4a06810b3c9fb2ee2e119f291e6f6215f1bcff088ed870ed",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "8f578fa90c11a6b6ed6c2c1cd51bdd30a718b18d3f037addb23c156e4f17a0bd",
+  "accepted_source_equivalence": [
+    {
+      "source": "hardware/manifold-layout/_lines.py",
+      "original_sha256": "1674cdc2971073826d7c25a6a759cd0d3a22b51f7cee059a99db9bea9f45307c",
+      "current_sha256": "25ebc25e36b3aa68e46c38f03061be3654b19c31e77d9fd76e6832008ee93cee",
+      "proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/fluid-2-guard-equivalence.json",
+      "proof_sha256": "ac261abf111309b1f3264ea14bfe84de835b3acef5df9145c66b0a2229aba366"
+    },
+    {
+      "source": "hardware/manifold-layout/enclosure_assembly.py",
+      "original_sha256": "fd28eef61a1a92b6c5ef3b5c7fd87d1ac055e07a24a34d00d4344fe54e9c4c30",
+      "current_sha256": "999ec78472f9b2c4028733e41d8c379c284b4eb89b3879af8cfcd07c1577a029",
+      "proof": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/carrier-box-cache-equivalence.json",
+      "proof_sha256": "b39d93896cedd26c4ec6d673a0bc83389e08bc0286e99042a8ab3768c765be03"
+    }
+  ],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "extruder_ams_count",
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-21 02:07:21.901227] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-21 02:07:32.436300] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-21 02:07:32.436355] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 754,
+  "native_log_diagnostics_review": "The three Invalid T command diagnostics name T1001, T65535 and T65279 from the inherited custom start/end G-code; no additional diagnostic, native warning or failed result occurred. Their commands remain unchanged.",
+  "estimated_seconds": 63335.83203125,
+  "estimated_grams_saved_profile_density": 560.4927978515625,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-bottom",
+        "side_margins_mm": [
+          54.9,
+          56.125,
+          54.89999999999998,
+          54.692999999999984
+        ],
+        "minimum_margin_mm": 54.692999999999984
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 54.692999999999984,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/enclosure-front-bottom-black-z004-mark2-v1-input.support-audit.json",
+  "support_audit_sha256": "3e6cfd766fa3ad5d6cc4e7fa453a21f911fc53f7485081ce62767abdbdecf06a",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v1/support-removal-review.json",
+  "review_script_sha256": "d119eb51c511665c34b89f9fd9c98510b0e60c7d17f0c29563d2a00e1ca4f939",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "support_removal_review_sha256": "d9d99c8c11b174a4cc1b89f626def6e07c2a2aea86abd04a846daba2000dd3cb",
+  "support_removal_lanes_reviewed": true,
+  "support_removal_ledger": {
+    "status": "exact_native_support_contact_and_removal_lanes_reviewed",
+    "gcode_sha256": "257c91887eca4197210f348319956d4dae5a0850c6cf930225c01dc8ef4bf406",
+    "parts": [
+      {
+        "name": "enclosure-front-bottom",
+        "support_summary": {
+          "support_bodies": 4,
+          "interface_islands": 4,
+          "bed_rooted_bodies": 2,
+          "model_rooted_bodies": 2,
+          "shortest_build_up_mm": 7.92,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 4,
+          "shortest_labelled_build_up_mm": 7.92
+        },
+        "trees": [
+          {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.28,
+            "shortest_build_up_mm": 34.08,
+            "top_z_mm": 35.72,
+            "bbox_xy_mm": [
+              57.2,
+              228.0,
+              68.4,
+              264.0
+            ],
+            "interfaces": [
+              {
+                "id": "interface-1",
+                "first_z_mm": 34.28,
+                "last_z_mm": 34.76,
+                "bbox_xy_mm": [
+                  57.6,
+                  228.4,
+                  68.4,
+                  264.0
+                ],
+                "tree": "tree-1",
+                "build_up_mm": 34.08,
+                "bbox_cad_xyz_mm": [
+                  -104.9,
+                  177.175,
+                  28.28,
+                  -94.1,
+                  212.775,
+                  28.76
+                ],
+                "bbox_original_cad_xyz_mm": [
+                  -104.9,
+                  177.175,
+                  28.28,
+                  -94.1,
+                  212.775,
+                  28.76
+                ]
+              }
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -105.3,
+              176.775,
+              -5.8,
+              -94.1,
+              212.775,
+              29.72
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -105.3,
+              176.775,
+              -5.8,
+              -94.1,
+              212.775,
+              29.72
+            ],
+            "contact_region": "west handhold flat roof and rounded end returns",
+            "removal_lane": "Detach below the handhold ceiling and withdraw downward through its open floor mouth or outward through the exposed west opening while the quadrant is loose.",
+            "removal_direction_original_cad": [
+              0,
+              0,
+              -1
+            ],
+            "reason_face_preserved": "The hand lifts against a broad flat roof.",
+            "geometry_source": "enclosure.py::_handhold_cutter",
+            "accessible_before_hardware": true,
+            "reviewed": true
+          },
+          {
+            "id": "tree-2",
+            "root": "model",
+            "base_z_mm": 166.52,
+            "first_interface_z_mm": 174.44,
+            "shortest_build_up_mm": 7.92,
+            "top_z_mm": 174.68,
+            "bbox_xy_mm": [
+              59.2,
+              146.0,
+              63.6,
+              241.6
+            ],
+            "interfaces": [
+              {
+                "id": "interface-3",
+                "first_z_mm": 174.44,
+                "last_z_mm": 174.68,
+                "bbox_xy_mm": [
+                  59.2,
+                  146.0,
+                  63.6,
+                  241.6
+                ],
+                "tree": "tree-2",
+                "build_up_mm": 7.92,
+                "bbox_cad_xyz_mm": [
+                  -103.3,
+                  94.775,
+                  168.44,
+                  -98.9,
+                  190.375,
+                  168.68
+                ],
+                "bbox_original_cad_xyz_mm": [
+                  -103.3,
+                  94.775,
+                  168.44,
+                  -98.9,
+                  190.375,
+                  168.68
+                ]
+              }
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -103.3,
+              94.775,
+              160.52,
+              -98.9,
+              190.375,
+              168.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.3,
+              94.775,
+              160.52,
+              -98.9,
+              190.375,
+              168.68
+            ],
+            "contact_region": "west Z-seam catch underside",
+            "removal_lane": "Detach the narrow ribbon beneath the catch and peel outward from the arm sliding face through the exposed west rail groove to the exterior. The matching top quadrant is absent.",
+            "removal_direction_original_cad": [
+              -1,
+              0,
+              0
+            ],
+            "reason_face_preserved": "The flat catch carries uplift along the complete rail.",
+            "geometry_source": "enclosure.py::_z_rail_heads; enclosure README support-removal strategy",
+            "accessible_before_hardware": true,
+            "reviewed": true
+          },
+          {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.28,
+            "shortest_build_up_mm": 34.08,
+            "top_z_mm": 35.72,
+            "bbox_xy_mm": [
+              256.0,
+              228.0,
+              267.6,
+              264.8
+            ],
+            "interfaces": [
+              {
+                "id": "interface-2",
+                "first_z_mm": 34.28,
+                "last_z_mm": 34.76,
+                "bbox_xy_mm": [
+                  256.0,
+                  228.4,
+                  267.2,
+                  264.8
+                ],
+                "tree": "tree-3",
+                "build_up_mm": 34.08,
+                "bbox_cad_xyz_mm": [
+                  93.5,
+                  177.175,
+                  28.28,
+                  104.7,
+                  213.575,
+                  28.76
+                ],
+                "bbox_original_cad_xyz_mm": [
+                  93.5,
+                  177.175,
+                  28.28,
+                  104.7,
+                  213.575,
+                  28.76
+                ]
+              }
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              93.5,
+              176.775,
+              -5.8,
+              105.1,
+              213.575,
+              29.72
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.5,
+              176.775,
+              -5.8,
+              105.1,
+              213.575,
+              29.72
+            ],
+            "contact_region": "east handhold flat roof and rounded end returns",
+            "removal_lane": "Detach below the handhold ceiling and withdraw downward through its open floor mouth or outward through the exposed east opening while the quadrant is loose.",
+            "removal_direction_original_cad": [
+              0,
+              0,
+              -1
+            ],
+            "reason_face_preserved": "The hand lifts against a broad flat roof.",
+            "geometry_source": "enclosure.py::_handhold_cutter",
+            "accessible_before_hardware": true,
+            "reviewed": true
+          },
+          {
+            "id": "tree-4",
+            "root": "model",
+            "base_z_mm": 166.52,
+            "first_interface_z_mm": 174.44,
+            "shortest_build_up_mm": 7.92,
+            "top_z_mm": 174.68,
+            "bbox_xy_mm": [
+              261.2,
+              145.6,
+              266.0,
+              241.6
+            ],
+            "interfaces": [
+              {
+                "id": "interface-4",
+                "first_z_mm": 174.44,
+                "last_z_mm": 174.68,
+                "bbox_xy_mm": [
+                  261.2,
+                  145.6,
+                  266.0,
+                  241.6
+                ],
+                "tree": "tree-4",
+                "build_up_mm": 7.92,
+                "bbox_cad_xyz_mm": [
+                  98.7,
+                  94.375,
+                  168.44,
+                  103.5,
+                  190.375,
+                  168.68
+                ],
+                "bbox_original_cad_xyz_mm": [
+                  98.7,
+                  94.375,
+                  168.44,
+                  103.5,
+                  190.375,
+                  168.68
+                ]
+              }
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              98.7,
+              94.375,
+              160.52,
+              103.5,
+              190.375,
+              168.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.7,
+              94.375,
+              160.52,
+              103.5,
+              190.375,
+              168.68
+            ],
+            "contact_region": "east Z-seam catch underside",
+            "removal_lane": "Detach the narrow ribbon beneath the catch and peel outward from the arm sliding face through the exposed east rail groove to the exterior. The matching top quadrant is absent.",
+            "removal_direction_original_cad": [
+              1,
+              0,
+              0
+            ],
+            "reason_face_preserved": "The flat catch carries uplift along the complete rail.",
+            "geometry_source": "enclosure.py::_z_rail_heads; enclosure README support-removal strategy",
+            "accessible_before_hardware": true,
+            "reviewed": true
+          }
+        ]
+      }
+    ],
+    "physical_cleanup_effort_measured": false,
+    "policy": "Names and routes describe the exact slice; body count, root kind and build-up are not cleanup-quality scores. Clean all supports before installing hardware or closing the shell.",
+    "source_geometry_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "45bb2b809c6f571dafbf75270365f539825306b466193fa5429168b83feeca67"
+    },
+    "review_definition_sha256": "f0560f850c9bd469c35174a27654c7e1574791de16413277022feb13c9f24242",
+    "review_script_sha256": "1c8ec9eb79f6f788e08bcae625fe2e5cb8a16163c58dd362752285742af669ad"
+  },
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  },
+  "estimated_grams_petgf_density_1p43": 621.321473587391,
+  "printer_state_checked": false,
+  "final_review_script_sha256": "1c8ec9eb79f6f788e08bcae625fe2e5cb8a16163c58dd362752285742af669ad",
+  "offline_toolpath_support_review": "pass",
+  "complete_assembly_qualification": "Full canonical assembly reports integration findings under coordinating-task triage.",
+  "print_release_hold": {
+    "active": true,
+    "authority": "Coordinating task",
+    "reason": "Complete-pack overlaps and carrier-envelope failures require triage before further print release.",
+    "native_archive_unchanged": true
+  }
+}
