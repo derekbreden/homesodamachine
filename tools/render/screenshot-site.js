@@ -130,9 +130,8 @@ async function capture(url) {
       await document.fonts.ready;
     });
 
-    // Give Canvas2D loops (the landing page's GlassAnimation) and any
-    // client-side-rendered grids (the viewer pages' card grid) a beat to
-    // draw their first frame, otherwise we may capture empty content.
+    // Give client-side-rendered grids (the viewer pages' card grid) a beat
+    // to draw their first frame, otherwise we may capture empty content.
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     const rawPng = await page.screenshot({ type: "png", fullPage: false });

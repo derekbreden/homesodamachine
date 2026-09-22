@@ -57,9 +57,9 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   stands one up.
 - **Real FCM.** Push delivery, token registration, notification banner
   rendering. Firebase credentials and a real device.
-- **UI behavior.** Grid rendering, modal interactions, glass animation
-  physics — client-side, behind JS. `lazy.js` is held at source level here;
-  the window itself is a browser's answer.
+- **UI behavior.** Grid rendering, modal interactions — client-side,
+  behind JS. `lazy.js` is held at source level here; the window itself is a
+  browser's answer.
 - **Error paths.** Bad-input 400s on `/steps/../etc/passwd` and friends
   are exercised by the dev viewer in normal use.
 
