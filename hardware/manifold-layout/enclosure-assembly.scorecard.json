@@ -831,7 +831,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "pass",
-   "value": "39 print-down slope(s): 27 under a body, 3 within 1 mm of one, 9 in a kept room, 0 could be columns",
+   "value": "39 print-down slope(s): 26 under a body, 4 within 1 mm of one, 9 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
    "active": false
@@ -1073,6 +1073,36 @@
    "status": "pass",
    "value": "brim front at y 100.00, facet arris at 95.34",
    "target": "a 3 mm landing, so at or aft of 98.34",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "connected-pieces",
+   "label": "Each printed enclosure piece is one valid connected solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6 connected pieces",
+   "target": "one valid solid per printed piece",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-show-cap",
+   "label": "The ceiling slab keeps a complete exterior wall over its whole field",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm cap; missing 0.0000 mm\u00b3",
+   "target": "a complete wall over the field, the funnel's own plan excepted",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pieces-in-silhouette",
+   "label": "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
+   "kind": "gate",
+   "status": "pass",
+   "value": "walls inside `outer`; disposal letters raised 0.6 mm",
+   "target": "only the disposal letters extend past the box's exterior",
    "detail": [],
    "active": true
   },
