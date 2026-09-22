@@ -378,8 +378,7 @@ def flute_backed_sections():
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
 # The machine display sits on the swept top's 30-degree plane. Tangent R12 and
-# R18 curves join the front and roof, the R18's last two layers rising at the plane's
-# own slope (`_swept_top.TOP_PULL`); the side edges use R6. The rear edge stays square.
+# R18 curves join the front and roof; the side edges use R6. The rear edge stays square.
 display_bezel_x = _interface.display_bezel_x           # bezel glass, lateral (X)
 display_bezel_slope = _interface.display_bezel_slope   # bezel glass, up the slope
 display_bezel_cut_x = display_bezel_x + 2.0 * fits.slip
