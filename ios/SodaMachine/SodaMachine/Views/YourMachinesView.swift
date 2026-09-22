@@ -91,7 +91,7 @@ struct YourMachinesView: View {
                         Text(machine.displayName)
                             .font(.system(size: 16, weight: .medium))
                             .foregroundStyle(Theme.textPrimary)
-                        Text("\(machine.kind) · \(status(machine, at: now))")
+                        Text(subtitle(machine, at: now))
                             .font(.system(size: 13))
                             .foregroundStyle(Theme.textSecondary)
                     }
@@ -150,6 +150,15 @@ struct YourMachinesView: View {
 
     /// What one row says about the link: the machine the phone is pointed at
     /// says what the radio is doing, any other says when it was last heard.
+    /// What tells one row from another. The title is what the machine is
+    /// called, and two machines nobody has named are called the same thing —
+    /// so this leads with the unit, which is the machine's own name for
+    /// itself, and says what kind it is only where there is no unit to give.
+    private func subtitle(_ machine: KnownMachine, at now: Date) -> String {
+        let who = machine.unit.isEmpty ? machine.kind : machine.unit
+        return "\(who) · \(status(machine, at: now))"
+    }
+
     private func status(_ machine: KnownMachine, at now: Date) -> String {
         if machine.isDemo { return "Always here" }
         if machine.id == directory.current?.id {
