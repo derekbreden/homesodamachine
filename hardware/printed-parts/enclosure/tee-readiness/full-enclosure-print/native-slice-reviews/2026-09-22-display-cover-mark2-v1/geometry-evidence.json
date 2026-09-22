@@ -1,0 +1,5 @@
+{
+  "selftest": "Display cover: one valid solid; glass clear; 0.35 mm skirt preload",
+  "regenerated_bytes_identical": true,
+  "purpose": "Test the snap retention and the pockets' support removal on the printed front-top v4, whose pockets match v6."
+}
