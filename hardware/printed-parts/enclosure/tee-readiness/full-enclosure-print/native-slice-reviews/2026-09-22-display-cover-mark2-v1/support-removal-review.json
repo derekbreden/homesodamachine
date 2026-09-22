@@ -1,0 +1,111 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "b1440ecaf731fe1151cd6f9c57c0acaa67f6fc0e40b36efefd292788770ba56a",
+  "gcode_sha256": "9bb95ace7b781dafb0657c0f87968dccbcc6bb5f177e0ef63b1c85aa4e4999a6",
+  "support_audit_sha256": "78ca505a851b3c31272b265f084644adf501cac9aa52b6acc04538c21359a787",
+  "geometry_confirmation_sha256": "1275361f37e7207846a09ee8323817b53381fb30b17fa60bb1cafe892cefb90c",
+  "parts": [
+    {
+      "name": "display-cover",
+      "support_summary": {
+        "support_bodies": 1,
+        "interface_islands": 1,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 31.2,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 1,
+        "shortest_labelled_build_up_mm": 31.2
+      },
+      "model_overhangs_review": "One bed-rooted tree carries the plate's hidden underside; the skirts, lips and the visible face take no support. Cleanup precedes fitting; actual effort is unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 31.4,
+            "shortest_build_up_mm": 31.2,
+            "top_z_mm": 31.64,
+            "bbox_xy_mm": [
+              99.6,
+              114.8,
+              226.8,
+              204.8
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -62.9,
+              -45.2,
+              -33.8,
+              64.3,
+              44.8,
+              -2.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -62.9,
+              -45.2,
+              -33.8,
+              64.3,
+              44.8,
+              -2.36
+            ]
+          },
+          "contact_region": "The cover plate's hidden underside, the back of the 2 mm face all round the window.",
+          "removal_lane": "The bay under the plate is open through the window and along both ends between the skirts. Break the tree into branches at their stems and draw them out through the window or the open ends before the gasket and display are fitted.",
+          "removal_direction_original_cad": "\u2212Z to detach, then out through the window (+Z) or the open \u00b1Y ends.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The underside laps the TPU gasket over the display glass and stays flat.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 31.4,
+            "last_z_mm": 31.64,
+            "bbox_xy_mm": [
+              99.6,
+              118.8,
+              225.2,
+              201.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 31.2,
+            "bbox_cad_xyz_mm": [
+              -62.9,
+              -41.2,
+              -2.6,
+              62.7,
+              41.6,
+              -2.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -62.9,
+              -41.2,
+              -2.6,
+              62.7,
+              41.6,
+              -2.36
+            ]
+          },
+          "contact_region": "The cover plate's hidden underside around the window, z \u22122.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-22 16:16:50.695717] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-22 16:16:51.311645] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-22 16:16:51.311656] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The three exact diagnostics are T1001, T65535 and T65279. T1001 is emitted in the saved-profile startup Hotend Type Detection block; T65535 and T65279 occur in the saved-profile end-code unload/control blocks after all model layers. All three tokens are present in petgf.3mf machine_start_gcode/machine_end_gcode, and the current native slice preserves them. Native return code is0, the plate warning is empty, all model/support paths are present, and actual black filament/nozzle mapping is0. These parser messages do not identify a changed support path or a model slicing failure.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}

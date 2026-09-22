@@ -1,0 +1,81 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-22-display-cover-mark2-v1/display-cover-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "7cee6309e7183a4b67489f3b9f03934e643620b8391552a24f8c4758dc4adaa7",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "display-cover",
+      "source": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+      "source_stl_sha256": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
+      "source_step": "hardware/printed-parts/enclosure/display-cover/display-cover.step",
+      "source_step_sha256": "90bc75b424821639a53add244a0acd7f06638d0d35ea569b890fdc8573553c9e",
+      "original_bounds_mm": [
+        [
+          -64.55000305175781,
+          -41.5,
+          -34.0
+        ],
+        [
+          64.55000305175781,
+          41.5,
+          0.0
+        ]
+      ],
+      "original_mesh_triangles": 2104,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-22-display-cover-mark2-v1/oriented-meshes/display-cover.stl",
+      "oriented_stl_sha256": "f3d8e13c60323f61f24dcb3f12c14d699166de0cb71f3bf737223c452cada6e9",
+      "oriented_bounds_mm": [
+        [
+          -64.55000305175781,
+          -41.5,
+          -34.0
+        ],
+        [
+          64.55000305175781,
+          41.5,
+          0.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "display-cover": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "1275361f37e7207846a09ee8323817b53381fb30b17fa60bb1cafe892cefb90c"
+}

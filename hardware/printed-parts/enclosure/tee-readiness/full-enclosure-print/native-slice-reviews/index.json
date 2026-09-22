@@ -241,6 +241,22 @@
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v6/offline-review.json",
         "sha256": "0b761b9a79e6abc545f42ef8ebc32b2ee83395463f0cf3954d23a54dcb5da24c"
       }
+    },
+    {
+      "job": "display-cover",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v1/manifest.json",
+        "sha256": "887810537f5badadc8b496b65210cc5b8f2587d04fc7407ca8d95cc845f0b85f"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v1/ready/display-cover-black-z004-mark2-v1.gcode.3mf",
+        "sha256": "b1440ecaf731fe1151cd6f9c57c0acaa67f6fc0e40b36efefd292788770ba56a"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v1/offline-review.json",
+        "sha256": "8893d4e5036040415b24344077211d8170cefc8ac421cac39210baf67399c418"
+      }
     }
   ]
 }

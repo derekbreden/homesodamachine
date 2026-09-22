@@ -1,0 +1,227 @@
+{
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "display-cover",
+      "inputs": {
+        "gcode": "support-labels-display-cover.gcode",
+        "gcode_sha256": "aa6bfec12f04f8c0b3f859512470a7bd1d4614884e5f9ee069adae8cfa3bb297",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-22-display-cover-mark2-v1/oriented-meshes/display-cover.stl",
+        "model_sha256": "f3d8e13c60323f61f24dcb3f12c14d699166de0cb71f3bf737223c452cada6e9",
+        "profile": ".cache/prints/2026-09-22-display-cover-mark2-v1/display-cover-black-z004-mark2-v1-input.3mf",
+        "profile_sha256": "7cee6309e7183a4b67489f3b9f03934e643620b8391552a24f8c4758dc4adaa7",
+        "native_plate_gcode_sha256": "9bb95ace7b781dafb0657c0f87968dccbcc6bb5f177e0ef63b1c85aa4e4999a6",
+        "object_label": 1901,
+        "object_scope": "Analysis-only label for the sole object; original printing bytes are unchanged",
+        "original_stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+        "original_stl_sha256": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
+        "pretransform_rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "feature_filter": "Other-object feature labels masked in analysis copy; every movement retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          -160.0,
+          -34.0
+        ],
+        "plate_to_cad_translation_mm": [
+          -162.5,
+          -160.0,
+          -34.0
+        ],
+        "plate_to_original_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          -160.0,
+          -34.0
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 1,
+        "interface_islands": 1,
+        "bed_rooted_bodies": 1,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 31.2,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 1,
+        "shortest_labelled_build_up_mm": 31.2
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 31.4,
+          "shortest_build_up_mm": 31.2,
+          "top_z_mm": 31.64,
+          "bbox_xy_mm": [
+            99.6,
+            114.8,
+            226.8,
+            204.8
+          ],
+          "interfaces": [
+            "interface-1"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -62.9,
+            -45.2,
+            -33.8,
+            64.3,
+            44.8,
+            -2.36
+          ],
+          "bbox_original_cad_xyz_mm": [
+            -62.9,
+            -45.2,
+            -33.8,
+            64.3,
+            44.8,
+            -2.36
+          ]
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 31.4,
+          "last_z_mm": 31.64,
+          "bbox_xy_mm": [
+            99.6,
+            118.8,
+            225.2,
+            201.6
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 31.2,
+          "bbox_cad_xyz_mm": [
+            -62.9,
+            -41.2,
+            -2.6,
+            62.7,
+            41.6,
+            -2.36
+          ],
+          "bbox_original_cad_xyz_mm": [
+            -62.9,
+            -41.2,
+            -2.6,
+            62.7,
+            41.6,
+            -2.36
+          ]
+        }
+      ],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            97.85,
+            114.51100000000001
+          ],
+          [
+            227.226,
+            205.144
+          ]
+        ],
+        "segments": 258440,
+        "features": {
+          "Support": 242135,
+          "Inner wall": 1849,
+          "Outer wall": 2207,
+          "Internal solid infill": 8821,
+          "Sparse infill": 182,
+          "Floating vertical shell": 38,
+          "Top surface": 756,
+          "Gap infill": 273,
+          "Support interface": 1071,
+          "Overhang wall": 248,
+          "Bridge": 860
+        },
+        "maximum_line_width_mm": 0.62,
+        "arc_sampling_allowance_mm": 0.1,
+        "method": "Native non-custom layer extrusions, buffered by each emitted half-width plus arc allowance."
+      }
+    }
+  ],
+  "source_gcode_sha256": "9bb95ace7b781dafb0657c0f87968dccbcc6bb5f177e0ef63b1c85aa4e4999a6",
+  "fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "display-cover",
+        "side_margins_mm": [
+          97.85,
+          114.51100000000001,
+          97.774,
+          114.856
+        ],
+        "minimum_margin_mm": 97.774
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 97.774,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}
