@@ -116,17 +116,8 @@ struct FirmwareUpdateView: View {
 
     private func pushing(_ push: OTAProgress) -> some View {
         VStack(spacing: 14) {
-            if push.finished && ble.otaQueue.isEmpty {
-                Text("Update complete")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(Theme.textPrimary)
-                Text("Your machine is restarting.")
-                    .font(.system(size: 14))
-                    .foregroundStyle(Theme.textSecondary)
-                Button("Done") { ble.otaProgress = nil }
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Theme.textPrimary)
-                    .padding(.top, 6)
+            if push.finished && ble.otaQueue.isEmpty && ble.otaSettlingSince == nil {
+                settled
             } else if let why = push.failure {
                 Text("The update didn't finish")
                     .font(.system(size: 20, weight: .semibold))
@@ -154,25 +145,61 @@ struct FirmwareUpdateView: View {
                     .font(.system(size: 14).monospacedDigit())
                     .foregroundStyle(Theme.textSecondary)
 
-                Text("Keep your phone near the machine. Do not unplug it.")
+                Text(settling
+                     ? "Your machine is restarting into it."
+                     : "Keep your phone near the machine. Do not unplug it.")
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
                     .padding(.top, 4)
 
-                Button("Cancel") { ble.cancelUpdate() }
-                    .font(.system(size: 14))
-                    .foregroundStyle(Theme.textSecondary)
+                // Nothing to cancel once the bytes are all there: the machine is
+                // going down into them either way.
+                if !settling {
+                    Button("Cancel") { ble.cancelUpdate() }
+                        .font(.system(size: 14))
+                        .foregroundStyle(Theme.textSecondary)
+                }
             }
         }
     }
 
+    /// Between the last byte and the machine answering again. The bar is still
+    /// the same bar: from where a person is standing this is one thing
+    /// happening, and only the word under it changes.
+    private var settling: Bool { ble.otaSettlingSince != nil }
+
+    /// What the machine came back as. THIS IS THE ONLY PLACE AN UPDATE IS
+    /// CALLED DONE, and it is said about versions read after the restart, never
+    /// about bytes that were sent. A machine that came back on what it was
+    /// already running is told as that — the alternative is a screen that says
+    /// complete and then offers the same update again.
+    @ViewBuilder private var settled: some View {
+        if !heardFrom {
+            state("Your machine hasn't come back yet",
+                  "It may still be restarting. Check again in a moment.")
+        } else if behind.isEmpty {
+            state("Update complete", running)
+        } else {
+            state("The update didn't finish",
+                  "Your machine is still running the software it was. You can try again.")
+        }
+        Button("Done") { ble.otaProgress = nil }
+            .font(.system(size: 16, weight: .medium))
+            .foregroundStyle(Theme.textPrimary)
+            .padding(.top, 6)
+    }
+
     /// One bar for the whole tap, not one per board.
+    ///
+    /// The queue empties as the last image finishes, and its own fraction is
+    /// still 1 — counting both is a bar that reads past the end.
     private var overall: Double {
         let total = ble.otaQueueDone + ble.otaQueue.count
         guard total > 0, let push = ble.otaProgress else { return 0 }
-        return (Double(ble.otaQueueDone) + push.fraction) / Double(total)
+        let inFlight = ble.otaQueue.isEmpty ? 0 : push.fraction
+        return min(1, (Double(ble.otaQueueDone) + inFlight) / Double(total))
     }
 
     // MARK: - Pieces
