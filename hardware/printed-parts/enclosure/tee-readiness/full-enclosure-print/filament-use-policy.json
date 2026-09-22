@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "authority": "Derek",
+  "recorded_at_utc": "2026-09-22T01:28:27.897016+00:00",
+  "user_statement": "I have no way to measure that, it is only a guess, and it doesn't matter anyways, we're at a point right now where we want to use all of every spool as we go - even if that means reloading. It really doesn't matter how much filament there is. Like, at all, it affects nothing.",
+  "scope": "Printer launches and continued printing, including the complete enclosure queue",
+  "use_each_spool_fully": true,
+  "reload_during_print_accepted": true,
+  "remaining_quantity_is_launch_condition": false,
+  "request_remaining_quantity": false,
+  "instruction": "Start ready jobs with the correct material mapping regardless of remaining spool quantity. Use the spool until runout and reload as needed. Ask for filament only when an actual reload requires the user."
+}

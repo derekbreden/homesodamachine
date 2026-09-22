@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "status": "printer_reported_running",
+  "printer": "Mark2",
+  "observed_at": "2026-09-22T01:25:08.043469+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+    "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb"
+  },
+  "staged_project": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/enclosure-front-bottom-black-z004-mark2-v2-input.3mf",
+    "sha256": "ada5a4f153dea2a8fb1c7d9052434ef0ffed3f182823d3b1584efb7868ae96cf"
+  },
+  "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb",
+  "observed_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-22T01:25:08.043469+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 754,
+    "mc_remaining_time": 1046,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 160.0,
+    "nozzle_target_temper": 200.0,
+    "bed_temper": 29.0,
+    "bed_target_temper": 29.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T012508Z.json",
+    "sha256": "04f505d354325fff9cce232143da0edacca974fdfeb3075eb3e99a0398ebfc90"
+  },
+  "first_acceptance_observed_at": "2026-09-22T01:24:31.468947+00:00",
+  "first_acceptance_state": "PREPARE",
+  "first_acceptance_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T012431Z.json",
+    "sha256": "4f468573cea45dbcc4d211987ec36c6e71035c1d0124e4c7a02ef1df2755fa29"
+  },
+  "first_acceptance_layer_fields_still_described_previous_job": true,
+  "sent_via": "Bambu Connect; native UI verified the exact archive, dialog printer selection, external black filament mapping and print options",
+  "printer_selector_readback": "Mark2",
+  "printer_selector_initial_value": "H2C; changed to Mark2 in the dialog popover before Send",
+  "left_filament_mapping_readback": "Ext PET-CF under Left Nozzle; black PET-GF on external254",
+  "right_filament_mapping_readback": "Unused",
+  "physical_nozzle": "Left 0.4 mm HS01, serial ending6799, matching the current Mark2 hotend and completed countertop record",
+  "plate_clearance_authority": "Derek: Mark2 bed is clear",
+  "filament_use_policy": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+    "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+  },
+  "remaining_filament_quantity_required": false,
+  "print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "requested_z_trim_mm": 0.04,
+  "effective_textured_z_trim_mm": 0.02,
+  "brim_type": "auto_brim",
+  "emitted_brim_paths": 0,
+  "offline_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/offline-review.json",
+    "sha256": "4c13e50df276fa9dd950c850c66dc2b27c8c3276a727489bf66c09a561d4c513"
+  },
+  "support_removal_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/support-removal-review.json",
+    "sha256": "57058d45e474ad5056693917f7f8b870b49c53d92e6d5f60689f1db4df144f28",
+    "status": "current_support_contacts_and_removal_lanes_reviewed"
+  },
+  "durable_review_package": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json",
+    "sha256": "4822534da2413c7e956a5e1ce578b6b2b856adf045ccdf401e957f2dffd05e73"
+  },
+  "original_slice_geometry_confirmation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+    "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+  },
+  "current_geometry_revalidation": {
+    "receipt": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+      "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+    },
+    "basis": "Current print meshes are byte-identical, except back-top which has zero native added/removed volume and at most 0.000016 mm corresponding corner movement. Saved profile and original archive/support review are retained. Complete updated assembly checks pass.",
+    "print_mesh_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
+    }
+  },
+  "preflight": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/launch-evidence/mark2-front-bottom-v2/preflight.json",
+    "sha256": "e8f468591dc90f29061f5833b36142870072e5b4e3f6ef799df83b4a7c703aa6"
+  },
+  "preflight_handoff_resolution": "Derek confirms the bed clear and directs printing through spool changes; remaining filament quantity is not a launch condition.",
+  "physical_fit_and_support_removal_tested": false,
+  "operating_policy": "Keep productive jobs running; never pause for design review. Use each spool fully and reload on runout."
+}
