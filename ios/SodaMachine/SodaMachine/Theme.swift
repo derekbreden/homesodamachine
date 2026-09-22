@@ -37,8 +37,8 @@ enum Theme {
 // THE LAUNCH SCREEN AND THE SCREEN BEHIND IT HOLD THE SAME TWO NUMBERS.
 // LaunchScreen.storyboard draws this size at this distance below the safe
 // area, against Assets.xcassets/LaunchBackground, which is Theme.background.
-// The app's first frame lands with the mark already where the launch screen
-// had it, so nothing jumps. Change one of the three and change all three.
+// The app's first frame lands with the mark where the launch screen has it.
+// Change one of the three and change all three.
 // ────────────────────────────────────────────────────────────
 
 extension Theme {

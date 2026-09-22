@@ -7,7 +7,7 @@
 //
 // `firmware/firmware-images.json` is the whole of what this serves, written by
 // `tools/publish_firmware.py --write`. `web/scripts/fetch-firmware.mjs` puts the bytes the pointer file
-// names under `public/firmware/` at deploy, and express.static serves them from there.
+// names under `public/firmware/` at deploy, and `/firmware/<file>` below serves them from there.
 //
 // AN IMAGE THE DISK DOES NOT HOLD IS STILL LISTED, carrying `available: false`. A phone that
 // asks gets the same answer the pointer file gives — what this commit built, at what version — and finds
@@ -32,6 +32,31 @@ function readPointers() {
 }
 
 export function mountFirmwareRoutes(app, { commit } = {}) {
+  // THE VALIDATOR IS THE CONTENT. Two builds of one board are usually the same
+  // number of bytes, and every file here carries the epoch as its mtime, so the
+  // size-and-mtime ETag express.static derives is the same string for two
+  // releases that share nothing. A caller holding either one revalidates and is
+  // told it has the other. The sha256 the pointer file names is served instead,
+  // strong, and answers a conditional request here rather than downstream.
+  app.get("/firmware/:file", (req, res, next) => {
+    const pointers = readPointers();
+    const entry = Object.values(pointers?.images ?? {}).find((e) => e.file === req.params.file);
+    if (!entry?.sha256) return next();
+    const file = path.join(IMAGES, entry.file);
+    if (!fs.existsSync(file)) return next();
+
+    const tag = `"${entry.sha256}"`;
+    res.set("ETag", tag);
+    res.set("Cache-Control", "no-cache");
+    res.type("application/octet-stream");
+    const asked = String(req.headers["if-none-match"] || "");
+    if (asked.split(",").some((t) => t.trim() === tag)) {
+      res.status(304).end();
+      return;
+    }
+    res.sendFile(file, { etag: false, lastModified: false, cacheControl: false });
+  });
+
   app.get("/api/firmware", (req, res) => {
     res.set("Cache-Control", "no-store");
     const pointers = readPointers();
