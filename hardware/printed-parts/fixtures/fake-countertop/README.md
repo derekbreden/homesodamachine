@@ -2,9 +2,10 @@
 
 The bench stand that stands in for a counter: an inverted U as large as the H2C's plate
 takes under its left nozzle with a 5 mm border, [315 × 310 mm](FCT_SLAB) across and [220 mm](FCT_HEIGHT) tall,
-one thickness of [12 mm](FCT_T) throughout. One faucet clamps through its
+one thickness of [30 mm](FCT_T) throughout: 3 cm, the thickness most US kitchen counters are and the one the
+faucet layout stands the faucet on. One faucet clamps through its
 [34.92 mm](FCT_HOLE) hole, the 1-3/8" the shank is sized for, and the umbilical hangs and
-bends under the slab with [208 mm](FCT_CLEAR) clear: the shank and the umbilical stub reach
+bends under the slab with [190 mm](FCT_CLEAR) clear: the shank and the umbilical stub reach
 [104 mm](FCT_UMBILICAL) below the counter's top face with the gather's bend, and the rest is
 hand room. The two open sides are where the umbilical leaves and where a camera looks in.
 
@@ -28,15 +29,14 @@ on the plate are sharp. The four outer corners are rounded at [6 mm](FCT_CORNER_
 legs meet the slab on a [6 mm](FCT_ROOT_R) root, and the legs' inner edges and feet are
 rounded at [3 mm](FCT_FOOT_R). The STL is the faucet's absolute-tolerance print mesh
 (`cadlib/print_mesh.py`), read back and refused on any open or non-manifold edge, so the
-rounds print as rounds. The solid is [2701 cm³](FCT_VOLUME) before infill; the slice says
+rounds print as rounds. The solid is [6428 cm³](FCT_VOLUME) before infill; the slice says
 what it weighs.
 
 ## Use
 
 Stand it legs down. The faucet's shank goes through the hole with its plate and gasket on
 the show face and the under-counter plate and nut below, the way the counter takes them.
-The slab is thinner than a counter (the install guide takes 3/4 to 1-1/2 in), and the nut
-runs up the shank to it.
+The slab is the thickness of a stone counter, inside the 3/4 to 1-1/2 in the install guide takes.
 
 ## Sources
 [value](NAME) texts are updated by:
