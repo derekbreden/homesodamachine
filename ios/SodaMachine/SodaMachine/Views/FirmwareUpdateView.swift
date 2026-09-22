@@ -20,6 +20,7 @@ import SwiftUI
 
 struct FirmwareUpdateView: View {
     @Environment(BLEManager.self) var ble
+    @Environment(\.dismiss) private var dismiss
     @State private var catalog = FirmwareCatalog()
     @State private var checking = false
 
@@ -32,10 +33,22 @@ struct FirmwareUpdateView: View {
 
     var body: some View {
         VStack(spacing: 18) {
-            Text("Software Update")
-                .font(.system(size: 20, weight: .medium))
-                .foregroundStyle(Theme.textPrimary)
-                .padding(.top, 24)
+            // A SHEET SAYS HOW TO LEAVE IT. The swipe works and nothing on
+            // the page said so, which leaves a person holding a screen they
+            // cannot put down.
+            ZStack {
+                Text("Software Update")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
+                HStack {
+                    Spacer()
+                    Button("Done") { dismiss() }
+                        .font(.system(size: 16))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 24)
 
             Spacer()
 
@@ -127,7 +140,7 @@ struct FirmwareUpdateView: View {
                     .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
-                Button("Done") { ble.otaProgress = nil }
+                Button("Done") { ble.otaProgress = nil; dismiss() }
                     .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(Theme.textPrimary)
                     .padding(.top, 6)
@@ -192,7 +205,7 @@ struct FirmwareUpdateView: View {
             state("The update didn't finish",
                   "Your machine is still running the software it was. You can try again.")
         }
-        Button("Done") { ble.otaProgress = nil }
+        Button("Done") { ble.otaProgress = nil; dismiss() }
             .font(.system(size: 16, weight: .medium))
             .foregroundStyle(Theme.textPrimary)
             .padding(.top, 6)

@@ -31,6 +31,20 @@ struct AddMachineView: View {
             Theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
+                // A SHEET SAYS HOW TO LEAVE IT — except the one with nothing
+                // behind it. On first run this screen is the app, and leaving
+                // it would be leaving a phone that knows no machines.
+                if !firstRun {
+                    HStack {
+                        Spacer()
+                        Button("Done") { dismiss() }
+                            .font(.system(size: 16))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+                }
+
                 // First run is what the launch screen hands over to, and the
                 // mark stays where it left it. As a sheet over a page already
                 // carrying the mark it is smaller: two the same size one tap
