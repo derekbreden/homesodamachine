@@ -148,7 +148,12 @@ def version_report(line: str, target: str) -> str | None:
     for pattern in (rf"VERSION\s+{label}\s*=\s*(.+)", rf"{label}\s+(.+)"):
         match = re.fullmatch(pattern, line.strip())
         if match:
+            # The row carries what the board runs and, after it, columns about
+            # that build rather than the name of it: an art crc where the board
+            # holds a picture, and the commit time every board now reports. What
+            # is being matched is the version string alone.
             candidate = re.sub(r"\s+art\s+crc\s+[0-9a-fA-F]+$", "", match[1]).strip()
+            candidate = re.sub(r"\s+committed\s+\d+$", "", candidate).strip()
             return candidate if candidate and candidate != "(unanswered)" else None
     return None
 
