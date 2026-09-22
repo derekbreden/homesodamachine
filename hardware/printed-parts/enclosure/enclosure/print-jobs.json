@@ -991,7 +991,7 @@
       "printer": "Mark2",
       "printer_serial": "31B8AP612801351",
       "job_name": "enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
-      "status": "started",
+      "status": "completed",
       "started_by": "agent",
       "sent_via": "Bambu Connect, by the Scan results task after the Connect update; that task ended before recording its dialog readback. The printer's own report names the exact reviewed archive running on Mark2.",
       "parts": [
@@ -1030,6 +1030,57 @@
       "support_removal_review": {
         "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/support-removal-review.json",
         "sha256": "efb9776a2e511ca670aa34930ce08f849f975fde6387c74c7123f2214cc25265",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "physical_fit_and_support_removal_tested": false,
+      "complete_enclosure_trial": true,
+      "test_coupon": false,
+      "completion_observed_at_utc": "2026-09-22T23:14:33.669477+00:00",
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-carrier-pair-v2-completion.json",
+      "completion_record_sha256": "6fc3b68ddce1876a988cb2ebcf0bea05061c86670574bd519d11e02fd070701f",
+      "physical_success_and_fit_confirmed": false,
+      "latest_print_removed_confirmed": true,
+      "removal_authority": "Derek: Mark2 plate is clear btw (for display cover)"
+    },
+    {
+      "date": "2026-09-22",
+      "printer": "Mark2",
+      "printer_serial": "31B8AP612801351",
+      "job_name": "display-cover-black-z004-mark2-v3.gcode.3mf",
+      "status": "started",
+      "started_by": "agent",
+      "sent_via": "Bambu Connect via tools/bambu_send.py; dialog read back Mark2, Ext PET-CF",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/display-cover.stl"
+      ],
+      "orientation": "Face down (X180), both skirts pointing up",
+      "project": ".cache/prints/2026-09-22-display-cover-mark2-v3/display-cover-black-z004-mark2-v3-input.3mf",
+      "project_sha256": "8feda9134f407d37f9c8a5c49e05fd5439b2ffb5d8d03872f1f4f0a8ac8a9991",
+      "sliced_file": ".cache/prints/2026-09-22-display-cover-mark2-v3/ready/display-cover-black-z004-mark2-v3.gcode.3mf",
+      "sliced_file_sha256": "81a04797079486e9427796278fdd48630c9d1a3b401ffaf685723b0ce2e11641",
+      "gcode_sha256": "093c438927857240fdc398d432c3e6da35565553dbc5e2bd9e417b84b3d30815",
+      "filament": "Black PET-GF, left external spool 254, PET-CF metadata",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "layers": 56,
+      "estimated_seconds": 1430.7808837890625,
+      "filament_grams_petgf_density_1p43": 9.548421741456023,
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-22T23:27:32.567208+00:00",
+      "observed_layer": 0,
+      "observed_total_layers": 56,
+      "observed_remaining_minutes": 23,
+      "observed_print_error": 0,
+      "hms": [],
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-launch.json",
+      "launch_record_sha256": "7fb23f1be6bb8af6d83e9d2bb31b0417eb0dc84f66a60a625584c7f2b3626907",
+      "offline_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v3/offline-review.json",
+        "sha256": "2af28bdfcfa41a12bf0834745e6e9536cd8e5982d3d8828e51809385e937d4de"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v3/support-removal-review.json",
+        "sha256": "4bcaac0dabb58984d3ba77f1526bd7b93964cc726d46bc8ff753ba636555f163",
         "status": "current_support_contacts_and_removal_lanes_reviewed"
       },
       "physical_fit_and_support_removal_tested": false,

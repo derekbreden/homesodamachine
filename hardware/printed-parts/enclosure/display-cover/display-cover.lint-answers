@@ -1,8 +1,14 @@
-[sliver] Each 1.2 mm vertical land is the full-projection face of a 1.8 mm square lip, the nameplate tab's own land. Its tapered nose builds from the bed up to this land, and the lip joins the complete 1.3 mm skirt over its 24 mm run. The measurement is the land height, not a free strip.
+[sliver] Each 1.2 mm vertical land is the full-projection face of a 1.8 mm square lip, the nameplate tab's own land. The lip stands on its supported catch face, closes in its tapered nose above the land, and joins the complete 1.3 mm skirt over its 24 mm run. The measurement is the land height, not a free strip.
 file: hardware/printed-parts/enclosure/display-cover/display-cover.step
 click: x=-64.550 y=0.000 z=-11.100
 click: x=64.550 y=0.000 z=-11.100
 
-[ceiling] The bezel prints with its visible face upward and both skirts on the bed. Supports carry this hidden underside of the 2 mm face. The open window and the space between the skirts provide access for removing them before the display is installed.
+[sliver] Each skirt ends in its full 1.3 mm section, the nameplate tab's thickness. The measurement is the skirt wall, not a free strip.
 file: hardware/printed-parts/enclosure/display-cover/display-cover.step
-click: x=0.000 y=0.000 z=-2.000
+click: x=-62.100 y=0.000 z=-13.300
+click: x=62.100 y=0.000 z=-13.300
+
+[ceiling] The cover prints face down with both skirts pointing up, and each lip's 1.8 mm catch face looks print-down. Its support stands on the plate beside the cover's edge, outside the part, and peels off whole, as under the nameplate's lips.
+file: hardware/printed-parts/enclosure/display-cover/display-cover.step
+click: x=-63.650 y=0.000 z=-10.500
+click: x=63.650 y=0.000 z=-10.500
