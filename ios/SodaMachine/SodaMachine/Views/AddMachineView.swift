@@ -31,11 +31,10 @@ struct AddMachineView: View {
             Theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // First run is what the launch screen hands over to, so the
-                // mark stays exactly where the launch screen left it. Opened
-                // as a sheet from a page that already carries the mark, it is
-                // a smaller one, because two of the same size one tap apart
-                // read as the same picture that moved.
+                // First run is what the launch screen hands over to, and the
+                // mark stays where it left it. As a sheet over a page already
+                // carrying the mark it is smaller: two the same size one tap
+                // apart read as one picture that moved.
                 if firstRun {
                     MarkHeader()
                 } else {

@@ -81,6 +81,16 @@ struct FirmwareManifest: Codable {
     }
 }
 
+/// What went wrong on the way to a machine, in the words the screen shows.
+/// A `URLError` here reaches the person as "NSURLErrorDomain error -1020".
+enum FirmwareError: LocalizedError {
+    case notWhatWasPublished
+
+    var errorDescription: String? {
+        "What downloaded was not the update your machine was offered. Try again."
+    }
+}
+
 @Observable
 final class FirmwareCatalog {
     /// Where a machine's next image comes from. Overridable so a laptop serving
@@ -122,16 +132,20 @@ final class FirmwareCatalog {
     func payload(for image: FirmwareImage) async throws -> Data {
         if let held = payloads[image.target] { return held }
         guard let url = URL(string: image.url) else { throw URLError(.badURL) }
-        let (data, response) = try await URLSession.shared.data(from: url)
+        // NOTHING A MACHINE RUNS COMES OUT OF A CACHE. Two builds of one board
+        // are usually the same number of bytes, so bytes a phone already holds
+        // can carry a validator this release's bytes also carry.
+        var request = URLRequest(url: url)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        let (data, response) = try await URLSession.shared.data(for: request)
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
         let digest = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
-        guard digest == image.sha256 else {
-            log.error("\(image.target): sha256 \(digest) is not \(image.sha256)")
-            throw URLError(.dataNotAllowed)
+        guard digest == image.sha256, data.count == image.bytes else {
+            log.error("\(image.target): sha256 \(digest) (\(data.count) B) is not \(image.sha256) (\(image.bytes) B)")
+            throw FirmwareError.notWhatWasPublished
         }
-        guard data.count == image.bytes else { throw URLError(.dataLengthExceedsMaximum) }
         payloads[image.target] = data
         return data
     }
