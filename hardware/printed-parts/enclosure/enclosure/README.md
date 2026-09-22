@@ -1536,9 +1536,11 @@ crown. The current production slice records the supports at those contact region
 
 The machine display sits on a 30° plane within the enclosure's 215 × 462 × 361 mm
 outside dimensions. An R12 tangent curve joins that plane to the front wall, and
-an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
-top edge remains square. The flat display plane is 87 mm long along its slope;
-the front curve begins about 15.5 mm above the pump cartridge.
+an R18 tangent curve joins it to the roof. The R18's last 0.48 mm under the roof — its
+last two layers as printed — rises at the plane's own 30° instead of rolling level, so
+each of those layers steps back about 0.42 mm, as the plane's do. The long side edges
+are R6. The rear top edge remains square. The flat display plane is 87 mm long along
+its slope; the front curve begins about 15.5 mm above the pump cartridge.
 The side rounds blend through the junction with the R12 standing front corners,
 forming one continuous surface around each top-front corner.
 
