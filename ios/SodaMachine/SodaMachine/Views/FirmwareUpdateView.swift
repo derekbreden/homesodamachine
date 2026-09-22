@@ -145,24 +145,31 @@ struct FirmwareUpdateView: View {
                     .font(.system(size: 14).monospacedDigit())
                     .foregroundStyle(Theme.textSecondary)
 
-                Text(settling
-                     ? "Your machine is restarting into it."
-                     : "Keep your phone near the machine. Do not unplug it.")
-                    .font(.system(size: 12))
+                Text(phase)
+                    .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                    .padding(.top, 4)
 
                 // Nothing to cancel once the bytes are all there: the machine is
                 // going down into them either way.
                 if !settling {
-                    Button("Cancel") { ble.cancelUpdate() }
-                        .font(.system(size: 14))
+                    Text("Keep your phone near the machine. Do not unplug it.")
+                        .font(.system(size: 12))
                         .foregroundStyle(Theme.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+                        .padding(.top, 4)
+
+                    softButton("Cancel") { ble.cancelUpdate() }
                 }
             }
         }
+    }
+
+    /// Where the run has got to, in the fewest words that are true. The bar
+    /// carries the whole of it; this only names which part is happening.
+    private var phase: String {
+        guard settling else { return "Sending" }
+        return ble.linked ? "Checking" : "Restarting"
     }
 
     /// Between the last byte and the machine answering again. The bar is still
@@ -233,8 +240,11 @@ struct FirmwareUpdateView: View {
         .padding(.horizontal, 32)
     }
 
-    private func checkButton() -> some View {
-        Button("Check for Updates") { Task { await check() } }
+    /// A button that reads as one. The page's other control is the orange
+    /// Update, so everything beside it shares this quieter surface rather than
+    /// sitting on the background as bare words.
+    private func softButton(_ title: String, action: @escaping () -> Void) -> some View {
+        Button(title, action: action)
             .font(.system(size: 16, weight: .medium))
             .foregroundStyle(Theme.textPrimary)
             .padding(.horizontal, 22)
@@ -242,6 +252,10 @@ struct FirmwareUpdateView: View {
             .background(Color.white.opacity(0.12))
             .cornerRadius(12)
             .padding(.top, 14)
+    }
+
+    private func checkButton() -> some View {
+        softButton("Check for Updates") { Task { await check() } }
     }
 
     private func check() async {
