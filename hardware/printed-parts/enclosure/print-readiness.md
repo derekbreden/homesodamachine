@@ -3,9 +3,9 @@
 The requested trial uses **all four fresh shell quadrants, the complete carrier pair,
 one reusable spring-loading pusher, and both matching G Ganen cold-core mounting parts**.
 The complete Kamoer cartridge and raised open cap are finished and removed. H2C is
-printing the front-top and spring-loading pusher. Mark2 is printing the countertop
-under the **Tube miter box** task. No additional coupons or scans are required
-before this full assembly trial.
+printing the front-top and spring-loading pusher. Mark2’s countertop is finished,
+and Derek confirms its bed is clear; front-bottom awaits the black PET-GF quantity answer.
+No additional coupons or scans are required before this full assembly trial.
 
 **G Ganen feet and mounts are corrected.** Four copies of the shared 7 mm foot sit at the fully engaged rail ends, 58 mm apart. Matching cap and lid archives are freshly reviewed. The pump is 1 mm forward to clear the rear fitting.
 
@@ -31,7 +31,7 @@ record execution, not a request for another approval.
 | Plate | Printer | Native time estimate | PET-GF at 1.43 g/cm³ (g) | Current state |
 | --- | --- | ---: | ---: | --- |
 | Front-top and one 2 mm pusher | H2C | 24 h 18 min | 903.02 | Running; 813 layers |
-| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Offline ready; not submitted |
+| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Bed clear; awaiting filament answer |
 | Back-bottom | Mark2 | 17 h 59 min | 709.45 | Offline ready; not submitted |
 | Back-top | H2C | 27 h 51 min | 962.13 | Offline ready; not submitted |
 | Complete carrier pair | Mark2 | 3 h 43 min | 112.86 | Offline ready; not submitted |
@@ -40,8 +40,9 @@ record execution, not a request for another approval.
 
 H2C order: **front-top + pusher (running) → back-top**. Back-top follows a fresh
 plate-clear and filament handoff after front-top finishes.
-Mark2 order: **front-bottom → back-bottom → carrier pair** after Tube miter box releases
-the machine. These are serial queues on each printer; the two printers can work in parallel.
+Mark2 order: **front-bottom → back-bottom → carrier pair**. Its bed is clear;
+the pending handoff question asks whether 621.26 g black PET-GF is available for front-bottom.
+These are serial queues on each printer; the two printers can work in parallel.
 
 Both G Ganen mounting plates are assigned to **Mark2**, after the bottoms and carrier.
 The reviewed Mark2 v2 mounting archives use +0.04 mm requested trim and belong to the
@@ -72,13 +73,15 @@ The exact finish time and physical print quality are not established by this rea
 
 | Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
 | --- | --- | ---: | ---: | ---: | --- |
-| H2C | 2026-09-21T19:47:45.218425+00:00 | 0% | 0/813 | 1457 | None |
-| Mark2 | 2026-09-21T19:47:44.277988+00:00 | 74% | 524/917 | 245 | None |
+| H2C | 2026-09-21T23:57:42.989253+00:00 | 16% | 106/813 | 1213 | None |
+| Mark2 | 2026-09-21T23:57:42.306661+00:00 | FINISH; bed clear | 917/917 | 0 | None |
 
 These are timestamped readings, not live remaining-time promises. The
 [front-top launch record](tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json)
-binds the reviewed archive to H2C’s RUNNING report and verified send settings. Mark2
-is running and remains owned by Tube miter box. The active `finish-the-enclosure-print-queue`
+binds the reviewed archive to H2C’s RUNNING report and verified send settings. The
+[countertop completion and handoff](tee-readiness/full-enclosure-print/mark2-countertop-completion.json)
+records Mark2’s FINISH reading and Derek’s fresh plate-clear confirmation. Its filament
+question is pending and must not be repeated on another heartbeat. The active `finish-the-enclosure-print-queue`
 heartbeat checks every 15 minutes and advances reviewed jobs when normal physical handoff
 conditions are met, remaining quiet on unchanged running states.
 

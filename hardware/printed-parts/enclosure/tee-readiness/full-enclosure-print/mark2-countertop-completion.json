@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "status": "printer_reported_finished_and_user_reports_removed",
+  "printer": "Mark2",
+  "owner_task": "Tube miter box",
+  "scope": "External job completion and machine handoff for the enclosure queue",
+  "job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+  "archive_sha256": "05c9ca0ce4769859fd0980c9e2eabceb6484345e1f05e68b915354763d6f7218",
+  "archive_provenance": {
+    "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
+    "job_id": "2026-09-21-fake-countertop-black-z004-mark2-after-seasoning"
+  },
+  "completion_observed_at": "2026-09-21T23:57:42.306661+00:00",
+  "exact_completion_time_known": false,
+  "observed_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-21T23:57:42.306661+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 917,
+    "total_layer_num": 917,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 80.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 66.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T235742Z.json",
+    "sha256": "f829cf3e126cd74de9ca3c2b07f0b915dac0602573f9e1c7f2a083c81b495aa4"
+  },
+  "latest_print_removed_confirmed": true,
+  "removal_authority": "Derek: Mark2 bed is clear",
+  "removal_recorded_at_utc": "2026-09-22T00:00:05.120105+00:00",
+  "physical_success_and_fit_confirmed": false,
+  "coordination": {
+    "target": "00dde721-2d73-42cf-aff7-c3c26d852139",
+    "result": "No live Claude peer receiver; relay delivered nothing and queued nothing.",
+    "ownership_authority": "Derek reports the bed clear; the active enclosure queue instruction authorizes its next reviewed job after adequate filament is confirmed.",
+    "last_owner_transcript": "The owner released Bambu Connect and stopped monitoring after the countertop reached layer 5."
+  }
+}
