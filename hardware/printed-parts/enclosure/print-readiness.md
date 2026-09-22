@@ -3,8 +3,7 @@
 The requested trial uses **all four fresh shell quadrants, the complete carrier pair,
 one reusable spring-loading pusher, and both matching G Ganen cold-core mounting parts**.
 The complete Kamoer cartridge and raised open cap are finished and removed. H2C is
-printing the front-top and spring-loading pusher. Mark2’s countertop is finished,
-and Derek confirms its bed is clear; front-bottom awaits the black PET-GF quantity answer.
+printing the front-top and spring-loading pusher. Mark2 is printing the front-bottom.
 No additional coupons or scans are required before this full assembly trial.
 
 **G Ganen feet and mounts are corrected.** Four copies of the shared 7 mm foot sit at the fully engaged rail ends, 58 mm apart. Matching cap and lid archives are freshly reviewed. The pump is 1 mm forward to clear the rear fitting.
@@ -20,10 +19,11 @@ The assembly STEP SHA-256 is
 The [current geometry receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json) binds the completed assembly, unchanged independent print geometry and corrected mounts. Back-top has zero native added/removed volume; its mesh differs only by at most 0.000016 mm. The two mounting archives use their [mount input receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/current-geometry.json). Original archive and support-review provenance remains intact. The [queue](tee-readiness/full-enclosure-print/queue.json) records current eligibility.
 
 **All seven production plates have completed native/support review.** The front-top
-and pusher are running on H2C; six plates remain unsubmitted. Full-enclosure printing
-is already authorized; an offline-ready job awaits machine availability, removal of
-that machine’s latest print, adequate
-filament and the normal verified handoff. `print_released=false` and `submitted=false`
+and pusher are running on H2C; front-bottom is running on Mark2. Five plates remain
+unsubmitted. Full-enclosure printing is already authorized; an offline-ready job
+awaits machine availability, removal of
+that machine’s latest print, the correct material mapping and the normal verified
+handoff. `print_released=false` and `submitted=false`
 record execution, not a request for another approval.
 
 ## Complete parts and printer queue
@@ -31,7 +31,7 @@ record execution, not a request for another approval.
 | Plate | Printer | Native time estimate | PET-GF at 1.43 g/cm³ (g) | Current state |
 | --- | --- | ---: | ---: | --- |
 | Front-top and one 2 mm pusher | H2C | 24 h 18 min | 903.02 | Running; 813 layers |
-| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Bed clear; awaiting filament answer |
+| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Running; 754 layers |
 | Back-bottom | Mark2 | 17 h 59 min | 709.45 | Offline ready; not submitted |
 | Back-top | H2C | 27 h 51 min | 962.13 | Offline ready; not submitted |
 | Complete carrier pair | Mark2 | 3 h 43 min | 112.86 | Offline ready; not submitted |
@@ -39,9 +39,9 @@ record execution, not a request for another approval.
 | Matching foam-cap-lid-top | Mark2 | 4 h 28 min | 202.92 | Offline ready; not submitted |
 
 H2C order: **front-top + pusher (running) → back-top**. Back-top follows a fresh
-plate-clear and filament handoff after front-top finishes.
-Mark2 order: **front-bottom → back-bottom → carrier pair**. Its bed is clear;
-the pending handoff question asks whether 621.26 g black PET-GF is available for front-bottom.
+plate-clear confirmation after front-top finishes.
+Mark2 order: **front-bottom (running) → back-bottom → carrier pair**. Each next plate
+follows completion and fresh part-removal confirmation.
 These are serial queues on each printer; the two printers can work in parallel.
 
 Both G Ganen mounting plates are assigned to **Mark2**, after the bottoms and carrier.
@@ -59,9 +59,13 @@ These totals describe all seven production plates, including the full original e
 for front-top. They exclude the completed cartridge/cap, the countertop, plate changes,
 support cleanup and assembly; they are not remaining-time promises.
 
-Derek reported H2C clear and ready after the front-top requirement of 903.02 g black
-PET-GF was stated. That readiness applies to this launched plate; no measured spool
-mass is claimed. Later jobs require fresh plate-clear and filament handoffs.
+Derek directs using every spool fully and reloading during a print as needed.
+**Remaining filament quantity is not a launch condition.** The mass figures are
+consumption estimates; no weighing, remaining-quantity estimate or confirmation is
+required. Ready jobs use the correct black PET-GF mapping and proceed after a fresh
+plate-clear confirmation. Request filament only for an actual reload.
+The [filament-use policy](tee-readiness/full-enclosure-print/filament-use-policy.json)
+records this standing instruction.
 
 The completed H2C job is `pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`, archive
 SHA-256 `8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562`.
@@ -73,17 +77,19 @@ The exact finish time and physical print quality are not established by this rea
 
 | Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
 | --- | --- | ---: | ---: | ---: | --- |
-| H2C | 2026-09-21T23:57:42.989253+00:00 | 16% | 106/813 | 1213 | None |
-| Mark2 | 2026-09-21T23:57:42.306661+00:00 | FINISH; bed clear | 917/917 | 0 | None |
+| H2C | 2026-09-22T01:25:07.714292+00:00 | 22% | 173/813 | 1122 | None |
+| Mark2 | 2026-09-22T01:25:08.043469+00:00 | 0% | 0/754 | 1046 | None |
 
 These are timestamped readings, not live remaining-time promises. The
 [front-top launch record](tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json)
 binds the reviewed archive to H2C’s RUNNING report and verified send settings. The
 [countertop completion and handoff](tee-readiness/full-enclosure-print/mark2-countertop-completion.json)
-records Mark2’s FINISH reading and Derek’s fresh plate-clear confirmation. Its filament
-question is pending and must not be repeated on another heartbeat. The active `finish-the-enclosure-print-queue`
-heartbeat checks every 15 minutes and advances reviewed jobs when normal physical handoff
-conditions are met, remaining quiet on unchanged running states.
+records the countertop’s FINISH reading and Derek’s plate-clear confirmation. The
+[front-bottom launch record](tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json)
+binds the exact reviewed archive to Mark2’s RUNNING report. The active
+`finish-the-enclosure-print-queue` heartbeat checks every two hours and advances
+reviewed jobs when normal physical handoff conditions are met, remaining quiet on
+unchanged running states.
 
 The completed cartridge has 260 exterior divisions; the new shell uses 262, a pitch
 difference of 0.006324 mm per groove. A small exterior groove-phase difference is possible.
@@ -154,8 +160,9 @@ rigidity over the carrier before the springs moved has not yet been demonstrated
 ## What remains before and during the trial
 
 All seven assigned archives pass their fresh native/support reviews. Front-top and the
-pusher are running on H2C. The six unsubmitted plates await their assigned printer,
-removal of that printer’s latest part, adequate black PET-GF and the verified handoff.
+pusher are running on H2C, and front-bottom is running on Mark2. The five unsubmitted
+plates await their assigned printer, removal of that printer’s latest part, the correct
+black PET-GF mapping and the verified handoff.
 Offline ready is not submitted. The H2C mount alternatives are not additional required
 prints.
 

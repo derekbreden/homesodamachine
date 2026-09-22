@@ -44,3 +44,10 @@ settles whether what somebody saw in the viewer was there.
 
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
+
+## Filament use
+
+Derek wants every spool used fully, with reloading during a print as needed. Remaining
+spool quantity is not a launch condition: do not ask for its weight or an estimate, or
+hold a ready print for a quantity confirmation. Use the correct material mapping and
+ask for reloading only when an actual runout requires it.
