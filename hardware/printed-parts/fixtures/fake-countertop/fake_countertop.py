@@ -1,5 +1,7 @@
 """Fake countertop: the bench stand that stands in for a counter. An inverted U the size of
-the bed, one faucet through its 1-3/8" hole, the umbilical hanging and bending under it.
+the bed, one faucet through its 1-3/8" hole, the umbilical hanging and bending under it, one thickness of 3 cm throughout: the
+thickness most US kitchen counters are, the quartz, granite and quartzite standard, and
+what the faucet layout stands the faucet on.
 
 The print stands on the show face: the slab lies on the bed and the legs rise from it, so
 the show face takes the plate's texture and nothing needs support. The slab's edges on the
@@ -54,7 +56,7 @@ UMBILICAL_BELOW_COUNTER = 80.0 - 6.0
 UMBILICAL_BEND_R = 30.0
 HAND_ROOM = 60.0
 
-T = 12.0
+T = 30.0
 HEIGHT = 220.0
 SLAB_X = LEFT_REACH_X - 2 * PLATE_BORDER
 SLAB_Y = LEFT_REACH_Y - 2 * PLATE_BORDER

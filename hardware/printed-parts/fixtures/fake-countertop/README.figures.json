@@ -1,14 +1,14 @@
 {
   "/hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": {
-    "FCT_CLEAR": "208 mm",
+    "FCT_CLEAR": "190 mm",
     "FCT_CORNER_R": "6 mm",
     "FCT_FOOT_R": "3 mm",
     "FCT_HEIGHT": "220 mm",
     "FCT_HOLE": "34.92 mm",
     "FCT_ROOT_R": "6 mm",
     "FCT_SLAB": "315 \u00d7 310 mm",
-    "FCT_T": "12 mm",
+    "FCT_T": "30 mm",
     "FCT_UMBILICAL": "104 mm",
-    "FCT_VOLUME": "2701 cm\u00b3"
+    "FCT_VOLUME": "6428 cm\u00b3"
   }
 }
