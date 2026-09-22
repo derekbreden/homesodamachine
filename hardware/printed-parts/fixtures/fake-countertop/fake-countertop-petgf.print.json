@@ -64,8 +64,8 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
-      "stl_sha256": "d1c6fe94e19db1ac8409d91f9b25462603c8054b3ea3d5151c7829a123fc15b6",
-      "triangles": 84060,
+      "stl_sha256": "93d4b826e0e376163a4d13fcb8528f25c0539d8bdaf227c0bef7294382ae1f4e",
+      "triangles": 84056,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
@@ -113,7 +113,7 @@
       "embedded_vertex_error_mm": 4.999947122996673e-10
     }
   ],
-  "project_sha256": "65566829b3374a30b778aadb7b5bbd4766711ef56b85dba00d413740f84ba9f4",
+  "project_sha256": "408fd08a780055d5a7827a3855211e88312b930c31a5f783d14da7a2425cd157",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; a submission is recorded in print-jobs.json",
   "pose": "show face on the bed, legs up; no support",
