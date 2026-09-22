@@ -1382,7 +1382,9 @@ The aft coils' cases pass below this land; their terminal pairs pass through the
 leaving one flat underside beside the outer wells. The web's aft shelf runs under the land
 and over the inner coils' cases.
 The lower lands continue as a flat floor into the aft valve tray; four broad openings admit
-that row's valves from underneath and carry the moving hairpins. Branch journals
+that row's valves from underneath and carry the moving hairpins. The two outer openings run
+out to the flank's Z-rail channel, so no strip of floor stands between an opening and the
+channel. Branch journals
 continue forward to the fixed collet plate. One common full-width face clears the tie heads
 and the lap tongue's fore face.
 
@@ -1554,9 +1556,15 @@ clearance above the shoulder. The bezel prints face upward with supports on its 
 underside. Seating and retention still require a physical print check.
 
 The 19 mm housing and its internal ridge join the side walls and the pump-bay
-bulkhead. The ridge's cavity-side roof is one plane around the funnel's rounded
-clearance envelope. Supports carry the housing underside and the hidden retaining
-surfaces; their geometry preserves the display seats and the snap shoulders.
+bulkhead. Either side of the display's opening the storey beneath the housing is solid:
+from the pump bay's lintel up into the housing, and from the front wall back to the
+ridge wall's fore face and crown. The skirt recesses are cut into that solid. Between
+the two blocks the opening continues down to the bay as one room, which holds the
+display's back, SIG-7's run to the ridge bore and the pump plug's unplug path. The
+ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
+Supports carry the lintel's flat underside, the room's short housing strips and the
+hidden retaining surfaces; their geometry preserves the display seats and the snap
+shoulders.
 
 The vertical flutes fade over their existing 5 mm end field as the front and sides
 turn into the smooth top curves. The rounded display bezel and funnel rim remain
