@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "status": "printer_reported_running",
+  "printer": "Mark2",
+  "observed_at": "2026-09-22T19:42:39.293134+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff",
+    "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db"
+  },
+  "staged_project": {
+    "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/enclosure-carrier-pair-black-z004-mark2-v2-input.3mf",
+    "sha256": "6766096e5ca837f8174c32bbdf85b0431760e6a3343628de856bacf5e38fa645"
+  },
+  "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db",
+  "observed_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-22T19:42:39.293134+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+    "mc_percent": 8,
+    "layer_num": 18,
+    "total_layer_num": 258,
+    "mc_remaining_time": 203,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "nozzle_temper": 280.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T194239Z.json",
+    "sha256": "63c1e42dd22b1fefcb4d7002032b278ba2365aa10e9c1c4fcacbef43763067a3"
+  },
+  "sent_via": "Bambu Connect, by the Scan results task after the Connect update; that task ended before recording its dialog readback. The printer's own report names the exact reviewed archive running on Mark2.",
+  "preflight": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/launch-evidence/mark2-carrier-pair-v2/preflight.json",
+    "sha256": "bd69ed22cfa3d21f50ede88a36072cb4cd61f8ee7e54ee44daa76cb582a278e1"
+  },
+  "plate_clearance_authority": "Derek: Mark2 bed is clear (front-bottom removed)",
+  "previous_job_completion": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+    "sha256": "2d70d7222c11e73f4377855555e476d3099053b70e19f1b2b525211a40ce38f9"
+  },
+  "requested_z_trim_mm": 0.04,
+  "effective_textured_z_trim_mm": 0.02,
+  "offline_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/offline-review.json",
+    "sha256": "98010c3b509fd112ea728112989a598b18c118f1b41cc8416aea83ba9a7c0700"
+  },
+  "support_removal_review": {
+    "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/support-removal-review.json",
+    "sha256": "efb9776a2e511ca670aa34930ce08f849f975fde6387c74c7123f2214cc25265",
+    "status": "current_support_contacts_and_removal_lanes_reviewed"
+  },
+  "durable_review_package": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-carrier-pair-mark2-v2/manifest.json",
+    "sha256": "4534a302104137e8d12788d62c5f8eb405e163e98f4990a99acc63a72fe9db7c"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "operating_policy": "Keep productive jobs running; never pause for design review. Use each spool fully and reload on runout."
+}

@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "status": "printer_reported_finished_and_user_reports_removed",
+  "printer": "Mark2",
+  "queue_job_id": "front-bottom",
+  "job": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+    "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb"
+  },
+  "launch_record": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+    "sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0"
+  },
+  "completion_observed_at": "2026-09-22T18:41:48.510428+00:00",
+  "exact_completion_time_known": false,
+  "observed_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-22T18:41:48.510428+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 754,
+    "total_layer_num": 754,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 100.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 68.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T184148Z.json",
+    "sha256": "a3df0c4a8c9e6f8041adcc257792ada62a9d592df8cccb51fe1d78e2525aa590"
+  },
+  "latest_print_removed_confirmed": true,
+  "removal_authority": "Derek: Mark2 bed is clear",
+  "removal_recorded_at_utc": "2026-09-22T18:44:13.601692+00:00",
+  "physical_success_and_fit_confirmed": false
+}

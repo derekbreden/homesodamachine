@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "status": "archive_preflight_pass",
+  "recorded_at_utc": "2026-09-22T18:44:13.602884+00:00",
+  "printer": "Mark2",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/ready/enclosure-back-bottom-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "4c68142fd791fc922eba261b27834041be5f8cbeb3d92d11b7e1362975bfbe07",
+    "gcode_sha256": "3ef93d482b3bba7c4565109b3dfb86c8e3de1fbaa49c0766256a71b56bc95a6d"
+  },
+  "verified_records": {
+    "offline_review": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/offline-review.json",
+      "sha256": "39ca02207abf238f35891a5b82abe7ebdd9b9fecbb970fcf398b101619de6818"
+    },
+    "support_removal_review": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/support-removal-review.json",
+      "sha256": "d1ae352b64c3ceda0d8689494e1a2300dad2bf88b2c4cd2b688d75cbf1e6735f",
+      "status": "current_support_contacts_and_removal_lanes_reviewed"
+    },
+    "durable_review_package": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json",
+      "sha256": "141bfb05c015499b0b511ec30cc738123a549bb1f27b5e4bac9176f7ab89fb66"
+    },
+    "native_handoff": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/native-handoff.json",
+      "sha256": "ba06e3b39d449c6bfd06ca171807a4266bfa87664a6c89a82473141cb1e09bd3"
+    },
+    "geometry_confirmation": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+      "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+    }
+  },
+  "verified_print_meshes": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "3391f0a07a9af0de695bcba5b158d77a91ee5405dbf8fa8831be4b65956d9d1b"
+  },
+  "gcode_sha256_verified": true,
+  "nozzle_diameter_mm": 0.4,
+  "filament_nozzle_map": "0",
+  "filament_map": "1",
+  "physical_material": "black PET-GF",
+  "printer_material_metadata": "PET-CF",
+  "brim_type": "auto_brim",
+  "emitted_brim_segments": 0,
+  "requested_z_trim_mm": 0.04,
+  "gcode_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "plate_clearance_authority": "Derek: Mark2 bed is clear",
+  "remaining_filament_quantity_required": false,
+  "previous_job_completion": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+    "sha256": "2d70d7222c11e73f4377855555e476d3099053b70e19f1b2b525211a40ce38f9"
+  }
+}

@@ -82,55 +82,26 @@
       "printer": "H2C",
       "status": "reported_running",
       "authority": "Exact printer observation after verified Bambu Connect send",
-      "job": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
-      "queue_job_id": "front-top",
+      "job": "enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+      "queue_job_id": "back-top",
       "parts": [
-        "enclosure-front-top",
-        "carrier-spring-pusher"
+        "enclosure-back-top"
       ],
-      "native_archive": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
-      "native_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
-      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
-      "launch_record_sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c",
-      "launch_observed_at": "2026-09-21T19:47:45.218425+00:00",
+      "native_archive": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+      "native_archive_sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json",
+      "launch_record_sha256": "2f670c239570993c47370327cf1b6501005255409999ffedd3cc2f14697aed34",
+      "launch_observed_at": "2026-09-22T19:04:30.084409+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T012508Z.json",
-        "record_sha256": "04f505d354325fff9cce232143da0edacca974fdfeb3075eb3e99a0398ebfc90",
-        "observed_at": "2026-09-22T01:25:07.714292+00:00",
-        "gcode_state": "RUNNING",
-        "mc_percent": 22,
-        "layer_num": 173,
-        "total_layer_num": 813,
-        "mc_remaining_time": 1122,
-        "print_error": 0,
-        "hms": []
-      }
-    },
-    {
-      "printer": "Mark2",
-      "status": "reported_running",
-      "authority": "Exact printer observation after verified Bambu Connect send",
-      "job": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
-      "queue_job_id": "front-bottom",
-      "parts": [
-        "enclosure-front-bottom"
-      ],
-      "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
-      "native_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
-      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
-      "launch_record_sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0",
-      "launch_observed_at": "2026-09-22T01:25:08.043469+00:00",
-      "physical_completion_and_fit_pending": true,
-      "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T012508Z.json",
-        "record_sha256": "04f505d354325fff9cce232143da0edacca974fdfeb3075eb3e99a0398ebfc90",
-        "observed_at": "2026-09-22T01:25:08.043469+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T190430Z.json",
+        "record_sha256": "6cde1e2ab4fc49318f17da644effb79b8cabe209671d86d861c5cd3557184cad",
+        "observed_at": "2026-09-22T19:04:30.084409+00:00",
         "gcode_state": "RUNNING",
         "mc_percent": 0,
         "layer_num": 0,
-        "total_layer_num": 754,
-        "mc_remaining_time": 1046,
+        "total_layer_num": 813,
+        "mc_remaining_time": 1670,
         "print_error": 0,
         "hms": []
       }
@@ -147,7 +118,7 @@
       "assigned_printer": "H2C",
       "printer_assignment_status": "assigned",
       "active_for_submission": true,
-      "status": "reported_running",
+      "status": "reported_finished",
       "offline_ready": true,
       "submitted": true,
       "print_released": true,
@@ -163,7 +134,13 @@
       "launch_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
         "sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c"
-      }
+      },
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json",
+        "sha256": "1e45b001283ee4135534945c630f0e1686203ae2bc2f8d513b47f8f264b60973"
+      },
+      "completion_observed_at": "2026-09-22T18:58:20.946392+00:00",
+      "latest_print_removed_confirmed": true
     },
     {
       "id": "front-bottom",
@@ -174,7 +151,7 @@
       "assigned_printer": "Mark2",
       "printer_assignment_status": "assigned",
       "active_for_submission": true,
-      "status": "reported_running",
+      "status": "reported_finished",
       "offline_ready": true,
       "submitted": true,
       "print_released": true,
@@ -190,7 +167,13 @@
       "launch_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
         "sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0"
-      }
+      },
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+        "sha256": "2d70d7222c11e73f4377855555e476d3099053b70e19f1b2b525211a40ce38f9"
+      },
+      "completion_observed_at": "2026-09-22T18:41:48.510428+00:00",
+      "latest_print_removed_confirmed": true
     },
     {
       "id": "back-bottom",
@@ -224,10 +207,10 @@
       "assigned_printer": "H2C",
       "printer_assignment_status": "assigned",
       "active_for_submission": true,
-      "status": "offline_ready_awaiting_machine_handoff",
+      "status": "reported_running",
       "offline_ready": true,
-      "submitted": false,
-      "print_released": false,
+      "submitted": true,
+      "print_released": true,
       "slice_estimate": {
         "layers": 813,
         "seconds": 100238.8671875,
@@ -236,6 +219,10 @@
         "grams_actual_petgf_density_1p43": 962.1293580994125,
         "actual_petgf_density_g_per_cm3": 1.43,
         "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+      },
+      "launch_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json",
+        "sha256": "2f670c239570993c47370327cf1b6501005255409999ffedd3cc2f14697aed34"
       }
     },
     {
@@ -522,7 +509,10 @@
     "h2c_front_top_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
     "mark2_countertop_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
     "mark2_front_bottom_v2_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
-    "filament_use_policy": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json"
+    "filament_use_policy": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+    "mark2_front_bottom_v2_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+    "h2c_front_top_v4_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json",
+    "h2c_back_top_v2_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json"
   },
   "printing_policy": {
     "authority": "Derek",
@@ -535,7 +525,7 @@
     "reload_during_print_accepted": true,
     "filament_instruction": "Start ready jobs with the correct material mapping regardless of remaining spool quantity. Use the spool until runout and reload as needed. Ask for filament only when an actual reload requires the user."
   },
-  "updated_at_utc": "2026-09-22T01:28:27.897016+00:00",
+  "updated_at_utc": "2026-09-22T19:06:49.960073+00:00",
   "printing_authorized": true,
   "native_slices_complete": 7,
   "offline_reviews_complete": 7,
@@ -578,7 +568,6 @@
   },
   "ready_job_ids": [
     "back-bottom",
-    "back-top",
     "carrier-pair",
     "foam-cap-top",
     "foam-cap-lid-top"
@@ -688,20 +677,93 @@
         "sha256": "5599fdf43086ddcc412719731d8d97f7631f564930ea55f5265375ba5cb84573"
       },
       "scope": "External printer handoff; not part of the required enclosure set"
+    },
+    {
+      "printer": "Mark2",
+      "status": "reported_finished",
+      "authority": "Exact printer observation after verified Bambu Connect send",
+      "job": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+      "queue_job_id": "front-bottom",
+      "parts": [
+        "enclosure-front-bottom"
+      ],
+      "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+      "native_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+      "launch_record_sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0",
+      "launch_observed_at": "2026-09-22T01:25:08.043469+00:00",
+      "physical_completion_and_fit_pending": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T184148Z.json",
+        "record_sha256": "a3df0c4a8c9e6f8041adcc257792ada62a9d592df8cccb51fe1d78e2525aa590",
+        "observed_at": "2026-09-22T18:41:48.510428+00:00",
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 754,
+        "total_layer_num": 754,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": []
+      },
+      "printer_completion_confirmed": true,
+      "physical_success_confirmed": false,
+      "latest_print_removed_confirmed": true,
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+        "sha256": "2d70d7222c11e73f4377855555e476d3099053b70e19f1b2b525211a40ce38f9"
+      },
+      "removal_authority": "Derek: Mark2 bed is clear",
+      "removal_recorded_at_utc": "2026-09-22T18:44:13.601692+00:00"
+    },
+    {
+      "printer": "H2C",
+      "status": "reported_finished",
+      "authority": "Exact printer observation after verified Bambu Connect send",
+      "job": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+      "queue_job_id": "front-top",
+      "parts": [
+        "enclosure-front-top",
+        "carrier-spring-pusher"
+      ],
+      "native_archive": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+      "native_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+      "launch_record_sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c",
+      "launch_observed_at": "2026-09-21T19:47:45.218425+00:00",
+      "physical_completion_and_fit_pending": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T185820Z.json",
+        "record_sha256": "f80d4b2c9410977f274e9f924450d4a343455475e1d11c42d4efbb1b8cc7d27f",
+        "observed_at": "2026-09-22T18:58:20.946392+00:00",
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 813,
+        "total_layer_num": 813,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": []
+      },
+      "printer_completion_confirmed": true,
+      "physical_success_confirmed": false,
+      "latest_print_removed_confirmed": true,
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json",
+        "sha256": "1e45b001283ee4135534945c630f0e1686203ae2bc2f8d513b47f8f264b60973"
+      },
+      "removal_authority": "Derek: H2C is now also clear",
+      "removal_recorded_at_utc": "2026-09-22T19:01:54.261203+00:00"
     }
   ],
   "physical_handoff": {
     "H2C": {
-      "after_job": "pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf",
+      "after_job": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
       "printer_available": false,
-      "next_job_id": "back-top",
+      "next_job_id": null,
       "plate_clearance": {
-        "status": "consumed_by_front_top_launch",
-        "asked_at_utc": "2026-09-21T19:22:46.781658+00:00",
-        "question": "H2C has finished the Kamoer cartridge and cap without a reported error. Once you have removed both parts, is its plate clear for the front-top print?",
-        "authority": "Derek: H2C is clear and ready for next print.",
-        "confirmed_at_record_time_utc": "2026-09-21T19:49:59.084817+00:00",
-        "consumed_by_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e"
+        "status": "consumed_by_back_top_launch",
+        "authority": "Derek: H2C is now also clear",
+        "recorded_at_utc": "2026-09-22T19:01:54.261203+00:00",
+        "consumed_by_archive_sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1"
       },
       "filament": {
         "status": "use_spool_until_runout_and_reload",
@@ -713,23 +775,25 @@
         }
       },
       "send_permitted": false,
-      "active_job_id": "front-top",
+      "active_job_id": "back-top",
       "launch_record": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
-        "sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c"
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json",
+        "sha256": "2f670c239570993c47370327cf1b6501005255409999ffedd3cc2f14697aed34"
       },
-      "next_handoff": "After front-top finishes, obtain fresh part-removal confirmation for back-top; use the loaded black PET-GF until runout and reload as needed.",
-      "next_handoff_estimated_grams": 962.1293580994125
+      "next_handoff": "After back-top finishes, record completion and obtain fresh part-removal confirmation. No further H2C plate is currently assigned.",
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json",
+        "sha256": "1e45b001283ee4135534945c630f0e1686203ae2bc2f8d513b47f8f264b60973"
+      }
     },
     "Mark2": {
-      "after_job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "after_job": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
       "printer_available": false,
       "next_job_id": "back-bottom",
       "plate_clearance": {
-        "status": "consumed_by_front_bottom_launch",
+        "status": "confirmed_for_back_bottom",
         "authority": "Derek: Mark2 bed is clear",
-        "recorded_at_utc": "2026-09-22T00:00:05.120105+00:00",
-        "consumed_by_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e"
+        "recorded_at_utc": "2026-09-22T18:44:13.601692+00:00"
       },
       "filament": {
         "status": "use_spool_until_runout_and_reload",
@@ -742,27 +806,25 @@
       },
       "send_permitted": false,
       "completion_record": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
-        "sha256": "5599fdf43086ddcc412719731d8d97f7631f564930ea55f5265375ba5cb84573"
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+        "sha256": "2d70d7222c11e73f4377855555e476d3099053b70e19f1b2b525211a40ce38f9"
       },
-      "active_job_id": "front-bottom",
-      "launch_record": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
-        "sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0"
-      },
-      "next_handoff": "After front-bottom finishes, obtain fresh part-removal confirmation for back-bottom; use the loaded black PET-GF until runout and reload as needed."
+      "active_job_id": null,
+      "next_handoff": "Use the confirmed clear plate after Mark2 reconnects. Back-bottom is the next reviewed archive. Remaining spool quantity does not gate launch.",
+      "pending_condition": "Derek is restarting Mark2 after the unacknowledged Bambu Connect sends; check fresh online status before retrying the exact archive."
     }
   },
-  "submitted_production_plate_count": 2,
-  "remaining_unsubmitted_plate_count": 5,
+  "submitted_production_plate_count": 3,
+  "remaining_unsubmitted_plate_count": 4,
   "remaining_unsubmitted_estimates": {
-    "jobs": 5,
-    "printer_seconds": 212962.8369140625,
-    "grams_petgf_density_1p43": 2169.9883084555927,
-    "scope": "Five unsubmitted plates only; excludes remaining time on the running front-top and front-bottom. Material estimates do not gate launches."
+    "jobs": 4,
+    "printer_seconds": 112723.9697265625,
+    "grams_petgf_density_1p43": 1207.8589503561802,
+    "scope": "Unsubmitted plates only; excludes remaining time on running jobs. Material estimates do not gate launches."
   },
   "filament_use_policy": {
     "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
     "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
-  }
+  },
+  "completed_production_plate_count": 2
 }
