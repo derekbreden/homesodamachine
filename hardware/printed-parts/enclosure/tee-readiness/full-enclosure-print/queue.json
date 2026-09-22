@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_date": "2026-09-21",
+  "updated_date": "2026-09-22",
   "status": "production_printing",
   "scope": "Four fresh full shell quadrants, complete carrier pair and reusable assembly pusher, plus both matching G Ganen cold-core mounting parts.",
   "all_shell_quadrants_fresh": true,
@@ -29,35 +29,14 @@
       "launch_observed_at": "2026-09-21T19:47:45.218425+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T194745Z.json",
-        "record_sha256": "dbbc5d031011a0144fcac72b7af7cd09e288335951ed117ca769a56f21abfc65",
-        "observed_at": "2026-09-21T19:47:45.218425+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T235742Z.json",
+        "record_sha256": "f829cf3e126cd74de9ca3c2b07f0b915dac0602573f9e1c7f2a083c81b495aa4",
+        "observed_at": "2026-09-21T23:57:42.989253+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 0,
-        "layer_num": 0,
+        "mc_percent": 16,
+        "layer_num": 106,
         "total_layer_num": 813,
-        "mc_remaining_time": 1457,
-        "print_error": 0,
-        "hms": []
-      }
-    },
-    {
-      "printer": "Mark2",
-      "status": "reported_running",
-      "authority": "Exact printer observation from coordinating task",
-      "job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-      "owner_task": "Tube miter box",
-      "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
-      "available_for_enclosure": false,
-      "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T194745Z.json",
-        "record_sha256": "dbbc5d031011a0144fcac72b7af7cd09e288335951ed117ca769a56f21abfc65",
-        "observed_at": "2026-09-21T19:47:44.277988+00:00",
-        "gcode_state": "RUNNING",
-        "mc_percent": 74,
-        "layer_num": 524,
-        "total_layer_num": 917,
-        "mc_remaining_time": 245,
+        "mc_remaining_time": 1213,
         "print_error": 0,
         "hms": []
       }
@@ -176,7 +155,7 @@
       "orientation": "Native +Z up; centered",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "offline_ready_awaiting_machine_handoff",
+      "status": "offline_ready_awaiting_filament",
       "geometry_confirmation": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
         "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
@@ -238,9 +217,12 @@
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "physical_supply_to_confirm_at_handoff",
+        "status": "awaiting_user_answer",
         "design_readiness_gate": false,
-        "estimated_grams_petgf": 621.2638280114462
+        "estimated_grams_petgf": 621.2638280114462,
+        "question_previously_asked": true,
+        "question": "Mark2’s next enclosure plate needs about 621 g of black PET-GF. Is that amount available on the loaded spool or a replacement? The printer reports material type but not the remaining quantity.",
+        "ask_again": false
       },
       "open_review_items": [],
       "printer_assignment_status": "assigned",
@@ -837,7 +819,8 @@
     "enclosure_print_jobs": "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
     "countertop_print_jobs": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
     "h2c_cartridge_cap_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
-    "h2c_front_top_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json"
+    "h2c_front_top_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+    "mark2_countertop_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json"
   },
   "operating_policy": {
     "authority": "Derek",
@@ -845,7 +828,7 @@
     "idle_printer_hold_for_agent_review": false,
     "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
   },
-  "updated_at_utc": "2026-09-21T19:49:59.084817+00:00",
+  "updated_at_utc": "2026-09-22T00:00:05.120105+00:00",
   "geometry_qualification": {
     "status": "current_assembly_and_corrected_mounts_verified",
     "assembly_step_sha256": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
@@ -867,7 +850,7 @@
     "automation_id": "finish-the-enclosure-print-queue",
     "status": "ACTIVE",
     "schedule": "Every 15 minutes in the coordinating task",
-    "behavior": "Advance exact reviewed jobs when their machine is free, its latest print is removed and adequate filament is available. Stay quiet while running state is unchanged; do not pause prints or add coupons; respect Mark2 ownership by Tube miter box; stop after the full set is finished.",
+    "behavior": "Advance exact reviewed jobs when their machine is free, its latest print is removed and adequate filament is available. Stay quiet while running state is unchanged; do not pause prints or add coupons. Mark2 is handed back for the enclosure queue. Do not repeat the pending filament question; stop after the full set is finished.",
     "authority": "Coordinating task created the heartbeat automation."
   },
   "native_slices_complete": 7,
@@ -884,7 +867,7 @@
     },
     {
       "printer": "Mark2",
-      "after": "Tube miter box finishes the countertop and releases the machine with its latest plate cleared.",
+      "after": "Countertop finished and Derek confirms the bed clear. Front-bottom awaits the pending black PET-GF quantity answer.",
       "order": [
         "front-bottom",
         "back-bottom",
@@ -1003,6 +986,36 @@
       },
       "removal_authority": "Derek: H2C is clear and ready for next print.",
       "removal_recorded_at_utc": "2026-09-21T19:49:59.084817+00:00"
+    },
+    {
+      "printer": "Mark2",
+      "status": "reported_finished",
+      "authority": "Exact printer observation from coordinating task",
+      "job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "owner_task": "Tube miter box",
+      "print_record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
+      "available_for_enclosure": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T235742Z.json",
+        "record_sha256": "f829cf3e126cd74de9ca3c2b07f0b915dac0602573f9e1c7f2a083c81b495aa4",
+        "observed_at": "2026-09-21T23:57:42.306661+00:00",
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 917,
+        "total_layer_num": 917,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": []
+      },
+      "printer_completion_confirmed": true,
+      "physical_success_confirmed": false,
+      "latest_print_removed_confirmed": true,
+      "removal_authority": "Derek: Mark2 bed is clear",
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
+        "sha256": "5599fdf43086ddcc412719731d8d97f7631f564930ea55f5265375ba5cb84573"
+      },
+      "scope": "External printer handoff; not part of the required enclosure set"
     }
   ],
   "physical_handoff": {
@@ -1036,6 +1049,32 @@
       },
       "next_handoff": "After front-top finishes, obtain fresh part-removal and adequate-filament confirmation for back-top.",
       "next_handoff_estimated_grams": 962.1293580994125
+    },
+    "Mark2": {
+      "after_job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "printer_available": true,
+      "next_job_id": "front-bottom",
+      "plate_clearance": {
+        "status": "user_confirmed",
+        "authority": "Derek: Mark2 bed is clear",
+        "recorded_at_utc": "2026-09-22T00:00:05.120105+00:00"
+      },
+      "filament": {
+        "status": "awaiting_user_answer",
+        "physical_material": "black PET-GF",
+        "estimated_grams": 621.2638280114462,
+        "question_previously_asked": true,
+        "question": "Mark2’s next enclosure plate needs about 621 g of black PET-GF. Is that amount available on the loaded spool or a replacement? The printer reports material type but not the remaining quantity.",
+        "question_recorded_at_utc": "2026-09-22T00:00:05.120105+00:00",
+        "ask_again": false,
+        "remaining_mass_measured": false
+      },
+      "send_permitted": false,
+      "pending_condition": "Adequate black PET-GF for the exact front-bottom slice",
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
+        "sha256": "5599fdf43086ddcc412719731d8d97f7631f564930ea55f5265375ba5cb84573"
+      }
     }
   },
   "submitted_production_plate_count": 1,
