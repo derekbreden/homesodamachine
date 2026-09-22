@@ -150,6 +150,7 @@ def build():
     PUBLIC.mkdir(parents=True, exist_ok=True)
     icon = svg(background=PALETTE["cobalt"])
     rounded = svg(background=PALETTE["cobalt"], radius=192)
+    circle = svg(background=PALETTE["cobalt"], scale=.84)
     outputs = {
         "mark.svg": svg(), "mark-blue.svg": svg(faucet=PALETTE["cobalt"]),
         "mark-mono.svg": svg(faucet="currentColor", drop="currentColor"),
@@ -192,12 +193,13 @@ def build():
     pwa = Path("web/public/pwa-icons")
     for size in (192, 512):
         png(pwa / f"icon-{size}.png", icon, size, opaque=True)
-    png(pwa / "icon-512-maskable.png", svg(background=PALETTE["cobalt"], scale=.84), 512, opaque=True)
+    png(pwa / "icon-512-maskable.png", circle, 512, opaque=True)
     for size in (152, 167, 180):
         png(pwa / f"apple-touch-icon-{size}.png", icon, size, opaque=True)
     for size in (32, 64):
         png(pwa / f"favicon-{size}.png", rounded, size)
     png(PUBLIC / "icon-1024.png", rounded, 1024)
+    png(PUBLIC / "avatar-1024.png", circle, 1024, opaque=True)
     png(PUBLIC / "mark-1024.png", svg(), 1024)
     png(PUBLIC / "mark-blue-1024.png", svg(faucet=PALETTE["cobalt"]), 1024)
     g = geometry()
