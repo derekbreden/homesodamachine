@@ -2,15 +2,15 @@
   "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "release": {
     "tag": "firmware",
-    "asset": "fw-2508b1875073015d.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-2508b1875073015d.tar.gz"
+    "asset": "fw-84257e94a7a65d6a.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-84257e94a7a65d6a.tar.gz"
   },
   "source": {
-    "commit": "65f36df967fa714a682f2743ce80364608def21a"
+    "commit": "76e026fa533109a71cfc39556866fb17b0efd5c7"
   },
   "bundle": {
-    "sha256": "2508b1875073015d1d32936eae28c4e46d1ef774d1586d62e63c8e0c17329a19",
-    "bytes": 2167455,
+    "sha256": "84257e94a7a65d6a74386c2394b5741a41d60d59aba519e93f5affdbcd4795ac",
+    "bytes": 2167686,
     "images": 4
   },
   "images": {
@@ -19,11 +19,11 @@
       "machine": "appliance",
       "what": "the main board's own firmware",
       "kind": "app",
-      "version": "2026.09.18 65f36df96+",
-      "build_epoch": 1789714924,
+      "version": "2026.09.21 76e026fa5+",
+      "build_epoch": 1790035962,
       "bytes": 487376,
-      "crc32": 3595641718,
-      "sha256": "d91543338b2e715103aaae1fa8cdb4dcb3eac5cd80a2cc5bb38acb980e976344",
+      "crc32": 1823361996,
+      "sha256": "b2e2aec497645eb29bf2a3c945d551b9f082376ccc089e1e3a99626842283c0a",
       "file": "appliance.bin"
     },
     "art": {
@@ -44,11 +44,11 @@
       "machine": "appliance",
       "what": "the 4.3\" machine display",
       "kind": "app",
-      "version": "2026.09.18 65f36df96+",
-      "build_epoch": 1789714924,
+      "version": "2026.09.21 76e026fa5+",
+      "build_epoch": 1790035962,
       "bytes": 1563296,
-      "crc32": 3713744574,
-      "sha256": "9854e1d9a2a143783b87e1162c52bfd0b5f61ba470002a0945e6cf3eabfe4f4a",
+      "crc32": 1294250006,
+      "sha256": "f3145e61f5db8b9fa81fe1c55481acd5b3bf862789aa4601e5089d25f8e4e959",
       "file": "enclosure.bin"
     },
     "faucet": {
@@ -56,11 +56,11 @@
       "machine": "appliance",
       "what": "the 1.47\" faucet display",
       "kind": "app",
-      "version": "2026.09.18 65f36df96+",
-      "build_epoch": 1789714924,
-      "bytes": 1467728,
-      "crc32": 998336184,
-      "sha256": "ffb64528ddaf7347d32f6691ba4f3b3d6e53e8c00d17b82ae92a5d040233a764",
+      "version": "2026.09.21 76e026fa5+",
+      "build_epoch": 1790035962,
+      "bytes": 1468032,
+      "crc32": 2542970310,
+      "sha256": "10abd42526d8beb164be6a9d61ae3a133bdf42f052d6a38bb35ac5c0fe43464a",
       "file": "faucet.bin"
     }
   },
