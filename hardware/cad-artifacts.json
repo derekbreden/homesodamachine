@@ -1199,7 +1199,7 @@
     "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/inputs/current-front-top/front-top.step": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
     "hardware/printed-parts/enclosure/tee-readiness/branch-propagation/front-top/front-top.step": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "f0cbe011d8f1490dfaef7cb6c62e6c25a1dba2e35b0d8b8afd2ca0dc7b959c63",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "72ef172f43c76dc28d0b9ca0f5d83e429f49fb3f9a4feb20ac05ce89e0f7d5c9",
     "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e"
   },
   "sidecars": {
@@ -1549,7 +1549,7 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": 1789013075,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1789013075,
     "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": 1789966731,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1789971422,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1790035958,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1789744959,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1789744959,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl": 1789744959,
