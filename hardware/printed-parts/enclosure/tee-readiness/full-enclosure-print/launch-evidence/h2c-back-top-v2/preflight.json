@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "checked_at_utc": "2026-09-22T19:01:54.261203+00:00",
+  "printer": "H2C",
+  "queue_job_id": "back-top",
+  "verified_records": {
+    "native_archive": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/ready/enclosure-back-top-black-z018-h2c-v2.gcode.3mf",
+      "sha256": "304894a1ce538e97c5d48736383fa9801871890e13d9d64435223290079486a1",
+      "gcode_sha256": "eab7b3a8dbd6573296a8f1dcf1de5bcad5ce5ab77c27ef68f7ab6ff73e0337db"
+    },
+    "staged_project": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/enclosure-back-top-black-z018-h2c-v2-input.3mf",
+      "sha256": "7d827c4982a34ece1ced6bf9046f359d02db31c6f2a9e226537379a3e9c81ab0"
+    },
+    "offline_review": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/offline-review.json",
+      "sha256": "28ca3c4c2eed4d85f70763dbd33c7cc0d18c2ad53329d74a243da4b3402643c6"
+    },
+    "support_removal_review": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/support-removal-review.json",
+      "sha256": "9037f811804e679a057c8170e81df8f85d23ff594efae1fcca9b530910cde803",
+      "status": "current_support_contacts_and_removal_lanes_reviewed"
+    },
+    "native_handoff": {
+      "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/native-handoff.json",
+      "sha256": "e5cc72f914d655a296bfafd20d3bc3d1a6aee3500cb2587e3a59970533dc2f19"
+    },
+    "durable_review_package": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-back-top-h2c-v2/manifest.json",
+      "sha256": "e897552680e5bcc3b2277e8b7c8dd57da3142297f24e2a4fc6ae7068e56556f3"
+    },
+    "geometry_confirmation": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+      "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+    }
+  },
+  "current_geometry_revalidation": {
+    "receipt": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+      "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+    },
+    "basis": "Current print meshes are byte-identical, except back-top which has zero native added/removed volume and at most 0.000016 mm corresponding corner movement. Saved profile and original archive/support review are retained. Complete updated assembly checks pass.",
+    "print_mesh_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "0bfacdd733469ad3966a0b193d23eff669308567d254c20814c2b2f2dc68897a"
+    }
+  },
+  "native_gcode_sha256_verified": true,
+  "saved_brim_type": "auto_brim",
+  "emitted_brim_extrusion_segments": 0,
+  "requested_z_trim_mm": 0.18,
+  "effective_textured_z_trim_mm": 0.16,
+  "g29_1_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0.16"
+  ],
+  "nozzle_diameters_mm": [
+    0.4,
+    0.4
+  ],
+  "filament_nozzle_map": [
+    0
+  ],
+  "filament_map": [
+    1
+  ],
+  "physical_material": "black PET-GF; PET-CF printer metadata",
+  "plate_clearance_authority": "Derek: H2C is now also clear",
+  "previous_job_completion": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json",
+    "sha256": "1e45b001283ee4135534945c630f0e1686203ae2bc2f8d513b47f8f264b60973"
+  },
+  "remaining_filament_quantity_required": false
+}
