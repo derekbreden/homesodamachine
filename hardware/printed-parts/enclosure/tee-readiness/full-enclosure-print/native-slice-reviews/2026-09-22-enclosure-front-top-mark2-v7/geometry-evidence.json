@@ -1,0 +1,10 @@
+{
+  "source_commits": [
+    "97d94494e",
+    "8eda7178c",
+    "6a1ecd84f"
+  ],
+  "generator_report": "bay sill, ridge roof, Z slides pass; all pieces watertight; piece overlaps 0 mm3; display facet 203.4 x 87.0",
+  "geometry_lint": "enclosure-front-top.stl \u00b7 557814 printed facets \u00b7 0 findings \u00b7 39 answered",
+  "display_cover_selftest": "one valid solid; glass clear; skirts inside their pockets, 1.8 mm lips 0.48 mm under their catches"
+}

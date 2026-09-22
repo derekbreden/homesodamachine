@@ -9,8 +9,10 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | carrier-pair | Mark2 | assigned variant | [2026-09-21-enclosure-carrier-pair-mark2-v2](2026-09-21-enclosure-carrier-pair-mark2-v2/manifest.json) |
 | front-bottom | Mark2 | assigned variant | [2026-09-21-enclosure-front-bottom-mark2-v2](2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json) |
 | front-top | H2C | printed; supports trapped behind the skirt-pocket surrounds | [2026-09-21-enclosure-front-top-h2c-v4](2026-09-21-enclosure-front-top-h2c-v4/manifest.json) |
-| front-top | Mark2 | assigned variant | [2026-09-22-enclosure-front-top-mark2-v6](2026-09-22-enclosure-front-top-mark2-v6/manifest.json) |
-| display-cover | Mark2 | assigned variant | [2026-09-22-display-cover-mark2-v1](2026-09-22-display-cover-mark2-v1/manifest.json) |
+| front-top | Mark2 | superseded: 34 mm skirt pockets | [2026-09-22-enclosure-front-top-mark2-v6](2026-09-22-enclosure-front-top-mark2-v6/manifest.json) |
+| front-top | Mark2 | assigned variant | [2026-09-22-enclosure-front-top-mark2-v7](2026-09-22-enclosure-front-top-mark2-v7/manifest.json) |
+| display-cover | Mark2 | superseded: 34 mm skirts | [2026-09-22-display-cover-mark2-v1](2026-09-22-display-cover-mark2-v1/manifest.json) |
+| display-cover | Mark2 | assigned variant | [2026-09-22-display-cover-mark2-v2](2026-09-22-display-cover-mark2-v2/manifest.json) |
 | foam-cap-lid-top | Mark2 | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/manifest.json) |
 | foam-cap-lid-top | Mark2 | assigned variant | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/manifest.json) |
 | foam-cap-top | H2C | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-top-h2c-v2](2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json) |

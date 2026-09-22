@@ -1,0 +1,23 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-22 (relay of Scan results): fill the display storey, delete the rail-side floor strips, pull out the top curve's last layers, and give the display cover the nameplate's short snaps with nothing printed under the catch. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "07fc7e9219efb49f85faad2bacc6bb60a3c0c4c2a1c951b431d4d8812c711dd9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "4c33150667e7dbc4e8aefd9d17eb77a57fa19edfcb0fcb1cbc70a0dd85e86068",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure_assembly.py": "dd9de3446a461c535c60328d48e798dc9496f20aa3174e0749467448adfc344e",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "b7bb0d80114a5cdf215d82c9dd77d9cbff83fa371666ccfb36148366e4115898",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "bb7242c11423694f0ce3bc58e942e847813a1446f9b4cede91bff32b4320d14e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "ad6f4168855d78b32b548ff55695f3b0db8785f1fd4217feb9183f2ed6bbf3ff",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v7/geometry-evidence.json": "58645fc6a11768bd4a7725f1226d7b0de069a5edee266c4bed1fa2bc094f0558"
+  }
+}
