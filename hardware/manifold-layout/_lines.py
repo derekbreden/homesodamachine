@@ -958,10 +958,10 @@ def _fluid_28(F, solids):
     none of it is under this tube. The one thing this run puts in that strip is the rib that
     holds it, and `GATE_B_STEP_Y` stands that rib in the daylight between the two.
 
-    THE STEP UP IS TAKEN LAST. The union stands a storey over the plane the gate climbs to,
-    because `enclosure_assembly.flavor_storey` carries both barrels over the pump's bracket — so
-    the run cruises the gate's own plane the whole way aft and spends the rise in one short lean
-    behind the ASSE drip pan, where nothing is over it."""
+    THE STEP DOWN IS TAKEN LAST. The union stands `enclosure_assembly.FLAVOR_STOREY_DROP` under
+    the plane the gate climbs to, which is what carries its inboard body under the ASSE drip pan's
+    sleeve — so the run cruises the gate's own plane the whole way aft and spends the fall in one
+    short lean before the collet."""
     gate = F["valve-v-j"].at("outlet")
     tin = F["bulkhead-flavor-b"].at("tube-in")
     climb = _gate_climb_under_cruise(F)
@@ -981,7 +981,7 @@ def _fluid_18(F, solids):
     """Flavor A: rise off V-G, pass east of V-K, and cross through the cap's side post.
 
     The complete post bears on a straight tube. The west leg remains high over fluid-2,
-    passes below the discharge hose, then rises onto the rear union's unchanged axis.
+    passes below the discharge hose, then rises onto the rear union's axis.
     """
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")

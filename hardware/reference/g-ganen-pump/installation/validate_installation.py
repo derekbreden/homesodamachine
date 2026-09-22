@@ -42,7 +42,7 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
     facts_path=ROOT/'hardware/manifold-layout/enclosure-assembly.facts.json'
     facts=json.loads(facts_path.read_text())
     bb=facts['bodies']['bulkhead-flavor-a']
-    gate=(bb[2]+bb[5])/2
+    gate=(bb[2]+bb[5])/2+ea.FLAVOR_STOREY_DROP
     f0,_=ea.build_foam(0.)
     foam,fc=ea.build_foam(ea._enc.rear_plane_y-ea._enc.rear_seam_clear-ea.box(f0).ylen)
     shape,carry=ea.build_water_pump(foam,gate)
@@ -64,7 +64,7 @@ def run(*, include_hoses=True, output=HERE/'native-installation-check.json'):
     check('bearing datum on cap',abs(pump.placed_bearing_z(carry)-ea.cap_face(foam)),1e-7)
     check('rear rigid face has declared core-rear clearance',
           abs(ea.box(foam).ymax-pump.rigid_shape().moved(carry.where).BoundingBox().ymax-pump.REAR_CLEARANCE),1e-6)
-    check('flavor gate unchanged',abs(ea.flavor_storey(gate,carry)-gate),1e-7)
+    check('flavor storey unchanged by the pump',abs(ea.flavor_storey(gate,carry)-(gate-ea.FLAVOR_STOREY_DROP)),1e-7)
     check('flow local discharge maps enclosure -X',carry(pump.discharge())[1][0],-.999)
     for name,s in [('suction-chain',su),('discharge-chain',di),('vk-solenoid',vk)]:
         b=ea.box(s);wanted=list(facts['bodies'][name])

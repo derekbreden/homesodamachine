@@ -2893,25 +2893,28 @@ PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
            "bulkhead-carb": PORT_WEST_COLUMN + PORT_PITCH}
 # Clearance from a union's barrel to any rubber slider in its actual passage.
 PORT_FOOT_CLEAR = 1.0
+# HOW FAR THE FLAVOUR PAIR STANDS UNDER THE MANIFOLD GATE'S CRUISE. The west column runs under the
+# aft end of the ASSE drip pan's sleeve, and this carries that union's inboard body under the
+# sleeve's floor with a millimetre of air. The east union takes the same storey, so the lower row
+# is one level line across the wall and the four unions stand on a rectangle.
+FLAVOR_STOREY_DROP = 1.55
 
 
 def flavor_storey(gate: float, pump_carry) -> float:
-    """Rear flavor unions share the manifold gate's mounting height.
+    """The storey both rear flavor unions cross the wall on: one `FLAVOR_STOREY_DROP` under the
+    manifold gate's cruise.
 
     Foot clearance uses the union's actual stepped profile in the assembled
     native check; its largest diameter does not occupy its whole axial length.
     """
-    return gate
+    return gate - FLAVOR_STOREY_DROP
 
 
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
-PANEL_FLAVOR_B_DROP = 1.55
 
 
 def panel_z(name: str, deck: float, gate: float) -> float:
     """The storey one union of the row crosses the wall on — the deck, or its own run's lane."""
-    if name == "bulkhead-flavor-b":
-        return gate - PANEL_FLAVOR_B_DROP
     return gate if name in PANEL_ON_GATE_LANE else deck
 
 
