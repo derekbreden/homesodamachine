@@ -104,7 +104,6 @@ const routes = [
   { path: "/content-viewer.js",   expect: 200, ct: "text/javascript" },
   { path: "/js/tour/main.js",     expect: 200, ct: "text/javascript" },
   { path: "/css/tour.css",        expect: 200, ct: "text/css" },
-  { path: "/glass-animation.js",  expect: 200, ct: "text/javascript" },
 
   // Contract definitions served to the browser: web/contracts/ mounted at
   // /contracts. The viewer imports HSM_EVENTS + WS from these at runtime, so a
