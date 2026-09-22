@@ -23,9 +23,8 @@ struct ApplianceView: View {
             Theme.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // The launch screen hands the mark over here. It is already
-                // drawn at this size in this spot, so the page fills in under
-                // it rather than moving it.
+                // Where the launch screen leaves the mark. The page fills in
+                // under it.
                 MarkHeader()
 
                 Text(machine.displayName)

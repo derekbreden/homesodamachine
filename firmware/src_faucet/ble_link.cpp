@@ -138,17 +138,14 @@ static void advertisedName(char *out, size_t cap) {
 
 // WHICH MACHINE THIS IS RIDES THE SAME PACKET AS THE SERVICE UUID.
 //
-// A phone scans for one service, and iOS hands the app only the packets that
-// carry it. A unit in the scan response is a unit that phone is never given:
-// it arrives in a second report with the name and nothing else, and a filtered
-// scan drops that report whole. The machine then reads as a stranger with no
-// unit — or, with the service UUID missing from the primary too, as nothing at
-// all, which is what "out of range" two feet from the glass was.
+// A phone scans for one service and iOS hands the app only the packets that
+// carry it. The scan response arrives as its own report with no service UUID in
+// it, so a filtered scan drops it whole and everything written there is unread.
 //
-// So the primary advertisement carries all three: 3 bytes of flags, 18 for the
-// 128-bit service UUID, 8 for the manufacturer block. 29 of the 31 there are.
-// Only the name has to go in the scan response, and nothing the phone needs to
-// find this machine depends on the scan response arriving.
+// The primary advertisement holds all three: 3 bytes of flags, 18 for the
+// 128-bit service UUID, 8 for the manufacturer block — 29 of the 31 there are.
+// The name is what the scan response carries, and nothing the phone needs to
+// find this machine depends on that report arriving.
 static void applyAdvertising() {
   NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
   adv->stop();
@@ -174,9 +171,8 @@ static void applyAdvertising() {
   adv->setAdvertisementData(primary);
   adv->setScanResponseData(scan);
   // The scan response is off by default in NimBLE 2.x, and enabling it clears
-  // the flag that says the data is already loaded — so start() pushes both
-  // payloads itself, in its own order, rather than leaving whichever of the two
-  // direct writes the controller happened to accept.
+  // the flag that says the data is already loaded, so start() pushes both
+  // payloads itself, in its own order.
   adv->enableScanResponse(true);
 
   advertising = adv->start();
@@ -347,10 +343,9 @@ void bleLinkService() {
   bleOtaService();
   bleImageService();   // whatever a read-back still owes the phone
 
-  // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN EVER FIND, and nothing
-  // else on this board would notice. Advertising is put back the moment it is
-  // not running and no phone holds the link: a start that was refused, a bench
-  // run that silenced it and never gave it back, a host reset underneath.
+  // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN FIND, and nothing else
+  // on this board reads it. Advertising goes back on the moment it is not
+  // running and no phone holds the link.
   if (!connected && millis() - advCheckedAtMs >= 5000) {
     advCheckedAtMs = millis();
     if (!NimBLEDevice::getAdvertising()->isAdvertising()) applyAdvertising();
@@ -383,9 +378,8 @@ void bleLinkQuiet(bool quiet) {
     NimBLEDevice::stopAdvertising();
     advertising = false;
   } else {
-    // Back through applyAdvertising rather than startAdvertising: the payloads
-    // are put on again with it, and the return is kept, so a radio that would
-    // not come back says so instead of being assumed.
+    // Through applyAdvertising: it puts the payloads on again and keeps what
+    // start() said.
     applyAdvertising();
   }
 }
@@ -393,10 +387,8 @@ void bleLinkQuiet(bool quiet) {
 bool bleLinkConnected() { return connected; }
 
 void bleLinkFillStatus(BleStatusPayload &out) {
-  // ON AIR, not "the stack was created". `server != nullptr` was true from the
-  // moment createServer() returned and stayed true through a radio that had
-  // stopped advertising — so the console said "up, advertising" about a machine
-  // no phone in the room could see.
+  // ON AIR, which is what a phone in the room can act on. A stack that exists
+  // is not a radio that is advertising.
   const bool onAir = connected || (server && NimBLEDevice::getAdvertising()->isAdvertising());
   out.flags = (uint8_t)((onAir ? BLE_ST_UP : 0) |
                         (connected ? BLE_ST_CONNECTED : 0) |
