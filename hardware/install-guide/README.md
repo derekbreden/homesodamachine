@@ -113,5 +113,4 @@ The exterior CAD does not show the regulator's internal gas paths or any outlet 
 Closing the cylinder alone is not a pressure-release procedure.
 
 The refrigerant figure is the project's documented bound, under 40 g. A per-unit charge comes
-from factory run-up. The manufacturing nameplate CAD still contains the glass mark; this guide's
-power illustration uses the approved print faucet mark.
+from factory run-up.

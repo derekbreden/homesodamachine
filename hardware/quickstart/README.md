@@ -36,7 +36,7 @@ bench. Nothing on this sheet is cut, trimmed, insulated or threaded through a co
 and loose foam belong to the separately bagged cold kit and its own guide.
 
 The clockwork composition sets six warm-stone fields (`#ded7cd`) clockwise around a white centre.
-The centre places the glass mark and compact uppercase product name above a large `Quick Start`
+The centre places the app icon and compact uppercase product name above a large `Quick Start`
 label and short coral rule. Each action field carries a compact white disc with a midnight numeral,
 held in an art-directed clear pocket beneath the instruction scenes. Registered scene pairs follow
 that ring, with closeups enlarged wherever the physical travel must survive arm's-length reading.
