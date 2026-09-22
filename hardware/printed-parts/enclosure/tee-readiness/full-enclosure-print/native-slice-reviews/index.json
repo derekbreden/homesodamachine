@@ -225,6 +225,22 @@
       },
       "queue_role": "assigned_variant",
       "submitted": false
+    },
+    {
+      "job": "front-top-v6",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v6/manifest.json",
+        "sha256": "32351bfc6d4fc85e0c47672921fb5331a66946e7618fc456c78696188fa6f18e"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/ready/enclosure-front-top-black-z004-mark2-v6.gcode.3mf",
+        "sha256": "9315150bb251b3f56d20a94ea5403ecf59a1ac08fedcbf3aa1bf215b15f97db3"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v6/offline-review.json",
+        "sha256": "0b761b9a79e6abc545f42ef8ebc32b2ee83395463f0cf3954d23a54dcb5da24c"
+      }
     }
   ]
 }

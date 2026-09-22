@@ -185,7 +185,14 @@
         "sha256": "1e45b001283ee4135534945c630f0e1686203ae2bc2f8d513b47f8f264b60973"
       },
       "completion_observed_at": "2026-09-22T18:58:20.946392+00:00",
-      "latest_print_removed_confirmed": true
+      "latest_print_removed_confirmed": true,
+      "physical_result": {
+        "reported_at": "2026-09-22",
+        "authority": "Derek (relay of Scan results)",
+        "result": "Pulled from H2C. Some supports are impossible to remove without damage: those in the crevice between each display skirt-pocket surround's up-slope end, the housing underside and the ridge wall. The two 2.43 mm carrier-floor strips beside the Z-rail channel read as parts that snap off during assembly.",
+        "geometry_response": "97d94494e: display storey filled solid beside the display opening; the strips deleted",
+        "replacement": "front-top v5 on Mark2"
+      }
     },
     {
       "id": "front-bottom",
@@ -862,6 +869,63 @@
         "support_bodies": 5,
         "explicit_interfaces": 5
       }
+    },
+    {
+      "id": "front-top-v6",
+      "replaces": "front-top",
+      "directory": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6",
+      "config": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/job-config.json",
+      "printer": "Mark2",
+      "parts": [
+        "enclosure-front-top"
+      ],
+      "orientation": "Native +Z up; shell rotated Z90; centred",
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/fresh-geometry-receipt.json",
+        "sha256": "917115258c91aa2d530e26eccc84a27b2d3448cdf7b5818d29ad1bb8c9e3a8d0"
+      },
+      "geometry_change": "97d94494e: display storey filled solid beside the display opening; the carrier floor's two rail-side strips deleted. 8eda7178c: the R18 top curve's last two layers rise at the plane's 30°.",
+      "staged_project": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/enclosure-front-top-black-z004-mark2-v6-input.3mf",
+        "sha256": "e89eeef5230e9aad65219ae21815e9af8802922d83f81595b8a2381490920c9c"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/ready/enclosure-front-top-black-z004-mark2-v6.gcode.3mf",
+        "sha256": "9315150bb251b3f56d20a94ea5403ecf59a1ac08fedcbf3aa1bf215b15f97db3",
+        "gcode_sha256": "db453689628a0ace4c031ebdde10aad9fc92ad98770050d0ff8c6aa76fc8fb38"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/support-removal-review.json",
+        "sha256": "5bf41b311a7560801298d2643ad00b1b71415b7485656f1c789a36fdf297fda6",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/offline-review.json",
+        "sha256": "0b761b9a79e6abc545f42ef8ebc32b2ee83395463f0cf3954d23a54dcb5da24c"
+      },
+      "print_released": false,
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "slice_estimate": {
+        "layers": 813,
+        "seconds": 84493.171875,
+        "hours": 23.470325520833335,
+        "grams_actual_petgf_density_1p43": 889.0145377225654
+      },
+      "handoff_conditions": [
+        "Mark2 finishes the carrier pair",
+        "Latest print removed and plate cleared",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v6/manifest.json",
+        "sha256": "32351bfc6d4fc85e0c47672921fb5331a66946e7618fc456c78696188fa6f18e"
+      }
     }
   ],
   "profile": {
@@ -974,11 +1038,12 @@
     },
     {
       "printer": "Mark2",
-      "after": "Front-bottom is finished and removed. Back-bottom awaits Mark2 reconnect and successful send acknowledgment.",
+      "after": "Carrier pair is running. Front-top v6 is next: it replaces the v4 print whose housing-crevice supports could not come off cleanly. Back-bottom follows on whichever printer frees first.",
       "order": [
         "front-bottom",
-        "back-bottom",
         "carrier-pair",
+        "front-top-v6",
+        "back-bottom",
         "foam-cap-top",
         "foam-cap-lid-top"
       ]
@@ -1010,8 +1075,8 @@
     "scope": "All seven production plates at their full original slice estimates, including submitted plates. Excludes the cartridge/cap, countertop, plate changes, cleanup and assembly. These are not remaining-time commitments."
   },
   "ready_job_ids": [
+    "front-top-v6",
     "back-bottom",
-    "carrier-pair",
     "foam-cap-top",
     "foam-cap-lid-top"
   ],
@@ -1259,7 +1324,7 @@
     }
   },
   "submitted_production_plate_count": 4,
-  "remaining_unsubmitted_plate_count": 3,
+  "remaining_unsubmitted_plate_count": 4,
   "remaining_unsubmitted_estimates": {
     "jobs": 4,
     "printer_seconds": 112723.9697265625,

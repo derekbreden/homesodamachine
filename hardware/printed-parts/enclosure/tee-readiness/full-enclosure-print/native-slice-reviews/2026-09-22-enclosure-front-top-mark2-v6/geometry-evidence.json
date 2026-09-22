@@ -1,0 +1,43 @@
+{
+  "source_commits": [
+    "97d94494e",
+    "8eda7178c"
+  ],
+  "generator_run": "tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py (live placement), 357 s",
+  "generator_report": [
+    "bay sill:         one uninterrupted 0.25 mm witness band below the cartridge",
+    "ridge roof:       1 coplanar faces, 197.0 mm span to 165.5 mm funnel opening, keepout clear",
+    "Z slide front:  travel  102.2 mm, worst contested    0.0 mm³ at 0.00 mm out; catch    101.9 mm³ at a 1 mm lift",
+    "Z slide back:   travel  242.8 mm, worst contested    0.0 mm³ at 0.00 mm out; catch    577.2 mm³ at a 1 mm lift",
+    "-> enclosure-front-top.step",
+    "-> enclosure-front-top.stl  (557818 facets, watertight)",
+    "display facet:    203.4 mm wide (X) × 87.0 mm slope, solid surface (want 203 × 87; the display window is 130.6 × 87, centred at x 0)",
+    "front-top:     X   215 × Y   208 × Z   195 mm  (Y[5,213] Z[160,355])  H2C bed: fits",
+    "front-bottom ∩ front-top: 0.0 mm³  (CLEAR slip-fit)",
+    "front-top ∩ back-bottom: 0.0 mm³  (CLEAR slip-fit)",
+    "front-top ∩ back-top: 0.0 mm³  (CLEAR slip-fit)",
+    "front-top ∩ pump-cartridge: 0.0 mm³  (CLEAR slip-fit)",
+    "front-top ∩ pump-cap: 0.0 mm³  (CLEAR slip-fit)",
+    "cold core vs pieces: 0.0 mm³ max overlap  (CLEAR)"
+  ],
+  "geometry_lint": "enclosure-front-top.stl · 557818 printed facets · 0 findings · 39 answered",
+  "placed_body_vertex_classification": "Housing fill and floor-strip removal: no sampled vertex of any placed body in y 0..180, z 150..360 classifies inside the solid (BRepClass3d); the top-curve band is exterior show surface.",
+  "top_curve_layer_steps_mm": {
+    "before": [
+      1.51,
+      1.03,
+      0.83,
+      0.71,
+      0.62
+    ],
+    "after": [
+      0.42,
+      0.69,
+      0.83,
+      0.71,
+      0.62
+    ],
+    "basis": "0.24 mm layers sliced at mid-height from the roof down"
+  },
+  "unchanged_neighbours": "front-bottom STL identical volume, zero sampled distance; back-top 0.19 mm3 / 0.0005 mm meshing noise against the published archive being printed"
+}
