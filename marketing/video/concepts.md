@@ -193,14 +193,14 @@ Print three test pieces at different deflection values (0.3mm, 0.4mm, 0.5mm). Sn
 - **Trust signal:** "This person tests before they commit. The product is engineered, not guessed."
 - **Where it lives:** `hardware/printed-parts/case-snaps/`, `hardware/printed-parts/cadlib/snap.py`
 
-### 7. The Logo Animation Pipeline (60-90 seconds)
+### 7. The Logo Pipeline (60-90 seconds)
 
-One vector design that works as: the S3 screensaver (animated, looping), the iOS app loading screen (animated), the iOS splash/launch screen (static), and the iOS app icon (static). Show each context. Show the procedural SwiftUI animation (Canvas + TimelineView, bubble physics ported from the ESP32 Python frame generator). Show the consistency — same design, same colors, same physics, four contexts.
+One vector mark — a faucet path and a drop circle — works as: the machine display's loading animation (the drop falls), the iOS and Android app icons and launch screens, the website's favicons and home-screen icons, the main board's silkscreen, and the two-colour printed nameplate. Show each context, then the one file behind them all. Show the consistency — same geometry, same colors, from screen pixels to silkscreen to printed plastic.
 
-- **Audience:** iOS developers, designers, anyone interested in brand consistency across platforms.
+- **Audience:** designers, iOS and Android developers, anyone interested in brand consistency across platforms.
 - **Shareability:** Moderate-high. Multi-platform design consistency is satisfying to see.
 - **Trust signal:** Strong. "This person cares about polish across every surface" = "this is a real product."
-- **Where it lives:** `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`, `firmware/src_front/images/` (animation frames), app icon assets
+- **Where it lives:** `brand/mark.svg`, `tools/build_brand_assets.py`, `tools/gen_animation_frames.py`, `hardware/printed-parts/enclosure/nameplate/`
 
 ### 8. Two Microcontrollers, One System (2-3 minutes)
 
