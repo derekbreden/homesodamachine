@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 384 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -92,7 +92,7 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 14 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 13 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -101,11 +101,6 @@
       "lock-taking scripts scanned: 116",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
-    ],
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 0524c0d8a196d5ee000746a1545d7b14 for the 384 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 1eabd1dc350b69a094f76b6ae0e8324e here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_faucet_geometry.py": [
       "PASS fixture:complete-display-fit-trial",
@@ -216,7 +211,7 @@
       "2 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
-      "9 test(s) in web/ fail:",
+      "8 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    a part's STEP consumers include the assembly that only _loads it (regression)",
@@ -224,7 +219,6 @@
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "    every highlighted, framed, contextual and labelled body exists in the assembly",
       "  cd web && npm test"
     ]
