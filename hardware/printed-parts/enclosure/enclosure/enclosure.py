@@ -402,7 +402,8 @@ display_facet_slope = _swept_top.FLAT
 display_facet_angle_deg = _swept_top.ANGLE
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # The housing ends at a vertical plane ahead of the funnel. Its pockets and
-# retaining skirts have solid surrounds; the underside accepts removable support.
+# retaining skirts have solid surrounds, and either side of the display's opening
+# it is solid down to the pump bay's lintel (`housing_fill`).
 display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
@@ -3187,8 +3188,33 @@ def _rounded_outer(outer):
     return _swept_top.silhouette(outer, box, corner_round)
 
 
-def _shell_with_facet(inner, outer):
-    """The curved exterior, display housing and skirt surrounds around the cavity."""
+def housing_fill(box):
+    """The storey between the pump bay's lintel and the display housing, kept solid either side
+    of the display's own opening; None on a pack without the bay.
+
+    ONE BLOCK A SIDE, WALL TO WALL AND FRONT WALL TO RIDGE WALL. Each stands on the lintel's own
+    plane (`pump_bay[2]`, where `_bay_cut` stops), runs up into the housing and meets the ridge
+    wall on its fore face and 45° crown (`_ridge_join`), so the skirt recesses are cut out of
+    solid and nothing of the housing hangs into the storey. Its inboard face is the PCB
+    opening's own side plane: between the two, the display's back, SIG-7's run to the ridge bore
+    and the pump plug's unplug path keep one room, open to the bay."""
+    if not (box.pump_bay and box.pack.collet_plate):
+        return None
+    inner, outer = box.inner, box.outer
+    fore = box.pack.collet_plate["aft_y"]
+    ry, rz = pcb_ridge(outer)
+    jog, _aft_crown = _ridge_join(outer, fore)
+    y0, z0, z1 = inner[2] - 1.0, box.pump_bay[2], outer[5] + 1.0
+    section = [(y0, z0), (fore, z0), (fore, jog), (ry, rz), (ry, z1), (y0, z1)]
+    x0 = display_centre_x(outer) + display_body_offset_x - display_pcb_x / 2.0
+    x1 = x0 + display_pcb_x
+    return (_yz_prism(inner[0] - 1.0, x0, section)
+            .fuse(_yz_prism(x1, inner[1] + 1.0, section)))
+
+
+def _shell_with_facet(inner, outer, fill=None):
+    """The curved exterior, display housing and skirt surrounds around the cavity, and `fill`
+    (`housing_fill`) kept out of the cavity as well."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
@@ -3205,6 +3231,8 @@ def _shell_with_facet(inner, outer):
               oy0 - extent, housing_back_y(outer),
               oz0 - extent, oz1 + extent))
     inner_clipped = inner_box.cut(keepout)
+    if fill is not None:
+        inner_clipped = inner_clipped.cut(fill)
 
     shell = outer_chamfered.cut(inner_clipped)
     plane = display_plane(outer)
@@ -5720,9 +5748,20 @@ def _tee_carrier_clearances(inner, plate, carrier):
     for x, z in plate["holes"]:
         cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
     for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"],
-                       *carrier["floor_cavities"]):
+                       *_tee_carrier_floor_cavities(inner, carrier)):
         cuts.append(_supported_cut(_ybox(*xs, *ys, *zs)))
     return tuple(cuts)
+
+
+def _tee_carrier_floor_cavities(inner, carrier):
+    """The aft valves' underside-entry passages through the common floor, each opened out to
+    the Z-rail channel wherever the floor left between the two would stand thinner than a wall."""
+    lo = _rail_channel_span(inner[0], 1.0, "front")[2]
+    hi = _rail_channel_span(inner[1], -1.0, "front")[2]
+    out = []
+    for (x0, x1), ys, zs in carrier["floor_cavities"]:
+        out.append(((lo if x0 - lo < wall else x0, hi if hi - x1 < wall else x1), ys, zs))
+    return tuple(out)
 
 
 def _tee_carrier_fore_guide(carrier):
@@ -6166,7 +6205,7 @@ def build_pump_cap(box, halves_cache=None):
 def build_front_half(box):
     """The whole front column, both pieces still joined at its Z seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
-    shell = _shell_with_facet(inner, outer).val()
+    shell = _shell_with_facet(inner, outer, housing_fill(box)).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     # The fixed front wall's refrigeration reliefs, out of the section before anything stands
     # on it. The pump storey is the removable cartridge's complete full-width opening; its
