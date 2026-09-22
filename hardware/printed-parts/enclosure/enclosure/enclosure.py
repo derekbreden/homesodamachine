@@ -402,9 +402,9 @@ display_facet_x = display_inset_x + 2 * display_facet_buffer
 display_facet_slope = _swept_top.FLAT
 display_facet_angle_deg = _swept_top.ANGLE
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
-# The housing ends at a vertical plane ahead of the funnel. Its pockets and
-# retaining skirts have solid surrounds, and either side of the display's opening
-# it is solid down to the pump bay's lintel (`housing_fill`).
+# The housing ends at a vertical plane ahead of the funnel. Either side of the display's
+# opening it is solid down to the pump bay's lintel (`housing_fill`), and each skirt's
+# catch opens plumb down through it into the bay (`_display_retention`).
 display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
@@ -3214,8 +3214,8 @@ def housing_fill(box):
 
 
 def _shell_with_facet(inner, outer, fill=None):
-    """The curved exterior, display housing and skirt surrounds around the cavity, and `fill`
-    (`housing_fill`) kept out of the cavity as well."""
+    """The curved exterior and display housing around the cavity, and `fill` (`housing_fill`)
+    kept out of the cavity as well."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
@@ -3236,9 +3236,6 @@ def _shell_with_facet(inner, outer, fill=None):
         inner_clipped = inner_clipped.cut(fill)
 
     shell = outer_chamfered.cut(inner_clipped)
-    plane = display_plane(outer)
-    for side in (-1, 1):
-        shell = shell.fuse(_display_retention.stock(side).moved(cq.Location(plane)))
     return cq.Workplane(obj=shell)
 
 
@@ -3252,8 +3249,9 @@ def display_plane(outer):
     return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
 
 
-def _display_cuts(outer):
-    """Cover reveal, glass seat, PCB clearance and the two skirt pockets."""
+def _display_cuts(outer, open_z=None):
+    """Cover reveal, glass seat, PCB clearance and the two skirt pockets, each catch's open back
+    running plumb down to `open_z` — the pump bay's ceiling, where the bay leaves it open."""
     plane = display_plane(outer)
     def local(shape):
         return shape.moved(cq.Location(plane))
@@ -3268,8 +3266,10 @@ def _display_cuts(outer):
            .translate((display_body_offset_x, display_body_offset_slope,
                        (1.0 - pcb_depth) / 2.0)).val())
     cut = inset.fuse(bezel).fuse(pcb)
+    reach = (_display_retention.DEPTH if open_z is None
+             else _display_retention.back_top(plane.origin.z) - open_z + 1.0)
     for side in (-1, 1):
-        cut = cut.fuse(_display_retention.pocket(side))
+        cut = cut.fuse(_display_retention.pocket(side, reach))
     return local(cut)
 
 
@@ -6231,7 +6231,7 @@ def build_front_half(box):
     front = front.cut(_facet_wedge(outer))
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
-    front = front.cut(_display_cuts(outer))
+    front = front.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
     # Punch the funnel's throat through the top wall, behind the display.
     if box.pack.funnel:
         front = front.cut(_funnel_cut(inner, outer, box.pack.funnel))
@@ -9071,7 +9071,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
         if y_side == 'front':
-            piece = piece.cut(_display_cuts(outer))
+            piece = piece.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
     if y_side == 'front' and z_side == 'top':
         # The ceiling bearing and its corbels share the seam collar's stock.
         # Keep the insert pilots open through every contribution to that stock.

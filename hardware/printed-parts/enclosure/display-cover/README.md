@@ -6,20 +6,19 @@ with [6 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
 Its [107.5 mm](WINDOW_X) window laps the display glass on the TPU gasket.
 The reveal has [0.3 mm](COVER_SLIP) clearance per side.
 
-Two broad side skirts flex inward during insertion. Each has [2 mm](SKIRT_WALL) walls,
-a [24 mm](SKIRT_LENGTH) run and [34 mm](SKIRT_DEPTH) reach below the face.
-A gradual lead-in carries each [3 mm](LIP_HEIGHT) lip through the opening; its flat
-shoulder engages the rigid housing by [1.8 mm](LIP_ENGAGEMENT). The nominal inward
-preload at the retaining shoulder is [0.35 mm](PRELOAD). The groove leaves
-[0.48 mm](ROOF_AIR) above the lip for the supported surface.
+Two broad side skirts snap into the housing. Each is the nameplate's snap tab run along
+the display: [1.3 mm](SKIRT_WALL) thick, [24 mm](SKIRT_LENGTH) long, reaching
+[13.3 mm](SKIRT_DEPTH) below the face. Its square [1.8 mm](LIP_ENGAGEMENT) lip starts
+[8.5 mm](LIP_START) below the cover plate, stands on a [1.2 mm](LIP_LAND) land above a tapered
+nose, and rests [0.48 mm](BEARING_SLIP) under the housing's catch. Under each catch the housing
+is open straight down into the pump bay.
 
-The printed STEP and STL contain the relaxed cover. The enclosure assembly shows the
-skirts in their seated positions. Place the display and gasket in the housing, then
-press the cover normal to the screen until both lips engage. The cover carries no screws.
+Place the display and gasket in the housing, then press the cover normal to the screen until
+both lips click under their catches. The cover carries no screws.
 
-Print with the visible face upward and both skirts on the bed. Supports carry the
-bezel's hidden underside. Physical seating, retention and repeated-use measurements
-remain to be recorded for this geometry.
+Print with the visible face upward and both skirts on the bed. Supports carry the bezel's
+hidden underside. Physical seating, retention and repeated-use measurements remain to be
+recorded for this geometry.
 
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py`
 exports the complete cover and checks its solid, glass clearance and seated skirt pockets.
