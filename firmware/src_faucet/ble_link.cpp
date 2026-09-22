@@ -21,6 +21,9 @@ static const uint8_t BLE_TEXT = 0x01;
 static NimBLEServer         *server = nullptr;
 static NimBLECharacteristic *txChar = nullptr;
 static volatile bool         connected = false;
+/// What `adv->start()` last said, which is not the same as the stack existing.
+static bool                  advertising = false;
+static uint32_t              advCheckedAtMs = 0;
 
 static IdentityPayload identity{};
 static bool            haveIdentity = false;
@@ -133,6 +136,19 @@ static void advertisedName(char *out, size_t cap) {
   snprintf(out, cap, "SodaMachine %02X-%02X", unit[1], unit[2]);
 }
 
+// WHICH MACHINE THIS IS RIDES THE SAME PACKET AS THE SERVICE UUID.
+//
+// A phone scans for one service, and iOS hands the app only the packets that
+// carry it. A unit in the scan response is a unit that phone is never given:
+// it arrives in a second report with the name and nothing else, and a filtered
+// scan drops that report whole. The machine then reads as a stranger with no
+// unit — or, with the service UUID missing from the primary too, as nothing at
+// all, which is what "out of range" two feet from the glass was.
+//
+// So the primary advertisement carries all three: 3 bytes of flags, 18 for the
+// 128-bit service UUID, 8 for the manufacturer block. 29 of the 31 there are.
+// Only the name has to go in the scan response, and nothing the phone needs to
+// find this machine depends on the scan response arriving.
 static void applyAdvertising() {
   NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
   adv->stop();
@@ -141,24 +157,31 @@ static void applyAdvertising() {
   advertisedName(name, sizeof(name));
   NimBLEDevice::setDeviceName(name);
 
-  // The 128-bit service UUID fills half of the 31-byte advertisement, so the
-  // name and the manufacturer block ride the scan response.
-  NimBLEAdvertisementData scan;
-  scan.setName(name);
   uint8_t mfg[6];
   mfg[0] = (uint8_t)(MFG_ID & 0xFF);
   mfg[1] = (uint8_t)(MFG_ID >> 8);
   mfg[2] = haveIdentity ? identity.model : 0;
   memcpy(mfg + 3, haveIdentity ? identity.unit : (const uint8_t *)"\0\0\0", 3);
-  scan.setManufacturerData(mfg, sizeof(mfg));
-  adv->setScanResponseData(scan);
 
   NimBLEAdvertisementData primary;
   primary.setFlags(BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP);
   primary.addServiceUUID(NimBLEUUID(NUS_SERVICE));
-  adv->setAdvertisementData(primary);
+  primary.setManufacturerData(mfg, sizeof(mfg));
 
-  adv->start();
+  NimBLEAdvertisementData scan;
+  scan.setName(name);
+
+  adv->setAdvertisementData(primary);
+  adv->setScanResponseData(scan);
+  // The scan response is off by default in NimBLE 2.x, and enabling it clears
+  // the flag that says the data is already loaded — so start() pushes both
+  // payloads itself, in its own order, rather than leaving whichever of the two
+  // direct writes the controller happened to accept.
+  adv->enableScanResponse(true);
+
+  advertising = adv->start();
+  Serial.printf("BLE: %s as '%s'\n",
+                advertising ? "advertising" : "ADVERTISING REFUSED", name);
 }
 
 void bleLinkOnIdentity(const IdentityPayload &id) {
@@ -324,6 +347,15 @@ void bleLinkService() {
   bleOtaService();
   bleImageService();   // whatever a read-back still owes the phone
 
+  // A RADIO THAT HAS STOPPED IS A MACHINE NO PHONE CAN EVER FIND, and nothing
+  // else on this board would notice. Advertising is put back the moment it is
+  // not running and no phone holds the link: a start that was refused, a bench
+  // run that silenced it and never gave it back, a host reset underneath.
+  if (!connected && millis() - advCheckedAtMs >= 5000) {
+    advCheckedAtMs = millis();
+    if (!NimBLEDevice::getAdvertising()->isAdvertising()) applyAdvertising();
+  }
+
   // Until the main board answers, this board is advertising its own MAC rather
   // than the machine's. Ask again until it does.
   if (!haveIdentity && millis() - identityAskedAtMs >= 2000) {
@@ -347,14 +379,26 @@ void bleLinkService() {
 }
 
 void bleLinkQuiet(bool quiet) {
-  if (quiet) NimBLEDevice::stopAdvertising();
-  else       NimBLEDevice::startAdvertising();
+  if (quiet) {
+    NimBLEDevice::stopAdvertising();
+    advertising = false;
+  } else {
+    // Back through applyAdvertising rather than startAdvertising: the payloads
+    // are put on again with it, and the return is kept, so a radio that would
+    // not come back says so instead of being assumed.
+    applyAdvertising();
+  }
 }
 
 bool bleLinkConnected() { return connected; }
 
 void bleLinkFillStatus(BleStatusPayload &out) {
-  out.flags = (uint8_t)((server ? BLE_ST_UP : 0) |
+  // ON AIR, not "the stack was created". `server != nullptr` was true from the
+  // moment createServer() returned and stayed true through a radio that had
+  // stopped advertising — so the console said "up, advertising" about a machine
+  // no phone in the room could see.
+  const bool onAir = connected || (server && NimBLEDevice::getAdvertising()->isAdvertising());
+  out.flags = (uint8_t)((onAir ? BLE_ST_UP : 0) |
                         (connected ? BLE_ST_CONNECTED : 0) |
                         (haveIdentity ? BLE_ST_IDENTITY : 0));
   out.target = bleOtaTarget();
@@ -370,7 +414,9 @@ void bleLinkReport() {
   char name[32];
   advertisedName(name, sizeof(name));
   Serial.printf("BLE: %s as '%s', identity %s, session target=%u owed=%u dropped=%lu\n",
-                connected ? "connected" : "advertising", name,
+                connected ? "connected"
+                          : NimBLEDevice::getAdvertising()->isAdvertising() ? "advertising"
+                                                                           : "OFF AIR", name,
                 haveIdentity ? "known" : "unanswered",
                 bleOtaTarget(), bleOtaOwed(), (unsigned long)(bleOtaDropped() + stageDrops));
 }

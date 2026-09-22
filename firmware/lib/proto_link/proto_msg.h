@@ -889,7 +889,7 @@ struct __attribute__((packed)) VersionsPayload {
   VersionPayload entries[VERSIONS_MAX];
 };
 
-constexpr uint8_t BLE_ST_UP        = 1 << 0;  // the stack came up and is advertising
+constexpr uint8_t BLE_ST_UP        = 1 << 0;  // on air: advertising, or a phone is on it
 constexpr uint8_t BLE_ST_CONNECTED = 1 << 1;
 constexpr uint8_t BLE_ST_IDENTITY  = 1 << 2;  // the main board answered
 
