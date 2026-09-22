@@ -333,6 +333,9 @@
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py"
   ],
+  "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/collect-final-print-receipt.py": [
+    "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/collect-final-print-receipt.py"
+  ],
   "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": [
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",

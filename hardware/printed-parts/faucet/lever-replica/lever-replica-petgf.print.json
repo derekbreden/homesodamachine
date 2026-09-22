@@ -42,7 +42,7 @@
   "bed_type": "Textured PEI Plate",
   "shared_printable_area_mm": [
     [
-      25.0,
+      0.0,
       0.0
     ],
     [
@@ -50,6 +50,10 @@
       320.0
     ]
   ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
   "plate_count": 1,
   "parts": [
     {
@@ -78,12 +82,12 @@
         0.0,
         -0.0,
         1.0,
-        175.0,
+        162.5,
         160.0,
         6.199999809265137
       ],
       "plate_translation_mm": [
-        175.0,
+        162.5,
         160.0,
         6.199999809265137
       ],
@@ -94,12 +98,12 @@
       ],
       "plate_bounds_mm": [
         [
-          167.66753363609314,
+          155.16753363609314,
           133.48264628648758,
           0.0
         ],
         [
-          182.33246636390686,
+          169.83246636390686,
           186.51735371351242,
           12.399999618530273
         ]
@@ -109,7 +113,7 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "2e5a995cc04489999de875f5d58e21b4704789142341d9c666b796d7cb69800e",
+  "project_sha256": "6683ac5bbb10af32a4972ca3a5e8cfa37978ad16ea63b098d58724dbe30566cf",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; submissions are recorded in print-jobs.json",
   "physical_acceptance": {
