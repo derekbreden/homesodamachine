@@ -1,8 +1,8 @@
 """Machine display cover with a rounded bezel and two broad retaining skirts.
 
-The visible face lies at local Z=0. The cover prints face up, and the assembly seats it
-as printed: each skirt's lip rests under its catch with the skirt unbent. The TPU ring
-separates bezel and glass.
+The visible face lies at local Z=0. The cover prints face down with its skirts pointing up,
+and the assembly seats it as modelled: each skirt's lip rests under its catch with the skirt
+unbent. The TPU ring separates bezel and glass.
 """
 
 import sys
