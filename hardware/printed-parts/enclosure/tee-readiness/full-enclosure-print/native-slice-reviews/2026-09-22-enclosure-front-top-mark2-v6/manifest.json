@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "front-top-v6",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v6/fresh-geometry-receipt.json",
+    "sha256": "917115258c91aa2d530e26eccc84a27b2d3448cdf7b5818d29ad1bb8c9e3a8d0"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/ready/enclosure-front-top-black-z004-mark2-v6.gcode.3mf",
+    "sha256": "9315150bb251b3f56d20a94ea5403ecf59a1ac08fedcbf3aa1bf215b15f97db3"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "db453689628a0ace4c031ebdde10aad9fc92ad98770050d0ff8c6aa76fc8fb38",
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/job-config.json",
+      "sha256": "517ac4d2e151405ab3037b195947ccd389b2a1da7b5a2c5d4fa73ef0b5bd0bcd",
+      "bytes": 1318
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/fresh-geometry-receipt.json",
+      "sha256": "917115258c91aa2d530e26eccc84a27b2d3448cdf7b5818d29ad1bb8c9e3a8d0",
+      "bytes": 1718
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/geometry-evidence.json",
+      "sha256": "5e998738584f67beb821246520045b22039322f6f6da593ea95d481e5d8aa1f6",
+      "bytes": 2111
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/preparation.json",
+      "sha256": "7c228cd3e6a9952b51e331dae666238df1db04f30c5a3a1f3eae3ad542d90c24",
+      "bytes": 2214
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/readiness.json",
+      "sha256": "fe4d2cd48ed5f7038940df546f0c2df003e98ad3d37f7d1f5034683792149b7d",
+      "bytes": 6382
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/offline-review.json",
+      "sha256": "0b761b9a79e6abc545f42ef8ebc32b2ee83395463f0cf3954d23a54dcb5da24c",
+      "bytes": 6854
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/support-removal-review.json",
+      "sha256": "5bf41b311a7560801298d2643ad00b1b71415b7485656f1c789a36fdf297fda6",
+      "bytes": 32472
+    },
+    "enclosure-front-top-black-z004-mark2-v6-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/enclosure-front-top-black-z004-mark2-v6-input.support-audit.json",
+      "sha256": "85dff941446bb0d25b5abf65da4c14ca8b9790329e7c3efc3f3dde3a84be4f14",
+      "bytes": 22434
+    },
+    "enclosure-front-top-black-z004-mark2-v6-input.print.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/enclosure-front-top-black-z004-mark2-v6-input.print.json",
+      "sha256": "ff2d2e9d268fff7acb14212fa9cc56b005713d7fbd090404300043049056b743",
+      "bytes": 6840
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/slice-command.json",
+      "sha256": "c4a813899843131375dcec9a44d16d9ddf9851e28dfb2b745562908b193bc469",
+      "bytes": 496
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/slice-input.json",
+      "sha256": "c8d098cecfb6c7bdea84fc9ecd509855410c2d9bdc61ee66468dae22200add51",
+      "bytes": 279
+    }
+  }
+}

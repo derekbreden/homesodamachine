@@ -825,7 +825,14 @@
       "completion_record_sha256": "1e45b001283ee4135534945c630f0e1686203ae2bc2f8d513b47f8f264b60973",
       "physical_success_and_fit_confirmed": false,
       "latest_print_removed_confirmed": true,
-      "removal_authority": "Derek: H2C is now also clear"
+      "removal_authority": "Derek: H2C is now also clear",
+      "physical_result": {
+        "reported_at": "2026-09-22",
+        "authority": "Derek (relay of Scan results)",
+        "result": "Pulled from H2C. Some supports are impossible to remove without damage: those in the crevice between each display skirt-pocket surround's up-slope end, the housing underside and the ridge wall. The two 2.43 mm carrier-floor strips beside the Z-rail channel read as parts that snap off during assembly.",
+        "geometry_response": "97d94494e: display storey filled solid beside the display opening; the strips deleted",
+        "replacement": "front-top v5 on Mark2"
+      }
     },
     {
       "date": "2026-09-22",

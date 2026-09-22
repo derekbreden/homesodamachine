@@ -1,0 +1,20 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-22 (relay of Scan results): fill front-top's display storey solid beside the display opening, and delete the carrier floor's two 2.43 mm strips beside the Z-rail channel; then (photos of v4) keep the R18 top curve and pull out only its last one or two layers, never into a vertical wall. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "53bc6540d48c2d870c94bff1e28fe454ae118f6e3ab1b2a8b00bc059e5e7a8e6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "bb7ad6e3995520c781de906ef7dfc225fe75d788001b0d12b8864a63f98fb8cf",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "93ddb9bbe2a22e87bfef2524401e3bbd20f144a4fe2e333a4dcdd414fd51055d",
+    "hardware/manifold-layout/enclosure_assembly.py": "b28e9c5a2f7bf39e7b6dbcd0ab457fdef5cfbe837968293cc68177b34e12a8e8",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/geometry-evidence.json": "5e998738584f67beb821246520045b22039322f6f6da593ea95d481e5d8aa1f6"
+  }
+}
