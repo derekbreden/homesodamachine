@@ -378,7 +378,8 @@ def flute_backed_sections():
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
 # The machine display sits on the swept top's 30-degree plane. Tangent R12 and
-# R18 curves join the front and roof; the side edges use R6. The rear edge stays square.
+# R18 curves join the front and roof, the R18's last two layers rising at the plane's
+# own slope (`_swept_top.TOP_PULL`); the side edges use R6. The rear edge stays square.
 display_bezel_x = _interface.display_bezel_x           # bezel glass, lateral (X)
 display_bezel_slope = _interface.display_bezel_slope   # bezel glass, up the slope
 display_bezel_cut_x = display_bezel_x + 2.0 * fits.slip
@@ -3593,8 +3594,8 @@ def with_funnel(box, centre):
             f"has room for is {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
             f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}"])))
     # AND THE FRONT EDGE, WHICH IS NOT A FREE ONE. Forward the flange runs out over the display
-    # housing's roof, and that roof stops at the facet's own arris — the line where the 45°
-    # meets the top face. A brim reaching past it overhangs the chamfer and bears on nothing.
+    # housing's roof, and that roof stops at the facet's own arris — the line where the top
+    # curve meets the top face. A brim reaching past it overhangs the chamfer and bears on nothing.
     # The landing asked for is one `wall`, the same ligament `display-housing-seats` keeps
     # behind the display's own seats: at the arris itself the slab under the flange is a
     # feather edge, and a wall in from it the wedge is the wall's own section deep.
