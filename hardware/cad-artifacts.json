@@ -19,12 +19,11 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
-      "hardware/manifold-layout/_lines.py",
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
-      "hardware/reference/g-ganen-pump/installation/validate_installation.py",
+      "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
+      "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
+      "hardware/printed-parts/fixtures/fake-countertop/prepare_print.py",
       "hardware/reference/iec-c14-inlet/.scan-check-cache.npz"
     ],
     "members": [
@@ -1203,7 +1202,7 @@
     "hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/inputs/current-front-top/front-top.step": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
     "hardware/printed-parts/enclosure/tee-readiness/branch-propagation/front-top/front-top.step": "0fbd43ae69417c0e6072827216ea8f530b5256491a54c39aeebbf46bc8ba24f6",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "72ef172f43c76dc28d0b9ca0f5d83e429f49fb3f9a4feb20ac05ce89e0f7d5c9",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "9b31b5ef2d33866d5b3c1ebb8b17e9b1693a68b99c23b479b3b1472020decfe3",
     "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": "56ab333717ca11ee1af8499323563d8c13cb8f1f4f2d9fed50512ab1361cac5e"
   },
   "sidecars": {
@@ -1553,7 +1552,7 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": 1789013075,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1789013075,
     "hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step": 1789966731,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1790035958,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1790122207,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1789744959,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1789744959,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.stl": 1789744959,
