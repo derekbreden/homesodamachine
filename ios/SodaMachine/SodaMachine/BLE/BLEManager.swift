@@ -224,6 +224,26 @@ class BLEManager {
     /// the link comes back before the next one starts, so these go one at a time.
     var otaQueue: [FirmwareImage] = []
     var otaQueueDone: Int = 0
+
+    /// A run has sent its last image and the machine is going down into it.
+    ///
+    /// WHAT WAS SENT IS NOT WHAT IS RUNNING. A board answers DONE when the image
+    /// is written and its boot partition moved, which is a sentence about flash
+    /// — the machine still has to come back on that image before anyone can say
+    /// the update took. So a run is not over when the last byte lands: the
+    /// readings this phone holds describe the machine as it was, they are
+    /// dropped here, and what is said next is decided by what the boards report
+    /// when they answer again.
+    var otaSettlingSince: Date? = nil
+
+    /// How long to keep asking. A machine that has not answered by here is not
+    /// going to inside a screen anyone is still watching, and saying so is
+    /// better than a bar that never ends.
+    static let otaSettleGiveUp: TimeInterval = 120
+    /// An answer sooner than this is the machine on its way down, not back up:
+    /// a board can answer in the moment between DONE and its own reboot, and
+    /// that answer describes the image it is leaving.
+    static let otaSettleFloor: TimeInterval = 15
     @ObservationIgnored fileprivate var otaModel: MachineModel = .unknown
     @ObservationIgnored fileprivate var otaFetch: ((FirmwareImage) async throws -> Data)? = nil
 
@@ -1582,7 +1602,12 @@ class BLEManager {
         guard !otaQueue.isEmpty else {
             otaFetch = nil
             // The board that took the last image is rebooting, and it is the one
-            // this connection runs on. The page stays; the link comes back.
+            // this connection runs on. The page stays; the link comes back, and
+            // the run stays open until it does — nothing here knows yet whether
+            // the machine is running what it was just sent.
+            otaSettlingSince = Date()
+            machineVersions = MachineVersions()
+            settleTick()
             return
         }
         // The board that just took an image is rebooting into it, and on the far
@@ -1593,6 +1618,22 @@ class BLEManager {
             guard let self, !self.otaQueue.isEmpty else { return }
             self.otaProgress = nil
             self.pumpQueue()
+        }
+    }
+
+    /// While a run settles: ask again as the machine comes back. An answer is
+    /// the only thing that ends this, so the asking is what it costs — and a
+    /// machine that never answers stops being waited for rather than leaving a
+    /// bar running against nothing.
+    fileprivate func settleTick() {
+        guard let began = otaSettlingSince else { return }
+        guard Date().timeIntervalSince(began) < Self.otaSettleGiveUp else {
+            otaSettlingSince = nil
+            return
+        }
+        if linked { requestVersions() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            self?.settleTick()
         }
     }
 
@@ -1704,6 +1745,13 @@ class BLEManager {
             guard let m = self.current else { return }
             m.versions = found
             m.versionsReadAt = Date()
+            // The machine has answered since it went down, so there is a fact
+            // to report and the run is over. What that fact is — took, or did
+            // not — is read off these versions like any other.
+            if let began = self.otaSettlingSince,
+               Date().timeIntervalSince(began) >= Self.otaSettleFloor {
+                self.otaSettlingSince = nil
+            }
             self.directory.touch()
         }
     }
