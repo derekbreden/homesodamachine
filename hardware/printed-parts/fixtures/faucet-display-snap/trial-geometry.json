@@ -5,11 +5,11 @@
   "cover_print_shape": "relaxed inward-preloaded wings",
   "assembly_cover_shape": "nominal seated fit reference, not an elastic deformation prediction",
   "retention": {
-    "radial_engagement_mm": 1.0,
-    "groove_depth_mm": 1.0,
+    "radial_engagement_mm": 1.2,
+    "groove_depth_mm": 1.2,
     "lip_height_mm": 3.0,
-    "wing_inward_preload_at_lip_top_mm": 0.75,
-    "wing_inward_preload_at_lip_bottom_mm": 0.9078947368421053
+    "wing_inward_preload_at_lip_top_mm": 1.25,
+    "wing_inward_preload_at_lip_bottom_mm": 1.513157894736842
   },
   "retained_geometry": {
     "complete_head_end_s_mm": 51.19848122893564,
@@ -18,11 +18,11 @@
     "missing_head_material_mm3": 0.0
   },
   "sources": {
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7dc2ccb679b02d84a164b9dd755650f0e7544883a72696444cae9f8daf6cd2b3",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "3ee3fdb0ed74fd96686eb368fc07cfad3333c0bdca8accb0a3516a63819aec6a",
-    "hardware/printed-parts/faucet/_display_snap.py": "b8d6f06467a65d868771cdc4ca4a99a565a4c6ebe8427ed9ca8b9db0a9e1cae9",
-    "hardware/faucet-layout/faucet_assembly.py": "d7cf8811dbe49f45d398b224f67fb774468ca91ff5b1bb64a743c42b76250e98",
-    "hardware/printed-parts/faucet/refresh_print_project.py": "941f696446bf5dcaffe693a5cf3b26edfba4790abf953cdbbf90cc49e7583541",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "bfac67e2fdf36b53bc93e872464b919a33caf4298edb5f6cb036d11d2bab6ea6",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "ff60a0cb26e96c72d6830eedc5cd9cdb47f603b0d1a7526573bf7fb2d79feead",
+    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
+    "hardware/faucet-layout/faucet_assembly.py": "12b3cd9cb40f8da507e13b1a0fa2dfcb6c0c4be7cdc91f4bd7ac94bb6aae01bb",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
     "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": "e4af1c420048bef97b215e2e32b9e7a177d88a681ef87e904af943d0d85d2844",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
@@ -30,11 +30,11 @@
   "parts": [
     {
       "stl": "display-trial-housing.stl",
-      "sha256": "c22f7f35668db5936f512f4a3325ca21496ef48d04dac1d882323a5c95936989",
+      "sha256": "8e7bc0a42fc49650a77cffa5c1539adaeaf1f01b42bc20ac644e9c568953ad65",
       "source_rotation_x_degrees": -105.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 22000.496363949493,
-      "triangles": 163346,
+      "volume_mm3": 21939.682621904412,
+      "triangles": 163114,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
@@ -52,21 +52,21 @@
     },
     {
       "stl": "display-trial-cover.stl",
-      "sha256": "a1823c98758c79029c40cff5ea3b6f006a5db34153b74896d7b9fb20ab555544",
-      "source_rotation_x_degrees": 130.0,
+      "sha256": "932e9d122695bbce9261aa9c24b3efc31cabd992d50e0d18a55a4d5d2fcf7cd9",
+      "source_rotation_x_degrees": -50.0,
       "source_stl_already_in_print_pose": true,
-      "volume_mm3": 3597.5235311761726,
-      "triangles": 29658,
+      "volume_mm3": 3621.972328340942,
+      "triangles": 29882,
       "watertight": true,
       "body_count": 1,
       "bounds_mm": [
         [
-          -13.997013092041016,
+          -13.880355834960938,
           -25.243331909179688,
-          9.999999406318238e-08
+          1.0123818583451794e-07
         ],
         [
-          13.997013092041016,
+          13.880355834960938,
           25.243331909179688,
           18.549999237060547
         ]
