@@ -6392,9 +6392,9 @@ COVER_ORIGIN = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
 
 
 def build_display_cover(box):
-    """The rounded bezel seated flush, with its two skirts flexed into their pockets."""
+    """The rounded bezel seated flush, each skirt's lip resting under its catch."""
     plane = _enc.display_plane(box.outer)
-    return seat_body(_cover.build_display_cover(seated=True).val(), turns=(COVER_TILT,),
+    return seat_body(_cover.build_display_cover().val(), turns=(COVER_TILT,),
                      seat="display-cover",
                      station=(COVER_ORIGIN, plane.origin.toTuple()))
 
