@@ -1,7 +1,8 @@
 """Machine display cover with a rounded bezel and two broad retaining skirts.
 
-The visible face lies at local Z=0. The relaxed cover prints face up; the assembly
-uses the elastically seated skirt positions. The TPU ring separates bezel and glass.
+The visible face lies at local Z=0. The cover prints face up, and the assembly seats it
+as printed: each skirt's lip rests under its catch with the skirt unbent. The TPU ring
+separates bezel and glass.
 """
 
 import sys
@@ -35,11 +36,11 @@ bounds.state('display-cover-reveal', 'The display bezel is a smooth reveal in th
              f'{dims.display_cover_thickness:g} mm bezel; the retention skirts sit inside the housing')
 
 
-def build_cover_outer(seated=False):
+def build_cover_outer():
     body = rounded_prism(cover_x, cover_slope, cover_corner_r,
                          -dims.display_cover_thickness, 0.0)
     for side in (-1, 1):
-        body = body.fuse(retention.skirt(side, seated=seated))
+        body = body.fuse(retention.skirt(side))
     return cq.Workplane(obj=body.clean())
 
 
@@ -48,15 +49,15 @@ def build_cover_inner_cut():
                                           -retention.DEPTH - 1.0, 1.0))
 
 
-def build_display_cover(seated=False):
-    return build_cover_outer(seated).cut(build_cover_inner_cut())
+def build_display_cover():
+    return build_cover_outer().cut(build_cover_inner_cut())
 
 
 def glass_shadow():
     probe = rounded_prism(dims.display_bezel_x, dims.display_bezel_slope,
                           dims.display_corner_r, -retention.DEPTH-1.0,
                           -dims.display_cover_thickness - 0.0001)
-    return abs(build_display_cover(seated=True).val().intersect(probe).Volume())
+    return abs(build_display_cover().val().intersect(probe).Volume())
 
 
 def selftest():
@@ -64,10 +65,10 @@ def selftest():
     assert body.isValid() and len(body.Solids()) == 1
     assert glass_shadow() < 0.0001
     for side in (-1, 1):
-        seated = retention.skirt(side, seated=True)
-        missing = seated.cut(retention.pocket(side)).Volume()
+        missing = retention.skirt(side).cut(retention.pocket(side)).Volume()
         assert abs(missing) < 0.0001, (side, missing)
-    print(f"Display cover: one valid solid; glass clear; {retention.PRELOAD:g} mm skirt preload")
+    print(f"Display cover: one valid solid; glass clear; skirts inside their pockets, "
+          f"{retention.LIP:g} mm lips {retention.BEARING_SLIP:g} mm under their catches")
     return 0
 
 
@@ -86,9 +87,9 @@ def main():
         "COVER_SLIP": f"{dims.display_cover_slip:g} mm", "WINDOW_X": f"{window_x:g} mm",
         "WINDOW_SLOPE": f"{window_slope:g} mm", "WINDOW_CORNER_R": f"{window_corner_r:g} mm",
         "SKIRT_WALL": f"{retention.WALL:g} mm", "SKIRT_LENGTH": f"{retention.LENGTH:g} mm",
-        "SKIRT_DEPTH": f"{retention.DEPTH:g} mm", "LIP_HEIGHT": f"{retention.LIP_HEIGHT:g} mm",
-        "LIP_ENGAGEMENT": f"{retention.ENGAGEMENT:g} mm", "PRELOAD": f"{retention.PRELOAD:g} mm",
-        "ROOF_AIR": f"{retention.ROOF_AIR:g} mm",
+        "SKIRT_DEPTH": f"{retention.DEPTH:g} mm", "LIP_START": f"{retention.LIP_START:g} mm",
+        "LIP_LAND": f"{retention.LIP_LAND:g} mm", "LIP_ENGAGEMENT": f"{retention.LIP:g} mm",
+        "BEARING_SLIP": f"{retention.BEARING_SLIP:g} mm",
     }
     substitute_md(_here.parent / "README.md", variables=variables)
     print('-> display-cover.step, display-cover.stl, README.md')

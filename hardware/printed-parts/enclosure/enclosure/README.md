@@ -1550,12 +1550,14 @@ Its 107.5 × 71 mm window laps the Waveshare 4.3B glass through the 1 mm TPU gas
 The glass face sits 3 mm below the display plane; its back sits at 4 mm. The PCB
 passes through the housing behind it, offset 0.5 mm laterally and 1 mm down the slope.
 
-Two broad flexible skirts on the cover engage rigid recesses inside the housing.
-The visible cover face is 2 mm thick; each skirt is 2 mm thick, runs 24 mm along
-the display and reaches 34 mm below the face. A gradual lead-in and 3 mm retaining
-lip engage the housing by 1.8 mm, with 0.35 mm nominal inward preload and 0.48 mm
-clearance above the shoulder. The bezel prints face upward with supports on its hidden
-underside. Seating and retention still require a physical print check.
+Two broad skirts on the cover snap into the housing. Each is the nameplate's snap tab
+run 24 mm along the display: 1.3 mm thick, reaching 13.3 mm below the face, with a square
+1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. The skirt's slot continues the
+cover's inset wall down to the catch and leaves the skirt room to bend in by its whole lip.
+Under each catch the housing is open plumb into the pump bay, through the solid storey, so
+the catch's support stands on the bed and pulls out downward before the cartridge goes in.
+The bezel prints face upward with supports on its hidden underside. Seating and retention
+still require a physical print check.
 
 The 19 mm housing and its internal ridge join the side walls and the pump-bay
 bulkhead. Either side of the display's opening the storey beneath the housing is solid:
@@ -1565,8 +1567,7 @@ the two blocks the opening continues down to the bay as one room, which holds th
 display's back, SIG-7's run to the ridge bore and the pump plug's unplug path. The
 ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
 Supports carry the lintel's flat underside, the room's short housing strips and the
-hidden retaining surfaces; their geometry preserves the display seats and the snap
-shoulders.
+two catches from the bay; their geometry preserves the display seats and the catches.
 
 The vertical flutes fade over their existing 5 mm end field as the front and sides
 turn into the smooth top curves. The rounded display bezel and funnel rim remain
