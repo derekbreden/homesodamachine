@@ -257,6 +257,38 @@
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v1/offline-review.json",
         "sha256": "8893d4e5036040415b24344077211d8170cefc8ac421cac39210baf67399c418"
       }
+    },
+    {
+      "job": "display-cover-v2",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v2/manifest.json",
+        "sha256": "6c32de46e58fab507d4a8a85fb57bd31605d7522028af2d2a3fddcc0b753ad8d"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v2/ready/display-cover-black-z004-mark2-v2.gcode.3mf",
+        "sha256": "1f22fcdf15e808aed721b3cd596e64a62f0e35d8864ec3eaf3f5d76b574b81d4"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v2/offline-review.json",
+        "sha256": "f05ec93007d02014ddf543a19cbbe9142c92fce13b45511c358a6b6bb7bcb53f"
+      }
+    },
+    {
+      "job": "front-top-v7",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v7/manifest.json",
+        "sha256": "2bbc0616f13358c5b5a7f64940774a9d35f3dfe022bc1ed9eeea432e4a7db3cf"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v7/ready/enclosure-front-top-black-z004-mark2-v7.gcode.3mf",
+        "sha256": "b382f11280a27ec9295478af023c3cf0f56ea4b6371b4788db599ac947c5464b"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v7/offline-review.json",
+        "sha256": "7aea0b7210b8a54a3702f9e3732f2e28f94f7e59b9552f890a5d8e636bec45f8"
+      }
     }
   ]
 }
