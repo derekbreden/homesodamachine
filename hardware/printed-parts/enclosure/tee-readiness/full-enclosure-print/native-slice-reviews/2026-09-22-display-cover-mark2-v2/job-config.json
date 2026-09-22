@@ -1,0 +1,44 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "display-cover",
+  "printer": "Mark2",
+  "archive_stem": "display-cover-black-z004-mark2-v2",
+  "title": "Machine display cover, nameplate-proportion skirts, visible face up, black PET-GF, Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "display-cover",
+      "stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+      "step": "hardware/printed-parts/enclosure/display-cover/display-cover.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": []
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament"
+}

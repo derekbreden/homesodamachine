@@ -1,0 +1,21 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-22: the next Mark2 task is the machine display cover; its snaps shortened to the nameplate's and open under the catch. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "aa7d671eb72a96224bb3c2af11445eeb3d16607c5b55b531ace6b0949204d57f",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "ace8481d23d04f00b0a24ddb3928ecdf222e4cfb488ee7249ea509c4255d0139",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "0e70b3514feeb381749388f09280a698ffe4a75269fd36ebf358f83314786fb7",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "b7bb0d80114a5cdf215d82c9dd77d9cbff83fa371666ccfb36148366e4115898",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "bb7242c11423694f0ce3bc58e942e847813a1446f9b4cede91bff32b4320d14e",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-22-display-cover-mark2-v2/geometry-evidence.json": "6c952362374f73c3da291c3d3897f7236a6497d9b55b0d2c5702a4dd9bf43cf7"
+  }
+}
