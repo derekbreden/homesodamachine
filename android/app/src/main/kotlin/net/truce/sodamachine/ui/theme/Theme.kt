@@ -26,11 +26,6 @@ object Theme {
     val activePhase = ice
     val chartFlavor1 = orange
     val chartFlavor2 = ice
-
-    // Liquid gradient stops used by GlassAnimation.
-    val liquidStop0 = ice
-    val liquidStop1 = cobalt
-    val liquidStop2 = navy
 }
 
 @Composable

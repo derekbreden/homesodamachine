@@ -24,11 +24,6 @@ enum Theme {
     // Per-flavor chart series, paired with labels and flavor pictures.
     static let chartFlavor1 = orange
     static let chartFlavor2 = ice
-
-    // Liquid gradient stops used by GlassAnimationView.
-    static let liquidStop0 = ice
-    static let liquidStop1 = cobalt
-    static let liquidStop2 = navy
 }
 
 // ────────────────────────────────────────────────────────────
