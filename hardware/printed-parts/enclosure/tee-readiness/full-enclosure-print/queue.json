@@ -29,14 +29,42 @@
       "launch_observed_at": "2026-09-21T19:47:45.218425+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-21T235742Z.json",
-        "record_sha256": "f829cf3e126cd74de9ca3c2b07f0b915dac0602573f9e1c7f2a083c81b495aa4",
-        "observed_at": "2026-09-21T23:57:42.989253+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T012508Z.json",
+        "record_sha256": "04f505d354325fff9cce232143da0edacca974fdfeb3075eb3e99a0398ebfc90",
+        "observed_at": "2026-09-22T01:25:07.714292+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 16,
-        "layer_num": 106,
+        "mc_percent": 22,
+        "layer_num": 173,
         "total_layer_num": 813,
-        "mc_remaining_time": 1213,
+        "mc_remaining_time": 1122,
+        "print_error": 0,
+        "hms": []
+      }
+    },
+    {
+      "printer": "Mark2",
+      "status": "reported_running",
+      "authority": "Exact printer observation after verified Bambu Connect send",
+      "job": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+      "queue_job_id": "front-bottom",
+      "parts": [
+        "enclosure-front-bottom"
+      ],
+      "native_archive": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+      "native_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+      "launch_record_sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0",
+      "launch_observed_at": "2026-09-22T01:25:08.043469+00:00",
+      "physical_completion_and_fit_pending": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T012508Z.json",
+        "record_sha256": "04f505d354325fff9cce232143da0edacca974fdfeb3075eb3e99a0398ebfc90",
+        "observed_at": "2026-09-22T01:25:08.043469+00:00",
+        "gcode_state": "RUNNING",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 754,
+        "mc_remaining_time": 1046,
         "print_error": 0,
         "hms": []
       }
@@ -113,15 +141,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "user_reported_ready_for_this_job",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
+        "launch_quantity_gate": false,
         "estimated_grams_petgf": 903.0202475850896,
-        "latest_coordination": "Derek reports H2C clear and ready in response to the next-plate handoff and approximately903g requirement; no spool weighing is claimed.",
-        "authority": "Derek: H2C is clear and ready for next print."
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "open_review_items": [],
       "printer_assignment_status": "assigned",
@@ -155,7 +187,7 @@
       "orientation": "Native +Z up; centered",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "offline_ready_awaiting_filament",
+      "status": "reported_running",
       "geometry_confirmation": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
         "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
@@ -178,8 +210,8 @@
         "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/offline-review.json",
         "sha256": "4c13e50df276fa9dd950c850c66dc2b27c8c3276a727489bf66c09a561d4c513"
       },
-      "print_released": false,
-      "submitted": false,
+      "print_released": true,
+      "submitted": true,
       "printing_authorized": true,
       "offline_ready": true,
       "native_handoff": {
@@ -213,16 +245,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "awaiting_user_answer",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
+        "launch_quantity_gate": false,
         "estimated_grams_petgf": 621.2638280114462,
-        "question_previously_asked": true,
-        "question": "Mark2’s next enclosure plate needs about 621 g of black PET-GF. Is that amount available on the loaded spool or a replacement? The printer reports material type but not the remaining quantity.",
-        "ask_again": false
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "open_review_items": [],
       "printer_assignment_status": "assigned",
@@ -237,7 +272,12 @@
         "print_mesh_sha256": {
           "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
         }
-      }
+      },
+      "launch_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+        "sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0"
+      },
+      "launch_observed_at": "2026-09-22T01:25:08.043469+00:00"
     },
     {
       "id": "back-bottom",
@@ -308,13 +348,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "physical_supply_to_confirm_at_handoff",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
-        "estimated_grams_petgf": 709.4524928839631
+        "launch_quantity_gate": false,
+        "estimated_grams_petgf": 709.4524928839631,
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "open_review_items": [],
       "printer_assignment_status": "assigned",
@@ -393,13 +439,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "physical_supply_to_confirm_at_handoff",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
-        "estimated_grams_petgf": 962.1293580994125
+        "launch_quantity_gate": false,
+        "estimated_grams_petgf": 962.1293580994125,
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "native_paths": {
         "brim_setting": "auto_brim",
@@ -482,13 +534,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "physical_supply_to_confirm_at_handoff",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
-        "estimated_grams_petgf": 112.85679342580396
+        "launch_quantity_gate": false,
+        "estimated_grams_petgf": 112.85679342580396,
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/preparation.json",
@@ -575,13 +633,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "physical_supply_to_confirm_at_handoff",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
-        "estimated_grams_petgf": 182.62849177870638
+        "launch_quantity_gate": false,
+        "estimated_grams_petgf": 182.62849177870638,
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-g-ganen-foam-cap-top-mark2-v2/preparation.json",
@@ -701,13 +765,19 @@
       "handoff_conditions": [
         "Assigned machine available",
         "Latest print removed and plate cleared",
-        "Adequate usable black PET-GF for this exact slice",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
         "Normal verified exact-archive printer handoff"
       ],
       "filament_availability": {
-        "status": "physical_supply_to_confirm_at_handoff",
+        "status": "use_spool_until_runout_and_reload",
         "design_readiness_gate": false,
-        "estimated_grams_petgf": 202.9211722677068
+        "launch_quantity_gate": false,
+        "estimated_grams_petgf": 202.9211722677068,
+        "estimate_scope": "Consumption estimate only; no remaining-spool measurement or confirmation is required.",
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "open_review_items": [],
       "preparation": {
@@ -820,15 +890,22 @@
     "countertop_print_jobs": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
     "h2c_cartridge_cap_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json",
     "h2c_front_top_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
-    "mark2_countertop_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json"
+    "mark2_countertop_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
+    "mark2_front_bottom_v2_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+    "filament_use_policy": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json"
   },
   "operating_policy": {
     "authority": "Derek",
     "pause_for_design_review": false,
     "idle_printer_hold_for_agent_review": false,
-    "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared."
+    "instruction": "Continue productive printing while checks proceed, or cancel a concretely defective job and switch to useful work. Send only the exact reviewed archive after its machine is available and plate is cleared.",
+    "remaining_filament_quantity_is_launch_condition": false,
+    "request_remaining_filament_quantity": false,
+    "use_each_spool_fully": true,
+    "reload_during_print_accepted": true,
+    "filament_instruction": "Start ready jobs with the correct material mapping regardless of remaining spool quantity. Use the spool until runout and reload as needed. Ask for filament only when an actual reload requires the user."
   },
-  "updated_at_utc": "2026-09-22T00:00:05.120105+00:00",
+  "updated_at_utc": "2026-09-22T01:28:27.897016+00:00",
   "geometry_qualification": {
     "status": "current_assembly_and_corrected_mounts_verified",
     "assembly_step_sha256": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
@@ -849,8 +926,8 @@
   "continuity": {
     "automation_id": "finish-the-enclosure-print-queue",
     "status": "ACTIVE",
-    "schedule": "Every 15 minutes in the coordinating task",
-    "behavior": "Advance exact reviewed jobs when their machine is free, its latest print is removed and adequate filament is available. Stay quiet while running state is unchanged; do not pause prints or add coupons. Mark2 is handed back for the enclosure queue. Do not repeat the pending filament question; stop after the full set is finished.",
+    "schedule": "Every 2 hours in the coordinating task",
+    "behavior": "Advance exact reviewed jobs when their machine is free and its latest print is removed. Use each spool fully and reload on actual runout; never ask about or gate on remaining quantity. Stay quiet during normal printing; do not pause for design review or add coupons; stop after the full set is finished.",
     "authority": "Coordinating task created the heartbeat automation."
   },
   "native_slices_complete": 7,
@@ -859,7 +936,7 @@
   "printer_schedule": [
     {
       "printer": "H2C",
-      "after": "Front-top is running. Back-top follows its completion, fresh plate clearing and sufficient black PET-GF.",
+      "after": "Front-top is running. Back-top follows completion and fresh plate clearing.",
       "order": [
         "front-top",
         "back-top"
@@ -867,7 +944,7 @@
     },
     {
       "printer": "Mark2",
-      "after": "Countertop finished and Derek confirms the bed clear. Front-bottom awaits the pending black PET-GF quantity answer.",
+      "after": "Front-bottom is running. Back-bottom follows completion and fresh plate clearing.",
       "order": [
         "front-bottom",
         "back-bottom",
@@ -903,7 +980,6 @@
     "scope": "All seven production plates at their full original slice estimates, including submitted plates. Excludes the cartridge/cap, countertop, plate changes, cleanup and assembly. These are not remaining-time commitments."
   },
   "ready_job_ids": [
-    "front-bottom",
     "back-bottom",
     "back-top",
     "carrier-pair",
@@ -1032,14 +1108,13 @@
         "consumed_by_archive_sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e"
       },
       "filament": {
-        "status": "consumed_by_front_top_launch",
+        "status": "use_spool_until_runout_and_reload",
         "physical_material": "black PET-GF",
-        "question_previously_asked": true,
-        "asked_again_this_followup": false,
-        "prior_request_record": "hardware/printed-parts/enclosure/print-readiness.md",
-        "authority": "Derek: H2C is clear and ready for next print.",
-        "remaining_mass_measured": false,
-        "launched_job_estimated_grams": 903.0202475850896
+        "remaining_quantity_required": false,
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "send_permitted": false,
       "active_job_id": "front-top",
@@ -1047,42 +1122,51 @@
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
         "sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c"
       },
-      "next_handoff": "After front-top finishes, obtain fresh part-removal and adequate-filament confirmation for back-top.",
+      "next_handoff": "After front-top finishes, obtain fresh part-removal confirmation for back-top; use the loaded black PET-GF until runout and reload as needed.",
       "next_handoff_estimated_grams": 962.1293580994125
     },
     "Mark2": {
       "after_job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-      "printer_available": true,
-      "next_job_id": "front-bottom",
+      "printer_available": false,
+      "next_job_id": "back-bottom",
       "plate_clearance": {
-        "status": "user_confirmed",
+        "status": "consumed_by_front_bottom_launch",
         "authority": "Derek: Mark2 bed is clear",
-        "recorded_at_utc": "2026-09-22T00:00:05.120105+00:00"
+        "recorded_at_utc": "2026-09-22T00:00:05.120105+00:00",
+        "consumed_by_archive_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e"
       },
       "filament": {
-        "status": "awaiting_user_answer",
+        "status": "use_spool_until_runout_and_reload",
         "physical_material": "black PET-GF",
-        "estimated_grams": 621.2638280114462,
-        "question_previously_asked": true,
-        "question": "Mark2’s next enclosure plate needs about 621 g of black PET-GF. Is that amount available on the loaded spool or a replacement? The printer reports material type but not the remaining quantity.",
-        "question_recorded_at_utc": "2026-09-22T00:00:05.120105+00:00",
-        "ask_again": false,
-        "remaining_mass_measured": false
+        "remaining_quantity_required": false,
+        "policy": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+          "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+        }
       },
       "send_permitted": false,
-      "pending_condition": "Adequate black PET-GF for the exact front-bottom slice",
       "completion_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
         "sha256": "5599fdf43086ddcc412719731d8d97f7631f564930ea55f5265375ba5cb84573"
-      }
+      },
+      "active_job_id": "front-bottom",
+      "launch_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+        "sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0"
+      },
+      "next_handoff": "After front-bottom finishes, obtain fresh part-removal confirmation for back-bottom; use the loaded black PET-GF until runout and reload as needed."
     }
   },
-  "submitted_production_plate_count": 1,
-  "remaining_unsubmitted_plate_count": 6,
+  "submitted_production_plate_count": 2,
+  "remaining_unsubmitted_plate_count": 5,
   "remaining_unsubmitted_estimates": {
-    "jobs": 6,
-    "printer_seconds": 275769.0556640625,
-    "grams_petgf_density_1p43": 2791.252136467039,
-    "scope": "Six unsubmitted plates only; excludes remaining time on the running front-top and countertop."
+    "jobs": 5,
+    "printer_seconds": 212962.8369140625,
+    "grams_petgf_density_1p43": 2169.9883084555927,
+    "scope": "Five unsubmitted plates only; excludes remaining time on the running front-top and front-bottom. Material estimates do not gate launches."
+  },
+  "filament_use_policy": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+    "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
   }
 }

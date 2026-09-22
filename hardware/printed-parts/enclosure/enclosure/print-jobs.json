@@ -820,6 +820,79 @@
       "physical_fit_and_support_removal_tested": false,
       "complete_enclosure_trial": true,
       "test_coupon": false
+    },
+    {
+      "date": "2026-09-22",
+      "printer": "Mark2",
+      "printer_serial": "31B8AP612801351",
+      "job_name": "enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+      "status": "started",
+      "started_by": "agent",
+      "sent_via": "Bambu Connect; native UI verified the exact archive, dialog printer selection, external black filament mapping and print options",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+      ],
+      "part_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
+      },
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "project": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/enclosure-front-bottom-black-z004-mark2-v2-input.3mf",
+      "project_sha256": "ada5a4f153dea2a8fb1c7d9052434ef0ffed3f182823d3b1584efb7868ae96cf",
+      "sliced_file": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/ready/enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf",
+      "sliced_file_sha256": "4f6ade94a9c0d9e14bb6e0ca77c96a91db23cf8584472fde7e6f07b01f0fad7e",
+      "gcode_sha256": "4d33b8bc7438c5277015fb081d645c79b5449313998b6e345465ab08c847a3cb",
+      "nozzle": "Left 0.4 mm HS01, serial ending6799, matching the current Mark2 hotend and completed countertop record",
+      "filament": "Black PET-GF, left nozzle, external254, PET-CF metadata",
+      "filament_use_policy": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
+        "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
+      },
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "brim_type": "auto_brim",
+      "emitted_brim_paths": 0,
+      "layers": 754,
+      "estimated_seconds": 62806.21875,
+      "filament_grams_saved_profile_density": 560.4407958984375,
+      "filament_grams_petgf_density_1p43": 621.2638280114462,
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-22T01:25:08.043469+00:00",
+      "observed_layer": 0,
+      "observed_total_layers": 754,
+      "observed_remaining_minutes": 1046,
+      "observed_print_error": 0,
+      "hms": [],
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json",
+      "launch_record_sha256": "f04f2209b39f9ae48a8ea0b5db521b31f2edd5b658978187ee9bd9a532e63aa0",
+      "offline_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/offline-review.json",
+        "sha256": "4c13e50df276fa9dd950c850c66dc2b27c8c3276a727489bf66c09a561d4c513"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/support-removal-review.json",
+        "sha256": "57058d45e474ad5056693917f7f8b870b49c53d92e6d5f60689f1db4df144f28",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "current_geometry_revalidation": {
+        "receipt": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json",
+          "sha256": "c69e44fa12090d489a865466985d0f3333ff03034a54d18804cd2624dee29529"
+        },
+        "basis": "Current print meshes are byte-identical, except back-top which has zero native added/removed volume and at most 0.000016 mm corresponding corner movement. Saved profile and original archive/support review are retained. Complete updated assembly checks pass.",
+        "print_mesh_sha256": {
+          "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "aa39bdf22d250c95843b815fff6b31018306c2c96311b43e3563e526805b80cd"
+        }
+      },
+      "physical_fit_and_support_removal_tested": false,
+      "complete_enclosure_trial": true,
+      "test_coupon": false
     }
   ]
 }
