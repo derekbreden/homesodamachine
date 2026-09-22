@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "status": "printer_reported_finished_and_user_reports_removed",
+  "printer": "H2C",
+  "queue_job_id": "front-top",
+  "job": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/ready/enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+    "sha256": "bbfca28b341fed0bbbf2ef6972e617ba5177944dcc2b8f4b07e9f87422c0633e",
+    "gcode_sha256": "e58dc97136ec910ba4596ce4d44ec384f881bb7eaffe5322b61f3164a9005e58"
+  },
+  "launch_record": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json",
+    "sha256": "817adc76243a3f919e290d1ae141e163c4bf9e30db7371c0a5ceda27a06af89c"
+  },
+  "completion_observed_at": "2026-09-22T18:58:20.946392+00:00",
+  "exact_completion_time_known": false,
+  "observed_state": {
+    "printer": "H2C",
+    "observed_at": "2026-09-22T18:58:20.946392+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "enclosure-front-top-black-z018-h2c-v4.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 813,
+    "total_layer_num": 813,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 226.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 78.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    },
+    "nozzle_type": "HS01-0.6",
+    "nozzles": [
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A610715877"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907799"
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-22T185820Z.json",
+    "sha256": "f80d4b2c9410977f274e9f924450d4a343455475e1d11c42d4efbb1b8cc7d27f"
+  },
+  "latest_print_removed_confirmed": true,
+  "removal_authority": "Derek: H2C is now also clear",
+  "removal_recorded_at_utc": "2026-09-22T19:01:54.261203+00:00",
+  "physical_success_and_fit_confirmed": false
+}

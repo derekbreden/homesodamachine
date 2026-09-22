@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "status": "archive_preflight_pass",
+  "recorded_at_utc": "2026-09-22T19:18:04.151711+00:00",
+  "printer": "Mark2",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/ready/enclosure-carrier-pair-black-z004-mark2-v2.gcode.3mf",
+    "sha256": "68286dc08ae2331e4fd68cd23f89d29771c0f2227abedbeffc34be39a0417bff",
+    "gcode_sha256": "56ff4c2e88e44cd83a5be66a8cc60f7655b5afcde9dd13b9cc1fb721f11584db"
+  },
+  "verified_records": {
+    "offline_review": {
+      "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/offline-review.json",
+      "sha256": "98010c3b509fd112ea728112989a598b18c118f1b41cc8416aea83ba9a7c0700"
+    },
+    "support_removal_review": {
+      "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/support-removal-review.json",
+      "sha256": "efb9776a2e511ca670aa34930ce08f849f975fde6387c74c7123f2214cc25265",
+      "status": "current_support_contacts_and_removal_lanes_reviewed"
+    },
+    "durable_review_package": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-21-enclosure-carrier-pair-mark2-v2/manifest.json",
+      "sha256": "4534a302104137e8d12788d62c5f8eb405e163e98f4990a99acc63a72fe9db7c"
+    },
+    "native_handoff": {
+      "path": ".cache/prints/2026-09-21-enclosure-carrier-pair-mark2-v2/native-handoff.json",
+      "sha256": "b302f86616192bda7d84a7fa12e45a7e3c33acf00ef5efa91202a225d3d75071"
+    },
+    "geometry_confirmation": {
+      "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/final-print-receipt-v3/current-geometry.json",
+      "sha256": "42b57e6db1fb3ca31e0c6095b9a28816c3d4d78833acf88b16e8e46bd82594a4"
+    }
+  },
+  "verified_print_meshes": {
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "e2e1268842e74a6e63661468e6ccde8a457b29aeb3f9fde10e617e323ad6063c",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4"
+  },
+  "gcode_sha256_verified": true,
+  "nozzle_diameter_mm": 0.4,
+  "filament_nozzle_map": "0",
+  "filament_map": "1",
+  "physical_material": "black PET-GF",
+  "printer_material_metadata": "PET-CF",
+  "brim_type": "auto_brim",
+  "emitted_brim_segments": 0,
+  "requested_z_trim_mm": 0.04,
+  "gcode_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "plate_clearance_authority": "Derek: Mark2 bed is clear; no subsequent print accepted",
+  "remaining_filament_quantity_required": false,
+  "previous_job_completion": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json",
+    "sha256": "2d70d7222c11e73f4377855555e476d3099053b70e19f1b2b525211a40ce38f9"
+  },
+  "queue_order_authority": "Continue productive full-enclosure work; carrier pair advances while the back-bottom send remains unacknowledged."
+}
