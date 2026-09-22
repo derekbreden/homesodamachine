@@ -137,8 +137,8 @@ only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of t
 s = [5.38](STEP_STRAIGHT_A) mm, [21.45](STEP_LEN_A) mm of tube. V-A retains this
 outboard offset; the funnel drain runs around the west side of the pair.
 
-**Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs, branch down, at
-the hinge. **Y-A and Y-B** stand on the
+**Y-C, Y-D, Y-F and Y-G** receive the four barbs through short straight runs on the barbs' own
+axes, branch down, at the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **NEITHER
 RESERVOIR HAS A JUNCTION**: each carries two mouths of its own, so every one of the four gate

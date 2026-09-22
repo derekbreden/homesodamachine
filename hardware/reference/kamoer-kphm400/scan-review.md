@@ -48,6 +48,11 @@ the inserted stubs define rigid registration, scale, pump envelope or integral p
 The complete outlet stack is withheld from alignment. Only the rigid molded casing roots are
 used for the independent station comparison.
 
+**Derek takes each stub as centred on its casing root's axis, the best estimate for a joint
+that flexes.** Each free tip lies on that axis. The manifold draws the four pump tubes straight
+along those axes into their tees' branch collets, and the `manifold_layout.py` selftest fails
+any pump tube that is not on its tee's collet axis.
+
 The twelve casing-section fits across both passes place the centers at Z −28.43 to −28.53 mm
 relative to the observed motor-facing flange datum. The reference outlet station is therefore
 `arch_plane_z = pump_case.skirt_bottom_z`, or −28.5 mm, with
