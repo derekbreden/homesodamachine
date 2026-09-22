@@ -1980,6 +1980,17 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                     if let name = machine.pendingName {
                         m.send("IDENTITY \(name)")
                         m.namePushed = true
+                    } else if machine.unit.isEmpty {
+                        // ASK A MACHINE WHO IT IS RATHER THAN WAIT TO BE TOLD.
+                        // The unit rides the advertisement, and a phone that
+                        // never got one — an advertisement it could not read,
+                        // a machine added before units existed — holds a record
+                        // it can only ever match by peripheral id. Those are
+                        // per app install: one reinstall and that record is
+                        // orphaned against a machine standing right there. The
+                        // board answers this with its identity, and the record
+                        // is folded into the unit's own.
+                        m.send("IDENTITY")
                     }
                     m.directory.save()
                 }
