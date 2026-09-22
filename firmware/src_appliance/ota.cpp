@@ -5,6 +5,8 @@
 #include "link.h"
 #include "faucet_link.h"
 
+#include <esp_system.h>
+
 // Each chunk plus its 4-byte offset has to fit what its link can carry, and
 // the length that carries it has to be wide enough to say so.
 static_assert(sizeof(OtaBeginPayload) <= LINK_ANNOUNCE_MAX,
@@ -72,6 +74,21 @@ static uint32_t  askedHostAtMs = 0;
 
 // `ota self` writes into this board's own spare slot rather than onto a link.
 static OtaReceiver selfRx;
+
+// A SELF IMAGE IS NOT INSTALLED UNTIL THIS BOARD RUNS IT. `finish()` moves the
+// boot partition and changes nothing else: the spare slot holds what the next
+// boot will load, and until there is a next boot this board goes on running the
+// image it always was. So the restart is the last step of the update, not
+// something to leave to whoever next unplugs the machine — without it a phone
+// is told the update is done, the machine keeps answering as the old build, and
+// the same update is offered again forever.
+//
+// It waits a moment first. The DONE that ends the session is what the phone is
+// listening for, and on J3 that has to reach the faucet and be relayed over BLE
+// before this board drops the link by restarting under it.
+static const uint32_t kSelfRestartDelayMs = 1500;
+static bool     selfRestartPending = false;
+static uint32_t selfRestartAtMs = 0;
 
 static const char *targetName(OtaTarget t) {
     switch (t) {
@@ -150,6 +167,8 @@ static void bytesHeld() {
             askHost(selfRx.nextOffset());
         } else if (selfRx.finish()) {
             endSession("DONE", selfRx.state, selfRx.err);
+            selfRestartPending = true;
+            selfRestartAtMs = millis() + kSelfRestartDelayMs;
         } else {
             endSession("FAIL", selfRx.state, selfRx.err);
         }
@@ -306,6 +325,15 @@ void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 bool otaBusy() { return target != OTA_TGT_NONE; }
 
 void otaService() {
+    // Ahead of the return below, because the session that armed this ended when
+    // it did: `endSession` has already put the target back to none.
+    if (selfRestartPending && (int32_t)(millis() - selfRestartAtMs) >= 0) {
+        selfRestartPending = false;
+        Serial.println("\nOTA:RESTART self — booting the image just taken");
+        Serial.flush();
+        esp_restart();
+    }
+
     if (target == OTA_TGT_NONE) return;
 
     // A request the host never saw is a deadlock: it waits for a line, this
