@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -87,12 +87,12 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 278 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 1 staged source(s)",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 2 of 16 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 537 member(s) keep their provenance",
       "status": "ok"
     }
   ],
@@ -103,7 +103,9 @@
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds a6a1f96bdac6f5d23358cfb6890bbfc2 for the 384 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0524c0d8a196d5ee000746a1545d7b14 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken beside a different enclosure-assembly.scorecard.json — it holds d2076d7d0756acee71e9a37c26dfe1ee, enclosure-assembly.scorecard.json here is 52efc6016949daf3094b3da40f9beee5",
+      "  enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 4869f65c2ab51767d02f5edfb16d8533, enclosure-assembly.step here is 9583e43f3b7901b1978b159ae0c5137d",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds a6a1f96bdac6f5d23358cfb6890bbfc2 for the 384 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 0524c0d8a196d5ee000746a1545d7b14 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -197,12 +199,6 @@
       "  hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
       "  git add hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.figures.json hardware/reference/iec-c14-inlet/README.figures.json",
       "65/67 artifacts have their record in the index"
-    ],
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/collect-final-print-receipt.py answers to selftest and selftests.json does not name it",
-      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/qualified-production/collect-final-print-receipt.py",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
       "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:5 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/../pump-comparison/g-ganen-integration.md is held nowhere, and no tag is named for it",
