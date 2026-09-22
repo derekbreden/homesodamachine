@@ -16,9 +16,11 @@ is open straight down into the pump bay.
 Place the display and gasket in the housing, then press the cover normal to the screen until
 both lips click under their catches. The cover carries no screws.
 
-Print with the visible face upward and both skirts on the bed. Supports carry the bezel's
-hidden underside. Physical seating, retention and repeated-use measurements remain to be
-recorded for this geometry.
+Print face down, with the visible face on the plate and both skirts pointing up, as the
+[nameplate](../nameplate/README.md) prints. Each lip's square catch face takes a support
+standing on the plate beside the cover's edge, with the nameplate's 0.24 mm top gap and its
+small-overhang filter off. Peel each support off whole and keep the catch faces flat. Physical
+seating, retention and repeated-use measurements remain to be recorded for this geometry.
 
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py`
 exports the complete cover and checks its solid, glass clearance and seated skirt pockets.
