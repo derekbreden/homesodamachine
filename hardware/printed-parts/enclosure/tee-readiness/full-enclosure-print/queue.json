@@ -882,7 +882,7 @@
       "orientation": "Native +Z up; shell rotated Z90; centred",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "offline_ready_awaiting_machine_handoff",
+      "status": "offline_ready_held_for_snap_test",
       "geometry_confirmation": {
         "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/fresh-geometry-receipt.json",
         "sha256": "917115258c91aa2d530e26eccc84a27b2d3448cdf7b5818d29ad1bb8c9e3a8d0"
@@ -925,7 +925,64 @@
       "durable_review_package": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v6/manifest.json",
         "sha256": "32351bfc6d4fc85e0c47672921fb5331a66946e7618fc456c78696188fa6f18e"
-      }
+      },
+      "hold": "Derek, 2026-09-22: verify the display cover's snaps in the printed v4 pockets first."
+    },
+    {
+      "id": "display-cover",
+      "directory": ".cache/prints/2026-09-22-display-cover-mark2-v1",
+      "config": ".cache/prints/2026-09-22-display-cover-mark2-v1/job-config.json",
+      "printer": "Mark2",
+      "parts": [
+        "display-cover"
+      ],
+      "orientation": "Native +Z up; visible face up, skirts on the bed; centred",
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "purpose": "Derek, 2026-09-22: front-top cannot be fully verified without its cover; test the skirt snaps and the pockets' support removal on the printed front-top v4, whose pockets match v6.",
+      "geometry_confirmation": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v1/fresh-geometry-receipt.json",
+        "sha256": "1275361f37e7207846a09ee8323817b53381fb30b17fa60bb1cafe892cefb90c"
+      },
+      "staged_project": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v1/display-cover-black-z004-mark2-v1-input.3mf",
+        "sha256": "7cee6309e7183a4b67489f3b9f03934e643620b8391552a24f8c4758dc4adaa7"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v1/ready/display-cover-black-z004-mark2-v1.gcode.3mf",
+        "sha256": "b1440ecaf731fe1151cd6f9c57c0acaa67f6fc0e40b36efefd292788770ba56a",
+        "gcode_sha256": "9bb95ace7b781dafb0657c0f87968dccbcc6bb5f177e0ef63b1c85aa4e4999a6"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v1/support-removal-review.json",
+        "sha256": "9f5140a2182d54dff6864e76a383b3dc5235d8646cbc330bd474f660a08644e1",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v1/offline-review.json",
+        "sha256": "8893d4e5036040415b24344077211d8170cefc8ac421cac39210baf67399c418"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v1/manifest.json",
+        "sha256": "887810537f5badadc8b496b65210cc5b8f2587d04fc7407ca8d95cc845f0b85f"
+      },
+      "print_released": false,
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "slice_estimate": {
+        "layers": 142,
+        "seconds": 4784.43603515625,
+        "hours": 1.329010009765625,
+        "grams_actual_petgf_density_1p43": 29.279062093690385
+      },
+      "handoff_conditions": [
+        "Mark2 finishes the carrier pair",
+        "Latest print removed and plate cleared",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
+        "Normal verified exact-archive printer handoff"
+      ]
     }
   ],
   "profile": {
@@ -1038,12 +1095,13 @@
     },
     {
       "printer": "Mark2",
-      "after": "Carrier pair is running. Front-top v6 is next: it replaces the v4 print whose housing-crevice supports could not come off cleanly. Back-bottom follows on whichever printer frees first.",
+      "after": "Carrier pair is running. The display cover is next, to test the skirt snaps and the pockets' support removal on the printed front-top v4. Back-bottom follows. Front-top v6 waits on that snap test, since its pockets are v4's.",
       "order": [
         "front-bottom",
         "carrier-pair",
-        "front-top-v6",
+        "display-cover",
         "back-bottom",
+        "front-top-v6",
         "foam-cap-top",
         "foam-cap-lid-top"
       ]
@@ -1075,7 +1133,7 @@
     "scope": "All seven production plates at their full original slice estimates, including submitted plates. Excludes the cartridge/cap, countertop, plate changes, cleanup and assembly. These are not remaining-time commitments."
   },
   "ready_job_ids": [
-    "front-top-v6",
+    "display-cover",
     "back-bottom",
     "foam-cap-top",
     "foam-cap-lid-top"
@@ -1324,7 +1382,7 @@
     }
   },
   "submitted_production_plate_count": 4,
-  "remaining_unsubmitted_plate_count": 4,
+  "remaining_unsubmitted_plate_count": 5,
   "remaining_unsubmitted_estimates": {
     "jobs": 4,
     "printer_seconds": 112723.9697265625,
