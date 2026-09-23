@@ -25,16 +25,17 @@ outboard wall on the trough's edge. The tie closes round the tee's front, drops 
 root into the slot on each side and crosses the plate's back. Its
 [1 mm](STRAP_T) strap across the back is inside the flank openings.
 
-Each column's end face is flush with its flank and is show face. Its top, bottom and fore edges
-roll over on the enclosure's [6 mm](SHOW_EDGE_R) shoulder, the radius of the enclosure's own side
-edges, and so do the column's two fore edges running inboard to it: each fore corner closes as
-one blend, the way the enclosure's front corners do. The aft edge stays square, the way the
-enclosure's rear edge does, and the top and bottom shoulders run out onto it. The exporter
-strikes the enclosure's flute field on the face at the connected pose, so its grooves register
-with the flank's and fade short of the face's edges the same way.
+Each column's end face is flush with its flank and is show face. All four of its edges, and the
+column's four edges running inboard to it, roll over on the enclosure's [6 mm](SHOW_EDGE_R)
+shoulder, the radius of the enclosure's own side edges, so each corner closes as one blend the
+way the enclosure's front corners do. The plate joins each column at the column's inboard face;
+the plate's back is flush with the column's and its underside stands just over the column's, so
+the plate's square bottom-aft corner stands out past the column's rounded one there. The
+exporter strikes the enclosure's flute field on the end face at the connected pose, so its
+grooves register with the flank's and fade short of the face's edges the same way.
 
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
-the bed, and the square aft edges are the ones on the bed.
+the bed, and their aft shoulders rise off it.
 
 ## Openings and travel
 
