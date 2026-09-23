@@ -2,7 +2,7 @@
 
 The plate's back is Y=0; its face is +Y. Tabs run into -Y. One bar behind
 the pocket receives both: its shoulders are rigid, and each tab's slot and
-catch pocket open through the bar's print-up face.
+catch pocket stand in it with the bar's full frame above and below.
 """
 
 from collections import namedtuple
@@ -33,10 +33,10 @@ SIDE_SLIP = 0.60
 END_SLIP = 0.30
 BEARING_SLIP = 0.48
 SHOULDER_STOCK = 2.0
-# Each retaining shoulder's width outboard of its slot, and the bar's crown
-# over the slots before its corbel returns to the wall.
+# Each retaining shoulder's width outboard of its slot, and the bar's stock
+# above and below the slots.
 SHOULDER_W = 3.0
-BAR_CROWN = 3.0
+BAR_FRAME = 3.0
 
 Nameplate = namedtuple("Nameplate", "x z width height corner bevel slip thick wall")
 
@@ -89,14 +89,13 @@ def receiver_additions(supported=0.25, up=-1.0):
     """The receiving bar and its corbel, relative to the plate back.
 
     The bar spans both shoulders and runs from the wall to SHOULDER_STOCK
-    inboard of the bearing faces. It ends flush with the slots' print-down
-    ends, so its face there prints up, and carries BAR_CROWN over them on the
-    other side, where a 45° corbel carries its print-down face to the wall.
+    inboard of the bearing faces, BAR_FRAME above and below the slots. A 45°
+    corbel carries its print-down face to the wall.
     """
     pad_y = THICK-WALL
     front = -LIP_START+BEARING_SLIP-SHOULDER_STOCK
     z0, z1 = slot_z(supported, up)
-    lo, hi = (z0, z1+BAR_CROWN) if up < 0 else (z0-BAR_CROWN, z1)
+    lo, hi = z0-BAR_FRAME, z1+BAR_FRAME
     crown = hi if up < 0 else lo
     x = bar_end()
     corbel = (cq.Workplane("YZ", origin=(-x, 0, 0))
@@ -110,19 +109,16 @@ def receiver_cuts(supported=0.25, up=-1.0):
 
     The slot passes through the pocket floor and the bar. The catch pocket
     runs from the slot's inner side out through the bar's end, ahead of the
-    shoulder's bearing face. Both leave the bar through its print-up face.
+    shoulder's bearing face.
     """
-    pad_y = THICK-WALL
     z0, z1 = slot_z(supported, up)
-    through = (z0-1, z1) if up < 0 else (z0, z1+1)
     far = -TAB_LENGTH-1
     cuts = []
     for side in (-1, 1):
         x0, x1 = sorted((side*inward(), side*neck()))
-        cuts.append(box(x0, x1, pad_y-1, .8, z0, z1))
-        cuts.append(box(x0, x1, far, pad_y, *through))
+        cuts.append(box(x0, x1, far, .8, z0, z1))
         x0, x1 = sorted((side*inward(), side*(bar_end()+1)))
-        cuts.append(box(x0, x1, far, -LIP_START+BEARING_SLIP, *through))
+        cuts.append(box(x0, x1, far, -LIP_START+BEARING_SLIP, z0, z1))
     return cuts
 
 

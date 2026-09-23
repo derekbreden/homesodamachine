@@ -306,7 +306,7 @@ def main(unit):
                  "TAB_TO_END":f"{WIDTH/2-interface.TAB_X:.1f} mm",
                  "SHOULDER_W":f"{interface.SHOULDER_W:g} mm",
                  "SHOULDER_STOCK":f"{interface.SHOULDER_STOCK:g} mm",
-                 "BAR_CROWN":f"{interface.BAR_CROWN:g} mm",
+                 "BAR_FRAME":f"{interface.BAR_FRAME:g} mm",
                  "POCKET_FLOOR":f"{WALL-THICK:g} mm"}
     substitute_md(_here.with_name("README.md"), variables=variables)
     print(f"Nameplate {unit:04d}: {WIDTH:g} × {HEIGHT:g} × {THICK:g} mm; face-down PET-GF")
