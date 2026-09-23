@@ -495,6 +495,9 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
+    # Between a carrier column and the tee wall, fitted with the carrier on front-top's bench.
+    **{f"tee-carrier-spring-{side}-{level}": "enclosure-front-top"
+       for side in ("west", "east") for level in ("lower", "upper")},
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
