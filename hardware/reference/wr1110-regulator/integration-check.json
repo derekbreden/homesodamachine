@@ -181,7 +181,15 @@
     "viewer_max_surface_deviation_mm": {
       "back_top": 0.158
     },
-    "viewer_back_top_budget_mm": 0.227
+    "viewer_back_top_budget_mm": 0.227,
+    "back_top_mesh_inspection": {
+      "unanswered_findings": 0,
+      "answered_findings": 41,
+      "printed_facets": 1047604,
+      "answers_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.lint-answers",
+      "answers_sha256": "c47678034fab7f0c11e6526146c4854a0e56e3070446bd1d696d4f5d5609d9ba",
+      "mesh_sha256": "7abff0d1794f3cec0d1459e5e00d52aed867ca9c8354ffe2664c6ae054924ab4"
+    }
   },
   "box_bounds": {
     "total": 24,
