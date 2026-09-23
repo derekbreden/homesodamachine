@@ -1,15 +1,15 @@
 """The tee carrier: one plate that carries Y-C, Y-D, Y-F and Y-G across the front column,
-flank face to flank face. Through each flank it is a column that stands from the opening's floor
-to its roof and reaches fore to a slip short of the tee wall's aft face with every collet
-pressed home.
+flank face to flank face. At each end it is a column, from the outer tee's trough edge out
+through the flank, that stands from the opening's floor to its roof and reaches fore to a slip
+short of the tee wall's aft face with every collet pressed home.
 
 The four bare tees are tied into its troughs on the bench; the plate enters through the -X
 flank `staged_dy` aft of its seat, where every branch nose passes the tee wall's aft face, and
 slides fore until each branch stands in its journal.
 
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
-crossing at the staged plate, and a window through each flank from the tees' floor to the fore
-coils' flank pockets. Front-top and front-bottom cut it (`opening`).
+crossing at the staged plate, and a window through each flank from the tees' floor to the root
+of the fore valve tray's corbel. Front-top and front-bottom cut it (`opening`).
 
 +X across the enclosure, +Y aft, +Z up, in the assembly frame, at the tees' connected state.
 
@@ -107,6 +107,11 @@ class Carrier:
         return self.axis_z + tee.RUN_HALF + self.air
 
     @property
+    def column_x(self):
+        """From the outer tee's trough edge out to the flank face."""
+        return max(abs(x) for x in self.tee_xs) + self.trough_r, self.exterior_x
+
+    @property
     def column_y(self):
         """Fore to a slip short of the tee wall's aft face at release, back to the plate's back."""
         return self.wall_aft_y + fits.slip + release_travel(), self.plate_y[1]
@@ -138,8 +143,8 @@ def opening(c: Carrier):
 
 
 def build_plate(c: Carrier):
-    """The plate from flank face to flank face, with a trough and four tie slots at each tee and
-    a column through each flank."""
+    """The plate from flank face to flank face, with a trough at each tee, a tie slot at each of
+    its edges for each tie band, and a column at each end."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
     body = _box(-c.exterior_x, c.exterior_x, y0, y1, z0, z1)
     sx, sz = c.tie_slot
@@ -147,12 +152,12 @@ def build_plate(c: Carrier):
         body = body.cut(cq.Solid.makeCylinder(
             c.trough_r, z1 - z0 + 2.0, cq.Vector(x, c.axis_y, z0 - 1.0), cq.Vector(0, 0, 1)))
         for side in (-1.0, 1.0):
-            cx = x + side * (c.trough_r + c.backing + sx / 2.0)
+            cx = x + side * (c.trough_r - sx / 2.0)
             for tz in c.tie_zs:
                 body = body.cut(_box(cx - sx / 2.0, cx + sx / 2.0, y0 - 1.0, y1 + 1.0,
                                      tz - sz / 2.0, tz + sz / 2.0))
     for side in (-1.0, 1.0):
-        x0, x1 = sorted((side * c.flank_x, side * c.exterior_x))
+        x0, x1 = sorted(side * x for x in c.column_x)
         body = body.fuse(_box(x0, x1, *c.column_y, *c.column_z))
     return cq.Workplane(obj=body.clean())
 
@@ -173,6 +178,7 @@ def figures(c: Carrier) -> dict:
         "TROUGH_D": 2.0 * c.trough_r, "BARREL_D": 2.0 * tee.BARREL_R,
         "RUN_SPAN_PRESSED": tee.RUN_SPAN_PRESSED, "STAGED_DY": c.staged_dy,
         "COLUMN_H": c.column_z[1] - c.column_z[0],
+        "COLUMN_X": c.column_x[1] - c.column_x[0],
         "COLUMN_Y": c.column_y[1] - c.column_y[0],
         "COLUMN_FORE": c.axis_y - c.column_y[0], "SLIP": fits.slip,
         "ROOF_AIR": c.roof_z - c.column_z[1], "SUPPORTED": fits.supported_surface,

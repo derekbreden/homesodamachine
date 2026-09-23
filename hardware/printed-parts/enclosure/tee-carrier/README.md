@@ -8,9 +8,9 @@ enclosure.
 
 The plate is [11.5 mm](PLATE_T) thick and [39.2 mm](PLATE_H) tall, the tee's
 [39.2 mm](RUN_SPAN_PRESSED) run span with both sleeves pressed, so the plate ends where a
-pressed run collet's face does. Through each flank, over the flank's [9 mm](FLANK_T), it is a
-column [70.3874 mm](COLUMN_H) tall that slides on the opening's floor and roof, and
-[21.054 mm](COLUMN_Y) deep: it reaches [9.554 mm](COLUMN_FORE) fore of the plate, so that with
+pressed run collet's face does. At each end, from the outer tee's trough edge out through the
+flank, it is a column [16.9 mm](COLUMN_X) wide and [59.372 mm](COLUMN_H) tall that slides on the
+opening's floor and roof, and [21.054 mm](COLUMN_Y) deep: it reaches [9.554 mm](COLUMN_FORE) fore of the plate, so that with
 every collet pressed home it stands [0.15 mm](SLIP) off the tee wall's aft face.
 
 Each tee's run axis lies on the plate's fore face, and its barrel sits half inset in a vertical
@@ -20,9 +20,9 @@ and the tie slots are all that break the plate's section.
 
 Two ties hold each tee, one at each tie band [8.35 mm](TIE_BAND) above and below its run axis,
 round the run roots either side of the branch. Each band has a
-[2 mm](TIE_SLOT_X) × [3.5 mm](TIE_SLOT_Z) slot through the plate on each side of the trough,
-[3 mm](BACKING) out from the trough's edge. The tie passes through one slot, crosses the plate's
-back, returns through the other and closes round the tee's front. Its
+[2 mm](TIE_SLOT_X) × [3.5 mm](TIE_SLOT_Z) slot through the plate at each edge of the trough, its
+outboard wall on the trough's edge. The tie closes round the tee's front, drops past the run
+root into the slot on each side and crosses the plate's back. Its
 [1 mm](STRAP_T) strap across the back is inside the flank openings.
 
 The plate prints lying on its back, troughs open upward; the tips stand out in the plane of the
@@ -30,12 +30,12 @@ bed.
 
 ## Openings and travel
 
-Each front flank carries a window [35.35 mm](OPENING_Y) in Y by [71.1374 mm](OPENING_Z) in Z
+Each front flank carries a window [35.35 mm](OPENING_Y) in Y by [60.122 mm](OPENING_Z) in Z
 through front-top's [9 mm](FLANK_T) flank section and front-bottom's seam rail under it. Its
 fore face is the tee wall's aft face; its aft face is the staged plate's strapped back plus
 [0.25 mm](AIR). Its floor stands [0.25 mm](AIR) under the tees' extended run span and the
-columns. Its roof is the floor of the fore coils' flank pockets; it prints facing down over
-support in front-top, so it stands [0.5 mm](ROOF_AIR) over the columns: the running air and a
+columns. Its roof is the root of the fore valve tray's corbel on the tee wall's aft face; it
+prints facing down over support in front-top, so it stands [0.5 mm](ROOF_AIR) over the columns: the running air and a
 supported face's [0.25 mm](SUPPORTED).
 
 Between the flanks the same cutter is the tees' sweep, [43 mm](TEE_SWEEP_Z) tall across the
