@@ -98,7 +98,7 @@
    "target": "all clear",
    "detail": [
     "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
-    "asse1022-assembly.vent-tip: 7.25 mm to asse-drip-pan \u2014 opens to atmosphere, not gated"
+    "asse1022-assembly.vent-tip: 14.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
    "active": true
   },
@@ -1220,7 +1220,7 @@
     "carb-1: 146.1 mm, held at its anchor",
     "co2-2: 174.4 mm, held at its anchor",
     "fluid-28: 164.6 mm, held at its anchor",
-    "fluid-18: 253.8 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.",
+    "fluid-18: 253.8 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE chain, flow meter and meter down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.",
     "fluid-4: 224.4 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
