@@ -59,13 +59,13 @@ test("a name with no alias resolves against its own stem", () => {
 });
 
 test("an alias beats the stem search, and a body the assembly builds has nowhere to go", () => {
-  const files = ["reference/seaflo-22-pump/seaflo-22-pump.step"];
-  assert.equal(sourceFileFor("seaflo-pump", files), files[0]);
+  const files = ["reference/seaflo-discharge-chain/seaflo-discharge-chain.step"];
+  assert.equal(sourceFileFor("discharge-chain", files), files[0]);
   assert.equal(sourceFileFor("tube-fluid-17", files), null);
 });
 
 test("an alias whose file is gone from the tree reads as nowhere, not as a broken link", () => {
-  assert.equal(sourceFileFor("seaflo-pump", []), null);
-  assert.equal(sourceFileFor("seaflo-pump", null), null);
+  assert.equal(sourceFileFor("discharge-chain", []), null);
+  assert.equal(sourceFileFor("discharge-chain", null), null);
   assert.equal(sourceFileFor("", ["a/b.step"]), null);
 });
