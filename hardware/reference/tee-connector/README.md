@@ -35,7 +35,9 @@ molded seams. The terminal clearance radius remains **5.715 mm** in
 approximate **Ø10.62 mm** terminal surface, with **0.235 mm held-out radial p95**.
 Its observed face near **21.36 mm** lies between the measured operating endpoints.
 The merged scan therefore cannot establish an absolute terminal seam or minimum
-ring size. Release moves only the terminal proxy and preserves both the fixed
+ring size. Read pass by pass, all three collets give **Ø10.43 mm** median over twelve
+readings, 10.24–10.77, each resting near the pressed end
+([`collet-passes.json`](../jg-pp0208e-tee/collet-passes.json)). Release moves only the terminal proxy and preserves both the fixed
 collar and reduced barrel. The printed **Ø8.5 mm circular tube opening** retains
 a full flat annular bearing; actual release performance still requires the part.
 
