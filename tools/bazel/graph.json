@@ -6950,6 +6950,58 @@
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl"
     ]
   },
+  "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/cable_clip.py",
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/cadlib/snap.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+      "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step",
+      "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh",
+      "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl",
+      "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py",
+      "hardware/printed-parts/valve-seat/valve_seat.py",
+      "hardware/printed-parts/zone-c/funnel/funnel.py",
+      "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+      "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+      "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+      "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+      "hardware/reference/riteav-keystone/riteav_keystone.py",
+      "hardware/reference/tee-connector/tee_connector.py",
+      "hardware/reference/wago-221/wago_221.py",
+      "hardware/reference/worm-clamp/worm_clamp.py",
+      "hardware/scripts/_boxes.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_measuring.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/flute_payload.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json",
+      "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step",
+      "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh"
+    ]
+  },
   "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": {
     "reads": [
       "hardware/cold-core-layout/_water_inlet_jet.py",
