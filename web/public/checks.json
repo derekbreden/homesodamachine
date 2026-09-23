@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -98,7 +98,7 @@
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 1a8f38a2258bf0a2c5e55a5e53aa3874 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 8f30302fd025a09a5a494ecee15328ff here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 9d007fdda2c7eb1d78ceb8e23e4dfba6 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at f3da635b88b9778e2ffebb4fd6314d31 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -145,11 +145,6 @@
       "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact pointer file points at every committed viewer scorecard",
-      "  cd web && npm test"
     ]
   },
   "green": false
