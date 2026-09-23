@@ -41,6 +41,7 @@ sys.path.insert(0, str(_HERE.parent))
 from inventory import (  # noqa: E402
     IMPLICIT_SOLIDS,
     build_inert,
+    pinned_copies,
     tracked as _inventory_tracked,
 )
 
@@ -315,8 +316,12 @@ def _selftests(files: set) -> list:
     read small fixture graphs and no generator run at all.
     """
     out = []
+    # A MODULE A RECORD KEEPS IS NOT A MODULE THIS TREE TESTS. A print review copies the
+    # sources its slice was cut from, `selftest` branch and all, and running that copy's holds
+    # would test a tree that has since moved (`inventory.pinned_copies`).
+    kept = pinned_copies(files)
     for f in sorted(files):
-        if not f.endswith(".py"):
+        if not f.endswith(".py") or f in kept:
             continue
         try:
             text = (_ROOT / f).read_text()
