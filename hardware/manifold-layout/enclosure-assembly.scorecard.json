@@ -191,7 +191,7 @@
    "label": "Every printed piece fits the bed",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 on the bed",
+   "value": "9/9 on the bed",
    "target": "every piece on the bed",
    "detail": [],
    "active": true

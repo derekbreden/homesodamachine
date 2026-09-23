@@ -1344,8 +1344,9 @@ faces to the cartridge body. The top clamp has no separate grip.
 Between the tee wall's aft face and the aft valve tray's fore plane, front-top prints nothing,
 and both flanks carry their full [9 mm](FRONT_TOP_FLANK) section through that room except where the
 [tee carrier](../tee-carrier/README.md) crosses it: one opening through each flank, aft from
-the tee wall's aft face, which also cuts front-bottom's seam rail under it. The four barb tees
-are tied into the carrier plate's troughs with their branch collars in the tee wall's
+the tee wall's aft face, which also cuts front-bottom's seam rail under it. A post on each
+flank's inner face, at the opening's aft face, carries the window cover that closes the opening
+aft of the carrier. The four barb tees are tied into the carrier plate's troughs with their branch collars in the tee wall's
 journals; their bowed stubs, the
 hairpins and the aft valves stand in open room from the piece's mouth up to the fore valve
 tray, whose 45° root corbel reaches [5.604 mm](FORE_TRAY_OVERHANG) aft of the tee wall. The

@@ -6171,6 +6171,10 @@
       "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl",
       "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
       "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6192,6 +6196,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_meshes.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
@@ -6206,7 +6211,14 @@
       "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
       "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh"
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step.mesh",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step.mesh",
+      "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl"
     ]
   },
   "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {

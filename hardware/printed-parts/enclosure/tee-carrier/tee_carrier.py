@@ -20,6 +20,10 @@ The opening is one cutter: the tees' sweep across the column at their height, th
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
 of the fore valve tray's corbel. Front-top and front-bottom cut it (`opening`).
 
+A window cover closes each window aft of the seated carrier from inside. Front-top carries a post
+on each flank's inner face at the window's aft face (`posts`), slotted against the flank over
+its top half; the cover's tongue drops into the slot and its slab wraps the post fore and aft.
+
 +X across the enclosure, +Y aft, +Z up, in the assembly frame, at the tees' connected state.
 
 Run:
@@ -45,6 +49,8 @@ import tee_connector as tee                                  # noqa: E402
 
 PLATE = "enclosure-tee-carrier-plate"
 SPRINGS = "tee-carrier-spring"
+COVER = "enclosure-window-cover"
+COVERS = {f"{COVER}-west": -1.0, f"{COVER}-east": 1.0}
 
 # The return springs: uxcell 304 stainless, 0.8 mm wire. Derek measured the delivered set at
 # 6 mm OD, 27 mm free and about 7 mm solid (2026-09-20).
@@ -53,9 +59,30 @@ SPRING_FREE = 27.0
 SPRING_SOLID = 7.0
 SPRING_WIRE = 0.8
 
+# The window covers, in Derek's figures (2026-09-23): a post 6 mm across and 12 mm aft up the
+# edge of the window's aft face, slotted 3 mm against the flank over its top half; a 6 mm slab
+# reaching 12 mm aft of the post, so the two stand 24 mm aft of the window.
+POST_W = 6.0
+POST_D = 12.0
+SLOT_W = 3.0
+COVER_T = 6.0
+COVER_AFT = 12.0
+
 
 def _box(x0, x1, y0, y1, z0, z1):
     return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
+
+
+def _xz_prism(y0, y1, pts):
+    """The `(x, z)` polygon at `y0`, run aft to `y1`."""
+    pts = [cq.Vector(x, y0, z) for x, z in pts]
+    face = cq.Face.makeFromWires(cq.Wire.makePolygon(pts + pts[:1]))
+    return cq.Solid.extrudeLinear(face, cq.Vector(0, y1 - y0, 0))
+
+
+def _sided(solid, side):
+    """A +X solid, or its mirror on the -X flank."""
+    return solid if side > 0 else solid.mirror("YZ")
 
 
 @dataclass(frozen=True)
@@ -69,13 +96,15 @@ class Carrier:
     tie_slot: tuple
     strap_t: float
     roof_z: float
+    flank_root_z: float
     show_edge_r: float = 6.0
     spring_connected_length: float = 20.2
     backing: float = 3.0
     air: float = fits.running
 
     @classmethod
-    def on(cls, plate, *, exterior_x, flank_x, tie_slot, strap_t, roof_z, show_edge_r):
+    def on(cls, plate, *, exterior_x, flank_x, tie_slot, strap_t, roof_z, flank_root_z,
+           show_edge_r):
         """The carrier on a collet plate's four tee stations, at its assembly state."""
         state = plate["carrier_states"][plate["assembly_state"]]
         return cls(
@@ -84,7 +113,8 @@ class Carrier:
             axis_z=plate["holes"][0][1],
             wall_aft_y=plate["wall_aft_y"],
             exterior_x=exterior_x, flank_x=flank_x,
-            tie_slot=tuple(tie_slot), strap_t=strap_t, roof_z=roof_z, show_edge_r=show_edge_r)
+            tie_slot=tuple(tie_slot), strap_t=strap_t, roof_z=roof_z, flank_root_z=flank_root_z,
+            show_edge_r=show_edge_r)
 
     @property
     def trough_r(self):
@@ -181,6 +211,27 @@ class Carrier:
         return self.spring_bore_y[1] + offset_y - self.spring_pocket_y[0]
 
     @property
+    def post_y(self):
+        """Aft from the window's aft face."""
+        return self.opening_y[1], self.opening_y[1] + POST_D
+
+    @property
+    def post_z(self):
+        """Up the flank's inner face from where front-top's grown flank face begins to the
+        window's roof."""
+        return self.flank_root_z, self.roof_z
+
+    @property
+    def slot_z(self):
+        """The post's top half."""
+        return sum(self.post_z) / 2.0, self.post_z[1]
+
+    @property
+    def cover_y(self):
+        """A slip aft of the seated carrier's back, to past the post's aft face."""
+        return self.plate_y[1] + fits.slip, self.post_y[1] + COVER_AFT
+
+    @property
     def tie_zs(self):
         """The two tie bands on each tee, round the run roots either side of the branch."""
         band = sum(tee.RUN_ROOT_BAND) / 2.0
@@ -239,6 +290,43 @@ def build_plate(c: Carrier):
     return cq.Workplane(obj=_plate_body(c))
 
 
+def _post(c: Carrier):
+    """The +X post, rooted a millimetre into the flank, its underside a 45° corbel off the flank's
+    inner face, less the slot between its top half and the flank."""
+    (y0, y1), (z0, z1) = c.post_y, c.post_z
+    x_in = c.flank_x - POST_W
+    post = _xz_prism(y0, y1, [(c.flank_x + 1.0, z0), (c.flank_x, z0), (x_in, z0 + POST_W),
+                              (x_in, z1), (c.flank_x + 1.0, z1)])
+    return post.cut(_box(c.flank_x - SLOT_W, c.flank_x, y0 - 1.0, y1 + 1.0,
+                         c.slot_z[0], z1 + 1.0))
+
+
+def posts(c: Carrier) -> tuple:
+    """The post on each flank that front-top fuses."""
+    post = _post(c)
+    return tuple(_sided(post, side) for side in (-1.0, 1.0))
+
+
+def _cover(c: Carrier):
+    """The +X cover: the slab against the flank's inner face, fore of the post from the window's
+    floor to its roof and aft of it the post's height, joined over the post's top half by the
+    tongue in its slot. It stands on the window's floor, and its face lies on the flank; a slip
+    stands between it and the post everywhere else, and across the slot's floor the tongue
+    takes the floor's rounded turn too."""
+    x0, x1 = c.flank_x - COVER_T, c.flank_x
+    (y0, y1), (p0, p1) = c.cover_y, c.post_y
+    fore = _box(x0, x1, y0, p0 - fits.slip, c.floor_z, c.roof_z)
+    aft = _box(x0, x1, p1 + fits.slip, y1, *c.post_z)
+    tongue = _box(c.flank_x - SLOT_W + fits.slip, x1, p0 - fits.slip, p1 + fits.slip,
+                  c.slot_z[0] + fits.clearance(at_floor=True), c.slot_z[1])
+    return fore.fuse(tongue, aft).clean()
+
+
+def covers(c: Carrier) -> dict:
+    cover = _cover(c)
+    return {name: cq.Workplane(obj=_sided(cover, side)) for name, side in COVERS.items()}
+
+
 def _spring(length):
     """A spring `length` long on +Z from the origin: as many coils as its solid length holds of
     wire, both ends ground flat on their faces."""
@@ -271,7 +359,7 @@ def springs(c: Carrier) -> dict:
 
 
 def parts(c: Carrier) -> dict:
-    return {PLATE: build_plate(c)}
+    return {PLATE: build_plate(c), **covers(c)}
 
 
 def release_travel():
@@ -312,6 +400,14 @@ def figures(c: Carrier) -> dict:
         "SPRING_SIDE_WALL": c.spring_x - c.spring_bore_r - c.column_x[0],
         "SPRING_LAND": c.spring_land,
         "FLANK_T": c.exterior_x - c.flank_x, "SHOW_EDGE_R": c.show_edge_r,
+        "POST_W": POST_W, "POST_D": POST_D, "POST_H": c.post_z[1] - c.post_z[0],
+        "SLOT_W": SLOT_W, "SLOT_H": c.slot_z[1] - c.slot_z[0],
+        "TONGUE_T": SLOT_W - fits.slip, "COVER_T": COVER_T, "COVER_AFT": COVER_AFT,
+        "STRUCTURE_AFT": c.cover_y[1] - c.opening_y[1],
+        "COVER_FORE": c.post_y[0] - fits.slip - c.cover_y[0],
+        "COVER_Y": c.cover_y[1] - c.cover_y[0], "COVER_H": c.roof_z - c.floor_z,
+        "TONGUE_AIR": fits.clearance(at_floor=True), "LAYER_TRANSITION": fits.layer_transition,
+        "WINDOW_AFT": c.opening_y[1] - c.plate_y[1],
         "LENGTH": 2.0 * c.exterior_x,
     }
 
@@ -342,6 +438,10 @@ def selftest(c: Carrier) -> int:
             errors.append(f"{name} is not a valid solid")
     if c.column_y[0] - release_travel() < c.opening_y[0] + fits.slip - 1e-9:
         errors.append("the openings stop the columns short of pressing the collets home")
+    if c.post_z[0] + POST_W > c.slot_z[0] + 1e-9:
+        errors.append("the post's corbel reaches into its slot")
+    if c.cover_y[0] >= c.post_y[0] - fits.slip:
+        errors.append("the cover leaves nothing fore of its post")
     for error in errors:
         print("FAIL", error)
     if not errors:
@@ -380,15 +480,17 @@ def main():
         return 1
     for name, part in parts(c).items():
         step, stl = _here.parent / f"{name}.step", _here.parent / f"{name}.stl"
-        # THE END FACES ARE STRUCK ON THE ENCLOSURE'S OWN FIELD, at the connected pose the
-        # plate is built at, so their grooves register with the flanks' round them.
-        mesh = enclosure._flute_skin.flute(
-            enclosure._piece_mesh(part.val()), enclosure.flute_rails(box)[:1],
-            enclosure.flute_pitch(box.outer), enclosure.flute_depth, enclosure.flute_rise)
+        mesh = enclosure._piece_mesh(part.val())
+        if name == PLATE:
+            # THE END FACES ARE STRUCK ON THE ENCLOSURE'S OWN FIELD, at the connected pose the
+            # plate is built at, so their grooves register with the flanks' round them.
+            mesh = enclosure._flute_skin.flute(
+                mesh, enclosure.flute_rails(box)[:1], enclosure.flute_pitch(box.outer),
+                enclosure.flute_depth, enclosure.flute_rise)
         mesh.export(str(stl))
         printed = trimesh.load_mesh(str(stl))
         if not printed.is_watertight or enclosure._flute_skin.non_manifold_edges(printed):
-            raise ValueError(f"{name}'s fluted print is not a closed manifold mesh")
+            raise ValueError(f"{name}'s print is not a closed manifold mesh")
         export_assembly(one_body(part, name, M_PETGF_BLACK), str(step))
         cut(step, stl)
         print(f"-> {name}.step / .stl")

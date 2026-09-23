@@ -1004,7 +1004,13 @@ def tee_carrier(pack):
         plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
         tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t,
         roof_z=min(tray_corbel_roots(pack.valve_trays, plate["wall_aft_y"])),
-        show_edge_r=_interface.show_edge_r)
+        flank_root_z=front_top_flank_root_z(), show_edge_r=_interface.show_edge_r)
+
+
+def front_top_flank_root_z():
+    """Where front-top's grown flank face begins: its underside rises at 45° off the seam rim at
+    the box's interior face to the face (`_front_top_flank_bedding_cut`)."""
+    return z_seam + z_rise + (interior_x()[1] - front_top_flank_face()[1])
 
 
 def tray_corbel_roots(stations, wall_aft_y):
@@ -1654,7 +1660,7 @@ cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap posi
 # and an additional supported-roof allowance.
 # Both pockets are centred on the cradle's Y run. Their aft faces carry insertion and their
 # fore faces carry extraction.
-pull_depth = 18.0            # fingertip reach inboard from each exposed flank
+pull_depth = 15.75           # fingertip reach inboard from each exposed flank, a wall short of the upper well
 pull_run = 28.0              # fore/aft clear opening between the pulling and pushing ledges
 pull_floor_below_tubes = 12.0
 pull_corner_r = handhold_corner_r
@@ -3700,7 +3706,7 @@ def _funnel_cut(inner, outer, centre):
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
     """The flat ceiling's two side strips on a top piece, corbelled: a 45° underside
-    rising off each ±X wall to nothing at the funnel opening's edge, so a top piece —
+    rising off each ±X wall to the funnel seat's underside at the opening's edge, so a top piece —
     printing mouth-down — lays every ceiling layer on the one below it. The strip's own
     span is wall-rooted on one side and open over the opening on the other.
 
@@ -3717,6 +3723,8 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
     the 45° walk from the plug tip is what roots it."""
     hole_x0, hole_x1, _hole_y0, _hole_y1 = _funnel_cut_plan(centre)
     iz1 = inner[5]
+    # The funnel seat's stock stands over the whole run, so the 45° rises to its underside.
+    top = min(iz1, funnel_seat_z(outer) - funnel_seat_thickness)
     y0 = housing_back_y(outer)
     yb = _y_boss(y_joint)
     for hole_x, wall_x, sx in ((hole_x1, inner[1], -1.0),
@@ -3724,7 +3732,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
         deep = abs(wall_x - hole_x)
         solid = solid.fuse(_xz_prism(y0, yb - socket_r,
                                      [(hole_x, iz1), (wall_x, iz1),
-                                      (wall_x, iz1 - deep)]))
+                                      (wall_x, top - deep), (hole_x, top)]))
         chain = wall_x - (boss_in if wall_x > 0 else -boss_in)
         tz = iz1 - wall - fits.running - ceiling_lip_drop
         solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
@@ -5845,6 +5853,8 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     funnel_front = _funnel_cut_plan(funnel)[2]
     housing_back = housing_back_y(outer)
     ceiling = funnel_seat_z(outer) - funnel_seat_thickness
+    aft_start = (fore + t, _ridge_aft_start(outer, fore + t, foot, aft_crown[1],
+                                            (funnel_front, ceiling)))
     slab = _yz_prism(
         inner[0], inner[1],
         [(fore, foot),                                          # the bay's back, on the crown
@@ -5852,7 +5862,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
          (ry, rz),                                              # the ridge
          (housing_back, ceiling),                               # closes into the housing
          (funnel_front, ceiling),                               # the opening's front underside
-         aft_crown,                                             # the one roof's aft crown
+         aft_start,                                             # the one roof's aft foot
          (fore + t, foot)])
     jack, loom = _ridge_stations(outer, plate, bay)
     slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
@@ -5867,7 +5877,7 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     # the ridge crown. The lead reaches down into the seat where the crown sets its height.
     clip_z = min(loom[2] - _cable_clip.seat_top(),
                  aft_crown[1] - wall - _cable_clip.HEIGHT)
-    return _cable_clip.apply(
+    slab = _cable_clip.apply(
         slab,
         origin=(clip_start, fore + t, clip_z),
         outward=(0.0, 1.0, 0.0),
@@ -5875,6 +5885,34 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
         embed=0.0,
         wall_thickness=t,
     ).val()
+    # THE CLIP'S LOWER JAW STANDS ON THE TEE WALL'S CROWN: one block from the crown up into the
+    # jaw, over the clip's run and back to the tee wall's aft face.
+    return slab.fuse(_ybox(clip_start, clip_end, fore + t, plate["wall_aft_y"],
+                           foot, clip_z + _cable_clip.DEPTH))
+
+
+def _ridge_aft_start(outer, y0, foot, crown, end):
+    """The Z at `y0` where the rib's aft face leaves the vertical for its straight run to `end`
+    (the funnel opening's front underside): `crown`, or lower by as much as keeps one
+    `ridge_wall_t` of rib between that run and the up-slope corner of the display's PCB hole,
+    which `display_pcb_cut_through` carries past the housing's back."""
+    p = display_plane(outer)
+    corner = (p.origin + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
+              - p.zDir * (display_facet_thickness + display_pcb_cut_through))
+
+    def cover(z0):
+        dy, dz = end[0] - y0, end[1] - z0
+        return ((corner.z - z0) * dy - (corner.y - y0) * dz) / math.hypot(dy, dz)
+
+    if cover(crown) >= ridge_wall_t:
+        return crown
+    lo, hi = foot, crown
+    if cover(lo) < ridge_wall_t:
+        raise ValueError("the rib's aft face cannot keep a wall under the PCB hole's corner")
+    for _ in range(60):
+        mid = (lo + hi) / 2.0
+        lo, hi = (mid, hi) if cover(mid) >= ridge_wall_t else (lo, mid)
+    return lo
 
 
 def _flank_cable_clips(piece, box):
@@ -5929,6 +5967,16 @@ def _flank_cable_clips(piece, box):
             wall_thickness=front_top_flank_t,
             run=run,
         ).val()
+        # THE UPPER ARM RUNS ON UP INTO THE CEILING CORBEL: one block from the arm's top to the
+        # corbel's 45° underside (`_ceiling_corbels`), so no wedge of air stands between them.
+        if box.pack.funnel:
+            arm_x = fx - (_cable_clip._UPPER[1][0] * _cable_clip.GRID - flank_clip_embed)
+            hole_x = _funnel_cut_plan(box.pack.funnel)[1]
+            under = (min(box.inner[5], funnel_seat_z(box.outer) - funnel_seat_thickness)
+                     - (arm_x - hole_x))
+            fill_y1 = min(y1, _y_boss(box.y_joint) - socket_r)
+            if under > z_band[1] and fill_y1 > y0:
+                piece = piece.fuse(_ybox(arm_x, fx, y0, fill_y1, z_band[1], under + 1.0))
     return piece
 
 
@@ -6983,9 +7031,11 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
             raise ValueError(
                 f"the PRV chase lip at x={rib_x:g} does not stand inboard of its "
                 f"wall root x={root_x:g}")
+        # The rib's 45° underside stands one `vent_rib_wall` square to the ramp above it.
+        under = vent_rib_wall * (math.sqrt(2.0) - 1.0)
         rib = _xz_prism(sy - half, sy + half,
                         [(inner[0], sz + half), (rib_x, sz + half),
-                         (rib_x, ramp_top), (inner[0], rib_end)])
+                         (rib_x, ramp_top - under), (inner[0], rib_end - under)])
         # THE CAP FOLLOWS THE PASSAGE'S X RAMP. At `root_x` the roof has already climbed through
         # the flank from `liner_x`, so material stands across the channel's whole width and the
         # exposed rib continues the same wall-normal plane to the core. The lower rectangle is
@@ -7009,8 +7059,10 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
         # comes home. The passage sweeps nothing: it is the hole. So the rib stops at the
         # band and the duct goes straight through it, `vent_channel_w` of the rail given up
         # to the one opening that has to cross it, and the duct keeps its whole section.
+        # On the piece that owns it, the rib's share in that band is fused to its own arm: nothing
+        # slides there.
         _x_hk, _x_f, _x_a, x_h1 = _rail_x(inner[0], +1.0, "back")
-        joint_lane = _ybox(inner[0] - 1.0, x_h1 + slide_slip,
+        joint_lane = _ybox(inner[0] - 1.0, x_h1 + (0.0 if owns else slide_slip),
                            sy - half - 1.0, sy + half + 1.0, z_seam, rim)
         rib = rib.cut(joint_lane)
         # AND EACH PIECE STANDS ITS OWN HEIGHT OF IT, the two parting on the seam's RIM,
@@ -9051,6 +9103,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.cut(_tee_carrier.opening(carrier))
         for x, z, y0, y1, r in _tee_carrier.spring_pockets(carrier):
             piece = piece.cut(_teardrop_y(r, x, z, y0, y1, up=print_up(y_side, z_side)))
+        if z_side == "top":
+            # The window covers' posts, on the flanks' inner faces at the windows' aft faces.
+            piece = piece.fuse(*_tee_carrier.posts(carrier))
     if y_side == "back" and z_side == "bottom":
         disposal_field(outer)
         piece = piece.fuse(*disposal_letters(outer).Solids())

@@ -2,7 +2,7 @@
 
 One PET-GF plate, `enclosure-tee-carrier-plate`, carries Y-C, Y-D, Y-F and Y-G across the front
 column. It is [215 mm](LENGTH) long, flank face to flank face, so neither end stands past the
-enclosure.
+enclosure. Two window covers close the flank openings aft of it.
 
 ## Plate
 
@@ -78,6 +78,33 @@ Connected, each spring is [20.2 mm](SPRING_CONNECTED) long,
 [6.8 mm](SPRING_CONNECTED_COMPRESSION) short of free; with every collet pressed home it is
 [18.2 mm](SPRING_RELEASE) long, [8.8 mm](SPRING_RELEASE_COMPRESSION) short of free.
 
+## Window covers
+
+Aft of the seated carrier each window stands open [12.146 mm](WINDOW_AFT) to its aft face. A
+window cover closes that from inside the flank: `enclosure-window-cover-west` and
+`enclosure-window-cover-east`, mirror images, each a PET-GF slab [6 mm](COVER_T) thick with its
+outboard face on the flank's inner face.
+
+Front-top carries a post for each on the flank's inner face at the window's aft face,
+[6 mm](POST_W) across, [12 mm](POST_D) aft and [43.996 mm](POST_H) tall. It stands from where the flank's own face begins
+over the seam channel up to the window's roof, and its underside is a 45° corbel on the same
+plane as the flank's underside below it. Its top half is slotted against the flank,
+[3 mm](SLOT_W) wide and [21.998 mm](SLOT_H) deep, so a finger as wide stands inboard of the
+slot.
+
+The cover's [2.85 mm](TONGUE_T) tongue drops into the slot and hangs
+[0.25 mm](TONGUE_AIR) over its floor: the slip, and [0.1 mm](LAYER_TRANSITION) more for the
+floor's rounded turn up into the slot's walls. The slab stands on the window's floor, which is
+front-bottom's seam rail where the window cuts it, and its face lies on the flank; a
+[0.15 mm](SLIP) slip stands between the cover and the post everywhere else. Fore of the post the
+slab reaches [11.846 mm](COVER_FORE), to a slip aft of the seated carrier's back, and stands the
+window's full height, [60.122 mm](COVER_H). Aft of the post it reaches
+[12 mm](COVER_AFT) at the post's height, so post and cover stand [24 mm](STRUCTURE_AFT) aft of the
+window. The finger stands between the two, so a cover lifts off
+only straight up.
+
+Each cover prints lying on its outboard face.
+
 ## Assembly
 
 The carrier goes in before both valve rows: its staged pass crosses the coils of V-C, V-D, V-G
@@ -89,6 +116,8 @@ and V-J, and the +X column's crossing the bodies of V-E, V-F, V-H and V-I.
 3. With a spring in each of the four column bores, slide the plate fore
    [10.896 mm](STAGED_DY). Each branch enters its journal in the tee wall, and each spring's tip
    enters its pocket and bottoms there.
+4. After V-G and V-J and before V-F and V-I, lower each window cover onto its post, tongue into
+   the slot.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py
