@@ -163,4 +163,5 @@ and resistance to handling loads.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py`
 - `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

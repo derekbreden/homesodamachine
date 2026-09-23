@@ -125,7 +125,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.692 | $42.33 <!--@printed--> |
 | Cold-core foam cap — top | 1 | PET-GF | 0.185 | $4.62 <!--@printed--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.323 | $8.07 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.313 | $7.83 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.186 | $4.65 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.135 | $3.38 <!--@printed--> |
 | Copper-plug stack (3 plugs) | 3 | PETG | 0.012 | $0.13 <!--@printed--> |
@@ -134,13 +134,13 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.386 | $4.32 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.295 | $32.41 <!--@printed--> |
-| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.451 | $11.27 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.261 | $31.55 <!--@printed--> |
+| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.471 | $11.78 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.474 | $36.87 <!--@printed--> |
-| Display cover plate | 1 | PET-GF | 0.011 | $0.28 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.495 | $37.42 <!--@printed--> |
+| Display cover plate | 1 | PET-GF | 0.009 | $0.21 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.13 <!--@printed--> |
-| Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.19 <!--@printed--> |
+| Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.20 <!--@printed--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.013 | $0.32 <!--@printed--> |
 | ASSE drip pan | 1 | PETG | 0.020 | $0.23 <!--@printed--> |
@@ -148,9 +148,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.103 | $2.57 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.005 | $0.13 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
-| **Printed parts total** | | | **~6.92** | **[$158.44](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.86** | **[$158.34](BOM_SEC7)** |
 
-By material: PETG ≈ 0.97 kg / $10.88 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.95 kg / $148.93.
+By material: PETG ≈ 0.97 kg / $10.88 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.89 kg / $147.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the [10](FOAM_FACE_SCREWS) M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics bay stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -306,7 +306,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$97.77](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$158.44](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$158.34](BOM_SEC7) |
 | 8. Flavor subsystem | [$225.90](BOM_SEC8) |
 | 9. Dispensing | [$68.95](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -314,7 +314,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.17](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,375.46](BOM_GRAND)** |
+| **Total** | **[$1,375.36](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

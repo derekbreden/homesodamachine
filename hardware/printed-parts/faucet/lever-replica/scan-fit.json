@@ -1,7 +1,7 @@
 {
   "subject": "donor scan reconstruction",
   "stl": "lever-donor-reference.stl",
-  "stl_sha256": "757aac09d5b8255ddd63ed00998ad9f0517a713e204ac4d357526332b60b7cd5",
+  "stl_sha256": "5957b07e922c0d97ffb2140580ba09917eb56999a2fdf7673457903d3012dec3",
   "selected_patch_to_CAD_mm": {
     "count": 1702,
     "median": 0.0757698682012555,
@@ -12,12 +12,12 @@
   "whole_observed_cloud_sample_to_CAD_mm": {
     "count": 24000,
     "median": 0.06971300744628474,
-    "p95": 0.3565626615745311,
+    "p95": 0.35656266157453076,
     "max": 1.5013106002019865
   },
   "watertight": true,
   "winding_consistent": true,
-  "mesh_volume_mm3": 3202.7019534939864,
+  "mesh_volume_mm3": 3202.699822905702,
   "mesh_bounds_mm": [
     [
       -6.468287467956543,
@@ -38,10 +38,10 @@
     "authority": "Derek's direct observation of the completed Mark2 print",
     "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
     "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "matches_accepted_geometry": true,
-    "physical_fit": "confirmed",
-    "functional_operation": "confirmed",
+    "current_stl_sha256": "199cf59916af4d8de6caf1aa01211c01388260ddcee88d41d8a25065882e33b3",
+    "matches_accepted_geometry": false,
+    "physical_fit": "unconfirmed for this mesh",
+    "functional_operation": "unconfirmed for this mesh",
     "quantified_strength": null,
     "quantified_endurance": null
   },
