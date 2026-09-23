@@ -9220,6 +9220,7 @@
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
       "hardware/reference/riteav-keystone/riteav_keystone.py",
+      "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
       "hardware/reference/tee-connector/tee-connector.step",
       "hardware/reference/tee-connector/tee_connector.py",
       "hardware/reference/wago-221/wago_221.py",
