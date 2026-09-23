@@ -230,10 +230,10 @@ SCENES = (
         flip=None, also=(), later=(),
         cam=(0.9, 0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
         note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
-             "both complete pumps drop through straight wells until their stamped brackets bear "
-             "on the cradle, then the small top clamp lowers over both octagonal bosses and takes "
-             "two screws. Nothing on this unit is screwed to the box — the four tube stubs, "
-             "gripped in the anchor tees, are the whole of what holds it in.",
+             "both complete pumps drop through straight wells until their molded skirts bear "
+             "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
+             "and takes two screws. Nothing on this unit is screwed to the box — the four tube "
+             "stubs, gripped in the anchor tees, are the whole of what holds it in.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
