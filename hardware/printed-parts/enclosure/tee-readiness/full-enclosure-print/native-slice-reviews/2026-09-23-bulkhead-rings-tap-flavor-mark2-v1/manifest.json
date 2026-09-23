@@ -1,0 +1,70 @@
+{
+ "schema": 1,
+ "status": "offline_print_review_pass",
+ "job": "bulkhead-rings-tap-flavor-v1",
+ "printer": "Mark2",
+ "request": "Derek, 2026-09-23: \"Since Mark2 is loaded up with white pet-gf still on a 0.04 nozzle on the right side, I'd like to do a quick run of the tap and flavor bulkhead collars there first before we do the larger prints.\"",
+ "source_job_directory": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1",
+ "native_archive": {
+  "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v1.gcode.3mf",
+  "sha256": "ddc60066a311054450ac4ed95d32c2b8a09e70d5fd77b5cd7510ca5fbc3119b2"
+ },
+ "gcode_member": "Metadata/plate_1.gcode",
+ "gcode_sha256": "4e6ec700a281084058b7ac57f237e1c2b9f9a8fac690b218f889f0b125534239",
+ "source_steps": {
+  "water": {
+   "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+   "sha256": "8bca4ae15f9f89e6f9139fd49d65518d72d19060deac7037884da8ad09d8cf08"
+  },
+  "flavor-a": {
+   "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+   "sha256": "74dd91767a7ad3f3879c4ed5520db74d2cd9d6ba430b89fa8673a0f07f556c35"
+  },
+  "flavor-b": {
+   "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+   "sha256": "3814cd4b9f02fcec3fa5a273b445bb93da370ce80439abe1c16f0b2a5d1c6332"
+  }
+ },
+ "project_sha256": "15b2df3e9bc3ecefaeaec7668f10af941208cd10d4fa5f8c1e5195654920cc32",
+ "plate": {
+  "water": {
+   "chip": "white",
+   "word": "black"
+  },
+  "flavor-a": {
+   "chip": "black",
+   "word": "white"
+  },
+  "flavor-b": {
+   "chip": "black",
+   "word": "white"
+  }
+ },
+ "filaments": {
+  "left hotend, external 254": "black PET-GF",
+  "right hotend, external 255": "white PET-GF"
+ },
+ "settings_departures_from_petgf_3mf": {
+  "layer_height": "0.2: ten layers make the 2.0 mm chip and put the word's 1.0 mm floor on a layer boundary",
+  "top_shell_layers": "5",
+  "bottom_shell_layers": "5: the chip prints solid, a washer the fitting's nut clamps",
+  "two filaments": "the nameplate's two-hotend settings (nameplate/prepare_print.py)"
+ },
+ "emitted_z_trim_commands_mm": [
+  "0",
+  "0.02"
+ ],
+ "estimate": {
+  "seconds": 1443.0968017578125,
+  "grams": {
+   "1": 5.3232035636901855,
+   "2": 2.962587594985962
+  },
+  "layers": 10
+ },
+ "review": [
+  "Every layer carries both hotends: the TAP chip on the right (white), the FLAVOR chips on the left (black).",
+  "The words fill layers 1.2-2.0: TAP on the left hotend (black), FLAVOR on the right (white); the top layer's toolpaths read the words turned 180 degrees on the bed, not mirrored (layers-by-hotend.png).",
+  "No support, no sparse infill, no bridge; objects 96.5-233.5 x 106.4-143.6 mm, inside both hotends' shared area; prime tower at the profile's 165, 250."
+ ]
+}
