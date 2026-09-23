@@ -35,7 +35,8 @@ VARIANTS = {
 }
 
 BAMBU_STUDIO = "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio"
-# The slab is the left nozzle's reach less this border, both sides (`fake_countertop.PLATE_BORDER`).
+# The slab's depth is the left nozzle's reach less this border, front and back
+# (`fake_countertop.PLATE_BORDER`).
 PLATE_BORDER = 5.0
 
 

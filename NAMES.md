@@ -112,7 +112,7 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **index** | a holder bored at nominal diameters, for things whose size is a standard | bit holder, tip stand |
 | **bench dock** | the printed Gridfinity baseplate a holder stands on | dock plate, base |
 | **tube miter box** | the printed bench block with two open troughs and one blade slot, that holds 1/4" and 3/8" LLDPE tube round and guides a razor blade square across it | tube cutter jig, cut guide, cutting block, tube cutting block |
-| **fake countertop** | the printed inverted-U bench stand the size of the bed that stands in for a counter: one faucet clamps through its 1-3/8" hole and the umbilical hangs and bends under it | counter stand, dummy counter, photo counter, countertop stand |
+| **fake countertop** | the printed inverted-U bench stand that stands in for a counter, its legs as far apart as the cavity under Derek's counter: one faucet clamps through its 1-3/8" hole and the umbilical hangs and bends under it | counter stand, dummy counter, photo counter, countertop stand |
 | **parcel figure** | a dimension that is a listing's shipping box: an upper bound on the thing inside it, and no lower bound at all | product dimensions, listing envelope |
 | **pump jack** | the RiteAV RJ11 keystone jack in the ridge wall behind the machine display, that the pump cartridge's cord plugs into | pump connector, cartridge jack, pump socket |
 | **pump plug** | the RJ11 6P4C plug on the pump cartridge's cord, that clicks into the pump jack | cartridge plug |

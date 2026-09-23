@@ -1,21 +1,21 @@
 {
-  "project": "fake-countertop-petgf.3mf",
+  "project": "fake-countertop-petgf-mark2-stock.3mf",
   "settings_source": "hardware/printed-parts/petgf.3mf",
   "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "settings_sha256": "07f46991b6e7f746ddf9ab80ed91b3ea5967d8fa0402015cd939c20d41c73d1f",
+  "settings_sha256": "4626f9bf7ce9e0993d56dcf8f59bc5a7568f2b22f867b9ff4b7fd03768513cce",
   "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
   "settings_changes": {
     "machine_start_gcode": {
       "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
-      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
-      "requested_z_trim_mm": 0.18
+      "to_sha256": "8007d383f0744c96319d2da1fd8bacdcaf77e0d9968219d95d10fc2363a2586d",
+      "requested_z_trim_mm": 0.0
     },
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
-      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      "to": "Bambu Lab H2C 0.4 Standard +0.00 Z trim"
     }
   },
-  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "printer": "Bambu Lab H2C 0.4 Standard +0.00 Z trim",
   "process": "0.24mm PET-GF faucet",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
@@ -113,9 +113,9 @@
       "embedded_vertex_error_mm": 5.000018177270249e-10
     }
   ],
-  "project_sha256": "1849694291451d4d0f375c0f777709c2d92a4779ffd55f8bfe2b25f3ff94e2b5",
+  "project_sha256": "893465afd2d283c47574e05fe0e67b93813bbecaba38a26f5c6db74a1efb8bce",
   "settings_preserved_byte_for_byte": false,
   "status": "offline project preparation; a submission is recorded in print-jobs.json",
   "pose": "show face on the bed, legs up; no support",
-  "variant": "black-h2c"
+  "variant": "black-mark2-stock"
 }

@@ -3,26 +3,26 @@
   "printer_submission": false,
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 4639,
+    "export_time": 5652,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 606,
+    "prepare_time": 714,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
           "Bottom surface": 1363.004638671875,
-          "Bridge": 4875.2431640625,
+          "Bridge": 4875.24267578125,
           "Custom": 297.3690490722656,
           "Flush": 15.0,
           "Gap infill": 1.8921171426773071,
           "Inner wall": 6628.04443359375,
-          "Internal solid infill": 4233.64453125,
+          "Internal solid infill": 4233.64501953125,
           "Outer wall": 6428.05126953125,
-          "Sparse infill": 47961.06640625,
+          "Sparse infill": 47961.0703125,
           "Top surface": 791.7088623046875,
-          "Travel": 1619.725830078125,
-          "Undefined": 1618.1568603515625
+          "Travel": 1619.727294921875,
+          "Undefined": 1618.1583251953125
         },
         "filament_change_times": 0,
         "filaments": [
@@ -33,12 +33,12 @@
             "total_used_g": 1339.3695068359375
           }
         ],
-        "generate_support_material_time": 1418,
+        "generate_support_material_time": 1083,
         "id": 1,
-        "infill_time": 1221,
+        "infill_time": 1373,
         "layer_filament_change": 0,
         "main_predication": 73917.953125,
-        "make_perimeters_time": 1864,
+        "make_perimeters_time": 2885,
         "obj_cached_cnt": 0,
         "objects": [
           {
@@ -55,8 +55,8 @@
             "triangle_count": 84062
           }
         ],
-        "sliced_time": 10349,
-        "sliced_time_with_cache": 5711,
+        "sliced_time": 15098,
+        "sliced_time_with_cache": 9466,
         "total_predication": 74243.75,
         "triangle_count": 84062,
         "warning_message": ""
@@ -88,12 +88,12 @@
   "estimated_filament_g": 1339.3695068359375,
   "plate_trim_commands_mm": [
     0.0,
-    0.02
+    -0.02
   ],
-  "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-  "archive_sha256": "5e6bcaa8678e8f200e78201f7613d096e976c2aa66f5f03588d7170dc582fd63",
-  "gcode_sha256": "12deb7c51393bc40a77a6d368e2a537952283fabc120ab41e39a110d7f4d91ae",
-  "project_sha256": "a7ae63127addc86434b980d9ff15267ba4bf9f3ef54638704c1cd9146099bcf7",
+  "archive": "fake-countertop-petgf-z000-mark2.gcode.3mf",
+  "archive_sha256": "2f0acd779f3364a67819b24223b167e09797315a90610ba4cd7ad764a488a8c8",
+  "gcode_sha256": "46f45660bb944ccbdec4c07333aeb2960f448f5101c76c57df78a9ad232674fa",
+  "project_sha256": "893465afd2d283c47574e05fe0e67b93813bbecaba38a26f5c6db74a1efb8bce",
   "source_stl_sha256": "5b50b2697da2fadb5ae05ce2d32dbf1eb569c408f921476cd5570455b8a82a57",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
 }

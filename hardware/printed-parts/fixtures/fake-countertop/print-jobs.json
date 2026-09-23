@@ -475,8 +475,20 @@
         "print_error": 0,
         "hms": []
       },
-      "print_completion": null,
-      "physical_fit": null,
+      "print_completion": {
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 917,
+        "observed_at": "2026-09-21T23:57:42.306661+00:00",
+        "print_error": 0,
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-countertop-completion.json",
+        "removed": "Derek: Mark2 bed is clear"
+      },
+      "physical_fit": {
+        "observed_by": "Derek",
+        "result": "the 12 mm part bows",
+        "read": "Derek: 'There is a bit of bowing, we're going to have go thicker for the next one.'"
+      },
       "estimate": {
         "seconds": 58739.16796875,
         "grams": 931.5325927734375,
@@ -494,7 +506,7 @@
         "total_layer_num": 917,
         "mc_percent": 9,
         "print_error": 0,
-        "note": "The three bottom-shell layers went down on the seasoned plate without a stop or a message; the watch was released here, with the completion unrecorded."
+        "note": "The three bottom-shell layers went down on the seasoned plate without a stop or a message; the watch was released here."
       }
     }
   ]

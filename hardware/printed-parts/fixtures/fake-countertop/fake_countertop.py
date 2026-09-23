@@ -1,7 +1,8 @@
-"""Fake countertop: the bench stand that stands in for a counter. An inverted U the size of
-the bed, one faucet through its 1-3/8" hole, the umbilical hanging and bending under it, one thickness of 3 cm throughout: the
-thickness most US kitchen counters are, the quartz, granite and quartzite standard, and
-what the faucet layout stands the faucet on.
+"""Fake countertop: the bench stand that stands in for a counter. An inverted U as deep as
+the bed with its legs 130 mm apart, the narrow cavity under the counter in Derek's kitchen;
+one faucet through its 1-3/8" hole, the umbilical hanging and bending under it, one
+thickness of 3 cm throughout: the thickness most US kitchen counters are, the quartz,
+granite and quartzite standard, and what the faucet layout stands the faucet on.
 
 The print stands on the show face: the slab lies on the bed and the legs rise from it, so
 the show face takes the plate's texture and nothing needs support. The slab's edges on the
@@ -58,14 +59,16 @@ HAND_ROOM = 60.0
 
 T = 30.0
 HEIGHT = 220.0
-SLAB_X = LEFT_REACH_X - 2 * PLATE_BORDER
+# Between the legs: the narrow under-counter cavity of Derek's kitchen.
+CAVITY = 130.0
+SLAB_X = CAVITY + 2 * T
 SLAB_Y = LEFT_REACH_Y - 2 * PLATE_BORDER
 CORNER_R = 6.0
 ROOT_R = 6.0
 FOOT_R = 3.0
 
 clear_height = HEIGHT - T
-leg_inner_x = SLAB_X / 2 - T
+leg_inner_x = CAVITY / 2
 
 
 
@@ -183,6 +186,7 @@ def main():
     _export_print(part)
     substitute_md(_here.parent / "README.md", variables={
         "FCT_SLAB": f"{SLAB_X:g} × {SLAB_Y:g} mm",
+        "FCT_CAVITY": f"{CAVITY:g} mm",
         "FCT_T": f"{T:g} mm",
         "FCT_HEIGHT": f"{HEIGHT:g} mm",
         "FCT_CLEAR": f"{clear_height:g} mm",
