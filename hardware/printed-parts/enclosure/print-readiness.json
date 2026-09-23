@@ -4,7 +4,7 @@
   "report": "hardware/printed-parts/enclosure/print-readiness.md",
   "status": "production_printing",
   "ready_to_print": true,
-  "ready_to_print_scope": "Exact reviewed back-bottom and matching G Ganen mount archives remain listed in queue.json. Front-top v8 is held; current Mark2 handoff awaits display-cover-v4 removal and resolution of the next-job choice in Scan results 2.",
+  "ready_to_print_scope": "Reviewed back-bottom and G Ganen mounting archives are recorded in queue.json. H2C is printing back-top and Mark2 is printing the user-requested table under Table. Front-top v8 is held. Direct print requests take precedence over recorded order.",
   "final_physical_acceptance": false,
   "current_regeneration": {
     "status": "qualification_of_frozen_production_inputs",
@@ -94,17 +94,50 @@
       "launch_observed_at": "2026-09-22T19:04:30.084409+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T011147Z.json",
-        "record_sha256": "adfec6c5a68bf7b0a96a41ab0e3c0071ad09add967deac944c12aecc65de67ee",
-        "observed_at": "2026-09-23T01:11:47.553419+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T031752Z.json",
+        "record_sha256": "eff3508137ab95911fa6b44db6bbe7145f6d7aa94fafc527168614b547b695a8",
+        "observed_at": "2026-09-23T03:17:52.142850+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 21,
-        "layer_num": 66,
+        "mc_percent": 29,
+        "layer_num": 131,
         "total_layer_num": 813,
-        "mc_remaining_time": 1308,
+        "mc_remaining_time": 1175,
         "print_error": 0,
         "hms": []
       }
+    },
+    {
+      "printer": "Mark2",
+      "status": "reported_running",
+      "authority": "Table print record and fresh printer status",
+      "job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "owner_task": "Table",
+      "external_job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+      "native_archive": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "native_archive_sha256": "5e6bcaa8678e8f200e78201f7613d096e976c2aa66f5f03588d7170dc582fd63",
+      "launch_observed_at": "2026-09-23T01:51:01.351045+00:00",
+      "handoff_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json",
+        "sha256": "ab4b3f67d9718250080e57dc3fec89506eee212a644740b7641a1b4329a53c94"
+      },
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T031752Z.json",
+        "record_sha256": "eff3508137ab95911fa6b44db6bbe7145f6d7aa94fafc527168614b547b695a8",
+        "observed_at": "2026-09-23T03:17:52.344064+00:00",
+        "gcode_state": "RUNNING",
+        "mc_percent": 6,
+        "layer_num": 15,
+        "total_layer_num": 917,
+        "mc_remaining_time": 1156,
+        "print_error": 0,
+        "hms": [
+          {
+            "attr": 201326848,
+            "code": 131095
+          }
+        ]
+      },
+      "scope": "External printer ownership and handoff; excluded from enclosure production completion counts."
     }
   ],
   "planned_print_jobs": [
@@ -409,7 +442,12 @@
         "sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d"
       },
       "completion_observed_at": "2026-09-23T01:11:47.350974+00:00",
-      "latest_print_removed_confirmed": false
+      "latest_print_removed_confirmed": true,
+      "removal_authority": "Derek: 'Yeah, start the table on mark2 please'; 'If I tell you to print something, you print something. I will not tell you to print something if the plate is not clear.'",
+      "removal_handoff_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json",
+        "sha256": "ab4b3f67d9718250080e57dc3fec89506eee212a644740b7641a1b4329a53c94"
+      }
     },
     {
       "id": "front-top-v7",
@@ -671,7 +709,8 @@
     "mark2_display_cover_v3_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-launch.json",
     "mark2_display_cover_v3_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
     "mark2_display_cover_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
-    "mark2_display_cover_v4_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json"
+    "mark2_display_cover_v4_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json",
+    "mark2_table_130_cavity_handoff": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json"
   },
   "printing_policy": {
     "authority": "Derek",
@@ -684,13 +723,13 @@
     "reload_during_print_accepted": true,
     "filament_instruction": "Start ready jobs with the correct material mapping regardless of remaining spool quantity. Use the spool until runout and reload as needed. Ask for filament only when an actual reload requires the user."
   },
-  "updated_at_utc": "2026-09-23T01:14:52.689689+00:00",
+  "updated_at_utc": "2026-09-23T03:22:31.722754+00:00",
   "printing_authorized": true,
   "native_slices_complete": 7,
   "offline_reviews_complete": 7,
   "remaining_execution_conditions": [
-    "Assigned machine available and its latest print removed",
-    "Respect front-top-v8 hold and the pending next-job choice in Scan results 2",
+    "Assigned machine available; removal established for its latest part or by Derek\u2019s direct print request",
+    "Respect the front-top-v8 hold; recorded order does not gate a direct print request",
     "Correct black PET-GF material mapping",
     "Normal verified exact-archive handoff"
   ],
@@ -721,10 +760,12 @@
   },
   "continuity": {
     "automation_id": "finish-the-enclosure-print-queue",
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "schedule": "Every 2 hours in the coordinating task",
-    "behavior": "Advance exact reviewed jobs when their machine is free and its latest print is removed. Use each spool fully and reload on actual runout; never ask about or gate on remaining quantity. Stay quiet during normal printing; do not pause for design review or add coupons; stop after the full set is finished.",
-    "authority": "Coordinating task created the heartbeat automation."
+    "behavior": "Recurring follow-up stopped at Derek\u2019s request. No automatic printer checks or launches.",
+    "authority": "Coordinating task created the heartbeat automation.",
+    "stopped_at_utc": "2026-09-23T03:22:31.722754+00:00",
+    "stop_authority": "Derek: Please stop that heartbeat"
   },
   "ready_job_ids": [
     "back-bottom",
@@ -1014,10 +1055,15 @@
       },
       "printer_completion_confirmed": true,
       "physical_success_confirmed": false,
-      "latest_print_removed_confirmed": false,
+      "latest_print_removed_confirmed": true,
       "completion_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json",
         "sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d"
+      },
+      "removal_authority": "Derek: 'Yeah, start the table on mark2 please'; 'If I tell you to print something, you print something. I will not tell you to print something if the plate is not clear.'",
+      "removal_handoff_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json",
+        "sha256": "ab4b3f67d9718250080e57dc3fec89506eee212a644740b7641a1b4329a53c94"
       }
     }
   ],
@@ -1055,15 +1101,17 @@
     },
     "Mark2": {
       "after_job": "display-cover-black-z004-mark2-v4.gcode.3mf",
-      "printer_available": true,
+      "printer_available": false,
       "next_job_id": null,
       "plate_clearance": {
-        "status": "awaiting_latest_print_removal",
-        "after_job": "display-cover-black-z004-mark2-v4.gcode.3mf",
-        "completion_observed_at": "2026-09-23T01:11:47.350974+00:00",
-        "request_sent": true,
-        "request_recorded_at_utc": "2026-09-23T01:14:52.689689+00:00",
-        "question": "Mark2 has finished display-cover v4. Please remove it and confirm when Mark2\u2019s plate is clear."
+        "status": "consumed_by_table_launch",
+        "authority": "Derek: 'Yeah, start the table on mark2 please'; 'If I tell you to print something, you print something. I will not tell you to print something if the plate is not clear.'",
+        "consumed_by_external_job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+        "handoff_record": {
+          "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json",
+          "sha256": "ab4b3f67d9718250080e57dc3fec89506eee212a644740b7641a1b4329a53c94"
+        },
+        "prior_display_cover_request_satisfied": true
       },
       "filament": {
         "status": "use_spool_until_runout_and_reload",
@@ -1079,13 +1127,13 @@
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json",
         "sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d"
       },
-      "active_job_id": null,
-      "next_handoff": "Await removal of the completed 34 mm-skirt display cover. Front-top v8 remains held. The next Mark2 job choice is pending in Scan results 2.",
-      "launch_record": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
-        "sha256": "bb4ce6379408db30119cb3d557e26791b4dece6727b62c73b828495698df662f"
-      },
-      "pending_condition": "Fresh plate-clear confirmation for display-cover-v4; current next-job choice is unresolved in the coordinating handoff."
+      "active_job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+      "next_handoff": "Mark2 is printing the table requested directly by Derek. After it finishes, coordinate with Table and establish removal of that latest print. A new direct print request from Derek establishes plate clearance and overrides recorded order. Front-top v8 remains held.",
+      "owner_task": "Table",
+      "external_handoff_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json",
+        "sha256": "ab4b3f67d9718250080e57dc3fec89506eee212a644740b7641a1b4329a53c94"
+      }
     }
   },
   "submitted_production_plate_count": 6,
@@ -1100,5 +1148,10 @@
     "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
     "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
   },
-  "completed_production_plate_count": 5
+  "completed_production_plate_count": 5,
+  "direct_print_request_policy": {
+    "instruction": "A direct print request from Derek establishes plate clearance and takes precedence over the informational schedule. Do not wait for another agent\u2019s queue or request a second plate-clear confirmation for that requested send.",
+    "authority_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-table-130-cavity-handoff.json",
+    "automatic_followups": "Without a new direct request, require removal confirmation for the latest finished print; FINISH alone does not establish it."
+  }
 }

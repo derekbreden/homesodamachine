@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "external_job_reported_running",
+  "printer": "Mark2",
+  "owner_task": "Table",
+  "external_job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+  "job": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+  "native_archive": {
+    "path": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-z004-mark2.gcode.3mf",
+    "sha256": "5e6bcaa8678e8f200e78201f7613d096e976c2aa66f5f03588d7170dc582fd63",
+    "gcode_sha256": "12deb7c51393bc40a77a6d368e2a537952283fabc120ab41e39a110d7f4d91ae"
+  },
+  "launch_authority": {
+    "record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
+    "job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+    "commit": "58348df25"
+  },
+  "reported_start": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-23T01:51:01.351045+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 917,
+    "mc_remaining_time": 1237,
+    "print_error": 0,
+    "hms": []
+  },
+  "latest_printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T031752Z.json",
+    "sha256": "eff3508137ab95911fa6b44db6bbe7145f6d7aa94fafc527168614b547b695a8"
+  },
+  "previous_enclosure_job": "display-cover-black-z004-mark2-v4.gcode.3mf",
+  "previous_job_removal_authority": "Derek: 'Yeah, start the table on mark2 please'; 'If I tell you to print something, you print something. I will not tell you to print something if the plate is not clear.'",
+  "prior_display_cover_clearance_request_satisfied": true,
+  "plate_clearance_consumed_by": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+  "fresh_clearance_required_after_this_print": true,
+  "warning": {
+    "hms": "0C00010000020017",
+    "meaning": "Nozzle camera lens is dirty; AI monitoring may be affected.",
+    "source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+    "reported_to_owner": true,
+    "user_notified": true,
+    "print_error": 0,
+    "action": "Continue running; no pause, cancellation or printer settings change."
+  },
+  "scope": "External printer ownership and handoff; excluded from enclosure production completion counts."
+}
