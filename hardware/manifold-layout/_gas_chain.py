@@ -27,6 +27,11 @@ import seaflo_discharge_chain as _female   # the PP450822E's sections, the PI450
 MALE_REACH = _ptc.HEX_LENGTH + _ptc.COLLET_LENGTH
 FEMALE_REACH = (_female.JG_SOCKET_L + _female.JG_HEX_L + _female.JG_COLLET_L
                 - _female.NPT_ENGAGE)
+# The scanned WR1110 stub bounds how far this nominal adapter can advance.
+# Shoulder seating is a layout assumption until the actual fitting is made up.
+REGULATOR_ENGAGEMENT = min(_female.NPT_ENGAGE, _reg.STUB_LENGTH)
+REGULATOR_FEMALE_REACH = (_female.JG_SOCKET_L + _female.JG_HEX_L
+                         + _female.JG_COLLET_L - REGULATOR_ENGAGEMENT)
 
 REG_IN_ADAPTER = "co2-adapter-regulator-in"
 REG_OUT_ADAPTER = "co2-adapter-regulator-out"
@@ -51,7 +56,7 @@ def regulator_inlet():
 
 
 def regulator_outlet():
-    return advance(_reg.outlet(), FEMALE_REACH)
+    return advance(_reg.outlet(), REGULATOR_FEMALE_REACH)
 
 
 def check_inlet():
@@ -80,11 +85,11 @@ def male_connector(port):
     return hex_body.union(collet).val()
 
 
-def female_adapter(port, stub_d):
+def female_adapter(port, stub_d, engagement=_female.NPT_ENGAGE):
     """A PI450822S made up on a male stub whose far end is `port`: socket, hex and collet,
     the socket face standing the engagement back from the stub's end and bored to the stub
     for that depth, so the stub stands inside it."""
-    pos, axis = advance(port, -_female.NPT_ENGAGE)
+    pos, axis = advance(port, -engagement)
     base, direction = cq.Vector(*pos), cq.Vector(*axis)
     socket = cq.Solid.makeCylinder(_female.JG_SOCKET_D / 2, _female.JG_SOCKET_L,
                                    base, direction)
@@ -94,14 +99,15 @@ def female_adapter(port, stub_d):
     collet = cq.Solid.makeCylinder(
         _female.JG_COLLET_D / 2, _female.JG_COLLET_L,
         base + direction.multiply(_female.JG_SOCKET_L + _female.JG_HEX_L), direction)
-    bore = cq.Solid.makeCylinder(stub_d / 2, _female.NPT_ENGAGE, base, direction)
+    bore = cq.Solid.makeCylinder(stub_d / 2, engagement, base, direction)
     return socket.fuse(hex_body, collet).clean().cut(bore)
 
 
 def bodies(regulator_carry, check_carry):
     return {
         REG_IN_ADAPTER: male_connector(_reg.inlet()).moved(regulator_carry.where),
-        REG_OUT_ADAPTER: female_adapter(_reg.outlet(), _reg.STUB_D).moved(regulator_carry.where),
+        REG_OUT_ADAPTER: female_adapter(_reg.outlet(), _reg.STUB_D,
+                                       REGULATOR_ENGAGEMENT).moved(regulator_carry.where),
         CHECK_IN_ADAPTER: male_connector(_check.inlet()).moved(check_carry.where),
         CHECK_OUT_ADAPTER: female_adapter(_check.outlet(), _check.THREAD_D)
         .moved(check_carry.where),

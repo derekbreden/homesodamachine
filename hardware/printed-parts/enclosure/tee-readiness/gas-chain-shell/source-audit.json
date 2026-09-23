@@ -1,172 +1,130 @@
 {
-  "created_at_utc": "2026-09-21T04:40:33.847312+00:00",
-  "scope": "Read-only shell-fit audit of current source and an explicitly identified captured Box. No received gas-part dimensions or physical fits are invented.",
+  "scope": "Source dimensions and stored Box; physical assembly fit is unverified.",
   "source_sha256": {
-    "hardware/manifold-layout/_gas_chain.py": "231fe7d0ad88c5f70dff0bf3bdcac4cfc1de500b18c97f0694d7f63c6da86c64",
-    "hardware/manifold-layout/enclosure_assembly.py": "7cf2592b59ec59133668c90d1092c39bac6ce5a196622fab1e11efdff40dfcc0",
-    "hardware/manifold-layout/_scorecard.py": "4886fcef581bdec8dd29ba6d42bb62ec7eee6e7f31120c5793d4adb600300c69",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "08c689797fde87ced31b7b074b2df2a9f5ee860db03016a8ba2b4e591cdd6835",
-    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/manifold-layout/_gas_chain.py": "d650ec1d0166b1a3878153d5ad062df36c504af51d1cd7e90805f8bc8bfa9617",
+    "hardware/manifold-layout/_lines.py": "ad71ab0364bb400efefcd97a056493dd00b07f657db605e5a87edf241437f8a0",
+    "hardware/manifold-layout/enclosure_assembly.py": "ed1ca1353d94a05ce0cb9456288a9e726c12379578e7d90871c9077b3c46df8c",
+    "hardware/manifold-layout/_scorecard.py": "8512feeb00d796cfe033533ff8ed510183cb632f8a4207671f8f6f5846865b44",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "f9501059beb0cd81bc20eaae288706447e2d32653e90e8f318fd396424d12343",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/reference/gasher-check-valve/gasher_check_valve.py": "0ecb5233f29a225d81d2cc834c98aad42e38115bdfe3d6ad5b3108c3682462c6",
-    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "d6960cc4d28ac552b5c69dddc0704558394851fa6539e4d4bbaebe8b686d2bde",
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "a155014965c4a1e379761de7fcac4065bf54f66b3e1532692042a587262c53a9",
+    "hardware/reference/wr1110-regulator/scan-measurements.json": "fa91bcc72ef8d8d9cf438e693665e1fdc7eb0c9d8d428bd152f2704f670627a4",
+    "hardware/reference/wr1110-regulator/scan-model-check.json": "64dd0c9bac376d565e94798bfa38b7f37af71c05a29769e7f28c4134160d15df",
     "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
-    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "8a2a0ab57951a0251673d070475e09b8f536826dfc8a2dd52e7dedf74d265ded",
-    "hardware/manifold-layout/enclosure-box.json": "b48ba9046c15391e5e9be3c64eda68ae89f41e4fc0b6b62a2b12dfb05c248804",
-    "hardware/printed-parts/enclosure/tee-readiness/gas-chain-shell/audit_source.py": "9919781266e2466176a29a799bc10a07a9bf13d4206526c677a3b20b303179ee"
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": "6705f235e34c6a2b1fa3451c9ff06f890f9ca4dab7768533021ca9a8c80b8585",
+    "hardware/manifold-layout/enclosure-box.json": "dbac78c21cab816e3dd5d9c22b4e0c6ee0a20267a507ce84ca05883daa916cbb",
+    "hardware/printed-parts/enclosure/tee-readiness/gas-chain-shell/audit_source.py": "e9cbfe413232830ff9e8be0ee2484bd044b2f468ffdbe6ca2030c54f33452c72"
   },
-  "source_rule": {
-    "gas_chain_qualification_kind": "goal",
-    "gas_chain_qualification_status": "warn",
-    "source": "_scorecard._build"
+  "gas_fit_scorecard": {
+    "kind": "goal",
+    "status": "warn",
+    "reason": "WR1110 scanned; GASHER and made-up adapter reaches remain nominal."
   },
   "seat_geometry": {
     "wr1110": {
       "owner": "enclosure-back-top",
-      "received_diameter_caliper_record_found": false,
-      "model_barrel_diameter_mm": 19.0,
-      "printed_bore_diameter_mm": 19.3,
-      "model_usable_barrel_length_mm": 27.0,
+      "evidence": "Two coated MINI 2 scans at native scale.",
+      "model_diameter_mm": 18.87,
+      "printed_bore_diameter_mm": 19.17,
+      "usable_round_length_mm": 35.4,
       "printed_anchor_length_mm": 9.5,
-      "nominal_axial_margin_each_end_mm": 8.75
+      "axial_margin_each_end_mm": 12.95
     },
     "gasher_co2": {
       "owner": "enclosure-back-top",
-      "received_diameter_caliper_record_found": false,
-      "model_boss_diameter_mm": 15.5,
+      "evidence": "Nominal reference, unmeasured received part.",
+      "model_diameter_mm": 15.5,
       "printed_bore_diameter_mm": 15.8,
-      "model_usable_boss_length_mm": 11.0,
+      "usable_round_length_mm": 11.0,
       "printed_anchor_length_mm": 9.5,
-      "nominal_axial_margin_each_end_mm": 0.75
+      "axial_margin_each_end_mm": 0.75
     }
   },
   "nominal_made_up_envelopes": {
-    "adapter_external_reach_from_threaded_parent_face_mm": 18.5,
-    "regulator_collet_to_collet_span_mm": 94.0,
-    "check_coupling_diameter_mm": 22.0,
-    "check_coupling_length_mm": 25.4,
-    "assumed_check_to_coupling_engagement_mm": 11.0,
-    "check_collet_to_collet_span_mm": 91.4,
-    "check_inlet_collet_reach_from_metal_inlet_face_mm": 18.5,
-    "check_outlet_collet_reach_from_metal_inlet_face_mm": 72.9,
-    "qualification": "The PI010822S uses a PP010822E nominal envelope; coupling dimensions and makeup are explicitly provisional. These are comparison figures, not measured limits."
+    "male_adapter_external_reach_mm": 18.5,
+    "female_adapter_body_length_mm": 26.0,
+    "regulator_assumed_insertion_mm": 9.18,
+    "regulator_female_adapter_reach_from_stub_tip_mm": 16.82,
+    "regulator_collet_to_collet_mm": 98.97,
+    "check_assumed_insertion_mm": 11.0,
+    "check_collet_to_collet_mm": 73.5,
+    "qualification": "WR1110 shoulder seating bounds the model. Actual makeup and adapter envelopes are not measured."
   },
   "ceiling_pockets": {
     "owner": "enclosure-back-top",
-    "source_plan_slip_mm": 2.0,
-    "source_crown_air_mm": 1.0,
-    "captured_box_sha256": "b48ba9046c15391e5e9be3c64eda68ae89f41e4fc0b6b62a2b12dfb05c248804",
-    "captured_rows": [
+    "plan_air_mm": 2.0,
+    "crown_air_mm": 1.0,
+    "box_sha256": "dbac78c21cab816e3dd5d9c22b4e0c6ee0a20267a507ce84ca05883daa916cbb",
+    "rows": [
       [
         "co2-inlet",
         -10.06696854581378,
         14.966968545813783,
-        447.7026,
-        463.0,
+        452.00260000000003,
+        467.3,
         349.0882851220998
       ],
       [
         "wr1110",
-        -6.883172313556651,
-        11.783172313556651,
-        332.70259999999996,
-        393.7026,
-        346.4605808375568
+        -7.893585431277882,
+        13.41222427240227,
+        331.4891333794732,
+        398.00260010000005,
+        347.83968144393305
       ],
       [
         "gasher-co2",
-        31.436860279187343,
-        45.463139720815,
-        321.2026,
-        365.2026000000001,
-        347.9605808375568
+        31.43686027918733,
+        45.46313972081499,
+        321.6526,
+        365.6526,
+        346.0
       ],
       [
         "co2-adapter-regulator-in",
         -3.378838324886523,
         8.278838324886529,
-        389.7026,
-        412.2026,
-        346.4605808375568
+        394.00260000000003,
+        416.50260000000003,
+        347.83968144393305
       ],
       [
         "co2-adapter-regulator-out",
-        -3.37883832488653,
-        8.278838324886529,
-        314.2026,
-        336.7026,
-        346.4605808375568
+        -3.996955832961895,
+        8.896955832961886,
+        313.5326,
+        343.5326,
+        347.83968144393305
       ],
       [
         "co2-adapter-check-in",
-        32.621161675113484,
-        44.278838324886586,
-        302.7026,
-        325.2026,
-        347.9605808375568
+        32.62116167511347,
+        44.27883832488658,
+        303.1526,
+        325.6526,
+        346.0
       ],
       [
         "co2-adapter-check-out",
-        32.62116167511346,
-        44.27883832488655,
-        375.6026,
-        398.1026,
-        347.9605808375568
-      ],
-      [
-        "co2-check-coupling-nominal",
-        27.256229490556457,
-        49.64377050944354,
-        350.2026,
-        379.6026,
-        347.9605808375568
+        32.0030441670381,
+        44.896955832961886,
+        350.6526,
+        380.6526,
+        346.0
       ]
-    ],
-    "captured_rows_qualification": "Source-defined nominal gas pockets in the stored Box, not the pending coordinated Box/native-shell proof. The supplied-part envelope must be compared at its seat datum."
+    ]
   },
-  "real_shell_fit_risks": [
-    "A received WR1110 barrel appreciably larger than the 19.3 mm printed seat cannot fully bed in the modeled cradle.",
-    "A received GASHER inlet boss larger than the 15.8 mm seat or with less than 9.5 mm usable round length can meet the printed cradle or its shoulder.",
-    "A made-up check/coupling/adapter envelope exceeding its nominal pocket can hit the back-top ceiling. Hose cut-length adjustment alone cannot fix a larger rigid fitting inside that pocket."
+  "remaining_observations": [
+    "GASHER inlet boss diameter and usable axial length.",
+    "Made-up fitting external diameters, step positions and collet reaches from each body datum.",
+    "Printed tie threading, seating and retention; hose bends, insertion and wrench access.",
+    "Thread sealing, part ratings and operating performance during commissioning."
   ],
-  "minimal_geometry_observation": [
-    {
-      "part": "WR1110",
-      "surfaces": "Outside diameter of the smooth barrel between the two wrench hexes; verify the 9.5 mm rib can sit wholly on that straight barrel.",
-      "nominal_comparison": "19.0 mm barrel, 19.3 mm printed seat, 27 mm nominal straight barrel."
-    },
-    {
-      "part": "GASHER female inlet boss",
-      "surfaces": "Outside diameter and clear axial length of the round metal boss from the female inlet mouth to the start of the wrench hex.",
-      "nominal_comparison": "15.5 mm by 11 mm boss, 15.8 mm by 9.5 mm seat."
-    },
-    {
-      "part": "Made-up warm gas units",
-      "surfaces": "External coupling maximum diameter and length, plus collet-face reaches from the metal bearing/body datum with the actual adapters installed; one datum-identified side photo can locate the steps.",
-      "nominal_comparison": "Coupling 22 \u00d7 25.4 mm; adapters 18.5 mm exposed reach; regulator 94 mm and check 91.4 mm collet-to-collet."
-    }
-  ],
-  "thread_engagement_measurement": {
-    "separate_internal_depth_needed_for_shell": false,
-    "reason": "Made-up external diameters, steps and collet-face reaches already include the geometric effect of engagement. Proper engagement and sealing remain assembly qualification."
-  },
-  "after_print_observations": [
-    "Tie threading, seating and retention under the real part.",
-    "Actual hose insertion, bend behavior and wrench access during assembly.",
-    "Thread sealing, reverse sealing, material/rating verification and operating checks before commissioning."
-  ],
-  "quadrant_scope": {
-    "front_top_mechanism": "May proceed independently once its own current native and slice checks pass; no gas-chain part locates the tees, spring cups, release plate or cartridge.",
-    "front_bottom": "No direct gas-chain fitting mount or pocket dependency identified.",
-    "back_bottom": "No direct gas-chain fitting mount or pocket dependency identified.",
-    "back_top": "Contains both gas-body cradles, rigid-fitting ceiling pockets and related hose supports. The existing record does not establish received-part fit."
-  },
   "assessment": {
-    "known_actual_gas_interference_found": false,
     "received_part_back_top_fit_qualified": false,
-    "additional_full_scans_indicated": false,
-    "gas_commissioning_required_before_shell_print": false,
-    "front_top_should_wait_for_gas_measurements": false,
-    "all_quadrants_fit_trial_possible": true,
-    "qualification": "The gas item is not a safety prerequisite to an unpowered enclosure assembly-test print. It is a specific back-top reprint risk. The short geometry observations above are needed before calling that gas fit verified; they need not hold the other quadrants or require a new coupon."
+    "additional_wr1110_scan_required": false,
+    "unpowered_enclosure_assembly_trial_held_for_gas_commissioning": false,
+    "scope": "Gas fit concerns the back-top. Front-top mechanisms and lower quadrants have no direct gas-cradle or pocket dependency."
   }
 }

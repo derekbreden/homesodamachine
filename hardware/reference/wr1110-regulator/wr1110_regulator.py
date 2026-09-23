@@ -1,17 +1,11 @@
-"""Interstate Pneumatics WR1110 fixed 90 PSI secondary regulator — the
-appliance's `wr1110` on the CO2 inlet chain (ABU44 → WR1110 → GASHER). A "Mini Body Series" fixed preset: no adjustment knob, just two wrench
-hexes and a flush vent hole. Female 1/4" NPT in, male 1/4" NPT out: the flow
-arrow on the body runs from the female hex toward the male stub.
+"""Scan-derived external form of the received WR1110 fixed inline regulator.
 
-External envelope only — a round regulator body between two hex wrench
-sections, and the outlet's male stub beyond the downstream hex, flow axis along
-+Y. The internal diaphragm + spring, the inlet screen and the flush vent hole
-are not modeled. Ø21 across the hex corners × 57 mm hex face to hex face.
+Two MINI 2 passes establish the smooth barrel, unequal wrench sections, shoulders
+and outlet stub at native millimetre scale. See README.md and scan-measurements.json.
+The thread crests use a smooth envelope; visible mouths are shallow display bores.
+Internal pressure-control geometry and made-up NPT engagement are unmeasured.
 
-Frame: +Y = flow axis (matches the enclosure placement); centered on X/Z. +Z up.
-
-Run:
-    tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py
+Frame: inlet face at the origin, flow along +Y, barrel centred on X/Z.
 """
 
 import sys
@@ -27,13 +21,33 @@ from _materials import M_ALUMINIUM, one_body
 
 STEP = _here.parent / "wr1110-regulator.step"
 
-HEX_ACROSS_CORNERS = 21.0   # hex circumdiameter (across corners)
-TOTAL_LENGTH = 57.0         # along the flow axis, inlet hex face to outlet hex face
-BODY_D = 19.0               # round regulator body between the hexes
-HEX_LENGTH = 15.0           # each wrench hex section
-BODY_LENGTH = TOTAL_LENGTH - 2 * HEX_LENGTH   # 27 mm round body
-STUB_D = 13.7               # 1/4" NPT major Ø (simplified, no helix)
-STUB_LENGTH = 11.0          # male NPT engagement, the outlet end
+# Rounded modelling dimensions from the coated, unit-scale exterior scan.
+BODY_D = 18.87
+BODY_START = 14.65
+BODY_END = 50.05
+BODY_LENGTH = BODY_END - BODY_START
+INLET_HEX_AF = 19.0
+INLET_HEX_D = 20.60             # turned blank clips the six corners
+OUTLET_HEX_AF = 19.08
+OUTLET_HEX_D = 21.76
+OUTLET_HEX_CLOCK = -2.0        # degrees in the reference X/Z plane
+TOTAL_LENGTH = 54.47           # inlet face to downstream hex shoulder
+STUB_LENGTH = 9.18             # shoulder to tip, not an engagement measurement
+STUB_D = 14.2                  # maximum root envelope; thread crests are smaller
+OVERALL_LENGTH = TOTAL_LENGTH + STUB_LENGTH
+
+# (Y station, radius). Short straight segments represent the turned end rounds.
+INLET_PROFILE = ((0.0, 9.38), (.35, 9.93), (.8, INLET_HEX_D / 2),
+                 (13.35, INLET_HEX_D / 2), (13.7, 10.22), (14.2, 9.78),
+                 (BODY_START, BODY_D / 2))
+OUTLET_PROFILE = ((BODY_END, BODY_D / 2), (50.4, 9.70), (50.9, 10.38),
+                  (51.35, 10.78), (51.65, OUTLET_HEX_D / 2),
+                  (53.35, OUTLET_HEX_D / 2), (53.75, 10.65), (54.1, 10.12),
+                  (TOTAL_LENGTH, 9.45))
+STUB_PROFILE = ((TOTAL_LENGTH, STUB_D / 2), (54.9, 6.85), (55.3, 6.48),
+                (55.7, 6.10), (56.2, 6.30), (56.8, 6.65), (57.2, 6.72),
+                (61.6, 6.60), (62.1, 6.48), (62.5, 6.05), (63.2, 5.50),
+                (OVERALL_LENGTH, 4.10))
 
 
 def inlet():
@@ -45,21 +59,16 @@ def inlet():
 
 
 def outlet():
-    """The far end of the male 1/4" NPT stub past the downstream hex — it threads
-    STUB_LENGTH into the PI450822S female adapter that takes it onto 1/4" tube:
-    (position, outward axis)."""
+    """The measured far end of the outlet stub: position and outward axis."""
     return (0.0, TOTAL_LENGTH + STUB_LENGTH, 0.0), (0.0, 1.0, 0.0)
 
 
 def barrel():
-    """The round body between the two wrench hexes — `(station, radius, length)`.
+    """The measured circular mounting band: `(midpoint station, radius, length)`.
 
-    Both hexes stand on made-up NPT threads, so where their flats come to rest is wherever the
-    thread stopped. The barrel is the same circle whatever the makeup did.
-
-    `station` is its mid-point and the flow axis through it, in the same frame the two sockets
-    are stated in."""
-    return (((0.0, HEX_LENGTH + BODY_LENGTH / 2.0, 0.0), (0.0, 1.0, 0.0)),
+    The enclosure locates its cradle on this band independently of wrench clock.
+    """
+    return (((0.0, BODY_START + BODY_LENGTH / 2.0, 0.0), (0.0, 1.0, 0.0)),
             BODY_D / 2.0, BODY_LENGTH)
 
 
@@ -69,16 +78,7 @@ def stations() -> dict:
 
 
 def stations_hold():
-    """Hold both sockets and the barrel to `wr1110-regulator.step` — the file the enclosure
-    seats, while it takes these stations out of this module's live figures.
-
-    The regulator is a straight run on one axis, so its two stations ARE the ends of that
-    solid's box: the inlet hex face its adapter bottoms against, and the far end of the outlet's
-    male stub. The hop that reaches the inlet is seated on this reading.
-
-    The two sockets are extents of that solid's box. THE BARREL IS NOT — it is a section inside
-    the envelope, so it is read as everything the file holds over its own Y band, and the box
-    that band comes back with."""
+    """Read both end stations and the circular mounting band from the exported STEP."""
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
@@ -103,31 +103,34 @@ def stations_hold():
                 f"on a section that is not the one it was drawn for.")
 
 
+def _turned(profile):
+    """An axial radius profile revolved about +Z before the final frame turn."""
+    outline = [(0, profile[0][0]), *((r, y) for y, r in profile),
+               (0, profile[-1][0])]
+    return cq.Workplane("XZ").polyline(outline).close().revolve(360, (0, 0), (0, 1))
+
+
+def _wrench(profile, across_flats, clock=0.0):
+    import math
+    prism = (cq.Workplane("XY").workplane(offset=profile[0][0])
+             .polygon(6, across_flats / math.cos(math.pi / 6))
+             .extrude(profile[-1][0] - profile[0][0])
+             .rotate((0, 0, 0), (0, 0, 1), 30 - clock))
+    return _turned(profile).intersect(prism)
+
+
 def build():
-    """Two hex wrench sections with a round body between and the male stub past the
-    downstream hex, flow axis along +Y."""
-    # Build along +Z, then reorient +Z -> +Y.
-    inlet_hex = cq.Workplane("XY").polygon(6, HEX_ACROSS_CORNERS).extrude(HEX_LENGTH)
-    body = (
-        cq.Workplane("XY")
-        .workplane(offset=HEX_LENGTH)
-        .circle(BODY_D / 2.0)
-        .extrude(BODY_LENGTH)
-    )
-    outlet_hex = (
-        cq.Workplane("XY")
-        .workplane(offset=HEX_LENGTH + BODY_LENGTH)
-        .polygon(6, HEX_ACROSS_CORNERS)
-        .extrude(HEX_LENGTH)
-    )
-    stub = (
-        cq.Workplane("XY")
-        .workplane(offset=TOTAL_LENGTH)
-        .circle(STUB_D / 2.0)
-        .extrude(STUB_LENGTH)
-    )
-    part = inlet_hex.union(body).union(outlet_hex).union(stub)
-    return part.rotate((0, 0, 0), (1, 0, 0), -90.0)
+    """Analytic exterior, clipped wrench hexes and observed open mouths."""
+    body = (cq.Workplane("XY").workplane(offset=BODY_START)
+            .circle(BODY_D / 2).extrude(BODY_LENGTH))
+    part = (_wrench(INLET_PROFILE, INLET_HEX_AF).union(body)
+            .union(_wrench(OUTLET_PROFILE, OUTLET_HEX_AF, OUTLET_HEX_CLOCK))
+            .union(_turned(STUB_PROFILE)))
+    # Only the visible mouth is represented; these blind ends are display closures.
+    inlet_mouth = _turned(((0.0, 7.10), (1.3, 6.10), (4.5, 6.05)))
+    outlet_mouth = _turned(((OVERALL_LENGTH - 2.5, 3.85),
+                            (OVERALL_LENGTH, 4.00)))
+    return part.cut(inlet_mouth).cut(outlet_mouth).rotate((0, 0, 0), (1, 0, 0), -90)
 
 
 def main():
@@ -136,9 +139,8 @@ def main():
     print("Interstate Pneumatics WR1110 secondary regulator")
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Hex: {HEX_ACROSS_CORNERS} across corners × {HEX_LENGTH:g} mm each; "
-          f"body Ø{BODY_D} × {BODY_LENGTH:g} mm; {TOTAL_LENGTH:g} mm hex face to hex face; "
-          f"outlet stub Ø{STUB_D} × {STUB_LENGTH:g} mm")
+    print(f"  Barrel Ø{BODY_D:g} × {BODY_LENGTH:g} mm; "
+          f"hex shoulder y={TOTAL_LENGTH:g}; overall {OVERALL_LENGTH:g} mm")
     for label, (pos, axis) in (("inlet  (F)", inlet()), ("outlet (M)", outlet())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     export_assembly(one_body(part, "wr1110-regulator", M_ALUMINIUM), str(STEP))

@@ -7715,7 +7715,7 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 #
 #     carb-1 tube in its rib      [39.7 mm](LOOP_CARB_1)
 #     DIGITEN arm in its anchor   [81.2 mm](LOOP_DIGITEN)
-#     WR1110 barrel in its rib    [83.7 mm](LOOP_WR1110)
+#     WR1110 barrel in its rib    [83.2 mm](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
 #
 # A 4" tie closes about 69 mm of loop and takes the tube rib; the meter and regulator take the

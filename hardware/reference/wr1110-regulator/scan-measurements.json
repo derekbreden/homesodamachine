@@ -1,0 +1,352 @@
+{
+  "units": "mm",
+  "scale_factor": 1.0,
+  "capture_manifest_sha256": "2df48ed4d00fbc459ad3f128d3b588fb7a001506ae804f09c5c1ae6f967c2618",
+  "passes": [
+    {
+      "name": "pass-01",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-01/Fused 0923_1 (0.10mm).ply",
+        "sha256": "e9be796fec81383d40aa2c1d52b6560db923f141184e5c21b1f779298babf7d9",
+        "points": 443305,
+        "coordinate_scale_factor": 1.0
+      },
+      "table_frame_source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-01/native-project/raw_preview.ply",
+        "sha256": "caa3704282555bd3a1fabd3b0824bc56c922a0c521c20abf65df51394808abd6",
+        "points": 46971,
+        "coordinate_scale_factor": 1.0
+      },
+      "native_to_reference": [
+        [
+          -0.6354559494270748,
+          -0.5689261844785547,
+          0.5220332680513846,
+          -82.19021363474869
+        ],
+        [
+          -0.7718234213744888,
+          0.48729669102849743,
+          -0.4084489455616894,
+          132.974378933586
+        ],
+        [
+          -0.02200778397553146,
+          -0.6624688155131161,
+          -0.7487661356639573,
+          139.08039878588355
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "barrel_fit": {
+        "axis_point": [
+          8.060867416509181,
+          -8.204599131663624,
+          25.55625411993288
+        ],
+        "axis_direction": [
+          0.6333411193237101,
+          -0.7694113325722278,
+          0.08297727329346642
+        ],
+        "radius_mm": 9.441577479473017,
+        "untrimmed_residual_mm": {
+          "mean": 3.454743712167612e-05,
+          "median": -0.0002987434875416639,
+          "rms": 0.005358110843368704,
+          "p05": -0.006978720755936152,
+          "p95": 0.0072317748523437735,
+          "abs_p95": 0.008431382880038996,
+          "min": -0.012131177203782428,
+          "max": 0.09440199142798456,
+          "n": 5988
+        },
+        "fit_status": "`xtol` termination condition is satisfied."
+      },
+      "barrel_all_selected_residual_mm": {
+        "mean": 1.2800248438106355e-05,
+        "median": -0.0002553228712915967,
+        "rms": 0.005022790505385278,
+        "p05": -0.00701782936516473,
+        "p95": 0.0072393818600072985,
+        "abs_p95": 0.008359430607766248,
+        "min": -0.012800859671557419,
+        "max": 0.0974234559499969,
+        "n": 47899
+      },
+      "inlet_face_axis_residual_mm": {
+        "mean": 1.5360512661198385e-15,
+        "median": -0.0022128376144934236,
+        "rms": 0.023179785098750835,
+        "p05": -0.03172439252759034,
+        "p95": 0.0347960163462659,
+        "abs_p95": 0.040010671409589776,
+        "min": -0.15907507248439856,
+        "max": 0.06416175312875083,
+        "n": 7089
+      },
+      "table_plane_residual_mm": {
+        "mean": -3.9815273174775545e-15,
+        "median": 0.003383247982590376,
+        "rms": 0.1568537312120712,
+        "p05": -0.2524600582839197,
+        "p95": 0.22826826271695763,
+        "abs_p95": 0.2713710852036078,
+        "min": -0.384146382214122,
+        "max": 0.32843797222282145,
+        "n": 4855
+      },
+      "clock_degrees_from_table_frame": 0.6769698207886523,
+      "retained_points": 235726,
+      "selection": "Local table-up coordinate above -1 mm relative to the barrel axis; Y -0.6..65 mm; radial distance below 12 mm."
+    },
+    {
+      "name": "pass-02",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-02/Fused 0923_1 (0.10mm).ply",
+        "sha256": "1ce3f9a707533f33f84c7728193c784c3fc92b288646bad6247eaf989fb1ded3",
+        "points": 457527,
+        "coordinate_scale_factor": 1.0
+      },
+      "table_frame_source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-02/native-project/raw_preview.ply",
+        "sha256": "b6d10f9f3c896092af776d685a69e743633fa3286d2a148f2047454e73bdd5be",
+        "points": 52786,
+        "coordinate_scale_factor": 1.0
+      },
+      "native_to_reference": [
+        [
+          0.4594004897412791,
+          -0.3962265905618512,
+          0.7949564006643408,
+          -162.59822847838927
+        ],
+        [
+          0.8635376322985666,
+          0.4087941324859657,
+          -0.2952797230580393,
+          63.907769383853164
+        ],
+        [
+          -0.2079758342444103,
+          0.8221264173938081,
+          0.5299567965349286,
+          -90.16480697596067
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "barrel_fit": {
+        "axis_point": [
+          -0.28308292180611894,
+          3.8959913675742586,
+          26.408494518029265
+        ],
+        "axis_direction": [
+          0.4982799840853638,
+          0.8657167602939881,
+          0.047450483727472695
+        ],
+        "radius_mm": 9.426164813923421,
+        "untrimmed_residual_mm": {
+          "mean": -0.00016624178922034204,
+          "median": -0.0005346851378682516,
+          "rms": 0.009267511287741184,
+          "p05": -0.007156406721463782,
+          "p95": 0.009626843680818453,
+          "abs_p95": 0.010527317296704197,
+          "min": -0.2990908020311611,
+          "max": 0.025748344232033205,
+          "n": 6821
+        },
+        "fit_status": "Both `ftol` and `xtol` termination conditions are satisfied."
+      },
+      "barrel_all_selected_residual_mm": {
+        "mean": -0.00017055567951141444,
+        "median": -0.0004783359218150096,
+        "rms": 0.0095298308505392,
+        "p05": -0.0072396230458322995,
+        "p95": 0.009542907675100663,
+        "abs_p95": 0.010510081622477328,
+        "min": -0.3979672273142185,
+        "max": 0.026862827755978813,
+        "n": 54568
+      },
+      "inlet_face_axis_residual_mm": {
+        "mean": -2.741314823663567e-15,
+        "median": -0.012963498340678115,
+        "rms": 0.0400909048744634,
+        "p05": -0.04470520083291696,
+        "p95": 0.07409751414989463,
+        "abs_p95": 0.07692962540554898,
+        "min": -0.12238000784236291,
+        "max": 0.11841154322662106,
+        "n": 6559
+      },
+      "table_plane_residual_mm": {
+        "mean": 1.3896170939423158e-15,
+        "median": 0.011705393308648837,
+        "rms": 0.13885191757011772,
+        "p05": -0.24537878471554145,
+        "p95": 0.21676739479761048,
+        "abs_p95": 0.2673310240877587,
+        "min": -0.381386657339398,
+        "max": 0.36804703710896547,
+        "n": 7519
+      },
+      "clock_degrees_from_table_frame": 195.69965294903227,
+      "retained_points": 245023,
+      "selection": "Local table-up coordinate above -1 mm relative to the barrel axis; Y -0.6..65 mm; radial distance below 12 mm."
+    }
+  ],
+  "merged_cloud": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/wr1110-measured-cloud.ply",
+    "points": 480749,
+    "sha256": "ffa7c20a3dfa244decd678b1d08ae3d3758d881aef450b93281ab00feb83288c"
+  },
+  "barrel_fit": {
+    "axis_point": [
+      0.00031210572426931815,
+      32.50821831287477,
+      0.00876856781901239
+    ],
+    "axis_direction": [
+      -0.0002120871526131198,
+      0.9999999737361311,
+      -8.687218705894389e-05
+    ],
+    "radius_mm": 9.436328861589178,
+    "untrimmed_residual_mm": {
+      "mean": 5.609769227597644e-05,
+      "median": -0.0005751842443864064,
+      "rms": 0.008729397982811572,
+      "p05": -0.012225511051322257,
+      "p95": 0.014972422310186308,
+      "abs_p95": 0.016926628617783202,
+      "min": -0.05948032122578795,
+      "max": 0.1003254795763695,
+      "n": 18799
+    },
+    "fit_status": "Both `ftol` and `xtol` termination conditions are satisfied."
+  },
+  "barrel_all_selected_residual_mm": {
+    "mean": 5.031012633300008e-05,
+    "median": -0.0005890753047692598,
+    "rms": 0.008749645730055823,
+    "p05": -0.012162600591415362,
+    "p95": 0.014916666408110749,
+    "abs_p95": 0.016972666315318637,
+    "min": -0.1535085209625997,
+    "max": 0.10162054852858304,
+    "n": 225588
+  },
+  "inlet_facing_planes": [
+    {
+      "y_mm": -0.012499999999999567,
+      "count": 4263
+    }
+  ],
+  "outlet_facing_planes": [
+    {
+      "y_mm": 54.46250000000005,
+      "count": 5079
+    }
+  ],
+  "axial_features": {
+    "inlet_face": {
+      "samples": 11864,
+      "y_p05_median_p95_mm": [
+        -0.042536387894387316,
+        -0.00996893746414429,
+        0.052458030923335744
+      ]
+    },
+    "outlet_hex_shoulder": {
+      "samples": 11769,
+      "y_p05_median_p95_mm": [
+        54.43414883282928,
+        54.46914121844139,
+        54.508599073075644
+      ]
+    },
+    "outlet_tip_annulus": {
+      "samples": 92,
+      "y_p05_median_p95_mm": [
+        63.26240714115713,
+        63.583735370464495,
+        63.6821002719913
+      ]
+    }
+  },
+  "limits": [
+    "Native optical scale and spray thickness are not independently calibrated.",
+    "The hex clock is observable modulo 60 degrees; the owner-confirmed half turn selects the complementary hemisphere.",
+    "Internal pressure-control geometry and thread sealing are not measured by the exterior scan."
+  ],
+  "pass_comparison": {
+    "region": "Observed overlap strip X < -7 mm and |Z| < 0.7 mm; the opposite side is not fully common to both retained hemispheres.",
+    "first_to_second": {
+      "all_nearest_distance_mm": {
+        "mean": 0.09736010703148315,
+        "median": 0.09817756229529576,
+        "rms": 0.10365108989589637,
+        "p05": 0.03673904508984553,
+        "p95": 0.1544360530265007,
+        "abs_p95": 0.1544360530265007,
+        "min": 0.007270468386097126,
+        "max": 0.20608336791689033,
+        "n": 2404
+      },
+      "normal_compatible_fraction": 0.9995840266222962,
+      "overlap_within_0_75mm_fraction": 0.9995840266222962,
+      "overlap_points": 2403,
+      "overlap_point_plane_mm": {
+        "mean": 0.01342720800395271,
+        "median": 0.007134274437460666,
+        "rms": 0.047904178837437486,
+        "p05": -0.06304052010354166,
+        "p95": 0.1076106121998951,
+        "abs_p95": 0.1076106121998951,
+        "min": -0.10409236695816951,
+        "max": 0.13333637906252208,
+        "n": 2403
+      }
+    },
+    "second_to_first": {
+      "all_nearest_distance_mm": {
+        "mean": 0.09915668908133458,
+        "median": 0.10002973989836975,
+        "rms": 0.10564260893079272,
+        "p05": 0.037054801148678436,
+        "p95": 0.15625301619066148,
+        "abs_p95": 0.15625301619066148,
+        "min": 0.007270468386097126,
+        "max": 0.21665924758995864,
+        "n": 2461
+      },
+      "normal_compatible_fraction": 0.9991873222267371,
+      "overlap_within_0_75mm_fraction": 0.9991873222267371,
+      "overlap_points": 2459,
+      "overlap_point_plane_mm": {
+        "mean": -0.013973165538694108,
+        "median": -0.008051853783432716,
+        "rms": 0.04798567393907153,
+        "p05": -0.10787205083951268,
+        "p95": 0.0623239409295066,
+        "abs_p95": 0.10787205083951268,
+        "min": -0.13213490447793952,
+        "max": 0.10239795992241589,
+        "n": 2459
+      }
+    }
+  }
+}

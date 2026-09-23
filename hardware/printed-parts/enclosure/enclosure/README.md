@@ -1175,10 +1175,11 @@ around them.
 
 **The regulator's rib** closes on its round barrel. The WR1110 lies fore and aft
 on the panel deck one column east of the carb union, and the section under the rib is
-the **⌀19 barrel between its two wrench hexes** — the two hexes stand on made-up NPT
-threads, so where their flats come to rest is wherever the thread stopped, while the
-barrel is the same circle whatever the makeup did. The rib is 9.500 long inside a
-27 mm barrel, so it reaches neither hex.
+the **scanned ⌀18.87 barrel between its two wrench hexes**. The circular seat is
+independent of wrench clock. The 9.5 mm rib sits in the centre of the 35.4 mm round
+band, leaving 12.95 mm to each wrench transition. The
+[WR1110 measurement record](/hardware/reference/wr1110-regulator/README.md) identifies
+the retained scans, dimensions and model comparison.
 
 The cylindrical seat keeps 0.15 mm radial clearance around the WR1110 barrel. Its
 three-millimetre web separates the bore from the tie channel, which has at least 3.25 mm
@@ -1186,7 +1187,7 @@ of room under the full three-millimetre exterior ceiling cap. The CO₂ inlet an
 share one axis 0.25 mm below the other rear ports. The CO₂ chip reaches the common top edge.
 
 **The zip tie is the load path here**, the same bargain the flow-meter anchors make: a
-seat that opens downward carries nothing. Barrel and rib make an [83.7 mm](LOOP_WR1110)
+seat that opens downward carries nothing. Barrel and rib make an [83.2 mm](LOOP_WR1110)
 loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
 itself, and `check_tube_seated` reads the three run anchors the same way.

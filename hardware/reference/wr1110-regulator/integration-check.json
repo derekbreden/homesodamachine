@@ -1,0 +1,191 @@
+{
+  "units": "mm",
+  "source_sha256": {
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "a155014965c4a1e379761de7fcac4065bf54f66b3e1532692042a587262c53a9",
+    "hardware/manifold-layout/_gas_chain.py": "d650ec1d0166b1a3878153d5ad062df36c504af51d1cd7e90805f8bc8bfa9617",
+    "hardware/manifold-layout/_lines.py": "ad71ab0364bb400efefcd97a056493dd00b07f657db605e5a87edf241437f8a0",
+    "hardware/manifold-layout/_scorecard.py": "8512feeb00d796cfe033533ff8ed510183cb632f8a4207671f8f6f5846865b44",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "f9501059beb0cd81bc20eaae288706447e2d32653e90e8f318fd396424d12343"
+  },
+  "artifact_sha256": {
+    "hardware/reference/wr1110-regulator/wr1110-regulator.step": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
+    "hardware/manifold-layout/enclosure-box.json": "dbac78c21cab816e3dd5d9c22b4e0c6ee0a20267a507ce84ca05883daa916cbb",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "2e0ae1113872c578fae9be5e17ecfe0d4fbf026f1538d1a4e43b4a294692a70a",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "c7b47bbd16128fb8c5888bdfc757c6175fc5a9f00fca3ab32a4bb636b1850153",
+    "hardware/manifold-layout/enclosure-assembly.step": "ff95583215d77b17e9406482d7069eb402e49346e53090a0d91b1a9a01265419",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "7abff0d1794f3cec0d1459e5e00d52aed867ca9c8354ffe2664c6ae054924ab4"
+  },
+  "assembly_gates_pass": true,
+  "gate_count": 99,
+  "open_items": [
+    {
+      "id": "gas-chain-qualified",
+      "label": "Warm gas fitting dimensions and made-up fit qualified",
+      "kind": "goal",
+      "status": "warn",
+      "value": "WR1110 scanned; made-up fittings pending",
+      "target": "measure actual adapter reach and check before accepting their fit",
+      "detail": [
+        "PI010822S uses the shared nominal 1/4-inch PTC envelope.",
+        "PI450822S uses the nominal PP450822E sections the discharge chain draws.",
+        "The WR1110 exterior and outlet stub follow two native MINI 2 scans. Its adapter's assumed engagement is bounded by the measured stub.",
+        "The GASHER check and actual made-up adapter reaches remain nominal.",
+        "Model clearance does not qualify NPT engagement, the check's pressure rating, or the printed cradle's physical fit."
+      ],
+      "active": false
+    }
+  ],
+  "placed_barrel": {
+    "pos": [
+      2.449999999999999,
+      363.6526,
+      335.9605808375568
+    ]
+  },
+  "gas_body_boxes": {
+    "co2-adapter-check-in": [
+      31.305290418778373,
+      305.1526,
+      327.7105808375568,
+      45.594709581221615,
+      323.6526,
+      344.2105808375568
+    ],
+    "co2-adapter-check-out": [
+      30.949999999999996,
+      352.6526,
+      327.7105808375568,
+      45.949999999999996,
+      378.6526,
+      344.2105808375568
+    ],
+    "co2-adapter-regulator-in": [
+      -4.694709581221616,
+      396.00260000000003,
+      327.7105808375568,
+      9.594709581221625,
+      414.50260000000003,
+      344.2105808375568
+    ],
+    "co2-adapter-regulator-out": [
+      -5.050000000000004,
+      315.5326,
+      327.7105808375568,
+      9.949999999999996,
+      341.5326,
+      344.2105808375568
+    ],
+    "gasher-co2": [
+      29.949999999998262,
+      323.6526,
+      328.2105808375568,
+      46.95000000000173,
+      363.6526,
+      343.7105808375568
+    ],
+    "wr1110": [
+      -7.266745885600276,
+      332.35260000000005,
+      325.0814802311806,
+      12.16674588560027,
+      396.00260000000003,
+      346.83968144393305
+    ]
+  },
+  "gas_runs": [
+    {
+      "bend": 14.0,
+      "corners": 0,
+      "diam": 6.35,
+      "frm": "co2-inlet.inboard",
+      "id": "co2-0",
+      "length": 39.5,
+      "to": "wr1110.inlet"
+    },
+    {
+      "bend": 14.0,
+      "corners": 2,
+      "diam": 6.35,
+      "frm": "wr1110.outlet",
+      "id": "co2-1",
+      "length": 82.26749715025716,
+      "to": "gasher-co2.inlet"
+    },
+    {
+      "bend": 14.0,
+      "corners": 3,
+      "diam": 6.35,
+      "frm": "gasher-co2.outlet",
+      "id": "co2-2",
+      "length": 215.93662646991737,
+      "to": "foam-assembly.co2-in"
+    }
+  ],
+  "seat": {
+    "barrel_diameter_mm": 18.87,
+    "bore_diameter_mm": 19.17,
+    "rib_length_mm": 9.5,
+    "axial_margin_each_end_mm": 12.95
+  },
+  "outlet_adapter": {
+    "STEP_stations_and_barrel": "pass",
+    "intersection_mm3": 0.0,
+    "adapter_y_limits_mm": [
+      54.47,
+      80.47
+    ],
+    "tube_mouth_span_mm": 98.97
+  },
+  "regulator_to_check_route": {
+    "run": "co2-1",
+    "points": [
+      [
+        2.449999999999999,
+        315.5326,
+        335.9605808375568
+      ],
+      [
+        2.449999999999999,
+        281.2,
+        335.9605808375568
+      ],
+      [
+        38.449999999999996,
+        281.2,
+        335.9605808375568
+      ],
+      [
+        38.449999999999996,
+        305.1526,
+        335.9605808375568
+      ]
+    ],
+    "radii": {
+      "1": 14.0,
+      "2": 14.0
+    },
+    "developed_length_mm": 82.26749715025716,
+    "shell_intersection_mm3": 0.0,
+    "shell_distance_mm": 1.099999999999966,
+    "straight_at_outlet_mm": 20.332600000000014,
+    "straight_at_check_inlet_mm": 9.952600000000018,
+    "blocked": {}
+  },
+  "printed_export_checks": {
+    "six_meshes_watertight": true,
+    "pairwise_piece_overlap_mm3": 0.0,
+    "slide_contested_volume_mm3": {
+      "front": 0.0,
+      "back": 0.0
+    },
+    "viewer_max_surface_deviation_mm": {
+      "back_top": 0.158
+    },
+    "viewer_back_top_budget_mm": 0.227
+  },
+  "box_bounds": {
+    "total": 24,
+    "failures": []
+  },
+  "physical_fit": "Made-up adapter reaches, received GASHER dimensions and printed seating remain physical assembly observations."
+}
