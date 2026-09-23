@@ -1544,20 +1544,21 @@ Two broad skirts on the cover snap into the housing. Each is the nameplate's sna
 run 24 mm along the display: 1.3 mm thick, reaching 13.3 mm below the face, with a square
 1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. The skirt's slot continues the
 cover's inset wall down to the catch and leaves the skirt room to bend in by its whole lip.
-Under each catch the housing is open plumb into the pump bay, through the solid storey, so
-the catch's support stands on the bed and pulls out downward before the cartridge goes in.
-The bezel prints face upward with supports on its hidden underside. Seating and retention
+The catch is the ceiling of the storey cavity beside the display, and the lip hangs into
+that cavity. The cover prints face down with its skirts pointing up. Seating and retention
 still require a physical print check.
 
 The 19 mm housing and its internal ridge join the side walls and the pump-bay
-bulkhead. Either side of the display's opening the storey beneath the housing is solid:
-from the pump bay's lintel up into the housing, and from the front wall back to the
-ridge wall's fore face and crown. The skirt recesses are cut into that solid. Between
-the two blocks the opening continues down to the bay as one room, which holds the
-display's back, SIG-7's run to the ridge bore and the pump plug's unplug path. The
-ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
-Supports carry the lintel's flat underside, the room's short housing strips and the
-two catches from the bay; their geometry preserves the display seats and the catches.
+bulkhead. Either side of the display's opening the storey beneath the housing is one
+wall and one cavity. The wall stands on the pump bay's lintel and runs up into the
+housing, between the display's opening and the skirt's flex lane. The cavity runs from
+the flex lane out to the side wall and from the front wall back to the ridge wall's fore
+face and crown. It opens into the bay across its whole floor, and its ceiling is the catch
+plane. Between the two walls the opening continues down to the bay as one room, which
+holds the display's back, SIG-7's run to the ridge bore and the pump plug's unplug path.
+The ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
+Supports carry the lintel's flat underside, the room's short housing strips and the two
+cavity ceilings from the bay; their geometry preserves the display seats and the catches.
 
 The vertical flutes fade over their existing 5 mm end field as the front and sides
 turn into the smooth top curves. The rounded display bezel and funnel rim remain

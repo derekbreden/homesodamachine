@@ -1,21 +1,18 @@
-"""The display cover's two skirts and the open-backed catches the housing holds them with.
+"""The display cover's two skirts and the slots and catches the housing holds them with.
 
 Coordinates follow the machine display: X across, Y up the screen, Z out of the face.
 
 EACH SKIRT IS THE NAMEPLATE'S SNAP TAB RUN BROAD. Its thickness, reach, square lip, land and
 bearing slip are `_nameplate_interface`'s, and it runs `LENGTH` along the display instead of
 the tab's width. The housing's side of it is the nameplate receiver's too: a slot with a flex
-lane to one side, and under the catch nothing at all. The open back runs straight down in the
-print (world -Z) from the catch into the pump bay, so the catch's support stands in open air
-and leaves the way it came in.
+lane to one side, and under the catch nothing at all. The catch is the ceiling of the storey
+cavity beside the display (`enclosure.display_storey_cavities`), one a side from the flex lane
+out to the side wall, open into the pump bay.
 """
-
-import math
 
 import cadquery as cq
 import _nameplate_interface as _tab
 from _enclosure_interface import display_inset_x, display_cover_slip, display_cover_thickness
-from _swept_top import ANGLE
 
 WALL = _tab.TAB_THICK
 LENGTH = 24.0
@@ -33,12 +30,7 @@ CATCH = ROOT + LIP_START - BEARING_SLIP
 # bend in by the whole lip.
 NECK_X = OUTER_X + display_cover_slip
 FLEX_X = OUTER_X - WALL - LIP
-# The open back reaches one more lip past the lip's tip.
-BACK_X = OUTER_X + 2.0 * LIP
 RUN = LENGTH + 2.0 * END_SLIP
-# Below the catch the skirt goes on along the display's normal while the open back drops
-# plumb, so the back's base reaches this much further up the display to keep the lip inside it.
-DRIFT = (DEPTH + END_SLIP - CATCH) * math.tan(math.radians(ANGLE))
 
 
 def _prism(profile, length=LENGTH):
@@ -56,20 +48,12 @@ def skirt(side=1):
     return _prism([(side * px, z) for px, z in profile])
 
 
-def back_top(origin_z):
-    """The highest world Z of the open back's base, for a display origin at `origin_z`."""
-    a = math.radians(ANGLE)
-    return origin_z + (RUN / 2.0 + DRIFT) * math.sin(a) - CATCH * math.cos(a)
-
-
-def pocket(side=1, reach=DEPTH):
-    """The skirt's slot down to the catch, and the open back under it, `reach` plumb."""
+def pocket(side=1):
+    """The skirt's slot down to the catch, and the part of the storey cavity under the catch
+    that the skirt hangs into: one more lip past the lip's tip, to the skirt's own depth."""
     slot = _prism([(side * px, z) for px, z in [
         (FLEX_X, 1.0), (NECK_X, 1.0), (NECK_X, -CATCH), (FLEX_X, -CATCH)]], RUN)
-    a = math.radians(ANGLE)
-    base = cq.Wire.makePolygon([cq.Vector(side * px, y, -CATCH) for px, y in [
-        (FLEX_X, -RUN / 2.0), (BACK_X, -RUN / 2.0), (BACK_X, RUN / 2.0 + DRIFT),
-        (FLEX_X, RUN / 2.0 + DRIFT), (FLEX_X, -RUN / 2.0)]])
-    back = cq.Solid.extrudeLinear(
-        base, [], cq.Vector(0.0, -math.sin(a), -math.cos(a)) * reach)
-    return slot.fuse(back)
+    under = _prism([(side * px, z) for px, z in [
+        (FLEX_X, -CATCH), (OUTER_X + 2.0 * LIP, -CATCH),
+        (OUTER_X + 2.0 * LIP, -DEPTH - END_SLIP), (FLEX_X, -DEPTH - END_SLIP)]], RUN)
+    return slot.fuse(under)
