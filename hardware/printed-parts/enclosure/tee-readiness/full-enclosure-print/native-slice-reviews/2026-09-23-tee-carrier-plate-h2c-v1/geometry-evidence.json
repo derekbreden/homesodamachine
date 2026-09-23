@@ -1,0 +1,25 @@
+{
+  "source_commits": [
+    "094d35bf1",
+    "05d2faf6d",
+    "387c45863",
+    "9c28f1d59",
+    "2a48f8200",
+    "31b8f5d01",
+    "2c13818cb",
+    "22f93a337",
+    "a60a79bae"
+  ],
+  "freshness": {
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": {
+      "disk": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "published": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde"
+    },
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": {
+      "disk": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "published": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15"
+    }
+  },
+  "round_scan": "round-scan.json: in print (on its back, X-90) the columns' R6 rounds level only at the bed (aft rounds, print z 0) and at the column tops (fore rounds, print z 21.054); the R8.5 hits are the tee troughs' floors, hidden under the tees",
+  "layer_ranges": "plate 0-2.6 and 18.454-21.054 at 0.08 mm"
+}

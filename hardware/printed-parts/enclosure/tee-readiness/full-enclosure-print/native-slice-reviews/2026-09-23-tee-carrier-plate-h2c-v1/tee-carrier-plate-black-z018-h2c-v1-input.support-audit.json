@@ -1,0 +1,227 @@
+{
+  "parts": [
+    {
+      "schema": 1,
+      "piece": "enclosure-tee-carrier-plate",
+      "inputs": {
+        "gcode": "support-labels-enclosure-tee-carrier-plate.gcode",
+        "gcode_sha256": "4905cfdf0ef0442a9d261960432c5e2dab7a161563a6135fefdfc9067abc92eb",
+        "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/oriented-meshes/enclosure-tee-carrier-plate.stl",
+        "model_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+        "profile": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/tee-carrier-plate-black-z018-h2c-v1-input.3mf",
+        "profile_sha256": "80bb54645b4fbef09fbf9ed1e63089c591785fa4b3189cb8d351f2c622f001c8",
+        "native_plate_gcode_sha256": "0df0e3d13dcbe9d69f5488995fc78e76e2079d4cb7c62df5fbb11a4389d8a705",
+        "object_label": 1901,
+        "object_scope": "Analysis-only label for the sole object; original printing bytes are unchanged",
+        "original_stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+        "original_stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+        "pretransform_rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            -1,
+            0
+          ]
+        ],
+        "feature_filter": "Other-object feature labels masked in analysis copy; every movement retained."
+      },
+      "slicer": "BambuStudio 02.08.02.61",
+      "first_layer_z_mm": 0.2,
+      "coordinate_frame": {
+        "plate_to_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          -162.5,
+          34.61000061,
+          -117.040000915
+        ],
+        "plate_to_cad_translation_mm": [
+          -162.5,
+          34.610001,
+          -117.040001
+        ],
+        "plate_to_original_cad_transform": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          -1.0,
+          0.0,
+          -162.5,
+          117.040000915,
+          34.61000061
+        ]
+      },
+      "slicer_settings": {
+        "layer_height": "0.24",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_interface_top_layers": "2",
+        "support_object_xy_distance": "0.4",
+        "support_on_build_plate_only": "0",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_top_z_distance": "0.45",
+        "support_type": "tree(auto)"
+      },
+      "summary": {
+        "support_bodies": 2,
+        "interface_islands": null,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 2,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "trees": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 0.63,
+          "bbox_xy_mm": [
+            55.2,
+            130.4,
+            73.6,
+            189.6
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -107.3,
+            165.01,
+            -116.84,
+            -88.9,
+            224.21,
+            -116.41
+          ],
+          "bbox_original_cad_xyz_mm": [
+            -107.3,
+            116.41,
+            165.01,
+            -88.9,
+            116.84,
+            224.21
+          ]
+        },
+        {
+          "id": "tree-2",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 0.63,
+          "bbox_xy_mm": [
+            251.2,
+            130.4,
+            270.0,
+            189.6
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            88.7,
+            165.01,
+            -116.84,
+            107.5,
+            224.21,
+            -116.41
+          ],
+          "bbox_original_cad_xyz_mm": [
+            88.7,
+            116.41,
+            165.01,
+            107.5,
+            116.84,
+            224.21
+          ]
+        }
+      ],
+      "interfaces": [],
+      "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "toolpaths": {
+        "extrusion_bounds_xy_mm": [
+          [
+            54.855,
+            130.13400000000001
+          ],
+          [
+            270.156,
+            189.891
+          ]
+        ],
+        "segments": 133548,
+        "features": {
+          "Support": 4825,
+          "Inner wall": 35293,
+          "Outer wall": 36103,
+          "Bottom surface": 1293,
+          "Overhang wall": 44,
+          "Internal solid infill": 16171,
+          "Sparse infill": 27630,
+          "Floating vertical shell": 8416,
+          "Bridge": 2001,
+          "Top surface": 1599,
+          "Gap infill": 173
+        },
+        "maximum_line_width_mm": 0.709546,
+        "arc_sampling_allowance_mm": 0.1,
+        "method": "Native non-custom layer extrusions, buffered by each emitted half-width plus arc allowance."
+      }
+    }
+  ],
+  "source_gcode_sha256": "0df0e3d13dcbe9d69f5488995fc78e76e2079d4cb7c62df5fbb11a4389d8a705",
+  "fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-tee-carrier-plate",
+        "side_margins_mm": [
+          54.855,
+          130.13400000000001,
+          54.843999999999994,
+          130.109
+        ],
+        "minimum_margin_mm": 54.843999999999994
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 54.843999999999994,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  }
+}

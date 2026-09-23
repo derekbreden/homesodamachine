@@ -1,0 +1,18 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-23: 'for the other machine that will be free at the same time let us prepare at least the next two prints, which will be: tee carrier, pump cradle / pump cap', with 0.08 mm variable layer height where their rounded edges meet a top or bottom. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+    "hardware/manifold-layout/enclosure-box.json": "b8a19ec228d1606389a9f6db5b8388799e1f7f10c5072851dd9d1967c675907b",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "113557b51c9d1dd350d69b7af5f9d12743a33b4bb4238be0b8c3623542edfddf"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/geometry-evidence.json": "b7bd454b80478f2152c1fe858cdfb4799eb619fd47236e3f302d0532198e3289",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/round-scan.json": "572cf1467f8ae2c3c84b0b5142916bec3d601b29db9d14f731af9f183c4d7d30"
+  }
+}

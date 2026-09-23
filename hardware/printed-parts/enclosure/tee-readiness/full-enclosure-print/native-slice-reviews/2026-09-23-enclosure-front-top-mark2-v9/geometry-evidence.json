@@ -1,0 +1,26 @@
+{
+  "source_commits_since_v8": [
+    "652436fa5",
+    "dd93971b1",
+    "b2c14669c",
+    "53e1e93e4",
+    "7cd61a668",
+    "094d35bf1",
+    "05d2faf6d",
+    "387c45863",
+    "2c13818cb",
+    "22f93a337"
+  ],
+  "freshness": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
+      "disk": "635c8ede03c93d5ecc1a88475ba8ed27568fd1b746ce442da6bd11c2bd238217",
+      "published": "635c8ede03c93d5ecc1a88475ba8ed27568fd1b746ce442da6bd11c2bd238217"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": {
+      "disk": "71dfbfdafc07b11aa6059600449559b9a7d7f959bef2589dd3497993c754030c",
+      "published": "71dfbfdafc07b11aa6059600449559b9a7d7f959bef2589dd3497993c754030c"
+    }
+  },
+  "round_scan": "round-scan.json: the only show rounds that level in print are the R18 above the display and the R6 roof side edges, all at the roof (print z 195.0); every other hit is the inside of a bore or journal",
+  "layer_ranges": "top 2.6 mm of front-top (192.4 to 195.0) at 0.08 mm layers, as v8"
+}
