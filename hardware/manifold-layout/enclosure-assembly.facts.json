@@ -370,11 +370,11 @@
   ],
   "enclosure-tee-carrier-plate": [
    -107.5,
-   105.53999999999998,
-   166.574,
+   95.986,
+   164.924,
    107.5,
    117.03999999999999,
-   205.774
+   235.3113573071557
   ],
   "flow-regulator": [
    -99.41217782649106,
@@ -3541,8 +3541,8 @@
   }
  ],
  "schema": 2,
- "sources": "be6c70acaa6c31360dc199f572dcbaa4",
- "step": "5263bcee0fcd6ba4c19ca6481fcc3c76",
+ "sources": "b00b35f50836e10afa1122ed07f6542a",
+ "step": "ad9079b958ae22c5ce5ba2bd36755fa2",
  "valve_tray_stations": [
   [
    177.29,

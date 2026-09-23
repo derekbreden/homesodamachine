@@ -9,7 +9,7 @@ enclosure.
 The plate is [11.5 mm](PLATE_T) thick and [39.2 mm](PLATE_H) tall, the tee's
 [39.2 mm](RUN_SPAN_PRESSED) run span with both sleeves pressed, so the plate ends where a
 pressed run collet's face does. Through each flank, over the flank's [9 mm](FLANK_T), it is a
-column [70.387 mm](COLUMN_H) tall that slides on the opening's floor and roof, and
+column [70.3874 mm](COLUMN_H) tall that slides on the opening's floor and roof, and
 [21.054 mm](COLUMN_Y) deep: it reaches [9.554 mm](COLUMN_FORE) fore of the plate, so that with
 every collet pressed home it stands [0.15 mm](SLIP) off the tee wall's aft face.
 
@@ -30,7 +30,7 @@ bed.
 
 ## Openings and travel
 
-Each front flank carries a window [35.35 mm](OPENING_Y) in Y by [71.137 mm](OPENING_Z) in Z
+Each front flank carries a window [35.35 mm](OPENING_Y) in Y by [71.1374 mm](OPENING_Z) in Z
 through front-top's [9 mm](FLANK_T) flank section and front-bottom's seam rail under it. Its
 fore face is the tee wall's aft face; its aft face is the staged plate's strapped back plus
 [0.25 mm](AIR). Its floor stands [0.25 mm](AIR) under the tees' extended run span and the
