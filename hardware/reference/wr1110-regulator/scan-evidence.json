@@ -1,0 +1,73 @@
+{
+  "part": "Interstate Pneumatics WR1110 fixed inline regulator",
+  "identity_authority": "Derek confirmed WR1110 in this task on 2026-09-23",
+  "surface": "Sprayed and supported with putty, per Derek; coating thickness unmeasured",
+  "scanner": "Revopoint MINI 2",
+  "scanner_sn": "A26303035A6H01AB8",
+  "application": "Revo Scan 6.3.2",
+  "capture_date": "2026-09-23",
+  "coordinate_scale_factor": 1.0,
+  "processing": "Native fusion only; no isolation, smoothing, hole filling, meshing or scale adjustment",
+  "archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator",
+  "capture_manifest_sha256": "2df48ed4d00fbc459ad3f128d3b588fb7a001506ae804f09c5c1ae6f967c2618",
+  "passes": [
+    {
+      "name": "pass-01",
+      "orientation": "Long axis horizontal, resting in putty on one barrel side; both port ends clear.",
+      "native_project_id": "ebf4e260-d811-4d3c-bcf7-7d98919e076a",
+      "native_project_title": "20260923143948",
+      "frames": 858,
+      "table_tilt_degrees": 0,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object_type": "Normal",
+      "color": false,
+      "depth_exposure": 1,
+      "scanning_distance_mm": [
+        120,
+        250
+      ],
+      "fusion_point_spacing_mm": 0.1,
+      "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-01/Fused 0923_1 (0.10mm).ply",
+      "sha256": "e9be796fec81383d40aa2c1d52b6560db923f141184e5c21b1f779298babf7d9",
+      "point_count": 443305,
+      "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-01/native-project"
+    },
+    {
+      "name": "pass-02",
+      "orientation": "Derek rolled the part about its long axis and remounted it horizontally in putty; both port ends clear.",
+      "native_project_id": "ba10fa96-92c7-4ff7-bd01-5e538f9474e6",
+      "native_project_title": "WR1110-02-flipped-20260923",
+      "frames": 863,
+      "table_tilt_degrees": 0,
+      "accuracy": "High Accuracy",
+      "tracking": "Feature",
+      "object_type": "Normal",
+      "color": false,
+      "depth_exposure": 1,
+      "scanning_distance_mm": [
+        120,
+        250
+      ],
+      "fusion_point_spacing_mm": 0.1,
+      "cloud": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-02/Fused 0923_1 (0.10mm).ply",
+      "sha256": "1ce3f9a707533f33f84c7728193c784c3fc92b288646bad6247eaf989fb1ded3",
+      "point_count": 457527,
+      "native_project_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/pass-02/native-project"
+    }
+  ],
+  "registered_cloud": {
+    "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-23-wr1110-regulator/wr1110-measured-cloud.ply",
+    "points": 480749,
+    "sha256": "ffa7c20a3dfa244decd678b1d08ae3d3758d881aef450b93281ab00feb83288c"
+  },
+  "frame": "Inlet annular face Y=0; barrel axis +Y toward the male outlet; wrench-flat clock modulo 60 degrees, complementary hemispheres selected by the owner-confirmed half turn.",
+  "capture_recovery": "Revo Scan quit after the second 863-frame capture. The saved project reopened and produced the archived 457527-point native fusion.",
+  "native_processing": "0.10 mm fusion, no smoothing, isolation, meshing, hole filling or scale adjustment.",
+  "part_identity": "WR1110 confirmed by Derek; this record describes the fixed inline secondary regulator.",
+  "limits": [
+    "Native optical scale and spray thickness are not independently calibrated.",
+    "The hex clock is observable modulo 60 degrees; the owner-confirmed half turn selects the complementary hemisphere.",
+    "Internal pressure-control geometry and thread sealing are not measured by the exterior scan."
+  ]
+}

@@ -1853,13 +1853,14 @@ def _build(a) -> Scorecard:
               _mounted(runs), _placed(a), _routed(conns), _located(a),
               _tube_anchored(a, runs),
               Check("gas-chain-qualified", "Warm gas fitting dimensions and made-up fit qualified",
-                    "goal", "warn", "physical measurements pending",
-                    "measure actual adapter reach, stubs and check before assembly",
+                    "goal", "warn", "WR1110 scanned; made-up fittings pending",
+                    "measure actual adapter reach and check before accepting their fit",
                     ["PI010822S uses the shared nominal 1/4-inch PTC envelope.",
                      "PI450822S uses the nominal PP450822E sections the discharge chain "
                      "draws.",
-                     "The WR1110 outlet and the check outlet are nominal 1/4-inch NPT male "
-                     "stubs, not measured ones.",
+                     "The WR1110 exterior and outlet stub follow two native MINI 2 scans. "
+                     "Its adapter's assumed engagement is bounded by the measured stub.",
+                     "The GASHER check and actual made-up adapter reaches remain nominal.",
                      "Model clearance does not qualify NPT engagement, the check's pressure "
                      "rating, or the printed cradle's physical fit."])]
     return Scorecard(checks, bends, conns, size_rows(a))

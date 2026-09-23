@@ -1,0 +1,126 @@
+{
+  "units": "mm",
+  "method": "Unit-scale registered observations to tessellated analytical CAD; no distance-based exclusion.",
+  "model_source_sha256": "a155014965c4a1e379761de7fcac4065bf54f66b3e1532692042a587262c53a9",
+  "exported_step_sha256": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
+  "observations_sha256": "ffa7c20a3dfa244decd678b1d08ae3d3758d881aef450b93281ab00feb83288c",
+  "observation_voxel_mm": 0.25,
+  "cad_tessellation_mm": 0.025,
+  "all_retained_observations": {
+    "samples": 79777,
+    "p50_p90_p95_p99_max_mm": [
+      0.015028342115719353,
+      0.14853553771972658,
+      0.20374890358285963,
+      0.3147153402797582,
+      0.675341801240191
+    ],
+    "fraction_over_0_25mm": 0.03037216240269752,
+    "fraction_over_0_5mm": 0.0004261879990473445
+  },
+  "features": {
+    "barrel": {
+      "samples": 39493,
+      "p50_p90_p95_p99_max_mm": [
+        0.0075866643249108455,
+        0.015732952347551614,
+        0.018897478929148722,
+        0.0267054600696451,
+        0.4059754957426921
+      ],
+      "fraction_over_0_25mm": 7.596282885574659e-05,
+      "fraction_over_0_5mm": 0.0
+    },
+    "inlet_wrench_and_rounds": {
+      "samples": 19288,
+      "p50_p90_p95_p99_max_mm": [
+        0.0640728841916482,
+        0.18043289614848523,
+        0.2253490644943606,
+        0.2906363868713381,
+        0.33402538299560547
+      ],
+      "fraction_over_0_25mm": 0.0370696806304438,
+      "fraction_over_0_5mm": 0.0
+    },
+    "inlet_face": {
+      "samples": 1583,
+      "p50_p90_p95_p99_max_mm": [
+        0.020934434607624255,
+        0.04642786309123094,
+        0.05832673385739249,
+        0.08385001450776977,
+        0.10745742917060833
+      ],
+      "fraction_over_0_25mm": 0.0,
+      "fraction_over_0_5mm": 0.0
+    },
+    "inlet_visible_mouth": {
+      "samples": 1354,
+      "p50_p90_p95_p99_max_mm": [
+        0.1004570187403188,
+        0.21916118649004288,
+        0.25932950573016145,
+        0.3580824459447524,
+        0.6462725783946186
+      ],
+      "fraction_over_0_25mm": 0.059084194977843424,
+      "fraction_over_0_5mm": 0.0014771048744460858
+    },
+    "outlet_wrench_and_rounds": {
+      "samples": 7106,
+      "p50_p90_p95_p99_max_mm": [
+        0.045918758152643374,
+        0.09984705314950434,
+        0.11445835221387357,
+        0.13952462835647275,
+        0.18944866285493794
+      ],
+      "fraction_over_0_25mm": 0.0,
+      "fraction_over_0_5mm": 0.0
+    },
+    "outlet_shoulder": {
+      "samples": 1640,
+      "p50_p90_p95_p99_max_mm": [
+        0.015993804931639488,
+        0.03611534118652458,
+        0.04197204589843863,
+        0.06053428649902455,
+        0.07319763183593864
+      ],
+      "fraction_over_0_25mm": 0.0,
+      "fraction_over_0_5mm": 0.0
+    },
+    "stub_and_thread_envelope": {
+      "samples": 10081,
+      "p50_p90_p95_p99_max_mm": [
+        0.10924329929776075,
+        0.29017494346034084,
+        0.3375551763810449,
+        0.42338274862106456,
+        0.5540957660984318
+      ],
+      "fraction_over_0_25mm": 0.15950798531891677,
+      "fraction_over_0_5mm": 0.0026783057236385278
+    },
+    "outlet_visible_mouth": {
+      "samples": 487,
+      "p50_p90_p95_p99_max_mm": [
+        0.08521915594806505,
+        0.19360140412549218,
+        0.22730438220530613,
+        0.4336917606603964,
+        0.675341801240191
+      ],
+      "fraction_over_0_25mm": 0.03490759753593429,
+      "fraction_over_0_5mm": 0.01026694045174538
+    }
+  },
+  "solid_valid": true,
+  "solids": 1,
+  "limits": [
+    "Agreement describes the coated scan, not independent absolute accuracy.",
+    "Thread grooves use a smooth crest envelope; end rounds use short conical sections.",
+    "Mouth closures and internal pressure-control surfaces are unobserved and are not qualified."
+  ]
+}
