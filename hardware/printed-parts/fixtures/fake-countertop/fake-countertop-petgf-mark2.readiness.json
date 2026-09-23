@@ -3,62 +3,62 @@
   "printer_submission": false,
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 2949,
+    "export_time": 4639,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 265,
+    "prepare_time": 606,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 2205.744140625,
-          "Bridge": 8272.90234375,
-          "Custom": 297.3697509765625,
+          "Bottom surface": 1363.004638671875,
+          "Bridge": 4875.2431640625,
+          "Custom": 297.3690490722656,
           "Flush": 15.0,
-          "Gap infill": 1.7216498851776123,
-          "Inner wall": 6775.484375,
-          "Internal solid infill": 6840.146484375,
-          "Outer wall": 6571.64111328125,
-          "Sparse infill": 57186.1640625,
-          "Top surface": 1312.9781494140625,
-          "Travel": 1775.6312255859375,
-          "Undefined": 1774.062255859375
+          "Gap infill": 1.8921171426773071,
+          "Inner wall": 6628.04443359375,
+          "Internal solid infill": 4233.64453125,
+          "Outer wall": 6428.05126953125,
+          "Sparse infill": 47961.06640625,
+          "Top surface": 791.7088623046875,
+          "Travel": 1619.725830078125,
+          "Undefined": 1618.1568603515625
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFT01",
             "id": 1,
-            "main_used_g": 1640.970458984375,
-            "total_used_g": 1640.970458984375
+            "main_used_g": 1339.3695068359375,
+            "total_used_g": 1339.3695068359375
           }
         ],
-        "generate_support_material_time": 329,
+        "generate_support_material_time": 1418,
         "id": 1,
-        "infill_time": 776,
+        "infill_time": 1221,
         "layer_filament_change": 0,
-        "main_predication": 91092.625,
-        "make_perimeters_time": 720,
+        "main_predication": 73917.953125,
+        "make_perimeters_time": 1864,
         "obj_cached_cnt": 0,
         "objects": [
           {
             "bbox": {
               "depth": 310.0,
               "height": 220.0,
-              "width": 315.0,
-              "x": 5.0,
+              "width": 190.0,
+              "x": 67.5,
               "y": 5.0,
               "z": 0.0
             },
             "id": 5,
             "name": "fake-countertop",
-            "triangle_count": 84056
+            "triangle_count": 84062
           }
         ],
-        "sliced_time": 3870,
-        "sliced_time_with_cache": 1975,
-        "total_predication": 91418.421875,
-        "triangle_count": 84056,
+        "sliced_time": 10349,
+        "sliced_time_with_cache": 5711,
+        "total_predication": 74243.75,
+        "triangle_count": 84062,
         "warning_message": ""
       }
     ],
@@ -84,16 +84,16 @@
     "Top surface"
   ],
   "layers": 917,
-  "estimated_seconds": 91418.421875,
-  "estimated_filament_g": 1640.970458984375,
+  "estimated_seconds": 74243.75,
+  "estimated_filament_g": 1339.3695068359375,
   "plate_trim_commands_mm": [
     0.0,
     0.02
   ],
   "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
-  "archive_sha256": "03b9d5048e4f7b18badcfbf0eea2fc1a5a3bd9205c471e1a12fbdf59d4a522f3",
-  "gcode_sha256": "8980b2b8d839d7fd3b813ac4c9cfbd4ce7393a24ed230f0d7f9dea48ca1b1fa6",
-  "project_sha256": "5e6e93951928a1235709a96984b629cd98bdc108a3616d51a2004becc909c794",
-  "source_stl_sha256": "93d4b826e0e376163a4d13fcb8528f25c0539d8bdaf227c0bef7294382ae1f4e",
+  "archive_sha256": "5e6bcaa8678e8f200e78201f7613d096e976c2aa66f5f03588d7170dc582fd63",
+  "gcode_sha256": "12deb7c51393bc40a77a6d368e2a537952283fabc120ab41e39a110d7f4d91ae",
+  "project_sha256": "a7ae63127addc86434b980d9ff15267ba4bf9f3ef54638704c1cd9146099bcf7",
+  "source_stl_sha256": "5b50b2697da2fadb5ae05ce2d32dbf1eb569c408f921476cd5570455b8a82a57",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
 }
