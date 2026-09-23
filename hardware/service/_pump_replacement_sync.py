@@ -59,9 +59,10 @@ def holder(name: str, decked: frozenset):
 
     A pump's bracket bears in the cartridge's lower cradle, and `_facts.pump_trays` records the
     conformal clamp collar found on each boss — so a head in that table is held by the piece
-    that rides out and by nothing the box screws down. A tee with no fastening row of its own
-    inherits the fixed valve and construction named by `_scorecard.TEE_LANDS`: the inner pair
-    butt, while the four pump-barb tees float and land through bowed flex stubs."""
+    that rides out and by nothing the box screws down. The four pump-barb tees have a row of
+    their own, tied into the tee carrier plate. A tee with no fastening row inherits the fixed
+    valve and construction named by `_scorecard.TEE_LANDS`, which is how the inner pair, butted
+    to their valves, are held."""
     if name in decked:
         return RIDES_OUT
     by = _fastening_by_body()[_sc.RIDES.get(name, name)]
