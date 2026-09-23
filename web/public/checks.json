@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
-      "status": "red"
+      "note": "and the 161 sources behind them stand where they stood when it was written",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -97,11 +97,6 @@
     }
   ],
   "detail": {
-    "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds be6c70acaa6c31360dc199f572dcbaa4 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a2e3fd430dd0e64c14780820e47c4721 here. The three artifacts agree with each other and describe a machine that has since moved.",
-      "  the three come off one run:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
     "hardware/scripts/check_faucet_geometry.py": [
       "PASS fixture:complete-display-fit-trial",
       "PASS fixture:production-print-orientations",
@@ -134,8 +129,9 @@
       "    hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "step colours: 206/207 carry the colour of what they are made of",
-      "  1 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "step colours: 205/207 carry the colour of what they are made of",
+      "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "    hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
