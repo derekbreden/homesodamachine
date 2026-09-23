@@ -1403,10 +1403,10 @@ genrule(
         "hardware/assembly/cards/ip-01-co2-path.html",
         "hardware/assembly/cards/ip-02-water-path.html",
         "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
-        "hardware/assembly/cards/ip-05-manifold-pumps-channels.html",
-        "hardware/assembly/cards/ip-06-seat-pump-cartridge.html",
-        "hardware/assembly/cards/ip-07-risers.html",
-        "hardware/assembly/cards/ip-08-witness-tidy.html",
+        "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+        "hardware/assembly/cards/ip-05-seat-pump-cartridge.html",
+        "hardware/assembly/cards/ip-06-risers.html",
+        "hardware/assembly/cards/ip-07-witness-tidy.html",
         "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
         "hardware/assembly/cards/pv-02-tap-npt-ports.html",
         "hardware/assembly/cards/pv-03-rod-register.html",
@@ -1886,10 +1886,10 @@ genrule(
         "out/cards-build/hardware/assembly/cards/ip-01-co2-path.html",
         "out/cards-build/hardware/assembly/cards/ip-02-water-path.html",
         "out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html",
-        "out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html",
-        "out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html",
-        "out/cards-build/hardware/assembly/cards/ip-07-risers.html",
-        "out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html",
+        "out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+        "out/cards-build/hardware/assembly/cards/ip-05-seat-pump-cartridge.html",
+        "out/cards-build/hardware/assembly/cards/ip-06-risers.html",
+        "out/cards-build/hardware/assembly/cards/ip-07-witness-tidy.html",
         "out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html",
         "out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html",
         "out/cards-build/hardware/assembly/cards/pv-03-rod-register.html",
@@ -2137,10 +2137,10 @@ O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-conn
 O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
 O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
 O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-manifold-pumps-channels.html)
-O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-seat-pump-cartridge.html)
-O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-risers.html)
-O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-08-witness-tidy.html)
+O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
+O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-seat-pump-cartridge.html)
+O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-risers.html)
+O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-witness-tidy.html)
 O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
 O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
 O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
@@ -2401,10 +2401,10 @@ cp hardware/assembly/cards/gt-02-push-to-connect.html $$O215
 cp hardware/assembly/cards/ip-01-co2-path.html $$O216
 cp hardware/assembly/cards/ip-02-water-path.html $$O217
 cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O218
-cp hardware/assembly/cards/ip-05-manifold-pumps-channels.html $$O219
-cp hardware/assembly/cards/ip-06-seat-pump-cartridge.html $$O220
-cp hardware/assembly/cards/ip-07-risers.html $$O221
-cp hardware/assembly/cards/ip-08-witness-tidy.html $$O222
+cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O219
+cp hardware/assembly/cards/ip-05-seat-pump-cartridge.html $$O220
+cp hardware/assembly/cards/ip-06-risers.html $$O221
+cp hardware/assembly/cards/ip-07-witness-tidy.html $$O222
 cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O223
 cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O224
 cp hardware/assembly/cards/pv-03-rod-register.html $$O225

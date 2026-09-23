@@ -55,7 +55,7 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 | TB | Tube bench — cut, straighten, bend, flare | CC-01 · RL-03 · RL-05 |
 | BZ | Braze bench | RL-03 · RL-04 · RL-05 |
 | VC | Vacuum + charge | RL-02 · RL-06 · RL-07 · RL-08 |
-| CR | Crimp bench | CA-01 · GT-03/04 · EB-02/05 · WR-01/02/04 · IP-05 |
+| CR | Crimp bench | CA-01 · GT-03/04 · EB-02/05 · WR-01/02/04 · IP-04 |
 | SO | Solder + heat-set bench | CC-05 · CC-07 · CC-09 · EB-01 · EN-01 · CA-01 · GT-05 |
 | EL | Electrical test | EB-04/05/07 · WR-01/02/03/05 · FC-01…05 · RL-08 · CA-01 |
 | PL | Plastic tube + fittings | FU-01 · GT-01/02 · IP-01…05 · CC-01 · CC-12 |

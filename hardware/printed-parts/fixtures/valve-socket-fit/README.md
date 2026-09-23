@@ -32,9 +32,9 @@ submission and the observed printer state.
 The [toolpath review](toolpath-review.json) measures 7.192–7.200 mm openings at the four
 socket centers. Post-publication geometry lint reports zero findings on the printed mesh.
 
-The complete carrier still needs a physical check that each tie can be threaded and
+The complete valve trays still need a physical check that each tie can be threaded and
 tightened without disturbing the valve seating. The number of valves tested and a
 separate rocking assessment were not reported. No friction retention force was measured.
 
-This coupon qualifies only the socket and bearing fit. It does not release the carrier,
-cartridge, tube routes or complete enclosure.
+This coupon qualifies only the socket and bearing fit. It does not release the cartridge,
+tube routes or complete enclosure.
