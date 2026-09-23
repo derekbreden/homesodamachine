@@ -54,18 +54,13 @@ click: x=-82.850 y=411.750 z=284.461
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-74.850 y=411.750 z=303.211
 
-[ceiling] The nameplate bar's two exposed crowns lie below the pump and remain flat. The complete bar translates 0.25 mm toward print-up for supported-face clearance while the pump and screw axes stay fixed; its original section is retained. Support is accessible from the open enclosure before hardware installation.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=22.947 y=462.090 z=266.150
-click: x=76.312 y=462.090 z=266.150
-
 [ceiling] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-88.285 y=282.000 z=276.899
 
 [ceiling] The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.160 y=470.269 z=243.500
+click: x=38.160 y=470.269 z=249.779
 
 [ceiling] Relay 2's lower end bar bridges the 15 mm span between its two blocker-profiled wings over the relay's pin field. The flat first printed face projects only 2.25 mm from the east wall and is carried by those wings; the bar remains a full mounting feature, not a thin detached shelf.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -108,11 +103,6 @@ click: x=97.375 y=339.800 z=327.200
 [ceiling] The pan's flange passes over these flat rim-rebate shoulders at Z296.211. With the pan fully seated on the clean bearing floor, the gap is 0.75 mm: 0.25 mm running fit plus two 0.25 mm allowances for the supported flange underside and sleeve shoulder. The gap is 1.25 mm in the nominal assembly pose, whose pan bottom stands 0.50 mm above the clean floor. The sleeve retains its complete 3 mm bearing floor and 3 mm retention roof. Support leaves through the open pan berth.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-80.850 y=411.750 z=296.211
-
-[ceiling] These two flat shoulders engage the nameplate snap tabs. Each is part of the full receiver block rooted in the rear wall; the receiving passages preserve the tab approach and engagement. Supports are removed through those open passages before the plate is installed.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=83.868 y=463.890 z=255.850
-click: x=-7.547 y=463.890 z=255.850
 
 [ceiling] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
