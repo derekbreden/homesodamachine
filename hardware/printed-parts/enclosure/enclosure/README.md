@@ -1201,7 +1201,7 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 **The downstream gas check has a separate ceiling cradle**, east and forward of the
 regulator, with its flow arrow pointing aft. The seat closes on the check's round metal
-inlet boss; its adapters and outlet coupling remain clear of the tie. Thread one **6-inch
+inlet boss; its adapters remain clear of the tie. Thread one **6-inch
 18 lb zip tie** through the empty cradle before seating the made-up check, then close and
 flush-cut the tie. The [calculated loop and tie allocation](/hardware/ledger/bom.md)
 come from the named body seat, and

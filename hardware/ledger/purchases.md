@@ -96,7 +96,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | Drill America D/ASTCO1/16P12 1/16" cobalt split-point stub drill, 12-pack — water-inlet jet drilling | [B00FX9PNYQ](https://www.amazon.com/dp/B00FX9PNYQ) | 1 pk (12) | $14.79 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | Hosifiy 316 SS round rod, nominal 3/8" / 9.5 mm × 400 mm — water-inlet jet-cap stock; fitting compatibility requires measurement | [B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS) | 1 | $10.71 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | HARFINGTON PT4-U pneumatic branch tee, 6 mm tube OD × 1/4" male NPT, 5-pack — regulated argon purge branch | [B0F1FDG9SC](https://www.amazon.com/dp/B0F1FDG9SC) | 1 pk (5) | $8.68 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
-| LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; stock also supplies the CO2 check outlet adapter | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
+| LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; four spare | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 
 ## 2. CO2 subsystem
 
@@ -118,6 +118,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | Interstate Pneumatics WR1110 1/4" NPT in-Line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body | [B07J2L8LF3](https://www.amazon.com/dp/B07J2L8LF3) | 1 | $25.66 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100675224 — JG 1/4" NPTF male connector (×10) + 1/4" union elbow PP0308E (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 × bag of 10) | $44.11 | — | — | 2026-05-19 | ACQUIRED |
+| Fresh Water Systems order WEBFWS100708594 — JG **PI450822S** gray acetal female adapter, 1/4" tube × 1/4" NPTF (3 × bag of 10) | [FWS](https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100708594) | 3 bags (30) | $94.54 | WEBFWS100708594 | 2026-09-23 | — | ON-ORDER (placed Sep 23, 2026; $75.18 merchandise + $12.97 economy shipping, 7–10 business days in transit + $6.39 tax. Two per build, on the male outlets of the WR1110 and the CO2 check, bom.md §4) |
 
 ## 3. Water supply + backflow prevention
 
@@ -732,10 +733,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$35,980.09](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$41,417.63](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$775.75](LEDGER_ON_ORDER) |
+| ON-ORDER | [$870.29](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$42,246.45](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$42,340.99](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
