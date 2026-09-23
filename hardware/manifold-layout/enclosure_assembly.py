@@ -5826,7 +5826,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     # The tee carrier seated through both front flanks, its troughs on the four tees.
     if box.pack.collet_plate:
-        for name, part in _tee_carrier.parts(_enc.tee_carrier(box.pack.collet_plate)).items():
+        for name, part in _tee_carrier.parts(_enc.tee_carrier(box.pack)).items():
             a.add(part, name=name, color=M_PETGF_BLACK)
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
