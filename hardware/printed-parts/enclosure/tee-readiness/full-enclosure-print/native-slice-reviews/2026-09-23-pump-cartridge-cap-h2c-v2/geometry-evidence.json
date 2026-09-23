@@ -1,0 +1,6 @@
+{
+  "placement": "the 2026-09-21 H2C v1 plate's centres: cartridge upright at (162.5, 210.2), cap flipped X180 at (162.5, 106.9)",
+  "freshness": "every artifact's hash equals hardware/cad-artifacts.json's published entry at preparation",
+  "round_scan": "round-scan.json: B-rep normals at mesh nodes, print frame, |nz| > cos 26.57 deg on non-planar faces; the cap has no rounded edge (only vertical bores), the cartridge's show rounds flatten only at its side grip openings' floor (print z 12.230) and ceiling (106.999)",
+  "layer_ranges": "cartridge 9.630-14.830 and 104.399-109.599 at 0.08 mm; cap none"
+}
