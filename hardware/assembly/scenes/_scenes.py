@@ -521,8 +521,7 @@ def holders():
         out[name] = (by if isinstance(by, str) else None) or BEARS_ON.get(name)
     # Printed parts sit outside the purchased-pack fastening census. The tee carrier stands in
     # front-top's flanks and brings its four tied tees into front-top's bench scene.
-    for name in (_ea._tee_carrier.PLATE, _ea._tee_carrier.GRIP):
-        out[name] = "enclosure-front-top"
+    out[_ea._tee_carrier.PLATE] = "enclosure-front-top"
     for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES:
         out[f"tube-{rid}"] = piece
     for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:
