@@ -14,11 +14,14 @@ that finds it there is reading someone else's leftovers.
 
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _root = _hw.parent
+sys.path.insert(0, str(_root / "tools"))
+from check_paths import _pinned_copies  # noqa: E402
 
 _LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
 FIGURES_SUFFIX = ".figures.json"
@@ -36,7 +39,10 @@ def main() -> int:
     tracked = _tracked()
     missing = []
 
-    for rel in sorted(t for t in tracked if t.endswith(".md")):
+    # A COPY A PACKAGE MANIFEST PINS BY BYTES QUOTES ITS DOC, figures and all. No generator
+    # fills it, so no sidecar is owed for it — the rule `check_paths` reads such a copy by.
+    pinned = _pinned_copies(tracked)
+    for rel in sorted(t for t in tracked if t.endswith(".md") and t not in pinned):
         doc = _root / rel
         try:
             text = doc.read_text()
