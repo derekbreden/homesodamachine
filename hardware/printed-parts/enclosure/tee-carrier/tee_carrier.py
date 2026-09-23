@@ -1,13 +1,15 @@
 """The tee carrier: one plate that carries Y-C, Y-D, Y-F and Y-G across the front column,
-flank face to flank face. Through each flank its tip stands the tees' extended run span tall.
+flank face to flank face. Through each flank it is a column that stands from the opening's floor
+to its roof and reaches fore to a slip short of the tee wall's aft face with every collet
+pressed home.
 
 The four bare tees are tied into its troughs on the bench; the plate enters through the -X
 flank `staged_dy` aft of its seat, where every branch nose passes the tee wall's aft face, and
 slides fore until each branch stands in its journal.
 
-Both flanks carry one opening, the same box: the tee wall's aft face to the staged plate's
-strapped back, and the tees' extended run span with running air, the roof a supported face's
-more. Front-top and front-bottom cut it straight across the column (`opening`).
+The opening is one cutter: the tees' sweep across the column at their height, the +X column's
+crossing at the staged plate, and a window through each flank from the tees' floor to the fore
+coils' flank pockets. Front-top and front-bottom cut it (`opening`).
 
 +X across the enclosure, +Y aft, +Z up, in the assembly frame, at the tees' connected state.
 
@@ -49,11 +51,12 @@ class Carrier:
     flank_x: float
     tie_slot: tuple
     strap_t: float
+    roof_z: float
     backing: float = 3.0
     air: float = fits.running
 
     @classmethod
-    def on(cls, plate, *, exterior_x, flank_x, tie_slot, strap_t):
+    def on(cls, plate, *, exterior_x, flank_x, tie_slot, strap_t, roof_z):
         """The carrier on a collet plate's four tee stations, at its assembly state."""
         state = plate["carrier_states"][plate["assembly_state"]]
         return cls(
@@ -62,7 +65,7 @@ class Carrier:
             axis_z=plate["holes"][0][1],
             wall_aft_y=plate["wall_aft_y"],
             exterior_x=exterior_x, flank_x=flank_x,
-            tie_slot=tuple(tie_slot), strap_t=strap_t)
+            tie_slot=tuple(tie_slot), strap_t=strap_t, roof_z=roof_z)
 
     @property
     def trough_r(self):
@@ -95,15 +98,24 @@ class Carrier:
         return self.wall_aft_y, self.plate_y[1] + self.staged_dy + self.strap_t + self.air
 
     @property
-    def tip_z(self):
-        return self.axis_z - tee.RUN_HALF, self.axis_z + tee.RUN_HALF
+    def floor_z(self):
+        """The opening's floor: the tees' extended run span, running air under it."""
+        return self.axis_z - tee.RUN_HALF - self.air
 
     @property
-    def opening_z(self):
-        """The tips' height with running air, and the roof, which front-top prints facing down
-        over support, a supported face's allowance above that."""
-        z0, z1 = self.tip_z
-        return z0 - self.air, z1 + self.air + fits.supported_surface
+    def tee_top_z(self):
+        return self.axis_z + tee.RUN_HALF + self.air
+
+    @property
+    def column_y(self):
+        """Fore to a slip short of the tee wall's aft face at release, back to the plate's back."""
+        return self.wall_aft_y + fits.slip + release_travel(), self.plate_y[1]
+
+    @property
+    def column_z(self):
+        """Running air over the floor; under the roof, which front-top prints facing down over
+        support, a supported face's allowance more."""
+        return self.floor_z + self.air, self.roof_z - self.air - fits.supported_surface
 
     @property
     def tie_zs(self):
@@ -113,13 +125,21 @@ class Carrier:
 
 
 def opening(c: Carrier):
-    """The way in and the slide, straight through both flanks and everything between."""
-    return _box(-c.exterior_x - 1.0, c.exterior_x + 1.0, *c.opening_y, *c.opening_z)
+    """The way in and the slide: the tees' sweep across the column, the +X column's crossing at
+    the staged plate, and each flank's window."""
+    x0, x1 = -c.exterior_x - 1.0, c.exterior_x + 1.0
+    crossing = (c.column_y[0] + c.staged_dy - c.air, c.plate_y[1] + c.staged_dy + c.air)
+    cutter = _box(x0, x1, *c.opening_y, c.floor_z, c.tee_top_z).fuse(
+        _box(x0, x1, *crossing, c.floor_z, c.roof_z))
+    for side in (-1.0, 1.0):
+        wx0, wx1 = sorted((side * c.flank_x, side * (c.exterior_x + 1.0)))
+        cutter = cutter.fuse(_box(wx0, wx1, *c.opening_y, c.floor_z, c.roof_z))
+    return cutter.clean()
 
 
 def build_plate(c: Carrier):
     """The plate from flank face to flank face, with a trough and four tie slots at each tee and
-    a tip the tees' run span tall through each flank."""
+    a column through each flank."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
     body = _box(-c.exterior_x, c.exterior_x, y0, y1, z0, z1)
     sx, sz = c.tie_slot
@@ -133,7 +153,7 @@ def build_plate(c: Carrier):
                                      tz - sz / 2.0, tz + sz / 2.0))
     for side in (-1.0, 1.0):
         x0, x1 = sorted((side * c.flank_x, side * c.exterior_x))
-        body = body.fuse(_box(x0, x1, y0, y1, *c.tip_z))
+        body = body.fuse(_box(x0, x1, *c.column_y, *c.column_z))
     return cq.Workplane(obj=body.clean())
 
 
@@ -152,16 +172,18 @@ def figures(c: Carrier) -> dict:
         "PLATE_T": c.plate_t, "PLATE_H": c.plate_h, "BACKING": c.backing,
         "TROUGH_D": 2.0 * c.trough_r, "BARREL_D": 2.0 * tee.BARREL_R,
         "RUN_SPAN_PRESSED": tee.RUN_SPAN_PRESSED, "STAGED_DY": c.staged_dy,
-        "TIP_H": c.tip_z[1] - c.tip_z[0], "RUN_SPAN": tee.RUN_SPAN,
-        "ROOF_AIR": c.opening_z[1] - c.tip_z[1], "SUPPORTED": fits.supported_surface,
+        "COLUMN_H": c.column_z[1] - c.column_z[0],
+        "COLUMN_Y": c.column_y[1] - c.column_y[0],
+        "COLUMN_FORE": c.axis_y - c.column_y[0], "SLIP": fits.slip,
+        "ROOF_AIR": c.roof_z - c.column_z[1], "SUPPORTED": fits.supported_surface,
         "OPENING_Y": c.opening_y[1] - c.opening_y[0],
-        "OPENING_Z": c.opening_z[1] - c.opening_z[0],
+        "OPENING_Z": c.roof_z - c.floor_z, "TEE_SWEEP_Z": c.tee_top_z - c.floor_z,
         "AIR": c.air, "STRAP_T": c.strap_t,
         "TIE_SLOT_X": c.tie_slot[0], "TIE_SLOT_Z": c.tie_slot[1],
         "TIE_BAND": sum(tee.RUN_ROOT_BAND) / 2.0,
         "NOSE_GAP": tee.CARRIER_AFT_COLLET_GAP, "COLLET_STROKE": tee.BRANCH_COLLET_TRAVEL,
         "RELEASE_TRAVEL": release_travel(),
-        "FORE_ROOM": c.plate_y[0] - c.air - c.opening_y[0],
+        "FORE_ROOM": c.column_y[0] - c.opening_y[0],
         "FLANK_T": c.exterior_x - c.flank_x,
         "LENGTH": 2.0 * c.exterior_x,
     }
@@ -176,12 +198,12 @@ def selftest(c: Carrier) -> int:
         bb = solid.BoundingBox()
         if max(-bb.xmin, bb.xmax) > c.exterior_x + 1e-6:
             errors.append(f"{name} stands past the enclosure's X extremity")
-    if c.axis_z + tee.RUN_HALF + c.air > c.opening_z[1] + 1e-9:
-        errors.append("an extended run collet does not pass the opening")
+    if c.tee_top_z > c.roof_z:
+        errors.append("the flank pockets' floor stands under the tees' run span")
     if abs(c.plate_y[1] + c.staged_dy - (c.opening_y[1] - c.strap_t - c.air)) > 1e-9:
         errors.append("the staged plate's strapped back does not close the opening")
-    if c.plate_y[0] - release_travel() < c.opening_y[0] + c.air - 1e-9:
-        errors.append("the openings stop the plate short of pressing the collets home")
+    if c.column_y[0] - release_travel() < c.opening_y[0] + fits.slip - 1e-9:
+        errors.append("the openings stop the columns short of pressing the collets home")
     for error in errors:
         print("FAIL", error)
     if not errors:
@@ -197,7 +219,7 @@ def _spec():
     import _box_spec
     box, _bounds = _box_spec.read(enclosure.Box, enclosure.Bound,
                                   (enclosure.Pack, enclosure.PortField, enclosure.Nameplate))
-    return enclosure.tee_carrier(box.pack.collet_plate)
+    return enclosure.tee_carrier(box.pack)
 
 
 def main():
