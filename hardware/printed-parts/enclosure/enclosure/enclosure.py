@@ -1771,8 +1771,8 @@ def documented(box):
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. Its release shoulder is cut into the bay bulkhead.
-#   tee_carrier   the moving four-tee mechanism and filled fixed body: motion/assembly cavities,
-#                 web and handhold guides, release/park stops, spring pockets and tie sites
+#   tee_carrier   the moving four-tee mechanism: its travel states, hardware wells, flank
+#                 openings and recesses, spring seats and cups, and tie sites
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
@@ -5726,44 +5726,6 @@ def _tee_wall(inner, y_joint, plate, bay):
     return slab
 
 
-def _tee_carrier_clearances(inner, plate, carrier):
-    """Four continuous hardware wells and common faces behind the moving carrier.
-
-    One face clears the tie heads and the complete lap's lateral entry. The lower and upper
-    web bearings remain broad flat lands between wells. The common clearance ends on the
-    flank interior, preserving the service opening's full wall section.
-    """
-    if not carrier:
-        return ()
-    air = carrier["guide_slide_air"]
-    fixed_y = carrier["body_fore_y"]
-    aft = carrier["body_aft_y"]
-    web_z0, web_z1 = carrier["web_z"]
-    backing_room = _ybox(
-        inner[0], inner[1],
-        carrier["body_face_y"], aft + 1.0,
-        web_z0 - air, web_z1 + air + fits.supported_surface)
-    fore_guide = _tee_carrier_fore_guide(carrier)
-    cuts = [backing_room.cut(fore_guide, fore_guide.mirror("YZ"))]
-    for x, z in plate["holes"]:
-        cuts.append(_teardrop_y(plate["bore_r"], x, z, fixed_y - 1.0, aft + 1.0))
-    for xs, ys, zs in (*carrier["tee_wells"], *carrier["aft_valve_cavities"],
-                       *_tee_carrier_floor_cavities(inner, carrier)):
-        cuts.append(_supported_cut(_ybox(*xs, *ys, *zs)))
-    return tuple(cuts)
-
-
-def _tee_carrier_floor_cavities(inner, carrier):
-    """The aft valves' underside-entry passages through the common floor, each opened out to
-    the Z-rail channel wherever the floor left between the two would stand thinner than a wall."""
-    lo = _rail_channel_span(inner[0], 1.0, "front")[2]
-    hi = _rail_channel_span(inner[1], -1.0, "front")[2]
-    out = []
-    for (x0, x1), ys, zs in carrier["floor_cavities"]:
-        out.append(((lo if x0 - lo < wall else x0, hi if hi - x1 < wall else x1), ys, zs))
-    return tuple(out)
-
-
 def _tee_carrier_fore_guide(carrier):
     """The floor-rooted land beneath the service tab's fore retaining shoulder."""
     air = carrier["guide_slide_air"]
@@ -5772,21 +5734,6 @@ def _tee_carrier_fore_guide(carrier):
                  carrier["release_fore_stop_y"] - air,
                  carrier["web_z"][0] - air - wall,
                  carrier["grip_rim_z"][0] - air)
-
-
-def _tee_carrier_fixed_features(inner, plate, carrier):
-    """Filled guide body and common floor joining the tee wall, valve trays and flanks."""
-    if not carrier:
-        return None
-    body = _ybox(inner[0], inner[1], carrier["body_fore_y"],
-                 carrier["body_aft_y"], plate["z0"], carrier["body_top_z"])
-    body = body.fuse(_ybox(
-        inner[0], inner[1], carrier["body_fore_y"],
-        carrier["body_floor_aft_y"], plate["z0"],
-        carrier["web_z"][0] - carrier["guide_slide_air"]))
-    for cutter in _tee_carrier_clearances(inner, plate, carrier):
-        body = body.cut(cutter)
-    return body
 
 
 def _tee_carrier_service_slots(carrier):
@@ -8967,9 +8914,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # already put there. After `_side_wells`, whose tower is one of the two things bounding
         # a station on that face — a clip fused before the well was cut would be cut by it.
         piece = _flank_cable_clips(piece, box)
-        if box.pack.tee_carrier:
-            piece = piece.fuse(_tee_carrier_fixed_features(
-                inner, box.pack.collet_plate, box.pack.tee_carrier))
     piece = _valve_trays(
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None),
@@ -9080,15 +9024,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     x_in, x_ext, sx, z_boss, _y_boss(y_joint), y_joint,
                     ceiling=inner[5]))
     if y_side == "front" and z_side == "top" and plate:
-        # Continue the same hardware wells through the finished part, including the
-        # valve trays. Later fuses cannot leave shelves inside these common passages.
-        for cutter in _tee_carrier_clearances(inner, plate, box.pack.tee_carrier):
-            piece = piece.cut(cutter)
-        # Flat guide openings continue through every wall, bearing body and seam feature.
+        # The flank openings continue through every wall, tray and seam feature.
         for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
             piece = piece.cut(slot)
-        # Add the closed circular cups after the common well/guide cutters so
-        # those access volumes cannot erase their measured capture surfaces.
+        # Add the closed circular cups after the recess cutters so those access volumes
+        # cannot erase their measured capture surfaces.
         for cup in _tee_carrier_fixed_cups(box.pack.tee_carrier):
             piece = piece.fuse(cup)
         piece = _front_top_flank_pockets(piece, box.pack.front_flank_reliefs)
@@ -10156,6 +10096,10 @@ def main():
         "BOX_SIZE": (f"{bo[1] - bo[0]:.6g} × {bo[3] - bo[2]:.6g} × "
                      f"{bo[5] - bo[4]:.6g} mm"),
         "FRONT_WALL": f"{front_wall:.4g} mm",
+        # How far the fore valve tray's flat underside reaches aft of the tee wall.
+        "FORE_TRAY_OVERHANG": (
+            f"{max(plane - sign * _valve_tray.SEAT for plane, sign, _seats in box.pack.valve_trays if sign > 0) - box.pack.collet_plate['wall_aft_y']:.4g} mm"
+            if box.pack.collet_plate else "no station"),
         **disposal_figures(bo),
         **pump_cartridge_figures(box),
     }
