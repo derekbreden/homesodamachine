@@ -4842,14 +4842,21 @@ CEILING_RELIEF_LEVEL_GROUPS = (
     ("wr1110", _gas_chain.REG_IN_ADAPTER, _gas_chain.REG_OUT_ADAPTER),
     ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER, _gas_chain.CHECK_OUT_ADAPTER),
 )
+# The ASSE chain's zip-tie channel is cut to the lane over the barrel
+# (`enclosure._ceiling_tie_channel_relief`), so the chain's pocket takes the lane as its roof too:
+# one roof over both.
+CEILING_RELIEF_LANE_BODIES = ("asse1022-assembly",)
 # Gasher's long, shallow crown genuinely enters the slab, but only 1.961 mm. Its exact plan stays
 # its own; the floor takes one complete printable wall rather than leaving a sub-wall step, and
 # its level group's adapters take that same roof.
 CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
 # Their nearest source rectangles still leave a 1.181 mm plan web. One explicit local connector
 # opens that web without growing either pocket to a neighbour's far edge. This is a reviewed
-# relationship between these two bodies, not a general merge-nearby-pockets rule.
-CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),)
+# relationship between these two bodies, not a general merge-nearby-pockets rule. The ASSE
+# chain's aft section and the water union's nut are the second such pair: their slipped pockets
+# leave a web thinner than a wall between them, which the same connector opens.
+CEILING_RELIEF_CONNECTOR_PAIRS = (("relay-1", "ground-stack"),
+                                  ("asse1022-assembly", "bulkhead-water"))
 CEILING_RELIEF_CONNECTOR_ENTRY = 0.5
 # The connected ground stack enters the slab in two overlapping sections whose circular plans
 # stagger by 0.8 mm in X. One rectangular service pocket around those named sections avoids
@@ -5024,6 +5031,8 @@ def ceiling_reliefs(placed: dict) -> tuple:
     reliefs = list(_contained_reliefs(tuple(reliefs)))
     reliefs = list(_enveloped_reliefs(tuple(reliefs)))
     reliefs = _level_reliefs(_minimum_depth_reliefs(tuple(reliefs)))
+    reliefs = tuple(row[:5] + (lane,) if row[0] in CEILING_RELIEF_LANE_BODIES else row
+                    for row in reliefs)
     return _full_depth_reliefs(_connected_reliefs(reliefs))
 
 
@@ -5392,10 +5401,11 @@ def flank_reliefs(placed):
 
 
 def front_flank_reliefs(placed):
-    """One-millimetre air around each outer coil's actual near-wall yoke surface."""
+    """One-millimetre air around each outer coil's actual near-wall yoke surface, and around the
+    part of its valve that crosses the flank's face."""
     pockets = []
     air = _card.CLEARANCE_FLOOR
-    for name in ("coil-v-f", "coil-v-i"):
+    for name, valve in (("coil-v-f", "valve-v-f"), ("coil-v-i", "valve-v-i")):
         shape = placed[name][0]
         b = box(shape)
         side = 1.0 if b.center.x > 0.0 else -1.0
@@ -5410,12 +5420,25 @@ def front_flank_reliefs(placed):
         if not near.Solids():
             continue
         hit = box(near)
-        floor = hit.xmax + air if side > 0 else hit.xmin - air
+        ys, zs, xs = [hit.ymin, hit.ymax], [hit.zmin, hit.zmax], [hit.xmin, hit.xmax]
+        vshape = placed[valve][0]
+        vb = box(vshape)
+        vlo, vhi = ((face, vb.xmax + 1.0) if side > 0 else (vb.xmin - 1.0, face))
+        if vhi > vlo:
+            crossing = vshape.intersect(cq.Solid.makeBox(
+                vhi - vlo, vb.ylen + 2.0, vb.zlen + 2.0,
+                cq.Vector(vlo, vb.ymin - 1.0, vb.zmin - 1.0)))
+            if crossing.Solids():
+                c = box(crossing)
+                ys += [c.ymin, c.ymax]
+                zs += [c.zmin, c.zmax]
+                xs += [c.xmin, c.xmax]
+        floor = max(xs) + air if side > 0 else min(xs) - air
         if abs(floor) > min(abs(x) for x in _enc.interior_x()):
             raise ValueError(f"{name} clearance would enter the nominal enclosure wall")
         pockets.append((name, min(face, floor), max(face, floor),
-                        hit.ymin - air, hit.ymax + air,
-                        hit.zmin - air, hit.zmax + air))
+                        min(ys) - air, max(ys) + air,
+                        min(zs) - air, max(zs) + air))
     return tuple(pockets)
 
 
