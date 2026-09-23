@@ -65,6 +65,7 @@ function memoized(fn) {
       importers: new Map(),
       consumers: new Map(),
       traced: undefined,
+      writers: undefined,
     };
     try {
       return fn.apply(this, args);
@@ -491,12 +492,42 @@ function referencesStep(source, stepBasename) {
 // entry.
 export const buildProducerMap = memoized(producerMap);
 
+// THE WRITER A WATCHED RUN SAW ANSWERS FIRST. The scan below names a STEP's producer as the
+// first runnable beside it that names the file, and a script that READS a STEP beside the one
+// that writes it names it too: `westbrass-reference/register_scan.py` registers a scan against
+// `westbrass-reference.step` and sorts ahead of `westbrass_reference.py`, which writes it. The
+// scan made the reader the producer and the writer a consumer, and closed a ring through
+// `faucet_assembly.py`. `graph.json`'s writes are an observation of which run wrote the file,
+// keyed by its path; the scan stands wherever no trace names a writer.
+function tracedWriters() {
+  if (memo && memo.writers !== undefined) return memo.writers;
+  let writers = null;
+  try {
+    const raw = JSON.parse(fs.readFileSync(GRAPH_JSON, "utf-8"));
+    writers = new Map();
+    for (const [gen, seen] of Object.entries(raw)) {
+      for (const f of seen.writes || []) if (f.endsWith(".step")) writers.set(f, gen);
+    }
+  } catch {
+    writers = null;              // absent or unreadable: the scan names every producer
+  }
+  if (memo) memo.writers = writers;
+  return writers;
+}
+
 function producerMap(roots) {
   const key = rootsKey(roots);
   if (memo && memo.producers.has(key)) return memo.producers.get(key);
   const producerOf = new Map();
+  const writers = tracedWriters();
   for (const step of walk(roots, ".step")) {
     const base = path.basename(step);
+    const traced = writers
+      && writers.get(path.relative(REPO_ROOT, step).split(path.sep).join("/"));
+    if (traced && isRunnableScript(path.join(REPO_ROOT, traced))) {
+      producerOf.set(base, path.join(REPO_ROOT, traced));
+      continue;
+    }
     const dir = path.dirname(step);
     let entries;
     try {
