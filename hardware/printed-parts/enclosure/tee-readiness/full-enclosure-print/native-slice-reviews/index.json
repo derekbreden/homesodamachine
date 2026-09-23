@@ -400,6 +400,27 @@
         "grams_actual_petgf_density_1p43": 912.5070043756056
       },
       "submitted": false
+    },
+    {
+      "job": "front-bottom-v3",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-bottom-h2c-v3/manifest.json",
+        "sha256": "a4a34dbedea832c49f5a9c51dcb2ddf1725c73cdf08f493429fb207da3b5c497"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/ready/enclosure-front-bottom-black-z018-h2c-v3.gcode.3mf",
+        "sha256": "a01ff332db2f3178ae1cb86c1665049bd686e36eb8e357c8add532b0c522e29e"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-bottom-h2c-v3/offline-review.json",
+        "sha256": "7fe9e6eb7065855be08bc073333594ff2dac1edb0bebdd807fef293d39b794d8"
+      },
+      "slice_estimate": {
+        "seconds": 66536.3515625,
+        "grams_actual_petgf_density_1p43": 636.7254946213359
+      },
+      "submitted": false
     }
   ]
 }

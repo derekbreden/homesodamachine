@@ -1,0 +1,50 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "front-bottom",
+  "printer": "H2C",
+  "archive_stem": "enclosure-front-bottom-black-z018-h2c-v3",
+  "title": "Complete enclosure front-bottom with the tee carrier's seam-rail notches, handhold-roof rounds in 0.08 mm layers, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "enclosure-front-bottom",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": []
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-front-bottom": [
+      {
+        "min_z": 32.65,
+        "max_z": 37.85,
+        "layer_height": 0.08,
+        "reason": "R6 rounds round each handhold's roof (level at print z 35.25): the mouth round above it and the corner fillets below it; 2.6 mm each side, the depth front-top's roof edges print at"
+      }
+    ]
+  }
+}
