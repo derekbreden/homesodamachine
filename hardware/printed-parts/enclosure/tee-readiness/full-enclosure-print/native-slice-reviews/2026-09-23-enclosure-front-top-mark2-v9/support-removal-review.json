@@ -1,0 +1,506 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "763336a4c44cba1687f91f3ba94ace337a87aa58bd653004c2094eb675d53fe2",
+  "gcode_sha256": "3013ec707cb8f8ce659ef1ce53f3c7e2820702a6fe901059ba88f3432db566cc",
+  "support_audit_sha256": "69c79e0946f410b0b9c2d2c71f2d63d3d10a22aab8795366348d832b4f74cfc0",
+  "geometry_confirmation_sha256": "8d841766f862b38c7321478fad6843af8d1588af4fd31ae86b6d262b76e20c68",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "support_summary": {
+        "support_bodies": 4,
+        "interface_islands": 9,
+        "bed_rooted_bodies": 4,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 63.83,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 9,
+        "shortest_labelled_build_up_mm": 63.83
+      },
+      "model_overhangs_review": "All 9 labelled islands are assigned below; there are no model-rooted or unlabelled bodies. v8's old-carrier supports (the fixed spring cups, the carrier backing clearance, the service slots and handhold recesses, the hardware-well roofs) are gone with that carrier. New since v8: the two flank window roofs, carried from the bed through the open windows, and the two display-storey cavity ceilings, carried by the bay tree through the cavities' open floors. The spring pockets in the tee wall are teardropped for this mouth-down print and take no support. As in v8, the top band makes the slicer plan the trees on their own layer grid. Cleanup precedes every hardware installation and the shell join; actual effort and finish are unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 64.03,
+            "shortest_build_up_mm": 63.83,
+            "top_z_mm": 182.63,
+            "bbox_xy_mm": [
+              60.4,
+              52.0,
+              176.8,
+              108.8
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-8"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -210.875,
+              -108.0,
+              160.2,
+              -94.475,
+              -51.2,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -108.0,
+              94.475,
+              160.2,
+              -51.2,
+              210.875,
+              342.63
+            ]
+          },
+          "contact_region": "West bed-rooted tree: the west flank window roof (interface-1) and the west funnel-brim surround underside (interface-8).",
+          "removal_lane": "With the shell loose and nothing installed, detach the window-roof branch and draw it out through the open flank window (35.35 mm by 60.12 mm, open through the flank to both sides); detach the funnel-brim branches toward X0 into the open funnel mouth and take them out through it, or lower them into the open interior and out through the open underside. The stems stand in the open aft interior. Branch-by-branch removal; no whole-tree translation is asserted.",
+          "removal_direction_original_cad": "Window-roof branch outboard -X or inboard +X through the window; funnel branches toward X0 then out the funnel mouth, or -Z out the open underside.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The window roof bounds the carrier column's slide, 0.5 mm over it (running air plus the supported allowance); the brim surround carries the removable funnel. Both keep their source profiles.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 64.03,
+            "shortest_build_up_mm": 63.83,
+            "top_z_mm": 182.63,
+            "bbox_xy_mm": [
+              75.2,
+              224.4,
+              176.8,
+              267.6
+            ],
+            "interfaces": [
+              "interface-2",
+              "interface-9"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -196.075,
+              64.4,
+              160.2,
+              -94.475,
+              107.6,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              64.4,
+              94.475,
+              160.2,
+              107.6,
+              196.075,
+              342.63
+            ]
+          },
+          "contact_region": "East bed-rooted tree: the east flank window roof (interface-2) and the east funnel-brim surround underside (interface-9).",
+          "removal_lane": "With the shell loose and nothing installed, detach the window-roof branch and draw it out through the open flank window (35.35 mm by 60.12 mm, open through the flank to both sides); detach the funnel-brim branches toward X0 into the open funnel mouth and take them out through it, or lower them into the open interior and out through the open underside. The stems stand in the open aft interior. Branch-by-branch removal; no whole-tree translation is asserted.",
+          "removal_direction_original_cad": "Window-roof branch outboard +X or inboard -X through the window; funnel branches toward X0 then out the funnel mouth, or -Z out the open underside.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The window roof bounds the carrier column's slide, 0.5 mm over it (running air plus the supported allowance); the brim surround carries the removable funnel. Both keep their source profiles.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 151.4,
+            "shortest_build_up_mm": 151.2,
+            "top_z_mm": 151.64,
+            "bbox_xy_mm": [
+              146.4,
+              137.6,
+              184.8,
+              171.6
+            ],
+            "interfaces": [
+              "interface-7"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -124.875,
+              -22.4,
+              160.2,
+              -86.475,
+              11.6,
+              311.64
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -22.4,
+              86.475,
+              160.2,
+              11.6,
+              124.875,
+              311.64
+            ]
+          },
+          "contact_region": "Bed-rooted tree under the pump-jack keystone receptacle pocket roof in the central ridge (interface-7).",
+          "removal_lane": "Before the jack is fitted, detach the branch from the pocket roof and draw it out through the pocket's open fore/aft aperture, then down through the open interior.",
+          "removal_direction_original_cad": "Along Y through the pocket aperture, then -Z out the open underside.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The pocket roof latches the RiteAV keystone jack; keep its profile.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 124.03,
+            "shortest_build_up_mm": 123.83,
+            "top_z_mm": 175.88,
+            "bbox_xy_mm": [
+              192.4,
+              22.0,
+              296.8,
+              298.0
+            ],
+            "interfaces": [
+              "interface-3",
+              "interface-4",
+              "interface-5",
+              "interface-6"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -78.875,
+              -138.0,
+              160.2,
+              25.525,
+              138.0,
+              335.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -138.0,
+              -25.525,
+              160.2,
+              138.0,
+              78.875,
+              335.88
+            ]
+          },
+          "contact_region": "Bed-rooted front bay tree: the full-width lintel (interface-3), the front housing strip's hidden underside below the display opening (interface-4), and both display-storey cavity ceilings on the catch plane (interfaces 5 west, 6 east), each cavity open into the bay across its whole floor.",
+          "removal_lane": "With the cartridge and the display absent, detach from the lintel; lower the housing-strip branches through the open room behind the display opening into the bay; pull each cavity-ceiling branch straight down out of its cavity's open floor into the bay; then withdraw fore through the open cartridge mouth or out the bay's open sides. Nothing walls a branch in and nothing is installed over it.",
+          "removal_direction_original_cad": "-Z off the lintel, the strip underside and the cavity ceilings, then -Y through the open bay (or \u00b1X out its sides).",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The flat lintel is the cartridge's insertion roof; the strip's underside is the display housing's hidden face toward the room behind the display; the cavity ceiling is the catch plane the cover's lip rests 0.48 mm under.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 64.03,
+            "last_z_mm": 64.31,
+            "bbox_xy_mm": [
+              142.8,
+              52.4,
+              176.8,
+              61.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 63.83,
+            "bbox_cad_xyz_mm": [
+              -128.475,
+              -107.6,
+              224.03,
+              -94.475,
+              -98.4,
+              224.31
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.6,
+              94.475,
+              224.03,
+              -98.4,
+              128.475,
+              224.31
+            ]
+          },
+          "contact_region": "West flank window roof at Z224.796, X-107.5..-98.5 / Y93.8..129.2: the roof of the carrier column's window through the 9 mm flank, faced down in the print.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 64.03,
+            "last_z_mm": 64.31,
+            "bbox_xy_mm": [
+              142.8,
+              258.4,
+              176.8,
+              267.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 63.83,
+            "bbox_cad_xyz_mm": [
+              -128.475,
+              98.4,
+              224.03,
+              -94.475,
+              107.6,
+              224.31
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.4,
+              94.475,
+              224.03,
+              107.6,
+              128.475,
+              224.31
+            ]
+          },
+          "contact_region": "East flank window roof at Z224.796, X+98.5..+107.5 / Y93.8..129.2: the roof of the carrier column's window through the 9 mm flank, faced down in the print.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 124.03,
+            "last_z_mm": 124.31,
+            "bbox_xy_mm": [
+              192.4,
+              52.8,
+              266.0,
+              267.2
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 123.83,
+            "bbox_cad_xyz_mm": [
+              -78.875,
+              -107.2,
+              284.03,
+              -5.275,
+              107.2,
+              284.31
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.2,
+              5.275,
+              284.03,
+              107.2,
+              78.875,
+              284.31
+            ]
+          },
+          "contact_region": "Full-width flat pump-bay lintel underside at Z284.674, X-107.5..+107.5 / Y5.0..79.5, above the cartridge opening.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 128.63,
+            "last_z_mm": 135.8,
+            "bbox_xy_mm": [
+              244.0,
+              108.0,
+              256.4,
+              212.8
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 128.43,
+            "bbox_cad_xyz_mm": [
+              -27.275,
+              -52.0,
+              288.63,
+              -14.875,
+              52.8,
+              295.8
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -52.0,
+              14.875,
+              288.63,
+              52.8,
+              27.275,
+              295.8
+            ]
+          },
+          "contact_region": "Front housing strip's hidden underside below the display opening, parallel to the 30\u00b0 display plane (X-52.7..+53.7 / Y14.0..27.3 / Z288.9..296.6), facing the room behind the display.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 138.95,
+            "last_z_mm": 175.88,
+            "bbox_xy_mm": [
+              192.4,
+              60.4,
+              256.4,
+              99.6
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 138.75,
+            "bbox_cad_xyz_mm": [
+              -78.875,
+              -99.6,
+              298.95,
+              -14.875,
+              -60.4,
+              335.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -99.6,
+              14.875,
+              298.95,
+              -60.4,
+              78.875,
+              335.88
+            ]
+          },
+          "contact_region": "West display-storey cavity ceiling on the 30\u00b0 catch plane (X-100.3..-59.6 / Y14.0..79.5 / Z299.3..337.1), including the catch beside the skirt slot where the cover's west lip rests.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-6",
+            "first_z_mm": 138.95,
+            "last_z_mm": 175.88,
+            "bbox_xy_mm": [
+              192.4,
+              220.4,
+              256.4,
+              259.6
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 138.75,
+            "bbox_cad_xyz_mm": [
+              -78.875,
+              60.4,
+              298.95,
+              -14.875,
+              99.6,
+              335.88
+            ],
+            "bbox_original_cad_xyz_mm": [
+              60.4,
+              14.875,
+              298.95,
+              99.6,
+              78.875,
+              335.88
+            ]
+          },
+          "contact_region": "East display-storey cavity ceiling on the 30\u00b0 catch plane (X+59.6..+100.3 / Y14.0..79.5 / Z299.3..337.1), including the catch beside the skirt slot where the cover's east lip rests.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-7",
+            "first_z_mm": 151.4,
+            "last_z_mm": 151.64,
+            "bbox_xy_mm": [
+              181.2,
+              153.2,
+              184.8,
+              166.8
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 151.2,
+            "bbox_cad_xyz_mm": [
+              -90.075,
+              -6.8,
+              311.4,
+              -86.475,
+              6.8,
+              311.64
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -6.8,
+              86.475,
+              311.4,
+              6.8,
+              90.075,
+              311.64
+            ]
+          },
+          "contact_region": "Pump-jack keystone receptacle pocket roof at Z312.1, X-7.5..+7.5 / Y85.7..92.4, in the central ridge.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-8",
+            "first_z_mm": 182.082,
+            "last_z_mm": 182.63,
+            "bbox_xy_mm": [
+              75.2,
+              68.4,
+              164.4,
+              94.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 181.882,
+            "bbox_cad_xyz_mm": [
+              -196.075,
+              -91.6,
+              342.082,
+              -106.875,
+              -65.6,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -91.6,
+              106.875,
+              342.082,
+              -65.6,
+              196.075,
+              342.63
+            ]
+          },
+          "contact_region": "West funnel-brim surround horizontal underside at Z343.0, X-98.5..-62.5 / Y106.7..197.0, alongside the open funnel mouth.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-9",
+            "first_z_mm": 182.082,
+            "last_z_mm": 182.63,
+            "bbox_xy_mm": [
+              75.2,
+              225.6,
+              164.4,
+              251.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 181.882,
+            "bbox_cad_xyz_mm": [
+              -196.075,
+              65.6,
+              342.082,
+              -106.875,
+              91.6,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              65.6,
+              106.875,
+              342.082,
+              91.6,
+              196.075,
+              342.63
+            ]
+          },
+          "contact_region": "East funnel-brim surround horizontal underside at Z343.0, X+62.5..+98.5 / Y106.7..197.0, alongside the open funnel mouth.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-23 02:21:00.378770] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 02:21:18.275327] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 02:21:18.277209] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The three diagnostics are T1001, T65535 and T65279. T1001 is the saved-profile startup hotend type detection, before the first layer; T65535 and T65279 are in the saved-profile end code, after the last layer (Z195). petgf.3mf carries them and the native slice preserves them. Native return code 0, empty plate warning, black filament on nozzle 0.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}
