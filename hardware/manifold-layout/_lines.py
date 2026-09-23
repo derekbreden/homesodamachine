@@ -267,7 +267,7 @@ def build_runs(placed, carries):
         runs.append(_water_3(F))
     if {"co2-inlet", "wr1110"} <= set(F):
         runs.append(_co2_0(F))
-    if {"gasher-co2", "wr1110"} <= set(F):
+    if {"gasher-co2", "wr1110", "foam-assembly"} <= set(F):
         runs.append(_co2_1(F))
     if {"gasher-co2", "foam-assembly"} <= set(F):
         runs.append(_co2_2(F))
@@ -317,12 +317,17 @@ def _co2_0(F):
 
 def _co2_1(F):
     """co2-1 — a forward U-turn between regulator and downstream check inlet collets."""
+    import enclosure as enc
+
     src = F["wr1110"].at("outlet")
     dst = F["gasher-co2"].at("inlet")
-    # The soda-water crossing's ceiling cradle is immediately forward of this run.
-    # Bring the U-turn 1 mm back toward its collets to clear that existing cradle;
-    # both corners retain the stock's full bend radius.
-    turn_y = min(src[1], dst[1]) - 2.0 * TUBE_BEND + 1.0
+    # The water crossing's cradle reaches one wall beyond its slipped tube seat.
+    # Keep its near surface one clearance floor plus 0.1 mm behind that aft flank;
+    # the measured regulator's shorter body must not pull the bend into this rib.
+    water_y = F["foam-assembly"].at("carb-water-out")[1] - CARB_1_FORWARD_LEAN
+    cradle_aft = water_y + _split.TUBE_D / 2 + enc.fits.slip + enc.wall
+    turn_y = max(min(src[1], dst[1]) - 2.0 * TUBE_BEND + 1.0,
+                 cradle_aft + F["wr1110"].diam("outlet") / 2 + _card.CLEARANCE_FLOOR + .1)
     return R.bent(
         "co2-1", "wr1110.outlet", (src[0], turn_y, src[2]),
         (dst[0], turn_y, dst[2]), "gasher-co2.inlet",
