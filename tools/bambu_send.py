@@ -42,8 +42,8 @@ SELECTOR_TEXT = (70, 32)
 DIALOG_SETTLE = 2.0
 #: Sends a filament load swallows are made again, each one a whole pass through the application.
 SEND_ROUNDS = 3
-#: A click borrows the front for a second or two, and a keystroke typed elsewhere in that
-#: window takes the popover with it; the selector says whether it took, and a miss is retried.
+#: A click borrows the front for a second or two. A keystroke in another app can
+#: dismiss either popover; each miss starts again from a closed, fresh dialog.
 POPOVER_TRIES = 3
 PRINTER_ROW = (81, 91)
 PRINTER_ROW_PITCH = 36
@@ -284,16 +284,42 @@ def main():
             ax("press", "cancel", "--role", "AXButton", check=False)
             fail("no filament tile in the dialog")
         if t["label"] == "? ?":
-            x, y = t["x"], t["y"]
-            click = ax("click", str(x + TILE_CENTRE[0]), str(y + TILE_CENTRE[1]),
-                       str(x + EXTERNAL_SPOOL[0]), str(y + EXTERNAL_SPOOL[1]))
-            print("mapping: " + click.splitlines()[-1])
-            time.sleep(1.0)
-            nodes = tree()
-            if not dialog(nodes):
-                fail("the dialog closed under the mapping clicks: the popover did not open, so the "
-                     "second click landed outside the dialog (a busy printer's tile does not open one)")
-            t = tile(nodes)
+            tries = []
+            for attempt in range(POPOVER_TRIES):
+                time.sleep(DIALOG_SETTLE)
+                nodes = tree()
+                t = tile(nodes) if dialog(nodes) else None
+                if t is None or t["label"] != "? ?":
+                    fail(f"filament tile changed before click {attempt + 1}: "
+                         f"{t['label'] if t else 'dialog closed'}")
+                x, y = t["x"], t["y"]
+                click = ax("click", str(x + TILE_CENTRE[0]), str(y + TILE_CENTRE[1]),
+                           str(x + EXTERNAL_SPOOL[0]), str(y + EXTERNAL_SPOOL[1]))
+                time.sleep(1.0)
+                nodes = tree()
+                t = tile(nodes) if dialog(nodes) else None
+                if t is not None and t["label"].startswith("Ext "):
+                    print(f"mapping: external spool selected on attempt {attempt + 1}")
+                    break
+                result = t["label"] if t is not None else "dialog closed"
+                tries.append(f"attempt {attempt + 1}: {click.splitlines()[-1]} -> {result}")
+                if attempt == POPOVER_TRIES - 1:
+                    if dialog(nodes):
+                        ax("press", "cancel", "--role", "AXButton", check=False)
+                    fail("external spool did not take: " + "; ".join(tries))
+                # The tile toggles its popover. Reusing this dialog could close an
+                # open popover, so every retry begins with a new dialog.
+                if dialog(nodes):
+                    ax("press", "cancel", "--role", "AXButton", check=False)
+                    if not wait_for(5, lambda n: not dialog(n) and n):
+                        fail("could not close the send dialog after a missed filament mapping: "
+                             + "; ".join(tries))
+                ax("press", "Print", "--role", "AXButton")
+                nodes = wait_for(10, lambda n: dialog(n) and selector(n) == args.printer and n)
+                if not nodes:
+                    fail("could not reopen the send dialog for a fresh mapping attempt: "
+                         + "; ".join(tries))
+                print(f"mapping: retrying from a fresh {args.printer} dialog")
         if t is None or not t["label"].startswith("Ext "):
             ax("press", "cancel", "--role", "AXButton", check=False)
             fail(f"the filament tile reads {t['label'] if t else 'nothing'}; it must read the external spool")
