@@ -344,7 +344,7 @@ MOUNTS = (
     # The check's round inlet boss takes its own tied ceiling cradle. Its connecting tubes
     # bend between the fixed regulator and the cold core and do not locate the valve.
     ("gasher-co2", "enclosure-back-top", "cradle"),
-    *((name, None, "thread") for name in _gas_chain.BODY_NAMES),
+    *((name, None, "thread") for name in _gas_chain.ADAPTER_NAMES),
     # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
     # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a zip tie
     # through the rib's own cavity closes round the barrel and the rib's back together. The seat
@@ -440,7 +440,6 @@ RIDES = {
     "nameplate-ink": "nameplate",
     **{name: "wr1110" for name in _gas_chain.ADAPTER_NAMES[:2]},
     **{name: "gasher-co2" for name in _gas_chain.ADAPTER_NAMES[2:]},
-    _gas_chain.CHECK_COUPLING: "gasher-co2",
 }
 
 
@@ -662,8 +661,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
     ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER),
-    ("gasher-co2", _gas_chain.CHECK_COUPLING),
-    (_gas_chain.CHECK_COUPLING, _gas_chain.CHECK_OUT_ADAPTER),
+    ("gasher-co2", _gas_chain.CHECK_OUT_ADAPTER),
     # What stands on the core's cap — `build_water_pump` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "g-ganen-pump"),
     ("foam-assembly", "psu"),
@@ -1856,12 +1854,12 @@ def _build(a) -> Scorecard:
               _tube_anchored(a, runs),
               Check("gas-chain-qualified", "Warm gas fitting dimensions and made-up fit qualified",
                     "goal", "warn", "physical measurements pending",
-                    "measure actual adapter reach, coupling and check before assembly",
+                    "measure actual adapter reach, stubs and check before assembly",
                     ["PI010822S uses the shared nominal 1/4-inch PTC envelope.",
-                     f"Coupling Ø{_gas_chain.COUPLING_OD:g} × "
-                     f"{_gas_chain.COUPLING_LENGTH:g} mm and "
-                     f"{_gas_chain.COUPLING_ENGAGEMENT:g} mm engagement are provisional "
-                     "layout allowances, not verified purchased-part dimensions.",
+                     "PI450822S uses the nominal PP450822E sections the discharge chain "
+                     "draws.",
+                     "The WR1110 outlet and the check outlet are nominal 1/4-inch NPT male "
+                     "stubs, not measured ones.",
                      "Model clearance does not qualify NPT engagement, the check's pressure "
                      "rating, or the printed cradle's physical fit."])]
     return Scorecard(checks, bends, conns, size_rows(a))

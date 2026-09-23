@@ -2981,7 +2981,7 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
-              *_gas_chain.BODY_NAMES,
+              *_gas_chain.ADAPTER_NAMES,
               "nameplate", "nameplate-ink",
               "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
 
@@ -4607,13 +4607,11 @@ def build_pack() -> cq.Assembly:
     # Each fitting's pose is the threaded parent's same transform; include the children in
     # that placement rule rather than recording an unrelated world-space box.
     for parent, members in (("wr1110", _gas_chain.ADAPTER_NAMES[:2]),
-                            ("gasher-co2", _gas_chain.ADAPTER_NAMES[2:] +
-                             (_gas_chain.CHECK_COUPLING,))):
+                            ("gasher-co2", _gas_chain.ADAPTER_NAMES[2:])):
         row = SEATS[parent]
         SEATS[parent] = row._replace(members=row.members + members)
     for name, solid in gas_adapters.items():
-        a.add(solid, name=name,
-              color=M_STAINLESS if name == _gas_chain.CHECK_COUPLING else M_JG_GREY_ACETAL)
+        a.add(solid, name=name, color=M_JG_GREY_ACETAL)
     a.co2_inlet_carry = co2in_carry
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
@@ -4822,7 +4820,7 @@ CEILING_RELIEF_BODIES = (
     "c14-inlet", "keystone-jack", "asse1022-assembly", "co2-inlet",
     "bulkhead-water", "bulkhead-carb", "digiten-flow", "relay-1", "ground-stack",
     "wr1110", "gasher-co2", "tube-water-2", "flow-regulator",
-    *_gas_chain.BODY_NAMES,
+    *_gas_chain.ADAPTER_NAMES,
     "wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd",
 )
 CEILING_RELIEF_PLAN_SLIP = 2.0
@@ -4842,8 +4840,7 @@ CEILING_RELIEF_LEVEL_GROUPS = (
     # Made-up gas fittings take one pocket roof per assembly. This preserves each member's
     # own plan while avoiding sub-wall steps over its adjacent adapter hexes.
     ("wr1110", _gas_chain.REG_IN_ADAPTER, _gas_chain.REG_OUT_ADAPTER),
-    ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER, _gas_chain.CHECK_OUT_ADAPTER,
-     _gas_chain.CHECK_COUPLING),
+    ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER, _gas_chain.CHECK_OUT_ADAPTER),
 )
 # Gasher's long, shallow crown genuinely enters the slab, but only 1.961 mm. Its exact plan stays
 # its own; the floor takes one complete printable wall rather than leaving a sub-wall step.
