@@ -1090,7 +1090,54 @@
       "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
       "completion_record_sha256": "a9467bdaf685a4de49af876c0b3b51eae75e01abeebbc80c0185a03bc692ae4d",
       "physical_success_and_fit_confirmed": false,
-      "latest_print_removed_confirmed": false
+      "latest_print_removed_confirmed": true,
+      "removal_authority": "Derek: The plate is clear."
+    },
+    {
+      "date": "2026-09-22",
+      "printer": "Mark2",
+      "printer_serial": "31B8AP612801351",
+      "job_name": "display-cover-black-z004-mark2-v4.gcode.3mf",
+      "status": "started",
+      "started_by": "agent",
+      "sent_via": "Bambu Connect via tools/bambu_send.py; dialog read back Mark2, Ext PET-CF",
+      "parts": [
+        ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl"
+      ],
+      "geometry": "The display cover at 6a1ecd84f^: 34 mm skirts, for the printed front-top",
+      "orientation": "Face down (X180), both skirts pointing up",
+      "project": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
+      "project_sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f",
+      "sliced_file": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
+      "sliced_file_sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
+      "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
+      "filament": "Black PET-GF, left external spool 254, PET-CF metadata",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "layers": 142,
+      "estimated_seconds": 1805.68115234375,
+      "filament_grams_petgf_density_1p43": 13.442258398662242,
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-23T00:30:19.618739+00:00",
+      "observed_layer": 0,
+      "observed_total_layers": 142,
+      "observed_remaining_minutes": 30,
+      "observed_print_error": 0,
+      "hms": [],
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
+      "launch_record_sha256": "bb4ce6379408db30119cb3d557e26791b4dece6727b62c73b828495698df662f",
+      "offline_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/offline-review.json",
+        "sha256": "732a933aac698b4964a9b57eace765443fc9de999937eb4b6e5759cedb64ff21"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/support-removal-review.json",
+        "sha256": "644c23ffafa654072586c2ddd46f1b0a2f57bba7882fe108fd853416a1c4ec7d",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "physical_fit_and_support_removal_tested": false,
+      "complete_enclosure_trial": true,
+      "test_coupon": false
     }
   ]
 }
