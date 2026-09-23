@@ -5881,6 +5881,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
