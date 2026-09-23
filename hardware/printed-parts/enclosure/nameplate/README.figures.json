@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {},
   "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {
-    "BAR_CROWN": "3 mm",
+    "BAR_FRAME": "3 mm",
     "INK_DEPTH": "0.72 mm",
     "NAMEPLATE_T": "2.4 mm",
     "PLATE_H": "38 mm",
