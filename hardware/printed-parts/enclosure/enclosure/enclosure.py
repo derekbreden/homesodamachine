@@ -3225,10 +3225,11 @@ def display_storey_cavities(box):
     """One cavity a side in the display storey, empty on a pack without the bay.
 
     ONE CAVITY, WALL TO WALL AND FRONT WALL TO RIDGE WALL, UNDER ONE CEILING. Each runs from the
-    skirt's flex lane out to the side wall and from the front wall back to the ridge wall, and
-    opens into the pump bay across its whole floor. Its ceiling is the catch plane, a flat
-    parallel to the display `CATCH` below its face, so each skirt's catch is that ceiling where
-    the slot comes through it and the lip hangs into the cavity."""
+    skirt's flex lane out to the side wall and from the front wall back to the plane of the ridge
+    wall's fore face, which it rises in straight to the ceiling, and opens into the pump bay
+    across its whole floor. Its ceiling is the catch plane, a flat parallel to the display `CATCH`
+    below its face, so each skirt's catch is that ceiling where the slot comes through it and the
+    lip hangs into the cavity."""
     if not (box.pump_bay and box.pack.collet_plate):
         return []
     inner, outer = box.inner, box.outer
@@ -3238,7 +3239,9 @@ def display_storey_cavities(box):
     def below_catch(y, z):
         return (y - o.y) * n.y + (z - o.z) * n.z + _display_retention.CATCH
 
-    section, ring = [], _storey_section(box, inner[2])
+    y0, y1 = inner[2], box.pack.collet_plate["aft_y"]
+    z0, z1 = box.pump_bay[2], outer[5] + 1.0
+    section, ring = [], [(y0, z0), (y1, z0), (y1, z1), (y0, z1)]
     for (ya, za), (yb, zb) in zip(ring, ring[1:] + ring[:1]):
         da, db = below_catch(ya, za), below_catch(yb, zb)
         if da <= 0.0:
