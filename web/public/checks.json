@@ -57,17 +57,17 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "64/66 artifacts have their record in the index",
+      "note": "65/67 artifacts have their record in the index",
       "status": "red"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "8 reference(s) name a path nothing holds.",
+      "note": "4 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 344, and the whole pointer file reads by name in 30.6 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 284, and the whole pointer file reads by name in 30.2 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -87,23 +87,23 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 234 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 235 source(s) the graph names",
       "status": "ok"
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 8 of 124 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 469 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 9 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 475 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 114",
+      "lock-taking scripts scanned: 115",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 68c1853c67c77eefbb11031091754b05 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 85a656f1b6f84ac8bedebec7004d87b6 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 85a656f1b6f84ac8bedebec7004d87b6 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 5376d7bc412a0845e1f1268d60490a6d here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -149,57 +149,52 @@
       "    hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/arc-pair-at-aft-stop.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/assembly-clash.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-fixed-native-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/closed-cup-moving-native-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-closed-cup-fixed-native-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-closed-cup-moving-native-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-inputs/carrier-left.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/current-inputs/carrier-right.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/fixed-sleeve-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/frozen-front-top/current-front-top.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/moving-closed-bore-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/bottom-keeper-required-stock.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/conservative-bottom-opening-stock.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/continuous-closed-cup-reference.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/continuous-reference-blank.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/underside-barrier-at-minus-1mm.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step",
-      "    hardware/printed-parts/enclosure/tee-readiness/branch-propagation/front-top/front-top.step",
-      "    hardware/printed-parts/enclosure/tee-readiness/current-front-top/current-front-top.step",
-      "    hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
+      "step colours: 206/208 carry the colour of what they are made of",
+      "  2 STEP(s) name no colour, so /3d and their own cards draw them at the viewer's blue-grey:",
+      "    hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
       "    hardware/reference/g-ganen-pump/_scratch/casing-port-preview.step",
-      "    hardware/reference/lee-lcm060c12m/lee-lcm060c12m.step",
       "  A generator hands its solid to `_materials.one_body` and exports the assembly."
     ],
     "hardware/scripts/check_tracked.py": [
       "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.figures.json — the figures of hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md",
       "  hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
       "  git add hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.figures.json hardware/reference/iec-c14-inlet/README.figures.json",
-      "64/66 artifacts have their record in the index"
+      "65/67 artifacts have their record in the index"
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py",
+      "  --- BUILD.bazel",
+      "  +++ what gen_build.py writes now",
+      "  @@ -16317,6 +16317,407 @@",
+      "           \"tools/docgen/__init__.py\",",
+      "       ],",
+      "       args = [\"hardware/printed-parts/enclosure/pump-tray/pump_tray.py\"],",
+      "  +    size = \"large\",",
+      "  +    tags = [\"local\"],",
+      "  +)",
+      "  +",
+      "  +sh_test(",
+      "  +    name = \"tee-carrier-selftest\",",
+      "  +    srcs = [\"tools/bazel/selftest.sh\"],",
+      "  +    data = [",
+      "  +        \"brand/mark.svg\",",
+      "  +        \"future/unit-links.figures.json\",",
+      "  +        \"future/unit-links.md\",",
+      "  +        \"hardware/assembly/scenes/_scenes.py\",",
+      "  … 396 more line(s)",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
-      "hardware/README.md:39 — hardware/printed-parts/enclosure/tee-carrier is held nowhere, and no tag is named for it",
-      "  hardware/ledger/bom.md:175 — hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json is held nowhere, and no tag is named for it",
-      "  hardware/ledger/bom.md:175 — hardware/reference/lee-lcm060c12m/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/README.md:70 — hardware/printed-parts/enclosure/tee-carrier is held nowhere, and no tag is named for it",
-      "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md:175 — hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json is held nowhere, and no tag is named for it",
+      "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md:175 — hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md:175 — hardware/reference/lee-lcm060c12m/README.md is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:5 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/../pump-comparison/g-ganen-integration.md is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:81 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/native-query-cost.json is held nowhere, and no tag is named for it",
-      "8 reference(s) name a path nothing holds."
+      "4 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
-      "9 test(s) in web/ fail:",
+      "8 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    a part's STEP consumers include the assembly that only _loads it (regression)",
@@ -207,7 +202,6 @@
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
-      "    the artifact pointer file points at every committed viewer scorecard",
       "    every highlighted, framed, contextual and labelled body exists in the assembly",
       "  cd web && npm test"
     ]
