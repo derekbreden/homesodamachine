@@ -86,7 +86,7 @@ they became.
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the release face printed into front-top across the pump bay, holding the collets so the pump cartridge can be pulled | |
-| **tee carrier** | the printed part that carries the four barb tees Y-C, Y-D, Y-F and Y-G | carrier plate, moving plate |
+| **tee carrier** | the two printed parts that carry the four barb tees Y-C, Y-D, Y-F and Y-G through both front flanks: `enclosure-tee-carrier-plate`, the plate with its handle, and `enclosure-tee-carrier-grip`, the handle that closes on the plate's far end | moving plate, carrier halves |
 | **bowed flex stub** | one of the four short formed LLDPE links between a moving barb tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
 | **counterbore** | the flat-bottomed pocket a cylindrical DIN 912 socket-head cap screw drops into, its head flush or under the face | countersink, countersunk, recess |
