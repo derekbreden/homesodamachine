@@ -1,7 +1,5 @@
 # Enclosure
 
-Production release of front-top is held for the [scan readiness audit](../print-readiness.md).
-
 What the pieces have actually been printed in, and at what settings:
 [print-log.md](print-log.md).
 
@@ -444,7 +442,7 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
 
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
   corner of the slab, [38 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
-  past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
+  past the tangent — and [41.25 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
   own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.5 mm](CORE_STOP_BORE)
   bore on the round's own axis outboard of the tangent, and the core's own flat front face
   inboard of it. So the block bears flat where the core is flat and round where it is round —
@@ -676,8 +674,8 @@ Finger openings, flexible-tube routing and vibration-isolation spaces have their
 layer height, the organic-support slice produces a 0.48 mm interface-to-model gap.
 
 `petgf.3mf` uses `auto_brim`. Enclosure projects retain that automatic setting by default;
-individual prepared plates record their brim setting in the
-[print queue](../tee-readiness/full-enclosure-print/queue.json). Tooling projects may specify a brim.
+individual prepared plates record their brim setting in their
+[slice review](../tee-readiness/full-enclosure-print/native-slice-reviews/README.md). Tooling projects may specify a brim.
 
 ## Support-removal strategy
 
@@ -846,8 +844,9 @@ Y-seam — a telescoping mating face, with no exterior arris there to relieve
 (the side walls run straight through the seam). So the front pieces round the
 front-left and front-right verticals, the back pieces the back-left and
 back-right, and **every seam edge stays 90°**. Assembled, all four verticals
-read as relieved, each sourced from a different quadrant. The horizontal
-front-to-back arrises — side-wall↔floor and side-wall↔ceiling — are square.
+read as relieved, each sourced from a different quadrant. Of the horizontal
+front-to-back arrises, side-wall↔floor is square and side-wall↔ceiling is the top's
+rounded side edge (`_swept_top.SIDE_RADIUS`).
 
 The display facet raises no fifth standing vertical: running wall to wall, it ends
 on the ±X exterior walls and runs out into their own rounds.
@@ -958,8 +957,8 @@ The **ASSE anchor** one storey above it looks print-down on its top. Outside the
 span the block goes on up as a column, from the V's upper arris, or the bore's crossing of it,
 back to the wall and straight to the ceiling lane — the piece's own first layers — so nothing
 over it looks print-down; over the span the column is absent so the loop has
-its room, and the web between the tie cavity and the V is chamfered at 45° down into the cavity,
-a slope the print lays on itself and a funnel the loop drops through. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
+its room, and the web between the tie cavity and the V ends in a flat top, a supported face
+whose support stands on the slab in the tie channel. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
 the two round seats' lower arcs look print-down inside their bores and are supported faces.
 Behind the anchor, one channel spans both zip-tie bands: its fore and aft end faces remain
 `tie_cav_wide_w` wide about their tie centres, the volume between them is open, and its top
@@ -1324,7 +1323,7 @@ assembly shows nominal connected rest. Only the small outermost branch rings mov
 The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.246 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
 
-**Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [18 mm](PULL_DEPTH)
+**Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [15.75 mm](PULL_DEPTH)
 deep and [28 mm](PULL_RUN) long in Y, from z [177.43 mm](PULL_FLOOR_Z)
 to z [272.194 mm](PULL_TOP_Z), a [94.77 mm](PULL_RISE) height. The cartridge keeps
 [12.23 mm](PULL_FLOOR_LIGAMENT) below each pocket and [11.98 mm](PULL_ROOF_LIGAMENT)
@@ -1470,7 +1469,7 @@ crown. The current production slice records the supports at those contact region
 
 ## Display housing
 
-The machine display sits on a 30° plane within the enclosure's 215 × 462 × 361 mm
+The machine display sits on a 30° plane within the enclosure's [215 × 466.3 × 361 mm](BOX_SIZE)
 outside dimensions. An R12 tangent curve joins that plane to the front wall, and
 an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
 top edge remains square. The flat display plane is 87 mm long along its slope;
