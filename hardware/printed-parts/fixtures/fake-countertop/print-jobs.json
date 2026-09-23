@@ -596,6 +596,25 @@
         "seconds": 74243.75,
         "grams": 1339.3695068359375,
         "layers": 917
+      },
+      "progress": {
+        "observed_at": "2026-09-23T03:20:31.197579+00:00",
+        "gcode_state": "RUNNING",
+        "layer_num": 16,
+        "total_layer_num": 917,
+        "mc_percent": 6,
+        "mc_remaining_time": 1154,
+        "print_error": 0,
+        "hms": [
+          {
+            "attr": 201326848,
+            "code": 131095,
+            "ecode": "0C00010000020017",
+            "text": "Nozzle camera lens is dirty, which may affect the AI monitoring functionality. Please clean the surface of the nozzle camera lens as soon as possible.",
+            "text_source": "Bambu Studio's HMS catalog, /Applications/BambuStudio.app/Contents/Resources/hms"
+          }
+        ],
+        "note": "A warning, not a stop: the print runs with no error. First reported by the Scan results session at 03:17:52 UTC, which told Derek."
       }
     }
   ]
