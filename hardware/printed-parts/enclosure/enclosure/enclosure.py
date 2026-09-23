@@ -402,8 +402,9 @@ display_facet_slope = _swept_top.FLAT
 display_facet_angle_deg = _swept_top.ANGLE
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # The housing ends at a vertical plane ahead of the funnel. Either side of the display's
-# opening it is solid down to the pump bay's lintel (`housing_fill`), and each skirt's
-# catch opens plumb down through it into the bay (`_display_retention`).
+# opening it is solid down to the pump bay's lintel (`housing_fill`), and outboard of each
+# skirt's flex lane one cavity under the catch plane opens into the bay
+# (`display_storey_cavities`).
 display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
@@ -3194,22 +3195,59 @@ def housing_fill(box):
 
     ONE BLOCK A SIDE, WALL TO WALL AND FRONT WALL TO RIDGE WALL. Each stands on the lintel's own
     plane (`pump_bay[2]`, where `_bay_cut` stops), runs up into the housing and meets the ridge
-    wall on its fore face and 45° crown (`_ridge_join`), so the skirt recesses are cut out of
-    solid and nothing of the housing hangs into the storey. Its inboard face is the PCB
-    opening's own side plane: between the two, the display's back, SIG-7's run to the ridge bore
-    and the pump plug's unplug path keep one room, open to the bay."""
+    wall on its fore face and 45° crown (`_ridge_join`), so the skirt slots are cut out of solid
+    and nothing of the housing hangs into the storey. Its inboard face is the PCB opening's own
+    side plane: between the two, the display's back, SIG-7's run to the ridge bore and the pump
+    plug's unplug path keep one room, open to the bay. `display_storey_cavities` then opens
+    everything of it outboard of the skirts' flex lanes and under their catches."""
     if not (box.pump_bay and box.pack.collet_plate):
         return None
     inner, outer = box.inner, box.outer
-    fore = box.pack.collet_plate["aft_y"]
-    ry, rz = pcb_ridge(outer)
-    jog, _aft_crown = _ridge_join(outer, fore)
-    y0, z0, z1 = inner[2] - 1.0, box.pump_bay[2], outer[5] + 1.0
-    section = [(y0, z0), (fore, z0), (fore, jog), (ry, rz), (ry, z1), (y0, z1)]
+    section = _storey_section(box, inner[2] - 1.0)
     x0 = display_centre_x(outer) + display_body_offset_x - display_pcb_x / 2.0
     x1 = x0 + display_pcb_x
     return (_yz_prism(inner[0] - 1.0, x0, section)
             .fuse(_yz_prism(x1, inner[1] + 1.0, section)))
+
+
+def _storey_section(box, y0):
+    """The display storey's `(y, z)` section from `y0` back: the lintel's plane up past the top
+    wall, aft to the ridge wall's fore face and 45° crown."""
+    outer = box.outer
+    fore = box.pack.collet_plate["aft_y"]
+    ry, rz = pcb_ridge(outer)
+    jog, _aft_crown = _ridge_join(outer, fore)
+    z0, z1 = box.pump_bay[2], outer[5] + 1.0
+    return [(y0, z0), (fore, z0), (fore, jog), (ry, rz), (ry, z1), (y0, z1)]
+
+
+def display_storey_cavities(box):
+    """One cavity a side in the display storey, empty on a pack without the bay.
+
+    ONE CAVITY, WALL TO WALL AND FRONT WALL TO RIDGE WALL, UNDER ONE CEILING. Each runs from the
+    skirt's flex lane out to the side wall and from the front wall back to the ridge wall, and
+    opens into the pump bay across its whole floor. Its ceiling is the catch plane, a flat
+    parallel to the display `CATCH` below its face, so each skirt's catch is that ceiling where
+    the slot comes through it and the lip hangs into the cavity."""
+    if not (box.pump_bay and box.pack.collet_plate):
+        return []
+    inner, outer = box.inner, box.outer
+    plane = display_plane(outer)
+    o, n = plane.origin, plane.zDir
+
+    def below_catch(y, z):
+        return (y - o.y) * n.y + (z - o.z) * n.z + _display_retention.CATCH
+
+    section, ring = [], _storey_section(box, inner[2])
+    for (ya, za), (yb, zb) in zip(ring, ring[1:] + ring[:1]):
+        da, db = below_catch(ya, za), below_catch(yb, zb)
+        if da <= 0.0:
+            section.append((ya, za))
+        if da * db < 0.0:
+            t = da / (da - db)
+            section.append((ya + t * (yb - ya), za + t * (zb - za)))
+    flex = _display_retention.FLEX_X
+    return [_yz_prism(inner[0], o.x - flex, section), _yz_prism(o.x + flex, inner[1], section)]
 
 
 def _shell_with_facet(inner, outer, fill=None):
@@ -3248,9 +3286,8 @@ def display_plane(outer):
     return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
 
 
-def _display_cuts(outer, open_z=None):
-    """Cover reveal, glass seat, PCB clearance and the two skirt pockets, each catch's open back
-    running plumb down to `open_z` — the pump bay's ceiling, where the bay leaves it open."""
+def _display_cuts(outer):
+    """Cover reveal, glass seat, PCB clearance and the two skirt pockets."""
     plane = display_plane(outer)
     def local(shape):
         return shape.moved(cq.Location(plane))
@@ -3265,10 +3302,8 @@ def _display_cuts(outer, open_z=None):
            .translate((display_body_offset_x, display_body_offset_slope,
                        (1.0 - pcb_depth) / 2.0)).val())
     cut = inset.fuse(bezel).fuse(pcb)
-    reach = (_display_retention.DEPTH if open_z is None
-             else _display_retention.back_top(plane.origin.z) - open_z + 1.0)
     for side in (-1, 1):
-        cut = cut.fuse(_display_retention.pocket(side, reach))
+        cut = cut.fuse(_display_retention.pocket(side))
     return local(cut)
 
 
@@ -6177,7 +6212,9 @@ def build_front_half(box):
     front = front.cut(_facet_wedge(outer))
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
-    front = front.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
+    front = front.cut(_display_cuts(outer))
+    for cavity in display_storey_cavities(box):
+        front = front.cut(cavity)
     # Punch the funnel's throat through the top wall, behind the display.
     if box.pack.funnel:
         front = front.cut(_funnel_cut(inner, outer, box.pack.funnel))
@@ -9014,7 +9051,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel))
         if y_side == 'front':
-            piece = piece.cut(_display_cuts(outer, box.pump_bay[2] if box.pump_bay else None))
+            piece = piece.cut(_display_cuts(outer))
+            for cavity in display_storey_cavities(box):
+                piece = piece.cut(cavity)
     if y_side == 'front' and z_side == 'top':
         # The ceiling bearing and its corbels share the seam collar's stock.
         # Keep the insert pilots open through every contribution to that stock.
