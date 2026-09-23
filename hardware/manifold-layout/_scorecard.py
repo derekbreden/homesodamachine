@@ -400,9 +400,9 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Three sides of each stamped bracket bear on
-    # cradle lands; the +Y side stays open for the tube fittings. A small clamp screws down from
-    # above, presses both brackets and locates both bosses in case-derived octagonal collars
+    # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Each molded skirt bears on cradle lands along
+    # three sides and, on +Y, between the tube fittings. A small clamp screws down from above
+    # over both pumps and locates both bosses in case-derived octagonal collars
     # (`enclosure._cap_screws`, read by `pump-clamped-in-cradle` and `clamp-locates-pumps`).
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),

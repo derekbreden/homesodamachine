@@ -119,6 +119,8 @@ def main():
         # What each of the flow meter's anchors leave alone at the outer end of its barrel —
         # the push-fit ring, off the layout that strikes the anchor's own band on it.
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
+        # How far west of the carb union's column the meter lies, off the constant that sets it.
+        "DIGITEN_WEST_SET": f"{_ea.DIGITEN_WEST_SET:.4g} mm",
         "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['wr1110']):.3g} mm",
         "SPLIT_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['water-split']):.3g} mm",
         "FLOWREG_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['flow-regulator']):.3g} mm",
@@ -128,10 +130,6 @@ def main():
         # reaches `flow_meter_anchor_wall` off that axis where a rib reaches `wall`, and
         # both are the box's three millimetres, so one hull answers for both families.
         "DIGITEN_LOOP": f"{_enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP):.3g} mm",
-        # And the loop each of a pump's two zip ties closes — the tray's plate and the bracket the
-        # part carries under it, off the module that draws the tray, with the bore and the can's
-        # own hole that tray takes the pump on.
-        "PUMP_BRACKET": f"{_tray.bracket_half * 2:.4g} mm",
         # The cap and what closes it, off the module that cuts both the clearance bores and
         # the heat-set seats — so a screw added there is a screw the bench is told to drive.
         "CAP_SCREWS": f"{len(_enc.cap_screw_ys(_f.box.inner, _f.box.collet_plate))}",
