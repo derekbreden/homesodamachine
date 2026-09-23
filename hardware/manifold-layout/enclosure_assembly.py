@@ -5831,7 +5831,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         for name, spring in _tee_carrier.springs(carrier).items():
             a.add(spring, name=name, color=M_STAINLESS)
             record_seat(name, planes={"y0": carrier.wall_aft_y, "y1": carrier.spring_bore_y[1]},
-                        got=box(spring))
+                        got=spring.BoundingBox())
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
     wedge_fills(placed_solids,
