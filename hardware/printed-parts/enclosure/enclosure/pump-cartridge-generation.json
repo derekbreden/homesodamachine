@@ -1,21 +1,21 @@
 {
   "schema": 1,
   "status": "current_cartridge_only_native_checks_passed",
-  "created_at_utc": "2026-09-23T03:55:37.406779+00:00",
+  "created_at_utc": "2026-09-23T11:08:24.502722+00:00",
   "assembly_current": false,
   "production_enclosure_released": false,
   "physical_fit_tested": false,
   "command": [
     "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py",
     "--box-sha256",
-    "b8a19ec228d1606389a9f6db5b8388799e1f7f10c5072851dd9d1967c675907b",
+    "5f8b66290a5b89a2d68b4861e49e34639cdf0afaa4a1e64727744ce8e85a1bec",
     "--existing-exports"
   ],
   "existing_exports_checked": true,
   "source_sha256": {
     "hardware/manifold-layout/manifold_layout.py": "fcb39153c612f740c4ab31dd98b8c54810368b077b8bf7416c02f44b52f4d1f4",
     "hardware/printed-parts/cadlib/cable_clip.py": "bddddf78c5daa97106c781964ad152ac61b28916f3c2e00eff4a527461a1aa7f",
-    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97",
+    "hardware/printed-parts/cadlib/fits.py": "3821989044c5bc3ae99cc6912538b8a34bd75a6b0a081aefc8e4c5a0ce714191",
     "hardware/printed-parts/cadlib/flute_skin.py": "34b4a2e1a301be1947869f3e17e2f658757623b7cfbeaf658c7c5e68f42c3f56",
     "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
     "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
@@ -24,17 +24,17 @@
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00",
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e142dfe8717fb2a78cd8a0cd5a941cff54167bd7d1b878f76ec8343f9cb53fd2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "ab67cb9acd279305d4b61bf23fbfd2c7eb9743679bdd735216e6c51004c5f9ac",
     "hardware/printed-parts/enclosure/enclosure/prepare_pump_geometry.py": "7ac5b16f6d4f313eea276edb143e23eead73401730295593d0e18ecbf47db776",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "833b311abdc3e7187940bb7bbe3461a4a5245f30d1e54c703429cc78d16c1358",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf",
-    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "40589a344abac149dd1996793a4247552f3cb5fcd927d0994371c57e8d4e6be9",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "cbceb1c3a662a25a032e238970ea46638068e995955351e11e80eece4d6237f2",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "a601e8765e0c82ee6c1282f6ba2970c9cf0b653eccc913c55f2ad54695315eff",
     "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "b5c9728cb8f963e5d60328d4068e1d4f87e0bd49742fbf375eb05c36cd8f393d",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
-    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "cea7f1ba0ca8733c4d44599265cbf1dc31719f9e9251d10b2bceb5d9d256cc43",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "abfe54e5b914140ed7883465a8af99d77b40881756b0d25817ae3cdd324c2e13",
     "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "8c5484a1dcf6b7ba3cca5fd3f129d9fd3c45f13917fe7abd2c835018703c96de",
     "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
     "hardware/reference/riteav-keystone/riteav_keystone.py": "f5e62c218a7dd9aed82f4f7701b15167ff4171b45bb226b879e866c890a826fe",
@@ -48,7 +48,7 @@
     "hardware/scripts/_material_base.py": "c97c71569b75fc8279b7da52157ac3a2b24ccc63a6fbffef24ff85be3daddc04",
     "hardware/scripts/_materials.py": "905db48e97c9a6f8a5a0c17c4533d94c634f9b564c52a8dc8193154f5cd5715b",
     "hardware/scripts/_measuring.py": "3978b06f38f46681c022f0e7ec2ca862f5750bd6f544c25dfb8e7d8ac7eebcb5",
-    "hardware/scripts/_meshes.py": "5501724d14a9f1262aa62b9f035ac1359e16dae11c45718daa3f67946d84f64b",
+    "hardware/scripts/_meshes.py": "9959f2378b89a28631b1c2895cf04d922dfbc142fdedaf11dceff397416e70db",
     "hardware/scripts/_overlap.py": "df36898148ab89f8a187c3d627376a86f673cf31ba0ee30cf03549d04f2c1f0f",
     "hardware/scripts/_realized.py": "698d8a7104f3aaa2b24c5cfc8a9b2842a4807d1bafd5ce2acb0104da4f147722",
     "hardware/scripts/_routing.py": "7c58056295b6b3dd94caec51ea90dee7d318c1950052bb88162f5d689c097d06",
@@ -58,15 +58,15 @@
     "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
   },
   "input_sha256": {
-    "hardware/manifold-layout/enclosure-box.json": "b8a19ec228d1606389a9f6db5b8388799e1f7f10c5072851dd9d1967c675907b",
+    "hardware/manifold-layout/enclosure-box.json": "5f8b66290a5b89a2d68b4861e49e34639cdf0afaa4a1e64727744ce8e85a1bec",
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
     "hardware/reference/kamoer-kphm400/scan-evidence.json": "c3a50570b7b477309261352acebc9be39e3126fe1a83ec172f04db9f92486310",
     "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "04e77f4a7fd292444655a3ea4fdf2a79ca628ca22a4c4da34ce8e968a9e40aea",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a12e95027ceedcb95d5a197cda8a0a5716036e92e155b2244b1f64d2bd143c0d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "0de74b2ba74bdf8dd9600f2737f7d3fcbf541a0ef09fd366da0cb5ffbd778f38",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "d1c3012bbbdf0038285f228e3966bd6ad2bcbe2a4f8b1177f21e31b52486e594",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1e0215464ee9bdd19179dff01acfdeb2b823bc4e5915714b44956102a70ad3c7"
@@ -74,9 +74,9 @@
   "materializer_results": {
     "pump-cartridge": {
       "hashes": {
-        "enclosure-pump-cartridge.step": "04e77f4a7fd292444655a3ea4fdf2a79ca628ca22a4c4da34ce8e968a9e40aea",
-        "enclosure-pump-cartridge.stl": "a12e95027ceedcb95d5a197cda8a0a5716036e92e155b2244b1f64d2bd143c0d",
-        "enclosure-pump-cartridge.step.mesh": "0de74b2ba74bdf8dd9600f2737f7d3fcbf541a0ef09fd366da0cb5ffbd778f38"
+        "enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+        "enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+        "enclosure-pump-cartridge.step.mesh": "d1c3012bbbdf0038285f228e3966bd6ad2bcbe2a4f8b1177f21e31b52486e594"
       }
     },
     "pump-cap": {
@@ -122,13 +122,13 @@
       {
         "check": "pump-cartridge emitted STEP is one valid solid",
         "pass": true,
-        "volume_mm3": 589628.6694697856
+        "volume_mm3": 601430.5014922675
       },
       {
         "check": "pump-cartridge emitted STL is one closed oriented volume",
         "pass": true,
         "facets": 171096,
-        "volume_mm3": 567532.4873966224
+        "volume_mm3": 579334.2664784234
       },
       {
         "check": "pump-cap emitted STEP is one valid solid",
@@ -492,7 +492,7 @@
         272.19400010000004
       ],
       "pull_outer_abs_x_mm": 107.5,
-      "pull_inner_abs_x_mm": 89.5,
+      "pull_inner_abs_x_mm": 91.75,
       "cap_screw_y_mm": [
         27.7575,
         63.7575
