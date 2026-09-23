@@ -166,7 +166,7 @@ def _plain(v):
 
 _BOX_FACT_ORDER = (
     "inner outer y_joint splits y_bosses z_seam_passes front_ports back_ports east_ports "
-    "west_ports funnel pan_sleeve c14 east_bosses east_mount_fills side_wells floor_bosses west_cradle "
+    "west_ports funnel c14 east_bosses east_mount_fills side_wells floor_bosses west_cradle "
     "cond_cradle cond_mount cond_airway asse_cradle flow_meter_anchors tube_anchors "
     "ceiling_reliefs flank_reliefs front_flank_reliefs port_field nameplate valve_trays pump_trays core_stops core_holds "
     "vent_chase column_reliefs collet_plate pump_bay").split()

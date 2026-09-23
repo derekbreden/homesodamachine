@@ -216,7 +216,7 @@ CARB_SEGMENTS = (
 #             So a chain that lands is a `NEVER` row naming what it lands on, and a chain that
 #             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
-#             `well`, `cradle`, `anchor`, `tray`, `channel`, `wall-capture`, `seam-capture`,
+#             `well`, `cradle`, `anchor`, `tray`, `channel`, `slot`, `wall-capture`, `seam-capture`,
 #             `plate-capture`, `tube-clamp`, `deck-mount`, `basin`, `gap-press`,
 #             `tie-capture`, `tube-hung`, `pack`. Not an axis and not a score —
 #             it is how the machine puts this body down, and it is what lets a card count the
@@ -300,8 +300,8 @@ MOUNTS = (
     # machined into — so keying it is what holds the drip over the pan. Two zip ties through the
     # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
-    ("asse-drip-pan", "enclosure-back-top", "channel"),
-    # The probe plate lies loose in the pan the way the pan rides loose in its rails: what
+    ("asse-drip-pan", "enclosure-back-top", "slot"),
+    # The probe plate lies loose in the pan the way the pan rides loose in its slot: what
     # fastens it is the tray's own printed floor and coves, which fence it on four sides at
     # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — the pan draws until the plate is within
     # reach, then the plate lifts completely clear before the empty pan finishes coming out.
@@ -1696,8 +1696,8 @@ LOOSE = {
     "fluid-18":
         "Flavor A's line to its rear union. The cold core's side post grips its crossing fore "
         "of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is "
-        "the fall and the union column's own straight — a column whose overhead is the ASSE "
-        "drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the "
+        "the fall and the union column's own straight — a column whose overhead is the "
+        "ASSE chain, flow meter and meter down-line, and whose flanks are the "
         "pump's casting and the moisture plate's lane: nothing printed stands within a rib's "
         "reach of it. Its unretained shape and clearance to the neighbouring lines require "
         "a tube-shape review; the authored centreline does not establish them.",

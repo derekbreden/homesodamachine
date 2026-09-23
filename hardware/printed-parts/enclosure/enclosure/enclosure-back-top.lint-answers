@@ -41,14 +41,6 @@ click: x=-12.360 y=389.010 z=347.500
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-93.227 y=412.010 z=347.500
 
-[ceiling] The ASSE pan's berth floor is its flat insertion/bearing surface. It includes running clearance and the supported-face allowance while the sleeve grows behind the relieved floor to retain its section. Back-top prints ceiling-down; support reaches this face from the slab and is removed through the pan's open mouth.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-82.850 y=411.750 z=284.461
-
-[ceiling] The pan sleeve's lid is the flat surface beneath the ASSE chain; the chain occupies the space where a ramp would rise. On this ceiling-down print the lid is supported from the slab, and its open pan cavity provides support-removal access.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-74.850 y=411.750 z=303.211
-
 [ceiling] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-88.285 y=282.000 z=276.899
@@ -99,10 +91,6 @@ click: x=-92.000 y=323.800 z=185.600
 [ceiling] The joined upper main-board and relay-2 mounting pad is a 9.3 mm tall rectangular block linking three insert stations to the east wall. Its crown joins relay 1's aft column. The first printed face projects 2.25 mm from the wall; the complete mounting block backs that short projection.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=339.800 z=327.200
-
-[ceiling] The pan's flange passes over these flat rim-rebate shoulders at Z296.211. With the pan fully seated on the clean bearing floor, the gap is 0.75 mm: 0.25 mm running fit plus two 0.25 mm allowances for the supported flange underside and sleeve shoulder. The gap is 1.25 mm in the nominal assembly pose, whose pan bottom stands 0.50 mm above the clean floor. The sleeve retains its complete 3 mm bearing floor and 3 mm retention roof. Support leaves through the open pan berth.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-80.850 y=411.750 z=296.211
 
 [ceiling] The ceiling-mounted anchors' crowns bridge their 3.5 mm zip-tie bands between complete end webs. The channels are 3.25 mm deep, including 0.25 mm supported-face allowance. Their backing stock remains intact; the CO2 chain's placement supplies the needed crown room beneath the fixed ceiling. Support is accessible through the tie passages before the tubes and ties are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step

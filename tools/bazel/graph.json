@@ -5210,29 +5210,24 @@
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-      "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
       "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
       "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_material_base.py",
       "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
-      "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-      "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"
+      "hardware/printed-parts/enclosure/asse-drip-pan/README.md"
     ],
     "writes": [
       "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-      "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
-      "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"
+      "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step"
     ]
   },
   "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
