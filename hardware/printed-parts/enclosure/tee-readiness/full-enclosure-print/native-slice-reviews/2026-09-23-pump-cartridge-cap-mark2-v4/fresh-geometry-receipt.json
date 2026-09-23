@@ -1,0 +1,20 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-23: 'for the other machine that will be free at the same time let us prepare at least the next two prints, which will be: tee carrier, pump cradle / pump cap', with 0.08 mm variable layer height where their rounded edges meet a top or bottom; re-prepared at the Audit session's request after its print-readiness fixes (6fead8c0e). Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+    "hardware/manifold-layout/enclosure-box.json": "81762506ebf661b7108d68e48bf75547bb23c08a8c49e8e058333ab4548dfda7",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "30cc79f35ca0553b5014fb1c4eba51a4396325c5d76882e7c1df9f75533ee3bf"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/geometry-evidence.json": "d977c6438cd44d6cfbbc33fbd934f916df77d42c33be95aa4f9870816c88d3b2",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/round-scan.json": "490a70196f4ab292b840313fe7f8ad350ce28b254eb03642101abd492bafefc3"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-23: 'for the other machine that will be free at the same time let us prepare at least the next two prints, which will be: tee carrier, pump cradle / pump cap', with 0.08 mm variable layer height where their rounded edges meet a top or bottom. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
+    "hardware/manifold-layout/enclosure-box.json": "81762506ebf661b7108d68e48bf75547bb23c08a8c49e8e058333ab4548dfda7",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "cbceb1c3a662a25a032e238970ea46638068e995955351e11e80eece4d6237f2"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/geometry-evidence.json": "13edc117e868d2638dd45aeaf0b1c63464b43f63ca2822764c2e51caf6d5f1d4",
+    ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/round-scan.json": "e9fb981f42a1a512fadddd84e1287d949a070a3cbd60e77e724f23768c42f572"
+  }
+}

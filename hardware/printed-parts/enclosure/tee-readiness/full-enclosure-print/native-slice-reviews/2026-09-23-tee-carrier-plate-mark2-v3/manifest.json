@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "tee-carrier-v3",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v3/fresh-geometry-receipt.json",
+    "sha256": "3d6d34ee917a40b568d2eb7f405f238f18094550b870e3d3f242b2378fe55128"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/ready/tee-carrier-plate-covers-black-z004-mark2-v3.gcode.3mf",
+    "sha256": "72b3d625f89ccc345cea71f9d96fc19b4e98b40611f8028edaeeb2f132c69cf0"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "f04dc2537dbff6f577051ad36a459084a667e6794902e44562070c373e9b321b",
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 2.6,
+        "layer_height": 0.08,
+        "reason": "the columns' aft R6 rounds rise off the bed; 2.6 mm, the depth front-top's roof edges print at 0.08"
+      },
+      {
+        "min_z": 18.454,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "the columns' fore R6 rounds level into the column tops at print z 21.054; 2.6 mm, as front-top's roof edges"
+      }
+    ]
+  },
+  "estimate": {
+    "seconds": 7068.60986328125,
+    "grams_petgf_density_1p43": 62.389931168667104,
+    "layers": 135
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/job-config.json",
+      "sha256": "5e4ef898f4fb68a27efa620dd52926df422d6bb893861ce064a5966144d2b62d",
+      "bytes": 2685
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/fresh-geometry-receipt.json",
+      "sha256": "3d6d34ee917a40b568d2eb7f405f238f18094550b870e3d3f242b2378fe55128",
+      "bytes": 2052
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/geometry-evidence.json",
+      "sha256": "13edc117e868d2638dd45aeaf0b1c63464b43f63ca2822764c2e51caf6d5f1d4",
+      "bytes": 2482
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/preparation.json",
+      "sha256": "f60b25dbd092f60e2c1d143249f8076ab62823abd146666adc1e8a4a1b621afd",
+      "bytes": 5834
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/readiness.json",
+      "sha256": "d9d200374afbc57938bdfa4357651ac0ffa081893c51b5341efde6a943da3e50",
+      "bytes": 11215
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/offline-review.json",
+      "sha256": "5c10f1e4c090db303a184abef81f68efcadc2618767338dc139d10dafc91a21b",
+      "bytes": 11688
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/support-removal-review.json",
+      "sha256": "4c38504c7ec7bec29a6b3b38565631cebe581c8874cb83a886f0829db1c213a1",
+      "bytes": 7174
+    },
+    "tee-carrier-plate-covers-black-z004-mark2-v3-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/tee-carrier-plate-covers-black-z004-mark2-v3-input.support-audit.json",
+      "sha256": "1bbb56daa397a8da849a2663aa373458cb5b6f563f02109e0048f0af97fe8e1b",
+      "bytes": 15765
+    },
+    "tee-carrier-plate-covers-black-z004-mark2-v3-input.print.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/tee-carrier-plate-covers-black-z004-mark2-v3-input.print.json",
+      "sha256": "e4bd8f7c10bb3966a2bb348e4aa48f3b5cb747a8f5c68c7d2ea9907ecf08ecf5",
+      "bytes": 13414
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/slice-command.json",
+      "sha256": "04b90c4d9c82a73f1cb743b8b6f1b91a58c6d9befb7941820c6296462f38386f",
+      "bytes": 502
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/slice-input.json",
+      "sha256": "a104ac62a92c00efd776926f1942f70e541304cbf1dca3f23071b195c29f5e08",
+      "bytes": 279
+    },
+    "layout.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/layout.json",
+      "sha256": "efc33a875b7e08dac73f4e357b24fad821ec9d209d4b182071d01a779d490959",
+      "bytes": 185
+    },
+    "round-scan.json": {
+      "source_path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/round-scan.json",
+      "sha256": "e9fb981f42a1a512fadddd84e1287d949a070a3cbd60e77e724f23768c42f572",
+      "bytes": 8475
+    }
+  }
+}

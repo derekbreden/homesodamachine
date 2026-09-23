@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "front-top-v12",
+  "printer": "H2C",
+  "source_job_directory": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-h2c-v12/fresh-geometry-receipt.json",
+    "sha256": "49ced2a227141a5f602c688801b5925c63c52ab00d3a03f6479fdab9e747e259"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/ready/enclosure-front-top-black-z018-h2c-v12.gcode.3mf",
+    "sha256": "48fa137e59f188e1a76cc05770e03b36621797ca6fc2eb219384bd9b5f5c0ee2"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "47a00b43367f01cee7197994d2882ef543754f4a371d5255dcb638eb32dc06e9",
+  "layer_ranges_mm": {
+    "enclosure-front-top": [
+      {
+        "min_z": 192.4,
+        "max_z": 195.0,
+        "layer_height": 0.08,
+        "reason": "Derek, 2026-09-22: restore the original curves and print their last layers at 0.08 mm; the R18 above the display and the R6 roof side edges level into the roof at print z 195.0"
+      }
+    ]
+  },
+  "estimate": {
+    "seconds": 74940.2734375,
+    "grams_petgf_density_1p43": 820.5163025375484,
+    "layers": 1326
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/job-config.json",
+      "sha256": "86876baa98e3048230eabb2c3e910057a49e365716eb83976a5fe498c82176d2",
+      "bytes": 1621
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/fresh-geometry-receipt.json",
+      "sha256": "49ced2a227141a5f602c688801b5925c63c52ab00d3a03f6479fdab9e747e259",
+      "bytes": 1751
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/geometry-evidence.json",
+      "sha256": "480d57a454c8a4dac6c832e6e3b052a8de4ef9b9f90f141883d359b8a7262a9b",
+      "bytes": 1244
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/preparation.json",
+      "sha256": "0587ff1a343a00db7d48540ed9ee848695fa3a6870951fbe592dd7eca2ab392f",
+      "bytes": 2209
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/readiness.json",
+      "sha256": "a339ca9dcb7fd441304b9b9fc0ff5f42991012440f8cc220d70873b3c1c63a70",
+      "bytes": 6362
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/offline-review.json",
+      "sha256": "9831638e48a28335b076a101ff96c374f0cf279d5d3350890ed7f36ca34b67b8",
+      "bytes": 6834
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/support-removal-review.json",
+      "sha256": "0f10ea0a541d93db149e8cd220dfeac6b0dea6b31b637e25250fde0fc7e768a2",
+      "bytes": 18774
+    },
+    "enclosure-front-top-black-z018-h2c-v12-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/enclosure-front-top-black-z018-h2c-v12-input.support-audit.json",
+      "sha256": "c15ebb98bee7522dae7041421b35f8d7193b27a247e62c21f7b3ac3558918660",
+      "bytes": 13911
+    },
+    "enclosure-front-top-black-z018-h2c-v12-input.print.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/enclosure-front-top-black-z018-h2c-v12-input.print.json",
+      "sha256": "b808fb578e24331fbcf35206da31def4db65bd4a3383fa8b6575e9d5a5d966e2",
+      "bytes": 6824
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/slice-command.json",
+      "sha256": "5716e52db6bc0f232a2160329e00921e9efae6f88bee197e634ec229a123cd4e",
+      "bytes": 492
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/slice-input.json",
+      "sha256": "90d602f388bb15e13d268ef324b5cc3855af0d5ba6342b80f720f6a7253954d8",
+      "bytes": 279
+    },
+    "round-scan.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/round-scan.json",
+      "sha256": "f8a2abb397f5fe6df35539fc22e4f7a0b56d7511041b91f2965ae0e8fa1661f9",
+      "bytes": 15657
+    }
+  }
+}

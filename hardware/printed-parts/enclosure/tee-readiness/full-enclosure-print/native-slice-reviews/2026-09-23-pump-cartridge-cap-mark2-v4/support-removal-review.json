@@ -1,0 +1,504 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "7a2b830f6865a30f092876d6858dbdad64db9b05d458afb401dcb6729742db83",
+  "gcode_sha256": "6b3b4a37f6454c6800ad2912b0df5d0f4a1b5c25e91783a82431324fde94987e",
+  "support_audit_sha256": "4791dc421f3ea0b0dc82e476dfeec6db176cc187c829325c40910b20bc98355d",
+  "geometry_confirmation_sha256": "39834f2bcad60d3d0db7fcae57f4c632ec36a9f25c187f40a413fa1d94c527df",
+  "parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "support_summary": {
+        "support_bodies": 2,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 105.95,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 105.95
+      },
+      "model_overhangs_review": "Two bed-rooted trees, one per side hand-pull pocket, carry each pocket's level ceiling (print z 106.999) and the lower part of its R6 mouth round and corner fillets; nothing else on the cartridge takes support and no body is model-rooted. The ceiling band (104.399 to 109.599, 0.08 mm) prints the round over each ceiling and the interface on fine layers; the floor band (9.630 to 14.830) prints the up-facing mouth round below each pocket floor and the corner fillets above it, unsupported. With the height ranges the slicer plans the trees on their own grid of up to 0.28 mm, which takes the plate from 496 layers (09-21) to 983; support stays at the same two bodies. With the audit's 3 mm pocket floor each pocket now stops at x \u00b191.8, so each ceiling and its interface end at x \u00b192.5.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 106.15,
+            "shortest_build_up_mm": 105.95,
+            "top_z_mm": 107.59,
+            "bbox_xy_mm": [
+              30.8,
+              197.2,
+              70.0,
+              223.6
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -131.7,
+              29.13,
+              165.395,
+              -92.5,
+              55.53,
+              272.785
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -131.7,
+              29.13,
+              165.395,
+              -92.5,
+              55.53,
+              272.785
+            ]
+          },
+          "contact_region": "West hand-pull pocket ceiling and its rounded ceiling/rim junction (interface-1).",
+          "removal_lane": "Detach the pocket interface and withdraw the branch outward through the open west pocket mouth. The bed stem stands outside the cartridge; remove it while the cartridge is loose, before the pumps or the cap go on.",
+          "removal_direction_original_cad": "-X out of the west pocket mouth",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The pocket keeps its flat hand-bearing ceiling and the rounded rim that shows on the side face.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 106.15,
+            "shortest_build_up_mm": 105.95,
+            "top_z_mm": 107.59,
+            "bbox_xy_mm": [
+              255.2,
+              196.8,
+              294.8,
+              223.2
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              92.7,
+              28.73,
+              165.395,
+              132.3,
+              55.13,
+              272.785
+            ],
+            "bbox_original_cad_xyz_mm": [
+              92.7,
+              28.73,
+              165.395,
+              132.3,
+              55.13,
+              272.785
+            ]
+          },
+          "contact_region": "East hand-pull pocket ceiling and its rounded ceiling/rim junction (interface-2).",
+          "removal_lane": "Detach the pocket interface and withdraw the branch outward through the open east pocket mouth. The bed stem stands outside the cartridge; remove it while the cartridge is loose, before the pumps or the cap go on.",
+          "removal_direction_original_cad": "+X out of the east pocket mouth",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The pocket keeps its flat hand-bearing ceiling and the rounded rim that shows on the side face.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 106.15,
+            "last_z_mm": 106.87,
+            "bbox_xy_mm": [
+              58.8,
+              200.4,
+              70.0,
+              220.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 105.95,
+            "bbox_cad_xyz_mm": [
+              -103.7,
+              32.33,
+              271.345,
+              -92.5,
+              51.93,
+              272.065
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.7,
+              32.33,
+              271.345,
+              -92.5,
+              51.93,
+              272.065
+            ]
+          },
+          "contact_region": "West pocket ceiling at world z 272.194 and the start of its R6 rounds; hidden inside the pocket, touched only by fingers.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 106.15,
+            "last_z_mm": 106.87,
+            "bbox_xy_mm": [
+              255.2,
+              200.4,
+              266.4,
+              220.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 105.95,
+            "bbox_cad_xyz_mm": [
+              92.7,
+              32.33,
+              271.345,
+              103.9,
+              51.93,
+              272.065
+            ],
+            "bbox_original_cad_xyz_mm": [
+              92.7,
+              32.33,
+              271.345,
+              103.9,
+              51.93,
+              272.065
+            ]
+          },
+          "contact_region": "East pocket ceiling at world z 272.194 and the start of its R6 rounds; hidden inside the pocket, touched only by fingers.",
+          "reviewed": true
+        }
+      ]
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "support_summary": {
+        "support_bodies": 4,
+        "interface_islands": 4,
+        "bed_rooted_bodies": 4,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 4.08,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 4,
+        "shortest_labelled_build_up_mm": 4.08
+      },
+      "model_overhangs_review": "The cap prints crown-down (X180) with no rounded edge anywhere: its only curved faces are the two motor bores, the two terminal wells and the screw holes, all vertical. Four bed-rooted trees carry the two terminal-well annuli and the two counterbore floors, the same four as the 09-21 slice; no body is model-rooted. The cap takes no height range and prints at 0.24 mm throughout.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 4.28,
+            "shortest_build_up_mm": 4.08,
+            "top_z_mm": 4.76,
+            "bbox_xy_mm": [
+              88.4,
+              85.2,
+              132.4,
+              129.2
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -74.1,
+              -66.73,
+              -283.974,
+              -30.1,
+              -22.73,
+              -279.414
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -74.1,
+              22.73,
+              279.414,
+              -30.1,
+              66.73,
+              283.974
+            ]
+          },
+          "contact_region": "West motor-terminal opening annulus (interface-1).",
+          "removal_lane": "Detach the shallow annular support and withdraw it through the same open 45 mm terminal well to the crown face. The cap is loose and no motor or wiring is over the opening.",
+          "removal_direction_original_cad": "+Z (original) out of the terminal well",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The fitted motor bore and the wider open terminal crown keep their circular shoulders.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 14.36,
+            "shortest_build_up_mm": 14.16,
+            "top_z_mm": 14.6,
+            "bbox_xy_mm": [
+              160.0,
+              85.6,
+              164.8,
+              90.8
+            ],
+            "interfaces": [
+              "interface-3"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -2.5,
+              -66.33,
+              -283.974,
+              2.3,
+              -61.13,
+              -269.574
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -2.5,
+              61.13,
+              269.574,
+              2.3,
+              66.33,
+              283.974
+            ]
+          },
+          "contact_region": "Aft M3 screw-head seat (interface-3).",
+          "removal_lane": "Detach the support column and withdraw it through its open crown-side counterbore before the screw goes in. Do not push it through the smaller shaft bore.",
+          "removal_direction_original_cad": "+Z (original) out of the counterbore",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The screw head bears on a flat annular seat.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 14.36,
+            "shortest_build_up_mm": 14.16,
+            "top_z_mm": 14.6,
+            "bbox_xy_mm": [
+              160.0,
+              121.6,
+              164.8,
+              126.8
+            ],
+            "interfaces": [
+              "interface-4"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -2.5,
+              -30.33,
+              -283.974,
+              2.3,
+              -25.13,
+              -269.574
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -2.5,
+              25.13,
+              269.574,
+              2.3,
+              30.33,
+              283.974
+            ]
+          },
+          "contact_region": "Fore M3 screw-head seat (interface-4).",
+          "removal_lane": "Detach the support column and withdraw it through its open crown-side counterbore before the screw goes in. Do not push it through the smaller shaft bore.",
+          "removal_direction_original_cad": "+Z (original) out of the counterbore",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The screw head bears on a flat annular seat.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 4.28,
+            "shortest_build_up_mm": 4.08,
+            "top_z_mm": 4.76,
+            "bbox_xy_mm": [
+              192.8,
+              85.2,
+              236.8,
+              129.2
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              30.3,
+              -66.73,
+              -283.974,
+              74.3,
+              -22.73,
+              -279.414
+            ],
+            "bbox_original_cad_xyz_mm": [
+              30.3,
+              22.73,
+              279.414,
+              74.3,
+              66.73,
+              283.974
+            ]
+          },
+          "contact_region": "East motor-terminal opening annulus (interface-2).",
+          "removal_lane": "Detach the shallow annular support and withdraw it through the same open 45 mm terminal well to the crown face. The cap is loose and no motor or wiring is over the opening.",
+          "removal_direction_original_cad": "+Z (original) out of the terminal well",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The fitted motor bore and the wider open terminal crown keep their circular shoulders.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 4.28,
+            "last_z_mm": 4.76,
+            "bbox_xy_mm": [
+              88.4,
+              85.6,
+              132.0,
+              128.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 4.08,
+            "bbox_cad_xyz_mm": [
+              -74.1,
+              -66.33,
+              -279.894,
+              -30.5,
+              -23.13,
+              -279.414
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -74.1,
+              23.13,
+              279.414,
+              -30.5,
+              66.33,
+              279.894
+            ]
+          },
+          "contact_region": "West motor-terminal annulus, the flat shoulder between the 37 mm motor bore and the 45 mm terminal well; hidden under the pump.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 4.28,
+            "last_z_mm": 4.76,
+            "bbox_xy_mm": [
+              193.2,
+              85.6,
+              236.4,
+              128.8
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 4.08,
+            "bbox_cad_xyz_mm": [
+              30.7,
+              -66.33,
+              -279.894,
+              73.9,
+              -23.13,
+              -279.414
+            ],
+            "bbox_original_cad_xyz_mm": [
+              30.7,
+              23.13,
+              279.414,
+              73.9,
+              66.33,
+              279.894
+            ]
+          },
+          "contact_region": "East motor-terminal annulus, the flat shoulder between the 37 mm motor bore and the 45 mm terminal well; hidden under the pump.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 14.36,
+            "last_z_mm": 14.6,
+            "bbox_xy_mm": [
+              160.4,
+              86.0,
+              164.8,
+              90.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 14.16,
+            "bbox_cad_xyz_mm": [
+              -2.1,
+              -65.93,
+              -269.814,
+              2.3,
+              -61.53,
+              -269.574
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -2.1,
+              61.53,
+              269.574,
+              2.3,
+              65.93,
+              269.814
+            ]
+          },
+          "contact_region": "Aft M3 counterbore floor, the flat seat the screw head bears on; hidden under the head.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 14.36,
+            "last_z_mm": 14.6,
+            "bbox_xy_mm": [
+              160.4,
+              122.0,
+              164.8,
+              126.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 14.16,
+            "bbox_cad_xyz_mm": [
+              -2.1,
+              -29.93,
+              -269.814,
+              2.3,
+              -25.53,
+              -269.574
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -2.1,
+              25.53,
+              269.574,
+              2.3,
+              29.93,
+              269.814
+            ]
+          },
+          "contact_region": "Fore M3 counterbore floor, the flat seat the screw head bears on; hidden under the head.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-23 14:05:46.892746] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 14:05:50.795108] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 14:05:50.795134] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The three diagnostics are T1001, T65535 and T65279, the same three every plate from petgf.3mf carries: T1001 is the saved machine_start_gcode's hotend type detection, before the first layer; T65535 and T65279 are in its machine_end_gcode, after the last layer. Native return code 0, empty plate warning, black filament on nozzle 0.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}
