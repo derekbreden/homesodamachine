@@ -30,9 +30,9 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | pump-cartridge | H2C | superseded by v4: the cartridge and cap go to Mark2 | [2026-09-23-pump-cartridge-cap-h2c-v3](2026-09-23-pump-cartridge-cap-h2c-v3/manifest.json) |
 | back-top | H2C | reviewed, not sent; flavour-A drop, PI450822S CO2 chain and audit fixes, roof-edge band at 0.08, 8 mm back on the bed | [2026-09-23-enclosure-back-top-h2c-v5](2026-09-23-enclosure-back-top-h2c-v5/manifest.json) |
 | tee-carrier | H2C | superseded by v3: the carrier goes to Mark2 | [2026-09-23-tee-carrier-plate-h2c-v2](2026-09-23-tee-carrier-plate-h2c-v2/manifest.json) |
-| front-top | H2C | printing on H2C since 09-23, from a re-slice of the same input with the same supports; v11's slice at +0.18 | [2026-09-23-enclosure-front-top-h2c-v12](2026-09-23-enclosure-front-top-h2c-v12/manifest.json) |
-| tee-carrier | Mark2 | reviewed, not sent; on Mark2 (Derek, 09-23), the plate with both window covers | [2026-09-23-tee-carrier-plate-mark2-v3](2026-09-23-tee-carrier-plate-mark2-v3/manifest.json) |
-| pump-cartridge | Mark2 | reviewed, not sent; on Mark2 (Derek, 09-23), v3's slice at +0.04 | [2026-09-23-pump-cartridge-cap-mark2-v4](2026-09-23-pump-cartridge-cap-mark2-v4/manifest.json) |
+| front-top | H2C | cancelled 09-23 at layer 51/1326: its 0.08 band covers only the last 2.6 mm of the R18 and R6 roof curves, not the whole curve | [2026-09-23-enclosure-front-top-h2c-v12](2026-09-23-enclosure-front-top-h2c-v12/manifest.json) |
+| tee-carrier | Mark2 | not to send: its 0.08 bands cover 2.6 mm of each R6, not the whole curve | [2026-09-23-tee-carrier-plate-mark2-v3](2026-09-23-tee-carrier-plate-mark2-v3/manifest.json) |
+| pump-cartridge | Mark2 | not to send: its 0.08 bands cover 2.6 mm either side of each grip opening's level, not the whole curves | [2026-09-23-pump-cartridge-cap-mark2-v4](2026-09-23-pump-cartridge-cap-mark2-v4/manifest.json) |
 | bulkhead rings | Mark2 | printing on Mark2 since 09-23; TAP and both FLAVOR chips in black and white PET-GF, face up at 0.20 | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v1](2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

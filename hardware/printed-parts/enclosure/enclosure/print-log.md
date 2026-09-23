@@ -451,3 +451,9 @@ print in 0.08 mm layers. The support audit reads 4 bed-rooted trees and 9 contac
 2026-09-23T23:00:17Z: the TAP chip in white with its word in black, both FLAVOR chips in black
 with their words in white, face up in 0.20 mm layers, black on the left hotend and white on the
 right ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/mark2-launch.json)).
+
+## 2026-09-23 — front-top v12 cancelled on H2C
+
+Cancelled on Derek's word at layer 51 of 1326 (H2C `FAILED`, heaters off). Its 0.08 mm band
+covered only the last 2.6 mm of the R18 above the display and the R6 roof side edges. Derek's
+rule is 0.08 mm through the entire curve.
