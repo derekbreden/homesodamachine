@@ -65,6 +65,47 @@ def build_inert(path: str) -> bool:
     return (text.endswith(BUILD_INERT_SUFFIXES)
             or text.rpartition("/")[2] in BUILD_INERT_BASENAMES)
 
+def pinned_copies(files) -> set:
+    """The files a manifest above them pins by their bytes: copies a package or a print review
+    keeps as its record of a tree, which QUOTE that tree rather than stand in it.
+
+    Two manifests say so. A `package-manifest.json` records each file of its package under
+    `files_sha256` — the G Ganen documentation refresh keeps `bom.md` and
+    `integration-handoff.md` there as they stood when it was cut. A review's `manifest.json`
+    records each file under `files` with the `source_path` it was copied from and its
+    `sha256` — the display cover's Mark2 review keeps the four modules its slice was cut from
+    under `sources/`. A manifest that hashes a file without naming where it was copied from
+    is recording an input, not keeping a copy, and exempts nothing.
+
+    THE EXEMPTION IS THE PIN ITSELF. A copy whose bytes no longer match its digest is not the
+    copy the record kept, and every reader takes it as any other file again.
+    """
+    import hashlib
+    held = set(files)
+    out = set()
+    for manifest in sorted(f for f in held if f.endswith(("/package-manifest.json", "/manifest.json"))):
+        base = manifest.rsplit("/", 1)[0]
+        try:
+            record = json.loads((_ROOT / manifest).read_text())
+        except (OSError, ValueError):
+            continue
+        if not isinstance(record, dict):
+            continue
+        pins = record.get("files_sha256") if manifest.endswith("/package-manifest.json") else {
+            name: entry.get("sha256") for name, entry in (record.get("files") or {}).items()
+            if isinstance(entry, dict) and entry.get("source_path")}
+        for name, digest in (pins or {}).items():
+            rel = f"{base}/{name}"
+            if rel not in held or not isinstance(digest, str):
+                continue
+            try:
+                if hashlib.sha256((_ROOT / rel).read_bytes()).hexdigest() == digest:
+                    out.add(rel)
+            except OSError:
+                continue
+    return out
+
+
 #: WHICH KIND OF WRITE IT WAS IS THE WRITER'S TO SAY, and `graph.json` carries the answer:
 #: `rewritten` is what `docgen` and `_cardgen` read and wrote back, and the rest of `writes`
 #: is what `_cadq_export` cut whole. A name cannot tell them apart — `.figures.json` carries

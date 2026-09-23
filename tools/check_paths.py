@@ -66,7 +66,6 @@ file, and a scan that drops files reports clean.
 """
 
 import bisect
-import hashlib
 import itertools
 import json
 import re
@@ -77,6 +76,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from docgen import _LINK_RE as _DOCGEN_MARKER_RE, _SOURCES_SECTION_RE
+sys.path.insert(0, str(Path(__file__).resolve().parent / "bazel"))
+# A copy a package or print review keeps quotes a tree rather than claims one (the rule's own
+# docstring says which manifests say so).
+from inventory import pinned_copies as _pinned_copies  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -142,38 +145,6 @@ def _is_transcript(rel: str) -> bool:
     that says "a subdirectory of calibration" covers the next one nobody remembers to add.
     """
     return rel.startswith("calibration/") and "/" in rel[len("calibration/"):]
-
-def _pinned_copies(files: set) -> set:
-    """The files a package manifest pins by their bytes, which QUOTE a tree rather than claim one.
-
-    `documentation-refresh/before/` under the G Ganen feet validation holds `bom.md` and
-    `integration-handoff.md` as they stood when that package was cut, and the
-    `package-manifest.json` above them records each one's sha256 under `files_sha256`; a
-    qualification record elsewhere cites the same digests. A link in such a copy was right where
-    and when it was taken. It is the transcript's case in another shape: writing a tag or a
-    pinned URL into the copy would change the bytes both records hold.
-
-    THE EXEMPTION IS THE PIN ITSELF. A copy whose bytes no longer match its digest is not the
-    copy the package recorded, and it is read like any other file again.
-    """
-    out = set()
-    for manifest in sorted(f for f in files if f.endswith("/package-manifest.json")):
-        base = manifest.rsplit("/", 1)[0]
-        try:
-            pins = json.loads((ROOT / manifest).read_text()).get("files_sha256") or {}
-        except (OSError, ValueError, AttributeError):
-            continue
-        for name, digest in pins.items():
-            rel = f"{base}/{name}"
-            if rel not in files:
-                continue
-            try:
-                if hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() == digest:
-                    out.add(rel)
-            except OSError:
-                continue
-    return out
-
 
 # A SOURCE COMMENT MUST NAME A FILE KIND for its path to be read as a path. `the infill
 # pattern/density` and `the marketing/communication` are English, and `_materials.one_body`
@@ -682,11 +653,25 @@ def _selftest() -> int:
     # A copy its package manifest pins by bytes is a quote; the live file it copies is not.
     refresh = ("hardware/reference/g-ganen-pump/installation/feet-correction-validation/"
                "documentation-refresh")
+    # Asked of the two manifests and the files beside them alone, so the holds read five files
+    # rather than every manifest in the tree.
     if f"{refresh}/package-manifest.json" in files:
-        pinned = _pinned_copies(files)
+        pinned = _pinned_copies({f"{refresh}/package-manifest.json",
+                                 f"{refresh}/before/hardware/ledger/bom.md",
+                                 "hardware/ledger/bom.md"})
         hold("the refresh package's copy of bom.md is pinned",
              f"{refresh}/before/hardware/ledger/bom.md" in pinned, True)
         hold("and the live bom.md is not", "hardware/ledger/bom.md" in pinned, False)
+    # A print review's copy of a source it names by `source_path` and digest is one too.
+    review = ("hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/"
+              "native-slice-reviews/2026-09-22-display-cover-mark2-v4")
+    if f"{review}/manifest.json" in files:
+        live = "hardware/printed-parts/enclosure/display-cover/display_cover.py"
+        pinned = _pinned_copies({f"{review}/manifest.json",
+                                 f"{review}/sources/display_cover.py", live})
+        hold("the display cover review's source copy is pinned",
+             f"{review}/sources/display_cover.py" in pinned, True)
+        hold("and the live display_cover.py is not", live in pinned, False)
 
     if fails:
         print("check_paths selftest FAILED")
