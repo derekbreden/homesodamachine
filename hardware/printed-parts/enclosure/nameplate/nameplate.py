@@ -33,7 +33,7 @@ for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_hw.parent / "tools"))
 from _cadq_export import export_assembly, export_step, _write_mesh_payload, _per_solid_color
-from _materials import step_safe
+from _materials import M_PETGF_BLACK, one_body, step_safe
 from docgen import substitute_md
 import _nameplate_interface as interface
 import _nameplate_dimensions as _plan
@@ -294,10 +294,12 @@ def main(unit):
     if unit == 1:
         receiver = build_receiver()
         receiver_path = _here.with_name("nameplate-receiver.step")
-        export_step(receiver, str(receiver_path))
+        # The coupon prints in the enclosure's own PET-GF, so it is drawn in it.
+        coupon = one_body(receiver, "nameplate-receiver", M_PETGF_BLACK)
+        export_assembly(coupon, str(receiver_path))
         export_step(receiver, str(receiver_path.with_suffix(".stl")))
         if not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
-            _write_mesh_payload(receiver_path, receiver)
+            _write_mesh_payload(receiver_path, _per_solid_color(coupon))
     variables = {"PLATE_W":f"{WIDTH:g} mm", "PLATE_H":f"{HEIGHT:g} mm",
                  "NAMEPLATE_T":f"{THICK:g} mm", "INK_DEPTH":f"{INK_DEPTH:g} mm"}
     substitute_md(_here.with_name("README.md"), variables=variables)
