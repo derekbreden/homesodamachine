@@ -205,22 +205,26 @@ def build_plate(c: Carrier):
 
 
 def _spring(length):
-    """A spring `length` long on +Z from the origin: its coils at the solid length's pitch count,
-    each end a coil standing on its face."""
+    """A spring `length` long on +Z from the origin: as many coils as its solid length holds of
+    wire, both ends ground flat on their faces."""
     r = (SPRING_OD - SPRING_WIRE) / 2.0
-    pitch = (length - SPRING_WIRE) / (SPRING_SOLID / SPRING_WIRE)
-    helix = cq.Wire.makeHelix(pitch, length - SPRING_WIRE, r,
-                              center=cq.Vector(0, 0, SPRING_WIRE / 2.0))
+    helix = cq.Wire.makeHelix(length / (SPRING_SOLID / SPRING_WIRE), length, r)
     profile = cq.Wire.makeCircle(SPRING_WIRE / 2.0, helix.startPoint(), helix.tangentAt(0))
-    return cq.Solid.sweep(profile, [], helix, isFrenet=True)
+    coil = cq.Solid.sweep(profile, [], helix, isFrenet=True)
+    return coil.intersect(_box(-SPRING_OD, SPRING_OD, -SPRING_OD, SPRING_OD, 0.0, length))
+
+
+def spring_stations(c: Carrier) -> dict:
+    """Each spring's axis where it meets the tee wall's aft face."""
+    return {f"{SPRINGS}-{side}-{level}": (sx * c.spring_x, c.wall_aft_y, z)
+            for side, sx in (("west", -1.0), ("east", 1.0))
+            for level, z in zip(("lower", "upper"), c.spring_zs)}
 
 
 def springs(c: Carrier) -> dict:
     """The four springs at connected, from the tee wall's aft face to their bores' floors."""
     spring = _spring(c.spring_length()).rotate((0, 0, 0), (1, 0, 0), -90.0)
-    return {f"{SPRINGS}-{side}-{level}": spring.translate((sx * c.spring_x, c.wall_aft_y, z))
-            for side, sx in (("west", -1.0), ("east", 1.0))
-            for level, z in zip(("lower", "upper"), c.spring_zs)}
+    return {name: spring.translate(station) for name, station in spring_stations(c).items()}
 
 
 def parts(c: Carrier) -> dict:
