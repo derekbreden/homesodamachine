@@ -6167,8 +6167,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.stl",
+      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
+      "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
       "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
@@ -6198,10 +6198,13 @@
       "hardware/scripts/flute_payload.py",
       "tools/docgen/__init__.py"
     ],
-    "rewritten": [],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
+      "hardware/printed-parts/enclosure/tee-carrier/README.md"
+    ],
     "writes": [
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step.mesh",
+      "hardware/printed-parts/enclosure/tee-carrier/README.figures.json",
+      "hardware/printed-parts/enclosure/tee-carrier/README.md",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
       "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh"
     ]
