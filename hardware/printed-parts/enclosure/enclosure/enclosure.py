@@ -998,11 +998,26 @@ def front_top_flank_face():
 def tee_carrier(pack):
     """The tee carrier on the collet plate's four tees, flush with both of front-top's flanks.
     Its tie slots are the zip tie's cavity, and the strap across its back is the tie's stock.
-    Its flank openings rise to the floor of the fore coils' flank pockets."""
+    Its flank openings rise to the root of the fore valve tray's corbel on the tee wall."""
+    plate = pack.collet_plate
     return _tee_carrier.Carrier.on(
-        pack.collet_plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
+        plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
         tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t,
-        roof_z=min(z0 for _name, _x0, _x1, _y0, _y1, z0, _z1 in pack.front_flank_reliefs))
+        roof_z=min(tray_corbel_roots(pack.valve_trays, plate["wall_aft_y"])))
+
+
+def tray_corbel_roots(stations, wall_aft_y):
+    """Where each corbelled valve tray's root corbel meets the tee wall's aft face (`_valve_trays`):
+    the plate's floor, less the depth it overhangs that face."""
+    roots = []
+    for plane, sign, seats in stations:
+        zs = [z for _x, z in seats]
+        floor = (min(zs) + max(zs)) / 2.0 - _valve_tray.height(seats) / 2.0
+        face = plane - sign * _valve_tray.SEAT
+        near, far = sorted((face, face - sign * _valve_tray.THICK))
+        if near < wall_aft_y < far:
+            roots.append(floor - (far - wall_aft_y))
+    return roots
 
 
 def lip_face_x():
