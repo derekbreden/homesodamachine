@@ -25807,6 +25807,11 @@ sh_test(
     srcs = ["tools/bazel/selftest.sh"],
     data = [
         "hardware/cad-artifacts.json",
+        "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/manifest.json",
+        "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py",
+        "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md",
+        "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/package-manifest.json",
+        "tools/bazel/inventory.py",
         "tools/check_paths.py",
         "tools/docgen/__init__.py",
     ],
