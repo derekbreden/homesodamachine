@@ -26,7 +26,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 | Both Kamoer pumps, [2](CART_PUMPS) molded skirts bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | The pump cartridge's 28 AWG 4P cord, its RJ11 pump plug, and both Faston pairs on the pump tabs | The pump jack, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
-| | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) free-floating tees journalled in the tee wall |
+| | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) tees tied into the tee carrier plate, their branch collars journalled in the tee wall |
 | | The integral collet plate and tee-journal wall in `enclosure-front-top` |
 | | The [4](BOWED_STUBS) bowed tee-to-fore-valve stubs and [4](MOVING_HAIRPINS) spine hairpins. Their tee ends move with the tees; their valve ends remain fixed |
 | | Every other turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |

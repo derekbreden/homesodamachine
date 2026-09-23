@@ -1,6 +1,5 @@
 {
   "/hardware/service/_pump_replacement_sync.py": {
-    "AFT_LIMIT_OFFSET": "+4.5",
     "BODY_AIR": "1.454",
     "BOWED_STUBS": "4",
     "BOX_TEES": "6",
@@ -26,12 +25,9 @@
     "RELEASE_OFFSET": "0",
     "REST_GAP": "0.5",
     "SLEEVE_TRAVEL": "1.5",
-    "SPRING_COUNT": "2",
     "SQUEEZE_DEPTH": "10",
     "SQUEEZE_OFFSET": "0",
     "STROKE": "2",
-    "TAB_COUNT": "2",
-    "TIES_PER_TEE": "2",
     "TRAY_VALVES": "8",
     "TUBE_OD": "6.35 mm",
     "TUBE_PROJECTION": "17.53 mm"
