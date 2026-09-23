@@ -23,7 +23,6 @@ sys.path.insert(0, str(_root / "tools"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "pump-tray"))
-sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "tee-carrier"))
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
 
@@ -32,7 +31,6 @@ import _routing as R                                   # noqa: E402  — the sto
 import _scorecard as _sc                               # noqa: E402  — what fastens each body
 import manifold_layout as _ml                          # noqa: E402  — the segment and mouth tables
 import pump_tray as _tray                              # noqa: E402  — the clamp collar the boss lifts out of
-import tee_carrier as _carrier                         # noqa: E402  — the moving tees, tabs and locks
 import enclosure as _enc                               # noqa: E402  — the cradle, top clamp and screws
 from _cold_core_interface import cap_cradles           # noqa: E402  — the valves the core's lid holds
 
@@ -61,9 +59,9 @@ def holder(name: str, decked: frozenset):
 
     A pump's bracket bears in the cartridge's lower cradle, and `_facts.pump_trays` records the
     conformal clamp collar found on each boss — so a head in that table is held by the piece
-    that rides out and by nothing the box screws down. A tee without a direct carrier row
+    that rides out and by nothing the box screws down. A tee with no fastening row of its own
     inherits the fixed valve and construction named by `_scorecard.TEE_LANDS`: the inner pair
-    still butt, while the four pump-barb tees land through bowed flex stubs."""
+    butt, while the four pump-barb tees float and land through bowed flex stubs."""
     if name in decked:
         return RIDES_OUT
     by = _fastening_by_body()[_sc.RIDES.get(name, name)]
@@ -110,7 +108,7 @@ def bored() -> tuple:
 
 
 def state_text(value: float) -> str:
-    """One carrier offset as the service prose prints it: signed except at the zero datum."""
+    """One tee offset as the service prose prints it: signed except at the zero datum."""
     if abs(value) < 1e-9:
         return "0"
     return f"{value:+g}".replace("-", "−")
@@ -148,31 +146,13 @@ def main():
     berth = {cid: _ml.dist(*_ml.RUNS[how]) for cid, _f, _t, how in _ml.SEGMENTS
              if how in _ml.BARB_OF}
 
-    # THE MECHANISM THAT STAYS IN FRONT-TOP. Keep the service card tied to the same connector
-    # measurements, carrier mounts and printed-part inventory as the enclosure. The generated
-    # enclosure facts can lag a source edit until the next full CAD publish, so this small sync
-    # reads those source interfaces directly and refuses to bless a half-integrated carrier.
+    # THE FOUR MOVING TEES. Keep the service card tied to the same connector measurements
+    # as the enclosure: the tees' states come off the tee reference, and the tees themselves
+    # off the manifold.
     states = _ml.tee.CARRIER_STATES
     if tuple(states) != ("release", "squeeze", "connected", "park"):
-        raise ValueError(f"tee-carrier states are not in service order: {tuple(states)}")
-    carrier_interface = _carrier.interface()
-    printed = carrier_interface["printed_parts"]
+        raise ValueError(f"the tee states are not in service order: {tuple(states)}")
     carrier_tees = tuple(sorted(_ml.CARRIER_TEES))
-    mounted_carrier_tees = tuple(sorted(
-        name[len("tee-"):].upper()
-        for name, by, joint in _sc.MOUNTS
-        if by in printed and joint == "tie-capture"
-    ))
-    if mounted_carrier_tees != carrier_tees:
-        raise ValueError(
-            f"manifold_layout carries {carrier_tees}, but the carrier's tie-capture mounts are "
-            f"{mounted_carrier_tees}")
-    springs = tuple(name for name, _by, _joint in _sc.MOUNTS
-                    if name.startswith("tee-carrier-spring-"))
-    tie_sites = carrier_interface["tie_sites"]
-    if len(tie_sites) % len(carrier_tees):
-        raise ValueError(
-            f"the carrier has {len(tie_sites)} tie sites for {len(carrier_tees)} tees")
     bowed = tuple(cid for cid, frm, to, how in _ml.SEGMENTS
                   if how.startswith("fore-y-")
                   and {frm.rsplit("-", 1)[0], to.rsplit("-", 1)[0]} & set(carrier_tees))
@@ -195,9 +175,6 @@ def main():
         "CARRIER_TEES": f"{len(carrier_tees)}",
         "BOWED_STUBS":  f"{len(bowed)}",
         "MOVING_HAIRPINS": f"{len(hairpins)}",
-        "TIES_PER_TEE": f"{len(tie_sites) // len(carrier_tees)}",
-        "SPRING_COUNT": f"{len(springs)}",
-        "TAB_COUNT":    f"{len(carrier_interface['tab_pad_x'])}",
         # The doc names this count in four places — the opening, the heading, the pull and the
         # output condition — and `docgen` keys a text by its own name, so a count standing more
         # than once stands under a suffix per standing.
@@ -216,11 +193,10 @@ def main():
                           - plate['stroke'] - plate['wall_aft_y']):.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
         "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.4g} mm",
-        # Release/squeeze use the fore stop; connected and park name the nominal rest
-        # datum. The physical aft limit is farther aft and has its own figure.
+        # Release and squeeze bear on the release face; connected and park name the seated
+        # cartridge's datum.
         **{f"{name.upper()}_OFFSET": state_text(offset)
            for name, (offset, _depth) in states.items()},
-        "AFT_LIMIT_OFFSET": state_text(carrier_interface["aft_limit_offset_y"]),
         "SQUEEZE_DEPTH": f"{states['squeeze'][1]:g}",
         "CONNECTED_RELEASE_TRAVEL":
             f"{states['connected'][0] - states['release'][0]:g}",

@@ -47,13 +47,6 @@ manifold_rise = 2.0
 # are pressed to — and `clearance-floor` reads what is left between the two.
 inner_limb_drop = 9.5
 
-# Aft travel available beyond the connected tee-carrier datum, for elastic bending.
-# The connected pose, tube projections and moving carrier dimensions stay independent.
-tee_carrier_aft_overtravel = 2.5
-# Required stock behind every tee bearing line. The manifold also uses this
-# section when spacing the aft valve row for complete post insertion.
-tee_carrier_station_t = 2.5
-
 # THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
 # has to know. The fade is driven by how far a station stands from the nearest edge of the show
 # face (`cadlib/flute_skin._depth_field`), so a band's own two faces are both edges and the

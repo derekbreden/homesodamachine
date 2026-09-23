@@ -128,7 +128,6 @@ import _stated_bounds as _bounds                      # noqa: E402
 import _boxes                                         # noqa: E402
 import _overlap                                       # noqa: E402
 import _enclosure_interface as _enc_if                # noqa: E402
-import fits                                          # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -167,9 +166,9 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
-# In the enclosure pose the limb's +Y is world +Z. The carrier tees sit below the
+# In the enclosure pose the limb's +Y is world +Z. The four barb tees sit below the
 # fold datum; the four fore valves retain their own elevation above that datum.
-# The carrier branch axes follow the observed seated pump outlet row. Keeping
+# The tees' branch axes follow the observed seated pump outlet row. Keeping
 # this relationship explicit retains the straight, coaxial cartridge tubes.
 CARRIER_DROP = (_enc_if.pump_station_drop + _enc_if.manifold_rise
                 + _enc_if.pump_seated_drop - kp.outlet_above_skirt_bottom)
@@ -181,9 +180,9 @@ FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 FORE_STUB_EXPOSED = FORE_STUB_GAP + 2.0
 FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
 # The two outer aft valves stand inboard of their pump-connected tees. Their hairpins
-# lean between those axes; the room outside the coils belongs to the closed finger cups.
-OUTER_AFT_X = 73.82  # valve axes retain the side-guide and seam-rail running room
-# Locate the two-stop carrier range fore of the aft valves' full post-insertion envelope.
+# lean between those axes.
+OUTER_AFT_X = 73.82  # valve axes retain the seam-rail running room
+# Places the four barb tees' travel fore of the aft valves' full post-insertion envelope.
 CARRIER_DATUM_SHIFT = -1.75
 # Fixed release face measured aft of the seated pump's tube plane. This design
 # span preserves the fitted cartridge's complete skirt band and plate running
@@ -338,7 +337,7 @@ PUMPS = {"pump-a": -PUMP_DX, "pump-b": +PUMP_DX}   # each pump under its own cha
 BARB_OF = {"Y-C": (-PUMP_DX, +1), "Y-D": (-PUMP_DX, -1),
            "Y-F": (+PUMP_DX, -1), "Y-G": (+PUMP_DX, +1)}
 
-# The four pump-barb tees, their carrier and every flexible line ending on them move together.
+# The four pump-barb tees and every flexible line ending on them move together.
 # These offsets are in the ENCLOSURE'S +Y direction (aft).  In this study's frame that is +Z;
 # `enclosure_assembly.manifold_carry` is the transform that makes the two the same datum.
 CARRIER_TEES = frozenset(BARB_OF)
@@ -439,17 +438,8 @@ def flat_bodies() -> dict:
 # needs 58.4. `clashes()` measures the placed solids at full precision on every build, so the
 # number below is chosen against it and not against a reach.
 #
-# `HSM_DECK_SEP` builds another. The carrier's fore datum leaves the aft row's
-# full post-insertion route clear while the fixed decks stay on these planes.
-# The aft coil must pass the full post length fore of its seated position while
-# the tee and its complete backing remain installed. Both the post entry and
-# final moving/fixed interface keep their own running air. The native appliance
-# motion check reads the actual solids against this dimensional lower bound.
-CARRIER_ENTRY_DECK_SEP = (CARRIER_DATUM_SHIFT + tee.HALF_W
-                        + _enc_if.tee_carrier_station_t
-                        + VALVE_TOP_Z - VALVE_PORT_Z
-                        + vlv.boss_z_range[0] + 2.0 * fits.running)
-DECK_SEP = float(os.environ.get("HSM_DECK_SEP", max(59.4, CARRIER_ENTRY_DECK_SEP)))
+# `HSM_DECK_SEP` builds another.
+DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 60.95))
 FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
 HINGE_Z = DECK_Z + DECK_SEP / 2.0
 UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height
@@ -874,7 +864,7 @@ def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> flo
     A pair of quarter circles and their tangent middle has length
     separation + (pi - 2) * radius; the higher mouth supplies the axial leg.
     Release sets the cut at the stock's minimum
-    radius; the bends open as the carrier moves aft. Both port tangents remain axial.
+    radius; the bends open as the tees move aft. Both port tangents remain axial.
     """
     separation = math.hypot(DECK_SEP - CARRIER_DATUM_SHIFT - carrier_offset, spine_offset_x(x))
     return (spine_tube_length(x) - spine_axial_length(x) - separation) / (math.pi - 2.0)
@@ -940,11 +930,11 @@ def uturn(x: float, carrier_offset: float = CARRIER_SQUEEZE):
     middle_chord = separation - 2.0 * r
     if r < MIN_BEND - 1e-9:
         raise ValueError(
-            f"carrier offset {carrier_offset:+.3f} asks the spine for R{r:.3f}, under "
+            f"tee offset {carrier_offset:+.3f} asks the spine for R{r:.3f}, under "
             f"the stock floor R{MIN_BEND:g}")
     if middle_chord < -1e-9:
         raise ValueError(
-            f"carrier offset {carrier_offset:+.3f} leaves {separation:.3f} mm between spine "
+            f"tee offset {carrier_offset:+.3f} leaves {separation:.3f} mm between spine "
             f"ends, under the two R{r:.3f} turns")
     k = r * (1.0 - math.sqrt(0.5))                       # a quarter-turn's own 45° offset
     a, b, c, d, along = spine_stations(x, carrier_offset)
@@ -1521,7 +1511,7 @@ def report(assy: cq.Assembly) -> dict:
 
 
 def selftest() -> int:
-    """Exercise every measured carrier state, including the two states not exported by main.
+    """Exercise every measured tee state, including the two states not exported by main.
 
     The four short stubs and four complete hairpins are flexible members, but their developed
     lengths are not flexible numbers.  This holds those lengths, the moving tee stations and
@@ -1544,7 +1534,7 @@ def selftest() -> int:
             entry_angle = skew_deg(*runs(offset)[name], branch_port(name, offset)[1])
             if abs(entry_angle - 180.0) > 1e-6:
                 failures.append(f'{state} {name} pump tube is not on its tee collet axis')
-        # Every carrier tee translates by exactly the state offset on the pack's +Z axis.
+        # Every moving tee translates by exactly the state offset on the pack's +Z axis.
         for name in sorted(CARRIER_TEES):
             point = branch_port(name, offset)[0]
             delta = tuple(point[i] - squeeze_branches[name][i] for i in range(3))
@@ -1608,7 +1598,7 @@ def selftest() -> int:
     if failures:
         return 1
     states = ", ".join(f"{name} {offset:+.2f}" for name, offset in CARRIER_STATES.items())
-    print(f"PASS: four carrier states build and close cleanly ({states} mm)")
+    print(f"PASS: four tee states build and close cleanly ({states} mm)")
     print(
         f"PASS: four {FORE_STUB_EXPOSED:g} mm exposed bows and four "
         "hairpins keep their developed lengths and meet their placed collets")

@@ -136,8 +136,7 @@ def enclosure_drift(root: Path = None) -> tuple:
             "solids", {})
     except (OSError, ValueError):
         held = {}
-    directories = ("hardware/printed-parts/enclosure/enclosure",
-                   "hardware/printed-parts/enclosure/tee-carrier")
+    directories = ("hardware/printed-parts/enclosure/enclosure",)
     current = {
         path.relative_to(root).as_posix(): path
         for rel_dir in directories
@@ -180,16 +179,13 @@ def refresh_enclosure_viewer() -> None:
     """Graft current enclosure piece payloads into both viewer hosts, without building.
 
     `surfaces` admits a piece only when its payload names the exact STEP beside it.
-    The six fixed pieces share the host frame. The carrier halves are cut at release
-    and displayed at the facts' working state. Their exact carry comes from those
-    facts; a reduced surface's changed bounds do not define a rigid placement.
-    The operation reads no CAD source and acquires no Bazel lock.
+    The six pieces share the host frame. The operation reads no CAD source and acquires no
+    Bazel lock.
     """
     scripts = ROOT / "hardware" / "scripts"
     if str(scripts) not in sys.path:
         sys.path.insert(0, str(scripts))
     import flute_payload
-    import numpy as np
 
     pieces = flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)
     fluted = flute_payload.surfaces(flute_payload.ENCLOSURE_DIRS)
@@ -203,30 +199,15 @@ def refresh_enclosure_viewer() -> None:
         ROOT / "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
         ROOT / "hardware/manifold-layout/enclosure-assembly.step.mesh",
     )
-    moving_names = {"enclosure-tee-carrier-left", "enclosure-tee-carrier-right"}
     for host in hosts:
         if not host.is_file():
             print(f"  the viewer host is absent: {host.relative_to(ROOT)}")
             continue
-        # The enclosure aggregate contains its six wall pieces; the appliance also
-        # contains the moving carrier halves. Each host receives the surfaces it owns.
+        # Each host receives the piece surfaces it holds, in the frame it holds them in.
         expected = {flute_payload.fluted_key(name, fluted)
                     for name in flute_payload.payload_names(host)} - {None}
-        static = {name: fluted[name] for name in expected - moving_names}
-        moving = {name: fluted[name] for name in expected & moving_names}
-        landed = 0
-        if static:
-            landed += flute_payload.graft(host, static, same_frame=True)
-        if moving:
-            facts = json.loads((ROOT / "hardware/manifold-layout/enclosure-assembly.facts.json").read_text())
-            carrier = facts["box"]["tee_carrier"]
-            offset = float(carrier["states"][carrier["assembly_state"]]["offset_y"])
-            if not np.isfinite(offset):
-                raise ValueError("carrier assembly offset must be finite")
-            placement = (np.eye(3), np.array([0.0, offset, 0.0]))
-            placed = {name: flute_payload.carried(surface, placement)
-                      for name, surface in moving.items()}
-            landed += flute_payload.graft(host, placed, same_frame=True)
+        landed = flute_payload.graft(host, {name: fluted[name] for name in expected},
+                                     same_frame=True) if expected else 0
         print(f"  {host.relative_to(ROOT)}: {landed} of {len(expected)} piece surface(s) landed")
 
 
@@ -386,9 +367,6 @@ def selftest() -> int:
         hold("a changed carried piece payload admits the graft-only refresh",
              enclosure_release_plan([], root), ("graft", [payload_rel]))
 
-        # The appliance places the printable release-state carrier at its
-        # working offset. The known carry must not inherit small bound changes
-        # introduced by reducing a piece's surface.
         # Mock only the payload API: exercise the real refresh dispatch and
         # both hosts without importing CAD or publishing any files.
         from contextlib import redirect_stdout
@@ -399,20 +377,10 @@ def selftest() -> int:
         fixed = {f"enclosure-{name}" for name in (
             "front-top", "front-bottom", "back-top", "back-bottom",
             "pump-cartridge", "pump-cap")}
-        moving = {"enclosure-tee-carrier-left", "enclosure-tee-carrier-right"}
         appliance = root / "hardware/manifold-layout/enclosure-assembly.step.mesh"
         appliance.parent.mkdir(parents=True)
         appliance.write_bytes(b"appliance host")
-        (appliance.parent / "enclosure-assembly.facts.json").write_text(json.dumps({
-            "box": {"tee_carrier": {"assembly_state": "connected",
-                     "states": {"connected": {"offset_y": 2.0}}}}}))
         calls = []
-        carries = []
-
-        def carried(surface, placement):
-            rotation, translation = placement
-            carries.append((rotation.tolist(), translation.tolist()))
-            return surface
 
         def graft(host, surfaces, *, same_frame):
             calls.append((host.relative_to(root).as_posix(), set(surfaces), same_frame))
@@ -420,11 +388,10 @@ def selftest() -> int:
 
         fake = SimpleNamespace(
             ENCLOSURE_DIRS=(), pieces=lambda _: [None] * 8,
-            surfaces=lambda _: {name: object() for name in fixed | moving},
-            payload_names=lambda host: sorted(fixed | (moving if host == appliance else set()))
-                                      + ["unrelated-component"],
+            surfaces=lambda _: {name: object() for name in fixed},
+            payload_names=lambda host: sorted(fixed) + ["unrelated-component"],
             fluted_key=lambda name, surfaces: name if name in surfaces else None,
-            graft=graft, carried=carried,
+            graft=graft,
         )
         with patch.dict(sys.modules, {"flute_payload": fake}), \
                 patch.object(sys.modules[__name__], "ROOT", root), \
@@ -433,17 +400,12 @@ def selftest() -> int:
         hold("both hosts graft surfaces in their exact assembly frame",
              [(host, names) for host, names, same in calls if same],
              [(paths["host"].relative_to(root).as_posix(), fixed),
-              (appliance.relative_to(root).as_posix(), fixed),
-              (appliance.relative_to(root).as_posix(), moving)])
-        hold("both carrier halves use the facts' exact offset with no sideways drift",
-             carries,
-             [([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-               [0.0, 2.0, 0.0])] * 2)
+              (appliance.relative_to(root).as_posix(), fixed)])
         hold("refresh never passes an unrelated host entry to the graft",
-             set().union(*(names for _host, names, _same in calls)), fixed | moving)
+             set().union(*(names for _host, names, _same in calls)), fixed)
 
-    print(f"publish-now selftest {holds}/9")
-    return 0 if holds == 9 else 1
+    print(f"publish-now selftest {holds}/8")
+    return 0 if holds == 8 else 1
 
 
 def main(argv) -> int:

@@ -400,19 +400,6 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # THE FOUR PUMP-BARB TEES MOVE AS ONE. The fixed wall journals each branch collar in X/Z;
-    # two ties per tee close its two run arms onto the carrier web, making the carrier the
-    # positive Y location instead of asking a flex stub or hairpin to act as a mount.
-    ("tee-y-c", "enclosure-tee-carrier-right", "tie-capture"),
-    ("tee-y-d", "enclosure-tee-carrier-right", "tie-capture"),
-    ("tee-y-f", "enclosure-tee-carrier-left", "tie-capture"),
-    ("tee-y-g", "enclosure-tee-carrier-left", "tie-capture"),
-    # The measured spring envelopes touch the fixed and moving bearing faces. This
-    # establishes placement only; positive spring guidance and window retention remain open.
-    ("tee-carrier-spring-envelope-west",
-     ("enclosure-front-top", "enclosure-tee-carrier-left"), "gap-press"),
-    ("tee-carrier-spring-envelope-east",
-     ("enclosure-front-top", "enclosure-tee-carrier-right"), "gap-press"),
     # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Three sides of each stamped bracket bear on
     # cradle lands; the +Y side stays open for the tube fittings. A small clamp screws down from
     # above, presses both brackets and locates both bosses in case-derived octagonal collars
@@ -465,8 +452,8 @@ def derived_mounts() -> tuple:
     """One row for every placed body `MOUNTS` does not name.
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
-    printed seats, the pump heads have their cartridge cradle, and the four moving tees have
-    their tied carrier rows above. A remaining body no printed feature reaches is carried only
+    printed seats and the pump heads have their cartridge cradle; the four moving tees float on
+    their tubes (`NEVER`). A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -521,19 +508,24 @@ NEVER = {
         "four holes carry the floor's posts and the grommets, and every printed feature in "
         "reach of the clamp stands on the cabinet side of them.",
     # THE TWO INNER Y-TEES butt valves in fixed printed seats. They need no second printed
-    # mount. The four pump-barb tees are deliberately absent here: their two ties apiece make
-    # the carrier rows in `MOUNTS` their positive location. `tees_land_held` still reads all six
-    # fluid constructions back from `SEGMENTS`.
+    # mount. `tees_land_held` still reads all six fluid constructions back from `SEGMENTS`.
     **{tee: (f"Its collets make up onto {valve.upper()[len('VALVE-'):]}'s, face to face on one "
              f"stub with no tube between them, and that valve stands in four printed sockets — "
              f"so what holds this tee is the seat under the valve it butts.")
        for tee, valve in (("tee-y-a", "valve-v-c"), ("tee-y-b", "valve-v-d"))},
+    # THE FOUR PUMP-BARB TEES FLOAT. Nothing printed closes on them; each hangs on its three
+    # tubes.
+    **{tee: (f"Free floating: its collets make up onto the pump cartridge's tube, the bowed stub "
+             f"to {valve.upper()[len('VALVE-'):]} and its spine hairpin, and nothing printed "
+             f"closes on it.")
+       for tee, valve in (("tee-y-c", "valve-v-e"), ("tee-y-d", "valve-v-f"),
+                          ("tee-y-f", "valve-v-h"), ("tee-y-g", "valve-v-i"))},
 }
 
 
 # Which fixed valve each tee reaches, and by which manifold construction. The two inner tees
-# derive their hold through face-to-face butts; the four pump-barb tees are held by the carrier
-# and reach their fixed fore valves through explicit bowed flex stubs.
+# derive their hold through face-to-face butts; the four pump-barb tees float and reach their
+# fixed fore valves through explicit bowed flex stubs.
 TEE_LANDS = {
     "tee-y-a": ("valve-v-c", "butt"),
     "tee-y-b": ("valve-v-d", "butt"),
@@ -687,12 +679,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
-    # The measured envelopes end on the printed bearing faces. This allowed contact
-    # says nothing about spring material volume, force or positive lateral capture.
-    *((f"tee-carrier-spring-envelope-{side}", host)
-      for side, half in (("west", "left"), ("east", "right"))
-      for host in ("enclosure-front-top", f"enclosure-tee-carrier-{half}")),
-    ("enclosure-tee-carrier-left", "enclosure-tee-carrier-right"),
     # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),

@@ -92,15 +92,7 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
-# The pump-barb tee carriage, counted from the part which draws its stations. Two tie bands on
-# each of four tee sites give eight 4-inch ties; its two spring stations take one catalog spring
-# apiece. Each of the two shipped halves includes its grip; two M3 screws close the center lap.
-carrier_ties_per_build = len(_ea._carrier.tie_sites(_ea._carrier.DEFAULT_SPEC))
-carrier_springs_per_build = len(_ea._carrier.spring_stations())
-carrier_prints_per_build = len(_ea._carrier.interface()["printed_parts"])
-carrier_joint_screws_per_build = len(_ea._carrier.joint_sites())
-general_four_inch_ties_per_build = 22
-four_inch_ties_per_build = general_four_inch_ties_per_build + carrier_ties_per_build
+four_inch_ties_per_build = 22
 six_inch_ties_per_build = 7
 
 # PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
@@ -301,10 +293,8 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + faucet_display_cover_screws_per_build + c14_screws_per_build
                   + touchflo_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one, the enclosure's six seam screws and the tee
-# carrier's two lap screws, through a 6 mm web into 4 mm inserts.
-m3x10_per_build = (shelf_long_screws_per_build + enclosure_seam_screws_per_build
-                   + carrier_joint_screws_per_build)
+# And every M3 x 10: the ground-stack clamp's one and the enclosure's six seam screws.
+m3x10_per_build = shelf_long_screws_per_build + enclosure_seam_screws_per_build
 
 # And every M3 x 60: the pump clamp's two, the one station whose screw is as long as the field
 # it crosses.
@@ -322,7 +312,6 @@ m3x12_per_build = 0
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
 #   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the electronics bay in
-#   tee-carrier lap      — a 6 mm receiver, with a 4 mm insert and 2 mm backing
 #   Y-seam sockets       — pilot is `screw_len - seam_pin_shank_len`; longer wants an M3x12
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
@@ -338,7 +327,6 @@ m3_short_inserts_per_build = (
     + faucet_display_cover_inserts_per_build
     + enclosure_seam_inserts_per_build
     + c14_inserts_per_build
-    + carrier_joint_screws_per_build
 )
 
 # Combined heat-set insert count across the appliance, by thread.
@@ -361,7 +349,6 @@ total_m3_screws_per_build = (
     + pump_cap_screws_per_build
     + enclosure_seam_screws_per_build
     + c14_screws_per_build
-    + carrier_joint_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -440,10 +427,6 @@ def main():
         # Flavor subsystem.
         "SOLENOIDS": f"{solenoid_count:.4g}",
         "TEES": f"{tee_count:.4g}",
-        "CARRIER_TIES": f"{carrier_ties_per_build:.4g}",
-        "CARRIER_SPRINGS": f"{carrier_springs_per_build:.4g}",
-        "CARRIER_PRINTS": f"{carrier_prints_per_build:.4g}",
-        "CARRIER_JOINT_SCREWS": f"{carrier_joint_screws_per_build:.4g}",
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
