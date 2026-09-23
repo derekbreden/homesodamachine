@@ -19,8 +19,8 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "hardware/printed-parts/enclosure/enclosure/pump-cartridge-generation.json",
       "hardware/reference/iec-c14-inlet/.scan-check-cache.npz"
     ],
     "members": [
@@ -686,7 +686,7 @@
     "hardware/assembly/scenes/glb/cold-core.glb": "0f460322fb467dac930b67653f80fd596f709571c026ab06dc46e1f487b2ada3",
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb": "b4f460f203fddcdb7f9e9e38f071a8911ca4b07a98fe502f9c818897cbb41d40",
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb": "83a87ab809b8dcefa9d2ca2ca5e95389b4de207fb2d8139a58e702524e5358d5",
-    "hardware/assembly/scenes/glb/front-top.glb": "d566c8f24dac1d7f039cc4288faddd03a4cabf28da4af9317411ec9ab174461d",
+    "hardware/assembly/scenes/glb/front-top.glb": "3ff8f1a253548f9d3b8b3b05145834fc91670534079827bb127883bbf94963e0",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "836618ce9f760ff9b861dbfc9dfcd36ce1e568fdf7567adb93564b230600af73",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "eac193fef40249b3b40d992d2a14f2df237dee163c767fc55afe9d70ebe5ac0d",
     "hardware/cold-core-layout/cold-core-assembly.step": "1a7d30f05f6abcd14342e08276bd444280216db7bb3655a008db7fd5b9fff61a",
@@ -711,8 +711,8 @@
     "hardware/install-guide/art/the-back-face.png": "2e85e21096892db0c61f5187eb3ebbddac724622312ed979fa4a46a123a80fad",
     "hardware/install-guide/art/the-socket.png": "6af01d94b559dd77ddb53a3807024e9e0f37fbc379f81053f3ec31e762e46680",
     "hardware/install-guide/art/two-tees.png": "2a0b69bf7b013c7fdaec51d5d4df1167263af0c0a6412c9f3e0aaa547261b2c4",
-    "hardware/manifold-layout/enclosure-assembly.step": "59b2d7ff5d1f984af19b1975de2822cfe3d903eecb2e3a67c99ca636927dc7b8",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b110232766607a0a0a66841691f91e8a715008ccc8d27efb3871cd68ff8aa84f",
+    "hardware/manifold-layout/enclosure-assembly.step": "9012f5e70f4c9e4b33fa14bf3e077db1c0236447864043319b0dd8c853870b1c",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "2e1d559edeb55638b6ef1282c85c9feb856e6e6c4521af99b6b2a3ee16d98681",
     "hardware/manifold-layout/manifold-layout.step": "d2c744deb9cfad96684b4d73a5b026fbe90c8d3078cd24fb9bb37efa5b6532e9",
     "hardware/manifold-layout/manifold-layout.step.mesh": "022903bfa782e1760759965803bbae64123fb719befa3550b5e79a1f2d0f408e",
     "hardware/pcb/pcba/out/pcba.bom.csv": "9b13c80835f4d278eb8173c3da49885f159376a6df6a074f62ea66d30df73b06",
@@ -1073,7 +1073,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "4f728eac5d1ea705cf617239289c0034e6b863271626e2223ecaf79f1964e3b8",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "be371286a3ed4422422422c9d78180a97393136753cd93ef67fd4025987fa0e5",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5"
   },
   "moved": {
@@ -1168,7 +1168,7 @@
     "hardware/assembly/scenes/glb/cold-core.glb": 1790094229,
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb": 1790094229,
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb": 1789981158,
-    "hardware/assembly/scenes/glb/front-top.glb": 1790132956,
+    "hardware/assembly/scenes/glb/front-top.glb": 1790136537,
     "hardware/assembly/scenes/glb/funnel-drain.glb": 1790094229,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1790094229,
     "hardware/cold-core-layout/cold-core-assembly.step": 1790010625,
@@ -1195,8 +1195,8 @@
     "hardware/install-guide/art/the-back-face.png": 1788994414,
     "hardware/install-guide/art/the-socket.png": 1788994414,
     "hardware/install-guide/art/two-tees.png": 1788997123,
-    "hardware/manifold-layout/enclosure-assembly.step": 1790134869,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1790135774,
+    "hardware/manifold-layout/enclosure-assembly.step": 1790136537,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1790136537,
     "hardware/manifold-layout/manifold-layout.step": 1789979187,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1789979187,
     "hardware/pcb/pcba/out/pcba.bom.csv": 1789491300,
