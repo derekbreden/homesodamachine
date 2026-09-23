@@ -71,16 +71,14 @@ branch sleeve's face with the sleeve pulled out.
 | the tube bottoms, branch sleeve extended | 11.5 mm (`BRANCH_INSERTION_EXTENDED`) |
 
 The collet and its gripping teeth move during locking; the internal tube stop stays in the
-body. The measured sleeve stroke sets the carrier's fore-to-aft movement. The 7 and 8.5 mm
+body. The measured sleeve stroke sets the tees' fore-to-aft movement. The 7 and 8.5 mm
 insertion observations describe how the tube enters the fitting.
 
 At the fore stop the plate holds each sleeve fully depressed and a bottomed tube projects
 10 mm beyond that face. The return stroke is 2.00 mm: 1.50 mm of branch-sleeve extension while its
-nose stays at the plate, followed by a 0.5 mm plate-to-nose gap. Tube length places each tip at the internal stop with the carrier aft and the cartridge
+nose stays at the plate, followed by a 0.5 mm plate-to-nose gap. Tube length places each tip at the internal stop at connected with the cartridge
 fully seated: 11.50 mm beyond the extended branch sleeve. At the fore stop, the cartridge is
-2.00 mm short of seating when its tubes bottom. Relax the squeeze and advance it through
-that final 2.00 mm. Both the connected carrier and the empty carrier rest at the nominal aft station.
-The springs remain preloaded there; final cartridge seating may require a push.
+2.00 mm short of seating when its tubes bottom; it advances through that final 2.00 mm to seat.
 
 ## Observed push-connect action
 
@@ -99,7 +97,5 @@ Derek's physical checks use a tube-tight collar to hold the collet while the tub
   spring-level outward force.
 
 The fixed enclosure plate supplies the continuous collet restraint during cartridge removal.
-For insertion, the opposed cartridge/carrier grasp bottoms the tubes; relaxing the grasp
-allows the carrier springs to supply the short separating movement that engages the collets.
 These observations establish the connection action. They contain no instrumented force
-reading for the complete printed carrier or its spring pair.
+reading.

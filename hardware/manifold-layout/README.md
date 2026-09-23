@@ -36,7 +36,7 @@ A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, 
 hands out two parallel lanes [59.75](BARB_PITCH2) mm apart, one branch reach off its own skin.
 Every valve is straight through and every junction's run takes two valve ports, so a lane is
 one line of valves and tees, front to back. Three interior pairs are butted collet to collet;
-the four carrier tees instead meet V-E/F/H/I through the exposed bowed flex stubs below.
+the four barb tees instead meet V-E/F/H/I through the exposed bowed flex stubs below.
 `LIMB_PITCH` is the lane spacing and it is a knob: `HSM_LIMB_PITCH=<mm>` steps both tees toward
 the pump's axis and draws the leaning tube each barb then needs to reach its tee.
 
@@ -63,13 +63,12 @@ its two mouths is lower and reaches the other with a 4 mm axial leg: at the tee 
 pair, whose fixed valve rides the source limbs' drop, and at the fixed valve on the outer pair.
 Both ends meet their collet on its own axis. Release sets the cut length at R[14](SPINE_R):
 [82.93](SPINE_LEN) mm for each inner hairpin and [84.48](OUTER_SPINE_LEN) mm for each outer one.
-As the carrier moves aft, the bend radii increase and the straight shortens, preserving the
+As the tees move aft, the bend radii increase and the straight shortens, preserving the
 complete tube length.
 
 V-G and V-J stand [8.28](OUTER_AFT_INSET) mm inboard of their pump-connected tees. Their hairpins
 lean between the two axes. The valves' tray sockets and external tube routes follow their
-placed ports; the tees keep their pump alignment. The room outside those coils carries the
-deeper closed finger cups.
+placed ports; the tees keep their pump alignment.
 
 **The radius and the deck separation are two different numbers.** Any 180° that ends on both
 collet axes will join them, and that family is one parameter wide: the semicircle is only the
@@ -78,10 +77,9 @@ a turn is how far it reaches past the hinge — and that reach is the RADIUS. Th
 starts at the stock's floor, R[14](MIN_BEND2), and opens as the end separation decreases.
 
 The decks stand [60.95](DECK_SEP) mm apart, clearing the folded valve undersides and the
-narrow terminals beneath them. The carrier's fore datum stands 1.75 mm fore of the hinge
-plane, leaving the aft valves' complete 6 mm post-insertion route beside its joined web.
-The hardware check reads the constituent solids; the enclosure check reads their complete
-installation sweep. `HSM_DECK_SEP=` builds another separation. `HSM_SPINE_R=` moves the bend
+narrow terminals beneath them. The four barb tees' fore datum stands 1.75 mm fore of the
+hinge plane, leaving the aft valves' complete 6 mm post-insertion route.
+`HSM_DECK_SEP=` builds another separation. `HSM_SPINE_R=` moves the bend
 radius on its own.
 
 ## The quarter turns
@@ -183,18 +181,15 @@ to the internal body stop.
 Both pumps ride out of the box on their own pump cartridge and these four runs are what
 release. The collet plate is a 3.175 mm section printed into front-top, with four
 Ø8.5 mm teardrop passages around the Ø6.35 mm tubes. A passage passes its tube and stops the
-collet nose. Pulling the pump cartridge carries the four twice-tied tees to the fore stop;
-the fixed plate continuously holds the depressed sleeves while the tubes leave. The two
-springs return the empty carrier to the aft stop. To reinstall, use each hand to squeeze its
-cartridge pocket and carrier tab together, bottom all four tubes against their measured
-10 mm insertion stops, and relax the grasp. The carrier returns 2.15 mm aft, extending the
-sleeves and leaving 0.5 mm between their noses and the plate. Push the cartridge through its
-final 2.15 mm to seat it with the tubes bottomed 11.65 mm beyond the extended noses. Nothing is unscrewed for pump
-cartridge service.
+collet nose. Pulling the pump cartridge carries the four tees to the fore stop;
+the fixed plate continuously holds the depressed sleeves while the tubes leave. To reinstall,
+bottom all four tubes against their measured 10 mm insertion stops at release, then push the
+cartridge through its final 2.15 mm to seat it. At connected the sleeves stand extended with
+0.5 mm between their noses and the plate, and the tubes bottom 11.65 mm beyond the extended
+noses. Nothing is unscrewed for pump cartridge service.
 
 `enclosure_assembly.collet_plate_spec` places the release face on the actual fully depressed
 branch noses. The complete enclosure assembly is displayed at nominal connected rest with the cartridge fully seated.
-Its guides allow another 2.5 mm aft for elastic bending; the physical stop-to-stop range is 4.65 mm.
 The standalone manifold study shows the fore stop and the pumps 2.15 mm short of seating.
 `enclosure` joins the plate's rectangular section to the tee wall while forming front-top.
 The floor joins, outer cheeks, upper cap and front-bottom feet are part of the
@@ -207,7 +202,7 @@ them: the compressor's own +X tangent to the condenser's intake face, while the 
 read from the outer release-state hairpins over the pair's crown. The tee ends
 and outer hairpins extend 4 mm below the fold datum; the inner hairpins extend 6 mm below it.
 The eight fixed valves bear in front-top's two trays and the
-four moving tees are retained by the guided carrier. The cold core is not one of the pair — it
+four moving tees float on their tubes. The cold core is not one of the pair — it
 is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.
 

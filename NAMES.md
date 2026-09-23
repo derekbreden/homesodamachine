@@ -86,10 +86,8 @@ they became.
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the release face printed into front-top across the pump bay, holding the collets so the pump cartridge can be pulled | |
-| **tee carrier** | the two printed halves joined at a center lap, tying Y-C, Y-D, Y-F and Y-G into one Y-guided moving group | carrier plate, moving plate |
-| **service tab** | either solid pull bar printed into a tee-carrier half, guided by its flank opening and opposed by the cartridge pocket in the same hand during insertion | release tab, squeeze arm |
-| **carrier spring** | either of the two compression springs that push the tee carrier aft toward park and connected | return spring |
-| **bowed flex stub** | one of the four short formed LLDPE links between a moving carrier tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
+| **tee carrier** | the printed part that carries the four barb tees Y-C, Y-D, Y-F and Y-G | carrier plate, moving plate |
+| **bowed flex stub** | one of the four short formed LLDPE links between a moving barb tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
 | **counterbore** | the flat-bottomed pocket a cylindrical DIN 912 socket-head cap screw drops into, its head flush or under the face | countersink, countersunk, recess |
 | **countersink** | the 90° cone a DIN 7991 flat head wedges into, and the conical lead-in a fluid line leans through at a cap conduit | counterbore |

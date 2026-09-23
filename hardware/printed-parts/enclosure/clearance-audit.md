@@ -22,8 +22,8 @@ Surrounding stock grows where that retreat needs backing. Vertical holes, upward
 bedded faces and support-free slopes do not acquire a bridge allowance merely because they
 belong to a supported part.
 
-Screw clamping faces, bearing planes, stroke stops, spring ends, gasket squeeze and made-up
-fluid joints keep their explicit mechanical definitions. Manufacturer heat-set pilot cores
+Screw clamping faces, bearing planes, stroke stops, gasket squeeze and made-up fluid joints
+keep their explicit mechanical definitions. Manufacturer heat-set pilot cores
 retain their prescribed diameter; supported horizontal pilots receive crown relief only.
 Tube routing space, tool access, electrical isolation space and structural thickness are not
 ordinary mating clearances.
@@ -35,13 +35,12 @@ records the separate printed cold-core components and their print orientations.
 ## Coverage in the source
 
 Front-top, front-bottom and back-bottom print with machine +Z as print-up. Back-top and the
-pump cap print with machine −Z as print-up. The pump cartridge and tee carriers use +Z.
+pump cap print with machine −Z as print-up. The pump cartridge uses +Z.
 The same clearance policy follows these orientations rather than the assembled appearance.
 
 | Interface family | Source coverage |
 |---|---|
 | Enclosure quadrant seams | Sliding tongues, scarf laps, rail channels and pin passages use 0.25 mm running clearance. Supported catch and passage faces carry the additional bridge allowance. |
-| Tee carriers and side grips | Guide webs, grip roots, retaining rims, backing, center lap, tie slots and supported fastener crowns carry their allocated relief. The bar-guide and internal aft-wall roofs share 0.50 mm sliding-and-support clearance. The actual upper retaining overlap is at least 3 mm after the opening and rim allowances. |
 | Pump cartridge and cap | Bay, fixed-bulkhead and casing passages use their static or sliding allowances. Supported shoulders, recesses and cap screw-head seats carry bridge relief with backing retained. Pump brackets and floor bearings remain seating datums. |
 | Display | The glass cavity is 113.8 × 77.3 mm and the PCB passage is 106.3 × 69.3 mm, providing 0.15 mm per side around their nominal envelopes. The glass seat is 4 mm deep. The deeper cover land has its own 0.15 mm inner-wall clearance. The facet's 45° walls and insert axes are support-free; the PCB opening's start ridge is carried by the solid rib. |
 | Rear ports and accessories | C14 flange/shroud and keystone body pockets use 0.15 mm static clearance. Nameplate and bulkhead-ring pockets use the shared static allowance; supported pocket edges receive directional relief. The ASSE pan uses 0.25 mm running clearance in its sleeve; its supported flange underside and supported rebate floor have 0.75 mm total air when the pan is seated on the sleeve floor (1.25 mm at the nominal assembly pose), with both finish allowances assigned to the rebate floor. |
@@ -73,8 +72,8 @@ the nominal hardware envelopes used to size the CAD pockets.
 
 Feature checks read supported relief on the actual print-up side, ordinary clearance on the
 opposite and lateral faces, retained wall sections, and unchanged seating planes. Enclosure
-assembly checks also cover whole-part intersections, carrier insertion and operating sweeps,
-cap/cartridge withdrawal, spring and hardware envelopes, and seam capture. Zero whole-part
+assembly checks also cover whole-part intersections, cap/cartridge withdrawal, hardware
+envelopes, and seam capture. Zero whole-part
 overlap alone does not establish a nonzero fit clearance where intentional datums touch.
 
 [check_copper_plug_clearance.py](/hardware/scripts/check_copper_plug_clearance.py) reads the

@@ -17,16 +17,6 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=89.035 z=312.099
 click: x=0.000 y=91.690 z=310.074
 
-[ceiling] The internal aft-stop undersides and outer finger-opening roofs share Z226.119, leaving 0.50 mm above the moving grip bar's Z225.619 crown: 0.25 mm running fit plus 0.25 mm supported-face allowance. The retaining rim reaches Z229.119, preserving 3 mm overlap above the opening. The fixed recess roof joins the full flank. Flat guides retain the carrier through its stroke; removable support leaves through the flank opening and internal recess.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-104.375 y=135.190 z=226.119
-click: x=104.375 y=135.190 z=226.119
-
-[ceiling] The internal grip-recess roof at Z229.619 clears the printed retaining rim at Z229.119 by 0.50 mm: 0.25 mm running fit plus 0.25 mm supported-face allowance. It joins the flank above the full-height inside-out entry passage. Support is accessible through that passage and the flank opening before hardware installation. The reported anchors are the centres of these concave roof groups; the native roof faces surround their open centres.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-96.000 y=132.065 z=229.619
-click: x=96.000 y=132.065 z=229.619
-
 [step] The Y-seam socket entry relief at Y196.75 runs beside the fusion shoulder at Y197.00. Their 0.25 mm offset is the running-fit clearance of the pin passage. Both faces join the complete collar and forward wall stock.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-87.917 y=197.000 z=340.483

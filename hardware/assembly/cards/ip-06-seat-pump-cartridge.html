@@ -16,7 +16,7 @@
 <main>
   <div class="col" style="flex:1">
     <p class="lede"><strong>Only after the chassis is closed (EN-08).</strong>
-    Built at SA-09, out of the bay until now. Both hands at once.</p>
+    Built at SA-09, out of the bay until now.</p>
 
     <div class="critical"><span class="sign">&#9940;</span>
       <div><b>Never drive a tube at a standing collet.</b> The sleeve goes down
@@ -28,19 +28,16 @@
       <li><b>Present all
         <span class="dim" data-gen="SA09_STUBS">4</span> tubes</b> through the
         plate's <span class="dim" data-gen="PLATE_HOLES">4</span> passages.</li>
-      <li><b>Squeeze</b> &#8212; each hand spans one pocket and its tab &#8212;
-        until all four bottom at the fore stop, in
+      <li><b>Bottom all four at release</b>, sleeves down on the plate, in
         <span class="dim" data-gen="TUBE_DEPTH_SQUEEZE">10 mm</span>. The face
         is <span class="dim" data-gen="PLATE_STROKE">2.15 mm</span> shy.</li>
-      <li><b>Relax both together.</b> Springs take the carrier aft, sleeves
-        extend, the nose opens
-        <span class="dim" data-gen="PLATE_REST_GAP">0.5 mm</span>. One tab let
-        go early cocks the carrier.</li>
       <li><b>Push the last
-        <span class="dim" data-gen="PLATE_STROKE">2.15 mm</span></b> flush; the
+        <span class="dim" data-gen="PLATE_STROKE">2.15 mm</span></b> flush. At
+        connected the sleeves stand extended, the nose open
+        <span class="dim" data-gen="PLATE_REST_GAP">0.5 mm</span>, and the
         tubes end
         <span class="dim" data-gen="TUBE_DEPTH_HOME">11.65 mm</span> deep.</li>
-      <li><b>Tug all four.</b> Neither tab may read park.</li>
+      <li><b>Tug all four.</b></li>
     </ol>
   </div>
 
@@ -57,8 +54,8 @@
           .num   { font: 700 24px 'IBM Plex Mono',Menlo,monospace; fill: #2268c2; }
         </style>
 
-        <!-- ── stage 1: squeeze ─────────────────────────────────────── -->
-        <text class="lbl" x="16" y="30">SQUEEZE &#8212; tubes bottom, face still short</text>
+        <!-- ── stage 1: release ─────────────────────────────────────── -->
+        <text class="lbl" x="16" y="30">RELEASE &#8212; tubes bottom, face still short</text>
         <!-- plate -->
         <path class="ink" d="M300 52 L330 52 L330 172 L300 172 Z"/>
         <!-- sleeve, fully depressed against the plate -->
@@ -78,7 +75,7 @@
           <tspan class="num" font-size="21" data-gen="TUBE_DEPTH_SQUEEZE">10 mm</tspan></text>
 
         <!-- ── stage 2: home ────────────────────────────────────────── -->
-        <text class="lbl" x="16" y="308">CONNECTED &#8212; relax, then push it home</text>
+        <text class="lbl" x="16" y="308">CONNECTED &#8212; push it home</text>
         <path class="ink" d="M300 330 L330 330 L330 450 L300 450 Z"/>
         <!-- sleeve extended, standing off the plate -->
         <path class="ink" d="M344 354 L386 354 L386 426 L344 426 Z"/>
@@ -100,14 +97,13 @@
           between the two.</text>
       </svg>
       <div class="cap"><b>One tube, both stops</b> &#8212; mm &#183; schematic,
-      side on. The plate never moves; the cartridge and the carrier move toward
-      each other and then apart.</div>
+      side on. The plate never moves.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>The face is flush all round, both tabs settled at the same stop, and all four tubes hold a gentle tug &#8212; ready to plug at WR-04.</div>
+  <div class="done"><span class="lbl">Done when</span>The face is flush all round and all four tubes hold a gentle tug &#8212; ready to plug at WR-04.</div>
   <div class="src">internal-plumbing.md &#167;3 &#183; enclosure-mechanical.md &#167;6<br>_cards_sync.py &#183; rev 2026-09-08</div>
 </footer>
 
