@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -1111,7 +1111,7 @@
    "id": "y-seam-lower",
    "label": "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
    "kind": "gate",
-   "status": "fail",
+   "status": "pass",
    "value": "four screw axes at Z 48.9 and 152.1 mm; middle collars end at Z 160",
    "target": "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
    "detail": [
