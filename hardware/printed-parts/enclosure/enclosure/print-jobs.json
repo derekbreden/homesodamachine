@@ -1047,7 +1047,7 @@
       "printer": "Mark2",
       "printer_serial": "31B8AP612801351",
       "job_name": "display-cover-black-z004-mark2-v3.gcode.3mf",
-      "status": "started",
+      "status": "completed",
       "started_by": "agent",
       "sent_via": "Bambu Connect via tools/bambu_send.py; dialog read back Mark2, Ext PET-CF",
       "parts": [
@@ -1085,7 +1085,12 @@
       },
       "physical_fit_and_support_removal_tested": false,
       "complete_enclosure_trial": true,
-      "test_coupon": false
+      "test_coupon": false,
+      "completion_observed_at_utc": "2026-09-23T00:07:04.726596+00:00",
+      "completion_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
+      "completion_record_sha256": "a9467bdaf685a4de49af876c0b3b51eae75e01abeebbc80c0185a03bc692ae4d",
+      "physical_success_and_fit_confirmed": false,
+      "latest_print_removed_confirmed": false
     }
   ]
 }

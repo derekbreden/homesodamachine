@@ -1,0 +1,907 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "829859a48881fc6e7ac810c132c04dc3346762cbfb307fb5cf53db66633d4073",
+  "gcode_sha256": "b5dbf9da207f8c47bb823c5323b9881016619c9752e9633f27f63137e6e46c5e",
+  "support_audit_sha256": "2a4c7256d39bf32672d152649805c5da0bfdb0b1e16ef018a3df6fda0524ee71",
+  "geometry_confirmation_sha256": "b3d2b3e5bd9276c7ac6df4d927bccf6c0daf85a08dcbb9422bffcc02d344ee3d",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "support_summary": {
+        "support_bodies": 3,
+        "interface_islands": 22,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 45.112,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 22,
+        "shortest_labelled_build_up_mm": 45.112
+      },
+      "model_overhangs_review": "All 22 labelled islands are assigned below; there are no model-rooted or unlabelled bodies. The display storey beside the opening is solid down to the lintel and each display catch opens plumb into the bay, so the front bay tree carries the lintel, the front housing strip's hidden underside and both catches from the bed. The top band's height range makes this slice plan the tree support on its own layer grid: 572 support-only layers of up to 0.28 mm between the 0.24 object layers, and 274.5 g of support where v7 printed 192.9 g on the object layers. On that grid the housing strip (17) and both catches (19, 20) read as interface islands where v7's same front body reached them unlabelled; v7's centre body (west backing roof, west inner well, keystone roof) is part of the west body here, which also takes the centre backing roof and the east inner well roof from v7's east body. Cleanup precedes every hardware installation and the shell join; actual effort and finish are unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 45.312,
+            "shortest_build_up_mm": 45.112,
+            "top_z_mm": 182.63,
+            "bbox_xy_mm": [
+              60.4,
+              52.4,
+              184.8,
+              196.4
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-3",
+              "interface-5",
+              "interface-6",
+              "interface-8",
+              "interface-10",
+              "interface-12",
+              "interface-13",
+              "interface-14",
+              "interface-18",
+              "interface-21"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -210.875,
+              -107.6,
+              160.2,
+              -86.475,
+              36.4,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.6,
+              86.475,
+              160.2,
+              36.4,
+              210.875,
+              342.63
+            ]
+          },
+          "contact_region": "West and centre bed-rooted branch system: west fixed spring cup (interfaces 1, 3), west and centre carrier backing roofs (5, 6), west service-slot and handhold-recess roofs (8, 10), west outer, west inner and east inner hardware-well roofs (12, 13, 14), the pump-jack receptacle pocket roof (18) and the west funnel-brim surround (21).",
+          "removal_lane": "With the shell loose and all hardware absent, detach individual interface branches at their exposed stems. Pull fixed-cup bore branches aft (+Y) out of the cup mouths into the service recess; release cup underside branches downward. Lower the common backing/well roof branches into their open cavities and remove aft through the open enclosure. The outer channel branches leave through the side service opening; the higher inner-recess branches first lower into that opening. Clean the keystone pocket through its open fore/aft aperture before the jack is fitted. Funnel-bearing branches detach toward X0 into the open funnel mouth and leave through that opening. This is branch-by-branch removal; no intact-tree rigid translation is asserted.",
+          "removal_direction_original_cad": "Cup bores +Y; mechanism roof branches \u2212Z then +Y or outboard \u2212X through the service opening; keystone roof through its aperture along Y; funnel branches toward X0 then through its open mouth.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "These flat/round faces locate spring ends, guide and retain the moving carrier, bound hardware insertion, latch the jack and support the removable funnel. Keep their exact source profiles.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 45.312,
+            "shortest_build_up_mm": 45.112,
+            "top_z_mm": 182.63,
+            "bbox_xy_mm": [
+              75.2,
+              192.4,
+              179.6,
+              268.0
+            ],
+            "interfaces": [
+              "interface-2",
+              "interface-4",
+              "interface-7",
+              "interface-9",
+              "interface-11",
+              "interface-15",
+              "interface-22"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -196.075,
+              32.4,
+              160.2,
+              -91.675,
+              108.0,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              32.4,
+              91.675,
+              160.2,
+              108.0,
+              196.075,
+              342.63
+            ]
+          },
+          "contact_region": "East bed-rooted branch system: east fixed spring cup (2, 4), east carrier backing roof (7), service-slot and handhold-recess roofs (9, 11), east outer hardware-well roof (15) and funnel-brim surround (22).",
+          "removal_lane": "With the shell loose and all hardware absent, detach individual interface branches at their exposed stems. Pull fixed-cup bore branches aft (+Y) out of the cup mouths into the service recess; release cup underside branches downward. Lower the common backing/well roof branches into their open cavities and remove aft through the open enclosure. The outer channel branches leave through the side service opening; the higher inner-recess branches first lower into that opening. Funnel-bearing branches detach toward X0 into the open funnel mouth and leave through that opening. This is branch-by-branch removal; no intact-tree rigid translation is asserted.",
+          "removal_direction_original_cad": "Cup bores +Y; mechanism roof branches \u2212Z then +Y or outboard +X through the service opening; funnel branches toward X0 then through its open mouth.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "These flat/round faces locate spring ends, guide and retain the moving carrier, bound hardware insertion, latch the jack and support the removable funnel. Keep their exact source profiles.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 124.031,
+            "shortest_build_up_mm": 123.831,
+            "top_z_mm": 167.96,
+            "bbox_xy_mm": [
+              192.4,
+              24.0,
+              293.2,
+              295.6
+            ],
+            "interfaces": [
+              "interface-16",
+              "interface-17",
+              "interface-19",
+              "interface-20"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -78.875,
+              -136.0,
+              160.2,
+              21.925,
+              135.6,
+              327.96
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -136.0,
+              -21.925,
+              160.2,
+              135.6,
+              78.875,
+              327.96
+            ]
+          },
+          "contact_region": "Bed-rooted front bay tree: the full-width flat lintel underside (16), the front housing strip's hidden underside below the display opening (17), and up through each display catch's open back to the catch itself (19 west, 20 east, Z328).",
+          "removal_lane": "With the cartridge and display absent, detach from the lintel, lower the housing-strip branches through the open room below the display opening into the bay, and pull each catch's branches straight down out of its open back into the bay; then withdraw fore through the open cartridge mouth. Nothing walls a branch in and nothing is installed over it.",
+          "removal_direction_original_cad": "\u2212Z off the lintel and the housing strip's underside and out of the catches' open backs, then \u2212Y through the open bay.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The flat lintel is the cartridge's insertion roof; the strip's underside is the display housing's own hidden face toward the room behind the display, left at the housing's section; each catch is the flat the cover's lip rests 0.48 mm under.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 45.312,
+            "last_z_mm": 45.83,
+            "bbox_xy_mm": [
+              173.2,
+              60.0,
+              178.4,
+              64.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 45.111,
+            "bbox_cad_xyz_mm": [
+              -98.075,
+              -100.0,
+              205.311,
+              -92.875,
+              -95.2,
+              205.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -100.0,
+              92.875,
+              205.311,
+              -95.2,
+              98.075,
+              205.83
+            ]
+          },
+          "contact_region": "West fixed spring-cup underside at X\u221297.535, beside the closed fixed spring floor; the cup carries the spring end.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 45.312,
+            "last_z_mm": 45.83,
+            "bbox_xy_mm": [
+              173.2,
+              255.2,
+              178.4,
+              260.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 45.111,
+            "bbox_cad_xyz_mm": [
+              -98.075,
+              95.2,
+              205.311,
+              -92.875,
+              100.0,
+              205.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              95.2,
+              92.875,
+              205.311,
+              100.0,
+              98.075,
+              205.83
+            ]
+          },
+          "contact_region": "East fixed spring-cup underside at X+97.535, beside the closed fixed spring floor; the cup carries the spring end.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 53.51,
+            "last_z_mm": 53.96,
+            "bbox_xy_mm": [
+              173.2,
+              61.6,
+              179.6,
+              64.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 53.31,
+            "bbox_cad_xyz_mm": [
+              -98.075,
+              -98.4,
+              213.51,
+              -91.675,
+              -96.0,
+              213.96
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -98.4,
+              91.675,
+              213.51,
+              -96.0,
+              98.075,
+              213.96
+            ]
+          },
+          "contact_region": "West fixed spring-cup bore upper arc, opening aft at Y98.040; clean the bore before inserting the spring.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 53.51,
+            "last_z_mm": 53.96,
+            "bbox_xy_mm": [
+              173.2,
+              256.8,
+              179.6,
+              258.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 53.31,
+            "bbox_cad_xyz_mm": [
+              -98.075,
+              96.8,
+              213.51,
+              -91.675,
+              98.8,
+              213.96
+            ],
+            "bbox_original_cad_xyz_mm": [
+              96.8,
+              91.675,
+              213.51,
+              98.8,
+              98.075,
+              213.96
+            ]
+          },
+          "contact_region": "East fixed spring-cup bore upper arc, opening aft at Y98.040; clean the bore before inserting the spring.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 62.116,
+            "last_z_mm": 62.39,
+            "bbox_xy_mm": [
+              151.6,
+              96.8,
+              168.4,
+              122.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 61.916,
+            "bbox_cad_xyz_mm": [
+              -119.675,
+              -63.2,
+              222.116,
+              -102.875,
+              -37.2,
+              222.39
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -63.2,
+              102.875,
+              222.116,
+              -37.2,
+              119.675,
+              222.39
+            ]
+          },
+          "contact_region": "West upper roof of the common carrier backing clearance, between the outer and inner continuous tee hardware wells.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-6",
+            "first_z_mm": 62.116,
+            "last_z_mm": 62.39,
+            "bbox_xy_mm": [
+              151.6,
+              152.4,
+              168.4,
+              167.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 61.916,
+            "bbox_cad_xyz_mm": [
+              -119.675,
+              -7.6,
+              222.116,
+              -102.875,
+              7.6,
+              222.39
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -7.6,
+              102.875,
+              222.116,
+              7.6,
+              119.675,
+              222.39
+            ]
+          },
+          "contact_region": "Centre upper roof of the common carrier backing clearance, between the two inner hardware wells.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-7",
+            "first_z_mm": 62.116,
+            "last_z_mm": 62.39,
+            "bbox_xy_mm": [
+              151.6,
+              197.2,
+              168.4,
+              223.2
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 61.916,
+            "bbox_cad_xyz_mm": [
+              -119.675,
+              37.2,
+              222.116,
+              -102.875,
+              63.2,
+              222.39
+            ],
+            "bbox_original_cad_xyz_mm": [
+              37.2,
+              102.875,
+              222.116,
+              63.2,
+              119.675,
+              222.39
+            ]
+          },
+          "contact_region": "East upper roof of the common carrier backing clearance, between the inner and outer hardware wells.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-8",
+            "first_z_mm": 65.486,
+            "last_z_mm": 65.75,
+            "bbox_xy_mm": [
+              100.0,
+              52.4,
+              172.4,
+              58.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 65.285,
+            "bbox_cad_xyz_mm": [
+              -171.275,
+              -107.6,
+              225.486,
+              -98.875,
+              -101.2,
+              225.75
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.6,
+              98.875,
+              225.486,
+              -101.2,
+              171.275,
+              225.75
+            ]
+          },
+          "contact_region": "West service-slot/outer retaining-channel roof; the supported face bounds the moving handhold guide.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-9",
+            "first_z_mm": 65.486,
+            "last_z_mm": 65.75,
+            "bbox_xy_mm": [
+              100.0,
+              261.2,
+              172.4,
+              267.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 65.285,
+            "bbox_cad_xyz_mm": [
+              -171.275,
+              101.2,
+              225.486,
+              -98.875,
+              107.6,
+              225.75
+            ],
+            "bbox_original_cad_xyz_mm": [
+              101.2,
+              98.875,
+              225.486,
+              107.6,
+              171.275,
+              225.75
+            ]
+          },
+          "contact_region": "East service-slot/outer retaining-channel roof; the supported face bounds the moving handhold guide.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-10",
+            "first_z_mm": 68.846,
+            "last_z_mm": 69.11,
+            "bbox_xy_mm": [
+              100.0,
+              56.4,
+              178.4,
+              71.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 68.645,
+            "bbox_cad_xyz_mm": [
+              -171.275,
+              -103.6,
+              228.846,
+              -92.875,
+              -88.4,
+              229.11
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.6,
+              92.875,
+              228.846,
+              -88.4,
+              171.275,
+              229.11
+            ]
+          },
+          "contact_region": "West upper internal handhold service recess, with its full root/backing retained above the open loading cavity.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-11",
+            "first_z_mm": 68.846,
+            "last_z_mm": 69.11,
+            "bbox_xy_mm": [
+              100.0,
+              248.4,
+              178.4,
+              263.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 68.645,
+            "bbox_cad_xyz_mm": [
+              -171.275,
+              88.4,
+              228.846,
+              -92.875,
+              103.6,
+              229.11
+            ],
+            "bbox_original_cad_xyz_mm": [
+              88.4,
+              92.875,
+              228.846,
+              103.6,
+              171.275,
+              229.11
+            ]
+          },
+          "contact_region": "East upper internal handhold service recess, with its full root/backing retained above the open loading cavity.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-12",
+            "first_z_mm": 75.285,
+            "last_z_mm": 75.83,
+            "bbox_xy_mm": [
+              171.6,
+              64.0,
+              176.4,
+              96.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 75.085,
+            "bbox_cad_xyz_mm": [
+              -99.675,
+              -96.0,
+              235.285,
+              -94.875,
+              -63.6,
+              235.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -96.0,
+              94.875,
+              235.285,
+              -63.6,
+              99.675,
+              235.83
+            ]
+          },
+          "contact_region": "West outer continuous tee/valve hardware-well roof at Z235.925, above X\u221282.10.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-13",
+            "first_z_mm": 75.285,
+            "last_z_mm": 75.83,
+            "bbox_xy_mm": [
+              171.6,
+              123.6,
+              176.4,
+              151.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 75.085,
+            "bbox_cad_xyz_mm": [
+              -99.675,
+              -36.4,
+              235.285,
+              -94.875,
+              -8.4,
+              235.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -36.4,
+              94.875,
+              235.285,
+              -8.4,
+              99.675,
+              235.83
+            ]
+          },
+          "contact_region": "West inner continuous tee/valve hardware-well roof at Z235.925, above X\u221222.35.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-14",
+            "first_z_mm": 75.285,
+            "last_z_mm": 75.83,
+            "bbox_xy_mm": [
+              171.6,
+              168.4,
+              176.4,
+              196.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 75.085,
+            "bbox_cad_xyz_mm": [
+              -99.675,
+              8.4,
+              235.285,
+              -94.875,
+              36.4,
+              235.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              8.4,
+              94.875,
+              235.285,
+              36.4,
+              99.675,
+              235.83
+            ]
+          },
+          "contact_region": "East inner continuous tee/valve hardware-well roof at Z235.925, above X+22.35.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-15",
+            "first_z_mm": 75.285,
+            "last_z_mm": 75.83,
+            "bbox_xy_mm": [
+              171.6,
+              223.6,
+              176.4,
+              256.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 75.085,
+            "bbox_cad_xyz_mm": [
+              -99.675,
+              63.6,
+              235.285,
+              -94.875,
+              96.0,
+              235.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              63.6,
+              94.875,
+              235.285,
+              96.0,
+              99.675,
+              235.83
+            ]
+          },
+          "contact_region": "East outer continuous tee/valve hardware-well roof at Z235.925, above X+82.10.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-16",
+            "first_z_mm": 124.031,
+            "last_z_mm": 124.31,
+            "bbox_xy_mm": [
+              192.4,
+              52.8,
+              266.0,
+              267.2
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 123.831,
+            "bbox_cad_xyz_mm": [
+              -78.875,
+              -107.2,
+              284.031,
+              -5.275,
+              107.2,
+              284.31
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.2,
+              5.275,
+              284.031,
+              107.2,
+              78.875,
+              284.31
+            ]
+          },
+          "contact_region": "Full-width flat bay lintel underside at Z284.674 above the cartridge opening: the front strip and both filled housing blocks beside the display opening, back to the bay bulkhead. One plane; no display-retention surround hangs below it.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-17",
+            "first_z_mm": 128.63,
+            "last_z_mm": 135.8,
+            "bbox_xy_mm": [
+              244.0,
+              108.0,
+              256.4,
+              212.8
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 128.43,
+            "bbox_cad_xyz_mm": [
+              -27.275,
+              -52.0,
+              288.63,
+              -14.875,
+              52.8,
+              295.8
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -52.0,
+              14.875,
+              288.63,
+              52.8,
+              27.275,
+              295.8
+            ]
+          },
+          "contact_region": "Front housing strip's hidden underside below the display opening's lower edge: the face parallel to the 30\u00b0 display plane at X\u221252..+53/Y15..27/Z289..296, facing the room that holds the display's back; its branches rise through that room from the bay. v7's front body reached the same face with unlabelled support.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-18",
+            "first_z_mm": 151.39,
+            "last_z_mm": 151.67,
+            "bbox_xy_mm": [
+              181.2,
+              153.2,
+              184.8,
+              166.8
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 151.19,
+            "bbox_cad_xyz_mm": [
+              -90.075,
+              -6.8,
+              311.39,
+              -86.475,
+              6.8,
+              311.67
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -6.8,
+              86.475,
+              311.39,
+              6.8,
+              90.075,
+              311.67
+            ]
+          },
+          "contact_region": "Pump-jack keystone receptacle upper pocket roof in the central ridge at X0/Y86..90/Z311.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-19",
+            "first_z_mm": 167.72,
+            "last_z_mm": 167.96,
+            "bbox_xy_mm": [
+              206.4,
+              94.4,
+              207.2,
+              99.6
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 167.52,
+            "bbox_cad_xyz_mm": [
+              -64.875,
+              -65.6,
+              327.72,
+              -64.075,
+              -60.4,
+              327.96
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -65.6,
+              64.075,
+              327.72,
+              -60.4,
+              64.875,
+              327.96
+            ]
+          },
+          "contact_region": "West display catch at X\u221265.6..\u221260.4/Y64/Z328, the flat the cover's west lip rests 0.48 mm under, reached plumb through its open back. The interface tops out at print Z167.96 under the catch face at 168.392, whose first layer prints from 168.44: 0.48 mm of air, the same top v7's unlabelled support reached under this catch.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-20",
+            "first_z_mm": 167.72,
+            "last_z_mm": 167.96,
+            "bbox_xy_mm": [
+              206.4,
+              220.4,
+              207.2,
+              225.6
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 167.52,
+            "bbox_cad_xyz_mm": [
+              -64.875,
+              60.4,
+              327.72,
+              -64.075,
+              65.6,
+              327.96
+            ],
+            "bbox_original_cad_xyz_mm": [
+              60.4,
+              64.075,
+              327.72,
+              65.6,
+              64.875,
+              327.96
+            ]
+          },
+          "contact_region": "East display catch at X+60.4..+65.6/Y64/Z328, the flat the cover's east lip rests 0.48 mm under, reached plumb through its open back. The interface tops out at print Z167.96 under the catch face at 168.392, whose first layer prints from 168.44: 0.48 mm of air, the same top v7's unlabelled support reached under this catch.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-21",
+            "first_z_mm": 182.07,
+            "last_z_mm": 182.63,
+            "bbox_xy_mm": [
+              75.2,
+              68.4,
+              164.4,
+              94.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 181.87,
+            "bbox_cad_xyz_mm": [
+              -196.075,
+              -91.6,
+              342.07,
+              -106.875,
+              -65.6,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -91.6,
+              106.875,
+              342.07,
+              -65.6,
+              196.075,
+              342.63
+            ]
+          },
+          "contact_region": "West horizontal underside of the inset funnel-brim bearing/surround, near Z343, alongside the open funnel mouth.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-22",
+            "first_z_mm": 182.07,
+            "last_z_mm": 182.63,
+            "bbox_xy_mm": [
+              75.2,
+              225.6,
+              164.4,
+              251.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 181.87,
+            "bbox_cad_xyz_mm": [
+              -196.075,
+              65.6,
+              342.07,
+              -106.875,
+              91.6,
+              342.63
+            ],
+            "bbox_original_cad_xyz_mm": [
+              65.6,
+              106.875,
+              342.07,
+              91.6,
+              196.075,
+              342.63
+            ]
+          },
+          "contact_region": "East horizontal underside of the inset funnel-brim bearing/surround, near Z343, alongside the open funnel mouth, including the 1.2 mm stretch at X66..67/Y107..108 that v7 read as a separate island.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-22 19:07:52.876898] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-22 19:08:08.747979] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-22 19:08:08.748543] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The three exact diagnostics are T1001, T65535 and T65279. T1001 is the saved-profile startup Hotend Type Detection command, before the first layer; T65535 and T65279 are in the saved-profile end code, after the last layer (Z195). T1001 is in petgf.3mf's machine_start_gcode and T65535/T65279 in its machine_end_gcode, and the native slice preserves them. Native return code is 0, the plate warning is empty, all model/support paths are present, and the black filament maps to nozzle 0. These parser messages do not identify a changed support path or a model slicing failure.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}

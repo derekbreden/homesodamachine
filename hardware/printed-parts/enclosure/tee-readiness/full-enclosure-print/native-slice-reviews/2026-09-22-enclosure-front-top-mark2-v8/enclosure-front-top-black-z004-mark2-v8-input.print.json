@@ -1,0 +1,212 @@
+{
+  "project": "enclosure-front-top-black-z004-mark2-v8-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "4abb51da216d16711660642cf245c1e9af2582cb19bc0786cfb92f71cfa865c6",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/oriented-meshes/enclosure-front-top.stl",
+      "stl_sha256": "496d4b69e02e4397937ade61fca03f04838cec8dcd6936aec8a4954757d63ea5",
+      "triangles": 557198,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        -108.7750015258789,
+        0.0,
+        257.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        97.5
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          58.724998474121094,
+          52.5,
+          0.0
+        ],
+        [
+          266.2750015258789,
+          267.5,
+          195.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "original_stl_sha256": "9501a8e0bb68f81572aea47422254b2c762b2c90f4e9db09e441d1d6173a1de0"
+    }
+  ],
+  "project_sha256": "873762ed9834ce526dccc09ae1515b2943cb5a46e31933fc6af4dc3c97c6e3a3",
+  "settings_preserved_byte_for_byte": false,
+  "job_key": "front-top",
+  "assigned_printer": "Mark2",
+  "archive_stem": "enclosure-front-top-black-z004-mark2-v8",
+  "requested_z_trim_mm": 0.04,
+  "actual_textured_z_trim_mm": 0.02,
+  "geometry_confirmation": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/geometry-confirmation.json",
+  "geometry_confirmation_sha256": "b3d2b3e5bd9276c7ac6df4d927bccf6c0daf85a08dcbb9422bffcc02d344ee3d",
+  "geometry_confirmation_received_from": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/fresh-geometry-receipt.json",
+  "original_sources": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "source_stl_sha256": "9501a8e0bb68f81572aea47422254b2c762b2c90f4e9db09e441d1d6173a1de0",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "source_step_sha256": "18618bd2d51721c311ac5d6aa6526bd2760574c12c6ae1150acac0da4c3a7f63",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          355.0
+        ]
+      ],
+      "original_mesh_triangles": 557198,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/oriented-meshes/enclosure-front-top.stl",
+      "oriented_stl_sha256": "496d4b69e02e4397937ade61fca03f04838cec8dcd6936aec8a4954757d63ea5",
+      "oriented_bounds_mm": [
+        [
+          -212.5500030517578,
+          -107.5,
+          160.0
+        ],
+        [
+          -5.0,
+          107.5,
+          355.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "layerwise_print": true,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task",
+  "writer_source_sha256": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
+  "workflow_sha256": {
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/finalize_review.py": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/job-config.json": "a57855bd9befb33fdff3faf647ef5a15363245446cbf47dd514b8dff6d2d52a3",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/prepare.py": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/print_workflow.py": "eca9e8af122c029947c5d08e20cf2e506821728d5c07edb16e377aff3dddea09",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/review_native.py": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/self_test.py": "1a7fe9b9802847f36733a247058c6dc7dcdf96abff2e5ef1674f35660027085b",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/slice.py": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177",
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/write_receipt.py": "64fde8dc2bf2c835d5328527f5ee0bf1c79354871b90e8ef10447ac3f4f676ea"
+  },
+  "functional_regions": null,
+  "functional_regions_sha256": null,
+  "required_functional_toolpath_checks": []
+}
