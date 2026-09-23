@@ -17,31 +17,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=89.035 z=312.099
 click: x=0.000 y=91.690 z=310.074
 
-[step] The Y-seam socket entry relief at Y196.75 runs beside the fusion shoulder at Y197.00. Their 0.25 mm offset is the running-fit clearance of the pin passage. Both faces join the complete collar and forward wall stock.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-87.917 y=197.000 z=340.483
-
-[sliver] These four faces expose the ends of the 0.25 mm Y-seam running-fit relief beside the upper socket passages. Each is backed by the socket collar or the full 3 mm ceiling tongue; its 0.25 mm plan width is the clearance margin, not a freestanding ligament. The ceiling tongue occupies Z339.75..342.75 beneath the funnel bearing.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-94.500 y=196.875 z=341.950
-click: x=94.500 y=196.875 z=341.950
-click: x=-86.625 y=196.875 z=339.750
-click: x=86.625 y=196.875 z=339.750
-
-[sliver] These are the short exposed end faces where the socket passage meets the Z343 underside of the filled funnel surround. They connect the complete socket, flank and roof stock. The 1.05 mm measure is the exposed height at that junction, not the thickness of a separate printed strip.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-95.125 y=196.750 z=342.475
-click: x=95.125 y=196.750 z=342.475
-
-[ceiling] These flat undersides carry the continuous 6 mm funnel bearing at Z343..349 and join the surrounding roof and side walls. Their full section supports the silicone brim. Supports enter from the print bed and are removed through the open shell before assembly.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-80.500 y=151.875 z=343.000
-click: x=80.500 y=151.875 z=343.000
-
 [sliver] The outer valve yoke-entry pocket enters the 9 mm flank by 1.35 mm, from |X|98.50 to |X|99.85. These narrow Y-normal faces are the aft ends of the open pockets, not freestanding strips. The nominal smooth flank backing is 7.65 mm; the 1.2 mm exterior flutes leave at least 6.45 mm. Native full-stock probes retain 7.639 mm of continuous smooth-body X stock behind both complete pocket lengths. The 45-degree roofs in _front_top_flank_pockets preserve that backing.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=117.540 z=252.425
 click: x=99.175 y=117.540 z=252.425
+click: x=99.175 y=117.540 z=253.100
 click: x=-99.175 y=151.152 z=253.100
 click: x=99.175 y=150.882 z=253.100
 click: x=-98.500 y=176.690 z=180.550
@@ -50,6 +30,8 @@ click: x=-98.500 y=176.690 z=180.550
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=135.196 z=235.811
 click: x=99.175 y=135.061 z=235.811
+click: x=-99.175 y=134.346 z=235.811
+click: x=99.175 y=134.211 z=235.811
 
 [sliver] The yoke-entry pocket roof meets the underside corbel of the left front Wago well here. Its 0.838643 mm exposed edge is below the well floor, not a separate ligament. The complete 3 mm floor occupies Z272.85..275.85 and remains present across the full tower. The pocket edge ends at Z271.388643, 1.461357 mm below that floor; the remaining corbel joins the tower to the full flank.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
@@ -64,3 +46,8 @@ click: x=107.433 y=156.218 z=349.894
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-103.000 y=111.511 z=224.796
 click: x=103.000 y=111.511 z=224.796
+
+[ceiling] The funnel throat's two rounded front corners leave a flat under the seat stock at Z343 beyond the ceiling corbel's straight 45° edge. Each is open to the print bed through the funnel opening, so its support stands on the bed and comes out through the opening before assembly.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-72.625 y=116.875 z=343.000
+click: x=72.625 y=116.875 z=343.000

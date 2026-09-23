@@ -61,7 +61,7 @@
     "CORE_HOLD_RISE": "40 mm",
     "CORE_HOLD_WIDE": "9 mm",
     "CORE_STOP_BORE": "24.5 mm",
-    "CORE_STOP_RISE": "41.25 mm",
+    "CORE_STOP_RISE": "40 mm",
     "CORE_STOP_WEB": "6 mm",
     "CORE_STOP_WIDE": "38 mm",
     "COUPON_PITCH": "5 mm",

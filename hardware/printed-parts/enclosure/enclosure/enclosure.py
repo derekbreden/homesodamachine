@@ -823,11 +823,10 @@ cond_vent_transom_h = 4.0    # how tall each one stands — more than an exterio
 # the round and on the flat — one offset of one outline.
 core_stop_slip = split_slip
 core_stop_web = 6.0           # material ahead of that outline, at every point of the pocket
-# How far the block stands off the slab: to the crown of the handhold frame it butts against,
-# so the two tops are one plane. The lane in front of the core belongs to the refrigerant
-# loop — both drawn legs cross it and land on the core's front face — and the block stops under
-# them. A leg that came down into it is a `pack-closes` clash.
-core_stop_rise = handhold_height + fits.supported_surface - floor_t + handhold_roof
+# How far the block stands off the slab. The lane in front of the core belongs to the refrigerant
+# loop — both drawn legs cross it and land on the core's front face — so the block takes the depth
+# of it that is empty and stops under them. A leg that came down into it is a `pack-closes` clash.
+core_stop_rise = 40.0
 core_hold_reach = 12.0        # how far a bracket's foot runs onto the cap off the core's aft face
 core_hold_land = 8.0          # that foot's own thickness where it leaves the gusset
 # How far the bracket's leg carries UP the +Y wall behind the foot, standing in the band
