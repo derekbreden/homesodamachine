@@ -77,8 +77,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes; 3MFs are build-inert",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -197,6 +197,12 @@
       "  hardware/reference/iec-c14-inlet/README.figures.json — the figures of hardware/reference/iec-c14-inlet/README.md",
       "  git add hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.figures.json hardware/reference/iec-c14-inlet/README.figures.json",
       "65/67 artifacts have their record in the index"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
       "hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:5 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/../pump-comparison/g-ganen-integration.md is held nowhere, and no tag is named for it",
