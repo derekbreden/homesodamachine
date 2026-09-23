@@ -337,7 +337,7 @@ def enclosure(m: Machine):
             "WALL_BOSSES", "C14_INSERTS"},
         # UMBILICAL_DROP is the internal-plumbing subsystem's name for the gap between
         # the two storeys, and one namespace spans the deck: EN-02 states the same
-        # rectangle IP-07 rides, so it reads the storey pitch off the same fact rather
+        # rectangle IP-06 rides, so it reads the storey pitch off the same fact rather
         # than deriving a second one that could drift from it.
         "en-02-y-wall-bodies": {
             "BACK_BODIES", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",

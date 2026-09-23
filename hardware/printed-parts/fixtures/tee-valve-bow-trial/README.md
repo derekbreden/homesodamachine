@@ -24,8 +24,7 @@ in hand. Its guide clears the full translating run envelope with 0.25 mm air and
 fixture-only approximation of the socket.
 
 This coupon keeps its 10.0/12.0 mm gap/length and 3.15/4.62 mm travel experiment.
-Those values do not define the production carrier, whose connected-release stroke is
-2.15 mm and full aft guide stroke is 4.65 mm. A pass here does not qualify a different
+Those values do not define the production tees' travel. A pass here does not qualify a different
 production tube span or its full assembly.
 
 ## Files

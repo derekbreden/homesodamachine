@@ -37,7 +37,7 @@ Six 3-port junctions — **Y-A, Y-B, Y-C, Y-D, Y-F, Y-G** — and every one of t
 
 **Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or a valve and a pump barb.
 
-Y-A and Y-B inherit location from their fixed face-to-face valve joints. Y-C, Y-D, Y-F and Y-G are positively located by two zip ties apiece against one guided tee carrier; the fixed wall journals their branch collars in X and Z while the carrier owns their common Y motion.
+Y-A and Y-B inherit location from their fixed face-to-face valve joints. Y-C, Y-D, Y-F and Y-G float on their tubes; the fixed wall journals their branch collars in X and Z and leaves their Y free.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
@@ -78,10 +78,10 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | # | From | To | Notes |
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
-| 10 | V-E-O | Y-C-2 | 16 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
+| 10 | V-E-O | Y-C-2 | 16 mm exposed bowed flex stub from the fixed valve to the moving barb tee; total cut blank TBD at the bench |
 | 11 | Y-C-3 | P-A-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
 | 12 | P-A-O | Y-D-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 13 | Y-D-2 | V-F-I | 16 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
+| 13 | Y-D-2 | V-F-I | 16 mm exposed bowed flex stub from the moving barb tee to the fixed valve; total cut blank TBD at the bench |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
 | 17 | Y-D-3 | V-G-I | Across the hinge — one 180° hairpin on the A2 limb's column |
@@ -92,10 +92,10 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | # | From | To | Notes |
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
-| 20 | V-H-O | Y-F-2 | 16 mm exposed bowed flex stub from the fixed valve to the moving carrier tee; total cut blank TBD at the bench |
+| 20 | V-H-O | Y-F-2 | 16 mm exposed bowed flex stub from the fixed valve to the moving barb tee; total cut blank TBD at the bench |
 | 21 | Y-F-3 | P-B-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
 | 22 | P-B-O | Y-G-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
-| 23 | Y-G-3 | V-I-I | 16 mm exposed bowed flex stub from the moving carrier tee to the fixed valve; total cut blank TBD at the bench |
+| 23 | Y-G-3 | V-I-I | 16 mm exposed bowed flex stub from the moving barb tee to the fixed valve; total cut blank TBD at the bench |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
 | 27 | Y-G-2 | V-J-I | Across the hinge — one 180° hairpin on the B2 limb's column |
