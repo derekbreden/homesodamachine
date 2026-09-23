@@ -368,6 +368,14 @@
    79.26900000000005,
    284.1740001
   ],
+  "enclosure-tee-carrier-plate": [
+   -107.5,
+   105.53999999999998,
+   166.574,
+   107.5,
+   117.03999999999999,
+   205.774
+  ],
   "flow-regulator": [
    -99.41217782649106,
    220.26,
@@ -2454,7 +2462,7 @@
    true
   ]
  },
- "card": "05d45532db8a139abe7140f3720e1897",
+ "card": "d891cfd60b2b2ce031cb373683864836",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -3533,8 +3541,8 @@
   }
  ],
  "schema": 2,
- "sources": "85a656f1b6f84ac8bedebec7004d87b6",
- "step": "bdde351e2e1bc5a200bed682784ab08b",
+ "sources": "be6c70acaa6c31360dc199f572dcbaa4",
+ "step": "5263bcee0fcd6ba4c19ca6481fcc3c76",
  "valve_tray_stations": [
   [
    177.29,
