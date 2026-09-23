@@ -39,7 +39,8 @@ VENT_GAP = 4.0
 # Its overlap with the pan closes the west wall of the basin before the cavity begins.
 PULL_FACE_DEPTH = 5.95
 PULL_FACE_Y_OVERHANG = 4.0
-PULL_FACE_CHAMFER = WALL
+# The round ends at the basin's Y edges, so the pull face masks its square section.
+PULL_FACE_CORNER_R = PULL_FACE_Y_OVERHANG
 
 PLATE_X, PLATE_Y = plate.PLATE_X, plate.PLATE_Y
 PLATE_SLIP = 1.0
@@ -74,11 +75,10 @@ def build():
               .translate((x + WALL, x + WALL, FLOOR)))
 
     y1 = PAN_Y + 2 * PULL_FACE_Y_OVERHANG
-    c = PULL_FACE_CHAMFER
-    section = [(c, 0), (y1 - c, 0), (y1, c), (y1, PAN_Z - c),
-               (y1 - c, PAN_Z), (c, PAN_Z), (0, PAN_Z - c), (0, c)]
-    pull = (cq.Workplane("YZ").polyline(section + section[:1]).wire()
-            .extrude(PULL_FACE_DEPTH))
+    face_wire = (cq.Workplane("YZ", origin=(0, y1 / 2, PAN_Z / 2))
+                 .rect(y1, PAN_Z).val())
+    face_wire = face_wire.fillet2D(PULL_FACE_CORNER_R, face_wire.Vertices())
+    pull = cq.Solid.extrudeLinear(face_wire, [], cq.Vector(PULL_FACE_DEPTH, 0, 0))
     return outer.union(pull).cut(cavity).clean()
 
 
@@ -116,7 +116,7 @@ def main():
         "PLATE_SLIP_MM": f"{PLATE_SLIP:g}", "PAN_VENT_GAP": f"{VENT_GAP:g}",
         "PULL_FACE_DEPTH": f"{PULL_FACE_DEPTH:g}",
         "PULL_FACE_Y_OVERHANG": f"{PULL_FACE_Y_OVERHANG:g}",
-        "PULL_FACE_CHAMFER": f"{PULL_FACE_CHAMFER:g}",
+        "PULL_FACE_CORNER_R": f"{PULL_FACE_CORNER_R:g}",
     })
 
 
