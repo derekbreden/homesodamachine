@@ -14,8 +14,8 @@ has no drain or cable opening; it draws out through the −X wall for emptying.
 The basin is one rectangular box with a matching hollow and r[2](PAN_COVE_R)
 floor coves. Its square outside corners meet the slot floor and roof across
 the wall's full thickness. The pull face is fused to its west end. Its four
-[2.5](PULL_FACE_CHAMFER) mm 45° corners leave a full-height section across the
-wall slot, and its inner face rests against the enclosure's exterior wall to
+r[4](PULL_FACE_CORNER_R) corners round the exposed outline while the face still
+covers the basin's square section. Its inner face rests against the exterior wall to
 stop insertion. The printed pan is one watertight solid.
 
 The back-top's 9 mm west flank has one rectangular through-slot.
@@ -48,6 +48,5 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_dr
 This writes the STEP solid and printable STL.
 
 ## Sources
-
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py`
