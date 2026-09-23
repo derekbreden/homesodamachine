@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
-      "note": "PASS seat:plate-gasket",
-      "status": "red"
+      "note": "PASS faucet geometry: 143 readings; /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -32,8 +32,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step.mesh — declared by nobody",
-      "status": "red"
+      "note": "payloads: 58 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 3374 tracked, 477 fetched solids, 55 tags, 41 site routes",
-      "status": "ok"
+      "note": "3 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -92,52 +92,21 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 16 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 19 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 88bb6c681e8b6f0dfb290b25a6338d8c, enclosure-assembly.step here is 0d16793049fc9c75a106ec3014266614",
-      "  enclosure-assembly.facts.json was taken from a different tree — it holds 50ab5ca6f637204d6c91b7e533f62bd3 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 038d4173350a343eff313dc82826010f here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 44bf3db0efe37485200f0f3d19cb72fb for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ced35c2f66ea2aacc6625d8b0520dcd7 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
-    "hardware/scripts/check_faucet_geometry.py": [
-      "PASS solid:display-ribbon-envelope",
-      "PASS clearance:signal-shell_base",
-      "PASS clearance:signal-shell_tip",
-      "PASS clearance:signal-above_counter_plate",
-      "PASS clearance:signal-above_counter_gasket",
-      "PASS clearance:signal-display_cover",
-      "PASS clearance:signal-tpu_thimble",
-      "PASS clearance:signal-donor",
-      "PASS clearance:signal-soda-tube",
-      "PASS clearance:signal-flavor-a",
-      "PASS clearance:signal-flavor-b",
-      "PASS clearance:signal-countertop",
-      "PASS clearance:signal-under-counter-plate",
-      "PASS clearance:signal-display-body",
-      "PASS clearance:signal-display-usb",
-      "PASS fit:signal-lane-section",
-      "PASS wall:neck-signal-lane",
-      "PASS seat:plate-gasket",
-      "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2184, in <module>",
-      "    sys.exit(main())",
-      "             ~~~~^^",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_faucet_geometry.py\", line 2134, in main",
-      "    raise RuntimeError(\"a faucet source changed during the reading; rerun after its build settles\")",
-      "RuntimeError: a faucet source changed during the reading; rerun after its build settles"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "2 solid(s) the bundle serves a payload for that no rule produces:",
-      "    hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step.mesh — declared by nobody",
-      "    hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step.mesh — declared by nobody"
-    ],
-    "tools/check_web_tests.py": [
-      "the suite did not finish within 300s",
-      "  cd web && npm test"
+    "tools/check_paths.py": [
+      "hardware/printed-parts/enclosure/print-readiness.md:19 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/queue.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md:3 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/../queue.json is held nowhere, and no tag is named for it",
+      "3 reference(s) name a path nothing holds."
     ]
   },
   "green": false
