@@ -6134,8 +6134,10 @@ genrule(
     ),
     outs = [
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
+        "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step",
+        "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
         "out/nameplate-dimensions/future/unit-links.figures.json",
         "out/nameplate-dimensions/future/unit-links.md",
@@ -6145,13 +6147,15 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step)
-O1=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.stl)
-O2=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step)
-O3=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl)
-O4=$$PWD/$(location out/nameplate-dimensions/future/unit-links.figures.json)
-O5=$$PWD/$(location out/nameplate-dimensions/future/unit-links.md)
-O6=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json)
-O7=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md)
+O1=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh)
+O2=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.stl)
+O3=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step)
+O4=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh)
+O5=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl)
+O6=$$PWD/$(location out/nameplate-dimensions/future/unit-links.figures.json)
+O7=$$PWD/$(location out/nameplate-dimensions/future/unit-links.md)
+O8=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json)
+O9=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6167,16 +6171,18 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py > /dev/null
 cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step $$O0
-cp hardware/printed-parts/enclosure/nameplate/nameplate-001.stl $$O1
-cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step $$O2
-cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl $$O3
-cp future/unit-links.figures.json $$O4
-cp future/unit-links.md $$O5
-cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O6
-cp hardware/printed-parts/enclosure/nameplate/README.md $$O7
+cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh $$O1
+cp hardware/printed-parts/enclosure/nameplate/nameplate-001.stl $$O2
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step $$O3
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh $$O4
+cp hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl $$O5
+cp future/unit-links.figures.json $$O6
+cp future/unit-links.md $$O7
+cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O8
+cp hardware/printed-parts/enclosure/nameplate/README.md $$O9
 """,
 )
 
