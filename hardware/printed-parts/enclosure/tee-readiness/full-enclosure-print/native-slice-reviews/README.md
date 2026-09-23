@@ -6,7 +6,7 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | --- | --- | --- | --- |
 | back-bottom | Mark2 | assigned variant | [2026-09-21-enclosure-back-bottom-mark2-v2](2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json) |
 | back-top | H2C | assigned variant | [2026-09-21-enclosure-back-top-h2c-v2](2026-09-21-enclosure-back-top-h2c-v2/manifest.json) |
-| front-bottom | Mark2 | assigned variant | [2026-09-21-enclosure-front-bottom-mark2-v2](2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json) |
+| front-bottom | Mark2 | printed 09-21; before the carrier windows notched the seam rail | [2026-09-21-enclosure-front-bottom-mark2-v2](2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json) |
 | front-top | H2C | printed; supports trapped behind the skirt-pocket surrounds | [2026-09-21-enclosure-front-top-h2c-v4](2026-09-21-enclosure-front-top-h2c-v4/manifest.json) |
 | front-top | Mark2 | superseded: 34 mm skirt pockets | [2026-09-22-enclosure-front-top-mark2-v6](2026-09-22-enclosure-front-top-mark2-v6/manifest.json) |
 | front-top | Mark2 | superseded: pulled top curve | [2026-09-22-enclosure-front-top-mark2-v7](2026-09-22-enclosure-front-top-mark2-v7/manifest.json) |
@@ -23,5 +23,6 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | pump-cartridge | H2C | ready for H2C; cartridge grip-opening rounds in 0.08 mm bands, cap at 0.24 | [2026-09-23-pump-cartridge-cap-h2c-v2](2026-09-23-pump-cartridge-cap-h2c-v2/manifest.json) |
 | tee-carrier | H2C | ready for H2C; on its back, R6 end rounds in 0.08 mm bands at the bed and the column tops | [2026-09-23-tee-carrier-plate-h2c-v1](2026-09-23-tee-carrier-plate-h2c-v1/manifest.json) |
 | front-top | Mark2 | ready for Mark2; storey cavities, carrier windows and spring pockets, top 2.6 mm at 0.08 | [2026-09-23-enclosure-front-top-mark2-v9](2026-09-23-enclosure-front-top-mark2-v9/manifest.json) |
+| front-bottom | H2C | ready for H2C; the carrier windows' seam-rail notches, handhold-roof rounds in a 0.08 mm band | [2026-09-23-enclosure-front-bottom-h2c-v3](2026-09-23-enclosure-front-bottom-h2c-v3/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

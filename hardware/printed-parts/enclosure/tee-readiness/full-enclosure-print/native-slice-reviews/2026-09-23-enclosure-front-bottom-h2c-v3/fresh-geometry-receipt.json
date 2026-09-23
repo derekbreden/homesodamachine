@@ -1,0 +1,18 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-23: 'Yes we'll need a front-bottom reprint as well' (the printed v2 predates the tee carrier's flank windows, which notch front-bottom's seam rail). Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "6a490088064cee5428b6cb8745e3936e4cc91b51758a98cd51d7bb5c83ebc1a1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "804f45184615b1601b473a0b1cf115d5f711c37753399ea7af3973c298e63a97",
+    "hardware/manifold-layout/enclosure-box.json": "b8a19ec228d1606389a9f6db5b8388799e1f7f10c5072851dd9d1967c675907b",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/geometry-evidence.json": "a11fc7fbb61858408136df9cc13bda566859e36eebe97359a51e19a9e4fe00ff",
+    ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/round-scan.json": "6096ae7e750afde4f6f5224aea77eaaa743ca2893849c7eb0489ecfa0176a79c"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "front-bottom-v3",
+  "printer": "H2C",
+  "source_job_directory": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-bottom-h2c-v3/fresh-geometry-receipt.json",
+    "sha256": "b75fa611f04a5a8222417feec1f134030caf8f431938bcc330c3a3ca880c2623"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/ready/enclosure-front-bottom-black-z018-h2c-v3.gcode.3mf",
+    "sha256": "a01ff332db2f3178ae1cb86c1665049bd686e36eb8e357c8add532b0c522e29e"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "bce1d50fffabd9f9a7fef298203d29fe168ffbaf6c0e66f18c918b6fac35e942",
+  "layer_ranges_mm": {
+    "enclosure-front-bottom": [
+      {
+        "min_z": 32.65,
+        "max_z": 37.85,
+        "layer_height": 0.08,
+        "reason": "R6 rounds round each handhold's roof (level at print z 35.25): the mouth round above it and the corner fillets below it; 2.6 mm each side, the depth front-top's roof edges print at"
+      }
+    ]
+  },
+  "estimate": {
+    "seconds": 66536.3515625,
+    "grams_petgf_density_1p43": 636.7254946213359,
+    "layers": 1438
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/job-config.json",
+      "sha256": "a04fa1f530cac88d13b55d47395065fdf2e611eb6260c9d21ce4a34673c8703e",
+      "bytes": 1474
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/fresh-geometry-receipt.json",
+      "sha256": "b75fa611f04a5a8222417feec1f134030caf8f431938bcc330c3a3ca880c2623",
+      "bytes": 1347
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/geometry-evidence.json",
+      "sha256": "a11fc7fbb61858408136df9cc13bda566859e36eebe97359a51e19a9e4fe00ff",
+      "bytes": 1013
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/preparation.json",
+      "sha256": "f0c0966d6efc86e61aeb9a2f001d2ba6b8c0f3d16464bf29e7454a73834a5a58",
+      "bytes": 2228
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/readiness.json",
+      "sha256": "1244f95653822a4973073a02c94d779ec1c252c835bae887c3188c951ad51765",
+      "bytes": 6370
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/offline-review.json",
+      "sha256": "7fe9e6eb7065855be08bc073333594ff2dac1edb0bebdd807fef293d39b794d8",
+      "bytes": 6842
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/support-removal-review.json",
+      "sha256": "bfc0d4711c242577a60d76226a0dfadfafb1f1143f216d582c67504edd88c1f3",
+      "bytes": 14106
+    },
+    "enclosure-front-bottom-black-z018-h2c-v3-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/enclosure-front-bottom-black-z018-h2c-v3-input.support-audit.json",
+      "sha256": "49cdc6af37703de57e14e242f92ac1ae27124410e8a20a353f95c69d7cb8a0fb",
+      "bytes": 11554
+    },
+    "enclosure-front-bottom-black-z018-h2c-v3-input.print.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/enclosure-front-bottom-black-z018-h2c-v3-input.print.json",
+      "sha256": "03d8a22e8a7faa4043e07026178434ab7ae7aa9dadba3bfb935d297f54893794",
+      "bytes": 6920
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/slice-command.json",
+      "sha256": "f860308aa7bf940a0d0241ffa7dc4814b802b0ccdb3f4c0b346cecb85f6cb261",
+      "bytes": 500
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/slice-input.json",
+      "sha256": "75382317b1879ff6d0a473fc5b88f6ce71247570d8cadaaaf9f5e25e20b0dc50",
+      "bytes": 279
+    },
+    "round-scan.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/round-scan.json",
+      "sha256": "6096ae7e750afde4f6f5224aea77eaaa743ca2893849c7eb0489ecfa0176a79c",
+      "bytes": 4370
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "change_since_v2": "solid diff against the 09-21 v2 print mesh: only the two seam-rail notches for the tee carrier windows, x \u00b194.25..\u00b1103.5, y 93.84..129.19, z 164.67..174.8 (world), 2446.4 mm3 each; nothing added",
+  "freshness": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": {
+      "disk": "6a490088064cee5428b6cb8745e3936e4cc91b51758a98cd51d7bb5c83ebc1a1",
+      "published": "6a490088064cee5428b6cb8745e3936e4cc91b51758a98cd51d7bb5c83ebc1a1"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": {
+      "disk": "804f45184615b1601b473a0b1cf115d5f711c37753399ea7af3973c298e63a97",
+      "published": "804f45184615b1601b473a0b1cf115d5f711c37753399ea7af3973c298e63a97"
+    }
+  },
+  "round_scan": "round-scan.json: the only show rounds that level in print are the R6 mouth rounds and corner fillets of the two handhold roofs (print z 35.25); the R2 and R9.75 hits are bores",
+  "layer_ranges": "front-bottom 32.65-37.85 at 0.08 mm"
+}

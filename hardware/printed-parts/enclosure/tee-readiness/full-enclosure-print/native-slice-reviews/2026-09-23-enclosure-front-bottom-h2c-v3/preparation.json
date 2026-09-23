@@ -1,0 +1,81 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/enclosure-front-bottom-black-z018-h2c-v3-input.3mf",
+  "staged_input_sha256": "39547a4525c567eb851a125af866547e90004006f9a733c529e1fdca4c92e9a8",
+  "printer": "H2C",
+  "parts": [
+    {
+      "name": "enclosure-front-bottom",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "source_stl_sha256": "6a490088064cee5428b6cb8745e3936e4cc91b51758a98cd51d7bb5c83ebc1a1",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "source_step_sha256": "804f45184615b1601b473a0b1cf115d5f711c37753399ea7af3973c298e63a97",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "original_mesh_triangles": 272406,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v3/oriented-meshes/enclosure-front-bottom.stl",
+      "oriented_stl_sha256": "6a490088064cee5428b6cb8745e3936e4cc91b51758a98cd51d7bb5c83ebc1a1",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-front-bottom": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "b75fa611f04a5a8222417feec1f134030caf8f431938bcc330c3a3ca880c2623"
+}
