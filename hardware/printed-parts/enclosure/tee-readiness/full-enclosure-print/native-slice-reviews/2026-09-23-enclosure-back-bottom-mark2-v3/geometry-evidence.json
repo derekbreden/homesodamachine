@@ -1,0 +1,17 @@
+{
+  "source_commits_since_v2": [
+    "6fead8c0e"
+  ],
+  "freshness": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": {
+      "disk": "4083ada46842b7cafad4c413fa9a5d02afb935915c7d6cc3c1bb9bb86c4ae196",
+      "published": "4083ada46842b7cafad4c413fa9a5d02afb935915c7d6cc3c1bb9bb86c4ae196"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": {
+      "disk": "2d32bc1de6a8a45379da130e9eeb00d3a53a00870c63ee1e3088dc752d8bc8d6",
+      "published": "2d32bc1de6a8a45379da130e9eeb00d3a53a00870c63ee1e3088dc752d8bc8d6"
+    }
+  },
+  "round_scan": "round-scan.json: the only show rounds that level in print are the R6 rim rounds and corner fillets of the two handhold halves' roofs (print z 35.25); the other hits are screw and pin bores, small sloped flats and the rear-face lettering",
+  "layer_ranges": "back-bottom 32.65-37.85 at 0.08 mm, the same band as front-bottom"
+}

@@ -1,0 +1,198 @@
+{
+  "status": "offline_print_review_pass",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_printer_handoff_and_release",
+  "printer": "H2C",
+  "job": "front-bottom",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/enclosure-front-bottom-black-z018-h2c-v5-input.3mf",
+  "staged_input_sha256": "a9010814c54e1bf59ceaac129e603d2baa6ca447837dd7031b2c694f2ad3e665",
+  "native_archive": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/ready/enclosure-front-bottom-black-z018-h2c-v5.gcode.3mf",
+  "native_archive_sha256": "e2e1f1ca14c05381e55662f7725d078e9773db35b61674a31cef4d096e72df08",
+  "gcode_sha256": "149bf7ba560f36e0513740584d9dd4f1e4895b1504fcd2ea310234fa8928fe8c",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-front-bottom",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+      "source_stl_sha256": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "source_step_sha256": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "original_mesh_triangles": 272390,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/oriented-meshes/enclosure-front-bottom.stl",
+      "oriented_stl_sha256": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          -6.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          174.8000030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "e8a74d8ba4157dba8f956769f373cc1c56ac4503bd50d1a716d0d4b6a716eae3",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.18,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "printer_settings_id",
+    "machine_start_gcode",
+    "extruder_ams_count"
+  ],
+  "native_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-23 05:52:12.538850] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 05:52:27.743524] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 05:52:27.744026] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 1438,
+  "native_log_diagnostics_review": "pending",
+  "estimated_seconds": 66424.375,
+  "estimated_grams_saved_profile_density": 574.3720703125,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-front-bottom",
+        "side_margins_mm": [
+          27.692,
+          56.125,
+          53.64099999999996,
+          45.38299999999998
+        ],
+        "minimum_margin_mm": 27.692
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 27.692,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/enclosure-front-bottom-black-z018-h2c-v5-input.support-audit.json",
+  "support_audit_sha256": "d155cfcbbd527f701caeb214be8502b77e4d7ac09100e7a65b4ff67474c80fb2",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "printer_state_checked": false,
+  "support_removal_review_sha256": "212faaea05b9fe24938f8dfa07aa5d7579bab2e47f8725e8ac27f1d52371fdcb",
+  "native_review_sha256": "2d4084a72d6e71f6227527d9f3856a0320639d7505acdba264df7d4e578e0871",
+  "final_review_script_sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  },
+  "estimated_grams_petgf_density_1p43": 636.707023679748
+}

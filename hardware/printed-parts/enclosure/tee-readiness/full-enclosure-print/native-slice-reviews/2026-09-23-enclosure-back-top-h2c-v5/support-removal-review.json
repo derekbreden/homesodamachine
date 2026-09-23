@@ -1,0 +1,2323 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "f72b45f8ed1975f4d9745639767359b8942d40686ec275e091095d82f7494278",
+  "gcode_sha256": "9dbc55cdd6877c791e199f85726d98e7886f7cb2efa0ffc233c58f9dc0a26f05",
+  "support_audit_sha256": "acd2220137df39c8c761a7bee85fb5a5a0cfb80a17aa5e14d7ffd044be6556f3",
+  "geometry_confirmation_sha256": "36825735df559b84212061205eaedfaed72e6ac351b0a6a4dc765a81ffc78f91",
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "support_summary": {
+        "support_bodies": 15,
+        "interface_islands": null,
+        "bed_rooted_bodies": 6,
+        "model_rooted_bodies": 9,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 1,
+        "explicit_interface_islands": 44,
+        "shortest_labelled_build_up_mm": 1.825
+      },
+      "model_overhangs_review": "15 measured support bodies (6 bed-rooted, 9 model-rooted), 44 labelled interface islands and one unlabelled exterior ribbon, against the 09-21 v2 slice's 11 bodies and 38 islands. 37 contacts are v2's, carried by position with their lanes; new are the ASSE lane floor (the audit's shared pocket and tie roof), the co2-2 anchor crown moved with the PI450822S chain, and five thin contact lines on the PRV chase's 45\u00b0 face. v2's single exterior bed tree with 29 contacts is split here into five bed trees, which is most of the body count's rise. The 0 to 2.6 mm band prints the R6 roof side edges on 0.08 mm layers where they rise off the bed; the unlabelled ribbon along the east roof edge is v2's. The part sits 8 mm back from centre so the rear-face tree keeps 4.3 mm of bed. The C14 seating floor, pan bearing floor, round seats, tie channels, snap shoulders and broad seam-foot faces remain intact. Supports are detached in branches while the quadrant is empty; physical effort is unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 51.106,
+            "shortest_build_up_mm": 50.906,
+            "top_z_mm": 70.07,
+            "bbox_xy_mm": [
+              35.6,
+              34.4,
+              112.0,
+              305.6
+            ],
+            "interfaces": [
+              "interface-21",
+              "interface-22",
+              "interface-26"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -126.9,
+              -469.25,
+              -354.8,
+              -50.5,
+              -198.05,
+              -284.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -126.9,
+              198.05,
+              284.93,
+              -50.5,
+              469.25,
+              354.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Bed-rooted tree with 3 labelled contacts (21: ASSE pan-sleeve upper outside lid face; 22: ASSE pan-sleeve rim-rebate lower horizontal face; 26: ASSE pan-berth flat floor).",
+          "removal_lane": "Separate accessible branches while the quadrant is loose, each by its contact row's named lane; remove outer trunks after their branches are detached. No single rigid whole-tree extraction is claimed.",
+          "removal_direction_original_cad": "Per-contact directions are on each of its 3 interface rows; branch detachment precedes withdrawal.",
+          "preserved_working_face_reason": "Each bearing, locating, retention and access face retains its full working profile; cleanup occurs before any component blocks a mouth."
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 4.956,
+            "shortest_build_up_mm": 4.756,
+            "top_z_mm": 185.75,
+            "bbox_xy_mm": [
+              58.8,
+              48.0,
+              265.6,
+              309.6
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-9",
+              "interface-18",
+              "interface-19",
+              "interface-20",
+              "interface-25",
+              "interface-27",
+              "interface-28",
+              "interface-36",
+              "interface-37",
+              "interface-38",
+              "interface-39",
+              "interface-40",
+              "interface-41",
+              "interface-42",
+              "interface-43",
+              "interface-44"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -103.7,
+              -455.65,
+              -354.8,
+              103.1,
+              -194.05,
+              -169.25
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.7,
+              194.05,
+              169.25,
+              103.1,
+              455.65,
+              354.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Bed-rooted tree with 17 labelled contacts (1: Rear portion of the funnel brim recessed bearing seat; 9: Flow-regulator west-wall anchor tie-band upper flank/crown; 18: Flow-regulator side-anchor lower open-seat arc; 19: Flow-regulator side-anchor tie-band lower relief flank; 20: Water-split west anchor upper flank; 25: Water-split side-anchor lower open-seat arc; 27: Water-split anchor tie-band lower relief flank; 28: fluid-28 west-flank tube anchor upper flank/seat surround; 36: PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6); 37: PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6); 38: PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6); 39: PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6); 40: PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6); 41: PRV chase square mouth floor; 42: Aft west rear Z-seam foot caught face near X\u2212103..\u221298.5/Y330..455/Z169.3; 43: Fore west rear Z-seam foot caught face near X\u2212103..\u221298.5/Y218..318/Z169.3; 44: East rear Z-seam foot caught face near X98.7..103/Y218..456/Z169.3).",
+          "removal_lane": "Separate accessible branches while the quadrant is loose, each by its contact row's named lane; remove outer trunks after their branches are detached. No single rigid whole-tree extraction is claimed.",
+          "removal_direction_original_cad": "Per-contact directions are on each of its 17 interface rows; branch detachment precedes withdrawal.",
+          "preserved_working_face_reason": "Each bearing, locating, retention and access face retains its full working profile; cleanup occurs before any component blocks a mouth."
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "model",
+            "base_z_mm": 3.572,
+            "first_interface_z_mm": 9.104,
+            "shortest_build_up_mm": 5.532,
+            "top_z_mm": 32.87,
+            "bbox_xy_mm": [
+              61.6,
+              110.0,
+              73.2,
+              140.4
+            ],
+            "interfaces": [
+              "interface-4",
+              "interface-14"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -100.9,
+              -393.65,
+              -351.428,
+              -89.3,
+              -363.25,
+              -322.13
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -100.9,
+              363.25,
+              322.13,
+              -89.3,
+              393.65,
+              351.428
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree with 2 labelled contacts (4: ASSE lane floor; 14: ASSE shared tie-cavity lower threshold).",
+          "removal_lane": "Separate accessible branches while the quadrant is loose, each by its contact row's named lane; remove outer trunks after their branches are detached. No single rigid whole-tree extraction is claimed.",
+          "removal_direction_original_cad": "Per-contact directions are on each of its 2 interface rows; branch detachment precedes withdrawal.",
+          "preserved_working_face_reason": "Each bearing, locating, retention and access face retains its full working profile; cleanup occurs before any component blocks a mouth."
+        },
+        {
+          "measurement": {
+            "id": "tree-4",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 36.44,
+            "shortest_build_up_mm": 36.24,
+            "top_z_mm": 104.36,
+            "bbox_xy_mm": [
+              72.0,
+              8.4,
+              101.6,
+              34.0
+            ],
+            "interfaces": [
+              "interface-16",
+              "interface-33"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -90.5,
+              -495.25,
+              -354.8,
+              -60.9,
+              -469.65,
+              -250.64
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -90.5,
+              469.65,
+              250.64,
+              -60.9,
+              495.25,
+              354.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Bed-rooted tree with 2 labelled contacts (16: Tap-water identification-chip pocket lower rounded edge; 33: Lower flavor identification-chip pocket).",
+          "removal_lane": "Separate accessible branches while the quadrant is loose, each by its contact row's named lane; remove outer trunks after their branches are detached. No single rigid whole-tree extraction is claimed.",
+          "removal_direction_original_cad": "Per-contact directions are on each of its 2 interface rows; branch detachment precedes withdrawal.",
+          "preserved_working_face_reason": "Each bearing, locating, retention and access face retains its full working profile; cleanup occurs before any component blocks a mouth."
+        },
+        {
+          "measurement": {
+            "id": "tree-5",
+            "root": "model",
+            "base_z_mm": 3.572,
+            "first_interface_z_mm": 29.72,
+            "shortest_build_up_mm": 26.148,
+            "top_z_mm": 31.64,
+            "bbox_xy_mm": [
+              76.8,
+              91.6,
+              84.4,
+              106.4
+            ],
+            "interfaces": [
+              "interface-13"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -85.7,
+              -412.05,
+              -351.428,
+              -78.1,
+              -397.25,
+              -323.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -85.7,
+              397.25,
+              323.36,
+              -78.1,
+              412.05,
+              351.428
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-13: Aft ASSE round locating-seat lower arc at X\u221282..\u221278/Y398..412 near Z323.6.",
+          "removal_lane": "Detach this branch from the larger tree and withdraw east through the open cradle before the fitting chain is installed.",
+          "removal_direction_original_cad": "+X into the empty quadrant.",
+          "preserved_working_face_reason": "The exact round locating seat retains its bearing surface and axis."
+        },
+        {
+          "measurement": {
+            "id": "tree-6",
+            "root": "model",
+            "base_z_mm": 3.572,
+            "first_interface_z_mm": 28.04,
+            "shortest_build_up_mm": 24.468,
+            "top_z_mm": 29.72,
+            "bbox_xy_mm": [
+              78.0,
+              144.0,
+              85.2,
+              158.8
+            ],
+            "interfaces": [
+              "interface-11"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -84.5,
+              -359.65,
+              -351.428,
+              -77.3,
+              -344.85,
+              -325.28
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -84.5,
+              344.85,
+              325.28,
+              -77.3,
+              359.65,
+              351.428
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-11: Fore ASSE round locating-seat lower arc at X\u221281..\u221278/Y345..359 near Z325.3.",
+          "removal_lane": "Detach the seat branch and withdraw east through the open side of the cradle before placing the made-up fitting chain.",
+          "removal_direction_original_cad": "+X into the empty quadrant.",
+          "preserved_working_face_reason": "The round locating seat and its full lower stock retain the fitting axis."
+        },
+        {
+          "measurement": {
+            "id": "tree-7",
+            "root": "model",
+            "base_z_mm": 7.895,
+            "first_interface_z_mm": 9.8,
+            "shortest_build_up_mm": 1.905,
+            "top_z_mm": 10.07,
+            "bbox_xy_mm": [
+              109.2,
+              85.6,
+              134.0,
+              87.6
+            ],
+            "interfaces": [
+              "interface-5"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -53.3,
+              -418.05,
+              -347.105,
+              -28.5,
+              -416.05,
+              -344.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -53.3,
+              416.05,
+              344.93,
+              -28.5,
+              418.05,
+              347.105
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-5: Aft DIGITEN fixed-collar anchor tie-band crown at X\u221253..\u221228.5/Y416..419 near Z345.",
+          "removal_lane": "Detach the narrow slab from its crown and withdraw along the transverse opening between the anchor end webs before installing the meter and tie.",
+          "removal_direction_original_cad": "\u00b1X through the open tie band.",
+          "preserved_working_face_reason": "The measured fixed-collar seat and full crown remain intact."
+        },
+        {
+          "measurement": {
+            "id": "tree-8",
+            "root": "model",
+            "base_z_mm": 7.895,
+            "first_interface_z_mm": 9.8,
+            "shortest_build_up_mm": 1.905,
+            "top_z_mm": 10.07,
+            "bbox_xy_mm": [
+              109.2,
+              132.0,
+              134.0,
+              134.0
+            ],
+            "interfaces": [
+              "interface-6"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -53.3,
+              -371.65,
+              -347.105,
+              -28.5,
+              -369.65,
+              -344.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -53.3,
+              369.65,
+              344.93,
+              -28.5,
+              371.65,
+              347.105
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-6: Fore DIGITEN fixed-collar anchor tie-band crown at X\u221253..\u221228.5/Y370..372 near Z345.",
+          "removal_lane": "Detach the narrow slab from its crown and withdraw along the transverse opening between the anchor end webs before installing the meter and tie.",
+          "removal_direction_original_cad": "\u00b1X through the open tie band.",
+          "preserved_working_face_reason": "The measured fixed-collar seat and full crown remain intact."
+        },
+        {
+          "measurement": {
+            "id": "tree-9",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 36.44,
+            "shortest_build_up_mm": 36.24,
+            "top_z_mm": 104.36,
+            "bbox_xy_mm": [
+              111.2,
+              8.8,
+              140.8,
+              40.0
+            ],
+            "interfaces": [
+              "interface-17",
+              "interface-23",
+              "interface-24",
+              "interface-34"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -51.3,
+              -494.85,
+              -354.8,
+              -21.7,
+              -463.65,
+              -250.64
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -51.3,
+              463.65,
+              250.64,
+              -21.7,
+              494.85,
+              354.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Bed-rooted tree with 4 labelled contacts (17: Carbonated-water identification-chip pocket lower rounded edge; 23: Rear keystone pocket lower mouth/floor region; 24: Rear keystone inner lower snap-catch region; 34: Lower flavor identification-chip pocket).",
+          "removal_lane": "Separate accessible branches while the quadrant is loose, each by its contact row's named lane; remove outer trunks after their branches are detached. No single rigid whole-tree extraction is claimed.",
+          "removal_direction_original_cad": "Per-contact directions are on each of its 4 interface rows; branch detachment precedes withdrawal.",
+          "preserved_working_face_reason": "Each bearing, locating, retention and access face retains its full working profile; cleanup occurs before any component blocks a mouth."
+        },
+        {
+          "measurement": {
+            "id": "tree-10",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 27.32,
+            "shortest_build_up_mm": 27.12,
+            "top_z_mm": 111.08,
+            "bbox_xy_mm": [
+              142.8,
+              4.8,
+              252.0,
+              54.8
+            ],
+            "interfaces": [
+              "interface-10",
+              "interface-12",
+              "interface-15",
+              "interface-29",
+              "interface-30",
+              "interface-31",
+              "interface-32",
+              "interface-35"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -19.7,
+              -498.85,
+              -354.8,
+              89.5,
+              -448.85,
+              -243.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -19.7,
+              448.85,
+              243.92,
+              89.5,
+              498.85,
+              354.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Bed-rooted tree with 8 labelled contacts (10: C14 cord-bore lower arc/bridge; 12: C14 flange-pocket lower profile edge; 15: CO2 inlet identification-chip pocket lower rounded edge; 29: Nameplate receiver pump-bearing ledge; 30: Nameplate receiver pump-bearing ledge; 31: West nameplate snap-slot lower end/retaining shoulder; 32: East nameplate snap-slot lower end/retaining shoulder; 35: Nameplate main pocket lower rim).",
+          "removal_lane": "Separate accessible branches while the quadrant is loose, each by its contact row's named lane; remove outer trunks after their branches are detached. No single rigid whole-tree extraction is claimed.",
+          "removal_direction_original_cad": "Per-contact directions are on each of its 8 interface rows; branch detachment precedes withdrawal.",
+          "preserved_working_face_reason": "Each bearing, locating, retention and access face retains its full working profile; cleanup occurs before any component blocks a mouth."
+        },
+        {
+          "measurement": {
+            "id": "tree-11",
+            "root": "model",
+            "base_z_mm": 3.572,
+            "first_interface_z_mm": 5.735,
+            "shortest_build_up_mm": 2.163,
+            "top_z_mm": 5.96,
+            "bbox_xy_mm": [
+              151.6,
+              135.2,
+              177.6,
+              137.2
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -10.9,
+              -368.45,
+              -351.428,
+              15.1,
+              -366.45,
+              -349.04
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -10.9,
+              366.45,
+              349.04,
+              15.1,
+              368.45,
+              351.428
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-2: WR1110 ceiling-anchor tie-band crown at X\u221210..15/Y366..369 near Z349.0.",
+          "removal_lane": "Detach the thin support inside the tie band and slide fragments through either open transverse side of that band; the regulator and tie are absent.",
+          "removal_direction_original_cad": "\u00b1X through the open tie-channel mouths.",
+          "preserved_working_face_reason": "The crown and bore retain the regulator seat and complete tie passage."
+        },
+        {
+          "measurement": {
+            "id": "tree-12",
+            "root": "model",
+            "base_z_mm": 13.984,
+            "first_interface_z_mm": 15.809,
+            "shortest_build_up_mm": 1.825,
+            "top_z_mm": 16.07,
+            "bbox_xy_mm": [
+              180.0,
+              226.8,
+              182.0,
+              240.0
+            ],
+            "interfaces": [
+              "interface-8"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              17.5,
+              -276.85,
+              -341.016,
+              19.5,
+              -263.65,
+              -338.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              17.5,
+              263.65,
+              338.93,
+              19.5,
+              276.85,
+              341.016
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-8: carb-1 ceiling tube-anchor tie-band crown at X17..20/Y264..277 near Z339.",
+          "removal_lane": "Detach the thin crown support and withdraw through the open transverse ends of its tie band before tube and tie installation.",
+          "removal_direction_original_cad": "\u00b1Y through the open tie-channel mouths.",
+          "preserved_working_face_reason": "The circular tube seat, annular bearing wall and threading passage remain unchanged."
+        },
+        {
+          "measurement": {
+            "id": "tree-13",
+            "root": "model",
+            "base_z_mm": 5.51,
+            "first_interface_z_mm": 7.424,
+            "shortest_build_up_mm": 1.914,
+            "top_z_mm": 7.67,
+            "bbox_xy_mm": [
+              189.2,
+              169.6,
+              212.0,
+              171.6
+            ],
+            "interfaces": [
+              "interface-3"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              26.7,
+              -334.05,
+              -349.49,
+              49.5,
+              -332.05,
+              -347.33
+            ],
+            "bbox_original_cad_xyz_mm": [
+              26.7,
+              332.05,
+              347.33,
+              49.5,
+              334.05,
+              349.49
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-3: Gasher CO2 check-valve ceiling-anchor tie-band crown at X27.5..49.5/Y332..334 near Z347.4.",
+          "removal_lane": "Detach the thin crown support and withdraw through either transverse tie-channel mouth before fitting the check valve or tie.",
+          "removal_direction_original_cad": "\u00b1X through the open tie-channel mouths.",
+          "preserved_working_face_reason": "Retain the complete bore and one-wall bearing web behind it."
+        },
+        {
+          "measurement": {
+            "id": "tree-14",
+            "root": "model",
+            "base_z_mm": 10.07,
+            "first_interface_z_mm": 11.986,
+            "shortest_build_up_mm": 1.916,
+            "top_z_mm": 12.23,
+            "bbox_xy_mm": [
+              219.6,
+              86.8,
+              221.6,
+              99.6
+            ],
+            "interfaces": [
+              "interface-7"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              57.1,
+              -416.85,
+              -344.93,
+              59.1,
+              -404.05,
+              -342.77
+            ],
+            "bbox_original_cad_xyz_mm": [
+              57.1,
+              404.05,
+              342.77,
+              59.1,
+              416.85,
+              344.93
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Model-rooted tree on interface-7: co2-2 ceiling tube-anchor tie-band crown at X56..60/Y404..417 near Z342.3, moved fore with the PI450822S chain (v2 had it at Y422..435).",
+          "removal_lane": "Detach the thin crown support and withdraw through the open transverse ends of its tie band before tube and tie installation.",
+          "removal_direction_original_cad": "\u00b1Y through the open tie-channel mouths.",
+          "preserved_working_face_reason": "The circular tube seat, annular bearing wall and threading passage remain unchanged."
+        },
+        {
+          "measurement": {
+            "id": "tree-15",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": null,
+            "shortest_build_up_mm": null,
+            "top_z_mm": 0.31,
+            "bbox_xy_mm": [
+              266.0,
+              34.4,
+              270.0,
+              305.6
+            ],
+            "interfaces": [],
+            "interface_reading": "unlabelled",
+            "bbox_cad_xyz_mm": [
+              103.5,
+              -469.25,
+              -354.8,
+              107.5,
+              -198.05,
+              -354.69
+            ],
+            "bbox_original_cad_xyz_mm": [
+              103.5,
+              198.05,
+              354.69,
+              107.5,
+              469.25,
+              354.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Unlabelled thin bed-rooted support ribbon beside the exterior east ceiling/flank edge, original X102.7..107.1/Y197.65..469.25/Z354.56..354.80. It occupies the first two support heights, not an internal pocket.",
+          "removal_lane": "Peel the exposed exterior ribbon outward from the east ceiling edge after lifting the shell from the bed; its outward face is open along the full run and no installed hardware encloses it.",
+          "removal_direction_original_cad": "+X outboard from the east exterior ceiling edge.",
+          "preserved_working_face_reason": "Preserve the exterior ceiling/flank contour. An explicit interface count and build-up were not emitted for this body and remain unknown."
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 4.956,
+            "last_z_mm": 5.51,
+            "bbox_xy_mm": [
+              73.6,
+              239.2,
+              251.6,
+              303.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 4.756,
+            "bbox_cad_xyz_mm": [
+              -88.9,
+              -264.45,
+              -350.044,
+              89.1,
+              -200.05,
+              -349.49
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -88.9,
+              200.05,
+              349.49,
+              89.1,
+              264.45,
+              350.044
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Rear portion of the funnel brim recessed bearing seat, X\u221289..89/Y200..264 near Z349.5.",
+          "removal_lane": "Detach its exposed branches through the empty funnel opening before fitting the funnel; draw them toward the aperture and out through it.",
+          "removal_direction_original_cad": "Toward the open funnel aperture, then +Z through the top opening.",
+          "preserved_working_face_reason": "The recessed flat seat locates and carries the funnel brim."
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 5.735,
+            "last_z_mm": 5.96,
+            "bbox_xy_mm": [
+              152.0,
+              135.2,
+              177.6,
+              137.2
+            ],
+            "tree": "tree-11",
+            "build_up_mm": 2.163,
+            "bbox_cad_xyz_mm": [
+              -10.5,
+              -368.45,
+              -349.265,
+              15.1,
+              -366.45,
+              -349.04
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -10.5,
+              366.45,
+              349.04,
+              15.1,
+              368.45,
+              349.265
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "WR1110 ceiling-anchor tie-band crown at X\u221210..15/Y366..369 near Z349.0.",
+          "removal_lane": "Detach the thin support inside the tie band and slide fragments through either open transverse side of that band; the regulator and tie are absent.",
+          "removal_direction_original_cad": "\u00b1X through the open tie-channel mouths.",
+          "preserved_working_face_reason": "The crown and bore retain the regulator seat and complete tie passage."
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 7.424,
+            "last_z_mm": 7.67,
+            "bbox_xy_mm": [
+              190.0,
+              169.6,
+              212.0,
+              171.6
+            ],
+            "tree": "tree-13",
+            "build_up_mm": 1.914,
+            "bbox_cad_xyz_mm": [
+              27.5,
+              -334.05,
+              -347.576,
+              49.5,
+              -332.05,
+              -347.33
+            ],
+            "bbox_original_cad_xyz_mm": [
+              27.5,
+              332.05,
+              347.33,
+              49.5,
+              334.05,
+              347.576
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Gasher CO2 check-valve ceiling-anchor tie-band crown at X27.5..49.5/Y332..334 near Z347.4.",
+          "removal_lane": "Detach the thin crown support and withdraw through either transverse tie-channel mouth before fitting the check valve or tie.",
+          "removal_direction_original_cad": "\u00b1X through the open tie-channel mouths.",
+          "preserved_working_face_reason": "Retain the complete bore and one-wall bearing web behind it."
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 9.104,
+            "last_z_mm": 9.35,
+            "bbox_xy_mm": [
+              69.6,
+              110.0,
+              72.8,
+              140.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 5.532,
+            "bbox_cad_xyz_mm": [
+              -92.9,
+              -393.65,
+              -345.896,
+              -89.7,
+              -363.25,
+              -345.65
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -92.9,
+              363.25,
+              345.65,
+              -89.7,
+              393.65,
+              345.896
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "ASSE lane floor at Z345.21 (X-92.9..-89.5 / Y363..394), where the audit joined the ASSE chain's pocket and its tie channel into one lane; it faces down in the roof-down print.",
+          "removal_lane": "Detach the thin branch from the lane floor and draw it along the open lane (\u00b1Y) into the empty quadrant before the ASSE chain or its tie goes in.",
+          "removal_direction_original_cad": "\u00b1Y along the lane, then out through the open interior.",
+          "preserved_working_face_reason": "The lane floor carries the ASSE chain and its tie; keep its flat."
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 9.8,
+            "last_z_mm": 10.07,
+            "bbox_xy_mm": [
+              109.2,
+              85.6,
+              134.0,
+              87.6
+            ],
+            "tree": "tree-7",
+            "build_up_mm": 1.905,
+            "bbox_cad_xyz_mm": [
+              -53.3,
+              -418.05,
+              -345.2,
+              -28.5,
+              -416.05,
+              -344.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -53.3,
+              416.05,
+              344.93,
+              -28.5,
+              418.05,
+              345.2
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Aft DIGITEN fixed-collar anchor tie-band crown at X\u221253..\u221228.5/Y416..419 near Z345.",
+          "removal_lane": "Detach the narrow slab from its crown and withdraw along the transverse opening between the anchor end webs before installing the meter and tie.",
+          "removal_direction_original_cad": "\u00b1X through the open tie band.",
+          "preserved_working_face_reason": "The measured fixed-collar seat and full crown remain intact."
+        },
+        {
+          "measurement": {
+            "id": "interface-6",
+            "first_z_mm": 9.8,
+            "last_z_mm": 10.07,
+            "bbox_xy_mm": [
+              109.2,
+              132.0,
+              134.0,
+              134.0
+            ],
+            "tree": "tree-8",
+            "build_up_mm": 1.905,
+            "bbox_cad_xyz_mm": [
+              -53.3,
+              -371.65,
+              -345.2,
+              -28.5,
+              -369.65,
+              -344.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -53.3,
+              369.65,
+              344.93,
+              -28.5,
+              371.65,
+              345.2
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Fore DIGITEN fixed-collar anchor tie-band crown at X\u221253..\u221228.5/Y370..372 near Z345.",
+          "removal_lane": "Detach the narrow slab from its crown and withdraw along the transverse opening between the anchor end webs before installing the meter and tie.",
+          "removal_direction_original_cad": "\u00b1X through the open tie band.",
+          "preserved_working_face_reason": "The measured fixed-collar seat and full crown remain intact."
+        },
+        {
+          "measurement": {
+            "id": "interface-7",
+            "first_z_mm": 11.986,
+            "last_z_mm": 12.23,
+            "bbox_xy_mm": [
+              219.6,
+              86.8,
+              221.6,
+              99.6
+            ],
+            "tree": "tree-14",
+            "build_up_mm": 1.916,
+            "bbox_cad_xyz_mm": [
+              57.1,
+              -416.85,
+              -343.014,
+              59.1,
+              -404.05,
+              -342.77
+            ],
+            "bbox_original_cad_xyz_mm": [
+              57.1,
+              404.05,
+              342.77,
+              59.1,
+              416.85,
+              343.014
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "co2-2 ceiling tube-anchor tie-band crown at X56..60/Y404..417 near Z342.3, moved fore with the PI450822S chain (v2 had it at Y422..435).",
+          "removal_lane": "Detach the thin crown support and withdraw through the open transverse ends of its tie band before tube and tie installation.",
+          "removal_direction_original_cad": "\u00b1Y through the open tie-channel mouths.",
+          "preserved_working_face_reason": "The circular tube seat, annular bearing wall and threading passage remain unchanged."
+        },
+        {
+          "measurement": {
+            "id": "interface-8",
+            "first_z_mm": 15.809,
+            "last_z_mm": 16.07,
+            "bbox_xy_mm": [
+              180.0,
+              226.8,
+              182.0,
+              239.6
+            ],
+            "tree": "tree-12",
+            "build_up_mm": 1.825,
+            "bbox_cad_xyz_mm": [
+              17.5,
+              -276.85,
+              -339.191,
+              19.5,
+              -264.05,
+              -338.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              17.5,
+              264.05,
+              338.93,
+              19.5,
+              276.85,
+              339.191
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "carb-1 ceiling tube-anchor tie-band crown at X17..20/Y264..277 near Z339.",
+          "removal_lane": "Detach the thin crown support and withdraw through the open transverse ends of its tie band before tube and tie installation.",
+          "removal_direction_original_cad": "\u00b1Y through the open tie-channel mouths.",
+          "preserved_working_face_reason": "The circular tube seat, annular bearing wall and threading passage remain unchanged."
+        },
+        {
+          "measurement": {
+            "id": "interface-9",
+            "first_z_mm": 22.276,
+            "last_z_mm": 22.55,
+            "bbox_xy_mm": [
+              62.4,
+              274.4,
+              72.8,
+              276.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 22.076,
+            "bbox_cad_xyz_mm": [
+              -100.1,
+              -229.25,
+              -332.724,
+              -89.7,
+              -227.25,
+              -332.45
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -100.1,
+              227.25,
+              332.45,
+              -89.7,
+              229.25,
+              332.724
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Flow-regulator west-wall anchor tie-band upper flank/crown at Y227..229/Z332.5.",
+          "removal_lane": "Detach through the exposed upper tie-band mouth and withdraw upward into the empty quadrant; the channel opens above and below the side-rooted rib.",
+          "removal_direction_original_cad": "+Z through the upper tie-band mouth; remove detached segments through the open interior.",
+          "preserved_working_face_reason": "Keep both full supporting columns, the round regulator seat and complete tie band."
+        },
+        {
+          "measurement": {
+            "id": "interface-10",
+            "first_z_mm": 27.32,
+            "last_z_mm": 27.8,
+            "bbox_xy_mm": [
+              218.0,
+              32.4,
+              240.0,
+              40.8
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 27.12,
+            "bbox_cad_xyz_mm": [
+              55.5,
+              -471.25,
+              -327.68,
+              77.5,
+              -462.85,
+              -327.2
+            ],
+            "bbox_original_cad_xyz_mm": [
+              55.5,
+              462.85,
+              327.2,
+              77.5,
+              471.25,
+              327.68
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "C14 cord-bore lower arc/bridge at X55.5..77.5/Y462..472 near Z327.2.",
+          "removal_lane": "Detach the bore branch from the connected exterior tree and remove through the open cord bore; break the support into accessible branches if necessary before installing the inlet or C13 cord.",
+          "removal_direction_original_cad": "+Y through the exterior cord aperture, or \u2212Y into the open flange-pocket approach.",
+          "preserved_working_face_reason": "The cord aperture and its flat/rounded working envelope remain as physically fitted."
+        },
+        {
+          "measurement": {
+            "id": "interface-11",
+            "first_z_mm": 28.04,
+            "last_z_mm": 29.72,
+            "bbox_xy_mm": [
+              78.8,
+              144.4,
+              84.4,
+              158.4
+            ],
+            "tree": "tree-6",
+            "build_up_mm": 24.468,
+            "bbox_cad_xyz_mm": [
+              -83.7,
+              -359.25,
+              -326.96,
+              -78.1,
+              -345.25,
+              -325.28
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -83.7,
+              345.25,
+              325.28,
+              -78.1,
+              359.25,
+              326.96
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Fore ASSE round locating-seat lower arc at X\u221281..\u221278/Y345..359 near Z325.3.",
+          "removal_lane": "Detach the seat branch and withdraw east through the open side of the cradle before placing the made-up fitting chain.",
+          "removal_direction_original_cad": "+X into the empty quadrant.",
+          "preserved_working_face_reason": "The round locating seat and its full lower stock retain the fitting axis."
+        },
+        {
+          "measurement": {
+            "id": "interface-12",
+            "first_z_mm": 29.48,
+            "last_z_mm": 29.72,
+            "bbox_xy_mm": [
+              218.0,
+              41.2,
+              240.8,
+              45.6
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 29.28,
+            "bbox_cad_xyz_mm": [
+              55.5,
+              -462.45,
+              -325.52,
+              78.3,
+              -458.05,
+              -325.28
+            ],
+            "bbox_original_cad_xyz_mm": [
+              55.5,
+              458.05,
+              325.28,
+              78.3,
+              462.45,
+              325.52
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "C14 flange-pocket lower profile edge at X55..79/Y457..462 near Z325.3.",
+          "removal_lane": "Detach the pocket branch and withdraw fore through the open flange approach. The stopped seating face behind it is preserved; no inlet, fastener or cord is installed during cleanup.",
+          "removal_direction_original_cad": "\u2212Y through the flange-pocket mouth and straight approach.",
+          "preserved_working_face_reason": "Keep the accepted flange pocket profile and stopped +Y seating face."
+        },
+        {
+          "measurement": {
+            "id": "interface-13",
+            "first_z_mm": 29.72,
+            "last_z_mm": 31.64,
+            "bbox_xy_mm": [
+              78.4,
+              92.0,
+              84.4,
+              105.6
+            ],
+            "tree": "tree-5",
+            "build_up_mm": 26.148,
+            "bbox_cad_xyz_mm": [
+              -84.1,
+              -411.65,
+              -325.28,
+              -78.1,
+              -398.05,
+              -323.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -84.1,
+              398.05,
+              323.36,
+              -78.1,
+              411.65,
+              325.28
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Aft ASSE round locating-seat lower arc at X\u221282..\u221278/Y398..412 near Z323.6.",
+          "removal_lane": "Detach this branch from the larger tree and withdraw east through the open cradle before the fitting chain is installed.",
+          "removal_direction_original_cad": "+X into the empty quadrant.",
+          "preserved_working_face_reason": "The exact round locating seat retains its bearing surface and axis."
+        },
+        {
+          "measurement": {
+            "id": "interface-14",
+            "first_z_mm": 32.62,
+            "last_z_mm": 32.87,
+            "bbox_xy_mm": [
+              61.6,
+              110.0,
+              64.0,
+              140.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 29.048,
+            "bbox_cad_xyz_mm": [
+              -100.9,
+              -393.65,
+              -322.38,
+              -98.5,
+              -363.25,
+              -322.13
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -100.9,
+              363.25,
+              322.13,
+              -98.5,
+              393.65,
+              322.38
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "ASSE shared tie-cavity lower threshold at X\u2212101..\u221297/Y363..394 near Z322.2.",
+          "removal_lane": "Detach the threshold branch through the lower flared mouth of the shared tie cavity, withdraw downward past the anchor underside, then east into the open quadrant. Segment the connected tree outside the cavity first; the tie and chain are absent.",
+          "removal_direction_original_cad": "\u2212Z through the lower cavity mouth, then +X into the empty quadrant.",
+          "preserved_working_face_reason": "Retain the shared cavity walls and the structural web separating it from the V seat."
+        },
+        {
+          "measurement": {
+            "id": "interface-15",
+            "first_z_mm": 36.2,
+            "last_z_mm": 36.92,
+            "bbox_xy_mm": [
+              160.4,
+              32.4,
+              169.6,
+              33.6
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 36.0,
+            "bbox_cad_xyz_mm": [
+              -2.1,
+              -471.25,
+              -318.8,
+              7.1,
+              -470.05,
+              -318.08
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -2.1,
+              470.05,
+              318.08,
+              7.1,
+              471.25,
+              318.8
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "CO2 inlet identification-chip pocket lower rounded edge at X\u22121..7 on the rear face near Z318.1.",
+          "removal_lane": "Detach and pull rearward through the fully exposed shallow chip-pocket mouth before the identification chip or bulkhead is installed.",
+          "removal_direction_original_cad": "+Y through the rear-facing pocket.",
+          "preserved_working_face_reason": "The rounded shallow pocket locates the chip and retains its full floor."
+        },
+        {
+          "measurement": {
+            "id": "interface-16",
+            "first_z_mm": 36.44,
+            "last_z_mm": 37.16,
+            "bbox_xy_mm": [
+              80.0,
+              32.4,
+              89.2,
+              33.6
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 36.24,
+            "bbox_cad_xyz_mm": [
+              -82.5,
+              -471.25,
+              -318.56,
+              -73.3,
+              -470.05,
+              -317.84
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -82.5,
+              470.05,
+              317.84,
+              -73.3,
+              471.25,
+              318.56
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Tap-water identification-chip pocket lower rounded edge at X\u221282.5..\u221273.7 on the rear face near Z317.8.",
+          "removal_lane": "Detach and pull rearward through the exposed shallow chip-pocket mouth before chip/bulkhead installation.",
+          "removal_direction_original_cad": "+Y through the rear-facing pocket.",
+          "preserved_working_face_reason": "Retain the chip locating profile and full pocket floor."
+        },
+        {
+          "measurement": {
+            "id": "interface-17",
+            "first_z_mm": 36.44,
+            "last_z_mm": 37.16,
+            "bbox_xy_mm": [
+              120.0,
+              32.4,
+              129.2,
+              33.6
+            ],
+            "tree": "tree-9",
+            "build_up_mm": 36.24,
+            "bbox_cad_xyz_mm": [
+              -42.5,
+              -471.25,
+              -318.56,
+              -33.3,
+              -470.05,
+              -317.84
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -42.5,
+              470.05,
+              317.84,
+              -33.3,
+              471.25,
+              318.56
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Carbonated-water identification-chip pocket lower rounded edge at X\u221242..\u221233 on the rear face near Z317.8.",
+          "removal_lane": "Detach and pull rearward through the exposed shallow chip-pocket mouth before chip/bulkhead installation.",
+          "removal_direction_original_cad": "+Y through the rear-facing pocket.",
+          "preserved_working_face_reason": "Retain the chip locating profile and full pocket floor."
+        },
+        {
+          "measurement": {
+            "id": "interface-18",
+            "first_z_mm": 38.87,
+            "last_z_mm": 39.8,
+            "bbox_xy_mm": [
+              69.6,
+              270.4,
+              72.8,
+              280.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 38.67,
+            "bbox_cad_xyz_mm": [
+              -92.9,
+              -233.25,
+              -316.13,
+              -89.7,
+              -223.25,
+              -315.2
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -92.9,
+              223.25,
+              315.2,
+              -89.7,
+              233.25,
+              316.13
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Flow-regulator side-anchor lower open-seat arc at X\u221292.5..\u221289.7/Y223..233 near Z315.2.",
+          "removal_lane": "Detach the short branch at the bore mouth and withdraw east into the empty quadrant before the regulator is installed.",
+          "removal_direction_original_cad": "+X through the open round seat.",
+          "preserved_working_face_reason": "The regulator keeps its measured locating bore and full supported stock."
+        },
+        {
+          "measurement": {
+            "id": "interface-19",
+            "first_z_mm": 44.358,
+            "last_z_mm": 44.63,
+            "bbox_xy_mm": [
+              60.0,
+              274.4,
+              64.0,
+              276.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 44.158,
+            "bbox_cad_xyz_mm": [
+              -102.5,
+              -229.25,
+              -310.642,
+              -98.5,
+              -227.25,
+              -310.37
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -102.5,
+              227.25,
+              310.37,
+              -98.5,
+              229.25,
+              310.642
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Flow-regulator side-anchor tie-band lower relief flank at X\u2212102.5..\u221298.1/Y227..230 near Z310.4.",
+          "removal_lane": "Detach the thin branch through the lower tie-band mouth and withdraw downward, then east from the empty quadrant before fitting the regulator or tie.",
+          "removal_direction_original_cad": "\u2212Z through the lower tie-band mouth, then +X.",
+          "preserved_working_face_reason": "The tie band retains its open loop route and full exterior skin behind the relief."
+        },
+        {
+          "measurement": {
+            "id": "interface-20",
+            "first_z_mm": 48.916,
+            "last_z_mm": 49.19,
+            "bbox_xy_mm": [
+              61.2,
+              242.0,
+              72.8,
+              251.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 48.716,
+            "bbox_cad_xyz_mm": [
+              -101.3,
+              -261.65,
+              -306.084,
+              -89.7,
+              -252.05,
+              -305.81
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -101.3,
+              252.05,
+              305.81,
+              -89.7,
+              261.65,
+              306.084
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Water-split west anchor upper flank at X\u2212101..\u221289/Y251..262 near Z305.8.",
+          "removal_lane": "Detach the exposed branch from the upper flank into the open quadrant before installing the tee and its tie; remove its stem separately from the larger tree.",
+          "removal_direction_original_cad": "+Z and +X into the empty quadrant.",
+          "preserved_working_face_reason": "Keep the scan-supported collar bearing web, end roots and complete tie clearance."
+        },
+        {
+          "measurement": {
+            "id": "interface-21",
+            "first_z_mm": 51.106,
+            "last_z_mm": 51.35,
+            "bbox_xy_mm": [
+              64.8,
+              46.4,
+              111.6,
+              137.2
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 50.906,
+            "bbox_cad_xyz_mm": [
+              -97.7,
+              -457.25,
+              -303.894,
+              -50.9,
+              -366.45,
+              -303.65
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -97.7,
+              366.45,
+              303.65,
+              -50.9,
+              457.25,
+              303.894
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "ASSE pan-sleeve upper outside lid face at X\u221298..\u221250/Y366..458 near Z303.7.",
+          "removal_lane": "Detach the broad outside branch above the sleeve into the open quadrant; separate it from the tree before removing the inner-berth branches.",
+          "removal_direction_original_cad": "+Z into the empty quadrant above the sleeve.",
+          "preserved_working_face_reason": "The sleeve lid retains its full stock and separates the pan berth from the chain above."
+        },
+        {
+          "measurement": {
+            "id": "interface-22",
+            "first_z_mm": 58.039,
+            "last_z_mm": 58.31,
+            "bbox_xy_mm": [
+              54.8,
+              50.4,
+              107.6,
+              133.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 57.839,
+            "bbox_cad_xyz_mm": [
+              -107.7,
+              -453.25,
+              -296.961,
+              -54.9,
+              -370.05,
+              -296.69
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.7,
+              370.05,
+              296.69,
+              -54.9,
+              453.25,
+              296.961
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "ASSE pan-sleeve rim-rebate lower horizontal face at X\u2212108..\u221255/Y370..453 near Z296.7.",
+          "removal_lane": "Detach within the empty rebate and draw its branch west through the full side opening before fitting the pan. Remove branches separately rather than dragging the complete exterior tree through the berth.",
+          "removal_direction_original_cad": "\u2212X through the open pan mouth.",
+          "preserved_working_face_reason": "Retain the square sliding/retaining rebate and berth section."
+        },
+        {
+          "measurement": {
+            "id": "interface-23",
+            "first_z_mm": 61.163,
+            "last_z_mm": 61.43,
+            "bbox_xy_mm": [
+              118.0,
+              32.4,
+              131.2,
+              35.6
+            ],
+            "tree": "tree-9",
+            "build_up_mm": 60.963,
+            "bbox_cad_xyz_mm": [
+              -44.5,
+              -471.25,
+              -293.837,
+              -31.3,
+              -468.05,
+              -293.57
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -44.5,
+              468.05,
+              293.57,
+              -31.3,
+              471.25,
+              293.837
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Rear keystone pocket lower mouth/floor region at X\u221244.5..\u221231/Y468..472 near Z294.3.",
+          "removal_lane": "Detach through the empty rear-facing connector mouth before the keystone is fitted.",
+          "removal_direction_original_cad": "+Y through the rear opening.",
+          "preserved_working_face_reason": "Retain the connector locating floor and complete pass envelope."
+        },
+        {
+          "measurement": {
+            "id": "interface-24",
+            "first_z_mm": 63.551,
+            "last_z_mm": 63.83,
+            "bbox_xy_mm": [
+              118.0,
+              36.0,
+              131.6,
+              40.0
+            ],
+            "tree": "tree-9",
+            "build_up_mm": 63.351,
+            "bbox_cad_xyz_mm": [
+              -44.5,
+              -467.65,
+              -291.449,
+              -30.9,
+              -463.65,
+              -291.17
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -44.5,
+              463.65,
+              291.17,
+              -30.9,
+              467.65,
+              291.449
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Rear keystone inner lower snap-catch region at X\u221244.5..\u221231/Y464..468 near Z291.9.",
+          "removal_lane": "Release the small branch at the catch through the open connector mouth, then withdraw rearward before fitting the keystone; do not lever against the printed catch.",
+          "removal_direction_original_cad": "+Y through the empty connector approach.",
+          "preserved_working_face_reason": "Keep the complete snap catch and its square retention face."
+        },
+        {
+          "measurement": {
+            "id": "interface-25",
+            "first_z_mm": 67.91,
+            "last_z_mm": 69.08,
+            "bbox_xy_mm": [
+              68.8,
+              242.0,
+              72.8,
+              251.6
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 67.71,
+            "bbox_cad_xyz_mm": [
+              -93.7,
+              -261.65,
+              -287.09,
+              -89.7,
+              -252.05,
+              -285.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -93.7,
+              252.05,
+              285.92,
+              -89.7,
+              261.65,
+              287.09
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Water-split side-anchor lower open-seat arc at X\u221292..\u221289/Y251..262 near Z285.9.",
+          "removal_lane": "Detach at the open bore mouth and withdraw east before the fitting and tie are installed.",
+          "removal_direction_original_cad": "+X into the empty quadrant.",
+          "preserved_working_face_reason": "Retain the scan-supported fixed collar seat and its full bearing stock."
+        },
+        {
+          "measurement": {
+            "id": "interface-26",
+            "first_z_mm": 69.815,
+            "last_z_mm": 70.07,
+            "bbox_xy_mm": [
+              54.8,
+              54.4,
+              103.6,
+              129.6
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 69.615,
+            "bbox_cad_xyz_mm": [
+              -107.7,
+              -449.25,
+              -285.185,
+              -58.9,
+              -374.05,
+              -284.93
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.7,
+              374.05,
+              284.93,
+              -58.9,
+              449.25,
+              285.185
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "ASSE pan-berth flat floor at X\u2212108..\u221259/Y374..449 near Z285.",
+          "removal_lane": "Detach the berth branch and pull it west through the empty pan opening; separate connected exterior stems first.",
+          "removal_direction_original_cad": "\u2212X through the full side-opening berth.",
+          "preserved_working_face_reason": "The pan must slide and lie on its flat bearing floor."
+        },
+        {
+          "measurement": {
+            "id": "interface-27",
+            "first_z_mm": 73.649,
+            "last_z_mm": 73.91,
+            "bbox_xy_mm": [
+              58.8,
+              246.0,
+              64.0,
+              248.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 73.449,
+            "bbox_cad_xyz_mm": [
+              -103.7,
+              -257.65,
+              -281.351,
+              -98.5,
+              -255.65,
+              -281.09
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.7,
+              255.65,
+              281.09,
+              -98.5,
+              257.65,
+              281.351
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Water-split anchor tie-band lower relief flank at X\u2212104..\u221298/Y256..258 near Z281.1.",
+          "removal_lane": "Detach through the lower open tie-band mouth, withdraw downward, then east before the tee or tie is present.",
+          "removal_direction_original_cad": "\u2212Z through the lower tie-band mouth, then +X.",
+          "preserved_working_face_reason": "The fixed-collar bearing patch, complete web and retained exterior wall remain intact."
+        },
+        {
+          "measurement": {
+            "id": "interface-28",
+            "first_z_mm": 77.489,
+            "last_z_mm": 77.75,
+            "bbox_xy_mm": [
+              64.8,
+              216.8,
+              84.4,
+              226.4
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 77.289,
+            "bbox_cad_xyz_mm": [
+              -97.7,
+              -286.85,
+              -277.511,
+              -78.1,
+              -277.25,
+              -277.25
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -97.7,
+              277.25,
+              277.25,
+              -78.1,
+              286.85,
+              277.511
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "fluid-28 west-flank tube anchor upper flank/seat surround at X\u221298..\u221277/Y276..288 near Z277.3.",
+          "removal_lane": "Detach the exposed flank branch and withdraw east from the open tube-seat mouth before the tube and tie are installed.",
+          "removal_direction_original_cad": "+X into the empty quadrant.",
+          "preserved_working_face_reason": "Keep the circular tube seat and its corbel-backed end stock."
+        },
+        {
+          "measurement": {
+            "id": "interface-29",
+            "first_z_mm": 88.037,
+            "last_z_mm": 88.31,
+            "bbox_xy_mm": [
+              151.6,
+              39.2,
+              218.4,
+              44.8
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 87.837,
+            "bbox_cad_xyz_mm": [
+              -10.9,
+              -464.45,
+              -266.963,
+              55.9,
+              -458.85,
+              -266.69
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -10.9,
+              458.85,
+              266.69,
+              55.9,
+              464.45,
+              266.963
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Nameplate receiver pump-bearing ledge, west/central section at X\u221210.5..55.9/Y458..465 near Z266.7.",
+          "removal_lane": "Detach from the full ledge on the inside rear wall and withdraw fore into the empty enclosure before the nameplate or pump hardware is fitted.",
+          "removal_direction_original_cad": "\u2212Y into the open quadrant.",
+          "preserved_working_face_reason": "Retain the full-width flat ledge; do not slope or reduce its bearing stock."
+        },
+        {
+          "measurement": {
+            "id": "interface-30",
+            "first_z_mm": 88.037,
+            "last_z_mm": 88.31,
+            "bbox_xy_mm": [
+              228.8,
+              39.2,
+              249.6,
+              44.8
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 87.837,
+            "bbox_cad_xyz_mm": [
+              66.3,
+              -464.45,
+              -266.963,
+              87.1,
+              -458.85,
+              -266.69
+            ],
+            "bbox_original_cad_xyz_mm": [
+              66.3,
+              458.85,
+              266.69,
+              87.1,
+              464.45,
+              266.963
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Nameplate receiver pump-bearing ledge, east section at X66..87/Y458..465 near Z266.7.",
+          "removal_lane": "Detach from the inside ledge and withdraw fore into the empty enclosure before the nameplate or pump hardware is fitted.",
+          "removal_direction_original_cad": "\u2212Y into the open quadrant.",
+          "preserved_working_face_reason": "Retain the complete flat ledge and its end stock."
+        },
+        {
+          "measurement": {
+            "id": "interface-31",
+            "first_z_mm": 98.356,
+            "last_z_mm": 98.63,
+            "bbox_xy_mm": [
+              151.6,
+              34.8,
+              157.2,
+              44.8
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 98.156,
+            "bbox_cad_xyz_mm": [
+              -10.9,
+              -468.85,
+              -256.644,
+              -5.3,
+              -458.85,
+              -256.37
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -10.9,
+              458.85,
+              256.37,
+              -5.3,
+              468.85,
+              256.644
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "West nameplate snap-slot lower end/retaining shoulder at X\u221210.5..\u22124.9/Y459..469 near Z256.4.",
+          "removal_lane": "Detach the short branch through the deliberately enlarged open-backed receiver slot and draw it fore. The nameplate is absent so the complete catch remains exposed.",
+          "removal_direction_original_cad": "\u2212Y through the open receiver back.",
+          "preserved_working_face_reason": "Keep the rigid square snap shoulder and the full tab insertion/flex lane."
+        },
+        {
+          "measurement": {
+            "id": "interface-32",
+            "first_z_mm": 98.356,
+            "last_z_mm": 98.63,
+            "bbox_xy_mm": [
+              244.0,
+              34.8,
+              249.6,
+              44.8
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 98.156,
+            "bbox_cad_xyz_mm": [
+              81.5,
+              -468.85,
+              -256.644,
+              87.1,
+              -458.85,
+              -256.37
+            ],
+            "bbox_original_cad_xyz_mm": [
+              81.5,
+              458.85,
+              256.37,
+              87.1,
+              468.85,
+              256.644
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "East nameplate snap-slot lower end/retaining shoulder at X81.5..86.7/Y459..470 near Z256.4.",
+          "removal_lane": "Detach the short branch through the deliberately enlarged open-backed receiver slot and draw it fore. The nameplate is absent so the complete catch remains exposed.",
+          "removal_direction_original_cad": "\u2212Y through the open receiver back.",
+          "preserved_working_face_reason": "Keep the rigid square snap shoulder and the full tab insertion/flex lane."
+        },
+        {
+          "measurement": {
+            "id": "interface-33",
+            "first_z_mm": 103.64,
+            "last_z_mm": 104.36,
+            "bbox_xy_mm": [
+              80.0,
+              32.4,
+              88.8,
+              33.6
+            ],
+            "tree": "tree-4",
+            "build_up_mm": 103.44,
+            "bbox_cad_xyz_mm": [
+              -82.5,
+              -471.25,
+              -251.36,
+              -73.7,
+              -470.05,
+              -250.64
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -82.5,
+              470.05,
+              250.64,
+              -73.7,
+              471.25,
+              251.36
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Lower flavor identification-chip pocket at X\u221282..\u221274 on the rear face near Z250.6.",
+          "removal_lane": "Detach and remove rearward through the open shallow pocket before chip/bulkhead installation.",
+          "removal_direction_original_cad": "+Y through the rear-facing pocket.",
+          "preserved_working_face_reason": "Retain the chip locating edge and full pocket floor."
+        },
+        {
+          "measurement": {
+            "id": "interface-34",
+            "first_z_mm": 103.64,
+            "last_z_mm": 104.36,
+            "bbox_xy_mm": [
+              120.0,
+              32.4,
+              129.2,
+              33.6
+            ],
+            "tree": "tree-9",
+            "build_up_mm": 103.44,
+            "bbox_cad_xyz_mm": [
+              -42.5,
+              -471.25,
+              -251.36,
+              -33.3,
+              -470.05,
+              -250.64
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -42.5,
+              470.05,
+              250.64,
+              -33.3,
+              471.25,
+              251.36
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Lower flavor identification-chip pocket at X\u221243..\u221233 on the rear face near Z252.1.",
+          "removal_lane": "Detach and remove rearward through the open shallow pocket before chip/bulkhead installation.",
+          "removal_direction_original_cad": "+Y through the rear-facing pocket.",
+          "preserved_working_face_reason": "Retain the chip locating edge and full pocket floor."
+        },
+        {
+          "measurement": {
+            "id": "interface-35",
+            "first_z_mm": 110.87,
+            "last_z_mm": 111.08,
+            "bbox_xy_mm": [
+              150.8,
+              32.4,
+              250.4,
+              34.0
+            ],
+            "tree": "tree-10",
+            "build_up_mm": 110.67,
+            "bbox_cad_xyz_mm": [
+              -11.7,
+              -471.25,
+              -244.13,
+              87.9,
+              -469.65,
+              -243.92
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -11.7,
+              469.65,
+              243.92,
+              87.9,
+              471.25,
+              244.13
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Nameplate main pocket lower rim at X\u221211..89/Y469..471 near Z243.9.",
+          "removal_lane": "Detach the shallow exposed ribbon and withdraw rearward through the large empty plate mouth before the nameplate is snapped in.",
+          "removal_direction_original_cad": "+Y through the rear-facing plate pocket.",
+          "preserved_working_face_reason": "Retain the flush plate locating floor and rounded mouth."
+        },
+        {
+          "measurement": {
+            "id": "interface-36",
+            "first_z_mm": 140.11,
+            "last_z_mm": 140.39,
+            "bbox_xy_mm": [
+              71.2,
+              170.8,
+              72.0,
+              188.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 139.91,
+            "bbox_cad_xyz_mm": [
+              -91.3,
+              -332.85,
+              -214.89,
+              -90.5,
+              -314.85,
+              -214.61
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -91.3,
+              314.85,
+              214.61,
+              -90.5,
+              332.85,
+              214.89
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6), which faces down in the roof-down print: contact line 1 of 5 that the slicer steps down the slope.",
+          "removal_lane": "Detach the thin contact line from the slope and pull it east through the PRV chase's open discharge mouth, or drop it into the open quadrant, before the cold core closes its inboard face.",
+          "removal_direction_original_cad": "+X through the PRV mouth, or out through the open interior.",
+          "preserved_working_face_reason": "The 45\u00b0 face is the chase's own wall; keep its section and do not narrow the vent path."
+        },
+        {
+          "measurement": {
+            "id": "interface-37",
+            "first_z_mm": 144.191,
+            "last_z_mm": 144.191,
+            "bbox_xy_mm": [
+              67.2,
+              170.8,
+              67.2,
+              188.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 143.991,
+            "bbox_cad_xyz_mm": [
+              -95.3,
+              -332.85,
+              -210.809,
+              -95.3,
+              -314.85,
+              -210.809
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -95.3,
+              314.85,
+              210.809,
+              -95.3,
+              332.85,
+              210.809
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6), which faces down in the roof-down print: contact line 2 of 5 that the slicer steps down the slope.",
+          "removal_lane": "Detach the thin contact line from the slope and pull it east through the PRV chase's open discharge mouth, or drop it into the open quadrant, before the cold core closes its inboard face.",
+          "removal_direction_original_cad": "+X through the PRV mouth, or out through the open interior.",
+          "preserved_working_face_reason": "The 45\u00b0 face is the chase's own wall; keep its section and do not narrow the vent path."
+        },
+        {
+          "measurement": {
+            "id": "interface-38",
+            "first_z_mm": 144.695,
+            "last_z_mm": 144.695,
+            "bbox_xy_mm": [
+              66.8,
+              170.8,
+              66.8,
+              188.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 144.495,
+            "bbox_cad_xyz_mm": [
+              -95.7,
+              -332.85,
+              -210.305,
+              -95.7,
+              -314.85,
+              -210.305
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -95.7,
+              314.85,
+              210.305,
+              -95.7,
+              332.85,
+              210.305
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6), which faces down in the roof-down print: contact line 3 of 5 that the slicer steps down the slope.",
+          "removal_lane": "Detach the thin contact line from the slope and pull it east through the PRV chase's open discharge mouth, or drop it into the open quadrant, before the cold core closes its inboard face.",
+          "removal_direction_original_cad": "+X through the PRV mouth, or out through the open interior.",
+          "preserved_working_face_reason": "The 45\u00b0 face is the chase's own wall; keep its section and do not narrow the vent path."
+        },
+        {
+          "measurement": {
+            "id": "interface-39",
+            "first_z_mm": 145.16,
+            "last_z_mm": 145.16,
+            "bbox_xy_mm": [
+              66.4,
+              170.8,
+              66.4,
+              188.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 144.96,
+            "bbox_cad_xyz_mm": [
+              -96.1,
+              -332.85,
+              -209.84,
+              -96.1,
+              -314.85,
+              -209.84
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -96.1,
+              314.85,
+              209.84,
+              -96.1,
+              332.85,
+              209.84
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6), which faces down in the roof-down print: contact line 4 of 5 that the slicer steps down the slope.",
+          "removal_lane": "Detach the thin contact line from the slope and pull it east through the PRV chase's open discharge mouth, or drop it into the open quadrant, before the cold core closes its inboard face.",
+          "removal_direction_original_cad": "+X through the PRV mouth, or out through the open interior.",
+          "preserved_working_face_reason": "The 45\u00b0 face is the chase's own wall; keep its section and do not narrow the vent path."
+        },
+        {
+          "measurement": {
+            "id": "interface-40",
+            "first_z_mm": 145.64,
+            "last_z_mm": 145.64,
+            "bbox_xy_mm": [
+              66.0,
+              170.8,
+              66.0,
+              188.8
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 145.44,
+            "bbox_cad_xyz_mm": [
+              -96.5,
+              -332.85,
+              -209.36,
+              -96.5,
+              -314.85,
+              -209.36
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -96.5,
+              314.85,
+              209.36,
+              -96.5,
+              332.85,
+              209.36
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "PRV chase's 45\u00b0 upper face (X-98.5..-90.5 / Y315..333 / Z206.6..214.6), which faces down in the roof-down print: contact line 5 of 5 that the slicer steps down the slope.",
+          "removal_lane": "Detach the thin contact line from the slope and pull it east through the PRV chase's open discharge mouth, or drop it into the open quadrant, before the cold core closes its inboard face.",
+          "removal_direction_original_cad": "+X through the PRV mouth, or out through the open interior.",
+          "preserved_working_face_reason": "The 45\u00b0 face is the chase's own wall; keep its section and do not narrow the vent path."
+        },
+        {
+          "measurement": {
+            "id": "interface-41",
+            "first_z_mm": 168.671,
+            "last_z_mm": 168.95,
+            "bbox_xy_mm": [
+              68.8,
+              174.4,
+              72.0,
+              185.2
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 168.471,
+            "bbox_cad_xyz_mm": [
+              -93.7,
+              -329.25,
+              -186.329,
+              -90.5,
+              -318.45,
+              -186.05
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -93.7,
+              318.45,
+              186.05,
+              -90.5,
+              329.25,
+              186.329
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "PRV chase square mouth floor at X\u221294.5..\u221290.5/Y318..329 near Z186.1.",
+          "removal_lane": "Detach the short mouth branch and pull east through the open discharge mouth before the cold core closes its inboard face. Its exposed lower stem can be separated through the open quadrant.",
+          "removal_direction_original_cad": "+X through the PRV mouth.",
+          "preserved_working_face_reason": "Keep the square flow passage and its declared floor; do not narrow the vent path."
+        },
+        {
+          "measurement": {
+            "id": "interface-42",
+            "first_z_mm": 185.473,
+            "last_z_mm": 185.75,
+            "bbox_xy_mm": [
+              59.6,
+              48.0,
+              64.0,
+              174.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 185.273,
+            "bbox_cad_xyz_mm": [
+              -102.9,
+              -455.65,
+              -169.527,
+              -98.5,
+              -329.65,
+              -169.25
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -102.9,
+              329.65,
+              169.25,
+              -98.5,
+              455.65,
+              169.527
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Aft west rear Z-seam foot caught face near X\u2212103..\u221298.5/Y330..455/Z169.3.",
+          "removal_lane": "Detach the narrow contact ribbon, move it inboard through the channel opening above the foot into the already open interior, then remove it through the empty lower shell mouth. The mating bottom rail is absent.",
+          "removal_direction_original_cad": "+X inboard through the open channel, then \u2212Z through the bottom mouth.",
+          "preserved_working_face_reason": "Retain the broad flat caught face and horizontal guide section."
+        },
+        {
+          "measurement": {
+            "id": "interface-43",
+            "first_z_mm": 185.473,
+            "last_z_mm": 185.75,
+            "bbox_xy_mm": [
+              59.6,
+              185.6,
+              64.0,
+              285.2
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 185.273,
+            "bbox_cad_xyz_mm": [
+              -102.9,
+              -318.05,
+              -169.527,
+              -98.5,
+              -218.45,
+              -169.25
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -102.9,
+              218.45,
+              169.25,
+              -98.5,
+              318.05,
+              169.527
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "Fore west rear Z-seam foot caught face near X\u2212103..\u221298.5/Y218..318/Z169.3.",
+          "removal_lane": "Detach the narrow contact ribbon, move it inboard through the channel opening above the foot, then remove it through the empty lower shell mouth. The PRV crossing separates this from the aft run.",
+          "removal_direction_original_cad": "+X inboard through the open channel, then \u2212Z.",
+          "preserved_working_face_reason": "Retain the broad flat caught face and guide section."
+        },
+        {
+          "measurement": {
+            "id": "interface-44",
+            "first_z_mm": 185.473,
+            "last_z_mm": 185.75,
+            "bbox_xy_mm": [
+              260.8,
+              48.0,
+              265.6,
+              285.2
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 185.273,
+            "bbox_cad_xyz_mm": [
+              98.3,
+              -455.65,
+              -169.527,
+              103.1,
+              -218.45,
+              -169.25
+            ],
+            "bbox_original_cad_xyz_mm": [
+              98.3,
+              218.45,
+              169.25,
+              103.1,
+              455.65,
+              169.527
+            ]
+          },
+          "reviewed": true,
+          "accessible_before_hardware": true,
+          "contact_region": "East rear Z-seam foot caught face near X98.7..103/Y218..456/Z169.3.",
+          "removal_lane": "Detach the narrow contact ribbon, move it inboard through the channel opening above the foot into the open interior, then remove it through the empty lower shell mouth.",
+          "removal_direction_original_cad": "\u2212X inboard through the open channel, then \u2212Z.",
+          "preserved_working_face_reason": "Retain the full caught face and horizontal guide section."
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-23 06:04:46.745896] [0x00000001f7ada180] [error]   ZFiller: encounter idx from clip: 1771",
+    "[2026-09-23 06:05:52.598853] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 06:06:25.404690] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 06:06:25.405361] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The diagnostics are the T1001, T65535 and T65279 parser messages every plate from petgf.3mf carries: T1001 is the saved machine_start_gcode's hotend type detection, before the first layer; T65535 and T65279 are in its machine_end_gcode, after the last layer. Native return code 0, empty plate warning, black filament on nozzle 0.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}

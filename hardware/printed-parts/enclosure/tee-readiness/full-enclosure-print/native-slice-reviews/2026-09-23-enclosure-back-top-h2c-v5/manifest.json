@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "back-top-v5",
+  "printer": "H2C",
+  "source_job_directory": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-back-top-h2c-v5/fresh-geometry-receipt.json",
+    "sha256": "36825735df559b84212061205eaedfaed72e6ac351b0a6a4dc765a81ffc78f91"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/ready/enclosure-back-top-black-z018-h2c-v5.gcode.3mf",
+    "sha256": "f72b45f8ed1975f4d9745639767359b8942d40686ec275e091095d82f7494278"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "9dbc55cdd6877c791e199f85726d98e7886f7cb2efa0ffc233c58f9dc0a26f05",
+  "layer_ranges_mm": {
+    "enclosure-back-top": [
+      {
+        "min_z": 0.0,
+        "max_z": 2.6,
+        "layer_height": 0.08,
+        "reason": "back-top prints roof-down: its R6 roof side edges rise off the bed; 2.6 mm, the same depth as front-top's top band, which meets it at the Y seam"
+      }
+    ]
+  },
+  "estimate": {
+    "seconds": 105776.6796875,
+    "grams_petgf_density_1p43": 1019.0636336452276,
+    "layers": 1419
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/job-config.json",
+      "sha256": "e8aa627bb67808a5040cf5805d1fb92cd73f653bd9c7a21d5ce85870efce02c3",
+      "bytes": 1459
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/fresh-geometry-receipt.json",
+      "sha256": "36825735df559b84212061205eaedfaed72e6ac351b0a6a4dc765a81ffc78f91",
+      "bytes": 1357
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/geometry-evidence.json",
+      "sha256": "ffcb29de148cbe5cecf5fa567edf2cb3f79d03a64886cae281e923256c4a0bf4",
+      "bytes": 1545
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/preparation.json",
+      "sha256": "304176227041b0f09db27dad41577c725f97db26eade24b4aa58cbfa188bf987",
+      "bytes": 2210
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/readiness.json",
+      "sha256": "4a1322f222a069b97da39a3579179dc1d4e6afa98046a29ce270d724f98c6f39",
+      "bytes": 6431
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/offline-review.json",
+      "sha256": "be2a1795332d9024c1fe60aed1862b908783a948e298a6f134f4d579463de567",
+      "bytes": 6904
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/support-removal-review.json",
+      "sha256": "3f517112417a461b04078eda2a0375e6555e6d5e0cf283034dc62c1e5a4a06b6",
+      "bytes": 86385
+    },
+    "enclosure-back-top-black-z018-h2c-v5-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/enclosure-back-top-black-z018-h2c-v5-input.support-audit.json",
+      "sha256": "acd2220137df39c8c761a7bee85fb5a5a0cfb80a17aa5e14d7ffd044be6556f3",
+      "bytes": 44883
+    },
+    "enclosure-back-top-black-z018-h2c-v5-input.print.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/enclosure-back-top-black-z018-h2c-v5-input.print.json",
+      "sha256": "b7032ac82d779e324d1790e66ae0ea0f77840ca32062f6a8a0f225cd438d4cbf",
+      "bytes": 6940
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/slice-command.json",
+      "sha256": "78f056b594dc284b556d68153e2eb57f72616bbcd5ccfbe13c73491edfe0b192",
+      "bytes": 484
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/slice-input.json",
+      "sha256": "f7e63e5aac2156d735aa7f54f2e97f95b9df88054b588a8affc012e523feb527",
+      "bytes": 279
+    },
+    "layout.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/layout.json",
+      "sha256": "2b990cc46bb178f0421850c822d9fc9e4b3f942403e7552511e993e84fd16174",
+      "bytes": 54
+    },
+    "round-scan.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/round-scan.json",
+      "sha256": "1d972dd090d5ca41b9550373cc21d622d03c28a5151793b038300ebf8ecd6450",
+      "bytes": 25870
+    }
+  }
+}
