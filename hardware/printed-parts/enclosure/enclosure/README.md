@@ -698,15 +698,13 @@ scanning the table would stop on — and among the easiest supports on the enclo
 The groove beneath a catch is open air from the arm's sliding face out past the exterior plane,
 so what stands in it is a ribbon running the whole rail with one face fully exposed, nothing
 over it and no branch turning back into anything. It peels off the flank in a single pull. A
-stub of the same build-up inside a 3 mm tie channel is a different job entirely. The ledger
-records each body's lane, and what removing it took where the piece has been printed and pulled.
+stub of the same build-up inside a 3 mm tie channel is a different job entirely.
 
 What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
 the bed — the bottoms on their floors, front-top on its mouth — the bed and the model are two
 different places to start. On back-top the cavity opens away from the bed: the ceiling slab's
 interior face is the root every interior support has, a hidden flat the piece lays down in its
-own first layers. The audit records that root as model material. The ledger names each body
-and the feature its interfaces contact.
+own first layers. The audit records that root as model material.
 
 The face a feature works through keeps the shape its work requires, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
@@ -741,14 +739,12 @@ count is never the reason that makes the move valid. Preserve the feature. Where
 leaves cleanly, take the support: an accessible body is not a debt and is not designed away.
 Where the lane is bad — walled, re-entrant, or under hardware that goes in first — add the
 smallest printed geometry that carries the face, a corbel or a column, never a slope across a
-working face. Every support which remains in a production slice is named with its piece, contact
-region, root kind, build-up, the reason the face keeps the shape it has, and the lane the support
-leaves through. This policy applies to every printable part in the enclosure assembly, not only
+working face. This policy applies to every printable part in the enclosure assembly, not only
 the four shell quadrants.
 
-[`support-audit.json`](support-audit.json) associates each piece with its production profile and
-retained slice reading. Each reading identifies its model, profile and G-code by digest. It is
-a bench reference outside the normal build and publish path.
+Each piece's retained slice reading is `<piece>.support-audit.json` beside its STL, and it
+identifies its model, profile and G-code by digest. The readings are bench references outside
+the normal build and publish path.
 [`enclosure_support_audit.py`](/hardware/scripts/enclosure_support_audit.py) reads an exported
 Bambu G-code directly, or refreshes only the mesh in a temporary copy of the named production
 project before slicing it:
@@ -765,8 +761,7 @@ python3 hardware/scripts/enclosure_support_audit.py \
 ```
 
 The result carries the model, profile and derived G-code hashes, the slicer's support settings,
-all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
-for each connected body that remains.
+all interface islands and both plate and CAD coordinates.
 
 **The six enclosure pieces are audited.** Their 3MF
 snapshots are retained only in Git history — four at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`,
@@ -790,9 +785,7 @@ build item carries a half turn about X, the crown on the bed.
 | `enclosure-back-top` | 13 | 38 | 3 bed, 10 model | 1.44 mm |
 | `enclosure-front-top` | 3 | 19 | bed | 29.00 mm |
 
-None of these columns orders the pieces by what their supports cost to remove. Each body's own
-lane, and the bench reading where one has been pulled, are in
-[`support-audit.json`](support-audit.json).
+None of these columns orders the pieces by what their supports cost to remove.
 
 `enclosure-pump-cartridge` has two bed-rooted bodies, one under each flat pull roof. Each
 reaches one interface after 105.40 mm and leaves directly through its open side pocket.
@@ -822,8 +815,8 @@ the brim seat and across the open quadrant to the ASSE seats and pan berth, conn
 identification pockets, west anchors and rail catches. The other two reach rear-facing
 identification and keystone pockets. Model-rooted bodies carry the anchor tie-band crowns
 and flanks and the ASSE tie-cavity threshold. The shortest build-up is 1.44 mm beneath an
-anchor crown. Each body, its exact contacts, root, build-up and removal lane is recorded in
-`support-audit.json`; the slice's settings and hashes are in the linked piece reading.
+anchor crown. Each body's exact contacts, root and build-up, and the slice's settings and
+hashes, are in `enclosure-back-top.support-audit.json`.
 Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.60 mm below.
 
 ## Print orientation + corner relief

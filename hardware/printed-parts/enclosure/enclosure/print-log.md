@@ -188,9 +188,7 @@ project above and sliced by BambuStudio 02.08.02.61, has **12 connected support 
 its mouth, behind its rear face, through the funnel's opening — and
 7 on the piece itself, the ceiling slab's interior face and the backing over each rib's tie channel. Their shortest
 base-to-first-interface build-up is **1.20 mm**; 5 bodies are under 5 mm, the stubs inside the five ribs' 3 mm tie channels under their 3.5 mm crown strips, 0 in 5–10, 1 in 10–15 and 6 at 15 or more. The hashed toolpath reading is
-[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json); the retained
-bodies and what each carries are named in
-[`support-audit.json`](support-audit.json). The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z
+[`enclosure-back-top.support-audit.json`](enclosure-back-top.support-audit.json). The reading is this project's: tree(auto) supports at a 35° threshold, 0.4 mm top and bottom Z
 distances, 0.6 mm from the object in XY and two interface layers, all carried in the reading's
  `slicer_settings`; a plate sliced with other support settings is audited again against that project.
 

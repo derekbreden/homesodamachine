@@ -651,7 +651,6 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.support-audit.json",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
     "hardware/printed-parts/enclosure/enclosure/print-log.md",
-    "hardware/printed-parts/enclosure/enclosure/support-audit.json",
     "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
     "hardware/printed-parts/enclosure/nameplate/nameplate.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
