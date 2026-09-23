@@ -1,16 +1,13 @@
-"""The tee carrier: a plate that carries Y-C, Y-D, Y-F and Y-G across the front column, and the
-grip that closes on its far end.
+"""The tee carrier: one plate that carries Y-C, Y-D, Y-F and Y-G across the front column,
+flank face to flank face.
 
-`enclosure-tee-carrier-plate` is the plate and its handle. The four bare tees are tied into its
-troughs on the bench; the plate enters through the -X flank `staged_dy` aft of its seat, where
-every branch nose passes the tee wall's aft face, and slides fore until each branch stands in
-its journal. `enclosure-tee-carrier-grip` is a handle alone: it goes on over the plate's end
-in the +X flank and fills the slide room behind it. Its socket is the plate's section, line to
-line.
+The four bare tees are tied into its troughs on the bench; the plate enters through the -X
+flank `staged_dy` aft of its seat, where every branch nose passes the tee wall's aft face, and
+slides fore until each branch stands in its journal.
 
 Both flanks carry one opening, the same box: the tee wall's aft face to the staged plate's
-strapped back, and the plate's height with the grip's walls round it. Front-top and
-front-bottom cut it straight across the column (`opening`).
+strapped back, and the tees' extended run span. Front-top and front-bottom cut it straight
+across the column (`opening`).
 
 +X across the enclosure, +Y aft, +Z up, in the assembly frame, at the tees' connected state.
 
@@ -36,7 +33,6 @@ import fits                                                  # noqa: E402
 import tee_connector as tee                                  # noqa: E402
 
 PLATE = "enclosure-tee-carrier-plate"
-GRIP = "enclosure-tee-carrier-grip"
 
 
 def _box(x0, x1, y0, y1, z0, z1):
@@ -54,7 +50,6 @@ class Carrier:
     tie_slot: tuple
     strap_t: float
     backing: float = 3.0
-    grip_wall: float = 3.0
     air: float = fits.running
 
     @classmethod
@@ -101,7 +96,7 @@ class Carrier:
 
     @property
     def opening_z(self):
-        reach = self.plate_h / 2.0 + self.grip_wall + self.air
+        reach = tee.RUN_HALF + self.air
         return self.axis_z - reach, self.axis_z + reach
 
     @property
@@ -116,14 +111,8 @@ def opening(c: Carrier):
     return _box(-c.exterior_x - 1.0, c.exterior_x + 1.0, *c.opening_y, *c.opening_z)
 
 
-def _handle_section(c: Carrier):
-    (y0, y1), (z0, z1) = c.opening_y, c.opening_z
-    return y0 + c.air, y1 - c.air, z0 + c.air, z1 - c.air
-
-
 def build_plate(c: Carrier):
-    """The plate from flank face to flank face, a trough and four tie slots at each tee, and the
-    handle filling the -X opening fore of the slide room."""
+    """The plate from flank face to flank face, with a trough and four tie slots at each tee."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
     body = _box(-c.exterior_x, c.exterior_x, y0, y1, z0, z1)
     sx, sz = c.tie_slot
@@ -135,37 +124,32 @@ def build_plate(c: Carrier):
             for tz in c.tie_zs:
                 body = body.cut(_box(cx - sx / 2.0, cx + sx / 2.0, y0 - 1.0, y1 + 1.0,
                                      tz - sz / 2.0, tz + sz / 2.0))
-    hy0, _hy1, hz0, hz1 = _handle_section(c)
-    body = body.fuse(_box(-c.exterior_x, -c.flank_x, hy0, y1, hz0, hz1))
-    return cq.Workplane(obj=body.clean())
-
-
-def build_grip(c: Carrier):
-    """The +X handle: the whole opening less its air, with the plate's section through it."""
-    hy0, hy1, hz0, hz1 = _handle_section(c)
-    (y0, y1), (z0, z1) = c.plate_y, c.plate_z
-    body = _box(c.flank_x, c.exterior_x, hy0, hy1, hz0, hz1).cut(
-        _box(c.flank_x - 1.0, c.exterior_x + 1.0, y0, y1, z0, z1))
     return cq.Workplane(obj=body.clean())
 
 
 def parts(c: Carrier) -> dict:
-    return {PLATE: build_plate(c), GRIP: build_grip(c)}
+    return {PLATE: build_plate(c)}
+
+
+def release_travel():
+    """How far fore of connected the plate goes to press every branch collet home: the nose's
+    air to the tee wall's release face, and the sleeve's stroke."""
+    return tee.CARRIER_AFT_COLLET_GAP + tee.BRANCH_COLLET_TRAVEL
 
 
 def figures(c: Carrier) -> dict:
-    hy0, hy1, hz0, hz1 = _handle_section(c)
     return {
         "PLATE_T": c.plate_t, "PLATE_H": c.plate_h, "BACKING": c.backing,
         "TROUGH_D": 2.0 * c.trough_r, "BARREL_D": 2.0 * tee.BARREL_R,
         "RUN_SPAN_PRESSED": tee.RUN_SPAN_PRESSED, "STAGED_DY": c.staged_dy,
         "OPENING_Y": c.opening_y[1] - c.opening_y[0],
         "OPENING_Z": c.opening_z[1] - c.opening_z[0],
-        "GRIP_WALL": c.grip_wall, "AIR": c.air, "STRAP_T": c.strap_t,
+        "AIR": c.air, "STRAP_T": c.strap_t,
         "TIE_SLOT_X": c.tie_slot[0], "TIE_SLOT_Z": c.tie_slot[1],
         "TIE_BAND": sum(tee.RUN_ROOT_BAND) / 2.0,
-        "HANDLE_FORE": c.axis_y - hy0,
-        "SLIDE_ROOM": hy1 - c.plate_y[1],
+        "NOSE_GAP": tee.CARRIER_AFT_COLLET_GAP, "COLLET_STROKE": tee.BRANCH_COLLET_TRAVEL,
+        "RELEASE_TRAVEL": release_travel(),
+        "FORE_ROOM": c.plate_y[0] - c.air - c.opening_y[0],
         "FLANK_T": c.exterior_x - c.flank_x,
         "LENGTH": 2.0 * c.exterior_x,
     }
@@ -184,9 +168,8 @@ def selftest(c: Carrier) -> int:
         errors.append("an extended run collet does not pass the opening")
     if abs(c.plate_y[1] + c.staged_dy - (c.opening_y[1] - c.strap_t - c.air)) > 1e-9:
         errors.append("the staged plate's strapped back does not close the opening")
-    hy0, hy1, _hz0, _hz1 = _handle_section(c)
-    if min(c.axis_y - hy0, hy1 - c.plate_y[1], c.grip_wall) < 3.0 - 1e-9:
-        errors.append("a grip wall is under 3 mm")
+    if c.plate_y[0] - release_travel() < c.opening_y[0] + c.air - 1e-9:
+        errors.append("the openings stop the plate short of pressing the collets home")
     for error in errors:
         print("FAIL", error)
     if not errors:
