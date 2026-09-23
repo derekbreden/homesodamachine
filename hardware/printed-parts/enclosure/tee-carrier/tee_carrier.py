@@ -3,7 +3,7 @@
 The full-height fore lap, captured rail and overlapping upper shelf carry the
 centre joint. The rear flexible wall retains its seated X position. Each half
 installs through the loose front-top with its spring held in the blind moving
-cup, then the temporary flat pusher leaves through the outer tee well. The
+cup, then the temporary flat pusher leaves beside the outer tee. The
 fixed cup is integral to the enclosure. No separate joint fasteners are used.
 
 All geometry uses +X across the enclosure, +Y aft and +Z up. Physical spring
