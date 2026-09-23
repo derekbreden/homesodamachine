@@ -348,8 +348,8 @@ def enclosure(m: Machine):
             "COMP_CROWN"},
         "en-04-stand-the-compressor-bay": {
             "COMP_BAY_X", "CORE_X", "SIDE_BAND", "SIDE_OPENINGS"},
-        # EN-05 closes the front column onto the piece that carries the carrier
-        # mechanism, so what it states is the plate's, and IP derives it.
+        # EN-05 closes the front column onto the piece that carries the collet plate,
+        # so what it states is the plate's, and IP derives it.
         "en-05-close-front-column": {"RAIL_TRAVEL_FRONT", "PLATE_HOLES"},
         "en-06-seat-cold-core": {
             "CORE_FOOTPRINT", "CAP_CONDUITS", "CORE_FRONT_PORTS"},
@@ -401,7 +401,6 @@ def electronics_bay(m: Machine):
         # declares inserts of its own, so nought is not a count of anything. What
         # holds it is the assertion above — every hole in every body's pattern lands
         # on a +X wall boss, so there is no boss anywhere else for this bench to set.
-        # A carrier part with an insert of its own would break that equality first.
         "COLUMN_INSERTS_HERE": "0",
         **{k: str(v) for k, v in column.items()},
     }
@@ -519,8 +518,8 @@ def sub_assemblies(m: Machine):
     assert len(cart_stubs) == len(m.box.collet_plate["holes"]), (
         f"the pump cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
         f"{len(m.box.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
-    # The free cartridge's tube tips bottom with the cartridge fully seated and carrier aft.
-    # At the fore stop the same tubes bottom one carrier stroke short of cartridge seating.
+    # The free cartridge's tube tips bottom with the cartridge fully seated and the tees at
+    # connected. At release the same tubes bottom one stroke short of cartridge seating.
     stands = {round(m.box.collet_plate['seated_tube_bottom_y'] - m.a.bb(n).ymin, 6)
               for n in cart_stubs}
     assert len(stands) == 1, (
@@ -625,10 +624,9 @@ def sub_assemblies(m: Machine):
     cards = {
         "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES",
                            "FLUID_18_LEN"},
-        # The carrier's own figures are the IP subsystem's — SA-02 states what the piece
+        # The moving tees' count is the IP subsystem's — SA-02 states what the piece
         # leaves the bench carrying, and `collect` merges one namespace across the deck.
-        "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS", "CARRIER_TEES",
-                            "CARRIER_HALVES", "CARRIER_TIES", "CARRIER_SPRINGS"},
+        "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS", "CARRIER_TEES"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
                           "SA04_RIB_EMPTY"},

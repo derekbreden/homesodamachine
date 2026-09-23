@@ -195,10 +195,10 @@ def main(output):
             CHECKS['studies'][name]=row
     for name,mesh in source_payload():
         if name in ('display-cover','display-gasket'):continue
-        if name.startswith('enclosure-') and name not in ('enclosure-tee-carrier-left','enclosure-tee-carrier-right'):continue
+        if name.startswith('enclosure-'):continue
         if any(x in name for x in ('-word','nameplate-ink','tube-collar-')):continue
         if name.startswith('cold-core/') and name not in ('cold-core/foam-shell','cold-core/foam-cap-top','cold-core/foam-cap-lid-top'):continue
-        if name.startswith(('coil-','tee-carrier-spring')):continue
+        if name.startswith('coil-'):continue
         role='hardware'
         if name=='funnel':role='funnel'
         elif name=='display/1':role='device'
