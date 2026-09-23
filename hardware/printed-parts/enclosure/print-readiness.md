@@ -17,8 +17,9 @@ proceed; a concretely defective one is cancelled and replaced.
 New jobs use the saved [PET-GF profile](../petgf.3mf): black PET-GF on the fixed left 0.4 mm
 nozzle and `auto_brim`. H2C uses +0.18 mm requested trim (+0.16 mm emitted for Textured PEI);
 Mark2 uses +0.04 mm (+0.02 mm emitted). Both configured printable areas are 325 × 320 mm, with
-at least 15 mm model border. Each slice prints 0.08 mm layers in a band wherever a round meets
-a top or bottom face in its print orientation, and 0.24 mm elsewhere. Each actual slice reports
+at least 15 mm model border. Each slice prints 0.08 mm layers consistently through the entire
+height of every curve that meets a top or bottom face in its print orientation, from where the
+curve leaves the wall to where it levels into the face, and 0.24 mm elsewhere. Each actual slice reports
 emitted brim and support paths, and every support contact has an accessible removal lane before
 hardware installation, following the
 [support-removal strategy](enclosure/README.md#support-removal-strategy).
