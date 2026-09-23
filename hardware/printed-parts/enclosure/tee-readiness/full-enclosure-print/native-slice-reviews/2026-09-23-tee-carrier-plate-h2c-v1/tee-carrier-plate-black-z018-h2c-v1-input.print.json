@@ -1,0 +1,212 @@
+{
+  "project": "tee-carrier-plate-black-z018-h2c-v1-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "0c30c22c698d3759179269ef8e508a81c4675af558d15b8cf0f6b91cc1db72d7",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "stl_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+      "triangles": 47944,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        194.61000061035156,
+        -106.51300048828125
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        10.527000427246094
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        10.527000427246094
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          130.31399536132812,
+          0.0
+        ],
+        [
+          270.0,
+          189.68600463867188,
+          21.054000854492188
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10,
+      "original_source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "original_stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde"
+    }
+  ],
+  "project_sha256": "80bb54645b4fbef09fbf9ed1e63089c591785fa4b3189cb8d351f2c622f001c8",
+  "settings_preserved_byte_for_byte": false,
+  "job_key": "tee-carrier",
+  "assigned_printer": "H2C",
+  "archive_stem": "tee-carrier-plate-black-z018-h2c-v1",
+  "requested_z_trim_mm": 0.18,
+  "actual_textured_z_trim_mm": 0.16,
+  "geometry_confirmation": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/geometry-confirmation.json",
+  "geometry_confirmation_sha256": "e42438228238ba1695b99444c74c72bb85d854b01a2e3df6768f88cae0cdd00b",
+  "geometry_confirmation_received_from": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/fresh-geometry-receipt.json",
+  "original_sources": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "source_stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          95.98600006103516,
+          164.9239959716797
+        ],
+        [
+          107.5,
+          117.04000091552734,
+          224.29600524902344
+        ]
+      ],
+      "original_mesh_triangles": 47944,
+      "pretransform_rotation_sequence": [
+        "X-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "oriented_stl_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          164.9239959716797,
+          -117.04000091552734
+        ],
+        [
+          107.5,
+          224.29600524902344,
+          -95.98600006103516
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        -1,
+        0
+      ]
+    }
+  ],
+  "layerwise_print": true,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task",
+  "writer_source_sha256": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
+  "workflow_sha256": {
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/finalize_review.py": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/job-config.json": "b060aabc5824cffbc90ec24d2245e566046330b44704eb769ba455084dd337ae",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/prepare.py": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/print_workflow.py": "01834de614efc55279b61f8308dac9009376b49f13861738026347b385898384",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/review_native.py": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/self_test.py": "1a7fe9b9802847f36733a247058c6dc7dcdf96abff2e5ef1674f35660027085b",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/slice.py": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177",
+    ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/write_receipt.py": "16b17847741f41afff836a3366e332d746772df6e1dbf84323cf5b5977b318e8"
+  },
+  "functional_regions": null,
+  "functional_regions_sha256": null,
+  "required_functional_toolpath_checks": []
+}

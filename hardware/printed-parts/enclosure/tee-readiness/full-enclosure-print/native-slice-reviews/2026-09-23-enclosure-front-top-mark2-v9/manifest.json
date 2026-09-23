@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "front-top-v9",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-mark2-v9/fresh-geometry-receipt.json",
+    "sha256": "8d841766f862b38c7321478fad6843af8d1588af4fd31ae86b6d262b76e20c68"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/ready/enclosure-front-top-black-z004-mark2-v9.gcode.3mf",
+    "sha256": "763336a4c44cba1687f91f3ba94ace337a87aa58bd653004c2094eb675d53fe2"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "3013ec707cb8f8ce659ef1ce53f3c7e2820702a6fe901059ba88f3432db566cc",
+  "layer_ranges_mm": {
+    "enclosure-front-top": [
+      {
+        "min_z": 192.4,
+        "max_z": 195.0,
+        "layer_height": 0.08,
+        "reason": "Derek, 2026-09-22: restore the original curves and print their last layers at 0.08 mm; the R18 above the display and the R6 roof side edges level into the roof at print z 195.0"
+      }
+    ]
+  },
+  "estimate": {
+    "seconds": 80564.8125,
+    "grams_petgf_density_1p43": 912.5070043756056,
+    "layers": 1326
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/job-config.json",
+      "sha256": "b5b2e08e158c1620507f919a6f3182d4f44248cddce1b5e594a030bea5a95da0",
+      "bytes": 1633
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/fresh-geometry-receipt.json",
+      "sha256": "8d841766f862b38c7321478fad6843af8d1588af4fd31ae86b6d262b76e20c68",
+      "bytes": 1655
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/geometry-evidence.json",
+      "sha256": "d279141f69f16e6c58730108f65c4911f85a66b2fe8107dff9de87bd0a03a765",
+      "bytes": 1037
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/preparation.json",
+      "sha256": "b6b2609c6f123129251a0ff20d6919d14d0b66ae5478e32716828790371e182d",
+      "bytes": 2214
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/readiness.json",
+      "sha256": "7c8e18317c61e4a7c05da988bf8342bed3fdbe7e80e8a3c1754684b3aefa82be",
+      "bytes": 6344
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/offline-review.json",
+      "sha256": "01425e8bf9dcc849bb1ce42374e73655e259608173a82b303ebde2af14290c6f",
+      "bytes": 6816
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/support-removal-review.json",
+      "sha256": "1807d37fe273d8872b974995e12bc93cfb67a3095fdfec069742c0cde2be0810",
+      "bytes": 18634
+    },
+    "enclosure-front-top-black-z004-mark2-v9-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/enclosure-front-top-black-z004-mark2-v9-input.support-audit.json",
+      "sha256": "69c79e0946f410b0b9c2d2c71f2d63d3d10a22aab8795366348d832b4f74cfc0",
+      "bytes": 13884
+    },
+    "enclosure-front-top-black-z004-mark2-v9-input.print.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/enclosure-front-top-black-z004-mark2-v9-input.print.json",
+      "sha256": "e63e831292a50a78488b34f63010f969d9459c8403d4f68c14a43de1c5827b01",
+      "bytes": 6840
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/slice-command.json",
+      "sha256": "724aa63bbc024769e39320bf88edbea15e7c6ab6aaa95d9bd97bc2b17e1bc373",
+      "bytes": 496
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/slice-input.json",
+      "sha256": "ce47b9ff274ef8564d0965db2b9519fef6a692c4fa13eb0cd96194382c84d57d",
+      "bytes": 279
+    },
+    "round-scan.json": {
+      "source_path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/round-scan.json",
+      "sha256": "ed7fa25c6a353b43ec6a715a916d608d31dc81271422befaf4a875a27d0f860f",
+      "bytes": 15307
+    }
+  }
+}

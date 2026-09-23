@@ -358,6 +358,48 @@
         "grams_actual_petgf_density_1p43": 465.6910031340842
       },
       "submitted": false
+    },
+    {
+      "job": "tee-carrier-v1",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-h2c-v1/manifest.json",
+        "sha256": "6bca8ac12b8b3caece47a65273c0c68d3ccc23a42b87ca5c899b7f85528c4583"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/ready/tee-carrier-plate-black-z018-h2c-v1.gcode.3mf",
+        "sha256": "00bfd7e1e1b51beff06af3a01a33296966760784eac923479c75104f5cc9fc1a"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-h2c-v1/offline-review.json",
+        "sha256": "9e8576181903051fefaa0ccbf888dd7a95cc9f57715be13dde1595b4f03e0551"
+      },
+      "slice_estimate": {
+        "seconds": 5983.5361328125,
+        "grams_actual_petgf_density_1p43": 50.13817421964897
+      },
+      "submitted": false
+    },
+    {
+      "job": "front-top-v9",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-mark2-v9/manifest.json",
+        "sha256": "68c93a3f556b89113a96ea2557e82964e560242a39b05f8562c465dfc8cd1b70"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v9/ready/enclosure-front-top-black-z004-mark2-v9.gcode.3mf",
+        "sha256": "763336a4c44cba1687f91f3ba94ace337a87aa58bd653004c2094eb675d53fe2"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-mark2-v9/offline-review.json",
+        "sha256": "01425e8bf9dcc849bb1ce42374e73655e259608173a82b303ebde2af14290c6f"
+      },
+      "slice_estimate": {
+        "seconds": 80564.8125,
+        "grams_actual_petgf_density_1p43": 912.5070043756056
+      },
+      "submitted": false
     }
   ]
 }

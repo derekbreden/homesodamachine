@@ -1,0 +1,191 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_assembly_checks",
+  "printer": "H2C",
+  "job": "tee-carrier",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/tee-carrier-plate-black-z018-h2c-v1-input.3mf",
+  "staged_input_sha256": "80bb54645b4fbef09fbf9ed1e63089c591785fa4b3189cb8d351f2c622f001c8",
+  "native_archive": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/ready/tee-carrier-plate-black-z018-h2c-v1.gcode.3mf",
+  "native_archive_sha256": "00bfd7e1e1b51beff06af3a01a33296966760784eac923479c75104f5cc9fc1a",
+  "gcode_sha256": "0df0e3d13dcbe9d69f5488995fc78e76e2079d4cb7c62df5fbb11a4389d8a705",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "source_stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          95.98600006103516,
+          164.9239959716797
+        ],
+        [
+          107.5,
+          117.04000091552734,
+          224.29600524902344
+        ]
+      ],
+      "original_mesh_triangles": 47944,
+      "pretransform_rotation_sequence": [
+        "X-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "oriented_stl_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          164.9239959716797,
+          -117.04000091552734
+        ],
+        [
+          107.5,
+          224.29600524902344,
+          -95.98600006103516
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        -1,
+        0
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "e42438228238ba1695b99444c74c72bb85d854b01a2e3df6768f88cae0cdd00b",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.18,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "printer_settings_id",
+    "machine_start_gcode",
+    "extruder_ams_count"
+  ],
+  "native_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-23 02:16:13.085631] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 02:16:14.727714] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 02:16:14.727926] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 135,
+  "native_log_diagnostics_review": "pending",
+  "estimated_seconds": 5983.5361328125,
+  "estimated_grams_saved_profile_density": 45.22954177856445,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-tee-carrier-plate",
+        "side_margins_mm": [
+          54.855,
+          130.13400000000001,
+          54.843999999999994,
+          130.109
+        ],
+        "minimum_margin_mm": 54.843999999999994
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 54.843999999999994,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/tee-carrier-plate-black-z018-h2c-v1-input.support-audit.json",
+  "support_audit_sha256": "53de908b690f22ed1f13f5fe940caef23779cf724d5c41ec874e9d54d2faf7d3",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false
+}

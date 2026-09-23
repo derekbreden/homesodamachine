@@ -1,0 +1,115 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "00bfd7e1e1b51beff06af3a01a33296966760784eac923479c75104f5cc9fc1a",
+  "gcode_sha256": "0df0e3d13dcbe9d69f5488995fc78e76e2079d4cb7c62df5fbb11a4389d8a705",
+  "support_audit_sha256": "53de908b690f22ed1f13f5fe940caef23779cf724d5c41ec874e9d54d2faf7d3",
+  "geometry_confirmation_sha256": "e42438228238ba1695b99444c74c72bb85d854b01a2e3df6768f88cae0cdd00b",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "support_summary": {
+        "support_bodies": 2,
+        "interface_islands": null,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 2,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "model_overhangs_review": "Two bed-rooted support bodies, one per column, each a sliver about 0.4 mm tall under the lowest part of the column's aft R6 rounds where they rise off the bed; neither carries a labelled interface. Nothing else takes support: the troughs and the spring bores open upward, the tie slots and the plate's sides stand vertical, the columns' end-face rounds along their long edges stand vertical, and the fore rounds roll up into the column tops inside the 18.454 to 21.054 band.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": null,
+            "shortest_build_up_mm": null,
+            "top_z_mm": 0.63,
+            "bbox_xy_mm": [
+              55.2,
+              130.4,
+              73.6,
+              189.6
+            ],
+            "interfaces": [],
+            "interface_reading": "unlabelled",
+            "bbox_cad_xyz_mm": [
+              -107.3,
+              165.01,
+              -116.84,
+              -88.9,
+              224.21,
+              -116.41
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -107.3,
+              116.41,
+              165.01,
+              -88.9,
+              116.84,
+              224.21
+            ]
+          },
+          "contact_region": "West column (-X): the lowest 0.4 mm of its aft R6 rounds where they rise off the bed (print z 0.24 to 0.64), along the end face's aft edge and the column's top and bottom aft edges; no labelled interface, the support is the first layers under the round's overhang.",
+          "removal_lane": "Peel the sliver off outward from under the round once the plate is off the bed; it stands outside the column's footprint under the overhang, with nothing enclosing it.",
+          "removal_direction_original_cad": "outward from the round: -X at the end face, \u00b1Z at the column's top and bottom aft edges",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Derek asked for the aft edges rounded R6 like the fore ones (a60a79bae, \"The variable layer heights change the equation\"); the 0.08 mm band from the bed keeps the round's steps fine and the slicer supports only its lowest 0.4 mm.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": null,
+            "shortest_build_up_mm": null,
+            "top_z_mm": 0.63,
+            "bbox_xy_mm": [
+              251.2,
+              130.4,
+              270.0,
+              189.6
+            ],
+            "interfaces": [],
+            "interface_reading": "unlabelled",
+            "bbox_cad_xyz_mm": [
+              88.7,
+              165.01,
+              -116.84,
+              107.5,
+              224.21,
+              -116.41
+            ],
+            "bbox_original_cad_xyz_mm": [
+              88.7,
+              116.41,
+              165.01,
+              107.5,
+              116.84,
+              224.21
+            ]
+          },
+          "contact_region": "East column (+X): the lowest 0.4 mm of its aft R6 rounds where they rise off the bed (print z 0.24 to 0.64), along the end face's aft edge and the column's top and bottom aft edges; no labelled interface, the support is the first layers under the round's overhang.",
+          "removal_lane": "Peel the sliver off outward from under the round once the plate is off the bed; it stands outside the column's footprint under the overhang, with nothing enclosing it.",
+          "removal_direction_original_cad": "outward from the round: +X at the end face, \u00b1Z at the column's top and bottom aft edges",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "Derek asked for the aft edges rounded R6 like the fore ones (a60a79bae, \"The variable layer heights change the equation\"); the 0.08 mm band from the bed keeps the round's steps fine and the slicer supports only its lowest 0.4 mm.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": []
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-23 02:16:13.085631] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 02:16:14.727714] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 02:16:14.727926] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The diagnostics are the T1001, T65535 and T65279 parser messages every plate from petgf.3mf carries: T1001 is the saved machine_start_gcode's hotend type detection, before the first layer; T65535 and T65279 are in its machine_end_gcode, after the last layer. Native return code 0, empty plate warning, black filament on nozzle 0.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}

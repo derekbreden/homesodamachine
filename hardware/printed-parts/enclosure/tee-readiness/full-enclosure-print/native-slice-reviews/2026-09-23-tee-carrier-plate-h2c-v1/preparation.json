@@ -1,0 +1,83 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/tee-carrier-plate-black-z018-h2c-v1-input.3mf",
+  "staged_input_sha256": "80bb54645b4fbef09fbf9ed1e63089c591785fa4b3189cb8d351f2c622f001c8",
+  "printer": "H2C",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "source_stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          95.98600006103516,
+          164.9239959716797
+        ],
+        [
+          107.5,
+          117.04000091552734,
+          224.29600524902344
+        ]
+      ],
+      "original_mesh_triangles": 47944,
+      "pretransform_rotation_sequence": [
+        "X-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v1/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "oriented_stl_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          164.9239959716797,
+          -117.04000091552734
+        ],
+        [
+          107.5,
+          224.29600524902344,
+          -95.98600006103516
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        -1,
+        0
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-tee-carrier-plate": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "e42438228238ba1695b99444c74c72bb85d854b01a2e3df6768f88cae0cdd00b"
+}
