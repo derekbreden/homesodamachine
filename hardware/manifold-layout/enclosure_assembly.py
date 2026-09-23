@@ -5824,10 +5824,14 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
-    # The tee carrier seated through both front flanks, its troughs on the four tees.
+    # The tee carrier seated through both front flanks, its troughs on the four tees, and its
+    # four return springs between its columns and the tee wall.
     if box.pack.collet_plate:
-        for name, part in _tee_carrier.parts(_enc.tee_carrier(box.pack)).items():
+        carrier = _enc.tee_carrier(box.pack)
+        for name, part in _tee_carrier.parts(carrier).items():
             a.add(part, name=name, color=M_PETGF_BLACK)
+        for name, spring in _tee_carrier.springs(carrier).items():
+            a.add(spring, name=name, color=M_STAINLESS)
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
     wedge_fills(placed_solids,
