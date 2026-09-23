@@ -178,7 +178,7 @@ WATER_SEGMENTS = (
 )
 
 # Gas passes from the wall bulkhead through WR1110, then the downstream check, to the
-# carbonator. The framed mouths include the external PI adapters and outlet coupling.
+# carbonator. The framed mouths include the external PI adapters.
 CO2_SEGMENTS = (
     ("co2-0", "co2-inlet inboard", "wr1110 inlet"),
     ("co2-1", "wr1110 outlet", "gasher-co2 inlet"),

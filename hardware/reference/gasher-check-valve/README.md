@@ -8,14 +8,14 @@ runs female → male. The two roles are:
   PP450822E chain.
 - **gasher-co2** — the check downstream of WR1110, before the cold core's
   plain bottom gas port. Its female inlet takes PI010822S; its male outlet
-  takes a 316 FNPT coupling and a second PI010822S.
+  takes PI450822S.
 
 The owned valve's exact body and seat materials are not established by the
 source drawing. Stainless/PTFE and nickel-plated-copper/soft-seat descriptions
 in the source record conflict. Confirm the supplier specification, pressure
 rating, CO2/carbonated-water suitability, cracking pressure and reverse sealing
 before qualifying the part for either duty. The gas-check placement must
-include the adapters and coupling, as specified in
+include the adapters, as specified in
 [internal plumbing](/hardware/assembly/internal-plumbing.md).
 
 Fluid roles are in [fluid topology](/hardware/topology/fluid-topology.md).

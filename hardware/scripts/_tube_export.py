@@ -136,8 +136,8 @@ def export(a):
         "bulkhead-water": "union", "bulkhead-flavor-a": "union", "bulkhead-flavor-b": "union",
         "bulkhead-carb": "union",
         "co2-inlet": "union",                 # neofit_bulkhead — a bulkhead fitting with a PTC collet each end
-        "gasher-co2": "collet",               # PI010822S in its socket / PP450822E on its stub (_lines._co2_0/_co2_1)
-        "wr1110": "collet",                   # PP010822E adapters in both NPT sockets
+        "gasher-co2": "collet",               # PI010822S in its socket / PI450822S on its stub (_lines._co2_1/_co2_2)
+        "wr1110": "collet",                   # PI010822S in its inlet socket / PI450822S on its outlet stub
         "asse1022-assembly": {"tube-in": "collet", "tube-out": "collet", "vent-tip": "stub"},
         "vk-solenoid": "collet", "flow-regulator": "collet", "water-split": "collet",
         "digiten-flow": "collet", "funnel-drain-union": "collet",
