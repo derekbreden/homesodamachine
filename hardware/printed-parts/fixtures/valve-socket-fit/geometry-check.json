@@ -38,11 +38,11 @@
   ],
   "print_orientation": "Enclosure +Z up; four socket axes horizontal on Y; port channel vertical and open at both ends.",
   "source_sha256": {
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "d33b372148b48d5e893070be7b22bdcda099d6c5fa2fcf83b7699009df8c22af",
-    "hardware/printed-parts/valve-seat/valve_seat.py": "fd058e64f8e0b8c843007d255d58a450ca2e17e799c183ebb89098c96f52efc1",
-    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "640acf974256bbfff88546cbef5672b870a2ceb21d34c128487bf1aa286ab498",
-    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "43a5895456ade58295100388a22704b7e488280c764a49ca048bffe91efb96ca",
-    "hardware/printed-parts/cadlib/fits.py": "7010eed76bd4f169bf2e6071422b3bd318a002c8a1328b9f84886be31732af97"
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "1856481c1189e2c8608c74d2944091d0178f6700224e67100d9ee17cd15bbbb3",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "65748b0cbe800c015e53b3982c090da8cd20b4e964a6ed376480a9639c6c1f59",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "1d42315f3372ea20287b866eee01f4e19ce3c73301a7c898950dc89b6ee24d55",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "0c5f27c43295713b4adc9ca305e2664ae3bf02c887ad2eb2aa7433fa06fefc44",
+    "hardware/printed-parts/cadlib/fits.py": "bcf3906a2d94407f45f6cfdb9d0f3b73e1f1d3d985eddab8c8889b768e3c325b"
   },
   "production_function_ast_sha256": {
     "enclosure._valve_socket_cutters": "e4c5e908ec84c7383ff1f4424c4d427c4f751ba1d3f58188ab0609bce86e092f",
@@ -51,9 +51,9 @@
     "valve_tray.build_port_channel": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e"
   },
   "artifacts": {
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "7bd7cc27caac20bc82d1b2c3ae583ccd27f2aaaaacb54017d7ee62e71ec3b2a7",
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "bb30ef9291b95ea2a0c780a3b755fbf326a582641cf3be180d9b2ddb8c20d98a",
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "9a1e07b3620d613091795fe41ed982c4cf14452c8a1be1ddc3a279b1890942b2"
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "011dcf163392c3b19de9eff88a45b94e68821cb5fe1f50e62600944438b114f7",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "0ed68a48d7923d3efd9b12d4700b242021bcc673f64ec5d53ae03cd184e39b3e",
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "7e954e6355262901a37704f91440b959681bfa6e307db233d597c9de2eed4424"
   },
   "mesh_watertight": true,
   "mesh_bodies": 1,
