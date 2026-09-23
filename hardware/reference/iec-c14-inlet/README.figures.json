@@ -1,0 +1,32 @@
+{
+  "/hardware/reference/iec-c14-inlet/iec_c14_inlet.py": {
+    "BODY_CHAMFER_LEG": "4.85",
+    "BODY_DEPTH": "13.65",
+    "BODY_H": "18",
+    "BODY_W": "26.1",
+    "BOSS_H": "10",
+    "BOSS_PROUD": "1.17",
+    "BOSS_W": "4",
+    "CAVITY_FLOOR_Y": "14.3",
+    "CSK_D": "6.1",
+    "EAR_CX": "20",
+    "EAR_R": "4.885",
+    "FLANGE_END_CHORD": "17.98",
+    "FLANGE_H": "21.9",
+    "FLANGE_T": "3.25",
+    "FLANGE_W": "49.77",
+    "MOUTH_CHAMFER": "4.8",
+    "MOUTH_H": "16.26",
+    "MOUTH_TOP_R": "2.3",
+    "MOUTH_W": "24.82",
+    "RIM_H": "22.13",
+    "RIM_PROUD": "1.84",
+    "RIM_R": "6",
+    "RIM_W": "31.03",
+    "SCREW_D": "3.24",
+    "SCREW_PITCH": "40.21",
+    "TAB_T": "0.8",
+    "TAB_TIP_Y": "25",
+    "TAB_W": "6.3"
+  }
+}

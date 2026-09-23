@@ -38,7 +38,7 @@ Coordinate convention
 Y is the mating axis and +Y points out of the enclosure toward the C13 cord. The
 panel-seating plane is Y=0, at the outboard face of the flange's ears. The rim
 stands at Y>0; flange, housing, bosses and tabs lie at Y<0. X is the flange's
-49.97 mm axis, centred between the two screw holes, and +Z is up with the earth
+long axis, centred between the two screw holes, and +Z is up with the earth
 blade below the line and neutral pair.
 
 Run:
@@ -397,6 +397,46 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
+def readme() -> None:
+    """Fill README.md's dimension table from the constants the model is drawn with."""
+    sys.path.insert(0, str(next(p for p in _here.parents
+                                if (p / "tools" / "docgen").is_dir()) / "tools"))
+    from docgen import substitute_md                               # noqa: PLC0415
+    substitute_md(_here.parent / "README.md", variables={
+        "FLANGE_W": f"{FLANGE_W:g}",
+        "FLANGE_H": f"{FLANGE_H:g}",
+        "FLANGE_T": f"{FLANGE_T:g}",
+        "EAR_R": f"{EAR_R:.4g}",
+        "EAR_CX": f"{EAR_CX:g}",
+        "FLANGE_END_CHORD": f"{FLANGE_END_CHORD:g}",
+        "SCREW_D": f"{SCREW_D:g}",
+        "SCREW_PITCH": f"{SCREW_PITCH:g}",
+        "CSK_D": f"{CSK_D:g}",
+        "RIM_W": f"{RIM_W:g}",
+        "RIM_H": f"{RIM_H:g}",
+        "RIM_R": f"{RIM_R:g}",
+        "RIM_PROUD": f"{RIM_PROUD:g}",
+        "MOUTH_W": f"{MOUTH_W:g}",
+        "MOUTH_H": f"{MOUTH_H:g}",
+        "MOUTH_TOP_R": f"{MOUTH_TOP_R:g}",
+        "MOUTH_CHAMFER": f"{MOUTH_CHAMFER:g}",
+        # The floor and the tab tips stand behind the seating plane, at -Y; the table
+        # gives how far.
+        "CAVITY_FLOOR_Y": f"{-CAVITY_FLOOR_Y:g}",
+        "BODY_W": f"{BODY_W:g}",
+        "BODY_H": f"{BODY_H:g}",
+        "BODY_DEPTH": f"{BODY_DEPTH:g}",
+        "BODY_CHAMFER_LEG": f"{BODY_CHAMFER_LEG:g}",
+        "BOSS_W": f"{BOSS_W:g}",
+        "BOSS_H": f"{BOSS_H:g}",
+        "BOSS_PROUD": f"{BOSS_PROUD:g}",
+        "TAB_T": f"{TAB_T:g}",
+        "TAB_W": f"{TAB_W:g}",
+        "TAB_TIP_Y": f"{-TAB_TIP_Y:g}",
+    })
+    print("-> README.md")
+
+
 def main() -> None:
     part = build_iec_c14_inlet()
     bb = part.val().BoundingBox()
@@ -409,6 +449,7 @@ def main() -> None:
     print(f"  solid valid: {part.val().isValid()}")
     export_assembly(one_body(part, "iec-c14-inlet", C_C14), str(STEP))
     print(f"-> {STEP.name}")
+    readme()
 
 
 if __name__ == "__main__":

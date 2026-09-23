@@ -25,7 +25,7 @@ ears, the plane the wall's seating face carries.
 
 | Interface | Model dimension |
 |---|---|
-| Flange, nose to nose × across the long flats | [49.97](FLANGE_W) × [21.88](FLANGE_H) mm, [3.25](FLANGE_T) thick |
+| Flange, nose to nose × across the long flats | [49.77](FLANGE_W) × [21.9](FLANGE_H) mm, [3.25](FLANGE_T) thick |
 | Ears and tapers | R[4.885](EAR_R) arcs centred [20](EAR_CX) from the axis, [17.98](FLANGE_END_CHORD) mm from shoulder to nose |
 | Screw holes | Ø[3.24](SCREW_D), [40.21](SCREW_PITCH) mm apart on the mating axis, 90° countersunk to Ø[6.1](CSK_D) outboard |
 | Rim round the cavity mouth | [31.03](RIM_W) × [22.13](RIM_H) mm R[6](RIM_R), [1.84](RIM_PROUD) proud of the ears |
