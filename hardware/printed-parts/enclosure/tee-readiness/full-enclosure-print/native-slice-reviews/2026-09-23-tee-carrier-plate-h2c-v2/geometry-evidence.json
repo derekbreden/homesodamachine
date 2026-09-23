@@ -1,0 +1,35 @@
+{
+  "source_commits": [
+    "a60a79bae",
+    "f38f939d1"
+  ],
+  "freshness": {
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": {
+      "disk": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "published": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde"
+    },
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": {
+      "disk": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "published": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15"
+    },
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl": {
+      "disk": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+      "published": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3"
+    },
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step": {
+      "disk": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550",
+      "published": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550"
+    },
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl": {
+      "disk": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+      "published": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c"
+    },
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step": {
+      "disk": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
+      "published": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a"
+    }
+  },
+  "round_scan": "round-scan.json: the plate's R6 end rounds level at the bed and the column tops; the covers, lying on their outboard faces, have no round that levels",
+  "placement": "plate on its back at (162.5, 125); covers at (112, 215) west and (213, 215) east, on their outboard faces as the carrier README states",
+  "layer_ranges": "plate 0-2.6 and 18.454-21.054 at 0.08 mm; covers none (their 0.24 mm layers fall on the plate's grid)"
+}
