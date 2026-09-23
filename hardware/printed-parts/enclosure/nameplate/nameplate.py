@@ -301,7 +301,13 @@ def main(unit):
         if not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
             _write_mesh_payload(receiver_path, _per_solid_color(coupon))
     variables = {"PLATE_W":f"{WIDTH:g} mm", "PLATE_H":f"{HEIGHT:g} mm",
-                 "NAMEPLATE_T":f"{THICK:g} mm", "INK_DEPTH":f"{INK_DEPTH:g} mm"}
+                 "NAMEPLATE_T":f"{THICK:g} mm", "INK_DEPTH":f"{INK_DEPTH:g} mm",
+                 "TAB_PITCH":f"{2*interface.TAB_X:g} mm",
+                 "TAB_TO_END":f"{WIDTH/2-interface.TAB_X:.1f} mm",
+                 "SHOULDER_W":f"{interface.SHOULDER_W:g} mm",
+                 "SHOULDER_STOCK":f"{interface.SHOULDER_STOCK:g} mm",
+                 "BAR_CROWN":f"{interface.BAR_CROWN:g} mm",
+                 "POCKET_FLOOR":f"{WALL-THICK:g} mm"}
     substitute_md(_here.with_name("README.md"), variables=variables)
     print(f"Nameplate {unit:04d}: {WIDTH:g} × {HEIGHT:g} × {THICK:g} mm; face-down PET-GF")
     print(f"QR: {_plan.unit_url(unit)}, version 1/M, 21×21 modules at {QR_MODULE:g} mm")

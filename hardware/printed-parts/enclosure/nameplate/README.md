@@ -34,11 +34,18 @@ its total height is 2.8 mm. Pushing the plate into its pocket bends the
 tabs inward; they return behind the enclosure's rigid shoulders. The 0.60 mm shank clearance
 leaves 1.2 mm nominal catch engagement. The square retaining face has 0.48 mm axial clearance.
 
-The receiver has straight slots, an inward flex lane and open rear relief. Each shoulder
-retains 2 mm of stock behind its bearing face. Its supported end receives the enclosure's
-0.25 mm print-direction allowance. The pocket floor retains 3.6 mm of material outside the
-two slots. The water pump's full-width rear bearing ledge remains at its assembly datum.
-The plate centre is 9.5 mm above the cold-core cap.
+The tabs stand on the plate's horizontal centre line, [82 mm](TAB_PITCH) apart, which leaves
+[11.3 mm](TAB_TO_END) from each tab to its end of the plate. One bar behind the pocket receives
+both. It spans the two [3 mm](SHOULDER_W) retaining shoulders and runs the full depth from the
+wall to [2 mm](SHOULDER_STOCK) inboard of the bearing faces, with [3 mm](BAR_CROWN) of bar over
+the slots. Each tab's straight slot, with its inward flex lane, and the catch pocket ahead of
+its shoulder run out through the bar's print-up face. A 45° corbel carries the bar's print-down
+face back to the wall, so back-top prints the receiver without support. The pocket floor
+retains [3.6 mm](POCKET_FLOOR) of material outside the two slots. The bar's east end stands
+clear of the PSU's AC terminal block (`nameplate-psu-clear`).
+
+The plate is centred on the flavour chips' height, and across the field between the flavour A
+pocket and the rear tangent.
 
 The interface is defined once in
 [`_nameplate_interface.py`](../enclosure/_nameplate_interface.py); `enclosure._nameplate` cuts
@@ -47,9 +54,9 @@ No screws or heat-set inserts are used at this joint.
 
 The [faucet trials](/hardware/printed-parts/faucet/faucet-display-petgf.md) establish the useful
 scale of PET-GF features: 1.3 mm cover stock, 3 mm lips and generous receiving clearance.
-The nameplate uses this stock in straight tabs with broad, supported bearing
-faces. Its CAD fit and swept insertion are checked; force, edge finish and retention are
-read from a physical plate-and-receiver print.
+The nameplate uses this stock in straight tabs with broad bearing faces. Its CAD fit and
+swept insertion are checked; force, edge finish and retention are read from a physical
+plate-and-receiver print.
 
 ## Printing and assembly
 
@@ -62,9 +69,9 @@ filament change above a black slab.
 The square lip undersides receive accessible supports with a 0.24 mm top gap; the slicer's
 small-overhang support filter is disabled to keep these contacts. Preserve
 these bearing faces during removal; a rounded extrusion envelope is not a substitute for
-a printed ledge. Supports on the removable plate are accessible from both sides of each tab. Keep the two square catches, their receiving shoulders and
-the pocket's lower rim clean. The coupon can be printed in the enclosure orientation to check
-those supported receiver faces with the production material.
+a printed ledge. Supports on the removable plate are accessible from both sides of each tab. Keep the two square catches and their receiving shoulders
+clean. The coupon prints in the enclosure orientation in the production material; of its
+receiver faces, only the pocket's lower rim takes support.
 
 Scan the finished plate to verify the unit number, then press it straight into the rear
 pocket until both clips engage and its face seats. Confirm the plate is retained and that

@@ -1,9 +1,15 @@
 {
   "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {},
   "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {
+    "BAR_CROWN": "3 mm",
     "INK_DEPTH": "0.72 mm",
     "NAMEPLATE_T": "2.4 mm",
     "PLATE_H": "38 mm",
-    "PLATE_W": "104.53 mm"
+    "PLATE_W": "104.53 mm",
+    "POCKET_FLOOR": "3.6 mm",
+    "SHOULDER_STOCK": "2 mm",
+    "SHOULDER_W": "3 mm",
+    "TAB_PITCH": "82 mm",
+    "TAB_TO_END": "11.3 mm"
   }
 }

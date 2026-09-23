@@ -3454,13 +3454,13 @@ def disposal_figures(outer):
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
-    """Flush pocket, two rigid snap shoulders and the pump's rear bearing ledge.
+    """Flush pocket and the one bar behind it that receives both snap tabs.
 
     The compliant tabs belong to the face-down nameplate. The wall receives
-    them through straight slots opening into the enclosure. The lower end of
-    each slot gets the print-direction allowance; the retaining shoulders
-    keep their flat bearing faces. The full pump-bearing top stays at its
-    placement datum and receives the enclosure's supported-face compensation.
+    them through straight slots into the bar, whose rigid shoulders keep flat
+    bearing faces. Each slot and catch pocket runs out through the bar's
+    print-up face, and a 45° corbel carries its print-down face back to the
+    wall, so back-top prints the receiver without support.
     """
     if plate is None or not (zlo <= plate.z <= zhi):
         return solid
@@ -8993,13 +8993,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # reason the ASSE anchor is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, roots, inner, box.pack.tube_anchors, ylo, yhi, zlo, zhi,
                           up=up)
-    # And the nameplate — the pocket on the +Y wall's outer face, the plateau that floors it on
-    # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
-    # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,
-    # so anything fused onto this face afterwards would stand in the plate's own seat. The cold
-    # core's aft bracket is the one that does — its leg climbs this face right through the
-    # plate's lane, and cut here it roots on the pocket's floor with the plateau, one continuous
-    # section, instead of poking through into the plate.
+    # And the nameplate — the pocket on the +Y wall's outer face and the receiving bar on the
+    # inner one. LAST of this wall's work, like every other pocket: its slots run through the
+    # wall, so anything fused onto this face afterwards would close them. The cold core's aft
+    # bracket is the one that does — its leg climbs this face right through the bar, and cut
+    # here it roots with the bar in one continuous section.
     if y_side == "back":
         piece = _nameplate(piece, box.pack.nameplate, outer, oy1, zlo, zhi, up=up)
     # And the flat ceiling's two strips over the funnel opening's flanks, on the front
