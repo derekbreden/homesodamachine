@@ -9655,7 +9655,7 @@ _last_box = [None]
 
 def _piece_mesh(solid):
     """Absolute-tolerance print mesh, without any cached triangulation."""
-    from _world_sdf import mesh_shape
+    from _meshes import mesh_shape
     points, triangles = mesh_shape(solid.copy(mesh=False), piece_mesh_tol, piece_mesh_angle)
     mesh = trimesh.Trimesh(vertices=points, faces=triangles, process=True)
     mesh.merge_vertices()
