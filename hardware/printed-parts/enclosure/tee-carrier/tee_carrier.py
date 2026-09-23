@@ -7,6 +7,9 @@ The four bare tees are tied into its troughs on the bench; the plate enters thro
 flank `staged_dy` aft of its seat, where every branch nose passes the tee wall's aft face, and
 slides fore until each branch stands in its journal.
 
+Four return springs, two in each column, stand in blind bores in the column's fore face and bear
+on the tee wall's aft face, one over the other either side of the tees' run axis.
+
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
 of the fore valve tray's corbel. Front-top and front-bottom cut it (`opening`).
@@ -35,6 +38,14 @@ import fits                                                  # noqa: E402
 import tee_connector as tee                                  # noqa: E402
 
 PLATE = "enclosure-tee-carrier-plate"
+SPRINGS = "tee-carrier-spring"
+
+# The return springs: uxcell 304 stainless, 0.8 mm wire. Derek measured the delivered set at
+# 6 mm OD, 27 mm free and about 7 mm solid (2026-09-20).
+SPRING_OD = 6.0
+SPRING_FREE = 27.0
+SPRING_SOLID = 7.0
+SPRING_WIRE = 0.8
 
 
 def _box(x0, x1, y0, y1, z0, z1):
@@ -123,6 +134,31 @@ class Carrier:
         return self.floor_z + self.air, self.roof_z - self.air - fits.supported_surface
 
     @property
+    def spring_x(self):
+        """The middle of the column's width."""
+        return sum(self.column_x) / 2.0
+
+    @property
+    def spring_bore_r(self):
+        return SPRING_OD / 2.0 + self.air
+
+    @property
+    def spring_zs(self):
+        """Either side of the tees' run axis, as far apart as a backing's floor under the lower
+        bore allows."""
+        d = self.axis_z - self.column_z[0] - self.backing - self.spring_bore_r
+        return self.axis_z - d, self.axis_z + d
+
+    @property
+    def spring_bore_y(self):
+        """From the column's fore face to a backing short of the plate's back."""
+        return self.column_y[0], self.plate_y[1] - self.backing
+
+    def spring_length(self, offset_y=0.0):
+        """Tee wall's aft face to the bore's floor, with the carrier `offset_y` aft of connected."""
+        return self.spring_bore_y[1] + offset_y - self.wall_aft_y
+
+    @property
     def tie_zs(self):
         """The two tie bands on each tee, round the run roots either side of the branch."""
         band = sum(tee.RUN_ROOT_BAND) / 2.0
@@ -159,7 +195,32 @@ def build_plate(c: Carrier):
     for side in (-1.0, 1.0):
         x0, x1 = sorted(side * x for x in c.column_x)
         body = body.fuse(_box(x0, x1, *c.column_y, *c.column_z))
+    by0, by1 = c.spring_bore_y
+    for side in (-1.0, 1.0):
+        for z in c.spring_zs:
+            body = body.cut(cq.Solid.makeCylinder(
+                c.spring_bore_r, by1 - by0 + 1.0, cq.Vector(side * c.spring_x, by0 - 1.0, z),
+                cq.Vector(0, 1, 0)))
     return cq.Workplane(obj=body.clean())
+
+
+def _spring(length):
+    """A spring `length` long on +Z from the origin: its coils at the solid length's pitch count,
+    each end a coil standing on its face."""
+    r = (SPRING_OD - SPRING_WIRE) / 2.0
+    pitch = (length - SPRING_WIRE) / (SPRING_SOLID / SPRING_WIRE)
+    helix = cq.Wire.makeHelix(pitch, length - SPRING_WIRE, r,
+                              center=cq.Vector(0, 0, SPRING_WIRE / 2.0))
+    profile = cq.Wire.makeCircle(SPRING_WIRE / 2.0, helix.startPoint(), helix.tangentAt(0))
+    return cq.Solid.sweep(profile, [], helix, isFrenet=True)
+
+
+def springs(c: Carrier) -> dict:
+    """The four springs at connected, from the tee wall's aft face to their bores' floors."""
+    spring = _spring(c.spring_length()).rotate((0, 0, 0), (1, 0, 0), -90.0)
+    return {f"{SPRINGS}-{side}-{level}": spring.translate((sx * c.spring_x, c.wall_aft_y, z))
+            for side, sx in (("west", -1.0), ("east", 1.0))
+            for level, z in zip(("lower", "upper"), c.spring_zs)}
 
 
 def parts(c: Carrier) -> dict:
@@ -190,6 +251,15 @@ def figures(c: Carrier) -> dict:
         "NOSE_GAP": tee.CARRIER_AFT_COLLET_GAP, "COLLET_STROKE": tee.BRANCH_COLLET_TRAVEL,
         "RELEASE_TRAVEL": release_travel(),
         "FORE_ROOM": c.column_y[0] - c.opening_y[0],
+        "SPRING_OD": SPRING_OD, "SPRING_FREE": SPRING_FREE, "SPRING_SOLID": SPRING_SOLID,
+        "SPRING_WIRE": SPRING_WIRE, "SPRING_BORE_D": 2.0 * c.spring_bore_r,
+        "SPRING_BORE_DEPTH": c.spring_bore_y[1] - c.spring_bore_y[0],
+        "SPRING_SPREAD": c.spring_zs[1] - c.spring_zs[0],
+        "SPRING_CONNECTED": c.spring_length(),
+        "SPRING_RELEASE": c.spring_length(-release_travel()),
+        "SPRING_CONNECTED_COMPRESSION": SPRING_FREE - c.spring_length(),
+        "SPRING_RELEASE_COMPRESSION": SPRING_FREE - c.spring_length(-release_travel()),
+        "SPRING_SIDE_WALL": c.spring_x - c.spring_bore_r - c.column_x[0],
         "FLANK_T": c.exterior_x - c.flank_x,
         "LENGTH": 2.0 * c.exterior_x,
     }
@@ -208,6 +278,14 @@ def selftest(c: Carrier) -> int:
         errors.append("the flank pockets' floor stands under the tees' run span")
     if abs(c.plate_y[1] + c.staged_dy - (c.opening_y[1] - c.strap_t - c.air)) > 1e-9:
         errors.append("the staged plate's strapped back does not close the opening")
+    if not SPRING_SOLID < c.spring_length(-release_travel()) < c.spring_length() < SPRING_FREE:
+        errors.append("a spring is solid at release or slack at connected")
+    if min(c.spring_x - c.spring_bore_r - c.column_x[0],
+           c.column_x[1] - c.spring_x - c.spring_bore_r) < c.backing - 1e-9:
+        errors.append("a spring bore leaves less than a backing of column beside it")
+    for name, spring in springs(c).items():
+        if not spring.isValid():
+            errors.append(f"{name} is not a valid solid")
     if c.column_y[0] - release_travel() < c.opening_y[0] + fits.slip - 1e-9:
         errors.append("the openings stop the columns short of pressing the collets home")
     for error in errors:

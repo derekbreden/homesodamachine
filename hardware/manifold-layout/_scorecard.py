@@ -414,6 +414,11 @@ MOUNTS = (
     ("tee-y-d", "enclosure-tee-carrier-plate", "tie-capture"),
     ("tee-y-f", "enclosure-tee-carrier-plate", "tie-capture"),
     ("tee-y-g", "enclosure-tee-carrier-plate", "tie-capture"),
+    # EACH RETURN SPRING STANDS IN A BLIND BORE IN A CARRIER COLUMN and bears on the tee wall's
+    # aft face in front-top: the two pieces close on it between them.
+    *((f"tee-carrier-spring-{side}-{level}", ("enclosure-front-top", "enclosure-tee-carrier-plate"),
+       "gap-press")
+      for side in ("west", "east") for level in ("lower", "upper")),
 )
 
 
@@ -649,6 +654,10 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # SEATS against each other, each named against the construction that seats it — a contact by
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
+    # A return spring's ends: one on the tee wall's aft face, one on its bore's floor.
+    *((f"tee-carrier-spring-{side}-{level}", host)
+      for side in ("west", "east") for level in ("lower", "upper")
+      for host in ("enclosure-front-top", "enclosure-tee-carrier-plate")),
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
