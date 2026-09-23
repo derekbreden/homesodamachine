@@ -1,0 +1,23 @@
+{
+  "/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": {
+    "AIR": "0.25 mm",
+    "BACKING": "3 mm",
+    "BARREL_D": "16.5 mm",
+    "FLANK_T": "9 mm",
+    "GRIP_WALL": "3 mm",
+    "HANDLE_FORE": "11.454 mm",
+    "LENGTH": "215 mm",
+    "OPENING_Y": "35.35 mm",
+    "OPENING_Z": "45.7 mm",
+    "PLATE_H": "39.2 mm",
+    "PLATE_T": "11.5 mm",
+    "RUN_SPAN_PRESSED": "39.2 mm",
+    "SLIDE_ROOM": "11.896 mm",
+    "STAGED_DY": "10.896 mm",
+    "STRAP_T": "1 mm",
+    "TIE_BAND": "8.35 mm",
+    "TIE_SLOT_X": "2 mm",
+    "TIE_SLOT_Z": "3.5 mm",
+    "TROUGH_D": "17 mm"
+  }
+}

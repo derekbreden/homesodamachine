@@ -407,6 +407,13 @@ MOUNTS = (
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
+    # THE FOUR PUMP-BARB TEES RIDE THE TEE CARRIER. Each sits half inset in a trough of the plate
+    # and two ties round its run roots close it there; its branch collar stands in the tee
+    # wall's journal.
+    ("tee-y-c", "enclosure-tee-carrier-plate", "tie-capture"),
+    ("tee-y-d", "enclosure-tee-carrier-plate", "tie-capture"),
+    ("tee-y-f", "enclosure-tee-carrier-plate", "tie-capture"),
+    ("tee-y-g", "enclosure-tee-carrier-plate", "tie-capture"),
 )
 
 
@@ -452,8 +459,8 @@ def derived_mounts() -> tuple:
     """One row for every placed body `MOUNTS` does not name.
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
-    printed seats and the pump heads have their cartridge cradle; the four moving tees float on
-    their tubes (`NEVER`). A remaining body no printed feature reaches is carried only
+    printed seats, the pump heads have their cartridge cradle and the four barb tees are tied to
+    the tee carrier. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
@@ -513,19 +520,12 @@ NEVER = {
              f"stub with no tube between them, and that valve stands in four printed sockets — "
              f"so what holds this tee is the seat under the valve it butts.")
        for tee, valve in (("tee-y-a", "valve-v-c"), ("tee-y-b", "valve-v-d"))},
-    # THE FOUR PUMP-BARB TEES FLOAT. Nothing printed closes on them; each hangs on its three
-    # tubes.
-    **{tee: (f"Free floating: its collets make up onto the pump cartridge's tube, the bowed stub "
-             f"to {valve.upper()[len('VALVE-'):]} and its spine hairpin, and nothing printed "
-             f"closes on it.")
-       for tee, valve in (("tee-y-c", "valve-v-e"), ("tee-y-d", "valve-v-f"),
-                          ("tee-y-f", "valve-v-h"), ("tee-y-g", "valve-v-i"))},
 }
 
 
 # Which fixed valve each tee reaches, and by which manifold construction. The two inner tees
-# derive their hold through face-to-face butts; the four pump-barb tees float and reach their
-# fixed fore valves through explicit bowed flex stubs.
+# derive their hold through face-to-face butts; the four pump-barb tees ride the tee carrier and
+# reach their fixed fore valves through explicit bowed flex stubs.
 TEE_LANDS = {
     "tee-y-a": ("valve-v-c", "butt"),
     "tee-y-b": ("valve-v-d", "butt"),
