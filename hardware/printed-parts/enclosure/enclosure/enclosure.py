@@ -995,12 +995,14 @@ def front_top_flank_face():
     return (ix0 + grown, ix1 - grown)
 
 
-def tee_carrier(plate):
+def tee_carrier(pack):
     """The tee carrier on the collet plate's four tees, flush with both of front-top's flanks.
-    Its tie slots are the zip tie's cavity, and the strap across its back is the tie's stock."""
+    Its tie slots are the zip tie's cavity, and the strap across its back is the tie's stock.
+    Its flank openings rise to the floor of the fore coils' flank pockets."""
     return _tee_carrier.Carrier.on(
-        plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
-        tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t)
+        pack.collet_plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
+        tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t,
+        roof_z=min(z0 for _name, _x0, _x1, _y0, _y1, z0, _z1 in pack.front_flank_reliefs))
 
 
 def lip_face_x():
@@ -9028,7 +9030,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _handholds(piece, inner, y_joint, y_side)
     if y_side == "front" and plate:
         # The tee carrier's way in and its slide, through both flanks and the seam rail on them.
-        piece = piece.cut(_tee_carrier.opening(tee_carrier(plate)))
+        piece = piece.cut(_tee_carrier.opening(tee_carrier(box.pack)))
     if y_side == "back" and z_side == "bottom":
         disposal_field(outer)
         piece = piece.fuse(*disposal_letters(outer).Solids())
