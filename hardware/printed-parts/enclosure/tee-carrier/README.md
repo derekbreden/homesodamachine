@@ -25,13 +25,16 @@ outboard wall on the trough's edge. The tie closes round the tee's front, drops 
 root into the slot on each side and crosses the plate's back. Its
 [1 mm](STRAP_T) strap across the back is inside the flank openings.
 
-Each column's end face is flush with its flank and is show face. All four of its edges roll over
-on the enclosure's [6 mm](SHOW_EDGE_R) shoulder, the radius of the enclosure's own side edges.
-The exporter strikes the enclosure's flute field on the face at the connected pose, so its
-grooves register with the flank's and fade short of the face's edges the same way.
+Each column's end face is flush with its flank and is show face. Its top, bottom and fore edges
+roll over on the enclosure's [6 mm](SHOW_EDGE_R) shoulder, the radius of the enclosure's own side
+edges, and so do the column's two fore edges running inboard to it: each fore corner closes as
+one blend, the way the enclosure's front corners do. The aft edge stays square, the way the
+enclosure's rear edge does, and the top and bottom shoulders run out onto it. The exporter
+strikes the enclosure's flute field on the face at the connected pose, so its grooves register
+with the flank's and fade short of the face's edges the same way.
 
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
-the bed, and each end face's aft shoulder rises off the bed.
+the bed, and the square aft edges are the ones on the bed.
 
 ## Openings and travel
 
@@ -64,10 +67,11 @@ for front-top's mouth-down print.
 
 The column's bore is as deep as keeps a free spring's tip [12.796 mm](SPRING_STAGED_REACH) out of
 it, no further fore of the staged column than the branch noses; the pocket takes the rest of the
-spring's [20.2 mm](SPRING_CONNECTED) connected length. Each bore stands in the middle of the width
-the fore face keeps square inboard of its shoulder, with [2.2 mm](SPRING_SIDE_WALL) of column either
-side at the mouth. The two in a column stand [30 mm](SPRING_SPREAD) apart, one either side of the
-tees' run axis, the lower over a [3 mm](BACKING) floor.
+spring's [20.2 mm](SPRING_CONNECTED) connected length. Each bore keeps [3 mm](SPRING_SIDE_WALL) of
+column inboard of it; outboard, a [1.4 mm](SPRING_LAND) land of flat fore face stands between its mouth
+and the end face's shoulder, and the round thickens the wall from there. The two in a column
+stand [21.2 mm](SPRING_SPREAD) apart, one either side of the tees' run axis, the lower's mouth the same
+land clear of the column's rounded bottom edge.
 
 Connected, each spring is [20.2 mm](SPRING_CONNECTED) long,
 [6.8 mm](SPRING_CONNECTED_COMPRESSION) short of free; with every collet pressed home it is

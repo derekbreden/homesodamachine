@@ -11,8 +11,11 @@ Four return springs, two in each column, one over the other either side of the t
 Each runs from a blind bore in the column's fore face across the gap into a pocket in the tee
 wall's aft face (`spring_pockets`, cut by front-top).
 
-Each column's end face is flush with its flank and is show face: all four of its edges roll over
-on the enclosure's R6 shoulder, and the exporter strikes the enclosure's flute field on it.
+Each column's end face is flush with its flank and is show face. Its top, bottom and fore edges
+roll over on the enclosure's R6 shoulder, and so do the column's two fore edges running inboard
+to it, so each fore corner closes as one blend the way the enclosure's front corners do; its aft
+edge stays square the way the enclosure's rear edge does, and the top and bottom shoulders run
+out onto it. The exporter strikes the enclosure's flute field on the face.
 
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
@@ -141,9 +144,14 @@ class Carrier:
 
     @property
     def spring_x(self):
-        """The middle of the column's width that stays square at its fore face, inboard of the
-        end face's shoulder."""
-        return (self.column_x[0] + self.exterior_x - self.show_edge_r) / 2.0
+        """A backing of column inboard of the bore; outboard, the round thickens the wall past
+        the flat land the fore face keeps before its shoulder."""
+        return self.column_x[0] + self.backing + self.spring_bore_r
+
+    @property
+    def spring_land(self):
+        """The flat fore face between a bore's mouth and the end face's shoulder."""
+        return self.exterior_x - self.show_edge_r - self.spring_x - self.spring_bore_r
 
     @property
     def spring_bore_r(self):
@@ -151,9 +159,10 @@ class Carrier:
 
     @property
     def spring_zs(self):
-        """Either side of the tees' run axis, as far apart as a backing's floor under the lower
-        bore allows."""
-        d = self.axis_z - self.column_z[0] - self.backing - self.spring_bore_r
+        """Either side of the tees' run axis, as far apart as keeps the lower bore's mouth the
+        same land clear of the column's rounded bottom edge."""
+        d = (self.axis_z - self.column_z[0] - self.show_edge_r - self.spring_land
+             - self.spring_bore_r)
         return self.axis_z - d, self.axis_z + d
 
     @property
@@ -192,7 +201,7 @@ def opening(c: Carrier):
     return cutter.clean()
 
 
-def build_plate(c: Carrier):
+def _plate_body(c: Carrier):
     """The plate from flank face to flank face, with a trough at each tee, a tie slot at each of
     its edges for each tie band, and a column at each end."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
@@ -215,18 +224,38 @@ def build_plate(c: Carrier):
             body = body.cut(cq.Solid.makeCylinder(
                 c.spring_bore_r, by1 - by0 + 1.0, cq.Vector(side * c.spring_x, by0 - 1.0, z),
                 cq.Vector(0, 1, 0)))
-    body = body.clean()
-    return cq.Workplane(obj=body.fillet(c.show_edge_r, _shoulder_edges(c, body)).clean())
+    return body.clean()
 
 
-def _shoulder_edges(c: Carrier, body):
-    """All four edges of each end face."""
-    out = [edge for edge in body.Edges()
-           if abs(abs(edge.startPoint().x) - c.exterior_x) < 1e-6
-           and abs(abs(edge.endPoint().x) - c.exterior_x) < 1e-6]
-    if len(out) != 8:
-        raise ValueError(f"expected the two end faces' four edges each, found {len(out)}")
-    return out
+def build_plate(c: Carrier):
+    """The plate, its columns' outer ends rounded, one column at a time."""
+    body = _plate_body(c)
+    for side in (-1.0, 1.0):
+        body = body.fillet(c.show_edge_r, _shoulder_edges(c, body, side))
+    return cq.Workplane(obj=body.clean())
+
+
+def _shoulder_edges(c: Carrier, body, side):
+    """The end face's top, bottom and fore edges on `side`, and its column's two fore edges
+    running inboard."""
+    def on(v, values):
+        return any(abs(v - w) < 1e-6 for w in values)
+
+    face, run = [], []
+    for edge in body.Edges():
+        a, b = edge.startPoint(), edge.endPoint()
+        if a.x * side <= 0.0:
+            continue
+        aft = on(a.y, (c.column_y[1],)) and on(b.y, (c.column_y[1],))
+        if on(abs(a.x), (c.exterior_x,)) and on(abs(b.x), (c.exterior_x,)) and not aft:
+            face.append(edge)
+        elif (abs(a.y - b.y) < 1e-6 and abs(a.z - b.z) < 1e-6
+              and on(a.y, (c.column_y[0],)) and on(a.z, c.column_z)
+              and sorted((abs(a.x), abs(b.x))) == [c.column_x[0], c.exterior_x]):
+            run.append(edge)
+    if len(face) != 3 or len(run) != 2:
+        raise ValueError(f"expected 3 end-face and 2 column edges, found {len(face)}, {len(run)}")
+    return face + run
 
 
 def _spring(length):
@@ -300,6 +329,7 @@ def figures(c: Carrier) -> dict:
         "SPRING_CONNECTED_COMPRESSION": SPRING_FREE - c.spring_length(),
         "SPRING_RELEASE_COMPRESSION": SPRING_FREE - c.spring_length(-release_travel()),
         "SPRING_SIDE_WALL": c.spring_x - c.spring_bore_r - c.column_x[0],
+        "SPRING_LAND": c.spring_land,
         "FLANK_T": c.exterior_x - c.flank_x, "SHOW_EDGE_R": c.show_edge_r,
         "LENGTH": 2.0 * c.exterior_x,
     }
@@ -324,7 +354,7 @@ def selftest(c: Carrier) -> int:
         errors.append("the springs' bores leave no pocket in the tee wall")
     if c.spring_bore_y[1] > c.plate_y[1] - c.backing + 1e-9:
         errors.append("a spring bore leaves less than a backing behind its floor")
-    if c.spring_x + c.spring_bore_r > c.exterior_x - c.show_edge_r - 1e-9:
+    if c.spring_land <= 0.0:
         errors.append("a spring bore opens into the end face's fore shoulder")
     for name, spring in springs(c).items():
         if not spring.isValid():
