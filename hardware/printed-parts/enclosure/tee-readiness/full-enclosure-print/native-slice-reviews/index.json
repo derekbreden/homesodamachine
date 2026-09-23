@@ -526,6 +526,27 @@
         "grams_actual_petgf_density_1p43": 1019.0636336452276
       },
       "submitted": false
+    },
+    {
+      "job": "tee-carrier-v2",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-h2c-v2/manifest.json",
+        "sha256": "6b737007e08a80bc52d971c441d47fe3bce93785309b12fa843f97ba905d0ac6"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-tee-carrier-plate-h2c-v2/ready/tee-carrier-plate-covers-black-z018-h2c-v2.gcode.3mf",
+        "sha256": "1234bf033759b3edb5126d02fe845bc4a054adbecbef470ab46291b8b3703244"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-h2c-v2/offline-review.json",
+        "sha256": "9f32d2699efaa2b4f46eede9352e2d29941a03d37e496c915f0619a2a83ecdf7"
+      },
+      "slice_estimate": {
+        "seconds": 7067.7978515625,
+        "grams_actual_petgf_density_1p43": 62.389931168667104
+      },
+      "submitted": false
     }
   ]
 }
