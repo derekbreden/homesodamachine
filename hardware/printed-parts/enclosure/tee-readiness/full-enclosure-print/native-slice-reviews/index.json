@@ -337,6 +337,27 @@
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/offline-review.json",
         "sha256": "732a933aac698b4964a9b57eace765443fc9de999937eb4b6e5759cedb64ff21"
       }
+    },
+    {
+      "job": "pump-cartridge-v2",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-h2c-v2/manifest.json",
+        "sha256": "05f73d651c8fbf4210d360e94f62be2baf7c68a2b99133cd209294740c7060d9"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/ready/pump-cartridge-cap-black-z018-h2c-v2.gcode.3mf",
+        "sha256": "1982694f2043cf1863c52b68ad22cb689ad58c60589f0f7499ce21f4b11868ca"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-h2c-v2/offline-review.json",
+        "sha256": "804e88c32726b9edd910e369d9c61688d0759763c8763ca1b162a0df0aa74252"
+      },
+      "slice_estimate": {
+        "seconds": 40346.2890625,
+        "grams_actual_petgf_density_1p43": 465.6910031340842
+      },
+      "submitted": false
     }
   ]
 }
