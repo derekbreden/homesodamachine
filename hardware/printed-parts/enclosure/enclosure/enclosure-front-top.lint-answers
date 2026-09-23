@@ -59,3 +59,8 @@ click: x=-97.500 y=122.795 z=270.969
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-107.433 y=156.194 z=349.894
 click: x=107.433 y=156.218 z=349.894
+
+[ceiling] The tee carrier's flank window roofs, on the root plane of the fore valve tray's corbel. Each is a 9 mm flank section over the window, which is open to the outside and to the interior, so its support stands on the window's floor and comes out through either side in one piece. The carrier's column keeps a supported face's allowance under it (`tee-carrier/README.md`).
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-103.000 y=111.511 z=224.796
+click: x=103.000 y=111.511 z=224.796
