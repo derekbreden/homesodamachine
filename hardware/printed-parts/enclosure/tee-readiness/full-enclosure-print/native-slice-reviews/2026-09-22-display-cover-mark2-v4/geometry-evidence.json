@@ -1,0 +1,14 @@
+{
+  "geometry": "The display cover as the tree held it at 6a1ecd84f^: 2 mm skirts 34 mm deep with 1.8 mm lips.",
+  "sources": {
+    "display_cover.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/display-cover/display_cover.py",
+    "_display_retention.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "_enclosure_interface.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+    "_swept_top.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/enclosure/_swept_top.py"
+  },
+  "stl_sha256": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
+  "same_stl_as": ".cache/prints/2026-09-22-display-cover-mark2-v1/fresh-geometry-receipt.json",
+  "selftest": "Display cover: one valid solid; glass clear; 0.35 mm skirt preload",
+  "pairs_with": "The printed front-top: .cache/prints/2026-09-21-enclosure-front-top-h2c-v4",
+  "orientation": "X180: the visible face on the plate, both skirts pointing up"
+}

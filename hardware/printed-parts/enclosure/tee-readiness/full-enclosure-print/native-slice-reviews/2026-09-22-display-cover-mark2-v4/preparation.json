@@ -1,0 +1,83 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
+  "staged_input_sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "display-cover",
+      "source": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl",
+      "source_stl_sha256": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
+      "source_step": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.step",
+      "source_step_sha256": "90bc75b424821639a53add244a0acd7f06638d0d35ea569b890fdc8573553c9e",
+      "original_bounds_mm": [
+        [
+          -64.55000305175781,
+          -41.5,
+          -34.0
+        ],
+        [
+          64.55000305175781,
+          41.5,
+          0.0
+        ]
+      ],
+      "original_mesh_triangles": 2104,
+      "pretransform_rotation_sequence": [
+        "X180"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-22-display-cover-mark2-v4/oriented-meshes/display-cover.stl",
+      "oriented_stl_sha256": "3f515ae1b66fa2f7e3696d75174d4a85b1520434e72c29617d53a7e51ba3fd64",
+      "oriented_bounds_mm": [
+        [
+          -64.55000305175781,
+          -41.5,
+          -0.0
+        ],
+        [
+          64.55000305175781,
+          41.5,
+          34.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "display-cover": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9"
+}

@@ -1,0 +1,193 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_assembly_checks",
+  "printer": "Mark2",
+  "job": "display-cover",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
+  "staged_input_sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f",
+  "native_archive": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
+  "native_archive_sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
+  "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "display-cover",
+      "source": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl",
+      "source_stl_sha256": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
+      "source_step": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.step",
+      "source_step_sha256": "90bc75b424821639a53add244a0acd7f06638d0d35ea569b890fdc8573553c9e",
+      "original_bounds_mm": [
+        [
+          -64.55000305175781,
+          -41.5,
+          -34.0
+        ],
+        [
+          64.55000305175781,
+          41.5,
+          0.0
+        ]
+      ],
+      "original_mesh_triangles": 2104,
+      "pretransform_rotation_sequence": [
+        "X180"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-22-display-cover-mark2-v4/oriented-meshes/display-cover.stl",
+      "oriented_stl_sha256": "3f515ae1b66fa2f7e3696d75174d4a85b1520434e72c29617d53a7e51ba3fd64",
+      "oriented_bounds_mm": [
+        [
+          -64.55000305175781,
+          -41.5,
+          -0.0
+        ],
+        [
+          64.55000305175781,
+          41.5,
+          34.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.24",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "support_remove_small_overhang",
+    "support_top_z_distance",
+    "extruder_ams_count",
+    "machine_start_gcode",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-22 19:28:03.728244] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-22 19:28:03.880960] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-22 19:28:03.881010] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 142,
+  "native_log_diagnostics_review": "pending",
+  "estimated_seconds": 1805.68115234375,
+  "estimated_grams_saved_profile_density": 12.126233100891113,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "display-cover",
+        "side_margins_mm": [
+          90.01400000000001,
+          118.39999999999999,
+          89.993,
+          118.4
+        ],
+        "minimum_margin_mm": 89.993
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 89.993,
+    "pairwise_conservative_gaps": [],
+    "minimum_pair_gap_mm": null,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.support-audit.json",
+  "support_audit_sha256": "26f97783137e34d3f655bca1ca769a25f6c93f8e8ba52b2fb51545c83bc5ed3e",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-22-display-cover-mark2-v4/support-removal-review.json",
+  "review_script_sha256": "e919283193d72ee13762adfd5fdc5057eaab8e168715047c3f9f8969488aa364",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false
+}

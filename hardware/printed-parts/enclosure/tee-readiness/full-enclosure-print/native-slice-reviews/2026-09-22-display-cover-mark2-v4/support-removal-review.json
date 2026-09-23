@@ -1,0 +1,186 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
+  "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
+  "support_audit_sha256": "26f97783137e34d3f655bca1ca769a25f6c93f8e8ba52b2fb51545c83bc5ed3e",
+  "geometry_confirmation_sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9",
+  "parts": [
+    {
+      "name": "display-cover",
+      "support_summary": {
+        "support_bodies": 2,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 30.24,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 30.24
+      },
+      "model_overhangs_review": "Printed face down with both 34 mm skirts pointing up. The visible face takes the textured plate, the plate's hidden face is a top surface, and the skirts rise as plain 2 mm walls. Each lip's square catch face is the only print-down surface; with the small-overhang filter off and a 0.24 mm top gap, each gets one bed-rooted support standing beside the cover's edge, outside the part. Cleanup precedes fitting; actual effort is unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 30.44,
+            "shortest_build_up_mm": 30.24,
+            "top_z_mm": 30.68,
+            "bbox_xy_mm": [
+              90.4,
+              148.4,
+              99.2,
+              172.0
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -72.1,
+              -11.6,
+              0.2,
+              -63.3,
+              12.0,
+              30.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -72.1,
+              -12.0,
+              -30.68,
+              -63.3,
+              11.6,
+              -0.2
+            ]
+          },
+          "contact_region": "The -X lip's 1.8 mm square catch face at the skirt's far end, across its 24 mm run.",
+          "removal_lane": "The support stands 30 mm tall on the plate outboard of the cover's -X edge, in open air beside the skirt; no part of the cover surrounds it. Rock it outboard off the catch face and lift it off the plate.",
+          "removal_direction_original_cad": "+Z off the catch face, then -X outboard, clear of the part.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The catch face is the lip's retaining shoulder under the housing's pocket roof; peel the interface off whole and leave the printed ledge flat.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 30.44,
+            "shortest_build_up_mm": 30.24,
+            "top_z_mm": 30.68,
+            "bbox_xy_mm": [
+              225.6,
+              148.4,
+              234.8,
+              172.0
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              63.1,
+              -11.6,
+              0.2,
+              72.3,
+              12.0,
+              30.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              63.1,
+              -12.0,
+              -30.68,
+              72.3,
+              11.6,
+              -0.2
+            ]
+          },
+          "contact_region": "The +X lip's 1.8 mm square catch face at the skirt's far end, across its 24 mm run.",
+          "removal_lane": "The support stands 30 mm tall on the plate outboard of the cover's +X edge, in open air beside the skirt; no part of the cover surrounds it. Rock it outboard off the catch face and lift it off the plate.",
+          "removal_direction_original_cad": "+Z off the catch face, then +X outboard, clear of the part.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The catch face is the lip's retaining shoulder under the housing's pocket roof; peel the interface off whole and leave the printed ledge flat.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 30.44,
+            "last_z_mm": 30.68,
+            "bbox_xy_mm": [
+              98.0,
+              148.4,
+              99.2,
+              172.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 30.24,
+            "bbox_cad_xyz_mm": [
+              -64.5,
+              -11.6,
+              30.44,
+              -63.3,
+              12.0,
+              30.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -64.5,
+              -12.0,
+              -30.68,
+              -63.3,
+              11.6,
+              -30.44
+            ]
+          },
+          "contact_region": "The -X lip's catch face, Z -31 in the cover's frame, 24 mm along Y.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 30.44,
+            "last_z_mm": 30.68,
+            "bbox_xy_mm": [
+              226.0,
+              148.4,
+              227.2,
+              172.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 30.24,
+            "bbox_cad_xyz_mm": [
+              63.5,
+              -11.6,
+              30.44,
+              64.7,
+              12.0,
+              30.68
+            ],
+            "bbox_original_cad_xyz_mm": [
+              63.5,
+              -12.0,
+              -30.68,
+              64.7,
+              11.6,
+              -30.44
+            ]
+          },
+          "contact_region": "The +X lip's catch face, Z -31 in the cover's frame, 24 mm along Y.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-22 19:28:03.728244] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-22 19:28:03.880960] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-22 19:28:03.881010] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The three exact diagnostics are T1001, T65535 and T65279. T1001 is emitted in the saved-profile startup Hotend Type Detection block; T65535 and T65279 occur in the saved-profile end-code unload/control blocks after all model layers. All three tokens are present in petgf.3mf machine_start_gcode/machine_end_gcode, and this native slice preserves them. Native return code is 0, the plate warning is empty, and all model/support paths are present. These parser messages do not identify a changed support path or a model slicing failure.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}
