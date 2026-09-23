@@ -1,0 +1,83 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/enclosure-front-top-black-z018-h2c-v12-input.3mf",
+  "staged_input_sha256": "ffda64b86b2f6fb6c6c7fa127e6a8c1c78669ce5dc5047941d734f4d083a77a4",
+  "printer": "H2C",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "source_stl_sha256": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "source_step_sha256": "043240ddf8fa1a7a5e186d096e8ed44aca58b962d29c178c82c443525a94e6e3",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          212.5500030517578,
+          355.0
+        ]
+      ],
+      "original_mesh_triangles": 532858,
+      "pretransform_rotation_sequence": [
+        "Z90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/oriented-meshes/enclosure-front-top.stl",
+      "oriented_stl_sha256": "fd03378a3fbad5a80483056a1a9cf7c5e29c8aac8aa9e60e0d963e36077f7727",
+      "oriented_bounds_mm": [
+        [
+          -212.5500030517578,
+          -107.5,
+          160.0
+        ],
+        [
+          -5.0,
+          107.5,
+          355.0
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-front-top": [
+      162.5,
+      160.0
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "49ced2a227141a5f602c688801b5925c63c52ab00d3a03f6479fdab9e747e259"
+}

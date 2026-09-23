@@ -1,0 +1,150 @@
+{
+  "status": "current_geometry_staged_native_slice_pending",
+  "submitted": false,
+  "print_released": false,
+  "staged_input": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/pump-cartridge-cap-black-z004-mark2-v4-input.3mf",
+  "staged_input_sha256": "94e9a4353b962738c3e0c4e3d9d00d2fba47104ea8d195fb475eb4c001fd7504",
+  "printer": "Mark2",
+  "parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "source_stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "source_step_sha256": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          165.19500732421875
+        ],
+        [
+          107.5,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "original_mesh_triangles": 171096,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/oriented-meshes/enclosure-pump-cartridge.stl",
+      "oriented_stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          165.19500732421875
+        ],
+        [
+          107.5,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "source_stl_sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "source_step_sha256": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+      "original_bounds_mm": [
+        [
+          -87.2249984741211,
+          10.859000205993652,
+          216.9250030517578
+        ],
+        [
+          87.2249984741211,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "original_mesh_triangles": 8284,
+      "pretransform_rotation_sequence": [
+        "X180"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/oriented-meshes/enclosure-pump-cap.stl",
+      "oriented_stl_sha256": "5bfd36b648071e142c32a5ed0796333a9d980c74759e2fec7be213eff75334c7",
+      "oriented_bounds_mm": [
+        [
+          -87.2249984741211,
+          -79.26899719238281,
+          -284.17401123046875
+        ],
+        [
+          87.2249984741211,
+          -10.859000205993652,
+          -216.9250030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ],
+  "centers_xy_mm": {
+    "enclosure-pump-cap": [
+      162.5,
+      106.8655014038086
+    ],
+    "enclosure-pump-cartridge": [
+      162.5,
+      210.20499849319458
+    ]
+  },
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "geometry_confirmation_sha256": "39834f2bcad60d3d0db7fcae57f4c632ec36a9f25c187f40a413fa1d94c527df"
+}

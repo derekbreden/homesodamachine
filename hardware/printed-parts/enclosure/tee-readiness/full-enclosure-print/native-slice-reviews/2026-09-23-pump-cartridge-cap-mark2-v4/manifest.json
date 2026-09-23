@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "pump-cartridge-v4",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-mark2-v4/fresh-geometry-receipt.json",
+    "sha256": "39834f2bcad60d3d0db7fcae57f4c632ec36a9f25c187f40a413fa1d94c527df"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/ready/pump-cartridge-cap-black-z004-mark2-v4.gcode.3mf",
+    "sha256": "7a2b830f6865a30f092876d6858dbdad64db9b05d458afb401dcb6729742db83"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "6b3b4a37f6454c6800ad2912b0df5d0f4a1b5c25e91783a82431324fde94987e",
+  "layer_ranges_mm": {
+    "enclosure-pump-cartridge": [
+      {
+        "min_z": 9.63,
+        "max_z": 14.83,
+        "layer_height": 0.08,
+        "reason": "R6 rounds round each side grip opening's floor (level at print z 12.230): the mouth round below it and the corner fillets above it; 2.6 mm each side, the depth front-top's R6 roof edges print at 0.08"
+      },
+      {
+        "min_z": 104.399,
+        "max_z": 109.599,
+        "layer_height": 0.08,
+        "reason": "R6 rounds round each side grip opening's ceiling (level at print z 106.999): the corner fillets below it and the mouth round above it; 2.6 mm each side, as front-top's roof edges"
+      }
+    ]
+  },
+  "estimate": {
+    "seconds": 40133.28125,
+    "grams_petgf_density_1p43": 471.6063052628391,
+    "layers": 983
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/job-config.json",
+      "sha256": "3811cb7ac629af055a4379f23ce0bbe5917eadc5e632d8c23279fd6e588d513d",
+      "bytes": 2259
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/fresh-geometry-receipt.json",
+      "sha256": "39834f2bcad60d3d0db7fcae57f4c632ec36a9f25c187f40a413fa1d94c527df",
+      "bytes": 1801
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/geometry-evidence.json",
+      "sha256": "d977c6438cd44d6cfbbc33fbd934f916df77d42c33be95aa4f9870816c88d3b2",
+      "bytes": 1894
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/preparation.json",
+      "sha256": "8294cc7a23f5a09daf200908212932a644162b3225600a27b3ba8248f78b661f",
+      "bytes": 4040
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/readiness.json",
+      "sha256": "9b846f3da53a9db6a8782d87550672d400bfaa305ee5eaa59124dd1ca36acad6",
+      "bytes": 8634
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/offline-review.json",
+      "sha256": "2cc8b6aa57f05c1fb8780bd6f5e3cc15ed2da797da218194c566e6053502566f",
+      "bytes": 9106
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/support-removal-review.json",
+      "sha256": "e1f4f25db04425bf45ab6ec44a9d5c2702756f8e2d375678daccf0ae018f659b",
+      "bytes": 17398
+    },
+    "pump-cartridge-cap-black-z004-mark2-v4-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/pump-cartridge-cap-black-z004-mark2-v4-input.support-audit.json",
+      "sha256": "4791dc421f3ea0b0dc82e476dfeec6db176cc187c829325c40910b20bc98355d",
+      "bytes": 17982
+    },
+    "pump-cartridge-cap-black-z004-mark2-v4-input.print.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/pump-cartridge-cap-black-z004-mark2-v4-input.print.json",
+      "sha256": "0f9174b8d7fef488ba5f517a30184a7df1194a5014772cb6e5bab21b42945ef3",
+      "bytes": 10279
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/slice-command.json",
+      "sha256": "60ffed2102597eae406536e3f716ecb3ca8a439c6a8516d37d69c25f165ab080",
+      "bytes": 492
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/slice-input.json",
+      "sha256": "f5b1bdb842017edc2b1b6abf0ee49a0484423e3099d4dc44a4fb5164e2d757f8",
+      "bytes": 279
+    },
+    "layout.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/layout.json",
+      "sha256": "927dfdcd4beaa85a89514aa8bb75dcfd62dcc42290f4d77f4884713c40da90d9",
+      "bytes": 137
+    },
+    "round-scan.json": {
+      "source_path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/round-scan.json",
+      "sha256": "490a70196f4ab292b840313fe7f8ad350ce28b254eb03642101abd492bafefc3",
+      "bytes": 7522
+    }
+  }
+}

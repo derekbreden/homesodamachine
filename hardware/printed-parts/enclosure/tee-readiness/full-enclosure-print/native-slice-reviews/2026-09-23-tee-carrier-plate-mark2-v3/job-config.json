@@ -1,0 +1,108 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "tee-carrier",
+  "printer": "Mark2",
+  "archive_stem": "tee-carrier-plate-covers-black-z004-mark2-v3",
+  "title": "Tee carrier plate on its back with both window covers on their outboard faces, the plate's R6 end rounds in 0.08 mm layers, black PET-GF, Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "explicit",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "rotation_sequence": [
+        "X-90"
+      ]
+    },
+    {
+      "name": "enclosure-window-cover-east",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "rotation_matrix": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "rotation_sequence": [
+        "Y90"
+      ]
+    },
+    {
+      "name": "enclosure-window-cover-west",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "rotation_matrix": [
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "rotation_sequence": [
+        "Y-90"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 2.6,
+        "layer_height": 0.08,
+        "reason": "the columns' aft R6 rounds rise off the bed; 2.6 mm, the depth front-top's roof edges print at 0.08"
+      },
+      {
+        "min_z": 18.454,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "the columns' fore R6 rounds level into the column tops at print z 21.054; 2.6 mm, as front-top's roof edges"
+      }
+    ]
+  }
+}
