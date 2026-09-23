@@ -433,3 +433,14 @@ Both printed face down on Mark2 ([v3 completion](../tee-readiness/full-enclosure
 `enclosure-back-top-black-z018-h2c-v2.gcode.3mf`, ceiling down, reported `RUNNING` on H2C at
 2026-09-22T19:04:30.084409+00:00 ([launch](../tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json)).
 It was sliced from the 2026-09-21 inputs, uniformly in 0.24 mm layers.
+
+## 2026-09-23 — back-top v2 finished on H2C
+
+H2C reported `FINISH` at 813/813 layers with no error before 16:30 local.
+
+## 2026-09-23 — front-top v12 on H2C
+
+`enclosure-front-top-black-z018-h2c-v12.gcode.3mf` reported `RUNNING` on H2C at
+2026-09-23T21:55:53Z, black PET-GF on the left external spool
+([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v12-launch.json)). Its top 2.6 mm
+print in 0.08 mm layers. The support audit reads 4 bed-rooted trees and 9 contacts.

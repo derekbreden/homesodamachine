@@ -30,7 +30,7 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | pump-cartridge | H2C | superseded by v4: the cartridge and cap go to Mark2 | [2026-09-23-pump-cartridge-cap-h2c-v3](2026-09-23-pump-cartridge-cap-h2c-v3/manifest.json) |
 | back-top | H2C | reviewed, not sent; flavour-A drop, PI450822S CO2 chain and audit fixes, roof-edge band at 0.08, 8 mm back on the bed | [2026-09-23-enclosure-back-top-h2c-v5](2026-09-23-enclosure-back-top-h2c-v5/manifest.json) |
 | tee-carrier | H2C | superseded by v3: the carrier goes to Mark2 | [2026-09-23-tee-carrier-plate-h2c-v2](2026-09-23-tee-carrier-plate-h2c-v2/manifest.json) |
-| front-top | H2C | reviewed, not sent; on H2C (Derek, 09-23), v11's slice at +0.18 | [2026-09-23-enclosure-front-top-h2c-v12](2026-09-23-enclosure-front-top-h2c-v12/manifest.json) |
+| front-top | H2C | printing on H2C since 09-23, from a re-slice of the same input with the same supports; v11's slice at +0.18 | [2026-09-23-enclosure-front-top-h2c-v12](2026-09-23-enclosure-front-top-h2c-v12/manifest.json) |
 | tee-carrier | Mark2 | reviewed, not sent; on Mark2 (Derek, 09-23), the plate with both window covers | [2026-09-23-tee-carrier-plate-mark2-v3](2026-09-23-tee-carrier-plate-mark2-v3/manifest.json) |
 | pump-cartridge | Mark2 | reviewed, not sent; on Mark2 (Derek, 09-23), v3's slice at +0.04 | [2026-09-23-pump-cartridge-cap-mark2-v4](2026-09-23-pump-cartridge-cap-mark2-v4/manifest.json) |
 | bulkhead rings | Mark2 | reviewed, not sent; TAP and both FLAVOR chips in black and white PET-GF, face up at 0.20 | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v1](2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/manifest.json) |
