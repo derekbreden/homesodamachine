@@ -58,9 +58,6 @@ def run(pack, neighbors, output):
     for n,s,_color in ea.build_nameplate(tuple(plate['values'][:2])):solids[n]=s
     pan,_=ea.build_pan(solids['asse1022-assembly'],g,carry,None)
     solids['asse-drip-pan']=pan
-    adds,cuts=ea.pan_sleeve(ea.box(pan),ea.west_interior_face())
-    # The whole uncut sleeve box is a conservative occupied envelope.
-    solids['pan-sleeve-stock-envelope']=cq.Compound.makeCompound([ea._boxed(*a) for a in adds])
     b=pan.BoundingBox()
     solids['pan-complete-west-withdrawal-envelope']=ea._boxed(-250,b.xmax,b.ymin,b.ymax,b.zmin,b.zmax)
     readings=[]
@@ -80,7 +77,8 @@ def run(pack, neighbors, output):
     if any(sha(path)!=digest for path,digest in inputs.items()):raise RuntimeError('Native input changed')
     report={'scope':'Complete retained native pack and electronics/funnel neighbors plus current nameplate and pan placement. Cap bearing, actual routed hoses, and regenerated full shell are separate checks.',
             'inputs_sha256':inputs,'origin_mm':origin,'pump_bounds_mm':bounds(g),
-            'pan_bounds_mm':bounds(pan),'sleeve_front_y_mm':adds[0][2],
+            'pan_bounds_mm':bounds(pan),
+            'pan_body_front_y_mm':b.ymin+ea._pan.PULL_FACE_Y_OVERHANG,
             'discharge_root_aft_y_mm':pump.discharge_shape(carry).BoundingBox().ymax,
             'readings':readings,'all_pass':all(r['pass'] for r in readings),
             'elapsed_seconds':time.monotonic()-started}
