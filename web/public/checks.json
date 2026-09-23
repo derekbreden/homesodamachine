@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -92,24 +92,19 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 7 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds a07c7a150ef08fd638a6c7e8b8c4a9ab for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 484caed7764479b74169c52fe0b72ae6 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 484caed7764479b74169c52fe0b72ae6 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c3963730f45751305cc0adee3244735c here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "tools/check_paths.py": [
       "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
       "1 reference(s) name a path nothing holds."
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact pointer file points at every committed viewer scorecard",
-      "  cd web && npm test"
     ]
   },
   "green": false
