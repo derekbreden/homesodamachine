@@ -23,7 +23,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 
 | Rides out on `enclosure-pump-cartridge` | Stays |
 |---|---|
-| Both Kamoer pumps, [2](CART_PUMPS) stamped brackets bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
+| Both Kamoer pumps, [2](CART_PUMPS) molded skirts bearing in the lower cradle and both bosses located by the top clamp ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | The pump cartridge's 28 AWG 4P cord, its RJ11 pump plug, and both Faston pairs on the pump tabs | The pump jack, its J13-side 22 AWG 4P ribbon, and the +X ridge-wall cable clip |
 | | All [6](BOX_TEES) PP0208E tees. Y-A and Y-B butt fixed valves; Y-C, Y-D, Y-F and Y-G are the [4](CARRIER_TEES) free-floating tees journalled in the tee wall |
@@ -150,10 +150,10 @@ off until the cartridge is on the bench.
 
 **3. Unscrew the top clamp, then swap the pumps.** Back out the [2](CAP_SCREWS)
 M3×[60](CAP_SCREW_LEN) between the pumps and lift the complete clamp straight up. Remove the two
-Faston pairs from the old motor tabs, then lift each pump out of its cradle well. Lower each replacement until three sides of its stamped
-bracket lie flat on the cradle lands, lower the clamp until its two octagonal collars surround
-the bosses and its pressing plates meet the bracket tops, then draw both screws down evenly.
-The brackets carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
+Faston pairs from the old motor tabs, then lift each pump out of its cradle well. Lower each replacement until its molded
+skirt lies flat on the cradle lands, lower the clamp until its two octagonal collars surround
+the bosses, then draw both screws down evenly.
+The skirts carry pump weight into the cradle; the clamp prevents lift and fixes X, Y and yaw.
 If it does not sit flat, lift and reseat the pump instead of using a screw to force it. Tug-test
 each pump once the clamp is closed.
 

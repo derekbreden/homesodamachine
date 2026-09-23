@@ -67,7 +67,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the 104.53 × 38 mm horizontal brand-and-QR plate, lying flush in a pocket of the +Y wall of back-top beside the bulkhead rings, retained by two integral PET-GF snap tabs.
 - [`bulkhead-ring/`](/hardware/printed-parts/enclosure/bulkhead-ring/) — the flat chip inset into the wall under each rear-wall fitting's flange, in the colour of the tube that goes into it and lettered with that port's name.
 - [`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
-- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the case-derived collar source used twice in the small `enclosure-pump-cap` top clamp: a pressing plate above the stamped bracket, an octagonal wall around the boss, and a shoulder around the motor can. Neither collar is separate. Pump weight bears through the bracket into the large lower `enclosure-pump-cartridge` cradle.
+- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the case-derived collar source used twice in the small `enclosure-pump-cap` top clamp: a plate over the molded flange, an octagonal wall around the boss, and a shoulder around the motor can. Neither collar is separate. Pump weight bears through the molded skirt into the large lower `enclosure-pump-cartridge` cradle.
 
 ## Sources
 [value](NAME) texts are updated by:
