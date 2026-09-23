@@ -342,7 +342,7 @@ def enclosure(m: Machine):
         "en-02-y-wall-bodies": {
             "BACK_BODIES", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
             "PORT_HOLE_D", "CO2_HOLE_D",
-            "PORT_NUT_D", "PORT_CHAIN_3", "C14_FLANGE_W", "AC_RECESS"},
+            "PORT_NUT_D", "PORT_CHAIN_3", "C14_FLANGE_W", "C14_RIM_INSET"},
         "en-03-bolt-the-compressor-down": {
             "FLOOR_BOSSES", "COMP_MOUNT_D", "COMP_MOUNT_PITCH", "COMP_PLATE",
             "COMP_CROWN"},
@@ -500,13 +500,13 @@ def sub_assemblies(m: Machine):
         f"`enclosure-pump-cartridge` carries {carried} and closes on {cart_pumps} in the case "
         f"it makes round them — SA-09 names one joint for the whole unit; restate the card")
 
-    # WHY A CAP CAN CARRY A PUMP AT ALL. The part's own stamped bracket stands proud of the head
-    # all round in the very plane the two pieces part on, so it laps the cap's top face and the
-    # two screws take the load through it. A bracket inside the head's own square laps nothing.
-    assert _tray.bracket_half > _tray.head_half, (
-        f"the Kamoer's bracket is {2 * _tray.bracket_half:g} across a head of "
-        f"{2 * _tray.head_half:g} — SA-09 hangs both pumps off a lip standing proud all round, "
-        f"and that lip is the whole load path the cap's two screws close")
+    # WHAT THE CRADLE CARRIES A PUMP BY. The part's molded flange spans its head's own square
+    # and stands on a rigid skirt, and the skirt's underside rests on the cradle lands, so the
+    # weight and the clamp load run down through it into the cradle.
+    assert _tray.bracket_half >= _tray.head_half and _tray.skirt_depth > 0, (
+        f"the Kamoer's molded flange is {2 * _tray.bracket_half:g} across a head of "
+        f"{2 * _tray.head_half:g} on a {_tray.skirt_depth:g} mm skirt — SA-09 rests each "
+        f"pump's skirt on the cradle lands, and that flange is the load path")
 
     # THE FOUR BARB TUBES THE UNIT LEAVES THE BENCH HOLDING IN THE AIR, off the pumps whose
     # barbs grip them. ONE STUB PER COLLET PASSAGE: the plate is bored one hole per barb tee
@@ -608,12 +608,12 @@ def sub_assemblies(m: Machine):
         # again after cure — the stack's other six belong to the other cap.
         "CAP_POUR_SCREWS": f"{len(_cci.attachment_xy_positions)}",
         # SA-09's figures are the case the two pieces make round a Kamoer: the octagon that
-        # locates it, the bracket the cap carries it by, and the two screws that close on that
-        # bracket. Each read off the module that cuts it.
+        # locates it, the molded flange and skirt the cradle carries it by, and the two screws
+        # that close the cap. Each read off the module that cuts it.
         "SA09_PUMPS": f"{len(cart_pumps)}",
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
         "PUMP_BRACKET": f"{2 * _tray.bracket_half:.4g} mm",
-        "PUMP_HEAD_W": f"{2 * _tray.head_half:.4g} mm",
+        "PUMP_SKIRT_DEPTH": f"{_tray.skirt_depth:.4g} mm",
         "SA09_CAP_SCREWS": f"{len(_enc.cap_screw_ys(m.box.inner, m.box.collet_plate))}",
         "SA09_CAP_SCREW": f"M3 {X} {_enc.cap_screw_len:.4g}",
         # And what it leaves the bench holding out in the air, and how far that stands.
@@ -635,7 +635,7 @@ def sub_assemblies(m: Machine):
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
         "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
-        "sa-09-pump-cartridge": {"SA09_PUMPS", "PUMP_SOCKET", "PUMP_BRACKET", "PUMP_HEAD_W",
+        "sa-09-pump-cartridge": {"SA09_PUMPS", "PUMP_SOCKET", "PUMP_BRACKET", "PUMP_SKIRT_DEPTH",
                                  "SA09_CAP_SCREWS", "SA09_CAP_SCREW", "SA09_STUBS",
                                  "SA09_STUB_STAND"},
     }

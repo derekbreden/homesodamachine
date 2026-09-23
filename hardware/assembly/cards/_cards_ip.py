@@ -185,14 +185,20 @@ def internal_plumbing(m):
     assert cols["bulkhead-carb"] == cols["bulkhead-flavor-a"] != cols["bulkhead-flavor-b"], (
         f"the three riser unions stand on columns {cols} — IP-06 sends the carb riser up the "
         f"nozzle-A union's own column and the nozzle-B riser up the one beside it")
-    # The meter lies on the carb union's column, forward and below it, with its lead toward
-    # the board. Its measured cover sets that lower storey and carb-2 rises to the union.
+    # The meter lies forward of the carb union and below it, set a few millimetres west of its
+    # column, with its lead toward the board. Its measured cover sets that lower storey, and
+    # carb-2's two corners take up the rise and the set together: the outlet faces the union's
+    # inboard collet down one axis, and the line between the two leans under 45° off it.
     meter_in, meter_out = port("digiten-flow", "inlet"), port("digiten-flow", "outlet")
     union_in = port("bulkhead-carb", "tube-in")
-    assert (abs(meter_out[0][0] - union_in[0][0]) < 1e-6
-            and meter_out[0][2] < union_in[0][2]), (
-        "the DIGITEN must lie below the carb union on its own column — IP-06 joins the "
-        "two on-axis ends with a shallow rise")
+    carb_2_gap = union_in[0][1] - meter_out[0][1]
+    carb_2_set = ((union_in[0][0] - meter_out[0][0]) ** 2
+                  + (union_in[0][2] - meter_out[0][2]) ** 2) ** 0.5
+    assert (meter_out[1] == (0.0, 1.0, 0.0) and union_in[1] == (0.0, -1.0, 0.0)
+            and meter_out[0][2] < union_in[0][2] and carb_2_set < carb_2_gap), (
+        f"the DIGITEN's outlet stands {carb_2_set:.4g} mm off the carb union's axis over a "
+        f"{carb_2_gap:.4g} mm fore/aft gap — IP-06 rises from the meter, below the union and "
+        f"facing it, through two shallow bends")
     assert meter_out[0][1] < union_in[0][1] and meter_in[0][1] < meter_out[0][1], (
         "the DIGITEN no longer lies fore and aft forward of the carb union — IP-06 closes "
         "`carb-1` into its inlet from the deck and `carb-2` out of its outlet into the union")
