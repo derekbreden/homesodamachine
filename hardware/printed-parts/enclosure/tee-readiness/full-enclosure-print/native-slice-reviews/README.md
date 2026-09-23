@@ -33,5 +33,6 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | front-top | H2C | reviewed, not sent; on H2C (Derek, 09-23), v11's slice at +0.18 | [2026-09-23-enclosure-front-top-h2c-v12](2026-09-23-enclosure-front-top-h2c-v12/manifest.json) |
 | tee-carrier | Mark2 | reviewed, not sent; on Mark2 (Derek, 09-23), the plate with both window covers | [2026-09-23-tee-carrier-plate-mark2-v3](2026-09-23-tee-carrier-plate-mark2-v3/manifest.json) |
 | pump-cartridge | Mark2 | reviewed, not sent; on Mark2 (Derek, 09-23), v3's slice at +0.04 | [2026-09-23-pump-cartridge-cap-mark2-v4](2026-09-23-pump-cartridge-cap-mark2-v4/manifest.json) |
+| bulkhead rings | Mark2 | reviewed, not sent; TAP and both FLAVOR chips in black and white PET-GF, face up at 0.20 | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v1](2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.
