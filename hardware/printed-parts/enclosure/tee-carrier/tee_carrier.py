@@ -1,13 +1,13 @@
 """The tee carrier: one plate that carries Y-C, Y-D, Y-F and Y-G across the front column,
-flank face to flank face.
+flank face to flank face. Through each flank its tip stands the tees' extended run span tall.
 
 The four bare tees are tied into its troughs on the bench; the plate enters through the -X
 flank `staged_dy` aft of its seat, where every branch nose passes the tee wall's aft face, and
 slides fore until each branch stands in its journal.
 
 Both flanks carry one opening, the same box: the tee wall's aft face to the staged plate's
-strapped back, and the tees' extended run span. Front-top and front-bottom cut it straight
-across the column (`opening`).
+strapped back, and the tees' extended run span with running air, the roof a supported face's
+more. Front-top and front-bottom cut it straight across the column (`opening`).
 
 +X across the enclosure, +Y aft, +Z up, in the assembly frame, at the tees' connected state.
 
@@ -95,9 +95,15 @@ class Carrier:
         return self.wall_aft_y, self.plate_y[1] + self.staged_dy + self.strap_t + self.air
 
     @property
+    def tip_z(self):
+        return self.axis_z - tee.RUN_HALF, self.axis_z + tee.RUN_HALF
+
+    @property
     def opening_z(self):
-        reach = tee.RUN_HALF + self.air
-        return self.axis_z - reach, self.axis_z + reach
+        """The tips' height with running air, and the roof, which front-top prints facing down
+        over support, a supported face's allowance above that."""
+        z0, z1 = self.tip_z
+        return z0 - self.air, z1 + self.air + fits.supported_surface
 
     @property
     def tie_zs(self):
@@ -112,7 +118,8 @@ def opening(c: Carrier):
 
 
 def build_plate(c: Carrier):
-    """The plate from flank face to flank face, with a trough and four tie slots at each tee."""
+    """The plate from flank face to flank face, with a trough and four tie slots at each tee and
+    a tip the tees' run span tall through each flank."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
     body = _box(-c.exterior_x, c.exterior_x, y0, y1, z0, z1)
     sx, sz = c.tie_slot
@@ -124,6 +131,9 @@ def build_plate(c: Carrier):
             for tz in c.tie_zs:
                 body = body.cut(_box(cx - sx / 2.0, cx + sx / 2.0, y0 - 1.0, y1 + 1.0,
                                      tz - sz / 2.0, tz + sz / 2.0))
+    for side in (-1.0, 1.0):
+        x0, x1 = sorted((side * c.flank_x, side * c.exterior_x))
+        body = body.fuse(_box(x0, x1, y0, y1, *c.tip_z))
     return cq.Workplane(obj=body.clean())
 
 
@@ -142,6 +152,8 @@ def figures(c: Carrier) -> dict:
         "PLATE_T": c.plate_t, "PLATE_H": c.plate_h, "BACKING": c.backing,
         "TROUGH_D": 2.0 * c.trough_r, "BARREL_D": 2.0 * tee.BARREL_R,
         "RUN_SPAN_PRESSED": tee.RUN_SPAN_PRESSED, "STAGED_DY": c.staged_dy,
+        "TIP_H": c.tip_z[1] - c.tip_z[0], "RUN_SPAN": tee.RUN_SPAN,
+        "ROOF_AIR": c.opening_z[1] - c.tip_z[1], "SUPPORTED": fits.supported_surface,
         "OPENING_Y": c.opening_y[1] - c.opening_y[0],
         "OPENING_Z": c.opening_z[1] - c.opening_z[0],
         "AIR": c.air, "STRAP_T": c.strap_t,
