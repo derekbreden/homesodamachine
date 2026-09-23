@@ -93,6 +93,32 @@ terminal-face radius.
 
 ![Terminal surface and measured operating faces](terminal-ring-scan.svg)
 
+## All three collets, pass by pass
+
+The three ports carry the same collet. [`collet-passes.json`](collet-passes.json) reads all
+three in each of the five native passes, each registered onto this frame within about
+0.09 mm; the passes are archived beside the merged scan in `passes/`. Twelve clean readings
+agree:
+
+| Collet reading | Twelve clean readings |
+|---|---:|
+| Side-wall diameter | **Ø10.43 mm** median, 10.24–10.77 |
+| Face proud of the fixed barrel face | 1.83–2.38 mm |
+| Face position, from pressed, as a fraction of the calipered stroke | 0.13–0.44 |
+| Face sectors present | 31–36 of 36 |
+
+A collet is loose in its port and shifts between passes. The merged mesh blends those
+positions, and its run faces smear across a millimetre; the single Ø10.62 fit above comes
+from that mesh. Every clean reading rests near the pressed end, so no pass holds a
+collet drawn out and the stroke stays the calipered one. Pass 3 gives two readings that
+are excluded: its branch face covers 11 of 36 sectors, and its −Z run reads a filled bore
+rather than a collet. The run collets sit 3–5° off square in most passes; the branch sits
+within 1°.
+
+```sh
+tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/analyze_collet_passes.py
+```
+
 ## Production consumers
 
 [`consumer-corrections.json`](consumer-corrections.json) lists the source locations and

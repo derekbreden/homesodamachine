@@ -1,0 +1,383 @@
+{
+  "scope": "Read all three collets of the PP0208E, pass by pass.\n\nThe three ports carry the same collet. Each of the five native passes is registered onto the\nmerged scan's production frame by a trimmed point-to-plane ICP, and each port's collet is read\nthere: its front face as a plane, the fixed barrel face behind it, and its side wall. A collet\nis loose in its port and can shift between passes, so a pass is a single captured state where\nthe merged mesh blends them.\n",
+  "input_sha256": {
+    "merged_scan": "c25584adca577ac559a11117579a8c65f0340413d2ddfa3e05e9e4555790942e",
+    "pass-1-1716-f346c65f.ply": "985418dcf35de9065eb97ef1c21acea1ec384b04f8c1f68d5fef6ee92e8f326a",
+    "pass-2-1946-4934837e.ply": "e7409306a5faf8072ab01be37e7163efdfd92d9a8b4a6b5f222920663b905b05",
+    "pass-3-1959-0d8a423d.ply": "3fffe22bac5d082d33cf1860286e96bad75bd626ef69244f39f166836dc42bfe",
+    "pass-4-2011-b0a6db20.ply": "62b8fcd527410ca7da287bf90163eaed69fa8bfa751128b964f3d35d0f5294bb",
+    "pass-5-2025-fafe8d00.ply": "0e10c4c421733d3f6823a83e15890843b18f8d59715e6c2b0d80adfc7ebc697c",
+    "scan-registration.json": "2120e0521b8e4d865cc25d422ca8560ec3e38895227d31fa6cc0eaf8ba143962",
+    "branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2"
+  },
+  "source_sha256": "7e21fb4a09484bc2332dacb5799dc5cf4bb0308ee478973f405a7b75b3a75408",
+  "pass_archive": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-19-jg-pp0208e-tee/passes",
+  "method": "Five native fused clouds, unscaled. Each is registered onto the registered merged mesh (principal-axis starts, trimmed point-to-plane ICP, 0.35 mm final inlier band). Per port: front face r3.4-5.3 with outward normals fitted as a plane; fixed barrel face r5.6-7.4; side wall r4.6-5.8 between them. A reading is clean with at least 30 of 36 face sectors present and an open bore.",
+  "passes": {
+    "pass-1-1716-f346c65f.ply": {
+      "registration_inlier_fraction": 0.9961,
+      "registration_inlier_median_mm": 0.09064037590890854,
+      "rotation": [
+        [
+          0.00212573672972231,
+          -0.7823908448746637,
+          -0.6227841095433198
+        ],
+        [
+          0.5779384861675485,
+          -0.5072812277308281,
+          0.6392596203408002
+        ],
+        [
+          -0.8160775621530817,
+          -0.3612898031334581,
+          0.45109543414012676
+        ]
+      ],
+      "translation_mm": [
+        133.70749990647093,
+        -159.75793848959546,
+        -67.6227298223676
+      ],
+      "ports": {
+        "branch": {
+          "seen": true,
+          "face_station_mm": 21.347923403201094,
+          "face_tilt_deg": 0.8980718569320356,
+          "face_residual_abs_p95_mm": 0.18108374039161182,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 19.490589358003746,
+          "protrusion_beyond_barrel_face_mm": 1.857334045197348,
+          "side_wall_diameter_mm": 10.400897593476369,
+          "side_wall_points": 598,
+          "bore_filled_ratio": 0.0440771349862259,
+          "calipered_stroke_fraction": 0.3319489354673948,
+          "clean": true
+        },
+        "run_plus": {
+          "seen": true,
+          "face_station_mm": 20.192817022224848,
+          "face_tilt_deg": 4.989979457278424,
+          "face_residual_abs_p95_mm": 0.17801693251530534,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.88784334516084,
+          "protrusion_beyond_barrel_face_mm": 2.304973677064009,
+          "side_wall_diameter_mm": 10.518781278933071,
+          "side_wall_points": 1063,
+          "bore_filled_ratio": 0.04015151515151515,
+          "calipered_stroke_fraction": 0.3592830437726343,
+          "clean": true
+        },
+        "run_minus": {
+          "seen": true,
+          "face_station_mm": 19.9720129743163,
+          "face_tilt_deg": 4.484922774033841,
+          "face_residual_abs_p95_mm": 0.25396195577297853,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.823166274080577,
+          "protrusion_beyond_barrel_face_mm": 2.1488467002357226,
+          "side_wall_diameter_mm": 10.351837665143883,
+          "side_wall_points": 584,
+          "bore_filled_ratio": 0.0,
+          "calipered_stroke_fraction": 0.22546240867654477,
+          "clean": true
+        }
+      }
+    },
+    "pass-2-1946-4934837e.ply": {
+      "registration_inlier_fraction": 0.9934,
+      "registration_inlier_median_mm": 0.09212355050380605,
+      "rotation": [
+        [
+          -0.0019469091287378463,
+          -0.782243386849401,
+          -0.6229698975674747
+        ],
+        [
+          -0.7803270151257675,
+          -0.3883989169975168,
+          0.4901387872226258
+        ],
+        [
+          -0.6253686584805433,
+          0.4870744963612238,
+          -0.6096494697649668
+        ]
+      ],
+      "translation_mm": [
+        133.8455335443723,
+        -72.8705165749058,
+        164.38102242606172
+      ],
+      "ports": {
+        "branch": {
+          "seen": true,
+          "face_station_mm": 21.356288419570646,
+          "face_tilt_deg": 0.5888997895524667,
+          "face_residual_abs_p95_mm": 0.19522895754855435,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 19.41335338937246,
+          "protrusion_beyond_barrel_face_mm": 1.9429350301981856,
+          "side_wall_diameter_mm": 10.43995449812014,
+          "side_wall_points": 704,
+          "bore_filled_ratio": 0.0,
+          "calipered_stroke_fraction": 0.33752561304709633,
+          "clean": true
+        },
+        "run_plus": {
+          "seen": false
+        },
+        "run_minus": {
+          "seen": true,
+          "face_station_mm": 19.816126294657558,
+          "face_tilt_deg": 3.0070863918958213,
+          "face_residual_abs_p95_mm": 0.2066873760023023,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.814070812087706,
+          "protrusion_beyond_barrel_face_mm": 2.002055482569851,
+          "side_wall_diameter_mm": 10.241472165103506,
+          "side_wall_points": 713,
+          "bore_filled_ratio": 0.0007473841554559044,
+          "calipered_stroke_fraction": 0.13098563312579173,
+          "clean": true
+        }
+      }
+    },
+    "pass-3-1959-0d8a423d.ply": {
+      "registration_inlier_fraction": 0.985,
+      "registration_inlier_median_mm": 0.09169349508761121,
+      "rotation": [
+        [
+          0.20005137260234085,
+          -0.5695928235427066,
+          -0.7972097990419872
+        ],
+        [
+          -0.8886150055936471,
+          0.23726917325071079,
+          -0.39251332621801027
+        ],
+        [
+          0.41272608368471403,
+          0.7869354197096303,
+          -0.4586827062934763
+        ]
+      ],
+      "translation_mm": [
+        160.23951108704787,
+        138.5687889106474,
+        77.71006933712823
+      ],
+      "ports": {
+        "branch": {
+          "seen": true,
+          "face_station_mm": 20.98267191726823,
+          "face_tilt_deg": 3.960005919134386,
+          "face_residual_abs_p95_mm": 0.17275622634790355,
+          "face_sectors_of_36": 11,
+          "barrel_face_station_mm": 19.399871345868874,
+          "protrusion_beyond_barrel_face_mm": 1.582800571399357,
+          "side_wall_diameter_mm": 10.626085449395417,
+          "side_wall_points": 253,
+          "bore_filled_ratio": 0.0,
+          "calipered_stroke_fraction": 0.08844794484548639,
+          "clean": false
+        },
+        "run_plus": {
+          "seen": true,
+          "face_station_mm": 19.83671365352763,
+          "face_tilt_deg": 3.0562189905023267,
+          "face_residual_abs_p95_mm": 0.1775102976363556,
+          "face_sectors_of_36": 35,
+          "barrel_face_station_mm": 17.865925767078778,
+          "protrusion_beyond_barrel_face_mm": 1.9707878864488535,
+          "side_wall_diameter_mm": 10.51219604397108,
+          "side_wall_points": 634,
+          "bore_filled_ratio": 0.025333333333333333,
+          "calipered_stroke_fraction": 0.143462820319776,
+          "clean": true
+        },
+        "run_minus": {
+          "seen": true,
+          "face_station_mm": 21.092474148052304,
+          "face_tilt_deg": 3.1194638885071124,
+          "face_residual_abs_p95_mm": 0.22546710615821672,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.82169126842261,
+          "protrusion_beyond_barrel_face_mm": 3.2707828796296923,
+          "side_wall_diameter_mm": 9.800968229278045,
+          "side_wall_points": 360,
+          "bore_filled_ratio": 0.2,
+          "calipered_stroke_fraction": 0.9045297866983659,
+          "clean": false
+        }
+      }
+    },
+    "pass-4-2011-b0a6db20.ply": {
+      "registration_inlier_fraction": 0.9966,
+      "registration_inlier_median_mm": 0.08503280964639304,
+      "rotation": [
+        [
+          0.21090159211570023,
+          -0.5790521403938897,
+          -0.7875399273359517
+        ],
+        [
+          0.05307742837269392,
+          -0.7976891531613002,
+          0.6007285589400158
+        ],
+        [
+          -0.9760652155672818,
+          -0.1684952035936283,
+          -0.13749931390932998
+        ]
+      ],
+      "translation_mm": [
+        157.70364629244332,
+        -113.29840570694333,
+        76.25257668982069
+      ],
+      "ports": {
+        "branch": {
+          "seen": true,
+          "face_station_mm": 21.270645255991827,
+          "face_tilt_deg": 0.8958722560218638,
+          "face_residual_abs_p95_mm": 0.14240206941323502,
+          "face_sectors_of_36": 32,
+          "barrel_face_station_mm": 19.435972845033177,
+          "protrusion_beyond_barrel_face_mm": 1.8346724109586496,
+          "side_wall_diameter_mm": 10.311428307800094,
+          "side_wall_points": 613,
+          "bore_filled_ratio": 0.012471655328798186,
+          "calipered_stroke_fraction": 0.28043017066121695,
+          "clean": true
+        },
+        "run_plus": {
+          "seen": true,
+          "face_station_mm": 20.0787441530852,
+          "face_tilt_deg": 0.9420735632574676,
+          "face_residual_abs_p95_mm": 0.3521906326993699,
+          "face_sectors_of_36": 31,
+          "barrel_face_station_mm": 17.859445946436374,
+          "protrusion_beyond_barrel_face_mm": 2.2192982066488263,
+          "side_wall_diameter_mm": 10.769573013001702,
+          "side_wall_points": 451,
+          "bore_filled_ratio": 0.06994818652849741,
+          "calipered_stroke_fraction": 0.2901479715667873,
+          "clean": true
+        },
+        "run_minus": {
+          "seen": true,
+          "face_station_mm": 19.86597418553346,
+          "face_tilt_deg": 2.690210566633795,
+          "face_residual_abs_p95_mm": 0.20046862421360062,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.850014988160282,
+          "protrusion_beyond_barrel_face_mm": 2.015959197373178,
+          "side_wall_diameter_mm": 10.241768924989113,
+          "side_wall_points": 744,
+          "bore_filled_ratio": 0.002657218777679362,
+          "calipered_stroke_fraction": 0.16119647608088422,
+          "clean": true
+        }
+      }
+    },
+    "pass-5-2025-fafe8d00.ply": {
+      "registration_inlier_fraction": 0.9994,
+      "registration_inlier_median_mm": 0.07719080852720883,
+      "rotation": [
+        [
+          -0.13346707118296205,
+          -0.8816553631166621,
+          -0.4526260726001864
+        ],
+        [
+          0.9115845110281986,
+          -0.2884067172947852,
+          0.2929765258049291
+        ],
+        [
+          -0.38884472500385375,
+          -0.3735041982453111,
+          0.8421961729489187
+        ]
+      ],
+      "translation_mm": [
+        96.72540245601108,
+        -90.23643454947664,
+        -192.4044053643106
+      ],
+      "ports": {
+        "branch": {
+          "seen": true,
+          "face_station_mm": 21.379973603892577,
+          "face_tilt_deg": 0.4883421710028092,
+          "face_residual_abs_p95_mm": 0.15387592754898097,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 19.54111274280929,
+          "protrusion_beyond_barrel_face_mm": 1.8388608610832868,
+          "side_wall_diameter_mm": 10.518998846036288,
+          "side_wall_points": 921,
+          "bore_filled_ratio": 0.0,
+          "calipered_stroke_fraction": 0.3533157359283834,
+          "clean": true
+        },
+        "run_plus": {
+          "seen": true,
+          "face_station_mm": 20.327453224295745,
+          "face_tilt_deg": 5.144865123088725,
+          "face_residual_abs_p95_mm": 0.2105253510936668,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.951491204700176,
+          "protrusion_beyond_barrel_face_mm": 2.375962019595569,
+          "side_wall_diameter_mm": 10.410317308792731,
+          "side_wall_points": 915,
+          "bore_filled_ratio": 0.0,
+          "calipered_stroke_fraction": 0.44088074199742067,
+          "clean": true
+        },
+        "run_minus": {
+          "seen": true,
+          "face_station_mm": 19.927538788832642,
+          "face_tilt_deg": 3.057567068264318,
+          "face_residual_abs_p95_mm": 0.1687766702515135,
+          "face_sectors_of_36": 36,
+          "barrel_face_station_mm": 17.9216936091602,
+          "protrusion_beyond_barrel_face_mm": 2.0058451796724412,
+          "side_wall_diameter_mm": 10.495900004001474,
+          "side_wall_points": 1145,
+          "bore_filled_ratio": 0.0,
+          "calipered_stroke_fraction": 0.19850835686826723,
+          "clean": true
+        }
+      }
+    }
+  },
+  "summary": {
+    "clean_readings": 12,
+    "readings_excluded": [
+      "pass-3-1959-0d8a423d.ply branch",
+      "pass-3-1959-0d8a423d.ply run_minus"
+    ],
+    "side_wall_diameter_mm": {
+      "median": 10.425135903456436,
+      "min": 10.241472165103506,
+      "max": 10.769573013001702,
+      "count": 12
+    },
+    "protrusion_beyond_barrel_face_mm": {
+      "min": 1.8346724109586496,
+      "max": 2.375962019595569
+    },
+    "calipered_stroke_fraction": {
+      "min": 0.13098563312579173,
+      "max": 0.44088074199742067
+    }
+  },
+  "limits": [
+    "Every clean reading rests near the pressed end; no pass holds a collet drawn out, so the stroke stays the calipered one.",
+    "Side-wall diameters are optical readings of bare black polypropylene, not a manufacturing tolerance.",
+    "The collet seam inside the fixed barrel is never in view."
+  ]
+}
