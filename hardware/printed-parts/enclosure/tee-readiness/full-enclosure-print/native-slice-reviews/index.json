@@ -547,6 +547,69 @@
         "grams_actual_petgf_density_1p43": 62.389931168667104
       },
       "submitted": false
+    },
+    {
+      "job": "front-top-v12",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-h2c-v12/manifest.json",
+        "sha256": "e39d3f228848f15bc584add8ceea10ccaa1d2e92ce010faf10d7129ae9f0fee6"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/ready/enclosure-front-top-black-z018-h2c-v12.gcode.3mf",
+        "sha256": "48fa137e59f188e1a76cc05770e03b36621797ca6fc2eb219384bd9b5f5c0ee2"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-h2c-v12/offline-review.json",
+        "sha256": "9831638e48a28335b076a101ff96c374f0cf279d5d3350890ed7f36ca34b67b8"
+      },
+      "slice_estimate": {
+        "seconds": 74940.2734375,
+        "grams_actual_petgf_density_1p43": 820.5163025375484
+      },
+      "submitted": false
+    },
+    {
+      "job": "tee-carrier-v3",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v3/manifest.json",
+        "sha256": "4287d59255241fb7837f7572c7f2ac670f7d6a9c148bc8a180b736f117bea6d9"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/ready/tee-carrier-plate-covers-black-z004-mark2-v3.gcode.3mf",
+        "sha256": "72b3d625f89ccc345cea71f9d96fc19b4e98b40611f8028edaeeb2f132c69cf0"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v3/offline-review.json",
+        "sha256": "5c10f1e4c090db303a184abef81f68efcadc2618767338dc139d10dafc91a21b"
+      },
+      "slice_estimate": {
+        "seconds": 7068.60986328125,
+        "grams_actual_petgf_density_1p43": 62.389931168667104
+      },
+      "submitted": false
+    },
+    {
+      "job": "pump-cartridge-v4",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-mark2-v4/manifest.json",
+        "sha256": "525581b93da1ec30f74eb9847b5803e4b7f62868c251da3358741d816ee68a01"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/ready/pump-cartridge-cap-black-z004-mark2-v4.gcode.3mf",
+        "sha256": "7a2b830f6865a30f092876d6858dbdad64db9b05d458afb401dcb6729742db83"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-mark2-v4/offline-review.json",
+        "sha256": "2cc8b6aa57f05c1fb8780bd6f5e3cc15ed2da797da218194c566e6053502566f"
+      },
+      "slice_estimate": {
+        "seconds": 40133.28125,
+        "grams_actual_petgf_density_1p43": 471.6063052628391
+      },
+      "submitted": false
     }
   ]
 }

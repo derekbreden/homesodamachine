@@ -1,0 +1,20 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-23 (relay of Tee carrier 4 / Scan results 2): get ready for a new front-top print with the completed work of Tee carrier 4, the top rounded edge in 0.08 mm layers; re-prepared at the Audit session's request after its print-readiness fixes (6fead8c0e) and the window-cover posts (f38f939d1). Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "043240ddf8fa1a7a5e186d096e8ed44aca58b962d29c178c82c443525a94e6e3",
+    "hardware/manifold-layout/enclosure-box.json": "81762506ebf661b7108d68e48bf75547bb23c08a8c49e8e058333ab4548dfda7",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/geometry-evidence.json": "480d57a454c8a4dac6c832e6e3b052a8de4ef9b9f90f141883d359b8a7262a9b",
+    ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/round-scan.json": "f8a2abb397f5fe6df35539fc22e4f7a0b56d7511041b91f2965ae0e8fa1661f9"
+  }
+}

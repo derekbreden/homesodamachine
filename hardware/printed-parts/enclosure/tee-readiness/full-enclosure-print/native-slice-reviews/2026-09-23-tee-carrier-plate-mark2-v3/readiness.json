@@ -1,0 +1,369 @@
+{
+  "status": "native_slice_verified_support_removal_review_pending",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_assembly_checks",
+  "printer": "Mark2",
+  "job": "tee-carrier",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/tee-carrier-plate-covers-black-z004-mark2-v3-input.3mf",
+  "staged_input_sha256": "560cb956764419cb8e21652da2d3193079a49bf970bd765bb4957722cf013adf",
+  "native_archive": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/ready/tee-carrier-plate-covers-black-z004-mark2-v3.gcode.3mf",
+  "native_archive_sha256": "72b3d625f89ccc345cea71f9d96fc19b4e98b40611f8028edaeeb2f132c69cf0",
+  "gcode_sha256": "f04dc2537dbff6f577051ad36a459084a667e6794902e44562070c373e9b321b",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "source_stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          95.98600006103516,
+          164.9239959716797
+        ],
+        [
+          107.5,
+          117.04000091552734,
+          224.29600524902344
+        ]
+      ],
+      "original_mesh_triangles": 47944,
+      "pretransform_rotation_sequence": [
+        "X-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "oriented_stl_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          164.9239959716797,
+          -117.04000091552734
+        ],
+        [
+          107.5,
+          224.29600524902344,
+          -95.98600006103516
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "name": "enclosure-window-cover-east",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "source_stl_sha256": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "source_step_sha256": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550",
+      "original_bounds_mm": [
+        [
+          92.5,
+          117.19000244140625,
+          164.6739959716797
+        ],
+        [
+          98.5,
+          153.18600463867188,
+          224.79600524902344
+        ]
+      ],
+      "original_mesh_triangles": 36,
+      "pretransform_rotation_sequence": [
+        "Y90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/oriented-meshes/enclosure-window-cover-east.stl",
+      "oriented_stl_sha256": "cd922eb003464cfcd8bb3bed17d819a215c2d14e0beedbfdeac8f47dd0a325a4",
+      "oriented_bounds_mm": [
+        [
+          164.6739959716797,
+          117.19000244140625,
+          -98.5
+        ],
+        [
+          224.79600524902344,
+          153.18600463867188,
+          -92.5
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "enclosure-window-cover-west",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl",
+      "source_stl_sha256": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "source_step_sha256": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
+      "original_bounds_mm": [
+        [
+          -98.5,
+          117.19000244140625,
+          164.6739959716797
+        ],
+        [
+          -92.5,
+          153.18600463867188,
+          224.79600524902344
+        ]
+      ],
+      "original_mesh_triangles": 36,
+      "pretransform_rotation_sequence": [
+        "Y-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/oriented-meshes/enclosure-window-cover-west.stl",
+      "oriented_stl_sha256": "f93abfc5ef782119629eb93b035da986a500fe8dc0d7dbb5a675e4b09ff8998f",
+      "oriented_bounds_mm": [
+        [
+          -224.79600524902344,
+          117.19000244140625,
+          -98.5
+        ],
+        [
+          -164.6739959716797,
+          153.18600463867188,
+          -92.5
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "3d6d34ee917a40b568d2eb7f405f238f18094550b870e3d3f242b2378fe55128",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.04,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "machine_start_gcode",
+    "extruder_ams_count",
+    "printer_settings_id"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-23 14:04:55.144429] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 14:04:55.710192] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 14:04:55.710849] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 135,
+  "native_log_diagnostics_review": "pending",
+  "estimated_seconds": 7068.60986328125,
+  "estimated_grams_saved_profile_density": 56.28182601928711,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-tee-carrier-plate",
+        "side_margins_mm": [
+          54.855,
+          95.134,
+          54.843999999999994,
+          165.109
+        ],
+        "minimum_margin_mm": 54.843999999999994
+      },
+      {
+        "piece": "enclosure-window-cover-east",
+        "side_margins_mm": [
+          182.839,
+          196.902,
+          81.839,
+          86.90199999999999
+        ],
+        "minimum_margin_mm": 81.839
+      },
+      {
+        "piece": "enclosure-window-cover-west",
+        "side_margins_mm": [
+          81.839,
+          196.902,
+          182.839,
+          86.90199999999999
+        ],
+        "minimum_margin_mm": 81.839
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 54.843999999999994,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-tee-carrier-plate",
+          "enclosure-window-cover-east"
+        ],
+        "projected_extrusion_box_gap_mm": 42.010999999999996,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      },
+      {
+        "pieces": [
+          "enclosure-tee-carrier-plate",
+          "enclosure-window-cover-west"
+        ],
+        "projected_extrusion_box_gap_mm": 42.010999999999996,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      },
+      {
+        "pieces": [
+          "enclosure-window-cover-east",
+          "enclosure-window-cover-west"
+        ],
+        "projected_extrusion_box_gap_mm": 40.678,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 40.678,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/tee-carrier-plate-covers-black-z004-mark2-v3-input.support-audit.json",
+  "support_audit_sha256": "1bbb56daa397a8da849a2663aa373458cb5b6f563f02109e0048f0af97fe8e1b",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false
+}
