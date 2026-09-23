@@ -7639,6 +7639,84 @@ cp hardware/printed-parts/fixtures/tube-miter-box/README.md $$O3
 )
 
 genrule(
+    name = "valve-socket-fit",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/snap.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py",
+        "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
+        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
+        "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+        "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
+        "pysrc/hardware/reference/tee-connector/tee_connector.py",
+        "pysrc/hardware/reference/wago-221/wago_221.py",
+        "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
+        "pysrc/hardware/scripts/_boxes.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json",
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step",
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh",
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json)
+O1=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step)
+O2=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh)
+O3=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py > /dev/null
+cp hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json $$O0
+cp hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step $$O1
+cp hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh $$O2
+cp hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl $$O3
+""",
+)
+
+genrule(
     name = "water-inlet-jet-fixture",
     srcs = [
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
@@ -12278,6 +12356,14 @@ genrule(
     name = "pysrc-1220b855a771",
     srcs = ["hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py"],
     outs = ["pysrc/hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-7cef359462d4",
+    srcs = ["hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py"],
+    outs = ["pysrc/hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -25871,6 +25957,7 @@ filegroup(
         ":faucet-display-snap-trial",
         ":tee-valve-bow-trial",
         ":tube-miter-box",
+        ":valve-socket-fit",
         ":water-inlet-jet-fixture",
         ":weld-rotator",
         ":fuse-clamp",
