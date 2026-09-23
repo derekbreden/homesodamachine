@@ -25,14 +25,13 @@ outboard wall on the trough's edge. The tie closes round the tee's front, drops 
 root into the slot on each side and crosses the plate's back. Its
 [1 mm](STRAP_T) strap across the back is inside the flank openings.
 
-Each column's end face is flush with its flank and is show face. Its top and bottom edges roll
-over on the enclosure's [6 mm](SHOW_EDGE_R) shoulder, the radius of the enclosure's own side
-edges; its fore edge stays square, where a shoulder would open into the spring bores. The
-exporter strikes the enclosure's flute field on the face at the connected pose, so its grooves
-register with the flank's and fade short of the face's edges the same way.
+Each column's end face is flush with its flank and is show face. All four of its edges roll over
+on the enclosure's [6 mm](SHOW_EDGE_R) shoulder, the radius of the enclosure's own side edges.
+The exporter strikes the enclosure's flute field on the face at the connected pose, so its
+grooves register with the flank's and fade short of the face's edges the same way.
 
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
-the bed, and the square aft edges of the end faces are the ones on the bed.
+the bed, and each end face's aft shoulder rises off the bed.
 
 ## Openings and travel
 
@@ -59,8 +58,9 @@ Four return springs, two in each column, push the carrier aft off the tee wall. 
 uxcell 304 stainless spring, [0.8 mm](SPRING_WIRE) wire, measured at [6 mm](SPRING_OD) OD,
 [27 mm](SPRING_FREE) free and about [7 mm](SPRING_SOLID) solid. Each stands in a blind
 [6.5 mm](SPRING_BORE_D) bore [18.054 mm](SPRING_BORE_DEPTH) deep in the column's fore face,
-centred in the column's width with [5.2 mm](SPRING_SIDE_WALL) of column either side and
-[3 mm](BACKING) behind its floor, and bears on the tee wall's aft face. The two in a column stand
+centred in the width the fore face keeps square inboard of its shoulder, with
+[2.2 mm](SPRING_SIDE_WALL) of column either side at the mouth and [3 mm](BACKING) behind its
+floor, and bears on the tee wall's aft face. The two in a column stand
 [30 mm](SPRING_SPREAD) apart, one either side of the tees' run axis, the lower over a
 [3 mm](BACKING) floor.
 

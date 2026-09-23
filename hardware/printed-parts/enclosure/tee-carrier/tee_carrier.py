@@ -10,8 +10,8 @@ slides fore until each branch stands in its journal.
 Four return springs, two in each column, stand in blind bores in the column's fore face and bear
 on the tee wall's aft face, one over the other either side of the tees' run axis.
 
-Each column's end face is flush with its flank and is show face: its top and bottom edges roll
-over on the enclosure's R6 shoulder, and the exporter strikes the enclosure's flute field on it.
+Each column's end face is flush with its flank and is show face: all four of its edges roll over
+on the enclosure's R6 shoulder, and the exporter strikes the enclosure's flute field on it.
 
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
@@ -139,8 +139,9 @@ class Carrier:
 
     @property
     def spring_x(self):
-        """The middle of the column's width."""
-        return sum(self.column_x) / 2.0
+        """The middle of the column's width that stays square at its fore face, inboard of the
+        end face's shoulder."""
+        return (self.column_x[0] + self.exterior_x - self.show_edge_r) / 2.0
 
     @property
     def spring_bore_r(self):
@@ -210,16 +211,12 @@ def build_plate(c: Carrier):
 
 
 def _shoulder_edges(c: Carrier, body):
-    """Each end face's top and bottom edges: its long edges, the ones the enclosure's own side
-    shoulders run along."""
-    out = []
-    for edge in body.Edges():
-        a, b = edge.startPoint(), edge.endPoint()
-        if (abs(abs(a.x) - c.exterior_x) < 1e-6 and abs(abs(b.x) - c.exterior_x) < 1e-6
-                and abs(a.z - b.z) < 1e-6 and any(abs(a.z - z) < 1e-6 for z in c.column_z)):
-            out.append(edge)
-    if len(out) != 4:
-        raise ValueError(f"expected the two end faces' top and bottom edges, found {len(out)}")
+    """All four edges of each end face."""
+    out = [edge for edge in body.Edges()
+           if abs(abs(edge.startPoint().x) - c.exterior_x) < 1e-6
+           and abs(abs(edge.endPoint().x) - c.exterior_x) < 1e-6]
+    if len(out) != 8:
+        raise ValueError(f"expected the two end faces' four edges each, found {len(out)}")
     return out
 
 
@@ -303,9 +300,8 @@ def selftest(c: Carrier) -> int:
         errors.append("the staged plate's strapped back does not close the opening")
     if not SPRING_SOLID < c.spring_length(-release_travel()) < c.spring_length() < SPRING_FREE:
         errors.append("a spring is solid at release or slack at connected")
-    if min(c.spring_x - c.spring_bore_r - c.column_x[0],
-           c.column_x[1] - c.spring_x - c.spring_bore_r) < c.backing - 1e-9:
-        errors.append("a spring bore leaves less than a backing of column beside it")
+    if c.spring_x + c.spring_bore_r > c.exterior_x - c.show_edge_r - 1e-9:
+        errors.append("a spring bore opens into the end face's fore shoulder")
     for name, spring in springs(c).items():
         if not spring.isValid():
             errors.append(f"{name} is not a valid solid")
