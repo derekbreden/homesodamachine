@@ -1003,7 +1003,8 @@ def tee_carrier(pack):
     return _tee_carrier.Carrier.on(
         plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
         tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t,
-        roof_z=min(tray_corbel_roots(pack.valve_trays, plate["wall_aft_y"])))
+        roof_z=min(tray_corbel_roots(pack.valve_trays, plate["wall_aft_y"])),
+        show_edge_r=_interface.show_edge_r)
 
 
 def tray_corbel_roots(stations, wall_aft_y):

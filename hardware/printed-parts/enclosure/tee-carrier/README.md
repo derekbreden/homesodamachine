@@ -25,8 +25,14 @@ outboard wall on the trough's edge. The tie closes round the tee's front, drops 
 root into the slot on each side and crosses the plate's back. Its
 [1 mm](STRAP_T) strap across the back is inside the flank openings.
 
-The plate prints lying on its back, troughs open upward; the tips stand out in the plane of the
-bed.
+Each column's end face is flush with its flank and is show face. Its top and bottom edges roll
+over on the enclosure's [6 mm](SHOW_EDGE_R) shoulder, the radius of the enclosure's own side
+edges; its fore edge stays square, where a shoulder would open into the spring bores. The
+exporter strikes the enclosure's flute field on the face at the connected pose, so its grooves
+register with the flank's and fade short of the face's edges the same way.
+
+The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
+the bed, and the square aft edges of the end faces are the ones on the bed.
 
 ## Openings and travel
 
