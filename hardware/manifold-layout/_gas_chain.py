@@ -1,10 +1,11 @@
 """External adapter envelopes and tube mouths on the warm CO2 chain.
 
-The gray fittings represent acquired PI010822S adapters using the existing nominal
-1/4-inch PTC reference dimensions. The purchased LTWFITTING B01ABDD8FY coupling
-has no verified dimensional drawing: its 22 mm OD, 25.4 mm length and 11 mm thread
-engagement below are provisional layout allowances, not supplier dimensions.
-Measure the made-up fittings before accepting this layout for assembly.
+WR1110 and the downstream GASHER check each run female 1/4-inch NPT in and male 1/4-inch NPT
+out, and gray acetal John Guest fittings take every end onto 1/4-inch tube: a PI010822S male
+connector threads into each female socket, and a PI450822S female adapter onto each male stub.
+The PI010822S uses the existing nominal 1/4-inch PTC reference dimensions. The PI450822S is the
+PP450822E's form in gray acetal and takes the nominal sections the SeaFlo discharge chain draws
+for that adapter. Measure the made-up fittings before accepting this layout for assembly.
 """
 
 import sys
@@ -13,24 +14,25 @@ from pathlib import Path
 import cadquery as cq
 
 _hw = Path(__file__).resolve().parents[1]
-for _folder in ("jg-pp010822e", "gasher-check-valve", "wr1110-regulator"):
+for _folder in ("jg-pp010822e", "gasher-check-valve", "wr1110-regulator",
+                "seaflo-discharge-chain"):
     sys.path.insert(0, str(_hw / "reference" / _folder))
 import jg_pp010822e as _ptc
 import gasher_check_valve as _check
 import wr1110_regulator as _reg
+import seaflo_discharge_chain as _female   # the PP450822E's sections, the PI450822S's form
 
-ADAPTER_REACH = _ptc.HEX_LENGTH + _ptc.COLLET_LENGTH
-COUPLING_OD = 22.0
-COUPLING_LENGTH = 25.4
-COUPLING_ENGAGEMENT = 11.0
+# Past the mate's face: the male connector's hex and collet, and the female adapter's socket,
+# hex and collet less the stub it swallows.
+MALE_REACH = _ptc.HEX_LENGTH + _ptc.COLLET_LENGTH
+FEMALE_REACH = (_female.JG_SOCKET_L + _female.JG_HEX_L + _female.JG_COLLET_L
+                - _female.NPT_ENGAGE)
 
 REG_IN_ADAPTER = "co2-adapter-regulator-in"
 REG_OUT_ADAPTER = "co2-adapter-regulator-out"
 CHECK_IN_ADAPTER = "co2-adapter-check-in"
 CHECK_OUT_ADAPTER = "co2-adapter-check-out"
-CHECK_COUPLING = "co2-check-coupling-nominal"
 ADAPTER_NAMES = (REG_IN_ADAPTER, REG_OUT_ADAPTER, CHECK_IN_ADAPTER, CHECK_OUT_ADAPTER)
-BODY_NAMES = ADAPTER_NAMES + (CHECK_COUPLING,)
 PORT_ADAPTERS = {
     "wr1110.inlet": REG_IN_ADAPTER,
     "wr1110.outlet": REG_OUT_ADAPTER,
@@ -45,23 +47,19 @@ def advance(port, reach):
 
 
 def regulator_inlet():
-    return advance(_reg.inlet(), ADAPTER_REACH)
+    return advance(_reg.inlet(), MALE_REACH)
 
 
 def regulator_outlet():
-    return advance(_reg.outlet(), ADAPTER_REACH)
+    return advance(_reg.outlet(), FEMALE_REACH)
 
 
 def check_inlet():
-    return advance(_check.inlet(), ADAPTER_REACH)
-
-
-def coupling_outlet():
-    return advance(_check.outlet(), COUPLING_LENGTH - COUPLING_ENGAGEMENT)
+    return advance(_check.inlet(), MALE_REACH)
 
 
 def check_outlet():
-    return advance(coupling_outlet(), ADAPTER_REACH)
+    return advance(_check.outlet(), FEMALE_REACH)
 
 
 def check_socket():
@@ -70,8 +68,9 @@ def check_socket():
     return ((0.0, mid, 0.0), (0.0, 1.0, 0.0)), _check.SOCKET_D / 2.0, _check.SOCKET_LENGTH
 
 
-def adapter(port):
-    """Only the external hex and collet; the engaged NPT shank is inside its mate."""
+def male_connector(port):
+    """A PI010822S in a female socket: only the external hex and collet; the engaged NPT
+    shank is inside its mate."""
     pos, axis = port
     plane = cq.Plane(origin=pos, normal=axis)
     hex_body = cq.Workplane(plane).polygon(6, _ptc.HEX_ACROSS_CORNERS).extrude(_ptc.HEX_LENGTH)
@@ -81,20 +80,29 @@ def adapter(port):
     return hex_body.union(collet).val()
 
 
-def coupling():
-    """Provisional pipe-coupling envelope, with room for the check's engaged male stub."""
-    pos, axis = advance(_check.outlet(), -COUPLING_ENGAGEMENT)
+def female_adapter(port, stub_d):
+    """A PI450822S made up on a male stub whose far end is `port`: socket, hex and collet,
+    the socket face standing the engagement back from the stub's end and bored to the stub
+    for that depth, so the stub stands inside it."""
+    pos, axis = advance(port, -_female.NPT_ENGAGE)
     base, direction = cq.Vector(*pos), cq.Vector(*axis)
-    shell = cq.Solid.makeCylinder(COUPLING_OD / 2, COUPLING_LENGTH, base, direction)
-    bore = cq.Solid.makeCylinder(_check.THREAD_D / 2, COUPLING_LENGTH, base, direction)
-    return shell.cut(bore)
+    socket = cq.Solid.makeCylinder(_female.JG_SOCKET_D / 2, _female.JG_SOCKET_L,
+                                   base, direction)
+    hex_origin = base + direction.multiply(_female.JG_SOCKET_L)
+    hex_body = (cq.Workplane(cq.Plane(origin=hex_origin.toTuple(), normal=axis))
+                .polygon(6, _female.JG_HEX).extrude(_female.JG_HEX_L).val())
+    collet = cq.Solid.makeCylinder(
+        _female.JG_COLLET_D / 2, _female.JG_COLLET_L,
+        base + direction.multiply(_female.JG_SOCKET_L + _female.JG_HEX_L), direction)
+    bore = cq.Solid.makeCylinder(stub_d / 2, _female.NPT_ENGAGE, base, direction)
+    return socket.fuse(hex_body, collet).clean().cut(bore)
 
 
 def bodies(regulator_carry, check_carry):
     return {
-        REG_IN_ADAPTER: adapter(_reg.inlet()).moved(regulator_carry.where),
-        REG_OUT_ADAPTER: adapter(_reg.outlet()).moved(regulator_carry.where),
-        CHECK_IN_ADAPTER: adapter(_check.inlet()).moved(check_carry.where),
-        CHECK_OUT_ADAPTER: adapter(coupling_outlet()).moved(check_carry.where),
-        CHECK_COUPLING: coupling().moved(check_carry.where),
+        REG_IN_ADAPTER: male_connector(_reg.inlet()).moved(regulator_carry.where),
+        REG_OUT_ADAPTER: female_adapter(_reg.outlet(), _reg.STUB_D).moved(regulator_carry.where),
+        CHECK_IN_ADAPTER: male_connector(_check.inlet()).moved(check_carry.where),
+        CHECK_OUT_ADAPTER: female_adapter(_check.outlet(), _check.THREAD_D)
+        .moved(check_carry.where),
     }
