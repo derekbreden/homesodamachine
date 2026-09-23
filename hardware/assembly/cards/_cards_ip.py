@@ -65,7 +65,7 @@ def internal_plumbing(m):
         f"no {co2_bore:.4g} mm bore stands in the +Y wall of back-top — IP-01 starts at the ABU44 "
         f"bulkhead clamped through it, and the +Y wall is where the card sends the bench")
     # The three red runs connect the bulkhead, regulator, downstream check and core.
-    # Body inlet/outlet stations include the installed adapters and outlet coupling;
+    # Body inlet/outlet stations include the installed adapters;
     # these are outer collet faces, not bare NPT mouths.
     assert (runs["co2-0"].frm, runs["co2-0"].to) == ("co2-inlet.inboard", "wr1110.inlet"), (
         f"`co2-0` runs {runs['co2-0'].frm} → {runs['co2-0'].to} — IP-01 connects bulkhead to regulator")
