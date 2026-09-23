@@ -9024,13 +9024,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     x_in, x_ext, sx, z_boss, _y_boss(y_joint), y_joint,
                     ceiling=inner[5]))
     if y_side == "front" and z_side == "top" and plate:
-        # The flank openings continue through every wall, tray and seam feature.
-        for slot in _tee_carrier_service_slots(box.pack.tee_carrier):
-            piece = piece.cut(slot)
-        # Add the closed circular cups after the recess cutters so those access volumes
-        # cannot erase their measured capture surfaces.
-        for cup in _tee_carrier_fixed_cups(box.pack.tee_carrier):
-            piece = piece.fuse(cup)
         piece = _front_top_flank_pockets(piece, box.pack.front_flank_reliefs)
     if y_side == "back" and z_side == "top":
         # Last on the flank: the channel is air, and no later wall feature may fill it back in.
