@@ -25,6 +25,10 @@ SHELL = FAUCET / "faucet-shell"
 OUTPUT = SHELL / "geometry-check.json"
 DISTANCE_TOLERANCE = 1e-4
 VOLUME_TOLERANCE = 1e-5
+# HOW DEEP A CONTACT HAS TO REACH BEFORE A PRINT HAS IT. Two faces meant to meet flush leave a
+# common of a micron or less in an exact Boolean; a hundredth of a millimetre is fifteen times
+# under the `fits.slip` a printed seat is given and under anything a PET-GF print resolves.
+GRAZE_DEPTH = 0.01
 
 
 def digest(path: Path) -> str:
@@ -60,6 +64,18 @@ def shape(part):
 
 def volume(part) -> float:
     return sum(s.Volume() for s in shape(part).Solids())
+
+
+def deepest_stray(common, allowed) -> float:
+    """How deep the deepest contact outside `allowed` reaches.
+
+    Twice a common solid's volume over its surface is a slab's own thickness, so a sliver
+    along two faces that meet flush reads as its thickness rather than its length."""
+    depth = 0.0
+    for solid in shape(common).Solids():
+        if outside_material_volume(solid, allowed) > VOLUME_TOLERANCE:
+            depth = max(depth, 2.0*solid.Volume()/solid.Area())
+    return depth
 
 
 def outside_material_volume(part, allowed) -> float:
@@ -952,6 +968,7 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
         row = {"normal_lift_mm": lift, "unflexed_body_interference_mm3": clean_number(volume(common)),
                "contact_outside_actual_lips_mm3": clean_number(outside_volume(common, lips.translate(normal.multiply(lift)))),
                "contact_outside_lower_skirts_mm3": clean_number(outside_volume(common, lower_skirts.translate(normal.multiply(lift)))),
+               "deepest_contact_outside_lips_mm": clean_number(deepest_stray(common, lips.translate(normal.multiply(lift)))),
                "sides": []}
         hardware_poses = [
             (moved, {"state": "nominal", "part": "complete_cover", "normal_lift_mm": lift}),
@@ -1010,8 +1027,13 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
                           for side in row["sides"]) + " mm", flush=True)
     peak = max(side["required_outward_clearance_mm"] for row in rows for side in row["sides"])
     free_peak = max(side["total_outward_clearance_from_relaxed_print_mm"] for row in rows for side in row["sides"])
+    # Contact off the lips is a graze when none of it reaches `GRAZE_DEPTH` deep: faces that
+    # meet flush partway up the stroke leave a common a Boolean reports and a print does not.
+    def on_lips(row):
+        stray = max(row["contact_outside_actual_lips_mm3"], row["contact_outside_lower_skirts_mm3"])
+        return stray <= VOLUME_TOLERANCE or row["deepest_contact_outside_lips_mm"] <= GRAZE_DEPTH
     reading.add("motion:display-cover-normal", all(
-                    max(row["contact_outside_actual_lips_mm3"], row["contact_outside_lower_skirts_mm3"],
+                    on_lips(row) and max(
                         *(side["remaining_body_interference_mm3"] for side in row["sides"]),
                         *(side["remaining_relaxed_body_interference_mm3"] for side in row["sides"])) <= VOLUME_TOLERANCE
                     for row in rows),
@@ -1022,7 +1044,8 @@ def display_retention_reading(reading, f, parts, body, screen, ribbon, tubes,
                                                      "maximum": [clean_number(v) for v in clip_max]},
                 obstacle_crop_method="exact conservative bounds of both complete covers, expanded by the full independent outward search budget in X, all normal lifts in N, and 0.1 mm on every face; also contains the inward seating probes",
                 cartridge_lift_n_mm=f.display_cartridge_lift_n,
-                scope="final normal seating of the preloaded cover/display cartridge after the lifted axial approach; display and glass move with the cover. Nominal contact must stay in the lips and lower skirts. Each skirt's rigid outward translation measures clearance demand, not deformation, strain, force, or the loaded equilibrium shape of the joined end bridges")
+                graze_depth_mm=GRAZE_DEPTH,
+                scope="final normal seating of the preloaded cover/display cartridge after the lifted axial approach; display and glass move with the cover. Nominal contact must stay in the lips and lower skirts, or reach no deeper than the graze depth outside them. Each skirt's rigid outward translation measures clearance demand, not deformation, strain, force, or the loaded equilibrium shape of the joined end bridges")
     for name, result in travel.items():
         required = 0.1 if name == "ribbon-neck" else 0.0
         reading.add(f"clearance:snap-travel-{name}", result["overlap"] <= VOLUME_TOLERANCE
