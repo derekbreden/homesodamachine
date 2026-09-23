@@ -1,7 +1,6 @@
 """The display cover's two skirts and the open-backed catches the housing holds them with.
 
 Coordinates follow the machine display: X across, Y up the screen, Z out of the face.
-The cover prints with its visible face upward.
 
 EACH SKIRT IS THE NAMEPLATE'S SNAP TAB RUN BROAD. Its thickness, reach, square lip, land and
 bearing slip are `_nameplate_interface`'s, and it runs `LENGTH` along the display instead of
