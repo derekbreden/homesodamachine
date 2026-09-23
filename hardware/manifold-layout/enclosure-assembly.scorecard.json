@@ -805,6 +805,18 @@
    "active": true
   },
   {
+   "id": "nameplate-psu-clear",
+   "label": "The nameplate's receiving bar stands clear of the PSU",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1.140 mm",
+   "target": "\u2265 1 mm",
+   "detail": [
+    "the bar and its corbel against the PSU's AC terminal block; the tabs' pitch `_nameplate_interface.TAB_X` sets the bar's ends"
+   ],
+   "active": true
+  },
+  {
    "id": "pump-jack-service",
    "label": "Pump plug's clip faces the empty bay and its full unplug, clear-the-bulkhead and lower path clears front-top and the display",
    "kind": "gate",
