@@ -4690,11 +4690,12 @@ def build_pack() -> cq.Assembly:
     # Its receiving bar stands behind the wall beside the PSU's AC terminal block, and the
     # tabs' pitch is what holds the bar's east end off it.
     _psu_air = _clearing.gap(nameplate_receiver(a.nameplate_station), psu, 5.0)
-    _stated.state(
+    record_bound(Bound(
         "nameplate-psu-clear", "The nameplate's receiving bar stands clear of the PSU",
-        f"≥ {NAMEPLATE_PSU_CLEAR:g} mm", _psu_air >= NAMEPLATE_PSU_CLEAR - 1e-6,
-        f"the bar and its corbel stand {_psu_air:.3f} mm off the PSU; the tabs' pitch "
-        f"`_nameplate_interface.TAB_X` sets the bar's ends")
+        _psu_air >= NAMEPLATE_PSU_CLEAR - 1e-6, f"{_psu_air:.3f} mm",
+        f"≥ {NAMEPLATE_PSU_CLEAR:g} mm",
+        ["the bar and its corbel against the PSU's AC terminal block; the tabs' pitch "
+         "`_nameplate_interface.TAB_X` sets the bar's ends"]))
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
