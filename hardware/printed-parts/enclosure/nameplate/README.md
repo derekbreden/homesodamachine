@@ -37,12 +37,13 @@ leaves 1.2 mm nominal catch engagement. The square retaining face has 0.48 mm ax
 The tabs stand on the plate's horizontal centre line, [82 mm](TAB_PITCH) apart, which leaves
 [11.3 mm](TAB_TO_END) from each tab to its end of the plate. One bar behind the pocket receives
 both. It spans the two [3 mm](SHOULDER_W) retaining shoulders and runs the full depth from the
-wall to [2 mm](SHOULDER_STOCK) inboard of the bearing faces, with [3 mm](BAR_CROWN) of bar over
-the slots. Each tab's straight slot, with its inward flex lane, and the catch pocket ahead of
-its shoulder run out through the bar's print-up face. A 45° corbel carries the bar's print-down
-face back to the wall, so back-top prints the receiver without support. The pocket floor
-retains [3.6 mm](POCKET_FLOOR) of material outside the two slots. The bar's east end stands
-clear of the PSU's AC terminal block (`nameplate-psu-clear`).
+wall to [2 mm](SHOULDER_STOCK) inboard of the bearing faces, with [3 mm](BAR_FRAME) of bar above
+and below the slots. Each tab passes a straight slot with an inward flex lane, and its lip
+catches in a pocket ahead of its shoulder that opens to the bar's inboard face and its end. A
+45° corbel carries the bar's print-down face back to the wall. Each catch pocket's floor is
+supported by the same body that reaches the pocket's lower rim. The pocket floor retains
+[3.6 mm](POCKET_FLOOR) of material outside the two slots. The bar's east end stands clear of the
+PSU's AC terminal block (`nameplate-psu-clear`).
 
 The plate is centred on the flavour chips' height, and across the field between the flavour A
 pocket and the rear tangent.
@@ -70,8 +71,8 @@ The square lip undersides receive accessible supports with a 0.24 mm top gap; th
 small-overhang support filter is disabled to keep these contacts. Preserve
 these bearing faces during removal; a rounded extrusion envelope is not a substitute for
 a printed ledge. Supports on the removable plate are accessible from both sides of each tab. Keep the two square catches and their receiving shoulders
-clean. The coupon prints in the enclosure orientation in the production material; of its
-receiver faces, only the pocket's lower rim takes support.
+clean. The coupon prints in the enclosure orientation in the production material; its receiver
+takes support at the pocket's lower rim and each catch pocket's floor.
 
 Scan the finished plate to verify the unit number, then press it straight into the rear
 pocket until both clips engage and its face seats. Confirm the plate is retained and that
