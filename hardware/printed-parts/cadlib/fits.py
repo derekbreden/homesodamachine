@@ -26,7 +26,14 @@ running = slip + sliding_extra
 #: Extra room per supported mating face, assigned once to either part of its gap.
 supported_surface = 0.25
 
+#: Additional clearance across the floor of a printed cavity a part slides to: the layers where
+#: the floor turns up into the walls print slightly rounded, so the cavity narrows at its tip.
+layer_transition = 0.10
 
-def clearance(*, sliding=False, supported=False):
-    """One mating-face allowance, including motion and bridge finish where present."""
-    return slip + (sliding_extra if sliding else 0.0) + (supported_surface if supported else 0.0)
+
+def clearance(*, sliding=False, supported=False, at_floor=False):
+    """One mating-face allowance, including motion, bridge finish and a cavity floor's rounded
+    turn where present."""
+    return (slip + (sliding_extra if sliding else 0.0)
+            + (supported_surface if supported else 0.0)
+            + (layer_transition if at_floor else 0.0))
