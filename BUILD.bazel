@@ -5483,14 +5483,12 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
+        "pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/jhyossthi-pogo-dock/jhyossthi_pogo_dock.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -5502,16 +5500,16 @@ genrule(
     ),
     outs = [
         "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
+        "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl",
         "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step)
-O1=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json)
-O2=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.md)
-O3=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py)
+O1=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl)
+O2=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json)
+O3=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5529,9 +5527,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py > /dev/null
 cp hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step $$O0
-cp hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/asse-drip-pan/README.md $$O2
-cp hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py $$O3
+cp hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl $$O1
+cp hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json $$O2
+cp hardware/printed-parts/enclosure/asse-drip-pan/README.md $$O3
 """,
 )
 
@@ -13351,7 +13349,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -13757,7 +13754,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -14163,7 +14159,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -14569,7 +14564,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -14986,7 +14980,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -15392,7 +15385,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -15798,7 +15790,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -16204,7 +16195,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -16610,7 +16600,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -17027,7 +17016,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -17433,7 +17421,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -17839,7 +17826,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -18266,7 +18252,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -18747,7 +18732,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -19164,7 +19148,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -19571,7 +19554,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -20003,7 +19985,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -20432,7 +20413,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -20849,7 +20829,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -21255,7 +21234,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -21661,7 +21639,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -22067,7 +22044,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -22473,7 +22449,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -23349,7 +23324,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -23783,7 +23757,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -24238,7 +24211,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -24645,7 +24617,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -25092,7 +25063,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
@@ -25512,7 +25482,6 @@ sh_test(
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
         "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
         "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
         "hardware/printed-parts/enclosure/bulkhead-ring/README.md",

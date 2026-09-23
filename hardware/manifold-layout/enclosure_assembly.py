@@ -1561,16 +1561,9 @@ def cap_conduit(name: str):
 
 
 def water_pump_west_limit() -> float:
-    """The westmost the pump's casting may reach on the tray's storey.
-
-    THE TRAY IS THE BODY WITH A WALL TO GET THROUGH. It draws out through a slot in the −X wall
-    (`west_wall_ports`), so it is stated off that wall and not off whatever lies east of it: the
-    tab standing outside the skin, one rim — `asse_drip_pan`'s own outline and the flange turned out
-    either way — the sleeve's backstop behind it, and one `FOOT_CLEAR` is the lane it takes, and
-    the casting begins where that lane ends. The pump has air on its east flank and the tray has
-    a wall on its west, so the millimetre is the tray's to keep."""
-    return (pan_west_x() + _pan.PAN_X + 2.0 * _pan.FLANGE_W
-            + _pan.PAN_SLIP + DRIP_SLEEVE_T + FOOT_CLEAR)
+    """The pump casting's west limit, clear of the pan's inserted east end."""
+    return (pan_west_x() + _pan.PULL_FACE_Y_OVERHANG + _pan.PAN_X
+            + PAN_PUMP_CLEAR)
 
 
 def water_pump_port_lane_limit() -> float:
@@ -2128,8 +2121,8 @@ PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
 # Clearance from a union's barrel to any rubber slider in its actual passage.
 PORT_FOOT_CLEAR = 1.0
 # HOW FAR THE FLAVOUR PAIR STANDS UNDER THE MANIFOLD GATE'S CRUISE. The west column runs under the
-# aft end of the ASSE drip pan's sleeve, and this carries that union's inboard body under the
-# sleeve's floor with a millimetre of air. The east union takes the same storey, so the lower row
+# ASSE drip pan's open floor, and this carries that union's inboard body below the pan.
+# The east union takes the same storey, so the lower row
 # is one level line across the wall and the four unions stand on a rectangle.
 FLAVOR_STOREY_DROP = 1.55
 
@@ -3741,31 +3734,17 @@ ASSE1022_YAW = -90.0
 # The lane beside the pump is measured through the room the chain and pan occupy.
 # Rubber sliders, lower cradle and port roots have distinct occupied sections.
 #
-# The tray's SLEEVE stands off the casting's west flank by this, read over the
-# room the sleeve itself stands in.
-FOOT_CLEAR = 1.0
-# How far the tray's west end stands OUTSIDE the machine's own skin. The pull face extends back
-# from that outer plane and stops one running-fit slip before the wall, so it masks the berth
-# without becoming the tray's insertion stop. This is the whole of the tray a hand meets: thumb
-# on the flange's top, fingertip under the floor, draw west.
-#   THE PLATE LIES IN IT. The plate rides the tray until the pan has drawn far enough for a
-# hand to lift it clear, so the vent's tip lands this far east of the plate's own centre.
-PAN_PROUD = _pan.PULL_FACE_DEPTH + _pan.PAN_SLIP
+PAN_PUMP_CLEAR = 8.25
+PAN_PROUD = _pan.PULL_FACE_DEPTH
 
 
 def pan_rim_z(asse):
-    """The Z the ASSE drip pan's RIM stands at: the vent's own fall, less what stands over the rim.
-
-    THE TRAY HANGS OFF THE CHAIN. `build_asse` stands the chain on the panel deck and one
-    `VENT_GAP` of splash-and-service air hangs under its underside — over the SLEEVE'S LID,
-    which is the topmost thing in this column. The rim takes station one lid and one slip below
-    that lid, so a change to any of the three moves the pan and nothing else."""
-    return box(asse).zmin - _pan.VENT_GAP - DRIP_SLEEVE_T - _pan.PAN_SLIP
+    """The pan's open rim, one splash gap below the ASSE chain."""
+    return box(asse).zmin - _pan.VENT_GAP
 
 
 def pan_floor(asse):
-    """The Z the pan's own floor stands at — its rim, less its depth. The rim is the plane the
-    chain fixes, so `PAN_Z` hangs DOWN from it, into the strip over the pump's casting."""
+    """The underside of the pan, one pan height below the rim."""
     return pan_rim_z(asse) - _pan.PAN_Z
 
 
@@ -3783,11 +3762,7 @@ def pump_west_face(water_pump, z0, z1, y0, y1):
 
 
 def pan_west_x():
-    """The X the tray's west lip stands at: one `PAN_PROUD` outside the −X wall's own outer face.
-
-    THE TRAY IS HUNG ON THE WALL IT COMES OUT THROUGH. Everything a hand does to this body
-    happens at that face — the tab it takes hold of, the slot it draws through — and the plate
-    the tray carries rides the same station east."""
+    """The pull face's outside plane, `PAN_PROUD` west of the wall."""
     return west_exterior_face() - PAN_PROUD
 
 
@@ -3993,19 +3968,7 @@ def pan_front_y(water_pump_carry):
 
 
 def build_pan(asse, water_pump, water_pump_carry, asse_carry):
-    """The ASSE drip pan, under the atmospheric vent and over the pump's casting.
-
-    IN Y THE PUMP'S DISCHARGE BOUNDS IT AND THE VENT DOES NOT. The sleeve's forward face is
-    `pan_front_y` and the pan's rim stands one sleeve section and one slip aft of it, and the
-    vent falls where the chain's own standoff from the +Y wall of back-top leaves it.
-
-    IN X THE WALL BOUNDS IT. The west lip is `pan_west_x`, one `PAN_PROUD` outside the machine's
-    skin; the sleeve's backstop takes what the rim leaves. The tip lands `PAN_PROUD` east of the floor's own centre — 6 mm of a ±21 mm
-    floor, so the drip still falls well inside the coves. The slot the tray draws out through is
-    a wall port, struck off this body's own box in `west_wall_ports`.
-
-    Z is `pan_floor` — the chain's underside, one `VENT_GAP` down to the sleeve's lid, that lid
-    and one slip down to the rim, and one `PAN_Z` down to the floor."""
+    """The pan through the west wall, open beneath the ASSE vent."""
     pan = _pan.build()
     pan = pan.val() if hasattr(pan, "val") else pan
     # The bound the PAN states about itself — its flat floor against the moisture plate it
@@ -4014,7 +3977,7 @@ def build_pan(asse, water_pump, water_pump_carry, asse_carry):
     record_bound(Bound(*_pan.check_plate()))
     placed, carry = seat_body(
         pan, (), seat="asse-drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
-        y0=pan_front_y(water_pump_carry) + DRIP_SLEEVE_T + _pan.PAN_SLIP)
+        y0=pan_front_y(water_pump_carry) + _pan.PAN_SLIP - _pan.PULL_FACE_Y_OVERHANG)
     return placed, carry
 
 
@@ -4050,7 +4013,9 @@ def build_moisture_plate(pan_carry, asse_carry):
     plate = _plate.build()
     plate = plate.val() if hasattr(plate, "val") else plate
     floor_centre = pan_carry((
-        (_pan.PAN_X / 2.0, _pan.PAN_Y / 2.0, _pan.FLOOR), (0.0, 0.0, 1.0)))[0]
+        (_pan.PULL_FACE_Y_OVERHANG + _pan.PAN_X / 2.0,
+         _pan.PULL_FACE_Y_OVERHANG + _pan.PAN_Y / 2.0,
+         _pan.FLOOR), (0.0, 0.0, 1.0)))[0]
     placed, carry = seat_body(plate, (((0.0, 0.0, 1.0), PLATE_YAW),), seat="moisture-plate",
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), floor_centre))
     return placed, carry
@@ -4190,87 +4155,18 @@ def build_vk(chain_carry):
     return seat_body(body, (), seat="vk-solenoid", station=(_beduan.outlet(), target))
 
 
-# --- what carries the tray, and the slot it draws out through --------------
-#
-# The sleeve's own section, every way — the block's floor under the tray, its two flanks, its
-# lid and its backstop. It is `enclosure.wall`: the sleeve is the box's material and prints in
-# the box's gauge.
-DRIP_SLEEVE_T = _enc.wall
-
-
-def pan_berth(pan):
-    """The WELL gives the tray body its running room. The REBATE clears its flange
-    with the pan seated on the modeled sleeve floor, including the flange underside's
-    supported-surface allowance. The enclosure applies the receiving floor's own
-    supported-face allowance separately in its print direction.
-
-    Each is `(y0, y1, z0, z1, x1)` — the opening across the withdrawal axis, and the east end
-    the tray's own outline reaches. The well's `z1` is the flange's underside, which is where
-    the wall's slot stops; `pan_sleeve` carries its own cut on up through the lid, where the
-    same opening is the pan's mouth.
-
-    ONE STATEMENT, READ TWICE. `pan_sleeve` cuts the block on it and `west_wall_ports` cuts the
-    −X wall on it, so the slot cannot be a different shape from the berth behind it."""
-    s = _pan.PAN_SLIP
-    flange, rim = _pan.FLANGE_W, _pan.FLANGE_T
-    well = (pan.ymin + flange - s, pan.ymax - flange + s,
-            pan.zmin - s, pan.zmax - rim, pan.xmax - flange + s)
-    bearing_floor_z = well[2] - fits.supported_surface
-    seated_flange_z = bearing_floor_z + (pan.zmax - rim - pan.zmin)
-    rebate = (pan.ymin - s, pan.ymax + s,
-              seated_flange_z - s - fits.supported_surface, pan.zmax + s, pan.xmax + s)
-    return well, rebate
-
-
-def pan_sleeve(pan, west_face):
-    """The tray's carry, as `(adds, cuts)` of world boxes for `enclosure._pan_sleeve`: ONE SOLID
-    BLOCK fused onto the −X wall's inner face, and the berth cut back out of it.
-
-    THE BLOCK IS THE CARRY. It runs the tray's own rim plus one slip and one section every way,
-    from the wall east past the tray's east end, so it is rooted on the wall over its whole west
-    face and there is one continuous flat surface on each of its outsides. The pan lies on the
-    block's floor the way a drawer lies in its carcase.
-
-    THREE CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
-    the tray's own two sections — the pan's body, and the rim over its shoulders — and both run
-    west THROUGH the wall, because that is the silhouette the tray travels on. The MOUTH is the
-    pan's opening carried up through the lid for the drip to fall in, and it stops at the wall's
-    INNER face: the tray is nowhere near this tall, so an opening cut this high in the wall is a
-    hole nothing passes through.
-
-    What none of the three reaches is solid: the block's floor under the pan, its flanks
-    outboard of the rim, its lid over the flange, and — east of where the tray's own outline ends
-    — the BACKSTOP, full section from floor to lid, which is what the tray comes to rest
-    against."""
-    (wy0, wy1, wz0, wz1, wx1), (ry0, ry1, rz0, rz1, rx1) = pan_berth(pan)
-    s, t = _pan.PAN_SLIP, DRIP_SLEEVE_T
-    z1 = pan.zmax + s + t
-    x1 = pan.xmax + s + t
-    block = (west_face, x1, pan.ymin - s - t, pan.ymax + s + t, pan.zmin - s - t, z1)
-    # The berth's two cuts start west of the wall's own outer face, so the slot the wall carries
-    # and the room behind it are opened by one geometry rather than two that have to agree.
-    x0 = west_face - _enc.wall - 1.0
-    # The mouth starts on the flank's own face, the plane the block stands proud of: from there
-    # west is the wall, and the tray is never this tall in it.
-    mouth_x0 = max(west_face, _enc.back_top_flank_face()[0])
-    return [block], [(x0, wx1, wy0, wy1, wz0, wz1),
-                     (x0, rx1, ry0, ry1, rz0, rz1),
-                     (mouth_x0, wx1, wy0, wy1, rz1, z1)]
-
-
 def west_wall_ports(pan):
-    """Through-holes the −X wall carries, as `(kind, y, z, *size)` on that wall's own plane —
-    the slot the tray draws out through.
+    """One rectangular through-slot on the pan body's YZ section.
 
-    ONE OPENING IN TWO RECTANGLES, which are `pan_berth`'s own: the well below the flange's
-    underside and the rebate at the rim. The tray stands `PAN_PROUD` outside this wall, so its
-    west end is through the slot and its floor spans the wall's thickness.
-
-    Square corners — `CORNER_R` rounds the tray in PLAN, and this is the section across it,
-    where floor meets wall at a right angle."""
-    return [("rect", (r[0] + r[1]) / 2.0, (r[2] + r[3]) / 2.0,
-             r[1] - r[0], r[3] - r[2], 0.0)
-            for r in pan_berth(pan)]
+    The enclosure's print-down allowance opens the lower face a further 0.25 mm.
+    The pull face spans beyond the slot in Y and meets the exterior wall in X.
+    """
+    s = _pan.PAN_SLIP
+    y0 = pan.ymin + _pan.PULL_FACE_Y_OVERHANG - s
+    y1 = pan.ymax - _pan.PULL_FACE_Y_OVERHANG + s
+    z0, z1 = pan.zmin, pan.zmax + s
+    return [("rect", (y0 + y1) / 2.0, (z0 + z1) / 2.0,
+             y1 - y0, z1 - z0, 0.0)]
 
 
 def _whole(bodies):
@@ -4802,15 +4698,17 @@ def _core_solids(a: cq.Assembly):
 
 
 # Bodies seated THROUGH a wall rather than standing inside it. Each one takes a hole in the skin
-# and reaches out the far side — the six fittings clamped in theirs, the ASSE drip pan drawing in and
-# out of its slot with `PAN_PROUD` of tab standing outside. So its box is not a box the interior
+# and reaches out the far side — the fittings clamped in theirs, the ASSE drip pan drawing in and
+# out of its slot with `PAN_PROUD` of tab standing outside, and the moisture plate lying in the
+# part of that pan inside the wall. So their boxes are not boxes the interior
 # has to hold: a pack sized to contain one is a pack built around its own skin. They come back as
 # stations on the wall instead, and the wall is cut for them.
 #
 # The funnel is the same case and is not listed, because it is added after the box exists
 # (`build_enclosure_assembly`) rather than to the pack.
 THROUGH_WALL = ("bulkhead-water", "c14-inlet", "keystone-jack", "co2-inlet",
-                "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "asse-drip-pan")
+                "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb",
+                "asse-drip-pan", "moisture-plate")
 # And the bodies seated IN a wall rather than inside the box. A chip and its word lie in a pocket
 # cut into the +Y wall of back-top's own outer face, so every millimetre of both is inside the wall's
 # thickness and none of it is in the room the pack stands in. They are left out of what the box is
@@ -5480,11 +5378,10 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     a = build_pack() if a is None else a
     placed = _solids(a)
     pan = box(placed["asse-drip-pan"][0])
-    west = west_interior_face()
     outside = (set(THROUGH_WALL) | set(IN_THE_WALL) | set(OUTBOARD)
                | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
-                     west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
+                     west_ports=west_wall_ports(pan),
                      back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
                                     keystone_cutout(a.keystone_station)]),

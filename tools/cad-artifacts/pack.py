@@ -145,12 +145,14 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # WHERE A MESH IS CARRIED TOO. A directory named here has its `.stl` bundled beside the solids.
 # The enclosure's six pieces are what a slicer is handed, and their flutes are in the MESH and not
 # in the solid, so the STEP beside them does not carry the surface that gets printed
-# (`printed-parts/cadlib/flute_skin.py`). They are gitignored, so the bundle is the
+# (`printed-parts/cadlib/flute_skin.py`). The separate ASSE drip pan ships as a printable STL
+# too. They are gitignored, so the bundle is the
 # route by which they leave the machine that cut them — for a reader with a printer, not for the
 # viewer, which serves `.step`. The cold core's shell and its two caps carry the same skin off the
 # same field (`cold-core/_show_skin.py`) and leave the same way, and so does the faucet's base
 # (`faucet_shell.write_bed_file`) — the one piece of this machine that stands on a counter.
 BUNDLED_MESH_DIRS = (
+    "hardware/printed-parts/enclosure/asse-drip-pan",
     "hardware/printed-parts/enclosure/display-cover",
     "hardware/printed-parts/enclosure/nameplate",
     "hardware/printed-parts/faucet/industrial",

@@ -710,7 +710,7 @@ The face a feature works through keeps the shape its work requires, and support 
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
 on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
 pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
-complete rails; the ASSE drip pan lies on a flat berth floor; a cross-pin keeps its square pass
+complete rails; the ASSE drip pan rides in the west wall's flat slot; a cross-pin keeps its square pass
 envelope; a pump boss lands on a flat shoulder. A corbel carries the material behind one of
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
 access face with a slope.
@@ -782,7 +782,7 @@ build item carries a half turn about X, the crown on the bed.
 | `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, 1 model | 8.60 mm |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, 2 model | 8.00 mm |
-| `enclosure-back-top` | 13 | 38 | 3 bed, 10 model | 1.44 mm |
+| `enclosure-back-top` | 13 | 35 | 2 bed, 11 model | 1.44 mm |
 | `enclosure-front-top` | 3 | 19 | bed | 29.00 mm |
 
 None of these columns orders the pieces by what their supports cost to remove.
@@ -809,14 +809,7 @@ sliding face out past the exterior plane, so each of the four stands on the outs
 with a face exposed down the whole run. Front-bottom's pair is printed and pulled — the easiest
 support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
-Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan's berth floor and its sleeve's lid, the nameplate pocket's lower rim and its catch pockets' floors, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and the five ribs' 3.5 mm crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's 3 mm lower threshold, and the identification-chip pockets' lower arcs on the rear face. The current slice reaches 38 interface islands with 13 bodies: three rooted on the bed and
-ten rooted on the printed piece. One bed-rooted body branches through the funnel opening to
-the brim seat and across the open quadrant to the ASSE seats and pan berth, connector and
-identification pockets, west anchors and rail catches. The other two reach rear-facing
-identification and keystone pockets. Model-rooted bodies carry the anchor tie-band crowns
-and flanks and the ASSE tie-cavity threshold. The shortest build-up is 1.44 mm beneath an
-anchor crown. Each body's exact contacts, root and build-up, and the slice's settings and
-hashes, are in `enclosure-back-top.support-audit.json`.
+Back-top prints on its ceiling, so what a support reaches there is the set of faces that look print-down and cannot carry themselves: the drip pan slot's lower bearing face, the nameplate pocket's lower rim and its catch pockets' floors, the C14's aperture and flange-pocket floors, the keystone pocket's floor, the tap-water ribs' tie-band flanks and crown strips over their tie bands, the Z-seam feet's broad flat caught faces, the ASSE anchor's two round seats and its tie cavity's lower threshold, and the identification-chip pockets' lower arcs on the rear face. The current slice reaches 35 interface islands with 13 bodies: two rooted on the bed and 11 rooted on the printed piece. The slot-floor interface runs straight through the 9 mm wall and is exposed at both ends before the pan is inserted. The shortest build-up is 1.44 mm beneath an anchor crown. Each body's contacts, root and build-up, and the slice's settings and hashes, are in `enclosure-back-top.support-audit.json`.
 Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.60 mm below.
 
 ## Print orientation + corner relief
@@ -920,19 +913,17 @@ segments, vertical to the bed, are free. Back-top's upper corner blocks grow dir
 the ceiling slab. Their flat lower ends face print-up, and front-top's passages open around
 them through the ceiling tongue.
 
-The **ASSE drip pan's sleeve** in back-top is a plain carcase — floor, two jambs, backstop and a
-square lid — rooted on the −X wall. Printed ceiling-down its floor and the rebate's roof look
-print-up and carry themselves; its lid and the berth's floor look print-down over the tray's own
-room, which no material may fill, and the ASSE chain stands over the lid, so both are supported
-faces, reached from the slab through the open mouth. The pan lies on a flat floor.
-The flange underside and rebate floor have 0.75 mm between their model faces with
-the pan seated on the sleeve floor: 0.25 mm running clearance and two 0.25 mm
-supported-face allowances, both allocated to the rebate floor. The nominal assembly
-pose stands 0.50 mm above the floor and has a 1.25 mm flange gap. The bearing floor
-and retention roof retain their datums.
+The **ASSE drip pan** passes through one rectangular slot in back-top's 9 mm
+thick −X flank. The slot follows the pan body's YZ section, with 0.25 mm
+running room on both Y sides and above. Its print-down floor has a 0.25 mm
+supported-face allowance. The pan's floor bears on that slot floor, and its
+two end-wall rims bear against the slot roof. Its exterior pull face rests
+against the wall and stops the insertion. The space inside the wall is open
+around the pan.
 
-The moisture plate's **cable clip** lies below the sleeve's aft end on the dry inner face of
-the −X flank, with 6 mm above the clip and 3 mm between its rear end and the rear wall.
+The moisture plate's **cable clip** lies below the slot on the dry inner face of
+the −X flank, with 9 mm between the slot floor and the clip and 3 mm between
+its rear end and the rear wall.
 The complete pan withdrawal path stays above it. The shared profile is [9 mm](CABLE_CLIP_DEPTH) deep; [6 mm](PAN_CLIP_EMBED) are embedded in this
 [9 mm](PAN_CLIP_WALL) wall, leaving [3 mm](PAN_CLIP_PROUD) proud in the cabinet and [3 mm](CABLE_CLIP_BACKING) of
 exterior backing. The profile is asymmetric in its own up, and that up follows the print's:

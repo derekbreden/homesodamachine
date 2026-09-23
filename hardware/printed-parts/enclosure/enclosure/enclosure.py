@@ -1356,8 +1356,7 @@ front_bottom_flank_t = 9.0
 # lane each rises into is exactly the `wall` this would add — so the section begins past the one
 # and above the other, and neither telescope is ever asked about. The Wago wells bore from
 # `interior_x` as they always did, so a lever nut bottoms where it bottomed and simply sits in a
-# deeper pocket. And the ASSE drip pan's sleeve keeps its whole block: the pan withdraws through
-# this flank, so what stands round it is the sleeve's own section and not this one.
+# deeper pocket. The ASSE drip pan withdraws through one slot in this nine-millimetre flank.
 
 # --- back-top's own ceiling ---------------------------------------------------
 #
@@ -1728,8 +1727,6 @@ def documented(box):
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the ASSE drip pan's slot
 #   funnel        the placed funnel's plan centre, or None for no throat
-#   pan_sleeve    the ASSE drip pan's carry, `(adds, cuts)` of world boxes — the solid block fused
-#                 onto the −X wall, and the berth cut back out of it
 #   c14           the mains inlet's heat-set stations on the +Y wall of back-top, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches, the
 #                 X plane its underside corbel reaches, optional clear Y bands where it reaches
@@ -1808,7 +1805,7 @@ def documented(box):
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. Its release shoulder is cut into the bay bulkhead.
 Pack = namedtuple(
-    "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
+    "Pack", "placed front_ports back_ports east_ports west_ports funnel c14 "
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
             "flank_reliefs port_field nameplate keystone "
@@ -1820,7 +1817,6 @@ Pack.__new__.__defaults__ = (
     (),             # east_ports
     (),             # west_ports
     None,           # funnel
-    (),             # pan_sleeve
     ((), ()),       # c14
     (),             # east_bosses
     (),             # east_mount_fills
@@ -2598,16 +2594,14 @@ def _dims(pack):
     # `back_top_flank_t - wall` inboard of `interior_x` on that one piece, so a body that clears
     # the appliance's width can still be standing in its wall — and `box-width` cannot see it,
     # because the width it reads is the box's own. What this section may stand in is what the
-    # wall gives a LANE to and nothing else: a Wago in its own well, bored back to `interior_x`,
-    # and whatever lies in the ASSE drip pan's sleeve. A body is matched to a geometric well
-    # by its CENTRE.
+    # wall gives a LANE to and nothing else: a Wago in its own well, bored back to
+    # `interior_x`. A body is matched to a geometric well by its CENTRE.
     bt0, bt1 = back_top_flank_face()
     bt_y0 = y_joint + lip_len + z_lip_y_margin
     bt_z0 = splits[1] + z_rise
-    lanes = ([(sy - hy, sy + hy, sz - hz, sz + hz)
-              for _sd, sy, sz, size, *_rest in pack.side_wells
-              for hy, hz in (wago_half(size),)]
-             + [(by0, by1, bz0, bz1) for _bx0, _bx1, by0, by1, bz0, bz1 in pack.pan_sleeve[0]])
+    lanes = [(sy - hy, sy + hy, sz - hz, sz + hz)
+             for _sd, sy, sz, size, *_rest in pack.side_wells
+             for hy, hz in (wago_half(size),)]
     flank_rows = []
     for name, b in zip(placed.keys(), bbs):
         if b.ymax <= bt_y0 or b.zmax <= bt_z0:
@@ -2627,7 +2621,7 @@ def _dims(pack):
         f"outside x ±{bt1:.2f}, a {back_top_flank_t:g} mm flank",
         ([] if flank_ok else [
             f"{flank_who} stands {flank_over:.2f} mm inside back-top's flank at ±{bt1:.2f}. "
-            f"Give it a lane the way the tray's sleeve has one, seat it in a well, or lower "
+            f"Seat it in a well or lower "
             f"`back_top_flank_t`"])))
     # The FRONT wall is the stated `front_plane_y` with its stated reliefs, and the pack is
     # read against the RELIEVED surface, body by body: a body whose footprint stands wholly
@@ -5158,8 +5152,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     """THE SECTION BACK-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`back_top_flank_t`). Fused before any of this piece's flank furniture, so the Wago wells,
     the +X mounting bosses and every bore below are cut out of the whole of it. `up` is the
-    piece's print up along the box's Z, ±1; the section's underside at the rim and its resume
-    over the pan sleeve's lid answer to it.
+    piece's print up along the box's Z, ±1.
 
     IT BEGINS PAST THE Y TELESCOPE. The front half's lip runs to `y_joint + lip_len` on this
     wall surface (`_front_lip`), and in Y the band starts where `_lip_underwall` starts one
@@ -5171,11 +5164,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
     The channel cut runs last and opens exactly that moving profile. Every back plug reaches
     this Y plane, so its registration section roots directly in the full-thickness flank.
 
-    AND THE PAN'S SLEEVE KEEPS ITS BLOCK. The ASSE drip pan withdraws through this flank, and the
-    pack states the sleeve as one box rooted on the wall's own inner face with the berth cut back
-    out of it (`_pan_sleeve`). Struck out of this section rather than re-cut through it: the tray
-    stays where it is and at the size it is, and what stands round it is the sleeve's own section
-    instead of this one."""
+    The ASSE drip pan crosses this flank through one rectangular wall slot."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     fx0, fx1 = back_top_flank_face()
     y0 = back_flank_start(y_joint)
@@ -5198,20 +5187,9 @@ def _back_top_flanks(inner, outer, box, y_joint, zj, up=1.0):
             seg = seg.cut(_xz_prism(y0 - 1.0, iy1 + 1.0,
                                     [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
         band = seg if band is None else band.fuse(seg)
-    for bx0, bx1, by0, by1, bz0, bz1 in box.pack.pan_sleeve[0]:
-        band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
-        # AND WHERE IT RESUMES OVER THE BLOCK'S LID IT TAKES THE SECTION IT TAKES AT THE RIM.
-        # With `up` positive that is the `relief_chamfer` ramp on the same plane: what the
-        # block's mouth leaves standing here is this section's `depth`, and struck square it is
-        # a ledge over the pan's opening. With `up` negative the resume is square, its face on
-        # the lid looking print-up.
-        if up > 0:
-            band = band.cut(_xz_prism(by0, by1,
-                                      [(bx0, bz1), (fx0, bz1), (fx0, bz1 + depth)]))
     # The PRV chase stands its own share of this band later (`_vent_chase`): each piece
     # carries the height of the rib it owns, so neither crosses into the other's travel.
-    # The one thing this wall was already bored for on the back half: the tray's own withdrawal
-    # slot, cut in `build_back_half` before this stood here.
+    # The pan slot passes through this full nine-millimetre section.
     for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0, up=up):
         band = band.cut(cutter)
     relief = _back_top_flank_tie_cut(box)
@@ -6303,144 +6281,33 @@ def build_back_half(box):
         for cutter in _port_cuts(ports, inner[3] - 5.0, outer[3] + 5.0,
                                  up=print_up("back", side)):
             back = back.cut(cutter)
-    # The ASSE drip pan's withdrawal slot through the −X wall, and the sleeve it lies in. The
-    # sleeve's own cuts reach back through this wall, so the slot is opened here and reopened
-    # there at the one shape.
+    # The ASSE drip pan enters through one rectangular slot in the −X wall.
     for side in ("top", "bottom"):
         ports = [p for p in box.pack.west_ports if (p[2] > z_seam) == (side == "top")]
         for cutter in _x_port_cuts(ports, outer[0] - 5.0, inner[0] + 5.0,
                                    up=print_up("back", side)):
             back = back.cut(cutter)
-    back = _pan_sleeve(back, box.pack.pan_sleeve, outer[4] - 1.0, outer[5] + 1.0,
-                       up=print_up("back", "top"))
     return cq.Workplane(obj=back)
 
 
-# HOW FAR THE SLEEVE'S CORBEL RUNS OUT FROM THE WALL. The block's floor is one `wall` under the
-# tray and the tray's own length carries it east off the flank, so printed Z−-down the whole
-# plate arrives over air. Struck on the plane the block is stated on — the box's own interior —
-# so a piece carrying a thicker flank there stands that much less of it proud; what stops it is
-# the flavour line's lane, which is what crosses the band under the block (`fluid-28`).
-pan_sleeve_corbel = 20.0
-
-# THE MOISTURE-PLATE LEAD STAYS ON THE DRY SIDE OF THE PAN. The −X back-top flank is nine
-# millimetres thick here, so the cable clip takes six millimetres of it and leaves three
-# millimetres proud in the cabinet plus three millimetres of exterior backing. It runs below
-# the sleeve's aft end, with a full dry gap under the sleeve and ahead of the actual rear wall.
-# The lead's service loop rises from its forward ramp into the open pan.
+# The moisture plate's dry cable clip sits below the pan slot on the west flank.
 pan_cable_clip_embed = 6.0
 pan_cable_clip_rear_land = wall
-pan_cable_clip_sleeve_gap = 2.0 * wall
-
-
-def _pan_sleeve(solid, sleeve, z0, z1, up=1.0):
-    """The ASSE drip pan's sleeve fused onto a −X wall and its berth cut back out, for a piece whose
-    Z band holds the block's own top.
-
-    The pack states the block as one world box rooted on that wall's inner face, and the berth
-    as the two boxes the tray's own section makes. Fused THEN cut: the block closes the wall's
-    slot on its way past and the berth reopens it, so the opening a hand meets from outside is
-    the berth's own shape end to end.
-
-    `up` is the print direction of the piece that carries the block. Printed mouth-down
-    (`up > 0`) the block's floor looks print-down: a 45° corbel carries it, run the block's whole
-    depth and rooted on the flank the block is rooted on, tapering to nothing `pan_sleeve_corbel`
-    off it; what the corbel does not reach stays a soffit, since the tray is longer than any wedge
-    off that one wall can hold and nothing stands under the block's east half to root a second one
-    on. The rim rebate's roof is then one hipped rectangular transition: its lower perimeter stands
-    on the exterior skin, the fore and aft jambs and the east backstop, its upper perimeter is the
-    same rectangle inset by the lid's rise, and the four 45° faces meet on diagonal hips round the
-    already-open mouth, so no short roof remains over material printed below it.
-
-    Printed ceiling-down (`up < 0`) the block is a plain carcase: floor, jambs, backstop and a
-    square lid. Its floor and the rebate's roof look print-up and carry themselves; its lid and
-    the berth's floor look print-down over the tray's own room, which no material may fill, and
-    the ASSE chain stands over the lid, so both are supported faces, reached from the slab through
-    the open mouth. The pan lies on a flat floor either way.
-
-    The sleeve has no electrical pocket: the moisture plate's continuous lead rises out of the
-    open pan and is retained on the adjacent dry flank."""
-    adds, cuts = sleeve
-    blocks = [b for b in adds if z0 <= b[5] <= z1]
-    for x0, x1, y0, y1, bz0, bz1 in blocks:
-        # Carry the original floor section behind the recessed, supported berth.
-        floor_stock = fits.supported_surface if up < 0.0 else 0.0
-        solid = solid.fuse(_ybox(x0, x1, y0, y1, bz0 - floor_stock, bz1))
-        if up > 0.0:
-            solid = solid.fuse(_xz_prism(y0, y1,
-                                         [(x0 + pan_sleeve_corbel, bz0), (x0, bz0),
-                                          (x0, bz0 - pan_sleeve_corbel)]))
-    for x0, x1, y0, y1, cz0, cz1 in (cuts if blocks else ()):
-        solid = solid.cut(_supported_cut(_ybox(x0, x1, y0, y1, cz0, cz1), up))
-    # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
-    # that relationship in the pack rather than naming either cut by position: the well overlaps
-    # the rebate in Z, while only the mouth is contained face-to-face above it.
-    roof_pairs = [
-        (rebate, mouth)
-        for rebate in cuts for mouth in cuts
-        if abs(rebate[5] - mouth[4]) < 1e-6
-        and rebate[0] <= mouth[0] + 1e-6 and rebate[1] >= mouth[1] - 1e-6
-        and rebate[2] <= mouth[2] + 1e-6 and rebate[3] >= mouth[3] - 1e-6
-        and (rebate[0] < mouth[0] - 1e-6 or rebate[1] > mouth[1] + 1e-6
-             or rebate[2] < mouth[2] - 1e-6 or rebate[3] > mouth[3] + 1e-6)
-    ] if (blocks and up > 0.0) else []
-    if blocks and up > 0.0 and len(roof_pairs) != 1:
-        raise ValueError(
-            f"the pan sleeve has {len(roof_pairs)} contained rebate-to-mouth roof transitions; "
-            "exactly one is required")
-    if roof_pairs:
-        rebate, mouth = roof_pairs[0]
-        _rx0, rx1, ry0, ry1, _rz0, roof = rebate
-        mx0, mx1, my0, my1, _mz0, top = mouth
-        outer_x = min(b[0] for b in blocks) - wall
-        rise = top - roof
-        tx0, tx1 = outer_x + rise, rx1 - rise
-        ty0, ty1 = ry0 + rise, ry1 - rise
-        if (rise <= 0.0 or tx0 >= tx1 or ty0 >= ty1
-                or tx0 > mx0 + 1e-6 or tx1 < mx1 - 1e-6
-                or ty0 > my0 + 1e-6 or ty1 < my1 - 1e-6):
-            raise ValueError(
-                "the pan sleeve's hipped rebate roof does not finish round its mouth: "
-                f"roof ({outer_x:g}, {rx1:g}) × ({ry0:g}, {ry1:g}) at z {roof:g}, "
-                f"top ({tx0:g}, {tx1:g}) × ({ty0:g}, {ty1:g}) at z {top:g}, "
-                f"mouth ({mx0:g}, {mx1:g}) × ({my0:g}, {my1:g})")
-        lower = tuple(cq.Vector(*p) for p in (
-            (outer_x, ry0, roof), (rx1, ry0, roof),
-            (rx1, ry1, roof), (outer_x, ry1, roof)))
-        upper = tuple(cq.Vector(*p) for p in (
-            (tx0, ty0, top), (tx1, ty0, top),
-            (tx1, ty1, top), (tx0, ty1, top)))
-
-        # Six explicit planar faces keep every roof side an analytic plane in the STEP.
-        def face(points):
-            return cq.Face.makeFromWires(cq.Wire.makePolygon(points, close=True))
-
-        faces = [face(tuple(reversed(lower))), face(upper)]
-        faces.extend(face((lower[i], lower[(i + 1) % 4],
-                           upper[(i + 1) % 4], upper[i]))
-                     for i in range(4))
-        hip = cq.Solid.makeSolid(cq.Shell.makeShell(faces))
-        if not hip.isValid():
-            raise ValueError("the pan sleeve's hipped rebate roof is not a valid solid")
-        solid = solid.cut(hip)
-    return solid
+pan_cable_clip_slot_gap = 9.0
 
 
 def pan_cable_clip_bounds(box):
-    """The unchanged clip profile below the sleeve, outside the pan's withdrawal room.
-
-    The rear land is measured from this piece's actual rear face. The complete 39 mm
-    section stands below the sleeve's underside, leaving the declared dry gap above it.
-    """
-    if not box.pack.pan_sleeve or not box.pack.pan_sleeve[0]:
+    """The moisture lead's clip below the slot on the dry west flank."""
+    if not box.pack.west_ports:
         return None
-    blocks = box.pack.pan_sleeve[0]
-    if len(blocks) != 1:
-        raise ValueError(f"the pan cable clip needs one sleeve block; got {len(blocks)}")
+    if len(box.pack.west_ports) != 1 or box.pack.west_ports[0][0] != "rect":
+        raise ValueError("the pan cable clip needs one rectangular west-wall slot")
+    _kind, _y, z, _width, height, *_radius = box.pack.west_ports[0]
     face = back_top_flank_face()[0]
     run_end = back_top_wall_face() - pan_cable_clip_rear_land
     run_start = run_end - _cable_clip.RUN
-    z_high = blocks[0][4] - pan_cable_clip_sleeve_gap
+    slot_floor = z - height / 2.0 - fits.supported_surface
+    z_high = slot_floor - pan_cable_clip_slot_gap
     z_low = z_high - _cable_clip.HEIGHT
     if run_start < box.y_joint + wall or z_low < box.splits[1] + wall:
         raise ValueError("the pan cable clip no longer fits on the dry back-top flank")

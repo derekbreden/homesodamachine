@@ -36,8 +36,11 @@ def main():
     wall = enc._pan_cable_clip(base, box, up=enc.print_up('back','top'))
     room = enc._ybox(x0,x1,y0,y1,z0,z1)
     slab = enc._ybox(box.outer[0]+.001, x0-.001, y0,y1,z0,z1)
-    sleeve = box.pack.pan_sleeve[0][0]
-    withdrawal = enc._ybox(box.outer[0]-120, sleeve[1], sleeve[2],sleeve[3],sleeve[4],sleeve[5])
+    _kind, sy, sz, width, height, _radius = box.pack.west_ports[0]
+    withdrawal = enc._ybox(
+        box.outer[0]-120, box.outer[0]+60,
+        sy-width/2, sy+width/2,
+        sz-height/2-enc.fits.supported_surface, sz+height/2)
     checks = []
 
     def check(name, value, limit, minimum=False):
@@ -50,7 +53,7 @@ def main():
     check('declaration matches actual clip bounds',int(assembly.pan_cable_clip_room(box)[0][1]!=bounds),0)
     check('rear dry end clearance mm',enc.back_top_wall_face()-y1,enc.pan_cable_clip_rear_land,True)
     check('complete pan withdrawal room overlap mm3',room.intersect(withdrawal).Volume(),1e-5)
-    check('complete pan withdrawal room air mm',room.distance(withdrawal),enc.pan_cable_clip_sleeve_gap,True)
+    check('complete pan withdrawal room air mm',room.distance(withdrawal),enc.pan_cable_clip_slot_gap,True)
     input_hashes = {str(box_path):sha(box_path)}
     native, disjoint = [], []
     for cache,index,key in ((args.pack_cache,'frames.json',None),(args.neighbor_cache,'neighbors.json','placed')):
