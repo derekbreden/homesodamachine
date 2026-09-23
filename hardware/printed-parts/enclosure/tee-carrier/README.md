@@ -56,17 +56,22 @@ leave the columns [2.15 mm](FORE_ROOM) fore.
 
 Four return springs, two in each column, push the carrier aft off the tee wall. Each is a
 uxcell 304 stainless spring, [0.8 mm](SPRING_WIRE) wire, measured at [6 mm](SPRING_OD) OD,
-[27 mm](SPRING_FREE) free and about [7 mm](SPRING_SOLID) solid. Each stands in a blind
-[6.5 mm](SPRING_BORE_D) bore [18.054 mm](SPRING_BORE_DEPTH) deep in the column's fore face,
-centred in the width the fore face keeps square inboard of its shoulder, with
-[2.2 mm](SPRING_SIDE_WALL) of column either side at the mouth and [3 mm](BACKING) behind its
-floor, and bears on the tee wall's aft face. The two in a column stand
-[30 mm](SPRING_SPREAD) apart, one either side of the tees' run axis, the lower over a
-[3 mm](BACKING) floor.
+[27 mm](SPRING_FREE) free and about [7 mm](SPRING_SOLID) solid. Each runs in
+[6.5 mm](SPRING_BORE_D) tunnels on both sides of the [2.15 mm](SPRING_GAP) gap between the column
+and the tee wall: a blind bore [14.204 mm](SPRING_BORE_DEPTH) deep in the column's fore face, and a
+pocket [3.846 mm](SPRING_POCKET_DEPTH) deep in the tee wall's aft face, teardropped over its crown
+for front-top's mouth-down print.
 
-Connected, each spring is [20.204 mm](SPRING_CONNECTED) long,
-[6.796 mm](SPRING_CONNECTED_COMPRESSION) short of free; with every collet pressed home it is
-[18.204 mm](SPRING_RELEASE) long, [8.796 mm](SPRING_RELEASE_COMPRESSION) short of free.
+The column's bore is as deep as keeps a free spring's tip [12.796 mm](SPRING_STAGED_REACH) out of
+it, no further fore of the staged column than the branch noses; the pocket takes the rest of the
+spring's [20.2 mm](SPRING_CONNECTED) connected length. Each bore stands in the middle of the width
+the fore face keeps square inboard of its shoulder, with [2.2 mm](SPRING_SIDE_WALL) of column either
+side at the mouth. The two in a column stand [30 mm](SPRING_SPREAD) apart, one either side of the
+tees' run axis, the lower over a [3 mm](BACKING) floor.
+
+Connected, each spring is [20.2 mm](SPRING_CONNECTED) long,
+[6.8 mm](SPRING_CONNECTED_COMPRESSION) short of free; with every collet pressed home it is
+[18.2 mm](SPRING_RELEASE) long, [8.8 mm](SPRING_RELEASE_COMPRESSION) short of free.
 
 ## Assembly
 
@@ -76,8 +81,9 @@ and V-J, and the +X column's crossing the bodies of V-E, V-F, V-H and V-I.
 1. Tie the four bare tees into the troughs, branches fore. No tube is in any tee.
 2. Enter the plate through the −X flank opening [10.896 mm](STAGED_DY) aft of its seat, where
    every branch nose passes [0.25 mm](AIR) behind the tee wall's aft face.
-3. With a spring in each of the four bores, slide the plate fore [10.896 mm](STAGED_DY). Each
-   branch enters its journal in the tee wall, and each spring meets the tee wall's aft face.
+3. With a spring in each of the four column bores, slide the plate fore
+   [10.896 mm](STAGED_DY). Each branch enters its journal in the tee wall, and each spring's tip
+   enters its pocket and bottoms there.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py
