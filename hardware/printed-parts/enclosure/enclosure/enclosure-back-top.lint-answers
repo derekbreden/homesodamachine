@@ -12,8 +12,8 @@ click: x=2.450 y=465.540 z=352.000
 
 [sliver] The keystone receptacle's 1.4 mm upper tang keeper and 1.3 mm lower latch keeper are the module's snap-catch projections. Each retains its complete section backed by the rear-wall boss. The lower catch translates toward print-up by 0.25 mm for supported-face clearance; its thickness is preserved.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-37.810 y=462.300 z=314.192
-click: x=-37.810 y=462.250 z=294.142
+click: x=-37.810 y=462.300 z=313.417
+click: x=-37.810 y=462.250 z=293.367
 
 [sliver] The ASSE anchor's aft round seat closes against its common crown. The reported 1.304 mm vertical face is the crown's exposed end above the supported fitting seat, backed west to the side wall over the complete 13.5 mm run. It is not a thin ligament.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -94,8 +94,8 @@ click: x=-101.125 y=268.175 z=168.700
 
 [ceiling] The keystone pocket floor and aperture floor are flat module-engagement surfaces spanning 14.95 and 14.8 mm respectively. The module fit is 0.15 mm per face and these supported edges gain 0.25 mm in print-up. The boss grows with the relief, preserving its 3 mm surround, and the lower catch retains its full section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-37.810 y=464.955 z=291.517
-click: x=-37.810 y=469.805 z=293.922
+click: x=-37.810 y=464.955 z=290.742
+click: x=-37.810 y=469.805 z=293.147
 
 [ceiling] The PRV mouth's floor spans the 12 mm passage between its jambs. Its square section preserves the tube's path; the print-down edge includes the 0.25 mm supported-face allowance. The wall behind the mouth retains its full section and support leaves through the passage.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -126,3 +126,7 @@ click: x=57.975 y=428.403 z=342.286
 [ceiling] The funnel brim rests on this Z349 plane, with a complete 6 mm bearing section behind it. Back-top prints with its Z355 roof on the bed, so supports carry the inset seat 6 mm above the bed. The open funnel recess gives direct access for support removal.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=0.000 y=232.625 z=349.000
+
+[ceiling] The ASSE anchor's web between its tie cavity and the V ends in a flat top over the tie channel's span. The loop needs that span open above it, so no column carries it. Its support stands on the ceiling slab inside the tie channel and leaves into the chain's own pocket.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-91.207 y=378.510 z=345.211
