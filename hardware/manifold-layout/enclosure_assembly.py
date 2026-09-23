@@ -1932,6 +1932,9 @@ def build_bulkhead_rings(stations):
 NAMEPLATE_MARGIN = 5.0
 NAMEPLATE = "nameplate"
 NAMEPLATE_INK = "nameplate-ink"
+# What the receiving bar keeps off the PSU's AC terminal block, the enclosure's assembly-clearance
+# floor.
+NAMEPLATE_PSU_CLEAR = 1.0
 
 
 def nameplate_field() -> tuple:
@@ -1941,21 +1944,33 @@ def nameplate_field() -> tuple:
             deck_storey()-port_pocket_d()/2)
 
 
-def nameplate_station(foam) -> tuple:
-    """Centre on the rear field, with the retained pump ledge above the cap."""
+def nameplate_station(stations) -> tuple:
+    """Centred across the rear field, and on the flavour chips' own height."""
     west, east, _north = nameplate_field()
-    return ((west+east)/2, cap_face(foam)+_np.interface.CENTRE_ABOVE_CAP)
+    _x, axis, _fitting, _family, which, _fluid = stations["bulkhead-flavor-a"]
+    od, rise = _ring.outline(which)
+    return ((west+east)/2, axis+(rise-od/2)/2)
 
 
-def nameplate_cut(foam) -> _enc.Nameplate:
-    """The production snap-fit pocket at the plate's assembly datum."""
-    return _np.interface.station(*nameplate_station(foam))
+def nameplate_cut(station) -> _enc.Nameplate:
+    """The production snap-fit pocket at the plate's station."""
+    return _np.interface.station(*station)
 
 
-def build_nameplate(foam, unit: int = 1):
+def nameplate_receiver(station):
+    """The receiving bar and its corbel where back-top carries them, uncut — the envelope the
+    tabs' slots and catch pockets are taken out of."""
+    x, z = station
+    floor = _enc.rear_plane_y + _enc.wall - _np.THICK
+    return cq.Compound.makeCompound(
+        [s.translate(cq.Vector(x, floor, z)) for s in _np.interface.receiver_additions(
+            fits.supported_surface, _enc.BACK_TOP_UP)])
+
+
+def build_nameplate(station, unit: int = 1):
     """The plate and its lettering, two solids, seated on the pocket's own floor — one plate's
     thickness inside the wall's outer face, so its face and the wall's come out one plane."""
-    x, z = nameplate_station(foam)
+    x, z = station
     floor = _enc.rear_plane_y + _enc.wall - _np.THICK
     plate, ink = _np.split(import_step(str(_np.step_path(unit))).val())
     body, _c = seat_body(plate, (), seat="nameplate", station=(_np.seat(), (x, floor, z)))
@@ -4668,9 +4683,18 @@ def build_pack() -> cq.Assembly:
     for name, solid, colour in build_customer_tubes(bulkhead_carry, panel_carries, co2in_carry):
         a.add(solid, name=name, color=colour)
     # And the nameplate, in the field those rings leave east of the flavour pair — the same
-    # pocket floor, one plate's thickness inside the wall's outer face.
-    for name, solid, colour in build_nameplate(foam):
+    # pocket floor, one plate's thickness inside the wall's outer face, centred on the chips.
+    a.nameplate_station = nameplate_station(a.wall_stations)
+    for name, solid, colour in build_nameplate(a.nameplate_station):
         a.add(solid, name=name, color=colour)
+    # Its receiving bar stands behind the wall beside the PSU's AC terminal block, and the
+    # tabs' pitch is what holds the bar's east end off it.
+    _psu_air = _clearing.gap(nameplate_receiver(a.nameplate_station), psu, 5.0)
+    _stated.state(
+        "nameplate-psu-clear", "The nameplate's receiving bar stands clear of the PSU",
+        f"≥ {NAMEPLATE_PSU_CLEAR:g} mm", _psu_air >= NAMEPLATE_PSU_CLEAR - 1e-6,
+        f"the bar and its corbel stand {_psu_air:.3f} mm off the PSU; the tabs' pitch "
+        f"`_nameplate_interface.TAB_X` sets the bar's ends")
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -5475,7 +5499,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      flank_reliefs=flank_reliefs(placed),
                      front_flank_reliefs=front_flank_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
-                     nameplate=nameplate_cut(placed["foam-assembly"][0]),
+                     nameplate=nameplate_cut(a.nameplate_station),
                      keystone=a.keystone_station,
                      valve_trays=a.valve_trays, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,

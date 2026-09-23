@@ -1,7 +1,8 @@
 """Nameplate face and its two plate-owned PET-GF snap tabs, in millimetres.
 
-The plate's back is Y=0; its face is +Y. Tabs run into -Y. The receiving
-shoulders are rigid and open into the enclosure behind each tab.
+The plate's back is Y=0; its face is +Y. Tabs run into -Y. One bar behind
+the pocket receives both: its shoulders are rigid, and each tab's slot and
+catch pocket open through the bar's print-up face.
 """
 
 from collections import namedtuple
@@ -17,8 +18,10 @@ BEVEL = 0.4
 SLIP = 0.15
 WALL = 6.0
 
-TAB_X = 45.0
-TAB_Z = -2.5
+# The tabs stand on the plate's centre line. Their pitch keeps the bar's east
+# end clear of the PSU's AC terminal block (`nameplate-psu-clear`).
+TAB_X = 41.0
+TAB_Z = 0.0
 TAB_WIDTH = 8.0
 TAB_THICK = 1.3
 TAB_LENGTH = 11.3
@@ -30,14 +33,10 @@ SIDE_SLIP = 0.60
 END_SLIP = 0.30
 BEARING_SLIP = 0.48
 SHOULDER_STOCK = 2.0
-SHOULDER_HALF_WIDTH = 3.5
-
-# The water pump's rear bearing remains on this full-width ledge. Its top
-# sits 13 mm above the cold-core cap; the plate centre is 9.5 mm above it.
-CENTRE_ABOVE_CAP = 9.5
-LEDGE_WIDTH = 97.73
-LEDGE_HEIGHT = 7.0
-LEDGE_DEPTH = 5.0
+# Each retaining shoulder's width outboard of its slot, and the bar's crown
+# over the slots before its corbel returns to the wall.
+SHOULDER_W = 3.0
+BAR_CROWN = 3.0
 
 Nameplate = namedtuple("Nameplate", "x z width height corner bevel slip thick wall")
 
@@ -48,6 +47,27 @@ def station(x, z):
 
 def box(x0, x1, y0, y1, z0, z1):
     return cq.Solid.makeBox(x1-x0, y1-y0, z1-z0, cq.Vector(x0, y0, z0))
+
+
+def neck():
+    """The slot's outer side: the tab's outer face and its side slip."""
+    return TAB_X+TAB_THICK/2+SIDE_SLIP
+
+
+def inward():
+    """The slot's inner side, where the lip passes as the tab flexes."""
+    return TAB_X-TAB_THICK/2-(LIP-SIDE_SLIP)-SIDE_SLIP
+
+
+def bar_end():
+    """The bar's end, one shoulder beyond the slot."""
+    return neck()+SHOULDER_W
+
+
+def slot_z(supported=0.25, up=-1.0):
+    """The slot's Z span. Only its print-down end takes the supported-surface allowance."""
+    return (TAB_Z-TAB_WIDTH/2-END_SLIP+min(0, up*supported),
+            TAB_Z+TAB_WIDTH/2+END_SLIP+max(0, up*supported))
 
 
 def tabs():
@@ -65,45 +85,49 @@ def tabs():
     return parts
 
 
-def receiver_additions(supported=0.25):
-    """Pump ledge and two solid shoulder blocks, relative to the plate back."""
+def receiver_additions(supported=0.25, up=-1.0):
+    """The receiving bar and its corbel, relative to the plate back.
+
+    The bar spans both shoulders and runs from the wall to SHOULDER_STOCK
+    inboard of the bearing faces. It ends flush with the slots' print-down
+    ends, so its face there prints up, and carries BAR_CROWN over them on the
+    other side, where a 45° corbel carries its print-down face to the wall.
+    """
     pad_y = THICK-WALL
-    back_y = pad_y-LEDGE_DEPTH
-    parts = [box(-LEDGE_WIDTH/2, LEDGE_WIDTH/2, back_y, pad_y,
-                 -LEDGE_HEIGHT/2-supported, LEDGE_HEIGHT/2-supported)]
-    for side in (-1, 1):
-        shoulder_back = -LIP_START+BEARING_SLIP-SHOULDER_STOCK
-        x0, x1 = sorted((side*(TAB_X-SHOULDER_HALF_WIDTH), side*LEDGE_WIDTH/2))
-        parts.append(box(x0, x1,
-                         min(back_y, shoulder_back), pad_y,
-                         TAB_Z-TAB_WIDTH/2-END_SLIP-1.5,
-                         LEDGE_HEIGHT/2-supported))
-    return parts
+    front = -LIP_START+BEARING_SLIP-SHOULDER_STOCK
+    z0, z1 = slot_z(supported, up)
+    lo, hi = (z0, z1+BAR_CROWN) if up < 0 else (z0-BAR_CROWN, z1)
+    crown = hi if up < 0 else lo
+    x = bar_end()
+    corbel = (cq.Workplane("YZ", origin=(-x, 0, 0))
+              .polyline([(front, crown), (pad_y, crown), (pad_y, crown-up*(pad_y-front))])
+              .close().extrude(2*x).val())
+    return [box(-x, x, front, pad_y, lo, hi), corbel]
 
 
 def receiver_cuts(supported=0.25, up=-1.0):
-    """Through slots with an inward flex lane and open-backed retaining shoulders.
+    """Each tab's slot and catch pocket, relative to the plate back.
 
-    The shoulder starts 0.48 mm ahead of the lip. The enlarged rear opening
-    exposes the complete catch to support removal from inside the enclosure.
-    Only the print-down end of each slot receives supported-surface relief.
+    The slot passes through the pocket floor and the bar. The catch pocket
+    runs from the slot's inner side out through the bar's end, ahead of the
+    shoulder's bearing face. Both leave the bar through its print-up face.
     """
+    pad_y = THICK-WALL
+    z0, z1 = slot_z(supported, up)
+    through = (z0-1, z1) if up < 0 else (z0, z1+1)
+    far = -TAB_LENGTH-1
     cuts = []
-    z0 = TAB_Z-TAB_WIDTH/2-END_SLIP + min(0, up*supported)
-    z1 = TAB_Z+TAB_WIDTH/2+END_SLIP + max(0, up*supported)
     for side in (-1, 1):
-        inward = TAB_X-TAB_THICK/2-(LIP-SIDE_SLIP)-SIDE_SLIP
-        neck = TAB_X+TAB_THICK/2+SIDE_SLIP
-        outside = LEDGE_WIDTH/2+.1
-        x0, x1 = sorted((side*inward, side*neck))
-        cuts.append(box(x0, x1, -TAB_LENGTH-1, .8, z0, z1))
-        x0, x1 = sorted((side*inward, side*outside))
-        cuts.append(box(x0, x1, -TAB_LENGTH-1, -LIP_START+BEARING_SLIP, z0, z1))
+        x0, x1 = sorted((side*inward(), side*neck()))
+        cuts.append(box(x0, x1, pad_y-1, .8, z0, z1))
+        cuts.append(box(x0, x1, far, pad_y, *through))
+        x0, x1 = sorted((side*inward(), side*(bar_end()+1)))
+        cuts.append(box(x0, x1, far, -LIP_START+BEARING_SLIP, *through))
     return cuts
 
 
 def apply(solid, plate, y_outer, *, wall=3.0, supported=0.25, up=-1.0):
-    """Cut the same pocket/shoulders in an enclosure wall or a fit coupon."""
+    """Cut the same pocket and receiving bar in an enclosure wall or a fit coupon."""
     y_inner, y_pad = y_outer-wall, y_outer-plate.wall
     floor = y_outer-plate.thick
     pw, ph = plate.width+2*plate.slip, plate.height+2*plate.slip
@@ -120,7 +144,7 @@ def apply(solid, plate, y_outer, *, wall=3.0, supported=0.25, up=-1.0):
     pad = pad.cut(ramp)
     solid = solid.fuse(pad, pad.translate((0,0,up*supported)))
     placement = (plate.x,floor,plate.z)
-    for addition in receiver_additions(supported if up<0 else 0):
+    for addition in receiver_additions(supported, up):
         solid = solid.fuse(addition.translate(placement))
     bevel = plate.bevel-(math.sqrt(2)-1)*plate.slip
     mouth = (cq.Workplane("XY").rect(pw,ph).extrude(plate.thick+1)
