@@ -15,7 +15,7 @@ other.
 | width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
 | bore | Ø[17.44](RING_BORE) | Ø[17.3](CO2_RING_BORE) |
 | height | [37.27](RING_TALL) mm | [37.06](CO2_RING_TALL) mm |
-| volume | [1.93](RING_VOL) cm³ | [1.89](CO2_RING_VOL) cm³ |
+| volume | [1.92](RING_VOL) cm³ | [1.89](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|

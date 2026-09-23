@@ -1,7 +1,7 @@
 {
   "valid_brep": true,
   "solids": 1,
-  "volume_mm3": 3021.5265942552687,
+  "volume_mm3": 3021.5265942556584,
   "mesh_bounds_mm": [
     [
       -6.199999809265137,
@@ -14,7 +14,7 @@
       4.429999828338623
     ]
   ],
-  "status": "physical fit and functional operation confirmed by Derek",
+  "status": "current geometry has no matching physical acceptance",
   "physical_acceptance": {
     "record": "physical-acceptance.json",
     "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
@@ -22,10 +22,10 @@
     "authority": "Derek's direct observation of the completed Mark2 print",
     "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
     "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "matches_accepted_geometry": true,
-    "physical_fit": "confirmed",
-    "functional_operation": "confirmed",
+    "current_stl_sha256": "199cf59916af4d8de6caf1aa01211c01388260ddcee88d41d8a25065882e33b3",
+    "matches_accepted_geometry": false,
+    "physical_fit": "unconfirmed for this mesh",
+    "functional_operation": "unconfirmed for this mesh",
     "quantified_strength": null,
     "quantified_endurance": null
   },
@@ -37,7 +37,7 @@
   "printed_channel_mm": 9.0,
   "printed_outside_mm": 12.4,
   "printed_channel_applies_to": "primary lever-replica STEP, STL, viewer payload and side-down print STL",
-  "printable_volume_mm3": 3021.5265942552687,
+  "printable_volume_mm3": 3021.5265942556584,
   "widths_mm": {
     "z=0.0": {
       "channel": 9.0,
@@ -58,7 +58,7 @@
   "donor_reference": {
     "step": "lever-donor-reference.step",
     "stl": "lever-donor-reference.stl",
-    "volume_mm3": 3202.0680649664523,
+    "volume_mm3": 3202.068064896943,
     "physical_acceptance_applies": false,
     "purpose": "drafted reconstruction for scan comparison"
   }

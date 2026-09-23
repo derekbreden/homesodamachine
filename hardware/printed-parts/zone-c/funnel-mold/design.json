@@ -8,7 +8,7 @@
     "core": [
       211.0,
       211.0,
-      42.23413376395925
+      42.23413376124006
     ],
     "funnel": [
       179.0000002,
@@ -21,29 +21,29 @@
       50.8
     ],
     "seal": [
-      8.350000200207939,
+      8.350000200207942,
       8.3500002,
-      1.6970277233049416
+      1.6970277217058296
     ]
   },
   "volume_ml": {
-    "cavity": 318.6055867571337,
-    "core": 306.8088298161823,
-    "funnel": 257.806513260027,
+    "cavity": 318.6142809484785,
+    "core": 306.808829789704,
+    "funnel": 257.80651346418927,
     "rod": 1.6087962461345553,
-    "seal": 0.036943020107135925
+    "seal": 0.036943020121882456
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 4.99981940254929,
-  "minimum_core_backing_mm": 4.999999986427598,
+  "minimum_cavity_backing_mm": 4.9998194025494875,
+  "minimum_core_backing_mm": 4.99999998642759,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 871.589168253386,
+      "retained_volume_ml": 871.5892313658651,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 285.50638108379496,
+      "retained_volume_ml": 285.506402260175,
       "casting_outside_retained_mm3": 0.0
     }
   },

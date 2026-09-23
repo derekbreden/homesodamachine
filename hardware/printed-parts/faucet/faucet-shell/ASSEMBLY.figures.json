@@ -1,11 +1,5 @@
 {
-  "/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": {
-    "FILLET_R": "1.5 mm",
-    "PILL_L": "13.6 mm",
-    "PILL_W": "7.25 mm",
-    "PLATE_D": "54.55 mm",
-    "SHANK_HOLE_D": "12.6 mm"
-  },
+  "/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": {},
   "/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "BASE_CBORE_D": "6.15 mm",
     "BASE_CBORE_DEPTH": "3.2 mm",

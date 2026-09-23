@@ -242,7 +242,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated at the compressor's own earth screw on its terminal box, routed toward the ground stack, not yet terminated at the bus
 - No cabinet-spanning plumbing beyond the prepared front-top manifold subassembly; no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [99](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [100](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 
