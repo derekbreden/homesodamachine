@@ -91,8 +91,8 @@ are observations for the complete enclosure trial.
 During half installation, hold the spring axially at
 [12.15 mm](SPRING_LOAD_LENGTH) with the
 [temporary flat pusher](../../fixtures/carrier-spring-pusher/README.md). Its
-6.3 mm tip and 10 × 3 mm inboard tongue are 2 mm thick. Withdraw it through
-the outer tee well after the left half seats; the same tool then loads the
+6.3 mm tip and 10 × 3 mm inboard tongue are 2 mm thick. Withdraw it beside
+the outer tee after the left half seats; the same tool then loads the
 right half. No tool remains in the assembled carrier.
 The assembled model displays springs as named clearance envelopes; solid
 cylinder volume supplies no spring mass, force or stiffness estimate.
@@ -121,8 +121,7 @@ Flat guide faces retain the carrier in X and Z. Nominal X running air is
 [0.25 mm](GUIDE_AIR); supported Z gaps are [0.5 mm](SUPPORTED_GUIDE_AIR).
 The outer faces finish flush, giving [215 mm](GRIP_WIDTH) total width. The
 finger spaces remain open above and below, backed by continuous 3 mm walls.
-The fixed body connects the guide lands and tee wells to both enclosure
-flanks. The fixed cup extensions merge into its fore spring-seat wall.
+Each fixed cup stands on its flank recess's fore wall.
 
 The fore stop depresses all four branch sleeves. Nominal connected travel is
 [2 mm](CONNECTED_TRAVEL); the aft stop lies [4.5 mm](GUIDE_TRAVEL) from

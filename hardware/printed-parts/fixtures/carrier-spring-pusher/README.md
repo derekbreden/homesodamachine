@@ -21,7 +21,7 @@ valve rows absent. Load and seat the left carrier half first.
    The carrier's [assembly sequence](../../enclosure/tee-carrier/README.md#assembly)
    specifies those distances.
 3. With the half at its aft stop, withdraw the pusher 15.435 mm inboard and
-   lift it through the outer tee well. The spring expands into both cups.
+   lift it beside the outer tee. The spring expands into both cups.
 4. Turn the same pusher 180° about the spring axis and repeat for the right
    half. Remove it before installing the valves and tubes.
 

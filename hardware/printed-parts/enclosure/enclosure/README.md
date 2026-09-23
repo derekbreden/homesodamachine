@@ -1321,7 +1321,7 @@ keepers. Broad inner-web backing adds 0.90 mm above the lower valve coils' entry
 Install the left half and then the right in the loose front-top, with the four bare tees
 seated at release and both valve rows absent. Each spring is already loaded into its closed
 moving cup and held at 12.15 mm by the temporary flat pusher. Each half enters through the
-open rear, lowers behind the fixed body, shifts outward to its staging position, slides fore
+open rear, lowers behind the tees, shifts outward to its staging position, slides fore
 and seats outward at the aft stop. The right shelf passes through its receiver during the
 fore slide; the final outward seat retains the joint. Withdraw and lift the pusher after
 each half seats. One tool serves both sides in sequence.
@@ -1375,7 +1375,7 @@ faces to the cartridge body. The top clamp has no separate grip.
 Between the tee wall's aft face and the aft valve tray's fore plane, front-top prints
 nothing inboard of its two flank recesses. The four tees, their ties, the carrier, the
 hairpins, the aft valves and the bowed stubs stand in open room from the piece's mouth up to
-the fore valve tray, whose flat underside stands [5.604 mm](FORE_TRAY_OVERHANG) aft of the
+the fore valve tray, whose 45° root corbel reaches [5.604 mm](FORE_TRAY_OVERHANG) aft of the
 tee wall. Branch journals continue forward through the tee wall to the fixed collet plate.
 
 Each flank opening leaves 16 mm finger clearance behind its 16 mm solid bar at nominal
@@ -1404,8 +1404,8 @@ held at release, the lower valves and coils rise from the loose piece's open und
 their 5.45 mm fore entry offset; they then slide aft onto the mounting posts. The accepted
 Beduan socket fit is retained, with ties supplying positive retention.
 
-Support under the fore valve tray and the recess roofs stands in the open room and leaves
-through the mouth before hardware is installed.
+Support under the recess roofs stands in the open room and leaves through the mouth before
+hardware is installed.
 
 ## The full-width opening
 

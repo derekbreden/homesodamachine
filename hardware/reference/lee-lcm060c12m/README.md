@@ -96,9 +96,9 @@ and returns the empty carrier to park. Derek's
 establish that a small tug engages a free collet and that insertion pushes it inward against
 spring-level force.
 
-The fixed body's round bores and the carrier's recessed seats locate the two springs.
-Each bore opens into a loading well that admits a compressed spring before the fore valve row
-and flexible links are installed.
+The tee wall's round bores and the carrier's recessed seats locate the two springs.
+A compressed spring loads beside the outer tee before the fore valve row and flexible links
+are installed.
 The production spring facts use measured sample dimensions and the actual bearing-plane
 separations, including seat depth. Pair forces, rate, wire diameter, inside diameter and
 material volume remain unknown. The displayed spring cylinder is a clearance envelope.
