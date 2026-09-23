@@ -1,0 +1,334 @@
+{
+  "project": "pump-cartridge-cap-black-z018-h2c-v3-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "0c30c22c698d3759179269ef8e508a81c4675af558d15b8cf0f6b91cc1db72d7",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/oriented-meshes/enclosure-pump-cartridge.stl",
+      "stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "triangles": 171096,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        42.134498596191406,
+        224.68450927734375
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        210.20499849319458,
+        59.489501953125
+      ],
+      "plate_translation_mm": [
+        162.5,
+        210.20499849319458,
+        59.489501953125
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          173.07049989700317,
+          0.0
+        ],
+        [
+          270.0,
+          247.339497089386,
+          118.97900390625
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "original_stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2"
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/oriented-meshes/enclosure-pump-cap.stl",
+      "stl_sha256": "5bfd36b648071e142c32a5ed0796333a9d980c74759e2fec7be213eff75334c7",
+      "triangles": 8284,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        -45.06399869918823,
+        -250.54950714111328
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        106.8655014038086,
+        33.62450408935547
+      ],
+      "plate_translation_mm": [
+        162.5,
+        106.8655014038086,
+        33.62450408935547
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          75.2750015258789,
+          72.66050291061401,
+          0.0
+        ],
+        [
+          249.7249984741211,
+          141.07049989700317,
+          67.24900817871094
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "original_source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "original_stl_sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063"
+    }
+  ],
+  "project_sha256": "c6a1cbd662cd65d04ba2059a3f30da39261b18f699412f0b9b1fbbe08794777d",
+  "settings_preserved_byte_for_byte": false,
+  "job_key": "pump-cartridge",
+  "assigned_printer": "H2C",
+  "archive_stem": "pump-cartridge-cap-black-z018-h2c-v3",
+  "requested_z_trim_mm": 0.18,
+  "actual_textured_z_trim_mm": 0.16,
+  "geometry_confirmation": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/geometry-confirmation.json",
+  "geometry_confirmation_sha256": "50bdaad110bea05290e8edef0b549ec4e9214c409c0a7aa69725d649f8ccfe00",
+  "geometry_confirmation_received_from": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/fresh-geometry-receipt.json",
+  "original_sources": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "source_stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "source_step_sha256": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          165.19500732421875
+        ],
+        [
+          107.5,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "original_mesh_triangles": 171096,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/oriented-meshes/enclosure-pump-cartridge.stl",
+      "oriented_stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          165.19500732421875
+        ],
+        [
+          107.5,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "source_stl_sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "source_step_sha256": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+      "original_bounds_mm": [
+        [
+          -87.2249984741211,
+          10.859000205993652,
+          216.9250030517578
+        ],
+        [
+          87.2249984741211,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "original_mesh_triangles": 8284,
+      "pretransform_rotation_sequence": [
+        "X180"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/oriented-meshes/enclosure-pump-cap.stl",
+      "oriented_stl_sha256": "5bfd36b648071e142c32a5ed0796333a9d980c74759e2fec7be213eff75334c7",
+      "oriented_bounds_mm": [
+        [
+          -87.2249984741211,
+          -79.26899719238281,
+          -284.17401123046875
+        ],
+        [
+          87.2249984741211,
+          -10.859000205993652,
+          -216.9250030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ],
+  "layerwise_print": true,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task",
+  "writer_source_sha256": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
+  "workflow_sha256": {
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/finalize_review.py": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/job-config.json": "9149b7f9fba180b9fd9e5de754a582273f4eb6fed932ae094d7591f741d3859f",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/layout.json": "927dfdcd4beaa85a89514aa8bb75dcfd62dcc42290f4d77f4884713c40da90d9",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/prepare.py": "2306845f6f22a453390358e2c33f4f62b94439edc1ada8ab2d65861f7b65dd82",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/print_workflow.py": "01834de614efc55279b61f8308dac9009376b49f13861738026347b385898384",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/review_native.py": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/self_test.py": "1a7fe9b9802847f36733a247058c6dc7dcdf96abff2e5ef1674f35660027085b",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/slice.py": "6ac548783a0443bffafcde9f9f75293b4526a1cdddc115669bed6af52d60c177",
+    ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/write_receipt.py": "223ac82fee9145394da34215e14c45b1c0ee69304f2e9d50a964c69bd9920412"
+  },
+  "functional_regions": null,
+  "functional_regions_sha256": null,
+  "required_functional_toolpath_checks": []
+}

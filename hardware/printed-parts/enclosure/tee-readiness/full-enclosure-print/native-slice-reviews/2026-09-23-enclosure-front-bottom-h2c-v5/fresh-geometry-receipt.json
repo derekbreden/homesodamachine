@@ -1,0 +1,18 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-23: 'Yes we'll need a front-bottom reprint as well'; re-prepared at the Audit session's request after its print-readiness fixes (6fead8c0e). Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f",
+    "hardware/manifold-layout/enclosure-box.json": "5f8b66290a5b89a2d68b4861e49e34639cdf0afaa4a1e64727744ce8e85a1bec",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/geometry-evidence.json": "6a811b12a53dd4568ce3afc7c25aca0be4345dc67dc6ba69f2a6be47ac9d4792",
+    ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/round-scan.json": "996068d2ca148968f8ca4122b73af8d2da65a3d96f5a48a0ee78e6195c836924"
+  }
+}

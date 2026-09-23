@@ -1,0 +1,18 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Prepared at the Audit session's request after its print-readiness fixes (6fead8c0e), with the 0.08 mm band Derek's rounded edges take (2026-09-23); not sent. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "4083ada46842b7cafad4c413fa9a5d02afb935915c7d6cc3c1bb9bb86c4ae196",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "2d32bc1de6a8a45379da130e9eeb00d3a53a00870c63ee1e3088dc752d8bc8d6",
+    "hardware/manifold-layout/enclosure-box.json": "5f8b66290a5b89a2d68b4861e49e34639cdf0afaa4a1e64727744ce8e85a1bec",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-enclosure-back-bottom-mark2-v3/geometry-evidence.json": "15fe6ce94878bd72ba4b8b00eb3b9500a0a427743be085eff909a7be536244a5",
+    ".cache/prints/2026-09-23-enclosure-back-bottom-mark2-v3/round-scan.json": "a5e544e1696aad34b7e3d5f88f434921ca5b1fc879c70aa12939ff9d0f2c47aa"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "source_commits_since_v2": [
+    "6fead8c0e"
+  ],
+  "placement": "as v2: cartridge upright at (162.5, 210.2), cap flipped X180 at (162.5, 106.9)",
+  "freshness": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": {
+      "disk": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "published": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": {
+      "disk": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+      "published": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": {
+      "disk": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+      "published": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": {
+      "disk": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+      "published": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
+    }
+  },
+  "round_scan": "round-scan.json: the cartridge's show rounds still level only at its side hand-pull pockets' floor (print z 12.230) and ceiling (106.999); the pockets now stop at x \u00b191.8 (3 mm floor); the cap has no rounded edge",
+  "layer_ranges": "cartridge 9.630-14.830 and 104.399-109.599 at 0.08 mm; cap none"
+}
