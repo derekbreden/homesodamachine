@@ -10,6 +10,9 @@ slides fore until each branch stands in its journal.
 Four return springs, two in each column, stand in blind bores in the column's fore face and bear
 on the tee wall's aft face, one over the other either side of the tees' run axis.
 
+Each column's end face is flush with its flank and is show face: its top and bottom edges roll
+over on the enclosure's R6 shoulder, and the exporter strikes the enclosure's flute field on it.
+
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
 of the fore valve tray's corbel. Front-top and front-bottom cut it (`opening`).
@@ -63,11 +66,12 @@ class Carrier:
     tie_slot: tuple
     strap_t: float
     roof_z: float
+    show_edge_r: float = 6.0
     backing: float = 3.0
     air: float = fits.running
 
     @classmethod
-    def on(cls, plate, *, exterior_x, flank_x, tie_slot, strap_t, roof_z):
+    def on(cls, plate, *, exterior_x, flank_x, tie_slot, strap_t, roof_z, show_edge_r):
         """The carrier on a collet plate's four tee stations, at its assembly state."""
         state = plate["carrier_states"][plate["assembly_state"]]
         return cls(
@@ -76,7 +80,7 @@ class Carrier:
             axis_z=plate["holes"][0][1],
             wall_aft_y=plate["wall_aft_y"],
             exterior_x=exterior_x, flank_x=flank_x,
-            tie_slot=tuple(tie_slot), strap_t=strap_t, roof_z=roof_z)
+            tie_slot=tuple(tie_slot), strap_t=strap_t, roof_z=roof_z, show_edge_r=show_edge_r)
 
     @property
     def trough_r(self):
@@ -201,7 +205,22 @@ def build_plate(c: Carrier):
             body = body.cut(cq.Solid.makeCylinder(
                 c.spring_bore_r, by1 - by0 + 1.0, cq.Vector(side * c.spring_x, by0 - 1.0, z),
                 cq.Vector(0, 1, 0)))
-    return cq.Workplane(obj=body.clean())
+    body = body.clean()
+    return cq.Workplane(obj=body.fillet(c.show_edge_r, _shoulder_edges(c, body)).clean())
+
+
+def _shoulder_edges(c: Carrier, body):
+    """Each end face's top and bottom edges: its long edges, the ones the enclosure's own side
+    shoulders run along."""
+    out = []
+    for edge in body.Edges():
+        a, b = edge.startPoint(), edge.endPoint()
+        if (abs(abs(a.x) - c.exterior_x) < 1e-6 and abs(abs(b.x) - c.exterior_x) < 1e-6
+                and abs(a.z - b.z) < 1e-6 and any(abs(a.z - z) < 1e-6 for z in c.column_z)):
+            out.append(edge)
+    if len(out) != 4:
+        raise ValueError(f"expected the two end faces' top and bottom edges, found {len(out)}")
+    return out
 
 
 def _spring(length):
@@ -264,7 +283,7 @@ def figures(c: Carrier) -> dict:
         "SPRING_CONNECTED_COMPRESSION": SPRING_FREE - c.spring_length(),
         "SPRING_RELEASE_COMPRESSION": SPRING_FREE - c.spring_length(-release_travel()),
         "SPRING_SIDE_WALL": c.spring_x - c.spring_bore_r - c.column_x[0],
-        "FLANK_T": c.exterior_x - c.flank_x,
+        "FLANK_T": c.exterior_x - c.flank_x, "SHOW_EDGE_R": c.show_edge_r,
         "LENGTH": 2.0 * c.exterior_x,
     }
 
@@ -300,13 +319,18 @@ def selftest(c: Carrier) -> int:
     return int(bool(errors))
 
 
-def _spec():
-    """The carrier on the committed box, the way front-top cut its flanks."""
+def _enclosure_box():
     sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
     import enclosure
     import _box_spec
     box, _bounds = _box_spec.read(enclosure.Box, enclosure.Bound,
                                   (enclosure.Pack, enclosure.PortField, enclosure.Nameplate))
+    return enclosure, box
+
+
+def _spec():
+    """The carrier on the committed box, the way front-top cut its flanks."""
+    enclosure, box = _enclosure_box()
     return enclosure.tee_carrier(box.pack)
 
 
@@ -318,16 +342,24 @@ def main():
                            / "tools"))
     from docgen import substitute_md
 
-    c = _spec()
+    import trimesh
+    enclosure, box = _enclosure_box()
+    c = enclosure.tee_carrier(box.pack)
     if selftest(c):
         return 1
     for name, part in parts(c).items():
-        step = _here.parent / f"{name}.step"
+        step, stl = _here.parent / f"{name}.step", _here.parent / f"{name}.stl"
+        # THE END FACES ARE STRUCK ON THE ENCLOSURE'S OWN FIELD, at the connected pose the
+        # plate is built at, so their grooves register with the flanks' round them.
+        mesh = enclosure._flute_skin.flute(
+            enclosure._piece_mesh(part.val()), enclosure.flute_rails(box)[:1],
+            enclosure.flute_pitch(box.outer), enclosure.flute_depth, enclosure.flute_rise)
+        mesh.export(str(stl))
+        printed = trimesh.load_mesh(str(stl))
+        if not printed.is_watertight or enclosure._flute_skin.non_manifold_edges(printed):
+            raise ValueError(f"{name}'s fluted print is not a closed manifold mesh")
         export_assembly(one_body(part, name, M_PETGF_BLACK), str(step))
-        part.val().copy(mesh=False).exportStl(str(step.with_suffix(".stl")),
-                                              tolerance=0.005, angularTolerance=0.05,
-                                              relative=False)
-        cut(step, step.with_suffix(".stl"))
+        cut(step, stl)
         print(f"-> {name}.step / .stl")
     substitute_md(_here.parent / "README.md",
                   {key: f"{value:.6g} mm" for key, value in figures(c).items()})
