@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_date": "2026-09-22",
+  "updated_date": "2026-09-23",
   "status": "production_printing",
   "scope": "Four fresh full shell quadrants, complete carrier pair and reusable assembly pusher, plus both matching G Ganen cold-core mounting parts.",
   "all_shell_quadrants_fresh": true,
@@ -28,42 +28,14 @@
       "launch_observed_at": "2026-09-22T19:04:30.084409+00:00",
       "physical_completion_and_fit_pending": true,
       "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T003018Z.json",
-        "record_sha256": "c1276f8d293b78d907c6bef38fe69e2ce9a2af09b9e30bae6870ddf49dd97407",
-        "observed_at": "2026-09-23T00:30:19.192524+00:00",
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T011147Z.json",
+        "record_sha256": "adfec6c5a68bf7b0a96a41ab0e3c0071ad09add967deac944c12aecc65de67ee",
+        "observed_at": "2026-09-23T01:11:47.553419+00:00",
         "gcode_state": "RUNNING",
-        "mc_percent": 19,
-        "layer_num": 50,
+        "mc_percent": 21,
+        "layer_num": 66,
         "total_layer_num": 813,
-        "mc_remaining_time": 1350,
-        "print_error": 0,
-        "hms": []
-      }
-    },
-    {
-      "printer": "Mark2",
-      "status": "reported_running",
-      "authority": "Printer's own MQTT report after a read-back Bambu Connect send",
-      "job": "display-cover-black-z004-mark2-v4.gcode.3mf",
-      "queue_job_id": "display-cover-v4",
-      "parts": [
-        "display-cover"
-      ],
-      "native_archive": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
-      "native_archive_sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
-      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
-      "launch_record_sha256": "bb4ce6379408db30119cb3d557e26791b4dece6727b62c73b828495698df662f",
-      "launch_observed_at": "2026-09-23T00:30:19.618739+00:00",
-      "physical_completion_and_fit_pending": true,
-      "latest_observation": {
-        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T003018Z.json",
-        "record_sha256": "c1276f8d293b78d907c6bef38fe69e2ce9a2af09b9e30bae6870ddf49dd97407",
-        "observed_at": "2026-09-23T00:30:19.618739+00:00",
-        "gcode_state": "RUNNING",
-        "mc_percent": 0,
-        "layer_num": 0,
-        "total_layer_num": 142,
-        "mc_remaining_time": 30,
+        "mc_remaining_time": 1308,
         "print_error": 0,
         "hms": []
       }
@@ -124,7 +96,7 @@
         "grams_saved_profile_density": 814.6126708984375,
         "grams_actual_petgf_density_1p43": 903.0202475850896,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-front-top-h2c-v4/preparation.json",
@@ -241,7 +213,7 @@
         "grams_saved_profile_density": 560.4407958984375,
         "grams_actual_petgf_density_1p43": 621.2638280114462,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-front-bottom-mark2-v2/preparation.json",
@@ -350,7 +322,7 @@
         "grams_saved_profile_density": 639.99560546875,
         "grams_actual_petgf_density_1p43": 709.4524928839631,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-back-bottom-mark2-v2/preparation.json",
@@ -448,7 +420,7 @@
         "grams_saved_profile_density": 867.9348754882812,
         "grams_actual_petgf_density_1p43": 962.1293580994125,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "preparation": {
         "path": ".cache/prints/2026-09-21-enclosure-back-top-h2c-v2/preparation.json",
@@ -552,7 +524,7 @@
         "grams_saved_profile_density": 101.80787658691406,
         "grams_actual_petgf_density_1p43": 112.85679342580396,
         "actual_petgf_density_g_per_cm3": 1.43,
-        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm³ material density."
+        "scope": "Native slicer estimate including emitted supports; PET-GF mass rescales the saved-profile mass to the actual 1.43 g/cm\u00b3 material density."
       },
       "handoff_conditions": [
         "Assigned machine available",
@@ -890,7 +862,7 @@
         "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/fresh-geometry-receipt.json",
         "sha256": "917115258c91aa2d530e26eccc84a27b2d3448cdf7b5818d29ad1bb8c9e3a8d0"
       },
-      "geometry_change": "97d94494e: display storey filled solid beside the display opening; the carrier floor's two rail-side strips deleted. 8eda7178c: the R18 top curve's last two layers rise at the plane's 30°.",
+      "geometry_change": "97d94494e: display storey filled solid beside the display opening; the carrier floor's two rail-side strips deleted. 8eda7178c: the R18 top curve's last two layers rise at the plane's 30\u00b0.",
       "staged_project": {
         "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v6/enclosure-front-top-black-z004-mark2-v6-input.3mf",
         "sha256": "e89eeef5230e9aad65219ae21815e9af8802922d83f81595b8a2381490920c9c"
@@ -1144,7 +1116,7 @@
       "orientation": "X180; visible face down on the plate, both 34 mm skirts pointing up; centred",
       "requested_z_trim_mm": 0.04,
       "effective_textured_z_trim_mm": 0.02,
-      "status": "reported_running",
+      "status": "reported_finished",
       "geometry_confirmation": {
         "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/fresh-geometry-receipt.json",
         "sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9"
@@ -1204,7 +1176,13 @@
       "launch_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
         "sha256": "bb4ce6379408db30119cb3d557e26791b4dece6727b62c73b828495698df662f"
-      }
+      },
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json",
+        "sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d"
+      },
+      "completion_observed_at": "2026-09-23T01:11:47.350974+00:00",
+      "latest_print_removed_confirmed": false
     },
     {
       "id": "front-top-v7",
@@ -1396,7 +1374,8 @@
     "mark2_carrier_pair_v2_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-carrier-pair-v2-completion.json",
     "mark2_display_cover_v3_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-launch.json",
     "mark2_display_cover_v3_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
-    "mark2_display_cover_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json"
+    "mark2_display_cover_v4_launch": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
+    "mark2_display_cover_v4_completion": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json"
   },
   "operating_policy": {
     "authority": "Derek",
@@ -1409,7 +1388,7 @@
     "reload_during_print_accepted": true,
     "filament_instruction": "Start ready jobs with the correct material mapping regardless of remaining spool quantity. Use the spool until runout and reload as needed. Ask for filament only when an actual reload requires the user."
   },
-  "updated_at_utc": "2026-09-23T00:40:14.794405+00:00",
+  "updated_at_utc": "2026-09-23T01:14:52.689689+00:00",
   "geometry_qualification": {
     "status": "current_assembly_and_corrected_mounts_verified",
     "assembly_step_sha256": "c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a",
@@ -1448,7 +1427,7 @@
     },
     {
       "printer": "Mark2",
-      "after": "The 34 mm-skirt cover for the printed front-top is running face down. Front-top v8 is held: Derek: \"No, it's not next. We have serious problems.\"",
+      "after": "The 34 mm-skirt display cover is finished; removal is unconfirmed. Front-top v8 is held. Next-job choice remains pending in Scan results 2.",
       "order": [
         "front-bottom",
         "carrier-pair",
@@ -1745,6 +1724,41 @@
       },
       "removal_authority": "Derek: The plate is clear.",
       "removal_recorded_at_utc": "2026-09-23T00:30:19.689137+00:00"
+    },
+    {
+      "printer": "Mark2",
+      "status": "reported_finished",
+      "authority": "Printer's own MQTT report after a read-back Bambu Connect send",
+      "job": "display-cover-black-z004-mark2-v4.gcode.3mf",
+      "queue_job_id": "display-cover-v4",
+      "parts": [
+        "display-cover"
+      ],
+      "native_archive": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
+      "native_archive_sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
+      "launch_record_sha256": "bb4ce6379408db30119cb3d557e26791b4dece6727b62c73b828495698df662f",
+      "launch_observed_at": "2026-09-23T00:30:19.618739+00:00",
+      "physical_completion_and_fit_pending": true,
+      "latest_observation": {
+        "record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T011147Z.json",
+        "record_sha256": "adfec6c5a68bf7b0a96a41ab0e3c0071ad09add967deac944c12aecc65de67ee",
+        "observed_at": "2026-09-23T01:11:47.350974+00:00",
+        "gcode_state": "FINISH",
+        "mc_percent": 100,
+        "layer_num": 142,
+        "total_layer_num": 142,
+        "mc_remaining_time": 0,
+        "print_error": 0,
+        "hms": []
+      },
+      "printer_completion_confirmed": true,
+      "physical_success_confirmed": false,
+      "latest_print_removed_confirmed": false,
+      "completion_record": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json",
+        "sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d"
+      }
     }
   ],
   "physical_handoff": {
@@ -1780,14 +1794,16 @@
       }
     },
     "Mark2": {
-      "after_job": "display-cover-black-z004-mark2-v3.gcode.3mf",
-      "printer_available": false,
+      "after_job": "display-cover-black-z004-mark2-v4.gcode.3mf",
+      "printer_available": true,
       "next_job_id": null,
       "plate_clearance": {
-        "status": "consumed_by_display_cover_v4_launch",
-        "authority": "Derek: The plate is clear.",
-        "recorded_at_utc": "2026-09-23T00:30:19.689137+00:00",
-        "consumed_by_archive_sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3"
+        "status": "awaiting_latest_print_removal",
+        "after_job": "display-cover-black-z004-mark2-v4.gcode.3mf",
+        "completion_observed_at": "2026-09-23T01:11:47.350974+00:00",
+        "request_sent": true,
+        "request_recorded_at_utc": "2026-09-23T01:14:52.689689+00:00",
+        "question": "Mark2 has finished display-cover v4. Please remove it and confirm when Mark2\u2019s plate is clear."
       },
       "filament": {
         "status": "use_spool_until_runout_and_reload",
@@ -1800,15 +1816,16 @@
       },
       "send_permitted": false,
       "completion_record": {
-        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
-        "sha256": "a9467bdaf685a4de49af876c0b3b51eae75e01abeebbc80c0185a03bc692ae4d"
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json",
+        "sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d"
       },
-      "active_job_id": "display-cover-v4",
-      "next_handoff": "After the 34 mm-skirt cover finishes, record completion and obtain fresh part-removal confirmation. Front-top v8 is held: Derek: \"No, it's not next. We have serious problems.\"",
+      "active_job_id": null,
+      "next_handoff": "Await removal of the completed 34 mm-skirt display cover. Front-top v8 remains held. The next Mark2 job choice is pending in Scan results 2.",
       "launch_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-launch.json",
         "sha256": "bb4ce6379408db30119cb3d557e26791b4dece6727b62c73b828495698df662f"
-      }
+      },
+      "pending_condition": "Fresh plate-clear confirmation for display-cover-v4; current next-job choice is unresolved in the coordinating handoff."
     }
   },
   "submitted_production_plate_count": 6,
@@ -1823,5 +1840,5 @@
     "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json",
     "sha256": "128e38418c76befbe8064462757afe7c8d88ddead8062f58015aa644d80827ec"
   },
-  "completed_production_plate_count": 4
+  "completed_production_plate_count": 5
 }

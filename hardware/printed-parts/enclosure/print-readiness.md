@@ -2,25 +2,28 @@
 
 The requested trial uses **all four fresh shell quadrants, the complete carrier pair,
 one reusable spring-loading pusher, and both matching G Ganen cold-core mounting parts**.
-The complete Kamoer cartridge and raised open cap are finished and removed. H2C is
-printing the front-top and spring-loading pusher. Mark2 is printing the front-bottom.
-No additional coupons or scans are required before this full assembly trial.
+The Kamoer cartridge and raised open cap, front-top and pusher, front-bottom, and
+carrier pair are finished and removed. H2C is printing back-top. Mark2 has finished
+the **34 mm-skirt display cover that matches the printed front-top**; its removal
+is unconfirmed. **Front-top v8 is held at Derek's direction.** The next Mark2 job
+choice is pending in “Scan results 2”; no next job is selected in the handoff.
 
 **G Ganen feet and mounts are corrected.** Four copies of the shared 7 mm foot sit at the fully engaged rail ends, 58 mm apart. Matching cap and lid archives are freshly reviewed. The pump is 1 mm forward to clear the rear fitting.
 
-**The current enclosure qualification binds the geometry recorded below.** The assembly
+**The frozen production qualification binds the geometry recorded below.** Its assembly
 scorecard has 105 checks: 104 pass and one inactive physical gas-fit goal warning. There
 are zero clashes or unanswered overlaps, 67/67 clear port leads, and no pair below its
 required clearance. The carrier passes 638 native solid/sweep checks. The canonical 2 mm
 pusher separately passes 38 checks and 19 continuous sweeps against matching inputs.
 
-The assembly STEP SHA-256 is
+The qualified assembly STEP SHA-256 is
 `c86f83b78edabb1726847b9dcf3cc179514335109bbc56f4f46c54e1d00ef28a`.
-The [current geometry receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json) binds the completed assembly, unchanged independent print geometry and corrected mounts. Back-top has zero native added/removed volume; its mesh differs only by at most 0.000016 mm. The two mounting archives use their [mount input receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/current-geometry.json). Original archive and support-review provenance remains intact. The [queue](tee-readiness/full-enclosure-print/queue.json) records current eligibility.
+The [geometry receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-feet-v1/current-geometry.json) binds those production inputs and corrected mounts. Back-top has zero native added/removed volume; its mesh differs only by at most 0.000016 mm. The two mounting archives use their [mount input receipt](tee-readiness/full-enclosure-print/qualified-production/g-ganen-mount-inputs-v1/current-geometry.json). Archive and support-review provenance remains intact. These results qualify the recorded inputs, not every revision of the working assembly. The [queue](tee-readiness/full-enclosure-print/queue.json) records current eligibility and the front-top v8 hold.
 
-**All seven production plates have completed native/support review.** The front-top
-and pusher are running on H2C; front-bottom is running on Mark2. Five plates remain
-unsubmitted. Full-enclosure printing is already authorized; an offline-ready job
+**The seven original production plates have completed native/support review.**
+Back-bottom and the two G Ganen mounts remain unsubmitted. The two display-cover
+plates are finished; v4 matches the printed front-top, and v3 belongs to the held
+replacement front-top. Full-enclosure printing is already authorized; an offline-ready job
 awaits machine availability, removal of
 that machine’s latest print, the correct material mapping and the normal verified
 handoff. `print_released=false` and `submitted=false`
@@ -30,33 +33,33 @@ record execution, not a request for another approval.
 
 | Plate | Printer | Native time estimate | PET-GF at 1.43 g/cm³ (g) | Current state |
 | --- | --- | ---: | ---: | --- |
-| Front-top and one 2 mm pusher | H2C | 24 h 18 min | 903.02 | Running; 813 layers |
-| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Running; 754 layers |
+| Front-top and one 2 mm pusher | H2C | 24 h 18 min | 903.02 | Finished and removed; replacement v8 held |
+| Front-bottom | Mark2 | 17 h 27 min | 621.26 | Finished and removed |
 | Back-bottom | Mark2 | 17 h 59 min | 709.45 | Offline ready; not submitted |
-| Back-top | H2C | 27 h 51 min | 962.13 | Offline ready; not submitted |
-| Complete carrier pair | Mark2 | 3 h 43 min | 112.86 | Offline ready; not submitted |
+| Back-top | H2C | 27 h 51 min | 962.13 | Running; 813 layers |
+| Complete carrier pair | Mark2 | 3 h 43 min | 112.86 | Finished and removed; design under review |
 | G Ganen foam-cap-top | Mark2 | 5 h 09 min | 182.63 | Offline ready; not submitted |
 | Matching foam-cap-lid-top | Mark2 | 4 h 28 min | 202.92 | Offline ready; not submitted |
 
-H2C order: **front-top + pusher (running) → back-top**. Back-top follows a fresh
-plate-clear confirmation after front-top finishes.
-Mark2 order: **front-bottom (running) → back-bottom → carrier pair**. Each next plate
-follows completion and fresh part-removal confirmation.
-These are serial queues on each printer; the two printers can work in parallel.
+H2C has **back-top running** and no further assigned plate. Mark2's **display-cover
+v4 is finished at 142/142 layers**, with no reported error; fresh removal confirmation
+has been requested. The remaining reviewed Mark2 plates are back-bottom, foam-cap-top
+and foam-cap-lid-top. “Scan results 2” has asked Derek which should follow the cover.
+Front-top v8 remains held and must not be substituted as the next job.
 
 Both G Ganen mounting plates are assigned to **Mark2**, after the bottoms and carrier.
 The reviewed Mark2 v2 mounting archives use +0.04 mm requested trim and belong to the
-active seven-job queue. Earlier H2C variants have superseded mounting geometry and
+reviewed production set. Earlier H2C variants have superseded mounting geometry and
 are ineligible for submission.
 
-| Queued lane | Slicer time | PET-GF estimate |
+| Original seven-plate lane | Slicer time | PET-GF estimate |
 | --- | ---: | ---: |
 | H2C | 52 h 09 min | 1865.15 g |
 | Mark2 | 48 h 46 min | 1829.12 g |
 
-All seven jobs total 100 h 54 min of printer time and 3694.27 g PET-GF.
+The original seven jobs total 100 h 54 min of printer time and 3694.27 g PET-GF.
 These totals describe all seven production plates, including the full original estimate
-for front-top. They exclude the completed cartridge/cap, the countertop, plate changes,
+for front-top. They exclude replacement revisions, display covers, cartridge/cap, the countertop, plate changes,
 support cleanup and assembly; they are not remaining-time promises.
 
 Derek directs using every spool fully and reloading during a print as needed.
@@ -77,16 +80,19 @@ The exact finish time and physical print quality are not established by this rea
 
 | Printer | Observed at (UTC) | Progress | Reported layer | Estimated minutes left | Errors |
 | --- | --- | ---: | ---: | ---: | --- |
-| H2C | 2026-09-22T01:25:07.714292+00:00 | 22% | 173/813 | 1122 | None |
-| Mark2 | 2026-09-22T01:25:08.043469+00:00 | 0% | 0/754 | 1046 | None |
+| H2C — back-top v2 | 2026-09-23T01:11:47.553419+00:00 | 21% | 66/813 | 1308 | None |
+| Mark2 — display-cover v4 | 2026-09-23T01:11:47.350974+00:00 | 100% / FINISH | 142/142 | 0 | None |
 
 These are timestamped readings, not live remaining-time promises. The
 [front-top launch record](tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json)
 binds the reviewed archive to H2C’s RUNNING report and verified send settings. The
 [countertop completion and handoff](tee-readiness/full-enclosure-print/mark2-countertop-completion.json)
 records the countertop’s FINISH reading and Derek’s plate-clear confirmation. The
-[front-bottom launch record](tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json)
-binds the exact reviewed archive to Mark2’s RUNNING report. The active
+[front-bottom completion](tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json)
+and [front-top completion](tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json)
+record their finishes and removal. The [back-top launch](tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json)
+binds H2C's running archive. The [matching display-cover completion](tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json)
+records its finish without claiming removal or physical fit. The active
 `finish-the-enclosure-print-queue` heartbeat checks every two hours and advances
 reviewed jobs when normal physical handoff conditions are met, remaining quiet on
 unchanged running states.
@@ -118,7 +124,7 @@ reviewed archive after its assigned machine is available and its latest plate is
 | Beduan sockets | The production-profile socket fit is easy and accepted, with some retention during loose inverted shaking. Preserve the Ø7.2 sockets and use zip ties for positive retention. Installed tie access remains a full-assembly observation. [Physical record](../fixtures/valve-socket-fit/physical-acceptance.json). |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
 | Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example; the new carrier still needs its own physical evaluation. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
-| Machine display cover | Derek confirms the existing cover was already test fit. Reuse that cover; its shell interface belongs in the final generated assembly checks. |
+| Machine display cover | Display-cover v4 is the 34 mm-skirt cover matched to the printed front-top, printed face down. Its print is finished; removal and physical fit are unconfirmed. The short-skirt v3 cover belongs to the held replacement front-top. |
 | Nameplate | Appearance, QR readability and snap fit are accepted. Reuse the print. Its complexity is not the preferred design example. [Physical record](nameplate/physical-acceptance.json). |
 | C14 inlet and cord | Derek accepts the printed inlet/C13-cord station. Its fitted pocket and screw stations are preserved; the reference uses the measured flange outline and R6 corners. [Native interface evidence](tee-readiness/full-enclosure-print/hard-contact-review/README.md). |
 | G Ganen feet and flow | Derek identifies four identical flexible rubber feet with approximately 7 mm pads; they slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
@@ -137,7 +143,7 @@ face. The [terminal-bearing review](../../reference/jg-pp0208e-tee/terminal-bear
 supports the full trial without another ring scan or caliper reading. Simultaneous contact,
 release and relocking of all four actual rings remain physical checks.
 
-The carrier has **two moving halves with an integral broad retaining wall**, a fore lap,
+The printed v2 carrier has **two moving halves with an integral broad retaining wall**, a fore lap,
 a captured rail and an overlapping shelf. It uses no joint screws, heat-set inserts or
 separate keeper. The fixed spring cups belong to front-top; the moving cups have closed
 sides. One flat 2 mm pusher loads the two springs in turn and is removed before operation.
@@ -159,10 +165,12 @@ rigidity over the carrier before the springs moved has not yet been demonstrated
 
 ## What remains before and during the trial
 
-All seven assigned archives pass their fresh native/support reviews. Front-top and the
-pusher are running on H2C, and front-bottom is running on Mark2. The five unsubmitted
-plates await their assigned printer, removal of that printer’s latest part, the correct
-black PET-GF mapping and the verified handoff.
+The reviewed back-bottom and two G Ganen mounting archives remain unsubmitted.
+H2C is printing back-top; Mark2 awaits removal of display-cover v4 and the next-job
+choice in “Scan results 2”. The carrier design is under review in the tee-carrier
+tasks, and front-top v8 is held. Printing records do not establish physical acceptance
+of the carrier or release a held replacement. The correct black PET-GF mapping and
+verified exact-archive handoff remain required for each send.
 Offline ready is not submitted. The H2C mount alternatives are not additional required
 prints.
 
