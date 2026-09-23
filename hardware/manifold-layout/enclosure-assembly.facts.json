@@ -368,6 +368,22 @@
    117.03999999999999,
    224.296
   ],
+  "enclosure-window-cover-east": [
+   92.5,
+   117.19,
+   164.674,
+   98.5,
+   153.186,
+   224.796
+  ],
+  "enclosure-window-cover-west": [
+   -98.5,
+   117.19,
+   164.674,
+   -92.5,
+   153.186,
+   224.796
+  ],
   "flow-regulator": [
    -99.41217782649106,
    220.26,
@@ -2478,7 +2494,7 @@
    true
   ]
  },
- "card": "b025c1ddce19e2976be00d57b15a9bb2",
+ "card": "3a74e06654d20e840993fcf88d68125f",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -3560,8 +3576,8 @@
   }
  ],
  "schema": 2,
- "sources": "50ab5ca6f637204d6c91b7e533f62bd3",
- "step": "88bb6c681e8b6f0dfb290b25a6338d8c",
+ "sources": "44bf3db0efe37485200f0f3d19cb72fb",
+ "step": "8ad3fa2683fe52efe14ead78dd71fb59",
  "valve_tray_stations": [
   [
    177.29,
