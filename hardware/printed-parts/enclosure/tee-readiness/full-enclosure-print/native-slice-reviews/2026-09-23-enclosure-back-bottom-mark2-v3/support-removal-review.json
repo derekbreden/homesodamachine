@@ -1,0 +1,397 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "native_archive_sha256": "bda71c251dc877b11c04fb19b56ac69000e6f9d753f61668899f6a17f03d745d",
+  "gcode_sha256": "cbc71abaf52819b6e1d8e0ca5248102708ea9256f671e978bb80c0494e93ead8",
+  "support_audit_sha256": "4fc2e70d829248534cb3eb660cdcc0c0e68903c1266e847f09f44165652fcd11",
+  "geometry_confirmation_sha256": "3c2e47f0d2c2635ca963f79ec00de66fecd25e5642a2d3c529da8f7c34d80a89",
+  "parts": [
+    {
+      "name": "enclosure-back-bottom",
+      "support_summary": {
+        "support_bodies": 3,
+        "interface_islands": 7,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 34.11,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 7,
+        "shortest_labelled_build_up_mm": 34.11
+      },
+      "model_overhangs_review": "Three bed-rooted bodies on seven labelled islands, on the same surfaces as the 09-21 v2 slice: the two downward-open handhold lifting ceilings and the two rear Z-seam catch undersides (the west in its fore and aft runs). v2's two model-rooted catch ribbons are gone: both catches are now reached by trees climbing outside the flanks from the bed. The handhold band (32.65 to 37.85) prints the ceilings' rim rounds and corner fillets on 0.08 mm layers and adds a strip of support along each rim round's lowest overhang (interfaces 3 and 4). The audit fixes (the PRV rib, the Y-seam pins, the floor slit) take no support. The slicer plans the trees on their own grid, 1436 layers. Remove every support while the shell is loose, before the top shell or hardware is fitted; physical effort is unmeasured.",
+      "trees": [
+        {
+          "measurement": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.31,
+            "shortest_build_up_mm": 34.11,
+            "top_z_mm": 174.95,
+            "bbox_xy_mm": [
+              28.4,
+              22.4,
+              69.2,
+              280.4
+            ],
+            "interfaces": [
+              "interface-1",
+              "interface-3",
+              "interface-5",
+              "interface-6"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -134.1,
+              198.35,
+              -5.8,
+              -93.3,
+              456.35,
+              168.95
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -134.1,
+              198.35,
+              -5.8,
+              -93.3,
+              456.35,
+              168.95
+            ]
+          },
+          "contact_region": "West bed-rooted tree: the west rear handhold lifting ceiling (interface-1) and a strip of its rim round (interface-3), and a branch system that climbs outside the west flank (X-134.1..-107.5) to both runs of the west rear Z-seam catch underside (interfaces 5 and 6).",
+          "removal_lane": "After the plate comes off: detach the handhold branches and withdraw them downward through the fully open finger aperture; release each catch-contact branch outboard through the fully exposed catch groove, then remove the exterior trunk separately. No top shell or hardware encloses any branch; an intact whole-tree rigid extraction is not claimed.",
+          "removal_direction_original_cad": "-Z through the open handhold bottom; -X outboard through the exposed west catch groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The full flat lifting ceiling is the load-bearing handhold face; retain the roof and backing stock. Its R6 rim is the show edge on the flank. The broad square catch underside bears against the rear top shell foot along the complete rail; retain the flat bearing face.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 34.31,
+            "shortest_build_up_mm": 34.11,
+            "top_z_mm": 35.83,
+            "bbox_xy_mm": [
+              255.6,
+              22.4,
+              268.4,
+              75.6
+            ],
+            "interfaces": [
+              "interface-2",
+              "interface-4"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              93.1,
+              198.35,
+              -5.8,
+              105.9,
+              251.55,
+              29.83
+            ],
+            "bbox_original_cad_xyz_mm": [
+              93.1,
+              198.35,
+              -5.8,
+              105.9,
+              251.55,
+              29.83
+            ]
+          },
+          "contact_region": "East bed-rooted tree: the east rear handhold lifting ceiling (interface-2) and a strip of its rim round (interface-4).",
+          "removal_lane": "Detach from the broad lifting ceiling and withdraw downward through the fully open finger aperture; its end walls bound the pocket along Y and the complete bottom stays open before the enclosure is assembled.",
+          "removal_direction_original_cad": "-Z through the open handhold bottom.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The full flat lifting ceiling is the load-bearing handhold face; retain the roof and backing stock. Its R6 rim is the show edge on the flank.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 174.67,
+            "shortest_build_up_mm": 174.47,
+            "top_z_mm": 174.95,
+            "bbox_xy_mm": [
+              261.6,
+              43.2,
+              297.6,
+              280.4
+            ],
+            "interfaces": [
+              "interface-7"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              99.1,
+              219.15,
+              -5.8,
+              135.1,
+              456.35,
+              168.95
+            ],
+            "bbox_original_cad_xyz_mm": [
+              99.1,
+              219.15,
+              -5.8,
+              135.1,
+              456.35,
+              168.95
+            ]
+          },
+          "contact_region": "East bed-rooted tree climbing outside the east flank (X+107.5..+135.1) to the east rear Z-seam catch underside along its whole run (interface-7).",
+          "removal_lane": "Release the catch-contact branch outboard through the fully exposed catch groove, then remove the exterior trunk separately; no top shell or hardware encloses it.",
+          "removal_direction_original_cad": "+X outboard through the exposed east catch groove.",
+          "accessible_before_hardware": true,
+          "preserved_working_face_reason": "The broad square catch underside bears against the rear top shell foot along the complete rail; retain the flat bearing face.",
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "measurement": {
+            "id": "interface-1",
+            "first_z_mm": 34.31,
+            "last_z_mm": 35.11,
+            "bbox_xy_mm": [
+              58.8,
+              24.0,
+              68.4,
+              74.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 34.11,
+            "bbox_cad_xyz_mm": [
+              -103.7,
+              199.95,
+              28.31,
+              -94.1,
+              249.95,
+              29.11
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.7,
+              199.95,
+              28.31,
+              -94.1,
+              249.95,
+              29.11
+            ]
+          },
+          "contact_region": "West rear handhold flat lifting ceiling at Z29.25 (X-101.5..-93.5 / Y200..248), with its R6 rim round and corner fillet, over the downward-open finger pocket.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-2",
+            "first_z_mm": 34.31,
+            "last_z_mm": 35.11,
+            "bbox_xy_mm": [
+              256.8,
+              24.0,
+              266.4,
+              74.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 34.11,
+            "bbox_cad_xyz_mm": [
+              94.3,
+              199.95,
+              28.31,
+              103.9,
+              249.95,
+              29.11
+            ],
+            "bbox_original_cad_xyz_mm": [
+              94.3,
+              199.95,
+              28.31,
+              103.9,
+              249.95,
+              29.11
+            ]
+          },
+          "contact_region": "East rear handhold flat lifting ceiling at Z29.25 (X+93.5..+101.5 / Y200..248), with its R6 rim round and corner fillet, over the downward-open finger pocket.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-3",
+            "first_z_mm": 35.35,
+            "last_z_mm": 35.35,
+            "bbox_xy_mm": [
+              58.0,
+              24.0,
+              58.0,
+              72.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 35.15,
+            "bbox_cad_xyz_mm": [
+              -104.5,
+              199.95,
+              29.35,
+              -104.5,
+              247.95,
+              29.35
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -104.5,
+              199.95,
+              29.35,
+              -104.5,
+              247.95,
+              29.35
+            ]
+          },
+          "contact_region": "Strip along the west handhold's R6 rim round just outboard of the ceiling (X-104.5, Z29.35, Y200..248), the round's lowest overhang.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-4",
+            "first_z_mm": 35.35,
+            "last_z_mm": 35.35,
+            "bbox_xy_mm": [
+              266.8,
+              24.0,
+              267.2,
+              72.0
+            ],
+            "tree": "tree-2",
+            "build_up_mm": 35.15,
+            "bbox_cad_xyz_mm": [
+              104.3,
+              199.95,
+              29.35,
+              104.7,
+              247.95,
+              29.35
+            ],
+            "bbox_original_cad_xyz_mm": [
+              104.3,
+              199.95,
+              29.35,
+              104.7,
+              247.95,
+              29.35
+            ]
+          },
+          "contact_region": "Strip along the east handhold's R6 rim round just outboard of the ceiling (X+104.5, Z29.35, Y200..248), the round's lowest overhang.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-5",
+            "first_z_mm": 174.67,
+            "last_z_mm": 174.95,
+            "bbox_xy_mm": [
+              58.8,
+              43.2,
+              63.6,
+              142.0
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 174.47,
+            "bbox_cad_xyz_mm": [
+              -103.7,
+              219.15,
+              168.67,
+              -98.9,
+              317.95,
+              168.95
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.7,
+              219.15,
+              168.67,
+              -98.9,
+              317.95,
+              168.95
+            ]
+          },
+          "contact_region": "Fore run of the west rear Z-seam catch underside at Z169.45, Y218.5..317.8.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-6",
+            "first_z_mm": 174.67,
+            "last_z_mm": 174.95,
+            "bbox_xy_mm": [
+              58.8,
+              153.6,
+              63.6,
+              280.4
+            ],
+            "tree": "tree-1",
+            "build_up_mm": 174.47,
+            "bbox_cad_xyz_mm": [
+              -103.7,
+              329.55,
+              168.67,
+              -98.9,
+              456.35,
+              168.95
+            ],
+            "bbox_original_cad_xyz_mm": [
+              -103.7,
+              329.55,
+              168.67,
+              -98.9,
+              456.35,
+              168.95
+            ]
+          },
+          "contact_region": "Aft run of the west rear Z-seam catch underside at Z169.45, Y329.8..456.3.",
+          "reviewed": true
+        },
+        {
+          "measurement": {
+            "id": "interface-7",
+            "first_z_mm": 174.67,
+            "last_z_mm": 174.95,
+            "bbox_xy_mm": [
+              261.6,
+              43.2,
+              266.0,
+              280.4
+            ],
+            "tree": "tree-3",
+            "build_up_mm": 174.47,
+            "bbox_cad_xyz_mm": [
+              99.1,
+              219.15,
+              168.67,
+              103.5,
+              456.35,
+              168.95
+            ],
+            "bbox_original_cad_xyz_mm": [
+              99.1,
+              219.15,
+              168.67,
+              103.5,
+              456.35,
+              168.95
+            ]
+          },
+          "contact_region": "East rear Z-seam catch underside at Z169.45 along its whole run, Y218.5..456.3.",
+          "reviewed": true
+        }
+      ]
+    }
+  ],
+  "native_log_diagnostics": [
+    "[2026-09-23 05:21:48.884791] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 05:22:04.435374] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 05:22:04.436631] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "native_log_diagnostics_review": "The diagnostics are the T1001, T65535 and T65279 parser messages every plate from petgf.3mf carries: T1001 is the saved machine_start_gcode's hotend type detection, before the first layer; T65535 and T65279 are in its machine_end_gcode, after the last layer. Native return code 0, empty plate warning, black filament on nozzle 0.",
+  "pairwise_path_overlap_evidence": null,
+  "additional_functional_toolpath_evidence": [],
+  "physical_cleanup_effort_measured": false
+}

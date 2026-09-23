@@ -1,0 +1,21 @@
+{
+  "changes_since_v2": [
+    "88164b67b flavour-A bulkhead 1.55 mm down, keystone 0.775 mm down",
+    "5f8c6cfb0 and c53dab59f the PI450822S CO2 chain and its check pocket",
+    "6fead8c0e the audit fixes (+Y wall section from the mouth, ASSE pocket and tie channel roof, anchor web, coupling seat)"
+  ],
+  "freshness": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
+      "disk": "402b6ade3a0dd24359a322742319cf3bc3c79ddbda35ff666fdc7258505934c0",
+      "published": "402b6ade3a0dd24359a322742319cf3bc3c79ddbda35ff666fdc7258505934c0"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
+      "disk": "e89f983317692f391b3739c75ee09c5d7940a6741846e45c9abe7a4337d7feb9",
+      "published": "e89f983317692f391b3739c75ee09c5d7940a6741846e45c9abe7a4337d7feb9"
+    }
+  },
+  "round_scan": "round-scan.json (X180): the R6 roof side edges level at the bed (print z 0 to 0.62); the bulkhead-ring recesses' curved ends on the rear face level at print z 37.7 and 104.9 and are left at 0.24 (recess walls, not rounded edges); the other hits are bores and pockets",
+  "layer_ranges": "back-top 0.0-2.6 at 0.08 mm",
+  "supersedes": "2026-09-23-enclosure-back-top-h2c-v4: v4's rear-face support tree reached 0.1 mm past the bed's front edge (y 0); the part moves 8 mm back to plate y 168",
+  "placement": "plate centre (162.5, 168.0): the rear face 8 mm further from the bed front edge than centred, so the rear-face support tree keeps about 8 mm of bed; the part keeps 16.35 mm to the far border"
+}

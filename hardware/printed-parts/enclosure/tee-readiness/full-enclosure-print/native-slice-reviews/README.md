@@ -24,5 +24,10 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | tee-carrier | H2C | reviewed, not sent; on its back, R6 end rounds in 0.08 mm bands at the bed and the column tops | [2026-09-23-tee-carrier-plate-h2c-v1](2026-09-23-tee-carrier-plate-h2c-v1/manifest.json) |
 | front-top | Mark2 | reviewed, not sent; front-top changed after it (window-cover posts, audit fixes) | [2026-09-23-enclosure-front-top-mark2-v9](2026-09-23-enclosure-front-top-mark2-v9/manifest.json) |
 | front-bottom | H2C | reviewed, not sent; front-bottom changed after it (audit fixes) | [2026-09-23-enclosure-front-bottom-h2c-v3](2026-09-23-enclosure-front-bottom-h2c-v3/manifest.json) |
+| front-top | Mark2 | reviewed, not sent; window-cover posts and audit fixes, top 2.6 mm at 0.08 | [2026-09-23-enclosure-front-top-mark2-v11](2026-09-23-enclosure-front-top-mark2-v11/manifest.json) |
+| front-bottom | H2C | reviewed, not sent; seam-rail notches, audit fixes and 40 mm core stops, handhold-roof band at 0.08 | [2026-09-23-enclosure-front-bottom-h2c-v5](2026-09-23-enclosure-front-bottom-h2c-v5/manifest.json) |
+| back-bottom | Mark2 | reviewed, not sent; audit fixes, handhold-roof band at 0.08 | [2026-09-23-enclosure-back-bottom-mark2-v3](2026-09-23-enclosure-back-bottom-mark2-v3/manifest.json) |
+| pump-cartridge | H2C | reviewed, not sent; 3 mm hand-pocket floor, grip-opening bands at 0.08, cap at 0.24 | [2026-09-23-pump-cartridge-cap-h2c-v3](2026-09-23-pump-cartridge-cap-h2c-v3/manifest.json) |
+| back-top | H2C | reviewed, not sent; flavour-A drop, PI450822S CO2 chain and audit fixes, roof-edge band at 0.08, 8 mm back on the bed | [2026-09-23-enclosure-back-top-h2c-v5](2026-09-23-enclosure-back-top-h2c-v5/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

@@ -1,0 +1,19 @@
+{
+  "source_commits_since_v3": [
+    "6fead8c0e",
+    "6c6589aca"
+  ],
+  "freshness": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": {
+      "disk": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
+      "published": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": {
+      "disk": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f",
+      "published": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f"
+    }
+  },
+  "round_scan": "round-scan.json: the only show rounds that level in print are still the R6 rim rounds and corner fillets of the two handhold roofs (print z 35.25)",
+  "layer_ranges": "front-bottom 32.65-37.85 at 0.08 mm, as v3",
+  "supersedes": "2026-09-23-enclosure-front-bottom-h2c-v4: 6c6589aca returns the cold-core stops to 40 mm; the plate-foot and trench fixes stay"
+}

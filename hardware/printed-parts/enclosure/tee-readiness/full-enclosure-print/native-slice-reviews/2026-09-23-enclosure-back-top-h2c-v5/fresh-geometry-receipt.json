@@ -1,0 +1,18 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Prepared at the Audit session's request, last and not sent: whether to reprint back-top is Derek's call, since the one printing lacks the flavour-A drop, the CO2 re-cut and the audit fixes. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "402b6ade3a0dd24359a322742319cf3bc3c79ddbda35ff666fdc7258505934c0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "e89f983317692f391b3739c75ee09c5d7940a6741846e45c9abe7a4337d7feb9",
+    "hardware/manifold-layout/enclosure-box.json": "5f8b66290a5b89a2d68b4861e49e34639cdf0afaa4a1e64727744ce8e85a1bec",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/geometry-evidence.json": "ffcb29de148cbe5cecf5fa567edf2cb3f79d03a64886cae281e923256c4a0bf4",
+    ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/round-scan.json": "1d972dd090d5ca41b9550373cc21d622d03c28a5151793b038300ebf8ecd6450"
+  }
+}

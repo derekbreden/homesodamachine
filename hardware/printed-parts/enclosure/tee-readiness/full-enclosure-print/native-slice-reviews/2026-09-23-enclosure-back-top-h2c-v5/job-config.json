@@ -1,0 +1,52 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "back-top",
+  "printer": "H2C",
+  "archive_stem": "enclosure-back-top-black-z018-h2c-v5",
+  "title": "Complete enclosure back-top roof-down, with the flavour-A drop, the PI450822S CO2 anchor and the audit fixes, roof-edge rounds in 0.08 mm layers, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "explicit",
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "rotation_sequence": [
+        "X180"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-back-top": [
+      {
+        "min_z": 0.0,
+        "max_z": 2.6,
+        "layer_height": 0.08,
+        "reason": "back-top prints roof-down: its R6 roof side edges rise off the bed; 2.6 mm, the same depth as front-top's top band, which meets it at the Y seam"
+      }
+    ]
+  }
+}

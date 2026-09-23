@@ -421,6 +421,111 @@
         "grams_actual_petgf_density_1p43": 636.7254946213359
       },
       "submitted": false
+    },
+    {
+      "job": "front-top-v11",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-mark2-v11/manifest.json",
+        "sha256": "4fcc30bf0326dee11f6ec5623fbdf3ea838b4003590e5c94b11db3fffb243f73"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-front-top-mark2-v11/ready/enclosure-front-top-black-z004-mark2-v11.gcode.3mf",
+        "sha256": "d624dd44837c257e60e692523ce469143fca86e99d1b25b802852eaba2e93c7e"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-mark2-v11/offline-review.json",
+        "sha256": "e27254218c8bfdd2b18371a0ccec9d8aa59c2953afc1608bd082b918abca1c50"
+      },
+      "slice_estimate": {
+        "seconds": 74940.328125,
+        "grams_actual_petgf_density_1p43": 820.5166408331818
+      },
+      "submitted": false
+    },
+    {
+      "job": "front-bottom-v5",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-bottom-h2c-v5/manifest.json",
+        "sha256": "5b041006e0415c75647a05df6da7cb813f1141e6ee4e2ef9648770a7551468b2"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-front-bottom-h2c-v5/ready/enclosure-front-bottom-black-z018-h2c-v5.gcode.3mf",
+        "sha256": "e2e1f1ca14c05381e55662f7725d078e9773db35b61674a31cef4d096e72df08"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-bottom-h2c-v5/offline-review.json",
+        "sha256": "ccd154c5f194d389c19e97663b32adca56d49f61601db2bc36adf776d0721f1b"
+      },
+      "slice_estimate": {
+        "seconds": 66424.375,
+        "grams_actual_petgf_density_1p43": 636.707023679748
+      },
+      "submitted": false
+    },
+    {
+      "job": "back-bottom-v3",
+      "printer": "Mark2",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-back-bottom-mark2-v3/manifest.json",
+        "sha256": "e186281b5a9fad6ec5031bd4308aa76cc1ef9e0cac2e8661ff4625f3781d59c6"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-back-bottom-mark2-v3/ready/enclosure-back-bottom-black-z004-mark2-v3.gcode.3mf",
+        "sha256": "bda71c251dc877b11c04fb19b56ac69000e6f9d753f61668899f6a17f03d745d"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-back-bottom-mark2-v3/offline-review.json",
+        "sha256": "ddb3a1a9c1098e86d709367c9b355381e81a911623495f0bade5eb512fb5ee5e"
+      },
+      "slice_estimate": {
+        "seconds": 73503.671875,
+        "grams_actual_petgf_density_1p43": 790.4638775965964
+      },
+      "submitted": false
+    },
+    {
+      "job": "pump-cartridge-v3",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-h2c-v3/manifest.json",
+        "sha256": "2a0b22f96c752705097be9ff880f7b0da9e2f1d68af9e914b3bfe467110cb1ee"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v3/ready/pump-cartridge-cap-black-z018-h2c-v3.gcode.3mf",
+        "sha256": "028879e5d22be4c8d7c3bd41724f182b5732c93e79aa703b547127ab3222775b"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-h2c-v3/offline-review.json",
+        "sha256": "27fbac021a10e1a12b1d9ee09fcd17a01fddd5db303cc81445510343ef972786"
+      },
+      "slice_estimate": {
+        "seconds": 40151.85546875,
+        "grams_actual_petgf_density_1p43": 471.60762461580964
+      },
+      "submitted": false
+    },
+    {
+      "job": "back-top-v5",
+      "printer": "H2C",
+      "manifest": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-back-top-h2c-v5/manifest.json",
+        "sha256": "5c6ced93760f3114471fc285ef7102d1bfefdf21e10030291a1ade63b0282b47"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-23-enclosure-back-top-h2c-v5/ready/enclosure-back-top-black-z018-h2c-v5.gcode.3mf",
+        "sha256": "f72b45f8ed1975f4d9745639767359b8942d40686ec275e091095d82f7494278"
+      },
+      "offline_review": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-back-top-h2c-v5/offline-review.json",
+        "sha256": "be2a1795332d9024c1fe60aed1862b908783a948e298a6f134f4d579463de567"
+      },
+      "slice_estimate": {
+        "seconds": 105776.6796875,
+        "grams_actual_petgf_density_1p43": 1019.0636336452276
+      },
+      "submitted": false
     }
   ]
 }
