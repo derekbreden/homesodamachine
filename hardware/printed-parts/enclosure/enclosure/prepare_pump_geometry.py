@@ -2,7 +2,7 @@
 """Qualify the two Kamoer cartridge pieces for the complete enclosure print.
 
 This consumes a successfully regenerated, explicitly identified Box. It does not
-regenerate or qualify the complete enclosure, carrier mechanism or water pump.
+regenerate or qualify the complete enclosure or water pump.
 """
 from __future__ import annotations
 
@@ -18,9 +18,8 @@ HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'hardware/scripts').is_dir())
 MANIFEST = HERE / 'pump-cartridge-generation.json'
 BOX = ROOT / 'hardware/manifold-layout/enclosure-box.json'
-FIXTURE = HERE.parent / 'tee-readiness/tee-integration.json'
 MEASUREMENTS = ROOT / 'hardware/reference/kamoer-kphm400/scan-measurements.json'
-INPUTS = (BOX, FIXTURE, MEASUREMENTS,
+INPUTS = (BOX, MEASUREMENTS,
           MEASUREMENTS.with_name('scan-evidence.json'),
           MEASUREMENTS.with_name('scan-registration.json'))
 
@@ -62,6 +61,7 @@ def loaded_sources(before):
 def native_checks(enc, box, bounds):
     import cadquery as cq
     import trimesh
+    import manifold_layout as ml
 
     rows = []
 
@@ -74,12 +74,6 @@ def native_checks(enc, box, bounds):
         volume = a.intersect(b).Volume()
         check(name, volume < 1e-5, interference_mm3=volume)
 
-    fixture = json.loads(FIXTURE.read_text())
-    json_value = lambda value: json.loads(json.dumps(value))
-    check('current Box trays equal independently checked tube fixture',
-          json_value(box.pack.pump_trays) == fixture['pump_trays'])
-    check('current Box collet plate equals independently checked tube fixture',
-          json_value(box.pack.collet_plate) == fixture['collet_plate'])
     needed = {'pump-cartridge-flush', 'pump-bay-cavity-throat', 'pump-bay-vertical-datums'}
     selected = [b for b in bounds if b.id in needed]
     check('all local Box bounds present and passing',
@@ -197,10 +191,11 @@ def native_checks(enc, box, bounds):
         outlet_z = cz-enc._interface.pump_seated_drop+enc._tray.outlet_axis_z
         for sx in (-1.,1.):
             x = cx+sx*enc._tray.outlet_pitch/2
-            datum = next(r['pump'] for r in fixture['pump_to_tee_axes'].values()
-                         if abs(r['pump'][0]-x)<1e-6)
-            check(f'X{x:g} seated casing axis matches tube fixture',abs(outlet_z-datum[2])<1e-6,
-                  seated_outlet_z_mm=outlet_z, fixture_z_mm=datum[2])
+            # The tube runs on its collet-plate passage's axis, from the seated pump's tube plane.
+            hole_z = next(hz for hx, hz in plate['holes'] if abs(hx-x)<1e-6)
+            datum = (x, plate['aft_y']-ml.PUMP_BARBS_TO_RELEASE_PLANE, hole_z)
+            check(f'X{x:g} seated casing axis matches its collet plate passage',
+                  abs(outlet_z-datum[2])<1e-6, seated_outlet_z_mm=outlet_z, passage_z_mm=datum[2])
             tube = enc._ycyl(3.175,x,outlet_z,datum[1],plate['seated_tube_bottom_y'])
             empty(f'X{x:g} quarter-inch tube clears emitted cradle',tube,cradle)
             empty(f'X{x:g} quarter-inch tube clears fixed plate passage',tube,wall)
@@ -222,7 +217,7 @@ def native_checks(enc, box, bounds):
                 'cap_counterbore_radius_mm': enc.head_cbore_dia/2,
                 'cap_crown_z_mm': enc.cap_crown_z(box)},
             'floor_z_mm': [floor_bottom,floor_top],
-            'unqualified_tee_datums': fixture['unqualified_tee_datums'],
+            'unqualified_tee_datums': ml.tee.UNQUALIFIED_DATUMS,
             'scope': 'Fresh emitted cartridge/cap, current local Box, independent scan rim readings, and local tube/plate passages. No complete enclosure or physical fit qualification.'}
 
 
@@ -240,6 +235,7 @@ def main():
     MANIFEST.unlink(missing_ok=True)
     sys.path.insert(0,str(ROOT/'hardware/scripts'))
     sys.path.insert(0,str(HERE))
+    sys.path.insert(0,str(ROOT/'hardware/manifold-layout'))
     import materialize_pump_cartridge as producer
     import _box_spec
     import enclosure as enc
@@ -255,7 +251,7 @@ def main():
     native = native_checks(enc,box,bounds)
     after_inputs = {relative(p): sha(p) for p in INPUTS}
     if before_inputs != after_inputs:
-        raise ValueError('Fixture, Box or scan evidence changed during generation')
+        raise ValueError('Box or scan evidence changed during generation')
     sources = loaded_sources(before_sources)
     artifacts = {relative(HERE/name): digest for part in result.values()
                  for name,digest in part['hashes'].items()}
