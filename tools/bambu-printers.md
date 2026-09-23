@@ -101,7 +101,11 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    `click <x+47> <y+30> <x-245> <y+282>` from the tile's `@x,y` — its centre, then the
    External spool tile in the popover that opens under it. The popover is not in the
    tree; the tile afterwards is, and it must read `Ext PET-CF`. The offsets are H2C's
-   popover: one AMS unit's trays above the External spool.
+   popover: one AMS unit's trays above the External spool. If another app takes a
+   keystroke during the click, the popover can close before the External click lands.
+   The sender reads the tile after each attempt and, on a miss, closes the dialog
+   and reopens a fresh one before retrying. The tile toggles the popover, so another
+   click in the same dialog is not a safe retry.
 5. **Read the print options.** Each option is a row of `AXRadioButton`s and the chosen
    one carries an `AXImage "radio"` as its first child in `tree`. The standing settings
    are Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto and Nozzle
