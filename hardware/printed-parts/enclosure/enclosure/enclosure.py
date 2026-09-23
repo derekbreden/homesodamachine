@@ -404,7 +404,8 @@ display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # The housing ends at a vertical plane ahead of the funnel. Either side of the display's
 # opening it is solid down to the pump bay's lintel (`housing_fill`), and outboard of each
 # skirt's flex lane one cavity under the catch plane opens into the bay
-# (`display_storey_cavities`).
+# (`display_storey_cavities`), standing this far inside the side wall's flute valleys.
+display_storey_side_wall = 6.0
 display_housing_back = 96.0
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
@@ -3222,11 +3223,12 @@ def display_storey_cavities(box):
     """One cavity a side in the display storey, empty on a pack without the bay.
 
     ONE CAVITY, WALL TO WALL AND FRONT WALL TO RIDGE WALL, UNDER ONE CEILING. Each runs from the
-    skirt's flex lane out to the side wall and from the front wall back to the plane of the ridge
-    wall's fore face, which it rises in straight to the ceiling, and opens into the pump bay
-    across its whole floor. Its ceiling is the catch plane, a flat parallel to the display `CATCH`
-    below its face, so each skirt's catch is that ceiling where the slot comes through it and the
-    lip hangs into the cavity."""
+    skirt's flex lane out to `display_storey_side_wall` inside the side wall's flute valleys, and
+    from the front wall back to the plane of the pump bay's aft wall (the collet plate's fore
+    face), which it rises in straight to the ceiling, and opens into the bay across its whole
+    floor. Its ceiling is the catch plane, a flat parallel to the display `CATCH` below its face,
+    so each skirt's catch is that ceiling where the slot comes through it and the lip hangs into
+    the cavity."""
     if not (box.pump_bay and box.pack.collet_plate):
         return []
     inner, outer = box.inner, box.outer
@@ -3236,7 +3238,7 @@ def display_storey_cavities(box):
     def below_catch(y, z):
         return (y - o.y) * n.y + (z - o.z) * n.z + _display_retention.CATCH
 
-    y0, y1 = inner[2], box.pack.collet_plate["aft_y"]
+    y0, y1 = inner[2], box.pack.collet_plate["fore_y"]
     z0, z1 = box.pump_bay[2], outer[5] + 1.0
     section, ring = [], [(y0, z0), (y1, z0), (y1, z1), (y0, z1)]
     for (ya, za), (yb, zb) in zip(ring, ring[1:] + ring[:1]):
@@ -3247,7 +3249,9 @@ def display_storey_cavities(box):
             t = da / (da - db)
             section.append((ya + t * (yb - ya), za + t * (zb - za)))
     flex = _display_retention.FLEX_X
-    return [_yz_prism(inner[0], o.x - flex, section), _yz_prism(o.x + flex, inner[1], section)]
+    side = flute_depth + display_storey_side_wall
+    return [_yz_prism(outer[0] + side, o.x - flex, section),
+            _yz_prism(o.x + flex, outer[1] - side, section)]
 
 
 def _shell_with_facet(inner, outer, fill=None):
