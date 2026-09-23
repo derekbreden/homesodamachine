@@ -80,6 +80,9 @@ NOT_BUNDLED_DIRS = (
     # the two hand-drawn quick start sheets' page renders, held out the same way
     "hardware/quickstart-claude/out",
     "hardware/quickstart-codex/out",
+    # the G Ganen reference's working folder, which its own .gitignore holds out; nothing
+    # declares a file in it
+    "hardware/reference/g-ganen-pump/_scratch",
 )
 
 #: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads
