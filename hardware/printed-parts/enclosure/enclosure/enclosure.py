@@ -9045,8 +9045,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if z_side == "bottom":
         piece = _handholds(piece, inner, y_joint, y_side)
     if y_side == "front" and plate:
-        # The tee carrier's way in and its slide, through both flanks and the seam rail on them.
-        piece = piece.cut(_tee_carrier.opening(tee_carrier(box.pack)))
+        # The tee carrier's way in and its slide, through both flanks and the seam rail on them,
+        # and the pockets its springs' fore ends stand in, teardropped for the mouth-down print.
+        carrier = tee_carrier(box.pack)
+        piece = piece.cut(_tee_carrier.opening(carrier))
+        for x, z, y0, y1, r in _tee_carrier.spring_pockets(carrier):
+            piece = piece.cut(_teardrop_y(r, x, z, y0, y1, up=print_up(y_side, z_side)))
     if y_side == "back" and z_side == "bottom":
         disposal_field(outer)
         piece = piece.fuse(*disposal_letters(outer).Solids())

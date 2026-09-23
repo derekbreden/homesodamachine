@@ -7,8 +7,9 @@ The four bare tees are tied into its troughs on the bench; the plate enters thro
 flank `staged_dy` aft of its seat, where every branch nose passes the tee wall's aft face, and
 slides fore until each branch stands in its journal.
 
-Four return springs, two in each column, stand in blind bores in the column's fore face and bear
-on the tee wall's aft face, one over the other either side of the tees' run axis.
+Four return springs, two in each column, one over the other either side of the tees' run axis.
+Each runs from a blind bore in the column's fore face across the gap into a pocket in the tee
+wall's aft face (`spring_pockets`, cut by front-top).
 
 Each column's end face is flush with its flank and is show face: all four of its edges roll over
 on the enclosure's R6 shoulder, and the exporter strikes the enclosure's flute field on it.
@@ -67,6 +68,7 @@ class Carrier:
     strap_t: float
     roof_z: float
     show_edge_r: float = 6.0
+    spring_connected_length: float = 20.2
     backing: float = 3.0
     air: float = fits.running
 
@@ -156,12 +158,19 @@ class Carrier:
 
     @property
     def spring_bore_y(self):
-        """From the column's fore face to a backing short of the plate's back."""
-        return self.column_y[0], self.plate_y[1] - self.backing
+        """From the column's fore face, as deep as keeps a free spring's tip no further fore of the
+        staged column than the branch noses: one running air behind the tee wall's aft face."""
+        staged_room = self.column_y[0] + self.staged_dy - (self.wall_aft_y + self.air)
+        return self.column_y[0], self.column_y[0] + SPRING_FREE - staged_room
+
+    @property
+    def spring_pocket_y(self):
+        """Into the tee wall's aft face, as deep as leaves the spring its connected length."""
+        return self.spring_bore_y[1] - self.spring_connected_length, self.wall_aft_y
 
     def spring_length(self, offset_y=0.0):
-        """Tee wall's aft face to the bore's floor, with the carrier `offset_y` aft of connected."""
-        return self.spring_bore_y[1] + offset_y - self.wall_aft_y
+        """Pocket floor to bore floor, with the carrier `offset_y` aft of connected."""
+        return self.spring_bore_y[1] + offset_y - self.spring_pocket_y[0]
 
     @property
     def tie_zs(self):
@@ -231,10 +240,18 @@ def _spring(length):
 
 
 def spring_stations(c: Carrier) -> dict:
-    """Each spring's axis where it meets the tee wall's aft face."""
-    return {f"{SPRINGS}-{side}-{level}": (sx * c.spring_x, c.wall_aft_y, z)
+    """Each spring's axis on its pocket's floor."""
+    return {f"{SPRINGS}-{side}-{level}": (sx * c.spring_x, c.spring_pocket_y[0], z)
             for side, sx in (("west", -1.0), ("east", 1.0))
             for level, z in zip(("lower", "upper"), c.spring_zs)}
+
+
+def spring_pockets(c: Carrier) -> tuple:
+    """`(x, z, y0, y1, r)` for each pocket front-top cuts: the bore's radius, from the pocket's
+    floor out past the tee wall's aft face."""
+    y0, y1 = c.spring_pocket_y
+    return tuple((x, z, y0, y1 + 1.0, c.spring_bore_r)
+                 for x, _y, z in spring_stations(c).values())
 
 
 def springs(c: Carrier) -> dict:
@@ -274,6 +291,9 @@ def figures(c: Carrier) -> dict:
         "SPRING_OD": SPRING_OD, "SPRING_FREE": SPRING_FREE, "SPRING_SOLID": SPRING_SOLID,
         "SPRING_WIRE": SPRING_WIRE, "SPRING_BORE_D": 2.0 * c.spring_bore_r,
         "SPRING_BORE_DEPTH": c.spring_bore_y[1] - c.spring_bore_y[0],
+        "SPRING_POCKET_DEPTH": c.spring_pocket_y[1] - c.spring_pocket_y[0],
+        "SPRING_GAP": c.column_y[0] - c.wall_aft_y,
+        "SPRING_STAGED_REACH": SPRING_FREE - (c.spring_bore_y[1] - c.spring_bore_y[0]),
         "SPRING_SPREAD": c.spring_zs[1] - c.spring_zs[0],
         "SPRING_CONNECTED": c.spring_length(),
         "SPRING_RELEASE": c.spring_length(-release_travel()),
@@ -300,6 +320,10 @@ def selftest(c: Carrier) -> int:
         errors.append("the staged plate's strapped back does not close the opening")
     if not SPRING_SOLID < c.spring_length(-release_travel()) < c.spring_length() < SPRING_FREE:
         errors.append("a spring is solid at release or slack at connected")
+    if c.spring_pocket_y[1] - c.spring_pocket_y[0] <= 0.0:
+        errors.append("the springs' bores leave no pocket in the tee wall")
+    if c.spring_bore_y[1] > c.plate_y[1] - c.backing + 1e-9:
+        errors.append("a spring bore leaves less than a backing behind its floor")
     if c.spring_x + c.spring_bore_r > c.exterior_x - c.show_edge_r - 1e-9:
         errors.append("a spring bore opens into the end face's fore shoulder")
     for name, spring in springs(c).items():
