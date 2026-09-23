@@ -1,0 +1,81 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "pump-cartridge",
+  "printer": "H2C",
+  "archive_stem": "pump-cartridge-cap-black-z018-h2c-v2",
+  "title": "Pump cartridge and pump cap, grip-opening rounds in 0.08 mm layers, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "explicit",
+  "parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": []
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "rotation_sequence": [
+        "X180"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-pump-cartridge": [
+      {
+        "min_z": 9.63,
+        "max_z": 14.83,
+        "layer_height": 0.08,
+        "reason": "R6 rounds round each side grip opening's floor (level at print z 12.230): the mouth round below it and the corner fillets above it; 2.6 mm each side, the depth front-top's R6 roof edges print at 0.08"
+      },
+      {
+        "min_z": 104.399,
+        "max_z": 109.599,
+        "layer_height": 0.08,
+        "reason": "R6 rounds round each side grip opening's ceiling (level at print z 106.999): the corner fillets below it and the mouth round above it; 2.6 mm each side, as front-top's roof edges"
+      }
+    ]
+  }
+}

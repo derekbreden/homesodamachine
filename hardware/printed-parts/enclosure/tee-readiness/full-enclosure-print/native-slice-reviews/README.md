@@ -20,5 +20,6 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | foam-cap-top | H2C | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-top-h2c-v2](2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json) |
 | foam-cap-top | Mark2 | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-top-mark2-v1](2026-09-21-g-ganen-foam-cap-top-mark2-v1/manifest.json) |
 | foam-cap-top | Mark2 | assigned variant | [2026-09-21-g-ganen-foam-cap-top-mark2-v2](2026-09-21-g-ganen-foam-cap-top-mark2-v2/manifest.json) |
+| pump-cartridge | H2C | ready for H2C; cartridge grip-opening rounds in 0.08 mm bands, cap at 0.24 | [2026-09-23-pump-cartridge-cap-h2c-v2](2026-09-23-pump-cartridge-cap-h2c-v2/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

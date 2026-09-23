@@ -1,0 +1,283 @@
+{
+  "status": "offline_print_review_pass",
+  "submitted": false,
+  "print_released": false,
+  "final_print_release": "pending_coordinating_task_printer_handoff_and_release",
+  "printer": "H2C",
+  "job": "pump-cartridge",
+  "layerwise_print": true,
+  "staged_input": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/pump-cartridge-cap-black-z018-h2c-v2-input.3mf",
+  "staged_input_sha256": "297258e5ae446269ddc05cb7e2a29fff729a86e22c50cf1c1832a728167a8fff",
+  "native_archive": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/ready/pump-cartridge-cap-black-z018-h2c-v2.gcode.3mf",
+  "native_archive_sha256": "1982694f2043cf1863c52b68ad22cb689ad58c60589f0f7499ce21f4b11868ca",
+  "gcode_sha256": "4cdbce8fc13d46b6fdb62c4d3cf9e44346dfdae5a64451cdad7c8cd6200f8012",
+  "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "original_sources": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "source_stl_sha256": "a12e95027ceedcb95d5a197cda8a0a5716036e92e155b2244b1f64d2bd143c0d",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "source_step_sha256": "04e77f4a7fd292444655a3ea4fdf2a79ca628ca22a4c4da34ce8e968a9e40aea",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          165.19500732421875
+        ],
+        [
+          107.5,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "original_mesh_triangles": 171096,
+      "pretransform_rotation_sequence": [],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/oriented-meshes/enclosure-pump-cartridge.stl",
+      "oriented_stl_sha256": "a12e95027ceedcb95d5a197cda8a0a5716036e92e155b2244b1f64d2bd143c0d",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          165.19500732421875
+        ],
+        [
+          107.5,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "source": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "source_stl_sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+      "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "source_step_sha256": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+      "original_bounds_mm": [
+        [
+          -87.2249984741211,
+          10.859000205993652,
+          216.9250030517578
+        ],
+        [
+          87.2249984741211,
+          79.26899719238281,
+          284.17401123046875
+        ]
+      ],
+      "original_mesh_triangles": 8284,
+      "pretransform_rotation_sequence": [
+        "X180"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/oriented-meshes/enclosure-pump-cap.stl",
+      "oriented_stl_sha256": "5bfd36b648071e142c32a5ed0796333a9d980c74759e2fec7be213eff75334c7",
+      "oriented_bounds_mm": [
+        [
+          -87.2249984741211,
+          -79.26899719238281,
+          -284.17401123046875
+        ],
+        [
+          87.2249984741211,
+          -10.859000205993652,
+          -216.9250030517578
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ],
+  "geometry_confirmation_sha256": "3bbd6f59e73ad7f2ee2f14c348ff7cfadcfe217617be4f692c74c954ae6e089c",
+  "exact_receipt_inputs_verified": true,
+  "required_functional_toolpath_checks": [],
+  "requested_z_trim_mm": 0.18,
+  "actual_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "exact_emitted_critical_settings": {
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "grid",
+    "print_sequence": "by layer",
+    "nozzle_diameter": "0.4,0.4",
+    "filament_colour": "#000000",
+    "filament_flow_ratio": "0.9555",
+    "filament_nozzle_map": "0",
+    "filament_map": "1",
+    "curr_bed_type": "Textured PEI Plate",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_top_z_distance": "0.45",
+    "support_interface_top_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_pattern": "auto",
+    "support_object_xy_distance": "0.4",
+    "nozzle_temperature": "280",
+    "nozzle_temperature_initial_layer": "265",
+    "textured_plate_temp": "80",
+    "textured_plate_temp_initial_layer": "80",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "enable_arc_fitting": "0"
+  },
+  "intentional_setting_changes": [
+    "printer_settings_id",
+    "machine_start_gcode",
+    "extruder_ams_count"
+  ],
+  "native_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "slicer_warning": "",
+  "native_log_diagnostics": [
+    "[2026-09-23 01:47:37.787673] [0x00000001f7ada180] [error]   Invalid T command (T1001).",
+    "[2026-09-23 01:47:45.261210] [0x00000001f7ada180] [error]   Invalid T command (T65535).",
+    "[2026-09-23 01:47:45.261461] [0x00000001f7ada180] [error]   Invalid T command (T65279)."
+  ],
+  "layers": 983,
+  "native_log_diagnostics_review": "pending",
+  "estimated_seconds": 40346.2890625,
+  "estimated_grams_saved_profile_density": 420.098876953125,
+  "toolpath_fit": {
+    "left_nozzle_area_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ],
+    "toolpath_margins": [
+      {
+        "piece": "enclosure-pump-cartridge",
+        "side_margins_mm": [
+          30.064999999999998,
+          172.97,
+          29.87099999999998,
+          72.56
+        ],
+        "minimum_margin_mm": 29.87099999999998
+      },
+      {
+        "piece": "enclosure-pump-cap",
+        "side_margins_mm": [
+          75.175,
+          72.56,
+          75.17500000000001,
+          178.829
+        ],
+        "minimum_margin_mm": 72.56
+      }
+    ],
+    "minimum_toolpath_bed_margin_mm": 29.87099999999998,
+    "pairwise_conservative_gaps": [
+      {
+        "pieces": [
+          "enclosure-pump-cartridge",
+          "enclosure-pump-cap"
+        ],
+        "projected_extrusion_box_gap_mm": 31.799000000000007,
+        "geometric_intersection_ruled_out_by_bounds": true,
+        "needs_layerwise_overlap_investigation": false
+      }
+    ],
+    "minimum_pair_gap_mm": 31.799000000000007,
+    "bounds_inside_nozzle_area": true,
+    "overlap_investigation_needed": false,
+    "separation_policy": "The model border is 15 mm. Native paths must stay within the nozzle area and remain separate; actual margins are reported, not converted to an unrequested adhesion setting."
+  },
+  "support_audit": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/pump-cartridge-cap-black-z018-h2c-v2-input.support-audit.json",
+  "support_audit_sha256": "d221fcb6ce3707ee0cfcb3d7444db6bec917db6ba0f815e6c9a5c552ec670b1b",
+  "spring_pusher_toolpath_reading": null,
+  "carrier_retaining_wall_toolpath_reading": null,
+  "support_removal_review": ".cache/prints/2026-09-23-pump-cartridge-cap-h2c-v2/support-removal-review.json",
+  "review_script_sha256": "db4f4a6d7872dd38e44bdb2ce184f4e86592e62cde55db74c624c9cdcb2666bb",
+  "review_dependencies_sha256": {
+    "hardware/scripts/enclosure_support_audit.py": "3dd14a091d92aabde9b20d65bbe84acb15262e2bdb3f615722b2623cabd396f1",
+    "hardware/printed-parts/faucet/prepare_display_print.py": "5dbc24494e2089f02a8dc7199f2e0c94a738c31f8fec8f03b668effc101592ce",
+    "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "printer_state_checked": false,
+  "support_removal_review_sha256": "4d0f66535624255c1ed4d4138ba659853a059da60d142478acc1fe8b637be3a4",
+  "native_review_sha256": "13a8a02f876786aacc6030fff1c5fc78695366d94872a5899217f38d3d5acf97",
+  "final_review_script_sha256": "292740a252d94b6962350d03515198cb3db95e12561d15f76dcb3e6e9b159ab1",
+  "brim_reading": {
+    "staged_type": "auto_brim",
+    "actual_brim_extrusion_segments": 0
+  },
+  "estimated_grams_petgf_density_1p43": 465.6910031340842
+}
