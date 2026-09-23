@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "97/97 declared",
+   "value": "100/100 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -124,8 +124,7 @@
     "wr1110 \u2014 co2-adapter-regulator-in: 0.000 mm \u2014 seated against it",
     "wr1110 \u2014 co2-adapter-regulator-out: 0.000 mm \u2014 seated against it",
     "gasher-co2 \u2014 co2-adapter-check-in: 0.000 mm \u2014 seated against it",
-    "gasher-co2 \u2014 co2-check-coupling-nominal: 0.000 mm \u2014 seated against it",
-    "co2-adapter-check-out \u2014 co2-check-coupling-nominal: 0.000 mm \u2014 seated against it",
+    "gasher-co2 \u2014 co2-adapter-check-out: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "asse-drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
     "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 seated against it",
@@ -1164,7 +1163,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "65/65 mounted, 25 part of another body, 7 nothing fastens",
+   "value": "69/69 mounted, 24 part of another body, 7 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the inset 6 mm seat, the collar runs in `enclosure._funnel_cut_plan`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
@@ -1181,10 +1180,15 @@
    "id": "placed",
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
-   "status": "pass",
-   "value": "97/97 stated",
+   "status": "fail",
+   "value": "96/100 stated",
    "target": "a stated rule per body, each landing on it",
-   "detail": [],
+   "detail": [
+    "tee-carrier-spring-east-lower: no seat states where it stands",
+    "tee-carrier-spring-east-upper: no seat states where it stands",
+    "tee-carrier-spring-west-lower: no seat states where it stands",
+    "tee-carrier-spring-west-upper: no seat states where it stands"
+   ],
    "active": false
   },
   {
@@ -1237,7 +1241,7 @@
    "target": "200 mm between held points",
    "detail": [
     "carb-1: 146.1 mm, held at its anchor",
-    "co2-2: 196.2 mm, held at its anchor",
+    "co2-2: 178.3 mm, held at its anchor",
     "fluid-28: 164.6 mm, held at its anchor",
     "fluid-18: 253.8 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. Its unretained shape and clearance to the neighbouring lines require a tube-shape review; the authored centreline does not establish them.",
     "fluid-4: 224.4 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
@@ -1250,10 +1254,11 @@
    "kind": "goal",
    "status": "warn",
    "value": "physical measurements pending",
-   "target": "measure actual adapter reach, coupling and check before assembly",
+   "target": "measure actual adapter reach, stubs and check before assembly",
    "detail": [
     "PI010822S uses the shared nominal 1/4-inch PTC envelope.",
-    "Coupling \u00d822 \u00d7 25.4 mm and 11 mm engagement are provisional layout allowances, not verified purchased-part dimensions.",
+    "PI450822S uses the nominal PP450822E sections the discharge chain draws.",
+    "The WR1110 outlet and the check outlet are nominal 1/4-inch NPT male stubs, not measured ones.",
     "Model clearance does not qualify NPT engagement, the check's pressure rating, or the printed cradle's physical fit."
    ],
    "active": false
