@@ -58,6 +58,11 @@ click: x=-74.850 y=411.750 z=303.211
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-88.285 y=282.000 z=276.899
 
+[ceiling] Each nameplate catch pocket's floor is the receiving bar's 3 mm under the snap, framing the slot and catch as the 3 mm crown does above it. The bed-rooted body that reaches the pocket's lower rim reaches these floors; it leaves through the catch pocket's open inboard face and the bar's end before the plate is installed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=80.060 y=463.890 z=264.629
+click: x=-3.740 y=463.890 z=264.629
+
 [ceiling] The lower ledge inside the flush nameplate opening is the pocket bearing face. It is backed by the rear wall and surrounding pad. On the ceiling-down print, supports reach the ledge through the open mouth and are removed before seating the nameplate.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.160 y=470.269 z=249.779
