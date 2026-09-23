@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -819,7 +819,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "pass",
-   "value": "39 print-down slope(s): 26 under a body, 4 within 1 mm of one, 9 in a kept room, 0 could be columns",
+   "value": "37 print-down slope(s): 24 under a body, 4 within 1 mm of one, 9 in a kept room, 0 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [],
    "active": false
@@ -1111,13 +1111,13 @@
    "id": "y-seam-lower",
    "label": "Both lower seam jambs join the handhold roofs and carry complete lower and middle fasteners",
    "kind": "gate",
-   "status": "pass",
+   "status": "fail",
    "value": "four screw axes at Z 48.9 and 152.1 mm; middle collars end at Z 160",
    "target": "two jambs above the handholds, four open screw pilots, passages open through the rim, and a registering floor lap",
    "detail": [
     "west: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
     "east: levels correct; missing jamb 0.0000 mm\u00b3; entry overlap 0.0000 mm\u00b3; blocked bores 0.0000 mm\u00b3",
-    "floor lap blocks a 0.5 mm upward shift: 145.3849 mm\u00b3 overlap"
+    "floor lap blocks a 0.5 mm upward shift: 145.5733 mm\u00b3 overlap"
    ],
    "active": true
   },
