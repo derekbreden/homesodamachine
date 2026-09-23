@@ -19,11 +19,7 @@ thicker geometry.
 **The operation inside design constraints**, which is where the machine spends its life.
 
 **Rigidity and a substantial feel.** Available internal volume around supported hardware
-belongs to the structure. The tee carrier's fixed body fills the space south (Y−) of its
-backing, connecting the tee journals, spring pockets and broad plate guides into both enclosure
-flanks. Hardware, travel, tubing and assembly motions define the cavities; the remaining stock
-forms continuous sections with clean flat working faces. Minimizing material is not an objective
-for this body.
+belongs to the structure.
 
 ## Not optimised
 

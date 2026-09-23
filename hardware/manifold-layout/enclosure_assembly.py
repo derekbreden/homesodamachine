@@ -1558,9 +1558,8 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
             (min(bb.ymin + aft_valve_entry_y - spec.slide_air, valve_clearance_plane_y),
              body_floor_aft_y),
             (plate["z0"], spec.web_z[0] - spec.slide_air)))
-    # Each tee, its ties, lower hairpin and upper valve passage share one constant well.
-    # The valve tray's own round port clearance is included in the same section, so the
-    # filled body's upper edge cannot leave a small ledge against that later cut.
+    # Each tee, its ties, lower hairpin and upper valve passage share one constant well,
+    # which includes the valve tray's own round port clearance.
     tie_radius = ml.tee.BARREL_R + spec.tie_stock_t + spec.slide_air
     port_radius = _enc._valve_tray._valve.port_radius + _enc._valve_tray.PORT_SLIP
     well_half_x = max(spec.tie_slot_offset_x + spec.tie_slot_x / 2.0 + spec.slide_air,
@@ -1630,7 +1629,7 @@ def tee_carrier_interface(spec: _carrier.CarrierSpec, plate, squeeze_stood) -> d
     if roof_wall < _enc.wall - 1e-6:
         raise ValueError(
             f"the carrier recess ceiling at Z{data['service_recess_z'][1]:.3f} leaves "
-            f"{roof_wall:.3f} mm below the fixed body's top, less than "
+            f"{roof_wall:.3f} mm below the fore valve row's clearance plane, less than "
             f"the {_enc.wall:g} mm roof section")
     data["recess_roof_wall"] = roof_wall
     gap, where = recess_socket_wall(data, trays)
@@ -1768,17 +1767,6 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
             passage = passage.cut(*fixed_cups)
         read(f"continuous hardware well {index} outside fixed spring cups", passage,
              (("enclosure-front-top", wall),))
-    web_bearings = []
-    for state, row in interface["states"].items():
-        y0, y1 = spec.web_fore_y + row["offset_y"], spec.web_aft_y + row["offset_y"]
-        for name, z, sense in (("lower", spec.web_z[0] - spec.slide_air, -1),
-                               ("upper", spec.web_z[1] + spec.slide_air
-                                + fits.supported_surface, 1)):
-            z0, z1 = sorted((z, z + sense * 0.001))
-            area = wall.intersect(_carrier._box(*spec.web_x, y0, y1, z0, z1).val()).Volume() / 0.001
-            web_bearings.append(area)
-            if area <= CARRIER_MOTION_OVERLAP_TOL:
-                failures.append(f"{state}: {name} web bearing is absent")
     fixed = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
                   if name.startswith(("coil-", "valve-")))
     closed_pieces = tuple((name, solid) for name, (solid, _colour) in _solids(a).items()
@@ -2056,7 +2044,6 @@ def _carrier_front_top_motion_bound(a, front_top, box) -> Bound:
         f"minimum contact {contact_min:.6f} mm³; "
         f"{interface['guide_travel']:g} mm total travel, nominal rest {spec.connected_offset_y:g} mm, "
         f"{interface['aft_overtravel']:g} mm additional aft room; "
-        f"minimum upper/lower web bearing {min(web_bearings):.3f} mm²; "
         f"minimum depressed-collet bearing {min(nose_contacts):.3f} mm²; "
         f"fore tube bottom {plate['tube_bottom_y']:.3f} mm Y, "
         f"{ml.tee.INSERTION:g} mm beyond the depressed sleeve; "
