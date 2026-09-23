@@ -11,11 +11,10 @@ Four return springs, two in each column, one over the other either side of the t
 Each runs from a blind bore in the column's fore face across the gap into a pocket in the tee
 wall's aft face (`spring_pockets`, cut by front-top).
 
-Each column's end face is flush with its flank and is show face. Its top, bottom and fore edges
-roll over on the enclosure's R6 shoulder, and so do the column's two fore edges running inboard
-to it, so each fore corner closes as one blend the way the enclosure's front corners do; its aft
-edge stays square the way the enclosure's rear edge does, and the top and bottom shoulders run
-out onto it. The exporter strikes the enclosure's flute field on the face.
+Each column's end face is flush with its flank and is show face. All four of its edges and the
+column's four edges running inboard to it roll over on the enclosure's R6 shoulder, so each corner
+closes as one blend the way the enclosure's front corners do. The exporter strikes the
+enclosure's flute field on the face.
 
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
@@ -201,11 +200,22 @@ def opening(c: Carrier):
     return cutter.clean()
 
 
+def _column(c: Carrier, side):
+    """One end's column on its own, every edge but its inboard face's rolled over on the R6
+    shoulder, so each corner of its end closes as one blend."""
+    x0, x1 = sorted(side * x for x in c.column_x)
+    column = _box(x0, x1, *c.column_y, *c.column_z)
+    inboard = side * c.column_x[0]
+    edges = [e for e in column.Edges()
+             if not (abs(e.startPoint().x - inboard) < 1e-6 and abs(e.endPoint().x - inboard) < 1e-6)]
+    return column.fillet(c.show_edge_r, edges)
+
+
 def _plate_body(c: Carrier):
-    """The plate from flank face to flank face, with a trough at each tee, a tie slot at each of
-    its edges for each tie band, and a column at each end."""
+    """The plate between the columns, with a trough at each tee and a tie slot at each of its
+    edges for each tie band, and a column at each end."""
     (y0, y1), (z0, z1) = c.plate_y, c.plate_z
-    body = _box(-c.exterior_x, c.exterior_x, y0, y1, z0, z1)
+    body = _box(-c.column_x[0], c.column_x[0], y0, y1, z0, z1)
     sx, sz = c.tie_slot
     for x in c.tee_xs:
         body = body.cut(cq.Solid.makeCylinder(
@@ -215,9 +225,7 @@ def _plate_body(c: Carrier):
             for tz in c.tie_zs:
                 body = body.cut(_box(cx - sx / 2.0, cx + sx / 2.0, y0 - 1.0, y1 + 1.0,
                                      tz - sz / 2.0, tz + sz / 2.0))
-    for side in (-1.0, 1.0):
-        x0, x1 = sorted(side * x for x in c.column_x)
-        body = body.fuse(_box(x0, x1, *c.column_y, *c.column_z))
+    body = body.fuse(_column(c, -1.0), _column(c, 1.0))
     by0, by1 = c.spring_bore_y
     for side in (-1.0, 1.0):
         for z in c.spring_zs:
@@ -228,34 +236,7 @@ def _plate_body(c: Carrier):
 
 
 def build_plate(c: Carrier):
-    """The plate, its columns' outer ends rounded, one column at a time."""
-    body = _plate_body(c)
-    for side in (-1.0, 1.0):
-        body = body.fillet(c.show_edge_r, _shoulder_edges(c, body, side))
-    return cq.Workplane(obj=body.clean())
-
-
-def _shoulder_edges(c: Carrier, body, side):
-    """The end face's top, bottom and fore edges on `side`, and its column's two fore edges
-    running inboard."""
-    def on(v, values):
-        return any(abs(v - w) < 1e-6 for w in values)
-
-    face, run = [], []
-    for edge in body.Edges():
-        a, b = edge.startPoint(), edge.endPoint()
-        if a.x * side <= 0.0:
-            continue
-        aft = on(a.y, (c.column_y[1],)) and on(b.y, (c.column_y[1],))
-        if on(abs(a.x), (c.exterior_x,)) and on(abs(b.x), (c.exterior_x,)) and not aft:
-            face.append(edge)
-        elif (abs(a.y - b.y) < 1e-6 and abs(a.z - b.z) < 1e-6
-              and on(a.y, (c.column_y[0],)) and on(a.z, c.column_z)
-              and sorted((abs(a.x), abs(b.x))) == [c.column_x[0], c.exterior_x]):
-            run.append(edge)
-    if len(face) != 3 or len(run) != 2:
-        raise ValueError(f"expected 3 end-face and 2 column edges, found {len(face)}, {len(run)}")
-    return face + run
+    return cq.Workplane(obj=_plate_body(c))
 
 
 def _spring(length):
