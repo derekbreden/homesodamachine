@@ -100,7 +100,6 @@ export const ALIASES = {
   "reservoir-a-cap": "printed-parts/cold-core/reservoir/reservoir-cap-right.step",
   "reservoir-b": "printed-parts/cold-core/reservoir/reservoir-left.step",
   "reservoir-b-cap": "printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-  "seaflo-pump": "reference/seaflo-22-pump/seaflo-22-pump.step",
   "shell_base": "printed-parts/faucet/faucet-shell/faucet-shell-base.step",
   "shell_tip": "printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
   "suction-chain": "reference/seaflo-suction-chain/seaflo-suction-chain.step",
