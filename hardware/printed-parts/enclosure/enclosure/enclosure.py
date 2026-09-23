@@ -823,10 +823,11 @@ cond_vent_transom_h = 4.0    # how tall each one stands — more than an exterio
 # the round and on the flat — one offset of one outline.
 core_stop_slip = split_slip
 core_stop_web = 6.0           # material ahead of that outline, at every point of the pocket
-# How far the block stands off the slab. The lane in front of the core belongs to the refrigerant
-# loop — both drawn legs cross it and land on the core's front face — so the block takes the depth
-# of it that is empty and stops under them. A leg that came down into it is a `pack-closes` clash.
-core_stop_rise = 40.0
+# How far the block stands off the slab: to the crown of the handhold frame it butts against,
+# so the two tops are one plane. The lane in front of the core belongs to the refrigerant
+# loop — both drawn legs cross it and land on the core's front face — and the block stops under
+# them. A leg that came down into it is a `pack-closes` clash.
+core_stop_rise = handhold_height + fits.supported_surface - floor_t + handhold_roof
 core_hold_reach = 12.0        # how far a bracket's foot runs onto the cap off the core's aft face
 core_hold_land = 8.0          # that foot's own thickness where it leaves the gusset
 # How far the bracket's leg carries UP the +Y wall behind the foot, standing in the band
@@ -1430,7 +1431,7 @@ pump_show_growth = flute_depth
 # between the two bodies, so a can packed back to `front_plane_y` lands its aft corner in it.
 # Stated as (x0, x1, z0, z1, floor).
 fridge_reliefs = (
-    (-71.0, 29.0, -1.0, 17.0, 11.0),   # the plate's front strip
+    (-71.0, 29.0, 0.0, 17.0, 11.0),    # the plate's front strip
     (-45.5, 3.5, 28.0, 77.0, 11.0),    # the power box
 )
 # And each pump's relief in the cradle face. Its floor follows the pump station, keeping the
@@ -3730,7 +3731,9 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint, y_bosses=()):
     for hole_x, wall_x, sx in ((hole_x1, inner[1], -1.0),
                                (hole_x0, inner[0], +1.0)):
         deep = abs(wall_x - hole_x)
-        solid = solid.fuse(_xz_prism(y0, yb - socket_r,
+        # It runs aft to the lip's shoulder, so the collar's fore face and the shoulder's leave
+        # no sliver between them.
+        solid = solid.fuse(_xz_prism(y0, max(yb - socket_r, y_joint - wall),
                                      [(hole_x, iz1), (wall_x, iz1),
                                       (wall_x, top - deep), (hole_x, top)]))
         chain = wall_x - (boss_in if wall_x > 0 else -boss_in)
@@ -3881,12 +3884,16 @@ def _back_plug(x_ext, sx, z_boss, y_joint, root_z):
 
     Each pin is a rectangular block joined to its piece's end slab. The two lower stations
     share one jamb on the handhold roof; the upper station joins the ceiling. Each front passage
-    opens through that same end slab."""
+    opens through that same end slab. A pin under the seam stands up to the seam's plane, flush
+    with the wall top beside it."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     r = plug_dia / 2.0
     y0, y1 = _y_corner_back(rear_plane_y, y_joint)
     xa, xb = sorted((x_ext, x_tip))
-    return _ybox(xa, xb, y0, y1, min(root_z, z_boss - r), max(root_z, z_boss + r))
+    top = max(root_z, z_boss + r)
+    if root_z < z_seam and top < z_seam:
+        top = z_seam
+    return _ybox(xa, xb, y0, y1, min(root_z, z_boss - r), top)
 
 
 def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
@@ -4089,11 +4096,15 @@ def _socket_floor_relief(x_ext, sx, inner, y_joint):
     """The back floor's recess for the front socket jamb's full-thickness foot.
 
     The scarf continues between these two feet. Each foot closes on a rectangular
-    recess with one running clearance at its inboard and aft faces."""
+    recess with one running clearance at its inboard and aft faces. The inboard clearance runs
+    only as far as the foot's inboard face does, to where the handhold's backing lap rakes it
+    away."""
     _seat, x_tip, _heat, x_cap = _boss_x(x_ext, sx)
-    xa, xb = sorted((x_tip, x_cap + sx * fits.running))
-    return _ybox(xa, xb, y_joint, _y_boss(y_joint) + socket_r + fits.running,
-                 inner[4] - floor_t - 1.0, inner[4])
+    z0, z1 = inner[4] - floor_t - 1.0, inner[4]
+    xa, xb = sorted((x_tip, x_cap))
+    foot = _ybox(xa, xb, y_joint, _y_boss(y_joint) + socket_r + fits.running, z0, z1)
+    xa, xb = sorted((x_cap, x_cap + sx * fits.running))
+    return foot.fuse(_ybox(xa, xb, y_joint, y_joint + lip_len - handhold_wall, z0, z1))
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
@@ -4646,15 +4657,16 @@ def _plate_foot(inner, plate, zj):
     hollow under the plate's middle.
 
     Each land reaches `plate_foot_reach` inboard of the flank. Its `plate_foot_y` run is
-    centred on the plate's two Y faces, with equal stock fore and aft; the mouth face
-    fore of it is the flank's own, unbroken and flush.
+    centred on the plate's two Y faces, and aft it runs on to the tee wall's aft face, where
+    the rail arm's under-flare takes over; the mouth face fore of it is the flank's own,
+    unbroken and flush.
 
     The underside rises at 45° from the flank. The sloped face grows off that wall and
     keeps the +X foot above the condenser+fan's complete bounding box."""
     fx0, fx1 = front_bottom_flank_face()
     t, top = plate_foot_t, zj
     ym = (plate["fore_y"] + plate["aft_y"]) / 2.0
-    y0, y1 = ym - plate_foot_y / 2.0, ym + plate_foot_y / 2.0
+    y0, y1 = ym - plate_foot_y / 2.0, max(ym + plate_foot_y / 2.0, plate["wall_aft_y"])
     drop = plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle))
     out = None
     for x_face, into in ((fx0, 1.0), (fx1, -1.0)):
@@ -5014,23 +5026,20 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
     (`back_top_wall_t`). Fused before this piece's own back-wall work, so the port field's
     pockets, the C14's bores and the nameplate's seat are all cut out of the whole of it.
 
-    IT BEGINS AT THE RIM AND NOT AT THE MOUTH. What stands in this wall below the rim is
-    back-bottom's own tongue, and the lane it rises into is exactly the section this would add —
-    so there is nothing to add there. Below the rim that wall is already `2 * wall`, carried to
-    the slab as the lip's own skin (`_lip_underwall`); above it, this. One section, top to
-    bottom, and the rim is where the two meet rather than a step in either.
+    Below the seam that wall is already `2 * wall`, carried to the slab as the lip's own skin
+    (`_lip_underwall`); above it, this. Nothing of back-bottom stands above its rim along this
+    wall, so one section runs top to bottom and lands whole on back-bottom's.
 
-    `up` IS THE PIECE'S PRINT-UP IN THE MACHINE'S FRAME, and it decides how the section starts
-    on the rim. For `up < 0` (`BACK_TOP_UP`) the piece beds on its ceiling's outer face, the
-    section's face on the rim looks print-up, and it starts square: a free flat, and the whole
-    section stands on the rim. For `up > 0` the piece beds on its seam rim, that same face
-    looks print-down over the lip's lane, and it rises at `relief_chamfer` off the rim instead,
-    the way `_back_top_flanks`' does on the two walls that turn out of this one — what the ramp
-    gives up is `depth` of height in a band the lip's travel never reaches. Every hole and
-    relief in the wall reads the same `up` (`_port_cuts`, `_back_top_wall_relief_cut`)."""
+    `up` IS THE PIECE'S PRINT-UP IN THE MACHINE'S FRAME, and it decides how the section starts.
+    For `up < 0` (`BACK_TOP_UP`) the piece beds on its ceiling's outer face, the section's face
+    on the mouth looks print-up and is the print's last layers, so it starts square on the
+    mouth. For `up > 0` the piece beds on its seam rim, that same face looks print-down, and
+    it rises at `relief_chamfer` off the rim instead, the way `_back_top_flanks`' does on the
+    two walls that turn out of this one. Every hole and relief in the wall reads the same `up`
+    (`_port_cuts`, `_back_top_wall_relief_cut`)."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     rim, depth = zj + z_rise, back_top_wall_t - wall
-    band = _ybox(ix0, ix1, back_top_wall_face(), iy1, rim, iz1)
+    band = _ybox(ix0, ix1, back_top_wall_face(), iy1, zj if up < 0 else rim, iz1)
     if up > 0:
         band = band.cut(_yz_prism(ix0 - 1.0, ix1 + 1.0,
                                   [(iy1, rim), (back_top_wall_face(), rim),
@@ -7045,12 +7054,6 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1, up=1.0):
             sy - half, sy + half,
             ((root_x, sz + half), (rib_x, sz + half),
              (rib_x, cap_root + roof_run), (root_x, cap_root))))
-        if up < 0.0:
-            # THE CROWN'S OWN WEDGE, on a piece whose crown looks print-down: from the lip at
-            # the rib's top back to the flank's root, rising one millimetre per millimetre.
-            rib = rib.fuse(_xz_prism(
-                sy - half, sy + half,
-                ((rib_x, sz + half), (root_x, sz + half), (root_x, sz + half + roof_run))))
         # THE RIB KEEPS OUT OF THE JOINT'S BAND AND THE DUCT DOES NOT, because one of them
         # is material and the other is air. Over the seam's own storey the joint reaches
         # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —
@@ -7796,10 +7799,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     crossing of the top) back to the wall and up to the lane, standing on the slab through the
     chain's own pocket: nothing west of the arris stands in that air, so nothing over the block
     looks print-down and no wedge is asked to carry it. Over the span the loop needs that room, so
-    the column is absent and the web between the cavity and the V is chamfered at 45° down into
-    the cavity instead: the web's top is a slope the print lays on itself and a funnel the loop
-    drops through. The two round seats' lower arcs look print-down inside their bores and are
-    supported faces. The V's own two flanks stand 30° off vertical and carry themselves either way.
+    the column is absent and the web between the cavity and the V ends in a flat top, a supported
+    face whose support stands on the slab in the tie channel and leaves into the chain's pocket.
+    The two round seats' lower arcs look print-down inside their bores and are supported faces.
+    The V's own two flanks stand 30° off vertical and carry themselves either way.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -7825,8 +7828,9 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
         # wedge rather than along a tangent — which is what a feather is, and what a lip is not.
         # Below the axis the block runs past the circle entirely and the arc closes on the block's
         # east face at a right angle.
+        # And at least one `wall` under the bore.
         solid = solid.fuse(_supported_cut(
-            _ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, top), up))
+            _ybox(inner[0], x_axis, sy0, sy1, min(z_axis - dn, z_axis - seat_r - wall), top), up))
         # The round fitting stays on its stated axis; only the supported arc opens.
         solid = solid.cut(_supported_cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1), up))
     for ty in ties:
@@ -7849,10 +7853,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
                                      [(foot, z_axis - dn), (inner[0], z_axis - dn),
                                       (inner[0], z_axis - dn - corbel)]))
     else:
-        # THE COLUMNS OVER THE TOP, section by section, outside the tie channel's span; over the
-        # span, the web's chamfer into the cavity. The cavity's east face at the top is the V's
-        # apex stood off one `wall`, `rise` up the flank.
-        cav_east = apex - wall / math.sin(math.radians(asse_v_half)) + rise * run
+        # THE COLUMNS OVER THE TOP, section by section, outside the tie channel's span.
         lane = inner[5]
         for sy0, sy1, sapex, seat_r, x_axis in sections:
             if seat_r is None:
@@ -7867,12 +7868,6 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
             for wy0, wy1 in ((sy0, min(sy1, tie_y0)), (max(sy0, tie_y1), sy1)):
                 if wy1 - wy0 > 1e-6 and climb > 1e-6:
                     solid = solid.fuse(_ybox(inner[0], lip, wy0, wy1, top, top + climb))
-            cy0, cy1 = max(sy0, tie_y0), min(sy1, tie_y1)
-            if cy1 - cy0 > 1e-6 and lip > cav_east + 1e-6:
-                web = lip - cav_east
-                solid = solid.cut(_xz_prism(cy0, cy1, [
-                    (lip, top), (lip, top + 1.0), (cav_east - 1.0, top + 1.0),
-                    (cav_east - 1.0, top - web - 1.0)]))
     # THE ZIP TIES' SHARED CHANNEL, cut after every section is fused so a neighbour's block cannot
     # fill it back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
@@ -8066,8 +8061,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
         # face, its valve-side face one plane with the plate's, so the plate prints as a
         # wall standing on the bed with nothing left hanging. The valves' bottom ports and
-        # the runs on them leave through the same channels the plate carries, run on down
-        # to the foot's own bed edge. Inset one `wall` to the lip's own face — below the
+        # the runs on them leave through the same channels the plate carries, each as long
+        # as its own valve's reach. Inset one `wall` to the lip's own face — below the
         # rim that face is the bottom piece's lip, and the foot telescopes down it the way
         # every interior face does. The fore-facing tray's alone: under an aft-facing
         # plate the same band is the fold's own junction field, tees crossing every
@@ -8094,12 +8089,17 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
-            solid = solid.cut(_valve_tray.build_body_clearance().val().moved(turn).moved(at))
+            clearance = _valve_tray.build_body_clearance().val().moved(turn).moved(at)
+            if flank_bed_z is not None:
+                # Between the flanks only: what an outer valve brings into a flank is the flank
+                # pocket's (`front_flank_reliefs`).
+                fx0, fx1 = front_top_flank_face()
+                clearance = clearance.intersect(_ybox(fx0, fx1, near - 100.0, far + 100.0,
+                                                      sz - 100.0, sz + 100.0))
+            solid = solid.cut(clearance)
             for socket in _valve_socket_cutters(plane, sign, sx, sz):
                 solid = solid.cut(socket)
             chan = 2.0 * (half + abs(sz - mid_z))
-            if footed:
-                chan = max(chan, 2.0 * (sz - foot_z0))
             chan += 2.0 * wedge_depth
             solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))
@@ -9058,12 +9058,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                            brim_back + funnel_seat_thickness,
                            funnel_seat_z(outer) - funnel_seat_thickness, outer[5])
         if y_side == "back":
-            # The brim keeps its complete bearing section. Outside that footprint,
-            # the filled surround respects the pack's existing ceiling pockets.
+            # The brim keeps its complete bearing section and one `wall` round it. Outside
+            # that footprint, the filled surround respects the pack's existing ceiling pockets.
             bearing = _swept_top.rounded_prism(
-                _funnel.collar_w + 2.0 * _funnel.brim_overhang,
-                _funnel.collar_d + 2.0 * _funnel.brim_overhang,
-                _funnel.brim_corner_r,
+                _funnel.collar_w + 2.0 * _funnel.brim_overhang + 2.0 * wall,
+                _funnel.collar_d + 2.0 * _funnel.brim_overhang + 2.0 * wall,
+                _funnel.brim_corner_r + wall,
                 funnel_seat_z(outer) - funnel_seat_thickness,
                 funnel_seat_z(outer), cx, cy)
             floor = funnel_seat_z(outer) - funnel_seat_thickness
@@ -9150,9 +9150,10 @@ def _report_ridge_roof(half, box):
     ry, rz = pcb_ridge(outer)
     fore, t = box.pack.collet_plate["aft_y"], ridge_wall_t
     _jog, aft_crown = _ridge_join(outer, fore)
-    crown = cq.Vector(0.0, *aft_crown)
     hx0, hx1, opening_y, _hy1 = _funnel_cut_plan(box.pack.funnel)
     opening = cq.Vector(0.0, opening_y, funnel_seat_z(outer) - funnel_seat_thickness)
+    crown = cq.Vector(0.0, fore + t, _ridge_aft_start(outer, fore + t, box.pump_bay[2],
+                                                      aft_crown[1], (opening.y, opening.z)))
     roof_normal = cq.Vector(0.0, opening.z - crown.z, crown.y - opening.y).normalized()
     tol = 1e-4
 
