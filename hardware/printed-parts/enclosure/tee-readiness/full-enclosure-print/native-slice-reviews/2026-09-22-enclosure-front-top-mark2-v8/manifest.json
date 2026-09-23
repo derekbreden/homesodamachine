@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "front-top-v8",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-enclosure-front-top-mark2-v8/fresh-geometry-receipt.json",
+    "sha256": "b3d2b3e5bd9276c7ac6df4d927bccf6c0daf85a08dcbb9422bffcc02d344ee3d"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/ready/enclosure-front-top-black-z004-mark2-v8.gcode.3mf",
+    "sha256": "829859a48881fc6e7ac810c132c04dc3346762cbfb307fb5cf53db66633d4073"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "b5dbf9da207f8c47bb823c5323b9881016619c9752e9633f27f63137e6e46c5e",
+  "layer_ranges_from_top_mm": [
+    {
+      "depth": 2.6,
+      "layer_height": 0.08,
+      "reason": "Derek, 2026-09-22: restore the original curves and print their last layers at 0.08 mm"
+    }
+  ],
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/job-config.json",
+      "sha256": "a57855bd9befb33fdff3faf647ef5a15363245446cbf47dd514b8dff6d2d52a3",
+      "bytes": 1748
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/fresh-geometry-receipt.json",
+      "sha256": "b3d2b3e5bd9276c7ac6df4d927bccf6c0daf85a08dcbb9422bffcc02d344ee3d",
+      "bytes": 2084
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/geometry-evidence.json",
+      "sha256": "7790836924eb87d6710eb2c512bc16e5d87c2c73e52fd58f9e459f566d5f9421",
+      "bytes": 326
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/preparation.json",
+      "sha256": "8405382b0580fb14a0ab572402e877fc875e285f46242c53923190d2f5be408c",
+      "bytes": 2214
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/readiness.json",
+      "sha256": "5c7d4cf6edf1d226b2c2e8326aa35a2060729cc0a16e6eec7b0aa024428ad02d",
+      "bytes": 6384
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/offline-review.json",
+      "sha256": "6365d965c3d8b4bcce8b60c549832b0a3599d098e375f3f62b723370b7698ad8",
+      "bytes": 6856
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/support-removal-review.json",
+      "sha256": "9e036e4f2b90f79aaeacb7b1894e7b59e7ea94c0e7ffc7a0dfdd196973ecb7f0",
+      "bytes": 30665
+    },
+    "enclosure-front-top-black-z004-mark2-v8-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/enclosure-front-top-black-z004-mark2-v8-input.support-audit.json",
+      "sha256": "2a4c7256d39bf32672d152649805c5da0bfdb0b1e16ef018a3df6fda0524ee71",
+      "bytes": 21648
+    },
+    "enclosure-front-top-black-z004-mark2-v8-input.print.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/enclosure-front-top-black-z004-mark2-v8-input.print.json",
+      "sha256": "dd9163ff9b798e3f142265f4b330f1408f2473fabf22e330f06617a24169868d",
+      "bytes": 6840
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/slice-command.json",
+      "sha256": "35b94d0750c77cff564f3c4cde932ce3d2d989c3c9ca85924c7d55baeb10ea93",
+      "bytes": 496
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/slice-input.json",
+      "sha256": "ebbac02871a85c8f0f86e8d3eb67cc1a7b2ec9e555dd4e9a31a9721321041fde",
+      "bytes": 279
+    }
+  }
+}

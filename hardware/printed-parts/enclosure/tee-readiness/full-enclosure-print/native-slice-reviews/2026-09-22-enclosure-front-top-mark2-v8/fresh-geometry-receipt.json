@@ -1,0 +1,23 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-22 (relay of Scan results): fill the display storey, delete the rail-side floor strips, give the display cover the nameplate's short snaps with nothing printed under the catch, and restore the original top curves printed at 0.08 mm layers. Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "9501a8e0bb68f81572aea47422254b2c762b2c90f4e9db09e441d1d6173a1de0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "18618bd2d51721c311ac5d6aa6526bd2760574c12c6ae1150acac0da4c3a7f63",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure_assembly.py": "adbbeebd3188ccbfabeb6c1d90aec0e6fa3d43da77b3282dec5ac23f0a7cdbef",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "d91fcd0b0fa440b3da4313b57d3540a6e84e0aa8772eee67bbc27e2babaf4aa9",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "b1258563906aa68c288a1c5891d8de5e6008d0429a98a7f774b2cd5440c25203",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "0bbf656bf0db40123f65151848fee3060eaccc7ec8d577b7b8133c41c4d15f56",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3d9f9bcec970c24e201b4e43669bc7ac9e76fc084404dae7f5f7e5ba3f9869c4",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py": "428f7cebee7d6e97a19d0f8b0ede5a3d6e22a4ba88eec3a267af89da2a3bc10f",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py": "bd77a59a6f0714183191923df137e5b22a270727576c37c951ce21bf63565d72"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-22-enclosure-front-top-mark2-v8/geometry-evidence.json": "7790836924eb87d6710eb2c512bc16e5d87c2c73e52fd58f9e459f566d5f9421"
+  }
+}

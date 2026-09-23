@@ -1,0 +1,9 @@
+{
+  "source_commits": [
+    "97d94494e",
+    "6a1ecd84f",
+    "c9e9aa481"
+  ],
+  "generator_report": "bay sill, ridge roof, Z slides pass; all pieces watertight; piece overlaps 0 mm3; display facet 203.4 x 87.0; back-top STL byte-identical to the one printing",
+  "layer_ranges": "top 2.6 mm of front-top at 0.08 mm layers"
+}

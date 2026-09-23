@@ -1,0 +1,55 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "front-top",
+  "printer": "Mark2",
+  "archive_stem": "enclosure-front-top-black-z004-mark2-v8",
+  "title": "Complete enclosure front-top, housing storey filled, rail-side floor strips removed, open-backed display catches, top 2.6 mm in 0.08 mm layers, black PET-GF, Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": [
+        "Z90"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/manifold-layout/enclosure_assembly.py",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/printed-parts/enclosure/tee-carrier/_simple_carrier.py",
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_from_top_mm": [
+    {
+      "depth": 2.6,
+      "layer_height": 0.08,
+      "reason": "Derek, 2026-09-22: restore the original curves and print their last layers at 0.08 mm"
+    }
+  ]
+}

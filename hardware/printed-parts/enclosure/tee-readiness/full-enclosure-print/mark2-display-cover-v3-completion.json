@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "status": "printer_reported_finished",
+  "printer": "Mark2",
+  "queue_job_id": "display-cover-v3",
+  "job": "display-cover-black-z004-mark2-v3.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-22-display-cover-mark2-v3/ready/display-cover-black-z004-mark2-v3.gcode.3mf",
+    "sha256": "81a04797079486e9427796278fdd48630c9d1a3b401ffaf685723b0ce2e11641",
+    "gcode_sha256": "093c438927857240fdc398d432c3e6da35565553dbc5e2bd9e417b84b3d30815"
+  },
+  "launch_record": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-launch.json",
+    "sha256": "7fb23f1be6bb8af6d83e9d2bb31b0417eb0dc84f66a60a625584c7f2b3626907"
+  },
+  "completion_observed_at": "2026-09-23T00:07:04.726596+00:00",
+  "exact_completion_time_known": false,
+  "observed_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-23T00:07:04.726596+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "display-cover-black-z004-mark2-v3.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 56,
+    "total_layer_num": 56,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 45.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 52.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T000703Z.json",
+    "sha256": "f8fdb591458b126d91a4019557281a4934028648b176be079f9da097f136c62f"
+  },
+  "latest_print_removed_confirmed": false,
+  "physical_success_and_fit_confirmed": false
+}

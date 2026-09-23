@@ -10,7 +10,8 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | front-bottom | Mark2 | assigned variant | [2026-09-21-enclosure-front-bottom-mark2-v2](2026-09-21-enclosure-front-bottom-mark2-v2/manifest.json) |
 | front-top | H2C | printed; supports trapped behind the skirt-pocket surrounds | [2026-09-21-enclosure-front-top-h2c-v4](2026-09-21-enclosure-front-top-h2c-v4/manifest.json) |
 | front-top | Mark2 | superseded: 34 mm skirt pockets | [2026-09-22-enclosure-front-top-mark2-v6](2026-09-22-enclosure-front-top-mark2-v6/manifest.json) |
-| front-top | Mark2 | assigned variant | [2026-09-22-enclosure-front-top-mark2-v7](2026-09-22-enclosure-front-top-mark2-v7/manifest.json) |
+| front-top | Mark2 | superseded: pulled top curve | [2026-09-22-enclosure-front-top-mark2-v7](2026-09-22-enclosure-front-top-mark2-v7/manifest.json) |
+| front-top | Mark2 | assigned variant | [2026-09-22-enclosure-front-top-mark2-v8](2026-09-22-enclosure-front-top-mark2-v8/manifest.json) |
 | display-cover | Mark2 | superseded: 34 mm skirts | [2026-09-22-display-cover-mark2-v1](2026-09-22-display-cover-mark2-v1/manifest.json) |
 | display-cover | Mark2 | superseded: face up, skirts on the bed | [2026-09-22-display-cover-mark2-v2](2026-09-22-display-cover-mark2-v2/manifest.json) |
 | display-cover | Mark2 | printing; face down, skirts up | [2026-09-22-display-cover-mark2-v3](2026-09-22-display-cover-mark2-v3/manifest.json) |
