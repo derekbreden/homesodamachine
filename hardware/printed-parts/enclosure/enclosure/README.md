@@ -1494,9 +1494,9 @@ The 19 mm housing and its internal ridge join the side walls and the pump-bay
 bulkhead. Either side of the display's opening the storey beneath the housing is one
 wall and one cavity. The wall stands on the pump bay's lintel and runs up into the
 housing, between the display's opening and the skirt's flex lane. The cavity runs from
-the flex lane out to the side wall and from the front wall back to the plane of the ridge
-wall's fore face, straight up to the ceiling. It opens into the bay across its whole floor,
-and its ceiling is the catch plane. Between the two walls the opening continues down to
+the flex lane out to 6 mm inside the side wall's flute valleys, and from the front wall
+back to the plane of the pump bay's aft wall, straight up to the ceiling. It opens into
+the bay across its whole floor, and its ceiling is the catch plane. Between the two walls the opening continues down to
 the bay as one room, which holds the display's back, SIG-7's run to the ridge bore and the
 pump plug's unplug path.
 The ridge's cavity-side roof is one plane around the funnel's rounded clearance envelope.
