@@ -1092,7 +1092,7 @@
         "sha256": "7fb23f1be6bb8af6d83e9d2bb31b0417eb0dc84f66a60a625584c7f2b3626907"
       },
       "geometry_change": "6a1ecd84f: skirts are the nameplate's snap tab run 24 mm, 13.3 mm deep",
-      "pairs_with": "front-top-v7; the printed v4's 34 mm pockets do not take this cover",
+      "pairs_with": "front-top-v8; the printed v4's 34 mm pockets do not take this cover",
       "printer_assignment_status": "assigned",
       "assigned_printer": "Mark2",
       "printer_completion_confirmed": true,
@@ -1102,6 +1102,75 @@
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
         "sha256": "a9467bdaf685a4de49af876c0b3b51eae75e01abeebbc80c0185a03bc692ae4d"
       }
+    },
+    {
+      "id": "display-cover-v4",
+      "directory": ".cache/prints/2026-09-22-display-cover-mark2-v4",
+      "config": ".cache/prints/2026-09-22-display-cover-mark2-v4/job-config.json",
+      "printer": "Mark2",
+      "parts": [
+        "display-cover"
+      ],
+      "orientation": "X180; visible face down on the plate, both 34 mm skirts pointing up; centred",
+      "requested_z_trim_mm": 0.04,
+      "effective_textured_z_trim_mm": 0.02,
+      "status": "offline_ready_awaiting_machine_handoff",
+      "geometry_confirmation": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/fresh-geometry-receipt.json",
+        "sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9"
+      },
+      "geometry_source": "git show 6a1ecd84f^ for display_cover.py, _display_retention.py, _enclosure_interface.py, _swept_top.py",
+      "staged_project": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
+        "sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f"
+      },
+      "native_archive": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
+        "sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
+        "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b"
+      },
+      "support_removal_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/support-removal-review.json",
+        "sha256": "644c23ffafa654072586c2ddd46f1b0a2f57bba7882fe108fd853416a1c4ec7d",
+        "status": "current_support_contacts_and_removal_lanes_reviewed"
+      },
+      "offline_review": {
+        "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/offline-review.json",
+        "sha256": "732a933aac698b4964a9b57eace765443fc9de999937eb4b6e5759cedb64ff21"
+      },
+      "durable_review_package": {
+        "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/manifest.json",
+        "sha256": "5ba3f69cb926ac63890ab5f52099f19a5bd84ffa569006c61bfd278dd7864e8c"
+      },
+      "print_released": false,
+      "submitted": false,
+      "printing_authorized": true,
+      "offline_ready": true,
+      "slice_estimate": {
+        "layers": 142,
+        "seconds": 1805.68115234375,
+        "hours": 0.5015780978732639,
+        "grams_actual_petgf_density_1p43": 13.442258398662242
+      },
+      "process_overrides": {
+        "support_remove_small_overhang": {
+          "from": "1",
+          "to": "0"
+        },
+        "support_top_z_distance": {
+          "from": "0.45",
+          "to": "0.24"
+        }
+      },
+      "process_overrides_source": "hardware/printed-parts/enclosure/nameplate/prepare_print.py",
+      "handoff_conditions": [
+        "Mark2 free",
+        "Latest print removed and plate cleared",
+        "Correct black PET-GF material mapping; remaining quantity is not a launch condition",
+        "Normal verified exact-archive printer handoff"
+      ],
+      "pairs_with": "The printed front-top: .cache/prints/2026-09-21-enclosure-front-top-h2c-v4",
+      "authority": "Derek: \"I need the display cover for the enclosure front top that already printed, so I can test that enclosure front-top\""
     },
     {
       "id": "front-top-v7",
@@ -1341,11 +1410,12 @@
     },
     {
       "printer": "Mark2",
-      "after": "The display cover is finished, face down, awaiting removal. Front-top v8 is next, whose open-backed catches take the cover. Back-bottom goes to whichever printer frees first.",
+      "after": "The new-design cover is finished, face down, awaiting removal. The 34 mm-skirt cover for the printed front-top is next, then front-top v8, whose open-backed catches take the new cover. Back-bottom goes to whichever printer frees first.",
       "order": [
         "front-bottom",
         "carrier-pair",
         "display-cover-v3",
+        "display-cover-v4",
         "front-top-v8",
         "back-bottom",
         "foam-cap-top",
@@ -1379,6 +1449,7 @@
     "scope": "All seven production plates at their full original slice estimates, including submitted plates. Excludes the cartridge/cap, countertop, plate changes, cleanup and assembly. These are not remaining-time commitments."
   },
   "ready_job_ids": [
+    "display-cover-v4",
     "front-top-v8",
     "back-bottom",
     "foam-cap-top",
@@ -1673,7 +1744,7 @@
     "Mark2": {
       "after_job": "display-cover-black-z004-mark2-v3.gcode.3mf",
       "printer_available": false,
-      "next_job_id": "front-top-v8",
+      "next_job_id": "display-cover-v4",
       "plate_clearance": {
         "status": "awaiting_removal_confirmation"
       },
@@ -1692,7 +1763,7 @@
         "sha256": "a9467bdaf685a4de49af876c0b3b51eae75e01abeebbc80c0185a03bc692ae4d"
       },
       "active_job_id": null,
-      "next_handoff": "Front-top is next once the cover is off the plate. Remaining spool quantity does not gate launch.",
+      "next_handoff": "The 34 mm-skirt cover for the printed front-top is next once the new cover is off the plate, then front-top v8. Remaining spool quantity does not gate launch.",
       "launch_record": {
         "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-launch.json",
         "sha256": "7fb23f1be6bb8af6d83e9d2bb31b0417eb0dc84f66a60a625584c7f2b3626907"
@@ -1700,11 +1771,11 @@
     }
   },
   "submitted_production_plate_count": 5,
-  "remaining_unsubmitted_plate_count": 4,
+  "remaining_unsubmitted_plate_count": 5,
   "remaining_unsubmitted_estimates": {
-    "jobs": 4,
-    "printer_seconds": 185036.7626953125,
-    "grams_petgf_density_1p43": 2073.309353495753,
+    "jobs": 5,
+    "printer_seconds": 186842.44384765625,
+    "grams_petgf_density_1p43": 2086.751611894415,
     "scope": "Unsubmitted plates only; excludes remaining time on running jobs. Material estimates do not gate launches."
   },
   "filament_use_policy": {

@@ -1,0 +1,49 @@
+{
+  "status": "workflow_prepared_geometry_not_staged",
+  "job_key": "display-cover",
+  "printer": "Mark2",
+  "archive_stem": "display-cover-black-z004-mark2-v4",
+  "title": "Machine display cover for the printed front-top: 34 mm skirts, face down, skirts up, black PET-GF, Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "display-cover",
+      "stl": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl",
+      "step": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "rotation_sequence": [
+        "X180"
+      ]
+    }
+  ],
+  "required_sources": [
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/display_cover.py",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_display_retention.py",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_enclosure_interface.py",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_swept_top.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament, with the nameplate's two support settings: the small-overhang filter off so each lip's catch face is supported, 0.24 mm top gap",
+  "process_overrides": {
+    "support_remove_small_overhang": "0",
+    "support_top_z_distance": "0.24"
+  }
+}
