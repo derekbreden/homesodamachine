@@ -1064,9 +1064,9 @@
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step": "1d3d39b8375d92f581448e3b3cb5780a74a85c97094a7ec32a7d93505f3f55d5",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step.mesh": "56db0a54cf8cf7f3d9ff2f00bd205483d51ccfebcc769fa85f6f2ce6a1c62590",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.stl": "d3201768528fe5c1e577e5b993954e8739b90fc284ba1ad42bcfafc9030fa34f",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "33967d088c69394bf1bc05cf1fd5e88803548c776540c1f166bd7c43b53b327d",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": "ff83c45287b461cf8135651a322246b9d21d42231b4bf93be36f1271c0772349",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "be02f80b9ca844ffcb34617f17d397f7648378d4424819f8cda2b4e054971b4e"
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "43b7325e5eda9b4855e4ae29e327a9933f6d622e1d64b2ac294ddaf84be0b77c",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": "f095219f5d2cdb4fda7ea445b55bedf854735286b11e2b64ee4b716bc0fc3d2d",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "7763771faf2e7e1ff5c1211bc2870a604794224450133f5b235af040ee5c025b"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1306,9 +1306,9 @@
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step": 1790134142,
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step.mesh": 1790134142,
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.stl": 1790134142,
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": 1790136656,
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": 1790136656,
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": 1790136656,
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": 1790137477,
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": 1790137477,
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": 1790137477,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": 1789695590,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": 1789695590,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": 1789695590,
