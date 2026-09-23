@@ -72,8 +72,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -98,18 +98,13 @@
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 39cdbf263d10d58c03919793181120c8 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 1281af29aa5037a398dcd5fac8daf110 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 1281af29aa5037a398dcd5fac8daf110 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 7d19cf1b88b3d0ff19ecf87808f265dc here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "tools/check_paths.py": [
       "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
       "1 reference(s) name a path nothing holds."
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact pointer file points at every committed viewer scorecard",
-      "  cd web && npm test"
     ]
   },
   "green": false
