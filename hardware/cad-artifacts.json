@@ -19,13 +19,9 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
-      "hardware/manifold-layout/_gas_chain.py",
-      "hardware/manifold-layout/_scorecard.py",
-      "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
       "hardware/printed-parts/enclosure/nameplate/nameplate.py",
-      "hardware/reference/iec-c14-inlet/.scan-check-cache.npz",
-      "hardware/reference/wr1110-regulator/wr1110_regulator.py"
+      "hardware/reference/iec-c14-inlet/.scan-check-cache.npz"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -715,7 +711,7 @@
     "hardware/install-guide/art/the-socket.png": "6af01d94b559dd77ddb53a3807024e9e0f37fbc379f81053f3ec31e762e46680",
     "hardware/install-guide/art/two-tees.png": "2a0b69bf7b013c7fdaec51d5d4df1167263af0c0a6412c9f3e0aaa547261b2c4",
     "hardware/manifold-layout/enclosure-assembly.step": "96901e6d519c5865c03bc5ea02c8ca194bf7b8cd06cfd876c4a4ebae4a94835e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4a61b82c62913d4c96ae306f4f0e9c44972ad473a79953adf02d20780ed434dd",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "edb6cb086a96f88da3b09f04961ce9cab01483488e7b27ac0cd375ee5d1b29a1",
     "hardware/manifold-layout/manifold-layout.step": "d2c744deb9cfad96684b4d73a5b026fbe90c8d3078cd24fb9bb37efa5b6532e9",
     "hardware/manifold-layout/manifold-layout.step.mesh": "022903bfa782e1760759965803bbae64123fb719befa3550b5e79a1f2d0f408e",
     "hardware/pcb/pcba/out/pcba.bom.csv": "9b13c80835f4d278eb8173c3da49885f159376a6df6a074f62ea66d30df73b06",
@@ -1069,9 +1065,9 @@
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step": "1d3d39b8375d92f581448e3b3cb5780a74a85c97094a7ec32a7d93505f3f55d5",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step.mesh": "56db0a54cf8cf7f3d9ff2f00bd205483d51ccfebcc769fa85f6f2ce6a1c62590",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.stl": "d3201768528fe5c1e577e5b993954e8739b90fc284ba1ad42bcfafc9030fa34f",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "1e23f084c692c23645fba72e0117e9f8ebd0d0acbe67ee9d6acbcd39fbc2670f",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": "a0228b76f6df9c6a6df3fce7dfbe235b18c4282812522f1bf28f29318aa8b13e",
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "0df7824449f5e9df4d99b9d38d0fdd8ecb3ae05c0b3f89a55813c74a0b425acd"
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "a10da982e2d59a0c9ee335ef3bd164de06294c16d0744e2553ee8c86005ba059",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": "f2a1bc07e25af66051fab9d00ff46dd0aed82f642b8a6a4ab382bcc1a9e30d6a",
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "1de4379cb6425158495d897783f51fbe5d71d642454da4e8eedd73cfc7d91d58"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1198,7 +1194,7 @@
     "hardware/install-guide/art/the-socket.png": 1788994414,
     "hardware/install-guide/art/two-tees.png": 1788997123,
     "hardware/manifold-layout/enclosure-assembly.step": 1790139831,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1790139831,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1790141784,
     "hardware/manifold-layout/manifold-layout.step": 1789979187,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1789979187,
     "hardware/pcb/pcba/out/pcba.bom.csv": 1789491300,
@@ -1311,9 +1307,9 @@
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step": 1790134142,
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.step.mesh": 1790134142,
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-grip.stl": 1790134142,
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": 1790139831,
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": 1790139831,
-    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": 1790139831,
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": 1790141784,
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step.mesh": 1790141784,
+    "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": 1790141784,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": 1789695590,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": 1789695590,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": 1789695590,
