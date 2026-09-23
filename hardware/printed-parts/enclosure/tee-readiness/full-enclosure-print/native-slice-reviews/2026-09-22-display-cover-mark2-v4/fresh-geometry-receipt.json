@@ -1,0 +1,20 @@
+{
+  "status": "current_geometry_confirmed",
+  "authority": "Derek, 2026-09-22: \"I need the display cover for the enclosure front top that already printed, so I can test that enclosure front-top\"; \"Please be sure you are printing that display cover face down with those crazy supports pointing up in the air\". Printing the complete enclosure is already authorized.",
+  "print_released": false,
+  "artifact_sha256": {
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.step": "90bc75b424821639a53add244a0acd7f06638d0d35ea569b890fdc8573553c9e",
+    "hardware/manifold-layout/enclosure-box.json": "f47def97473b4d7ab9ed03f1f0701d5a845372b048fa1f56840087be6aad1c35",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "source_sha256": {
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/display_cover.py": "06f3460bf00bbf857708dbbbeb7ee228da2532951eefdef7586934a7bf80f7ce",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_display_retention.py": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_enclosure_interface.py": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_swept_top.py": "bb7242c11423694f0ce3bc58e942e847813a1446f9b4cede91bff32b4320d14e"
+  },
+  "evidence_sha256": {
+    ".cache/prints/2026-09-22-display-cover-mark2-v4/geometry-evidence.json": "1bb46b958b082f0b64bc6325b5396c0dad47a9cfd53764e9b03ac92723498f49"
+  }
+}

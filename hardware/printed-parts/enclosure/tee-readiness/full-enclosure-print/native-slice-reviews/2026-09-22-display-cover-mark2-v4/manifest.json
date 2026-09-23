@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "status": "offline_print_review_pass",
+  "job": "display-cover-v4",
+  "printer": "Mark2",
+  "source_job_directory": ".cache/prints/2026-09-22-display-cover-mark2-v4",
+  "geometry_receipt": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/fresh-geometry-receipt.json",
+    "sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
+    "sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
+  "geometry": "The display cover at 6a1ecd84f^: 2 mm skirts 34 mm deep, the pockets of the printed front-top",
+  "orientation": "X180: the visible face on the plate, both skirts pointing up",
+  "process_overrides": {
+    "support_remove_small_overhang": {
+      "from": "1",
+      "to": "0"
+    },
+    "support_top_z_distance": {
+      "from": "0.45",
+      "to": "0.24"
+    }
+  },
+  "files": {
+    "job-config.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/job-config.json",
+      "sha256": "b55455e7897f79477927e91fb840894368bae364abe1b030b00e3128efa446ce",
+      "bytes": 1624
+    },
+    "fresh-geometry-receipt.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/fresh-geometry-receipt.json",
+      "sha256": "592fe52fcd0956259f64df27bfc3d7b760851e2f584da0acc6681786dc44f4d9",
+      "bytes": 1776
+    },
+    "geometry-evidence.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/geometry-evidence.json",
+      "sha256": "1bb46b958b082f0b64bc6325b5396c0dad47a9cfd53764e9b03ac92723498f49",
+      "bytes": 1022
+    },
+    "preparation.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/preparation.json",
+      "sha256": "59c34e345a5ad48a90022a0d6a27e5ef9912bd3591633d2c41e8303cf4011319",
+      "bytes": 2211
+    },
+    "readiness.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/readiness.json",
+      "sha256": "0086b7605187a24a385c6b24bf03524f8052f5768e1e7d738a495c47bae5b5be",
+      "bytes": 6389
+    },
+    "offline-review.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/offline-review.json",
+      "sha256": "732a933aac698b4964a9b57eace765443fc9de999937eb4b6e5759cedb64ff21",
+      "bytes": 6862
+    },
+    "support-removal-review.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/support-removal-review.json",
+      "sha256": "644c23ffafa654072586c2ddd46f1b0a2f57bba7882fe108fd853416a1c4ec7d",
+      "bytes": 7205
+    },
+    "display-cover-black-z004-mark2-v4-input.support-audit.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.support-audit.json",
+      "sha256": "26f97783137e34d3f655bca1ca769a25f6c93f8e8ba52b2fb51545c83bc5ed3e",
+      "bytes": 7688
+    },
+    "display-cover-black-z004-mark2-v4-input.print.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.print.json",
+      "sha256": "c0780db19ef5d83bd322e075b1a9c7d08ea38d42be60d2c3503536cf223ad882",
+      "bytes": 6946
+    },
+    "slice-command.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/slice-command.json",
+      "sha256": "430be6eaea0a24994127db9548b56622c3c05046a22ac7c921764375af552036",
+      "bytes": 472
+    },
+    "slice-input.json": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/slice-input.json",
+      "sha256": "3e5376d9bbd4bd29461edea0553c3c983cdc78965b850f99eeb9aae78910cf58",
+      "bytes": 279
+    },
+    "sources/_display_retention.py": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_display_retention.py",
+      "sha256": "e3d6a314e8a998c94e3f9d138c198e45b40a59b3a349391d8ccd986ce6d4e003",
+      "bytes": 2266
+    },
+    "sources/_enclosure_interface.py": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_enclosure_interface.py",
+      "sha256": "e31b2f8b008bff3346e36eff4ad17a0891cabfb87208b62b9fa87c84bff5ea22",
+      "bytes": 5332
+    },
+    "sources/_swept_top.py": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/_swept_top.py",
+      "sha256": "bb7242c11423694f0ce3bc58e942e847813a1446f9b4cede91bff32b4320d14e",
+      "bytes": 3522
+    },
+    "sources/display_cover.py": {
+      "source_path": ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/sources/display_cover.py",
+      "sha256": "06f3460bf00bbf857708dbbbeb7ee228da2532951eefdef7586934a7bf80f7ce",
+      "bytes": 4346
+    }
+  }
+}
