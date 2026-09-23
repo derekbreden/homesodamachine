@@ -51,9 +51,10 @@ tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py self
 ## Measured on the PP0208E in hand
 
 Calipered on the production tee itself. The generated clearance reference carries the run
-span and the distinct branch travel, and `stations_hold` reads those back. Both run spans are collet face to collet face. The three depths are
+span and the distinct branch travel, and `stations_hold` reads those back. Both run spans are collet face to collet face. The first three depths are
 how far a 1/4" tube stands inside one collet from the sleeve's face with the sleeve pressed
-home, which is where the tube was marked.
+home, which is where the tube was marked. The last is the same bottomed tube read from the
+branch sleeve's face with the sleeve pulled out.
 
 | | |
 |---|---|
@@ -65,6 +66,7 @@ home, which is where the tube was marked.
 | first resistance to the tube | 7.0 mm (`FIRST_RESISTANCE`) |
 | the teeth hold | 8.5 mm (`GRIP_DEPTH`); at 8.4 mm the tube still draws out |
 | the tube bottoms | 10.0 mm (`INSERTION`) |
+| the tube bottoms, branch sleeve extended | 11.5 mm (`BRANCH_INSERTION_EXTENDED`) |
 
 The collet and its gripping teeth move during locking; the internal tube stop stays in the
 body. The measured sleeve stroke sets the carrier's fore-to-aft movement. The 7 and 8.5 mm
