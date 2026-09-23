@@ -1,3 +1,0 @@
-enclosure-tee-carrier-right: 0 open / 39 existing matches
-Native: hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.step
-Mesh SHA256: 0cda6320e0e8f4e40decafd62c2a076d2db80d111edf1a58c49dbf5e4574a6b4

@@ -35,7 +35,6 @@ steps. The fixed and moving surfaces at each nose remain separate interface ques
 The production clearance reference in [`../tee-connector/`](../tee-connector/) uses the
 **Ø16.5 mm sampled collar envelope**, **Ø14.0 mm rounded root envelope** and measured
 **42.5 mm extended run span**. Journals add **0.25 mm radial running air**, giving **Ø17.0 mm**.
-The carrier troughs, insertion route and tie clearances consume that same envelope.
 Conservative connecting shoulders precede the observed widening; the fit-band endpoints
 are not treated as exact molded shoulder edges. The terminal detail and physical release
 qualification remain open.
@@ -54,7 +53,7 @@ Derek's measurements on the production tee control the mechanism:
 | Branch outside width, terminal extended / pressed | 30.5 / 29.0 mm |
 | Branch terminal stroke | 1.50 mm |
 | Nominal branch face from run axis, extended / pressed | 22.35 / 20.85 mm |
-| Carrier nose gap at connected | 0.5 mm |
+| Nose gap at connected | 0.5 mm |
 | Tube first meets resistance, from pressed sleeve face | 7.0 mm |
 | Tube held, from pressed sleeve face | 8.5 mm |
 | Tube bottoms, from pressed sleeve face | 10.0 mm |
@@ -122,8 +121,8 @@ tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/analyze_collet_passe
 ## Production consumers
 
 [`consumer-corrections.json`](consumer-corrections.json) lists the source locations and
-dimensions affected by this reference. They include the manifold, the water split, the tee
-carrier, the enclosure's branch journals/release face and the tee–valve bow fixture. Their
+dimensions affected by this reference. They include the manifold, the water split, the
+enclosure's branch journals/release face and the tee–valve bow fixture. Their
 placed solids, tube projections and motion checks require one coherent change. No consumer
 is qualified merely by enlarging its bore.
 
