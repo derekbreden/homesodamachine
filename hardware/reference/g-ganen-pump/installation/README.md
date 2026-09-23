@@ -86,5 +86,5 @@ rubber behavior and hose retention remain full-assembly observations.
 
 The printed consumers are `foam-cap-top` and `foam-cap-lid-top`; their producer
 feeds `foam-assembly`, `cold-core-assembly`, the enclosure Box and the complete
-assembly. Current printer archives and readiness are recorded in the
-[full enclosure queue](../../../printed-parts/enclosure/tee-readiness/full-enclosure-print/queue.json).
+assembly. Their reviewed print archives are listed in the
+[slice reviews](../../../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md).

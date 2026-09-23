@@ -34,11 +34,10 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/prepare_pum
 
 ## Print and assembly
 
-The [full enclosure queue](../tee-readiness/full-enclosure-print/queue.json) identifies
-the current two-part Mark2 archive. Both parts use black PET-GF on the left 0.4 mm
-nozzle, the saved automatic-brim profile and +0.04 mm requested trim. The emitted
-textured-plate command is `G29.1 Z0.02`. The cartridge stands on its flat underside;
-the cap prints crown-down.
+The reviewed two-part archive, with the printer and settings it is sliced for, is listed
+in the [slice reviews](../tee-readiness/full-enclosure-print/native-slice-reviews/README.md).
+Both parts use black PET-GF on the left 0.4 mm nozzle. The cartridge stands on its flat
+underside; the cap prints crown-down.
 
 The [support audit](pump-support-audit.md) names the actual support bodies and their
 removal lanes. Remove them before installing pumps or screws. The complete enclosure

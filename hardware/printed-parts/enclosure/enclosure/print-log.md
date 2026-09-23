@@ -49,7 +49,7 @@ corner relief" strikes every 45° relief on.
 
 ## The PET-GF15 exterior (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf`)
 
-What every exterior piece ships on: Polymaker Fiberon PET-GF15 on the Bambu 0.4 mm tungsten
+What the first PET-GF15 front-top printed on: Polymaker Fiberon PET-GF15 on the Bambu 0.4 mm tungsten
 carbide hotend, left side ([tools.md](/hardware/ledger/tools.md), [bom.md
 §7](/hardware/ledger/bom.md)).
 
@@ -152,7 +152,8 @@ Derek, a few hours in: *"it looks great so far."* Off the plate: *"that turned o
 beautiful."*
 
 Those two remarks are about the mouth-down plate this section carried when it was printed. The
-ceiling-down plate below has not been printed. Its first layer is the ceiling's whole show face,
+ceiling-down plate in this project was not sent; the ceiling-down back-top that printed on H2C
+from 2026-09-22 is its own entry below. Its first layer is the ceiling's whole show face,
 about 215 × 252 mm with a 934 mm outer loop, and the project carries this section's own 265 °C /
 70 °C / +0.02 mm first layer. [z-trim.md](/hardware/printed-parts/z-trim.md) records the PET-GF
 working profile's first layer at 280 °C and +0.17 mm after two long-loop first layers failed at
@@ -177,8 +178,7 @@ Settings:
 - `brim_type` auto_brim, `brim_width` 5 mm; `elefant_foot_compensation` 0.15 mm;
   `seam_position` aligned; `fuzzy_skin` none
 - Slicer 02.08.02.61. The project's plate metadata carries the first-layer time of a mouth-down
-  slice, not a reading of this plate; the ceiling-down plate has not been sliced in Bambu Studio
-  or printed.
+  slice, not a reading of this plate.
 
 ### Support-removal audit
 
@@ -365,7 +365,7 @@ The STL in the tree hashes differently from the sliced copy; both hashes are in
 The job is **cancelled**, confirmed by Bambu Connect and printer status at
 2026-09-20T21:34:13.528173+00:00, after the last observed running layer 51/813.
 The sliced valve-tray region is 2 mm above the corrected model. Both heater targets
-are zero. The replacement is held for the [front-top and tee-carrier readiness audit](../print-readiness.md).
+are zero.
 
 ## 2026-09-21 — complete front-top on H2C
 
@@ -394,8 +394,10 @@ support removal remain readings of the complete enclosure trial.
 
 ## 2026-09-21 — full cartridge and raised cap on H2C
 
-The full pump cartridge and raised, open motor-end cap are running on H2C.
-MQTT confirmed `RUNNING`, layer 0/496, no error, at 2026-09-21T07:47:46.755410+00:00.
+The full pump cartridge and raised, open motor-end cap printed on H2C.
+MQTT confirmed `RUNNING`, layer 0/496, no error, at 2026-09-21T07:47:46.755410+00:00, and
+`FINISH` at 496/496 with no error at 2026-09-21T19:22:46.620569+00:00
+([completion record](../tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json)).
 Derek confirmed the plate clear before submission.
 
 - Black PET-GF on left external 254, mapped as PET-CF; fixed left 0.4 mm diamond PCD.
@@ -407,5 +409,29 @@ Derek confirmed the plate clear before submission.
 - Native current-source reconstruction preserves both parts and their fitted mating surfaces.
 
 The [launch record](../tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
-binds the accepted archive and local mating proof. Remaining shell corrections continue
-while this complete enclosure plate prints.
+binds the accepted archive and local mating proof.
+
+## 2026-09-21 — front-top v4 on H2C
+
+`enclosure-front-top-black-z018-h2c-v4.gcode.3mf` printed on H2C and was reported finished and
+removed ([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json),
+[completion](../tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json)). Derek's
+readings of the part: the R18 above the display steps about 2 mm at its top layer, and supports
+stood trapped behind the display skirt-pocket surrounds.
+
+## 2026-09-21 — front-bottom v2 on Mark2
+
+`enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf` printed on Mark2 and was reported finished
+and removed ([launch](../tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json),
+[completion](../tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json)).
+
+## 2026-09-22 — display covers v3 and v4 on Mark2
+
+Both printed face down on Mark2 ([v3 completion](../tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json),
+[v4 completion](../tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json)).
+
+## 2026-09-22 — back-top v2 on H2C
+
+`enclosure-back-top-black-z018-h2c-v2.gcode.3mf`, ceiling down, reported `RUNNING` on H2C at
+2026-09-22T19:04:30.084409+00:00 ([launch](../tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json)).
+It was sliced from the 2026-09-21 inputs, uniformly in 0.24 mm layers.
