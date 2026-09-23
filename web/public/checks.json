@@ -32,8 +32,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
-      "status": "red"
+      "note": "payloads: 58 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 304, and the whole pointer file reads by name in 29.0 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 305, and the whole pointer file reads by name in 29.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,23 +92,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 32 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 478 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 5 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 478 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 9db6d5cd832fffd730d2f158382e69b8 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 4f12954b33ff34db5509bcced156cb57 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 9134b488f1c9780de3204083e2ca2592 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 81b89ff32e476fa881288fe0776e28d1 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "1 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
-      "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "  and the enclosure's flutes go back into those payloads after:",
-      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ],
     "tools/check_paths.py": [
       "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
