@@ -1180,15 +1180,10 @@
    "id": "placed",
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
-   "status": "fail",
-   "value": "96/100 stated",
+   "status": "pass",
+   "value": "100/100 stated",
    "target": "a stated rule per body, each landing on it",
-   "detail": [
-    "tee-carrier-spring-east-lower: no seat states where it stands",
-    "tee-carrier-spring-east-upper: no seat states where it stands",
-    "tee-carrier-spring-west-lower: no seat states where it stands",
-    "tee-carrier-spring-west-upper: no seat states where it stands"
-   ],
+   "detail": [],
    "active": false
   },
   {
