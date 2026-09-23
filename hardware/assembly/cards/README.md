@@ -247,7 +247,6 @@ cards; every other step takes one.
 | IP-01 | CO2 path — regulator then check, then cold core |
 | IP-02 | Water path — +Y wall to cold core |
 | IP-03 | Flavor manifold — valves and tees |
-| IP-04 | Flavor manifold — the moving carrier |
 | IP-05 | Flavor manifold — pumps and channels |
 | IP-06 | Seat the pump cartridge |
 | IP-07 | Risers to the umbilical bulkheads |
