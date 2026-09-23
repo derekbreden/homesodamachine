@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "19 reference(s) name a path nothing holds.",
+      "note": "8 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -92,18 +92,18 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 46 of 214 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 470 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 8 of 124 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 469 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 117",
+      "lock-taking scripts scanned: 114",
       "1 build(s) end on a status the lock cannot record:",
       "  ✗ hardware/printed-parts/faucet/industrial/check_geometry.py:159  — use sys.exit(...) so a follower reads the failure"
     ],
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 68c1853c67c77eefbb11031091754b05 for the 384 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at cb5d2dd45ba4be7e8a359cdcf7dd98c0 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 68c1853c67c77eefbb11031091754b05 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 85a656f1b6f84ac8bedebec7004d87b6 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -149,8 +149,6 @@
       "    hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh — declared by nobody"
     ],
     "hardware/scripts/check_step_colours.py": [
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-fixed-seat-coupon.step",
-      "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-guide-head-retainer.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-loading-window-cover.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/study-moving-seat-coupon.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/arc-pair-at-aft-stop.step",
@@ -170,6 +168,8 @@
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/continuous-reference-blank.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/telescoping-feasibility/single-carrier-route/underside-barrier-at-minus-1mm.step",
       "    hardware/printed-parts/enclosure/tee-carrier/spring-capture-study/unqualified-guide-example.step",
+      "    hardware/printed-parts/enclosure/tee-readiness/branch-propagation/front-top/front-top.step",
+      "    hardware/printed-parts/enclosure/tee-readiness/current-front-top/current-front-top.step",
       "    hardware/printed-parts/fixtures/carrier-spring-pusher/carrier-spring-pusher.step",
       "    hardware/reference/g-ganen-pump/_scratch/casing-port-preview.step",
       "    hardware/reference/lee-lcm060c12m/lee-lcm060c12m.step",
@@ -185,51 +185,21 @@
       "BUILD.bazel is not what the graph would write now:",
       "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py answers to selftest and selftests.json does not name it",
       "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/sources/display_cover.py",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -273,9 +273,6 @@",
-      "           \"pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py\",",
-      "  -        \"hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json\",",
-      "  -        \"pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py\",",
-      "  -        \"pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier_spring.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py\",",
-      "           \"pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py\",",
-      "           \"pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py\",",
-      "  @@ -303,7 +300,6 @@",
-      "           \"pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py\",",
-      "           \"pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py\",",
-      "           \"pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py\",",
-      "  -        \"pysrc/hardware/reference/lee-lcm060c12m/lee_lcm060c12m.py\",",
-      "           \"pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py\",",
-      "  … 9077 more line(s)",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
       "hardware/README.md:39 — hardware/printed-parts/enclosure/tee-carrier is held nowhere, and no tag is named for it",
-      "  hardware/assembly/enclosure-mechanical.md:34 — hardware/reference/lee-lcm060c12m is held nowhere, and no tag is named for it",
-      "  hardware/assembly/internal-plumbing.md:42 — hardware/printed-parts/enclosure/tee-carrier is held nowhere, and no tag is named for it",
-      "  hardware/assembly/internal-plumbing.md:43 — hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json is held nowhere, and no tag is named for it",
-      "  hardware/assembly/internal-plumbing.md:51 — hardware/printed-parts/fixtures/carrier-spring-pusher/README.md is held nowhere, and no tag is named for it",
-      "  hardware/assembly/internal-plumbing.md:140 — hardware/printed-parts/enclosure/tee-carrier/simple-carrier-study/assembly-sequence.png is held nowhere, and no tag is named for it",
       "  hardware/ledger/bom.md:175 — hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json is held nowhere, and no tag is named for it",
       "  hardware/ledger/bom.md:175 — hardware/reference/lee-lcm060c12m/README.md is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/enclosure/README.md:70 — hardware/printed-parts/enclosure/tee-carrier is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/enclosure/README.md:1315 — hardware/printed-parts/enclosure/tee-carrier/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/enclosure/README.md:1383 — hardware/printed-parts/enclosure/tee-carrier/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/enclosure/README.md:1399 — hardware/printed-parts/fixtures/carrier-spring-pusher/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/tee-readiness/README.md:61 — hardware/printed-parts/enclosure/tee-readiness/../tee-carrier/simple-carrier-study/README.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/tee-readiness/README.md:71 — hardware/printed-parts/enclosure/tee-readiness/../tee-carrier/simple-carrier-study/artifact-manifest.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/tee-readiness/branch-propagation/README.md:34 — hardware/printed-parts/enclosure/tee-readiness/branch-propagation/../../tee-carrier/simple-carrier-study/README.md is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md:175 — hardware/printed-parts/enclosure/tee-carrier/spring-measurements.json is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/hardware/ledger/bom.md:175 — hardware/reference/lee-lcm060c12m/README.md is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:5 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/../pump-comparison/g-ganen-integration.md is held nowhere, and no tag is named for it",
       "  hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/integration-handoff.md:81 — hardware/reference/g-ganen-pump/installation/feet-correction-validation/documentation-refresh/before/native-query-cost.json is held nowhere, and no tag is named for it",
-      "19 reference(s) name a path nothing holds."
+      "8 reference(s) name a path nothing holds."
     ],
     "tools/check_web_tests.py": [
-      "8 test(s) in web/ fail:",
+      "9 test(s) in web/ fail:",
       "    every alias names a component an assembly carries",
       "    the facts card's STEP identity is not a reverse enclosure dependency",
       "    a part's STEP consumers include the assembly that only _loads it (regression)",
@@ -237,6 +207,7 @@
       "    every runnable generator appears exactly once in the build order",
       "    the build order respects every STEP-load edge (producers before consumers)",
       "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
+      "    the artifact pointer file points at every committed viewer scorecard",
       "    every highlighted, framed, contextual and labelled body exists in the assembly",
       "  cd web && npm test"
     ]
