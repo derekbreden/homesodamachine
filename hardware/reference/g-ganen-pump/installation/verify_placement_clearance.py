@@ -53,7 +53,9 @@ def run(pack, neighbors, output):
     if max(abs(a-b) for r,s in zip(bounds(g),bounds(rebuilt)) for a,b in zip(r,s))>1e-5:
         raise ValueError('Native pump does not match the current reference pose')
     # These small bodies use their actual current placement functions.
-    for n,s,_color in ea.build_nameplate(solids['foam-assembly']):solids[n]=s
+    spec=json.loads(tracked(ROOT/'hardware/manifold-layout/enclosure-box.json').read_text())
+    pack_spec=spec['box']['pack'];plate=dict(zip(pack_spec['fields'],pack_spec['values']))['nameplate']
+    for n,s,_color in ea.build_nameplate(tuple(plate['values'][:2])):solids[n]=s
     pan,_=ea.build_pan(solids['asse1022-assembly'],g,carry,None)
     solids['asse-drip-pan']=pan
     adds,cuts=ea.pan_sleeve(ea.box(pan),ea.west_interior_face())
