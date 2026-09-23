@@ -1,0 +1,98 @@
+{
+ "schema": 1,
+ "status": "printer_reported_running",
+ "printer": "Mark2",
+ "request": "Derek, 2026-09-23: \"I'd like to do a quick run of the tap and flavor bulkhead collars there first\"; \"Mark2 bed is clear.\"",
+ "first_running_observed_at": "2026-09-23T23:00:17Z",
+ "observed_state": {
+  "printer": "Mark2",
+  "observed_at": "2026-09-23T23:00:37.226597+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "bulkhead-rings-tap-flavor-black-white-z004-mark2-v1.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 10,
+  "mc_remaining_time": 24,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 119.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 47.0,
+  "bed_target_temper": 47.0,
+  "lights_report": [
+   {
+    "mode": "on",
+    "node": "chamber_light"
+   },
+   {
+    "mode": "flashing",
+    "node": "work_light"
+   },
+   {
+    "mode": "on",
+    "node": "chamber_light2"
+   }
+  ],
+  "external_spools": {
+   "254": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+   },
+   "255": {
+    "type": "PET-CF",
+    "colour": "FFFFFFFF"
+   }
+  },
+  "nozzle_type": "HS01-0.4",
+  "nozzles": [
+   {
+    "id": 0,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "20D06A611036799"
+   },
+   {
+    "id": 1,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "N/A"
+   },
+   {
+    "id": 16,
+    "type": "HS01",
+    "diameter": 0.6,
+    "sn": "20D06A5C1014313"
+   },
+   {
+    "id": 18,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A611037433"
+   },
+   {
+    "id": 20,
+    "type": "HH01",
+    "diameter": 0.8,
+    "sn": "20D06A5C3110240"
+   },
+   {
+    "id": 21,
+    "type": "HS01",
+    "diameter": 0.8,
+    "sn": "20D06A610807096"
+   }
+  ]
+ },
+ "native_archive": {
+  "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v1.gcode.3mf",
+  "sha256": "144efd7ebccf66ec886d75b61c6ff24dcde2cd49fb0d3c82ececc8aeb87b02ce",
+  "gcode_sha256": "4e6ec700a281084058b7ac57f237e1c2b9f9a8fac690b218f889f0b125534239"
+ },
+ "reviewed_slice": {
+  "manifest": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/manifest.json",
+  "gcode_sha256": "4e6ec700a281084058b7ac57f237e1c2b9f9a8fac690b218f889f0b125534239"
+ },
+ "gcode_matches_review": true,
+ "filaments": "left hotend: external 254 PET-CF 000000FF (black PET-GF); right hotend: external 255 PET-CF FFFFFFFF (white PET-GF); both mapped External by Bambu Connect",
+ "sent_via": "tools/bambu_send.py through Bambu Connect"
+}

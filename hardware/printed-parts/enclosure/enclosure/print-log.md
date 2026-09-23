@@ -444,3 +444,10 @@ H2C reported `FINISH` at 813/813 layers with no error before 16:30 local.
 2026-09-23T21:55:53Z, black PET-GF on the left external spool
 ([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v12-launch.json)). Its top 2.6 mm
 print in 0.08 mm layers. The support audit reads 4 bed-rooted trees and 9 contacts.
+
+## 2026-09-23 — TAP and FLAVOR bulkhead rings on Mark2
+
+`bulkhead-rings-tap-flavor-black-white-z004-mark2-v1.gcode.3mf` reported `RUNNING` on Mark2 at
+2026-09-23T23:00:17Z: the TAP chip in white with its word in black, both FLAVOR chips in black
+with their words in white, face up in 0.20 mm layers, black on the left hotend and white on the
+right ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/mark2-launch.json)).
