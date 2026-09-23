@@ -156,7 +156,7 @@ def main():
     }
     (HERE / "geometry-check.json").write_text(json.dumps(report, indent=2) + "\n")
     if not report["passed"]:
-        raise SystemExit("Industrial geometry has failed readings")
+        sys.exit("Industrial geometry has failed readings")
 
 
 if __name__ == "__main__":
