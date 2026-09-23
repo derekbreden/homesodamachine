@@ -143,11 +143,6 @@ PARTS = {
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],
-    # Two halves with integral grips, joined by the central M3 lap.
-    "Tee carrier halves (two pieces)": [
-        "enclosure/tee-carrier/enclosure-tee-carrier-left.step",
-        "enclosure/tee-carrier/enclosure-tee-carrier-right.step",
-    ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
         "enclosure/enclosure/enclosure-back-bottom.step",
@@ -217,7 +212,6 @@ GROUP_OF = [
     ("Cold-core inner shell",       "bulk"),
     ("Cold-core foam cap",          "bulk"),
     ("Enclosure —",                 "ext"),
-    ("Tee carrier",                 "ext"),
     ("Display cover plate",         "ext"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),

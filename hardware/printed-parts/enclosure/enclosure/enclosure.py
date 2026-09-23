@@ -1772,14 +1772,12 @@ def documented(box):
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. Its release shoulder is cut into the bay bulkhead.
-#   tee_carrier   the moving four-tee mechanism: its travel states, hardware wells, flank
-#                 openings and recesses, spring seats and cups, and tie sites
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
             "flank_reliefs port_field nameplate keystone "
-            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate tee_carrier "
+            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate "
             "front_flank_reliefs")
 Pack.__new__.__defaults__ = (
     (),             # front_ports
@@ -1811,7 +1809,6 @@ Pack.__new__.__defaults__ = (
     (),             # core_holds
     (),             # vent_chase
     None,           # collet_plate
-    None,           # tee_carrier
     (),             # front_flank_reliefs
 )
 
@@ -5324,7 +5321,7 @@ def pump_skirt_band_aft_y(pump_trays):
 def pump_cartridge_aft_y(pump_trays, plate):
     """The cartridge's one flat back, cradle and clamp alike: the bay bulkhead less its kiss.
 
-    At full seat the tubes are bottomed and the carrier is on its aft stop. The flat back
+    At full seat the tubes are bottomed and the tees stand at connected. The flat back
     preserves the complete skirt band, spending at most one hundredth of a millimetre of the
     preferred plate air when the independently stated measured stations meet there."""
     nominal_aft = bay_back_y(plate) - cap_kiss
@@ -5751,8 +5748,7 @@ def _tee_wall(inner, y_joint, plate, bay):
     """One bay bulkhead from floor to lintel, joined to both flanks.
 
     Each circular tube passage retains a full flat annular release bearing. The larger aft journal clears the
-    tee collar and leaves the collet's release shoulder on the stated Y plane. The
-    carrier bearing body joins the aft face around those four journals.
+    tee collar and leaves the collet's release shoulder on the stated Y plane.
     """
     slab = _ybox(inner[0], inner[1], bay_back_y(plate),
                   plate["wall_aft_y"], z_seam, bay[2])
@@ -5762,62 +5758,6 @@ def _tee_wall(inner, y_joint, plate, bay):
             bay_back_y(plate) - 1.0, plate["aft_y"] + 1.0))
         slab = slab.cut(_tee_bore(plate, hx, hz))
     return slab
-
-
-def _tee_carrier_fore_guide(carrier):
-    """The floor-rooted land beneath the service tab's fore retaining shoulder."""
-    air = carrier["guide_slide_air"]
-    return _ybox(carrier["grip_rim_x"][0] - air, carrier["service_recess_x"][1],
-                 carrier["grip_rim_y"][0] + carrier["release_offset_y"] - air,
-                 carrier["release_fore_stop_y"] - air,
-                 carrier["web_z"][0] - air - wall,
-                 carrier["grip_rim_z"][0] - air)
-
-
-def _tee_carrier_service_slots(carrier):
-    """Open finger slots, bar guides, internal recesses for inside-out assembly, and the two
-    spring seats in the recesses' fore walls.
-
-    Above each bar, the outer strip of its retaining tongue runs in a short channel whose
-    aft end is the travel limit beyond nominal rest. The full-height entry passage sits inboard of that strip.
-    Each return spring rides in its bar's fore face and bears on a blind seat bored into the
-    recess's fore wall, on the bar's own axis.
-    """
-    if not carrier:
-        return ()
-    slot_roof = carrier["service_slot_z"][1] + fits.supported_surface
-    cuts = []
-    for station in carrier["spring_stations"]:
-        cuts.append(_teardrop_y(carrier["spring_bore_d"] / 2.0, station["x"], station["z"],
-                                station["seat_floor_y"], carrier.get("fixed_seat_wall_y", station["seat_mouth_y"]) + 1.0))
-    for name in ("service_slot", "service_recess"):
-        x0, x1 = carrier[name + "_x"]
-        y0, y1 = carrier[name + "_y"]
-        z0, z1 = carrier[name + "_z"]
-        if name == "service_slot":
-            z1 = slot_roof
-        opening = _ybox(x0, x1, y0, y1, z0, z1)
-        if name == "service_recess":
-            opening = opening.cut(_ybox(
-                carrier["stop_channel_inner_x"], x1 + 1.0,
-                carrier["stop_channel_aft_y"], y1 + 1.0,
-                slot_roof, z1 + 1.0))
-            opening = opening.cut(_tee_carrier_fore_guide(carrier))
-        cuts.extend(opening if side > 0 else opening.mirror("YZ")
-                    for side in (-1, 1))
-    return tuple(cuts)
-
-
-def _tee_carrier_fixed_cups(carrier):
-    """Integral round extensions over the unmoved fixed spring-floor datums."""
-    if not carrier or not carrier.get("fixed_seat_outer_d"):
-        return ()
-    inner=carrier["spring_bore_d"]/2
-    outer=carrier["fixed_seat_outer_d"]/2
-    root=carrier["fixed_seat_wall_y"]-.1
-    return tuple(_ycyl(outer,s["x"],s["z"],root,s["seat_mouth_y"]).cut(
-        _ycyl(inner,s["x"],s["z"],root-.1,s["seat_mouth_y"]+.1))
-        for s in carrier["spring_stations"])
 
 
 def _ridge_keystone(slab, station, t):

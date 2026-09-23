@@ -1,6 +1,6 @@
 # Enclosure
 
-Production release of front-top is held for the [scan and tee-carrier readiness audit](../print-readiness.md).
+Production release of front-top is held for the [scan readiness audit](../print-readiness.md).
 
 What the pieces have actually been printed in, and at what settings:
 [print-log.md](print-log.md).
@@ -770,12 +770,11 @@ The result carries the model, profile and derived G-code hashes, the slicer's su
 all interface islands and both plate and CAD coordinates. The ledger supplies the human reason
 for each connected body that remains.
 
-**The six enclosure pieces and both carrier halves are audited.** The six enclosure 3MF
+**The six enclosure pieces are audited.** Their 3MF
 snapshots are retained only in Git history — four at `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`,
 the pump cap's crown-down project at `b4e181bee752bebaddc24d5e620fd7f8144129bd` and
 back-top's ceiling-down project at `366d54ba040ecc7f1465c200e63e52410ffc0d4c`; they
-are evidence inputs rather than current files in this directory. Each carrier half is sliced
-through the front-top project's production settings with its own current mesh. No piece is re-oriented to be
+are evidence inputs rather than current files in this directory. No piece is re-oriented to be
 read: each enclosure piece beds on the face its own relief scheme is struck on — the Z− face on five of them,
 the ceiling's show face on back-top (`enclosure.print_up`), whose project carries that half
 turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-bottom-petgf.3mf` carry the PET-GF15
@@ -802,12 +801,10 @@ reaches one interface after 105.40 mm and leaves directly through its open side 
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
 clamp-screw counterbore under its head seat after 8.80 mm; each leaves through the
 counterbore's mouth on the bed face. On front-top all three bodies root on the print bed. One reaches the pump-bay lintel and
-cartridge-facing recesses after 123 mm. The other two branch to the west and east carrier
-spring seats, guide and rim recesses, well crowns and funnel seat; the west body also reaches
-the pump-jack roof. Their shortest build-up is 29 mm. Remove these branches through the empty
-cartridge bay, carrier recess and funnel opening before installing the hardware.
-Each carrier half exposes the flat undersides of its fore shoulder, seam-rail relief and
-central lap. Their removable support is accessible from the loose half's underside before assembly.
+cartridge-facing recesses after 123 mm. The other two branch to the west and east flanks and
+the funnel seat; the west body also reaches the pump-jack roof. Their shortest build-up is
+29 mm. Remove these branches through the empty cartridge bay and funnel opening before
+installing the hardware.
 Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
 Each has 34.20 mm of build-up and comes out through the open bottom. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
@@ -1307,31 +1304,7 @@ printed into front-top, standing [0.5 mm](PLATE_REST_GAP) fore of the fully exte
 the tubes draw the tees forward until their collet noses land on the printed release face;
 the collets open and the tubes pass back through the four plate passages. The fixed plate
 carries that reaction into the whole enclosure, which can be braced by a hand, foot, cupboard
-edge or its own weight. For insertion, each hand spans a cartridge pocket and the carrier tab
-on the same side. Squeeze the cartridge aft and the carrier fore until all four tubes bottom;
-relax the grasp so the two springs settle the carrier at connected. The plate is joined to
-the tee wall behind it.
-
-The [`tee carrier`](/hardware/printed-parts/enclosure/tee-carrier/README.md) is two printed
-halves with closed finger cups, a 6 mm web, a full-height fore lap, one captured centre rail
-and an overlapping upper shelf. An integral broad rear wall retains their seated joint.
-The lap, rail and shelf carry its bearing faces; there are no centre-joint screws or separate
-keepers. Broad inner-web backing adds 0.90 mm above the lower valve coils' entry path.
-
-Install the left half and then the right in the loose front-top, with the four bare tees
-seated at release and both valve rows absent. Each spring is already loaded into its closed
-moving cup and held at 12.15 mm by the temporary flat pusher. Each half enters through the
-open rear, lowers behind the tees, shifts outward to its staging position, slides fore
-and seats outward at the aft stop. The right shelf passes through its receiver during the
-fore slide; the final outward seat retains the joint. Withdraw and lift the pusher after
-each half seats. One tool serves both sides in sequence.
-
-Each cup has a thick front bar, a closed back and a rounded mouth. Its rectangular body runs
-between the opening's flat upper and lower bearings; the fore and aft faces stop the stroke.
-The cup's outer face is flush with the enclosure. Its rim sits behind the wall in a broad
-internal recess. The two rims face opposite wall shoulders and capture the joined carrier
-across X. The guide faces and rims locate the carrier
-with the tees and springs absent. The part's README carries the grip, guide and rim dimensions.
+edge or its own weight. The plate is joined to the tee wall behind it.
 
 Each collet-release passage has an Ø8.5 mm circular bore. It passes the
 Ø6.35 mm tube between the aligned pump and tee stations while the surrounding face
@@ -1342,15 +1315,11 @@ the bulkhead's outline and the cartridge's pull pockets.
 **The tee travels and the valve stays seated.** The complete release travel is
 [2 mm](PLATE_STROKE): [0.5 mm](PLATE_REST_GAP) of nose air followed by
 [1.5 mm](SLEEVE_TRAVEL) of branch-sleeve depression, the PP0208E's measured branch stroke
-([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). At the fore stop
+([`reference/tee-connector/`](/hardware/reference/tee-connector/README.md)). At release
 the fully depressed sleeves bear directly on the fixed plate and all four tubes bottom
-10 mm beyond that face with the cartridge 2 mm short of seating. Release the grips and
-push the cartridge through the remaining 2 mm; its tips then bottom at the aft body stops,
-11.50 mm beyond the extended sleeves. Squeeze and release share the fore stop. The complete
-assembly shows nominal connected rest. The internal aft stop allows an additional 2.5 mm
-of movement for bending, giving 4.50 mm total travel; the empty carrier can return to that stop.
-Only the small outermost branch rings move. Spring force and rate are unmeasured; the model's
-spring bodies are clearance envelopes.
+10 mm beyond that face with the cartridge 2 mm short of seating. With the cartridge seated
+the tips bottom at the aft body stops, 11.50 mm beyond the extended sleeves. The complete
+assembly shows nominal connected rest. Only the small outermost branch rings move.
 
 The cradle's flat aft edge is at y [79.269 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.246 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead.
@@ -1370,42 +1339,16 @@ push during insertion. The cradle keeps [23.13 mm](PULL_FORE_STOCK) of stock for
 of the pocket and [23.14 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
-## The tee carrier's room
+## Behind the tee wall
 
-Between the tee wall's aft face and the aft valve tray's fore plane, front-top prints
-nothing inboard of its two flank recesses. The four tees, their ties, the carrier, the
-hairpins, the aft valves and the bowed stubs stand in open room from the piece's mouth up to
-the fore valve tray, whose 45° root corbel reaches [5.604 mm](FORE_TRAY_OVERHANG) aft of the
-tee wall. Branch journals continue forward through the tee wall to the fixed collet plate.
-
-Each flank opening leaves 16 mm finger clearance behind its 16 mm solid bar at nominal
-rest, and 13.5 mm at the additional 2.5 mm aft flex limit. The current opening dimensions are in
-[the tee carrier drawing](/hardware/printed-parts/enclosure/tee-carrier/README.md). The 3 mm inboard backing and aft walls close the finger
-space through the full stroke. The aft wall sits 3.25 mm behind the enclosure's outer face.
-The bar's root overlaps the moving web's full thickness. Its flat underside runs 0.50 mm
-above the opening's lower edge and clears the seam rail across its full depth.
-A fore shoulder retains the bar behind the wall, and an upper tongue meets the aft limit
-above the finger space. Each flank's internal recess runs from the tee wall to the aft
-tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
-insertion and working sweeps include 0.25 mm clearance in X and 0.50 mm at supported Z faces.
-
-Each flank recess's fore wall carries an integral Ø6.57 mm spring cup, 8 mm deep with a
-2 mm radial wall. The moving bar has a closed Ø6.57 mm teardrop bore, 11.1 mm deep.
-Their spring floors remain at Y90.040 and Y109.390 plus carrier travel. Floor separations
-are 19.35 mm at release, 21.35 mm at connected and 23.85 mm at the aft stop. Both ends are
-inside their cups; the mouth gap ranges from 0.25 to 4.75 mm. Actual coil bowing, retention
-and feel are evaluated in the complete enclosure assembly.
-
-The [reusable pusher](/hardware/printed-parts/fixtures/carrier-spring-pusher/README.md) has a
-Ø6.3 mm tip and a 10 × 3 mm tongue, both 2 mm thick. It holds the spring during half entry,
-then withdraws 15.435 mm inboard and lifts 70 mm beside the outer tee. The spring
-expands into its fixed cup before the same tool loads the next half. With the joined carrier
-held at release, the lower valves and coils rise from the loose piece's open underside at
-their 5.45 mm fore entry offset; they then slide aft onto the mounting posts. The accepted
-Beduan socket fit is retained, with ties supplying positive retention.
-
-Support under the recess roofs stands in the open room and leaves through the mouth before
-hardware is installed.
+Between the tee wall's aft face and the aft valve tray's fore plane, front-top prints nothing,
+and both flanks carry their full 9 mm section through that room. The four barb tees float on
+their tubes with their branch collars in the tee wall's journals; their bowed stubs, the
+hairpins and the aft valves stand in open room from the piece's mouth up to the fore valve
+tray, whose 45° root corbel reaches [5.604 mm](FORE_TRAY_OVERHANG) aft of the tee wall. The
+aft valves and coils rise from the loose piece's open underside and slide aft onto their
+mounting posts. The accepted Beduan socket fit is retained, with ties supplying positive
+retention.
 
 ## The full-width opening
 
@@ -1447,9 +1390,8 @@ plane.
 
 Four passages carry the pump tubes through the bulkhead. Each smaller fore opening
 leaves the collet's release shoulder on its stated Y plane. The larger aft bore locates
-the tee collar in X and Z and leaves its Y stroke free. The filled tee-carrier body
-continues from the bulkhead's aft face around those journals, spring seats and web
-guides. The Z-seam rail channels begin at that same aft datum.
+the tee collar in X and Z and leaves its Y stroke free. The Z-seam rail channels begin at
+the bulkhead's aft datum.
 
 The clamp lifts through the cradle's straight upper wells, which open through its aft
 face. Its broad underside, fitted boss openings and motor bores close over both pumps.

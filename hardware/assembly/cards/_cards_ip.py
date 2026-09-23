@@ -246,30 +246,28 @@ def internal_plumbing(m):
         "the ASSE vent no longer hangs straight down — IP-08 checks the fall's column clear from "
         "the stub's tip to the ASSE drip pan")
 
-    # ── the moving carrier and its cartridge (IP-04, IP-06, EN-05) ─────────
+    # ── the moving tees and their cartridge (IP-06, EN-05) ─────────────────
     # THE WHOLE CONNECTION CYCLE IS ONE READING, and it is the machine's, not a card's.
-    # `carrier_states` is what `enclosure_assembly` solves the two stops from: at the fore
-    # stop the sleeves are fully depressed and the cartridge still stands short of its face;
-    # relax, and the springs take the carrier aft, the sleeves extend, and the same tubes
-    # end up deeper. Every figure a hand needs comes out of that one dict, so the stroke it
-    # squeezes through and the stroke it then pushes through are the same value read once.
-    carrier, plate = box.tee_carrier, box.collet_plate
+    # `carrier_states` is the four tees' states read off the plate: at release the sleeves are
+    # fully depressed and the cartridge still stands short of its face; at connected the
+    # sleeves extend and the same tubes end up deeper. Every figure a hand needs comes out of
+    # that one dict, so the stroke the tubes bottom through and the stroke the cartridge then
+    # seats through are the same value read once.
+    plate = box.collet_plate
     fore, home = plate["carrier_states"]["release"], plate["carrier_states"]["connected"]
     assert abs(abs(fore["cartridge_offset_y"]) - plate["stroke"]) < 1e-6, (
-        f"the cartridge stands {abs(fore['cartridge_offset_y'])} mm short at the fore stop and "
-        f"the carrier's stroke is {plate['stroke']} mm — IP-06 pushes through one figure twice, "
+        f"the cartridge stands {abs(fore['cartridge_offset_y'])} mm short at release and "
+        f"the stroke is {plate['stroke']} mm — IP-06 pushes through one figure twice, "
         f"once to bottom the tubes and once to seat the face")
     assert (abs(home["plate_gap"] - plate["rest_gap"]) < 1e-6
             and abs(fore["plate_gap"]) < 1e-6), (
         f"the nose gap reads {home['plate_gap']} connected and {fore['plate_gap']} at squeeze — "
         f"IP-06 has the plate touching only while the sleeves are down")
-    # One stub per collet passage, and the tees the carrier moves are the barb tees' own.
+    # One stub per collet passage, and the moving tees are the barb tees' own.
     assert len(plate["holes"]) == len(_ml.CARRIER_TEES) == len(_ml.BARB_OF), (
-        f"the plate is bored {len(plate['holes'])} holes, the carrier moves "
-        f"{len(_ml.CARRIER_TEES)} tees and the pumps stand {len(_ml.BARB_OF)} barbs — IP-04 and "
-        f"IP-06 count one passage per moving tee per barb, all the way through")
-    # Two ties per tee, on the machine's own tee census rather than on the number eight.
-    carrier_ties = 2 * len(_ml.CARRIER_TEES)
+        f"the plate is bored {len(plate['holes'])} holes, {len(_ml.CARRIER_TEES)} tees move and "
+        f"the pumps stand {len(_ml.BARB_OF)} barbs — IP-06 counts one passage per moving tee per "
+        f"barb, all the way through")
     aft_valves = sorted(_ml.CARRIER_TEES)
 
     facts = {
@@ -298,13 +296,9 @@ def internal_plumbing(m):
         "MANIFOLD_HAIRPINS": f"{hairpins}",
         "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
-        # The moving carrier — IP-04, and the plate EN-05 sights through.
+        # The four moving tees, and the plate EN-05 sights through.
         "CARRIER_TEES": f"{len(_ml.CARRIER_TEES)}",
         "CARRIER_TEE_NAMES": ", ".join(aft_valves),
-        "CARRIER_HALVES": f"{len(carrier['half_install_order'])}",
-        "CARRIER_JOINT_SCREWS": f"{carrier['joint_count']}",
-        "CARRIER_SPRINGS": f"{len(carrier['spring_seats'])}",
-        "CARRIER_TIES": f"{carrier_ties}",
         "PLATE_HOLES": f"{len(plate['holes'])}",
         # The connection cycle — IP-06. Four figures, one dict, one mechanism.
         "PLATE_STROKE": f"{plate['stroke']:.4g} mm",
@@ -340,9 +334,6 @@ def internal_plumbing(m):
         "ip-03-manifold-valves-tees": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "MANIFOLD_SEGMENTS", "MANIFOLD_LIMBS",
             "MANIFOLD_BUTTS", "MANIFOLD_HAIRPINS", "CARRIER_TEES", "CARRIER_TEE_NAMES"},
-        "ip-04-carrier-halves": {
-            "CARRIER_TEES", "CARRIER_TEE_NAMES", "CARRIER_HALVES", "CARRIER_JOINT_SCREWS",
-            "CARRIER_SPRINGS", "CARRIER_TIES"},
         "ip-05-manifold-pumps-channels": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH"},
         "ip-06-seat-pump-cartridge": {

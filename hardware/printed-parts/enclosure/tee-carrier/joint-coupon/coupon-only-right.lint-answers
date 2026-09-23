@@ -1,8 +1,0 @@
-[step] The 0.45 mm recess is the keeper hook's retaining lip. The hook deflects into its provided channel during insertion, then seats behind this square shoulder. The coupon checks its deflected insertion envelope and positive retention; physical latch force and survival are pending the print.
-file: hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.stl
-click: x=6.000 y=3.475 z=18.900
-
-[ceiling] These flat crowns retain the two headed keys. The native slice supplies the two support interfaces recorded in toolpath-review.json. The loose receiver has open fore and aft faces; separate the tree at its exposed branches and remove each leg through its respective opening before assembly.
-file: hardware/printed-parts/enclosure/tee-carrier/joint-coupon/coupon-only-right.stl
-click: x=5.275 y=3.000 z=45.330
-click: x=5.275 y=3.000 z=16.400
