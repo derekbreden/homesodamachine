@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 443 of 1000 free, the next cut wants 302, and the whole pointer file reads by name in 29.1 MB against 175.8 MB of bundle",
+      "note": "check_release_room: 443 of 1000 free, the next cut wants 304, and the whole pointer file reads by name in 29.0 MB against 175.8 MB of bundle",
       "status": "ok"
     },
     {
@@ -92,19 +92,18 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 32 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 478 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 9db6d5cd832fffd730d2f158382e69b8 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a54f539f2bf10e067d51387ca652ca66 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 9db6d5cd832fffd730d2f158382e69b8 for the 160 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 4f12954b33ff34db5509bcced156cb57 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
     "hardware/scripts/check_payloads.py": [
-      "2 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "1 solid(s) whose surface is not in the payload beside them:",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
       "  the run that cuts a solid writes the payload beside it:",
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
