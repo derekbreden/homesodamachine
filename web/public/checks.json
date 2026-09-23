@@ -32,8 +32,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 58 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "3 reference(s) name a path nothing holds.",
+      "note": "1 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -92,21 +92,33 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 19 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 23 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 477 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 44bf3db0efe37485200f0f3d19cb72fb for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at ced35c2f66ea2aacc6625d8b0520dcd7 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds 8ad3fa2683fe52efe14ead78dd71fb59, enclosure-assembly.step here is fe64035de2949b4cc52e0292e82dad5a",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds 44bf3db0efe37485200f0f3d19cb72fb for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at a07c7a150ef08fd638a6c7e8b8c4a9ab here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
+    "hardware/scripts/check_payloads.py": [
+      "5 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ],
     "tools/check_paths.py": [
-      "hardware/printed-parts/enclosure/print-readiness.md:19 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/queue.json is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
-      "  hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md:3 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/../queue.json is held nowhere, and no tag is named for it",
-      "3 reference(s) name a path nothing holds."
+      "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
+      "1 reference(s) name a path nothing holds."
     ]
   },
   "green": false
