@@ -508,6 +508,95 @@
         "print_error": 0,
         "note": "The three bottom-shell layers went down on the seasoned plate without a stop or a message; the watch was released here."
       }
+    },
+    {
+      "job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
+      "archive": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+      "archive_sha256": "5e6bcaa8678e8f200e78201f7613d096e976c2aa66f5f03588d7170dc582fd63",
+      "gcode_sha256": "12deb7c51393bc40a77a6d368e2a537952283fabc120ab41e39a110d7f4d91ae",
+      "source_project": "fake-countertop-petgf-mark2.3mf",
+      "source_project_sha256": "a7ae63127addc86434b980d9ff15267ba4bf9f3ef54638704c1cd9146099bcf7",
+      "source_stl": "fake-countertop.stl",
+      "source_stl_sha256": "5b50b2697da2fadb5ae05ce2d32dbf1eb569c408f921476cd5570455b8a82a57",
+      "source_profile": "hardware/printed-parts/petgf.3mf",
+      "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+      "printer": "Mark2",
+      "physical_filament": "black PET-GF, left external spool",
+      "physical_nozzle": "0.4 mm HS01, serial ending 6799, left hotend",
+      "physical_setup_authority": "Derek: 'Yeah, start the table on mark2 please'; 'If I tell you to print something, you print something. I will not tell you to print something if the plate is not clear.'",
+      "requested_z_trim_mm": 0.04,
+      "gcode_plate_trim_mm": 0.02,
+      "plate": {
+        "printable_area_extruders": [
+          0
+        ],
+        "plate_border_mm": 5.0,
+        "footprint_mm": [
+          190.0,
+          310.0
+        ],
+        "bounds_mm": [
+          [
+            67.5,
+            5.0,
+            0.0
+          ],
+          [
+            257.5,
+            315.0,
+            220.0
+          ]
+        ],
+        "brim": null
+      },
+      "process": {
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "grid",
+        "filament_flow_ratio": [
+          "0.9555",
+          "1",
+          "1"
+        ],
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "filament_colour": [
+          "#000000"
+        ]
+      },
+      "submission": {
+        "application": "Bambu Connect",
+        "tool": "Send to print dialog opened from the Print page with the archive already imported, Send pressed through its accessibility tree; tools/bambu_send.py's two sends at 20:41 and 20:46 local closed the dialog and logged start_print_task, and no job reached the printer",
+        "filament_mapping": "left nozzle, Ext PET-CF",
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto",
+        "device_page_after_send": "Downloading... 0%, then 100%"
+      },
+      "acceptance": {
+        "printer": "Mark2",
+        "observed_at": "2026-09-23T01:51:01.351045+00:00",
+        "gcode_state": "RUNNING",
+        "subtask_name": "fake-countertop-petgf-z004-mark2.gcode.3mf",
+        "mc_percent": 0,
+        "layer_num": 0,
+        "total_layer_num": 917,
+        "mc_remaining_time": 1237,
+        "print_error": 0,
+        "hms": []
+      },
+      "print_completion": null,
+      "physical_fit": null,
+      "estimate": {
+        "seconds": 74243.75,
+        "grams": 1339.3695068359375,
+        "layers": 917
+      }
     }
   ]
 }
