@@ -10,4 +10,4 @@ The [publication proof](published-payload-final.json) compares every viewer entr
 
 The [snapshot manifest](snapshot-manifest.json) names each original execution path and exact retained copy. Compressed archives preserve the canonical tool's native inputs and both publication payloads. Raw scripts describe their original workspace paths; the repair script is a guarded one-time operation, not a regeneration instruction.
 
-The separate [surface review](../final-print-surface-review/README.md) has zero open findings across all eight print meshes. The [current queue](../queue.json) carries subsequent slicing, support review and printer handoff status. Running and cancelled jobs retain their own immutable records.
+The separate [surface review](../final-print-surface-review/README.md) has zero open findings across all eight print meshes. Running and cancelled jobs retain their own immutable records.
