@@ -66,6 +66,7 @@ file, and a scan that drops files reports clean.
 """
 
 import bisect
+import hashlib
 import itertools
 import json
 import re
@@ -141,6 +142,38 @@ def _is_transcript(rel: str) -> bool:
     that says "a subdirectory of calibration" covers the next one nobody remembers to add.
     """
     return rel.startswith("calibration/") and "/" in rel[len("calibration/"):]
+
+def _pinned_copies(files: set) -> set:
+    """The files a package manifest pins by their bytes, which QUOTE a tree rather than claim one.
+
+    `documentation-refresh/before/` under the G Ganen feet validation holds `bom.md` and
+    `integration-handoff.md` as they stood when that package was cut, and the
+    `package-manifest.json` above them records each one's sha256 under `files_sha256`; a
+    qualification record elsewhere cites the same digests. A link in such a copy was right where
+    and when it was taken. It is the transcript's case in another shape: writing a tag or a
+    pinned URL into the copy would change the bytes both records hold.
+
+    THE EXEMPTION IS THE PIN ITSELF. A copy whose bytes no longer match its digest is not the
+    copy the package recorded, and it is read like any other file again.
+    """
+    out = set()
+    for manifest in sorted(f for f in files if f.endswith("/package-manifest.json")):
+        base = manifest.rsplit("/", 1)[0]
+        try:
+            pins = json.loads((ROOT / manifest).read_text()).get("files_sha256") or {}
+        except (OSError, ValueError, AttributeError):
+            continue
+        for name, digest in pins.items():
+            rel = f"{base}/{name}"
+            if rel not in files:
+                continue
+            try:
+                if hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() == digest:
+                    out.add(rel)
+            except OSError:
+                continue
+    return out
+
 
 # A SOURCE COMMENT MUST NAME A FILE KIND for its path to be read as a path. `the infill
 # pattern/density` and `the marketing/communication` are English, and `_materials.one_body`
@@ -429,10 +462,12 @@ def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[st
     # the case that earned it — `images/anim_00.h`, `hardware/a.md`, a tag family's prefix —
     # so a scan of this file reports the examples as though something meant them. Nothing
     # does. `docgen.lint` skips `NAME` for the same reason and says so in the same breath.
+    pinned = _pinned_copies(files)
     for rel in sorted(f for f in files
                       if f.endswith((".md",) + SOURCE_SUFFIXES)
                       and not f.startswith(SKIP_TREES)
                       and not _is_transcript(f)
+                      and f not in pinned
                       and f != "tools/check_paths.py"):
         try:
             text = (ROOT / rel).read_text(encoding="utf-8")
@@ -643,6 +678,15 @@ def _selftest() -> int:
     files, _ = _tracked()
     hold("a filename with spaces survives the index reading",
          any(" " in f for f in files), True)
+
+    # A copy its package manifest pins by bytes is a quote; the live file it copies is not.
+    refresh = ("hardware/reference/g-ganen-pump/installation/feet-correction-validation/"
+               "documentation-refresh")
+    if f"{refresh}/package-manifest.json" in files:
+        pinned = _pinned_copies(files)
+        hold("the refresh package's copy of bom.md is pinned",
+             f"{refresh}/before/hardware/ledger/bom.md" in pinned, True)
+        hold("and the live bom.md is not", "hardware/ledger/bom.md" in pinned, False)
 
     if fails:
         print("check_paths selftest FAILED")
