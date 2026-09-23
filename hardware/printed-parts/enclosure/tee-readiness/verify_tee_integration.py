@@ -125,7 +125,6 @@ def main():
               for side,label in ((-1,'left'),(1,'right'))}
     inner = (*enc.interior_x(),enc.front_plane_y,enc.rear_plane_y)
     wall = enc._tee_wall(inner,0,plate,(0,0,plate['z1']))
-    wall = wall.fuse(enc._tee_carrier_fixed_features(inner,plate,interface))
     for cut in enc._tee_carrier_service_slots(interface):
         wall = wall.cut(cut)
     # Circular openings preserve the complete annulus. R5.0 is an explicit
@@ -146,10 +145,10 @@ def main():
             for side,half in halves.items():
                 check(f'{state} {name} / carrier {side:+d}',shape.intersect(half.translate((0,dy,0))).Volume())
         for side,half in halves.items():
-            check(f'{state} carrier {side:+d} / local fixed guide body',half.translate((0,dy,0)).intersect(wall).Volume())
+            check(f'{state} carrier {side:+d} / local tee wall',half.translate((0,dy,0)).intersect(wall).Volume())
         for index, head in enumerate(carrier.tie_head_envelopes(spec), 1):
             moved = head.translate((0,dy,0))
-            check(f'{state} tie {index} lock / local fixed guide body',moved.intersect(wall).Volume())
+            check(f'{state} tie {index} lock / local tee wall',moved.intersect(wall).Volume())
             for name,shape in solids.items():
                 if name.startswith(('valve-','coil-')):
                     check(f'{state} tie {index} lock / {name}',moved.intersect(shape).Volume())

@@ -1370,23 +1370,13 @@ push during insertion. The cradle keeps [23.13 mm](PULL_FORE_STOCK) of stock for
 of the pocket and [23.14 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
-## The tee carrier body
+## The tee carrier's room
 
-A filled body extends aft from the fixed tee wall to the moving carrier and joins both
-flanks. Its flat lower and upper lands carry the carrier web; the outboard guide openings
-carry the solid service tabs and their release/aft-limit stops. Four continuous aft-opening
-wells each carry a tee, both ties, the lower hairpin and the upper bowed tube and valve port.
-Their constant sections continue through the finished valve-tray junction. The upper land
-forms a continuous bridge into the fore valve tray, up to its valve-body clearance plane.
-The aft coils' cases pass below this land; their terminal pairs pass through the tee wells,
-leaving one flat underside beside the outer wells. The web's aft shelf runs under the land
-and over the inner coils' cases.
-The lower lands continue as a flat floor into the aft valve tray; four broad openings admit
-that row's valves from underneath and carry the moving hairpins. The two outer openings run
-out to the flank's Z-rail channel, so no strip of floor stands between an opening and the
-channel. Branch journals
-continue forward to the fixed collet plate. One common full-width face clears the tie heads
-and the lap tongue's fore face.
+Between the tee wall's aft face and the aft valve tray's fore plane, front-top prints
+nothing inboard of its two flank recesses. The four tees, their ties, the carrier, the
+hairpins, the aft valves and the bowed stubs stand in open room from the piece's mouth up to
+the fore valve tray, whose flat underside stands [5.604 mm](FORE_TRAY_OVERHANG) aft of the
+tee wall. Branch journals continue forward through the tee wall to the fixed collet plate.
 
 Each flank opening leaves 16 mm finger clearance behind its 16 mm solid bar at nominal
 rest, and 13.5 mm at the additional 2.5 mm aft flex limit. The current opening dimensions are in
@@ -1395,7 +1385,7 @@ space through the full stroke. The aft wall sits 3.25 mm behind the enclosure's 
 The bar's root overlaps the moving web's full thickness. Its flat underside runs 0.50 mm
 above the opening's lower edge and clears the seam rail across its full depth.
 A fore shoulder retains the bar behind the wall, and an upper tongue meets the aft limit
-above the finger space. The internal recess continues from the outer tee well to the aft
+above the finger space. Each flank's internal recess runs from the tee wall to the aft
 tray's fore plane. Its upper entry passage passes inboard of that stop. The carrier's complete
 insertion and working sweeps include 0.25 mm clearance in X and 0.50 mm at supported Z faces.
 
@@ -1408,14 +1398,14 @@ and feel are evaluated in the complete enclosure assembly.
 
 The [reusable pusher](/hardware/printed-parts/fixtures/carrier-spring-pusher/README.md) has a
 Ø6.3 mm tip and a 10 × 3 mm tongue, both 2 mm thick. It holds the spring during half entry,
-then withdraws 15.435 mm inboard and lifts 70 mm through the outer tee well. The spring
+then withdraws 15.435 mm inboard and lifts 70 mm beside the outer tee. The spring
 expands into its fixed cup before the same tool loads the next half. With the joined carrier
-held at release, the rear recesses admit the lower valves and coils from the loose piece's
-open underside at their 5.45 mm fore entry offset; they then slide aft onto the mounting
-posts. The accepted Beduan socket fit is retained, with ties supplying positive retention.
+held at release, the lower valves and coils rise from the loose piece's open underside at
+their 5.45 mm fore entry offset; they then slide aft onto the mounting posts. The accepted
+Beduan socket fit is retained, with ties supplying positive retention.
 
-The fixed guide ceilings and tee wells keep their working faces. Support
-leaves through the open aft cavities before hardware is installed.
+Support under the fore valve tray and the recess roofs stands in the open room and leaves
+through the mouth before hardware is installed.
 
 ## The full-width opening
 
