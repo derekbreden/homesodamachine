@@ -442,7 +442,7 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
 
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
   corner of the slab, [38 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
-  past the tangent — and [41.25 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
+  past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
   own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.5 mm](CORE_STOP_BORE)
   bore on the round's own axis outboard of the tangent, and the core's own flat front face
   inboard of it. So the block bears flat where the core is flat and round where it is round —
