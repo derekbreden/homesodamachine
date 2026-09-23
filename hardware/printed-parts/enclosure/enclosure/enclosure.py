@@ -149,6 +149,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "iec-c14-inlet"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "tee-carrier"))
 from _cadq_export import export_assembly
 from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
@@ -167,6 +168,7 @@ import iec_c14_inlet as _c14
 import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
+import tee_carrier as _tee_carrier
 import _enclosure_interface as _interface
 import _swept_top
 import _display_retention
@@ -991,6 +993,14 @@ def front_top_flank_face():
     ix0, ix1 = interior_x()
     grown = front_top_flank_t - wall
     return (ix0 + grown, ix1 - grown)
+
+
+def tee_carrier(plate):
+    """The tee carrier on the collet plate's four tees, flush with both of front-top's flanks.
+    Its tie slots are the zip tie's cavity, and the strap across its back is the tie's stock."""
+    return _tee_carrier.Carrier.on(
+        plate, exterior_x=appliance_width / 2.0, flank_x=front_top_flank_face()[1],
+        tie_slot=(tie_t + tie_cav_buffer, tie_w + tie_cav_buffer), strap_t=tie_t)
 
 
 def lip_face_x():
@@ -9016,6 +9026,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _pan_cable_clip(piece, box, up=up)
     if z_side == "bottom":
         piece = _handholds(piece, inner, y_joint, y_side)
+    if y_side == "front" and plate:
+        # The tee carrier's way in and its slide, through both flanks and the seam rail on them.
+        piece = piece.cut(_tee_carrier.opening(tee_carrier(plate)))
     if y_side == "back" and z_side == "bottom":
         disposal_field(outer)
         piece = piece.fuse(*disposal_letters(outer).Solids())

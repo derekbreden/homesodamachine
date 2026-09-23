@@ -495,11 +495,6 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # The four barb tees float on their tubes, their branch collars in front-top's journals.
-    "tee-y-c": "enclosure-front-top",
-    "tee-y-d": "enclosure-front-top",
-    "tee-y-f": "enclosure-front-top",
-    "tee-y-g": "enclosure-front-top",
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
@@ -524,6 +519,10 @@ def holders():
         # a body a tuple, and where it stands is `BEARS_ON` — the cold core is fastened by the
         # front-bottom's blocks and the back-top's brackets and sits on the back-bottom's slab.
         out[name] = (by if isinstance(by, str) else None) or BEARS_ON.get(name)
+    # Printed parts sit outside the purchased-pack fastening census. The tee carrier stands in
+    # front-top's flanks and brings its four tied tees into front-top's bench scene.
+    for name in (_ea._tee_carrier.PLATE, _ea._tee_carrier.GRIP):
+        out[name] = "enclosure-front-top"
     for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES:
         out[f"tube-{rid}"] = piece
     for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:

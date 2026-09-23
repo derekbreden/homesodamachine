@@ -184,6 +184,7 @@ import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
 import valve_tray as _vtray                           # noqa: E402
 import pump_tray as _tray                             # noqa: E402
+import tee_carrier as _tee_carrier                    # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
@@ -5823,6 +5824,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    # The tee carrier seated through both front flanks, its troughs on the four tees.
+    if box.pack.collet_plate:
+        for name, part in _tee_carrier.parts(_enc.tee_carrier(box.pack.collet_plate)).items():
+            a.add(part, name=name, color=M_PETGF_BLACK)
     _pump_jack_service_bound(display, pieces["front-top"], box)
     placed_solids = _solids(a)
     wedge_fills(placed_solids,
