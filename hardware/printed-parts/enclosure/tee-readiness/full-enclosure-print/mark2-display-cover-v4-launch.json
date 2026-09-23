@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "status": "printer_reported_running",
+  "printer": "Mark2",
+  "observed_at": "2026-09-23T00:30:19.618739+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "display-cover-black-z004-mark2-v4.gcode.3mf",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/ready/display-cover-black-z004-mark2-v4.gcode.3mf",
+    "sha256": "6a3abd54c9b39057c94736937a2fae28677c170008c731ac4c7fd581286ef9e3",
+    "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b"
+  },
+  "staged_project": {
+    "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
+    "sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f"
+  },
+  "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
+  "geometry": "The display cover at 6a1ecd84f^: 2 mm skirts 34 mm deep, for the printed front-top",
+  "orientation": "X180: the visible face on the plate, both skirts pointing up",
+  "authority": "Derek: \"I need the display cover for the enclosure front top that already printed, so I can test that enclosure front-top\"",
+  "observed_state": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-23T00:30:19.618739+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "display-cover-black-z004-mark2-v4.gcode.3mf",
+    "mc_percent": 0,
+    "layer_num": 0,
+    "total_layer_num": 142,
+    "mc_remaining_time": 30,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 200.0,
+    "nozzle_target_temper": 200.0,
+    "bed_temper": 39.0,
+    "bed_target_temper": 39.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "PET-CF",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 16,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      },
+      {
+        "id": 21,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "printer_observation": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/printer-observations/2026-09-23T003018Z.json",
+    "sha256": "c1276f8d293b78d907c6bef38fe69e2ce9a2af09b9e30bae6870ddf49dd97407"
+  },
+  "send_acceptance_reading": {
+    "printer": "Mark2",
+    "observed_at": "2026-09-23T00:29:41.232037+00:00",
+    "before_send": {
+      "gcode_state": "FINISH",
+      "subtask_name": "display-cover-black-z004-mark2-v3.gcode.3mf",
+      "layer_num": 56,
+      "mc_percent": 100
+    },
+    "gcode_state": "RUNNING",
+    "subtask_name": "display-cover-black-z004-mark2-v4.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 142,
+    "mc_percent": 0,
+    "mc_remaining_time": 30,
+    "print_error": 0
+  },
+  "sent_via": "Bambu Connect via tools/bambu_send.py",
+  "dialog_readback": [
+    "device page: Mark2",
+    "dialog: printer Mark2",
+    "mapping: Ext PET-CF",
+    "options: Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto, Nozzle Offset Calibration Auto",
+    "send: dialog closed"
+  ],
+  "plate_clearance_authority": "Derek: The plate is clear.",
+  "previous_job_completion": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json",
+    "sha256": "a9467bdaf685a4de49af876c0b3b51eae75e01abeebbc80c0185a03bc692ae4d"
+  },
+  "previous_job_removed_confirmed": true,
+  "requested_z_trim_mm": 0.04,
+  "effective_textured_z_trim_mm": 0.02,
+  "offline_review": {
+    "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/offline-review.json",
+    "sha256": "732a933aac698b4964a9b57eace765443fc9de999937eb4b6e5759cedb64ff21"
+  },
+  "support_removal_review": {
+    "path": ".cache/prints/2026-09-22-display-cover-mark2-v4/support-removal-review.json",
+    "sha256": "644c23ffafa654072586c2ddd46f1b0a2f57bba7882fe108fd853416a1c4ec7d",
+    "status": "current_support_contacts_and_removal_lanes_reviewed"
+  },
+  "durable_review_package": {
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-22-display-cover-mark2-v4/manifest.json",
+    "sha256": "5ba3f69cb926ac63890ab5f52099f19a5bd84ffa569006c61bfd278dd7864e8c"
+  },
+  "physical_fit_and_support_removal_tested": false,
+  "operating_policy": "Keep productive jobs running; never pause for design review. Use each spool fully and reload on runout."
+}
