@@ -4843,7 +4843,8 @@ CEILING_RELIEF_LEVEL_GROUPS = (
     ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER, _gas_chain.CHECK_OUT_ADAPTER),
 )
 # Gasher's long, shallow crown genuinely enters the slab, but only 1.961 mm. Its exact plan stays
-# its own; the floor takes one complete printable wall rather than leaving a sub-wall step.
+# its own; the floor takes one complete printable wall rather than leaving a sub-wall step, and
+# its level group's adapters take that same roof.
 CEILING_RELIEF_MIN_DEPTH_BODIES = ("gasher-co2",)
 # Their nearest source rectangles still leave a 1.181 mm plan web. One explicit local connector
 # opens that web without growing either pocket to a neighbour's far edge. This is a reviewed
@@ -5022,7 +5023,7 @@ def ceiling_reliefs(placed: dict) -> tuple:
     # A contained direct/lifted reading is the same void twice, not a second feature.
     reliefs = list(_contained_reliefs(tuple(reliefs)))
     reliefs = list(_enveloped_reliefs(tuple(reliefs)))
-    reliefs = _minimum_depth_reliefs(_level_reliefs(tuple(reliefs)))
+    reliefs = _level_reliefs(_minimum_depth_reliefs(tuple(reliefs)))
     return _full_depth_reliefs(_connected_reliefs(reliefs))
 
 
@@ -6092,6 +6093,13 @@ def selftest():
     if deep_gasher[:5] != gasher[:5] or abs(deep_gasher[5] - (ceiling_face + _enc.wall)) > 1e-9:
         raise AssertionError("the gasher pocket did not keep its plan and take one full wall")
     _full_depth_reliefs((deep_gasher,))
+    # The deepened pocket's level group follows it down: an adapter whose own pocket is deeper
+    # than the check's crown but still under a wall takes the check's full-wall roof.
+    check_in = (_gas_chain.CHECK_IN_ADAPTER, -3.3, 11.6, 376.0, 399.0, ceiling_face + 2.211)
+    group = _level_reliefs(_minimum_depth_reliefs((gasher, check_in)))
+    if any(abs(row[5] - (ceiling_face + _enc.wall)) > 1e-9 for row in group):
+        raise AssertionError("the gas check's adapters kept a roof apart from its deepened pocket")
+    _full_depth_reliefs(group)
     yield "one purchased body keeps one roof plane and no local pocket under a wall deep"
 
     # The relay and ground-stack pockets overlap in X and stand 1.181 mm apart in Y. One
