@@ -60,51 +60,6 @@ def load_bodies(step_path):
     return import_assembly(str(step_path))
 
 
-def mesh_shape(shape, tolerance=0.5, angular=0.5):
-    """(V float64[n,3], F int64[m,3]) for a cq.Shape, meshed at an ABSOLUTE linear deflection.
-
-    cq's own `tessellate` meshes with a RELATIVE deflection and walks `poly.Triangles()`, which
-    is quadratic per face in OCP; this meshes once with `isRelative=False` and indexes nodes and
-    triangles directly.  Winding is flipped on reversed faces so normals point outward."""
-    from OCP.BRep import BRep_Tool
-    from OCP.BRepMesh import BRepMesh_IncrementalMesh
-    from OCP.TopAbs import TopAbs_FACE, TopAbs_Orientation
-    from OCP.TopExp import TopExp_Explorer
-    from OCP.TopLoc import TopLoc_Location
-    from OCP.TopoDS import TopoDS
-
-    wrapped = shape.wrapped
-    BRepMesh_IncrementalMesh(wrapped, tolerance, False, angular, True)
-    V, F, off = [], [], 0
-    ex = TopExp_Explorer(wrapped, TopAbs_FACE)
-    while ex.More():
-        face = TopoDS.Face_s(ex.Current())
-        loc = TopLoc_Location()
-        poly = BRep_Tool.Triangulation_s(face, loc)
-        if poly is not None and poly.NbTriangles() > 0:
-            n, m = poly.NbNodes(), poly.NbTriangles()
-            pts = np.fromiter((c for i in range(1, n + 1)
-                               for p in (poly.Node(i),)
-                               for c in (p.X(), p.Y(), p.Z())),
-                              dtype=np.float64, count=3 * n).reshape(n, 3)
-            trsf = loc.Transformation()
-            M = np.array([[trsf.Value(r, c) for c in (1, 2, 3, 4)] for r in (1, 2, 3)])
-            pts = pts @ M[:, :3].T + M[:, 3]
-            tris = np.fromiter((v for i in range(1, m + 1)
-                                for t in (poly.Triangle(i),)
-                                for v in (t.Value(1), t.Value(2), t.Value(3))),
-                               dtype=np.int64, count=3 * m).reshape(m, 3) - 1
-            if face.Orientation() == TopAbs_Orientation.TopAbs_REVERSED:
-                tris = tris[:, [0, 2, 1]]
-            V.append(pts)
-            F.append(tris + off)
-            off += n
-        ex.Next()
-    if not V:
-        return np.zeros((0, 3)), np.zeros((0, 3), dtype=np.int64)
-    return np.vstack(V), np.vstack(F)
-
-
 def surface_samples(V, F, step, chunk_points=4_000_000):
     """Yield dense point samples on the triangles of (V, F): every point of every triangle
     lies within about `step` of a sample.
@@ -208,6 +163,8 @@ class WorldSDF:
     def build(cls, step_path=DEFAULT_STEP, spacing=3.0, exclude=DEFAULT_EXCLUDE,
               tolerance=0.5, angular=0.5, pad=12.0, sample_step=None, verbose=True):
         from scipy import ndimage
+        sys.path.insert(0, str(HERE))
+        from _meshes import mesh_shape
 
         sample_step = spacing / 4 if sample_step is None else sample_step
         log = print if verbose else (lambda *a, **k: None)
