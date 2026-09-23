@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 161 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_faucet_geometry.py",
@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 3320 tracked, 474 fetched solids, 55 tags, 41 site routes",
+      "note": "paths: every reference lands — 3321 tracked, 474 fetched solids, 55 tags, 41 site routes",
       "status": "ok"
     },
     {
@@ -92,11 +92,17 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 10 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 471 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 8 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 471 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was measured off a different enclosure-assembly.step — it holds ad9079b958ae22c5ce5ba2bd36755fa2, enclosure-assembly.step here is 30a6cca79335adefdd460dc5369306f9",
+      "  enclosure-assembly.facts.json was taken from a different tree — it holds b00b35f50836e10afa1122ed07f6542a for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 1a8f38a2258bf0a2c5e55a5e53aa3874 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
     "hardware/scripts/check_faucet_geometry.py": [
       "PASS fixture:complete-display-fit-trial",
       "PASS fixture:production-print-orientations",
