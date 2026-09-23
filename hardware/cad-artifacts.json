@@ -19,11 +19,13 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-lock.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/manifold-layout/_gas_chain.py",
+      "hardware/manifold-layout/_scorecard.py",
+      "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
       "hardware/printed-parts/enclosure/nameplate/nameplate.py",
-      "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.lint-answers",
-      "hardware/reference/iec-c14-inlet/.scan-check-cache.npz"
+      "hardware/reference/iec-c14-inlet/.scan-check-cache.npz",
+      "hardware/reference/wr1110-regulator/wr1110_regulator.py"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -995,7 +997,7 @@
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
     "hardware/reference/wellbom-regulator/wellbom-regulator.step": "3a7e62c8df049cba5f091972c183dcd74427fd3f3aa9a642f95ae502b8a4b1ce",
     "hardware/reference/worm-clamp/worm-clamp.step": "87d7406a23653f1903267074844297dd9003fa066e2daf0d392cb3a46ac52dda",
-    "hardware/reference/wr1110-regulator/wr1110-regulator.step": "67440d7fd631df225d8413e61fd233c27677d94d3db3d5610bc129b2c9e2cf54",
+    "hardware/reference/wr1110-regulator/wr1110-regulator.step": "134fd5905d13b1bcac627adc493410ad4df5e834a86bd0341d76afa4c1297d7c",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": "1e8f662d84779f77e78511973faf4d30272d86c0ee741e6603034bf3da07e94d",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": "51ccff5e3705dcfda0a1fa33969742dfc74b58bf7949014801e895763981d0ea",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": "18bf788ce0bbd19be1e722405ec67ee5ccf8d0b838cce38da5099c9729b8a978",
@@ -1550,6 +1552,6 @@
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1787356215,
     "hardware/reference/wellbom-regulator/wellbom-regulator.step": 1789013075,
     "hardware/reference/worm-clamp/worm-clamp.step": 1787578592,
-    "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1787578592
+    "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790141079
   }
 }
