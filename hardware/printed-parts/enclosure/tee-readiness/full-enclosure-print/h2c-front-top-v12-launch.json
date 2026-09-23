@@ -1,0 +1,93 @@
+{
+ "schema": 1,
+ "status": "printer_reported_running",
+ "printer": "H2C",
+ "request": "Derek, 2026-09-23: \"front-top will start on H2C\"; \"H2C bed is clear\"",
+ "first_running_observed_at": "2026-09-23T21:55:53Z",
+ "observed_state": {
+  "printer": "H2C",
+  "observed_at": "2026-09-23T21:57:15.485066+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "enclosure-front-top-black-z018-h2c-v12.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 1326,
+  "mc_remaining_time": 1249,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 200.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 43.0,
+  "bed_target_temper": 43.0,
+  "lights_report": [
+   {
+    "mode": "on",
+    "node": "chamber_light"
+   },
+   {
+    "mode": "flashing",
+    "node": "work_light"
+   },
+   {
+    "mode": "on",
+    "node": "chamber_light2"
+   }
+  ],
+  "external_spools": {
+   "254": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+   },
+   "255": {
+    "type": "TPU",
+    "colour": "161616FF"
+   }
+  },
+  "nozzle_type": "HS01-0.6",
+  "nozzles": [
+   {
+    "id": 16,
+    "type": "HS01",
+    "diameter": 0.6,
+    "sn": "20D06A610715877"
+   },
+   {
+    "id": 1,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "N/A"
+   },
+   {
+    "id": 17,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A5C1907799"
+   },
+   {
+    "id": 0,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A5C1907737"
+   }
+  ]
+ },
+ "native_archive": {
+  "path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v12/ready/enclosure-front-top-black-z018-h2c-v12.gcode.3mf",
+  "sha256": "2ed3ef0b38bfc216fc91818473b56c36b64f3039aa775a8adb4dcf2da266638d",
+  "gcode_sha256": "86155e695f8b8bcf4634b283d7973acc3cc8908f69420ecaf88b520e1e6c3c39"
+ },
+ "reviewed_slice": {
+  "manifest": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-h2c-v12/manifest.json",
+  "gcode_sha256": "47a00b43367f01cee7197994d2882ef543754f4a371d5255dcb638eb32dc06e9"
+ },
+ "rebuild": "The reviewed archive was deleted with .cache/prints on 2026-09-23 about 15:10. The staged input was rebuilt byte-identical (sha256 ffda64b8...) and re-sliced with the same command. Bambu Studio's tree supports do not re-slice byte-identically: 74940.09 s against 74940.27 s, 740.1859 g against 740.1860 g, 1326 layers, and the support audit reads the same 4 bed-rooted trees and 9 contact islands at the same plate positions, heights and extents.",
+ "rebuilt_support_summary": {
+  "bed_rooted_bodies": 4,
+  "interface_islands": 9,
+  "model_rooted_bodies": 0,
+  "shortest_build_up_mm": 63.83,
+  "support_bodies": 4
+ },
+ "filament": "Left extruder loaded from external 254, PET-CF 000000FF (black PET-GF); right extruder idle.",
+ "sent_via": "Bambu Connect; the External spool on the left-nozzle tile was chosen by the Enable print job startup agent through the native UI, then Send."
+}
