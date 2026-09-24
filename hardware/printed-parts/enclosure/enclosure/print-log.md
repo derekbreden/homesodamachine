@@ -457,3 +457,10 @@ right ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-
 Cancelled on Derek's word at layer 51 of 1326 (H2C `FAILED`, heaters off). Its 0.08 mm band
 covered only the last 2.6 mm of the R18 above the display and the R6 roof side edges. Derek's
 rule is 0.08 mm through the entire curve.
+
+## 2026-09-24 — front-top v13 on H2C
+
+`enclosure-front-top-black-z018-h2c-v13.gcode.3mf` reported `RUNNING` on H2C at
+2026-09-24T00:16:36Z, black PET-GF on the left external spool. It prints 0.08 mm layers
+through the whole of every roof curve, from print z 187.0 to 195.0, and 0.24 mm elsewhere
+([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v13-launch.json)).
