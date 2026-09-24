@@ -98,7 +98,7 @@
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 017538c27cf51d0e565448cffd3e8f48 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 34c139978f4b73e7a499874905362956 for the 161 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at e6b82ba38b0515c9decae6df2c41276f here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
