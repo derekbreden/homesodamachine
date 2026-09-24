@@ -11,6 +11,7 @@ by the tile it fills in.
 
 import argparse
 import json
+import queue
 import re
 import subprocess
 import sys
@@ -40,8 +41,11 @@ EXTERNAL_SPOOL = (-245, 282)
 SELECTOR_TEXT = (70, 32)
 #: The dialog is in the tree before it takes a click; a click at once misses the popover.
 DIALOG_SETTLE = 2.0
-#: Sends a filament load swallows are made again, each one a whole pass through the application.
+#: A send the printer never receives, or one a filament load swallows, is made again, each one
+#: a whole pass through the application from a fresh dialog.
 SEND_ROUNDS = 3
+#: Seconds between a send that did not arrive and the next round.
+RESEND_PAUSE = 30
 #: A click borrows the front for a second or two. A keystroke in another app can
 #: dismiss either popover; each miss starts again from a closed, fresh dialog.
 POPOVER_TRIES = 3
@@ -187,9 +191,61 @@ def wait_out_heat(printer, name, seconds):
 class Refused(Exception):
     """The application took the job and the printer did not start it."""
 
-    def __init__(self, message, reading):
+    def __init__(self, message, reading, heard=()):
         super().__init__(message)
         self.reading = reading
+        self.heard = list(heard)
+
+
+class Listener:
+    """The printer's own report topic, held open across Send. A print command that reaches
+    the printer is answered on it (`project_file` with a result and a reason), and an
+    upload, an error or an HMS shows there too; a send that never reached the printer
+    leaves it silent. Only those lines are kept, not the once-a-second status."""
+
+    def __init__(self, printer):
+        self.connection = bambu_printer.Connection(printer, 15)
+        self.heard = []
+        self.last = {}
+
+    def __enter__(self):
+        self.connection.__enter__()
+        return self
+
+    def __exit__(self, *exception):
+        self.drain()
+        self.connection.__exit__(*exception)
+
+    def drain(self):
+        while True:
+            try:
+                message = self.connection.messages.get_nowait()
+            except queue.Empty:
+                return self.heard
+            if not isinstance(message, dict):
+                continue
+            for section, body in message.items():
+                if not isinstance(body, dict):
+                    continue
+                command = body.get("command")
+                if command and command != "push_status":
+                    self.heard.append({"section": section, **{k: v for k, v in body.items()
+                                       if k in ("command", "result", "reason", "subtask_name", "url",
+                                                "param", "err_code", "sequence_id", "file")}})
+                    continue
+                # The status repeats every second; each of these is kept when it changes.
+                upload = body.get("upload")
+                if isinstance(upload, dict):
+                    upload = {k: upload.get(k) for k in ("status", "progress", "message", "task_id")}
+                seen = {"upload": upload if upload and upload.get("status") not in (None, "idle") else None,
+                        "print_error": body.get("print_error") or None,
+                        "hms": body.get("hms") or None,
+                        "gcode_state": (body.get("gcode_state"), body.get("subtask_name"))
+                        if "gcode_state" in body else None}
+                for key, value in seen.items():
+                    if value is not None and self.last.get(key) != value:
+                        self.last[key] = value
+                        self.heard.append({"section": section, key: value})
 
 
 def main():
@@ -363,42 +419,61 @@ def main():
             ax("press", "cancel", "--role", "AXButton", check=False)
             fail("Send stayed disabled for 15 s: the printer is busy, or the dialog never finished loading it")
 
-        # 6. Send. The dialog closes when the application has taken the job; press again
-        # if it has not, and give up rather than leave a dialog open.
-        closed = False
-        for attempt in range(3):
-            ax("press", "confirm", "--role", "AXButton")
-            if wait_for(8, lambda n: not dialog(n) and n):
-                closed = True
-                break
-            print(f"send: dialog still open after press {attempt + 1}")
-        if not closed:
-            ax("press", "cancel", "--role", "AXButton", check=False)
-            fail("the Send press did not close the dialog three times; nothing was sent")
-        print("send: dialog closed")
+        # 6. Send, with the printer's report topic open to hear what reaches it. The dialog
+        # closes when the application has taken the job; press again if it has not, and give
+        # up rather than leave a dialog open.
+        with Listener(printer) as listener:
+            closed = False
+            for attempt in range(3):
+                ax("press", "confirm", "--role", "AXButton")
+                if wait_for(8, lambda n: not dialog(n) and n):
+                    closed = True
+                    break
+                print(f"send: dialog still open after press {attempt + 1}")
+            if not closed:
+                ax("press", "cancel", "--role", "AXButton", check=False)
+                fail("the Send press did not close the dialog three times; nothing was sent")
+            print("send: dialog closed")
+            # What the application shows after Send: its device page reads Downloading while
+            # the printer fetches the file, and a failed send leaves a toast that fades, so the
+            # page is read at once, a second later and five seconds later.
+            closed_at = time.monotonic()
+            for mark in (0, 1, 5):
+                time.sleep(max(0.0, closed_at + mark - time.monotonic()))
+                page = ax("state", check=False).split("\n", 1)[0]
+                print(f"send: page +{mark}s " + page[:260])
 
-        # 7. The printer's own word: PREPARE or RUNNING under this name. The name alone
-        # is not it; the earlier job can carry the same one.
-        deadline = time.monotonic() + args.accept_timeout
-        reading = None
-        while time.monotonic() < deadline:
-            time.sleep(5)
-            reading = status(printer)
-            if reading.get("subtask_name") == archive.name and reading.get("gcode_state") in ("PREPARE", "RUNNING"):
-                break
-        else:
-            same_job = reading is not None and reading.get("job_id") == before.get("job_id")
-            raise Refused(
-                f"{args.printer} did not report {archive.name} as PREPARE or RUNNING within {args.accept_timeout:g}s; "
-                f"before the send it was {before.get('gcode_state')} on {before.get('subtask_name')} (job {before.get('job_id')}), "
-                f"and the last reading is {reading.get('gcode_state') if reading else None} on "
-                f"{reading.get('subtask_name') if reading else None} (job {reading.get('job_id') if reading else None})"
-                + ("; the job id has not moved, so no new job reached the printer" if same_job else ""),
-                reading)
+            # 7. The printer's own word: PREPARE or RUNNING under this name. The name alone
+            # is not it; the earlier job can carry the same one.
+            deadline = time.monotonic() + args.accept_timeout
+            reading = None
+            while time.monotonic() < deadline:
+                time.sleep(5)
+                reading = status(printer)
+                if reading.get("subtask_name") == archive.name and reading.get("gcode_state") in ("PREPARE", "RUNNING"):
+                    break
+            else:
+                heard = listener.drain()
+                same_job = reading is not None and reading.get("job_id") == before.get("job_id")
+                raise Refused(
+                    f"{args.printer} did not report {archive.name} as PREPARE or RUNNING within {args.accept_timeout:g}s; "
+                    f"before the send it was {before.get('gcode_state')} on {before.get('subtask_name')} (job {before.get('job_id')}), "
+                    f"and the last reading is {reading.get('gcode_state') if reading else None} on "
+                    f"{reading.get('subtask_name') if reading else None} (job {reading.get('job_id') if reading else None})"
+                    + ("; the job id has not moved, so no new job reached the printer" if same_job else "")
+                    + ("; the printer reported: " + json.dumps(heard) if heard
+                       else "; the printer's report topic carried no command reply, upload or error"),
+                    reading, heard)
+            heard = listener.drain()
+            if heard:
+                print("send: printer reported " + json.dumps(heard)[:600])
         return reading
 
-    # A send the printer drops, for a filament load that began after the first reading, is
-    # sent again once the heaters are idle; any other refusal is reported with what was read.
+    # A send the printer drops is sent again from a fresh dialog: after a filament load that
+    # began after the first reading, once the heaters are idle; after a send that never
+    # reached it (the application closed its dialog and the job id did not move), after a
+    # pause. Each round reads the printer first and sends only to an idle one, so a first
+    # send that arrives late makes the printer busy and the next round stops there.
     reading = None
     for round_ in range(SEND_ROUNDS):
         try:
@@ -406,12 +481,30 @@ def main():
             break
         except Refused as refused:
             reading = refused.reading
-            heat = manual_heat(reading) if reading else None
             print(f"send: {refused}")
-            if not heat or round_ == SEND_ROUNDS - 1:
+            if round_ == SEND_ROUNDS - 1:
                 fail(str(refused))
-            print(f"{args.printer}: {heat}; sending again when the heaters are idle")
-            before = wait_out_heat(printer, args.printer, args.busy_wait)
+            heat = manual_heat(reading) if reading else None
+            if heat:
+                print(f"{args.printer}: {heat}; sending again when the heaters are idle")
+                before = wait_out_heat(printer, args.printer, args.busy_wait)
+                continue
+            if any(h.get("command") == "project_file" for h in refused.heard):
+                fail(str(refused) + "; the printer answered the command, so it is not sent again")
+            time.sleep(RESEND_PAUSE)
+            before = status(printer)
+            upload = (before.get("upload") or {}).get("status")
+            if upload not in (None, "idle"):
+                fail(f"{args.printer} shows an upload ({upload}) after the send; not sending again")
+            if manual_heat(before):
+                before = wait_out_heat(printer, args.printer, args.busy_wait)
+            if before.get("gcode_state") in BUSY:
+                if before.get("subtask_name") == archive.name:
+                    reading = before
+                    print(f"send: {archive.name} arrived late; {args.printer} is {before['gcode_state']}")
+                    break
+                fail(f"{args.printer} became {before['gcode_state']} on {before.get('subtask_name')}; nothing more was sent")
+            print(f"send: round {round_ + 2} of {SEND_ROUNDS}: nothing reached {args.printer}; sending again")
     if args.dry_run:
         return
     fields = ("gcode_state", "subtask_name", "layer_num", "total_layer_num", "mc_percent", "mc_remaining_time", "print_error")
