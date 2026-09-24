@@ -1,0 +1,30 @@
+{
+  "reference_input": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10/tee-carrier-plate-black-z004-mark2-v10-input.3mf",
+  "reference_input_sha256": "91a5b12ad968b108c9a8911b5952ff5a826bb50d93db63f1a034bd60ee3fb822",
+  "staged_input": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11/tee-carrier-plate-black-z004-mark2-v11-no-supports-input.3mf",
+  "staged_input_sha256": "9e1270590f23c6201786808f86c2228fba7ffba429a6254e209cd3a25c290322",
+  "changed_archive_members": [
+    "Metadata/project_settings.config"
+  ],
+  "setting_differences": {
+    "enable_support": {
+      "reference": "1",
+      "value": "0"
+    }
+  },
+  "identical_member_sha256": {
+    "3D/3dmodel.model": "9edf541c3d52676fcf10f528d5d052c210f12d57c2a166a6c0a0a98b135be20f",
+    "3D/Objects/object_1.model": "deb4637c527aa6e8e3d0640846504b62f68ff275a74f4aaa62e52baf7eb7be6b",
+    "3D/_rels/3dmodel.model.rels": "033729b1caf46619e89b0d6ba5af35c88f9b162a2af14df3633f28dd28ec4611",
+    "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
+    "Metadata/layer_config_ranges.xml": "92895b963fb84d83a83fcf0f8cd14e5874cfb92a6396f9f434982b5ef2991187",
+    "Metadata/model_settings.config": "59a7ceb6de303ea03b2e3bcdbe60411647762fe1a4783a90e1177127e49406cf",
+    "[Content_Types].xml": "6bf55895a798afef551f69e890dad382c7416511cc7793f218e319ac1defdeb8",
+    "_rels/.rels": "37b6cfd6d6a714abcff71667a6e4c471001ae1db4e97e69f0db7e5e3c5ca057c"
+  },
+  "geometry_and_placement_identical": true,
+  "layer_ranges_identical": true,
+  "printer": "Mark2",
+  "requested_z_trim_mm": 0.04,
+  "user_authority": "Repeat the successful tee carrier with all the same settings and no supports; plate clear."
+}

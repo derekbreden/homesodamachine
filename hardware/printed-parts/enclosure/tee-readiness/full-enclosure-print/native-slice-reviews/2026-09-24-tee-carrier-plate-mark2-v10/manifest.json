@@ -2,7 +2,7 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "RUNNING",
+  "state": "FINISH",
   "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10",
   "parts": [
     "enclosure-tee-carrier-plate"
@@ -94,6 +94,8 @@
     "preparation.json": "a06866366820f63fc752a7802d4fc1cdae6a1e83b987b5aed439909210080e39",
     "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
     "slice-result.json": "416737492773584ccf6bec70bca8042169221b4b6cd275705fa807f5d11faeb7",
-    "support-audit.json": "4650450b366d68408b5ee0faa7719bb1fe7199d99240414243ec6a7d7b1b0b12"
-  }
+    "support-audit.json": "4650450b366d68408b5ee0faa7719bb1fe7199d99240414243ec6a7d7b1b0b12",
+    "completion.json": "4105e0af0aa7dae998cda9ef084788effb4682ee9caad2b6be7534f510a7b7d7"
+  },
+  "completion_record": "completion.json"
 }

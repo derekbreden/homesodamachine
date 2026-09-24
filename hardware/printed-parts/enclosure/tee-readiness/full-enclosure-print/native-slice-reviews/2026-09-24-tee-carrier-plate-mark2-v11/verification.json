@@ -1,0 +1,86 @@
+{
+  "reference_archive": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10/ready/tee-carrier-plate-black-z004-mark2-v10.gcode.3mf",
+  "reference_archive_sha256": "e1632e613f46a5546c6454eb17716ebf9770af67473733dc71e76482f45a2cdd",
+  "native_archive": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11/ready/tee-carrier-plate-black-z004-mark2-v11-no-supports.gcode.3mf",
+  "native_archive_sha256": "d1e154afa633582121e53d8a2aa9226abb4ad22276183ebe22a4d373f744ec12",
+  "gcode_sha256": "4327e3aeb78feae85d16eeebd28e85ec0adfb8d2a138033a3dc9828da750b023",
+  "setting_differences": {
+    "enable_support": {
+      "reference": "1",
+      "value": "0"
+    }
+  },
+  "emitted_wall_layers_identical": true,
+  "model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "rounds": [
+    {
+      "name": "aft-R6",
+      "print_z_mm": [
+        0,
+        6
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        0.08,
+        0.08
+      ],
+      "last_wall_layer": [
+        6.0,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "fore-R6",
+      "print_z_mm": [
+        15.054,
+        21.054
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        15.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        21.04,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "support_feature_paths": 0,
+  "support_bodies": 0,
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "pass": true
+}

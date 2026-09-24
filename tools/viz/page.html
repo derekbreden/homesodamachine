@@ -1,0 +1,456 @@
+<title><!--VIZ:TITLE--></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap">
+<style>
+:root {
+  --ground: #f3f5fa;
+  --paper: #ffffff;
+  --ink: #111a33;
+  --muted: #56607a;
+  --rule: #d6dbe8;
+  --accent: #10319c;
+  --accent-ink: #ffffff;
+  --pick: #ffa733;
+  --pick-ink: #3b2300;
+  --stage: #10319c;
+  --stage-ink: #dfe6ff;
+  --face: Montserrat, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --data: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0a0f1f;
+    --paper: #121a31;
+    --ink: #e6eaf5;
+    --muted: #9aa3bd;
+    --rule: #252e4a;
+    --accent: #8aa4ff;
+    --accent-ink: #0a0f1f;
+    --pick: #ffb655;
+    --pick-ink: #2b1a00;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0a0f1f;
+  --paper: #121a31;
+  --ink: #e6eaf5;
+  --muted: #9aa3bd;
+  --rule: #252e4a;
+  --accent: #8aa4ff;
+  --accent-ink: #0a0f1f;
+  --pick: #ffb655;
+  --pick-ink: #2b1a00;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding-inline: 16px;
+  padding-block: 20px 28px;
+  background: var(--ground);
+  color: var(--ink);
+  font: 15px/1.5 var(--text);
+}
+.viz { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.viz-head h1 {
+  margin: 0;
+  font: 600 22px/1.25 var(--face);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.viz-lede { margin: 6px 0 0; color: var(--muted); max-width: 72ch; }
+.viz-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.viz-group { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.viz-group > span { font: 500 11px/1 var(--face); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.viz-bar button, .viz-panel button {
+  font: 500 13px/1 var(--text);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.viz-bar button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.viz-bar button:focus-visible, .viz-panel button:focus-visible, .viz-stage:focus-visible {
+  outline: 2px solid var(--pick);
+  outline-offset: 2px;
+}
+.viz-grid {
+  display: grid;
+  gap: 18px 16px;
+  grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+}
+@media (max-width: 700px) { .viz-grid { grid-template-columns: minmax(0, 1fr); } }
+.viz-panel { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.viz-panel.is-wide { grid-column: 1 / -1; }
+.viz-panel-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.viz-tag {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 600 13px/1 var(--face);
+}
+.viz-name { font: 600 15px/1.3 var(--face); min-width: 0; overflow-wrap: anywhere; }
+.viz-pick {
+  flex: none;
+  font: 600 11px/1 var(--face);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--pick);
+  color: var(--pick-ink);
+  border-radius: 999px;
+  padding: 5px 8px;
+}
+.viz-panel-head button { margin-left: auto; flex: none; padding: 5px 8px; font-size: 12px; }
+.viz-panel.is-pick .viz-stage { box-shadow: 0 0 0 2px var(--pick); }
+.viz-stage {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--stage);
+  color: var(--stage-ink);
+}
+.viz-panel.is-wide .viz-stage { aspect-ratio: 16 / 9; }
+.viz-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+.viz-stage canvas:active { cursor: grabbing; }
+.viz-stage.is-image { background: var(--paper); border: 1px solid var(--rule); }
+.viz-stage.is-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.viz-stage.is-html { aspect-ratio: auto; background: var(--paper); border: 1px solid var(--rule); color: var(--ink); padding: 12px; overflow-x: auto; }
+.viz-note {
+  position: absolute;
+  inset: auto 10px 10px 10px;
+  font: 12px/1.4 var(--data);
+  color: var(--stage-ink);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.viz-note.is-error { opacity: 1; background: rgba(10, 15, 31, 0.72); border-radius: 6px; padding: 8px 10px; }
+.viz-caption { margin: 0; font: 13px/1.45 var(--data); color: var(--muted); overflow-wrap: anywhere; }
+.viz-nowrap { white-space: nowrap; }
+.viz-body { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; overflow-x: auto; }
+.viz-foot { border-top: 1px solid var(--rule); padding-top: 10px; font: 12px/1.5 var(--data); color: var(--muted); }
+.viz-foot ul { margin: 4px 0 0; padding-left: 18px; }
+.viz-foot li { overflow-wrap: anywhere; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+<!--VIZ:SHIM-->
+<div class="viz" id="viz">
+<!--VIZ:BODY-->
+</div>
+<script type="application/json" id="viz-spec"><!--VIZ:SPEC--></script>
+<!--VIZ:BLOBS-->
+<script>
+  // A page whose module never starts says so in each stage, rather than reading "Loading" forever.
+  setTimeout(function () {
+    if (window.__vizBoot) return;
+    document.querySelectorAll(".viz-stage[data-3d] .viz-note").forEach(function (n) {
+      n.textContent = "The 3D view could not start here: scripts or cdn.jsdelivr.net are blocked in this viewer.";
+      n.classList.add("is-error");
+    });
+    window.__vizReady = true;
+  }, 15000);
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+window.__vizBoot = true;
+const spec = JSON.parse(document.getElementById("viz-spec").textContent);
+
+// The /3d viewer's own look: its ground, its selection amber, its default solid, its tone curve
+// and light rig (web/public/js/viewer/scene.js, step.js), on the same Z-up axis.
+const GROUND = 0x10319c, SEL = 0xffa733, PLAIN = 0x8899aa, EDGE = 0x0b1433, BACK_DARKEN = 0.75;
+const KEY_DIR = new THREE.Vector3(1, -1.2, 2).normalize();
+const FILL_DIR = new THREE.Vector3(-1.2, 0.8, 0.3).normalize();
+// [azimuth, elevation] in degrees; azimuth from +X toward +Y, so front (the user's side) is -90.
+const VIEWS = { iso: [-45, 35.264], front: [-90, 0], back: [90, 0], left: [180, 0], right: [0, 0], top: [-90, 89.5], bottom: [-90, -89.5] };
+const FOV = 30;
+
+const shared = viewFrom(spec.view);
+let synced = spec.sync !== false;
+let edgesOn = spec.edges !== false;
+const panels = [];
+
+function viewFrom(v) {
+  if (v && typeof v === "object") return { az: v.az ?? -45, el: v.el ?? 35.264, zoom: v.zoom ?? 1 };
+  const [az, el] = VIEWS[v] || VIEWS.iso;
+  return { az, el, zoom: 1 };
+}
+
+const bytes = new Map();
+function modelBytes(id) {
+  if (!bytes.has(id)) {
+    bytes.set(id, (async () => {
+      const text = document.getElementById("viz-mesh-" + id).textContent.replace(/\s+/g, "");
+      const bin = atob(text);
+      const raw = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) raw[i] = bin.charCodeAt(i);
+      const stream = new Blob([raw]).stream().pipeThrough(new DecompressionStream("gzip"));
+      return new Response(stream).arrayBuffer();
+    })());
+  }
+  return bytes.get(id);
+}
+
+function darkenBackFaces(shader) {
+  shader.fragmentShader = shader.fragmentShader.replace(
+    "#include <color_fragment>",
+    `#include <color_fragment>
+    if ( !gl_FrontFacing ) diffuseColor.rgb *= ${BACK_DARKEN.toFixed(3)};`,
+  );
+}
+
+function material(color, finish, role) {
+  const m = new THREE.MeshStandardMaterial({
+    color,
+    roughness: finish ? finish[0] : 0.6,
+    metalness: finish ? finish[1] : 0.1,
+    side: THREE.DoubleSide,
+    polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
+    transparent: role === "ghost",
+    opacity: role === "ghost" ? 0.16 : 1,
+    depthWrite: role !== "ghost",
+  });
+  m.onBeforeCompile = darkenBackFaces;
+  m.customProgramCacheKey = () => "viz-back-darken";
+  return m;
+}
+
+const edgeMat = new THREE.LineBasicMaterial({ color: EDGE, transparent: true, opacity: 0.5 });
+
+// Feature edges are built the first time they are shown: on a million triangles the pass costs
+// seconds, and a page that opens with them off should not pay it.
+function showEdges(panel, on) {
+  if (!panel.group) return;
+  if (on && !panel.edgesBuilt) {
+    for (const solid of [...panel.group.children]) {
+      if (!solid.isMesh || solid.userData.ghost || solid.geometry.index.count / 3 > 150000) continue;
+      const lines = new THREE.LineSegments(new THREE.EdgesGeometry(solid.geometry, 28), edgeMat);
+      lines.userData.edge = true;
+      panel.group.add(lines);
+    }
+    panel.edgesBuilt = true;
+  }
+  panel.group.children.forEach((c) => { if (c.userData.edge) c.visible = on; });
+}
+
+async function buildGroup(p) {
+  const group = new THREE.Group();
+  for (const use of p.models) {
+    const buf = await modelBytes(use.model);
+    const meta = spec.models[use.model];
+    meta.meshes.forEach((mesh, i) => {
+      const role = (use.roles && use.roles[i]) || "plain";
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(buf, mesh.pos[0], mesh.pos[1]), 3));
+      geo.setIndex(new THREE.BufferAttribute(new Uint32Array(buf, mesh.idx[0], mesh.idx[1]), 1));
+      geo.computeVertexNormals();
+      const color = role === "hi" ? new THREE.Color(SEL)
+        : use.color ? new THREE.Color(use.color)
+        : mesh.color ? new THREE.Color(mesh.color[0], mesh.color[1], mesh.color[2])
+        : new THREE.Color(PLAIN);
+      const solid = new THREE.Mesh(geo, material(color, role === "hi" ? [0.5, 0.05] : mesh.finish, role));
+      solid.name = mesh.name || "";
+      solid.userData.ghost = role === "ghost";
+      group.add(solid);
+    });
+  }
+  return group;
+}
+
+// THE SAME CAMERA MEANS THE SAME TARGET AND THE SAME SPAN. Panels drawn in one frame (the scene
+// STEPs all stand in the machine's coordinates) are aimed at the centre of everything the page
+// shows, so a part that moved between panels is seen to move; aimed each at its own centre, the
+// motion would be framed away. `"frame": "each"` is for models that do not share a frame.
+function frameFor(panel) {
+  if (spec.frame === "each") return panel.sphere;
+  const box = new THREE.Box3();
+  for (const p of panels) if (p.box) box.union(p.box);
+  return box.isEmpty() ? panel.sphere : box.getBoundingSphere(new THREE.Sphere());
+}
+
+function place(panel) {
+  const v = synced ? shared : panel.own;
+  const az = THREE.MathUtils.degToRad(v.az), el = THREE.MathUtils.degToRad(v.el);
+  const dir = new THREE.Vector3(Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el));
+  const { center, radius } = frameFor(panel);
+  const dist = radius / Math.sin(THREE.MathUtils.degToRad(FOV / 2)) * 1.08 / v.zoom;
+  const cam = panel.camera;
+  cam.up.set(0, 0, 1);
+  if (Math.abs(v.el) > 89) cam.up.set(-Math.cos(az), -Math.sin(az), 0);
+  cam.position.copy(center).addScaledVector(dir, dist);
+  cam.near = Math.max(dist - radius * 2.5, dist / 1000);
+  cam.far = dist + radius * 2.5;
+  cam.lookAt(center);
+  cam.updateProjectionMatrix();
+  panel.key.position.copy(center).addScaledVector(KEY_DIR, dist);
+  panel.key.target.position.copy(center);
+  panel.fill.position.copy(center).addScaledVector(FILL_DIR, dist);
+  panel.fill.target.position.copy(center);
+}
+
+function draw(panel) {
+  if (!panel.renderer) return;
+  place(panel);
+  panel.renderer.render(panel.scene, panel.camera);
+}
+
+function drawAll() { for (const p of panels) draw(p); }
+
+function resize(panel) {
+  const r = panel.stage.getBoundingClientRect();
+  if (!r.width || !r.height) return;
+  panel.renderer.setSize(r.width, r.height, false);
+  panel.camera.aspect = r.width / r.height;
+  draw(panel);
+}
+
+function orbit(panel) {
+  const canvas = panel.renderer.domElement;
+  let drag = null;
+  const view = () => (synced ? shared : panel.own);
+  const changed = () => (synced ? drawAll() : draw(panel));
+  canvas.addEventListener("pointerdown", (e) => {
+    drag = { x: e.clientX, y: e.clientY };
+    canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    const v = view();
+    v.az -= (e.clientX - drag.x) * 0.4;
+    v.el = Math.max(-89.5, Math.min(89.5, v.el + (e.clientY - drag.y) * 0.4));
+    drag = { x: e.clientX, y: e.clientY };
+    changed();
+  });
+  const end = () => { drag = null; };
+  canvas.addEventListener("pointerup", end);
+  canvas.addEventListener("pointercancel", end);
+  canvas.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const v = view();
+    v.zoom = Math.max(0.3, Math.min(12, v.zoom * Math.exp(-e.deltaY * 0.0015)));
+    changed();
+  }, { passive: false });
+  panel.stage.addEventListener("keydown", (e) => {
+    const v = view();
+    const step = { ArrowLeft: ["az", 15], ArrowRight: ["az", -15], ArrowUp: ["el", 10], ArrowDown: ["el", -10] }[e.key];
+    if (step) {
+      e.preventDefault();
+      v[step[0]] += step[1];
+      v.el = Math.max(-89.5, Math.min(89.5, v.el));
+    } else if (e.key === "+" || e.key === "=") v.zoom = Math.min(12, v.zoom * 1.2);
+    else if (e.key === "-") v.zoom = Math.max(0.3, v.zoom / 1.2);
+    else return;
+    changed();
+  });
+}
+
+async function mount(el, p, hint) {
+  const stage = el.querySelector(".viz-stage");
+  const note = stage.querySelector(".viz-note");
+  const panel = { el, stage, own: { ...shared } };
+  panels.push(panel);
+  try {
+    const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
+    renderer.setClearColor(GROUND);
+    const scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.45;
+    scene.add(new THREE.AmbientLight(0xffffff, 0.12));
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
+    const fill = new THREE.DirectionalLight(0xffffff, 0.3);
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x333340, 0.35);
+    hemi.position.set(0, 0, 1);
+    scene.add(key, key.target, fill, fill.target, hemi);
+    const group = await buildGroup(p);
+    scene.add(group);
+    const box = new THREE.Box3();
+    group.children.forEach((c) => { if (c.isMesh && !c.userData.ghost) box.expandByObject(c); });
+    if (box.isEmpty()) box.setFromObject(group);
+    const sphere = box.getBoundingSphere(new THREE.Sphere());
+    if (!sphere.radius) sphere.radius = 1;
+    Object.assign(panel, {
+      renderer, scene, key, fill, group, box, sphere,
+      camera: new THREE.PerspectiveCamera(FOV, 4 / 3, 1, 1000),
+    });
+    showEdges(panel, edgesOn);
+    stage.prepend(renderer.domElement);
+    note.textContent = hint ? "Drag to turn · scroll to zoom" : "";
+    note.classList.remove("is-error");
+    orbit(panel);
+    new ResizeObserver(() => { resize(panel); if (synced) drawAll(); }).observe(stage);
+    resize(panel);
+  } catch (err) {
+    note.textContent = "The 3D view could not start: " + (err && err.message ? err.message : err);
+    note.classList.add("is-error");
+    console.error(err);
+  }
+}
+
+function setPressed(buttons, active) {
+  buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === active)));
+}
+
+const viewButtons = [...document.querySelectorAll("[data-view]")];
+viewButtons.forEach((b) => b.addEventListener("click", () => {
+  const next = viewFrom(b.dataset.view);
+  Object.assign(shared, next);
+  panels.forEach((p) => Object.assign(p.own, next));
+  setPressed(viewButtons, b);
+  drawAll();
+}));
+const syncButton = document.querySelector("[data-sync]");
+if (syncButton) syncButton.addEventListener("click", () => {
+  synced = !synced;
+  if (synced) panels.forEach((p) => Object.assign(p.own, shared));
+  syncButton.setAttribute("aria-pressed", String(synced));
+  drawAll();
+});
+const edgeButton = document.querySelector("[data-edges]");
+if (edgeButton) edgeButton.addEventListener("click", () => {
+  edgesOn = !edgesOn;
+  panels.forEach((p) => showEdges(p, edgesOn));
+  edgeButton.setAttribute("aria-pressed", String(edgesOn));
+  drawAll();
+});
+document.querySelectorAll("[data-wide]").forEach((b) => b.addEventListener("click", () => {
+  const panel = b.closest(".viz-panel");
+  const wide = panel.classList.toggle("is-wide");
+  b.textContent = wide ? "Shrink" : "Enlarge";
+  b.setAttribute("aria-pressed", String(wide));
+}));
+
+const mounts = [];
+document.querySelectorAll(".viz-panel[data-panel]").forEach((el) => {
+  const p = spec.panels[Number(el.dataset.panel)];
+  if (p && p.models && p.models.length) mounts.push(mount(el, p, mounts.length === 0));
+});
+Promise.allSettled(mounts).then(() => {
+  drawAll();
+  requestAnimationFrame(() => { window.__vizReady = true; });
+});
+</script>

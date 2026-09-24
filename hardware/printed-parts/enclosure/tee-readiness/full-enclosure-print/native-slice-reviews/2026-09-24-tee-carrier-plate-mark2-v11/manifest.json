@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "RUNNING",
+  "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11",
+  "parts": [
+    "enclosure-tee-carrier-plate"
+  ],
+  "reference_print": "2026-09-24-tee-carrier-plate-mark2-v10",
+  "reference_printer_task_id": "1277634817",
+  "reference_completion_and_physical_feedback": "reference-completion.json",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11/tee-carrier-plate-black-z004-mark2-v11-no-supports-input.3mf",
+    "sha256": "9e1270590f23c6201786808f86c2228fba7ffba429a6254e209cd3a25c290322"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11/ready/tee-carrier-plate-black-z004-mark2-v11-no-supports.gcode.3mf",
+    "sha256": "d1e154afa633582121e53d8a2aa9226abb4ad22276183ebe22a4d373f744ec12"
+  },
+  "gcode_sha256": "4327e3aeb78feae85d16eeebd28e85ec0adfb8d2a138033a3dc9828da750b023",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "setting_differences": {
+    "enable_support": {
+      "reference": "1",
+      "value": "0"
+    }
+  },
+  "geometry_and_placement_identical_to_reference": true,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "base_layer_height_mm": 0.24,
+  "initial_layer_print_height_mm": 0.08,
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "Full exposed aft R6 round, print Z 0\u20136 mm."
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "Full exposed fore R6 round, print Z 15.054\u201321.054 mm."
+      }
+    ]
+  },
+  "emitted_model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "full_exposed_round_layer_audit_pass": true,
+  "enable_support": false,
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "printer_task_id": "1277839952",
+  "launch_record": "mark2-launch.json",
+  "verification_record": "verification.json",
+  "review_artifact_sha256": {
+    "job-config.json": "4992cb945d44ca5e6d596183eb7dda9f813ce86a881adb63609deee260e8bee3",
+    "mark2-launch.json": "fb2c0e5733a952b3ddacf531bd09fc241b8cbda52a12ba88ec5305df701761ef",
+    "preparation.json": "7f2786a2a0b836eb62d22f04dc55fe3f6d1a3d554ea8cffa573bcc61d4cd8b6a",
+    "prepare.py": "d22ba431343ce1a5536ec9107f2305de35dcf0d85eed5116e26e7843cbe8517f",
+    "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
+    "reference-completion.json": "4105e0af0aa7dae998cda9ef084788effb4682ee9caad2b6be7534f510a7b7d7",
+    "sender-receipt.json": "52cf9009daf5a302ed3d816281a94f106cac6146e9c80174117c9d9795f8297a",
+    "slice-result.json": "f35a554eccbaebeaa7728d9564c7acc8bc2d072e903bfa5775a41d3dc9a1d38e",
+    "support-audit.json": "79c53259c2f1c080ac0cb07203c990095c41959e171a14fd3609039efca89128",
+    "verification.json": "3937cf6d73bd5e29f700a5ad1d6af07c26936a6fc621a0ba70d10cd052a474c3",
+    "verify.py": "9bb6f5d7ad52a4de4716f6bdcf9d487333e67fdbfb5df3649396e8cfeeeb3998"
+  }
+}
