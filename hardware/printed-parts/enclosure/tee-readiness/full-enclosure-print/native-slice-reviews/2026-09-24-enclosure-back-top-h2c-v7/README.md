@@ -10,7 +10,10 @@ triangles and all 40 labelled functional support interfaces. Their XY bounds and
 stations match; one interface begins 0.007 mm higher after support layer scheduling changes.
 The separate 0.59 mm-high east-roof support sliver is absent.
 
-This applies Derek's successful [unsupported tee-carrier observation](../../../../tee-carrier/physical-acceptance.json).
+This applies Derek's direction to keep visible 0.08 mm rounds unsupported. The completed
+[tee-carrier trial](../../../../tee-carrier/physical-acceptance.json) has a clean upper curve
+and localized lower-curve curling, with a fan-off thermal trial in progress. This support
+exclusion review does not establish the roof rounds' physical finish.
 Supports for the independent internal and mounting features remain. The native slice has
 15 support bodies, including one unlabelled internal body beginning above print Z 12 mm.
 The roof projection measurements include bed feet serving higher features, so they are not

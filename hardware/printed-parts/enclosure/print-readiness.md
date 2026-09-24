@@ -40,11 +40,11 @@ layer.
 Every spool is used fully, with reloading during a print as needed; remaining filament
 quantity is not a launch condition ([filament-use policy](tee-readiness/full-enclosure-print/filament-use-policy.json)).
 
-## Accepted physical evidence
+## Physical evidence
 
 | Part or interface | Established result and current use |
 | --- | --- |
-| Tee-carrier visible rounds | Derek reports that the unsupported curve on the Mark2 v11 print is turning out beautifully. Use unsupported 0.08 mm visible rounds elsewhere, including enclosure back-top. This is an in-progress surface observation. [Physical record](tee-carrier/physical-acceptance.json). |
+| Tee-carrier visible rounds | The completed Mark2 v11 upper curve is clean; the lower curve curls around layers 20–30 and recovers while still at 0.08 mm. v12 tests part cooling off with temperatures unchanged. Unsupported 0.08 mm visible rounds remain Derek's direction, including enclosure back-top; their thermal performance is under evaluation. [Physical record](tee-carrier/physical-acceptance.json). |
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted contact geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. The raised crown and four-tube operation are checked in the full trial. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Beduan sockets | The production-profile socket fit is easy and accepted, with some retention during loose inverted shaking. Preserve the Ø7.2 sockets and use zip ties for positive retention. Installed tie access remains a full-assembly observation. [Physical record](../fixtures/valve-socket-fit/physical-acceptance.json). |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |

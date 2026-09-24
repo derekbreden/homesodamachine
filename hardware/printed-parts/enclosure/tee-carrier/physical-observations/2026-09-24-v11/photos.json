@@ -1,0 +1,22 @@
+[
+  {
+    "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7842.jpeg",
+    "sha256": "3ba75d11222382ce56952cb292ae1f73936fa6ae1cb38b34fdac67de6f1e9329",
+    "original_name": "IMG_7842.jpeg",
+    "original_sha256": "3fdb5776984f8c968fe9166a83a7ebd352a79643b54228a72d221f7536c4bc58",
+    "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7842.jpeg",
+    "jpeg_pixels_unchanged": true,
+    "orientation_preserved": true,
+    "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+  },
+  {
+    "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7844.jpeg",
+    "sha256": "f6800ceed7541570545a1fa77af6aabe6d0981950ff6e0ff47d2175ef4c07096",
+    "original_name": "IMG_7844.jpeg",
+    "original_sha256": "718391b279921ce6098224d1bb80cb2633abe07ed02b18adfee29e3f1060ed80",
+    "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7844.jpeg",
+    "jpeg_pixels_unchanged": true,
+    "orientation_preserved": true,
+    "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+  }
+]

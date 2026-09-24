@@ -2,7 +2,7 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "RUNNING",
+  "state": "FINISH",
   "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11",
   "parts": [
     "enclosure-tee-carrier-plate"
@@ -99,13 +99,15 @@
     "slice-result.json": "f35a554eccbaebeaa7728d9564c7acc8bc2d072e903bfa5775a41d3dc9a1d38e",
     "support-audit.json": "79c53259c2f1c080ac0cb07203c990095c41959e171a14fd3609039efca89128",
     "verification.json": "3937cf6d73bd5e29f700a5ad1d6af07c26936a6fc621a0ba70d10cd052a474c3",
-    "verify.py": "9bb6f5d7ad52a4de4716f6bdcf9d487333e67fdbfb5df3649396e8cfeeeb3998"
+    "verify.py": "9bb6f5d7ad52a4de4716f6bdcf9d487333e67fdbfb5df3649396e8cfeeeb3998",
+    "completion.json": "dd23128c6c57dc5617ebee1c87b41e6205803bd51e019db08964a95313a1dd60"
   },
   "physical_observation": {
     "record": "hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json",
     "reported_by": "Derek",
     "reported_date": "2026-09-24",
-    "scope": "In-progress unsupported curve",
-    "statement": "The unsupported curve on the tee carrier is turning out beautifully."
-  }
+    "scope": "Finished print surface",
+    "statement": "Clean upper curve; localized lower-curve curling around layers 20\u201330, with recovery while still at 0.08 mm."
+  },
+  "completion_record": "completion.json"
 }
