@@ -3,7 +3,11 @@
 Mark2 task `1279390313` prints one unsupported carrier in black PET-GF. The
 [sender receipt](sender-receipt.json) verifies acceptance, and the
 [launch reading](mark2-launch.json) records the subsequent printer state.
-The physical outcome is pending.
+Derek reports **no spaghetti failure**, with a lower surface that curves slightly inward
+rather than forming the intended outward round. His assessment is **“probably good enough
+for now.”** The [physical result](physical-result.json) is provisional: the
+[printer reading](physical-feedback-reading.json) is RUNNING at 47/189 layers, with no error.
+Whole-print completion and assembled fit are not assessed by that observation.
 
 The lower **print-Z 0–6.1 mm** band requests **six walls**. The base setting remains
 **two walls**, including the upper rounded band. Infill prints before the inner walls and
