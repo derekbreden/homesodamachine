@@ -395,7 +395,7 @@ PARTS = (
          cam=(0.8, -1.0, 0.5)),
     Part("en09-asse-drip-pan", "ASSE drip pan",
          "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
-         cam=(0.75, -1.0, 0.55)),
+         cam=(-0.85, -1.0, 0.65)),
     Part("en10-funnel", "Funnel",
          "hardware/printed-parts/zone-c/funnel/funnel.step"),
     # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera

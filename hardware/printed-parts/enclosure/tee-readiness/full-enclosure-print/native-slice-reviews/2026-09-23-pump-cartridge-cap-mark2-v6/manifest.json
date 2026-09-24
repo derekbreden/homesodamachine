@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "job": "pump-cartridge",
+  "printer": "Mark2",
+  "state": "reviewed_not_sent",
+  "printer_task_id": null,
+  "source_job_directory": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v6",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-pump-cartridge-cap-mark2-v4",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v6/pump-cartridge-cap-black-z004-mark2-v6-input.3mf",
+    "sha256": "8123110feda4b94099972923448ce51e9c2139b05fdb6240ef646bb4ae805201"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v6/ready/pump-cartridge-cap-black-z004-mark2-v6.gcode.3mf",
+    "sha256": "5d41d6b7f7f5492ec08203227a4382d944d027c864312bdf9bdc0946481a6f1e"
+  },
+  "gcode_sha256": "6b5c557d989d719297c88e0d8de5781f7fda3751c0c4f9b604967ab592ea05c7",
+  "slicer_return_code": 0,
+  "slicer_warning_messages": [
+    ""
+  ],
+  "filament_id": "GFT01",
+  "filament_colour": [
+    "#000000"
+  ],
+  "filament_nozzle_map": [
+    "0"
+  ],
+  "brim_type": "auto_brim",
+  "initial_layer_print_height_mm": 0.2,
+  "layer_ranges_mm": {
+    "enclosure-pump-cartridge": [
+      {
+        "min_z": 6.0,
+        "max_z": 18.4,
+        "layer_height": 0.08,
+        "reason": "R6 grip-floor corner tori span print Z 6.23\u201318.23"
+      },
+      {
+        "min_z": 100.3,
+        "max_z": 113.2,
+        "layer_height": 0.08,
+        "reason": "R6 grip-ceiling corner tori span print Z 100.999\u2013112.999; the extra lead-in prevents a coarse layer from crossing the lower edge"
+      }
+    ]
+  },
+  "full_curve_layer_audit_pass": true,
+  "changed_staged_members_from_base": [
+    "Metadata/layer_config_ranges.xml"
+  ],
+  "current_source_geometry": [
+    {
+      "part": "enclosure-pump-cartridge",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "stl_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+      "stl_matches_base_receipt": true,
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "current_step_sha256": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+      "step_matches_base_receipt": true
+    },
+    {
+      "part": "enclosure-pump-cap",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "stl_sha256": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+      "stl_matches_base_receipt": true,
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "current_step_sha256": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4",
+      "step_matches_base_receipt": true
+    }
+  ],
+  "support_summaries": {
+    "enclosure-pump-cartridge": {
+      "bed_rooted_bodies": 2,
+      "interface_islands": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 105.95,
+      "support_bodies": 2
+    },
+    "enclosure-pump-cap": {
+      "bed_rooted_bodies": 4,
+      "interface_islands": 4,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 4.08,
+      "support_bodies": 4
+    }
+  },
+  "support_review": "Cartridge: two bed-rooted trees and two interface islands. Cap: four bed-rooted trees and four interface islands. All support contacts retain the v4 plate-frame coordinates and removal lanes.",
+  "review_artifact_sha256": {
+    "job-config.json": "86b177055336b9a7d79017e263b32adf0144d1b6725ce9ee5a5691f2cad2b135",
+    "layer-audit.json": "cbb9cf0f30c131daf9780a82cca7719825f7f7556bcf502f0ba2e0dc89d650ff",
+    "slice-result.json": "e41899b60acc53692bf2944a796b6f977543df1b7f4ca5bb310f38eccaa470a7",
+    "support-audit-enclosure-pump-cartridge.json": "11e1495ac4626c255cd2e730069f961a9173fb240703d4d752880cf045999381",
+    "support-audit-enclosure-pump-cap.json": "fc6323079c927bb44aeb6ac195f33094a3f4abd3cdd8513b85a680819f4c9db5"
+  }
+}

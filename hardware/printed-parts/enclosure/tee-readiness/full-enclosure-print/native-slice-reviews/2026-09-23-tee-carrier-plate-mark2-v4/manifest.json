@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "reviewed_not_sent",
+  "printer_task_id": null,
+  "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v4",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v3",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v4/tee-carrier-plate-covers-black-z004-mark2-v4-input.3mf",
+    "sha256": "e404eac0d8f96595acdf9609bd6bb5a4ea6e1daf7bf10e367b3ea45f495a8e2c"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v4/ready/tee-carrier-plate-covers-black-z004-mark2-v4.gcode.3mf",
+    "sha256": "0ad8801fe9803292ae79c99f85a5945aab09863d20c4a58d12f3b9522c63c2fb"
+  },
+  "gcode_sha256": "73ed5e487f645c450eb2743cca0c1c7242e3aeff453cb5c17410a351e168be79",
+  "slicer_return_code": 0,
+  "slicer_warning_messages": [
+    ""
+  ],
+  "filament_id": "GFT01",
+  "filament_colour": [
+    "#000000"
+  ],
+  "filament_nozzle_map": [
+    "0"
+  ],
+  "brim_type": "auto_brim",
+  "initial_layer_print_height_mm": 0.08,
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "R6 aft rounds rise from the bed through print Z 6.0"
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "R6 fore rounds span print Z 15.054\u201321.054"
+      }
+    ]
+  },
+  "full_curve_layer_audit_pass": true,
+  "changed_staged_members_from_base": [
+    "Metadata/layer_config_ranges.xml",
+    "Metadata/project_settings.config"
+  ],
+  "current_source_geometry": [
+    {
+      "part": "enclosure-tee-carrier-plate",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "stl_sha256": "b66a87e047b7df5131dca36ea5bf4d23a24b99f25324dc70f7bc0f0d9ade8fde",
+      "stl_matches_base_receipt": true,
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "current_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "step_matches_base_receipt": true
+    },
+    {
+      "part": "enclosure-window-cover-east",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "stl_sha256": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+      "stl_matches_base_receipt": true,
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "current_step_sha256": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550",
+      "step_matches_base_receipt": true
+    },
+    {
+      "part": "enclosure-window-cover-west",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl",
+      "stl_sha256": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+      "stl_matches_base_receipt": true,
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "current_step_sha256": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
+      "step_matches_base_receipt": true
+    }
+  ],
+  "support_summaries": {
+    "enclosure-tee-carrier-plate": {
+      "bed_rooted_bodies": 2,
+      "bodies_without_interface_labels": 2,
+      "explicit_interface_islands": 0,
+      "interface_islands": null,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 2
+    }
+  },
+  "support_review": "Two bed-rooted unlabelled slivers under the aft rounds; no support on either window cover. Each sliver peels outward from the loose plate.",
+  "review_artifact_sha256": {
+    "job-config.json": "2c71628e0dc15bf4faa5308134e3d1451b78afbde56c5e72274bd17951de282e",
+    "layer-audit.json": "b1413aa98dc7200f3e624d228f89a3477a26a864fd1126960b408b6480d87e64",
+    "slice-result.json": "53b91f88c002d3bf368b712447447ff26c6a77d14ca492fe5b5dedd19a5282e6",
+    "support-audit-carrier.json": "04df946ebeb9d399534216650684644c6664e42150f22285c8d9c8347725c211"
+  }
+}

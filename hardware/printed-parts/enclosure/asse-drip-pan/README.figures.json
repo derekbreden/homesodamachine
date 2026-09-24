@@ -11,8 +11,8 @@
     "PLATE_DEPTH": "40",
     "PLATE_LEN": "54",
     "PLATE_SLIP_MM": "1",
-    "PULL_FACE_CORNER_R": "4",
     "PULL_FACE_DEPTH": "5.95",
+    "PULL_FACE_EDGE_R": "4",
     "PULL_FACE_Y_OVERHANG": "4"
   }
 }

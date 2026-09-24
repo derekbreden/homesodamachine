@@ -24,6 +24,12 @@ emitted brim and support paths, and every support contact has an accessible remo
 hardware installation, following the
 [support-removal strategy](enclosure/README.md#support-removal-strategy).
 
+Measure each curve's print-Z span on the STEP, then run
+`hardware/scripts/verify_round_layer_band.py` on the exported `.gcode.3mf` for that object and
+span. The emitted wall layers must cover the full span at 0.08 mm; the range setting in the
+project alone does not establish this. A curve beginning at the bed also needs a 0.08 mm first
+layer.
+
 Every spool is used fully, with reloading during a print as needed; remaining filament
 quantity is not a launch condition ([filament-use policy](tee-readiness/full-enclosure-print/filament-use-policy.json)).
 

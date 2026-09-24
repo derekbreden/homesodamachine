@@ -1,0 +1,110 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -357.23500061,
+      10.18800354,
+      -106.027000427
+    ],
+    "plate_to_cad_translation_mm": [
+      -357.235001,
+      10.188004,
+      -106.027
+    ]
+  },
+  "first_layer_z_mm": 0.08,
+  "inputs": {
+    "gcode": "support-labels-enclosure-tee-carrier-plate.gcode",
+    "gcode_sha256": "f6441bd6e578a1c71d1be18f932ce551ab42c7f3226d10ea34c6f6989119bb98",
+    "model": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v3/oriented-meshes/enclosure-tee-carrier-plate.stl",
+    "model_sha256": "14e7173acc30b3b6c96af7ea6c06a5d919dca7faffe2bde173a7a8a0ce354ee1",
+    "profile": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v4/tee-carrier-plate-covers-black-z004-mark2-v4-input.3mf",
+    "profile_sha256": "e404eac0d8f96595acdf9609bd6bb5a4ea6e1daf7bf10e367b3ea45f495a8e2c"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "enclosure-tee-carrier-plate",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 2,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 0,
+    "interface_islands": null,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 2
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.08,
+      "bbox_cad_xyz_mm": [
+        -302.035,
+        105.788,
+        -105.947,
+        -283.635,
+        164.988,
+        -105.357
+      ],
+      "bbox_xy_mm": [
+        55.2,
+        95.6,
+        73.6,
+        154.8
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-1",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 0.67
+    },
+    {
+      "base_z_mm": 0.08,
+      "bbox_cad_xyz_mm": [
+        -106.035,
+        105.388,
+        -105.947,
+        -87.235,
+        164.988,
+        -105.437
+      ],
+      "bbox_xy_mm": [
+        251.2,
+        95.2,
+        270.0,
+        154.8
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-2",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 0.59
+    }
+  ]
+}

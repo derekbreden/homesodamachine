@@ -1,0 +1,54 @@
+{
+  "status": "native_slice_reviewed",
+  "job_key": "front-top",
+  "printer": "H2C",
+  "archive_stem": "enclosure-front-top-black-z018-h2c-v13",
+  "title": "Complete enclosure front-top, full R6 roof edge and R18 roof curve in 0.08 mm layers, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "enclosure-front-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "rotation_matrix": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": [
+        "Z90"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-front-top": [
+      {
+        "min_z": 187.0,
+        "max_z": 195.0,
+        "layer_height": 0.08,
+        "reason": "Full print-height span of the R6 roof side cylinders (189-195), front corner torus (187.392-195), and R18 display-to-roof arc (192.588-195)."
+      }
+    ]
+  }
+}

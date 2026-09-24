@@ -13,15 +13,17 @@ has no drain or cable opening; it draws out through the −X wall for emptying.
 
 The basin is one rectangular box with a matching hollow and r[2](PAN_COVE_R)
 floor coves. Its square outside corners meet the slot floor and roof across
-the wall's full thickness. The pull face is fused to its west end. Its four
-r[4](PULL_FACE_CORNER_R) corners round the exposed outline while the face still
-covers the basin's square section. Its inner face rests against the exterior wall to
-stop insertion. The printed pan is one watertight solid.
+the wall's full thickness. The pull face is fused to its west end. Its outer
+face's four edges and the four edges running inward from them share an
+r[4](PULL_FACE_EDGE_R) shoulder, as on the tee carrier. Its inner face covers
+the basin's square section and rests against the exterior wall to stop
+insertion. The printed pan is one watertight solid.
 
 The back-top's 9 mm west flank has one rectangular through-slot.
 It follows the basin's [76](PAN_DEPTH) × [15](PAN_HEIGHT) mm YZ section with
-0.25 mm running room on both Y sides and above. Back-top prints ceiling-down;
-its 0.25 mm supported-face allowance gives the bottom the same running room.
+0.25 mm running room on both Y sides and above and below. Back-top prints
+ceiling-down; its additional 0.25 mm supported-face allowance makes the lower
+gap 0.50 mm in total.
 The pan's floor bears on the slot floor and its two end-wall rims bear on the
 slot roof. Those surfaces hold the pan horizontal through the wall's full
 9 mm thickness. The pull face spans the slot's Y edges and stops on the

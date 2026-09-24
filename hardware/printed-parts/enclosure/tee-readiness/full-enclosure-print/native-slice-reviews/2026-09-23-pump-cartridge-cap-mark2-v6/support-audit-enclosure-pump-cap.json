@@ -1,0 +1,243 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -255.268997192,
+      -310.039009094
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -255.268997,
+      -310.039009
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "support-labels-enclosure-pump-cap.gcode",
+    "gcode_sha256": "5ac77dc142163add560cb456925c81fd220be268adaef088a4dfb4b1eb5dc8f2",
+    "model": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v4/oriented-meshes/enclosure-pump-cap.stl",
+    "model_sha256": "5bfd36b648071e142c32a5ed0796333a9d980c74759e2fec7be213eff75334c7",
+    "profile": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v6/pump-cartridge-cap-black-z004-mark2-v6-input.3mf",
+    "profile_sha256": "8123110feda4b94099972923448ce51e9c2139b05fdb6240ef646bb4ae805201"
+  },
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -74.1,
+        -169.669,
+        -305.759,
+        -30.5,
+        -126.469,
+        -305.279
+      ],
+      "bbox_xy_mm": [
+        88.4,
+        85.6,
+        132.0,
+        128.8
+      ],
+      "build_up_mm": 4.08,
+      "first_z_mm": 4.28,
+      "id": "interface-1",
+      "last_z_mm": 4.76,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        30.7,
+        -169.669,
+        -305.759,
+        73.9,
+        -126.469,
+        -305.279
+      ],
+      "bbox_xy_mm": [
+        193.2,
+        85.6,
+        236.4,
+        128.8
+      ],
+      "build_up_mm": 4.08,
+      "first_z_mm": 4.28,
+      "id": "interface-2",
+      "last_z_mm": 4.76,
+      "tree": "tree-4"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        -2.1,
+        -169.269,
+        -295.679,
+        2.3,
+        -164.869,
+        -295.439
+      ],
+      "bbox_xy_mm": [
+        160.4,
+        86.0,
+        164.8,
+        90.4
+      ],
+      "build_up_mm": 14.16,
+      "first_z_mm": 14.36,
+      "id": "interface-3",
+      "last_z_mm": 14.6,
+      "tree": "tree-2"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        -2.1,
+        -133.269,
+        -295.679,
+        2.3,
+        -128.869,
+        -295.439
+      ],
+      "bbox_xy_mm": [
+        160.4,
+        122.0,
+        164.8,
+        126.4
+      ],
+      "build_up_mm": 14.16,
+      "first_z_mm": 14.36,
+      "id": "interface-4",
+      "last_z_mm": 14.6,
+      "tree": "tree-3"
+    }
+  ],
+  "piece": "enclosure-pump-cap",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 4,
+    "interface_islands": 4,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 4.08,
+    "support_bodies": 4
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -74.1,
+        -170.069,
+        -309.839,
+        -30.1,
+        -126.069,
+        -305.279
+      ],
+      "bbox_xy_mm": [
+        88.4,
+        85.2,
+        132.4,
+        129.2
+      ],
+      "first_interface_z_mm": 4.28,
+      "id": "tree-1",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 4.08,
+      "top_z_mm": 4.76
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -2.5,
+        -169.669,
+        -309.839,
+        2.3,
+        -164.469,
+        -295.439
+      ],
+      "bbox_xy_mm": [
+        160.0,
+        85.6,
+        164.8,
+        90.8
+      ],
+      "first_interface_z_mm": 14.36,
+      "id": "tree-2",
+      "interfaces": [
+        "interface-3"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 14.16,
+      "top_z_mm": 14.6
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -2.5,
+        -133.669,
+        -309.839,
+        2.3,
+        -128.469,
+        -295.439
+      ],
+      "bbox_xy_mm": [
+        160.0,
+        121.6,
+        164.8,
+        126.8
+      ],
+      "first_interface_z_mm": 14.36,
+      "id": "tree-3",
+      "interfaces": [
+        "interface-4"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 14.16,
+      "top_z_mm": 14.6
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        30.3,
+        -170.069,
+        -309.839,
+        74.3,
+        -126.069,
+        -305.279
+      ],
+      "bbox_xy_mm": [
+        192.8,
+        85.2,
+        236.8,
+        129.2
+      ],
+      "first_interface_z_mm": 4.28,
+      "id": "tree-4",
+      "interfaces": [
+        "interface-2"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 4.08,
+      "top_z_mm": 4.76
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "gcode": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v13/ready/enclosure-front-top-black-z018-h2c-v13.gcode.3mf",
+  "object_id": 1901,
+  "requested_layer_height_mm": 0.08,
+  "spans": [
+    {
+      "name": "roof-side",
+      "print_z_mm": [
+        189.0,
+        195.0
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        189.08,
+        0.080002
+      ],
+      "last_wall_layer": [
+        195.0,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "roof-corners",
+      "print_z_mm": [
+        187.392,
+        195.0
+      ],
+      "wall_layer_count": 96,
+      "first_wall_layer": [
+        187.4,
+        0.079987
+      ],
+      "last_wall_layer": [
+        195.0,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "roof-front",
+      "print_z_mm": [
+        192.588,
+        195.0
+      ],
+      "wall_layer_count": 31,
+      "first_wall_layer": [
+        192.6,
+        0.080002
+      ],
+      "last_wall_layer": [
+        195.0,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "pass": true
+}
