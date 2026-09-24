@@ -1,0 +1,26 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-09-24T22:26:44.126319+00:00",
+  "archive": {
+    "name": "enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+    "sha256": "43d63a6328d3075929292dc90855d393909aec0b1e2e7f47e039821ac6c8bcaa",
+    "gcode_sha256": "55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "enclosure-front-bottom"
+    ]
+  },
+  "printer_task_id": "1279923918",
+  "gcode_state": "PREPARE",
+  "subtask_name": "enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 1370,
+  "total_layer_num": 1370,
+  "mc_remaining_time": 0
+}

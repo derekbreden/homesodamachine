@@ -612,3 +612,34 @@ A subsequent reading reports RUNNING with the matching job name and no error or
 HMS alert. Physical finish, cleanup and assembled fit remain unassessed.
 
 [Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md).
+
+## Front-bottom with unsupported handhold rounds — H2C, 2026-09-24 UTC
+
+Task `1279923918` reports PREPARE with
+`enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf`.
+The current shell prints upright in black PET-GF on left external spool 254.
+Geometry and placement match the current STEP/STL files. The first layer is
+0.20 mm; complete handhold rounds and their visible flute run-outs use 0.08 mm
+at print Z 29.15–44.3 mm; the remaining model uses 0.24 mm.
+
+Six walls apply only at print Z 29.15–41.3 mm, through the downward curves.
+The normal setting is two walls. Original inner-wall/outer-wall/infill order,
+speeds, acceleration, temperature, cooling and 15% overlap remain intact.
+The physical result of this treatment on front-bottom is pending.
+
+All downward rounded handhold faces have support blockers. Support contact is
+inset 0.8 mm on the separate flat lifting ceilings. Four bed-rooted bodies retain
+the two flat lifting ceilings and two seam catches, with open removal lanes.
+The emitted-path check finds no support bead, including a 0.05 mm XY allowance,
+within 0.60 mm below a downward round. No unlabelled support body is present.
+
+Native estimate: 21 h 58 m 44 s, 1502 plate layers, 610.85 g at saved profile
+density. Requested H2C trim is +0.18 mm; Textured PEI emits +0.16 mm.
+Timelapse and bed leveling are On; flow and nozzle-offset calibration are Auto.
+A macOS notification stopped the first foreground transaction before Print.
+The next import settled for 20 seconds and was accepted with one Send click.
+The accepted job reports no print error or HMS alert; its initial progress
+fields still carry the previous job's layer count. Physical finish and cleanup
+remain unassessed.
+
+[Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).

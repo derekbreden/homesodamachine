@@ -1198,6 +1198,59 @@
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
       }
+    },
+    {
+      "date": "2026-09-24",
+      "printer": "H2C",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl"
+      ],
+      "job_name": "enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+      "printer_task_id": "1279923918",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "PREPARE",
+      "observed_at_utc": "2026-09-24T22:26:57.731777+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-24-enclosure-front-bottom-h2c-v7/ready/enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+      "sliced_file_sha256": "43d63a6328d3075929292dc90855d393909aec0b1e2e7f47e039821ac6c8bcaa",
+      "gcode_sha256": "55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/manifest.json",
+      "z_offset_mm": 0.18,
+      "effective_textured_plate_trim_mm": 0.16,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254",
+      "estimated_seconds": 79124,
+      "filament_grams": 610.85,
+      "layer_count": 1502,
+      "layer_ranges": [
+        {
+          "min_z": 29.15,
+          "max_z": 41.3,
+          "options": {
+            "layer_height": "0.08",
+            "wall_loops": "6"
+          }
+        },
+        {
+          "min_z": 41.3,
+          "max_z": 44.3,
+          "options": {
+            "layer_height": "0.08"
+          }
+        }
+      ],
+      "normal_wall_loops": 2,
+      "downward_handhold_round_wall_loops": 6,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "unchanged saved profile",
+      "support_policy": "Block all downward handhold rounds; inset flat-ceiling support contact 0.8 mm; retain functional ceilings and seam catches.",
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f"
+      }
     }
   ]
 }

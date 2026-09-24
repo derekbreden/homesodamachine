@@ -1,0 +1,217 @@
+{
+  "section_cad_y_mm": 190,
+  "section_plate_y_mm": 241.2249984741211,
+  "side": "west",
+  "scope": "Outermost contiguous wall group at sampled heights; gaps greater than 1 mm separate opposite wall groups. Full layer-range settings are recorded in verification.json.",
+  "samples": [
+    {
+      "z_mm": 28.04,
+      "outermost_wall_group": [
+        {
+          "x_mm": 69.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 69.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 2,
+      "observed_wall_count": 2,
+      "pass": true
+    },
+    {
+      "z_mm": 35.96,
+      "outermost_wall_group": [
+        {
+          "x_mm": 58.455,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 58.873,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 59.306,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 59.739,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 60.172,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 60.604,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 6,
+      "observed_wall_count": 6,
+      "pass": true
+    },
+    {
+      "z_mm": 37.96,
+      "outermost_wall_group": [
+        {
+          "x_mm": 56.21572,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.63369,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.06678,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.49931,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.93239,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.36505,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 6,
+      "observed_wall_count": 6,
+      "pass": true
+    },
+    {
+      "z_mm": 39.96,
+      "outermost_wall_group": [
+        {
+          "x_mm": 55.359,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.77652,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.20953,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.64255,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.07556,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.508,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 6,
+      "observed_wall_count": 6,
+      "pass": true
+    },
+    {
+      "z_mm": 41.32,
+      "outermost_wall_group": [
+        {
+          "x_mm": 55.54146,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.95926,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.39212,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.82531,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.25883,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.6917,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 6,
+      "observed_wall_count": 6,
+      "pass": true
+    },
+    {
+      "z_mm": 41.96,
+      "outermost_wall_group": [
+        {
+          "x_mm": 55.76025,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.17927,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 2,
+      "observed_wall_count": 2,
+      "pass": true
+    },
+    {
+      "z_mm": 44.28,
+      "outermost_wall_group": [
+        {
+          "x_mm": 56.35775,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.78194,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 2,
+      "observed_wall_count": 2,
+      "pass": true
+    },
+    {
+      "z_mm": 45.0,
+      "outermost_wall_group": [
+        {
+          "x_mm": 56.35875,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.74827,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 2,
+      "observed_wall_count": 2,
+      "pass": true
+    },
+    {
+      "z_mm": 50.04,
+      "outermost_wall_group": [
+        {
+          "x_mm": 56.35875,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.74827,
+          "feature": "Inner wall"
+        }
+      ],
+      "expected_wall_count": 2,
+      "observed_wall_count": 2,
+      "pass": true
+    }
+  ],
+  "pass": true
+}
