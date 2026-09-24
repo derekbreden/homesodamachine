@@ -1,0 +1,448 @@
+{
+  "slicer": "BambuStudio 02.08.02.61",
+  "scope": "Sculpted faucet shell base, shared shell tip, display cover and above-counter plate; accepted lever timed separately. TPU gasket excluded.",
+  "submitted": false,
+  "faucet": [
+    {
+      "style": "sculpted",
+      "variant": "baseline",
+      "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+      "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+      "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-baseline/faucet-texture-sculpted-baseline.3mf",
+      "staged_sha256": "f846516eb14d3dcd6fa3d03b67d876ccdc9eeae84ea92b881c5f82b24b47781f",
+      "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-baseline/ready/faucet-texture-sculpted-baseline.gcode.3mf",
+      "native_sha256": "3f7f92d3a7e9b4ae34d04d4ce97e6a5c8e1ce728e81e5cacc754de25ca84670e",
+      "gcode_sha256": "38686ec67e2e6f96d11b33264c09cf155e56a0e14ca6aff7c9c4af8bef3a7e28",
+      "settings_changes": {},
+      "common_native_normalization": {
+        "filament_map_2": {
+          "project": null,
+          "native": [
+            "1"
+          ]
+        },
+        "filament_prime_volume": {
+          "project": [
+            "30"
+          ],
+          "native": [
+            "45"
+          ]
+        }
+      },
+      "fine_ranges_print_z_mm": {},
+      "fine_upper_base_start_mm": 150.23999999999998,
+      "geometry_and_placement_unchanged": true,
+      "total_estimated_seconds": 16270.4287109375,
+      "model_estimated_seconds": 15944.6005859375,
+      "filament_grams": 126.39708709716797,
+      "slicer_warning": "",
+      "wall_layer_runs": {
+        "faucet-shell-base": [
+          {
+            "height_mm": 0.2,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.2,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.2,
+            "last_z_mm": 244.52,
+            "layer_count": 1018
+          }
+        ],
+        "faucet-shell-tip": [
+          {
+            "height_mm": 0.2,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.2,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.2,
+            "last_z_mm": 136.76,
+            "layer_count": 569
+          }
+        ],
+        "faucet-display-cover": [
+          {
+            "height_mm": 0.2,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.2,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.2,
+            "last_z_mm": 18.44,
+            "layer_count": 76
+          }
+        ],
+        "above-counter-plate": [
+          {
+            "height_mm": 0.2,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.2,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.2,
+            "last_z_mm": 6.2,
+            "layer_count": 25
+          }
+        ]
+      },
+      "object_count": 4,
+      "submitted": false
+    },
+    {
+      "style": "sculpted",
+      "variant": "fine-cover",
+      "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+      "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+      "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-fine-cover/faucet-texture-sculpted-fine-cover.3mf",
+      "staged_sha256": "748e0d04ffb1b9e13bab9b84d0c378fe61fbd98b61b22812f213221aebe933a3",
+      "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-fine-cover/ready/faucet-texture-sculpted-fine-cover.gcode.3mf",
+      "native_sha256": "95aead7709c86ba2ed5bd4a43edfeaac693f5377952cb82e189c435862d41353",
+      "gcode_sha256": "ddcc5605f2bbf61e8886545792b7a715418721e14f9eeda820b59e1053d8aca1",
+      "settings_changes": {
+        "initial_layer_print_height": {
+          "reference": "0.2",
+          "value": "0.08"
+        }
+      },
+      "common_native_normalization": {
+        "filament_map_2": {
+          "project": null,
+          "native": [
+            "1"
+          ]
+        },
+        "filament_prime_volume": {
+          "project": [
+            "30"
+          ],
+          "native": [
+            "45"
+          ]
+        }
+      },
+      "fine_ranges_print_z_mm": {
+        "3": [
+          [
+            0.0,
+            100.0,
+            0.08
+          ]
+        ]
+      },
+      "fine_upper_base_start_mm": 150.23999999999998,
+      "geometry_and_placement_unchanged": true,
+      "total_estimated_seconds": 17468.74609375,
+      "model_estimated_seconds": 17142.9140625,
+      "filament_grams": 127.93600463867188,
+      "slicer_warning": "",
+      "wall_layer_runs": {
+        "faucet-shell-base": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.08,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.08,
+            "last_z_mm": 244.4,
+            "layer_count": 1018
+          }
+        ],
+        "faucet-shell-tip": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.08,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.08,
+            "last_z_mm": 136.64,
+            "layer_count": 569
+          }
+        ],
+        "faucet-display-cover": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 18.56,
+            "layer_count": 232
+          }
+        ],
+        "above-counter-plate": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.08,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.08,
+            "last_z_mm": 6.32,
+            "layer_count": 26
+          }
+        ]
+      },
+      "object_count": 4,
+      "submitted": false
+    },
+    {
+      "style": "sculpted",
+      "variant": "fine-upper",
+      "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+      "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+      "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-fine-upper/faucet-texture-sculpted-fine-upper.3mf",
+      "staged_sha256": "d76f4233a7fb744ac43ce0145da9866a30decdec587d132f732bab9b7c28293d",
+      "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-fine-upper/ready/faucet-texture-sculpted-fine-upper.gcode.3mf",
+      "native_sha256": "99bd4335905a8613c908c46191639890223debaeda10409cdb5753f6fe719c40",
+      "gcode_sha256": "2c1c59fa9d46f30ab7599bc1ca18aa4e3fca34318d1cc741b7f564893b296076",
+      "settings_changes": {
+        "initial_layer_print_height": {
+          "reference": "0.2",
+          "value": "0.08"
+        }
+      },
+      "common_native_normalization": {
+        "filament_map_2": {
+          "project": null,
+          "native": [
+            "1"
+          ]
+        },
+        "filament_prime_volume": {
+          "project": [
+            "30"
+          ],
+          "native": [
+            "45"
+          ]
+        }
+      },
+      "fine_ranges_print_z_mm": {
+        "3": [
+          [
+            0.0,
+            100.0,
+            0.08
+          ]
+        ],
+        "1": [
+          [
+            150.23999999999998,
+            300.0,
+            0.08
+          ]
+        ],
+        "2": [
+          [
+            0.0,
+            300.0,
+            0.08
+          ]
+        ]
+      },
+      "fine_upper_base_start_mm": 150.23999999999998,
+      "geometry_and_placement_unchanged": true,
+      "total_estimated_seconds": 27258.90234375,
+      "model_estimated_seconds": 26933.0703125,
+      "filament_grams": 131.64974975585938,
+      "slicer_warning": "",
+      "wall_layer_runs": {
+        "faucet-shell-base": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.08,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.08,
+            "last_z_mm": 150.32,
+            "layer_count": 626
+          },
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 150.32,
+            "last_z_mm": 244.24,
+            "layer_count": 1174
+          }
+        ],
+        "faucet-shell-tip": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 136.48,
+            "layer_count": 1706
+          }
+        ],
+        "faucet-display-cover": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 18.56,
+            "layer_count": 232
+          }
+        ],
+        "above-counter-plate": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 0.08,
+            "layer_count": 1
+          },
+          {
+            "height_mm": 0.24,
+            "bottom_z_mm": 0.08,
+            "last_z_mm": 6.32,
+            "layer_count": 26
+          }
+        ]
+      },
+      "object_count": 4,
+      "submitted": false
+    },
+    {
+      "style": "sculpted",
+      "variant": "all-fine",
+      "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+      "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+      "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-all-fine/faucet-texture-sculpted-all-fine.3mf",
+      "staged_sha256": "04100a0e3e5d1b535466134525427f20ebf77511877925ce14020625f6ddd2ff",
+      "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-all-fine/ready/faucet-texture-sculpted-all-fine.gcode.3mf",
+      "native_sha256": "7d55fc779d0b55110a9319ad2dabead79b06e0cdd5cbd4de446863c9614ef99d",
+      "gcode_sha256": "32acf35c61417f1238945df9d5c51d4023ffd73fa90bd141d8618592637d5be1",
+      "settings_changes": {
+        "initial_layer_print_height": {
+          "reference": "0.2",
+          "value": "0.08"
+        },
+        "layer_height": {
+          "reference": "0.24",
+          "value": "0.08"
+        }
+      },
+      "common_native_normalization": {
+        "filament_map_2": {
+          "project": null,
+          "native": [
+            "1"
+          ]
+        },
+        "filament_prime_volume": {
+          "project": [
+            "30"
+          ],
+          "native": [
+            "45"
+          ]
+        }
+      },
+      "fine_ranges_print_z_mm": {},
+      "fine_upper_base_start_mm": 150.23999999999998,
+      "geometry_and_placement_unchanged": true,
+      "total_estimated_seconds": 42052.08984375,
+      "model_estimated_seconds": 41726.26171875,
+      "filament_grams": 133.14242553710938,
+      "slicer_warning": "",
+      "wall_layer_runs": {
+        "faucet-shell-base": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 244.24,
+            "layer_count": 3053
+          }
+        ],
+        "faucet-shell-tip": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 136.64,
+            "layer_count": 1708
+          }
+        ],
+        "faucet-display-cover": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 18.56,
+            "layer_count": 232
+          }
+        ],
+        "above-counter-plate": [
+          {
+            "height_mm": 0.08,
+            "bottom_z_mm": 0.0,
+            "last_z_mm": 6.24,
+            "layer_count": 78
+          }
+        ]
+      },
+      "object_count": 4,
+      "submitted": false
+    }
+  ],
+  "lever": [
+    {
+      "part": "Accepted lever replica",
+      "variant": "baseline",
+      "source_project": "hardware/printed-parts/faucet/lever-replica/lever-original-wide-white-z004-mark2.3mf",
+      "source_sha256": "f85b7b9063cf038ef28262d2a0dc659ebc8268d0b3d2ff9439ccb2e0f32cfca4",
+      "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/lever-baseline/ready/lever-texture-baseline.gcode.3mf",
+      "native_sha256": "2aeb80f9a50ff7547a13d7dce1beaadff59894e20a503834623e0f8bf34e9add",
+      "gcode_sha256": "74643d682eeb7cf0f533e92501745732ed842716dfeca9193f976071d7470225",
+      "geometry_and_placement_unchanged": true,
+      "total_estimated_seconds": 998.3109741210938,
+      "model_estimated_seconds": 672.551513671875,
+      "filament_grams": 4.042119026184082,
+      "slicer_warning": "",
+      "wall_layer_count": 52,
+      "wall_layer_heights": [
+        0.2,
+        0.24
+      ],
+      "submitted": false
+    },
+    {
+      "part": "Accepted lever replica",
+      "variant": "all-fine",
+      "source_project": "hardware/printed-parts/faucet/lever-replica/lever-original-wide-white-z004-mark2.3mf",
+      "source_sha256": "f85b7b9063cf038ef28262d2a0dc659ebc8268d0b3d2ff9439ccb2e0f32cfca4",
+      "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/lever-all-fine/ready/lever-texture-all-fine.gcode.3mf",
+      "native_sha256": "41b76f3c81e5b5e3b3f882dd6f3227be4045474ea5ab71cb48bc22f94ce5f178",
+      "gcode_sha256": "2912fb6f0ca9274e76e004e1676be3d6596b5674aa5b4bab6c663dd1a701cd00",
+      "geometry_and_placement_unchanged": true,
+      "total_estimated_seconds": 2090.226806640625,
+      "model_estimated_seconds": 1764.4627685546875,
+      "filament_grams": 4.321669101715088,
+      "slicer_warning": "",
+      "wall_layer_count": 155,
+      "wall_layer_heights": [
+        0.08
+      ],
+      "submitted": false
+    }
+  ],
+  "physical_observation": {
+    "authority": "Derek, tee carrier on Mark2, 2026-09-24",
+    "layer_0_24": "Flat and rounded surfaces feel smooth but sandy, like very fine-grained sand; feels expensive.",
+    "layer_0_08": "Feels like fuzz: a solid, smooth surface covered completely in very fine, tiny fuzz that is part of the surface and does not rub off.",
+    "faucet_texture_confirmed": false
+  },
+  "material_reference": "https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf"
+}

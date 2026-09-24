@@ -1,0 +1,95 @@
+{
+  "style": "sculpted",
+  "variant": "baseline",
+  "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+  "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-baseline/faucet-texture-sculpted-baseline.3mf",
+  "staged_sha256": "f846516eb14d3dcd6fa3d03b67d876ccdc9eeae84ea92b881c5f82b24b47781f",
+  "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-baseline/ready/faucet-texture-sculpted-baseline.gcode.3mf",
+  "native_sha256": "3f7f92d3a7e9b4ae34d04d4ce97e6a5c8e1ce728e81e5cacc754de25ca84670e",
+  "gcode_sha256": "38686ec67e2e6f96d11b33264c09cf155e56a0e14ca6aff7c9c4af8bef3a7e28",
+  "settings_changes": {},
+  "common_native_normalization": {
+    "filament_map_2": {
+      "project": null,
+      "native": [
+        "1"
+      ]
+    },
+    "filament_prime_volume": {
+      "project": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    }
+  },
+  "fine_ranges_print_z_mm": {},
+  "fine_upper_base_start_mm": 150.23999999999998,
+  "geometry_and_placement_unchanged": true,
+  "total_estimated_seconds": 16270.4287109375,
+  "model_estimated_seconds": 15944.6005859375,
+  "filament_grams": 126.39708709716797,
+  "slicer_warning": "",
+  "wall_layer_runs": {
+    "faucet-shell-base": [
+      {
+        "height_mm": 0.2,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.2,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.2,
+        "last_z_mm": 244.52,
+        "layer_count": 1018
+      }
+    ],
+    "faucet-shell-tip": [
+      {
+        "height_mm": 0.2,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.2,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.2,
+        "last_z_mm": 136.76,
+        "layer_count": 569
+      }
+    ],
+    "faucet-display-cover": [
+      {
+        "height_mm": 0.2,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.2,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.2,
+        "last_z_mm": 18.44,
+        "layer_count": 76
+      }
+    ],
+    "above-counter-plate": [
+      {
+        "height_mm": 0.2,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.2,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.2,
+        "last_z_mm": 6.2,
+        "layer_count": 25
+      }
+    ]
+  },
+  "object_count": 4,
+  "submitted": false
+}

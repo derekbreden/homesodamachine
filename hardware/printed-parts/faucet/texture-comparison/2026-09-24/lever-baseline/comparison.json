@@ -1,0 +1,20 @@
+{
+  "part": "Accepted lever replica",
+  "variant": "baseline",
+  "source_project": "hardware/printed-parts/faucet/lever-replica/lever-original-wide-white-z004-mark2.3mf",
+  "source_sha256": "f85b7b9063cf038ef28262d2a0dc659ebc8268d0b3d2ff9439ccb2e0f32cfca4",
+  "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/lever-baseline/ready/lever-texture-baseline.gcode.3mf",
+  "native_sha256": "2aeb80f9a50ff7547a13d7dce1beaadff59894e20a503834623e0f8bf34e9add",
+  "gcode_sha256": "74643d682eeb7cf0f533e92501745732ed842716dfeca9193f976071d7470225",
+  "geometry_and_placement_unchanged": true,
+  "total_estimated_seconds": 998.3109741210938,
+  "model_estimated_seconds": 672.551513671875,
+  "filament_grams": 4.042119026184082,
+  "slicer_warning": "",
+  "wall_layer_count": 52,
+  "wall_layer_heights": [
+    0.2,
+    0.24
+  ],
+  "submitted": false
+}

@@ -12,6 +12,10 @@ It applies to the PET-GF shell, display cover and above-counter plate.
 The retained Westbrass lever, display glass, tubing and TPU gasket keep their
 own materials and colors. Each style uses one geometry in either finish.
 
+The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
+compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
+plate. It also times the accepted printed lever separately.
+
 ## Parts
 
 Both styles enclose the same harvested Westbrass, retained lever, Waveshare
