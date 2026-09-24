@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-09-24T06:28:55.940750+00:00",
+  "printer": "Mark2",
+  "gcode_state": "FINISH",
+  "subtask_name": "tee-carrier-plate-black-z004-mark2-v10.gcode.3mf",
+  "job_id": "1277634817",
+  "mc_percent": 100,
+  "layer_num": 189,
+  "total_layer_num": 189,
+  "mc_remaining_time": 0,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 43.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 48.0,
+  "bed_target_temper": 0.0,
+  "user_observation": "A lot of things turned out well. Supports got in the way and were too small to be helpful at this layer height and near a corbel. Plate cleared; repeat with the same settings and no supports."
+}
