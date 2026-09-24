@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "status": "reviewed_not_sent",
+  "job": "bulkhead-rings-tap-flavor-v3",
+  "printer": "Mark2",
+  "request": "Derek: repeat the TAP and two FLAVOR collars with 0.08 mm layers and the lettered faces down like the accepted nameplate; Mark2 bed clear; +0.04 mm requested Z trim.",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/manifest.json",
+  "staged_project": {
+    "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/bulkhead-rings-tap-flavor-black-white-z004-mark2-v3-input.3mf",
+    "sha256": "aace0e0a1e3d4825f949b3b93529c4421273ee0363d9f508b9e7bce7763db9a9",
+    "changed_member_from_v2": [
+      "3D/3dmodel.model"
+    ]
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v3.gcode.3mf",
+    "sha256": "293f5e37d0ebb50361dd01fe9254ad8b6a516b294ba3b79cf9545ff05a77805b"
+  },
+  "gcode_sha256": "56073da5920d9b101e5ee9e689ec78a28ea7461f6d56f6895c63da21d76b5bf1",
+  "source_steps": {
+    "water": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+      "sha256": "8bca4ae15f9f89e6f9139fd49d65518d72d19060deac7037884da8ad09d8cf08"
+    },
+    "flavor-a": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+      "sha256": "74dd91767a7ad3f3879c4ed5520db74d2cd9d6ba430b89fa8673a0f07f556c35"
+    },
+    "flavor-b": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+      "sha256": "3814cd4b9f02fcec3fa5a273b445bb93da370ce80439abe1c16f0b2a5d1c6332"
+    }
+  },
+  "orientation": "Outboard lettered faces down; all six meshes rotated 180 degrees about X; ink faces occupy print Z 0-1 mm; lettering reads from the bed face.",
+  "plate": {
+    "water": {
+      "chip": "white",
+      "word": "black"
+    },
+    "flavor-a": {
+      "chip": "black",
+      "word": "white"
+    },
+    "flavor-b": {
+      "chip": "black",
+      "word": "white"
+    }
+  },
+  "filaments": {
+    "left hotend, external 254": "black PET-GF",
+    "right hotend, external 255": "white PET-GF"
+  },
+  "layer_height_mm": 0.08,
+  "layer_count": 25,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "support": "none",
+  "slicer_warning_message": "",
+  "estimated_seconds": 3085.17724609375,
+  "review_artifact_sha256": {
+    "build_face_down.py": "5e3dede6bcbb428991b71e72b9ed33daaf999e95af5e06d4e44ef6977b8f3f15",
+    "first-layer-bed-view.png": "3b93a4df591d75ba8ccfb65a936e6486fa2e8c22181c849ff23f589bbb66fc07",
+    "slice-result.json": "42897abc8230dcdc1d9c0eb78b4ec4c116b7c1b9b665020282bcebd3b21dae75",
+    "slice-verification.json": "a6a90c12a7b6eac7585b22d630e4fc6c956bb7cdbd1ddae87482f81c58d62fe4"
+  }
+}

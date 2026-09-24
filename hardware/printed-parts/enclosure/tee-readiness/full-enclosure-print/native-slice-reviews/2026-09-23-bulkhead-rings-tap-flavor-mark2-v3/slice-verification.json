@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "status": "pass",
+  "orientation": "lettered outboard faces against the bed",
+  "source_step_sha256": {
+    "water": "8bca4ae15f9f89e6f9139fd49d65518d72d19060deac7037884da8ad09d8cf08",
+    "flavor-a": "74dd91767a7ad3f3879c4ed5520db74d2cd9d6ba430b89fa8673a0f07f556c35",
+    "flavor-b": "3814cd4b9f02fcec3fa5a273b445bb93da370ce80439abe1c16f0b2a5d1c6332"
+  },
+  "source_project_sha256": "ea9ffbbae864f0e047ce6d88e6b00690381e71ac379736b1dde8ec0e1112b4d4",
+  "staged_project_sha256": "aace0e0a1e3d4825f949b3b93529c4421273ee0363d9f508b9e7bce7763db9a9",
+  "archive_sha256": "293f5e37d0ebb50361dd01fe9254ad8b6a516b294ba3b79cf9545ff05a77805b",
+  "gcode_sha256": "56073da5920d9b101e5ee9e689ec78a28ea7461f6d56f6895c63da21d76b5bf1",
+  "requested_mark2_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "layer_count": 25,
+  "layer_z_mm": [
+    0.08,
+    0.16,
+    0.24,
+    0.32,
+    0.4,
+    0.48,
+    0.56,
+    0.64,
+    0.72,
+    0.8,
+    0.88,
+    0.96,
+    1.04,
+    1.12,
+    1.2,
+    1.28,
+    1.36,
+    1.44,
+    1.52,
+    1.6,
+    1.68,
+    1.76,
+    1.84,
+    1.92,
+    2.0
+  ],
+  "layer_height_mm": 0.08,
+  "solid_shell_layers": {
+    "top": 13,
+    "bottom": 13
+  },
+  "first_layer_model_road_counts_by_object_and_tool": {
+    "2303": {
+      "0": 57,
+      "1": 639
+    },
+    "2306": {
+      "0": 851,
+      "1": 153
+    },
+    "2309": {
+      "0": 851,
+      "1": 153
+    }
+  },
+  "first_layer_bed_view_image": "first-layer-bed-view.png",
+  "first_layer_bed_view_sha256": "3b93a4df591d75ba8ccfb65a936e6486fa2e8c22181c849ff23f589bbb66fc07",
+  "features": [
+    "Bottom surface",
+    "Custom",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Prime tower",
+    "Top surface"
+  ],
+  "slicer_warning_message": "",
+  "estimated_seconds": 3085.17724609375,
+  "total_filament_used_g": 9.48081088066101
+}
