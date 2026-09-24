@@ -72,9 +72,9 @@ def ax(*args, check=True):
     return output
 
 
-def tree():
+def tree(check=True):
     nodes = []
-    for line in ax("tree").splitlines():
+    for line in ax("tree", check=check).splitlines():
         match = NODE.match(line)
         if not match:
             continue
@@ -99,10 +99,13 @@ def find(nodes, role=None, label=None, starts=None, ends=None):
     ]
 
 
-def wait_for(seconds, predicate):
+def wait_for(seconds, predicate, check=True):
+    """Poll the tree until `predicate` holds. With check=False an accessibility read that
+    fails is an empty tree for that poll, not an exit: after Send, the printer's own
+    report still has to be read whatever the application is doing."""
     deadline = time.monotonic() + seconds
     while time.monotonic() < deadline:
-        nodes = tree()
+        nodes = tree(check=check)
         found = predicate(nodes)
         if found:
             return found
@@ -462,7 +465,8 @@ def main():
 
         with Listener(printer) as listener:
             ax("press", "confirm", "--role", "AXButton")
-            dialog_closed = bool(wait_for(30, lambda n: not dialog(n) and n))
+            read_page("at the press")
+            dialog_closed = bool(wait_for(30, lambda n: n and not dialog(n) and n, check=False))
             print("send: dialog closed" if dialog_closed
                   else "send: dialog still open 30 s after the one press; not pressing again")
             # What the application shows after Send: its device page reads Downloading while
@@ -494,7 +498,7 @@ def main():
                     print("send: the application still reads as sending; waiting")
                     continue
                 heard = listener.drain()
-                if not dialog_closed and dialog(tree()):
+                if not dialog_closed and dialog(tree(check=False)):
                     ax("press", "cancel", "--role", "AXButton", check=False)
                 same_job = reading.get("job_id") == before.get("job_id")
                 raise Refused(
@@ -510,7 +514,7 @@ def main():
             heard = listener.drain()
             if heard:
                 print("send: printer reported " + json.dumps(heard)[:600])
-            if not dialog_closed and not wait_for(15, lambda n: not dialog(n) and n):
+            if not dialog_closed and not wait_for(15, lambda n: n and not dialog(n) and n, check=False):
                 print("send: the job landed with the dialog still open; closing it")
                 ax("press", "cancel", "--role", "AXButton", check=False)
         return reading
@@ -554,8 +558,12 @@ def main():
             print(f"send: {refused}")
             if round_ == SEND_ROUNDS - 1:
                 fail(str(refused))
-            if any(h.get("command") == "project_file" for h in refused.heard):
-                fail(str(refused) + "; the printer answered the command, so it is not sent again")
+            # Anything the printer showed of this send (a command reply, an upload, a busy
+            # state, even one that cleared) says the first attempt may have been taken; it is
+            # not sent again until someone has looked.
+            if any(h.get("command") == "project_file" or "upload" in h
+                   or (h.get("gcode_state") or ("",))[0] in BUSY for h in refused.heard):
+                fail(str(refused) + "; the printer showed activity from this send, so it is not sent again")
             before = status(printer)
             if manual_heat(before):
                 print(f"{args.printer}: {manual_heat(before)}; sending again when the heaters are idle")
