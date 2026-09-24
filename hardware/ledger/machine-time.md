@@ -27,14 +27,14 @@ Masses come from §7, which is commit-gated, so a printed part cannot change sha
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
 | Cold-core PET-GF, 0.8 TC | Cold-core shell, four foam-cap pieces — the stack the box's own fluted skin is carried onto, printed on the big nozzle rather than the exterior's fine one ([foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)) | [13.3](MT_RATE_BULK) h/kg — est., the [12.8](MT_RATE_BULK_PETG) measured plate carried across the stock | [2.511](MT_KG_BULK) kg | [33.4](MT_H_BULK) |
-| Enclosure exterior PET-GF, 0.4 TC | The four quadrants, the lower pump cradle and its top clamp, display cover plate — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.236](MT_KG_EXT) kg | [101.0](MT_H_EXT) |
+| Enclosure exterior PET-GF, 0.4 TC | The four quadrants, the lower pump cradle and its top clamp, display cover plate — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.213](MT_KG_EXT) kg | [100.2](MT_H_EXT) |
 | Watertight translucent PETG, 0.6 nozzle | Both reservoir bodies + caps — 3 mm walls as 5 × 0.60 mm beads, Arachne, for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)); the nozzle is the one all three logged runs were made on ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) | [26](MT_RATE_TIGHT) h/kg — est., ~½ the measured plate's volumetric rate | [0.890](MT_KG_TIGHT) kg | [23.1](MT_H_TIGHT) |
-| Small PETG parts | ASSE drip pan, plug stack, PRV shroud, reed bridge, fuse clamp — one plate holds them all, and the three cold-core ones are the parts the PET-GF stack closes over | [36](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.082](MT_KG_SMALL) kg | [3.0](MT_H_SMALL) |
+| Small PETG parts | ASSE drip pan, plug stack, PRV shroud, reed bridge, fuse clamp — one plate holds them all, and the three cold-core ones are the parts the PET-GF stack closes over | [36](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.080](MT_KG_SMALL) kg | [2.9](MT_H_SMALL) |
 | Collet press PET-GF, 0.4 TC | The supportless install-kit tool — 0.24 mm layers, at least six walls and a solid dense core ([collet-press/README.md](/hardware/printed-parts/collet-press/README.md)) | [36](MT_RATE_TOOL) h/kg — est., the small-part rate until its first slice is logged | [0.017](MT_KG_TOOL) kg | [0.6](MT_H_TOOL) |
 | Faucet PET-GF, 0.4 TC | Faucet shell, its display cover plate and the above-counter plate — four pieces on one plate, 0.24 mm layers, two wall loops and 15 % grid ([faucet-petgf.md](/hardware/printed-parts/faucet/faucet-petgf.md)) | [34.7](MT_RATE_PETGF) h/kg — duration from saved-profile slice | [0.130](MT_KG_PETGF) kg | [4.5](MT_H_PETGF) |
-| **Printer time per unit** | | | **[6.866](MT_KG)** kg | **[165.6](MT_H_PRINT)** |
+| **Printer time per unit** | | | **[6.841](MT_KG)** kg | **[164.8](MT_H_PRINT)** |
 
-Spread across [2](MT_PRINTERS) machines that is **[82.8](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
+Spread across [2](MT_PRINTERS) machines that is **[82.4](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
 Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the print from the same unit, so PETG costs no separate cycle. PET-GF15 is dried [10 h at 100 °C](MT_PETGF_DRY) per spool, not per build, and feeds the print from a PolyDryer Box XL ([tools.md](/hardware/ledger/tools.md) "What dries where") — which is now the path all but [0.97](MT_KG_PETG_UNIT) kg of a unit's filament takes.
 
@@ -73,12 +73,12 @@ The printers are the constraint and nothing else is close. Per unit:
 
 | Machine | Occupied per unit | Units/year at 100 % | |
 |---|---:|---:|---|
-| [2](MT_PRINTERS) × H2C | [82.8](MT_H_PRINT_WALL) h wall | [106](MT_CEIL_PRINT) | **the bottleneck** |
+| [2](MT_PRINTERS) × H2C | [82.4](MT_H_PRINT_WALL) h wall | [106](MT_CEIL_PRINT) | **the bottleneck** |
 | Test bench (burn-in + chill) | [9.0](MT_OCC_BENCH) h | [973](MT_CEIL_BENCH) | |
 | Funnel mold + oven | [9.0](MT_OCC_MOLD) h | [973](MT_CEIL_MOLD) | |
 | Hydro rig, passivation tub, vacuum pump | [2.6](MT_OCC_CARBONATOR) h | [3,369](MT_CEIL_CARBONATOR) | |
 
-At [65 %](MT_DUTY) machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the printers give **[~69](MT_UNITS_YEAR) units a year**. A third H2C moves that to [~103](MT_UNITS_YEAR_3); nothing else bought moves it at all.
+At [65 %](MT_DUTY) machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the printers give **[~69](MT_UNITS_YEAR) units a year**. A third H2C moves that to [~104](MT_UNITS_YEAR_3); nothing else bought moves it at all.
 
 ## Turnaround — one unit, cold start
 
@@ -86,18 +86,18 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 | Stage | Hours | |
 |---|---:|---|
-| Print every part | [82.8](MT_H_PRINT_WALL) | 2 printers, both on this unit |
+| Print every part | [82.4](MT_H_PRINT_WALL) | 2 printers, both on this unit |
 | Build the cold core; pour the foam and let it cure | 8.0 | carbonator already done, in parallel with the prints |
 | Assembly, plumbing, wiring | 8.0 | one working day |
 | Power-on and test | 2.0 | |
 | First fill and chill-down | 1.0 | |
 | Burn-in | 8.0 | |
 | Finish and pack | 1.0 | |
-| **Turnaround** | **[110.8](MT_H_TURN)** | **[4.6](MT_DAYS_TURN) days** |
+| **Turnaround** | **[110.4](MT_H_TURN)** | **[4.6](MT_DAYS_TURN) days** |
 
 Runs in parallel with the print, and so costs no turnaround at all: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
-A second unit behind the first does not cost another [4.6](MT_DAYS_TURN) days — it costs the bottleneck's [82.8](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
+A second unit behind the first does not cost another [4.6](MT_DAYS_TURN) days — it costs the bottleneck's [82.4](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 
 ## Open items
 
