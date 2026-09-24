@@ -1,0 +1,94 @@
+{
+ "schema": 1,
+ "status": "printer_reported_running",
+ "printer": "Mark2",
+ "task_id": "1277283660",
+ "request": "Derek, 2026-09-23 (relayed by the Enable print job startup agent, which prepared v2): the 0.20 mm rings turned out awful; reprint at 0.08 mm; Mark2 clear",
+ "first_running_observed_at": "2026-09-24T00:35:45Z",
+ "observed_state": {
+  "printer": "Mark2",
+  "observed_at": "2026-09-24T00:36:06.406998+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "bulkhead-rings-tap-flavor-black-white-z004-mark2-v2.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 25,
+  "mc_remaining_time": 50,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 142.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 47.0,
+  "bed_target_temper": 47.0,
+  "lights_report": [
+   {
+    "mode": "on",
+    "node": "chamber_light"
+   },
+   {
+    "mode": "flashing",
+    "node": "work_light"
+   },
+   {
+    "mode": "on",
+    "node": "chamber_light2"
+   }
+  ],
+  "external_spools": {
+   "254": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+   },
+   "255": {
+    "type": "PET-CF",
+    "colour": "FFFFFFFF"
+   }
+  },
+  "nozzle_type": "HS01-0.4",
+  "nozzles": [
+   {
+    "id": 0,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "20D06A611036799"
+   },
+   {
+    "id": 1,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "N/A"
+   },
+   {
+    "id": 16,
+    "type": "HS01",
+    "diameter": 0.6,
+    "sn": "20D06A5C1014313"
+   },
+   {
+    "id": 18,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A611037433"
+   },
+   {
+    "id": 20,
+    "type": "HH01",
+    "diameter": 0.8,
+    "sn": "20D06A5C3110240"
+   },
+   {
+    "id": 21,
+    "type": "HS01",
+    "diameter": 0.8,
+    "sn": "20D06A610807096"
+   }
+  ]
+ },
+ "native_archive": {
+  "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v2.gcode.3mf",
+  "sha256": "fb89c35bcf9d01783eca1feaa514a4d55f5c281964e2ac22bf15c7e012f393d9",
+  "gcode_sha256": "0a481330c5c8794972c9d4049f33822ca645b869ed4318150acbe5837be60123"
+ },
+ "layers": "25 at 0.08 mm, z 0.08-2.00",
+ "filaments": "left 254 black PET-GF, right 255 white PET-GF"
+}
