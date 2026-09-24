@@ -497,3 +497,13 @@ and 0.08 mm from 14.96 to 21.04. The exposed R6 rounds occupy Z 0–6 and 15.054
 The first layer is 0.08 mm. Two short bed-rooted support slivers lie under the aft rounds.
 
 [Slice and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v10/manifest.json).
+
+## Tee carrier without supports — Mark2, 2026-09-24 UTC
+
+Task `1277839952` reports RUNNING with `tee-carrier-plate-black-z004-mark2-v11-no-supports.gcode.3mf`. The bed contains one smooth tee carrier, using black PET-GF on left external spool 254. Supports are disabled; the native slice contains zero support paths and zero support bodies.
+
+The geometry, placement and all other settings match the successful v10 print. All 189 model layer heights match: 0.08 mm from print Z 0 to 6.08, 0.24 mm from 6.08 to 14.96, and 0.08 mm from 14.96 to 21.04. Requested Z trim is +0.04 mm; the textured-plate command is `G29.1 Z0.02`. Timelapse and bed leveling are On; flow and nozzle offset calibration are Auto.
+
+Derek reports that many things turned out well in v10. Its supports got in the way and were too small to help at this layer height beside the corbels. He cleared the plate and requested this repeat with supports removed.
+
+[Slice comparison and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json).
