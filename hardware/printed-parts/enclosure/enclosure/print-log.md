@@ -574,7 +574,10 @@ layers 1–76 and two on layers 77–113.
 
 Part cooling is 55% after the first three layers, with the auxiliary fan off. Temperatures
 remain 265°C first layer, 280°C thereafter, 80°C bed and no active chamber heat.
-Physical outcome is pending. Native estimate: 2 h 40 m 16 s, 54.60 g. Timelapse and bed
+Derek's in-progress assessment is “probably good enough for now”: no spaghetti failure,
+with a slightly concave lower surface instead of the intended outward round. The reading
+after that feedback reports RUNNING at 47/189 layers, no error; whole-print completion and
+assembled fit are not assessed. Native estimate: 2 h 40 m 16 s, 54.60 g. Timelapse and bed
 leveling On; flow and nozzle-offset calibration Auto. A fresh import with a 20-second
 settling wait was accepted on the first send attempt.
 

@@ -1,0 +1,23 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-09-24",
+  "printer": "Mark2",
+  "printer_task_id": "1279390313",
+  "native_archive_sha256": "47367edf0348852c7b2ef03a4940c521e552014553232c3890290b32bea3f925",
+  "assessment": "provisionally_good_enough_with_residual_concavity",
+  "user_statement": "Well, I can see it worked. We have no spaghetti explosion. It's not a great curve, it's not even a chamfer, it actually clearly angles the wrong direction, so we have a concave curve, even if only slightly.\n\nStill, probably good enough for now.",
+  "observations": {
+    "spaghetti_failure": "Derek reports no spaghetti failure so far.",
+    "lower_curve": "The surface angles inward into a slight concavity instead of forming the intended outward round."
+  },
+  "acceptance": {
+    "level": "provisional",
+    "user_qualification": "probably good enough for now",
+    "scope": "Observed lower-curve usability"
+  },
+  "observation_scope": "In-progress lower-curve observation. The subsequent printer reading is RUNNING at 47/189 layers; the exact layer Derek viewed is not established.",
+  "printer_reading": "physical-feedback-reading.json",
+  "whole_print_completion": "Not established by this observation.",
+  "assembled_fit": "Not assessed by this observation.",
+  "setting_contribution": "Wall count and infill order were changed together; their individual contributions are not isolated."
+}

@@ -4,9 +4,10 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 
 Visible top/bottom rounds at 0.08 mm print without support contacts. Every pending archive
 needs that check on the actual support paths, including unlabelled slivers; a passed layer-band
-review does not establish support exclusion. Derek's completed
-[unsupported tee-carrier trial](../../../tee-carrier/physical-acceptance.json) has a clean upper
-curve and localized lower-curve curling; the lower finish is under thermal evaluation.
+review does not establish support exclusion. Derek's
+[tee-carrier observations](../../../tee-carrier/physical-acceptance.json) provisionally accept
+the v14 lower surface with no observed spaghetti failure and a slight concavity. Six walls
+alone with the original wall-first order is the preferred next recipe and remains untested.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
@@ -53,6 +54,7 @@ curve and localized lower-curve curling; the lower finish is under thermal evalu
 | tee-carrier | Mark2 | completed, task 1277839952; supports disabled; clean upper curve, localized lower-curve curling around layers 20–30 | [2026-09-24-tee-carrier-plate-mark2-v11](2026-09-24-tee-carrier-plate-mark2-v11/manifest.json) |
 | tee-carrier | Mark2 | completed; physical result rejected, task 1278660260; fan-off trial has inward edge retreat, unsupported strands and eventual recovery from the interior | [2026-09-24-tee-carrier-plate-mark2-v12](2026-09-24-tee-carrier-plate-mark2-v12/manifest.json) |
 | tee-carrier | Mark2 | stopped by Derek after renewed edge failure, task 1279237907; failures lie between infill contacts; actual failure layer unknown | [2026-09-24-tee-carrier-plate-mark2-v13](2026-09-24-tee-carrier-plate-mark2-v13/manifest.json) |
-| tee-carrier | Mark2 | running, task 1279390313; six walls only at Z 0–6.1 mm, infill first, original speeds and 15% overlap; one carrier, no supports, physical outcome pending | [2026-09-24-tee-carrier-plate-mark2-v14](2026-09-24-tee-carrier-plate-mark2-v14/manifest.json) |
+| tee-carrier | Mark2 | running, task 1279390313; provisional lower-curve acceptance: no observed spaghetti failure, residual slight concavity; six walls at Z 0–6.1 mm and infill first | [2026-09-24-tee-carrier-plate-mark2-v14](2026-09-24-tee-carrier-plate-mark2-v14/manifest.json) |
+| tee-carrier | Mark2 | prepared, not sent; six walls only at Z 0–6.1 mm, original wall-first order, speeds and 15% overlap; physical result untested | [2026-09-24-tee-carrier-plate-mark2-v15](2026-09-24-tee-carrier-plate-mark2-v15/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.
