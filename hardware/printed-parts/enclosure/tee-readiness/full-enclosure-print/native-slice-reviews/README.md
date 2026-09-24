@@ -4,8 +4,9 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 
 Visible top/bottom rounds at 0.08 mm print without support contacts. Every pending archive
 needs that check on the actual support paths, including unlabelled slivers; a passed layer-band
-review does not establish support exclusion. The physical example is Derek's
-[unsupported tee-carrier curve](../../../tee-carrier/physical-acceptance.json).
+review does not establish support exclusion. Derek's completed
+[unsupported tee-carrier trial](../../../tee-carrier/physical-acceptance.json) has a clean upper
+curve and localized lower-curve curling; the lower finish is under thermal evaluation.
 
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
@@ -49,6 +50,7 @@ review does not establish support exclusion. The physical example is Derek's
 | bulkhead rings | Mark2 | printing since 09-24, task 1277448913; lettered faces down, all 25 layers at 0.08 mm, Mark2 +0.04 mm requested Z trim and the same black/white hotend assignments | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v3](2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/manifest.json) |
 | bulkhead rings | Mark2 | printing on Mark2 since 09-24; face down on the nameplate's settings (0.20 first layer, 0.24) | [2026-09-24-bulkhead-rings-tap-flavor-mark2-v4](2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/manifest.json) |
 | tee-carrier | Mark2 | completed, task 1277634817; carrier only, 0.24 mm base and 0.08 mm through the exposed end rounds including the first layer; +0.04 mm requested Z trim | [2026-09-24-tee-carrier-plate-mark2-v10](2026-09-24-tee-carrier-plate-mark2-v10/manifest.json) |
-| tee-carrier | Mark2 | running, task 1277839952; supports disabled, all other settings and all 189 layer heights match v10; Derek reports the unsupported curve is turning out beautifully | [2026-09-24-tee-carrier-plate-mark2-v11](2026-09-24-tee-carrier-plate-mark2-v11/manifest.json) |
+| tee-carrier | Mark2 | completed, task 1277839952; supports disabled; clean upper curve, localized lower-curve curling around layers 20–30 | [2026-09-24-tee-carrier-plate-mark2-v11](2026-09-24-tee-carrier-plate-mark2-v11/manifest.json) |
+| tee-carrier | Mark2 | running, task 1278660260; fan-off trial, one carrier, no supports, 189 unchanged layer heights, temperatures unchanged | [2026-09-24-tee-carrier-plate-mark2-v12](2026-09-24-tee-carrier-plate-mark2-v12/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

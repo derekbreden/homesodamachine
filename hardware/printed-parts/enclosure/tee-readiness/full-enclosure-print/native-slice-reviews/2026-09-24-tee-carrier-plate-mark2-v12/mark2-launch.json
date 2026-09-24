@@ -1,0 +1,36 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-24T14:02:47.445874+00:00",
+  "printer_task_id": "1278660260",
+  "gcode_state": "RUNNING",
+  "subtask_name": "tee-carrier-plate-black-z004-mark2-v12-fan-off.gcode.3mf",
+  "layer_num": 0,
+  "total_layer_num": 189,
+  "mc_remaining_time": 125,
+  "print_error": 0,
+  "hms": [],
+  "stg_cur": 8,
+  "nozzle_temper": 36.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 36.0,
+  "bed_target_temper": 80.0,
+  "cooling_fan_speed": "0",
+  "material": "black Polymaker PET-GF, left external spool 254",
+  "external_spools": {
+    "254": {
+      "type": "PET-CF",
+      "colour": "000000FF"
+    },
+    "255": {
+      "type": "PET-CF",
+      "colour": "FFFFFFFF"
+    }
+  },
+  "print_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "sender": "tools/bambu_print.py, with a 20-second wait after preparing the fresh send dialog"
+}

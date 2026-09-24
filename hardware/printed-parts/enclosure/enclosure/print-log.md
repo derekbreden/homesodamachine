@@ -500,15 +500,33 @@ The first layer is 0.08 mm. Two short bed-rooted support slivers lie under the a
 
 ## Tee carrier without supports — Mark2, 2026-09-24 UTC
 
-Task `1277839952` reports RUNNING with `tee-carrier-plate-black-z004-mark2-v11-no-supports.gcode.3mf`. The bed contains one smooth tee carrier, using black PET-GF on left external spool 254. Supports are disabled; the native slice contains zero support paths and zero support bodies.
+Task `1277839952` completed at 189/189 layers with `tee-carrier-plate-black-z004-mark2-v11-no-supports.gcode.3mf`. The bed contains one smooth tee carrier, using black PET-GF on left external spool 254. Supports are disabled; the native slice contains zero support paths and zero support bodies.
 
 The geometry, placement and all other settings match the successful v10 print. All 189 model layer heights match: 0.08 mm from print Z 0 to 6.08, 0.24 mm from 6.08 to 14.96, and 0.08 mm from 14.96 to 21.04. Requested Z trim is +0.04 mm; the textured-plate command is `G29.1 Z0.02`. Timelapse and bed leveling are On; flow and nozzle offset calibration are Auto.
 
 Derek reports that many things turned out well in v10. Its supports got in the way and were too small to help at this layer height beside the corbels. He cleared the plate and requested this repeat with supports removed.
 
-Derek's in-progress observation on v11: “The unsupported curve on the tee carrier is turning
-out beautifully.” His direction is to use the same unsupported treatment on other visible
-0.08 mm rounded surfaces, specifically including enclosure back-top.
-[Physical observation and standing application](../tee-carrier/physical-acceptance.json).
+Derek's finished v11 surface has a clean upper curve and localized lower-curve curling.
+The first approximately 20 layers are clean; lifting around layers 20–30 causes nozzle drag
+and 3–6 disturbed layers, then recovery within the 0.08 mm band as the curve steepens.
+The cause remains unconfirmed. Unsupported visible 0.08 mm rounds remain his direction,
+including enclosure back-top, with their thermal performance under evaluation.
+[Physical observation and photos](../tee-carrier/physical-observations/2026-09-24-v11/README.md).
 
 [Slice comparison and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json).
+
+## Tee carrier with part cooling off — Mark2, 2026-09-24 UTC
+
+Task `1278660260` reports RUNNING with
+`tee-carrier-plate-black-z004-mark2-v12-fan-off.gcode.3mf`. One carrier, black PET-GF on left external 254,
+no supports. All 189 layer heights, geometry and placement match v11. Requested Mark2
+Z trim is +0.04 mm; Textured PEI emits +0.02 mm.
+
+The trial turns part cooling off, including the overhang override, to test whether forced
+cooling contributes to the lower curve's lifting. Temperatures remain 265°C on the first
+layer, 280°C thereafter, 80°C bed and no active chamber heat. The physical result is pending.
+Native estimate: 2 h 5 m 46 s, 44.93 g. Timelapse and bed leveling On; flow and nozzle-offset
+calibration Auto. The exact archive was accepted after a fresh import and a 20-second
+settling wait following an invalid-3MF rejection.
+
+[Slice, hypothesis and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/README.md).
