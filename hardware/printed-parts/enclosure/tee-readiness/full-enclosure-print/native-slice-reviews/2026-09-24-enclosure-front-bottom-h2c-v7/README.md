@@ -2,10 +2,10 @@
 
 H2C accepted task **1279923918** for the current front-bottom in black PET-GF on
 left external spool 254. Native estimate: **21 h 58 m 44 s**, 1502 plate layers.
-The [launch receipt](launch.json) identifies the accepted archive; the
-[subsequent reading](observed-start.json) reports PREPARE, no print error and no
-HMS alert. The layer count in that initial transition reading belongs to the
-preceding job and does not measure this print's progress.
+The [launch receipt](launch.json) identifies the accepted archive. The
+[subsequent reading](observed-running.json) confirms RUNNING with the matching
+job name and 1502-layer total, nozzle heating during startup, no print error
+and no HMS alert.
 
 The shell prints upright on its flat underside. Its STEP/STL geometry and plate
 placement are unchanged. The first layer is 0.20 mm and the base height is 0.24 mm.
