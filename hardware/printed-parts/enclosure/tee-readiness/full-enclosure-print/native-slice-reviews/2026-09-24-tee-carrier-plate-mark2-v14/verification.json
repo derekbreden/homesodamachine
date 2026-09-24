@@ -1,0 +1,149 @@
+{
+  "reference_archive": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13/ready/tee-carrier-plate-black-z004-mark2-v13-steady-cooling.gcode.3mf",
+  "reference_archive_sha256": "9ccb143d9926611baf3bd0bc89d0fbb3c6235f1dc21fd354a603f6f3a2162ac4",
+  "native_archive": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/ready/tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds.gcode.3mf",
+  "native_archive_sha256": "47367edf0348852c7b2ef03a4940c521e552014553232c3890290b32bea3f925",
+  "gcode_sha256": "67219a0cab768044ccc23ea5f5ea0800c34eb2c1881d97e95649fc67ec6b8ba9",
+  "setting_differences": {
+    "is_infill_first": {
+      "reference": "0",
+      "value": "1"
+    }
+  },
+  "emitted_wall_layers_identical": true,
+  "native_layer_ranges": [
+    {
+      "min_z": 0.0,
+      "max_z": 6.1,
+      "settings": {
+        "layer_height": "0.08",
+        "wall_loops": "6"
+      }
+    },
+    {
+      "min_z": 14.9,
+      "max_z": 21.054,
+      "settings": {
+        "layer_height": "0.08"
+      }
+    }
+  ],
+  "global_wall_loops": 2,
+  "infill_wall_overlap": "15%",
+  "part_and_aux_fan_commands_during_model": [
+    {
+      "layer": 1,
+      "fan": 1,
+      "value": 0.0
+    },
+    {
+      "layer": 1,
+      "fan": 2,
+      "value": 0.0
+    },
+    {
+      "layer": 4,
+      "fan": 1,
+      "value": 140.25
+    },
+    {
+      "layer": 189,
+      "fan": 1,
+      "value": 0.0
+    },
+    {
+      "layer": 189,
+      "fan": 2,
+      "value": 0.0
+    }
+  ],
+  "part_fan_runs_during_model_extrusion": [
+    {
+      "first_layer": 1,
+      "last_layer": 3,
+      "part_fan_percent": 0.0
+    },
+    {
+      "first_layer": 4,
+      "last_layer": 189,
+      "part_fan_percent": 55.0
+    }
+  ],
+  "aux_fan_off_during_model_extrusion": true,
+  "first_layer_nozzle_c": 265,
+  "remaining_model_nozzle_c": 280,
+  "bed_c": 80,
+  "chamber_setting_c": 0,
+  "model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "rounds": [
+    {
+      "name": "aft-R6",
+      "print_z_mm": [
+        0,
+        6
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        0.08,
+        0.08
+      ],
+      "last_wall_layer": [
+        6.0,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "fore-R6",
+      "print_z_mm": [
+        15.054,
+        21.054
+      ],
+      "wall_layer_count": 75,
+      "first_wall_layer": [
+        15.12,
+        0.08
+      ],
+      "last_wall_layer": [
+        21.04,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "support_feature_paths": 0,
+  "support_bodies": 0,
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "pass": true
+}

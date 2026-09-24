@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "part": "enclosure-tee-carrier-plate",
   "reported_by": "Derek",
   "reported_date": "2026-09-24",
@@ -78,27 +78,7 @@
     ],
     "part_fan_reading_scope": "v11 G-code, layers 4\u201325; fan also changes within later layers."
   },
-  "current_thermal_trial": {
-    "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/manifest.json",
-    "printer_task_id": "1279237907",
-    "hypothesis": "Steady 55% cooling may preserve the deposited edge and its overlap with the next perimeter. This tests local shape retention; the thermal cause remains unconfirmed.",
-    "changed_variable": "Steady 55% part cooling after the unchanged first three fan-off layers; disable the zero-fan overhang override.",
-    "cooling_scope": "Every model extrusion on layers 4\u2013189 is at 55% part cooling, including bridges and overhangs. Layers 1\u20133 and the auxiliary fan remain off.",
-    "unchanged": [
-      "Geometry",
-      "Placement",
-      "0.08/0.24 layer heights",
-      "No supports",
-      "265\u00b0C first layer / 280\u00b0C thereafter",
-      "80\u00b0C bed",
-      "No active chamber heat",
-      "Mark2 requested +0.04 mm Z trim"
-    ],
-    "outcome": "Pending physical print observation.",
-    "reference_cooling_reading": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/v11-cooling-reading.json",
-    "settings_disposition": "Experimental settings for this carrier; not a general PET-GF profile change."
-  },
-  "previous_thermal_trials": [
+  "previous_print_trials": [
     {
       "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/manifest.json",
       "printer_task_id": "1278660260",
@@ -127,6 +107,62 @@
       "clarified_user_statement": "The layers already laid down end up shrinking, pulled back, pulled back just at the edges, and the next layer that goes down ends up printing in air, and so you get strands of spaghetti all around starting at that layer 20 or 30 or whatever it is, and eventually the continued vertical stack recovers from the inside out, as the inner area that is not failing grows outward and has a chance to recover as things go more vertical and less corbelled.",
       "photo_review": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/README.md",
       "completion": "FINISH at 189/189 layers; physical result rejected."
+    },
+    {
+      "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/manifest.json",
+      "printer_task_id": "1279237907",
+      "hypothesis": "Steady 55% cooling may preserve the deposited edge and its overlap with the next perimeter. This tests local shape retention; the thermal cause remains unconfirmed.",
+      "changed_variable": "Steady 55% part cooling after the unchanged first three fan-off layers; disable the zero-fan overhang override.",
+      "cooling_scope": "Every model extrusion on layers 4\u2013189 is at 55% part cooling, including bridges and overhangs. Layers 1\u20133 and the auxiliary fan remain off.",
+      "unchanged": [
+        "Geometry",
+        "Placement",
+        "0.08/0.24 layer heights",
+        "No supports",
+        "265\u00b0C first layer / 280\u00b0C thereafter",
+        "80\u00b0C bed",
+        "No active chamber heat",
+        "Mark2 requested +0.04 mm Z trim"
+      ],
+      "outcome": "Rejected: the edge failure recurred and Derek stopped the print.",
+      "reference_cooling_reading": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/v11-cooling-reading.json",
+      "settings_disposition": "Steady cooling alone did not resolve the carrier edge failure.",
+      "infill_contact_observation": "Failures are at points where the infill does not reach into the wall; infill contacts appear to push the outside out and help those locations resist failure.",
+      "actual_failure_layer": null,
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/physical-result.json"
     }
-  ]
+  ],
+  "current_print_trial": {
+    "kind": "wall strategy",
+    "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/manifest.json",
+    "printer_task_id": "1279390313",
+    "hypothesis": "Six walls in the lower rounded band may retain the expanding edge between infill contacts. Printing infill first supplies those contacts before the surrounding walls. This combined wall-strategy trial does not isolate individual contributions.",
+    "changed_variables": {
+      "wall_loops": {
+        "print_z_mm": [
+          0,
+          6.1
+        ],
+        "value": 6,
+        "elsewhere": 2
+      },
+      "is_infill_first": true
+    },
+    "sequence_scope": "Enabled for the print; native first-layer wall-first behavior remains.",
+    "unchanged": [
+      "Geometry",
+      "Placement",
+      "All 189 layer heights",
+      "No supports",
+      "15% infill/wall overlap",
+      "15% grid infill",
+      "All speed and acceleration settings",
+      "Part cooling 55% after layer 3",
+      "265\u00b0C first layer / 280\u00b0C thereafter",
+      "80\u00b0C bed",
+      "No active chamber heat",
+      "Mark2 requested +0.04 mm Z trim"
+    ],
+    "outcome": "Pending physical print observation."
+  }
 }

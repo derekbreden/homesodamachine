@@ -2,7 +2,7 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "RUNNING",
+  "state": "FAILED",
   "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13",
   "parts": [
     "enclosure-tee-carrier-plate"
@@ -54,7 +54,7 @@
     }
   },
   "hypothesis": "Steady 55% cooling may preserve the deposited edge and its overlap with the next perimeter. This tests local shape retention; the thermal cause remains unconfirmed.",
-  "physical_trial_outcome": "pending",
+  "physical_trial_outcome": "rejected_failure_recurred_print_stopped",
   "geometry_and_placement_identical_to_reference": true,
   "requested_z_trim_mm": 0.04,
   "emitted_z_trim_commands_mm": [
@@ -136,7 +136,7 @@
   "launch_record": "mark2-launch.json",
   "verification_record": "verification.json",
   "review_artifact_sha256": {
-    "README.md": "ce8dcb2aebdc007caa345683360671bcb6a4cb21f29c7e5390a5f8474f75fee2",
+    "README.md": "f3c1e97d9328d6473872bd6789ece62f5d7e2a0593588e9aaf6462eea1cd2fd3",
     "contour-compensation.md": "433728b30ed9a21ccf0f6bebb9d47f924f8c86588a21276f536beef0c544f19c",
     "job-config.json": "b4db6e97a2c65497e1d530d6a723b907ef141acdd438c8ea076c6efc9d2423b5",
     "mark2-launch.json": "7ecf2db65f7912fef773735f9959181a4fb83cef72a9bee01c361b684397ccd8",
@@ -150,6 +150,11 @@
     "submission.json": "c1d10fb5dca44c03168757590cd6a489690340467fc19646ea1b23d6d1f32baf",
     "support-audit.json": "ff71d68d9b6d11cb2a87fe1c0bde1bb3e0a0f91aea9d9881c83a2d2e0918ec34",
     "verification.json": "a0d39d17a9fecb62193878748e35e631d2e367443d7206121f07c186cf50a2ee",
-    "verify.py": "e406c6885bc942e13849e4dfe7c764eac15b6a673a4ab6a0213597e702df434a"
-  }
+    "verify.py": "e406c6885bc942e13849e4dfe7c764eac15b6a673a4ab6a0213597e702df434a",
+    "stop-reading.json": "531764b60cf5d72fc3bc4581ede4a19fec8c6a316193ff41bfccddaba5953401",
+    "physical-result.json": "e4779a1ed20e36780ea7973274da182012266f12cff24a0518da3960b2edc49a"
+  },
+  "physical_result_record": "physical-result.json",
+  "stop_reading": "stop-reading.json",
+  "actual_failure_layer": null
 }

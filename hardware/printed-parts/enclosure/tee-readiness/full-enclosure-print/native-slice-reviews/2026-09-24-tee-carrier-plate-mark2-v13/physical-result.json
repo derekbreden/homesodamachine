@@ -1,0 +1,15 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-09-24",
+  "printer": "Mark2",
+  "printer_task_id": "1279237907",
+  "outcome": "Rejected: the edge failure recurred and Derek stopped the print.",
+  "user_statement": "It started to fail already at whatever layer I stopped it at there.",
+  "infill_observation": "Failures are at points where the infill does not reach into the wall; infill contacts appear to push the outside out and help those locations resist failure.",
+  "infill_observation_scope": "Physical observation by Derek; the precise force or deformation mechanism has not been measured.",
+  "actual_failure_layer": null,
+  "stop_reading": "stop-reading.json",
+  "reported_layer_after_stop": 0,
+  "layer_reading_scope": "The status read after cancellation reports zero; it does not establish the failure layer.",
+  "settings_disposition": "Steady cooling alone did not resolve the carrier edge failure."
+}

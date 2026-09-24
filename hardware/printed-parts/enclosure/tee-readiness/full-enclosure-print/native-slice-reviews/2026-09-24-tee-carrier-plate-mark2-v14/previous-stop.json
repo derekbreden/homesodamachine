@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-09-24T18:20:45.168132+00:00",
+  "job_id": "1279237907",
+  "gcode_state": "FAILED",
+  "subtask_name": "tee-carrier-plate-black-z004-mark2-v13-steady-cooling.gcode.3mf",
+  "layer_num": 0,
+  "total_layer_num": 189,
+  "mc_percent": 0,
+  "mc_remaining_time": 0,
+  "print_error": 0,
+  "hms": [],
+  "stg_cur": -1,
+  "nozzle_temper": 67.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 61.0,
+  "bed_target_temper": 0.0,
+  "cooling_fan_speed": "0"
+}
