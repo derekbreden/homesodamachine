@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-24T17:34:04.112118+00:00",
+  "archive": {
+    "name": "tee-carrier-plate-black-z004-mark2-v13-steady-cooling.gcode.3mf",
+    "sha256": "9ccb143d9926611baf3bd0bc89d0fbb3c6235f1dc21fd354a603f6f3a2162ac4",
+    "gcode_sha256": "903dc953327da27899895129793df82835c2389258cf19bded7641e20885e6aa",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "enclosure-tee-carrier-plate"
+    ]
+  },
+  "printer_task_id": "1279237907",
+  "gcode_state": "RUNNING",
+  "subtask_name": "tee-carrier-plate-black-z004-mark2-v13-steady-cooling.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 189,
+  "mc_remaining_time": 0
+}
