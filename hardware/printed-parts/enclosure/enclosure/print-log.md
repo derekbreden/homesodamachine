@@ -485,3 +485,15 @@ white on external 255, no printer error
 The 0.08 mm face-down v3 was stopped on Derek's word. v4 prints the three chips face down on
 the nameplate's own PET-GF settings (0.20 mm first layer, 0.24 mm after), and reported `RUNNING`
 on Mark2 at 2026-09-24T02:55:11Z ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/mark2-launch.json)).
+
+## Tee carrier — Mark2, 2026-09-24 UTC
+
+Task `1277634817` reports RUNNING with `tee-carrier-plate-black-z004-mark2-v10.gcode.3mf`.
+The bed contains one smooth tee carrier. Black PET-GF feeds the left nozzle from external spool 254.
+Requested Z trim is +0.04 mm; Textured PEI compensation emits `G29.1 Z0.02`.
+
+The 189 emitted model layers are 0.08 mm from print Z 0 to 6.08, 0.24 mm from 6.08 to 14.96,
+and 0.08 mm from 14.96 to 21.04. The exposed R6 rounds occupy Z 0–6 and 15.054–21.054.
+The first layer is 0.08 mm. Two short bed-rooted support slivers lie under the aft rounds.
+
+[Slice and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v10/manifest.json).

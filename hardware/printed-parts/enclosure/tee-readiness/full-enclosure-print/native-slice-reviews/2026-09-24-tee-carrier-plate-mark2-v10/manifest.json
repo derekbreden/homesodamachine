@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "RUNNING",
+  "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10",
+  "parts": [
+    "enclosure-tee-carrier-plate"
+  ],
+  "current_source_geometry": [
+    {
+      "part": "enclosure-tee-carrier-plate",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15"
+    }
+  ],
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10/tee-carrier-plate-black-z004-mark2-v10-input.3mf",
+    "sha256": "91a5b12ad968b108c9a8911b5952ff5a826bb50d93db63f1a034bd60ee3fb822"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10/ready/tee-carrier-plate-black-z004-mark2-v10.gcode.3mf",
+    "sha256": "e1632e613f46a5546c6454eb17716ebf9770af67473733dc71e76482f45a2cdd"
+  },
+  "gcode_sha256": "b6644805703177fa27ba4ea767ba81cb8b19e73db152d1b066728c493b4e5336",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "base_layer_height_mm": 0.24,
+  "initial_layer_print_height_mm": 0.08,
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "Full exposed aft R6 round, print Z 0\u20136 mm."
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "Full exposed fore R6 round, print Z 15.054\u201321.054 mm."
+      }
+    ]
+  },
+  "emitted_model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "full_exposed_round_layer_audit_pass": true,
+  "independent_support_layer_height": false,
+  "support_summary": {
+    "bed_rooted_bodies": 2,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 0,
+    "interface_islands": null,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 2
+  },
+  "support_review": "Two short bed-rooted slivers under the aft end rounds, exposed along both outer ends, with no enclosed removal lane. Top Z 0.64 and 0.56 mm.",
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "printer_task_id": "1277634817",
+  "launch_record": "mark2-launch.json",
+  "review_artifact_sha256": {
+    "job-config.json": "d9043324d190782d4f9468216b8fcff47fd7badfbb433a49d9bc6788fc8a3147",
+    "layer-audit.json": "95df73e60e962f822283b48027037a27ddac671fa94ecd83eb76d09bcc68fc1b",
+    "mark2-launch.json": "6b6c1d7869c722be458a0a2a0a7337325d1ce7d145fb6e30c2ae660bfbfe9247",
+    "preparation.json": "a06866366820f63fc752a7802d4fc1cdae6a1e83b987b5aed439909210080e39",
+    "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
+    "slice-result.json": "416737492773584ccf6bec70bca8042169221b4b6cd275705fa807f5d11faeb7",
+    "support-audit.json": "4650450b366d68408b5ee0faa7719bb1fe7199d99240414243ec6a7d7b1b0b12"
+  }
+}
