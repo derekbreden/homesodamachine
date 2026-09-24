@@ -1,0 +1,108 @@
+{
+ "schema": 1,
+ "status": "printer_reported_running",
+ "printer": "Mark2",
+ "task_id": "1277539428",
+ "request": "Derek, 2026-09-24: \"go ahead and get that new bulkhead collar print ready please\"; \"bed is clear.\"",
+ "first_running_observed_at": "2026-09-24T02:55:11Z",
+ "observed_state": {
+  "printer": "Mark2",
+  "observed_at": "2026-09-24T02:55:31.091014+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "bulkhead-rings-tap-flavor-black-white-z004-mark2-v4.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 9,
+  "mc_remaining_time": 24,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 200.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 69.0,
+  "bed_target_temper": 69.0,
+  "lights_report": [
+   {
+    "mode": "on",
+    "node": "chamber_light"
+   },
+   {
+    "mode": "flashing",
+    "node": "work_light"
+   },
+   {
+    "mode": "on",
+    "node": "chamber_light2"
+   }
+  ],
+  "external_spools": {
+   "254": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+   },
+   "255": {
+    "type": "PET-CF",
+    "colour": "FFFFFFFF"
+   }
+  },
+  "nozzle_type": "HS01-0.4",
+  "nozzles": [
+   {
+    "id": 0,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "20D06A611036799"
+   },
+   {
+    "id": 1,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "N/A"
+   },
+   {
+    "id": 16,
+    "type": "HS01",
+    "diameter": 0.6,
+    "sn": "20D06A5C1014313"
+   },
+   {
+    "id": 18,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A611037433"
+   },
+   {
+    "id": 20,
+    "type": "HH01",
+    "diameter": 0.8,
+    "sn": "20D06A5C3110240"
+   },
+   {
+    "id": 21,
+    "type": "HS01",
+    "diameter": 0.8,
+    "sn": "20D06A610807096"
+   }
+  ]
+ },
+ "native_archive": {
+  "path": ".cache/prints/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v4.gcode.3mf",
+  "sha256": "0f34e1993d03f94a3e481741b1c3af4b4e3036c376105eb13170f55ad44efacb",
+  "gcode_sha256": "7362c3bd5ce5534f77bd9d6779caa14a4ba938bdd98c2494d6b19b3b9955cd3d"
+ },
+ "gcode_matches_review": true,
+ "printer_reply": "project_file result SUCCESS, err_code 0, param Metadata/plate_1.gcode (heard on the report topic during the send)",
+ "extruders": [
+  [
+   0,
+   "0xff00",
+   "0xff00"
+  ],
+  [
+   1,
+   "0xfe00",
+   "0xfe00"
+  ]
+ ],
+ "filaments": "left 254 black PET-GF, right 255 white PET-GF",
+ "sent_via": "tools/bambu_send.py (b904eed52), first round"
+}
