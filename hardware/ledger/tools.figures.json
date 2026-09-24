@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$17,014.56",
+    "TOOLS_TOTAL": "$17,024.20",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -25,6 +25,7 @@
     "T_DUPONT_KIT": "$23.58",
     "T_DUSTER": "$24.51",
     "T_ENG_PLATE": "$49.49",
+    "T_FLAP_WHEELS": "$9.64",
     "T_FLARE_NUT": "$8.57",
     "T_FLARE_TOOL": "$107.24",
     "T_FLUSH_CUTTERS": "$8.89",

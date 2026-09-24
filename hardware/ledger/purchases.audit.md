@@ -30,7 +30,7 @@ invoice fetch and a human call.
 https://www.amazon.com/your-orders/orders?timeFilter=year-2026&startIndex=N
 ```
 
-`N` steps by 10. As of 2026-09-21 the year holds 374 orders over 38 pages. A
+`N` steps by 10. As of 2026-09-24 the year holds 378 orders over 38 pages. A
 `startIndex` past the end returns HTTP 200 with zero order cards — that, not
 the pagination widget's page count, is the terminator.
 
