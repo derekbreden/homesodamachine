@@ -4158,13 +4158,14 @@ def build_vk(chain_carry):
 def west_wall_ports(pan):
     """One rectangular through-slot on the pan body's YZ section.
 
-    The enclosure's print-down allowance opens the lower face a further 0.25 mm.
+    Running room surrounds the sliding section. The enclosure's print-down
+    allowance opens the lower face a further 0.25 mm.
     The pull face spans beyond the slot in Y and meets the exterior wall in X.
     """
     s = _pan.PAN_SLIP
     y0 = pan.ymin + _pan.PULL_FACE_Y_OVERHANG - s
     y1 = pan.ymax - _pan.PULL_FACE_Y_OVERHANG + s
-    z0, z1 = pan.zmin, pan.zmax + s
+    z0, z1 = pan.zmin - s, pan.zmax + s
     return [("rect", (y0 + y1) / 2.0, (z0 + z1) / 2.0,
              y1 - y0, z1 - z0, 0.0)]
 

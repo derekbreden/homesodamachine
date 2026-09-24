@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "job": "front-top",
+  "printer": "H2C",
+  "state": "printing_on_H2C",
+  "printer_task_id": 1277245499,
+  "source_job_directory": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v13",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-enclosure-front-top-h2c-v12",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v13/enclosure-front-top-black-z018-h2c-v13-input.3mf",
+    "sha256": "fc3329ad03988d9498d97a72af2deca04a1c8800fe8c79eeb9ab04bbdf9d6399"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v13/ready/enclosure-front-top-black-z018-h2c-v13.gcode.3mf",
+    "sha256": "7bdf88b93c156eca2394882bc463e68b473e6f90771ae9458ff60477ea87f8d4"
+  },
+  "gcode_sha256": "951469bddd88110a440dc9248f17aa442bed408e7e4b406d70e1ab9bcac0f51e",
+  "slicer_return_code": 0,
+  "slicer_warning_messages": [
+    ""
+  ],
+  "filament_id": "GFT01",
+  "filament_colour": [
+    "#000000"
+  ],
+  "filament_nozzle_map": [
+    "0"
+  ],
+  "brim_type": "auto_brim",
+  "initial_layer_print_height_mm": 0.2,
+  "layer_ranges_mm": {
+    "enclosure-front-top": [
+      {
+        "min_z": 187.0,
+        "max_z": 195.0,
+        "layer_height": 0.08,
+        "reason": "Full print-height span of the R6 roof side cylinders (189-195), front corner torus (187.392-195), and R18 display-to-roof arc (192.588-195)."
+      }
+    ]
+  },
+  "full_curve_layer_audit_pass": true,
+  "changed_staged_members_from_base": [
+    "Metadata/layer_config_ranges.xml"
+  ],
+  "current_source_geometry": [
+    {
+      "part": "enclosure-front-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252",
+      "stl_matches_base_receipt": true,
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "current_step_sha256": "9c1870760eb09978e744cbfb374c1dacfce139b4b59d96e90702dc9c31674dfd",
+      "step_matches_base_receipt": false
+    }
+  ],
+  "support_summaries": {
+    "enclosure-front-top": {
+      "bed_rooted_bodies": 4,
+      "interface_islands": 9,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 63.83,
+      "support_bodies": 4
+    }
+  },
+  "support_review": "Four bed-rooted trees and nine labelled interface islands; plate-frame contact coordinates match v12.",
+  "review_artifact_sha256": {
+    "job-config.json": "962cee878f877230796d91d8e3e3431a09dcba7264218a182a72116af46410a1",
+    "layer-audit.json": "b01a2af09eccd1a07b002744b0602fd2671791be0a237a870f05eb62fa01bd08",
+    "slice-result.json": "4846b016bbbca275d2cf0856c6cc776283ad3aea21b4567f8dea71e61f317bd4",
+    "support-audit.json": "41c4a688f39649dd5fbcb4a588cf5f22a02258b5edd22326f03789c8d86f6ddc"
+  }
+}
