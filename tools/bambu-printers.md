@@ -125,13 +125,14 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    The dialog can close and no job arrive: the job id does not move, the printer's
    `upload` block stays idle, and nothing lands late. This happened to three Mark2 sends
    (twice on 2026-09-22, once on 2026-09-23) with the file, printer and procedure the same
-   as sends that landed. `bambu_send.py` holds the printer's report topic open across Send
-   and prints any command reply (`project_file` with its result and reason), upload, error or
-   HMS it hears, and the application's page text at the close, a second later and five
-   seconds later. A send that never reached the printer is made again from a fresh dialog
-   after a pause, up to three rounds. Each round first reads the printer and sends only when
-   it is idle on the old job, with no upload or manual heat, so a late arrival stops the
-   retries. A command the printer answered is not sent again.
+   as sends that landed. `bambu_send.py` presses Send once per dialog and holds the
+   printer's report topic open across it, printing any command reply (`project_file` with
+   its result and reason), upload, error or HMS it hears, and the application's page text at
+   the close, a second later and five seconds later. A send that has not landed is watched a
+   further pause, and longer while the page reads Sending, Uploading or Downloading. Only then
+   is it made again from a fresh dialog, up to three rounds, and only while the printer reads
+   the job id it had before the first send, idle, with no upload and no new error or HMS. A
+   command the printer answered is not sent again.
 
 ### What the application will not show
 

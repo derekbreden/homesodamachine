@@ -302,6 +302,10 @@ def main():
 
     def send_once(before):
         ensure_application()
+        if dialog(tree()):
+            ax("press", "cancel", "--role", "AXButton", check=False)
+            if not wait_for(10, lambda n: not dialog(n) and n):
+                fail("an earlier send dialog would not close; nothing was sent")
         # 1. The send dialog offers the device page last viewed as its printer.
         ax("press", "Devices", "--role", "AXLink")
         time.sleep(1.5)
@@ -442,67 +446,73 @@ def main():
             ax("press", "cancel", "--role", "AXButton", check=False)
             fail("Send stayed disabled for 15 s: the printer is busy, or the dialog never finished loading it")
 
-        # 6. Send, with the printer's report topic open to hear what reaches it. The dialog
-        # closes when the application has taken the job; press again if it has not, and give
-        # up rather than leave a dialog open.
+        # 6. Send, with the printer's report topic open to hear what reaches it. Confirm is
+        # pressed exactly once per dialog: a dialog that stays open is a send that may be in
+        # flight, and pressing again could make it twice.
+        def in_flight(page):
+            return re.search(r"(?i)sending|uploading|downloading", page) is not None
+
+        def read_page(label):
+            page = ax("state", check=False).split("\n", 1)[0]
+            terms = [s.strip() for s in page.split("|")
+                     if re.search(r"(?i)download|upload|went wrong|fail|error|%|sending|busy", s)]
+            print(f"send: page {label} " + (" | ".join(terms) if terms else "no progress or error text")
+                  + f"  [{len(page)} chars: {page[:120]} ... {page[-160:]}]")
+            return page
+
         with Listener(printer) as listener:
-            closed = False
-            for attempt in range(3):
-                ax("press", "confirm", "--role", "AXButton")
-                if wait_for(8, lambda n: not dialog(n) and n):
-                    closed = True
-                    break
-                # A press the printer heard is not pressed again, however long the dialog lags.
-                heard = listener.drain()
-                late = status(printer)
-                if (any(h.get("command") == "project_file" or "upload" in h
-                        or (h.get("gcode_state") or ("",))[0] in BUSY for h in heard)
-                        or late.get("job_id") != before.get("job_id")
-                        or late.get("gcode_state") in BUSY):
-                    print(f"send: the printer heard press {attempt + 1} with the dialog still open; not pressing again")
-                    closed = True
-                    break
-                print(f"send: dialog still open after press {attempt + 1}")
-            if not closed:
-                ax("press", "cancel", "--role", "AXButton", check=False)
-                fail("the Send press did not close the dialog three times; nothing was sent")
-            print("send: dialog closed")
+            ax("press", "confirm", "--role", "AXButton")
+            dialog_closed = bool(wait_for(30, lambda n: not dialog(n) and n))
+            print("send: dialog closed" if dialog_closed
+                  else "send: dialog still open 30 s after the one press; not pressing again")
             # What the application shows after Send: its device page reads Downloading while
             # the printer fetches the file, and a failed send leaves a toast that fades, so the
             # page is read at once, a second later and five seconds later.
             closed_at = time.monotonic()
             for mark in (0, 1, 5):
                 time.sleep(max(0.0, closed_at + mark - time.monotonic()))
-                page = ax("state", check=False).split("\n", 1)[0]
-                terms = [s.strip() for s in page.split("|")
-                         if re.search(r"(?i)download|upload|went wrong|fail|error|%|sending|busy", s)]
-                print(f"send: page +{mark}s " + (" | ".join(terms) if terms else "no progress or error text")
-                      + f"  [{len(page)} chars: {page[:120]} ... {page[-160:]}]")
+                read_page(f"+{mark}s")
 
             # 7. The printer's own word: PREPARE or RUNNING under this name. The name alone
-            # is not it; the earlier job can carry the same one.
-            deadline = time.monotonic() + args.accept_timeout
+            # is not it; the earlier job can carry the same one. A send that has not landed by
+            # the acceptance timeout is watched a further RESEND_PAUSE with the listener still
+            # open, and for as long as the application's page says it is still sending.
+            def landed(reading):
+                return (reading.get("subtask_name") == archive.name
+                        and reading.get("gcode_state") in ("PREPARE", "RUNNING"))
+            deadline = time.monotonic() + args.accept_timeout + RESEND_PAUSE
             reading = None
-            while time.monotonic() < deadline:
+            while True:
                 time.sleep(5)
                 reading = status(printer)
-                if reading.get("subtask_name") == archive.name and reading.get("gcode_state") in ("PREPARE", "RUNNING"):
+                if landed(reading):
                     break
-            else:
+                if time.monotonic() < deadline:
+                    continue
+                page = read_page("at the timeout")
+                if in_flight(page) and time.monotonic() < deadline + args.accept_timeout:
+                    print("send: the application still reads as sending; waiting")
+                    continue
                 heard = listener.drain()
-                same_job = reading is not None and reading.get("job_id") == before.get("job_id")
+                if not dialog_closed and dialog(tree()):
+                    ax("press", "cancel", "--role", "AXButton", check=False)
+                same_job = reading.get("job_id") == before.get("job_id")
                 raise Refused(
-                    f"{args.printer} did not report {archive.name} as PREPARE or RUNNING within {args.accept_timeout:g}s; "
+                    f"{args.printer} did not report {archive.name} as PREPARE or RUNNING; "
                     f"before the send it was {before.get('gcode_state')} on {before.get('subtask_name')} (job {before.get('job_id')}), "
-                    f"and the last reading is {reading.get('gcode_state') if reading else None} on "
-                    f"{reading.get('subtask_name') if reading else None} (job {reading.get('job_id') if reading else None})"
+                    f"and the last reading is {reading.get('gcode_state')} on "
+                    f"{reading.get('subtask_name')} (job {reading.get('job_id')})"
                     + ("; the job id has not moved, so no new job reached the printer" if same_job else "")
                     + ("; the printer reported: " + json.dumps(heard) if heard
-                       else "; the printer's report topic carried no command reply, upload or error"),
+                       else "; the printer's report topic carried no command reply, upload or error")
+                    + ("" if dialog_closed else "; the dialog never closed"),
                     reading, heard)
             heard = listener.drain()
             if heard:
                 print("send: printer reported " + json.dumps(heard)[:600])
+            if not dialog_closed and not wait_for(15, lambda n: not dialog(n) and n):
+                print("send: the job landed with the dialog still open; closing it")
+                ax("press", "cancel", "--role", "AXButton", check=False)
         return reading
 
     # A send the printer drops is sent again from a fresh dialog: after a filament load that
@@ -546,8 +556,6 @@ def main():
                 fail(str(refused))
             if any(h.get("command") == "project_file" for h in refused.heard):
                 fail(str(refused) + "; the printer answered the command, so it is not sent again")
-            if not (reading and manual_heat(reading)):
-                time.sleep(RESEND_PAUSE)
             before = status(printer)
             if manual_heat(before):
                 print(f"{args.printer}: {manual_heat(before)}; sending again when the heaters are idle")
