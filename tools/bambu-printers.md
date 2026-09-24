@@ -44,6 +44,38 @@ Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to th
 holding both printers. Its application identifier is `com.bambulab.bambu-connect`.
 
 ```sh
+tools/cad-venv/bin/python tools/bambu_print.py <file.gcode.3mf> Mark2
+tools/cad-venv/bin/python tools/bambu_print.py <file.gcode.3mf> Mark2 --dry-run
+```
+
+`bambu_print.py` imports a separate copy of the reviewed archive, brings Bambu Connect
+forward, reads its controls and clicks them with mouse input. Its own Swift input process
+is `bambu-ui/main.swift`; the command compiles it into `.cache/printer-control/` as needed.
+It does not call `bambu-ax` or `bambu_send.py`. The previous application and pointer are
+restored when the transaction ends. Input stops if another application takes focus.
+
+The sender checks the archive's embedded G-code checksum, the target printer, each active
+nozzle's external spool type and colour, and the standing print options. It supports one
+external filament per active nozzle on a single sliced H2C plate. Mark2's left/black and
+right/white assignments are checked separately. Spool quantity is not a launch condition.
+
+`--dry-run` performs the import and dialog checks, then cancels without clicking Send. It
+also runs while a printer is busy, when Send is disabled. An ordinary run refuses a busy
+printer before opening the application. A Send click is made only once per dialog.
+
+Success requires a new printer job ID, the archive's name, and PREPARE or RUNNING with no
+print error. The MQTT connection stays open throughout the transaction. A fresh-dialog
+retry is allowed only when no command reply, upload or new job was observed, the printer
+is still idle on its original job, and the app shows no transfer. Errors and ambiguous
+results stop the sender. Up to three attempts are made; `--attempts 1` selects one.
+
+Successful launches write `.cache/printer-control/<printer>-<job-id>-launch.json`, including
+the original archive and G-code hashes. Bambu Connect's imported copy is separate because
+the application can rewrite the file it imports.
+
+### Background accessibility sender
+
+```sh
 .cache/printer-control/venv/bin/python tools/bambu_send.py <file.gcode.3mf> H2C
 .cache/printer-control/venv/bin/python tools/bambu_send.py <file.gcode.3mf> Mark2 --dry-run
 ```
