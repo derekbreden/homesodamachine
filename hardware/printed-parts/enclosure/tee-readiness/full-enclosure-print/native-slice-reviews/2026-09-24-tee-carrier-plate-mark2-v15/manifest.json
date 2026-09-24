@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "PREPARED_NOT_SENT",
+  "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15",
+  "parts": [
+    "enclosure-tee-carrier-plate"
+  ],
+  "reference_print": "2026-09-24-tee-carrier-plate-mark2-v13",
+  "physical_reference": "../2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf",
+    "sha256": "d72b9433d3a69da2377509ea2dd4ac51f7e4cd6d17331bc0975f15b85996f657"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/ready/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order.gcode.3mf",
+    "sha256": "5adad4d296ac390571a9c1f3bacae3517735917d4f7f00642b226d2f173256a8"
+  },
+  "gcode_sha256": "349dfebf35371091731e223afd30cb7ca88069d1d3433ad5ae7e7c7bee39abe7",
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "global_setting_differences": {},
+  "changed_input_archive_members": [
+    "Metadata/layer_config_ranges.xml"
+  ],
+  "native_layer_ranges": [
+    {
+      "min_z": 0.0,
+      "max_z": 6.1,
+      "settings": {
+        "layer_height": "0.08",
+        "wall_loops": "6"
+      }
+    },
+    {
+      "min_z": 14.9,
+      "max_z": 21.054,
+      "settings": {
+        "layer_height": "0.08"
+      }
+    }
+  ],
+  "base_wall_loops": 2,
+  "lower_band_wall_loops": 6,
+  "lower_band_mm": [
+    0,
+    6.1
+  ],
+  "infill_first": false,
+  "wall_sequence": "inner wall/outer wall",
+  "infill_wall_overlap": "15%",
+  "speed_and_acceleration_settings_unchanged": true,
+  "physical_trial_outcome": "not_printed",
+  "geometry_and_placement_identical_to_reference": true,
+  "base_layer_height_mm": 0.24,
+  "initial_layer_print_height_mm": 0.08,
+  "emitted_model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "full_exposed_round_layer_audit_pass": true,
+  "enable_support": false,
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "first_layer_nozzle_c": 265,
+  "remaining_model_nozzle_c": 280,
+  "bed_c": 80,
+  "chamber_setting_c": 0,
+  "part_fan_runs_during_model_extrusion": [
+    {
+      "first_layer": 1,
+      "last_layer": 3,
+      "part_fan_percent": 0.0
+    },
+    {
+      "first_layer": 4,
+      "last_layer": 189,
+      "part_fan_percent": 55.0
+    }
+  ],
+  "aux_fan_off_during_model_extrusion": true,
+  "total_estimated_seconds": 9589.732421875,
+  "total_filament_g": 54.59881591796875,
+  "printer_task_id": null,
+  "verification_record": "verification.json",
+  "wall_review": "wall-review.json",
+  "review_artifact_sha256": {
+    "README.md": "a9fbb59786d72fb9c90e90a0c53cfc1ec34994c07cd7a62573107b491cb0c369",
+    "job-config.json": "6e269fc214df5ac4a795eaedebb09b8934e487f9cf6b6a28dd0ef80aaffff54f",
+    "preparation.json": "c6c9119d2c9906eef5479642b1ff089ceeb5ebb076896ff8323718a042090a25",
+    "prepare.py": "1cfd905f8162362e9f4ecf81e5bf5e0dac8bad7667eec00f3db6714911fac3bb",
+    "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
+    "review_walls.py": "b4fac94d7edebddd09440a906a0923cb1ef217c22ecf4de87cc741cf62fc4a7d",
+    "slice-result.json": "8296cacfd2ba1d33f06ee36012fa5978f0dea3d6ac030e8de74a4c58afb5ed32",
+    "support-audit.json": "a4d55e7123bd4791c7f827c8c7aa8496825edbed0e44cd1edfd16b7b66efeca2",
+    "verification.json": "82a304e09bcd136e20f2ba59c9eff22d3ea921666ce7b4a5246d70428a3155d5",
+    "verify.py": "9ba3cf628e3fd3478a80e28c901d87cfec9c759d5123029dfd653aab589bf560",
+    "wall-comparison.png": "52d3cae2d6a95233b0beaeb1c096b3c85125f1a2de32165248330a2eda7c859d",
+    "wall-review.json": "71cc8fe96818b175c49c9a6472e345cc5d868f1b2de07fd89416fb8ceac76574"
+  }
+}

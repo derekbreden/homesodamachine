@@ -57,7 +57,7 @@
   "infill_first": true,
   "native_first_layer_sequence": "walls first",
   "hypothesis": "Six walls in the lower rounded band may retain the expanding edge between infill contacts. Printing infill first supplies those contacts before the surrounding walls. This combined wall-strategy trial does not isolate individual contributions.",
-  "physical_trial_outcome": "pending",
+  "physical_trial_outcome": "provisionally_good_enough_with_residual_concavity",
   "geometry_and_placement_identical_to_reference": true,
   "base_layer_height_mm": 0.24,
   "initial_layer_print_height_mm": 0.08,
@@ -124,7 +124,7 @@
   "verification_record": "verification.json",
   "wall_review": "wall-review.json",
   "review_artifact_sha256": {
-    "README.md": "0159bc0a0ff01d0ba15f42b2ef8e13f1591a1b562b652aeac86273a34d5959b2",
+    "README.md": "f56c4f4a637ecd62779a4976705e0bff2ce3325cb96fd5bf4c9eb191b87cdb2e",
     "job-config.json": "13b5e4824bf5a2b75429d7bacddf7e908f9bd3769f82885d97ee48920f40a8a4",
     "mark2-launch.json": "e6d65f1bb566f64994b51346b49e99255e1d8feb64fa53eade60235b4cade4e7",
     "preparation.json": "ea189d25d3764107eb58d4bf7942feac737ee870e0a3feceada1a09a841a1363",
@@ -139,6 +139,10 @@
     "verification.json": "d3b51ffa0f6ed42f8c5488ad102adb926c490e90332b59199cbaa3f5bf228556",
     "verify.py": "6261caa47dbf79c603272bc063b4c767a2d9e1aabc2f68f706e1ad0f4b190938",
     "wall-comparison.png": "52d3cae2d6a95233b0beaeb1c096b3c85125f1a2de32165248330a2eda7c859d",
-    "wall-review.json": "6664773db80c58845a77deebd8e11bb3e27e2d84034b0d05db7cb90bfcf6ea95"
-  }
+    "wall-review.json": "6664773db80c58845a77deebd8e11bb3e27e2d84034b0d05db7cb90bfcf6ea95",
+    "physical-result.json": "f7beb6611954b30c18490d1d12b13dff534e94ada66d61d68222c3e4b2248dea",
+    "physical-feedback-reading.json": "a5205651a68222b2aaa7d84eea6a621838c6740e78eb3f5ee779bb00c68f2682"
+  },
+  "physical_result_record": "physical-result.json",
+  "latest_printer_reading": "physical-feedback-reading.json"
 }

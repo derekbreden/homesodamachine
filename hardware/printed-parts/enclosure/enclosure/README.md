@@ -711,11 +711,12 @@ end rounds, back-top's roof side edges and the corresponding visible top/bottom 
 other parts. Keep 0.08 mm layers through each complete curve, including the first layer when
 the curve begins at the bed, and 0.24 mm elsewhere. Exclude supports on those faces with
 painted blockers when the part has other supported features. Verify the emitted support
-paths; small bodies without a `Support interface` label count too. Derek's completed
-[tee-carrier trial](../tee-carrier/physical-acceptance.json) has a clean upper curve and
-localized curling on the lower curve. The fan-off carrier trial is rejected for markedly
-worse results. Unsupported rounds remain the design direction; their thermal settings
-require further evaluation, and the rejected fan-off configuration does not transfer to other parts.
+paths; small bodies without a `Support interface` label count too. Derek's
+[tee-carrier observation](../tee-carrier/physical-acceptance.json) provisionally accepts a
+lower surface that holds together with a slight concavity. That print combines six walls
+and infill first. His preferred next recipe uses six walls only through the complete
+print-bottom 0.08 mm rounded band, with the original wall-first order, speeds and 15% overlap.
+Six walls alone remains physically untested; the fan-off carrier configuration is rejected.
 
 The face a feature works through keeps the shape its work requires, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands

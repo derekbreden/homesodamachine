@@ -3,82 +3,98 @@
   "part": "enclosure-tee-carrier-plate",
   "reported_by": "Derek",
   "reported_date": "2026-09-24",
-  "status": "completed_with_localized_lower_curve_curling",
+  "status": "provisionally_good_enough_with_residual_concavity",
   "printer": "Mark2",
-  "printer_task_id": "1277839952",
+  "printer_task_id": "1279390313",
   "material": "black PET-GF",
-  "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json",
-  "native_archive_sha256": "d1e154afa633582121e53d8a2aa9226abb4ad22276183ebe22a4d373f744ec12",
+  "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/manifest.json",
+  "native_archive_sha256": "47367edf0348852c7b2ef03a4940c521e552014553232c3890290b32bea3f925",
   "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
   "base_layer_height_mm": 0.24,
   "visible_round_layer_height_mm": 0.08,
   "initial_layer_height_mm": 0.08,
   "supports_enabled": false,
-  "scope": "Finished surface assessment; assembled fit is not assessed here.",
+  "scope": "In-progress lower-curve observation. The subsequent printer reading is RUNNING at 47/189 layers; the exact layer Derek viewed is not established.",
   "standing_application": {
     "visible_008_top_bottom_rounds": "Print without support contacts, across their complete curves.",
     "explicit_example": "enclosure-back-top roof side edges",
     "other_functional_faces": "Retain appropriate supports for separate flat lifting ceilings, seats and other functional features.",
     "slice_verification": "Inspect all emitted support paths at the visible rounds, including short bodies without interface labels; use face-specific blockers where needed.",
-    "qualification": "Unsupported visible rounds remain Derek's direction. Thermal performance of the lower curve is under evaluation; this is not unconditional surface acceptance."
-  },
-  "initial_in_progress_observation": {
-    "reported_by": "Derek",
-    "reported_date": "2026-09-24",
-    "statement": "The unsupported curve on the tee carrier is turning out beautifully btw. Please make a note of it, and ensure we do the same elsewhere (e.g. enclosure back top) and don\u2019t use supports on those 0.08 rounded surfaces.",
-    "scope": "Early observation during printing; not whole-part acceptance."
-  },
-  "finished_surface_observation": {
-    "reported_by": "Derek",
-    "reported_date": "2026-09-24",
-    "initial_clean_layers_approx": 20,
-    "curl_onset_layer_range_approx": [
-      20,
-      30
-    ],
-    "disturbed_layer_count_approx": [
-      3,
-      6
-    ],
-    "mechanism_observed_by_user": "An edge lifts or pulls inward into the nozzle path; the nozzle drags it while depositing the next layer.",
-    "recovery": "The curve recovers as it approaches vertical, within the 0.08 mm band and before the change to 0.24 mm.",
-    "upper_curve": "Clean, even surface; supplied for comparison.",
-    "thermal_cause": "Unconfirmed."
-  },
-  "photos": [
-    {
-      "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7842.jpeg",
-      "sha256": "3ba75d11222382ce56952cb292ae1f73936fa6ae1cb38b34fdac67de6f1e9329",
-      "original_name": "IMG_7842.jpeg",
-      "original_sha256": "3fdb5776984f8c968fe9166a83a7ebd352a79643b54228a72d221f7536c4bc58",
-      "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7842.jpeg",
-      "jpeg_pixels_unchanged": true,
-      "orientation_preserved": true,
-      "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
-    },
-    {
-      "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7844.jpeg",
-      "sha256": "f6800ceed7541570545a1fa77af6aabe6d0981950ff6e0ff47d2175ef4c07096",
-      "original_name": "IMG_7844.jpeg",
-      "original_sha256": "718391b279921ce6098224d1bb80cb2633abe07ed02b18adfee29e3f1060ed80",
-      "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7844.jpeg",
-      "jpeg_pixels_unchanged": true,
-      "orientation_preserved": true,
-      "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
-    }
-  ],
-  "reference_thermal_settings": {
-    "first_layer_nozzle_c": 265,
-    "remaining_model_nozzle_c": 280,
-    "bed_c": 80,
-    "chamber_setting_c": 0,
-    "part_fan_near_lower_curve_percent_approx": [
-      49,
-      55
-    ],
-    "part_fan_reading_scope": "v11 G-code, layers 4\u201325; fan also changes within later layers."
+    "qualification": "The six-wall/infill-first carrier has no observed spaghetti failure and retains a slightly concave lower surface. Derek considers the observed result probably good enough for now; this is provisional lower-curve acceptance."
   },
   "previous_print_trials": [
+    {
+      "reported_by": "Derek",
+      "reported_date": "2026-09-24",
+      "status": "completed_with_localized_lower_curve_curling",
+      "printer": "Mark2",
+      "printer_task_id": "1277839952",
+      "material": "black PET-GF",
+      "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json",
+      "native_archive_sha256": "d1e154afa633582121e53d8a2aa9226abb4ad22276183ebe22a4d373f744ec12",
+      "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+      "base_layer_height_mm": 0.24,
+      "visible_round_layer_height_mm": 0.08,
+      "initial_layer_height_mm": 0.08,
+      "supports_enabled": false,
+      "scope": "Finished surface assessment; assembled fit is not assessed here.",
+      "initial_in_progress_observation": {
+        "reported_by": "Derek",
+        "reported_date": "2026-09-24",
+        "statement": "The unsupported curve on the tee carrier is turning out beautifully btw. Please make a note of it, and ensure we do the same elsewhere (e.g. enclosure back top) and don\u2019t use supports on those 0.08 rounded surfaces.",
+        "scope": "Early observation during printing; not whole-part acceptance."
+      },
+      "finished_surface_observation": {
+        "reported_by": "Derek",
+        "reported_date": "2026-09-24",
+        "initial_clean_layers_approx": 20,
+        "curl_onset_layer_range_approx": [
+          20,
+          30
+        ],
+        "disturbed_layer_count_approx": [
+          3,
+          6
+        ],
+        "mechanism_observed_by_user": "An edge lifts or pulls inward into the nozzle path; the nozzle drags it while depositing the next layer.",
+        "recovery": "The curve recovers as it approaches vertical, within the 0.08 mm band and before the change to 0.24 mm.",
+        "upper_curve": "Clean, even surface; supplied for comparison.",
+        "thermal_cause": "Unconfirmed."
+      },
+      "photos": [
+        {
+          "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7842.jpeg",
+          "sha256": "3ba75d11222382ce56952cb292ae1f73936fa6ae1cb38b34fdac67de6f1e9329",
+          "original_name": "IMG_7842.jpeg",
+          "original_sha256": "3fdb5776984f8c968fe9166a83a7ebd352a79643b54228a72d221f7536c4bc58",
+          "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7842.jpeg",
+          "jpeg_pixels_unchanged": true,
+          "orientation_preserved": true,
+          "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+        },
+        {
+          "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7844.jpeg",
+          "sha256": "f6800ceed7541570545a1fa77af6aabe6d0981950ff6e0ff47d2175ef4c07096",
+          "original_name": "IMG_7844.jpeg",
+          "original_sha256": "718391b279921ce6098224d1bb80cb2633abe07ed02b18adfee29e3f1060ed80",
+          "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7844.jpeg",
+          "jpeg_pixels_unchanged": true,
+          "orientation_preserved": true,
+          "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+        }
+      ],
+      "reference_thermal_settings": {
+        "first_layer_nozzle_c": 265,
+        "remaining_model_nozzle_c": 280,
+        "bed_c": 80,
+        "chamber_setting_c": 0,
+        "part_fan_near_lower_curve_percent_approx": [
+          49,
+          55
+        ],
+        "part_fan_reading_scope": "v11 G-code, layers 4\u201325; fan also changes within later layers."
+      }
+    },
     {
       "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/manifest.json",
       "printer_task_id": "1278660260",
@@ -163,6 +179,30 @@
       "No active chamber heat",
       "Mark2 requested +0.04 mm Z trim"
     ],
-    "outcome": "Pending physical print observation."
+    "outcome": "Provisional: no spaghetti failure observed; slight lower-surface concavity remains. Derek: probably good enough for now.",
+    "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json",
+    "observation_scope": "In-progress lower-curve observation. The subsequent printer reading is RUNNING at 47/189 layers; the exact layer Derek viewed is not established."
+  },
+  "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/physical-result.json",
+  "current_surface_observation": {
+    "spaghetti_failure": "Derek reports no spaghetti failure so far.",
+    "lower_curve": "The surface angles inward into a slight concavity instead of forming the intended outward round."
+  },
+  "user_qualification": "probably good enough for now",
+  "preferred_next_recipe": {
+    "requested_by": "Derek",
+    "requested_date": "2026-09-24",
+    "wall_loops": 6,
+    "scope": "Complete print-bottom rounded bands printed at 0.08 mm; local height-range overrides only.",
+    "carrier_print_z_example_mm": [
+      0,
+      6.1
+    ],
+    "outside_band": "Retain the job profile wall count.",
+    "wall_infill_order": "Retain the original order: inner walls, outer wall, then infill.",
+    "infill_wall_overlap": "Retain the original 15%.",
+    "speed_and_acceleration": "Retain the original profile settings.",
+    "prepared_carrier_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v15/manifest.json",
+    "physical_validation": "Six walls alone is untested; the provisionally usable v14 print combines six walls and infill first."
   }
 }
