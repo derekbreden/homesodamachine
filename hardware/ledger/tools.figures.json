@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$17,024.20",
+    "TOOLS_TOTAL": "$17,057.43",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -91,6 +91,7 @@
     "T_VISION": "$78.75",
     "T_WELD_CART": "$193.04",
     "T_WELD_ROTATOR": "$195.44",
+    "T_WELD_WIRE_CUTTERS": "$33.23",
     "T_WORKBENCH": "$345.28",
     "T_X1PRO": "$3,899.00"
   }
