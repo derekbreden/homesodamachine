@@ -36,6 +36,11 @@ face is smooth within its rounded edges.
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
 the bed, and their aft shoulders rise off it.
 
+The plate prints without supports. Its visible end rounds use 0.08 mm layers through their
+full height, including the first layer, and the remaining height uses 0.24 mm. Derek reports
+that the unsupported curve is turning out beautifully in the Mark2 v11 print; the
+[physical record](physical-acceptance.json) binds that observation to the slice.
+
 ## Openings and travel
 
 Each front flank carries a window [35.35 mm](OPENING_Y) in Y by [60.122 mm](OPENING_Z) in Z

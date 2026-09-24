@@ -45,6 +45,13 @@ settles whether what somebody saw in the viewer was there.
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
 
+User-visible top/bottom rounds print at 0.08 mm through the entire curve, without supports
+contacting those rounded surfaces. Derek's tee-carrier print is the physical example:
+[`enclosure/tee-carrier/physical-acceptance.json`](enclosure/tee-carrier/physical-acceptance.json).
+Apply this to other parts, including back-top's roof edges. Use face-specific support blockers
+where other features still need supports, and inspect emitted support paths, including short
+bodies without interface labels. A fine layer band alone does not exclude supports.
+
 ## Filament use
 
 Derek wants every spool used fully, with reloading during a print as needed. Remaining

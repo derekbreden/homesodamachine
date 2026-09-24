@@ -1,0 +1,95 @@
+{
+ "staged_input": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v6/enclosure-back-top-black-z018-h2c-v6-input.3mf",
+ "staged_input_sha256": "f7f6ebf5dc5b16b0ad0577c8fbb75ef2b947d7c76eaf3792f0ee53091f4f66e1",
+ "printer": "H2C",
+ "input_sha256": {
+  "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "2f6935bb017c4176eca09c8cb305efbac638050e93d12a38f7116e990a878ec4",
+  "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "55c7df1c20a145e1b44f17ef6ffb7432d41773bb23a96f3439e9edea87c1727c",
+  "hardware/manifold-layout/enclosure-box.json": "7325b7129e73f97d4e609c429a6be85d4e5ced2dfc2f4d59b16557cef389d351",
+  "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+ },
+ "parts": [
+  {
+   "name": "enclosure-back-top",
+   "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+   "source_stl_sha256": "2f6935bb017c4176eca09c8cb305efbac638050e93d12a38f7116e990a878ec4",
+   "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+   "source_step_sha256": "55c7df1c20a145e1b44f17ef6ffb7432d41773bb23a96f3439e9edea87c1727c",
+   "original_bounds_mm": [
+    [
+     -107.5,
+     200.0,
+     160.0
+    ],
+    [
+     107.5,
+     471.29998779296875,
+     355.0
+    ]
+   ],
+   "original_mesh_triangles": 1001638,
+   "pretransform_rotation_sequence": [
+    "X180"
+   ],
+   "pretransform_rotation_matrix": [
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     0,
+     -1,
+     0
+    ],
+    [
+     0,
+     0,
+     -1
+    ]
+   ],
+   "pretransform_translation_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "oriented_source": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v6/oriented-meshes/enclosure-back-top.stl",
+   "oriented_stl_sha256": "41e43713e053f684efa0f253d955a70024cc2557f4349b9cafce5587c88a5ba8",
+   "oriented_bounds_mm": [
+    [
+     -107.5,
+     -471.29998779296875,
+     -355.0
+    ],
+    [
+     107.5,
+     -200.0,
+     -160.0
+    ]
+   ],
+   "rigid_transform_vertex_recovery_exact": true,
+   "print_up_in_original_cad": [
+    0,
+    0,
+    -1
+   ]
+  }
+ ],
+ "centers_xy_mm": {
+  "enclosure-back-top": [
+   162.5,
+   168.0
+  ]
+ },
+ "initial_layer_mm": 0.08,
+ "layer_ranges_mm": {
+  "enclosure-back-top": [
+   {
+    "min_z": 0.0,
+    "max_z": 9.3,
+    "layer_height": 0.08,
+    "reason": "back-top prints roof-down: its visible R6 roof side edges rise off the bed to about 7.5, and the +X flank's flute run-outs into that round reach 9.25; 0.08 from the first layer through the whole of both"
+   }
+  ]
+ }
+}

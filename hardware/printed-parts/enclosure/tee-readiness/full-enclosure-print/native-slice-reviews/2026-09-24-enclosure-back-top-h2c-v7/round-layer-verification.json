@@ -1,0 +1,27 @@
+{
+  "gcode": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v7/ready/enclosure-back-top-black-z018-h2c-v7-unsupported-rounds.gcode.3mf",
+  "object_id": 1901,
+  "requested_layer_height_mm": 0.08,
+  "spans": [
+    {
+      "name": "visible-roof-rounds-and-flute-runouts",
+      "print_z_mm": [
+        0.0,
+        9.25
+      ],
+      "wall_layer_count": 116,
+      "first_wall_layer": [
+        0.08,
+        0.08
+      ],
+      "last_wall_layer": [
+        9.28,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "pass": true
+}

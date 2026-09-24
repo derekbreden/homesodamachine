@@ -1,0 +1,52 @@
+{
+  "source_project": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v6/enclosure-back-top-black-z018-h2c-v6-input.3mf",
+  "source_sha256": "f7f6ebf5dc5b16b0ad0577c8fbb75ef2b947d7c76eaf3792f0ee53091f4f66e1",
+  "staged_input": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v7/enclosure-back-top-black-z018-h2c-v7-unsupported-rounds-input.3mf",
+  "staged_sha256": "832b9fd1d0eb21f4474db540e959f32fabfc0c44bebc1d9c4da7f315840bbd8a",
+  "source_input_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "2f6935bb017c4176eca09c8cb305efbac638050e93d12a38f7116e990a878ec4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "55c7df1c20a145e1b44f17ef6ffb7432d41773bb23a96f3439e9edea87c1727c",
+    "hardware/manifold-layout/enclosure-box.json": "7325b7129e73f97d4e609c429a6be85d4e5ced2dfc2f4d59b16557cef389d351",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "changed_member": "3D/Objects/object_1.model",
+  "triangle_annotation": "paint_supports=\"8\"",
+  "all_geometry_placement_settings_and_layer_ranges_identical": true,
+  "selection": {
+    "cad_abs_x_min_mm": 100,
+    "print_z_max_mm": 9.31,
+    "all_vertices_inside": true,
+    "normal": "print-down"
+  },
+  "painted_triangles": {
+    "west": 3379,
+    "east": 3645
+  },
+  "painted_bounds_plate_mm": {
+    "west": [
+      [
+        55.0,
+        33.249176025,
+        0.0
+      ],
+      [
+        62.444694518999995,
+        303.649993896,
+        8.749694824000002
+      ]
+    ],
+    "east": [
+      [
+        262.555702209,
+        33.24932861299999,
+        0.0
+      ],
+      [
+        270.0,
+        303.649993896,
+        8.000244140999996
+      ]
+    ]
+  },
+  "printer_submission": false
+}

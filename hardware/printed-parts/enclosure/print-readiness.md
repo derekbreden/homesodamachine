@@ -25,6 +25,12 @@ emitted brim and support paths, and every support contact has an accessible remo
 hardware installation, following the
 [support-removal strategy](enclosure/README.md#support-removal-strategy).
 
+Those visible 0.08 mm rounded surfaces print without support contacts, including back-top's
+roof edges. Keep supports for separate functional features and use face-specific blockers on
+the rounds. Inspect all emitted support paths, including short bodies without labelled
+interfaces, against the rounded surfaces before sending a slice. Previously prepared archives
+also require this check; their 0.08 mm layer-band checks alone do not establish it.
+
 Measure each required visible curve's print-Z span on the STEP, then run
 `hardware/scripts/verify_round_layer_band.py` on the exported `.gcode.3mf` for that object and
 span. The emitted wall layers must cover the full span at 0.08 mm; the range setting in the
@@ -38,6 +44,7 @@ quantity is not a launch condition ([filament-use policy](tee-readiness/full-enc
 
 | Part or interface | Established result and current use |
 | --- | --- |
+| Tee-carrier visible rounds | Derek reports that the unsupported curve on the Mark2 v11 print is turning out beautifully. Use unsupported 0.08 mm visible rounds elsewhere, including enclosure back-top. This is an in-progress surface observation. [Physical record](tee-carrier/physical-acceptance.json). |
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted contact geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. The raised crown and four-tube operation are checked in the full trial. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Beduan sockets | The production-profile socket fit is easy and accepted, with some retention during loose inverted shaking. Preserve the Ø7.2 sockets and use zip ties for positive retention. Installed tie access remains a full-assembly observation. [Physical record](../fixtures/valve-socket-fit/physical-acceptance.json). |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
