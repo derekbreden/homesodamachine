@@ -470,3 +470,12 @@ through the whole of every roof curve, from print z 187.0 to 195.0, and 0.24 mm 
 The v1 rings, face up in 0.20 mm layers, turned out badly in Derek's reading. v2 prints the
 same three chips in 0.08 mm layers throughout, 25 of them, and reported `RUNNING` on Mark2 at
 2026-09-24T00:35:45Z ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/mark2-launch.json)).
+
+## 2026-09-24 — face-down bulkhead rings v3 on Mark2
+
+Derek found v2's 0.08 mm lettering better than v1 but less sharp than the face-down nameplate.
+The same TAP and two FLAVOR chips print with their lettered faces against the bed, all 25 layers
+at 0.08 mm. The requested Mark2 trim is +0.04 mm (+0.02 mm emitted on Textured PEI). Mark2
+reported `RUNNING` at 2026-09-24T02:01:44Z, task 1277448913, with black on external 254 and
+white on external 255, no printer error
+([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/mark2-launch.json)).
