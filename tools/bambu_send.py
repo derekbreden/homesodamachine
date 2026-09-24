@@ -160,15 +160,20 @@ def options(nodes):
 def ensure_application():
     """Bambu Connect running with its window up. A send made with nobody at the Mac finds it
     closed after a restart or a crash; `open -g` starts it without taking the screen."""
-    if subprocess.run(["pgrep", "-f", "Bambu Connect.app/Contents/MacOS/Bambu Connect"],
-                      capture_output=True).returncode == 0:
+    def ready():
+        return "My Printers" in ax("state", check=False) or "\"Devices\"" in ax("tree", check=False)
+    if ready():
         return
-    print("Bambu Connect is not running; starting it in the background")
-    subprocess.run(["open", "-g", "-a", "Bambu Connect"], check=False)
+    if subprocess.run(["pgrep", "-f", "Bambu Connect.app/Contents/MacOS/Bambu Connect"],
+                      capture_output=True).returncode != 0:
+        print("Bambu Connect is not running; starting it in the background")
+        subprocess.run(["open", "-g", "-a", "Bambu Connect"], check=False)
+    else:
+        print("Bambu Connect is running but its window is not up yet; waiting")
     deadline = time.monotonic() + 60
     while time.monotonic() < deadline:
         time.sleep(2)
-        if "My Printers" in ax("state", check=False) or find(tree(), role="AXLink", label="Devices"):
+        if ready():
             time.sleep(3)
             return
     fail("Bambu Connect did not come up within 60 s")
@@ -447,6 +452,16 @@ def main():
                 if wait_for(8, lambda n: not dialog(n) and n):
                     closed = True
                     break
+                # A press the printer heard is not pressed again, however long the dialog lags.
+                heard = listener.drain()
+                late = status(printer)
+                if (any(h.get("command") == "project_file" or "upload" in h
+                        or (h.get("gcode_state") or ("",))[0] in BUSY for h in heard)
+                        or late.get("job_id") != before.get("job_id")
+                        or late.get("gcode_state") in BUSY):
+                    print(f"send: the printer heard press {attempt + 1} with the dialog still open; not pressing again")
+                    closed = True
+                    break
                 print(f"send: dialog still open after press {attempt + 1}")
             if not closed:
                 ax("press", "cancel", "--role", "AXButton", check=False)
@@ -459,7 +474,10 @@ def main():
             for mark in (0, 1, 5):
                 time.sleep(max(0.0, closed_at + mark - time.monotonic()))
                 page = ax("state", check=False).split("\n", 1)[0]
-                print(f"send: page +{mark}s " + page[:260])
+                terms = [s.strip() for s in page.split("|")
+                         if re.search(r"(?i)download|upload|went wrong|fail|error|%|sending|busy", s)]
+                print(f"send: page +{mark}s " + (" | ".join(terms) if terms else "no progress or error text")
+                      + f"  [{len(page)} chars: {page[:120]} ... {page[-160:]}]")
 
             # 7. The printer's own word: PREPARE or RUNNING under this name. The name alone
             # is not it; the earlier job can carry the same one.
@@ -493,6 +511,30 @@ def main():
     # pause. Each round reads the printer first and sends only to an idle one, so a first
     # send that arrives late makes the printer busy and the next round stops there.
     reading = None
+    first = before
+
+    def gate(reading):
+        """The printer as it must read before another round: on the job id it had before the
+        first send, not busy, no upload, no error, no HMS. Anything else is a send that may
+        have landed, and nothing more is sent."""
+        if reading.get("job_id") != first.get("job_id"):
+            if reading.get("subtask_name") == archive.name and reading.get("gcode_state") in BUSY:
+                return "arrived"
+            fail(f"{args.printer}'s job id moved from {first.get('job_id')} to {reading.get('job_id')} "
+                 f"({reading.get('gcode_state')} on {reading.get('subtask_name')}); nothing more was sent")
+        if reading.get("gcode_state") in BUSY:
+            fail(f"{args.printer} is {reading['gcode_state']} on {reading.get('subtask_name')}; nothing more was sent")
+        upload = (reading.get("upload") or {}).get("status")
+        if upload not in (None, "idle"):
+            fail(f"{args.printer} shows an upload ({upload}); nothing more was sent")
+        # An error or an HMS the printer already showed before the first send (a standing
+        # camera notice, say) is not new; a new one is.
+        if ((reading.get("print_error") or 0) != (first.get("print_error") or 0)
+                or (reading.get("hms") or []) != (first.get("hms") or [])):
+            fail(f"{args.printer} now reports print_error {reading.get('print_error')} and HMS {reading.get('hms')} "
+                 f"(before the first send: {first.get('print_error')}, {first.get('hms')}); nothing more was sent")
+        return None
+
     for round_ in range(SEND_ROUNDS):
         try:
             reading = send_once(before)
@@ -502,26 +544,18 @@ def main():
             print(f"send: {refused}")
             if round_ == SEND_ROUNDS - 1:
                 fail(str(refused))
-            heat = manual_heat(reading) if reading else None
-            if heat:
-                print(f"{args.printer}: {heat}; sending again when the heaters are idle")
-                before = wait_out_heat(printer, args.printer, args.busy_wait)
-                continue
             if any(h.get("command") == "project_file" for h in refused.heard):
                 fail(str(refused) + "; the printer answered the command, so it is not sent again")
-            time.sleep(RESEND_PAUSE)
+            if not (reading and manual_heat(reading)):
+                time.sleep(RESEND_PAUSE)
             before = status(printer)
-            upload = (before.get("upload") or {}).get("status")
-            if upload not in (None, "idle"):
-                fail(f"{args.printer} shows an upload ({upload}) after the send; not sending again")
             if manual_heat(before):
+                print(f"{args.printer}: {manual_heat(before)}; sending again when the heaters are idle")
                 before = wait_out_heat(printer, args.printer, args.busy_wait)
-            if before.get("gcode_state") in BUSY:
-                if before.get("subtask_name") == archive.name:
-                    reading = before
-                    print(f"send: {archive.name} arrived late; {args.printer} is {before['gcode_state']}")
-                    break
-                fail(f"{args.printer} became {before['gcode_state']} on {before.get('subtask_name')}; nothing more was sent")
+            if gate(before) == "arrived":
+                reading = before
+                print(f"send: {archive.name} arrived late; {args.printer} is {before['gcode_state']}")
+                break
             print(f"send: round {round_ + 2} of {SEND_ROUNDS}: nothing reached {args.printer}; sending again")
     if args.dry_run:
         return
