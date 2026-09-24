@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "reviewed_not_sent",
+  "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v4/manifest.json",
+  "current_source_geometry": [
+    {
+      "part": "enclosure-tee-carrier-plate",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15"
+    },
+    {
+      "part": "enclosure-window-cover-east",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "stl_sha256": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "step_sha256": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550"
+    },
+    {
+      "part": "enclosure-window-cover-west",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl",
+      "stl_sha256": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "step_sha256": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a"
+    }
+  ],
+  "staged_input": {
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/tee-carrier-plate-covers-black-z004-mark2-v5-input.3mf",
+    "sha256": "b3aaa9373c216a7ce1abcda77fddc706ebccdb06213d5094e6ab22915af54c4b",
+    "changed_members_from_v4": [
+      "3D/3dmodel.model",
+      "3D/Objects/object_1.model",
+      "Metadata/model_settings.config"
+    ]
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/ready/tee-carrier-plate-covers-black-z004-mark2-v5.gcode.3mf",
+    "sha256": "1462e4608ac31baed91cedd95bdb15e237c8efb688a52de6445f83f6705db1a2"
+  },
+  "gcode_sha256": "2348ffe0d91a94b2fc76b25afbeb15a47192ccbdeee35e2519dd5c9dd2a079a5",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "R6 aft rounds rise from the bed through print Z 6.0"
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "R6 fore rounds span print Z 15.054\u201321.054"
+      }
+    ]
+  },
+  "initial_layer_print_height_mm": 0.08,
+  "full_curve_layer_audit_pass": true,
+  "support_summary": {
+    "bed_rooted_bodies": 2,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 0,
+    "interface_islands": null,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 2
+  },
+  "support_review": "Two short bed-rooted slivers remain below the aft rounds. Their plate-frame locations and removal lanes match v4; neither window cover has support.",
+  "stage_provenance": {
+    "smooth_plate_source_commit": "e5a25ad22",
+    "pointer_commit": "8bbe50dcf",
+    "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c"
+  },
+  "review_artifact_sha256": {
+    "job-config.json": "3697accc4422618dc88fafd9eafd6741e4fc646fd0fe101db1ee804d03cddb18",
+    "layer-audit.json": "7a83e771f1ce4677694363e6e1f5e85bbe6446230351c02a9c62d8f21788c47a",
+    "support-audit-carrier.json": "af7b08082405aeef9a3f21a2f3d96374745529fe9bca1fcbf4e78ecf3be02c90",
+    "slice-result.json": "94b62917f911354848d7fd91385619e9455ead29f1194ff0f0a003a417b0bb2d",
+    "stage-provenance.json": "f3a878d8d70b40623f8c1db7ac96fc0f0be18fef678c35afbb8735ca9b5536f9"
+  }
+}
