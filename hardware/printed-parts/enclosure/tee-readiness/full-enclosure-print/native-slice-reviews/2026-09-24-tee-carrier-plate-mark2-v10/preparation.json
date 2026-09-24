@@ -1,0 +1,101 @@
+{
+ "staged_input": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10/tee-carrier-plate-black-z004-mark2-v10-input.3mf",
+ "staged_input_sha256": "91a5b12ad968b108c9a8911b5952ff5a826bb50d93db63f1a034bd60ee3fb822",
+ "printer": "Mark2",
+ "input_sha256": {
+  "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+  "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+  "hardware/manifold-layout/enclosure-box.json": "7325b7129e73f97d4e609c429a6be85d4e5ced2dfc2f4d59b16557cef389d351",
+  "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+ },
+ "parts": [
+  {
+   "name": "enclosure-tee-carrier-plate",
+   "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+   "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+   "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+   "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+   "original_bounds_mm": [
+    [
+     -107.5,
+     95.98600006103516,
+     164.9239959716797
+    ],
+    [
+     107.5,
+     117.04000091552734,
+     224.29600524902344
+    ]
+   ],
+   "original_mesh_triangles": 43560,
+   "pretransform_rotation_sequence": [
+    "X-90"
+   ],
+   "pretransform_rotation_matrix": [
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     -1,
+     0
+    ]
+   ],
+   "pretransform_translation_mm": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "oriented_source": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v10/oriented-meshes/enclosure-tee-carrier-plate.stl",
+   "oriented_stl_sha256": "051dd5c7b37797a80fdf429d0a644c87510e83c5c8a419710ca4e52548e3c30b",
+   "oriented_bounds_mm": [
+    [
+     -107.5,
+     164.9239959716797,
+     -117.04000091552734
+    ],
+    [
+     107.5,
+     224.29600524902344,
+     -95.98600006103516
+    ]
+   ],
+   "rigid_transform_vertex_recovery_exact": true,
+   "print_up_in_original_cad": [
+    0,
+    -1,
+    0
+   ]
+  }
+ ],
+ "centers_xy_mm": {
+  "enclosure-tee-carrier-plate": [
+   162.5,
+   160.0
+  ]
+ },
+ "initial_layer_mm": 0.08,
+ "layer_ranges_mm": {
+  "enclosure-tee-carrier-plate": [
+   {
+    "min_z": 0.0,
+    "max_z": 6.1,
+    "layer_height": 0.08,
+    "reason": "Full exposed aft R6 round, print Z 0\u20136 mm."
+   },
+   {
+    "min_z": 14.9,
+    "max_z": 21.054,
+    "layer_height": 0.08,
+    "reason": "Full exposed fore R6 round, print Z 15.054\u201321.054 mm."
+   }
+  ]
+ }
+}
