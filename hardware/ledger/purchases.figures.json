@@ -2,10 +2,10 @@
   "/hardware/scripts/_ledger_totals.py": {
     "LEDGER_ACQUIRED_COMBINED": "$41,417.63",
     "LEDGER_ACQUIRED_HW": "$35,980.09",
-    "LEDGER_GRAND_TOTAL": "$42,350.63",
+    "LEDGER_GRAND_TOTAL": "$42,383.86",
     "LEDGER_LABOR": "$5,437.54",
     "LEDGER_MISSING": "$53.07",
-    "LEDGER_ON_ORDER": "$879.93",
+    "LEDGER_ON_ORDER": "$913.16",
     "LEDGER_SEC1": "$4,621.80",
     "LEDGER_SEC10": "$156.61",
     "LEDGER_SEC11": "$282.80",

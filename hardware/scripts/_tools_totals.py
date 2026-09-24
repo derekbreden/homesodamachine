@@ -168,6 +168,7 @@ TOOLS = [
     ("wire brush set", "T_BRUSH", A("B08L7RXVG5")),
     ("Scotch-Brite 7447", "T_SCOTCHBRITE", A("B000LPN3WQ")),
     ("flap wheels", "T_FLAP_WHEELS", A("B07M97KFZW")),
+    ("Knipex 70 11 110", "T_WELD_WIRE_CUTTERS", A("B005EXO806")),
     ("C110 copper bar", "T_COPPER_BAR", L(contains="B0DR2PX6TT", status="ACQUIRED")),
     ("goat-grain TIG gloves", "T_GLOVES", A2(["B07T6VLSK3", "B07T1NYXHM"])),
     ("Bernzomatic TS8000", "T_TORCH", A("B0BPMVTJ1R")),

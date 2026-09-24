@@ -40,8 +40,10 @@ STATIONS = [
     ("BS", "Band saw + cut-off", ["BA4555"], [r"BA4555", r"band ?saw"]),
     ("LW", "Laser welder", ["XLaserlab X1 Pro", "argon size-80", "RX Weld", "magnetic V-pads",
                             "Scotch-Brite 7447", "wire brush set", "C110 copper bar",
-                            "goat-grain TIG gloves", "Welding Cart", "Argon purge branch"],
-     [r"X1 Pro", r"XLaserlab", r"Scotch-Brite 7447", r"X1 cleaning"]),
+                            "goat-grain TIG gloves", "Welding Cart", "Argon purge branch",
+                            "flap wheels", "Knipex 70 11 110"],
+     [r"X1 Pro", r"XLaserlab", r"Scotch-Brite 7447", r"X1 cleaning", r"70 11 110",
+      r"flap wheel"]),
     ("HY", "Hydro + pressure test", ["hydrostatic test pump", "glycerin-filled gauge",
                                      "outer-hex plug", "MNPT air plug", "NPT hex nipple"],
      [r"BEAMNOVA", r"KOOTANS", r"SENCTRL", r"hydro"]),
@@ -49,7 +51,7 @@ STATIONS = [
      ["Model 150 tubing cutter", "cap-tube cutter", "51006 tube bender", "tube straightener",
       "Model 345 flaring tool", "Pliers Wrench"],
      [r"RIDGID 150", r"Mastercool", r"straightener", r"tube bender", r"flaring",
-      r"Pliers Wrench", r"Knipex"]),
+      r"Pliers Wrench", r"Knipex 86"]),
     ("BZ", "Braze bench", ["Bernzomatic TS8000", "Uniweld RHP400", "Joywayus"],
      [r"TS8000", r"Bernzomatic", r"MAP-Pro", r"BCuP", r"RHP400"]),
     ("VC", "Vacuum + charge", ["4 CFM vacuum pump", "HVAC manifold gauge set", "Smart Weigh",
@@ -69,7 +71,7 @@ STATIONS = [
      [r"multimeter", r"\bmeter\b", r"Kill-A-Watt", r"clamp meter", r"ammeter",
       r"serial console", r"USB-C cable"]),
     ("PL", "Plastic tube + fittings", ["round die handle"],
-     [r"Mudder", r"PEX", r"cutter\b", r"PTFE tape", r"Millrose", r"backup wrench",
+     [r"Mudder", r"\bPEX\b", r"cutter\b", r"PTFE tape", r"Millrose", r"backup wrench",
       r"crescent wrench", r"nut driver"]),
     ("PC", "Pour + cure bench", ["vacuum chamber", "convection toaster oven",
                                  "monitoring thermometer"],
@@ -91,7 +93,8 @@ NO_STATION = ["Ultra Duster", "DeWalt DWFP55130", "Husky 41257HOM", "SanDisk Ult
 # to clear this report buys the coverage with a card about two things, and the
 # reader pays. These live on the sequence cards that use them, which is where
 # a builder meets the tool anyway.
-CARRIED = ["Noga NG8150", "NEIKO 01407A", "KATA micro flush cutters"]
+CARRIED = ["Noga NG8150", "NEIKO 01407A", "KATA micro flush cutters", "DeWalt DCD780",
+           "Ryobi PCL206"]
 
 DIM = re.compile(r'class="dim">([^<]+)<')
 TOOLSTRIP = re.compile(r'<div class="tools">(.*?)</div>', re.S)

@@ -51,6 +51,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **MAXMAN SS wire brush set** | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5), [purchases.md §1](/hardware/ledger/purchases.md) | Joint prep on stainless. | [$12.22](T_BRUSH) |
 | **3M Scotch-Brite 7447 hand pads (20-pk)** | [B000LPN3WQ](https://www.amazon.com/dp/B000LPN3WQ), [purchases.md §1](/hardware/ledger/purchases.md) | Very fine grade, 6" × 9", aluminum-oxide non-woven. Abrasive weld-surface prep on the two faces the fillet actually sees — the tube bore band and the end-plate outer face. Stainless-only: segregate from anything that has touched carbon steel, since embedded free iron rusts and defeats the citric passivation. | [$22.95](T_SCOTCHBRITE) |
 | **ASelected 1" × 1" flap wheels, 1/4" shank, 80 grit (10-pk)** | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW), [purchases.md §1](/hardware/ledger/purchases.md) | Aluminum-oxide cloth flaps, rated to 35,000 rpm. Dresses a stuck-wire stub down to the bead and no further: the end-of-bead crater under it is where a crack forms, and grinding can smear one shut before the dye-penetrant read. Runs in the DCD780 or PCL206 chuck ([shop / bench infrastructure](#shop--bench-infrastructure)): a coated abrasive still cuts at drill speed, where mounted stones and carbide burrs are made for die-grinder speeds. The fillet sits 1/4" below the tube lip, so the wheel works on its corner. Stainless-only, like the pads above. | [$9.64](T_FLAP_WHEELS) |
+| **Knipex 70 11 110 diagonal cutters, 4-1/2"** | [B005EXO806](https://www.amazon.com/dp/B005EXO806), [purchases.md §1](/hardware/ledger/purchases.md) | Narrow head with bevel, opening spring, induction-hardened edges (approx. 62 HRC); rated for hard steel wire to 3/64". Snips a wire that sticks at the end of a bead: one hand keeps the gun where it stopped, the other puts the jaw tips between the wire nozzle and the bead, with no wire fed from the feeder first. The tips carry less force than the root of the jaw, and .030" ER316L is under two-thirds of the hard-wire rating, which is what lets the tips take it. | [$33.23](T_WELD_WIRE_CUTTERS) |
 | **YTKavq C110 copper bar (1/4" × 2" × 12")** | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT), [purchases.md §1](/hardware/ledger/purchases.md) | Soft-annealed pure copper; weld backer / heat-sink chill bar. One 25 mm crosscut, with the stock's 2-inch width stood vertically, is the rotation rig's 6 × 25 × 50 mm stationary work-contact shoe; the printed arm side-clamps it without copper drilling. | [$42.89](T_COPPER_BAR) |
 | **Caiman premium goat-grain TIG gloves** | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) + [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM), [purchases.md §1](/hardware/ledger/purchases.md) | PPE for the laser welder, two pair (variant ASINs). | [$46.10](T_GLOVES) |
 
@@ -235,7 +236,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total tooling, acquired and on order: **[$17,024.20](TOOLS_TOTAL)**
+Total tooling, acquired and on order: **[$17,057.43](TOOLS_TOTAL)**
 
 ## Open items
 

@@ -304,9 +304,9 @@ orientation is set only after this direction convention is true.
    pedal. Once rotation is steady, hold the laser trigger for the bead. Carry
    the bead past the first tack by about [20°](OVERLAP_DEG) — judged at the
    index mark, with the console's degrees as a check — and stop there.
-7. Keep the trigger held and lift the head straight away so the X1 Pro
-   retract/patch cycle breaks the wire in air. Then release trigger and
-   pedal.
+7. Release the trigger, then the pedal. A wire that sticks in the puddle is
+   snipped, not lasered off: keep the head where it stopped and cut the wire
+   between the wire nozzle and the bead, per step 3 of `pressure-vessel.md`.
 8. Continue with PT and hydrostatic inspection in `pressure-vessel.md`. Record
    speed, direction, the degrees the console reported at release, and runout
    with the result.
