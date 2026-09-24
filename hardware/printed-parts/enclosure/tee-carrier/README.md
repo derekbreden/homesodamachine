@@ -30,9 +30,8 @@ column's four edges running inboard to it, roll over on the enclosure's [6 mm](S
 shoulder, the radius of the enclosure's own side edges, so each corner closes as one blend the
 way the enclosure's front corners do. The plate joins each column at the column's inboard face;
 the plate's back is flush with the column's and its underside stands just over the column's, so
-the plate's square bottom-aft corner stands out past the column's rounded one there. The
-exporter strikes the enclosure's flute field on the end face at the connected pose, so its
-grooves register with the flank's and fade short of the face's edges the same way.
+the plate's square bottom-aft corner stands out past the column's rounded one there. Each end
+face is smooth within its rounded edges.
 
 The plate prints lying on its back, troughs open upward; the columns stand out in the plane of
 the bed, and their aft shoulders rise off it.

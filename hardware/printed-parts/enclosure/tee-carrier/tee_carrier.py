@@ -13,8 +13,7 @@ wall's aft face (`spring_pockets`, cut by front-top).
 
 Each column's end face is flush with its flank and is show face. All four of its edges and the
 column's four edges running inboard to it roll over on the enclosure's R6 shoulder, so each corner
-closes as one blend the way the enclosure's front corners do. The exporter strikes the
-enclosure's flute field on the face.
+closes as one blend the way the enclosure's front corners do. The end face is smooth.
 
 The opening is one cutter: the tees' sweep across the column at their height, the +X column's
 crossing at the staged plate, and a window through each flank from the tees' floor to the root
@@ -482,11 +481,10 @@ def main():
         step, stl = _here.parent / f"{name}.step", _here.parent / f"{name}.stl"
         mesh = enclosure._piece_mesh(part.val())
         if name == PLATE:
-            # THE END FACES ARE STRUCK ON THE ENCLOSURE'S OWN FIELD, at the connected pose the
-            # plate is built at, so their grooves register with the flanks' round them.
-            mesh = enclosure._flute_skin.flute(
-                mesh, enclosure.flute_rails(box)[:1], enclosure.flute_pitch(box.outer),
-                enclosure.flute_depth, enclosure.flute_rise)
+            # The plate meets each rounded column at a tangent edge. Resolve the coincident
+            # tessellation there after rounding to the coordinates the STL can store.
+            mesh = trimesh.boolean.union([enclosure._flute_skin.as_written(mesh)],
+                                         engine="manifold", check_volume=False)
         mesh.export(str(stl))
         printed = trimesh.load_mesh(str(stl))
         if not printed.is_watertight or enclosure._flute_skin.non_manifold_edges(printed):
