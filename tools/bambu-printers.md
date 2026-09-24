@@ -121,6 +121,17 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    seconds and then `RUNNING` with the archive's name as `subtask_name`. A 47 MB archive
    took under ten seconds to land. Record the reading with the job.
 
+   The dialog can close and no job arrive: the job id does not move, the printer's
+   `upload` block stays idle, and nothing lands late. This happened to three Mark2 sends
+   (twice on 2026-09-22, once on 2026-09-23) with the file, printer and procedure the same
+   as sends that landed. `bambu_send.py` holds the printer's report topic open across Send
+   and prints any command reply (`project_file` with its result and reason), upload, error or
+   HMS it hears, and the application's page text at the close, a second later and five
+   seconds later. A send that never reached the printer is made again from a fresh dialog
+   after a pause, up to three rounds. Each round first reads the printer and sends only when
+   it is idle on the old job, with no upload or manual heat, so a late arrival stops the
+   retries. A command the printer answered is not sent again.
+
 ### What the application will not show
 
 The printer selector's popup and the AMS filament-mapping popover are drawn outside the
