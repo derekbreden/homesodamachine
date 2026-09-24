@@ -1,0 +1,429 @@
+{
+  "project": "tee-carrier-plate-covers-black-z004-mark2-v5-input.3mf",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
+  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 15.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "stl_sha256": "051dd5c7b37797a80fdf429d0a644c87510e83c5c8a419710ca4e52548e3c30b",
+      "triangles": 43560,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        194.61000061035156,
+        -106.51300048828125
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        125.0,
+        10.527000427246094
+      ],
+      "plate_translation_mm": [
+        162.5,
+        125.0,
+        10.527000427246094
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          95.31399536132812,
+          0.0
+        ],
+        [
+          270.0,
+          154.68600463867188,
+          21.054000854492188
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.999947122996673e-10
+    },
+    {
+      "name": "enclosure-window-cover-east",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/oriented-meshes/enclosure-window-cover-east.stl",
+      "stl_sha256": "cd922eb003464cfcd8bb3bed17d819a215c2d14e0beedbfdeac8f47dd0a325a4",
+      "triangles": 36,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        194.73500061035156,
+        135.18800354003906,
+        -95.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        213.0,
+        215.0,
+        3.0
+      ],
+      "plate_translation_mm": [
+        213.0,
+        215.0,
+        3.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          182.93899536132812,
+          197.0019989013672,
+          0.0
+        ],
+        [
+          243.06100463867188,
+          232.9980010986328,
+          6.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.062599145981949e-10
+    },
+    {
+      "name": "enclosure-window-cover-west",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/oriented-meshes/enclosure-window-cover-west.stl",
+      "stl_sha256": "f93abfc5ef782119629eb93b035da986a500fe8dc0d7dbb5a675e4b09ff8998f",
+      "triangles": 36,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        -194.73500061035156,
+        135.18800354003906,
+        -95.5
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        112.0,
+        215.0,
+        3.0
+      ],
+      "plate_translation_mm": [
+        112.0,
+        215.0,
+        3.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          81.93899536132812,
+          197.0019989013672,
+          0.0
+        ],
+        [
+          142.06100463867188,
+          232.9980010986328,
+          6.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.062599145981949e-10
+    }
+  ],
+  "project_sha256": "10f03da841370d3d13a4f8a93fed512bae48e6828a531efef5677f1b962f5c52",
+  "settings_preserved_byte_for_byte": false,
+  "source_records": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+      "original_bounds_mm": [
+        [
+          -107.5,
+          95.98600006103516,
+          164.9239959716797
+        ],
+        [
+          107.5,
+          117.04000091552734,
+          224.29600524902344
+        ]
+      ],
+      "original_mesh_triangles": 43560,
+      "pretransform_rotation_sequence": [
+        "X-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/oriented-meshes/enclosure-tee-carrier-plate.stl",
+      "oriented_stl_sha256": "051dd5c7b37797a80fdf429d0a644c87510e83c5c8a419710ca4e52548e3c30b",
+      "oriented_bounds_mm": [
+        [
+          -107.5,
+          164.9239959716797,
+          -117.04000091552734
+        ],
+        [
+          107.5,
+          224.29600524902344,
+          -95.98600006103516
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "name": "enclosure-window-cover-east",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+      "source_stl_sha256": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.step",
+      "source_step_sha256": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550",
+      "original_bounds_mm": [
+        [
+          92.5,
+          117.19000244140625,
+          164.6739959716797
+        ],
+        [
+          98.5,
+          153.18600463867188,
+          224.79600524902344
+        ]
+      ],
+      "original_mesh_triangles": 36,
+      "pretransform_rotation_sequence": [
+        "Y90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/oriented-meshes/enclosure-window-cover-east.stl",
+      "oriented_stl_sha256": "cd922eb003464cfcd8bb3bed17d819a215c2d14e0beedbfdeac8f47dd0a325a4",
+      "oriented_bounds_mm": [
+        [
+          164.6739959716797,
+          117.19000244140625,
+          -98.5
+        ],
+        [
+          224.79600524902344,
+          153.18600463867188,
+          -92.5
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "enclosure-window-cover-west",
+      "source": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl",
+      "source_stl_sha256": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+      "source_step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step",
+      "source_step_sha256": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
+      "original_bounds_mm": [
+        [
+          -98.5,
+          117.19000244140625,
+          164.6739959716797
+        ],
+        [
+          -92.5,
+          153.18600463867188,
+          224.79600524902344
+        ]
+      ],
+      "original_mesh_triangles": 36,
+      "pretransform_rotation_sequence": [
+        "Y-90"
+      ],
+      "pretransform_rotation_matrix": [
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "pretransform_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "oriented_source": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/oriented-meshes/enclosure-window-cover-west.stl",
+      "oriented_stl_sha256": "f93abfc5ef782119629eb93b035da986a500fe8dc0d7dbb5a675e4b09ff8998f",
+      "oriented_bounds_mm": [
+        [
+          -224.79600524902344,
+          117.19000244140625,
+          -98.5
+        ],
+        [
+          -164.6739959716797,
+          153.18600463867188,
+          -92.5
+        ]
+      ],
+      "rigid_transform_vertex_recovery_exact": true,
+      "print_up_in_original_cad": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "stage_sha256": "b3aaa9373c216a7ce1abcda77fddc706ebccdb06213d5094e6ab22915af54c4b",
+  "source_mesh_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c"
+}
