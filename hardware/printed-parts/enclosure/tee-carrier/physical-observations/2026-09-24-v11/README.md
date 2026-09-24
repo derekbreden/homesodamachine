@@ -12,8 +12,8 @@ observation, not measurements extracted from a still image.
 The v11 G-code uses 265°C on the first layer, 280°C thereafter, an 80°C bed and no active
 chamber heat. Part cooling around layers 4–25 is approximately 49–55%. The v12 trial turns
 part cooling off, including its overhang override, while retaining the geometry, temperatures,
-layer heights and lack of supports. Differential contraction is the hypothesis under test;
-the cause of the curling is unconfirmed.
+layer heights and lack of supports. Derek rejects v12 for markedly worse results. Removing
+the fan does not remedy this configuration; the cause of the curling remains unconfirmed.
 
 [Physical record](../../physical-acceptance.json) ·
 [v12 slice and launch](../../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/README.md)

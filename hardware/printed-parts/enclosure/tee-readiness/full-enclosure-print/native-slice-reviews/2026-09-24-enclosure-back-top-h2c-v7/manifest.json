@@ -47,7 +47,7 @@
   "printer_submission": false,
   "verification_record": "verification.json",
   "review_artifact_sha256": {
-    "README.md": "f4196346385df9daa7b66ef9438d7fc7c42f889298067577564a19d2d47cba21",
+    "README.md": "115779e03f489feed735a2453d06502ad46b0526f7c8e9ce06781178dd5dd680",
     "preparation.json": "0feec142fbce5748eb7d22da10831f393ba2f8ce3a0b8b8c69c9899de347f7ac",
     "prepare.py": "08b5b517d95c8687a7c943f612e5aa7018191111d58a42bd3eb85c2c7cbed066",
     "preview.png": "d5d01c180f2754df5ba1697df40bea9e3e523ba7296ecdd29e3880e51391b685",

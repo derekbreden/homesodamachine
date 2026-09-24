@@ -1,0 +1,25 @@
+{
+  "part": "enclosure-tee-carrier-plate",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-24",
+  "printer": "Mark2",
+  "printer_task_id": "1278660260",
+  "status": "physical_result_rejected",
+  "user_statement": "That turned out worse. Exploded basically.",
+  "comparison": "Markedly worse than the cooled v11 reference with localized lower-curve damage.",
+  "failure_mode": "Not yet distinguished between edge shredding, detachment/spaghetti, or layer splitting.",
+  "conclusion": "Reject part cooling off for this carrier at the tested settings; the exact failure mechanism remains unconfirmed.",
+  "native_archive_sha256": "cc5881ccdad1837c951f7b2ed3b08706e5ffc8ba830bf7b8aac740ff32356f4b",
+  "printer_reading": {
+    "observed_at": "2026-09-24T16:02:32.388236+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "tee-carrier-plate-black-z004-mark2-v12-fan-off.gcode.3mf",
+    "layer_num": 180,
+    "total_layer_num": 189,
+    "mc_percent": 95,
+    "mc_remaining_time": 5,
+    "print_error": 0,
+    "hms": []
+  },
+  "printer_state_note": "Physical failure is reported by Derek independently of the printer state/error flags."
+}

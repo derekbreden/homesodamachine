@@ -524,7 +524,9 @@ Z trim is +0.04 mm; Textured PEI emits +0.02 mm.
 
 The trial turns part cooling off, including the overhang override, to test whether forced
 cooling contributes to the lower curve's lifting. Temperatures remain 265°C on the first
-layer, 280°C thereafter, 80°C bed and no active chamber heat. The physical result is pending.
+layer, 280°C thereafter, 80°C bed and no active chamber heat. Derek rejects the physical result:
+“That turned out worse. Exploded basically.” The exact failure mode is unconfirmed.
+Part cooling off is rejected as a remedy for this carrier at these settings.
 Native estimate: 2 h 5 m 46 s, 44.93 g. Timelapse and bed leveling On; flow and nozzle-offset
 calibration Auto. The exact archive was accepted after a fresh import and a 20-second
 settling wait following an invalid-3MF rejection.

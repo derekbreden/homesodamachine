@@ -2,12 +2,16 @@
 
 Mark2 task `1278660260` prints one unsupported carrier in black PET-GF.
 The [printer receipt](sender-receipt.json) verifies acceptance; the [subsequent reading](mark2-launch.json)
-records the observed startup/printing state. Physical outcome is pending.
+records the observed startup/printing state. **Physical result rejected:** Derek reports
+“That turned out worse. Exploded basically.” [Physical result](physical-result.json).
+Part cooling off is rejected for this carrier at these settings; the exact failure mode
+and mechanism are not yet established. This configuration is not a recommendation for other rounds.
 
 The [completed v11 surface](../../../../tee-carrier/physical-observations/2026-09-24-v11/README.md)
 has a clean upper curve and localized lower-curve curling around layers 20–30. The fan-off
-trial tests whether forced cooling contributes to differential contraction of that thin,
-expanding curve. The cause is unconfirmed.
+trial addresses the hypothesis that forced cooling contributes to differential contraction
+of that thin, expanding curve. Its markedly worse result rejects fan removal as the remedy
+for this configuration. The cause remains unconfirmed.
 
 The only slicer setting changes are `fan_max_speed: 70 → 0` and
 `enable_overhang_bridge_fan: 1 → 0`. Emitted part and auxiliary fan commands remain off
