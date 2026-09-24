@@ -50,6 +50,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Strong Hand magnetic V-pads kit** | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6), [purchases.md §1](/hardware/ledger/purchases.md) | Welding magnets / clamping aids. | [$29.21](T_MAGNETS) |
 | **MAXMAN SS wire brush set** | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5), [purchases.md §1](/hardware/ledger/purchases.md) | Joint prep on stainless. | [$12.22](T_BRUSH) |
 | **3M Scotch-Brite 7447 hand pads (20-pk)** | [B000LPN3WQ](https://www.amazon.com/dp/B000LPN3WQ), [purchases.md §1](/hardware/ledger/purchases.md) | Very fine grade, 6" × 9", aluminum-oxide non-woven. Abrasive weld-surface prep on the two faces the fillet actually sees — the tube bore band and the end-plate outer face. Stainless-only: segregate from anything that has touched carbon steel, since embedded free iron rusts and defeats the citric passivation. | [$22.95](T_SCOTCHBRITE) |
+| **ASelected 1" × 1" flap wheels, 1/4" shank, 80 grit (10-pk)** | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW), [purchases.md §1](/hardware/ledger/purchases.md) | Aluminum-oxide cloth flaps, rated to 35,000 rpm. Dresses a stuck-wire stub down to the bead and no further: the end-of-bead crater under it is where a crack forms, and grinding can smear one shut before the dye-penetrant read. Runs in the DCD780 or PCL206 chuck ([shop / bench infrastructure](#shop--bench-infrastructure)): a coated abrasive still cuts at drill speed, where mounted stones and carbide burrs are made for die-grinder speeds. The fillet sits 1/4" below the tube lip, so the wheel works on its corner. Stainless-only, like the pads above. | [$9.64](T_FLAP_WHEELS) |
 | **YTKavq C110 copper bar (1/4" × 2" × 12")** | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT), [purchases.md §1](/hardware/ledger/purchases.md) | Soft-annealed pure copper; weld backer / heat-sink chill bar. One 25 mm crosscut, with the stock's 2-inch width stood vertically, is the rotation rig's 6 × 25 × 50 mm stationary work-contact shoe; the printed arm side-clamps it without copper drilling. | [$42.89](T_COPPER_BAR) |
 | **Caiman premium goat-grain TIG gloves** | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) + [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM), [purchases.md §1](/hardware/ledger/purchases.md) | PPE for the laser welder, two pair (variant ASINs). | [$46.10](T_GLOVES) |
 
@@ -222,8 +223,8 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 | **Ultra Duster canned air (10 oz, 4-pack)** | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM), [purchases.md §1](/hardware/ledger/purchases.md) | Chip blowoff for freshly-tapped NPT threads; general shop use. Consumable. | [$24.51](T_DUSTER) |
 | **DeWalt DWFP55130 (200 PSI compressor)** | owned, predates project, *not on ledger* | Air supply for the Milton 727 post-validation pneumatic leak check. | [—](T_DEWALT) |
 | **Husky 41257HOM Tru-Match coupler kit** | owned, predates project, *not on ledger* | 19-pc accessory kit; hose-end coupler mating to Milton M-style plugs. | [—](T_HUSKY) |
-| **DeWalt DCK240C2 20V MAX drill/impact kit** | owned, predates project, *not on ledger* | DCD771 drill/driver: 1/2" single-sleeve ratcheting chuck, two speeds, 0–450 / 0–1,500 rpm. DCF885 impact driver: 1/4" hex, hex-shank bits only. Two 1.3 Ah 20V MAX packs. At 1,500 rpm the drill is a slow spindle for abrasives: a 1/4"-shank flap wheel (coated abrasive) still cuts, while mounted stones and carbide burrs are made for die-grinder speeds in the tens of thousands of rpm. | [—](T_DEWALT_DRILL) |
-| **Ryobi cordless drill** | owned, predates project, *not on ledger* | Model not recorded; no Amazon order or emailed receipt names it. | [—](T_RYOBI_DRILL) |
+| **DeWalt DCD780 20V MAX 1/2" drill/driver** | owned, *not on ledger* | Type 3. 1/2" (13 mm) chuck, two speeds, 0–600 / 0–2,000 rpm, on a 20V MAX lithium-ion pack. Turns the 1/4"-shank flap wheels ([welding](#welding)). | [—](T_DEWALT_DRILL) |
+| **Ryobi PCL206 ONE+ 18V 1/2" drill/driver** | owned, *not on ledger* | 1/2" (13 mm) chuck, two speeds, 0–450 / 0–1,750 rpm, on an 18V ONE+ pack. Turns the same flap wheels. | [—](T_RYOBI_DRILL) |
 | **Epson EcoTank ET-8550** | owned, predates project, *not on ledger* | 6-ink wide-format photo EcoTank, 13" carriage, firmware 05.51.OP16Q4. Prints both bench instruction decks ([assembly/cards/](/hardware/assembly/cards/README.md)) and the customer's quick start ([quickstart/](/hardware/quickstart/README.md)). Borderless page sizes the driver offers: 4x6, 5x7, 8x10, **Letter**, 11x14, Legal, Tabloid, A3, A4, 13x19 — the two decks use `4x6.Fullbleed` and `Letter.Fullbleed`, the quick start 13x19 borderless. Media type `photographic-high-gloss` for the Koala RC stock ([purchases.md §13](/hardware/ledger/purchases.md)); paper from the `photo` cassette at 4×6, `rear` for letter gloss and for the 13×19 A-SUB satin, at premium semigloss. Card PNGs render at 360 dpi, the printer's native grid. | [—](T_PRINTER) |
 
 ## Video / marketing capture
@@ -234,7 +235,7 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 
 ## Tools total
 
-Total tooling, acquired and on order: **[$17,014.56](TOOLS_TOTAL)**
+Total tooling, acquired and on order: **[$17,024.20](TOOLS_TOTAL)**
 
 ## Open items
 

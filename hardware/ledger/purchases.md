@@ -97,6 +97,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | Hosifiy 316 SS round rod, nominal 3/8" / 9.5 mm × 400 mm — water-inlet jet-cap stock; fitting compatibility requires measurement | [B0FYCJJXCS](https://www.amazon.com/dp/B0FYCJJXCS) | 1 | $10.71 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | HARFINGTON PT4-U pneumatic branch tee, 6 mm tube OD × 1/4" male NPT, 5-pack — regulated argon purge branch | [B0F1FDG9SC](https://www.amazon.com/dp/B0F1FDG9SC) | 1 pk (5) | $8.68 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; four spare | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
+| ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -508,7 +509,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SVLING M5 × 0.8 × 50 mm fully threaded socket-head cap screws, 40 pc, 12.9 alloy steel, black, 4 mm hex key included — general fixture stock; $7.99 + $0.58 tax, shipping $0.00. Amazon order details verified 2026-09-08; arriving 2026-09-11 | [B0GHNQFZYR](https://www.amazon.com/dp/B0GHNQFZYR) | 1 pk (40) | $8.57 | 112-6085763-5397009 | 2026-09-08 | 2026-09-11 | ACQUIRED |
 | Revopoint MINI 2 3D scanner, Advanced kit — blue-light structured-light scanner for small objects, 0.02 mm stated accuracy, 24-bit colour. Bought to build a manufacturing model of the donor TouchFlo lever: the repo carries that lever only as a swing-clearance envelope ([faucet_assembly.py](/hardware/faucet-layout/faucet_assembly.py)), which cannot become the printed replacement. The lever lifts off the valve, so it scans free-standing on a turntable with its working attachment exposed. Revo Scan 6 is ARM64-native on macOS and also runs on iOS/Android over Wi-Fi, so the capture is not bound to the 8 GB M3 Air. Sole item on its invoice, $929.00 + $67.35 NE tax | [B0FPX92DG3](https://www.amazon.com/dp/B0FPX92DG3) | 1 | $996.35 | 112-3768552-7755445 | 2026-09-16 | 2026-09-18 | ACQUIRED |
 | AESUB Orange sublimating 3D-scanning spray, 13.5 fl oz — matting coat for the MINI 2 above. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. The two surfaces this build has to capture are the worst cases for optical scanning — the donor lever is black plastic, the Westbrass is chrome — and because the lever comes off the faucet it can be sprayed on the bench with nothing installed at risk. Sole item on its invoice, $40.99 + $2.97 NE tax | [B08ZYVRHLF](https://www.amazon.com/dp/B08ZYVRHLF) | 1 | $43.96 | 112-7976233-8525838 | 2026-09-16 | 2026-09-18 | ACQUIRED |
-| Revopoint AB6 sublimating 3D-scanning spray, 500 ml — second matting coat for the MINI 2 above, alongside the AESUB Orange. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. A 6.5 µm layer against AESUB Orange's 2–6 µm, holding an optimal scan surface for about 6 h and sublimating in 6–24 h. Two cans at $35.99 each, sole item on its invoice, $71.98 + $5.22 NE tax, shipping $0.00. Amazon estimates 2026-09-22 | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $77.20 | 114-1317201-9708267 | 2026-09-19 | — | ON-ORDER |
+| Revopoint AB6 sublimating 3D-scanning spray, 500 ml — second matting coat for the MINI 2 above, alongside the AESUB Orange. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. A 6.5 µm layer against AESUB Orange's 2–6 µm, holding an optimal scan surface for about 6 h and sublimating in 6–24 h. Two cans at $35.99 each, sole item on its invoice, $71.98 + $5.22 NE tax, shipping $0.00. Amazon replaced the shipment at no charge on 113-0268248-7908209, the row below | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $77.20 | 114-1317201-9708267 | 2026-09-19 | — | ON-ORDER |
+| Revopoint AB6 sublimating 3D-scanning spray, 500 ml — Amazon's no-charge replacement for the two cans on 114-1317201-9708267, above; $0.00 invoice. Amazon estimates 2026-09-24 | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $0.00 | 113-0268248-7908209 | 2026-09-22 | — | ON-ORDER |
 
 ## 13. Printing consumables
 
@@ -733,10 +735,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$35,980.09](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$41,417.63](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$870.29](LEDGER_ON_ORDER) |
+| ON-ORDER | [$879.93](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$42,340.99](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$42,350.63](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
