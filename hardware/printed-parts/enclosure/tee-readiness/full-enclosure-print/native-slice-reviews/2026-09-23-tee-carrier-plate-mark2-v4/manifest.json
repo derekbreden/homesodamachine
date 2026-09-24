@@ -2,7 +2,7 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "reviewed_not_sent",
+  "state": "superseded_current_mesh_changed",
   "printer_task_id": null,
   "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v4",
   "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v3",
@@ -96,5 +96,6 @@
     "layer-audit.json": "b1413aa98dc7200f3e624d228f89a3477a26a864fd1126960b408b6480d87e64",
     "slice-result.json": "53b91f88c002d3bf368b712447447ff26c6a77d14ca492fe5b5dedd19a5282e6",
     "support-audit-carrier.json": "04df946ebeb9d399534216650684644c6664e42150f22285c8d9c8347725c211"
-  }
+  },
+  "replacement_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v5/manifest.json"
 }
