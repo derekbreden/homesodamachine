@@ -1,0 +1,80 @@
+{
+  "style": "sculpted",
+  "variant": "all-fine",
+  "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+  "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-all-fine/faucet-texture-sculpted-all-fine.3mf",
+  "staged_sha256": "04100a0e3e5d1b535466134525427f20ebf77511877925ce14020625f6ddd2ff",
+  "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-all-fine/ready/faucet-texture-sculpted-all-fine.gcode.3mf",
+  "native_sha256": "7d55fc779d0b55110a9319ad2dabead79b06e0cdd5cbd4de446863c9614ef99d",
+  "gcode_sha256": "32acf35c61417f1238945df9d5c51d4023ffd73fa90bd141d8618592637d5be1",
+  "settings_changes": {
+    "initial_layer_print_height": {
+      "reference": "0.2",
+      "value": "0.08"
+    },
+    "layer_height": {
+      "reference": "0.24",
+      "value": "0.08"
+    }
+  },
+  "common_native_normalization": {
+    "filament_map_2": {
+      "project": null,
+      "native": [
+        "1"
+      ]
+    },
+    "filament_prime_volume": {
+      "project": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    }
+  },
+  "fine_ranges_print_z_mm": {},
+  "fine_upper_base_start_mm": 150.23999999999998,
+  "geometry_and_placement_unchanged": true,
+  "total_estimated_seconds": 42052.08984375,
+  "model_estimated_seconds": 41726.26171875,
+  "filament_grams": 133.14242553710938,
+  "slicer_warning": "",
+  "wall_layer_runs": {
+    "faucet-shell-base": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 244.24,
+        "layer_count": 3053
+      }
+    ],
+    "faucet-shell-tip": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 136.64,
+        "layer_count": 1708
+      }
+    ],
+    "faucet-display-cover": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 18.56,
+        "layer_count": 232
+      }
+    ],
+    "above-counter-plate": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 6.24,
+        "layer_count": 78
+      }
+    ]
+  },
+  "object_count": 4,
+  "submitted": false
+}

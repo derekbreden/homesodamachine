@@ -1,0 +1,102 @@
+{
+  "style": "sculpted",
+  "variant": "fine-cover",
+  "source_project": "hardware/printed-parts/faucet/faucet-petgf.3mf",
+  "source_sha256": "74419053e5df8a96df0978813d2d0435aa1b0abdda8e547ce3bd64f427526122",
+  "staged_input": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-fine-cover/faucet-texture-sculpted-fine-cover.3mf",
+  "staged_sha256": "748e0d04ffb1b9e13bab9b84d0c378fe61fbd98b61b22812f213221aebe933a3",
+  "native_archive": ".cache/prints/2026-09-24-faucet-texture-comparison/sculpted-fine-cover/ready/faucet-texture-sculpted-fine-cover.gcode.3mf",
+  "native_sha256": "95aead7709c86ba2ed5bd4a43edfeaac693f5377952cb82e189c435862d41353",
+  "gcode_sha256": "ddcc5605f2bbf61e8886545792b7a715418721e14f9eeda820b59e1053d8aca1",
+  "settings_changes": {
+    "initial_layer_print_height": {
+      "reference": "0.2",
+      "value": "0.08"
+    }
+  },
+  "common_native_normalization": {
+    "filament_map_2": {
+      "project": null,
+      "native": [
+        "1"
+      ]
+    },
+    "filament_prime_volume": {
+      "project": [
+        "30"
+      ],
+      "native": [
+        "45"
+      ]
+    }
+  },
+  "fine_ranges_print_z_mm": {
+    "3": [
+      [
+        0.0,
+        100.0,
+        0.08
+      ]
+    ]
+  },
+  "fine_upper_base_start_mm": 150.23999999999998,
+  "geometry_and_placement_unchanged": true,
+  "total_estimated_seconds": 17468.74609375,
+  "model_estimated_seconds": 17142.9140625,
+  "filament_grams": 127.93600463867188,
+  "slicer_warning": "",
+  "wall_layer_runs": {
+    "faucet-shell-base": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.08,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.08,
+        "last_z_mm": 244.4,
+        "layer_count": 1018
+      }
+    ],
+    "faucet-shell-tip": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.08,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.08,
+        "last_z_mm": 136.64,
+        "layer_count": 569
+      }
+    ],
+    "faucet-display-cover": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 18.56,
+        "layer_count": 232
+      }
+    ],
+    "above-counter-plate": [
+      {
+        "height_mm": 0.08,
+        "bottom_z_mm": 0.0,
+        "last_z_mm": 0.08,
+        "layer_count": 1
+      },
+      {
+        "height_mm": 0.24,
+        "bottom_z_mm": 0.08,
+        "last_z_mm": 6.32,
+        "layer_count": 26
+      }
+    ]
+  },
+  "object_count": 4,
+  "submitted": false
+}
