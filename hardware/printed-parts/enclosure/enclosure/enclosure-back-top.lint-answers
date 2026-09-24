@@ -41,9 +41,9 @@ click: x=-12.360 y=389.010 z=347.500
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-93.227 y=412.010 z=347.500
 
-[ceiling] The ASSE drip pan slot's lower bearing face spans the 9 mm west wall. Back-top prints ceiling-down, and the slice's slot-floor support contacts this face. The support is reachable from both ends of the open slot before the pan is inserted.
+[ceiling] The ASSE drip pan slot's lower bearing face spans the 9 mm west wall. It has 0.25 mm running room plus 0.25 mm supported-face room below the pan. Back-top prints ceiling-down, and the slice's slot-floor support contacts this face. The support is reachable from both ends of the open slot before the pan is inserted.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-103.000 y=404.750 z=287.961
+click: x=-103.000 y=404.750 z=287.711
 
 [ceiling] The flavour-line anchor's print-down flank crosses its zip-tie band between the end webs. The webs root the anchor to the side wall; the closed tie loop needs the open flank, so a continuous wedge cannot occupy it. Support is removed through the open enclosure before the tube and tie are installed.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
