@@ -25,10 +25,7 @@ emitted brim and support paths, and every support contact has an accessible remo
 hardware installation, following the
 [support-removal strategy](enclosure/README.md#support-removal-strategy).
 
-This includes concave troughs and the floors and ceilings of openings, as well as outside
-edge rounds. Measure each complete curve before setting the fine-layer bands.
-
-Measure each curve's print-Z span on the STEP, then run
+Measure each required visible curve's print-Z span on the STEP, then run
 `hardware/scripts/verify_round_layer_band.py` on the exported `.gcode.3mf` for that object and
 span. The emitted wall layers must cover the full span at 0.08 mm; the range setting in the
 project alone does not establish this. A curve beginning at the bed also needs a 0.08 mm first

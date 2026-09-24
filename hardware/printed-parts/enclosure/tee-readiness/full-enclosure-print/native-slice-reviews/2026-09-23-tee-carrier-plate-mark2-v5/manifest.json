@@ -2,7 +2,9 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "reviewed_not_sent",
+  "state": "superseded_not_to_send",
+  "replacement_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v6/manifest.json",
+  "supersession_reason": "V6 extends 0.08 mm layers through eight hidden tee troughs at Derek's acceptance of the small time cost. V5 already covers both visible outside R6 ends; fine layers on the hidden troughs are optional.",
   "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5",
   "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v4/manifest.json",
   "current_source_geometry": [
@@ -62,6 +64,7 @@
   },
   "initial_layer_print_height_mm": 0.08,
   "full_curve_layer_audit_pass": true,
+  "layer_audit_scope": "The saved layer audit checked both visible outside R6 ends. It did not check the hidden tee troughs, which are exempt from the visible-surface rule.",
   "support_summary": {
     "bed_rooted_bodies": 2,
     "bodies_without_interface_labels": 2,
