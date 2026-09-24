@@ -42,7 +42,7 @@
     }
   },
   "hypothesis": "Removing forced part cooling may reduce differential contraction and lifting of the expanding lower R6 curve. This is an unconfirmed thermal hypothesis.",
-  "physical_trial_outcome": "pending",
+  "physical_trial_outcome": "rejected_markedly_worse",
   "geometry_and_placement_identical_to_reference": true,
   "requested_z_trim_mm": 0.04,
   "emitted_z_trim_commands_mm": [
@@ -112,7 +112,7 @@
   "launch_record": "mark2-launch.json",
   "verification_record": "verification.json",
   "review_artifact_sha256": {
-    "README.md": "1cc3268f16b892ef124ac550f13884dfce0e4e6db1b0b457248d5505114bafcc",
+    "README.md": "d5e52b4c32547cf9c15bbd3469fd856cfd43d64eae6001e7eb7faa603ced4e26",
     "job-config.json": "64e5c0b3603b960d50e01764cb608edb81a527bd103b33438fdf618d298aee4c",
     "mark2-launch.json": "e11ed7b5847aae48d39ab870fb2c1457f573fd307ea7a90f521a51807bfa34ae",
     "preparation.json": "7a4ae42503665661a72437541261557a78114c5f0ca611612afb069d194a311f",
@@ -124,6 +124,8 @@
     "submission.json": "9a3e9d21e6784fd1e8db0f28a714dce3bdd896ada668346dacec559cf1a9365c",
     "support-audit.json": "05825e92580200de605b4136c90f684b247a9fa0dd5d6ab8badd02566f1e5fe6",
     "verification.json": "348146d5e465b902d0e883cb1a06760dade736204a10646dc7a84119644fbc67",
-    "verify.py": "0a0fc69168ec584f7c085469662a5ad0ff6c3ea0babf2267d934d9b455b31f00"
-  }
+    "verify.py": "0a0fc69168ec584f7c085469662a5ad0ff6c3ea0babf2267d934d9b455b31f00",
+    "physical-result.json": "52493503a6fe76686bbb73835802e13aa1beaa67f949d80ce74428a93d35a1ab"
+  },
+  "physical_result_record": "physical-result.json"
 }

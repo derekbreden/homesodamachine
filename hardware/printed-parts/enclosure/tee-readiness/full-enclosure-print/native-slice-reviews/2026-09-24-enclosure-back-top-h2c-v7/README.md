@@ -12,8 +12,9 @@ The separate 0.59 mm-high east-roof support sliver is absent.
 
 This applies Derek's direction to keep visible 0.08 mm rounds unsupported. The completed
 [tee-carrier trial](../../../../tee-carrier/physical-acceptance.json) has a clean upper curve
-and localized lower-curve curling, with a fan-off thermal trial in progress. This support
-exclusion review does not establish the roof rounds' physical finish.
+and localized lower-curve curling; the fan-off carrier trial is rejected for markedly worse
+results. This support exclusion review does not establish the roof rounds' physical finish
+or qualify the rejected fan-off settings for this part.
 Supports for the independent internal and mounting features remain. The native slice has
 15 support bodies, including one unlabelled internal body beginning above print Z 12 mm.
 The roof projection measurements include bed feet serving higher features, so they are not
