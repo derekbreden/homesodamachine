@@ -79,10 +79,11 @@
     "part_fan_reading_scope": "v11 G-code, layers 4\u201325; fan also changes within later layers."
   },
   "current_thermal_trial": {
-    "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/manifest.json",
-    "printer_task_id": "1278660260",
-    "hypothesis": "Removing forced part cooling may reduce differential contraction and lifting of the expanding lower R6 curve. This is an unconfirmed thermal hypothesis.",
-    "changed_variable": "Part cooling off, including the overhang override.",
+    "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/manifest.json",
+    "printer_task_id": "1279237907",
+    "hypothesis": "Steady 55% cooling may preserve the deposited edge and its overlap with the next perimeter. This tests local shape retention; the thermal cause remains unconfirmed.",
+    "changed_variable": "Steady 55% part cooling after the unchanged first three fan-off layers; disable the zero-fan overhang override.",
+    "cooling_scope": "Every model extrusion on layers 4\u2013189 is at 55% part cooling, including bridges and overhangs. Layers 1\u20133 and the auxiliary fan remain off.",
     "unchanged": [
       "Geometry",
       "Placement",
@@ -93,9 +94,39 @@
       "No active chamber heat",
       "Mark2 requested +0.04 mm Z trim"
     ],
-    "outcome": "Rejected: Derek reports markedly worse results, \"Exploded basically.\"",
-    "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/physical-result.json",
-    "failure_mechanism": "Unconfirmed; clarification requested.",
-    "settings_disposition": "Do not reuse this fan-off configuration for the tee carrier or apply it to other visible rounds."
-  }
+    "outcome": "Pending physical print observation.",
+    "reference_cooling_reading": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/v11-cooling-reading.json",
+    "settings_disposition": "Experimental settings for this carrier; not a general PET-GF profile change."
+  },
+  "previous_thermal_trials": [
+    {
+      "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/manifest.json",
+      "printer_task_id": "1278660260",
+      "hypothesis": "Removing forced part cooling may reduce differential contraction and lifting of the expanding lower R6 curve. This is an unconfirmed thermal hypothesis.",
+      "changed_variable": "Part cooling off, including the overhang override.",
+      "unchanged": [
+        "Geometry",
+        "Placement",
+        "0.08/0.24 layer heights",
+        "No supports",
+        "265\u00b0C first layer / 280\u00b0C thereafter",
+        "80\u00b0C bed",
+        "No active chamber heat",
+        "Mark2 requested +0.04 mm Z trim"
+      ],
+      "outcome": "Rejected: Derek reports markedly worse results, \"Exploded basically.\"",
+      "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/physical-result.json",
+      "failure_mechanism": "Localized inward edge retreat causes loss of overlap and unsupported extrusion, followed by recovery from the intact interior.",
+      "settings_disposition": "Do not reuse this fan-off configuration for the tee carrier or apply it to other visible rounds.",
+      "failure_sequence": [
+        "Already deposited edges retreat inward around layers 20\u201330.",
+        "The next outward perimeter lacks its expected landing surface and extrudes loose strands.",
+        "The intact interior continues stacking and recovers outward as the curve becomes more vertical."
+      ],
+      "thermal_cause": "Unconfirmed; the sequence is identified, but it does not establish the material deformation mechanism.",
+      "clarified_user_statement": "The layers already laid down end up shrinking, pulled back, pulled back just at the edges, and the next layer that goes down ends up printing in air, and so you get strands of spaghetti all around starting at that layer 20 or 30 or whatever it is, and eventually the continued vertical stack recovers from the inside out, as the inner area that is not failing grows outward and has a chance to recover as things go more vertical and less corbelled.",
+      "photo_review": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/README.md",
+      "completion": "FINISH at 189/189 layers; physical result rejected."
+    }
+  ]
 }

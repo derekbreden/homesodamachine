@@ -1,0 +1,155 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "RUNNING",
+  "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13",
+  "parts": [
+    "enclosure-tee-carrier-plate"
+  ],
+  "reference_print": "2026-09-24-tee-carrier-plate-mark2-v11",
+  "reference_printer_task_id": "1277839952",
+  "reference_completion": "reference-completion.json",
+  "previous_print": "2026-09-24-tee-carrier-plate-mark2-v12",
+  "previous_printer_task_id": "1278660260",
+  "previous_completion": "previous-completion.json",
+  "previous_physical_result": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/physical-result.json",
+  "physical_observation_record": "hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13/tee-carrier-plate-black-z004-mark2-v13-steady-cooling-input.3mf",
+    "sha256": "465b8609aed31dc10e74dd41d9c57796aec8ffac6b681a410832dd2a33c3905b"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13/ready/tee-carrier-plate-black-z004-mark2-v13-steady-cooling.gcode.3mf",
+    "sha256": "9ccb143d9926611baf3bd0bc89d0fbb3c6235f1dc21fd354a603f6f3a2162ac4"
+  },
+  "gcode_sha256": "903dc953327da27899895129793df82835c2389258cf19bded7641e20885e6aa",
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "setting_differences": {
+    "enable_overhang_bridge_fan": {
+      "reference": [
+        "1"
+      ],
+      "value": [
+        "0"
+      ]
+    },
+    "fan_max_speed": {
+      "reference": [
+        "70"
+      ],
+      "value": [
+        "55"
+      ]
+    },
+    "fan_min_speed": {
+      "reference": [
+        "0"
+      ],
+      "value": [
+        "55"
+      ]
+    }
+  },
+  "hypothesis": "Steady 55% cooling may preserve the deposited edge and its overlap with the next perimeter. This tests local shape retention; the thermal cause remains unconfirmed.",
+  "physical_trial_outcome": "pending",
+  "geometry_and_placement_identical_to_reference": true,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "base_layer_height_mm": 0.24,
+  "initial_layer_print_height_mm": 0.08,
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "Full exposed aft R6 round, print Z 0\u20136 mm."
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "Full exposed fore R6 round, print Z 15.054\u201321.054 mm."
+      }
+    ]
+  },
+  "emitted_model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "full_exposed_round_layer_audit_pass": true,
+  "enable_support": false,
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "first_layer_nozzle_c": 265,
+  "remaining_model_nozzle_c": 280,
+  "bed_c": 80,
+  "chamber_setting_c": 0,
+  "part_fan_runs_during_model_extrusion": [
+    {
+      "first_layer": 1,
+      "last_layer": 3,
+      "part_fan_percent": 0.0
+    },
+    {
+      "first_layer": 4,
+      "last_layer": 189,
+      "part_fan_percent": 55.0
+    }
+  ],
+  "aux_fan_off_during_model_extrusion": true,
+  "total_estimated_seconds": 7547.51416015625,
+  "total_filament_g": 44.93406295776367,
+  "printer_task_id": "1279237907",
+  "launch_record": "mark2-launch.json",
+  "verification_record": "verification.json",
+  "review_artifact_sha256": {
+    "README.md": "ce8dcb2aebdc007caa345683360671bcb6a4cb21f29c7e5390a5f8474f75fee2",
+    "contour-compensation.md": "433728b30ed9a21ccf0f6bebb9d47f924f8c86588a21276f536beef0c544f19c",
+    "job-config.json": "b4db6e97a2c65497e1d530d6a723b907ef141acdd438c8ea076c6efc9d2423b5",
+    "mark2-launch.json": "7ecf2db65f7912fef773735f9959181a4fb83cef72a9bee01c361b684397ccd8",
+    "preparation.json": "eb5f8ae68ce50f58b30b2fe8d25de36e7dae5c0d21786d349f7ba9f5b53bb487",
+    "prepare.py": "8d967d8962413966d4a08f0300fd847a1b4bc07ddcd66a035cd143c1d462a31e",
+    "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
+    "previous-completion.json": "fb43a127dceb32fd343cac539ed32dc48fd3b7d31588863fd65e570aae94d742",
+    "reference-completion.json": "dd23128c6c57dc5617ebee1c87b41e6205803bd51e019db08964a95313a1dd60",
+    "sender-receipt.json": "c426be9517f58656b7c3e52cda28c785ac4d783cdd7f8aba671729183e252aae",
+    "slice-result.json": "0ce8059d08c05166c70047e9a9092bfd41b3e8121195735c5ac0d96106c6604f",
+    "submission.json": "c1d10fb5dca44c03168757590cd6a489690340467fc19646ea1b23d6d1f32baf",
+    "support-audit.json": "ff71d68d9b6d11cb2a87fe1c0bde1bb3e0a0f91aea9d9881c83a2d2e0918ec34",
+    "verification.json": "a0d39d17a9fecb62193878748e35e631d2e367443d7206121f07c186cf50a2ee",
+    "verify.py": "e406c6885bc942e13849e4dfe7c764eac15b6a673a4ab6a0213597e702df434a"
+  }
+}

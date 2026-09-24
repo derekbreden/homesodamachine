@@ -2,7 +2,7 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "RUNNING",
+  "state": "FINISH",
   "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12",
   "parts": [
     "enclosure-tee-carrier-plate"
@@ -112,7 +112,7 @@
   "launch_record": "mark2-launch.json",
   "verification_record": "verification.json",
   "review_artifact_sha256": {
-    "README.md": "d5e52b4c32547cf9c15bbd3469fd856cfd43d64eae6001e7eb7faa603ced4e26",
+    "README.md": "afce3dce6e1b325521be517721478eafb0dfb3eee5d8e47302f5212361873b6c",
     "job-config.json": "64e5c0b3603b960d50e01764cb608edb81a527bd103b33438fdf618d298aee4c",
     "mark2-launch.json": "e11ed7b5847aae48d39ab870fb2c1457f573fd307ea7a90f521a51807bfa34ae",
     "preparation.json": "7a4ae42503665661a72437541261557a78114c5f0ca611612afb069d194a311f",
@@ -125,7 +125,12 @@
     "support-audit.json": "05825e92580200de605b4136c90f684b247a9fa0dd5d6ab8badd02566f1e5fe6",
     "verification.json": "348146d5e465b902d0e883cb1a06760dade736204a10646dc7a84119644fbc67",
     "verify.py": "0a0fc69168ec584f7c085469662a5ad0ff6c3ea0babf2267d934d9b455b31f00",
-    "physical-result.json": "52493503a6fe76686bbb73835802e13aa1beaa67f949d80ce74428a93d35a1ab"
+    "physical-result.json": "85e9e45016b78bc3cd1f692e9e757b41487986c2ad4894f223545fb909a578a7",
+    "completion.json": "fb43a127dceb32fd343cac539ed32dc48fd3b7d31588863fd65e570aae94d742",
+    "v11-cooling-reading.json": "2c5ae0be0de707f0e6b24137282305fa4112a99535c9db54c11f75a00eefdb10"
   },
-  "physical_result_record": "physical-result.json"
+  "physical_result_record": "physical-result.json",
+  "completion_record": "completion.json",
+  "failure_mode": "Localized inward edge retreat causes loss of overlap and unsupported extrusion, followed by recovery from the intact interior.",
+  "reference_cooling_reading": "v11-cooling-reading.json"
 }

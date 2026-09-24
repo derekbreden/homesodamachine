@@ -517,7 +517,7 @@ including enclosure back-top, with their thermal performance under evaluation.
 
 ## Tee carrier with part cooling off — Mark2, 2026-09-24 UTC
 
-Task `1278660260` reports RUNNING with
+Task `1278660260` completed at 189/189 layers with
 `tee-carrier-plate-black-z004-mark2-v12-fan-off.gcode.3mf`. One carrier, black PET-GF on left external 254,
 no supports. All 189 layer heights, geometry and placement match v11. Requested Mark2
 Z trim is +0.04 mm; Textured PEI emits +0.02 mm.
@@ -525,10 +525,32 @@ Z trim is +0.04 mm; Textured PEI emits +0.02 mm.
 The trial turns part cooling off, including the overhang override, to test whether forced
 cooling contributes to the lower curve's lifting. Temperatures remain 265°C on the first
 layer, 280°C thereafter, 80°C bed and no active chamber heat. Derek rejects the physical result:
-“That turned out worse. Exploded basically.” The exact failure mode is unconfirmed.
+“That turned out worse. Exploded basically.” Deposited edges retreat inward around layers
+20–30 and leave subsequent perimeters printing in air; the intact interior recovers outward
+as the curve steepens. The exact thermal cause remains unconfirmed.
 Part cooling off is rejected as a remedy for this carrier at these settings.
 Native estimate: 2 h 5 m 46 s, 44.93 g. Timelapse and bed leveling On; flow and nozzle-offset
 calibration Auto. The exact archive was accepted after a fresh import and a 20-second
 settling wait following an invalid-3MF rejection.
 
 [Slice, hypothesis and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/README.md).
+
+## Tee carrier with steady part cooling — Mark2, 2026-09-24 UTC
+
+Task `1279237907` reports RUNNING with
+`tee-carrier-plate-black-z004-mark2-v13-steady-cooling.gcode.3mf`. One carrier, black PET-GF on left external 254,
+no supports. Geometry, placement and all 189 layer heights match v11. Requested Mark2
+Z trim is +0.04 mm; Textured PEI emits +0.02 mm.
+
+Part cooling is 55% on every model extrusion from layer 4 through layer 189, including
+bridges and overhangs. The first three layers retain zero part cooling; the auxiliary fan
+stays off. This tests whether steady cooling preserves the expanding edge and its overlap
+with the next perimeter. The v11 fan-off interval at layer 26 is a clue, not an established
+cause. Temperatures remain 265°C first layer, 280°C thereafter, 80°C bed and no active chamber
+heat. Physical outcome is pending.
+
+Native estimate: 2 h 5 m 48 s, 44.93 g. Timelapse and bed leveling On; flow and nozzle-offset
+calibration Auto. A fresh import with a 20-second settling wait was accepted on the first
+send attempt.
+
+[Slice, hypothesis and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/README.md).

@@ -1,0 +1,106 @@
+{
+  "reference_archive": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v11/ready/tee-carrier-plate-black-z004-mark2-v11-no-supports.gcode.3mf",
+  "archive_sha256": "d1e154afa633582121e53d8a2aa9226abb4ad22276183ebe22a4d373f744ec12",
+  "gcode_sha256": "4327e3aeb78feae85d16eeebd28e85ec0adfb8d2a138033a3dc9828da750b023",
+  "part_fan_commands": [
+    {
+      "gcode_line": 8100,
+      "layer": 4,
+      "print_z_mm": 0.32,
+      "command": "M106 S124.95",
+      "part_fan_percent": 49.0
+    },
+    {
+      "gcode_line": 9212,
+      "layer": 5,
+      "print_z_mm": 0.4,
+      "command": "M106 S130.05",
+      "part_fan_percent": 51.0
+    },
+    {
+      "gcode_line": 16885,
+      "layer": 12,
+      "print_z_mm": 0.96,
+      "command": "M106 S135.15",
+      "part_fan_percent": 53.0
+    },
+    {
+      "gcode_line": 17909,
+      "layer": 13,
+      "print_z_mm": 1.04,
+      "command": "M106 S137.7",
+      "part_fan_percent": 53.99999999999999
+    },
+    {
+      "gcode_line": 19942,
+      "layer": 15,
+      "print_z_mm": 1.2,
+      "command": "M106 S140.25",
+      "part_fan_percent": 55.00000000000001
+    },
+    {
+      "gcode_line": 29646,
+      "layer": 25,
+      "print_z_mm": 2.0,
+      "command": "M106 S124.95",
+      "part_fan_percent": 49.0
+    },
+    {
+      "gcode_line": 31129,
+      "layer": 26,
+      "print_z_mm": 2.08,
+      "command": "M106 S0",
+      "part_fan_percent": 0.0
+    },
+    {
+      "gcode_line": 33101,
+      "layer": 27,
+      "print_z_mm": 2.16,
+      "command": "M106 S119.85",
+      "part_fan_percent": 47.0
+    },
+    {
+      "gcode_line": 35987,
+      "layer": 29,
+      "print_z_mm": 2.32,
+      "command": "M106 S114.75",
+      "part_fan_percent": 45.0
+    },
+    {
+      "gcode_line": 37469,
+      "layer": 30,
+      "print_z_mm": 2.4,
+      "command": "M106 S119.85",
+      "part_fan_percent": 47.0
+    },
+    {
+      "gcode_line": 39312,
+      "layer": 31,
+      "print_z_mm": 2.48,
+      "command": "M106 S117.3",
+      "part_fan_percent": 46.0
+    },
+    {
+      "gcode_line": 43037,
+      "layer": 33,
+      "print_z_mm": 2.64,
+      "command": "M106 S114.75",
+      "part_fan_percent": 45.0
+    }
+  ],
+  "finding": "Part fan is commanded off at layer 26, Z 2.08 mm, and resumes approximately 47% at layer 27.",
+  "interpretation": "The interval overlaps the reported onset band. Causation is unconfirmed.",
+  "proposed_next_comparison": {
+    "part_fan_percent": 55,
+    "scope": "Lower 0.08 mm round after the first three layers; avoid the zero-fan interval.",
+    "held_fixed": [
+      "Temperatures",
+      "Geometry",
+      "No supports",
+      "Layer heights",
+      "Placement",
+      "Z trim"
+    ],
+    "state": "Proposal only; no new print prepared or sent."
+  }
+}

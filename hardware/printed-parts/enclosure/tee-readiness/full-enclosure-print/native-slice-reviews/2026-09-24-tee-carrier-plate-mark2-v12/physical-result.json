@@ -7,8 +7,8 @@
   "status": "physical_result_rejected",
   "user_statement": "That turned out worse. Exploded basically.",
   "comparison": "Markedly worse than the cooled v11 reference with localized lower-curve damage.",
-  "failure_mode": "Not yet distinguished between edge shredding, detachment/spaghetti, or layer splitting.",
-  "conclusion": "Reject part cooling off for this carrier at the tested settings; the exact failure mechanism remains unconfirmed.",
+  "failure_mode": "Localized inward edge retreat causes loss of overlap and unsupported extrusion, followed by recovery from the intact interior.",
+  "conclusion": "Reject part cooling off for this carrier at the tested settings. Stable cooling through the lower curve is the proposed next comparison.",
   "native_archive_sha256": "cc5881ccdad1837c951f7b2ed3b08706e5ffc8ba830bf7b8aac740ff32356f4b",
   "printer_reading": {
     "observed_at": "2026-09-24T16:02:32.388236+00:00",
@@ -21,5 +21,47 @@
     "print_error": 0,
     "hms": []
   },
-  "printer_state_note": "Physical failure is reported by Derek independently of the printer state/error flags."
+  "printer_state_note": "Physical failure is reported by Derek independently of the printer state/error flags.",
+  "clarified_user_statement": "The layers already laid down end up shrinking, pulled back, pulled back just at the edges, and the next layer that goes down ends up printing in air, and so you get strands of spaghetti all around starting at that layer 20 or 30 or whatever it is, and eventually the continued vertical stack recovers from the inside out, as the inner area that is not failing grows outward and has a chance to recover as things go more vertical and less corbelled.",
+  "failure_sequence": [
+    "Already deposited edges retreat inward around layers 20\u201330.",
+    "The next outward perimeter lacks its expected landing surface and extrudes loose strands.",
+    "The intact interior continues stacking and recovers outward as the curve becomes more vertical."
+  ],
+  "thermal_cause": "Unconfirmed; the sequence is identified, but it does not establish the material deformation mechanism.",
+  "photos": [
+    {
+      "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/IMG_7847.jpeg",
+      "sha256": "573f27fe248298636e70968a3f27b6f5b2ffa398d5dbd34fee04455d6a2d9d13",
+      "original_name": "IMG_7847.jpeg",
+      "original_sha256": "946d5c7e26242a6462ce21dfcc80553a53d2fc12f9394afd463f8302991a33bd",
+      "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7847.jpeg",
+      "jpeg_pixels_unchanged": true,
+      "orientation_preserved": true,
+      "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/IMG_7846.jpeg",
+      "sha256": "627ac24e4e795640556f62f9571f2eea9565f5a5e4203dd07e73970a4eecb9bd",
+      "original_name": "IMG_7846.jpeg",
+      "original_sha256": "f796b2081e0a179a11f681eba175b4652dc0c53c89fa8f6418ecf5f81ae10d40",
+      "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7846.jpeg",
+      "jpeg_pixels_unchanged": true,
+      "orientation_preserved": true,
+      "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/IMG_7845.jpeg",
+      "sha256": "14e97cd834bd0693550a44b2ed99e889ba5676bbe6df30a20560e05a68ec925c",
+      "original_name": "IMG_7845.jpeg",
+      "original_sha256": "c9f345ec72163786783c951e4b3968ccf399283725201eb0ab844d7883b39030",
+      "original_local_file": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/original-photos/IMG_7845.jpeg",
+      "jpeg_pixels_unchanged": true,
+      "orientation_preserved": true,
+      "metadata": "Original EXIF/XMP removed; only orientation retained. No location metadata."
+    }
+  ],
+  "photo_review": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/README.md",
+  "completion_record": "completion.json",
+  "reference_cooling_reading": "v11-cooling-reading.json"
 }

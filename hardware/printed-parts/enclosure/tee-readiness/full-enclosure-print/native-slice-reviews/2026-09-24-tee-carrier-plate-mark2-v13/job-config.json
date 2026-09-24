@@ -1,0 +1,73 @@
+{
+  "status": "workflow_prepared",
+  "job_key": "tee-carrier",
+  "printer": "Mark2",
+  "archive_stem": "tee-carrier-plate-black-z004-mark2-v13-steady-cooling",
+  "title": "Tee carrier only; no supports; steady 55% part cooling after layer 3; Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "centered-single",
+  "parts": [
+    {
+      "name": "enclosure-tee-carrier-plate",
+      "stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
+      "step": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "rotation_sequence": [
+        "X-90"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "Full exposed aft R6 round, print Z 0\u20136 mm."
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "Full exposed fore R6 round, print Z 15.054\u201321.054 mm."
+      }
+    ]
+  },
+  "initial_layer_print_height_mm": 0.08,
+  "initial_layer_mm": 0.08,
+  "settings_overrides": {
+    "independent_support_layer_height": "0",
+    "enable_support": "0",
+    "fan_min_speed": [
+      "55"
+    ],
+    "fan_max_speed": [
+      "55"
+    ],
+    "enable_overhang_bridge_fan": [
+      "0"
+    ]
+  }
+}

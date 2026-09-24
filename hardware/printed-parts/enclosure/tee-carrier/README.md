@@ -41,9 +41,17 @@ full height, including the first layer, and the remaining height uses 0.24 mm. T
 Mark2 v11 print has a clean upper curve and localized curling on the lower curve around
 layers 20–30, with recovery while still at 0.08 mm. The v12 fan-off configuration, at the
 same 265°C first layer, 280°C subsequent layers and 80°C bed, is rejected: Derek reports
-markedly worse results. The [physical record](physical-acceptance.json) and
-[v11 photos](physical-observations/2026-09-24-v11/README.md) identify the trials.
-The lower curve's finish and failure mechanism remain under evaluation.
+markedly worse results. At the damaged edge, deposited layers pull inward and leave the next
+perimeter without a landing surface; the intact interior recovers outward as the curve
+steepens. The [physical record](physical-acceptance.json),
+[v11 photos](physical-observations/2026-09-24-v11/README.md) and
+[v12 photos](physical-observations/2026-09-24-v12/README.md) identify the trials.
+
+The [current thermal trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/README.md)
+uses steady 55% part cooling from layer 4 through the end of the print, including bridges
+and overhangs, with geometry, temperatures and layer heights held fixed. Its physical result
+is pending; the cooling setting is experimental for this carrier.
+The lower curve's finish and the cause of its deformation remain under evaluation.
 
 ## Openings and travel
 

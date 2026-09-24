@@ -1,0 +1,14 @@
+{
+  "archive_sha256": "9ccb143d9926611baf3bd0bc89d0fbb3c6235f1dc21fd354a603f6f3a2162ac4",
+  "log": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13/send.log",
+  "send_attempt_count": 1,
+  "fresh_import_settling_seconds": 20,
+  "printer_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "printer_task_id": "1279237907",
+  "acceptance": "New task ID and matching archive name in RUNNING state, without print error or HMS alerts."
+}
