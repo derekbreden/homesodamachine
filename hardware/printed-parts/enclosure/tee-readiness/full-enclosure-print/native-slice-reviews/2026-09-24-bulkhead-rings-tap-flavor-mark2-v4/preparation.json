@@ -1,0 +1,158 @@
+{
+  "settings": "nameplate/prepare_print.py's, on the saved profile",
+  "project": ".cache/prints/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/bulkhead-rings-tap-flavor-black-white-z004-mark2-v4-input.3mf",
+  "project_sha256": "cf8a699e452b5c1145c5dbda5fb94e8f91e6f15163c12808702d77f1d94f7a59",
+  "source_steps": {
+    "water": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+      "sha256": "8bca4ae15f9f89e6f9139fd49d65518d72d19060deac7037884da8ad09d8cf08"
+    },
+    "flavor-a": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+      "sha256": "74dd91767a7ad3f3879c4ed5520db74d2cd9d6ba430b89fa8673a0f07f556c35"
+    },
+    "flavor-b": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+      "sha256": "3814cd4b9f02fcec3fa5a273b445bb93da370ce80439abe1c16f0b2a5d1c6332"
+    }
+  },
+  "profile_source": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+  "meshes": [
+    {
+      "station": "water",
+      "part": "chip",
+      "faces": 6346,
+      "bounds": [
+        [
+          -18.48,
+          -18.63450005,
+          1.0000000072452053e-07
+        ],
+        [
+          18.48,
+          18.63449995,
+          2.0000002000000014
+        ]
+      ],
+      "volume_mm3": 1957.6455649197135,
+      "bodies": 1
+    },
+    {
+      "station": "water",
+      "part": "word",
+      "faces": 4818,
+      "bounds": [
+        [
+          -6.32861323125,
+          12.615888621875,
+          1.0000000072452053e-07
+        ],
+        [
+          6.32861333125,
+          17.294111278125,
+          1.0000001000000012
+        ]
+      ],
+      "volume_mm3": 26.298877949016344,
+      "bodies": 3
+    },
+    {
+      "station": "flavor-a",
+      "part": "chip",
+      "faces": 16222,
+      "bounds": [
+        [
+          -18.48,
+          -18.63450005,
+          1.0000000072452053e-07
+        ],
+        [
+          18.48,
+          18.63449995,
+          2.0000002000000014
+        ]
+      ],
+      "volume_mm3": 1928.3959409091176,
+      "bodies": 1
+    },
+    {
+      "station": "flavor-a",
+      "part": "word",
+      "faces": 14692,
+      "bounds": [
+        [
+          -12.97619623906,
+          12.4794140125,
+          1.0000000072452053e-07
+        ],
+        [
+          12.976196339063,
+          17.4305858875,
+          1.0000001000000012
+        ]
+      ],
+      "volume_mm3": 55.54850967078786,
+      "bodies": 6
+    },
+    {
+      "station": "flavor-b",
+      "part": "chip",
+      "faces": 16222,
+      "bounds": [
+        [
+          -18.48,
+          -18.63450005,
+          1.0000000072452053e-07
+        ],
+        [
+          18.48,
+          18.63449995,
+          2.0000002000000014
+        ]
+      ],
+      "volume_mm3": 1928.3959409091176,
+      "bodies": 1
+    },
+    {
+      "station": "flavor-b",
+      "part": "word",
+      "faces": 14692,
+      "bounds": [
+        [
+          -12.97619623906,
+          12.4794140125,
+          1.0000000072452053e-07
+        ],
+        [
+          12.976196339063,
+          17.4305858875,
+          1.0000001000000012
+        ]
+      ],
+      "volume_mm3": 55.54850967078786,
+      "bodies": 6
+    }
+  ],
+  "orientation": "face down: outboard face on the bed, word in the first 1 mm",
+  "printer": "Mark2",
+  "requested_z_trim_mm": 0.04,
+  "filaments": {
+    "1": "Black PET-GF, left hotend, external 254",
+    "2": "White PET-GF, right hotend, external 255"
+  },
+  "assignment": {
+    "water": {
+      "chip": "white",
+      "word": "black"
+    },
+    "flavor-a": {
+      "chip": "black",
+      "word": "white"
+    },
+    "flavor-b": {
+      "chip": "black",
+      "word": "white"
+    }
+  }
+}
