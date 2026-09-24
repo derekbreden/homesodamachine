@@ -1,6 +1,7 @@
 {
   "schema": 1,
-  "status": "printing_on_Mark2",
+  "status": "printed_face_up_finish_rejected",
+  "physical_feedback": "Derek: 0.08 mm improved the collars, but their face-up lettering is still less sharp than the recently printed face-down nameplate. Repeat with the lettered faces against the bed.",
   "job": "bulkhead-rings-tap-flavor-v2",
   "printer": "Mark2",
   "request": "Derek, 2026-09-23: Mark2 is clear; the bulkhead collars turned out awful; try again with 0.08 layers.",
