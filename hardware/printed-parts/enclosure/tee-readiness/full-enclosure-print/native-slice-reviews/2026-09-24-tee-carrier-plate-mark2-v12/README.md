@@ -2,10 +2,14 @@
 
 Mark2 task `1278660260` prints one unsupported carrier in black PET-GF.
 The [printer receipt](sender-receipt.json) verifies acceptance; the [subsequent reading](mark2-launch.json)
-records the observed startup/printing state. **Physical result rejected:** Derek reports
+records the observed startup/printing state; [completion](completion.json) confirms 189/189 layers.
+**Physical result rejected:** Derek reports
 “That turned out worse. Exploded basically.” [Physical result](physical-result.json).
-Part cooling off is rejected for this carrier at these settings; the exact failure mode
-and mechanism are not yet established. This configuration is not a recommendation for other rounds.
+Deposited edges retreat inward, leaving subsequent perimeter paths in air. The intact interior
+recovers outward as the curve becomes steeper. [Photos and detailed observation](../../../../tee-carrier/physical-observations/2026-09-24-v12/README.md)
+record that failure sequence. Part cooling off is rejected for this carrier at these settings;
+the cause of the deformation remains unconfirmed. This configuration is not a recommendation
+for other rounds.
 
 The [completed v11 surface](../../../../tee-carrier/physical-observations/2026-09-24-v11/README.md)
 has a clean upper curve and localized lower-curve curling around layers 20–30. The fan-off
