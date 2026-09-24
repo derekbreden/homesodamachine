@@ -1,0 +1,361 @@
+{
+  "status": "reviewed",
+  "native_archive_sha256": "7b09d2354319547b2bc84465e56449ba8d40991184009ac55f2b957dffe75388",
+  "parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "summary": {
+        "support_bodies": 2,
+        "interface_islands": 2,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 106.07,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 2,
+        "shortest_labelled_build_up_mm": 106.07
+      },
+      "supports": [
+        {
+          "tree": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 106.27,
+            "shortest_build_up_mm": 106.07,
+            "top_z_mm": 106.55,
+            "bbox_xy_mm": [
+              30.8,
+              197.2,
+              70.0,
+              223.2
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -131.7,
+              29.13,
+              165.395,
+              -92.5,
+              55.13,
+              271.745
+            ]
+          },
+          "contact_region": "west flat grip ceiling",
+          "removal_lane": "Detach the ceiling interface and withdraw outward through the open -X west pocket mouth, while the cartridge is loose and before installing pumps or the cap.",
+          "accessible_before_hardware": true,
+          "reviewed": true
+        },
+        {
+          "tree": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 106.27,
+            "shortest_build_up_mm": 106.07,
+            "top_z_mm": 106.55,
+            "bbox_xy_mm": [
+              255.2,
+              196.8,
+              294.4,
+              223.2
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              92.7,
+              28.73,
+              165.395,
+              131.9,
+              55.13,
+              271.745
+            ]
+          },
+          "contact_region": "east flat grip ceiling",
+          "removal_lane": "Detach the ceiling interface and withdraw outward through the open +X east pocket mouth, while the cartridge is loose and before installing pumps or the cap.",
+          "accessible_before_hardware": true,
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 106.27,
+          "last_z_mm": 106.55,
+          "bbox_xy_mm": [
+            62.0,
+            203.2,
+            70.0,
+            217.2
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 106.07,
+          "bbox_cad_xyz_mm": [
+            -100.5,
+            35.13,
+            271.465,
+            -92.5,
+            49.13,
+            271.745
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 106.27,
+          "last_z_mm": 106.55,
+          "bbox_xy_mm": [
+            255.2,
+            203.2,
+            263.2,
+            217.2
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 106.07,
+          "bbox_cad_xyz_mm": [
+            92.7,
+            35.13,
+            271.465,
+            100.7,
+            49.13,
+            271.745
+          ]
+        }
+      ]
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "summary": {
+        "support_bodies": 4,
+        "interface_islands": 4,
+        "bed_rooted_bodies": 4,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 4.08,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 4,
+        "shortest_labelled_build_up_mm": 4.08
+      },
+      "supports": [
+        {
+          "tree": {
+            "id": "tree-1",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 4.28,
+            "shortest_build_up_mm": 4.08,
+            "top_z_mm": 4.76,
+            "bbox_xy_mm": [
+              88.4,
+              85.2,
+              132.4,
+              129.2
+            ],
+            "interfaces": [
+              "interface-1"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -74.1,
+              -66.73,
+              -283.974,
+              -30.1,
+              -22.73,
+              -279.414
+            ]
+          },
+          "contact_region": "west motor-terminal annulus",
+          "removal_lane": "Detach and withdraw toward the original +Z crown through the open 45 mm terminal well before installing the pump or wiring.",
+          "accessible_before_hardware": true,
+          "reviewed": true
+        },
+        {
+          "tree": {
+            "id": "tree-2",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 14.36,
+            "shortest_build_up_mm": 14.16,
+            "top_z_mm": 14.6,
+            "bbox_xy_mm": [
+              160.0,
+              85.6,
+              164.8,
+              90.8
+            ],
+            "interfaces": [
+              "interface-3"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -2.5,
+              -66.33,
+              -283.974,
+              2.3,
+              -61.13,
+              -269.574
+            ]
+          },
+          "contact_region": "aft screw-head seat",
+          "removal_lane": "Detach and withdraw toward the original +Z crown through the open screw-head counterbore before installing screws; do not force through the narrower shaft bore.",
+          "accessible_before_hardware": true,
+          "reviewed": true
+        },
+        {
+          "tree": {
+            "id": "tree-3",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 14.36,
+            "shortest_build_up_mm": 14.16,
+            "top_z_mm": 14.6,
+            "bbox_xy_mm": [
+              160.0,
+              121.6,
+              164.8,
+              126.8
+            ],
+            "interfaces": [
+              "interface-4"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              -2.5,
+              -30.33,
+              -283.974,
+              2.3,
+              -25.13,
+              -269.574
+            ]
+          },
+          "contact_region": "fore screw-head seat",
+          "removal_lane": "Detach and withdraw toward the original +Z crown through the open screw-head counterbore before installing screws; do not force through the narrower shaft bore.",
+          "accessible_before_hardware": true,
+          "reviewed": true
+        },
+        {
+          "tree": {
+            "id": "tree-4",
+            "root": "bed",
+            "base_z_mm": 0.2,
+            "first_interface_z_mm": 4.28,
+            "shortest_build_up_mm": 4.08,
+            "top_z_mm": 4.76,
+            "bbox_xy_mm": [
+              192.8,
+              85.2,
+              236.8,
+              129.2
+            ],
+            "interfaces": [
+              "interface-2"
+            ],
+            "interface_reading": "explicit_feature",
+            "bbox_cad_xyz_mm": [
+              30.3,
+              -66.73,
+              -283.974,
+              74.3,
+              -22.73,
+              -279.414
+            ]
+          },
+          "contact_region": "east motor-terminal annulus",
+          "removal_lane": "Detach and withdraw toward the original +Z crown through the open 45 mm terminal well before installing the pump or wiring.",
+          "accessible_before_hardware": true,
+          "reviewed": true
+        }
+      ],
+      "interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 4.28,
+          "last_z_mm": 4.76,
+          "bbox_xy_mm": [
+            88.4,
+            85.6,
+            132.0,
+            128.8
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 4.08,
+          "bbox_cad_xyz_mm": [
+            -74.1,
+            -66.33,
+            -279.894,
+            -30.5,
+            -23.13,
+            -279.414
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 4.28,
+          "last_z_mm": 4.76,
+          "bbox_xy_mm": [
+            193.2,
+            85.6,
+            236.4,
+            128.8
+          ],
+          "tree": "tree-4",
+          "build_up_mm": 4.08,
+          "bbox_cad_xyz_mm": [
+            30.7,
+            -66.33,
+            -279.894,
+            73.9,
+            -23.13,
+            -279.414
+          ]
+        },
+        {
+          "id": "interface-3",
+          "first_z_mm": 14.36,
+          "last_z_mm": 14.6,
+          "bbox_xy_mm": [
+            160.4,
+            86.0,
+            164.8,
+            90.4
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 14.16,
+          "bbox_cad_xyz_mm": [
+            -2.1,
+            -65.93,
+            -269.814,
+            2.3,
+            -61.53,
+            -269.574
+          ]
+        },
+        {
+          "id": "interface-4",
+          "first_z_mm": 14.36,
+          "last_z_mm": 14.6,
+          "bbox_xy_mm": [
+            160.4,
+            122.0,
+            164.8,
+            126.4
+          ],
+          "tree": "tree-3",
+          "build_up_mm": 14.16,
+          "bbox_cad_xyz_mm": [
+            -2.1,
+            -29.93,
+            -269.814,
+            2.3,
+            -25.53,
+            -269.574
+          ]
+        }
+      ]
+    }
+  ],
+  "physical_cleanup_effort_measured": false,
+  "rounded_grip_surfaces": "No support road within 0.60 mm below a downward round, including bead width plus 0.05 mm XY allowance; 7,548 upper support segments checked.",
+  "native_log_diagnostics": "T1001, T65535 and T65279 occur in the inherited machine start/end sequences, as in the reference. Native return code is zero and the plate warning is empty."
+}

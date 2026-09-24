@@ -1,0 +1,132 @@
+{
+  "scope": "All Support, Support transition and Support interface extrusion roads at or above Z100 mm; entire bead width plus 0.05 mm XY allowance; exact clipped triangle projections through 0.60 mm above the support top.",
+  "rounded_surface_triangles": 31562,
+  "support_road_count": 7548,
+  "vertical_contact_check_mm": 0.6,
+  "xy_allowance_mm": 0.05,
+  "near_round_road_count": 0,
+  "by_z": [
+    {
+      "z_mm": 100.113,
+      "road_count": 222,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 100.393,
+      "road_count": 237,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 100.673,
+      "road_count": 245,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 100.953,
+      "road_count": 271,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 101.233,
+      "road_count": 287,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 101.512,
+      "road_count": 315,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 101.792,
+      "road_count": 353,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 102.072,
+      "road_count": 355,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 102.352,
+      "road_count": 384,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 102.632,
+      "road_count": 402,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 102.912,
+      "road_count": 438,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 103.192,
+      "road_count": 440,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 103.471,
+      "road_count": 442,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 103.751,
+      "road_count": 405,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 104.031,
+      "road_count": 394,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 104.311,
+      "road_count": 396,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 104.591,
+      "road_count": 415,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 104.871,
+      "road_count": 430,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 105.151,
+      "road_count": 451,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 105.431,
+      "road_count": 477,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 105.71,
+      "road_count": 35,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 105.99,
+      "road_count": 59,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 106.27,
+      "road_count": 35,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 106.55,
+      "road_count": 60,
+      "near_round_road_count": 0
+    }
+  ],
+  "near_round_roads": [],
+  "pass": true
+}

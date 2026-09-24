@@ -1,0 +1,166 @@
+{
+  "native_archive": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/ready/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+  "native_archive_sha256": "7b09d2354319547b2bc84465e56449ba8d40991184009ac55f2b957dffe75388",
+  "gcode_sha256": "f7cb70c7d8d116118b22eaf424d345e2a36cefd0c90169eaf403b845f2a74154",
+  "staged_input_sha256": "04d71648aa2d61e90ef9be4f152bd901834652189992ce499463a40ec1f9af73",
+  "source_hashes": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
+  },
+  "native_settings_identical": true,
+  "native_layer_ranges": [
+    {
+      "min_z": 6.0,
+      "max_z": 18.4,
+      "options": {
+        "layer_height": "0.08"
+      }
+    },
+    {
+      "min_z": 100.3,
+      "max_z": 113.2,
+      "options": {
+        "layer_height": "0.08",
+        "wall_loops": "6"
+      }
+    }
+  ],
+  "emitted_model_wall_layers_identical_within_mm": 1e-05,
+  "rounds": [
+    {
+      "name": "complete-grip-floor-rounds",
+      "print_z_mm": [
+        6.23,
+        18.23
+      ],
+      "wall_layer_count": 151,
+      "first_wall_layer": [
+        6.28,
+        0.08
+      ],
+      "last_wall_layer": [
+        18.28,
+        0.08
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "complete-grip-ceiling-rounds",
+      "print_z_mm": [
+        100.999,
+        112.999
+      ],
+      "wall_layer_count": 151,
+      "first_wall_layer": [
+        101.0,
+        0.08
+      ],
+      "last_wall_layer": [
+        113.0,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "cap_layers_mm": 0.24,
+  "initial_layer_mm": 0.2,
+  "nozzle": "left 0.4 mm",
+  "filament": "black PET-GF labelled PET-CF, external254",
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "layer_count": 1088,
+  "estimated_seconds": 48937,
+  "estimated_grams_profile_density": 441.48,
+  "support_summaries": {
+    "enclosure-pump-cartridge": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 106.07,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 106.07
+    },
+    "enclosure-pump-cap": {
+      "support_bodies": 4,
+      "interface_islands": 4,
+      "bed_rooted_bodies": 4,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 4.08,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 4,
+      "shortest_labelled_build_up_mm": 4.08
+    }
+  },
+  "path_bounds": {
+    "enclosure-pump-cartridge": {
+      "bounds_xy_mm": [
+        [
+          30.441,
+          172.97
+        ],
+        [
+          294.85,
+          247.44
+        ]
+      ],
+      "minimum_plate_clearance_mm": 30.149999999999977,
+      "feature_counts": {
+        "Support": 44551,
+        "Inner wall": 817715,
+        "Outer wall": 508072,
+        "Bottom surface": 1583,
+        "Internal solid infill": 18791,
+        "Sparse infill": 281149,
+        "Gap infill": 107399,
+        "Floating vertical shell": 29438,
+        "Bridge": 5372,
+        "Top surface": 2226,
+        "Support transition": 94,
+        "Support interface": 95,
+        "Overhang wall": 78
+      }
+    },
+    "enclosure-pump-cap": {
+      "bounds_xy_mm": [
+        [
+          75.175,
+          72.56
+        ],
+        [
+          249.825,
+          141.171
+        ]
+      ],
+      "minimum_plate_clearance_mm": 72.56,
+      "feature_counts": {
+        "Support": 43664,
+        "Inner wall": 76294,
+        "Outer wall": 76394,
+        "Bottom surface": 1265,
+        "Internal solid infill": 12866,
+        "Sparse infill": 70818,
+        "Support interface": 1492,
+        "Overhang wall": 624,
+        "Bridge": 3134,
+        "Floating vertical shell": 3654,
+        "Top surface": 1109,
+        "Gap infill": 110
+      }
+    }
+  },
+  "projected_object_path_gap_mm": 31.799000000000007,
+  "cartridge_interface_road_segments_outside_flat_roof_projection": 0,
+  "pass": true
+}

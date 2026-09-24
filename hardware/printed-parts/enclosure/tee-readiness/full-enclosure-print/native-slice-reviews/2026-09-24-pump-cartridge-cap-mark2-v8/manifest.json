@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "job": "pump-cartridge",
+  "printer": "Mark2",
+  "state": "RUNNING",
+  "source_job_directory": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8",
+  "parts": [
+    "enclosure-pump-cartridge",
+    "enclosure-pump-cap"
+  ],
+  "reference_review": "2026-09-23-pump-cartridge-cap-mark2-v6",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/ready/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+    "sha256": "7b09d2354319547b2bc84465e56449ba8d40991184009ac55f2b957dffe75388"
+  },
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds-input.3mf",
+    "sha256": "04d71648aa2d61e90ef9be4f152bd901834652189992ce499463a40ec1f9af73"
+  },
+  "gcode_sha256": "f7cb70c7d8d116118b22eaf424d345e2a36cefd0c90169eaf403b845f2a74154",
+  "source_geometry_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
+  },
+  "geometry_and_placement_identical_to_reviewed_v6": true,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "native_layer_ranges": [
+    {
+      "min_z": 6.0,
+      "max_z": 18.4,
+      "options": {
+        "layer_height": "0.08"
+      }
+    },
+    {
+      "min_z": 100.3,
+      "max_z": 113.2,
+      "options": {
+        "layer_height": "0.08",
+        "wall_loops": "6"
+      }
+    }
+  ],
+  "global_wall_loops": 2,
+  "upper_grip_band_wall_loops": 6,
+  "wall_sequence": "inner walls, outer wall, then infill",
+  "infill_wall_overlap": "15%",
+  "global_settings_including_speeds_acceleration_temperatures_and_fans_identical_to_v6": true,
+  "support_policy": "All downward rounded grip faces blocked. Support contact inset 0.8 mm onto flat grip ceilings. Cap seats retain their reviewed supports.",
+  "support_summaries": {
+    "enclosure-pump-cartridge": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 106.07,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 106.07
+    },
+    "enclosure-pump-cap": {
+      "support_bodies": 4,
+      "interface_islands": 4,
+      "bed_rooted_bodies": 4,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 4.08,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 4,
+      "shortest_labelled_build_up_mm": 4.08
+    }
+  },
+  "round_contact_check": "round-contact-check.json",
+  "support_interface_beads_within_flat_ceiling_projection": true,
+  "upper_round_support_roads_within_0_60_mm_vertical_gap": 0,
+  "round_layer_check_pass": true,
+  "layer_count": 1088,
+  "estimated_seconds": 48937,
+  "estimated_grams_profile_density": 441.48,
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_plate_z_trim_mm": 0.02,
+  "launch_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "user_authority": "Derek says Mark2 is free and requests starting the pump cartridge; explicitly confirms removing supports from the grip curves. Standing preference is six walls only in downward 0.08 mm round bands, original wall order and speeds, and 15% overlap.",
+  "physical_result": "Not yet assessed.",
+  "printer_task_id": "1279835918",
+  "sent_at_utc": "2026-09-24T21:44:34.331581+00:00",
+  "launch_record": "launch.json",
+  "observed_start": "observed-start.json",
+  "submission_attempts": 1,
+  "send_method": "tools/bambu_print.py foreground mouse path; fresh import and a 20-second dialog settling wait; printer-confirmed new job."
+}

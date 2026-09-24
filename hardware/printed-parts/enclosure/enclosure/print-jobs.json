@@ -1143,6 +1143,61 @@
       "completion_record_sha256": "e76c3bab7ad1322a570a53442da19d6388dd553eb08f58cb506ba7bc30f60a6d",
       "physical_success_and_fit_confirmed": false,
       "latest_print_removed_confirmed": false
+    },
+    {
+      "date": "2026-09-24",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl"
+      ],
+      "job_name": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+      "printer_task_id": "1279835918",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-24T21:45:36.792018+00:00",
+      "observed_print_error": 0,
+      "sliced_file": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/ready/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+      "sliced_file_sha256": "7b09d2354319547b2bc84465e56449ba8d40991184009ac55f2b957dffe75388",
+      "gcode_sha256": "f7cb70c7d8d116118b22eaf424d345e2a36cefd0c90169eaf403b845f2a74154",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/manifest.json",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254",
+      "estimated_seconds": 48937,
+      "filament_grams": 441.48,
+      "layer_count": 1088,
+      "layer_ranges": [
+        {
+          "min_z": 6.0,
+          "max_z": 18.4,
+          "options": {
+            "layer_height": "0.08"
+          }
+        },
+        {
+          "min_z": 100.3,
+          "max_z": 113.2,
+          "options": {
+            "layer_height": "0.08",
+            "wall_loops": "6"
+          }
+        }
+      ],
+      "normal_wall_loops": 2,
+      "grip_ceiling_wall_loops": 6,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "unchanged saved profile",
+      "support_policy": "All downward rounded grip faces blocked. Support contact inset 0.8 mm onto flat grip ceilings. Cap seats retain their reviewed supports.",
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
+      }
     }
   ]
 }
