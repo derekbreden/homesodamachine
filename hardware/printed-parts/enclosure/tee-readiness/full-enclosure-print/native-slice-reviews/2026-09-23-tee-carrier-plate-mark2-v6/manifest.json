@@ -2,11 +2,9 @@
   "schema": 1,
   "job": "tee-carrier",
   "printer": "Mark2",
-  "state": "superseded_not_to_send",
-  "replacement_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v6/manifest.json",
-  "supersession_reason": "V6 extends 0.08 mm layers through eight hidden tee troughs at Derek's acceptance of the small time cost. V5 already covers both visible outside R6 ends; fine layers on the hidden troughs are optional.",
-  "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5",
-  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v4/manifest.json",
+  "state": "reviewed_not_sent",
+  "source_job_directory": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v6",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-tee-carrier-plate-mark2-v5/manifest.json",
   "current_source_geometry": [
     {
       "part": "enclosure-tee-carrier-plate",
@@ -31,28 +29,26 @@
     }
   ],
   "staged_input": {
-    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/tee-carrier-plate-covers-black-z004-mark2-v5-input.3mf",
-    "sha256": "b3aaa9373c216a7ce1abcda77fddc706ebccdb06213d5094e6ab22915af54c4b",
-    "changed_members_from_v4": [
-      "3D/3dmodel.model",
-      "3D/Objects/object_1.model",
-      "Metadata/model_settings.config"
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v6/tee-carrier-plate-covers-black-z004-mark2-v6-input.3mf",
+    "sha256": "9fa24875bc5cb38ff184233b6268aa62699ebaeb47e2362bcdff16505775a93f",
+    "changed_members_from_v5": [
+      "Metadata/layer_config_ranges.xml"
     ]
   },
   "native_archive": {
-    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v5/ready/tee-carrier-plate-covers-black-z004-mark2-v5.gcode.3mf",
-    "sha256": "1462e4608ac31baed91cedd95bdb15e237c8efb688a52de6445f83f6705db1a2"
+    "path": ".cache/prints/2026-09-23-tee-carrier-plate-mark2-v6/ready/tee-carrier-plate-covers-black-z004-mark2-v6.gcode.3mf",
+    "sha256": "6ba3a923d0fea44d5e9dbbecf611b77758ab31b03b8f31281586f587edf9a7c7"
   },
-  "gcode_sha256": "2348ffe0d91a94b2fc76b25afbeb15a47192ccbdeee35e2519dd5c9dd2a079a5",
+  "gcode_sha256": "b2bdcbb622bcbd833ed8370d809d7450dd72dd43edf68502c3f6cd101801a0dc",
   "slicer_return_code": 0,
   "slicer_warning_message": "",
   "layer_ranges_mm": {
     "enclosure-tee-carrier-plate": [
       {
         "min_z": 0.0,
-        "max_z": 6.1,
+        "max_z": 11.4,
         "layer_height": 0.08,
-        "reason": "R6 aft rounds rise from the bed through print Z 6.0"
+        "reason": "The aft R6 spans print Z 0\u20136 and eight up-facing tee trough curves span 3.01\u201311.29; the band covers both complete curves."
       },
       {
         "min_z": 14.9,
@@ -64,7 +60,20 @@
   },
   "initial_layer_print_height_mm": 0.08,
   "full_curve_layer_audit_pass": true,
-  "layer_audit_scope": "The saved layer audit checked both visible outside R6 ends. It did not check the hidden tee troughs, which are exempt from the visible-surface rule.",
+  "full_curve_spans_print_z_mm": {
+    "aft_R6": [
+      0,
+      6
+    ],
+    "tee_troughs": [
+      3.01,
+      11.29
+    ],
+    "fore_R6": [
+      15.054,
+      21.054
+    ]
+  },
   "support_summary": {
     "bed_rooted_bodies": 2,
     "bodies_without_interface_labels": 2,
@@ -75,17 +84,17 @@
     "shortest_labelled_build_up_mm": null,
     "support_bodies": 2
   },
-  "support_review": "Two short bed-rooted slivers remain below the aft rounds. Their plate-frame locations and removal lanes match v4; neither window cover has support.",
+  "support_review": "Two short bed-rooted slivers below the aft rounds; their plate-frame coordinates and removal lanes match v5. Neither window cover has support.",
   "stage_provenance": {
     "smooth_plate_source_commit": "e5a25ad22",
     "pointer_commit": "8bbe50dcf",
     "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c"
   },
   "review_artifact_sha256": {
-    "job-config.json": "3697accc4422618dc88fafd9eafd6741e4fc646fd0fe101db1ee804d03cddb18",
-    "layer-audit.json": "7a83e771f1ce4677694363e6e1f5e85bbe6446230351c02a9c62d8f21788c47a",
-    "support-audit-carrier.json": "af7b08082405aeef9a3f21a2f3d96374745529fe9bca1fcbf4e78ecf3be02c90",
-    "slice-result.json": "94b62917f911354848d7fd91385619e9455ead29f1194ff0f0a003a417b0bb2d",
-    "stage-provenance.json": "f3a878d8d70b40623f8c1db7ac96fc0f0be18fef678c35afbb8735ca9b5536f9"
+    "job-config.json": "f414fc651a7ba2ebaab3dd910cb27df30cef50e32ed54385a72defc0d55cf164",
+    "layer-audit.json": "b92586f0e974dda8af11f6f9e31de95b208fb4aa2ebb90959bc22bf01f4a31d5",
+    "support-audit-carrier.json": "b0e6738f15f46b75218a76faed27f15e3a87b4b8afbfe19c20167b265d9cff18",
+    "slice-result.json": "71908ac2a5eeb9a58e0d592ad05803d1c243f767bb86b9d704aad001ca4fd182",
+    "stage-provenance.json": "4d43ed096154af986f5deb339d9d8e888726ce67e57b9dffc6001bcba65bbdfb"
   }
 }
