@@ -615,7 +615,7 @@ HMS alert. Physical finish, cleanup and assembled fit remain unassessed.
 
 ## Front-bottom with unsupported handhold rounds — H2C, 2026-09-24 UTC
 
-Task `1279923918` reports PREPARE with
+Task `1279923918` reports RUNNING with
 `enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf`.
 The current shell prints upright in black PET-GF on left external spool 254.
 Geometry and placement match the current STEP/STL files. The first layer is
@@ -638,8 +638,8 @@ density. Requested H2C trim is +0.18 mm; Textured PEI emits +0.16 mm.
 Timelapse and bed leveling are On; flow and nozzle-offset calibration are Auto.
 A macOS notification stopped the first foreground transaction before Print.
 The next import settled for 20 seconds and was accepted with one Send click.
-The accepted job reports no print error or HMS alert; its initial progress
-fields still carry the previous job's layer count. Physical finish and cleanup
-remain unassessed.
+A fresh reading confirms RUNNING with the matching name and 1502-layer total,
+nozzle heating during startup, no print error and no HMS alert. Physical finish
+and cleanup remain unassessed.
 
 [Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).

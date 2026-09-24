@@ -1209,8 +1209,8 @@
       "printer_task_id": "1279923918",
       "status": "started",
       "started_by": "Codex at Derek's request",
-      "observed_state": "PREPARE",
-      "observed_at_utc": "2026-09-24T22:26:57.731777+00:00",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-24T22:33:20.195446+00:00",
       "observed_print_error": 0,
       "hms": [],
       "sliced_file": ".cache/prints/2026-09-24-enclosure-front-bottom-h2c-v7/ready/enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
@@ -1250,7 +1250,10 @@
       "source_geometry_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f"
-      }
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 1502,
+      "observed_remaining_minutes": 1318
     }
   ]
 }
