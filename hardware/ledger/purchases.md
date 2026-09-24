@@ -98,6 +98,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | HARFINGTON PT4-U pneumatic branch tee, 6 mm tube OD × 1/4" male NPT, 5-pack — regulated argon purge branch | [B0F1FDG9SC](https://www.amazon.com/dp/B0F1FDG9SC) | 1 pk (5) | $8.68 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | LTWFITTING 316 SS 1/4" female NPT full coupling, 5-pack — one for the argon purge fixture; four spare | [B01ABDD8FY](https://www.amazon.com/dp/B01ABDD8FY) | 1 pk (5) | $10.70 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | ASelected 1" × 1" mounted flap wheels, 1/4" shank, 80 grit aluminum oxide, 10-pack, rated to 35,000 rpm — stuck-wire stub dressing on the 316L welds, stainless-only. Sole item on its invoice, $8.99 + $0.65 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B07M97KFZW](https://www.amazon.com/dp/B07M97KFZW) | 1 pk (10) | $9.64 | 112-1566032-1238659 | 2026-09-23 | — | ON-ORDER |
+| Knipex 70 11 110 diagonal cutters, 4-1/2", narrow head, opening spring, rated for hard steel wire to 3/64" — snips a stuck ER316L .030 wire between the wire nozzle and the bead, one-handed with the gun held where it stopped. Sole item on its invoice, $30.98 + $2.25 NE tax, shipping $0.00. Amazon estimates 2026-09-25 | [B005EXO806](https://www.amazon.com/dp/B005EXO806) | 1 | $33.23 | 112-6988436-4048226 | 2026-09-24 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -735,10 +736,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$35,980.09](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$41,417.63](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$879.93](LEDGER_ON_ORDER) |
+| ON-ORDER | [$913.16](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$42,350.63](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$42,383.86](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
