@@ -1,0 +1,84 @@
+{
+ "schema": 1,
+ "status": "printer_reported_running",
+ "printer": "H2C",
+ "request": "Derek, 2026-09-23: cancel v12 and reslice with 0.08 mm through the entire curve; H2C bed clear (relayed by the Enable print job startup agent, which prepared v13)",
+ "first_running_observed_at": "2026-09-24T00:16:36Z",
+ "task_id": "1277245499",
+ "observed_state": {
+  "printer": "H2C",
+  "observed_at": "2026-09-24T00:17:10.729029+00:00",
+  "gcode_state": "RUNNING",
+  "subtask_name": "enclosure-front-top-black-z018-h2c-v13.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 1370,
+  "mc_remaining_time": 1276,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 198.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 46.0,
+  "bed_target_temper": 46.0,
+  "lights_report": [
+   {
+    "mode": "on",
+    "node": "chamber_light"
+   },
+   {
+    "mode": "flashing",
+    "node": "work_light"
+   },
+   {
+    "mode": "on",
+    "node": "chamber_light2"
+   }
+  ],
+  "external_spools": {
+   "254": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+   },
+   "255": {
+    "type": "TPU",
+    "colour": "161616FF"
+   }
+  },
+  "nozzle_type": "HS01-0.6",
+  "nozzles": [
+   {
+    "id": 16,
+    "type": "HS01",
+    "diameter": 0.6,
+    "sn": "20D06A610715877"
+   },
+   {
+    "id": 1,
+    "type": "HS01",
+    "diameter": 0.4,
+    "sn": "N/A"
+   },
+   {
+    "id": 17,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A5C1907799"
+   },
+   {
+    "id": 0,
+    "type": "HS00",
+    "diameter": 0.2,
+    "sn": "20D06A5C1907737"
+   }
+  ]
+ },
+ "native_archive": {
+  "path": ".cache/prints/2026-09-23-enclosure-front-top-h2c-v13/ready/enclosure-front-top-black-z018-h2c-v13.gcode.3mf",
+  "sha256": "7bdf88b93c156eca2394882bc463e68b473e6f90771ae9458ff60477ea87f8d4",
+  "gcode_sha256": "951469bddd88110a440dc9248f17aa442bed408e7e4b406d70e1ab9bcac0f51e"
+ },
+ "layer_band": "0.08 mm from print z 187.0 to 195.0 (emitted model layers 187.24-195.00), covering the R6 roof side edges (189-195), the R6 torus (187.392-195) and the R18 above the display (192.588-195); 0.24 elsewhere",
+ "curve_check": "Every curved up-facing surface flatter than 26.6 degrees on enclosure-front-top.stl that is an edge round lies in 187-195. Outside it are only horizontal bores: screw-hole and spring-pocket floors and crowns.",
+ "filament": "Left extruder on external 254, PET-CF 000000FF (black PET-GF); right idle.",
+ "sent_via": "tools/bambu_send.py (755f4fd0d): External chosen on the second attempt from a fresh dialog"
+}
