@@ -479,3 +479,9 @@ at 0.08 mm. The requested Mark2 trim is +0.04 mm (+0.02 mm emitted on Textured P
 reported `RUNNING` at 2026-09-24T02:01:44Z, task 1277448913, with black on external 254 and
 white on external 255, no printer error
 ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/mark2-launch.json)).
+
+## 2026-09-24 — bulkhead rings v4 on Mark2
+
+The 0.08 mm face-down v3 was stopped on Derek's word. v4 prints the three chips face down on
+the nameplate's own PET-GF settings (0.20 mm first layer, 0.24 mm after), and reported `RUNNING`
+on Mark2 at 2026-09-24T02:55:11Z ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/mark2-launch.json)).
