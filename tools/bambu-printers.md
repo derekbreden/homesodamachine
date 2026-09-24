@@ -49,6 +49,7 @@ holding both printers. Its application identifier is `com.bambulab.bambu-connect
 ```
 
 `bambu_send.py` performs the procedure below and reads each step back before the next.
+When Bambu Connect is not running it starts it with `open -g` and waits for its window.
 `--dry-run` stops at the Send button and cancels the dialog. `--timelapse Off` departs
 from the standing options. It exits non-zero, with the dialog cancelled, on any reading
 that is not the one expected, and it ends with the printer's own MQTT report of the job.
