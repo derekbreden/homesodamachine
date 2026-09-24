@@ -1,0 +1,110 @@
+{
+  "scope": "Cross-section at plate Y210.2, X<62 on cartridge; two representative layers in the rounded band and two above it. Thin geometry and top surfaces can constrain wall placement.",
+  "checks": {
+    "six_walls_at_Z108_04": true,
+    "six_walls_at_Z110_04": true,
+    "two_walls_at_Z114_2": true,
+    "two_walls_at_Z117_32": true
+  },
+  "selected_crossings": {
+    "108.04": [
+      {
+        "x_mm": 57.893,
+        "feature": "Outer wall"
+      },
+      {
+        "x_mm": 58.311,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 58.743,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 59.176,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 59.609,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 60.042,
+        "feature": "Inner wall"
+      }
+    ],
+    "110.04": [
+      {
+        "x_mm": 56.00963,
+        "feature": "Outer wall"
+      },
+      {
+        "x_mm": 56.42753,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 56.86003,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 57.29253,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 57.72553,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 58.15853,
+        "feature": "Inner wall"
+      }
+    ],
+    "113.0": [
+      {
+        "x_mm": 55.47078,
+        "feature": "Outer wall"
+      },
+      {
+        "x_mm": 55.89058,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 56.3261,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 56.76163,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 57.19682,
+        "feature": "Inner wall"
+      },
+      {
+        "x_mm": 57.63227,
+        "feature": "Inner wall"
+      }
+    ],
+    "114.2": [
+      {
+        "x_mm": 55.78792,
+        "feature": "Outer wall"
+      },
+      {
+        "x_mm": 56.17959,
+        "feature": "Inner wall"
+      }
+    ],
+    "117.32": [
+      {
+        "x_mm": 55.49553,
+        "feature": "Outer wall"
+      },
+      {
+        "x_mm": 55.88188,
+        "feature": "Inner wall"
+      }
+    ]
+  },
+  "pass": true
+}

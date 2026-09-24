@@ -1,0 +1,68 @@
+{
+  "reference_input": ".cache/prints/2026-09-23-pump-cartridge-cap-mark2-v6/pump-cartridge-cap-black-z004-mark2-v6-input.3mf",
+  "reference_input_sha256": "8123110feda4b94099972923448ce51e9c2139b05fdb6240ef646bb4ae805201",
+  "staged_input": ".cache/prints/2026-09-24-pump-cartridge-cap-mark2-v7/pump-cartridge-cap-black-z004-mark2-v7-six-wall-grip-rounds-input.3mf",
+  "staged_input_sha256": "cce29d0aa5b949f0b95f8764cee0e0cda1f06024d913c8e32fb4ee3784f7253d",
+  "source_input_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "052433c3907fc2ae4cc99fe876994b3697d82b1de93acdee506aed71d0531186",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "f5f98bf2942457b74e223a087b180717b3614fae5a89b04ffb5d24c7e8c9e063",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "fc0bf27eff36d906f8f83d744ab5a1d7d0fef11b7caa770afc81c5467241b4f4"
+  },
+  "changed_archive_members": [
+    "3D/Objects/object_1.model",
+    "Metadata/layer_config_ranges.xml"
+  ],
+  "global_settings_identical": true,
+  "geometry_vertices_and_triangles_identical": true,
+  "placement_identical": true,
+  "layer_heights_identical": true,
+  "upper_grip_band_mm": [
+    100.3,
+    113.2
+  ],
+  "upper_grip_band_wall_loops": 6,
+  "normal_wall_loops": 2,
+  "wall_sequence": "inner wall/outer wall",
+  "is_infill_first": false,
+  "infill_wall_overlap": "15%",
+  "speed_acceleration_temperature_and_cooling_settings_identical": true,
+  "triangle_annotation": "paint_supports=\"8\"",
+  "blocked_rounds": {
+    "west": {
+      "triangles": 15781,
+      "cad_bounds_mm": [
+        [
+          -107.5,
+          22.200462341191407,
+          266.1940002443437
+        ],
+        [
+          -91.75,
+          61.40395355219141,
+          278.1940002443437
+        ]
+      ],
+      "surface_area_mm2": 539.3135266384513
+    },
+    "east": {
+      "triangles": 15781,
+      "cad_bounds_mm": [
+        [
+          91.75,
+          22.200462341191407,
+          266.1940002443437
+        ],
+        [
+          107.5,
+          61.40395355219141,
+          278.1940002443437
+        ]
+      ],
+      "surface_area_mm2": 539.2322182512096
+    }
+  },
+  "retained_flat_ceiling_cad_z_mm": 272.1940001,
+  "printer": "Mark2",
+  "requested_z_trim_mm": 0.04
+}
