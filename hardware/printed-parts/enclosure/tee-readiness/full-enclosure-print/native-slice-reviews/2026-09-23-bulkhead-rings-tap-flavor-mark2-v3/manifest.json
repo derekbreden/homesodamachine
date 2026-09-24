@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "reviewed_not_sent",
+  "status": "printing_on_Mark2",
   "job": "bulkhead-rings-tap-flavor-v3",
   "printer": "Mark2",
   "request": "Derek: repeat the TAP and two FLAVOR collars with 0.08 mm layers and the lettered faces down like the accepted nameplate; Mark2 bed clear; +0.04 mm requested Z trim.",
@@ -65,5 +65,7 @@
     "first-layer-bed-view.png": "3b93a4df591d75ba8ccfb65a936e6486fa2e8c22181c849ff23f589bbb66fc07",
     "slice-result.json": "42897abc8230dcdc1d9c0eb78b4ec4c116b7c1b9b665020282bcebd3b21dae75",
     "slice-verification.json": "a6a90c12a7b6eac7585b22d630e4fc6c956bb7cdbd1ddae87482f81c58d62fe4"
-  }
+  },
+  "printer_task_id": "1277448913",
+  "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/mark2-launch.json"
 }

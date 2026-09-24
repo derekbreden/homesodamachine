@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "printer": "Mark2",
+  "observed_at": "2026-09-24T02:02:39.435995+00:00",
+  "printer_task_id": "1277448913",
+  "archive": {
+    "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v3.gcode.3mf",
+    "sha256": "293f5e37d0ebb50361dd01fe9254ad8b6a516b294ba3b79cf9545ff05a77805b"
+  },
+  "gcode_state": "RUNNING",
+  "subtask_name": "bulkhead-rings-tap-flavor-black-white-z004-mark2-v3.gcode.3mf",
+  "layer_num": 0,
+  "total_layer_num": 25,
+  "mc_percent": 0,
+  "mc_remaining_time_min": 51,
+  "print_error": 0,
+  "hms": [],
+  "external_spools": {
+    "254": {
+      "type": "PET-CF",
+      "colour": "000000FF"
+    },
+    "255": {
+      "type": "PET-CF",
+      "colour": "FFFFFFFF"
+    }
+  },
+  "nozzle_target_temper_c": 200.0,
+  "bed_target_temper_c": 48.0,
+  "filament_assignments": {
+    "water": {
+      "chip": "white",
+      "word": "black"
+    },
+    "flavor-a": {
+      "chip": "black",
+      "word": "white"
+    },
+    "flavor-b": {
+      "chip": "black",
+      "word": "white"
+    }
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ]
+}
