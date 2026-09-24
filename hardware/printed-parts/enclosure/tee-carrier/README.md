@@ -37,21 +37,20 @@ The plate prints lying on its back, troughs open upward; the columns stand out i
 the bed, and their aft shoulders rise off it.
 
 The plate prints without supports. Its visible end rounds use 0.08 mm layers through their
-full height, including the first layer, and the remaining height uses 0.24 mm. The completed
-Mark2 v11 print has a clean upper curve and localized curling on the lower curve around
-layers 20–30, with recovery while still at 0.08 mm. The v12 fan-off configuration, at the
-same 265°C first layer, 280°C subsequent layers and 80°C bed, is rejected: Derek reports
-markedly worse results. At the damaged edge, deposited layers pull inward and leave the next
-perimeter without a landing surface; the intact interior recovers outward as the curve
-steepens. The [physical record](physical-acceptance.json),
-[v11 photos](physical-observations/2026-09-24-v11/README.md) and
-[v12 photos](physical-observations/2026-09-24-v12/README.md) identify the trials.
+full height, including the first layer, and the remaining height uses 0.24 mm.
 
-The [current thermal trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/README.md)
-uses steady 55% part cooling from layer 4 through the end of the print, including bridges
-and overhangs, with geometry, temperatures and layer heights held fixed. Its physical result
-is pending; the cooling setting is experimental for this carrier.
-The lower curve's finish and the cause of its deformation remain under evaluation.
+The [current print trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/README.md)
+uses six walls in print Z 0–6.1 mm, with a two-wall base setting above it. Infill prints before
+inner and outer walls, apart from the native first-layer sequence. Infill/wall overlap is
+15%; speeds and accelerations retain the saved profile values. Part cooling is 55% after
+the first three layers. Nozzle settings are 265°C first layer and 280°C thereafter, bed 80°C,
+without active chamber heat. This is a carrier trial with physical outcome pending.
+
+Derek's physical observations identify inward edge retreat between infill contacts, loss
+of the next perimeter's landing surface and recovery from the intact interior as the curve
+steepens. The upper curve has a clean finish. The [physical record](physical-acceptance.json),
+[v11 photos](physical-observations/2026-09-24-v11/README.md) and
+[v12 photos](physical-observations/2026-09-24-v12/README.md) identify the specimens and settings.
 
 ## Openings and travel
 

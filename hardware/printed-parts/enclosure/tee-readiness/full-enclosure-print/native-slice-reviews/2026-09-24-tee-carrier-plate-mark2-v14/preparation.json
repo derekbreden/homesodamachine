@@ -1,0 +1,52 @@
+{
+  "reference_input": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v13/tee-carrier-plate-black-z004-mark2-v13-steady-cooling-input.3mf",
+  "reference_input_sha256": "465b8609aed31dc10e74dd41d9c57796aec8ffac6b681a410832dd2a33c3905b",
+  "staged_input": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds-input.3mf",
+  "staged_input_sha256": "58c0ada5fb8d36e4f643b11738d717900c3890fe3e2580f065a0ed31be91cff0",
+  "changed_archive_members": [
+    "Metadata/layer_config_ranges.xml",
+    "Metadata/project_settings.config"
+  ],
+  "setting_differences": {
+    "is_infill_first": {
+      "reference": "0",
+      "value": "1"
+    }
+  },
+  "lower_band_mm": [
+    0,
+    6.1
+  ],
+  "lower_band_overrides": {
+    "wall_loops": "6"
+  },
+  "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+  "source_step_sha256": "94bc1b51fbb13e4176209e6a9eab9d07144f31eadc47e695307ba52fee90be15",
+  "identical_member_sha256": {
+    "3D/3dmodel.model": "9edf541c3d52676fcf10f528d5d052c210f12d57c2a166a6c0a0a98b135be20f",
+    "3D/Objects/object_1.model": "deb4637c527aa6e8e3d0640846504b62f68ff275a74f4aaa62e52baf7eb7be6b",
+    "3D/_rels/3dmodel.model.rels": "033729b1caf46619e89b0d6ba5af35c88f9b162a2af14df3633f28dd28ec4611",
+    "Metadata/filament_settings_1.config": "b85db92ec8fd2a85a7c576f289a5e2d7605e208c746774ecda90bc24fad0b5d9",
+    "Metadata/model_settings.config": "59a7ceb6de303ea03b2e3bcdbe60411647762fe1a4783a90e1177127e49406cf",
+    "[Content_Types].xml": "6bf55895a798afef551f69e890dad382c7416511cc7793f218e319ac1defdeb8",
+    "_rels/.rels": "37b6cfd6d6a714abcff71667a6e4c471001ae1db4e97e69f0db7e5e3c5ca057c"
+  },
+  "geometry_placement_and_layer_heights_identical": true,
+  "base_wall_loops": 2,
+  "infill_wall_overlap": "15%",
+  "retained_infill": "15% grid",
+  "retained_cooling": "Part fan 0% on layers 1\u20133, 55% on layers 4\u2013189; auxiliary fan off.",
+  "wall_sequence": "Print infill first enabled globally; inner walls precede outer walls. Native first-layer wall-first behavior remains.",
+  "speed_and_acceleration_settings": "All inherited process and filament speed and acceleration settings are unchanged, including overhang speeds. The lower range overrides wall count only.",
+  "nozzle_temperature_c": 280,
+  "first_layer_nozzle_temperature_c": 265,
+  "bed_temperature_c": 80,
+  "chamber_temperature_setting_c": 0,
+  "printer": "Mark2",
+  "requested_z_trim_mm": 0.04,
+  "hypothesis": "Six walls in the lower rounded band may retain the expanding edge between infill contacts. Printing infill first supplies those contacts before the surrounding walls. This combined wall-strategy trial does not isolate individual contributions.",
+  "independent_variable": "Six walls at Z 0\u20136.1 mm; infill first throughout the print. Speeds and overlap are unchanged.",
+  "user_authority": "Derek requests the wall trial, confirms the bed is clear, approves six walls and sequence, specifies the height-range scope, explicitly retains 15% overlap and requests no speed reductions.",
+  "physical_reference": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/physical-result.json",
+  "user_observation": "Failures occur between infill contacts; the contact locations appear to hold the outside edge out."
+}

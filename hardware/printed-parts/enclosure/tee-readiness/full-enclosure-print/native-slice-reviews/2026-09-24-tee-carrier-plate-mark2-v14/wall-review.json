@@ -1,0 +1,1353 @@
+{
+  "native_archive": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/ready/tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds.gcode.3mf",
+  "native_archive_sha256": "47367edf0348852c7b2ef03a4940c521e552014553232c3890290b32bea3f925",
+  "gcode_sha256": "67219a0cab768044ccc23ea5f5ea0800c34eb2c1881d97e95649fc67ec6b8ba9",
+  "reference_gcode_sha256": "903dc953327da27899895129793df82835c2389258cf19bded7641e20885e6aa",
+  "scope": "Commanded toolpaths and one explicit wall cross-section; physical stability remains a print observation.",
+  "checks": {
+    "six_walls_at_lower_edge_layers_1_to_76": true,
+    "two_walls_above_band_layers_77_to_113": true,
+    "speed_and_acceleration_settings_unchanged": true,
+    "infill_before_walls_in_failure_band": true
+  },
+  "checked_layer_count": 189,
+  "selected_layers": [
+    {
+      "layer": 1,
+      "z_mm": 0.08,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 60.7112,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 61.1942,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 61.6772,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 62.1593,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 62.6421,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 63.1251,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 50.0,
+        "Outer wall": 50.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Gap infill",
+        "Bottom surface"
+      ]
+    },
+    {
+      "layer": 2,
+      "z_mm": 0.16,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 60.016,
+          "feature": "Overhang wall"
+        },
+        {
+          "x_mm": 60.434,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 60.8683,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 61.3,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 61.7322,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 62.165,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0,
+        "Overhang wall": 10.0
+      },
+      "first_extruded_feature": "Internal solid infill",
+      "feature_sequence": [
+        "Internal solid infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall",
+        "Outer wall",
+        "Overhang wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 4,
+      "z_mm": 0.32,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 59.3992,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 59.8172,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 60.25,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 60.683,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 61.1152,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 61.5482,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 20,
+      "z_mm": 1.6,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 57.1757,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 57.5938,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.0268,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.459,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.892,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 59.3248,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 25,
+      "z_mm": 2.0,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 56.7756,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 57.1928,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.6258,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.0588,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.4918,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.9248,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 26,
+      "z_mm": 2.08,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 56.7036,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 57.121,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.554,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.987,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.42,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.8528,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Floating vertical shell",
+      "feature_sequence": [
+        "Floating vertical shell",
+        "Bridge",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Bridge",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 30,
+      "z_mm": 2.4,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 56.4491,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.8672,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.3002,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.7332,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.1653,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 58.5983,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 76,
+      "z_mm": 6.08,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.628,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.061,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.493,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 56.926,
+          "feature": "Inner wall"
+        },
+        {
+          "x_mm": 57.369,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 6,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Internal solid infill",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 77,
+      "z_mm": 6.32,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 188.20788333333334,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Internal solid infill",
+      "feature_sequence": [
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 90,
+      "z_mm": 9.44,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 188.20788333333334,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 113,
+      "z_mm": 14.96,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 188.20788333333334,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 114,
+      "z_mm": 15.04,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.628,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Sparse infill",
+      "feature_sequence": [
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "layer": 189,
+      "z_mm": 21.04,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 60.41,
+          "feature": "Outer wall"
+        }
+      ],
+      "wall_crossing_count": 1,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Top surface",
+      "feature_sequence": [
+        "Top surface",
+        "Gap infill",
+        "Outer wall",
+        "Top surface",
+        "Gap infill",
+        "Outer wall"
+      ]
+    }
+  ],
+  "reference_selected_layers": [
+    {
+      "layer": 20,
+      "z_mm": 1.6,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 57.1757,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 57.5938,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill"
+      ]
+    },
+    {
+      "layer": 25,
+      "z_mm": 2.0,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 56.7756,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 57.1928,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell"
+      ]
+    },
+    {
+      "layer": 26,
+      "z_mm": 2.08,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 56.7036,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 57.121,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill",
+        "Bridge",
+        "Sparse infill"
+      ]
+    },
+    {
+      "layer": 30,
+      "z_mm": 2.4,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 56.4491,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 56.8672,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill"
+      ]
+    },
+    {
+      "layer": 76,
+      "z_mm": 6.08,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.628,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 300.0,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Internal solid infill",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Internal solid infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Floating vertical shell"
+      ]
+    },
+    {
+      "layer": 77,
+      "z_mm": 6.32,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 188.20788333333334,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Internal solid infill",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Floating vertical shell",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Internal solid infill",
+        "Sparse infill",
+        "Floating vertical shell",
+        "Internal solid infill",
+        "Sparse infill"
+      ]
+    },
+    {
+      "layer": 90,
+      "z_mm": 9.44,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 188.20788333333334,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill"
+      ]
+    },
+    {
+      "layer": 113,
+      "z_mm": 14.96,
+      "left_end_scan_y_mm": 176,
+      "scan_x_limit_mm": 65,
+      "wall_crossings": [
+        {
+          "x_mm": 55.21,
+          "feature": "Outer wall"
+        },
+        {
+          "x_mm": 55.593,
+          "feature": "Inner wall"
+        }
+      ],
+      "wall_crossing_count": 2,
+      "maximum_commanded_wall_speed_mm_s": {
+        "Inner wall": 188.20788333333334,
+        "Outer wall": 200.0
+      },
+      "first_extruded_feature": "Inner wall",
+      "feature_sequence": [
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Inner wall",
+        "Outer wall",
+        "Sparse infill"
+      ]
+    }
+  ]
+}

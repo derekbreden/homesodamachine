@@ -1,0 +1,13 @@
+{
+  "archive_sha256": "47367edf0348852c7b2ef03a4940c521e552014553232c3890290b32bea3f925",
+  "log": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/send.log",
+  "send_attempt_count": 1,
+  "fresh_import_settling_seconds": 20,
+  "printer_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "printer_task_id": "1279390313"
+}

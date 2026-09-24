@@ -1,0 +1,61 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      34.61000061,
+      -117.040000915
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      34.610001,
+      -117.040001
+    ]
+  },
+  "first_layer_z_mm": 0.08,
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "67219a0cab768044ccc23ea5f5ea0800c34eb2c1881d97e95649fc67ec6b8ba9",
+    "model": null,
+    "model_sha256": null,
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds-input.3mf",
+    "profile_sha256": "58c0ada5fb8d36e4f643b11738d717900c3890fe3e2580f065a0ed31be91cff0"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "enclosure-tee-carrier-plate",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}
