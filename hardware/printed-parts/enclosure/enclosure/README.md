@@ -706,6 +706,15 @@ different places to start. On back-top the cavity opens away from the bed: the c
 interior face is the root every interior support has, a hidden flat the piece lays down in its
 own first layers. The audit records that root as model material.
 
+**Visible rounds at 0.08 mm print without support contacts.** This includes the tee carrier's
+end rounds, back-top's roof side edges and the corresponding visible top/bottom rounds on
+other parts. Keep 0.08 mm layers through each complete curve, including the first layer when
+the curve begins at the bed, and 0.24 mm elsewhere. Exclude supports on those faces with
+painted blockers when the part has other supported features. Verify the emitted support
+paths; small bodies without a `Support interface` label count too. Derek's
+[tee-carrier observation](../tee-carrier/physical-acceptance.json) is the physical example:
+the unsupported curve is turning out beautifully.
+
 The face a feature works through keeps the shape its work requires, and support carries it.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
 on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
