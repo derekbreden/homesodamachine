@@ -464,3 +464,9 @@ rule is 0.08 mm through the entire curve.
 2026-09-24T00:16:36Z, black PET-GF on the left external spool. It prints 0.08 mm layers
 through the whole of every roof curve, from print z 187.0 to 195.0, and 0.24 mm elsewhere
 ([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v13-launch.json)).
+
+## 2026-09-24 — bulkhead rings v2 on Mark2
+
+The v1 rings, face up in 0.20 mm layers, turned out badly in Derek's reading. v2 prints the
+same three chips in 0.08 mm layers throughout, 25 of them, and reported `RUNNING` on Mark2 at
+2026-09-24T00:35:45Z ([launch](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/mark2-launch.json)).
