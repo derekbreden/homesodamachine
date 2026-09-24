@@ -167,6 +167,7 @@ TOOLS = [
     ("magnetic V-pads", "T_MAGNETS", A("B00JXDSVA6")),
     ("wire brush set", "T_BRUSH", A("B08L7RXVG5")),
     ("Scotch-Brite 7447", "T_SCOTCHBRITE", A("B000LPN3WQ")),
+    ("flap wheels", "T_FLAP_WHEELS", A("B07M97KFZW")),
     ("C110 copper bar", "T_COPPER_BAR", L(contains="B0DR2PX6TT", status="ACQUIRED")),
     ("goat-grain TIG gloves", "T_GLOVES", A2(["B07T6VLSK3", "B07T1NYXHM"])),
     ("Bernzomatic TS8000", "T_TORCH", A("B0BPMVTJ1R")),
@@ -249,8 +250,8 @@ TOOLS = [
     ("Ultra Duster", "T_DUSTER", A("B07JRBR1MM")),
     ("DeWalt DWFP55130", "T_DEWALT", FIXED(0.0)),  # owned, not on ledger
     ("Husky 41257HOM", "T_HUSKY", FIXED(0.0)),     # owned, not on ledger
-    ("DeWalt DCK240C2", "T_DEWALT_DRILL", FIXED(0.0)),  # owned, not on ledger
-    ("Ryobi cordless drill", "T_RYOBI_DRILL", FIXED(0.0)),  # owned, not on ledger
+    ("DeWalt DCD780", "T_DEWALT_DRILL", FIXED(0.0)),  # owned, not on ledger
+    ("Ryobi PCL206", "T_RYOBI_DRILL", FIXED(0.0)),    # owned, not on ledger
     ("ET-8550", "T_PRINTER", FIXED(0.0)),          # owned, not on ledger
     ("SanDisk Ultra Fit", "T_SANDISK", A("B07857Y17V")),
 ]
