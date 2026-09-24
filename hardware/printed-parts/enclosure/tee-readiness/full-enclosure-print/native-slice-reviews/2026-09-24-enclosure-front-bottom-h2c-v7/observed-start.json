@@ -1,0 +1,16 @@
+{
+  "printer": "H2C",
+  "observed_at_utc": "2026-09-24T22:26:57.731777+00:00",
+  "gcode_state": "PREPARE",
+  "job_id": "1279923918",
+  "subtask_name": "enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 1370,
+  "total_layer_num": 1370,
+  "mc_remaining_time": 0,
+  "nozzle_temper": 36.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 36.0,
+  "bed_target_temper": 0.0
+}

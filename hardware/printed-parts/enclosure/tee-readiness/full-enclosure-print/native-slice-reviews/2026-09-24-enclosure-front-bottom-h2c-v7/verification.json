@@ -1,0 +1,120 @@
+{
+  "native_archive": ".cache/prints/2026-09-24-enclosure-front-bottom-h2c-v7/ready/enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+  "native_archive_sha256": "43d63a6328d3075929292dc90855d393909aec0b1e2e7f47e039821ac6c8bcaa",
+  "gcode_sha256": "55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8",
+  "staged_input_sha256": "6f60feb8de8fbea69ed15e69ff9fd174c97b94e51be8accec3acf69c575dd57c",
+  "source_geometry_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "28a04d921a5a3ef7a2673fc6a6ccc58424e5fff8c00e77ce274dcfdaaa61326a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "cb982a0bae617e33f395ef72475c3d0a1ce66927cf93cacd12c2dc9bc80ba94f"
+  },
+  "geometry_and_placement_identical": true,
+  "native_global_settings_identical": true,
+  "native_layer_ranges": [
+    {
+      "min_z": 29.15,
+      "max_z": 41.3,
+      "options": {
+        "layer_height": "0.08",
+        "wall_loops": "6"
+      }
+    },
+    {
+      "min_z": 41.3,
+      "max_z": 44.3,
+      "options": {
+        "layer_height": "0.08"
+      }
+    }
+  ],
+  "emitted_model_wall_layers_identical_within_mm": 1e-05,
+  "rounds": [
+    {
+      "name": "complete-downward-handhold-rounds",
+      "print_z_mm": [
+        29.25,
+        41.25
+      ],
+      "wall_layer_count": 151,
+      "first_wall_layer": [
+        29.32,
+        0.08
+      ],
+      "last_wall_layer": [
+        41.32,
+        0.079998
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "name": "visible-flute-run-outs",
+      "print_z_mm": [
+        41.25,
+        44.25
+      ],
+      "wall_layer_count": 38,
+      "first_wall_layer": [
+        41.32,
+        0.079998
+      ],
+      "last_wall_layer": [
+        44.28,
+        0.079998
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "initial_layer_mm": 0.2,
+  "nozzle": "left 0.4 mm",
+  "filament": "black PET-GF labelled PET-CF, external254",
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "layer_count": 1502,
+  "estimated_seconds": 79124,
+  "estimated_grams_profile_density": 610.85,
+  "support_summary": {
+    "support_bodies": 4,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 4,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 34.032,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 34.032
+  },
+  "path_bounds_xy_mm": [
+    [
+      27.235,
+      56.125
+    ],
+    [
+      297.577,
+      266.51800000000003
+    ]
+  ],
+  "minimum_plate_clearance_mm": 27.235,
+  "feature_counts": {
+    "Support": 121045,
+    "Inner wall": 1624339,
+    "Outer wall": 1129981,
+    "Gap infill": 57595,
+    "Bottom surface": 1277,
+    "Internal solid infill": 68386,
+    "Sparse infill": 417569,
+    "Floating vertical shell": 55018,
+    "Bridge": 17590,
+    "Top surface": 6419,
+    "Support transition": 402,
+    "Support interface": 565,
+    "Overhang wall": 310
+  },
+  "flat_ceiling_interface_road_segments_outside_flat_projection": 0,
+  "pass": true
+}

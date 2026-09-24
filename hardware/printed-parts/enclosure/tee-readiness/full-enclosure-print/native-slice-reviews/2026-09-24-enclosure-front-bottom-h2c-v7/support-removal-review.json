@@ -1,0 +1,239 @@
+{
+  "status": "current_support_contacts_and_removal_lanes_reviewed",
+  "piece": "enclosure-front-bottom",
+  "native_archive_sha256": "43d63a6328d3075929292dc90855d393909aec0b1e2e7f47e039821ac6c8bcaa",
+  "gcode_sha256": "55fffac067cb1df96931f5fd8af9e8483a314cf482372d726780c307268091a8",
+  "support_summary": {
+    "support_bodies": 4,
+    "interface_islands": 4,
+    "bed_rooted_bodies": 4,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 34.032,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 4,
+    "shortest_labelled_build_up_mm": 34.032
+  },
+  "support_scope": "Flat lifting ceilings and seam catches only; rounded show faces are blocked. Full bead-width contact exclusion is recorded separately in round-contact-check.json.",
+  "trees": [
+    {
+      "measurement": {
+        "id": "tree-1",
+        "root": "bed",
+        "base_z_mm": 0.2,
+        "first_interface_z_mm": 174.59,
+        "shortest_build_up_mm": 174.39,
+        "top_z_mm": 174.87,
+        "bbox_xy_mm": [
+          27.6,
+          180.0,
+          63.6,
+          241.6
+        ],
+        "interfaces": [
+          "interface-3"
+        ],
+        "interface_reading": "explicit_feature",
+        "bbox_cad_xyz_mm": [
+          -134.9,
+          128.775,
+          -5.8,
+          -98.9,
+          190.375,
+          168.87
+        ]
+      },
+      "contact_region": "West Z-seam catch underside at CAD Z169.20. The tree rises outside the west flank and reaches the exposed groove.",
+      "removal_lane": "Detach the catch contact toward -X through the open west groove, then remove the exterior trunk.",
+      "removal_direction_original_cad": "-X",
+      "accessible_before_hardware": true,
+      "reviewed": true
+    },
+    {
+      "measurement": {
+        "id": "tree-2",
+        "root": "bed",
+        "base_z_mm": 0.2,
+        "first_interface_z_mm": 34.232,
+        "shortest_build_up_mm": 34.032,
+        "top_z_mm": 34.79,
+        "bbox_xy_mm": [
+          59.6,
+          228.8,
+          68.4,
+          264.4
+        ],
+        "interfaces": [
+          "interface-1"
+        ],
+        "interface_reading": "explicit_feature",
+        "bbox_cad_xyz_mm": [
+          -102.9,
+          177.575,
+          -5.8,
+          -94.1,
+          213.175,
+          28.79
+        ]
+      },
+      "contact_region": "Inset flat west lifting ceiling at CAD Z29.25, clear of the R6 rim and corner round.",
+      "removal_lane": "Detach from the ceiling and pull down through the fully downward-open handhold before hardware installation.",
+      "removal_direction_original_cad": "-Z",
+      "accessible_before_hardware": true,
+      "reviewed": true
+    },
+    {
+      "measurement": {
+        "id": "tree-3",
+        "root": "bed",
+        "base_z_mm": 0.2,
+        "first_interface_z_mm": 34.232,
+        "shortest_build_up_mm": 34.032,
+        "top_z_mm": 34.79,
+        "bbox_xy_mm": [
+          256.0,
+          230.0,
+          267.2,
+          266.0
+        ],
+        "interfaces": [
+          "interface-2"
+        ],
+        "interface_reading": "explicit_feature",
+        "bbox_cad_xyz_mm": [
+          93.5,
+          178.775,
+          -5.8,
+          104.7,
+          214.775,
+          28.79
+        ]
+      },
+      "contact_region": "Inset flat east lifting ceiling at CAD Z29.25, clear of the R6 rim and corner round.",
+      "removal_lane": "Detach from the ceiling and pull down through the fully downward-open handhold before hardware installation.",
+      "removal_direction_original_cad": "-Z",
+      "accessible_before_hardware": true,
+      "reviewed": true
+    },
+    {
+      "measurement": {
+        "id": "tree-4",
+        "root": "bed",
+        "base_z_mm": 0.2,
+        "first_interface_z_mm": 174.59,
+        "shortest_build_up_mm": 174.39,
+        "top_z_mm": 174.87,
+        "bbox_xy_mm": [
+          261.6,
+          180.4,
+          297.2,
+          241.6
+        ],
+        "interfaces": [
+          "interface-4"
+        ],
+        "interface_reading": "explicit_feature",
+        "bbox_cad_xyz_mm": [
+          99.1,
+          129.175,
+          -5.8,
+          134.7,
+          190.375,
+          168.87
+        ]
+      },
+      "contact_region": "East Z-seam catch underside at CAD Z169.20. The tree rises outside the east flank and reaches the exposed groove.",
+      "removal_lane": "Detach the catch contact toward +X through the open east groove, then remove the exterior trunk.",
+      "removal_direction_original_cad": "+X",
+      "accessible_before_hardware": true,
+      "reviewed": true
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 34.232,
+      "last_z_mm": 34.79,
+      "bbox_xy_mm": [
+        62.0,
+        232.0,
+        68.0,
+        262.8
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 34.032,
+      "bbox_cad_xyz_mm": [
+        -100.5,
+        180.775,
+        28.232,
+        -94.5,
+        211.575,
+        28.79
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 34.232,
+      "last_z_mm": 34.79,
+      "bbox_xy_mm": [
+        256.8,
+        232.0,
+        263.2,
+        262.8
+      ],
+      "tree": "tree-3",
+      "build_up_mm": 34.032,
+      "bbox_cad_xyz_mm": [
+        94.3,
+        180.775,
+        28.232,
+        100.7,
+        211.575,
+        28.79
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 174.59,
+      "last_z_mm": 174.87,
+      "bbox_xy_mm": [
+        58.8,
+        180.4,
+        63.6,
+        241.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 174.39,
+      "bbox_cad_xyz_mm": [
+        -103.7,
+        129.175,
+        168.59,
+        -98.9,
+        190.375,
+        168.87
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 174.59,
+      "last_z_mm": 174.87,
+      "bbox_xy_mm": [
+        261.6,
+        180.4,
+        266.0,
+        241.6
+      ],
+      "tree": "tree-4",
+      "build_up_mm": 174.39,
+      "bbox_cad_xyz_mm": [
+        99.1,
+        129.175,
+        168.59,
+        103.5,
+        190.375,
+        168.87
+      ]
+    }
+  ],
+  "preserved_functional_faces": "Flat handhold ceilings retain their lifting stock; seam catches retain their flat working undersides. Geometry is unchanged.",
+  "physical_cleanup_effort_measured": false
+}

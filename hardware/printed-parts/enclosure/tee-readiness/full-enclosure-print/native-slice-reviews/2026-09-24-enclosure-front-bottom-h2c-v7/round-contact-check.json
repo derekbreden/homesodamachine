@@ -1,0 +1,297 @@
+{
+  "scope": "All Support, Support transition and Support interface roads from print Z28.5 through 44.3 mm; full bead width plus 0.05 mm XY allowance; exact clipped downward-round triangle projections through 0.60 mm above support top.",
+  "rounded_surface_triangles": 15984,
+  "support_road_count": 8161,
+  "vertical_contact_check_mm": 0.6,
+  "xy_allowance_mm": 0.05,
+  "near_round_road_count": 0,
+  "by_z": [
+    {
+      "z_mm": 28.6531,
+      "road_count": 207,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 28.932,
+      "road_count": 205,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 29.211,
+      "road_count": 205,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 29.4899,
+      "road_count": 205,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 29.7689,
+      "road_count": 205,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 30.0478,
+      "road_count": 206,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 30.3268,
+      "road_count": 202,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 30.6057,
+      "road_count": 204,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 30.8847,
+      "road_count": 201,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 31.1636,
+      "road_count": 202,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 31.4426,
+      "road_count": 197,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 31.7215,
+      "road_count": 190,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 32.0005,
+      "road_count": 193,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 32.2794,
+      "road_count": 202,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 32.5584,
+      "road_count": 202,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 32.8373,
+      "road_count": 226,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 33.1163,
+      "road_count": 231,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 33.3952,
+      "road_count": 226,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 33.6742,
+      "road_count": 180,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 33.9531,
+      "road_count": 175,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 34.2321,
+      "road_count": 172,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 34.511,
+      "road_count": 178,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 34.79,
+      "road_count": 270,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 35.015,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 35.24,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 35.5198,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 35.7996,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 36.0795,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 36.3593,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 36.6391,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 36.9189,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 37.1987,
+      "road_count": 103,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 37.4786,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 37.7584,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 38.0382,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 38.318,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 38.5978,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 38.8777,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 39.1575,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 39.4373,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 39.7171,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 39.9969,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 40.2768,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 40.5566,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 40.8364,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 41.1162,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 41.396,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 41.6759,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 41.9557,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 42.2355,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 42.5153,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 42.7951,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 43.0749,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 43.3548,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 43.6346,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 43.9144,
+      "road_count": 102,
+      "near_round_road_count": 0
+    },
+    {
+      "z_mm": 44.1942,
+      "road_count": 102,
+      "near_round_road_count": 0
+    }
+  ],
+  "near_round_roads": [],
+  "pass": true
+}
