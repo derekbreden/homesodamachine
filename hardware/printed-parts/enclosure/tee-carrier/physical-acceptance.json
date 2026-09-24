@@ -93,6 +93,9 @@
       "No active chamber heat",
       "Mark2 requested +0.04 mm Z trim"
     ],
-    "outcome": "Pending physical print observation."
+    "outcome": "Rejected: Derek reports markedly worse results, \"Exploded basically.\"",
+    "physical_result_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/physical-result.json",
+    "failure_mechanism": "Unconfirmed; clarification requested.",
+    "settings_disposition": "Do not reuse this fan-off configuration for the tee carrier or apply it to other visible rounds."
   }
 }
