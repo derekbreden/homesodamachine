@@ -157,6 +157,23 @@ def options(nodes):
     return chosen
 
 
+def ensure_application():
+    """Bambu Connect running with its window up. A send made with nobody at the Mac finds it
+    closed after a restart or a crash; `open -g` starts it without taking the screen."""
+    if subprocess.run(["pgrep", "-f", "Bambu Connect.app/Contents/MacOS/Bambu Connect"],
+                      capture_output=True).returncode == 0:
+        return
+    print("Bambu Connect is not running; starting it in the background")
+    subprocess.run(["open", "-g", "-a", "Bambu Connect"], check=False)
+    deadline = time.monotonic() + 60
+    while time.monotonic() < deadline:
+        time.sleep(2)
+        if "My Printers" in ax("state", check=False) or find(tree(), role="AXLink", label="Devices"):
+            time.sleep(3)
+            return
+    fail("Bambu Connect did not come up within 60 s")
+
+
 def status(printer, timeout=12):
     with bambu_printer.Connection(printer, timeout) as connection:
         return connection.status()
@@ -279,6 +296,7 @@ def main():
         before = wait_out_heat(printer, args.printer, args.busy_wait)
 
     def send_once(before):
+        ensure_application()
         # 1. The send dialog offers the device page last viewed as its printer.
         ax("press", "Devices", "--role", "AXLink")
         time.sleep(1.5)
