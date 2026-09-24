@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "job": "back-top",
+  "printer": "H2C",
+  "state": "prepared_not_sent",
+  "review_scope": "Visible roof support exclusions, complete 0.08 mm curve layers and retained functional contacts.",
+  "source_job_directory": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v7",
+  "parts": [
+    "enclosure-back-top"
+  ],
+  "source_input_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "2f6935bb017c4176eca09c8cb305efbac638050e93d12a38f7116e990a878ec4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "55c7df1c20a145e1b44f17ef6ffb7432d41773bb23a96f3439e9edea87c1727c",
+    "hardware/manifold-layout/enclosure-box.json": "7325b7129e73f97d4e609c429a6be85d4e5ced2dfc2f4d59b16557cef389d351",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "reference_job_config": "reference-job-config.json",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v7/enclosure-back-top-black-z018-h2c-v7-unsupported-rounds-input.3mf",
+    "sha256": "832b9fd1d0eb21f4474db540e959f32fabfc0c44bebc1d9c4da7f315840bbd8a"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-enclosure-back-top-h2c-v7/ready/enclosure-back-top-black-z018-h2c-v7-unsupported-rounds.gcode.3mf",
+    "sha256": "732c3f5d1a74d0f596d480fb5606ec01f9f73010980b0fda9eb483240050e14c"
+  },
+  "gcode_sha256": "b07442143ae966c0daa9d9e3131a0657850770d2312de7f0cafa13016e012a3a",
+  "support_exclusion_policy": "Visible 0.08 mm top/bottom rounds print unsupported; other functional supports remain.",
+  "physical_example": "hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json",
+  "blocked_roof_triangles": 7024,
+  "geometry_placement_settings_and_layer_ranges_identical_to_reference": true,
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_plate_trim_mm": 0.16,
+  "full_exposed_round_layer_audit_pass": true,
+  "support_summary": {
+    "support_bodies": 15,
+    "interface_islands": null,
+    "bed_rooted_bodies": 4,
+    "model_rooted_bodies": 11,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 40,
+    "shortest_labelled_build_up_mm": 1.825
+  },
+  "functional_interface_islands_retained": 40,
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "printer_submission": false,
+  "verification_record": "verification.json",
+  "review_artifact_sha256": {
+    "README.md": "9f9d210ae99ade22e44a61215ed2ebc9a3d540474f0cf0d5f48c2e1b60a6aa2b",
+    "preparation.json": "0feec142fbce5748eb7d22da10831f393ba2f8ce3a0b8b8c69c9899de347f7ac",
+    "prepare.py": "08b5b517d95c8687a7c943f612e5aa7018191111d58a42bd3eb85c2c7cbed066",
+    "preview.png": "d5d01c180f2754df5ba1697df40bea9e3e523ba7296ecdd29e3880e51391b685",
+    "reference-job-config.json": "6f0b87c658dfb9e1567e9e01ae82d27041fe3e2c707810f97ec340503d371d52",
+    "reference-preparation.json": "918dbfa9b90435d03f83d744f8ae168ab72725b76f9e085aea8658366accfd7a",
+    "round-layer-verification.json": "3e62ecfcfadc1091fb04621c5b327e584981463e4e1d20937d5d7c0bb41e1b2e",
+    "slice-result.json": "145858ab5ac2e157fe299c192011b34ebe1ff2353249cf7196762ef3b54c49e8",
+    "support-audit.json": "7e23d5cccfc1379b4786d5656d80b49a0569ba4a8611d4da3a4ea5c9c2e18377",
+    "verification.json": "96760c909354dccc48e0121985b1fcb7cd0edac8cfae92defc2bec48578f1718",
+    "verify.py": "d188b5346f2e94c86b98ff794eba8b58a962e69bf30ad47cf10b52b687a56bb0"
+  }
+}

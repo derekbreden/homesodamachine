@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "part": "enclosure-tee-carrier-plate",
+  "reported_by": "Derek",
+  "reported_date": "2026-09-24",
+  "status": "unsupported_curve_successful_in_progress",
+  "printer": "Mark2",
+  "printer_task_id": "1277839952",
+  "material": "black PET-GF",
+  "user_statement": "The unsupported curve on the tee carrier is turning out beautifully btw. Please make a note of it, and ensure we do the same elsewhere (e.g. enclosure back top) and don’t use supports on those 0.08 rounded surfaces.",
+  "print_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json",
+  "native_archive_sha256": "d1e154afa633582121e53d8a2aa9226abb4ad22276183ebe22a4d373f744ec12",
+  "source_stl_sha256": "f781331deb3397d7b55b4d09e4fcaf68a05b9af8eb1d2f212530d18f34edca1c",
+  "base_layer_height_mm": 0.24,
+  "visible_round_layer_height_mm": 0.08,
+  "initial_layer_height_mm": 0.08,
+  "supports_enabled": false,
+  "scope": "Derek's observation of the unsupported curve during the print; not a report of whole-part completion or assembled fit.",
+  "standing_application": {
+    "visible_008_top_bottom_rounds": "Print without support contacts, across their complete curves.",
+    "explicit_example": "enclosure-back-top roof side edges",
+    "other_functional_faces": "Retain appropriate supports for separate flat lifting ceilings, seats and other functional features.",
+    "slice_verification": "Inspect all emitted support paths at the visible rounds, including short bodies without interface labels; use face-specific blockers where needed."
+  }
+}

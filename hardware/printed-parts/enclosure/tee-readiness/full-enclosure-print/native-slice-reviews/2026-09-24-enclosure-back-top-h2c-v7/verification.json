@@ -1,0 +1,183 @@
+{
+  "reference_native_archive_sha256": "cedbf56db6b144aa8e3652bc2bd1c3e2667b885579ad9e4ab2d1ca1c99b96bcd",
+  "native_archive_sha256": "732c3f5d1a74d0f596d480fb5606ec01f9f73010980b0fda9eb483240050e14c",
+  "staged_input_sha256": "832b9fd1d0eb21f4474db540e959f32fabfc0c44bebc1d9c4da7f315840bbd8a",
+  "gcode_sha256": "b07442143ae966c0daa9d9e3131a0657850770d2312de7f0cafa13016e012a3a",
+  "native_settings_identical": true,
+  "emitted_model_wall_layers_identical": true,
+  "native_blocked_roof_triangles": 7024,
+  "complete_fine_roof_band": {
+    "name": "roof-rounds-and-flute-runouts",
+    "print_z_mm": [
+      0,
+      9.25
+    ],
+    "wall_layer_count": 116,
+    "first_wall_layer": [
+      0.08,
+      0.08
+    ],
+    "last_wall_layer": [
+      9.28,
+      0.08
+    ],
+    "wrong_height_layers": [],
+    "uncovered_intervals_mm": [],
+    "pass": true
+  },
+  "retained_functional_interface_islands": 40,
+  "functional_interface_xy_bounds_and_last_z_identical": true,
+  "maximum_interface_start_z_difference_mm": 0.006999999999999673,
+  "previous_support_summary": {
+    "bed_rooted_bodies": 5,
+    "bodies_without_interface_labels": 2,
+    "explicit_interface_islands": 40,
+    "interface_islands": null,
+    "model_rooted_bodies": 11,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": 1.825,
+    "support_bodies": 16
+  },
+  "support_summary": {
+    "support_bodies": 15,
+    "interface_islands": null,
+    "bed_rooted_bodies": 4,
+    "model_rooted_bodies": 11,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 40,
+    "shortest_labelled_build_up_mm": 1.825
+  },
+  "east_roof_sliver_absent": true,
+  "roof_projection_support_centerlines_before": [
+    {
+      "z_mm": 0.08,
+      "moves": 4761,
+      "centerline_length_mm": 2853.772186
+    },
+    {
+      "z_mm": 0.19,
+      "moves": 2837,
+      "centerline_length_mm": 893.089066
+    },
+    {
+      "z_mm": 0.27,
+      "moves": 2386,
+      "centerline_length_mm": 876.164426
+    },
+    {
+      "z_mm": 0.35,
+      "moves": 2297,
+      "centerline_length_mm": 749.447527
+    },
+    {
+      "z_mm": 0.43,
+      "moves": 2349,
+      "centerline_length_mm": 710.832331
+    },
+    {
+      "z_mm": 0.51,
+      "moves": 2363,
+      "centerline_length_mm": 677.032933
+    },
+    {
+      "z_mm": 0.59,
+      "moves": 2080,
+      "centerline_length_mm": 641.54914
+    },
+    {
+      "z_mm": 0.67,
+      "moves": 32,
+      "centerline_length_mm": 42.129463
+    },
+    {
+      "z_mm": 0.8,
+      "moves": 20,
+      "centerline_length_mm": 37.316122
+    },
+    {
+      "z_mm": 0.88,
+      "moves": 20,
+      "centerline_length_mm": 32.314184
+    },
+    {
+      "z_mm": 0.96,
+      "moves": 20,
+      "centerline_length_mm": 27.446527
+    },
+    {
+      "z_mm": 1.04,
+      "moves": 13,
+      "centerline_length_mm": 21.678926
+    },
+    {
+      "z_mm": 1.12,
+      "moves": 10,
+      "centerline_length_mm": 12.574587
+    },
+    {
+      "z_mm": 1.39688,
+      "moves": 8,
+      "centerline_length_mm": 9.588949
+    },
+    {
+      "z_mm": 1.67375,
+      "moves": 5,
+      "centerline_length_mm": 6.628345
+    },
+    {
+      "z_mm": 1.95063,
+      "moves": 4,
+      "centerline_length_mm": 0.957531
+    }
+  ],
+  "roof_projection_support_centerlines_after": [
+    {
+      "z_mm": 0.08,
+      "moves": 60,
+      "centerline_length_mm": 96.081718
+    },
+    {
+      "z_mm": 0.3535,
+      "moves": 20,
+      "centerline_length_mm": 29.183594
+    },
+    {
+      "z_mm": 0.627,
+      "moves": 16,
+      "centerline_length_mm": 24.679719
+    },
+    {
+      "z_mm": 0.9005,
+      "moves": 12,
+      "centerline_length_mm": 17.491442
+    },
+    {
+      "z_mm": 1.174,
+      "moves": 8,
+      "centerline_length_mm": 11.229574
+    },
+    {
+      "z_mm": 1.4475,
+      "moves": 8,
+      "centerline_length_mm": 8.967215
+    },
+    {
+      "z_mm": 1.721,
+      "moves": 4,
+      "centerline_length_mm": 5.521503
+    },
+    {
+      "z_mm": 1.9945,
+      "moves": 2,
+      "centerline_length_mm": 0.316301
+    }
+  ],
+  "roof_projection_note": "Projection alone also includes feet of trees serving higher functional faces; it is not a contact count.",
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "printer_submission": false,
+  "scope": "Visible roof support exclusions, complete fine layers and retained functional contacts; not a print release or full support-removal review.",
+  "pass": true
+}

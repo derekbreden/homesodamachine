@@ -1,0 +1,53 @@
+{
+  "status": "workflow_prepared",
+  "job_key": "back-top",
+  "printer": "H2C",
+  "archive_stem": "enclosure-back-top-black-z018-h2c-v6",
+  "title": "Back-top, roof-down, 0.08 mm first layer and 0.08 mm through the visible roof curves to 9.3 mm, black PET-GF, H2C",
+  "requested_z_trim_mm": 0.18,
+  "model_border_mm": 15.0,
+  "layout": "explicit",
+  "parts": [
+    {
+      "name": "enclosure-back-top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "rotation_sequence": [
+        "X180"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-back-top": [
+      {
+        "min_z": 0.0,
+        "max_z": 9.3,
+        "layer_height": 0.08,
+        "reason": "back-top prints roof-down: its visible R6 roof side edges rise off the bed to about 7.5, and the +X flank's flute run-outs into that round reach 9.25; 0.08 from the first layer through the whole of both"
+      }
+    ]
+  },
+  "initial_layer_mm": 0.08
+}

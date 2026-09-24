@@ -2,6 +2,11 @@
 
 Each manifest binds its own geometry receipt, exact native archive and support review. An archive whose receipt no longer matches the files it names is not the current geometry.
 
+Visible top/bottom rounds at 0.08 mm print without support contacts. Every pending archive
+needs that check on the actual support paths, including unlabelled slivers; a passed layer-band
+review does not establish support exclusion. The physical example is Derek's
+[unsupported tee-carrier curve](../../../tee-carrier/physical-acceptance.json).
+
 | Job | Printer | State | Evidence |
 | --- | --- | --- | --- |
 | back-bottom | Mark2 | reviewed, not sent; uniform 0.24 mm, no band at the handhold rounds; back-bottom changed after it | [2026-09-21-enclosure-back-bottom-mark2-v2](2026-09-21-enclosure-back-bottom-mark2-v2/manifest.json) |
@@ -29,6 +34,7 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | back-bottom | Mark2 | not to send: its 0.08 band covers only 32.65–37.85 mm of the R6 handhold rounds, which span 29.25–41.25 mm | [2026-09-23-enclosure-back-bottom-mark2-v3](2026-09-23-enclosure-back-bottom-mark2-v3/manifest.json) |
 | pump-cartridge | H2C | superseded by v4: the cartridge and cap go to Mark2 | [2026-09-23-pump-cartridge-cap-h2c-v3](2026-09-23-pump-cartridge-cap-h2c-v3/manifest.json) |
 | back-top | H2C | not to send: the first layer is 0.20 mm, and the 0.08 band covers only 0–2.6 mm of the R6 roof edges, which span 0–6 mm from the bed | [2026-09-23-enclosure-back-top-h2c-v5](2026-09-23-enclosure-back-top-h2c-v5/manifest.json) |
+| back-top | H2C | prepared, not sent; v7 blocks support on both visible roof rounds, preserves complete 0.08 mm layers and the 40 functional support interfaces; see the scoped review | [2026-09-24-enclosure-back-top-h2c-v7](2026-09-24-enclosure-back-top-h2c-v7/manifest.json) |
 | tee-carrier | H2C | superseded by v3: the carrier goes to Mark2 | [2026-09-23-tee-carrier-plate-h2c-v2](2026-09-23-tee-carrier-plate-h2c-v2/manifest.json) |
 | front-top | H2C | cancelled 09-23 at layer 51/1326: its 0.08 band covers the R18 roof arc, but only the last part of the R6 roof side and corner curves | [2026-09-23-enclosure-front-top-h2c-v12](2026-09-23-enclosure-front-top-h2c-v12/manifest.json) |
 | front-top | H2C | printing since 09-23, task 1277245499; emitted 0.08 mm wall layers cover the complete R6 roof side and corner curves and R18 roof arc | [2026-09-23-enclosure-front-top-h2c-v13](2026-09-23-enclosure-front-top-h2c-v13/manifest.json) |
@@ -37,13 +43,12 @@ Each manifest binds its own geometry receipt, exact native archive and support r
 | tee-carrier | Mark2 | superseded by v6; the smooth plate's visible aft and fore R6 ends are complete, while eight hidden tee troughs have 0.24 mm layers above 6.1 mm | [2026-09-23-tee-carrier-plate-mark2-v5](2026-09-23-tee-carrier-plate-mark2-v5/manifest.json) |
 | tee-carrier | Mark2 | rejected by Mark2 as invalid 3MF; smooth carrier and both covers, 0.08 mm across the end rounds and hidden troughs | [2026-09-23-tee-carrier-plate-mark2-v6](2026-09-23-tee-carrier-plate-mark2-v6/manifest.json) |
 | pump-cartridge | Mark2 | not to send: its 0.08 bands cover 2.6 mm either side of each grip opening's level, not the whole curves | [2026-09-23-pump-cartridge-cap-mark2-v4](2026-09-23-pump-cartridge-cap-mark2-v4/manifest.json) |
-| pump-cartridge | Mark2 | reviewed, not sent; emitted 0.08 mm wall layers cover each grip opening's complete floor and ceiling R6 rounds; cap stays at 0.24 mm | [2026-09-23-pump-cartridge-cap-mark2-v6](2026-09-23-pump-cartridge-cap-mark2-v6/manifest.json) |
+| pump-cartridge | Mark2 | not sent; complete 0.08 mm grip-round bands, cap at 0.24 mm; requires the visible-round support-exclusion check before sending | [2026-09-23-pump-cartridge-cap-mark2-v6](2026-09-23-pump-cartridge-cap-mark2-v6/manifest.json) |
 | bulkhead rings | Mark2 | printed 09-23 at 0.20 mm; Derek rejected the surface finish | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v1](2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/manifest.json) |
 | bulkhead rings | Mark2 | printed 09-23, task 1277283660; 0.08 mm improved the face-up lettering, but Derek found it less sharp than the face-down nameplate | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v2](2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/manifest.json) |
 | bulkhead rings | Mark2 | printing since 09-24, task 1277448913; lettered faces down, all 25 layers at 0.08 mm, Mark2 +0.04 mm requested Z trim and the same black/white hotend assignments | [2026-09-23-bulkhead-rings-tap-flavor-mark2-v3](2026-09-23-bulkhead-rings-tap-flavor-mark2-v3/manifest.json) |
 | bulkhead rings | Mark2 | printing on Mark2 since 09-24; face down on the nameplate's settings (0.20 first layer, 0.24) | [2026-09-24-bulkhead-rings-tap-flavor-mark2-v4](2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/manifest.json) |
 | tee-carrier | Mark2 | completed, task 1277634817; carrier only, 0.24 mm base and 0.08 mm through the exposed end rounds including the first layer; +0.04 mm requested Z trim | [2026-09-24-tee-carrier-plate-mark2-v10](2026-09-24-tee-carrier-plate-mark2-v10/manifest.json) |
-
-| tee-carrier | Mark2 | running, task 1277839952; carrier only, supports disabled; all other settings and all 189 layer heights match v10 | [2026-09-24-tee-carrier-plate-mark2-v11](2026-09-24-tee-carrier-plate-mark2-v11/manifest.json) |
+| tee-carrier | Mark2 | running, task 1277839952; supports disabled, all other settings and all 189 layer heights match v10; Derek reports the unsupported curve is turning out beautifully | [2026-09-24-tee-carrier-plate-mark2-v11](2026-09-24-tee-carrier-plate-mark2-v11/manifest.json) |
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

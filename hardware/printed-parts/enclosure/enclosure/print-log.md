@@ -506,4 +506,9 @@ The geometry, placement and all other settings match the successful v10 print. A
 
 Derek reports that many things turned out well in v10. Its supports got in the way and were too small to help at this layer height beside the corbels. He cleared the plate and requested this repeat with supports removed.
 
+Derek's in-progress observation on v11: “The unsupported curve on the tee carrier is turning
+out beautifully.” His direction is to use the same unsupported treatment on other visible
+0.08 mm rounded surfaces, specifically including enclosure back-top.
+[Physical observation and standing application](../tee-carrier/physical-acceptance.json).
+
 [Slice comparison and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v11/manifest.json).
