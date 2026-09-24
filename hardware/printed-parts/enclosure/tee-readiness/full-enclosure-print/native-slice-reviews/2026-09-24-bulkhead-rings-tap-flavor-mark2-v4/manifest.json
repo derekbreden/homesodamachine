@@ -1,0 +1,58 @@
+{
+ "schema": 1,
+ "status": "offline_print_review_pass",
+ "job": "bulkhead-rings-tap-flavor-v4",
+ "printer": "Mark2",
+ "request": "Derek, 2026-09-24: \"Leave them face down, but bump them up to our usual petgf.3mf settings (which i am pretty sure is 0.24 layers). I need to see a replication of the settings we used for nameplate.\"",
+ "source_job_directory": ".cache/prints/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4",
+ "native_archive": {
+  "path": ".cache/prints/2026-09-24-bulkhead-rings-tap-flavor-mark2-v4/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v4.gcode.3mf",
+  "sha256": "0f34e1993d03f94a3e481741b1c3af4b4e3036c376105eb13170f55ad44efacb"
+ },
+ "gcode_member": "Metadata/plate_1.gcode",
+ "gcode_sha256": "7362c3bd5ce5534f77bd9d6779caa14a4ba938bdd98c2494d6b19b3b9955cd3d",
+ "source_steps": {
+  "water": {
+   "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+   "sha256": "8bca4ae15f9f89e6f9139fd49d65518d72d19060deac7037884da8ad09d8cf08"
+  },
+  "flavor-a": {
+   "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+   "sha256": "74dd91767a7ad3f3879c4ed5520db74d2cd9d6ba430b89fa8673a0f07f556c35"
+  },
+  "flavor-b": {
+   "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+   "sha256": "3814cd4b9f02fcec3fa5a273b445bb93da370ce80439abe1c16f0b2a5d1c6332"
+  }
+ },
+ "project_sha256": "cf8a699e452b5c1145c5dbda5fb94e8f91e6f15163c12808702d77f1d94f7a59",
+ "plate": {
+  "water": {
+   "chip": "white",
+   "word": "black"
+  },
+  "flavor-a": {
+   "chip": "black",
+   "word": "white"
+  },
+  "flavor-b": {
+   "chip": "black",
+   "word": "white"
+  }
+ },
+ "settings": "project_settings.config identical key for key to hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf, and filament_settings identical byte for byte: the saved profile's 0.20 mm first layer and 0.24 mm layers, its shells and 15% infill, the two-hotend lists and the nameplate's two support settings",
+ "orientation": "face down: the outboard face on the bed, each word in the first 1 mm (layers 0.20, 0.44, 0.68, 0.92)",
+ "estimate": {
+  "seconds": 1498.9180908203125,
+  "grams": {
+   "1": 5.380424976348877,
+   "2": 2.9042916297912598
+  },
+  "layers": 10
+ },
+ "printed_thickness_mm": 2.12,
+ "review": [
+  "TAP chip on the right hotend (white) with its word on the left (black); both FLAVOR chips on the left (black) with their words on the right (white); the first layer's toolpaths read each word mirrored from above, as a face-down word should (layers-by-hotend.png).",
+  "No support; objects inside both hotends' shared area; prime tower at the profile's 165, 250."
+ ]
+}
