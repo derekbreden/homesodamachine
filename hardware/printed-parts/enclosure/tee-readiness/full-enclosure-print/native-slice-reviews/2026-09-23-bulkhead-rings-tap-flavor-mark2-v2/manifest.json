@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "status": "reviewed_not_sent",
+  "job": "bulkhead-rings-tap-flavor-v2",
+  "printer": "Mark2",
+  "request": "Derek, 2026-09-23: Mark2 is clear; the bulkhead collars turned out awful; try again with 0.08 layers.",
+  "source_job_directory": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2",
+  "base_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-23-bulkhead-rings-tap-flavor-mark2-v1/manifest.json",
+  "native_archive": {
+    "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/ready/bulkhead-rings-tap-flavor-black-white-z004-mark2-v2.gcode.3mf",
+    "sha256": "fb89c35bcf9d01783eca1feaa514a4d55f5c281964e2ac22bf15c7e012f393d9"
+  },
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "0a481330c5c8794972c9d4049f33822ca645b869ed4318150acbe5837be60123",
+  "project": {
+    "path": ".cache/prints/2026-09-23-bulkhead-rings-tap-flavor-mark2-v2/bulkhead-rings-tap-flavor-black-white-z004-mark2-v2-input.3mf",
+    "sha256": "ea9ffbbae864f0e047ce6d88e6b00690381e71ac379736b1dde8ec0e1112b4d4",
+    "changed_members_from_base": [
+      "Metadata/project_settings.config"
+    ],
+    "setting_changes": {
+      "bottom_shell_layers": [
+        "5",
+        "13"
+      ],
+      "initial_layer_print_height": [
+        "0.2",
+        "0.08"
+      ],
+      "layer_height": [
+        "0.2",
+        "0.08"
+      ],
+      "top_shell_layers": [
+        "5",
+        "13"
+      ]
+    }
+  },
+  "source_steps": {
+    "water": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+      "sha256": "8bca4ae15f9f89e6f9139fd49d65518d72d19060deac7037884da8ad09d8cf08"
+    },
+    "flavor-a": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+      "sha256": "74dd91767a7ad3f3879c4ed5520db74d2cd9d6ba430b89fa8673a0f07f556c35"
+    },
+    "flavor-b": {
+      "path": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+      "sha256": "3814cd4b9f02fcec3fa5a273b445bb93da370ce80439abe1c16f0b2a5d1c6332"
+    }
+  },
+  "plate": {
+    "water": {
+      "chip": "white",
+      "word": "black"
+    },
+    "flavor-a": {
+      "chip": "black",
+      "word": "white"
+    },
+    "flavor-b": {
+      "chip": "black",
+      "word": "white"
+    }
+  },
+  "filaments": {
+    "left hotend, external 254": "black PET-GF",
+    "right hotend, external 255": "white PET-GF"
+  },
+  "emitted_layers": {
+    "count": 25,
+    "first_z_mm": 0.08,
+    "last_z_mm": 2.0,
+    "height_mm": 0.08
+  },
+  "solid_shells": {
+    "top_layers": 13,
+    "bottom_layers": 13
+  },
+  "slicer": {
+    "return_code": 0,
+    "warning_message": ""
+  },
+  "review": [
+    "The 25 emitted Z heights are 0.08 through 2.00 mm, and each layer is 0.08 mm.",
+    "No support, sparse infill, or bridge features are emitted.",
+    "The same source geometry, plate assignment, two hotends, colors, and nozzle mapping as v1 are retained."
+  ],
+  "artifacts": {
+    "layer-verification.json": "57cb689a3b0d5f441fe99af340a0a5965d4091adbce3e24c6c56054ac74646d6",
+    "slice-result.json": "a9e7b7e57281722c5f9835b1faad2e2f451c47a540f3a891f6ce692bce2851cf",
+    "plate_1.png": "5a65a62e47e03ac48fb104be6899e9dc2c3de5ab5d1eb360fc8eeb5ea912b570"
+  }
+}
