@@ -2,7 +2,13 @@
 
 Mark2 task `1279237907` prints one unsupported carrier in black PET-GF.
 The [printer receipt](sender-receipt.json) verifies acceptance; the [subsequent reading](mark2-launch.json)
-records the observed startup/printing state. The physical result is pending.
+records the observed startup/printing state. Derek stopped the print after the edge failure
+recurred. The [stop reading](stop-reading.json) reports FAILED with no print error or HMS
+alert; the exact failure layer is unknown. [Physical result](physical-result.json).
+
+Derek observes that failures lie between the infill-to-wall contacts. Where the infill
+reaches the wall, the perimeter appears to be held farther outward. The physical force
+mechanism is unmeasured. Steady cooling alone does not resolve the failure.
 
 Part cooling is **55% on every model extrusion from layer 4 through layer 189**, including
 bridges and overhangs. The first three layers retain zero part cooling. The auxiliary fan

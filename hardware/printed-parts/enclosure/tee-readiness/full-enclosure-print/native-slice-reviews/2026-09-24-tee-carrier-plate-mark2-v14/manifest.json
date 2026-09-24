@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "RUNNING",
+  "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14",
+  "parts": [
+    "enclosure-tee-carrier-plate"
+  ],
+  "reference_print": "2026-09-24-tee-carrier-plate-mark2-v13",
+  "reference_printer_task_id": "1279237907",
+  "reference_stop_record": "previous-stop.json",
+  "physical_observation_record": "hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds-input.3mf",
+    "sha256": "58c0ada5fb8d36e4f643b11738d717900c3890fe3e2580f065a0ed31be91cff0"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v14/ready/tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds.gcode.3mf",
+    "sha256": "47367edf0348852c7b2ef03a4940c521e552014553232c3890290b32bea3f925"
+  },
+  "gcode_sha256": "67219a0cab768044ccc23ea5f5ea0800c34eb2c1881d97e95649fc67ec6b8ba9",
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "global_setting_differences": {
+    "is_infill_first": {
+      "reference": "0",
+      "value": "1"
+    }
+  },
+  "native_layer_ranges": [
+    {
+      "min_z": 0.0,
+      "max_z": 6.1,
+      "settings": {
+        "layer_height": "0.08",
+        "wall_loops": "6"
+      }
+    },
+    {
+      "min_z": 14.9,
+      "max_z": 21.054,
+      "settings": {
+        "layer_height": "0.08"
+      }
+    }
+  ],
+  "base_wall_loops": 2,
+  "lower_band_wall_loops": 6,
+  "lower_band_mm": [
+    0,
+    6.1
+  ],
+  "infill_wall_overlap": "15%",
+  "speed_and_acceleration_settings_unchanged": true,
+  "infill_first": true,
+  "native_first_layer_sequence": "walls first",
+  "hypothesis": "Six walls in the lower rounded band may retain the expanding edge between infill contacts. Printing infill first supplies those contacts before the surrounding walls. This combined wall-strategy trial does not isolate individual contributions.",
+  "physical_trial_outcome": "pending",
+  "geometry_and_placement_identical_to_reference": true,
+  "base_layer_height_mm": 0.24,
+  "initial_layer_print_height_mm": 0.08,
+  "emitted_model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "full_exposed_round_layer_audit_pass": true,
+  "enable_support": false,
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "first_layer_nozzle_c": 265,
+  "remaining_model_nozzle_c": 280,
+  "bed_c": 80,
+  "chamber_setting_c": 0,
+  "part_fan_runs_during_model_extrusion": [
+    {
+      "first_layer": 1,
+      "last_layer": 3,
+      "part_fan_percent": 0.0
+    },
+    {
+      "first_layer": 4,
+      "last_layer": 189,
+      "part_fan_percent": 55.0
+    }
+  ],
+  "aux_fan_off_during_model_extrusion": true,
+  "total_estimated_seconds": 9615.890625,
+  "total_filament_g": 54.59881591796875,
+  "printer_task_id": "1279390313",
+  "launch_record": "mark2-launch.json",
+  "verification_record": "verification.json",
+  "wall_review": "wall-review.json",
+  "review_artifact_sha256": {
+    "README.md": "0159bc0a0ff01d0ba15f42b2ef8e13f1591a1b562b652aeac86273a34d5959b2",
+    "job-config.json": "13b5e4824bf5a2b75429d7bacddf7e908f9bd3769f82885d97ee48920f40a8a4",
+    "mark2-launch.json": "e6d65f1bb566f64994b51346b49e99255e1d8feb64fa53eade60235b4cade4e7",
+    "preparation.json": "ea189d25d3764107eb58d4bf7942feac737ee870e0a3feceada1a09a841a1363",
+    "prepare.py": "cf0d2566bc9de96b2c9075e51d65075f0096f5a73190fd8873a505612971c552",
+    "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
+    "previous-stop.json": "531764b60cf5d72fc3bc4581ede4a19fec8c6a316193ff41bfccddaba5953401",
+    "review_walls.py": "1c27f6fe5874b848d1ab837a847f792e349ee574ea2a93ec3a182149b792f244",
+    "sender-receipt.json": "fb42e57a41130d4ae36be13e8ae0adf6756b5cdd6c2fbe6a59d5a50051456d31",
+    "slice-result.json": "6c6f03ae79d02d3b5dc428cd5e20d4192749f44f8c85ac7a0dbea8eb6210dc69",
+    "submission.json": "b3ae0f7947732059c6ad29e59e503b1b44ef100278d96995ae064b3b28e16caa",
+    "support-audit.json": "1688281dc138d5fef3ca756b62ac408f7f9c3848c22243f5fa22ef6826dd0b6e",
+    "verification.json": "d3b51ffa0f6ed42f8c5488ad102adb926c490e90332b59199cbaa3f5bf228556",
+    "verify.py": "6261caa47dbf79c603272bc063b4c767a2d9e1aabc2f68f706e1ad0f4b190938",
+    "wall-comparison.png": "52d3cae2d6a95233b0beaeb1c096b3c85125f1a2de32165248330a2eda7c859d",
+    "wall-review.json": "6664773db80c58845a77deebd8e11bb3e27e2d84034b0d05db7cb90bfcf6ea95"
+  }
+}

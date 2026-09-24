@@ -547,10 +547,35 @@ bridges and overhangs. The first three layers retain zero part cooling; the auxi
 stays off. This tests whether steady cooling preserves the expanding edge and its overlap
 with the next perimeter. The v11 fan-off interval at layer 26 is a clue, not an established
 cause. Temperatures remain 265°C first layer, 280°C thereafter, 80°C bed and no active chamber
-heat. Physical outcome is pending.
+heat. Derek stopped the print after the edge failure recurred. He observes that failure lies
+between infill contacts, while the contacts appear to hold the outside edge out. The status
+after cancellation reports FAILED with no print error or HMS alert; its zero layer count
+does not establish the actual failure layer.
 
 Native estimate: 2 h 5 m 48 s, 44.93 g. Timelapse and bed leveling On; flow and nozzle-offset
 calibration Auto. A fresh import with a 20-second settling wait was accepted on the first
 send attempt.
 
 [Slice, hypothesis and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/README.md).
+
+## Tee carrier with six walls through the lower curve — Mark2, 2026-09-24 UTC
+
+Task `1279390313` reports RUNNING with
+`tee-carrier-plate-black-z004-mark2-v14-six-wall-band-original-speeds.gcode.3mf`.
+One carrier, black PET-GF on left external 254, no supports. Geometry, placement and all
+189 layer heights match v13. The visible rounds use 0.08 mm through their full height;
+the rest uses 0.24 mm. Requested trim is +0.04 mm, emitted +0.02 mm for Textured PEI.
+
+Six walls apply only at print Z 0–6.1 mm. The base setting remains two walls above that band.
+Infill prints first, then inner walls and outer walls; the native first layer remains
+wall-first. Infill/wall overlap stays at 15%. All speed and acceleration settings are
+unchanged. The emitted paths show six wall crossings at the reviewed left-end section on
+layers 1–76 and two on layers 77–113.
+
+Part cooling is 55% after the first three layers, with the auxiliary fan off. Temperatures
+remain 265°C first layer, 280°C thereafter, 80°C bed and no active chamber heat.
+Physical outcome is pending. Native estimate: 2 h 40 m 16 s, 54.60 g. Timelapse and bed
+leveling On; flow and nozzle-offset calibration Auto. A fresh import with a 20-second
+settling wait was accepted on the first send attempt.
+
+[Slice, wall paths and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/README.md).
