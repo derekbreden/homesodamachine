@@ -1,0 +1,26 @@
+{
+  "archive_sha256": "cc5881ccdad1837c951f7b2ed3b08706e5ffc8ba830bf7b8aac740ff32356f4b",
+  "attempts": [
+    {
+      "log": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/send.log",
+      "result": "Notification Center covered Print; input guard sent no click."
+    },
+    {
+      "log": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/send-retry.log",
+      "result": "Printer rejected project_file with ERROR STATE, err_code 83902534 (0x05004046).",
+      "vendor_error_definition": "Invalid 3MF; verify the selected printer model or re-slice.",
+      "status_after": "FINISH on v11, job 1277839952, no error/HMS, targets zero, upload idle."
+    },
+    {
+      "log": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/send-settled.log",
+      "result": "Fresh import with a 20-second settled-dialog wait accepted as task 1278660260.",
+      "printer_reply": {
+        "result": "SUCCESS",
+        "reason": "SUCCESS",
+        "err_code": 0
+      }
+    }
+  ],
+  "same_archive_on_rejected_and_successful_send": true,
+  "interpretation": "A fresh import and settling delay preceded success; the cause of the transient rejection is unconfirmed."
+}

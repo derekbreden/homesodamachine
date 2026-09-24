@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "job": "tee-carrier",
+  "printer": "Mark2",
+  "state": "RUNNING",
+  "source_job_directory": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12",
+  "parts": [
+    "enclosure-tee-carrier-plate"
+  ],
+  "reference_print": "2026-09-24-tee-carrier-plate-mark2-v11",
+  "reference_printer_task_id": "1277839952",
+  "reference_completion": "reference-completion.json",
+  "physical_observation_record": "hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json",
+  "staged_input": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/tee-carrier-plate-black-z004-mark2-v12-fan-off-input.3mf",
+    "sha256": "ae088553723b7ea8d5df52d74b0f61d2f7646926652c15e9af6af90a9a390e58"
+  },
+  "native_archive": {
+    "path": ".cache/prints/2026-09-24-tee-carrier-plate-mark2-v12/ready/tee-carrier-plate-black-z004-mark2-v12-fan-off.gcode.3mf",
+    "sha256": "cc5881ccdad1837c951f7b2ed3b08706e5ffc8ba830bf7b8aac740ff32356f4b"
+  },
+  "gcode_sha256": "cda800015fbd8c49cc18be697c68fa5e4ed482e302f0ae63fd29f4a483cc9940",
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "setting_differences": {
+    "fan_max_speed": {
+      "reference": [
+        "70"
+      ],
+      "value": [
+        "0"
+      ]
+    },
+    "enable_overhang_bridge_fan": {
+      "reference": [
+        "1"
+      ],
+      "value": [
+        "0"
+      ]
+    }
+  },
+  "hypothesis": "Removing forced part cooling may reduce differential contraction and lifting of the expanding lower R6 curve. This is an unconfirmed thermal hypothesis.",
+  "physical_trial_outcome": "pending",
+  "geometry_and_placement_identical_to_reference": true,
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "base_layer_height_mm": 0.24,
+  "initial_layer_print_height_mm": 0.08,
+  "layer_ranges_mm": {
+    "enclosure-tee-carrier-plate": [
+      {
+        "min_z": 0.0,
+        "max_z": 6.1,
+        "layer_height": 0.08,
+        "reason": "Full exposed aft R6 round, print Z 0\u20136 mm."
+      },
+      {
+        "min_z": 14.9,
+        "max_z": 21.054,
+        "layer_height": 0.08,
+        "reason": "Full exposed fore R6 round, print Z 15.054\u201321.054 mm."
+      }
+    ]
+  },
+  "emitted_model_layer_runs": [
+    {
+      "height": 0.08,
+      "bottom": 0.0,
+      "last_z": 6.08,
+      "count": 76
+    },
+    {
+      "height": 0.24,
+      "bottom": 6.08,
+      "last_z": 14.96,
+      "count": 37
+    },
+    {
+      "height": 0.08,
+      "bottom": 14.96,
+      "last_z": 21.04,
+      "count": 76
+    }
+  ],
+  "full_exposed_round_layer_audit_pass": true,
+  "enable_support": false,
+  "support_summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "plate_object_count": 1,
+  "layer_count": 189,
+  "first_layer_nozzle_c": 265,
+  "remaining_model_nozzle_c": 280,
+  "bed_c": 80,
+  "chamber_setting_c": 0,
+  "part_and_aux_fans_off_throughout_model": true,
+  "total_estimated_seconds": 7545.81396484375,
+  "total_filament_g": 44.93406295776367,
+  "printer_task_id": "1278660260",
+  "launch_record": "mark2-launch.json",
+  "verification_record": "verification.json",
+  "review_artifact_sha256": {
+    "README.md": "1cc3268f16b892ef124ac550f13884dfce0e4e6db1b0b457248d5505114bafcc",
+    "job-config.json": "64e5c0b3603b960d50e01764cb608edb81a527bd103b33438fdf618d298aee4c",
+    "mark2-launch.json": "e11ed7b5847aae48d39ab870fb2c1457f573fd307ea7a90f521a51807bfa34ae",
+    "preparation.json": "7a4ae42503665661a72437541261557a78114c5f0ca611612afb069d194a311f",
+    "prepare.py": "105db81e5ec91696251cc4ecfa054e0e47cc64979ae79ecae65285558a2e85be",
+    "preview.png": "cd37bd5487560ed857a0b58fd14784a1f941c73fca46ab0b07d3b7f9d8ba0602",
+    "reference-completion.json": "dd23128c6c57dc5617ebee1c87b41e6205803bd51e019db08964a95313a1dd60",
+    "sender-receipt.json": "dbfcafe3a6f34a533554f8a6e301cbbd00c1fffba8a5198fc1e51323e73635c6",
+    "slice-result.json": "c876f289947b896ef3e0c07506aee9d0c13376872915fa60fd5f60950296bf23",
+    "submission.json": "9a3e9d21e6784fd1e8db0f28a714dce3bdd896ada668346dacec559cf1a9365c",
+    "support-audit.json": "05825e92580200de605b4136c90f684b247a9fa0dd5d6ab8badd02566f1e5fe6",
+    "verification.json": "348146d5e465b902d0e883cb1a06760dade736204a10646dc7a84119644fbc67",
+    "verify.py": "0a0fc69168ec584f7c085469662a5ad0ff6c3ea0babf2267d934d9b455b31f00"
+  }
+}

@@ -37,9 +37,12 @@ The plate prints lying on its back, troughs open upward; the columns stand out i
 the bed, and their aft shoulders rise off it.
 
 The plate prints without supports. Its visible end rounds use 0.08 mm layers through their
-full height, including the first layer, and the remaining height uses 0.24 mm. Derek reports
-that the unsupported curve is turning out beautifully in the Mark2 v11 print; the
-[physical record](physical-acceptance.json) binds that observation to the slice.
+full height, including the first layer, and the remaining height uses 0.24 mm. The completed
+Mark2 v11 print has a clean upper curve and localized curling on the lower curve around
+layers 20–30, with recovery while still at 0.08 mm. The v12 thermal trial turns part cooling
+off while retaining 280°C after the 265°C first layer, an 80°C bed and no active chamber heat.
+The [physical record](physical-acceptance.json) and [photos](physical-observations/2026-09-24-v11/README.md)
+bind that observation to the slice; the lower curve's finish remains under evaluation.
 
 ## Openings and travel
 
