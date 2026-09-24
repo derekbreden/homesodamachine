@@ -1,14 +1,15 @@
 ---
 name: visualize
-description: Show it instead of describing it. Use proactively, without being asked, whenever a picture would carry the answer better than prose — options Derek chooses between, where a part sits or how it moves, what changes when a dimension or parameter changes, a sequence or timing, a display-screen mockup, measured data. Picks the surface each visual belongs on (an inline widget, a page built from the tree's own geometry, the site's 3D viewer, an Artifact) and never hand-draws a real part.
+description: Show it instead of describing it. Use proactively, without being asked, whenever a picture would carry the answer better than prose — options Derek chooses between, where a part sits or how it moves, what changes when a dimension or parameter changes, a sequence or timing, a display-screen mockup, measured data. Picks the surface each visual belongs on (an inline widget, a page built from the tree's own geometry and opened as an Artifact beside the conversation, the site's 3D viewer) and never hand-draws a real part.
 ---
 
 # Visualize
 
 A question about geometry, a choice between options, or a sequence is answered fastest with a
-picture and a line or two of text. Reach for one without being asked. Skip it when a sentence or
-a list already says it, when Derek asks for a table (write a Markdown table), and when the ask is
-a change to a file in the tree (the site, a drawing, a guide), which is that file's own work.
+picture and a line or two of text. Derek wants these used often: reach for one without being
+asked, and when in doubt, show it. Skip it when a sentence or a list already says it, when Derek
+asks for a table (write a Markdown table), and when the ask is a change to a file in the tree (the
+site, a drawing, a guide), which is that file's own work.
 
 ## Real geometry is never drawn by hand
 
@@ -22,10 +23,9 @@ a screen layout.
 | Showing | Surface |
 |---|---|
 | A published part or assembly to turn around | The site viewer: `https://homesodamachine.com/3d#step:` and the path under `hardware/`, percent-encoded (`faucet-layout%2Ffaucet-assembly.step`). It draws what main published, not an edit on this disk. |
-| Options or states of real geometry, an unpublished candidate, a part among its neighbours | A page from `tools/viz/build.py`, one lettered panel per option |
+| Options or states of real geometry, an unpublished candidate, a part among its neighbours | A page from `tools/viz/build.py`, one lettered panel per option, published and opened as an Artifact |
 | A render the pipeline already made (`tools/look.sh`, `tools/render/render-step-posed.js`) | The PNG with SendUserFile `display: "render"`, or several side by side as `image` panels of a built page |
-| Timing, flow, wiring, a what-if with a slider, a screen mockup | `show_widget`, inline |
-| Anything to keep, share, or open on a phone | The built page, published as an Artifact |
+| Timing, flow, wiring, a what-if with a slider, a screen mockup | `show_widget`, inline; promoted to a built page and an Artifact when it should stay open, turn, or be kept |
 
 ## Built pages
 
@@ -68,11 +68,11 @@ format. `--step`, `--image` and `--fragment` build a page with no spec file.
    prints every stage that did not draw, every console error and every failed request. Read the
    PNG, fix what it shows, then send.
 2. Publish the page with the Artifact tool (`file_path` the page; `icon` "cube" on a first
-   publish) and give the link. The 3D draws there: three.js and the payload decode run under the
-   Artifact sandbox.
-3. SendUserFile with `display: "render"` puts the page in the side panel. Whether that panel runs
-   a page's scripts is not established. A stage whose viewer cannot start says so in the panel
-   after 15 seconds; when it does, publish the Artifact instead.
+   publish), then, in the same turn, call the Artifact tool again with `action: "open"` and the
+   URL the publish returned. Published alone, the page waits behind a chip Derek has to click;
+   opened, it stands in a tab beside the conversation, and the models turn. Open a page the first
+   time it is shown. A republish reaches a tab that is already open by itself.
+3. In the chat, a line or two: what to look at, and what is being asked of Derek.
 
 ## Inline widgets
 
