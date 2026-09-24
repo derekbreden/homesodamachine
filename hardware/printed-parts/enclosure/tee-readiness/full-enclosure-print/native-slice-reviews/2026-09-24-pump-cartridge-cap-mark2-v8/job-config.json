@@ -1,0 +1,86 @@
+{
+  "status": "printing",
+  "job_key": "pump-cartridge",
+  "printer": "Mark2",
+  "archive_stem": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds",
+  "title": "Pump cartridge and cap; unsupported 0.08 mm grip rounds; six walls only in upper grip band; original order and speeds; Mark2",
+  "requested_z_trim_mm": 0.04,
+  "model_border_mm": 15.0,
+  "layout": "explicit",
+  "parts": [
+    {
+      "name": "enclosure-pump-cartridge",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "rotation_sequence": []
+    },
+    {
+      "name": "enclosure-pump-cap",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+      "step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+      "rotation_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "rotation_sequence": [
+        "X180"
+      ]
+    }
+  ],
+  "required_sources": [
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py"
+  ],
+  "required_functional_toolpath_checks": [],
+  "profile_settings": "Exact inherited auto_brim and saved process/filament",
+  "layer_ranges_mm": {
+    "enclosure-pump-cartridge": [
+      {
+        "min_z": 6.0,
+        "max_z": 18.4,
+        "layer_height": 0.08,
+        "reason": "R6 grip-floor corner tori span print Z 6.23\u201318.23"
+      },
+      {
+        "min_z": 100.3,
+        "max_z": 113.2,
+        "layer_height": 0.08,
+        "reason": "R6 grip-ceiling corner tori span print Z 100.999\u2013112.999; the extra lead-in prevents a coarse layer from crossing the lower edge",
+        "settings_overrides": {
+          "wall_loops": "6"
+        }
+      }
+    ]
+  },
+  "support_policy": "Painted blockers on both complete downward grip rounds; support retained for flat grip ceilings and cap seats.",
+  "support_ceiling_inset_mm": 0.8
+}

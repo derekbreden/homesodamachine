@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-09-24T21:45:36.792018+00:00",
+  "gcode_state": "RUNNING",
+  "job_id": "1279835918",
+  "subtask_name": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+  "layer_num": 0,
+  "total_layer_num": 1088,
+  "mc_remaining_time": 815,
+  "mc_percent": 0,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 199.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 41.0,
+  "bed_target_temper": 41.0
+}

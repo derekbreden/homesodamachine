@@ -1,48 +1,41 @@
 # Cartridge and cap support review
 
-The complete production cartridge and cap are prepared for the fresh enclosure
-assembly. The cartridge prints upright and the cap prints crown-down. The exact
-two-part H2C native archive passes its offline geometry, settings, toolpath-bound
-and support-access review. Fresh native cartridge and cap builders preserve all
-fitted surfaces and have zero material difference from the exact print inputs
-with the current rear boundary. H2C is printing the reviewed cartridge-and-cap
-archive.
+The current cartridge and matching cap are printing on Mark2 as task `1279835918`.
+The cartridge stands on its flat underside and the cap prints crown-down. Both
+use black PET-GF on the left 0.4 mm nozzle. The exact native plate contains the
+current STEP/STL geometry and passes its layer, support-contact and path-clearance
+checks. Estimated time is **13 h 35 m 37 s** across **1088 plate layers**.
 
-The plate has **496 layers and 179,260 source triangles**, with no native geometry
-warning. Estimated time is **10 h 9 min 12 s**. The saved profile reports **419.9 g**
-at 1.29 g/cm³; the same material volume is **465.5 g** at the repository's PET-GF
-density of 1.43 g/cm³. Actual model and support paths retain **29.275 mm** minimum
-clearance to the 325 × 320 mm nozzle area and **31.799 mm** between the two objects.
+The first layer is 0.20 mm. The cartridge's complete grip-floor rounds use 0.08 mm
+layers at print Z 6–18.4 mm, and its complete grip-ceiling rounds at Z 100.3–113.2 mm.
+The remaining model, including the cap, uses 0.24 mm. Six walls apply only to the
+upper grip-round band; the normal setting is two walls. Wall order, speeds,
+accelerations, temperatures and cooling retain the saved pump profile, with
+15% infill/wall overlap. Requested Mark2 trim is +0.04 mm, emitted +0.02 mm for
+Textured PEI.
 
-The plate inherits `petgf.3mf`: left 0.4 mm nozzle, black PET-GF, whole-layer
-printing, 0.24 mm layers with a 0.20 mm first layer, two walls and 15% infill.
-Automatic tree support uses a 0.45 mm top gap, two interface layers, 0.5 mm interface
-spacing and 0.4 mm object clearance. Temperatures are 265°C nozzle / 80°C bed on
-the first layer and 280°C / 80°C thereafter. The inherited `auto_brim` setting
-produces **zero Brim extrusion roads** in this archive. Requested +0.18 mm trim
-emits `G29.1 Z0.16` after the textured-plate compensation.
+**The visible rounded grip surfaces have no support contacts.** Painted blockers
+cover the downward rounds and extend 0.8 mm onto the adjoining flat ceilings to
+keep the support bead width clear of the curve. The native contact check includes
+all upper Support, Support transition and Support interface paths, full bead
+width and a 0.05 mm XY allowance. No support road approaches a downward round
+within 0.60 mm vertically. The two ceiling interfaces fit entirely within the
+flat ceiling projections.
 
 | Piece / support | Contact region | Root | Build-up | Removal lane before hardware installation |
 | --- | --- | --- | --- | --- |
-| Cartridge west | Flat hand-pull roof and rounded roof/end junction | Bed | 105.84 mm | Detach the interface and withdraw outward through the open −X hand-pull mouth; the lower stem stands outside the cartridge |
-| Cartridge east | Flat hand-pull roof and rounded roof/end junction | Bed | 105.84 mm | Detach the interface and withdraw outward through the open +X hand-pull mouth; the lower stem stands outside the cartridge |
-| Cap west motor opening | Annulus at the wider terminal well | Bed | 4.08 mm | Detach and withdraw through the open Ø45 mm well toward the crown, original +Z |
-| Cap east motor opening | Annulus at the wider terminal well | Bed | 4.08 mm | Detach and withdraw through the open Ø45 mm well toward the crown, original +Z |
-| Cap aft screw | Flat screw-head seat | Bed | 14.16 mm | Withdraw through its open crown-side counterbore in original +Z |
-| Cap fore screw | Flat screw-head seat | Bed | 14.16 mm | Withdraw through its open crown-side counterbore in original +Z |
+| Cartridge west | Flat hand-pull ceiling, inset from its rounded border | Bed | 106.07 mm | Detach the interface and withdraw through the open −X pocket mouth |
+| Cartridge east | Flat hand-pull ceiling, inset from its rounded border | Bed | 106.07 mm | Detach the interface and withdraw through the open +X pocket mouth |
+| Cap west motor opening | Flat terminal-well annulus | Bed | 4.08 mm | Withdraw through the open Ø45 mm well toward the original +Z crown |
+| Cap east motor opening | Flat terminal-well annulus | Bed | 4.08 mm | Withdraw through the open Ø45 mm well toward the original +Z crown |
+| Cap aft screw | Flat screw-head seat | Bed | 14.16 mm | Withdraw through the open head counterbore in original +Z |
+| Cap fore screw | Flat screw-head seat | Bed | 14.16 mm | Withdraw through the open head counterbore in original +Z |
 
-The flat hand-bearing roofs, circular motor shoulders and flat screw-head seats
-keep their working shapes. Remove support while both parts are loose, before
-installing pumps, wires or screws. The screw-seat support leaves through the head
-counterbore; its route does not use the smaller screw-shaft bore. The six bodies
-and six interface islands describe the slice. Physical removal effort and contact
-finish are observations from the printed parts.
+Remove supports while both parts are loose, before installing pumps, wires or
+screws. The screw-seat support leaves through the head counterbore. The six bodies
+and six interface islands describe the slice; there are no extra unlabelled
+support bodies. Physical finish, removal effort and assembled fit are not yet
+assessed for this print.
 
-The [current offline review](../tee-readiness/full-enclosure-print/2026-09-21-pump-cartridge-h2c-v1.json)
-binds the exact source STEP/STL files, saved profile, native G-code, support ledger
-and [local mating equivalence](../tee-readiness/full-enclosure-print/pump-rear-boundary-equivalence.json).
-The native archive is
-`.cache/prints/2026-09-21-pump-cartridge-h2c-v1/ready/pump-cartridge-cap-black-z018-h2c-v1.gcode.3mf`,
-SHA-256 `8dc3f3dcb4e55020b5e8235a03ac9cbb3eec256484ef2fdd8b6cafad4fe3c562`.
-The G-code SHA-256 is
-`0080b646ccd07f37d715fb70c561db6fddb24fc98871d93cb66ca38f9785eca7`.
+The [native review and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md)
+binds the source geometry, exact archive, support contacts and removal lanes.

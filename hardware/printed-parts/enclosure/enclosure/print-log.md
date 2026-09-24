@@ -582,3 +582,33 @@ leveling On; flow and nozzle-offset calibration Auto. A fresh import with a 20-s
 settling wait was accepted on the first send attempt.
 
 [Slice, wall paths and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v14/README.md).
+
+## Pump cartridge and cap with unsupported grip rounds — Mark2, 2026-09-24 UTC
+
+Task `1279835918` reports RUNNING with
+`pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf`.
+The cartridge prints upright and the matching cap crown-down, in black PET-GF on
+left external spool 254. Geometry and placement match the current STEP/STL files.
+The first layer is 0.20 mm. Complete grip-floor and grip-ceiling rounds use 0.08 mm
+layers at print Z 6–18.4 and 100.3–113.2 mm; the remaining model uses 0.24 mm.
+
+Six walls apply only to the upper grip-round band at Z 100.3–113.2 mm. The normal
+setting is two walls. Inner walls precede outer walls and infill; speeds,
+accelerations, temperatures, cooling and 15% infill/wall overlap retain the saved
+pump profile. The six-wall treatment's physical result on this part is pending.
+
+The two cartridge support trees contact only the flat grip ceilings, with an
+inset from their rounded borders. Four cap trees support the two motor-terminal
+annuli and two screw-head seats. All six are bed-rooted and have open removal
+lanes before hardware installation. The contact check includes full support bead
+width plus 0.05 mm XY allowance and finds no support road within 0.60 mm below a
+downward rounded grip face. No additional unlabelled support body is present.
+
+Native estimate: 13 h 35 m 37 s, 1088 plate layers, 441.48 g at the saved profile's
+density. Requested Mark2 trim is +0.04 mm, emitted +0.02 mm on Textured PEI.
+Timelapse and bed leveling are On; flow and nozzle-offset calibration are Auto.
+The first send from a fresh import with a 20-second settling wait was accepted.
+A subsequent reading reports RUNNING with the matching job name and no error or
+HMS alert. Physical finish, cleanup and assembled fit remain unassessed.
+
+[Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md).

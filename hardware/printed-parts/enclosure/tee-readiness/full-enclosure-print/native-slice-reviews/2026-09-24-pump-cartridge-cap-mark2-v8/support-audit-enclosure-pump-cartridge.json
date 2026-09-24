@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "piece": "enclosure-pump-cartridge",
+  "inputs": {
+    "gcode": "support-labels-enclosure-pump-cartridge.gcode",
+    "gcode_sha256": "97ba8e5adf93a8f259237f3969d0046d7180210349e64c8c2fcf5e4cf3be02f4",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+    "model_sha256": "a8bec3fc0b63d15aafdcf6edb2c73e4e4802099c9b6d67cb515a04f4b53b57d2",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-24-pump-cartridge-cap-mark2-v8/pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds-input.3mf",
+    "profile_sha256": "04d71648aa2d61e90ef9be4f152bd901834652189992ce499463a40ec1f9af73"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -168.070499897,
+      165.195007324
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -168.0705,
+      165.195007
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 106.07,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 106.07
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 106.27,
+      "shortest_build_up_mm": 106.07,
+      "top_z_mm": 106.55,
+      "bbox_xy_mm": [
+        30.8,
+        197.2,
+        70.0,
+        223.2
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -131.7,
+        29.13,
+        165.395,
+        -92.5,
+        55.13,
+        271.745
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 106.27,
+      "shortest_build_up_mm": 106.07,
+      "top_z_mm": 106.55,
+      "bbox_xy_mm": [
+        255.2,
+        196.8,
+        294.4,
+        223.2
+      ],
+      "interfaces": [
+        "interface-2"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        92.7,
+        28.73,
+        165.395,
+        131.9,
+        55.13,
+        271.745
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 106.27,
+      "last_z_mm": 106.55,
+      "bbox_xy_mm": [
+        62.0,
+        203.2,
+        70.0,
+        217.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 106.07,
+      "bbox_cad_xyz_mm": [
+        -100.5,
+        35.13,
+        271.465,
+        -92.5,
+        49.13,
+        271.745
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 106.27,
+      "last_z_mm": 106.55,
+      "bbox_xy_mm": [
+        255.2,
+        203.2,
+        263.2,
+        217.2
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 106.07,
+      "bbox_cad_xyz_mm": [
+        92.7,
+        35.13,
+        271.465,
+        100.7,
+        49.13,
+        271.745
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

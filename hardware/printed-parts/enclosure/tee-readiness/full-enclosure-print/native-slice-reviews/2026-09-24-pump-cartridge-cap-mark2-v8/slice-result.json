@@ -1,0 +1,87 @@
+{
+    "error_string": "Success.",
+    "export_time": 4646,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 211,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 631.2797241210938,
+                "Bridge": 2085.2646484375,
+                "Custom": 299.9119567871094,
+                "Flush": 15.0,
+                "Gap infill": 741.3870849609375,
+                "Inner wall": 11295.6767578125,
+                "Internal solid infill": 2387.355712890625,
+                "Outer wall": 8354.21875,
+                "Overhang wall": 81.45488739013672,
+                "Sparse infill": 15670.173828125,
+                "Support": 1250.4075927734375,
+                "Support interface": 50.713523864746094,
+                "Support transition": 23.660045623779297,
+                "Top surface": 353.4944763183594,
+                "Travel": 5641.41015625,
+                "Undefined": 5637.39404296875
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 441.48492431640625,
+                    "total_used_g": 441.48486328125
+                }
+            ],
+            "generate_support_material_time": 7672,
+            "id": 1,
+            "infill_time": 5109,
+            "layer_filament_change": 0,
+            "main_predication": 48611.27734375,
+            "make_perimeters_time": 8624,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 74.26900482177734,
+                        "height": 118.97900390625,
+                        "width": 215.0,
+                        "x": 55.0,
+                        "y": 173.07049560546875,
+                        "z": -1.2499867807491682e-10
+                    },
+                    "id": 5,
+                    "name": "enclosure-pump-cartridge",
+                    "triangle_count": 171096
+                },
+                {
+                    "bbox": {
+                        "depth": 68.40999603271484,
+                        "height": 67.24900817871094,
+                        "width": 174.4499969482422,
+                        "x": 75.2750015258789,
+                        "y": 72.66050720214844,
+                        "z": -3.554703198460629e-10
+                    },
+                    "id": 9,
+                    "name": "enclosure-pump-cap",
+                    "triangle_count": 8284
+                }
+            ],
+            "sliced_time": 28924,
+            "sliced_time_with_cache": 6347,
+            "total_predication": 48937.171875,
+            "triangle_count": 179380,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

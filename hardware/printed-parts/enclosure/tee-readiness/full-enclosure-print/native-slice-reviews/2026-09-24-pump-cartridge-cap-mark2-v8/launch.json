@@ -1,0 +1,27 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-24T21:44:34.331581+00:00",
+  "archive": {
+    "name": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+    "sha256": "7b09d2354319547b2bc84465e56449ba8d40991184009ac55f2b957dffe75388",
+    "gcode_sha256": "f7cb70c7d8d116118b22eaf424d345e2a36cefd0c90169eaf403b845f2a74154",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "enclosure-pump-cartridge",
+      "enclosure-pump-cap"
+    ]
+  },
+  "printer_task_id": "1279835918",
+  "gcode_state": "PREPARE",
+  "subtask_name": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 189,
+  "total_layer_num": 189,
+  "mc_remaining_time": 0
+}
