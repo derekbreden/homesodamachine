@@ -2,7 +2,7 @@
   "schema": 1,
   "job": "front-bottom",
   "printer": "H2C",
-  "state": "PREPARE",
+  "state": "RUNNING",
   "source_job_directory": ".cache/prints/2026-09-24-enclosure-front-bottom-h2c-v7",
   "parts": [
     "enclosure-front-bottom"
@@ -91,5 +91,7 @@
     "meaning": "Nozzle camera lens dirty; AI monitoring may be affected.",
     "source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
     "state_at_launch": "No HMS alert reported."
-  }
+  },
+  "observed_running": "observed-running.json",
+  "startup_confirmed_at_utc": "2026-09-24T22:33:20.195446+00:00"
 }
