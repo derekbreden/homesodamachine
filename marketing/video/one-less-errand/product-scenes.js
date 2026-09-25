@@ -239,7 +239,7 @@ export async function createProductScenes({ THREE, width = 1920, height = 1080, 
     glass.position.set(0, -180, -5); glass.rotation.set(0, 0, 0); glass.scale.setScalar(1);
     view({});
   }
-  function draw(time, shot = "reveal") {
+  function draw(time, shot = "reveal", { cobalt = false } = {}) {
     const t = Math.max(0, time);
     reset(); display(["pour", "closing", "sculpted", "industrial", "finishes", "four"].includes(shot) ? 1 : 0, shot === "select" ? enter(t, 1.4, 4.8) : 0);
     sculptedBlack.group.visible = true;
@@ -297,6 +297,7 @@ export async function createProductScenes({ THREE, width = 1920, height = 1080, 
         moveAcross(f.group, (i - 1.5) * 182 + (1 - p) * 25);
       });
     }
+    if (cobalt) { scene.background.set(colors.cobalt); counter.material = cobaltMat; }
     renderer.render(scene, camera);
     return canvas;
   }
