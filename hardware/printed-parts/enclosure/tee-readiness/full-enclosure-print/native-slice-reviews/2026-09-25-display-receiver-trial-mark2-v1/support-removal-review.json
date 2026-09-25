@@ -1,0 +1,55 @@
+{
+  "pass": true,
+  "native_archive_sha256": "7dc19786bd0245fa3f0c7c5dab8ac529c45fcdc57e09d29a5ccde3d811d417c0",
+  "gcode_sha256": "7fc1fce7d1fea2037cafa5c3ea394a99afb9e6c3cb26cbd7f99939e02f3aaa12",
+  "support_road_segments_examined": 400305,
+  "include_unlabelled_support": true,
+  "labelled_interfaces": 0,
+  "contacts_below_nominal_hook_overlap": [
+    {
+      "side": -1,
+      "road_samples_below_hook_overlap": 667,
+      "local_along_skirt_span_mm": [
+        -11.964429628416596,
+        11.968471080300944
+      ],
+      "vertical_distance_to_nominal_catch_plane_mm": [
+        0.14152158625815758,
+        0.5996707046700323
+      ]
+    },
+    {
+      "side": 1,
+      "road_samples_below_hook_overlap": 717,
+      "local_along_skirt_span_mm": [
+        -11.94999587168687,
+        11.931520663072812
+      ],
+      "vertical_distance_to_nominal_catch_plane_mm": [
+        0.1459176074075188,
+        0.5994504877680775
+      ]
+    }
+  ],
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": null,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "removal_lane": {
+    "inner_cheek_planes_x_mm": [
+      -67.0,
+      67.0
+    ],
+    "front_foot_inboard_y_mm": -39.4352447854375,
+    "rear_foot": "absent",
+    "access": "Open underside and back, before inserting cover, glass or gasket."
+  },
+  "physical_support_removal_tested": false,
+  "reading_scope": "Support bead samples lie below both nominal hook engagement strips. Physical catch finish and retention remain the bench trial."
+}

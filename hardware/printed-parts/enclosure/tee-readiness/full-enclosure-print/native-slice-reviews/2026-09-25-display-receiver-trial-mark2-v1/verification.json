@@ -1,0 +1,94 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-25-display-receiver-trial-mark2-v1-open-back/ready/display-receiver-trial-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "7dc19786bd0245fa3f0c7c5dab8ac529c45fcdc57e09d29a5ccde3d811d417c0",
+  "gcode_sha256": "7fc1fce7d1fea2037cafa5c3ea394a99afb9e6c3cb26cbd7f99939e02f3aaa12",
+  "staged_input_sha256": "1d7990929adfb49a8eb1f895cdaa500bc4ffbc5452844fa8395d895fdfd80854",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-receiver-trial-v1": {
+      "wall_layer_count": 233,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        55.88,
+        0.240002
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    }
+  },
+  "layer_count": 233,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 1,
+  "triangles": 2224,
+  "estimated_seconds": 9727.517578125,
+  "estimated_grams_saved_profile_density": 66.98760223388672,
+  "path_bounds": {
+    "display-receiver-trial-v1": {
+      "bounds_xy_mm": [
+        [
+          91.39999999999999,
+          115.09
+        ],
+        [
+          233.6,
+          204.91
+        ]
+      ],
+      "minimum_plate_clearance_mm": 91.39999999999999,
+      "feature_segment_counts": {
+        "Support": 400305,
+        "Inner wall": 6456,
+        "Outer wall": 16709,
+        "Bottom surface": 962,
+        "Internal solid infill": 1177,
+        "Sparse infill": 22066,
+        "Floating vertical shell": 16944,
+        "Overhang wall": 529,
+        "Bridge": 1064,
+        "Top surface": 726,
+        "Gap infill": 296
+      }
+    }
+  },
+  "path_gaps": [],
+  "support_summaries": {
+    "display-receiver-trial-v1": {
+      "support_bodies": 1,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 1,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "support_only_on_receiver_coupon": true,
+  "submitted": false
+}
