@@ -1,0 +1,22 @@
+{
+  "title": "One Less Errand",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "duration": 100,
+  "scenes": [
+    {"id":"single", "module":"errand", "start":0, "end":6, "voiceAt":1.1, "text":"You wanted a glass of soda.", "captionPhrases":["You wanted a glass of soda."]},
+    {"id":"case", "module":"errand", "start":6, "end":14, "voiceAt":6.6, "text":"Somehow, that became a trip to the store. A case in the cart.", "captionPhrases":["Somehow, that became a trip to the store.","A case in the cart."]},
+    {"id":"carry", "module":"errand", "start":14, "end":22, "voiceAt":14.5, "text":"Into the car. Into the kitchen. Onto a shelf.", "captionPhrases":["Into the car.","Into the kitchen.","Onto a shelf."]},
+    {"id":"repeat", "module":"errand", "start":22, "end":30, "voiceAt":22.4, "text":"And when the cans are gone, you do it all again.", "captionPhrases":["And when the cans are gone,","you do it all again."]},
+    {"id":"reveal", "module":"product", "start":30, "end":36, "voiceAt":31.6, "text":"What if the next glass was already waiting?", "captionPhrases":["What if the next glass was already waiting?"]},
+    {"id":"under", "module":"product", "start":36, "end":46, "voiceAt":36.4, "text":"That's the idea behind Home Soda Machine. Cold carbonated water. Two flavors, ready under the counter.", "captionPhrases":["That's the idea behind Home Soda Machine.","Cold carbonated water.","Two flavors, ready under the counter."]},
+    {"id":"select", "module":"product", "start":46, "end":53, "voiceAt":46.8, "phraseAt":[46.8,51.8], "text":"Choose your flavor. Open the faucet.", "captionPhrases":["Choose your flavor.","Open the faucet."]},
+    {"id":"pour", "module":"product", "start":53, "end":63, "voiceAt":53.5, "text":"Cold soda, straight into your glass. With a faucet that feels at home in your kitchen.", "captionPhrases":["Cold soda, straight into your glass.","With a faucet that feels at home in your kitchen."]},
+    {"id":"sculpted", "module":"product", "start":63, "end":71, "voiceAt":64.2, "text":"Sculpted, with soft curves.", "captionPhrases":["Sculpted, with soft curves."]},
+    {"id":"industrial", "module":"product", "start":71, "end":79, "voiceAt":72.2, "text":"Industrial, with crisp shoulders.", "captionPhrases":["Industrial, with crisp shoulders."]},
+    {"id":"finishes", "module":"product", "start":79, "end":87, "voiceAt":80.4, "text":"Black or white.", "captionPhrases":["Black or white."]},
+    {"id":"four", "module":"product", "start":87, "end":94, "voiceAt":87.5, "text":"Two styles. Two finishes. Your choice.", "captionPhrases":["Two styles.","Two finishes.","Your choice."]},
+    {"id":"closing", "module":"parent", "start":94, "end":100, "voiceAt":94.5, "text":"A glass of soda. One less errand.", "captionPhrases":["A glass of soda.","One less errand."]}
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "title": "One Less Errand \u2014 original music and sound design",
+  "duration_seconds": 100,
+  "sample_rate": 48000,
+  "channels": 2,
+  "composition": "Original locally synthesized felt-key score, bass, tactile effects and room response.",
+  "tempo": "Opening: a repeated 8-second cell with a 1.5-second pulse. Product: freely spaced harmonic phrases.",
+  "key": "B minor/add nine resolving to relative D major",
+  "stems": {
+    "score": {
+      "file": "audio/score.wav",
+      "peak_dbfs": -18.0,
+      "rms_dbfs": -35.247,
+      "dc_max": 1.100064998536994e-10,
+      "duration_seconds": 100.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "integrated_lufs": -32.6,
+      "true_peak_dbfs": -18.0
+    },
+    "effects": {
+      "file": "audio/effects.wav",
+      "peak_dbfs": -22.0,
+      "rms_dbfs": -46.753,
+      "dc_max": 2.140024219493773e-18,
+      "duration_seconds": 100.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "integrated_lufs": -33.7,
+      "true_peak_dbfs": -22.0
+    }
+  },
+  "mix_recommendation": {
+    "score_initial_gain_db": 0,
+    "effects_initial_gain_db": -1,
+    "narration_priority": "Keep voice near -18 LUFS; duck score an additional 2\u20134 dB during narration with 120 ms attack and 500 ms release. Avoid pumping on individual syllables.",
+    "pivot": "Leave a narration-free beat near 30\u201332 seconds. The score intentionally stops at 30 seconds and resumes at 32.4 seconds.",
+    "master_target": "About -17 LUFS integrated, no higher than -1.5 dBTP. Do not raise the score just to reach loudness; voice remains the reference.",
+    "water": "Illustrative, softly filtered texture at 54.0\u201361.9 seconds. Shift the effect with picture if the animated pour starts or stops elsewhere."
+  },
+  "events": [
+    {
+      "start": 1.1,
+      "end": 6.1,
+      "stem": "score",
+      "description": "Three-note felt-key introduction; curiosity without a rhythmic bed"
+    },
+    {
+      "start": 1.16,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 6.0,
+      "end": 14.0,
+      "stem": "score",
+      "description": "Eight-second B-minor/add-nine errand motif; soft muted key and brushed pulse"
+    },
+    {
+      "start": 6.12,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 6.55,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 7.02,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 7.42,
+      "end": 7.87,
+      "stem": "effects",
+      "description": "Short carton/handling movement"
+    },
+    {
+      "start": 8.1,
+      "end": 9.85,
+      "stem": "effects",
+      "description": "Very quiet textured movement"
+    },
+    {
+      "start": 14.0,
+      "end": 22.0,
+      "stem": "score",
+      "description": "Eight-second B-minor/add-nine errand motif; soft muted key and brushed pulse"
+    },
+    {
+      "start": 14.27,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 14.55,
+      "end": 15.0,
+      "stem": "effects",
+      "description": "Short carton/handling movement"
+    },
+    {
+      "start": 15.1,
+      "end": 16.85,
+      "stem": "effects",
+      "description": "Very quiet textured movement"
+    },
+    {
+      "start": 18.27,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 18.5,
+      "end": 18.95,
+      "stem": "effects",
+      "description": "Short carton/handling movement"
+    },
+    {
+      "start": 22.0,
+      "end": 30.0,
+      "stem": "score",
+      "description": "Eight-second B-minor/add-nine errand motif; soft muted key and brushed pulse"
+    },
+    {
+      "start": 22.28,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 22.57,
+      "end": 23.02,
+      "stem": "effects",
+      "description": "Short carton/handling movement"
+    },
+    {
+      "start": 23.05,
+      "end": 24.8,
+      "stem": "effects",
+      "description": "Very quiet textured movement"
+    },
+    {
+      "start": 24.25,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 26.1,
+      "end": 26.55,
+      "stem": "effects",
+      "description": "Short carton/handling movement"
+    },
+    {
+      "start": 27.02,
+      "stem": "effects",
+      "description": "Soft can/case contact"
+    },
+    {
+      "start": 29.76,
+      "end": 31.06,
+      "stem": "effects",
+      "description": "Gentle transition breath into the quiet counter"
+    },
+    {
+      "start": 30,
+      "end": 32.4,
+      "stem": "score",
+      "description": "Quiet pivot; no tonal score until 32.4 s"
+    },
+    {
+      "start": 31.12,
+      "stem": "effects",
+      "description": "Glass settles onto the counter"
+    },
+    {
+      "start": 32.4,
+      "end": 94.1,
+      "stem": "score",
+      "description": "Spacious D-major felt-key progression, open voicings and warm bass"
+    },
+    {
+      "start": 48.05,
+      "stem": "effects",
+      "description": "Soft flavor-selection click"
+    },
+    {
+      "start": 52.78,
+      "stem": "effects",
+      "description": "Faucet begins to open"
+    },
+    {
+      "start": 54.0,
+      "end": 61.9,
+      "stem": "effects",
+      "description": "Soft illustrative pour with embedded small droplets"
+    },
+    {
+      "start": 61.83,
+      "stem": "effects",
+      "description": "Faucet closes"
+    },
+    {
+      "start": 70.9,
+      "end": 71.44,
+      "stem": "effects",
+      "description": "Restrained finish/style transition"
+    },
+    {
+      "start": 78.9,
+      "end": 79.44,
+      "stem": "effects",
+      "description": "Restrained finish/style transition"
+    },
+    {
+      "start": 86.9,
+      "end": 87.44,
+      "stem": "effects",
+      "description": "Restrained finish/style transition"
+    },
+    {
+      "start": 94.1,
+      "end": 100.0,
+      "stem": "score",
+      "description": "Final D-major resolution with a descending two-note finish"
+    },
+    {
+      "start": 94.2,
+      "stem": "effects",
+      "description": "Quiet tactile punctuation before the final resolve"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One Less Errand — Home Soda Machine</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff;background:#1749d1;color-scheme:dark}
+body{margin:0;padding:36px 28px}main{max-width:1440px;margin:auto}header{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:22px}h1{font-size:27px;font-weight:550;margin:0 0 7px}p{margin:0;color:#dce6ff;font-size:15px}a{color:inherit}a.download{background:#fff;color:#1749d1;text-decoration:none;border-radius:8px;padding:13px 19px;white-space:nowrap}video{display:block;width:auto;max-width:100%;height:auto;max-height:calc(100dvh - 280px);margin-inline:auto;aspect-ratio:16/9;background:#1749d1;border-radius:10px;outline:1px solid #dce6ff55}nav{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}button{color:#dce6ff;background:transparent;border:1px solid #dce6ff66;padding:10px 15px;border-radius:7px;cursor:pointer;font:inherit;font-size:13px}button:hover,button[aria-current=true]{background:#fff;color:#1749d1}button span{opacity:.7;margin-right:9px}footer{display:flex;justify-content:space-between;gap:18px;margin-top:24px;color:#dce6ff;font-size:14px;line-height:1.5}@media(max-width:650px){body{padding:24px 14px}header,footer{align-items:flex-start;flex-direction:column}h1{font-size:24px}video{width:100%;max-height:none}}
+</style>
+<main><header><div><h1>One Less Errand</h1><p>1:40 · 1080p · An animated Home Soda Machine film</p></div><a class="download" href="film.mp4" download="home-soda-machine-one-less-errand.mp4">Download MP4</a></header>
+<video controls playsinline preload="metadata" poster="poster.jpg" src="film.mp4"><track src="film.vtt" kind="captions" srclang="en" label="English"></video>
+<nav aria-label="Film scenes"></nav><footer><span>Gemini narration · Original music and sound design<br>Actual faucet models · Animated design preview</span><a href="film.srt" download>Download captions</a></footer></main>
+<script>
+const video=document.querySelector('video');
+const beats=[[0,'The routine'],[30,'The next glass'],[46,'At the faucet'],[63,'Your style'],[79,'Your finish'],[87,'Four choices']];
+const buttons=beats.map(([t,name])=>{const b=document.createElement('button');b.innerHTML=`<span>${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}</span>${name}`;b.onclick=()=>{video.currentTime=t;video.play();video.scrollIntoView({block:'nearest',behavior:'smooth'})};document.querySelector('nav').append(b);return b});
+video.addEventListener('timeupdate',()=>buttons.forEach((b,i)=>b.setAttribute('aria-current',video.currentTime>=beats[i][0]&&(!beats[i+1]||video.currentTime<beats[i+1][0]))));
+</script></html>

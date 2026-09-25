@@ -1,0 +1,100 @@
+[
+  {
+    "id": "single",
+    "sourceStart": 0,
+    "sourceEnd": 1.8299999999999998,
+    "start": 1.1,
+    "end": 2.9299999999999997
+  },
+  {
+    "id": "case",
+    "sourceStart": 1.9400000000000006,
+    "sourceEnd": 7.01,
+    "start": 6.42,
+    "end": 11.489999999999998
+  },
+  {
+    "id": "carry",
+    "sourceStart": 7.0200000000000005,
+    "sourceEnd": 10.79,
+    "start": 14.32,
+    "end": 18.09
+  },
+  {
+    "id": "repeat",
+    "sourceStart": 11.22,
+    "sourceEnd": 14.29,
+    "start": 22.22,
+    "end": 25.29
+  },
+  {
+    "id": "reveal",
+    "sourceStart": 14.8,
+    "sourceEnd": 17.71,
+    "start": 31.42,
+    "end": 34.33
+  },
+  {
+    "id": "under",
+    "sourceStart": 18.16,
+    "sourceEnd": 25.75,
+    "start": 36.22,
+    "end": 43.81
+  },
+  {
+    "id": "select-1",
+    "sourceStart": 26.240000000000002,
+    "sourceEnd": 27.509999999999998,
+    "start": 46.62,
+    "end": 47.88999999999999
+  },
+  {
+    "id": "select-2",
+    "sourceStart": 27.92,
+    "sourceEnd": 29.189999999999998,
+    "start": 51.62,
+    "end": 52.89
+  },
+  {
+    "id": "pour",
+    "sourceStart": 29.16,
+    "sourceEnd": 34.970000000000006,
+    "start": 53.32,
+    "end": 59.13000000000001
+  },
+  {
+    "id": "sculpted",
+    "sourceStart": 35.32,
+    "sourceEnd": 37.39,
+    "start": 64.02000000000001,
+    "end": 66.09
+  },
+  {
+    "id": "industrial",
+    "sourceStart": 37.8,
+    "sourceEnd": 39.970000000000006,
+    "start": 72.02000000000001,
+    "end": 74.19000000000001
+  },
+  {
+    "id": "finishes",
+    "sourceStart": 40.56,
+    "sourceEnd": 42.190000000000005,
+    "start": 80.22,
+    "end": 81.85
+  },
+  {
+    "id": "four",
+    "sourceStart": 42.74,
+    "sourceEnd": 46.07,
+    "start": 87.32,
+    "end": 90.64999999999998
+  },
+  {
+    "id": "closing",
+    "sourceStart": 46.72,
+    "sourceEnd": 49.800000000000004,
+    "start": 94.32,
+    "end": 97.4
+  }
+]
