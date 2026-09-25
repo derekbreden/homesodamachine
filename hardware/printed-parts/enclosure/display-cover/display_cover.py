@@ -23,9 +23,13 @@ import _display_retention as retention
 import _stated_bounds as bounds
 from _swept_top import rounded_prism
 
-cover_x = dims.display_inset_x - 2.0 * dims.display_cover_slip
-cover_slope = dims.display_inset_slope - 2.0 * dims.display_cover_slip
-cover_corner_r = dims.display_cover_corner_r
+edge_relief = 0.3
+cover_slip = dims.display_cover_slip + edge_relief
+cover_x = dims.display_inset_x - 2.0 * cover_slip
+cover_slope = dims.display_inset_slope - 2.0 * cover_slip
+cover_corner_r = dims.display_inset_corner_r - cover_slip
+skirt_outer_x = retention.OUTER_X - edge_relief
+catch_overlap = skirt_outer_x + retention.LIP - retention.NECK_X
 window_x = dims.display_bezel_x - 2.0 * dims.display_inset_lap
 window_slope = dims.display_bezel_slope - 2.0 * dims.display_inset_lap
 window_corner_r = dims.display_corner_r
@@ -36,11 +40,16 @@ bounds.state('display-cover-reveal', 'The display bezel is a smooth reveal in th
              f'{dims.display_cover_thickness:g} mm bezel; the retention skirts sit inside the housing')
 
 
+def build_cover_skirt(side):
+    """The cover-owned skirt, inset from the housing's fixed receiver datum."""
+    return retention.skirt(side).translate((-side * edge_relief, 0, 0))
+
+
 def build_cover_outer():
     body = rounded_prism(cover_x, cover_slope, cover_corner_r,
                          -dims.display_cover_thickness, 0.0)
     for side in (-1, 1):
-        body = body.fuse(retention.skirt(side))
+        body = body.fuse(build_cover_skirt(side))
     return cq.Workplane(obj=body.clean())
 
 
@@ -65,10 +74,17 @@ def selftest():
     assert body.isValid() and len(body.Solids()) == 1
     assert glass_shadow() < 0.0001
     for side in (-1, 1):
-        missing = retention.skirt(side).cut(retention.pocket(side)).Volume()
+        skirt = build_cover_skirt(side)
+        missing = skirt.cut(retention.pocket(side)).Volume()
         assert abs(missing) < 0.0001, (side, missing)
+        for lateral in (-cover_slip, 0.0, cover_slip):
+            seated = skirt.translate((lateral, 0, 0))
+            assert abs(seated.cut(retention.pocket(side)).Volume()) < 0.0001
+            pulled = seated.translate((0, 0, retention.BEARING_SLIP + 0.01))
+            assert pulled.cut(retention.pocket(side)).Volume() > 0.0001
     print(f"Display cover: one valid solid; glass clear; skirts inside their pockets, "
-          f"{retention.LIP:g} mm lips {retention.BEARING_SLIP:g} mm under their catches")
+          f"{cover_slip:g} mm perimeter clearance; {catch_overlap:g} mm catch overlap, "
+          f"{retention.BEARING_SLIP:g} mm below catches")
     return 0
 
 
@@ -84,12 +100,13 @@ def main():
     variables = {
         "COVER_X": f"{cover_x:g} mm", "COVER_SLOPE": f"{cover_slope:g} mm",
         "COVER_CORNER_R": f"{cover_corner_r:g} mm", "COVER_T": f"{dims.display_cover_thickness:g} mm",
-        "COVER_SLIP": f"{dims.display_cover_slip:g} mm", "WINDOW_X": f"{window_x:g} mm",
+        "COVER_SLIP": f"{cover_slip:g} mm", "WINDOW_X": f"{window_x:g} mm",
         "WINDOW_SLOPE": f"{window_slope:g} mm", "WINDOW_CORNER_R": f"{window_corner_r:g} mm",
         "SKIRT_WALL": f"{retention.WALL:g} mm", "SKIRT_LENGTH": f"{retention.LENGTH:g} mm",
         "SKIRT_DEPTH": f"{retention.DEPTH:g} mm", "LIP_START": f"{retention.LIP_START:g} mm",
         "LIP_LAND": f"{retention.LIP_LAND:g} mm", "LIP_ENGAGEMENT": f"{retention.LIP:g} mm",
         "BEARING_SLIP": f"{retention.BEARING_SLIP:g} mm",
+        "SKIRT_INSET": f"{edge_relief:g} mm", "CATCH_OVERLAP": f"{catch_overlap:g} mm",
     }
     substitute_md(_here.parent / "README.md", variables=variables)
     print('-> display-cover.step, display-cover.stl, README.md')
