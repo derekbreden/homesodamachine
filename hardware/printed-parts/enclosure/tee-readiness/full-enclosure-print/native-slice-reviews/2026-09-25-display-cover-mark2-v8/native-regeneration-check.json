@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "rejected_archive_sha256": "c05add825ff984a22702d4f93cb1c5127b13d1ae5d2b67decd2d98b2df28b4db",
+  "regenerated_archive_sha256": "e8821bb5cf37a76a6ae2d96ba1f8c7b10cb26cbc9141a81299276c4aedfb88a3",
+  "settings_identical": true,
+  "slice_metadata_identical": true,
+  "all_gcode_identical_except_generation_timestamp_comment": true
+}

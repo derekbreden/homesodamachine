@@ -1,0 +1,106 @@
+{
+  "status": "printing",
+  "submitted": true,
+  "print_started": true,
+  "printer": "Mark2",
+  "plate_contents": [
+    "display-cover"
+  ],
+  "native_archive": ".cache/prints/2026-09-25-display-cover-mark2-v8/ready/display-cover-black-z004-mark2-v8-inset-snaps-09-r2.gcode.3mf",
+  "native_archive_sha256": "e8821bb5cf37a76a6ae2d96ba1f8c7b10cb26cbc9141a81299276c4aedfb88a3",
+  "gcode_sha256": "4df69a99ef2a1b4c7dcb63b2e5acef1d2326879981cbc73fc9f7926a47274c90",
+  "staged_input": ".cache/prints/2026-09-25-display-cover-mark2-v8/display-cover-black-z004-mark2-v8-inset-snaps-09-input.3mf",
+  "staged_input_sha256": "8299bbcb4505c0f92bdc6e90cee376c8f8aeb452ab24a88b20b151d567e87f72",
+  "estimated_seconds": 1439.2098388671875,
+  "estimated_grams_saved_profile_density": 8.644317626953125,
+  "geometry": {
+    "skirt_inset_each_mm": 0.9,
+    "additional_shift_each_mm": 0.3,
+    "perimeter_and_window_unchanged": true,
+    "housing_receivers_unchanged": true,
+    "nominal_catch_overlap_mm": 0.6000000000000014,
+    "minimum_catch_overlap_at_full_lateral_float_mm": 0.30000000000000143
+  },
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "actual_toolpath_comparison": "actual-toolpath-comparison.json",
+  "support_review": "support-removal-review.json",
+  "previous_trial_feedback": "../2026-09-25-display-cover-mark2-v7/physical-feedback.json",
+  "settings": {
+    "material": "black PET-GF; printer labels PET-CF",
+    "nozzle": "left 0.4 mm Standard",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_commands_mm": [
+      0,
+      0.02
+    ],
+    "first_layer_height_mm": 0.2,
+    "layer_height_mm": 0.24,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall, then infill",
+    "infill_wall_overlap": "15%",
+    "brim": "auto_brim",
+    "native_settings_identical_to_previous_printed_trial": true
+  },
+  "physical_trial": "Evaluate remaining bow and retention with both snaps engaged. Physical performance is not established by CAD catch overlap.",
+  "checks": {
+    "current_source_hashes": true,
+    "unchanged_bezel_symmetric_difference_mm3": 0,
+    "each_snap_translation_is_exact": true,
+    "actual_toolpaths_show_additional_shift_each_mm": 0.3,
+    "seated_housing_interference_mm3": 0,
+    "retained_across_full_lateral_float": true,
+    "native_checksum_valid": true,
+    "support_review_passed": true,
+    "post_publish_geometry_lint": {
+      "open_findings": 0,
+      "intentional_features_answered": 6
+    }
+  },
+  "review_sha256": {
+    "native-regeneration-check.json": "bc539b16e7d68f3f3e0f984671aa0606cca08f0035a52ce063057276b4600dba",
+    "prelaunch.json": "f41f31c79ce7601380b85d9e0aaf2432db9cfcd8d601e3582be608778f110db1",
+    "unchanged-housing-inputs.json": "dc662c6a4149409570359640191034dc26234f58bf6a4f1db29330d9aa84cf1d",
+    "preparation.json": "cdaa2f3d70b7455620d1cc34bda79301472dd77410b5068b7052b5a56b98763e",
+    "preview.png": "9068e46239937ab8808fd6670b107494f8de03ec8a2e732def9d44a9d5be05d2",
+    "slice-command.json": "7af10bc7a508eef22b14c2b7dc9816a32c9cff6d1f220293531aa61a69a1554c",
+    "verify_geometry.py": "51b512f594c491e4e8935520240c4a0cfc15dd86b55acfd942e6ab05eb23e4be",
+    "geometry-lint.log": "25f29b999a3ccbc98f55c5794bcb2b34a786dba7acf0dcbba8ee883fb6e56968",
+    "support-removal-review.json": "a2e96d0d61d28144b83463b2500e1135553751816698c2d8d4834d1123305a6d",
+    "verification.json": "9a76925cb8d3d6ca2c68a821d50d7de94d5b7724496675130a604519779cd1d2",
+    "rejected-send-state.json": "b9e8c6130b59f5240ea0939d6998cf2cc274db5225a2a0490ac8a2df259e1e84",
+    "verify.py": "b2a6d2ff417c329bd01a1641402e61f0164df4ac4b3e53f8aa4db1e86a4d5da3",
+    "slice-result.json": "20e49a68862c5d2daed9458931e19888910ce49199bb2416ddb3fcc7796c4504",
+    "actual-toolpath-comparison.json": "cb69b7363861e6a53918a2c5f08e103ef77fe818846280880b21e9888a8f6c5b",
+    "rejected-send.json": "b170226f48a151eccfffa48fa131d8de54b5b824a06c4d75cbc51a217952cfe2",
+    "prepare.py": "2da6c086e0b24b533e40ad6bb2525db13fde25a72e5a16bf1a8fec9ada68737b",
+    "support-audit-display-cover.json": "560131dd38245661909c764d94777693d4a2fc4d6edd9c22856318339d071a87",
+    "geometry-check.json": "accd8e69fa63f6a861d9746b10c53880a372f805610008a809c2094b8ddca0b2",
+    "launch.json": "e4ddf39612b77cbf6c625ebe262abac533e8008aca16a3bde979212e4769d1c6"
+  },
+  "published_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "d911b9ea4db9d66d9ff36c62a951cf6b012b888caf8639e02f35fb72b7772a55",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "f5d2dc8cff45888692c90eb28e2079610d30eb727f58d5eb8b7c7e6ee0ef8c2d",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "a6d218926e86b5fe0b8396f7a731513c06aca01ff4e89bd72f1b84817ffaa38f",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "036b66b7134276cb538e9ed3a8732c95f6dbff6aaef6af80d5b9c490ce585a73"
+  },
+  "rejected_send": "rejected-send.json",
+  "native_regeneration_check": "native-regeneration-check.json",
+  "printer_task_id": "1282051223",
+  "observed_at_utc": "2026-09-25T17:05:31.344469+00:00",
+  "observed_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "observed_layer": 0,
+  "observed_total_layers": 56,
+  "observed_remaining_minutes": 23,
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "send_method": "tools/bambu_print.py foreground mouse path; regenerated native package accepted after an explicit invalid-3MF rejection. One Send for the regenerated archive; printer project_file SUCCESS.",
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  }
+}

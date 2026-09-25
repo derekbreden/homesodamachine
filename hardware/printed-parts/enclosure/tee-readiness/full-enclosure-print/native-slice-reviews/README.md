@@ -24,7 +24,8 @@ alone with the original wall-first order is the preferred next recipe and remain
 | display-cover | Mark2 | printed; 34 mm skirts, fits only the front-top printed 09-21 | [2026-09-22-display-cover-mark2-v4](2026-09-22-display-cover-mark2-v4/manifest.json) |
 | display-cover | Mark2 | prepared, not sent; original perimeter, snaps inset 0.3 mm each; 23 min 51 sec | [2026-09-24-display-cover-mark2-v5](2026-09-24-display-cover-mark2-v5/manifest.json) |
 | display-cover and both window covers | Mark2 | completed, task 1281656339; 0.3 mm inset reduces display-cover bowing only slightly; another inward shift requested | [2026-09-24-display-cover-window-covers-mark2-v6](2026-09-24-display-cover-window-covers-mark2-v6/README.md) |
-| display-cover | Mark2 | printing since 09-25, task 1281899872; snaps inset 0.6 mm each, original perimeter and settings; 23 min 55 sec | [2026-09-25-display-cover-mark2-v7](2026-09-25-display-cover-mark2-v7/README.md) |
+| display-cover | Mark2 | completed, task 1281899872; 0.6 mm inset per snap verified in actual print paths; remaining bowing, further 0.3 mm requested | [2026-09-25-display-cover-mark2-v7](2026-09-25-display-cover-mark2-v7/README.md) |
+| display-cover | Mark2 | printing since 09-25, task 1282051223; snaps inset 0.9 mm each, another 0.3 mm per snap, same settings; 23 min 59 sec | [2026-09-25-display-cover-mark2-v8](2026-09-25-display-cover-mark2-v8/README.md) |
 | foam-cap-lid-top | Mark2 | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/manifest.json) |
 | foam-cap-lid-top | Mark2 | reviewed, not sent | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/manifest.json) |
 | foam-cap-top | H2C | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-top-h2c-v2](2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json) |
