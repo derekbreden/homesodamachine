@@ -10,6 +10,7 @@ import { launchBrowser, closeBrowser, closeServer, frameBuffer, finish } from ".
 const root = path.dirname(fileURLToPath(import.meta.url));
 const out = path.join(root, "out");
 const timeline = JSON.parse(fs.readFileSync(path.join(out, "timeline.json"), "utf8"));
+const palette = JSON.parse(fs.readFileSync(path.join(root, "../../../brand/palette.json"), "utf8"));
 const stills = process.argv.includes("--stills");
 let server, browser, encoder;
 try {
@@ -25,10 +26,10 @@ try {
   await page.goto(`http://localhost:${server.address().port}/tour?paused=1&renderAlpha=1`,
     { waitUntil: "domcontentloaded", timeout: 60000 });
   await page.waitForFunction(() => window.__tour?.state.phase === "dwell", { timeout: 180000 });
-  await page.evaluate(async (timeline) => {
+  await page.evaluate(async ({ timeline, palette }) => {
     const { prepare } = await import("/video/composition.js");
-    window.__movie = await prepare(timeline);
-  }, timeline);
+    window.__movie = await prepare(timeline, palette);
+  }, { timeline, palette });
   if (errors.length) throw new Error(errors.join("\n"));
   console.log(`Machine loaded; rendering ${stills ? "review frames" : `${timeline.frames} frames`}.`);
   if (stills) {

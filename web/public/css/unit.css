@@ -1,15 +1,15 @@
-body { background: #101623; }
+body { background: var(--brand-blue); }
 .unit-page {
-  --unit-paper: #161c2b;
-  --unit-ground: #101623;
-  --unit-ink: #e9eefb;
-  --unit-muted: #a5b3cb;
-  --unit-line: #34405a;
-  --unit-blue: #a0bbff;
-  --unit-ice: #263451;
-  --unit-button: #a0bbff;
-  --unit-button-ink: #142448;
-  --unit-orange: #ffad7a;
+  --unit-paper: var(--brand-blue);
+  --unit-ground: var(--brand-blue);
+  --unit-ink: var(--text);
+  --unit-muted: var(--brand-ice);
+  --unit-line: var(--border);
+  --unit-blue: var(--brand-ice);
+  --unit-ice: var(--brand-navy);
+  --unit-button: var(--brand-orange);
+  --unit-button-ink: var(--brand-navy);
+  --unit-orange: var(--brand-orange);
   --unit-photo: #d7ddea;
   --unit-photo-ink: #182b4d;
   background: var(--unit-ground);

@@ -15,9 +15,8 @@ Two worlds, one system (the direction chosen from the
   a blueprint ground, the part drawing itself on, dimension lines, leader
   callouts, a revision stamp, and one weld-glow accent. Built to *explain* — the
   thing every episode actually does.
-- **Cold Press** — reserved for cold opens and hero reveals. A chilled cinematic
-  void: rising carbonation, a single teal under-light, the part materialising as
-  a glowing specimen.
+- **Cold Press** — reserved for cold opens and hero reveals. Rising carbonation
+  and ice-blue light over the brand's cobalt, with the part materialising in the center.
 
 The demo composition **`ByHand`** shows the hybrid end to end: a Cold Press cold
 open cross-dissolving into the Shop Notes drawing of the main board.
