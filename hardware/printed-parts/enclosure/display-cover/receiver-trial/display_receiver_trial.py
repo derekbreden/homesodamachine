@@ -2,7 +2,7 @@
 
 The display plane is 30 degrees above the bed, as on front-top. The upper slots
 retain their outer walls. A short ledge at each hook and a wider inward flex lane
-form the trial receivers. Two side cheeks and a bed frame carry the surround.
+form the trial receivers. Two side cheeks and a front foot carry the surround.
 """
 
 import json
@@ -101,8 +101,7 @@ def build():
         x0 = -WIDTH/2 if side < 0 else WIDTH/2-CHEEK_THICKNESS
         wire = cq.Wire.makePolygon([cq.Vector(x0, y, z) for y, z in [*profile, profile[0]]])
         body = body.fuse(cq.Solid.extrudeLinear(wire, [], cq.Vector(CHEEK_THICKNESS, 0, 0)))
-    for y0, y1 in ((front, front+4), (back-4, back)):
-        body = body.fuse(box(-WIDTH/2, WIDTH/2, y0, y1, BASE_Z, BASE_Z+4))
+    body = body.fuse(box(-WIDTH/2, WIDTH/2, front, front+4, BASE_Z, BASE_Z+4))
     return body.clean().translate((0, 0, -BASE_Z))
 
 

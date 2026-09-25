@@ -2,7 +2,7 @@
   "pass": true,
   "source_sha256": {
     "hardware/printed-parts/enclosure/display-cover/receiver-trial/check_geometry.py": "be2353e03e827002490a011f6c7bdc54841bb3bd8073054ad710c1463ffc696a",
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py": "2e980e4af9472303de28c3956d1fca2be4526184ea6df3325330b0569417bee1",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py": "779959604ee55778e66c7d6db0258e01823b2776395424e45e662cf782dd9db8",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "f98b9b5d69ada8585ae111687714db1a0fff641355ca416a5883cd5e868da930",
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "37fe26d959acbdf102a353944de3d3ec62f8b4a8275c84acb83578ccfb6d40b5",
     "hardware/printed-parts/enclosure/display-cover/display_cover.py": "968e20c88930aa2654254849cafecc38c48afd35b62a0e854dbf7da253c4a6c8",
@@ -143,7 +143,7 @@
       56.0
     ]
   ],
-  "triangles": 2236,
+  "triangles": 2224,
   "physical_fit_tested": false,
   "physical_retention_force_measured": false
 }
