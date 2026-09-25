@@ -1,0 +1,45 @@
+{
+  "source": "Derek's installed-part observations and supplied photographs, 2026-09-24.",
+  "observations": {
+    "installed_center_lift_estimate_mm": 4,
+    "lift_estimate_is_measurement": false,
+    "can_press_flat_easily": true,
+    "flat_when_removed": true,
+    "upside_down_perimeter_fit": "Slips in easily with snaps unengaged.",
+    "user_direction": "Keep the outer edges unchanged; change the snap positions on the cover only, with housing receivers fixed."
+  },
+  "working_diagnosis": "Engaged snap positions load the frame in compression; the easy inverted fit supports leaving the perimeter unchanged.",
+  "candidate": {
+    "skirt_translation_inward_each_mm": 0.3,
+    "outer_perimeter_unchanged": true,
+    "housing_receivers_unchanged": true,
+    "physical_trial_status": "Prepared, not printed; seating and retention remain to be evaluated."
+  },
+  "photos": [
+    {
+      "file": "IMG_7848.jpeg",
+      "sha256": "cfeb2e6817dd93f55139c49f6b98fece613c7c078a206393a83d435436eb83a7",
+      "description": "Installed with snaps engaged; center of the long rim raised."
+    },
+    {
+      "file": "IMG_7849.jpeg",
+      "sha256": "70f3d3b61f6d72e19602880e64cc0be5c0aad5b111cb7405b941b3b79c8412be",
+      "description": "Installed with snaps engaged; raised long rim."
+    },
+    {
+      "file": "IMG_7852.jpeg",
+      "sha256": "4a658286ba6c588738166c28a6cf1c21c587cf4a03981d6f9bcf4e1a400ca505",
+      "description": "Upside down with snaps clear of their receivers; perimeter seats easily."
+    },
+    {
+      "file": "IMG_7851.jpeg",
+      "sha256": "6b1b939eea74d7bac5b11bdfadf00dcdab16e4d41747c9cf51f713e45ddc34c4",
+      "description": "Upside-down fit, retaining skirts visible."
+    },
+    {
+      "file": "IMG_7850.jpeg",
+      "sha256": "6c9c9b34b187be4a2885e608c03dfb0bfbfdea3bec3837167e6c8dd87c5ec94b",
+      "description": "Upside-down fit across the complete cover."
+    }
+  ]
+}

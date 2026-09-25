@@ -1,0 +1,211 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-24-display-cover-window-covers-mark2-v6/ready/display-cover-window-covers-black-z004-mark2-v6.gcode.3mf",
+  "native_archive_sha256": "18b6a371157e3f8984057d70760ca92bde67920dbe210190b416b9d9e9ef4b30",
+  "gcode_sha256": "4d4ba555283a9c37f063d06cdd955e60067f1a2140734f3c710495db83d3f22d",
+  "staged_input_sha256": "8b267c20c480376568a26029e5709904e0aeaefc476f9780beaeb2016fdcbb40",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ],
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-cover": {
+      "wall_layer_count": 56,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        13.4,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    },
+    "enclosure-window-cover-east": {
+      "wall_layer_count": 25,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        5.96,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    },
+    "enclosure-window-cover-west": {
+      "wall_layer_count": 25,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        5.96,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    }
+  },
+  "layer_count": 56,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 3,
+  "triangles": 2176,
+  "estimated_seconds": 2517.434814453125,
+  "estimated_grams_saved_profile_density": 19.66851043701172,
+  "path_bounds": {
+    "display-cover": {
+      "bounds_xy_mm": [
+        [
+          90.061,
+          88.39999999999999
+        ],
+        [
+          234.946,
+          171.6
+        ]
+      ],
+      "minimum_plate_clearance_mm": 88.39999999999999,
+      "feature_segment_counts": {
+        "Support": 10880,
+        "Inner wall": 1077,
+        "Outer wall": 1490,
+        "Bottom surface": 1178,
+        "Internal solid infill": 7456,
+        "Sparse infill": 268,
+        "Bridge": 1219,
+        "Top surface": 668,
+        "Gap infill": 110,
+        "Support interface": 126,
+        "Overhang wall": 12,
+        "Floating vertical shell": 16
+      }
+    },
+    "enclosure-window-cover-east": {
+      "bounds_xy_mm": [
+        [
+          174.339,
+          186.902
+        ],
+        [
+          234.661,
+          223.098
+        ]
+      ],
+      "minimum_plate_clearance_mm": 90.339,
+      "feature_segment_counts": {
+        "Inner wall": 206,
+        "Outer wall": 208,
+        "Bottom surface": 348,
+        "Internal solid infill": 2686,
+        "Sparse infill": 1141,
+        "Floating vertical shell": 36,
+        "Bridge": 501,
+        "Top surface": 281,
+        "Gap infill": 3
+      }
+    },
+    "enclosure-window-cover-west": {
+      "bounds_xy_mm": [
+        [
+          90.339,
+          186.902
+        ],
+        [
+          150.661,
+          223.098
+        ]
+      ],
+      "minimum_plate_clearance_mm": 90.339,
+      "feature_segment_counts": {
+        "Inner wall": 198,
+        "Outer wall": 200,
+        "Bottom surface": 348,
+        "Internal solid infill": 2697,
+        "Sparse infill": 1141,
+        "Floating vertical shell": 36,
+        "Bridge": 504,
+        "Top surface": 281,
+        "Gap infill": 3
+      }
+    }
+  },
+  "path_gaps": [
+    {
+      "parts": [
+        "display-cover",
+        "enclosure-window-cover-east"
+      ],
+      "path_bounds_clearance_mm": 15.301999999999992
+    },
+    {
+      "parts": [
+        "display-cover",
+        "enclosure-window-cover-west"
+      ],
+      "path_bounds_clearance_mm": 15.301999999999992
+    },
+    {
+      "parts": [
+        "enclosure-window-cover-east",
+        "enclosure-window-cover-west"
+      ],
+      "path_bounds_clearance_mm": 23.677999999999997
+    }
+  ],
+  "support_summaries": {
+    "display-cover": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 9.84,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 9.84
+    },
+    "enclosure-window-cover-east": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "enclosure-window-cover-west": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "support_only_on_display_cover": true,
+  "submitted": false
+}
