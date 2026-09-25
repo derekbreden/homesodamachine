@@ -1,6 +1,6 @@
 # Display-cover snap fit trial — Mark2
 
-Prepared, not sent. One full display cover; each complete snap skirt sits **0.6 mm inward** from the fixed receiver datum. This is another 0.3 mm per side relative to the printed 0.3 mm trial. The outer perimeter, window, plate thickness, skirt shape and housing receivers are unchanged.
+Printing on Mark2 since 2026-09-25 16:06 UTC, task `1281899872`, with no startup errors. One full display cover; each complete snap skirt sits **0.6 mm inward** from the fixed receiver datum. This is another 0.3 mm per side relative to the printed 0.3 mm trial. The outer perimeter, window, plate thickness, skirt shape and housing receivers are unchanged.
 
 The native estimate is **23 min 55 sec**, including startup, and **8.64 g** at the saved profile density. Native settings exactly match the previous printed trial: black PET-GF on the left 0.4 mm nozzle, 0.24 mm layers, 0.20 mm first layer, two walls, original wall order and speeds, 15% overlap, automatic brim, and Mark2 +0.04 mm requested Z trim. No window covers are on this plate.
 

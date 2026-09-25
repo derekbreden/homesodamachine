@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-25T16:06:56.932963+00:00",
+  "archive": {
+    "name": "display-cover-black-z004-mark2-v7-inset-snaps-06.gcode.3mf",
+    "sha256": "ce6792c32a27d2af88ed13c982d65c5c2c91658ef64bea7bfd7fd035f5f75fa5",
+    "gcode_sha256": "3adfd73e97ce2fda14e70643c1c2e32249da6cb9611ee4b9cf89c22773973bbb",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-cover"
+    ]
+  },
+  "printer_task_id": "1281899872",
+  "gcode_state": "RUNNING",
+  "subtask_name": "display-cover-black-z004-mark2-v7-inset-snaps-06.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 56,
+  "mc_remaining_time": 23
+}
