@@ -1,7 +1,7 @@
 {
-  "status": "prepared_not_sent",
-  "submitted": false,
-  "print_started": false,
+  "status": "printing",
+  "submitted": true,
+  "print_started": true,
   "printer": "Mark2",
   "plate_contents": [
     "display-cover",
@@ -20,7 +20,7 @@
   "support_review": "support-removal-review.json",
   "printer_status": "printer-status.json",
   "geometry": "Display-cover perimeter and display window unchanged; both complete snap skirts translated inward 0.3 mm. Housing pockets fixed. Existing window covers unchanged.",
-  "launch_state": "Both printers are running other jobs. This archive has not been submitted.",
+  "launch_state": "Mark2 accepted the archive on the first send and reports RUNNING with no print error or HMS.",
   "physical_trial": "Check whether the display cover seats flat with both lips retained. Check window-cover sliding fit and gap coverage on front-top.",
   "settings": {
     "material": "black PET-GF; printer labels it PET-CF",
@@ -71,6 +71,25 @@
     "slice-result.json": "c4323ba8645fd3e44a4aebc0af9c27d759bd91b765ee9ac9ef0e6726545e6900",
     "prepare.py": "d3d4ac7407e12f58ee5eeba110c42c343af8c46886210ab58a04a0032a8076a4",
     "support-audit-display-cover.json": "867f8d175a815ce1aad1954972bfa85b5ed28cfe1ea4bfc4280e0e244b41f54b",
-    "geometry-check.json": "7348115b8c006272aa0c4519843efac42e446623da38ca759e893adb634d524c"
+    "geometry-check.json": "7348115b8c006272aa0c4519843efac42e446623da38ca759e893adb634d524c",
+    "launch.json": "d5b50527a3b4842a62c661c6de7650733e08ffb607fbcc90d40d2dd28ba61cdf",
+    "prelaunch.json": "0d2f4267f070a5537be17656acc9f7c2e78a7d86b736461290c59bc620727991"
+  },
+  "printer_task_id": "1281656339",
+  "observed_at_utc": "2026-09-25T14:34:19.303897+00:00",
+  "observed_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "observed_layer": 0,
+  "observed_total_layers": 56,
+  "observed_remaining_minutes": 41,
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "send_method": "tools/bambu_print.py; Bambu Connect foreground mouse path, one Send click; printer project_file SUCCESS.",
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
   }
 }
