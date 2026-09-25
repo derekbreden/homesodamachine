@@ -1,0 +1,141 @@
+{
+  "status": "started",
+  "submitted": true,
+  "print_started": true,
+  "printer": "Mark2",
+  "plate_contents": [
+    "display-receiver-trial-v1"
+  ],
+  "printer_task_id": "1282488338",
+  "native_archive": ".cache/prints/2026-09-25-display-receiver-trial-mark2-v1-open-back/ready/display-receiver-trial-black-z004-mark2-v1.gcode.3mf",
+  "native_archive_sha256": "7dc19786bd0245fa3f0c7c5dab8ac529c45fcdc57e09d29a5ccde3d811d417c0",
+  "gcode_sha256": "7fc1fce7d1fea2037cafa5c3ea394a99afb9e6c3cb26cbd7f99939e02f3aaa12",
+  "staged_input": ".cache/prints/2026-09-25-display-receiver-trial-mark2-v1-open-back/display-receiver-trial-black-z004-mark2-v1-input.3mf",
+  "staged_input_sha256": "1d7990929adfb49a8eb1f895cdaa500bc4ffbc5452844fa8395d895fdfd80854",
+  "estimated_seconds": 9727.517578125,
+  "estimated_grams_saved_profile_density": 66.98760223388672,
+  "geometry": {
+    "existing_cover_skirt_inset_each_mm": 1.2,
+    "display_plane_degrees": 30,
+    "ledge_thickness_mm": 2,
+    "catch_edge_absolute_x_mm": 62.35,
+    "hook_overlap_centered_mm": 1,
+    "hook_overlap_min_at_full_lateral_float_mm": 0.7,
+    "hook_overlap_max_at_full_lateral_float_mm": 1.3,
+    "upper_slot_outside_skirt_clearance_mm": 1.5,
+    "ledge_outside_skirt_clearance_mm": 0.8,
+    "inward_flex_clearance_mm": 1.6,
+    "bearing_gap_mm": 0.48,
+    "existing_cover_unchanged": true,
+    "production_front_top_unchanged": true,
+    "display_seating_geometry_preserved": true,
+    "support_removal_access": "Open underside and back."
+  },
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "support_review": "support-removal-review.json",
+  "verification_scope": "The verification.json file is the pre-send reading. Launch and observed-running records establish submission.",
+  "settings": {
+    "source": "hardware/printed-parts/petgf.3mf",
+    "source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
+    "material": "Black Polymaker PET-GF; printer labels PET-CF",
+    "nozzle": "left 0.4 mm Standard",
+    "external_spool": 254,
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_commands_mm": [
+      0.0,
+      0.02
+    ],
+    "first_layer_height_mm": 0.2,
+    "layer_height_mm": 0.24,
+    "layer_count": 233,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall, then infill",
+    "infill_wall_overlap": "15%",
+    "sparse_infill_percent": 15,
+    "sparse_infill_pattern": "grid",
+    "brim": "auto_brim",
+    "support": "tree(auto)",
+    "support_top_z_distance_mm": 0.24,
+    "support_remove_small_overhang": false,
+    "speed_temperature_and_fan_settings": "Saved profile values.",
+    "layer_policy": "0.24 mm with 0.20 mm first layer. Square outer coupon frame; no cosmetic rounded show edges."
+  },
+  "checks": {
+    "current_source_hashes": true,
+    "native_checksum_valid": true,
+    "seated_cover_interference_at_full_lateral_float_mm3": 0,
+    "both_hooks_engaged_at_full_lateral_float": true,
+    "geometric_insertion_clearance": true,
+    "insertion_force_or_strain_predicted": false,
+    "support_review_passed": true,
+    "bed_rooted_support_bodies": 1,
+    "model_rooted_support_bodies": 0,
+    "support_roads_examined": 400305,
+    "unlabelled_support_included": true,
+    "bazel_target_build": "//:display-receiver-trial passed",
+    "post_publish_geometry_lint": {
+      "open_findings": 0,
+      "intentional_features_answered": 4
+    }
+  },
+  "physical_trial": {
+    "status": "pending",
+    "existing_cover": "Display-cover v9, skirts inset 1.2 mm per side.",
+    "procedure": [
+      "Remove supports through the open underside and back.",
+      "Seat the existing cover normal to the display plane and inspect rim flatness.",
+      "Check that both hooks resist lifting, including with the cover shifted sideways.",
+      "Use the underside access to release the hooks; include the display and gasket to check their effect on seating."
+    ],
+    "support_removal_tested": false,
+    "retention_force_measured": false
+  },
+  "observed_at_utc": "2026-09-25T20:06:56.083741+00:00",
+  "observed_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "observed_layer": 0,
+  "observed_total_layers": 233,
+  "observed_remaining_minutes": 162,
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "observed_running_record": "observed-running.json",
+  "send_method": "tools/bambu_print.py through Bambu Connect; one Send click; printer project_file SUCCESS.",
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "bed_clear_confirmed_by": "Derek in this conversation; recommendation and test print authorized.",
+  "source_geometry_and_settings_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "a51a506ff2cd152bdba7dffb222f9f2e7b8bc9d343b7de3c543b52490790491b",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": "b90ebd1c64dc77a0c39355d8c92b42e9eb57fe3311d4d38aef6f3d744a8fc841",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py": "779959604ee55778e66c7d6db0258e01823b2776395424e45e662cf782dd9db8",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/geometry-check.json": "555b434967d8379cedfb071dbf2d19dc8621359c44972ad5d18faf71ca78349d",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/prepare_print.py": "db5a268566e92dd282e7e78235368e89415af6b9a19431ad6ed9b0b62afa76ad",
+    "hardware/printed-parts/petgf.3mf": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697"
+  },
+  "published_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": "b90ebd1c64dc77a0c39355d8c92b42e9eb57fe3311d4d38aef6f3d744a8fc841",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "a51a506ff2cd152bdba7dffb222f9f2e7b8bc9d343b7de3c543b52490790491b",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "a51bfbb2fd852595bbda776e15873c52bcbc0ecefda04babb28b33e3b0042b80"
+  },
+  "review_sha256": {
+    "README.md": "db0de7de29ae6be3ad17661b404f906cd0ad9dcba6df233c5fed950e058c3e62",
+    "geometry-check.json": "555b434967d8379cedfb071dbf2d19dc8621359c44972ad5d18faf71ca78349d",
+    "geometry-lint.log": "66405af5523d9e35879c47c301bb3a87581b2cee1e52eb04b24897bfb8ac1def",
+    "launch.json": "9bf26b36c2f59863a8b76a46428589ca33f1eecd1fc9cd55688732ddd8b5b43d",
+    "observed-running.json": "a205f26ec9a2156bdb6e4b9caf0876096d7d9fc5570b4b35d692e9931b61a0ec",
+    "prelaunch.json": "d319c628e0053e241476a01726c35b8feb06a88eee1faaf5f4ec994eb2272285",
+    "preparation.json": "4265eec2accde0c5c2f0a528f2dcf8bf9ca989ed26124c93e597b6ff1aa3c034",
+    "preview.png": "d0e3f2c595ce8e85ce6e01b2113724c6ad177f3b7642c71e08b7aab1668d3946",
+    "send.log": "0a1a3170c3dd1bab4e4999db44bbe46263d234f0dbaa7a362ef74188496c9157",
+    "slice-command.json": "9d854a4562c459482c29ac035de6b34072e58a247c40b203427f3390320082fd",
+    "slice-result.json": "edfa03f7fbbdd9f4b684353d03f2f8e230d9809a6079b27f84ecf195eae13bb1",
+    "support-audit-display-receiver-trial-v1.json": "d6efc10b5b36a802b488cca658f3328cb36b715f134e9f3b5e695033ee4123c9",
+    "support-removal-review.json": "688ebd572beccc6140fe3778936601a5e7596b0c3b744d8ab833d4825efeeb91",
+    "verification.json": "e774a08595a7e1b4ba8200bfe5469d15b2737ba4934028b0d31c39ca0762ab0b"
+  }
+}
