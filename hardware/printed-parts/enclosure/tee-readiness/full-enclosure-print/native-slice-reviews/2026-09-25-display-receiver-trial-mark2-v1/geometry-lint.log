@@ -1,0 +1,25 @@
+display-receiver-trial-v1.stl · 2224 printed facets · 0 findings · 4 answered
+
+  [step · answered] The receiver ledge projects 0.70 mm inward from the upper slot wall. Its 2 mm stock carries the square catch face at the existing bearing depth.
+    Δ0.700 mm between parallel planes · footprint met 22.3 × 14.0 mm
+    faceA: plane · n x=-1.000 y=0.000 z=0.000 · thru x=63.050 y=0.500 z=30.634
+    faceB: plane · n x=-1.000 y=0.000 z=0.000 · thru x=62.350 y=4.510 z=23.688
+    click: x=62.350 y=4.510 z=23.688
+
+  [step · answered] The receiver ledge projects 0.70 mm inward from the upper slot wall. Its 2 mm stock carries the square catch face at the existing bearing depth.
+    Δ0.700 mm between parallel planes · footprint met 22.3 × 14.0 mm
+    faceA: plane · n x=1.000 y=0.000 z=0.000 · thru x=-63.050 y=0.500 z=30.634
+    faceB: plane · n x=1.000 y=0.000 z=0.000 · thru x=-62.350 y=4.510 z=23.688
+    click: x=-62.350 y=4.510 z=23.688
+
+  [sliver · answered] The rear end of each 4 mm side cheek has a 1 mm horizontal cap adjoining the inclined frame underside. It is continuous with the full-height cheek.
+    1.000 mm strip, 4.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=69.000 y=45.685 z=51.237
+    edge: x=71.000 y=45.685 z=51.237 → x=67.000 y=45.685 z=51.237 · len 4.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=69.000 y=45.685 z=51.237
+
+  [sliver · answered] The rear end of each 4 mm side cheek has a 1 mm horizontal cap adjoining the inclined frame underside. It is continuous with the full-height cheek.
+    1.000 mm strip, 4.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-69.000 y=45.685 z=51.237
+    edge: x=-67.000 y=45.685 z=51.237 → x=-71.000 y=45.685 z=51.237 · len 4.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-69.000 y=45.685 z=51.237

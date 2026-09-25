@@ -1,0 +1,9 @@
+[step] The receiver ledge projects 0.70 mm inward from the upper slot wall. Its 2 mm stock carries the square catch face at the existing bearing depth.
+file: hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step
+click: x=62.350 y=4.510 z=23.688
+click: x=-62.350 y=4.510 z=23.688
+
+[sliver] The rear end of each 4 mm side cheek has a 1 mm horizontal cap adjoining the inclined frame underside. It is continuous with the full-height cheek.
+file: hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step
+click: x=69.000 y=45.685 z=51.237
+click: x=-69.000 y=45.685 z=51.237

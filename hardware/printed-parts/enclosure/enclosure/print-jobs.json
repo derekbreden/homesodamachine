@@ -1492,6 +1492,55 @@
       "completion_reported_by": "Derek in this conversation; printed part fit evaluated and bed clear.",
       "physical_result": "Derek reports very slight remaining bowing, acceptable for the moment, and no retention. Retention force and repeated-use performance are unmeasured.",
       "physical_feedback": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v9/physical-feedback.json"
+    },
+    {
+      "date": "2026-09-25",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl"
+      ],
+      "job_name": "display-receiver-trial-black-z004-mark2-v1.gcode.3mf",
+      "printer_task_id": "1282488338",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-25T20:06:56.083741+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-25-display-receiver-trial-mark2-v1-open-back/ready/display-receiver-trial-black-z004-mark2-v1.gcode.3mf",
+      "sliced_file_sha256": "7dc19786bd0245fa3f0c7c5dab8ac529c45fcdc57e09d29a5ccde3d811d417c0",
+      "gcode_sha256": "7fc1fce7d1fea2037cafa5c3ea394a99afb9e6c3cb26cbd7f99939e02f3aaa12",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/launch.json",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254",
+      "estimated_seconds": 9727.517578125,
+      "filament_grams": 66.98760223388672,
+      "layer_count": 233,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "normal_wall_loops": 2,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "Saved PET-GF profile values.",
+      "support_policy": "One bed-rooted body under functional seats and catches; open underside and back for removal. All 400305 support roads reviewed, including unlabelled paths.",
+      "geometry": "Full-width receiver coupon for existing cover with skirts inset 1.2 mm per side; 2 mm catch ledges with 1.0 mm nominal overlap and 1.6 mm inward flex clearance; same display seating surfaces and print orientation.",
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "a51a506ff2cd152bdba7dffb222f9f2e7b8bc9d343b7de3c543b52490790491b"
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 233,
+      "observed_remaining_minutes": 162,
+      "print_options": {
+        "timelapse": "On",
+        "auto_bed_leveling": "On",
+        "flow_dynamic_calibration": "Auto",
+        "nozzle_offset_calibration": "Auto"
+      },
+      "bed_clear_confirmed_by": "Derek in this conversation",
+      "physical_result": "Pending: support removal, cover flatness and retention require the printed trial."
     }
   ]
 }

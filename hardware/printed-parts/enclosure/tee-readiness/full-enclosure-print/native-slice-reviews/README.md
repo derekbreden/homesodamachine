@@ -27,6 +27,7 @@ alone with the original wall-first order is the preferred next recipe and remain
 | display-cover | Mark2 | completed, task 1281899872; 0.6 mm inset per snap verified in actual print paths; remaining bowing, further 0.3 mm requested | [2026-09-25-display-cover-mark2-v7](2026-09-25-display-cover-mark2-v7/README.md) |
 | display-cover | Mark2 | completed, task 1282051223; 0.9 mm inset per snap gives clearer improvement in bowing; further 0.3 mm requested | [2026-09-25-display-cover-mark2-v8](2026-09-25-display-cover-mark2-v8/README.md) |
 | display-cover | Mark2 | completed, task 1282199028; 1.2 mm inset per snap; Derek reports very slight residual bow, acceptable for now, and no retention | [2026-09-25-display-cover-mark2-v9](2026-09-25-display-cover-mark2-v9/README.md) |
+| display receiver trial | Mark2 | started, task 1282488338; full-width coupon for the existing 1.2 mm-inset cover, revised catches and flex lanes; 2 h 42 min | [2026-09-25-display-receiver-trial-mark2-v1](2026-09-25-display-receiver-trial-mark2-v1/README.md) |
 | foam-cap-lid-top | Mark2 | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/manifest.json) |
 | foam-cap-lid-top | Mark2 | reviewed, not sent | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/manifest.json) |
 | foam-cap-top | H2C | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-top-h2c-v2](2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json) |

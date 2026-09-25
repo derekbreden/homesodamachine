@@ -21,4 +21,4 @@ includes their effect on seating.
 
 `display_receiver_trial.py` writes the STEP, STL and viewer payload. The
 [geometry reading](geometry-check.json) measures the seat and both hooks against
-the existing cover. The print record identifies the source and native slice.
+the existing cover. The [Mark2 print record](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/README.md) identifies the source and native slice; its estimate is 2 h 42 min.
