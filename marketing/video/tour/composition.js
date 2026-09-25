@@ -1,6 +1,7 @@
 import { stopAnimate, updateDepthRange, fitGroundShadow } from "/js/viewer/scene.js";
 import { poseFor, boxOfParts } from "/js/tour/frame.js";
 import * as spotlight from "/js/tour/spotlight.js";
+import { createFilmScenes } from "/video/film-scenes.js";
 
 const clamp = (x) => Math.max(0, Math.min(1, x));
 const ease = (x) => { const p = clamp(x); return p * p * (3 - 2 * p); };
@@ -119,6 +120,7 @@ export async function prepare(timeline, palette) {
   }
 
   function draw(t) {
+    if (film && t >= timeline.openingDuration) return film.draw(t);
     const release = clamp((t - 13.7) / 2.4);
     const opening = clamp((t - 16.1) / 4.1);
     const park = between(t, 20.3, 22.0);
@@ -149,7 +151,7 @@ export async function prepare(timeline, palette) {
     glow.addColorStop(1, `${palette.ice}00`);
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, 1920, 1080);
-    const pictureAlpha = between(t, 0.2, 1.7) * (1 - between(t, 39.0, 41.3));
+    const pictureAlpha = between(t, 0.2, 1.7) * (timeline.full ? 1 : 1 - between(t, 39.0, 41.3));
     ctx.save();
     ctx.globalAlpha = pictureAlpha * (1 - 0.6 * ease(opening));
     ctx.filter = "blur(22px)";
@@ -212,7 +214,7 @@ export async function prepare(timeline, palette) {
       text(caption.text, 960, 1017, 28, palette.white, 500);
       ctx.textAlign = "left";
     }
-    const fade = between(t, 40.8, timeline.duration);
+    const fade = timeline.full ? 0 : between(t, 40.8, timeline.duration);
     if (fade > 0) {
       ctx.globalAlpha = fade;
       ctx.fillStyle = palette.cobalt;
@@ -221,5 +223,7 @@ export async function prepare(timeline, palette) {
     }
     return canvas.toDataURL("image/jpeg", 0.97);
   }
+  const film = timeline.full ? createFilmScenes({ tour, timeline, palette, view, canvas, ctx, logo,
+    bounds, panelBodies, text, number }) : null;
   return { draw };
 }

@@ -1,0 +1,384 @@
+[
+  {
+    "id": "water-inlet",
+    "start": 0.0,
+    "end": 5.76,
+    "captions": [
+      {
+        "start": 0.0,
+        "end": 1.7,
+        "text": "Tap water enters at the rear."
+      },
+      {
+        "start": 2.24,
+        "end": 4.88,
+        "text": "A beverage backflow preventer protects the house supply"
+      },
+      {
+        "start": 4.88,
+        "end": 5.76,
+        "text": "from reverse flow."
+      }
+    ]
+  },
+  {
+    "id": "water-pump",
+    "start": 6.7,
+    "end": 14.0,
+    "captions": [
+      {
+        "start": 6.7,
+        "end": 9.24,
+        "text": "The diaphragm pump pushes water into the carbonator"
+      },
+      {
+        "start": 9.24,
+        "end": 11.16,
+        "text": "against the carbon dioxide pressure inside."
+      },
+      {
+        "start": 12.02,
+        "end": 14.0,
+        "text": "A fill valve opens when more water is needed."
+      }
+    ]
+  },
+  {
+    "id": "refrigeration",
+    "start": 14.82,
+    "end": 23.08,
+    "captions": [
+      {
+        "start": 14.82,
+        "end": 16.0,
+        "text": "To keep that water cold,"
+      },
+      {
+        "start": 16.58,
+        "end": 19.32,
+        "text": "the compressor circulates refrigerant through the cold core."
+      },
+      {
+        "start": 19.96,
+        "end": 21.74,
+        "text": "The condenser and fan carry the heat out"
+      },
+      {
+        "start": 21.74,
+        "end": 23.08,
+        "text": "through the enclosure's side grilles."
+      }
+    ]
+  },
+  {
+    "id": "cold-core",
+    "start": 24.12,
+    "end": 30.88,
+    "captions": [
+      {
+        "start": 24.12,
+        "end": 25.48,
+        "text": "Now, stay with the cold core."
+      },
+      {
+        "start": 26.08,
+        "end": 28.24,
+        "text": "Inside this insulated block are the carbonator,"
+      },
+      {
+        "start": 28.68,
+        "end": 30.88,
+        "text": "its copper coil, and both flavor reservoirs."
+      }
+    ]
+  },
+  {
+    "id": "core-caps",
+    "start": 31.88,
+    "end": 37.48,
+    "captions": [
+      {
+        "start": 31.88,
+        "end": 33.56,
+        "text": "Foam-filled caps close both ends."
+      },
+      {
+        "start": 34.42,
+        "end": 35.1,
+        "text": "Lift them away,"
+      },
+      {
+        "start": 35.1,
+        "end": 37.48,
+        "text": "and the layered construction begins to appear."
+      }
+    ]
+  },
+  {
+    "id": "core-shell",
+    "start": 38.58,
+    "end": 44.54,
+    "captions": [
+      {
+        "start": 38.58,
+        "end": 40.04,
+        "text": "The printed shell holds the insulation."
+      },
+      {
+        "start": 41.04,
+        "end": 42.78,
+        "text": "Beneath it, two reservoirs nest"
+      },
+      {
+        "start": 42.78,
+        "end": 44.54,
+        "text": "beside the coil-wrapped carbonator."
+      }
+    ]
+  },
+  {
+    "id": "core-spread",
+    "start": 45.08,
+    "end": 52.54,
+    "captions": [
+      {
+        "start": 45.08,
+        "end": 47.4,
+        "text": "A little separation makes the arrangement clear."
+      },
+      {
+        "start": 48.22,
+        "end": 49.94,
+        "text": "Copper above, carbonator below,"
+      },
+      {
+        "start": 50.42,
+        "end": 52.54,
+        "text": "and a flavor reservoir on either side."
+      }
+    ]
+  },
+  {
+    "id": "copper-coil",
+    "start": 53.4,
+    "end": 60.52,
+    "captions": [
+      {
+        "start": 53.4,
+        "end": 55.66,
+        "text": "Refrigerant evaporates inside the copper coil."
+      },
+      {
+        "start": 56.34,
+        "end": 58.1,
+        "text": "Bonded around the carbonator's steel wall,"
+      },
+      {
+        "start": 58.44,
+        "end": 60.52,
+        "text": "it pulls heat directly from the water inside."
+      }
+    ]
+  },
+  {
+    "id": "carbonator",
+    "start": 61.7,
+    "end": 69.78,
+    "captions": [
+      {
+        "start": 61.7,
+        "end": 63.42,
+        "text": "The stainless steel carbonator holds water"
+      },
+      {
+        "start": 63.42,
+        "end": 64.86,
+        "text": "under carbon dioxide pressure."
+      },
+      {
+        "start": 65.64,
+        "end": 66.7,
+        "text": "Gas enters at the bottom."
+      },
+      {
+        "start": 67.28,
+        "end": 69.78,
+        "text": "An internal sparge stone spreads it into small bubbles."
+      }
+    ]
+  },
+  {
+    "id": "flavor-reservoirs",
+    "start": 70.78,
+    "end": 78.14,
+    "captions": [
+      {
+        "start": 70.78,
+        "end": 72.46,
+        "text": "Each reservoir holds its own concentrate."
+      },
+      {
+        "start": 73.38,
+        "end": 76.1,
+        "text": "Nestled beside the carbonator, both flavors pre-chill"
+      },
+      {
+        "start": 76.1,
+        "end": 78.14,
+        "text": "before separate pumps send them to the faucet."
+      }
+    ]
+  },
+  {
+    "id": "core-reassemble",
+    "start": 78.72,
+    "end": 87.24,
+    "captions": [
+      {
+        "start": 78.72,
+        "end": 80.54,
+        "text": "The coil hugs the carbonator."
+      },
+      {
+        "start": 81.12,
+        "end": 82.44,
+        "text": "The reservoirs return to their pockets."
+      },
+      {
+        "start": 83.2,
+        "end": 84.8,
+        "text": "The shell and caps surround them,"
+      },
+      {
+        "start": 84.96,
+        "end": 87.24,
+        "text": "completing one insulated cold core."
+      }
+    ]
+  },
+  {
+    "id": "core-in-machine",
+    "start": 88.08,
+    "end": 94.22,
+    "captions": [
+      {
+        "start": 88.08,
+        "end": 89.08,
+        "text": "Back in the machine,"
+      },
+      {
+        "start": 89.5,
+        "end": 91.4,
+        "text": "refrigeration works ahead of the cold core."
+      },
+      {
+        "start": 91.84,
+        "end": 94.22,
+        "text": "Above it, pumps and valves keep each flavor ready."
+      }
+    ]
+  },
+  {
+    "id": "flavor-pumps",
+    "start": 95.1,
+    "end": 102.14,
+    "captions": [
+      {
+        "start": 95.1,
+        "end": 97.3,
+        "text": "Each peristaltic pump meters one flavor."
+      },
+      {
+        "start": 98.06,
+        "end": 100.56,
+        "text": "The flavor lines stay primed and valve-locked between pours,"
+      },
+      {
+        "start": 101.02,
+        "end": 102.14,
+        "text": "ready when the faucet opens."
+      }
+    ]
+  },
+  {
+    "id": "flow-sensor",
+    "start": 103.28,
+    "end": 109.38,
+    "captions": [
+      {
+        "start": 103.28,
+        "end": 105.26,
+        "text": "Carbonated water passes through a flow sensor"
+      },
+      {
+        "start": 105.26,
+        "end": 106.36,
+        "text": "on its way to the faucet."
+      },
+      {
+        "start": 106.88,
+        "end": 108.04,
+        "text": "Its pulses tell the machine"
+      },
+      {
+        "start": 108.04,
+        "end": 109.38,
+        "text": "to run the selected flavor pump."
+      }
+    ]
+  },
+  {
+    "id": "outlets",
+    "start": 110.76,
+    "end": 117.08,
+    "captions": [
+      {
+        "start": 110.76,
+        "end": 112.04,
+        "text": "One tube carries carbonated water."
+      },
+      {
+        "start": 112.88,
+        "end": 113.52,
+        "text": "Two carry the flavors."
+      },
+      {
+        "start": 114.4,
+        "end": 116.02,
+        "text": "The selected concentrate meets the water"
+      },
+      {
+        "start": 116.02,
+        "end": 117.08,
+        "text": "only in your glass."
+      }
+    ]
+  },
+  {
+    "id": "ready-to-pour",
+    "start": 118.24,
+    "end": 127.5,
+    "captions": [
+      {
+        "start": 118.24,
+        "end": 120.04,
+        "text": "The enclosure closes around the working parts."
+      },
+      {
+        "start": 120.74,
+        "end": 124.04,
+        "text": "Water, cold, carbonation, and flavor."
+      },
+      {
+        "start": 124.5,
+        "end": 125.7,
+        "text": "All under the counter."
+      },
+      {
+        "start": 126.5,
+        "end": 127.5,
+        "text": "Ready at the faucet."
+      }
+    ]
+  }
+]
