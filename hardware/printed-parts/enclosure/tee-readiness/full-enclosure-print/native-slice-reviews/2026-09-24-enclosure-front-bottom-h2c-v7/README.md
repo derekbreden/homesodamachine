@@ -36,6 +36,12 @@ exposed flank grooves before hardware and top-shell installation. Their
 [removal review](support-removal-review.json) preserves those working faces.
 Physical cleanup effort and finish remain print observations.
 
+On 2026-09-25 Derek reported that both printers lost power when their power cord
+was accidentally unplugged. H2C was mid-print, mid-extrusion, and recovered with
+no visible defect at the interruption point. A subsequent software reading at
+18:26:02 UTC showed this front-bottom job RUNNING at layer 1170 of 1502. That
+reading is after recovery; it does not identify the interrupted layer.
+
 Requested H2C trim is +0.18 mm, emitted +0.16 mm for Textured PEI. Timelapse and
 bed leveling are On; flow and nozzle-offset calibration are Auto. A macOS
 notification obstructed the first transaction before the send dialog opened.

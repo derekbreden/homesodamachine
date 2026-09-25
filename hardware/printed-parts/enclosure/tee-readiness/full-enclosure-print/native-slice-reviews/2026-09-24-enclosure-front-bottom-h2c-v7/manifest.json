@@ -77,7 +77,7 @@
     "nozzle_offset_calibration": "Auto"
   },
   "user_authority": "Derek reports H2C clear and requests starting front-bottom. Standing preference: complete 0.08 mm visible rounds without support contact; six walls only through downward round bands; original wall order and speeds; 15% overlap.",
-  "physical_result": "Not yet assessed.",
+  "physical_result": "2026-09-25: Derek reports that H2C recovered after accidental power loss mid-print, mid-extrusion, with no visible defect at the interruption point. Completed part, fit and support removal remain unassessed.",
   "printer_task_id": "1279923918",
   "sent_at_utc": "2026-09-24T22:26:44.126319+00:00",
   "launch_record": "launch.json",
