@@ -16,12 +16,14 @@ From the repository root, with the web and `tools/render` dependencies installed
 python3 marketing/video/tour/prepare-audio.py
 node marketing/video/tour/render.mjs --stills
 node marketing/video/tour/render.mjs
+node marketing/video/tour/serve.mjs
 ```
 
 FFmpeg encodes `out/opening.mp4`. The caption sidecars are `out/opening.vtt` and
 `out/opening.srt`. Review frames and the edited narration also live in `out/`.
 The browser uses the site's Montserrat fonts and brand artwork.
-`out/index.html` plays the video and provides the MP4 download when served locally.
+The preview server prints its local URL and supports seeking through the MP4.
+`out/index.html` plays the video and provides the MP4 download.
 
 ## Record narration
 
