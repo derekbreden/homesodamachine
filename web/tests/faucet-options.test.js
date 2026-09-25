@@ -26,16 +26,18 @@ test("part drilldown uses the owning faucet style, including the seated cover", 
   assert.equal(sourceFileFor("display-cover", files, "manifold-layout/enclosure-assembly.step"), null);
 });
 
-test("finish includes only PET-GF faucet parts and never the machine's display cover", () => {
+test("finish includes the faucet exterior, lever, dispense tubes and above-counter gasket", () => {
   for (const style of FAUCET_STYLES) {
-    for (const name of ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate"]) {
+    for (const name of ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "above_counter_gasket"]) {
       assert.ok(isFaucetFinishBody(style.assembly, name));
       assert.ok(hasFaucetFinish(style.parts[name]));
     }
-    for (const name of ["westbrass", "lever", "above_counter_gasket", "faucet_display", "faucet_display_screen", "flavor_a", "display-cover"]) {
+    for (const name of ["lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x"]) {
+      assert.ok(isFaucetFinishBody(style.assembly, name), name);
+    }
+    for (const name of ["westbrass", "faucet_display", "faucet_display_screen", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate", "display-cover"]) {
       assert.equal(isFaucetFinishBody(style.assembly, name), false, name);
     }
-    assert.equal(hasFaucetFinish(style.parts.above_counter_gasket), false);
   }
   assert.equal(isFaucetFinishBody("manifold-layout/enclosure-assembly.step", "shell_base"), false);
 });

@@ -29,13 +29,16 @@ export const FAUCET_STYLES = [
   },
 ];
 
-// Linear RGB; both finishes retain PET-GF's matte, nonmetallic surface.
+// Linear RGB; both finishes have a matte, nonmetallic surface.
 export const FAUCET_FINISHES = [
   { id: "black", label: "Black", rgb: [0.0331047666, 0.0331047666, 0.0363064840], roughness: 0.85, metalness: 0 },
   { id: "white", label: "White", rgb: [0.8713671192, 0.8713671192, 0.8559926082], roughness: 0.85, metalness: 0 },
 ];
 
-const PRINTED_BODIES = new Set(["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate"]);
+const FINISH_BODIES = new Set([
+  "shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate",
+  "above_counter_gasket", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x",
+]);
 
 export function faucetStyleFor(file) {
   return FAUCET_STYLES.find((style) => style.assembly === file) || null;
@@ -47,10 +50,10 @@ export function faucetSourceFile(name, owner) {
 
 export function hasFaucetFinish(file) {
   return !!faucetStyleFor(file) || FAUCET_STYLES.some((style) =>
-    Object.entries(style.parts).some(([name, path]) => PRINTED_BODIES.has(name) && path === file));
+    Object.entries(style.parts).some(([name, path]) => FINISH_BODIES.has(name) && path === file));
 }
 
 export function isFaucetFinishBody(file, name) {
-  if (faucetStyleFor(file)) return PRINTED_BODIES.has(name);
+  if (faucetStyleFor(file)) return FINISH_BODIES.has(name);
   return hasFaucetFinish(file);
 }

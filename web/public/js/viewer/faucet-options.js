@@ -1,5 +1,5 @@
 // Faucet choices live with the model. Style loads the printable assembly;
-// finish swaps only its PET-GF materials and takes no network round trip.
+// finish swaps its exterior materials and takes no network round trip.
 import { FAUCET_STYLES, FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish } from "/contracts/faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { state } from "./state.js";
