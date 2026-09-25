@@ -1,0 +1,12 @@
+{
+  "prior_printer_task_id": "1282164977",
+  "prior_launch_record": "../launch.json",
+  "reported_by": "Derek in this conversation",
+  "reported_problem": "A problem loading; requested the same print again.",
+  "observed_state": "FAILED",
+  "observed_at_utc": "2026-09-25T17:58:45.405285+00:00",
+  "observed_layer": 0,
+  "print_error": 0,
+  "hms": [],
+  "geometry_and_settings_changed": false
+}

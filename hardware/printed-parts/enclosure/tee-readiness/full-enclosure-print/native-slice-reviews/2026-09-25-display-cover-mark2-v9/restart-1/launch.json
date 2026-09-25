@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-25T18:04:16.621700+00:00",
+  "archive": {
+    "name": "display-cover-mark2-v9-retry2.gcode.3mf",
+    "sha256": "647df9d220f388e05e23a9ec274b6c2c6240e0cff33151039de03b482d92a509",
+    "gcode_sha256": "d4f34722ed90851659be349d9b2f848a2157fdadea1b8fa74a853f5dafa12502",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "display-cover"
+    ]
+  },
+  "printer_task_id": "1282199028",
+  "gcode_state": "RUNNING",
+  "subtask_name": "display-cover-mark2-v9-retry2.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 56,
+  "mc_remaining_time": 24
+}
