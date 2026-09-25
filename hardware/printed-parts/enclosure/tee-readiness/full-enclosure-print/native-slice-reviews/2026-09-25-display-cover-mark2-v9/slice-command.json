@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-25-display-cover-mark2-v9/ready",
+  "--export-3mf",
+  "display-cover-black-z004-mark2-v9-inset-snaps-12.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-25-display-cover-mark2-v9/display-cover-black-z004-mark2-v9-inset-snaps-12-input.3mf"
+]
