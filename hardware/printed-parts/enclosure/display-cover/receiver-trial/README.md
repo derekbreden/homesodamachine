@@ -2,8 +2,9 @@
 
 One rigid, full-width surround for the machine display cover with its skirts inset
 1.2 mm per side. The coupon holds the 126.1 × 83.6 mm bezel pocket, glass seat and
-both receivers on the enclosure's 30° display plane. Two side cheeks and a bed
-frame carry the surround in front-top's print orientation.
+both receivers on the enclosure's 30° display plane. Two side cheeks and a front
+foot carry the surround in front-top's print orientation. The underside and back
+are open for support removal.
 
 Each receiver has a 2 mm thick retaining ledge with 1.0 mm nominal hook overlap,
 0.7 mm at the cover's full lateral float. The upper slot retains 1.5 mm clearance

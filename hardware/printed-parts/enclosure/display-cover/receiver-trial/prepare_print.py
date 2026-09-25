@@ -11,7 +11,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 
-JOB = ROOT/'.cache/prints/2026-09-25-display-receiver-trial-mark2-v1-final'
+JOB = ROOT/'.cache/prints/2026-09-25-display-receiver-trial-mark2-v1-open-back'
 STEM = 'display-receiver-trial-black-z004-mark2-v1'
 PROFILE = ROOT/'hardware/printed-parts/petgf.3mf'
 SOURCE = HERE/'display-receiver-trial-v1.stl'
