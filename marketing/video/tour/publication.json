@@ -8,5 +8,24 @@
   "category": "Science & Technology",
   "madeForKids": false,
   "visibility": "public",
-  "status": "prepared"
+  "status": "published",
+  "channel": "Home Soda Machine",
+  "channelId": "UCvlTxqzLbamEXK7zo0L9g6A",
+  "videoId": "aYyjj8i9WS8",
+  "url": "https://youtu.be/aYyjj8i9WS8",
+  "syntheticNarration": true,
+  "aiDisclosure": true,
+  "paidPromotion": false,
+  "videoSha256": "bf448b7d81f5d91a96dbaa8ce322a4a457b3748b0c532186759be7b510d9d8c5",
+  "publishedDate": "2026-09-25",
+  "verifiedAt": "2026-09-25T21:23:03.542401+00:00",
+  "durationSeconds": 198.467,
+  "verification": {
+    "publicWatchPage": true,
+    "customThumbnail": true,
+    "maxResolution": "1080p",
+    "captions": "English",
+    "chapterLinks": 7,
+    "copyrightCheck": "No issues found"
+  }
 }
