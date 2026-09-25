@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside the soda machine — full film</title>
+<style>
+  :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+  body { margin: 0; padding: 40px 28px; background: #1749d1; color: #ffffff; }
+  main { max-width: 1440px; margin: auto; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+  h1 { font-size: 24px; font-weight: 500; margin: 0 0 8px; }
+  p { color: #dce6ff; font-size: 15px; margin: 0; }
+  a.download { color: #10319c; background: #dce6ff; padding: 12px 18px; border-radius: 7px; text-decoration: none; white-space: nowrap; }
+  a.download:hover { background: white; }
+  video { display: block; width: 100%; aspect-ratio: 16/9; background: #1749d1; border-radius: 8px; outline: 1px solid #dce6ff55; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  button { font: inherit; font-size: 13px; border: 1px solid #dce6ff66; border-radius: 6px; background: transparent; color: #dce6ff; padding: 10px 13px; cursor: pointer; }
+  button:hover, button[aria-current="true"] { color: #10319c; background: #dce6ff; }
+  button span { opacity: .75; margin-right: 7px; font-variant-numeric: tabular-nums; }
+  footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; color: #dce6ff; font-size: 14px; }
+  footer a { color: inherit; }
+  @media (max-width: 650px) { body { padding: 24px 14px; } header { align-items: start; flex-direction: column; } footer { flex-direction: column; } }
+</style>
+<main>
+  <header>
+    <div><h1>Inside the soda machine</h1><p>Full narrated tour · <span id="duration">1080p</span></p></div>
+    <a class="download" href="film.mp4" download="home-soda-machine-full-tour.mp4">Download MP4</a>
+  </header>
+  <video controls playsinline preload="metadata" poster="film-poster.jpg" src="film.mp4"></video>
+  <nav aria-label="Film chapters"></nav>
+  <footer><span>Gemini narration · Charon voice</span><span><a href="film.srt" download>Captions</a> · <a href="opening.html">Opening excerpt</a></span></footer>
+</main>
+<script>
+  const video=document.querySelector('video');
+  const stamp=seconds=>`${Math.floor(seconds/60)}:${String(Math.floor(seconds%60)).padStart(2,'0')}`;
+  video.addEventListener('loadedmetadata',()=>{document.querySelector('#duration').textContent=`${stamp(video.duration)} · 1080p`;});
+  fetch('film-chapters.json').then(response=>response.json()).then(chapters=>{
+    const buttons=chapters.map((chapter,i)=>{
+      const button=document.createElement('button');
+      const time=document.createElement('span');time.textContent=stamp(chapter.start);
+      button.append(time,chapter.title.replace(/^\d+ \/ /,''));
+      button.addEventListener('click',()=>{video.currentTime=chapter.start;video.play();});
+      document.querySelector('nav').append(button);return button;
+    });
+    video.addEventListener('timeupdate',()=>buttons.forEach((button,i)=>button.setAttribute('aria-current',
+      video.currentTime>=chapters[i].start && (!chapters[i+1] || video.currentTime<chapters[i+1].start))));
+  });
+</script>
+</html>

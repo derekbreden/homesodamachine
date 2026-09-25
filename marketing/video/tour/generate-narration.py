@@ -17,9 +17,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--key-file", type=Path, default=Path.home() / "Developer/.gemini_key")
     parser.add_argument("--voice")
+    parser.add_argument("--config", type=Path, default=ROOT / "narration.json")
     parser.add_argument("--output", type=Path, default=ROOT / "audio/narration.wav")
     args = parser.parse_args()
-    config = json.loads((ROOT / "narration.json").read_text())
+    config = json.loads(args.config.read_text())
     key = os.environ.get("GEMINI_API_KEY") or args.key_file.expanduser().read_text().strip()
     if key.startswith(("export ", "GEMINI_API_KEY=", "GOOGLE_API_KEY=")):
         key = key.split("=", 1)[1].strip().strip("\"'")
@@ -39,7 +40,7 @@ def main():
         method="POST",
     )
     try:
-        with urllib.request.urlopen(request, timeout=180) as response:
+        with urllib.request.urlopen(request, timeout=600) as response:
             result = json.load(response)
     except urllib.error.HTTPError as error:
         detail = error.read().decode().replace(key, "[REDACTED]")

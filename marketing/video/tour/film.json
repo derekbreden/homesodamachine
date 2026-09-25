@@ -1,0 +1,408 @@
+{
+  "title": "Inside the soda machine",
+  "openingDuration": 41.63333333333333,
+  "tail": 4.5,
+  "scenes": [
+    {
+      "id": "water-inlet",
+      "step": 3,
+      "chapter": "01 / WATER",
+      "title": [
+        "From the",
+        "house supply."
+      ],
+      "detail": "A protected water connection.",
+      "text": "Tap water enters at the rear. A beverage backflow preventer protects the house supply from reverse flow.",
+      "lead": 1.3,
+      "hold": 1.1,
+      "labels": [
+        {
+          "title": "Water inlet",
+          "detail": "Supply and backflow protection",
+          "parts": [
+            "asse1022-assembly",
+            "bulkhead-water"
+          ]
+        }
+      ],
+      "captionPhrases": [
+        "Tap water enters at the rear.",
+        "A beverage backflow preventer protects the house supply",
+        "from reverse flow."
+      ]
+    },
+    {
+      "id": "water-pump",
+      "step": 4,
+      "chapter": "01 / WATER",
+      "title": [
+        "Refill under",
+        "pressure."
+      ],
+      "detail": "Water in. Carbonation held.",
+      "text": "The diaphragm pump pushes water into the carbonator against the carbon dioxide pressure inside. A fill valve opens when more water is needed.",
+      "lead": 1.0,
+      "hold": 1.2,
+      "labels": [
+        {
+          "title": "Diaphragm pump",
+          "detail": "Pushes against the gas pressure",
+          "parts": [
+            "g-ganen-pump"
+          ]
+        },
+        {
+          "title": "Fill valve",
+          "detail": "Opens to replenish the water",
+          "parts": [
+            "vk-solenoid"
+          ]
+        }
+      ],
+      "captionPhrases": [
+        "The diaphragm pump pushes water into the carbonator",
+        "against the carbon dioxide pressure inside.",
+        "A fill valve opens when more water is needed."
+      ]
+    },
+    {
+      "id": "refrigeration",
+      "step": 5,
+      "chapter": "02 / REFRIGERATION",
+      "title": [
+        "Move the",
+        "heat out."
+      ],
+      "detail": "Cold inside. Heat carried away.",
+      "text": "To keep that water cold, the compressor circulates refrigerant through the cold core. The condenser and fan carry the heat out through the enclosure's side grilles.",
+      "lead": 1.1,
+      "hold": 1.3,
+      "labels": [
+        {
+          "title": "Compressor",
+          "detail": "Circulates the refrigerant",
+          "parts": [
+            "compressor"
+          ]
+        },
+        {
+          "title": "Condenser + fan",
+          "detail": "Releases heat into the room",
+          "parts": [
+            "condenser+fan"
+          ]
+        }
+      ],
+      "captionPhrases": [
+        "To keep that water cold,",
+        "the compressor circulates refrigerant through the cold core.",
+        "The condenser and fan carry the heat out",
+        "through the enclosure's side grilles."
+      ]
+    },
+    {
+      "id": "cold-core",
+      "step": 6,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "One insulated",
+        "cold core."
+      ],
+      "detail": "Water and flavor share the cold.",
+      "text": "Now, stay with the cold core. Inside this insulated block are the carbonator, its copper coil, and both flavor reservoirs.",
+      "lead": 0.7,
+      "hold": 1.2,
+      "labels": [],
+      "captionPhrases": [
+        "Now, stay with the cold core.",
+        "Inside this insulated block are the carbonator,",
+        "its copper coil, and both flavor reservoirs."
+      ]
+    },
+    {
+      "id": "core-caps",
+      "step": 7,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Insulated at",
+        "both ends."
+      ],
+      "detail": "Foam-filled end caps.",
+      "text": "Foam-filled caps close both ends. Lift them away, and the layered construction begins to appear.",
+      "lead": 0.8,
+      "hold": 1.0,
+      "labels": [],
+      "captionPhrases": [
+        "Foam-filled caps close both ends.",
+        "Lift them away,",
+        "and the layered construction begins to appear."
+      ]
+    },
+    {
+      "id": "core-shell",
+      "step": 8,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Beneath",
+        "the shell."
+      ],
+      "detail": "A printed shell holds the insulation.",
+      "text": "The printed shell holds the insulation. Beneath it, two reservoirs nest beside the coil-wrapped carbonator.",
+      "lead": 0.9,
+      "hold": 1.2,
+      "labels": [],
+      "captionPhrases": [
+        "The printed shell holds the insulation.",
+        "Beneath it, two reservoirs nest",
+        "beside the coil-wrapped carbonator."
+      ]
+    },
+    {
+      "id": "core-spread",
+      "step": 9,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Four parts.",
+        "One cold center."
+      ],
+      "detail": "A little separation reveals the fit.",
+      "text": "A little separation makes the arrangement clear. Copper above, carbonator below, and a flavor reservoir on either side.",
+      "lead": 0.7,
+      "hold": 1.4,
+      "coreLabels": true,
+      "labels": [],
+      "captionPhrases": [
+        "A little separation makes the arrangement clear.",
+        "Copper above, carbonator below,",
+        "and a flavor reservoir on either side."
+      ]
+    },
+    {
+      "id": "copper-coil",
+      "step": 10,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Copper carries",
+        "the heat away."
+      ],
+      "detail": "Refrigerant evaporates inside the coil.",
+      "text": "Refrigerant evaporates inside the copper coil. Bonded around the carbonator's steel wall, it pulls heat directly from the water inside.",
+      "lead": 0.9,
+      "hold": 1.3,
+      "coreLabels": true,
+      "activeCore": 1,
+      "labels": [],
+      "captionPhrases": [
+        "Refrigerant evaporates inside the copper coil.",
+        "Bonded around the carbonator's steel wall,",
+        "it pulls heat directly from the water inside."
+      ]
+    },
+    {
+      "id": "carbonator",
+      "step": 11,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Cold water.",
+        "Fine bubbles."
+      ],
+      "detail": "Carbon dioxide meets chilled water.",
+      "text": "The stainless steel carbonator holds water under carbon dioxide pressure. Gas enters at the bottom. An internal sparge stone spreads it into small bubbles.",
+      "lead": 0.9,
+      "hold": 1.3,
+      "coreLabels": true,
+      "activeCore": 2,
+      "labels": [],
+      "captionPhrases": [
+        "The stainless steel carbonator holds water",
+        "under carbon dioxide pressure.",
+        "Gas enters at the bottom.",
+        "An internal sparge stone spreads it into small bubbles."
+      ]
+    },
+    {
+      "id": "flavor-reservoirs",
+      "step": 12,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Two flavors.",
+        "Both chilled."
+      ],
+      "detail": "Each concentrate has its own reservoir.",
+      "text": "Each reservoir holds its own concentrate. Nestled beside the carbonator, both flavors pre-chill before separate pumps send them to the faucet.",
+      "lead": 0.9,
+      "hold": 1.3,
+      "coreLabels": true,
+      "activeCore": [
+        3,
+        4
+      ],
+      "labels": [],
+      "captionPhrases": [
+        "Each reservoir holds its own concentrate.",
+        "Nestled beside the carbonator, both flavors pre-chill",
+        "before separate pumps send them to the faucet."
+      ]
+    },
+    {
+      "id": "core-reassemble",
+      "step": 13,
+      "chapter": "03 / THE COLD CORE",
+      "title": [
+        "Everything",
+        "nests together."
+      ],
+      "detail": "One core keeps water and flavor cold.",
+      "text": "The coil hugs the carbonator. The reservoirs return to their pockets. The shell and caps surround them, completing one insulated cold core.",
+      "lead": 0.8,
+      "hold": 1.8,
+      "labels": [],
+      "captionPhrases": [
+        "The coil hugs the carbonator.",
+        "The reservoirs return to their pockets.",
+        "The shell and caps surround them,",
+        "completing one insulated cold core."
+      ]
+    },
+    {
+      "id": "core-in-machine",
+      "step": 14,
+      "chapter": "04 / FLAVOR ON DEMAND",
+      "title": [
+        "Back in",
+        "the machine."
+      ],
+      "detail": "The working parts return to view.",
+      "text": "Back in the machine, refrigeration works ahead of the cold core. Above it, pumps and valves keep each flavor ready.",
+      "lead": 0.8,
+      "hold": 1.0,
+      "labels": [],
+      "captionPhrases": [
+        "Back in the machine,",
+        "refrigeration works ahead of the cold core.",
+        "Above it, pumps and valves keep each flavor ready."
+      ]
+    },
+    {
+      "id": "flavor-pumps",
+      "step": 15,
+      "chapter": "04 / FLAVOR ON DEMAND",
+      "title": [
+        "Ready for",
+        "the first drop."
+      ],
+      "detail": "Two flavors. Separate pumps.",
+      "text": "Each peristaltic pump meters one flavor. The flavor lines stay primed and valve-locked between pours, ready when the faucet opens.",
+      "lead": 0.9,
+      "hold": 1.3,
+      "labels": [
+        {
+          "title": "Flavor A",
+          "detail": "Its own peristaltic pump",
+          "parts": [
+            "pump-a-head",
+            "pump-a-motor"
+          ]
+        },
+        {
+          "title": "Flavor B",
+          "detail": "Its own peristaltic pump",
+          "parts": [
+            "pump-b-head",
+            "pump-b-motor"
+          ]
+        }
+      ],
+      "captionPhrases": [
+        "Each peristaltic pump meters one flavor.",
+        "The flavor lines stay primed and valve-locked between pours,",
+        "ready when the faucet opens."
+      ]
+    },
+    {
+      "id": "flow-sensor",
+      "step": 16,
+      "chapter": "05 / POUR A GLASS",
+      "title": [
+        "The pour",
+        "starts it."
+      ],
+      "detail": "Flow tells the flavor pump to run.",
+      "text": "Carbonated water passes through a flow sensor on its way to the faucet. Its pulses tell the machine to run the selected flavor pump.",
+      "lead": 1.0,
+      "hold": 1.3,
+      "labels": [
+        {
+          "title": "Flow sensor",
+          "detail": "Responds as the water moves",
+          "parts": [
+            "digiten-flow"
+          ]
+        }
+      ],
+      "captionPhrases": [
+        "Carbonated water passes through a flow sensor",
+        "on its way to the faucet.",
+        "Its pulses tell the machine",
+        "to run the selected flavor pump."
+      ]
+    },
+    {
+      "id": "outlets",
+      "step": 17,
+      "chapter": "05 / POUR A GLASS",
+      "title": [
+        "Together in",
+        "your glass."
+      ],
+      "detail": "Separate paths, all the way to the faucet.",
+      "text": "One tube carries carbonated water. Two carry the flavors. The selected concentrate meets the water only in your glass.",
+      "lead": 0.9,
+      "hold": 1.5,
+      "diagram": "glass",
+      "labels": [
+        {
+          "title": "Carbonated water",
+          "detail": "One dedicated outlet",
+          "parts": [
+            "bulkhead-carb"
+          ]
+        },
+        {
+          "title": "Two flavors",
+          "detail": "Separate concentrate outlets",
+          "parts": [
+            "bulkhead-flavor-a",
+            "bulkhead-flavor-b"
+          ]
+        }
+      ],
+      "captionPhrases": [
+        "One tube carries carbonated water.",
+        "Two carry the flavors.",
+        "The selected concentrate meets the water",
+        "only in your glass."
+      ]
+    },
+    {
+      "id": "ready-to-pour",
+      "step": 18,
+      "chapter": "HOME SODA MACHINE",
+      "title": [
+        "Cold.",
+        "On tap."
+      ],
+      "detail": "Ready for the next glass.",
+      "text": "The enclosure closes around the working parts. Water, cold, carbonation, and flavor. All under the counter. Ready at the faucet.",
+      "lead": 0.6,
+      "hold": 1.0,
+      "labels": [],
+      "captionPhrases": [
+        "The enclosure closes around the working parts.",
+        "Water, cold, carbonation, and flavor.",
+        "All under the counter.",
+        "Ready at the faucet."
+      ]
+    }
+  ]
+}
