@@ -5667,6 +5667,56 @@ cp hardware/printed-parts/enclosure/display-cover/README.md $$O4
 )
 
 genrule(
+    name = "display-receiver-trial",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step",
+        "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh",
+        "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step)
+O1=$$PWD/$(location out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh)
+O2=$$PWD/$(location out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py > /dev/null
+cp hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step $$O0
+cp hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh $$O1
+cp hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl $$O2
+""",
+)
+
+genrule(
     name = "display-gasket",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -12051,6 +12101,14 @@ genrule(
     name = "pysrc-f4432f766306",
     srcs = ["hardware/printed-parts/enclosure/display-cover/display_cover.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-643322b07a9e",
+    srcs = ["hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -26015,6 +26073,7 @@ filegroup(
         ":asse-drip-pan",
         ":bulkhead-ring",
         ":display-cover",
+        ":display-receiver-trial",
         ":display-gasket",
         ":appliance-model",
         ":enclosure",
