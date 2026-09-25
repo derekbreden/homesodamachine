@@ -1,0 +1,69 @@
+{
+  "status": "prepared_not_sent",
+  "submitted": false,
+  "print_started": false,
+  "printer": "Mark2",
+  "plate_contents": [
+    "display-cover"
+  ],
+  "native_archive": ".cache/prints/2026-09-25-display-cover-mark2-v7/ready/display-cover-black-z004-mark2-v7-inset-snaps-06.gcode.3mf",
+  "native_archive_sha256": "ce6792c32a27d2af88ed13c982d65c5c2c91658ef64bea7bfd7fd035f5f75fa5",
+  "gcode_sha256": "3adfd73e97ce2fda14e70643c1c2e32249da6cb9611ee4b9cf89c22773973bbb",
+  "staged_input": ".cache/prints/2026-09-25-display-cover-mark2-v7/display-cover-black-z004-mark2-v7-inset-snaps-06-input.3mf",
+  "staged_input_sha256": "922634e96602e620fdc06edc706f9afe822de77ec43ced02fb87196723a22cc2",
+  "estimated_seconds": 1435.20068359375,
+  "estimated_grams_saved_profile_density": 8.637185096740723,
+  "geometry": {
+    "skirt_inset_each_mm": 0.6,
+    "additional_shift_each_mm": 0.3,
+    "perimeter_and_window_unchanged": true,
+    "housing_receivers_unchanged": true,
+    "nominal_catch_overlap_mm": 0.8999999999999986,
+    "minimum_catch_overlap_at_full_lateral_float_mm": 0.5999999999999985
+  },
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "support_review": "support-removal-review.json",
+  "previous_trial_feedback": "../2026-09-24-display-cover-window-covers-mark2-v6/physical-feedback.json",
+  "settings": {
+    "material": "black PET-GF; printer labels PET-CF",
+    "nozzle": "left 0.4 mm Standard",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_commands_mm": [
+      0,
+      0.02
+    ],
+    "first_layer_height_mm": 0.2,
+    "layer_height_mm": 0.24,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall, then infill",
+    "infill_wall_overlap": "15%",
+    "brim": "auto_brim",
+    "native_settings_identical_to_previous_printed_trial": true
+  },
+  "physical_trial": "Evaluate remaining bow and retention with both snaps engaged. Physical performance is not established by CAD catch overlap.",
+  "checks": {
+    "current_source_hashes": true,
+    "unchanged_bezel_symmetric_difference_mm3": 0,
+    "each_snap_translation_is_exact": true,
+    "seated_housing_interference_mm3": 0,
+    "retained_across_full_lateral_float": true,
+    "native_checksum_valid": true,
+    "support_review_passed": true,
+    "post_publish_geometry_lint": "pending"
+  },
+  "review_sha256": {
+    "unchanged-housing-inputs.json": "dc662c6a4149409570359640191034dc26234f58bf6a4f1db29330d9aa84cf1d",
+    "preparation.json": "4cbe94036fbbc8d8cab05cafc4804f9fe6718f50afd8ba4b06dddb96c82b2968",
+    "preview.png": "c7ab14ac5d26db2a0c8f0a7dba5acac59c8df2257031d3cc8465f63403e28c33",
+    "slice-command.json": "fe5dd8327b70dfb97e9749be7011641be4de3b49c8454afee9a27692d936d4ab",
+    "verify_geometry.py": "9ec6fb681280013d572437f34c4fe4cf80e2c27b5aaaa3fc218bfca089f6005e",
+    "support-removal-review.json": "50bc437d8655a73bb25383e697f6d00d8e5955f43435986ac531e55ac795440e",
+    "verification.json": "12ca91645f840e31db41d1f345dda32a876e5b533cf06d03927444da8da03445",
+    "verify.py": "b2a6d2ff417c329bd01a1641402e61f0164df4ac4b3e53f8aa4db1e86a4d5da3",
+    "slice-result.json": "56fa245ad87c6445ac0b786a82ab29c813246ab037b2e2217e7a11f46ae526cf",
+    "prepare.py": "c5495ada4c41b4efd478edba22a35f817b680d54f5724e9fb6b44f815432de88",
+    "support-audit-display-cover.json": "2b4eee66247980fdf2e1b08e29b2d173aa9ee77f089ebb73a59ad9b2963fde1b",
+    "geometry-check.json": "435f3391ccc5a7a583b6b2c9751a82447a57ca7bbd3a6a8d3db5a819d4e87a10"
+  }
+}

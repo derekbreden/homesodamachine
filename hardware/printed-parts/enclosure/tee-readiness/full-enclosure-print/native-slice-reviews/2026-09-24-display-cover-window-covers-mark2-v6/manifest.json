@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -73,7 +73,8 @@
     "support-audit-display-cover.json": "867f8d175a815ce1aad1954972bfa85b5ed28cfe1ea4bfc4280e0e244b41f54b",
     "geometry-check.json": "7348115b8c006272aa0c4519843efac42e446623da38ca759e893adb634d524c",
     "launch.json": "d5b50527a3b4842a62c661c6de7650733e08ffb607fbcc90d40d2dd28ba61cdf",
-    "prelaunch.json": "0d2f4267f070a5537be17656acc9f7c2e78a7d86b736461290c59bc620727991"
+    "prelaunch.json": "0d2f4267f070a5537be17656acc9f7c2e78a7d86b736461290c59bc620727991",
+    "physical-feedback.json": "9d058d588e7610f1dfbd17de582c12c73a9873ee52ce72f4d9f5224ab08f5e54"
   },
   "printer_task_id": "1281656339",
   "observed_at_utc": "2026-09-25T14:34:19.303897+00:00",
@@ -91,5 +92,9 @@
     "auto_bed_leveling": "On",
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
-  }
+  },
+  "completion_observed_at_utc": "2026-09-25T15:59:06.257110+00:00",
+  "completion_state": "FINISH",
+  "physical_feedback": "physical-feedback.json",
+  "physical_result": "Display-cover bowing reduced only slightly; another 0.3 mm inward snap shift per side requested. Window-cover fit not reported."
 }

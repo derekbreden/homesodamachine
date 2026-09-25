@@ -1,6 +1,7 @@
 # Display cover and window covers — Mark2
 
-Printing on Mark2 since 2026-09-25 14:34 UTC, task `1281656339`, with no startup errors.
+Completed on Mark2, task `1281656339`. Derek reports that display-cover bowing reduced
+only slightly; the [physical feedback](physical-feedback.json) requests another inward snap shift.
 One full machine display cover and the two window covers that slide
 onto front-top's posts behind the tee carrier. The native estimate is **41 min 57 sec**,
 including startup, and 19.67 g at the saved profile's density. The display cover alone is
