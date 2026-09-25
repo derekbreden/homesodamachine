@@ -1,10 +1,10 @@
 # Machine display cover
 
 A PET-GF bezel with a smooth, rounded face, let into the enclosure's 30° display plane.
-The cover measures [124.9 mm](COVER_X) across by [82.4 mm](COVER_SLOPE) up the slope,
-with [5.7 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
+The cover measures [125.5 mm](COVER_X) across by [83 mm](COVER_SLOPE) up the slope,
+with [6 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
 Its [107.5 mm](WINDOW_X) window laps the display glass on the TPU gasket.
-The reveal has [0.6 mm](COVER_SLIP) clearance per side.
+The reveal has [0.3 mm](COVER_SLIP) clearance per side.
 
 Two broad side skirts snap into the housing. Each is the nameplate's snap tab run along
 the display: [1.3 mm](SKIRT_WALL) thick, [24 mm](SKIRT_LENGTH) long, reaching
