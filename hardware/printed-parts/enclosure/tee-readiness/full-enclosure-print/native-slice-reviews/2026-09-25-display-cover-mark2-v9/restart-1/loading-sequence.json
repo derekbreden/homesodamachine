@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-09-25T18:02:32.639892+00:00",
+  "command_reply": {
+    "command": "project_file",
+    "result": "FAIL",
+    "reason": "ERROR STATE",
+    "err_code": 84033549
+  },
+  "vendor_error_code_hex": "0502400D",
+  "vendor_error_text": "Failed to start a new task: filament loading/unloading not completed.",
+  "vendor_error_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+  "bambu_connect_observation": {
+    "printer": "Mark2",
+    "print_state": "Failed",
+    "left_nozzle_current_c": 275,
+    "left_nozzle_target_c": 275,
+    "right_nozzle_current_c": 45,
+    "right_nozzle_target_c": 0,
+    "loading_step": "Purge old filament",
+    "available_actions": [
+      "Retry",
+      "Stop"
+    ],
+    "load_and_unload_buttons_disabled": true
+  },
+  "pending_input": "Whether black filament is now coming through normally.",
+  "new_job_started": false
+}
