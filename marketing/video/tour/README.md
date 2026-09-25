@@ -42,6 +42,17 @@ MP4 and caption downloads. `out/film.html` opens the same player.
 Omit `--full` to render `out/opening.mp4` and its player, `out/opening.html`.
 `--stills --at 46.65,121.66` reviews particular timestamps without encoding a film.
 
+## YouTube
+
+`publication.json` contains the upload title, description, chapter links, and
+audience settings. `thumbnail.jpg` is the 3840 × 2160 custom thumbnail, composed
+from the same exploded machine model, Montserrat type, and cobalt palette as
+the film. Regenerate it with:
+
+```sh
+node marketing/video/tour/render-thumbnail.mjs
+```
+
 ## Record narration
 
 ```sh
