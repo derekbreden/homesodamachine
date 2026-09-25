@@ -1452,7 +1452,7 @@
       ],
       "job_name": "display-cover-mark2-v9-retry2.gcode.3mf",
       "printer_task_id": "1282199028",
-      "status": "started",
+      "status": "completed",
       "started_by": "Codex at Derek's request",
       "observed_state": "RUNNING",
       "observed_at_utc": "2026-09-25T18:04:16.621700+00:00",
@@ -1478,7 +1478,7 @@
       "speed_settings": "unchanged from previous printed trial",
       "support_policy": "Two bed-rooted supports under the exposed display-cover square catches.",
       "geometry": "Each complete snap skirt inset 1.2 mm from original, another 0.3 mm per snap; bezel and fixed housing unchanged.",
-      "retention_limit": "0.3 mm hook overlap when centered; one hook reaches zero overlap at full lateral float. Physical retention remains to be evaluated.",
+      "retention_limit": "CAD overlap is 0.3 mm when centered and zero on one hook at full lateral float. Derek reports no retention in the printed part.",
       "source_geometry_sha256": {
         "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "37fe26d959acbdf102a353944de3d3ec62f8b4a8275c84acb83578ccfb6d40b5"
       },
@@ -1488,7 +1488,10 @@
       "bed_clear_confirmed_by": "Derek in this conversation",
       "restarts_printer_task_id": "1282164977",
       "restart_reason": "Derek requested another start after a loading problem; manual loading sequence cleared before accepted restart.",
-      "identical_archive_and_gcode": true
+      "identical_archive_and_gcode": true,
+      "completion_reported_by": "Derek in this conversation; printed part fit evaluated and bed clear.",
+      "physical_result": "Derek reports very slight remaining bowing, acceptable for the moment, and no retention. Retention force and repeated-use performance are unmeasured.",
+      "physical_feedback": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v9/physical-feedback.json"
     }
   ]
 }

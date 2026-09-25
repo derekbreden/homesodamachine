@@ -1482,17 +1482,18 @@ Its 107.5 × 71 mm window laps the Waveshare 4.3B glass through the 1 mm TPU gas
 The glass face sits 3 mm below the display plane; its back sits at 4 mm. The PCB
 passes through the housing behind it, offset 0.5 mm laterally and 1 mm down the slope.
 
-Two broad skirts on the cover snap into the housing. Each is the nameplate's snap tab
+Two broad skirts on the cover enter the housing. Each is the nameplate's snap tab
 run 24 mm along the display: 1.3 mm thick, reaching 13.3 mm below the face, with a square
 1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. Each cover skirt sits 1.2 mm
 inboard of its receiver datum, leaving 0.3 mm of centered overlap under the fixed catch.
-At full lateral float one lip has zero overlap and the opposite lip has 0.6 mm; physical
-retention remains to be checked. The skirt's
-slot continues the cover's inset wall down to the catch and leaves the skirt room to bend
-in by its whole lip.
+At full lateral float one lip has zero overlap and the opposite lip has 0.6 mm. Derek reports
+very slight remaining bowing, acceptable for the moment, and no retention in the
+[physical fit trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v9/physical-feedback.json).
+The slot continues the cover's inset wall down to the catch. With the skirt inset 1.2 mm,
+its centered inward flex clearance is 0.6 mm.
 The catch is the ceiling of the storey cavity beside the display, and the lip hangs into
-that cavity. The cover prints face down with its skirts pointing up. Seating and retention
-still require a physical print check.
+that cavity. The cover prints face down with its skirts pointing up. Retention force and
+repeated-use performance remain unmeasured.
 
 The 19 mm housing and its internal ridge join the side walls and the pump-bay
 bulkhead. Either side of the display's opening the storey beneath the housing is one
