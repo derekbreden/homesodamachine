@@ -6,7 +6,7 @@ with [6 mm](COVER_CORNER_R) outside corner radii and a [2 mm](COVER_T) face.
 Its [107.5 mm](WINDOW_X) window laps the display glass on the TPU gasket.
 The reveal has [0.3 mm](COVER_SLIP) clearance per side.
 
-Two broad side skirts snap into the housing. Each is the nameplate's snap tab run along
+Two broad side skirts enter the housing. Each is the nameplate's snap tab run along
 the display: [1.3 mm](SKIRT_WALL) thick, [24 mm](SKIRT_LENGTH) long, reaching
 [13.3 mm](SKIRT_DEPTH) below the face. Its square [1.8 mm](LIP_ENGAGEMENT) lip starts
 [8.5 mm](LIP_START) below the cover plate, stands on a [1.2 mm](LIP_LAND) land above a tapered
@@ -15,16 +15,18 @@ is open straight down into the pump bay.
 Each cover skirt sits [1.2 mm](SKIRT_INSET) inboard of its receiver datum; the housing's
 slots stay fixed. Each lip overlaps its catch by [0.3 mm](CATCH_OVERLAP) when centered.
 At the full 0.3 mm lateral float, one lip meets its catch's edge with zero overlap and the
-opposite lip overlaps by 0.6 mm. This fit trial requires a physical retention check.
+opposite lip overlaps by 0.6 mm. Derek's physical fit report records very slight remaining
+bowing, acceptable for the moment, and no retention. The nominal overlaps do not establish
+retention of the printed cover.
 
-Place the display and gasket in the housing, then press the cover normal to the screen until
-both lips click under their catches. The cover carries no screws.
+Place the display and gasket in the housing, then press the cover normal to the screen.
+The cover carries no screws.
 
 Print face down, with the visible face on the plate and both skirts pointing up, as the
 [nameplate](../nameplate/README.md) prints. Each lip's square catch face takes a support
 standing on the plate beside the cover's edge, with the nameplate's 0.24 mm top gap and its
-small-overhang filter off. Peel each support off whole and keep the catch faces flat. Physical
-seating, retention and repeated-use measurements remain to be recorded for this geometry.
+small-overhang filter off. Peel each support off whole and keep the catch faces flat.
+Retention force and repeated-use performance remain unmeasured for this geometry.
 The [fit trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v9/README.md)
 places the complete cover on one Mark2 plate.
 

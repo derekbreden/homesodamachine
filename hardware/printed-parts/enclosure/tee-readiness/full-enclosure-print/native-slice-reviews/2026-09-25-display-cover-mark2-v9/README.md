@@ -1,8 +1,12 @@
 # Display-cover snap fit trial — Mark2
 
+The [physical fit report](physical-feedback.json) records very slight remaining bowing,
+acceptable for the moment, and no retention, as reported by Derek. No pull-force
+measurement is available. The plate is clear and no next print is selected.
+
 Restarted on Mark2 at 2026-09-25 18:04 UTC, task 1282199028, with no reported error. The [restart receipt](restart-1/launch.json) confirms the same archive and G-code hashes. The initial task 1282164977 stopped at layer 0 after a loading problem reported by Derek. One complete display cover with each retaining skirt **1.2 mm inward** from the original receiver datum, another 0.3 mm inward from the preceding 0.9 mm trial. The outer bezel, window, complete skirt shape and fixed housing receivers retain their geometry.
 
-The centered catch overlap is **0.3 mm per hook**. At the full 0.3 mm lateral float, one hook has zero overlap and the opposite hook has 0.6 mm. Both catch when centered; a straight outward pull is caught at either lateral limit by the remaining hook. Resistance to peeling or repeated use has not been established. The physical trial checks bowing and retention together.
+The centered CAD catch overlap is **0.3 mm per hook**. At the full 0.3 mm lateral float, one hook has zero overlap and the opposite hook has 0.6 mm. The undeformed CAD solids intersect under a straight outward pull when centered and at either lateral limit. The printed cover has no retention in Derek's report; the CAD intersections do not establish its physical performance.
 
 Black PET-GF on the left 0.4 mm nozzle, 0.24 mm layers, 0.20 mm first layer, two walls, original wall order and speeds, 15% overlap, automatic brim, and Mark2 +0.04 mm requested Z trim.
 
