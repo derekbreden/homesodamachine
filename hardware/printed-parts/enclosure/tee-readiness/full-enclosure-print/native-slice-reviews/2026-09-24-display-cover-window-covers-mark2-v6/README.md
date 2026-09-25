@@ -10,7 +10,7 @@ including startup, and 19.67 g at the saved profile's density. The display cover
 The display cover's complete snap skirts sit 0.3 mm inward on each side. Its original
 125.5 × 83 mm perimeter, R6 corners, window and face thickness are unchanged, as are the
 housing receivers. The geometric catch overlap is 1.2 mm centered and at least 0.9 mm
-at the full modeled lateral float. Physical seating and retention remain to be tested.
+at the full modeled lateral float. The printed cover remains bowed with the snaps engaged; retention force has not been measured.
 The [physical observations](../../../../display-cover/physical-observations/2026-09-24/README.md)
 include the installed bow and the easy upside-down fit with the snaps disengaged.
 

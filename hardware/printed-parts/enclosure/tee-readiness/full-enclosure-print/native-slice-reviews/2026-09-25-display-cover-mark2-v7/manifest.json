@@ -1,7 +1,7 @@
 {
-  "status": "prepared_not_sent",
-  "submitted": false,
-  "print_started": false,
+  "status": "printing",
+  "submitted": true,
+  "print_started": true,
   "printer": "Mark2",
   "plate_contents": [
     "display-cover"
@@ -50,7 +50,10 @@
     "retained_across_full_lateral_float": true,
     "native_checksum_valid": true,
     "support_review_passed": true,
-    "post_publish_geometry_lint": "pending"
+    "post_publish_geometry_lint": {
+      "open_findings": 0,
+      "intentional_features_answered": 6
+    }
   },
   "review_sha256": {
     "unchanged-housing-inputs.json": "dc662c6a4149409570359640191034dc26234f58bf6a4f1db29330d9aa84cf1d",
@@ -64,6 +67,32 @@
     "slice-result.json": "56fa245ad87c6445ac0b786a82ab29c813246ab037b2e2217e7a11f46ae526cf",
     "prepare.py": "c5495ada4c41b4efd478edba22a35f817b680d54f5724e9fb6b44f815432de88",
     "support-audit-display-cover.json": "2b4eee66247980fdf2e1b08e29b2d173aa9ee77f089ebb73a59ad9b2963fde1b",
-    "geometry-check.json": "435f3391ccc5a7a583b6b2c9751a82447a57ca7bbd3a6a8d3db5a819d4e87a10"
+    "geometry-check.json": "435f3391ccc5a7a583b6b2c9751a82447a57ca7bbd3a6a8d3db5a819d4e87a10",
+    "geometry-lint.log": "25f29b999a3ccbc98f55c5794bcb2b34a786dba7acf0dcbba8ee883fb6e56968",
+    "launch.json": "43db0b92ca6c5ce665d2ff1635c6fe533b15dbaaf076ed9fda17fef39fd99102",
+    "prelaunch.json": "cd1c2817fb9011ecca2ac430044f9b772a8bdfd22607ffc4ff50b2662a67f1d6"
+  },
+  "published_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "2d17d7ffa9fc62ec5a1395a612a992a8829297c70ee413c2c8d5d8c9a00c563d",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "d92cc020df90484f6bad608f01d51df0fc7734a3259073891d8a43f0b8bb4872",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "e0097666ddae3f24454554180efe092892f1a72e6c081c2e9e120057d150e916",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "11413fe9964433a774c8c3b5230a1a1d87f09cb563a789dd57936b5ca9350cf1"
+  },
+  "printer_task_id": "1281899872",
+  "observed_at_utc": "2026-09-25T16:06:56.932963+00:00",
+  "observed_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "observed_layer": 0,
+  "observed_total_layers": 56,
+  "observed_remaining_minutes": 23,
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "send_method": "tools/bambu_print.py foreground mouse path; fresh transaction after notification obstruction, one actual Send click; printer project_file SUCCESS.",
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
   }
 }
