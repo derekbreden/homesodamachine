@@ -39,7 +39,7 @@ export const RevisionStamp: React.FC<{
           opacity={opacity}
           transform={`translate(${cx} ${cy}) scale(${scale}) rotate(${rot}) translate(${-cx} ${-cy})`}
         >
-          <rect x={bx} y={by} width={bw} height={bh} fill="rgba(12,27,44,0.65)" stroke={shop.stampLine} strokeWidth={1.5} />
+          <rect x={bx} y={by} width={bw} height={bh} fill={shop.ground} stroke={shop.stampLine} strokeWidth={1.5} />
           <line x1={bx} y1={by + bh / 2} x2={bx + bw} y2={by + bh / 2} stroke={shop.stampLine} strokeWidth={1} />
           <line x1={bx + bw * 0.52} y1={by} x2={bx + bw * 0.52} y2={by + bh} stroke={shop.stampLine} strokeWidth={1} />
           <text x={bx + 18} y={by + 34} fill={shop.dim} {...label}>{`REV ${rev}`}</text>

@@ -18,7 +18,7 @@ export const MainBoardDrawing: React.FC<{ at?: number }> = ({ at = 0 }) => {
           width={mainBoard.w}
           height={mainBoard.h}
           rx={mainBoard.rx}
-          fill="rgba(12,27,44,0.6)"
+          fill={shop.ground}
           opacity={fadeIn(frame, 16, 12)}
         />
         {/* outline */}

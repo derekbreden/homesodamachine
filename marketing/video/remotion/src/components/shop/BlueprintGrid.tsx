@@ -2,8 +2,7 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import { grid, shop, VIDEO } from "../../style/tokens";
 
-/** The Shop Notes ground: a fine engineering grid over blueprint indigo, with a
- *  bold line every few cells and a soft vignette to seat the drawing. */
+/** Fine and coarse engineering grids on the brand's cobalt ground. */
 export const BlueprintGrid: React.FC = () => {
   const bold = grid.size * grid.boldEvery;
   return (
@@ -31,14 +30,9 @@ export const BlueprintGrid: React.FC = () => {
               strokeWidth={grid.stroke * 1.5}
             />
           </pattern>
-          <radialGradient id="vig" cx="50%" cy="45%" r="78%">
-            <stop offset="52%" stopColor="rgba(0,0,0,0)" />
-            <stop offset="100%" stopColor="rgba(3,8,14,0.6)" />
-          </radialGradient>
         </defs>
         <rect width={VIDEO.width} height={VIDEO.height} fill="url(#fine)" />
         <rect width={VIDEO.width} height={VIDEO.height} fill="url(#bold)" />
-        <rect width={VIDEO.width} height={VIDEO.height} fill="url(#vig)" />
       </svg>
     </AbsoluteFill>
   );

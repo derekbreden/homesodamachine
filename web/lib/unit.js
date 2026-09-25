@@ -105,7 +105,7 @@ export function mountUnitRoutes(app) {
       renderHead({
         title: `${PAGES[page]} · ${serial} · Home Soda Machine`,
         fontStylesheet: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap",
-        themeColor: "#101623",
+        themeColor: "#1749d1",
         pageHead: `<meta name="description" content="Your soda machine, what’s included, and seven steps from installation to your first glass.">
 <link rel="canonical" href="https://homesodamachine.com${canonicalPath}">
 <link rel="stylesheet" href="/css/unit.css">
