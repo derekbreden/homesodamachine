@@ -128,6 +128,21 @@ experimental adaptation of the Aero 0.4 mm recipe. Slicing success establishes
 the emitted paths; it establishes no foam expansion, fit, sealing or pressure
 result. The 0.4 mm foaming data does not validate the 0.2 mm nozzle's density.
 
+## Reed reach
+
+Measured on the bench with one RC62 and one Littelfuse MDSR-7-10-15 reed, the
+reed standing parallel to the magnet's axis. Each distance runs from the reed to
+the magnet's outer edge nearest it.
+
+| Reed to magnet edge | Height of magnet travel the reed stays closed over |
+| --- | --- |
+| 30 mm | about 30 mm, ±15 mm about the reed's centre |
+| 40 mm | about 25 mm, ±12.5 mm |
+| 50 mm | the limit of reliable detection |
+
+Detection holds with the magnet or the reed up to 45° off that orientation in
+any direction.
+
 ## Application and pressure
 
 The existing reservoir rod position spends the donor float's larger bore

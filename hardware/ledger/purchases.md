@@ -348,12 +348,12 @@ Ice-maker donor units and copper coil for the chill loop.
 | Rubycon 470 µF 25 V low-ESR (0.08 Ω) radial aluminum electrolytic capacitor, 10×12.5 mm (15 pk) | [B0F8BZVBKF](https://www.amazon.com/dp/B0F8BZVBKF) | 1 pk | $7.40 | 112-0915506-0821038 | 2026-04-26 | 2026-04-27 | ACQUIRED |
 | HiLetgo NJK-5002C Hall-effect proximity switch (2 pk) | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $9.11 | 112-2147768-5852208 | 2026-03-15 | — | ACQUIRED |
 | Gebildet reed switches, 14 mm glass body, NO (6 pk) | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | 112-4347613-6452231 | 2026-04-24 | 2026-04-25 | ACQUIRED |
-| Littelfuse MDSR-7-10-15 reed switch, 10–15 AT — float/reed range evaluation. Confirmation estimate: $41.60 merchandise + $8.49 UPS Ground + $3.93 tax + $4.16 tariff; final tariff calculated at shipment | [Mouser 934-MDSR-710-15](https://www.mouser.com/ProductDetail/Littelfuse/MDSR-7-10-15) | 40 | $58.18 estimated | Mouser 40443716 | 2026-09-13 | — | ON-ORDER |
+| Littelfuse MDSR-7-10-15 reed switch, 10–15 AT — float/reed range evaluation. Confirmation estimate: $41.60 merchandise + $8.49 UPS Ground + $3.93 tax + $4.16 tariff; final tariff calculated at shipment | [Mouser 934-MDSR-710-15](https://www.mouser.com/ProductDetail/Littelfuse/MDSR-7-10-15) | 40 | $58.18 estimated | Mouser 40443716 | 2026-09-13 | — | ACQUIRED |
 | DEVMO MINI vertical float switch | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4) | 1 | $13.93 | 112-4706100-6171430 | 2026-04-24 | 2026-04-25 | ACQUIRED |
 | YXQ 45 mm SS float switch (316 float ball) — level-sensing float donor (bom.md §12). (4 @ $6.99 + $2.04 tax) | [B08HWRMRQR](https://www.amazon.com/dp/B08HWRMRQR) | 4 | $30.00 | 112-8193263-0421020 | 2026-07-16 | 2026-07-24 | ACQUIRED |
 | uxcell 61 mm SS float switch — float-donor evaluation stock (reed-range bench test vs the YXQ). (4 @ $4.67 + $1.36 tax) | [B006Z968LK](https://www.amazon.com/dp/B006Z968LK) | 4 | $20.04 | 112-5082341-0132227 | 2026-07-16 | 2026-07-19 | ACQUIRED |
 | AplysiaTech N52 neodymium ring magnet, 1" OD × 1/2" ID × 1/8" thick (25.4 × 12.7 × 3.18 mm, 10 pk) — reservoir-float evaluation | [B0GD15CWCL](https://www.amazon.com/dp/B0GD15CWCL) | 1 pk (10) | $30.02 | 112-8759475-1611456 | 2026-06-14 | 2026-06-15 | ACQUIRED (unavailable) |
-| K&J Magnetics RC62 N42 axially magnetized ring, 3/4" OD × 3/8" ID × 1/8" thick — float/reed range evaluation. $55.20 merchandise + $27.11 UPS Ground + $5.97 tax | [RC62](https://www.kjmagnetics.com/rc62-neodymium-ring-magnet) | 30 | $88.28 | K&J 1599057 | 2026-09-14 | — | ON-ORDER |
+| K&J Magnetics RC62 N42 axially magnetized ring, 3/4" OD × 3/8" ID × 1/8" thick — float/reed range evaluation. $55.20 merchandise + $27.11 UPS Ground + $5.97 tax | [RC62](https://www.kjmagnetics.com/rc62-neodymium-ring-magnet) | 30 | $88.28 | K&J 1599057 | 2026-09-14 | — | ACQUIRED |
 | Stainless-steel float switch, double-ball, 200 mm tube — teardown/donor for the commodity ⌀28 × 28 mm crimped SS float that recurs across nearly all SS float-switch listings | [B09JSYMM5G](https://www.amazon.com/dp/B09JSYMM5G) | 1 | $15.22 | 112-7010270-8849812 | 2026-06-14 | 2026-06-17 | ACQUIRED |
 | MECCANIXITY stainless-steel float switch, 45 mm rod, M10 thread (2 pc) — same commodity ⌀28 × 28 mm SS float, teardown/donor | [B0FL763VPL](https://www.amazon.com/dp/B0FL763VPL) | 1 pk (2) | $14.79 | 112-7886483-1554622 | 2026-06-14 | 2026-06-17 | ACQUIRED |
 | EC Buying XKC-Y25-V non-contact capacitive liquid-level sensor | [B0C73F96MF](https://www.amazon.com/dp/B0C73F96MF) | 1 | $10.29 | 112-5459082-8422662 | 2026-05-08 | 2026-05-09 | ACQUIRED |
@@ -733,10 +733,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$35,980.09](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$36,126.55](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$41,417.63](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$913.16](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$41,564.09](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$766.70](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$42,383.86](LEDGER_GRAND_TOTAL) |
@@ -753,7 +753,7 @@ ACQUIRED hardware by section:
 | 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$1,613.11](LEDGER_SEC9) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$1,759.57](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$282.80](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$2,423.33](LEDGER_SEC12) |
