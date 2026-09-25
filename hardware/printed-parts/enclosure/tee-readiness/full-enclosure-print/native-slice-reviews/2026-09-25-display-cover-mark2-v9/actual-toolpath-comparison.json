@@ -1,0 +1,39 @@
+{
+  "pass": true,
+  "readings": [
+    {
+      "native_archive": ".cache/prints/2026-09-25-display-cover-mark2-v8/ready/display-cover-black-z004-mark2-v8-inset-snaps-09-r2.gcode.3mf",
+      "native_archive_sha256": "e8821bb5cf37a76a6ae2d96ba1f8c7b10cb26cbc9141a81299276c4aedfb88a3",
+      "skirt_inset_each_mm": 0.9,
+      "measured_wall_layer_z_mm": 3.08,
+      "wall_centerlines_from_cover_center_mm": [
+        -61.64,
+        -60.76,
+        60.76,
+        61.64
+      ]
+    },
+    {
+      "native_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/ready/display-cover-black-z004-mark2-v9-inset-snaps-12.gcode.3mf",
+      "native_archive_sha256": "647df9d220f388e05e23a9ec274b6c2c6240e0cff33151039de03b482d92a509",
+      "skirt_inset_each_mm": 1.2,
+      "measured_wall_layer_z_mm": 3.08,
+      "wall_centerlines_from_cover_center_mm": [
+        -61.34,
+        -60.46,
+        60.46,
+        61.34
+      ]
+    }
+  ],
+  "actual_wall_centerline_change_mm": [
+    0.3,
+    0.3,
+    -0.3,
+    -0.3
+  ],
+  "each_skirt_additional_inward_shift_mm": 0.3,
+  "gap_reduction_mm": 0.6,
+  "all_native_settings_identical_to_previous_print": true,
+  "physical_shrink_or_fit_measured": false
+}

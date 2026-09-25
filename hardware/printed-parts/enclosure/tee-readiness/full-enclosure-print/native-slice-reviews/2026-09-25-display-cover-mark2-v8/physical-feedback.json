@@ -1,0 +1,12 @@
+{
+  "source": "Derek in this conversation",
+  "observation": "More clear improvement in display-cover bowing with the 0.9 mm inset per snap; a further equal inward shift requested.",
+  "measurement_mm": null,
+  "printed_skirt_inset_each_mm": 0.9,
+  "requested_next_trial": {
+    "additional_shift_each_mm": 0.3,
+    "skirt_inset_each_mm": 1.2
+  },
+  "bed_clear_confirmed": true,
+  "physical_retention_force_measured": false
+}

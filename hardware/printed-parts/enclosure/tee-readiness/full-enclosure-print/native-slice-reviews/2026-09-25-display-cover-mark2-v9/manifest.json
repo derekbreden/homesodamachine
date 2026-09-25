@@ -1,0 +1,104 @@
+{
+  "status": "printing",
+  "submitted": true,
+  "print_started": true,
+  "printer": "Mark2",
+  "plate_contents": [
+    "display-cover"
+  ],
+  "native_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/ready/display-cover-black-z004-mark2-v9-inset-snaps-12.gcode.3mf",
+  "native_archive_sha256": "647df9d220f388e05e23a9ec274b6c2c6240e0cff33151039de03b482d92a509",
+  "gcode_sha256": "d4f34722ed90851659be349d9b2f848a2157fdadea1b8fa74a853f5dafa12502",
+  "staged_input": ".cache/prints/2026-09-25-display-cover-mark2-v9/display-cover-black-z004-mark2-v9-inset-snaps-12-input.3mf",
+  "staged_input_sha256": "53177e248d81055c0eb5bc8fe8593649bfa4194c76a3e9fa25b0618e066c2218",
+  "estimated_seconds": 1447.849609375,
+  "estimated_grams_saved_profile_density": 8.690042495727539,
+  "geometry": {
+    "skirt_inset_each_mm": 1.2,
+    "additional_shift_each_mm": 0.3,
+    "perimeter_and_window_unchanged": true,
+    "housing_receivers_unchanged": true,
+    "nominal_catch_overlap_mm": 0.3,
+    "minimum_catch_overlap_at_full_lateral_float_mm": 0.0,
+    "retention_limit": "Both hooks overlap 0.3 mm when centered. At full 0.3 mm lateral float one hook has zero overlap and the opposite hook has 0.6 mm; physical retention must be evaluated."
+  },
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "actual_toolpath_comparison": "actual-toolpath-comparison.json",
+  "support_review": "support-removal-review.json",
+  "previous_trial_feedback": "../2026-09-25-display-cover-mark2-v8/physical-feedback.json",
+  "settings": {
+    "material": "black PET-GF; printer labels PET-CF",
+    "nozzle": "left 0.4 mm Standard",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_commands_mm": [
+      0,
+      0.02
+    ],
+    "first_layer_height_mm": 0.2,
+    "layer_height_mm": 0.24,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall, then infill",
+    "infill_wall_overlap": "15%",
+    "brim": "auto_brim",
+    "native_settings_identical_to_previous_printed_trial": true
+  },
+  "physical_trial": "Evaluate remaining bow and retention. Both hooks engage when centered; one hook reaches zero overlap at full lateral float. No physical retention force or resistance to peeling has been measured.",
+  "checks": {
+    "current_source_hashes": true,
+    "unchanged_bezel_symmetric_difference_mm3": 0,
+    "each_snap_translation_is_exact": true,
+    "actual_toolpaths_show_additional_shift_each_mm": 0.3,
+    "seated_housing_interference_mm3": 0,
+    "both_hooks_engaged_when_centered": true,
+    "both_hooks_engaged_at_full_lateral_float": false,
+    "straight_outward_pull_has_at_least_one_catch_at_full_lateral_float": true,
+    "native_checksum_valid": true,
+    "support_review_passed": true,
+    "post_publish_geometry_lint": {
+      "open_findings": 0,
+      "intentional_features_answered": 6
+    }
+  },
+  "review_sha256": {
+    "prelaunch.json": "47010c8370dc59796399aa2d6a9b521e87fe97458bc0db6a0285461eb1145c35",
+    "unchanged-housing-inputs.json": "dc662c6a4149409570359640191034dc26234f58bf6a4f1db29330d9aa84cf1d",
+    "preparation.json": "188d5ce3c2b72d322965faff5e374d42e1f81fe9f3765ad02ebb6eca10933d29",
+    "preview.png": "82ace35723e84d38c9c4676fc06cd0de0cc6c9843d19c61f10710389c795fa86",
+    "slice-command.json": "1db58e5f12322635a9d1dbd98db823ea8018f4fcdff4f6327b829aa4db9a56c8",
+    "verify_geometry.py": "4de449b3e77b60beed957889650af0335ee88f6c53ac62862b73188280e4e61d",
+    "support-removal-review.json": "3b69a51521e14f403c60739d6b288397e218d59e360bfe0bd44e039c27138be5",
+    "verification.json": "50cb16dedec491d3f80b6dbff44e0af2dc37a41a29f05f4270730b2bab5423ef",
+    "verify.py": "b2a6d2ff417c329bd01a1641402e61f0164df4ac4b3e53f8aa4db1e86a4d5da3",
+    "slice-result.json": "a1e0511c0904a41aa5878ef7cbb1811750ce607053b2cbe34ed6e7ad3ebe4b6c",
+    "actual-toolpath-comparison.json": "f8e6815a6451961da7530503541ec771e0d6b0ad6c76233ff382efc92ca5665b",
+    "prepare.py": "206ae8657565b8f3effba9d7bff78c76bf5916e243545ba4126be53827a5c86e",
+    "support-audit-display-cover.json": "3b2efe7cafe09d1ab57b64a9c8fcca2eacce724dcd6c79d0f488a07637301907",
+    "geometry-check.json": "a24266d7553387d8a80a937bdb885d8a2b4f6bfdec62dba2e02482034ad7dfcc",
+    "launch.json": "491d4275e5efdb8e49d6119b9c5115151aabba88eb6f42f7bafc5523b7fa4034",
+    "geometry-lint.log": "25f29b999a3ccbc98f55c5794bcb2b34a786dba7acf0dcbba8ee883fb6e56968"
+  },
+  "printer_task_id": "1282164977",
+  "observed_at_utc": "2026-09-25T17:50:31.521414+00:00",
+  "observed_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "observed_layer": 0,
+  "observed_total_layers": 56,
+  "observed_remaining_minutes": 0,
+  "launch_record": "launch.json",
+  "prelaunch_record": "prelaunch.json",
+  "send_method": "tools/bambu_print.py foreground mouse path; one Send click; printer project_file SUCCESS.",
+  "standing_print_options": {
+    "timelapse": "On",
+    "auto_bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "published_geometry_sha256": {
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "f98b9b5d69ada8585ae111687714db1a0fff641355ca416a5883cd5e868da930",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "37fe26d959acbdf102a353944de3d3ec62f8b4a8275c84acb83578ccfb6d40b5",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "6418b6c61eec98537a1d2f50a33bfdba07f4e3c524a030c8effb7ee00a247da0",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "7aa5bb8553c1b3a4e832f2144ddd601fb59084fe1e90db42b2d68d3ad60d551e"
+  }
+}
