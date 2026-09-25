@@ -23,6 +23,8 @@ Print face down, with the visible face on the plate and both skirts pointing up,
 standing on the plate beside the cover's edge, with the nameplate's 0.24 mm top gap and its
 small-overhang filter off. Peel each support off whole and keep the catch faces flat. Physical
 seating, retention and repeated-use measurements remain to be recorded for this geometry.
+The [prepared fit trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-display-cover-window-covers-mark2-v6/README.md)
+places the complete cover and both tee-carrier window covers on one Mark2 plate.
 
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py`
 exports the complete cover and checks its solid, glass clearance and seated skirt pockets.

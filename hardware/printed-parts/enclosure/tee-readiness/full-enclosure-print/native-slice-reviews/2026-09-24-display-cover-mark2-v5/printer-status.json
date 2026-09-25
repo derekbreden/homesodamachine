@@ -1,0 +1,22 @@
+[
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-09-25T02:43:19.592158+00:00",
+    "state": "RUNNING",
+    "job": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+    "layer": 324,
+    "layers": 1088,
+    "print_error": 0,
+    "hms": []
+  },
+  {
+    "printer": "H2C",
+    "observed_at": "2026-09-25T02:43:19.064605+00:00",
+    "state": "RUNNING",
+    "job": "enclosure-front-bottom-black-z018-h2c-v7-six-wall-handhold-rounds.gcode.3mf",
+    "layer": 38,
+    "layers": 1502,
+    "print_error": 0,
+    "hms": []
+  }
+]

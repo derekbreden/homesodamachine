@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "enclosure-window-cover-east",
+  "inputs": {
+    "gcode": "support-labels-enclosure-window-cover-east.gcode",
+    "gcode_sha256": "55f1ee783578c663592a95e079e13a7ebf6c12a93add7295753a5ee91ffce256",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-24-display-cover-window-covers-mark2-v6/oriented-meshes/enclosure-window-cover-east.stl",
+    "model_sha256": "cd922eb003464cfcd8bb3bed17d819a215c2d14e0beedbfdeac8f47dd0a325a4",
+    "profile": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/2026-09-24-display-cover-window-covers-mark2-v6/display-cover-window-covers-black-z004-mark2-v6-input.3mf",
+    "profile_sha256": "8b267c20c480376568a26029e5709904e0aeaefc476f9780beaeb2016fdcbb40"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -9.76499939,
+      -69.81199646,
+      -98.5
+    ],
+    "plate_to_cad_translation_mm": [
+      -9.764999,
+      -69.811996,
+      -98.5
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

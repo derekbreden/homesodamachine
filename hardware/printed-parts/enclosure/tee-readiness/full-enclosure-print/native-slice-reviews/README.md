@@ -20,8 +20,10 @@ alone with the original wall-first order is the preferred next recipe and remain
 | front-top | Mark2 | superseded: before the storey cavities and the carrier windows | [2026-09-22-enclosure-front-top-mark2-v8](2026-09-22-enclosure-front-top-mark2-v8/manifest.json) |
 | display-cover | Mark2 | superseded: 34 mm skirts | [2026-09-22-display-cover-mark2-v1](2026-09-22-display-cover-mark2-v1/manifest.json) |
 | display-cover | Mark2 | superseded: face up, skirts on the bed | [2026-09-22-display-cover-mark2-v2](2026-09-22-display-cover-mark2-v2/manifest.json) |
-| display-cover | Mark2 | printed face down; the current cover, takes the current front-top | [2026-09-22-display-cover-mark2-v3](2026-09-22-display-cover-mark2-v3/manifest.json) |
+| display-cover | Mark2 | printed face down; flat when removed or seated upside down, bows when its snaps engage | [2026-09-22-display-cover-mark2-v3](2026-09-22-display-cover-mark2-v3/manifest.json) |
 | display-cover | Mark2 | printed; 34 mm skirts, fits only the front-top printed 09-21 | [2026-09-22-display-cover-mark2-v4](2026-09-22-display-cover-mark2-v4/manifest.json) |
+| display-cover | Mark2 | prepared, not sent; original perimeter, snaps inset 0.3 mm each; 23 min 51 sec | [2026-09-24-display-cover-mark2-v5](2026-09-24-display-cover-mark2-v5/manifest.json) |
+| display-cover and both window covers | Mark2 | prepared, not sent; inset display snaps and existing window covers; 41 min 57 sec; window covers unsupported | [2026-09-24-display-cover-window-covers-mark2-v6](2026-09-24-display-cover-window-covers-mark2-v6/README.md) |
 | foam-cap-lid-top | Mark2 | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v1/manifest.json) |
 | foam-cap-lid-top | Mark2 | reviewed, not sent | [2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2](2026-09-21-g-ganen-foam-cap-lid-top-mark2-v2/manifest.json) |
 | foam-cap-top | H2C | superseded mount geometry | [2026-09-21-g-ganen-foam-cap-top-h2c-v2](2026-09-21-g-ganen-foam-cap-top-h2c-v2/manifest.json) |

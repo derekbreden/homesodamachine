@@ -1,0 +1,72 @@
+{
+  "native_archive_sha256": "18b6a371157e3f8984057d70760ca92bde67920dbe210190b416b9d9e9ef4b30",
+  "gcode_sha256": "4d4ba555283a9c37f063d06cdd955e60067f1a2140734f3c710495db83d3f22d",
+  "include_support_without_interface_labels": true,
+  "display_cover": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "unlabelled_support_bodies": 0,
+    "interface_print_z_mm": [
+      10.04,
+      10.28
+    ],
+    "first_model_lip_layer_z_mm": 10.52,
+    "emitted_top_gap_mm": 0.24,
+    "contact_faces": "The two flat, square catch faces below the display-cover snap lips.",
+    "removal": "Peel each tree toward the adjacent free side of the cover before installing the display cover. The trees stand beside the bezel on the bed and each reaches one exposed catch face.",
+    "interfaces": [
+      {
+        "id": "interface-1",
+        "first_z_mm": 10.04,
+        "last_z_mm": 10.28,
+        "bbox_xy_mm": [
+          98.4,
+          118.4,
+          99.6,
+          142.0
+        ],
+        "tree": "tree-1",
+        "build_up_mm": 9.84,
+        "bbox_cad_xyz_mm": [
+          -64.1,
+          -12.0,
+          -10.28,
+          -62.9,
+          11.6,
+          -10.04
+        ]
+      },
+      {
+        "id": "interface-2",
+        "first_z_mm": 10.04,
+        "last_z_mm": 10.28,
+        "bbox_xy_mm": [
+          225.6,
+          118.4,
+          226.8,
+          142.0
+        ],
+        "tree": "tree-2",
+        "build_up_mm": 9.84,
+        "bbox_cad_xyz_mm": [
+          63.1,
+          -12.0,
+          -10.28,
+          64.3,
+          11.6,
+          -10.04
+        ]
+      }
+    ]
+  },
+  "window_covers": {
+    "present": true,
+    "support_bodies": 0,
+    "orientation": "Both lie on their outboard faces; the tongue and fore/aft slabs start on the bed."
+  },
+  "visible_rounds": "The bezel corners are rounded in XY; no part on this plate has a user-visible curve through print Z requiring a 0.08 mm band.",
+  "review": "Native paths checked, including every Support and Support interface road; only the two display-cover catch supports are emitted.",
+  "physical_removal_tested": false,
+  "pass": true
+}
