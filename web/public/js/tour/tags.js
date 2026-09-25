@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 const namespace = "http://www.w3.org/2000/svg";
 const clamp = THREE.MathUtils.clamp;
-const accent = "var(--tour-accent,#86dfd3)";
+const accent = "var(--tour-accent,#ff9152)";
 const colorOf = (color) => typeof color === "number"
   ? `#${color.toString(16).padStart(6, "0")}` : color || accent;
 
@@ -31,7 +31,6 @@ export function mountTags(host) {
       const label = document.createElement("div");
       label.className = "tour-subject-label";
       label.dataset.subjectId = id;
-      label.style.cssText = "position:absolute;box-sizing:border-box;padding:4px 6px;white-space:nowrap;border-bottom:1px solid transparent;background:rgba(16,25,35,.8);color:#b6c0cc;font-size:12px;line-height:1.35;letter-spacing:.025em;text-shadow:0 1px 5px #101923;will-change:transform";
       group.append(line, dot);
       svg.append(group);
       layer.append(label);
@@ -79,8 +78,7 @@ export function mountTags(host) {
   function place(item, projection, x, y, side, active, color, rect) {
     item.label.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
     item.label.dataset.active = String(!!active);
-    item.label.style.color = active ? "#f2f5f8" : "#a8b6c5";
-    item.label.style.borderBottomColor = active ? color : "rgba(165,184,205,.18)";
+    item.label.style.borderBottomColor = active ? color : "var(--border)";
     item.line.setAttribute("stroke", color);
     item.line.setAttribute("opacity", active ? ".8" : ".28");
     item.dot.setAttribute("fill", color);

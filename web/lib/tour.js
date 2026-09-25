@@ -37,7 +37,7 @@ export function mountTourRoutes(app) {
     // is a deploy behind the words it is reading.
     res.set("Cache-Control", "no-cache");
     res.send(
-      renderHead({ title: "Walkthrough · Home Soda Machine", importMap,
+      renderHead({ title: "Walkthrough · Home Soda Machine", importMap, themeColor: "#1749d1",
         pageHead: `<meta name="tour-assets-version" content="${assets.version}">` }) +
       // The civilian surface: the walkthrough is in every visitor's nav, and the
       // bar they arrive with is the bar they keep. A reader in dev mode sees the

@@ -6,7 +6,7 @@
  *                 blueprint ground, dimensioned linework, leader callouts, a
  *                 revision stamp, one weld-glow accent. Built to explain.
  *   COLD PRESS  — reserved for cold opens and hero reveals. Chilled, cinematic:
- *                 a cold void, rising carbonation, a single teal light.
+ *                 cobalt, rising carbonation, and ice-blue light.
  *
  * All sizes are authored in 1080p pixel space (the render is 1920×1080).
  */
@@ -15,30 +15,30 @@ export const VIDEO = { width: 1920, height: 1080, fps: 30 } as const;
 
 /** SHOP NOTES — blueprint world (committed; not theme-reactive, it's footage). */
 export const shop = {
-  ground: "#0f2033", // blueprint indigo
-  groundDeep: "#0b1826",
-  gridLine: "#22415f",
-  gridLineBold: "#2c5074",
-  ink: "#eef6ff", // chalk white — titles
-  cyan: "#7fd4ff", // copper linework / traces
-  cyanSoft: "#a9e2ff",
-  dim: "#9fc0dd", // dimension + graphite annotation
-  stampLine: "#6f90ad",
-  weld: "#ff8a3c", // the one warm accent — weld glow
-  weldSoft: "#ffb27a",
+  ground: "#1749d1",
+  groundDeep: "#10319c",
+  gridLine: "rgba(220,230,255,0.12)",
+  gridLineBold: "rgba(220,230,255,0.22)",
+  ink: "#ffffff",
+  cyan: "#dce6ff",
+  cyanSoft: "#ffffff",
+  dim: "#dce6ff",
+  stampLine: "#dce6ff",
+  weld: "#ff9152",
+  weldSoft: "#ffb98f",
 } as const;
 
 /** COLD PRESS — chilled cinematic world (committed). */
 export const cold = {
-  bg0: "#16273b",
-  bg1: "#0c1622",
-  bg2: "#070d16",
-  teal: "#2ec5c0",
-  tealLine: "#3fb9b6",
-  chill: "#eafcff", // condensation white — titles
-  sub: "#9fc4cc",
-  amber: "#c98a3c", // cola-amber warm counterpoint
-  bubble: "rgba(190,240,240,0.9)",
+  bg0: "#2d60e5",
+  bg1: "#1749d1",
+  bg2: "#1749d1",
+  teal: "#dce6ff",
+  tealLine: "#dce6ff",
+  chill: "#ffffff",
+  sub: "#dce6ff",
+  amber: "#ff9152",
+  bubble: "rgba(220,230,255,0.9)",
 } as const;
 
 /** Type scale — px at 1080p. */

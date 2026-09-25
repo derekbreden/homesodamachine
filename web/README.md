@@ -120,7 +120,7 @@ The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all module
 
 `/0001` presents the soda machine, faucet, and install kit. Its Get started page links the
 seven installation steps to the matching pages of the install guide; Guides opens the quick
-start, full booklet, and care pages. The dark layout is in `public/css/unit.css`. The common
+start, full booklet, and care pages. The cobalt layout is in `public/css/unit.css`. The common
 head supplies boot behavior, icons, and metadata, with IBM Plex Sans and the unit page's theme
 color. The pages work without JavaScript; the disclosure's direct link and saved checkmarks
 are progressive enhancements.

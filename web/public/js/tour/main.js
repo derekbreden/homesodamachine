@@ -28,7 +28,7 @@ loading.className = "cad-loading";
 loading.innerHTML = "<span>Loading the machine…</span>";
 stage.append(loading);
 
-const background = 0x101923;
+const background = new THREE.Color(getComputedStyle(stage).backgroundColor).getHex();
 renderer.setClearColor(background);
 if (scene.fog) scene.fog.color.setHex(background);
 spotlight.setBackground(background);
@@ -96,7 +96,7 @@ function paint() {
   const hideShadow = staging.coreIsolation > 0.01;
   if (hideShadow !== shadowHidden) {
     shadowHidden = hideShadow;
-    fitGroundShadow(hideShadow ? null : machineBox);
+    fitGroundShadow(hideShadow ? null : machineBox, { opacity: 0.24 });
   }
   if (!grabbed) {
     const enter = at.index ? (step.enter ?? 1400) : 0;
@@ -113,7 +113,6 @@ function paint() {
   if (shownIndex !== at.index) {
     shownIndex = at.index;
     hud.setStep(at.index, step, missing[at.index]);
-    stage.style.setProperty("--tour-accent", `#${(spotlight.HUES[step.hue] || 0x86dfd3).toString(16).padStart(6, "0")}`);
     const hash = `#${at.index + 1}`;
     if (location.hash !== hash) history.replaceState(null, "", hash);
   }
@@ -271,6 +270,7 @@ async function boot() {
   // Floating panels and fasteners remain inside the camera's depth range.
   setExtraDepthBounds("tour", machineBox.clone().expandByScalar(2200));
   updateDepthRange();
+  fitGroundShadow(machineBox, { opacity: 0.24 });
   ready = true;
   composeShots();
   loading.remove();

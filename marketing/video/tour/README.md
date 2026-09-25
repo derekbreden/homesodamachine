@@ -21,7 +21,10 @@ node marketing/video/tour/serve.mjs
 
 FFmpeg encodes `out/opening.mp4`. The caption sidecars are `out/opening.vtt` and
 `out/opening.srt`. Review frames and the edited narration also live in `out/`.
-The browser uses the site's Montserrat fonts and brand artwork.
+The browser uses the site's Montserrat fonts, brand artwork, and
+`brand/palette.json`. Cobalt frames the model; numbered markers identify the
+internal systems. The 3D viewport renders at twice its output size for
+smooth enclosure flutes and edges.
 The preview server prints its local URL and supports seeking through the MP4.
 `out/index.html` plays the video and provides the MP4 download.
 

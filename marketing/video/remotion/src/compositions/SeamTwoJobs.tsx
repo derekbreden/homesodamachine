@@ -229,7 +229,7 @@ const BeatPivot: React.FC = () => {
       <Svg>
         {/* LEFT: the button, struck out */}
         <g opacity={fadeIn(f, 20, 14)}>
-          <circle cx={470} cy={620} r={95} fill="rgba(12,27,44,0.6)" stroke={shop.ink} strokeWidth={3} />
+          <circle cx={470} cy={620} r={95} fill={shop.ground} stroke={shop.ink} strokeWidth={3} />
           <circle cx={470} cy={620} r={62} fill="none" stroke={shop.dim} strokeWidth={2} />
           <text x={470} y={770} textAnchor="middle" fontFamily={mono} fontSize={T.leader} fill={shop.dim}>a push button</text>
         </g>
@@ -279,7 +279,7 @@ const BeatConverge: React.FC = () => {
         <g transform={`translate(0 ${-gap})`}>
           <path
             d={`M ${cx - 220} ${cy - 150} L ${cx + 220} ${cy - 150} L ${cx + 220} ${cy - 96} L ${cx + 150} ${cy - 96} L ${cx + 150} ${cy - 110} L ${cx - 150} ${cy - 110} L ${cx - 150} ${cy - 96} L ${cx - 220} ${cy - 96} Z`}
-            fill="rgba(20,40,60,0.55)"
+            fill={shop.ground}
             stroke={cold.chill}
             strokeWidth={3}
           />
@@ -288,7 +288,7 @@ const BeatConverge: React.FC = () => {
         <g transform={`translate(0 ${gap})`}>
           <path
             d={`M ${cx - 220} ${cy + 150} L ${cx + 220} ${cy + 150} L ${cx + 220} ${cy + 96} L ${cx + 150} ${cy + 96} L ${cx + 150} ${cy + 110} L ${cx - 150} ${cy + 110} L ${cx - 150} ${cy + 96} L ${cx - 220} ${cy + 96} Z`}
-            fill="rgba(20,40,60,0.55)"
+            fill={shop.ground}
             stroke={cold.chill}
             strokeWidth={3}
           />
@@ -314,7 +314,6 @@ const BeatConverge: React.FC = () => {
 
 /* ---------------- B7 — HONEST CLOSER ---------------- */
 const BeatClose: React.FC = () => {
-  const f = useCurrentFrame();
   return (
     <AbsoluteFill style={{ backgroundColor: cold.bg2 }}>
       <ColdField />

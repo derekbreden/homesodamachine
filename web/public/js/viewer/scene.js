@@ -420,7 +420,7 @@ function dropGroundShadow() {
 //
 // `fog: false`: the fade this quad wants is its own falloff, not the distance fade, and a
 // shadow lifted toward the background colour is a grey patch rather than a shadow.
-export function fitGroundShadow(box) {
+export function fitGroundShadow(box, { opacity = 1 } = {}) {
   dropGroundShadow();
   if (!box || box.isEmpty()) return;
   const size = box.getSize(new THREE.Vector3());
@@ -430,7 +430,7 @@ export function fitGroundShadow(box) {
     new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial({
       map: shadowTexture(size.y / size.x),
-      transparent: true, depthWrite: false, fog: false,
+      transparent: true, opacity, depthWrite: false, fog: false,
       side: THREE.FrontSide, color: 0x000000,
     }),
   );

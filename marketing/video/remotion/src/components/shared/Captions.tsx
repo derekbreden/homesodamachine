@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
-import { margin, type } from "../../style/tokens";
+import { margin, type, shop } from "../../style/tokens";
 import { grotesk } from "../../style/fonts";
 
 export type CaptionCue = { text: string; start: number; end: number };
@@ -34,14 +34,14 @@ export const Captions: React.FC<{ cues: CaptionCue[]; fade?: number }> = ({ cues
           margin: `0 ${margin}px ${margin}px`,
           padding: "18px 30px",
           borderRadius: 12,
-          background: "rgba(6,12,20,0.62)",
-          border: "1px solid rgba(159,196,221,0.18)",
+          background: shop.ground,
+          border: "1px solid rgba(220,230,255,0.3)",
           backdropFilter: "blur(2px)",
           fontFamily: grotesk,
           fontWeight: 600,
           fontSize: type.body,
           lineHeight: 1.25,
-          color: "#eef6ff",
+          color: shop.ink,
           textAlign: "center",
           textWrap: "balance",
         }}
