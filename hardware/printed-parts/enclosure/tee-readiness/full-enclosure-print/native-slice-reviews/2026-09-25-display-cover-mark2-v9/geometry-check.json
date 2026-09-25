@@ -1,0 +1,124 @@
+{
+  "unchanged_housing_inputs_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c4ab1ca173ad793dee252576b69b51d5203752eedcc9f7dde1d8c87ded7f3700",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "9c1870760eb09978e744cbfb374c1dacfce139b4b59d96e90702dc9c31674dfd",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252"
+  },
+  "source_export_equivalent": true,
+  "bezel_window_thickness_and_outer_perimeter_unchanged": true,
+  "bezel_symmetric_difference_mm3": 0.0,
+  "skirt_translations": [
+    {
+      "side": -1,
+      "translation_x_mm": 0.29999999999999993,
+      "symmetric_difference_mm3": 0.0
+    },
+    {
+      "side": 1,
+      "translation_x_mm": -0.29999999999999993,
+      "symmetric_difference_mm3": 0.0
+    }
+  ],
+  "previous_trial_reference_step_sha256": "d911b9ea4db9d66d9ff36c62a951cf6b012b888caf8639e02f35fb72b7772a55",
+  "cover_step_sha256": "f98b9b5d69ada8585ae111687714db1a0fff641355ca416a5883cd5e868da930",
+  "cover_stl_sha256": "37fe26d959acbdf102a353944de3d3ec62f8b4a8275c84acb83578ccfb6d40b5",
+  "bezel_size_mm": [
+    125.5,
+    83.0,
+    2.0
+  ],
+  "perimeter_clearance_mm": 0.3,
+  "previous_trial_skirt_inset_each_mm": 0.9,
+  "additional_skirt_inset_each_mm": 0.29999999999999993,
+  "skirt_inset_each_mm": 1.2,
+  "nominal_catch_overlap_mm": 0.29999999999999716,
+  "minimum_catch_overlap_at_full_lateral_float_mm": -0.0,
+  "glass_intersection_mm3": 0.0,
+  "native_housing_seating_and_retention": [
+    {
+      "lateral_shift_mm": -0.3,
+      "seated_intersection_mm3": 0.0,
+      "pull_out_probe_mm": 0.49,
+      "retaining_intersection_mm3": 0.1440000001575362,
+      "each_skirt": [
+        {
+          "side": -1,
+          "catch_overlap_mm": 0.6,
+          "retaining_intersection_mm3": 0.1440000001575362
+        },
+        {
+          "side": 1,
+          "catch_overlap_mm": -0.0,
+          "retaining_intersection_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "lateral_shift_mm": 0.0,
+      "seated_intersection_mm3": 0.0,
+      "pull_out_probe_mm": 0.49,
+      "retaining_intersection_mm3": 0.14400001015669783,
+      "each_skirt": [
+        {
+          "side": -1,
+          "catch_overlap_mm": 0.3,
+          "retaining_intersection_mm3": 0.07200000007876811
+        },
+        {
+          "side": 1,
+          "catch_overlap_mm": 0.3,
+          "retaining_intersection_mm3": 0.07200000007873891
+        }
+      ]
+    },
+    {
+      "lateral_shift_mm": 0.3,
+      "seated_intersection_mm3": 0.0,
+      "pull_out_probe_mm": 0.49,
+      "retaining_intersection_mm3": 0.14400000015747783,
+      "each_skirt": [
+        {
+          "side": -1,
+          "catch_overlap_mm": -0.0,
+          "retaining_intersection_mm3": 0.0
+        },
+        {
+          "side": 1,
+          "catch_overlap_mm": 0.6,
+          "retaining_intersection_mm3": 0.14400000015747783
+        }
+      ]
+    }
+  ],
+  "mesh_watertight": true,
+  "mesh_body_count": 1,
+  "mesh_triangle_count": 2104,
+  "appliance_cover_payload_updated": true,
+  "assembly_rotation": [
+    [
+      1.0,
+      -0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.8660254037844387,
+      -0.49999999999999994
+    ],
+    [
+      0.0,
+      0.49999999999999994,
+      0.8660254037844387
+    ]
+  ],
+  "assembly_translation_mm": [
+    0.0,
+    48.67210506462308,
+    330.8384572681199
+  ],
+  "physical_fit_or_retention_force_measured": false,
+  "retention_limit": "Both hooks overlap 0.3 mm when centered. At full 0.3 mm lateral float one hook has zero overlap and the opposite hook has 0.6 mm; physical retention must be evaluated.",
+  "pass": true
+}
