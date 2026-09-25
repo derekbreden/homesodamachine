@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -70,7 +70,10 @@
     "geometry-check.json": "435f3391ccc5a7a583b6b2c9751a82447a57ca7bbd3a6a8d3db5a819d4e87a10",
     "geometry-lint.log": "25f29b999a3ccbc98f55c5794bcb2b34a786dba7acf0dcbba8ee883fb6e56968",
     "launch.json": "43db0b92ca6c5ce665d2ff1635c6fe533b15dbaaf076ed9fda17fef39fd99102",
-    "prelaunch.json": "cd1c2817fb9011ecca2ac430044f9b772a8bdfd22607ffc4ff50b2662a67f1d6"
+    "prelaunch.json": "cd1c2817fb9011ecca2ac430044f9b772a8bdfd22607ffc4ff50b2662a67f1d6",
+    "completion.json": "f41f31c79ce7601380b85d9e0aaf2432db9cfcd8d601e3582be608778f110db1",
+    "physical-feedback.json": "e8df543832181cf5e177e99e08c714f980d214e31c45f84f96c8045a6e598b99",
+    "actual-toolpath-comparison.json": "74bcdb5faec43a2ebfe33be93ef90085b8bdc0e30104917071be085ef881d0fd"
   },
   "published_geometry_sha256": {
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "2d17d7ffa9fc62ec5a1395a612a992a8829297c70ee413c2c8d5d8c9a00c563d",
@@ -94,5 +97,10 @@
     "auto_bed_leveling": "On",
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
-  }
+  },
+  "completion_record": "completion.json",
+  "physical_feedback": "physical-feedback.json",
+  "actual_toolpath_comparison": "actual-toolpath-comparison.json",
+  "completion_observed_at_utc": "2026-09-25T16:54:53.402887+00:00",
+  "completion_state": "FINISH"
 }

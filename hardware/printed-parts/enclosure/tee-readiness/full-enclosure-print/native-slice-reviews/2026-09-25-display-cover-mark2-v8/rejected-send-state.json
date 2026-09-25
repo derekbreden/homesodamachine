@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-09-25T17:02:45.300803+00:00",
+  "printer": "Mark2",
+  "error_code_hex": "05004046",
+  "status": {
+    "gcode_state": "FINISH",
+    "job_id": "1281899872",
+    "subtask_name": "display-cover-black-z004-mark2-v7-inset-snaps-06.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "mc_print_stage": "1",
+    "mc_print_sub_stage": 0,
+    "stg_cur": -1,
+    "print_type": "cloud",
+    "sdcard": true,
+    "upload": {
+      "file_size": 0,
+      "finish_size": 0,
+      "message": "Good",
+      "oss_url": "",
+      "progress": 0,
+      "sequence_id": "0903",
+      "speed": 0,
+      "status": "idle",
+      "task_id": "",
+      "time_remaining": 0,
+      "trouble_id": ""
+    },
+    "home_flag": -1066969712,
+    "command": "push_status",
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 0.0
+  }
+}

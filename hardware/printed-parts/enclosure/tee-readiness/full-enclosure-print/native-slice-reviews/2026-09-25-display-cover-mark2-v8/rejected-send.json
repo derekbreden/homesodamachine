@@ -1,0 +1,20 @@
+{
+  "printer": "Mark2",
+  "rejected_native_archive_sha256": "c05add825ff984a22702d4f93cb1c5127b13d1ae5d2b67decd2d98b2df28b4db",
+  "rejected_gcode_sha256": "4df69a99ef2a1b4c7dcb63b2e5acef1d2326879981cbc73fc9f7926a47274c90",
+  "command_reply": {
+    "command": "project_file",
+    "result": "FAIL",
+    "reason": "ERROR STATE",
+    "err_code": 83902534
+  },
+  "vendor_error_code_hex": "05004046",
+  "vendor_error_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+  "vendor_error_text": "The print has stopped because the 3MF file is invalid. Please verify that the correct printer model was selected during slicing, or update Studio and re-slice the file.",
+  "printer_remained_on_job": "1281899872",
+  "printer_state": "FINISH",
+  "print_error": 0,
+  "hms": [],
+  "archive_checksum_and_imported_copy_verified": true,
+  "response": "Preserved rejected native package and regenerated the native slice from the same staged geometry and settings."
+}

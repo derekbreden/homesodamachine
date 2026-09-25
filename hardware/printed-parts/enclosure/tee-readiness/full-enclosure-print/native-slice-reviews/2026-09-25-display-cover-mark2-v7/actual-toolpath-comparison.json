@@ -1,0 +1,163 @@
+{
+  "pass": true,
+  "purpose": "Verify the submitted 0.6 mm trial contains the additional inward shift in actual extruded wall paths, rather than just CAD or metadata.",
+  "readings": [
+    {
+      "trial": "2026-09-24-display-cover-window-covers-mark2-v6",
+      "skirt_inset_each_mm": 0.3,
+      "printer_task_id": "1281656339",
+      "launch_archive_hash_verified": true,
+      "launch_gcode_hash_verified": true,
+      "native_archive_sha256": "18b6a371157e3f8984057d70760ca92bde67920dbe210190b416b9d9e9ef4b30",
+      "native_gcode_sha256": "4d4ba555283a9c37f063d06cdd955e60067f1a2140734f3c710495db83d3f22d",
+      "measured_wall_layer_z_mm": 3.08,
+      "skirt_outer_wall_centerlines_x_mm": [
+        -62.24,
+        -61.36,
+        61.36,
+        62.24
+      ],
+      "crossing_segments": [
+        {
+          "x_from_cover_center_mm": 62.24,
+          "line_width_mm": 0.42,
+          "a": [
+            224.74,
+            118.21,
+            3.08
+          ],
+          "b": [
+            224.74,
+            141.79,
+            3.08
+          ]
+        },
+        {
+          "x_from_cover_center_mm": 61.36,
+          "line_width_mm": 0.42,
+          "a": [
+            223.86,
+            141.79,
+            3.08
+          ],
+          "b": [
+            223.86,
+            118.27,
+            3.08
+          ]
+        },
+        {
+          "x_from_cover_center_mm": -61.36,
+          "line_width_mm": 0.42,
+          "a": [
+            101.14,
+            118.21,
+            3.08
+          ],
+          "b": [
+            101.14,
+            141.79,
+            3.08
+          ]
+        },
+        {
+          "x_from_cover_center_mm": -62.24,
+          "line_width_mm": 0.42,
+          "a": [
+            100.26,
+            141.79,
+            3.08
+          ],
+          "b": [
+            100.26,
+            118.21,
+            3.08
+          ]
+        }
+      ]
+    },
+    {
+      "trial": "2026-09-25-display-cover-mark2-v7",
+      "skirt_inset_each_mm": 0.6,
+      "printer_task_id": "1281899872",
+      "launch_archive_hash_verified": true,
+      "launch_gcode_hash_verified": true,
+      "native_archive_sha256": "ce6792c32a27d2af88ed13c982d65c5c2c91658ef64bea7bfd7fd035f5f75fa5",
+      "native_gcode_sha256": "3adfd73e97ce2fda14e70643c1c2e32249da6cb9611ee4b9cf89c22773973bbb",
+      "measured_wall_layer_z_mm": 3.08,
+      "skirt_outer_wall_centerlines_x_mm": [
+        -61.94,
+        -61.06,
+        61.06,
+        61.94
+      ],
+      "crossing_segments": [
+        {
+          "x_from_cover_center_mm": 61.94,
+          "line_width_mm": 0.42,
+          "a": [
+            224.44,
+            148.21,
+            3.08
+          ],
+          "b": [
+            224.44,
+            171.79,
+            3.08
+          ]
+        },
+        {
+          "x_from_cover_center_mm": 61.06,
+          "line_width_mm": 0.42,
+          "a": [
+            223.56,
+            171.79,
+            3.08
+          ],
+          "b": [
+            223.56,
+            148.27,
+            3.08
+          ]
+        },
+        {
+          "x_from_cover_center_mm": -61.06,
+          "line_width_mm": 0.42,
+          "a": [
+            101.44,
+            148.21,
+            3.08
+          ],
+          "b": [
+            101.44,
+            171.79,
+            3.08
+          ]
+        },
+        {
+          "x_from_cover_center_mm": -61.94,
+          "line_width_mm": 0.42,
+          "a": [
+            100.56,
+            171.79,
+            3.08
+          ],
+          "b": [
+            100.56,
+            148.21,
+            3.08
+          ]
+        }
+      ]
+    }
+  ],
+  "actual_outer_wall_centerline_change_mm": [
+    0.30000000000000426,
+    0.29999999999999716,
+    -0.29999999999999716,
+    -0.30000000000000426
+  ],
+  "each_skirt_additional_inward_shift_mm": 0.3,
+  "printed_gap_reduction_between_skirts_mm": 0.6,
+  "physical_shrink_or_fit_effect_measured": false
+}
