@@ -44,8 +44,13 @@ Omit `--full` to render `out/opening.mp4` and its player, `out/opening.html`.
 
 ## YouTube
 
+Published as [Cold Soda on Tap — Inside a Home Soda Machine](https://youtu.be/aYyjj8i9WS8)
+on the Home Soda Machine channel. The public video includes English captions
+and seven timestamp links; 1080p playback is available.
+
 `publication.json` contains the upload title, description, chapter links, and
-audience settings. `thumbnail.jpg` is the 3840 × 2160 custom thumbnail, composed
+audience settings, plus the video URL and verification record.
+`thumbnail.jpg` is the 3840 × 2160 custom thumbnail, composed
 from the same exploded machine model, Montserrat type, and cobalt palette as
 the film. Regenerate it with:
 
