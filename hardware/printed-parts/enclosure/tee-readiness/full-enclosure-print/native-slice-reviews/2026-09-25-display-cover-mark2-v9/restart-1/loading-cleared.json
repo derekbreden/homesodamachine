@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-09-25T18:03:54.900058+00:00",
+  "source": "Bambu Connect live device page",
+  "loading_panel_present": false,
+  "left_nozzle_current_c": 182,
+  "left_nozzle_target_c": 0,
+  "extruder_controls_enabled": true,
+  "retry_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/restart-1/display-cover-mark2-v9-retry2.gcode.3mf",
+  "identical_archive_sha256": "647df9d220f388e05e23a9ec274b6c2c6240e0cff33151039de03b482d92a509",
+  "geometry_and_settings_changed": false,
+  "filament_extrusion_physically_observed": false
+}

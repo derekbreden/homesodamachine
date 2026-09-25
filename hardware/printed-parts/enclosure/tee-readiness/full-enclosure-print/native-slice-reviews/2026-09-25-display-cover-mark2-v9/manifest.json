@@ -76,19 +76,25 @@
     "support-audit-display-cover.json": "3b2efe7cafe09d1ab57b64a9c8fcca2eacce724dcd6c79d0f488a07637301907",
     "geometry-check.json": "a24266d7553387d8a80a937bdb885d8a2b4f6bfdec62dba2e02482034ad7dfcc",
     "launch.json": "491d4275e5efdb8e49d6119b9c5115151aabba88eb6f42f7bafc5523b7fa4034",
-    "geometry-lint.log": "25f29b999a3ccbc98f55c5794bcb2b34a786dba7acf0dcbba8ee883fb6e56968"
+    "geometry-lint.log": "25f29b999a3ccbc98f55c5794bcb2b34a786dba7acf0dcbba8ee883fb6e56968",
+    "restart-1/prelaunch.json": "b4587b402c07dd826346d6b5d743e324645f7b822a730e3aa11065cbe5cce696",
+    "restart-1/reason.json": "2a9a31189dc50bf42393c60c85953720d23af3fe80b6fb110b605c46e4f1ac7e",
+    "restart-1/filename-retry.json": "ba244dc7c94418727ebd3ac5c2fb13c8f4dfbd504c7529eb9c3ca53b5532b429",
+    "restart-1/loading-sequence.json": "b27a39da2caeb7732b7cec7f33400548c677ebf3c3b01e329a054e1bc4ec38c7",
+    "restart-1/launch.json": "6415a4f2f744c338443d7361d9665d5136c7a0bf8eeaf447189ec7c5df00d74f",
+    "restart-1/loading-cleared.json": "72a2099dcfd375343f5c028243a10b5a1aab6f516e7765a2c646da3e542bdb60"
   },
-  "printer_task_id": "1282164977",
-  "observed_at_utc": "2026-09-25T17:50:31.521414+00:00",
+  "printer_task_id": "1282199028",
+  "observed_at_utc": "2026-09-25T18:04:16.621700+00:00",
   "observed_state": "RUNNING",
   "print_error": 0,
   "hms": [],
   "observed_layer": 0,
   "observed_total_layers": 56,
-  "observed_remaining_minutes": 0,
-  "launch_record": "launch.json",
-  "prelaunch_record": "prelaunch.json",
-  "send_method": "tools/bambu_print.py foreground mouse path; one Send click; printer project_file SUCCESS.",
+  "observed_remaining_minutes": 24,
+  "launch_record": "restart-1/launch.json",
+  "prelaunch_record": "restart-1/prelaunch.json",
+  "send_method": "Same reviewed archive bytes under a fresh filename, after the manual loading sequence cleared. One Send click for the accepted attempt; printer project_file SUCCESS.",
   "standing_print_options": {
     "timelapse": "On",
     "auto_bed_leveling": "On",
@@ -100,5 +106,18 @@
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "37fe26d959acbdf102a353944de3d3ec62f8b4a8275c84acb83578ccfb6d40b5",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "6418b6c61eec98537a1d2f50a33bfdba07f4e3c524a030c8effb7ee00a247da0",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "7aa5bb8553c1b3a4e832f2144ddd601fb59084fe1e90db42b2d68d3ad60d551e"
-  }
+  },
+  "restart_status": "started",
+  "restart_record": "restart-1/launch.json",
+  "previous_attempts": [
+    {
+      "printer_task_id": "1282164977",
+      "launch_record": "launch.json",
+      "status": "failed",
+      "observed_layer": 0,
+      "reported_problem": "Derek reports a problem loading.",
+      "failure_record": "restart-1/reason.json"
+    }
+  ],
+  "submitted_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/restart-1/display-cover-mark2-v9-retry2.gcode.3mf"
 }

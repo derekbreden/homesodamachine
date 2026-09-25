@@ -1,0 +1,17 @@
+{
+  "original_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/ready/display-cover-black-z004-mark2-v9-inset-snaps-12.gcode.3mf",
+  "retry_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/restart-1/display-cover-mark2-v9-retry1.gcode.3mf",
+  "identical_archive_sha256": "647df9d220f388e05e23a9ec274b6c2c6240e0cff33151039de03b482d92a509",
+  "gcode_sha256": "d4f34722ed90851659be349d9b2f848a2157fdadea1b8fa74a853f5dafa12502",
+  "only_filename_changed": true,
+  "rejected_command_reply": {
+    "command": "project_file",
+    "result": "FAIL",
+    "reason": "ERROR STATE",
+    "err_code": 83902534
+  },
+  "vendor_error_code_hex": "05004046",
+  "vendor_error_text": "The print has stopped because the 3MF file is invalid. Please verify that the correct printer model was selected during slicing, or update Studio and re-slice the file.",
+  "vendor_error_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+  "recovery": "Use a new upload filename for the identical reviewed archive."
+}

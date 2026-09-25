@@ -1,6 +1,6 @@
 # Display-cover snap fit trial — Mark2
 
-Printing on Mark2 since 2026-09-25 17:50 UTC, task 1282164977, with no startup errors. One complete display cover with each retaining skirt **1.2 mm inward** from the original receiver datum, another 0.3 mm inward from the preceding 0.9 mm trial. The outer bezel, window, complete skirt shape and fixed housing receivers retain their geometry.
+Restarted on Mark2 at 2026-09-25 18:04 UTC, task 1282199028, with no reported error. The [restart receipt](restart-1/launch.json) confirms the same archive and G-code hashes. The initial task 1282164977 stopped at layer 0 after a loading problem reported by Derek. One complete display cover with each retaining skirt **1.2 mm inward** from the original receiver datum, another 0.3 mm inward from the preceding 0.9 mm trial. The outer bezel, window, complete skirt shape and fixed housing receivers retain their geometry.
 
 The centered catch overlap is **0.3 mm per hook**. At the full 0.3 mm lateral float, one hook has zero overlap and the opposite hook has 0.6 mm. Both catch when centered; a straight outward pull is caught at either lateral limit by the remaining hook. Resistance to peeling or repeated use has not been established. The physical trial checks bowing and retention together.
 
@@ -14,4 +14,6 @@ The [native verification](verification.json) covers all 56 model wall layers, so
 
 ![Complete display cover](preview.png)
 
-The [launch receipt](launch.json) identifies the accepted archive and printer task. Post-publication geometry lint reports zero open findings and six intentional faces answered at their new coordinates.
+The [initial launch receipt](launch.json) and [restart receipt](restart-1/launch.json) identify both printer tasks. Post-publication geometry lint reports zero open findings and six intentional faces answered at their new coordinates.
+
+The restart initially met an invalid-file rejection and then the explicit unfinished-loading error. Bambu Connect subsequently cleared its manual purge panel and the left nozzle target returned to zero. The same reviewed archive, under a fresh filename, was then accepted. [Loading state](restart-1/loading-sequence.json), [cleared state](restart-1/loading-cleared.json).
