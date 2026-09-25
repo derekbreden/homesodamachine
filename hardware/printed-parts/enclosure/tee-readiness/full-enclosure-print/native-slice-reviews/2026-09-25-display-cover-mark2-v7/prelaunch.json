@@ -1,0 +1,17 @@
+{
+  "printer": "Mark2",
+  "observed_at_utc": "2026-09-25T15:59:06.257110+00:00",
+  "previous_job": "display-cover-window-covers-black-z004-mark2-v6.gcode.3mf",
+  "previous_task_id": "1281656339",
+  "previous_job_state": "FINISH",
+  "previous_job_percent": 100,
+  "previous_job_layer": 56,
+  "previous_job_total_layers": 56,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_target_temper": 0,
+  "bed_target_temper": 0,
+  "bed_clear_confirmed_by": "Derek in current conversation",
+  "user_direction": "Bowing reduced, but not by much; at least that much further inward again. Mark2 bed is clear.",
+  "send_preparation": "The first transaction stopped before clicking Print because a macOS notification covered the control. After the obstruction cleared, a fresh transaction submitted one Send click and the printer replied SUCCESS."
+}
