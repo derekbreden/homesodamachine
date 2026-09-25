@@ -1,0 +1,7 @@
+{
+  "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+  "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00",
+  "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c4ab1ca173ad793dee252576b69b51d5203752eedcc9f7dde1d8c87ded7f3700",
+  "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "9c1870760eb09978e744cbfb374c1dacfce139b4b59d96e90702dc9c31674dfd",
+  "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252"
+}

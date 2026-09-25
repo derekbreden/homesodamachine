@@ -12,8 +12,8 @@ the display: [1.3 mm](SKIRT_WALL) thick, [24 mm](SKIRT_LENGTH) long, reaching
 [8.5 mm](LIP_START) below the cover plate, stands on a [1.2 mm](LIP_LAND) land above a tapered
 nose, and rests [0.48 mm](BEARING_SLIP) under the housing's catch. Under each catch the housing
 is open straight down into the pump bay.
-Each cover skirt sits [0.3 mm](SKIRT_INSET) inboard of its receiver datum; the housing's
-slots stay fixed. Each lip overlaps its catch by [1.2 mm](CATCH_OVERLAP) when centered.
+Each cover skirt sits [0.6 mm](SKIRT_INSET) inboard of its receiver datum; the housing's
+slots stay fixed. Each lip overlaps its catch by [0.9 mm](CATCH_OVERLAP) when centered.
 
 Place the display and gasket in the housing, then press the cover normal to the screen until
 both lips click under their catches. The cover carries no screws.
@@ -23,8 +23,8 @@ Print face down, with the visible face on the plate and both skirts pointing up,
 standing on the plate beside the cover's edge, with the nameplate's 0.24 mm top gap and its
 small-overhang filter off. Peel each support off whole and keep the catch faces flat. Physical
 seating, retention and repeated-use measurements remain to be recorded for this geometry.
-The [prepared fit trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-display-cover-window-covers-mark2-v6/README.md)
-places the complete cover and both tee-carrier window covers on one Mark2 plate.
+The [fit trial](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v7/README.md)
+places the complete cover on one Mark2 plate.
 
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py`
 exports the complete cover and checks its solid, glass clearance and seated skirt pockets.

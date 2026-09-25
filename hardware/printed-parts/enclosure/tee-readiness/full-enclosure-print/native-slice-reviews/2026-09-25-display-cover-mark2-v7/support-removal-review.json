@@ -1,0 +1,64 @@
+{
+  "pass": true,
+  "native_archive_sha256": "ce6792c32a27d2af88ed13c982d65c5c2c91658ef64bea7bfd7fd035f5f75fa5",
+  "gcode_sha256": "3adfd73e97ce2fda14e70643c1c2e32249da6cb9611ee4b9cf89c22773973bbb",
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 2,
+    "bed_rooted_bodies": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 9.84,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "shortest_labelled_build_up_mm": 9.84
+  },
+  "contacts": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 10.04,
+      "last_z_mm": 10.28,
+      "bbox_xy_mm": [
+        98.4,
+        148.4,
+        99.6,
+        172.0
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 9.84,
+      "bbox_cad_xyz_mm": [
+        -64.1,
+        -12.0,
+        -10.28,
+        -62.9,
+        11.6,
+        -10.04
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 10.04,
+      "last_z_mm": 10.28,
+      "bbox_xy_mm": [
+        225.2,
+        148.4,
+        226.4,
+        172.0
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 9.84,
+      "bbox_cad_xyz_mm": [
+        62.7,
+        -12.0,
+        -10.28,
+        63.9,
+        11.6,
+        -10.04
+      ]
+    }
+  ],
+  "contact_faces": "Two exposed square catch faces beneath the retaining lips.",
+  "removal": "Peel each bed-rooted tree outward beside the bezel before installing the cover. Each tree reaches one exposed catch face; no enclosing pocket traps it.",
+  "visible_round_policy": "The bezel corners are rounded in XY only, with no show curves through print Z; no 0.08 mm band is required.",
+  "include_unlabelled_support": true,
+  "physical_removal_tested": false
+}

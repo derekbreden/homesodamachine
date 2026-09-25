@@ -13,7 +13,8 @@
     "skirt_translation_inward_each_mm": 0.3,
     "outer_perimeter_unchanged": true,
     "housing_receivers_unchanged": true,
-    "physical_trial_status": "Started on Mark2 on 2026-09-25, task 1281656339; seating and retention remain to be evaluated."
+    "physical_trial_status": "Printed on Mark2 on 2026-09-25, task 1281656339. Derek reports only a small reduction in bowing.",
+    "followup": "A further 0.3 mm inward shift per skirt is authorized for the next trial."
   },
   "photos": [
     {

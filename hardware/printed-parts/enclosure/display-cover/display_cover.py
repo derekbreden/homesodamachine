@@ -23,7 +23,7 @@ import _display_retention as retention
 import _stated_bounds as bounds
 from _swept_top import rounded_prism
 
-skirt_inset = 0.3
+skirt_inset = 0.6
 cover_slip = dims.display_cover_slip
 cover_x = dims.display_inset_x - 2.0 * cover_slip
 cover_slope = dims.display_inset_slope - 2.0 * cover_slip

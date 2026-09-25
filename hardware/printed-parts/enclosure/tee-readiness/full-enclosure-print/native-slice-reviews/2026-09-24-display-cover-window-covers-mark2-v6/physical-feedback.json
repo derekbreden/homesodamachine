@@ -1,0 +1,12 @@
+{
+  "source": "Derek, current conversation, 2026-09-25",
+  "printer_task_id": "1281656339",
+  "printed_skirt_inset_each_mm": 0.3,
+  "observation": "Bowing reduced, but not by much.",
+  "remaining_bow_measured_mm": null,
+  "user_direction": "Move the snaps at least the same amount further inward and print again. Mark2 bed is clear.",
+  "next_trial_skirt_inset_each_mm": 0.6,
+  "next_trial_additional_shift_each_mm": 0.3,
+  "next_trial_outer_perimeter_changed": false,
+  "window_cover_fit_reported": false
+}
