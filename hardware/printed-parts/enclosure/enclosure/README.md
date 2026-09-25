@@ -1476,8 +1476,8 @@ roll level into the roof.
 The side rounds blend through the junction with the R12 standing front corners,
 forming one continuous surface around each top-front corner.
 
-The rounded PET-GF display cover measures 124.9 × 82.4 mm with R5.7 corners. It seats
-flush in a 126.1 × 83.6 mm rounded inset, with 0.6 mm clearance around its edge.
+The rounded PET-GF display cover measures 125.5 × 83 mm with R6 corners. It seats
+flush in a 126.1 × 83.6 mm rounded inset, with 0.3 mm clearance around its edge.
 Its 107.5 × 71 mm window laps the Waveshare 4.3B glass through the 1 mm TPU gasket.
 The glass face sits 3 mm below the display plane; its back sits at 4 mm. The PCB
 passes through the housing behind it, offset 0.5 mm laterally and 1 mm down the slope.
