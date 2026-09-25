@@ -132,16 +132,16 @@ result. The 0.4 mm foaming data does not validate the 0.2 mm nozzle's density.
 
 Measured on the bench with one RC62 and one Littelfuse MDSR-7-10-15 reed, the
 reed standing parallel to the magnet's axis. Each distance runs from the reed to
-the magnet's outer edge nearest it.
+the magnet's outer edge nearest it. The figures are where the signal stayed
+stable while the magnet was turned up to about 45° off that orientation in any
+direction. The reed also closes beyond them, at some orientations and not at
+others.
 
-| Reed to magnet edge | Height of magnet travel the reed stays closed over |
+| Reed to magnet edge | Height of magnet travel with a stable signal |
 | --- | --- |
 | 30 mm | about 30 mm, ±15 mm about the reed's centre |
 | 40 mm | about 25 mm, ±12.5 mm |
-| 50 mm | the limit of reliable detection |
-
-Detection holds with the magnet or the reed up to 45° off that orientation in
-any direction.
+| 50 mm | the limit of stable detection |
 
 ## Application and pressure
 
