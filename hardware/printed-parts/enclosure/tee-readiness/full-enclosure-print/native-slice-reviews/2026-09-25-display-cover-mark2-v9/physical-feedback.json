@@ -1,0 +1,12 @@
+{
+  "source": "Derek in this conversation",
+  "reported_date": "2026-09-25",
+  "printer_task_id": "1282199028",
+  "printed_skirt_inset_each_mm": 1.2,
+  "bow_observation": "Very slight bowing remains; good enough for the moment, with further iteration possible.",
+  "retention_observation": "Derek reports no retention.",
+  "bow_measurement_mm": null,
+  "physical_retention_force_measured": false,
+  "bed_clear_confirmed": true,
+  "next_print_selected": false
+}

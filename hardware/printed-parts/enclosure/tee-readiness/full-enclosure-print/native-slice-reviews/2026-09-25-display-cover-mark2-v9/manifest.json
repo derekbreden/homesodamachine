@@ -1,5 +1,5 @@
 {
-  "status": "printing",
+  "status": "completed",
   "submitted": true,
   "print_started": true,
   "printer": "Mark2",
@@ -43,7 +43,7 @@
     "brim": "auto_brim",
     "native_settings_identical_to_previous_printed_trial": true
   },
-  "physical_trial": "Evaluate remaining bow and retention. Both hooks engage when centered; one hook reaches zero overlap at full lateral float. No physical retention force or resistance to peeling has been measured.",
+  "physical_trial": "Derek reports very slight remaining bowing, acceptable for the moment, and no retention. Retention force and repeated-use performance are unmeasured.",
   "checks": {
     "current_source_hashes": true,
     "unchanged_bezel_symmetric_difference_mm3": 0,
@@ -82,7 +82,8 @@
     "restart-1/filename-retry.json": "ba244dc7c94418727ebd3ac5c2fb13c8f4dfbd504c7529eb9c3ca53b5532b429",
     "restart-1/loading-sequence.json": "b27a39da2caeb7732b7cec7f33400548c677ebf3c3b01e329a054e1bc4ec38c7",
     "restart-1/launch.json": "6415a4f2f744c338443d7361d9665d5136c7a0bf8eeaf447189ec7c5df00d74f",
-    "restart-1/loading-cleared.json": "72a2099dcfd375343f5c028243a10b5a1aab6f516e7765a2c646da3e542bdb60"
+    "restart-1/loading-cleared.json": "72a2099dcfd375343f5c028243a10b5a1aab6f516e7765a2c646da3e542bdb60",
+    "physical-feedback.json": "bfe20c515d63f0202bd92bdf9c881827b280d4b873f7c8bcc25a6bb08fabb228"
   },
   "printer_task_id": "1282199028",
   "observed_at_utc": "2026-09-25T18:04:16.621700+00:00",
@@ -119,5 +120,7 @@
       "failure_record": "restart-1/reason.json"
     }
   ],
-  "submitted_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/restart-1/display-cover-mark2-v9-retry2.gcode.3mf"
+  "submitted_archive": ".cache/prints/2026-09-25-display-cover-mark2-v9/restart-1/display-cover-mark2-v9-retry2.gcode.3mf",
+  "completion_reported_by": "Derek in this conversation; printed part fit evaluated and bed clear.",
+  "physical_feedback": "physical-feedback.json"
 }
