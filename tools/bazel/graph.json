@@ -5303,6 +5303,32 @@
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh"
     ]
   },
+  "hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py",
+      "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+      "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/flute_payload.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl"
+    ]
+  },
   "hardware/printed-parts/enclosure/display-gasket/display_gasket.py": {
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
