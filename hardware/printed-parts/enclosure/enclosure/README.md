@@ -1476,16 +1476,18 @@ roll level into the roof.
 The side rounds blend through the junction with the R12 standing front corners,
 forming one continuous surface around each top-front corner.
 
-The rounded PET-GF display cover measures 125.5 × 83 mm with R6 corners. It seats
-flush in a 126.1 × 83.6 mm rounded inset, with 0.3 mm clearance around its edge.
+The rounded PET-GF display cover measures 124.9 × 82.4 mm with R5.7 corners. It seats
+flush in a 126.1 × 83.6 mm rounded inset, with 0.6 mm clearance around its edge.
 Its 107.5 × 71 mm window laps the Waveshare 4.3B glass through the 1 mm TPU gasket.
 The glass face sits 3 mm below the display plane; its back sits at 4 mm. The PCB
 passes through the housing behind it, offset 0.5 mm laterally and 1 mm down the slope.
 
 Two broad skirts on the cover snap into the housing. Each is the nameplate's snap tab
 run 24 mm along the display: 1.3 mm thick, reaching 13.3 mm below the face, with a square
-1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. The skirt's slot continues the
-cover's inset wall down to the catch and leaves the skirt room to bend in by its whole lip.
+1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. Each cover skirt sits 0.3 mm
+inboard of its receiver datum, leaving 1.2 mm of overlap under the fixed catch. The skirt's
+slot continues the cover's inset wall down to the catch and leaves the skirt room to bend
+in by its whole lip.
 The catch is the ceiling of the storey cavity beside the display, and the lip hangs into
 that cavity. The cover prints face down with its skirts pointing up. Seating and retention
 still require a physical print check.
