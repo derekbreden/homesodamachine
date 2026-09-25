@@ -20,10 +20,6 @@
       "firmware/src_front/studies/interface-variations/renders/soft-clay-pick.png",
       "firmware/src_front/studies/interface-variations/renders/soft-clay-settings.png",
       "hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "hardware/printed-parts/enclosure/enclosure/print-jobs.json",
-      "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v8/completion.json",
-      "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v8/manifest.json",
-      "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-cover-mark2-v8/physical-feedback.json",
       "hardware/reference/iec-c14-inlet/.scan-check-cache.npz"
     ],
     "members": [
@@ -230,6 +226,9 @@
       "hardware/printed-parts/enclosure/display-cover/display-cover.step",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
       "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh",
+      "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -526,6 +525,7 @@
       "//:digiten-flow-sensor",
       "//:display-cover",
       "//:display-gasket",
+      "//:display-receiver-trial",
       "//:enclosure",
       "//:enclosure-assembly",
       "//:endcap-circular-step",
@@ -1083,7 +1083,10 @@
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step.mesh": "8e6ee10597855950f4c4866f94e0d4d885b38e47a5fe3b4a843007fb283e3f40",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
-    "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl": "caf6f7b7ddabc055c86d3703711d2ac9e9a9557f0470b73e96e98e203a6ac700"
+    "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl": "caf6f7b7ddabc055c86d3703711d2ac9e9a9557f0470b73e96e98e203a6ac700",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": "901c12a95fe06edcda8874787ddbc4cd1038c1fed985b1f81284294281403aff",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "92e010fbd8797c779fbab1756935f5d51e3739fd841c228e50e26019e1868a06",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "ffd3f2500ebdf49d8b36489e3e8eae33291baa1eae0276f703cc96840b63728c"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1294,6 +1297,9 @@
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1790358498,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1790358498,
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1790358498,
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": 1790366459,
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": 1790366459,
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": 1790366459,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": 1787356215,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": 1790158064,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1790158064,
