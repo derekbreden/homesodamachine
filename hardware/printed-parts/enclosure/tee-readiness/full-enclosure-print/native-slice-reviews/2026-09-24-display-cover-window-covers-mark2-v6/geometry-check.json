@@ -1,0 +1,181 @@
+{
+  "pass": true,
+  "parts": [
+    {
+      "name": "enclosure-window-cover-west",
+      "step_sha256": "487f6c9e85cd29f9847d7e3ad92860dd9dfde4d479229c82c1fbc93895c4b81a",
+      "stl_sha256": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
+      "source_to_step_symmetric_difference_mm3": 0.0,
+      "watertight_single_body": true,
+      "stl_triangles": 36,
+      "cad_bounds_mm": [
+        [
+          -98.5,
+          117.19,
+          164.674
+        ],
+        [
+          -92.5,
+          153.186,
+          224.796
+        ]
+      ],
+      "front_top_insertion_probes": [
+        {
+          "lift_above_seat_mm": 0.0,
+          "front_top_intersection_mm3": 0.0
+        },
+        {
+          "lift_above_seat_mm": 5.0,
+          "front_top_intersection_mm3": 0.0
+        },
+        {
+          "lift_above_seat_mm": 15.0,
+          "front_top_intersection_mm3": 0.0
+        },
+        {
+          "lift_above_seat_mm": 22.0,
+          "front_top_intersection_mm3": 0.0
+        }
+      ],
+      "release_lift_mm": 22.0,
+      "tongue_above_post_at_release_mm": 0.25200000000000955,
+      "continuous_release_sweep_front_top_intersection_mm3": 0.0
+    },
+    {
+      "name": "enclosure-window-cover-east",
+      "step_sha256": "4d959f5e32afcf630bad34117daa36b9c97ee572678f75164e3d207c0ef94550",
+      "stl_sha256": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+      "source_to_step_symmetric_difference_mm3": 0.0,
+      "watertight_single_body": true,
+      "stl_triangles": 36,
+      "cad_bounds_mm": [
+        [
+          92.5,
+          117.19,
+          164.674
+        ],
+        [
+          98.5,
+          153.186,
+          224.796
+        ]
+      ],
+      "front_top_insertion_probes": [
+        {
+          "lift_above_seat_mm": 0.0,
+          "front_top_intersection_mm3": 0.0
+        },
+        {
+          "lift_above_seat_mm": 5.0,
+          "front_top_intersection_mm3": 0.0
+        },
+        {
+          "lift_above_seat_mm": 15.0,
+          "front_top_intersection_mm3": 0.0
+        },
+        {
+          "lift_above_seat_mm": 22.0,
+          "front_top_intersection_mm3": 0.0
+        }
+      ],
+      "release_lift_mm": 22.0,
+      "tongue_above_post_at_release_mm": 0.25200000000000955,
+      "continuous_release_sweep_front_top_intersection_mm3": 0.0
+    }
+  ],
+  "front_top_step_sha256": "9c1870760eb09978e744cbfb374c1dacfce139b4b59d96e90702dc9c31674dfd",
+  "display_cover_check": {
+    "unchanged_housing_inputs_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/_display_retention.py": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "4ca85222a43997e09289a133a820b726c431d9e95a319d308f89b3a01f803b00",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c4ab1ca173ad793dee252576b69b51d5203752eedcc9f7dde1d8c87ded7f3700",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "9c1870760eb09978e744cbfb374c1dacfce139b4b59d96e90702dc9c31674dfd",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "80f07049b4fe6a83f1ecc5bc02383d421e6676b9f8c2e0275f72659f3bd50252"
+    },
+    "source_export_equivalent": true,
+    "bezel_window_thickness_and_outer_perimeter_unchanged": true,
+    "bezel_symmetric_difference_mm3": 0.0,
+    "skirt_translations": [
+      {
+        "side": -1,
+        "translation_x_mm": 0.3,
+        "symmetric_difference_mm3": 0.0
+      },
+      {
+        "side": 1,
+        "translation_x_mm": -0.3,
+        "symmetric_difference_mm3": 0.0
+      }
+    ],
+    "original_reference_step_sha256": "ace8481d23d04f00b0a24ddb3928ecdf222e4cfb488ee7249ea509c4255d0139",
+    "cover_step_sha256": "8739dc3e72fed94c662f484f867758520b9ea484346dad523c64f3fa86e109d6",
+    "cover_stl_sha256": "108f2960ec0c4ca611539df134cc1325ffacf52a033e8ef57c0c94959e2d88b7",
+    "bezel_size_mm": [
+      125.5,
+      83.0,
+      2.0
+    ],
+    "perimeter_clearance_mm": 0.3,
+    "skirt_inset_each_mm": 0.3,
+    "nominal_catch_overlap_mm": 1.2000000000000028,
+    "minimum_catch_overlap_at_full_lateral_float_mm": 0.9000000000000028,
+    "glass_intersection_mm3": 0.0,
+    "native_housing_seating_and_retention": [
+      {
+        "lateral_shift_mm": -0.3,
+        "seated_intersection_mm3": 0.0,
+        "pull_out_probe_mm": 0.49,
+        "retaining_intersection_mm3": 0.5760000107004526
+      },
+      {
+        "lateral_shift_mm": 0.0,
+        "seated_intersection_mm3": 0.0,
+        "pull_out_probe_mm": 0.49,
+        "retaining_intersection_mm3": 0.576000010700426
+      },
+      {
+        "lateral_shift_mm": 0.3,
+        "seated_intersection_mm3": 0.0,
+        "pull_out_probe_mm": 0.49,
+        "retaining_intersection_mm3": 0.576000010700394
+      }
+    ],
+    "mesh_watertight": true,
+    "mesh_body_count": 1,
+    "mesh_triangle_count": 2104,
+    "appliance_cover_payload_updated": true,
+    "assembly_rotation": [
+      [
+        1.0,
+        -0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8660254037844387,
+        -0.49999999999999994
+      ],
+      [
+        0.0,
+        0.49999999999999994,
+        0.8660254037844387
+      ]
+    ],
+    "assembly_translation_mm": [
+      0.0,
+      48.67210506462308,
+      330.8384572681199
+    ],
+    "physical_fit_or_retention_force_measured": false,
+    "pass": true
+  },
+  "window_cover_geometry_changed": false,
+  "cover_to_seated_carrier_y_clearance_mm": 0.15000000000000568,
+  "post_width_mm": 6.0,
+  "slot_width_mm": 3.0,
+  "tongue_thickness_mm": 2.85,
+  "tongue_floor_clearance_mm": 0.25,
+  "assembly_order": "Lower covers onto front-top posts after V-G and V-J and before V-F and V-I.",
+  "limitation": "CAD insertion probes do not measure printed fit or retention force."
+}

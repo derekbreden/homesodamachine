@@ -1,0 +1,76 @@
+{
+  "status": "prepared_not_sent",
+  "submitted": false,
+  "print_started": false,
+  "printer": "Mark2",
+  "plate_contents": [
+    "display-cover",
+    "enclosure-window-cover-east",
+    "enclosure-window-cover-west"
+  ],
+  "native_archive": ".cache/prints/2026-09-24-display-cover-window-covers-mark2-v6/ready/display-cover-window-covers-black-z004-mark2-v6.gcode.3mf",
+  "native_archive_sha256": "18b6a371157e3f8984057d70760ca92bde67920dbe210190b416b9d9e9ef4b30",
+  "staged_input": ".cache/prints/2026-09-24-display-cover-window-covers-mark2-v6/display-cover-window-covers-black-z004-mark2-v6-input.3mf",
+  "staged_input_sha256": "8b267c20c480376568a26029e5709904e0aeaefc476f9780beaeb2016fdcbb40",
+  "gcode_sha256": "4d4ba555283a9c37f063d06cdd955e60067f1a2140734f3c710495db83d3f22d",
+  "estimated_seconds": 2517.434814453125,
+  "estimated_grams_saved_profile_density": 19.66851043701172,
+  "geometry_review": "geometry-check.json",
+  "native_review": "verification.json",
+  "support_review": "support-removal-review.json",
+  "printer_status": "printer-status.json",
+  "geometry": "Display-cover perimeter and display window unchanged; both complete snap skirts translated inward 0.3 mm. Housing pockets fixed. Existing window covers unchanged.",
+  "launch_state": "Both printers are running other jobs. This archive has not been submitted.",
+  "physical_trial": "Check whether the display cover seats flat with both lips retained. Check window-cover sliding fit and gap coverage on front-top.",
+  "settings": {
+    "material": "black PET-GF; printer labels it PET-CF",
+    "nozzle": "left 0.4 mm",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_commands_mm": [
+      0,
+      0.02
+    ],
+    "layer_height_mm": 0.24,
+    "initial_layer_mm": 0.2,
+    "wall_loops": 2,
+    "wall_sequence": "inner wall/outer wall",
+    "infill_first": false,
+    "infill_wall_overlap": "15%",
+    "brim": "auto_brim",
+    "speeds": "unchanged petgf.3mf profile",
+    "support_top_z_distance_mm": 0.24
+  },
+  "checks": {
+    "zip_integrity": true,
+    "native_gcode_md5": true,
+    "native_settings_match_with_known_normalizations": true,
+    "one_black_filament_left_nozzle": true,
+    "current_source_hashes": true,
+    "all_parts_inside_bed": true,
+    "print_paths_separated": true,
+    "support_review_passed": true,
+    "physical_fit_confirmed": false
+  },
+  "time_comparison": {
+    "display_cover_alone_seconds": 1431.10986328125,
+    "display_cover_and_both_window_covers_seconds": 2517.434814453125,
+    "added_seconds": 1086.324951171875,
+    "includes_native_startup_allowance": true
+  },
+  "review_sha256": {
+    "preparation.json": "a0f743566bf26b02d7fdab93c18994249c38267ec7a4705cbe6fdf5214b615bd",
+    "preview.png": "949f4bc42c26dee3ea3a00537c64f9c89f3ab109078811a90d661c6946729eaa",
+    "slice-command.json": "35b78980f46e0df2e3fbd47f6821e60659e9d5698792964704030cd14a973e74",
+    "support-audit-enclosure-window-cover-east.json": "7524062e71596aca5345e9cdcc359cadd09587fd762e34eecb3d972cfbbd1305",
+    "printer-status.json": "02d058480381212a01c0ecd95f9dbc12ad5380583ef80356fb98dbedc01eccff",
+    "verify_geometry.py": "c2616212bd10d5e86135192c7f097ca9200b1dacdf23a606ded76f5e2243a0eb",
+    "support-removal-review.json": "5fa4690686ab2e5560aa1f17ab2bb0c5c4857c3f53d8ea7134b90abd688569a7",
+    "support-audit-enclosure-window-cover-west.json": "304f54db07e43246bd79ecdce8498c9672072189d5943e2c7b054a34c2311f69",
+    "verification.json": "4e3819672db8432ba2a057df5aab6aa27ff80ba46f4738c0b4b6f72822c66127",
+    "verify.py": "b2a6d2ff417c329bd01a1641402e61f0164df4ac4b3e53f8aa4db1e86a4d5da3",
+    "slice-result.json": "c4323ba8645fd3e44a4aebc0af9c27d759bd91b765ee9ac9ef0e6726545e6900",
+    "prepare.py": "d3d4ac7407e12f58ee5eeba110c42c343af8c46886210ab58a04a0032a8076a4",
+    "support-audit-display-cover.json": "867f8d175a815ce1aad1954972bfa85b5ed28cfe1ea4bfc4280e0e244b41f54b",
+    "geometry-check.json": "7348115b8c006272aa0c4519843efac42e446623da38ca759e893adb634d524c"
+  }
+}
