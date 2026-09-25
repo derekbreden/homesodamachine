@@ -49,6 +49,21 @@ renders selected frames; `--start 46 --end 63 --output detail.mp4` renders a
 section. `errand-review.mjs` and `product-review.mjs` render the scene modules
 independently.
 
+## YouTube
+
+`publication.json` holds the upload for the Home Soda Machine channel: title,
+description with five chapter links, English captions, audience settings, and
+the SHA-256 of the film it describes. `thumbnail.jpg` is the 3840 × 2160 custom
+thumbnail, the film's mid-pour faucet on cobalt in the tour thumbnail's type and
+layout. `draw(t, shot, { cobalt: true })` in `product-scenes.js` sets any shot on
+the cobalt ground. Regenerate the thumbnail with:
+
+```sh
+node marketing/video/one-less-errand/render-thumbnail.mjs
+```
+
+## Record narration
+
 The narration generator is shared with the tour film:
 
 ```sh
