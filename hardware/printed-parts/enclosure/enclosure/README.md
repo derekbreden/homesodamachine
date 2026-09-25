@@ -1484,8 +1484,10 @@ passes through the housing behind it, offset 0.5 mm laterally and 1 mm down the 
 
 Two broad skirts on the cover snap into the housing. Each is the nameplate's snap tab
 run 24 mm along the display: 1.3 mm thick, reaching 13.3 mm below the face, with a square
-1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. Each cover skirt sits 0.9 mm
-inboard of its receiver datum, leaving 0.6 mm of overlap under the fixed catch. The skirt's
+1.8 mm lip that rests 0.48 mm under a flat catch 10 mm down. Each cover skirt sits 1.2 mm
+inboard of its receiver datum, leaving 0.3 mm of centered overlap under the fixed catch.
+At full lateral float one lip has zero overlap and the opposite lip has 0.6 mm; physical
+retention remains to be checked. The skirt's
 slot continues the cover's inset wall down to the catch and leaves the skirt room to bend
 in by its whole lip.
 The catch is the ceiling of the storey cavity beside the display, and the lip hangs into

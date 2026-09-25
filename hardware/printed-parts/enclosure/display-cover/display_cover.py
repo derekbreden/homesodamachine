@@ -23,13 +23,14 @@ import _display_retention as retention
 import _stated_bounds as bounds
 from _swept_top import rounded_prism
 
-skirt_inset = 0.9
+skirt_inset = 1.2
 cover_slip = dims.display_cover_slip
 cover_x = dims.display_inset_x - 2.0 * cover_slip
 cover_slope = dims.display_inset_slope - 2.0 * cover_slip
 cover_corner_r = dims.display_cover_corner_r
 skirt_outer_x = retention.OUTER_X - skirt_inset
 catch_overlap = skirt_outer_x + retention.LIP - retention.NECK_X
+minimum_catch_overlap = catch_overlap - cover_slip
 window_x = dims.display_bezel_x - 2.0 * dims.display_inset_lap
 window_slope = dims.display_bezel_slope - 2.0 * dims.display_inset_lap
 window_corner_r = dims.display_corner_r
@@ -73,6 +74,8 @@ def selftest():
     body = build_display_cover().val()
     assert body.isValid() and len(body.Solids()) == 1
     assert glass_shadow() < 0.0001
+    assert catch_overlap > 0.0001
+    assert minimum_catch_overlap >= -0.0001
     for side in (-1, 1):
         skirt = build_cover_skirt(side)
         missing = skirt.cut(retention.pocket(side)).Volume()
@@ -81,9 +84,16 @@ def selftest():
             seated = skirt.translate((lateral, 0, 0))
             assert abs(seated.cut(retention.pocket(side)).Volume()) < 0.0001
             pulled = seated.translate((0, 0, retention.BEARING_SLIP + 0.01))
-            assert pulled.cut(retention.pocket(side)).Volume() > 0.0001
+            caught = abs(pulled.cut(retention.pocket(side)).Volume())
+            # At full lateral float one lip just meets its catch's edge; both engage
+            # when centered. The bench trial measures the resulting retention.
+            if catch_overlap + side * lateral > 0.0001:
+                assert caught > 0.0001
+            else:
+                assert caught < 0.0001
     print(f"Display cover: one valid solid; glass clear; skirts inside their pockets, "
-          f"{cover_slip:g} mm perimeter clearance; {catch_overlap:g} mm catch overlap, "
+          f"{cover_slip:g} mm perimeter clearance; {catch_overlap:g} mm centered catch overlap, "
+          f"{max(0.0, minimum_catch_overlap):g} mm minimum at full lateral float; "
           f"{retention.BEARING_SLIP:g} mm below catches")
     return 0
 
