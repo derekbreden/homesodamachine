@@ -1,6 +1,7 @@
 # Display cover and window covers — Mark2
 
-Prepared, not sent. One full machine display cover and the two window covers that slide
+Printing on Mark2 since 2026-09-25 14:34 UTC, task `1281656339`, with no startup errors.
+One full machine display cover and the two window covers that slide
 onto front-top's posts behind the tee carrier. The native estimate is **41 min 57 sec**,
 including startup, and 19.67 g at the saved profile's density. The display cover alone is
 23 min 51 sec; adding both window covers adds **18 min 6 sec**.

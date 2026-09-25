@@ -1254,6 +1254,52 @@
       "observed_layer": 0,
       "observed_total_layers": 1502,
       "observed_remaining_minutes": 1318
+    },
+    {
+      "date": "2026-09-25",
+      "printer": "Mark2",
+      "parts": [
+        "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl"
+      ],
+      "job_name": "display-cover-window-covers-black-z004-mark2-v6.gcode.3mf",
+      "printer_task_id": "1281656339",
+      "status": "started",
+      "started_by": "Codex at Derek's request",
+      "observed_state": "RUNNING",
+      "observed_at_utc": "2026-09-25T14:34:19.303897+00:00",
+      "observed_print_error": 0,
+      "hms": [],
+      "sliced_file": ".cache/prints/2026-09-24-display-cover-window-covers-mark2-v6/ready/display-cover-window-covers-black-z004-mark2-v6.gcode.3mf",
+      "sliced_file_sha256": "18b6a371157e3f8984057d70760ca92bde67920dbe210190b416b9d9e9ef4b30",
+      "gcode_sha256": "4d4ba555283a9c37f063d06cdd955e60067f1a2140734f3c710495db83d3f22d",
+      "native_review": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-display-cover-window-covers-mark2-v6/manifest.json",
+      "launch_record": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-display-cover-window-covers-mark2-v6/launch.json",
+      "z_offset_mm": 0.04,
+      "effective_textured_plate_trim_mm": 0.02,
+      "nozzle": "left 0.4 mm Standard",
+      "filament": "Black Polymaker PET-GF; PET-CF mapping on left external spool 254",
+      "estimated_seconds": 2517,
+      "filament_grams": 19.67,
+      "layer_count": 56,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2,
+      "normal_wall_loops": 2,
+      "wall_sequence": "inner wall/outer wall, then infill",
+      "infill_wall_overlap": "15%",
+      "speed_settings": "unchanged saved profile",
+      "support_policy": "Two bed-rooted supports on the display-cover square catches; both window covers print flat without supports.",
+      "geometry": "Display-cover original perimeter and window; each skirt shifted 0.3 mm inward; housing unchanged. Existing window-cover geometry.",
+      "source_geometry_sha256": {
+        "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "108f2960ec0c4ca611539df134cc1325ffacf52a033e8ef57c0c94959e2d88b7",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-east.stl": "c9532d922848ace6d5d12fd19635f879c464cf6788e18648994fe742226129c3",
+        "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c"
+      },
+      "observed_layer": 0,
+      "observed_total_layers": 56,
+      "observed_remaining_minutes": 41,
+      "bed_clear_confirmed_by": "Derek in this conversation"
     }
   ]
 }

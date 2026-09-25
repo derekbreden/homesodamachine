@@ -1,0 +1,21 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-09-25T14:33:25.826990+00:00",
+  "gcode_state": "FINISH",
+  "previous_job": "pump-cartridge-cap-black-z004-mark2-v8-six-wall-grip-rounds.gcode.3mf",
+  "previous_job_complete": true,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_target_temper": 0,
+  "bed_target_temper": 0,
+  "external_spool_254": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+  },
+  "bed_clearance_confirmation": {
+    "source": "Derek, current conversation",
+    "text": "Mark2 bed is clear"
+  },
+  "native_archive_and_review_hashes_verified": true,
+  "source_geometry_hashes_verified": true
+}
