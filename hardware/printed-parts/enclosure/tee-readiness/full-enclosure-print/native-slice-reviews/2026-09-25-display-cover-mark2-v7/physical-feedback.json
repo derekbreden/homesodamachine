@@ -1,0 +1,17 @@
+{
+  "source": "Derek in this conversation",
+  "observation": "Remaining display-cover bowing; any additional improvement from the 0.6 mm trial appears small and is difficult to distinguish physically.",
+  "measurement_mm": null,
+  "geometry_actually_printed": {
+    "skirt_inset_each_mm": 0.6,
+    "additional_shift_each_mm": 0.3,
+    "verification": "actual-toolpath-comparison.json"
+  },
+  "requested_next_trial": {
+    "additional_shift_each_mm": 0.3,
+    "skirt_inset_each_mm": 0.9,
+    "perimeter_unchanged": true,
+    "housing_receivers_unchanged": true
+  },
+  "physical_retention_force_measured": false
+}
