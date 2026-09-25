@@ -38,6 +38,14 @@ nozzle it knows.
   one of them, not the printing head. The send dialog checks the sliced diameter against
   the head and shows a mismatch on the filament tile.
 
+## Power-loss recovery
+
+On 2026-09-25 Derek reported accidentally unplugging both printers by tripping on
+their power cord. H2C lost power mid-print, mid-extrusion, and recovered with no
+visible defect at the interruption point. The active job was
+[front-bottom, task 1279923918](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
+This is Derek's visual observation of that recovery.
+
 ## Print submission
 
 Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to the account

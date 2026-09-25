@@ -1253,7 +1253,8 @@
       },
       "observed_layer": 0,
       "observed_total_layers": 1502,
-      "observed_remaining_minutes": 1318
+      "observed_remaining_minutes": 1318,
+      "physical_result": "2026-09-25: Derek reports that both printers lost power when their power cord was accidentally unplugged. H2C was mid-print, mid-extrusion, and recovered with no visible defect at the interruption point. Completed part, fit and support removal remain unassessed."
     },
     {
       "date": "2026-09-25",
