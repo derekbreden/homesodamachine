@@ -1084,9 +1084,9 @@
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.step.mesh": "8e6ee10597855950f4c4866f94e0d4d885b38e47a5fe3b4a843007fb283e3f40",
     "hardware/printed-parts/enclosure/tee-carrier/enclosure-window-cover-west.stl": "c1f6f28b1d254d4176db8bb13789c47c5e776dec881ef0191c0c825989c0d39c",
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl": "caf6f7b7ddabc055c86d3703711d2ac9e9a9557f0470b73e96e98e203a6ac700",
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": "901c12a95fe06edcda8874787ddbc4cd1038c1fed985b1f81284294281403aff",
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "92e010fbd8797c779fbab1756935f5d51e3739fd841c228e50e26019e1868a06",
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "ffd3f2500ebdf49d8b36489e3e8eae33291baa1eae0276f703cc96840b63728c"
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": "b90ebd1c64dc77a0c39355d8c92b42e9eb57fe3311d4d38aef6f3d744a8fc841",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": "a51bfbb2fd852595bbda776e15873c52bcbc0ecefda04babb28b33e3b0042b80",
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": "a51a506ff2cd152bdba7dffb222f9f2e7b8bc9d343b7de3c543b52490790491b"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "43ba81d94f4ee8fb04ac5a6c93e26479ea47174b772e5f98684e966856c8c1a5",
@@ -1297,9 +1297,9 @@
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1790358498,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1790358498,
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1790358498,
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": 1790366459,
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": 1790366459,
-    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": 1790366459,
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step": 1790366712,
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh": 1790366712,
+    "hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl": 1790366712,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": 1787356215,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": 1790158064,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1790158064,
