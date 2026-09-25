@@ -23,12 +23,12 @@ import _display_retention as retention
 import _stated_bounds as bounds
 from _swept_top import rounded_prism
 
-edge_relief = 0.3
-cover_slip = dims.display_cover_slip + edge_relief
+skirt_inset = 0.3
+cover_slip = dims.display_cover_slip
 cover_x = dims.display_inset_x - 2.0 * cover_slip
 cover_slope = dims.display_inset_slope - 2.0 * cover_slip
-cover_corner_r = dims.display_inset_corner_r - cover_slip
-skirt_outer_x = retention.OUTER_X - edge_relief
+cover_corner_r = dims.display_cover_corner_r
+skirt_outer_x = retention.OUTER_X - skirt_inset
 catch_overlap = skirt_outer_x + retention.LIP - retention.NECK_X
 window_x = dims.display_bezel_x - 2.0 * dims.display_inset_lap
 window_slope = dims.display_bezel_slope - 2.0 * dims.display_inset_lap
@@ -42,7 +42,7 @@ bounds.state('display-cover-reveal', 'The display bezel is a smooth reveal in th
 
 def build_cover_skirt(side):
     """The cover-owned skirt, inset from the housing's fixed receiver datum."""
-    return retention.skirt(side).translate((-side * edge_relief, 0, 0))
+    return retention.skirt(side).translate((-side * skirt_inset, 0, 0))
 
 
 def build_cover_outer():
@@ -106,7 +106,7 @@ def main():
         "SKIRT_DEPTH": f"{retention.DEPTH:g} mm", "LIP_START": f"{retention.LIP_START:g} mm",
         "LIP_LAND": f"{retention.LIP_LAND:g} mm", "LIP_ENGAGEMENT": f"{retention.LIP:g} mm",
         "BEARING_SLIP": f"{retention.BEARING_SLIP:g} mm",
-        "SKIRT_INSET": f"{edge_relief:g} mm", "CATCH_OVERLAP": f"{catch_overlap:g} mm",
+        "SKIRT_INSET": f"{skirt_inset:g} mm", "CATCH_OVERLAP": f"{catch_overlap:g} mm",
     }
     substitute_md(_here.parent / "README.md", variables=variables)
     print('-> display-cover.step, display-cover.stl, README.md')
