@@ -1,0 +1,97 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-25-display-cover-mark2-v7/ready/display-cover-black-z004-mark2-v7-inset-snaps-06.gcode.3mf",
+  "native_archive_sha256": "ce6792c32a27d2af88ed13c982d65c5c2c91658ef64bea7bfd7fd035f5f75fa5",
+  "gcode_sha256": "3adfd73e97ce2fda14e70643c1c2e32249da6cb9611ee4b9cf89c22773973bbb",
+  "staged_input_sha256": "922634e96602e620fdc06edc706f9afe822de77ec43ced02fb87196723a22cc2",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-cover": {
+      "wall_layer_count": 56,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        13.4,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    }
+  },
+  "layer_count": 56,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 1,
+  "triangles": 2104,
+  "estimated_seconds": 1435.20068359375,
+  "estimated_grams_saved_profile_density": 8.637185096740723,
+  "path_bounds": {
+    "display-cover": {
+      "bounds_xy_mm": [
+        [
+          90.06400000000001,
+          118.39999999999999
+        ],
+        [
+          234.946,
+          201.6
+        ]
+      ],
+      "minimum_plate_clearance_mm": 90.054,
+      "feature_segment_counts": {
+        "Support": 11125,
+        "Inner wall": 1077,
+        "Outer wall": 1490,
+        "Bottom surface": 1178,
+        "Internal solid infill": 7460,
+        "Sparse infill": 268,
+        "Bridge": 1223,
+        "Top surface": 668,
+        "Gap infill": 110,
+        "Support interface": 126,
+        "Overhang wall": 12,
+        "Floating vertical shell": 16
+      }
+    }
+  },
+  "path_gaps": [],
+  "support_summaries": {
+    "display-cover": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 9.84,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 9.84
+    }
+  },
+  "support_only_on_display_cover": true,
+  "submitted": false,
+  "native_settings_identical_to_previous_printed_trial": true,
+  "previous_printed_archive_sha256": "18b6a371157e3f8984057d70760ca92bde67920dbe210190b416b9d9e9ef4b30"
+}
