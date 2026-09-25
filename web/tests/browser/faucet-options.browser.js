@@ -17,7 +17,7 @@ let server, browser, baseUrl;
 
 function payload(file) {
   const names = file === machine ? ["display-cover"] : file.includes("faucet-layout/")
-    ? ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "westbrass", "above_counter_gasket", "faucet_display_screen"]
+    ? ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "westbrass", "above_counter_gasket", "faucet_display_screen", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate"]
     : ["part"];
   const chunks = [], meshes = [];
   let offset = 0;
@@ -96,7 +96,7 @@ function samePose(actual, expected) {
   for (const axis of ["p", "u", "t"]) actual[axis].forEach((n, i) => assert.ok(Math.abs(n - expected[axis][i]) < 1e-8, `${axis}[${i}] moved`));
 }
 
-test("style swaps actual geometry in place; finish changes only printed faucet bodies", async () => {
+test("style swaps actual geometry in place; finish covers the exterior, lever, dispense tubes and gasket", async () => {
   const { page } = await openPage();
   try {
     const initial = await materials(page);
@@ -108,8 +108,8 @@ test("style swaps actual geometry in place; finish changes only printed faucet b
     const before = await pose(page);
     await choose(page, "finish", "white");
     const white = await materials(page);
-    for (const name of ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate"]) assert.ok(white[name][0] > .8, name);
-    for (const name of ["westbrass", "above_counter_gasket", "faucet_display_screen"]) assert.deepEqual(white[name], initial[name], name);
+    for (const name of ["shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate", "above_counter_gasket", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x"]) assert.ok(white[name][0] > .8, name);
+    for (const name of ["westbrass", "faucet_display_screen", "soda_umbilical_tube", "umbilical_sleeve", "under_counter_plate"]) assert.deepEqual(white[name], initial[name], name);
     samePose(await pose(page), before);
     await choose(page, "style", "industrial");
     await mounted(page, industrial.assembly);
