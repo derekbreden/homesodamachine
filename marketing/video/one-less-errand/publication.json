@@ -1,5 +1,5 @@
 {
-  "title": "One Less Errand — Cold Soda on Tap at Home",
+  "title": "One Less Errand \u2014 Cold Soda on Tap at Home",
   "description": "A glass of soda shouldn't take a trip to the store. This animated short follows the routine of hauling cases of cans home, then shows the idea behind the home soda machine I'm developing: cold carbonated water and two flavors waiting under the counter, poured from a faucet in the style and finish you choose.\n\nExplore the design and follow the build:\nhttps://homesodamachine.com\n\n0:00 The routine\n0:30 The next glass\n0:46 At the faucet\n1:03 Choose your style\n1:19 Choose your finish\n\nAn animated design preview. Narration generated with Google Gemini; original music and sound design.",
   "video": "out/film.mp4",
   "thumbnail": "thumbnail.jpg",
@@ -8,12 +8,24 @@
   "category": "Science & Technology",
   "madeForKids": false,
   "visibility": "public",
-  "status": "ready",
+  "status": "published",
   "channel": "Home Soda Machine",
   "channelId": "UCvlTxqzLbamEXK7zo0L9g6A",
   "syntheticNarration": true,
   "aiDisclosure": true,
   "paidPromotion": false,
   "videoSha256": "e3b3db1c85168e468ad5b9cb4a5d70e08d8088274d18bde5aef90f68082f16d8",
-  "durationSeconds": 100
+  "durationSeconds": 100,
+  "videoId": "WHO-V2DPTcs",
+  "url": "https://youtu.be/WHO-V2DPTcs",
+  "publishedDate": "2026-09-25",
+  "verifiedAt": "2026-09-26T00:09:10.090547+00:00",
+  "verification": {
+    "publicWatchPage": true,
+    "customThumbnail": true,
+    "maxResolution": "1080p",
+    "captions": "English",
+    "chapterLinks": 5,
+    "copyrightCheck": "No issues found"
+  }
 }
