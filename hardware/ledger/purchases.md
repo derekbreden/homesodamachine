@@ -733,10 +733,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$36,126.55](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$36,201.81](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$41,564.09](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$766.70](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$41,639.35](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$691.44](LEDGER_ON_ORDER) |
 | MISSING — paid, not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$42,383.86](LEDGER_GRAND_TOTAL) |
