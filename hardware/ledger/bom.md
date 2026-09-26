@@ -140,7 +140,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.472 | $36.82 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.009 | $0.21 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.13 <!--@printed--> |
-| Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.19 <!--@printed--> |
+| Tube collar — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.017 | $0.20 <!--@printed--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.013 | $0.32 <!--@printed--> |
 | ASSE drip pan | 1 | PETG | 0.018 | $0.21 <!--@printed--> |
@@ -149,7 +149,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet display cover plate | 1 | PET-GF | 0.005 | $0.13 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--> |
-| **Printed parts total** | | | **~6.84** | **[$157.80](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.84** | **[$157.81](BOM_SEC7)** |
 
 By material: PETG ≈ 0.97 kg / $10.86 — of which the four translucent reservoir parts are ≈ 0.89 kg / $9.96 — and PET-GF ≈ 5.87 kg / $146.94.
 
@@ -307,7 +307,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 4. CO2 subsystem | [$97.77](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$157.80](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$157.81](BOM_SEC7) |
 | 8. Flavor subsystem | [$225.90](BOM_SEC8) |
 | 9. Dispensing | [$68.95](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -315,7 +315,7 @@ The bonus bagged inside the install kit, with its own guide: what a buyer uses t
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$17.17](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,374.82](BOM_GRAND)** |
+| **Total** | **[$1,374.83](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
