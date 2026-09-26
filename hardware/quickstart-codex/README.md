@@ -30,9 +30,12 @@ The same seven step numbers appear in both documents, and the braided-hose link 
 install guide pages 9-11. The leak band closes the water and cylinder supplies and links to
 the connection checks on page 23.
 
-The power-connection illustration uses the white On tap mark on the black nameplate.
-`tools/quickstart-codex/brand_scenes.py` renders that mark in the frozen scene, preserving
-the physical lettering and ratings. The manufacturing CAD in
+The rear illustrations draw the nameplate from `enclosure-assembly.step`: the white On tap
+mark, HOME SODA MACHINE and the unit's QR code on the black plate.
+`hardware/install-guide/_install_art.py the-back-face` renders step 3's back face.
+`tools/quickstart-codex/scenes.py power` rebuilds the power and rear-connection snapshots from
+the assembly, and `tools/quickstart-codex/insertion_actions.py power-ready` draws step 5 with
+the cord drawn back. The manufacturing CAD in
 `hardware/printed-parts/enclosure/nameplate/nameplate.py` reads the same `brand/mark.svg` master.
 
 The PDF, cover, fonts and artwork are committed snapshots. The manual authoring scripts

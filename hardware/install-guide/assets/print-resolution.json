@@ -94,8 +94,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "2e85e21096892db0c61f5187eb3ebbddac724622312ed979fa4a46a123a80fad",
-      "render_sha256": "762970110eab10401c34ba8edf60b13b105537e395ca2e8a4ffbe7a3d242d39f"
+      "coordinate_reference_sha256": "4a572b6412ed7008bf69294d489654e4e849009ffba8e0ac0c3cfab7cb738488",
+      "render_sha256": "59960d46b22c0a14e72f0c2b94b3d6b7eb374c52acacec3ed6a4800f8c5d03b5"
     },
     "hose-attached.png": {
       "reference_size": [
@@ -142,8 +142,8 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_sha256": "d5ec60850fbb0ad19b1f6d9bc52084595822bcb53851bdf64ae8d38489479322",
-      "render_sha256": "0028fc67851b90f921e9b4bd41394bb697804ff8ad651ab9ce2f42aef1b15793"
+      "coordinate_reference_sha256": "0f6d7312ccf165adee21220e78e568f8a1867f47fcfa3969c3825f5f4c151d93",
+      "render_sha256": "1318b3ac5e4406230dd6f2c3295584e4d05de33fa746dade51cfacfe1e43216b"
     },
     "steps/startup-gas.png": {
       "reference_size": [
