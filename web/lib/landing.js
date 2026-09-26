@@ -14,8 +14,8 @@ main {
      (for PWA home indicator). Top doesn't need it — the sticky nav above
      already eats safe-area-top. */
   /* The bottom clears a notification toast, which is fixed 12px off the
-     bottom and about 67px tall — the status line under the form is the last
-     thing on the page and the toast arrives over it. */
+     bottom and about 67px tall — the film under the form is the last thing
+     on the page and the toast arrives over it. */
   padding:
     2rem
     calc(env(safe-area-inset-right, 0px) + 1.5rem)
@@ -169,6 +169,27 @@ input[type="email"]:focus-visible {
   40%, 80% { transform: translateX(6px); }
 }
 .signup-btn.shake { animation: shake 0.35s; }
+/* One Less Errand, under the form and as wide as it. The player is YouTube's,
+   from its no-cookie host, and loads when it nears the viewport. */
+.film {
+  width: 100%;
+  max-width: 24rem;
+  aspect-ratio: 16 / 9;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+@media (min-width: 520px) {
+  .film { max-width: 32rem; }
+}
+.film iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 `;
 
 const BODY = `<main>
@@ -198,6 +219,15 @@ const BODY = `<main>
     </button>
   </form>
   <div id="status" class="status" aria-live="polite"></div>
+  <div class="film">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/WHO-V2DPTcs?rel=0"
+      title="One Less Errand — Cold Soda on Tap at Home"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+  </div>
 </main>
 <script src="/landing.js" defer></script>
 `;
@@ -211,7 +241,7 @@ export function mountLandingRoutes(app) {
         title: "Home Soda Machine",
         pageStyles: PAGE_STYLES,
       }) +
-      renderNav({ surface: "public", active: "home" }) +
+      renderNav({ active: "home" }) +
       BODY +
       renderFooter(),
     );

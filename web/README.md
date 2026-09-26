@@ -43,18 +43,18 @@ server.js  ── start({ dev }) ──┬─ pg.Pool from DATABASE_URL (null if
    ▼  (route handler in lib/<name>.js)
 res.send(
   renderHead({…})          // <head>: meta, fonts, /css/site.css, HEAD_TAGS, page styles
-  + renderNav({surface, active})
+  + renderNav({active})
   + <body fragment>        // either inline HTML or a template fragment from lib/templates/
   + renderFooter()
 )
 
-Browser receives HTML. Inline pre-paint <script> sets dev-mode + notifs-enabled
-classes from localStorage. Then deferred /boot.js runs (SW bridge, notifications
+Browser receives HTML. Inline pre-paint <script> sets the notifs-enabled
+class from localStorage. Then deferred /boot.js runs (SW bridge, notifications
 state, WebSocket owner, /api/version activation check). Then any page-specific
 module (/landing.js, /js/viewer/main.js, etc.).
 ```
 
-The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses `renderHead` and `renderFooter`. Public and engineering pages use `renderNav`; its `surface` arg is `"public"` (hides Parts/Charts unless dev-mode is set in localStorage) or `"dev"` (always shows them). Unit pages have their own named navigation: Your machine, Get started, and Guides.
+The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses `renderHead` and `renderFooter`. Public and engineering pages use `renderNav`, which draws the same icons everywhere: Home, Updates, Parts, Charts, Drawings, Boards and Cost, then the bell and the gear. Unit pages have their own named navigation: Your machine, Get started, and Guides.
 
 ## Module layout
 
@@ -68,7 +68,7 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses 
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, the documents shelf, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/cards/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
-| [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
+| [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: FCM enable, live-reload debug. |
 | [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed` broadcasts. |
 | [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
 | [`lib/push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
@@ -86,7 +86,7 @@ Served flat via `express.static(public/)`.
 | [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
 | [`public/landing.js`](/web/public/landing.js) | `/` | Signup form submit and feedback. |
 | [`public/unit.js`](/web/public/unit.js) | Unit pages | Opens the included-equipment disclosure from its link and saves preparation checkmarks in this browser, keyed by serial. Navigation and documents are server-rendered links. |
-| [`public/settings.js`](/web/public/settings.js) | `/settings` | Dev-mode + notification toggles. |
+| [`public/settings.js`](/web/public/settings.js) | `/settings` | Notification + live-reload debug toggles. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`../tools/build_brand_assets.py`](../tools/build_brand_assets.py). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
 | [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
@@ -128,23 +128,6 @@ are progressive enhancements.
 `public/unit/faucet.webp` is the optimized copy of the install guide's committed
 `hardware/install-guide/assets/steps/pour-base.png`. Regenerate it with
 `node web/scripts/build-unit-assets.mjs`, using the Sharp dependency in `tools/render/`.
-
-## Machine tour
-
-`/tour` plays the 130-second sequence in `contracts/tour-water.js`: timed captions,
-camera poses, highlighted bodies and exploded positions. Screws release the enclosure
-before the internal scenes. The cold core isolates, sheds its caps and printed shell,
-and separates its coil, carbonator and reservoirs. Labels identify the four subjects
-while the camera moves between them. Reassembly reverses those motions before the
-rest of the machine returns. `public/js/tour/reveal-plan.js` holds component motions
-and screw stations; per-channel timings live alongside the captions.
-The tour's modules, shared viewer imports, contracts and styles share a content-versioned
-asset namespace. Its import map is declared before the page's module scripts.
-
-The caption file is `/tour/captions.vtt`; the narration text is `/tour/script.txt`.
-`?paused=1` opens a still frame, and `#10` opens scene ten. The browser's `window.__tour`
-exposes `seekTime(milliseconds)` and `advance(milliseconds)` for deterministic capture,
-along with `timeline`, `renderer`, and `camera`. All timing uses the same caption timeline.
 
 ## Tube shape review
 

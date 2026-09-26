@@ -1,18 +1,14 @@
 // Settings page — reachable via the gear in the top-right of every nav.
 //
-// Three rows, all rendered with the .ios-toggle pill from shell.js:
-//   1. Dev mode — always visible. Toggling on adds Parts / Charts to
-//      the public nav (sets html.dev-mode + persists in localStorage).
-//      No async work; the slide is instant.
-//   2. Notifications — only visible inside the installed PWA, since iOS
+// Two rows, both rendered with the .ios-toggle pill from shell.js:
+//   1. Notifications — only visible inside the installed PWA, since iOS
 //      web push only works in standalone mode and the toggle is inert
-//      otherwise. Same FCM-backed flow as before: first-time enable shows
-//      a warning modal, requests permission, registers the SW, gets a
-//      token, POSTs files=["*"] so any STEP change pushes; turning off
-//      DELETEs the subscription.
-//   3. Live-reload debug — only visible when dev mode is on. Flips the
-//      on-screen panel boot.js renders (socket health, build commit,
-//      deploy events) via window.__hsmLiveDebug + localStorage.
+//      otherwise. First-time enable shows a warning modal, requests
+//      permission, registers the SW, gets a token, POSTs files=["*"] so
+//      any STEP change pushes; turning off DELETEs the subscription.
+//   2. Live-reload debug — flips the on-screen panel boot.js renders
+//      (socket health, build commit, deploy events) via
+//      window.__hsmLiveDebug + localStorage.
 //
 // Below the card, the Checks section: every check in the tree and what it
 // answered, out of the verdict this deploy carries. It is what the gear's dot
@@ -110,14 +106,6 @@ const BODY = `<div class="wrap">
   <header class="page"><h1>Settings</h1></header>
 
   <div class="settings-card">
-    <div class="setting-row" id="row-devmode">
-      <div>
-        <div class="setting-label">Dev mode</div>
-        <div class="setting-help">Show Parts, Charts, Drawings, Boards, Cost and Build in the navigation.</div>
-      </div>
-      <button id="devmode-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Dev mode"></button>
-    </div>
-
     <div class="setting-row" id="row-notifs" hidden>
       <div>
         <div class="setting-label">Notifications</div>
@@ -128,7 +116,7 @@ const BODY = `<div class="wrap">
       </button>
     </div>
 
-    <div class="setting-row" id="row-livedebug" hidden>
+    <div class="setting-row" id="row-livedebug">
       <div>
         <div class="setting-label">Live-reload debug</div>
         <div class="setting-help">On-screen panel: socket health, build commit, deploy events.</div>
@@ -158,7 +146,7 @@ ${renderChecksRows()}
 <script src="/settings.js" defer></script>
 `;
 
-export function mountSettingsRoutes(app, { surface = "public" } = {}) {
+export function mountSettingsRoutes(app) {
   app.get("/settings", (_req, res) => {
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("Cache-Control", "no-cache");
@@ -167,7 +155,7 @@ export function mountSettingsRoutes(app, { surface = "public" } = {}) {
         title: "Settings · Home Soda Machine",
         pageStyles: PAGE_STYLES,
       }) +
-      renderNav({ surface, active: "settings" }) +
+      renderNav({ active: "settings" }) +
       BODY +
       renderFooter(),
     );
