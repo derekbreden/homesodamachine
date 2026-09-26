@@ -11,7 +11,7 @@ export function mountFooRoutes(app, { someOption } = {}) {
     res.set("Content-Type", "text/html; charset=utf-8");
     res.send(
       renderHead({ title: "Foo · Home Soda Machine", pageStyles: "..." })
-      + renderNav({ surface: "public", active: "foo" })
+      + renderNav({ active: "foo" })
       + `<main>...</main>`
       + renderFooter()
     );

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the tour voiceover using a local Gemini credential."""
+"""Generate the film's voiceover using a local Gemini credential."""
 
 import argparse
 import base64

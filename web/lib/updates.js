@@ -318,10 +318,9 @@ export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
   app.get("/updates", (_req, res) => {
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("Cache-Control", "no-cache");
-    const surface = res.locals && res.locals.surface === "dev" ? "dev" : "public";
     res.send(
       renderHead({ title: "Updates — Home Soda Machine", pageStyles: UPDATES_CSS }) +
-      renderNav({ surface, active: "updates" }) +
+      renderNav({ active: "updates" }) +
       renderIndexBody(readUpdates(updatesDir), imageSize) +
       renderFooter()
     );
@@ -332,10 +331,9 @@ export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
     if (!post) return next();
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("Cache-Control", "no-cache");
-    const surface = res.locals && res.locals.surface === "dev" ? "dev" : "public";
     res.send(
       renderHead({ title: `${post.title} — Updates`, pageStyles: UPDATES_CSS }) +
-      renderNav({ surface, active: "updates" }) +
+      renderNav({ active: "updates" }) +
       renderPostBody(post, imageSize) +
       renderFooter()
     );

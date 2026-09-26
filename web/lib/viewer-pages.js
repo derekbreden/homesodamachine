@@ -48,7 +48,7 @@ export function mountViewerPages(app) {
       res.set("Cache-Control", "no-cache");
       res.send(
         renderHead({ title: TITLES[active] }) +
-        renderNav({ surface: "dev", active }) +
+        renderNav({ active }) +
         readFragment("viewer-body.html") +
         renderFooter(),
       );
