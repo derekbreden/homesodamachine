@@ -108,9 +108,11 @@ for the length of a run.
 
 ## A user's own pictures
 
-Eight faces a channel can wear. The low four are compiled into every image and
-cannot be removed, so a machine whose owner deleted everything they added still
-has four. The high four are theirs, and only ever arrive from a phone.
+Eight faces a channel can wear. The low four are the factory faces: they sit in the
+image store's lower four slots, laid out by [`tools/make_logos.py`](/tools/make_logos.py)
+and written by a firmware update (`OTA_KIND_LOGOS`), never by the owner, so a machine
+whose owner deleted everything they added still has four. The high four are theirs,
+and only ever arrive from a phone.
 
 **The phone sends pixels, not photographs.** A picture crossing BLE is already
 cropped, resampled and dithered to RGB565 at exactly the sizes each panel draws

@@ -174,7 +174,7 @@ Check valves, water-inlet jet fittings, diagnostic pumps and carbonation parts, 
 | TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $22.51 | 112-4838242-5164262 | 2026-03-14 | — | ACQUIRED |
 | YKEBVPW 1/4" push-connect needle valve flow control | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | 112-4375086-9926652 | 2026-05-30 | 2026-06-01 | ACQUIRED |
 | TAISHER forged 316L SS 90° street elbow, 1/4" female NPT × 1/4" male NPT, 2-pack — water-inlet jet qualification coupon and spare | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
-| G Ganen 12 V diaphragm pump, advertised 110 psi / 4.5 L/min — measurement-only purchase | [B07F35PTFR](https://www.amazon.com/dp/B07F35PTFR) | 1 | $19.29 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED (diagnostic stock, no production allocation) |
+| G Ganen 12 V diaphragm pump, advertised 110 psi / 4.5 L/min — the selected diaphragm pump; this received sample is its [measured reference](/hardware/reference/g-ganen-pump/README.md) | [B07F35PTFR](https://www.amazon.com/dp/B07F35PTFR) | 1 | $19.29 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | IEIK 12 V 60 W diaphragm pump, advertised 116 psi / 5 L/min — measurement-only purchase | [B07YXTHNRQ](https://www.amazon.com/dp/B07YXTHNRQ) | 1 | $20.37 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED (diagnostic stock, no production allocation) |
 
 ## 5. Flavor subsystem

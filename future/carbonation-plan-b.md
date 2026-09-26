@@ -1,6 +1,6 @@
 # Carbonation Plan B
 
-The first unit uses the SeaFlo SFDP1-013-100-22 diaphragm pump, Mean Well
+The first unit uses the G Ganen B07F35PTFR diaphragm pump, Mean Well
 IRM-90-12ST supply, existing enclosure, and the four-port carbonator made with two
 identical plates. Water enters through the top Port 2 elbow's
 [water-inlet jet](/hardware/assembly/water-inlet-jet.md); CO2 enters through the
@@ -38,24 +38,22 @@ port. Its connections and instrumentation still need to be specified: the one
 owned SENCTRL gauge cannot capture all three pressures at once, so additional
 gauges or transducers may be needed. The [purchases ledger](/hardware/ledger/purchases.md) records an acquired
 Mean Well LRS-200-12 (12 V, 17 A), available to isolate a supply limitation on the
-bench. It is not the production supply. The G Ganen B07F35PTFR and IEIK
-B07YXTHNRQ pumps in order 112-0884852-3444230 are measurement samples only.
-Begin with the [received-part dimensional record](/hardware/reference/pump-comparison/README.md).
-Their labels, operating curves, pressure limits and wetted suitability require
-verification before a hydraulic comparison. Their purchase does not qualify
-them as product components.
+bench. It is not the production supply. The G Ganen B07F35PTFR from order
+112-0884852-3444230 is the selected diaphragm pump; the IEIK B07YXTHNRQ from the
+same order is a measurement sample. Begin with the
+[received-part dimensional record](/hardware/reference/pump-comparison/README.md).
+Both pumps' labels, operating curves, pressure limits and wetted suitability
+still require verification; no hydraulic reading of either is recorded.
 
 ## Read the pressures correctly
 
 Positive house pressure reduces the pressure rise the pump must produce. For
 example, 50 psig at its inlet and 100 psig at its outlet is a 50 psi rise. The
-SeaFlo's nominal 100 psi outlet pressure switch still stops the pump near its
-outlet setting; a 50 psi house supply does not make that setting 150 psi.
-Measure the actual cut-out and restart with the installed inlet pressure.
-[SeaFlo's published curve](https://www.seaflo.com/index.php?a=index&aid=478&c=View&m=home)
-gives 0.90 L/min at 90 psi and zero flow at 100 psi for this model under the
-published test conditions. It is not a measured curve for this machine's
-pressurized inlet, tubing, checks and jet.
+pump's outlet pressure switch still stops it near its outlet setting; a 50 psi
+house supply does not raise that setting by 50 psi. Measure the actual cut-out
+and restart with the installed inlet pressure. The G Ganen's listing advertises
+110 psi and 4.5 L/min. That is not a curve, and not a measured one for this
+machine's pressurized inlet, tubing, checks and jet.
 
 The WR1110 limits incoming CO2 supply pressure to nominally 90 psig. It does
 not hold the carbonator at 90 psig while water compresses the sealed gas space.
@@ -91,12 +89,12 @@ the total heat arriving with the water.
 
 ## Concrete pump path if refill requires more pressure
 
-First complete the physical measurements of the purchased G Ganen and IEIK
-samples against the SeaFlo envelope. If the SeaFlo fails the refill requirement,
-verify each sample's permitted inlet pressure and electrical/wetted limits,
-then compare its actual pressure, flow, switch behavior and current at the
-same operating point. A suitable 12 V sample would keep the simpler electrical
-architecture, but neither sample is selected by its advertised pressure or size.
+First measure the G Ganen at the operating point: verify its permitted inlet
+pressure and electrical and wetted limits, then record its actual pressure,
+flow, switch behavior and current. If it fails the refill requirement, measure
+the IEIK sample the same way at the same operating point. A suitable 12 V pump
+keeps the simpler electrical architecture; the IEIK is not selected by its
+advertised pressure or size.
 
 If none of those 12 V pumps meets the requirement, the researched higher-head
 candidate is the
@@ -118,7 +116,7 @@ the exact V421 pressure/current curve and manufacturer resolution of those
 limits before selection. The 160 psi title does not authorize that pressure
 in the carbonator or its nominally 150 psi plumbing. A 24 VAC pump also needs
 its own supply, switching, mounting and verified pressure protection; it is
-not a drop-in replacement for the SeaFlo/IRM-90 pair.
+not a drop-in replacement for the G Ganen/IRM-90 pair.
 
 Close qualification by recording the chosen jet, pressure setting, actual
 refill and restart envelope, supply margin, first-glass result, successive-glass
