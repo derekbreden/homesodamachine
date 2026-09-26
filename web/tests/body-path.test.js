@@ -2,7 +2,7 @@
 //
 // This is the foundation the whole drill-down stands on: if `cold-core/evap-coil` does not
 // read as "the coil, inside the core", then the panel's path, the group highlight, the group
-// hide, `isolateComponent` and the tour's beats are all wrong together and in the same way.
+// hide and `isolateComponent` are all wrong together and in the same way.
 // It is also the one part of that machinery with no Three.js in it, so it can be held here
 // rather than in a browser.
 

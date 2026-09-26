@@ -61,9 +61,6 @@ const routes = [
   { path: "/charts",   expect: 200, ct: "text/html" },
   { path: "/drawings", expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
-  { path: "/tour",     expect: 200, ct: "text/html" },
-  { path: "/tour/captions.vtt", expect: 200, ct: "text/vtt" },
-  { path: "/tour/script.txt", expect: 200, ct: "text/plain" },
   { path: "/spin",     expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 
@@ -102,8 +99,6 @@ const routes = [
   { path: "/settings.js",         expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
   { path: "/content-viewer.js",   expect: 200, ct: "text/javascript" },
-  { path: "/js/tour/main.js",     expect: 200, ct: "text/javascript" },
-  { path: "/css/tour.css",        expect: 200, ct: "text/css" },
 
   // Contract definitions served to the browser: web/contracts/ mounted at
   // /contracts. The viewer imports HSM_EVENTS + WS from these at runtime, so a
@@ -112,7 +107,6 @@ const routes = [
   { path: "/contracts/client-events.js", expect: 200, ct: "text/javascript" },
   { path: "/contracts/ws-frames.js",     expect: 200, ct: "text/javascript" },
   { path: "/contracts/cards.js",         expect: 200, ct: "text/javascript" },
-  { path: "/contracts/tour-water.js",    expect: 200, ct: "text/javascript" },
 ];
 
 for (const r of routes) {

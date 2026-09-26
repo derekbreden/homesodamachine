@@ -11,10 +11,6 @@
 //     reading those, so the page can't inherit a stale total.
 // The two are added together once, in the topline, and server-render into a
 // themed page inside the shared shell.
-//
-// Dev-gated in the public nav like the other engineering surfaces — see
-// shell.js renderNav / BASE_CSS (a[data-nav="cost"]). The route itself always
-// responds; it's the nav icon that's hidden unless html.dev-mode.
 
 import path from "path";
 import fs from "fs";
@@ -575,7 +571,7 @@ export function mountCostRoutes(app, { hardwareDir }) {
     }
     res.send(
       renderHead({ title: "Cost · Home Soda Machine", pageStyles: COST_CSS }) +
-      renderNav({ surface: "dev", active: "cost" }) +
+      renderNav({ active: "cost" }) +
       body +
       renderFooter(),
     );

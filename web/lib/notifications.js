@@ -258,7 +258,7 @@ function renderNotificationsPage() {
 }
 `,
     }) +
-    renderNav({ surface: "public", active: "notifications" }) +
+    renderNav({ active: "notifications" }) +
     `<main class="notifs-page" id="notifs-page">
   <div class="notifs-header">
     <h1 class="notifs-title">Notifications</h1>

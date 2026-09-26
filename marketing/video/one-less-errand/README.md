@@ -57,9 +57,9 @@ on the Home Soda Machine channel, with English captions and 1080p playback.
 `publication.json` holds the upload for the Home Soda Machine channel: title,
 description with five chapter links, English captions, audience settings, and
 the SHA-256 of the film it describes. `thumbnail.jpg` is the 3840 × 2160 custom
-thumbnail, the film's mid-pour faucet on cobalt in the tour thumbnail's type and
-layout. `draw(t, shot, { cobalt: true })` in `product-scenes.js` sets any shot on
-the cobalt ground. Regenerate the thumbnail with:
+thumbnail, the film's mid-pour faucet on cobalt beside "ONE LESS ERRAND" set in
+Montserrat. `draw(t, shot, { cobalt: true })` in `product-scenes.js` sets any shot
+on the cobalt ground. Regenerate the thumbnail with:
 
 ```sh
 node marketing/video/one-less-errand/render-thumbnail.mjs
@@ -67,12 +67,11 @@ node marketing/video/one-less-errand/render-thumbnail.mjs
 
 ## Record narration
 
-The narration generator is shared with the tour film:
+`generate-narration.py` records the script in `narration.json` to
+`audio/narration.wav`:
 
 ```sh
-python3 marketing/video/tour/generate-narration.py \
-  --config marketing/video/one-less-errand/narration.json \
-  --output marketing/video/one-less-errand/audio/narration.wav
+python3 marketing/video/one-less-errand/generate-narration.py
 ```
 
 It reads `GEMINI_API_KEY` or `~/Developer/.gemini_key`. Each recording has its

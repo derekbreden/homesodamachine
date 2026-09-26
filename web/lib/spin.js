@@ -16,12 +16,12 @@ const FRAGMENT = path.join(__dirname, "templates", "spin-body.html");
 export function mountSpinRoutes(app) {
   app.get("/spin", (_req, res) => {
     res.set("Content-Type", "text/html; charset=utf-8");
-    // Same reason as the tour and the viewer pages: iOS Safari in standalone
+    // Same reason as the viewer pages: iOS Safari in standalone
     // will otherwise serve cached HTML and skip the conditional GET.
     res.set("Cache-Control", "no-cache");
     res.send(
       renderHead({ title: "Cap-weld rotation · Home Soda Machine" }) +
-      renderNav({ surface: "dev", active: null }) +
+      renderNav() +
       fs.readFileSync(FRAGMENT, "utf-8") +
       renderFooter(),
     );

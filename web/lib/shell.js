@@ -5,29 +5,22 @@
 //     apps and enclosure display — same brand hues as Theme.swift / Theme.kt)
 //   - body base styles (font, background)
 //   - The top nav, including the gear that links to /settings
-//   - Dev-mode flag: html.dev-mode reveals Parts / Charts / Drawings /
-//     Boards / Cost in the public nav; flag is persisted in localStorage and
-//     applied by an inline head script before first paint to avoid a flash.
-//     Walkthrough is outside that flag — every visitor gets it.
 //   - The .ios-toggle pill primitive (shared between /settings rows and
 //     anywhere else that wants the same delightful slide).
 //
-// All primary links are icon-only (Home included). Two surfaces:
-//   "public" — civilian: Home, Updates, Walkthrough [+ Parts, Charts,
-//              Drawings, Boards, Cost when dev mode, and Updates gives up
-//              its place to them], Settings
-//   "dev"    — engineering: Home, Walkthrough, Parts, Charts, Drawings,
-//              Boards, Cost, Settings (always)
+// All primary links are icon-only (Home included), and every page carries the
+// same set: Home, Updates, Parts, Charts, Drawings, Boards, Cost, then the
+// bell and the gear.
 //
 // Render flow:
-//   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
+//   res.send(renderHead({title, ...}) + renderNav({active}) +
 //            <body content> + renderFooter());
 
 import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
-import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
 // `tools/checks.py --json` and committed by `tools/checks_now.py` off the post-commit hook.
@@ -124,8 +117,8 @@ body {
 }
 /* The bar's own inset stops at the safe area; the rest of it belongs to the
    links, which spend it as hit area (see .nav-icon). The gap closes as the bar
-   narrows, so nine icons in dev mode still land inside a phone's width and the
-   right cluster keeps its edge. */
+   narrows, so all nine icons land inside a phone's width (364px of a 375px
+   bar) and the right cluster keeps its edge. */
 .site-nav {
   display: flex;
   gap: clamp(0.25rem, 2.2vw, 0.75rem);
@@ -234,34 +227,7 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 .site-nav .nav-gear.checks-ok::after { background: var(--ok); }
 .site-nav .nav-gear.checks-red::after { background: var(--err); }
 
-/* Public nav hides Parts / Charts / Drawings / Boards / Cost unless
-   html.dev-mode is set. The dev surface (.site-nav-dev) always shows them.
-   Home and Walkthrough are never gated — the walkthrough is what the machine
-   is, shown; it belongs to the visitor, not to the engineering set. */
-.site-nav-public a[data-nav="parts"],
-.site-nav-public a[data-nav="charts"],
-.site-nav-public a[data-nav="drawings"],
-.site-nav-public a[data-nav="pcb"],
-.site-nav-public a[data-nav="cost"] {
-  display: none;
-}
-html.dev-mode .site-nav-public a[data-nav="parts"],
-html.dev-mode .site-nav-public a[data-nav="charts"],
-html.dev-mode .site-nav-public a[data-nav="drawings"],
-html.dev-mode .site-nav-public a[data-nav="pcb"],
-html.dev-mode .site-nav-public a[data-nav="cost"] {
-  display: inline-flex;
-}
-
-/* Updates rides with the rest of the ungated set. Walkthrough, the engineering
-   icons and the right cluster come to 364px of the 375px bar, so the row
-   carries that set or Updates, never both. */
-.site-nav-dev a[data-nav="updates"],
-html.dev-mode .site-nav-public a[data-nav="updates"] {
-  display: none;
-}
-
-/* iOS-style pill toggle. Used on /settings (Dev mode + Notifications).
+/* iOS-style pill toggle. Used on /settings (Notifications + Live-reload debug).
    .loading shows a centered spinner overlay on the knob without changing
    layout — the slide animation runs the moment .loading drops and .on
    goes on in the same frame. */
@@ -416,12 +382,12 @@ const ICON_V = (() => {
 
 // HEAD_TAGS — runs on every page via renderHead below.
 //
-// Synchronous flicker-prevention only: the localStorage class flips for
-// dev-mode and notifs-enabled have to land before first paint, so they
-// stay inline. Everything else (SW navigate bridge, notifications state,
-// live-update owner, toast) lives in public/boot.js loaded as a module —
-// see that file's docstring for the full architecture.
-const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");}catch(e){}})();</script>
+// Synchronous flicker-prevention only: the localStorage class flip for
+// notifs-enabled has to land before first paint, so it stays inline.
+// Everything else (SW navigate bridge, notifications state, live-update
+// owner, toast) lives in public/boot.js loaded as a module — see that
+// file's docstring for the full architecture.
+const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");}catch(e){}})();</script>
 <script type="module" src="/boot.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -471,12 +437,6 @@ ${pageHead}
 // margin-left: auto, so a single auto margin pushes both icons to the right
 // edge as a unit (two siblings each with margin-left: auto would split the
 // available space and leave a big gap between them).
-//
-// Home and Walkthrough are always visible. Parts / Charts / Drawings /
-// Boards / Cost are present in the markup but, on the public surface, hidden
-// by CSS unless html.dev-mode is set (see BASE_CSS). On the dev surface, all
-// are always visible. Updates is the complement: visible wherever that set is
-// hidden.
 
 // The class the gear wears for this deploy's verdict: `checks-ok`, `checks-red`, or nothing
 // when no verdict shipped. `tools/checks_now.py` writes it after every commit, so the dot turns
@@ -521,11 +481,10 @@ export function renderChecksRows() {
     .join("\n");
 }
 
-export function renderNav({ surface = "public", active = null }) {
+export function renderNav({ active = null } = {}) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: '<img src="/brand/mark.svg" width="28" height="28" alt="" aria-hidden="true">' },
     { href: "/updates", name: "updates", label: "Updates", svg: UPDATES_SVG },
-    { href: "/tour", name: "tour", label: "Walkthrough", svg: TOUR_SVG },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
@@ -538,10 +497,9 @@ export function renderNav({ surface = "public", active = null }) {
       return `  <a href="${l.href}" class="nav-icon${activeCls}"${activeCls ? ' aria-current="page"' : ""} data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
     })
     .join("\n");
-  const surfaceCls = surface === "dev" ? "site-nav-dev" : "site-nav-public";
   const gearActive = active === "settings" ? " active" : "";
   const bellActive = active === "notifications" ? " active" : "";
-  return `<nav class="site-nav ${surfaceCls}" id="site-nav" aria-label="Primary">
+  return `<nav class="site-nav" id="site-nav" aria-label="Primary">
 ${iconItems}
   <div class="nav-right">
     <a href="/notifications" class="nav-icon nav-bell${bellActive}" data-nav="notifications" aria-label="Notifications">${BELL_SVG}</a>

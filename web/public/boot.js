@@ -53,10 +53,9 @@
 //      every other page reloads.
 //
 // What's NOT in here: the synchronous pre-paint CSS class flip for
-// dev-mode and notifs-enabled. That has to run during <head> parse
-// (before first paint) or the public nav flashes the dev links and
-// the bell flashes hidden. The flip stays inline in lib/shell.js;
-// this module is deferred (module scripts run after parse).
+// notifs-enabled. That has to run during <head> parse (before first
+// paint) or the bell flashes hidden. The flip stays inline in
+// lib/shell.js; this module is deferred (module scripts run after parse).
 //
 // State ownership note: the notifications mirror lives in module-
 // local `state` here, not on window. window.__hsm is reserved for
