@@ -80,7 +80,7 @@ edition.
 Both carry Lulu's 0.125 in bleed on every outside edge; the cobalt ground and the band at each
 page's head run out into it. The cover has no spine: saddle stitch folds the cover around the
 interior. Lulu settings are **Comic Book, Paperback Saddle Stitch, Premium Color, 70# White -
-Coated, Matte**, with printed inside covers. The 20 interior pages and four cover faces make the
+Coated, Glossy**, with printed inside covers. The 20 interior pages and four cover faces make the
 complete 24-page guide.
 
 The interior retains embedded vector text and flattened RGB illustrations. The two cover
@@ -102,6 +102,10 @@ a dispensing valve plan. The guide makes no automatic-priming claim. The control
 `firmware/src_appliance/machine.cpp` (`beginPrimePump`, `claimPump`, `pumpDrive`).
 
 No owner support phone number, email address or dedicated support URL is configured.
+
+The counter page sends a stone counter to a spare 1-3/8 in sink or counter hole, or to a 1-3/8 in
+diamond core bit kept wet. No stone-drilling procedure (bit speed, backing, chip control) is
+verified.
 
 The owner gas checks cover locating a leak and closing the supply. The gas disconnection
 procedure is not published. External CO2 pressure release needs verification on the supplied Wellbom
