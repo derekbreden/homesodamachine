@@ -51,6 +51,9 @@ independently.
 
 ## YouTube
 
+Published as [One Less Errand — Cold Soda on Tap at Home](https://youtu.be/WHO-V2DPTcs)
+on the Home Soda Machine channel, with English captions and 1080p playback.
+
 `publication.json` holds the upload for the Home Soda Machine channel: title,
 description with five chapter links, English captions, audience settings, and
 the SHA-256 of the film it describes. `thumbnail.jpg` is the 3840 × 2160 custom
