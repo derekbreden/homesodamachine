@@ -13,19 +13,16 @@
   <main>
     <pre class="console"><i># the console is serviced only while the table is stopped</i>
 <b>status</b>       <i>read back everything it currently holds</i>
-<b>mode jog</b>     <i>the pedal follows your foot, for setup</i>
 <b>direction cw</b> <i>tube direction, viewed from above</i>
 <b>speed 8.0</b>    <i>bead travel, mm/s. 5 to 15 accepted</i>
-<b>overlap 20</b>   <i>degrees past 360 the lap runs</i>
 <b>status</b>       <i>read it back again and check every line</i></pre>
     <div class="split">
       <div>
         <h2>The rest of the vocabulary</h2>
         <table>
-          <tr><td class="k mono">mode lap</td><td>The weld mode. Hold for a counted 380&deg;.</td></tr>
           <tr><td class="k mono">direction ccw</td><td>The other way.</td></tr>
           <tr><td class="k mono">dirinvert on</td><td>Flips which way <span class="mono">cw</span> means. Issued once, on page&nbsp;40, if the table turns the wrong way.</td></tr>
-          <tr><td class="k mono">defaults</td><td>Back to 8.0 mm/s, 20&deg;, lap, cw.</td></tr>
+          <tr><td class="k mono">defaults</td><td>Back to 8.0 mm/s and cw.</td></tr>
         </table>
       </div>
       <div>
@@ -38,13 +35,13 @@
         <div class="mind">
           <span class="mind-label">Why 8.0</span>
           <p>It sits in the middle of the useful window, runs the table at 1.235&nbsp;rpm, and
-            completes a 380&deg; lap in 51.3&nbsp;s. Page&nbsp;47 has the whole table.</p>
+            turns 360&deg; in 48.6&nbsp;s. Page&nbsp;47 has the whole table.</p>
         </div>
       </div>
     </div>
     <div class="gate">
       <span class="gate-label">Gate &mdash; <span class="mono">status</span> reads back what you typed</span>
-      <p>Mode <span class="mono">jog</span>, speed 8.0, overlap 20, direction
+      <p>Speed 8.0 and direction
         <span class="mono">cw</span>. <span class="fail">If a line did not take, the table was
         not stopped when you sent it</span> &mdash; send it again.</p>
     </div>

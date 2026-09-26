@@ -32,9 +32,10 @@ gooseneck's tip. The user's part is a container under the faucet.
 | | Every other turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
 | | The funnel, in its throat; the enclosure display; the water pump and both its chains; the cold core itself |
 
-**The manifold stays in the appliance, and its four barb tees travel inside front-top.**
-The fixed wall journals the branch collars of Y-C, Y-D, Y-F and Y-G in X and Z and leaves
-them free in Y; nothing printed closes on them, and each hangs on its three tubes. The
+**The manifold stays in the appliance, and its four barb tees travel on the tee carrier inside front-top.**
+The [tee carrier](/hardware/printed-parts/enclosure/tee-carrier/README.md) plate holds Y-C, Y-D,
+Y-F and Y-G, two ties each, and slides fore and aft in a window through each front flank, with
+four springs holding it aft; the fixed wall journals their branch collars in X and Z. The
 tee-side ends of four bowed stubs and four hairpins follow the same stroke. None of them
 rides out on the cartridge: the only tube ends that cross the bay's mouth are the four the
 pumps carry with them.

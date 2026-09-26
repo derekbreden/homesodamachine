@@ -14,7 +14,7 @@ The product under development is an integrated under-counter soda machine — cu
 |---|---|
 | [`biography/`](/biography/) | Project biography by chapter — `2026-04-05.md` (founding), `2026-05-23.md` (vision into work) |
 | [`hardware/`](/hardware/) | The integrated soda machine under development — CAD scripts, [`bom.md`](/hardware/ledger/bom.md), [`purchases.md`](/hardware/ledger/purchases.md), [`assembly/`](/hardware/assembly/) procedures, printed parts, wiring schedules |
-| [`firmware/`](/firmware/) | ESP32 + ESP32-S3 firmware for the soda machine under development. The current code base still includes a third MCU (RP2040) from the prototype era — see [`firmware/README.md`](/firmware/README.md) for the in-flight state. |
+| [`firmware/`](/firmware/) | ESP32 + ESP32-S3 firmware: the main board, the machine display and the faucet display of the soda machine under development, the bare-board bench rig, and the weld rotator — see [`firmware/README.md`](/firmware/README.md) for which tree runs where. |
 | [`web/`](/web/) | homesodamachine.com — Node server, CAD viewer — see [`web/README.md`](/web/README.md) |
 | [`ios/`](/ios/) | iOS companion app (BLE bridge, settings, usage stats) |
 | [`android/`](/android/) | Android companion app |

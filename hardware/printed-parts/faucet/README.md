@@ -18,7 +18,7 @@ plate. It also times the accepted printed lever separately.
 
 ## Parts
 
-Both styles enclose the same harvested Westbrass, retained lever, Waveshare
+Both styles enclose the same harvested Westbrass, printed lever, Waveshare
 faucet display, three LLDPE tubes and signal ribbon. They share the
 [shell tip](faucet-shell/faucet-shell-tip.step), the curved gooseneck joint,
 the three hidden mounting screws and the existing stainless under-counter

@@ -202,6 +202,9 @@ PARTS = {
         "faucet/faucet-display-cover/faucet-display-cover.step",
     ],
     "Above-counter plate": ["faucet/above-counter-plate/above-counter-plate.step"],
+    # The lever the donor Westbrass arrives with is set aside; the printed replica, rebuilt from
+    # a scan of it and printed in the faucet's finish, is the one that ships.
+    "Faucet lever": ["faucet/lever-replica/lever-replica.step"],
 }
 
 # §7 row-name fragment -> the PROFILES key that row ships on. Every row must match
@@ -217,6 +220,7 @@ GROUP_OF = [
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),
     ("Above-counter plate",         "petgf"),
+    ("Faucet lever",                "petgf"),
     ("Copper-plug stack",           "small"),
     ("PRV shroud",                  "small"),
     ("Carbonator reed bridge",      "small"),

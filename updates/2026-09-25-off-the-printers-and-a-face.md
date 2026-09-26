@@ -42,7 +42,7 @@ On 15 September the project got a new mark: a pale faucet with an orange drop, o
 
 ![The first nameplate, printed face-down in black and white PET-GF on 20 September.](/update-images/2026-09-25-nameplate.png)
 
-The nameplate carries the mark, the name and a QR code for HOSM.US/0001, short enough for the smallest QR code there is. It scans cleanly from 2 ft. That address opens [the unit's own page](/0001), with a get-started checklist and the install's seven steps, each linked to its page in the install guide.
+The nameplate carries the mark, the name and a QR code for HOSM.US/0001, short enough for the smallest QR code there is. It scans cleanly from 2 ft. That address opens [the unit's own page](https://homesodamachine.com/0001), with a get-started checklist and the install's seven steps, each linked to its page in the install guide.
 
 The machine display wears the new colors too. Its home screen, On tap, shows the selected flavor's level, with its pour ratio a tap away and adjustable from 1:6 to 1:24, and Settings opens on a side view of the machine with its ten reed switches reading live. Each flavor can wear one of eight pictures on the machine display and the faucet — four built in and four of the owner's own, cropped on a phone to the shape of the faucet's glass.
 

@@ -48,7 +48,7 @@ they became.
 | **machine display** | the 4.3" LCD on the soda machine's front face | enclosure display, config display, front-face display, front display |
 | **round rotary display** | the prototype's 1.28" Meshnology 240×240 touchscreen | config display |
 | **umbilical** | the sleeved run of three tubes and the signal cable, counter to rear wall | |
-| **flavor tube** | either of the two black 1/4" tubes, rear wall to the gooseneck exit | |
+| **flavor tube** | either of the two 1/4" tubes, rear wall to the gooseneck exit: black, except in a White faucet, where it is white through the faucet and out its tip and a John Guest union joins it to the black run in the wrapped umbilical | |
 | **flavor reservoir** | the printed translucent PETG part that holds one flavor | |
 | **carbonator** | the steel pressure vessel that carbonates the water | vessel, carbonator vessel, tank |
 | **peristaltic pump** | either of the two pumps that inject flavor | |
@@ -56,7 +56,7 @@ they became.
 | **cold core** | the insulated block keeping the carbonator and reservoirs cold | |
 | **under-counter plate** | the cut SS disc that slides on from below and takes the nut | keyhole plate |
 | **soda umbilical tube** | the blue 1/4" tube, rear wall to the Westbrass's lower port | supply tube |
-| **soda faucet tube** | the black 3/8" tube, Westbrass's top port out to the gooseneck exit | dispense tube, water tube |
+| **soda faucet tube** | the 3/8" tube, Westbrass's top port out to the gooseneck exit, in the faucet's finish: black or white | dispense tube, water tube |
 | **above-counter plate** | the printed disc between the faucet shell and the countertop | mounting plate |
 | **above-counter gasket** | the TPU disc between the above-counter plate and the countertop | mounting gasket |
 | **ASSE drip pan** | the printed basin under the ASSE 1022 vent tip, moisture probe lying flat in it | drip pan, drip tray, basin |
