@@ -12,7 +12,7 @@ Use the two PDFs whose names begin `install-guide-lulu-` in the order bundle. Th
 | Binding | Paperback Saddle Stitch |
 | Interior color | Premium Color |
 | Paper | **70# White — Coated** |
-| Cover finish | Matte |
+| Cover finish | Glossy |
 | Cover printing | Outside and inside; upload the two-page cover PDF |
 | Publishing goal | Print copies for your own use |
 
@@ -35,7 +35,7 @@ The cover PDF's first spread is back cover on the left and front cover on the ri
 2. Upload `install-guide-lulu-interior.pdf`. Confirm that Lulu recognizes **20 interior pages** and the settings above, including coated paper and Premium Color.
 3. Select **Upload Your Cover** and upload `install-guide-lulu-cover.pdf`. Keep both PDF pages so the inside covers print. [Lulu's two-page cover instructions](https://help.lulu.com/en/support/solutions/articles/64000282777-upload-your-cover-file).
 4. Inspect Lulu's preview with its trim, fold, and safety guides visible. Confirm the four cover faces, the page order, and that blue areas reaching an edge extend through the bleed without an added white border. The files already include 0.125 inches of bleed at the outer edges; use them at their supplied size. [Lulu's bleed requirements](https://help.lulu.com/en/support/solutions/articles/64000255584).
-5. Complete the print-only project and choose **Order Copies of Your Book**. Select the quantity, shipping address, delivery method, and payment in Lulu. I recommend **one proof copy first** to check the physical color, matte finish, legibility, and trimming before a larger order.
+5. Complete the print-only project and choose **Order Copies of Your Book**. Select the quantity, shipping address, delivery method, and payment in Lulu. I recommend **one proof copy first** to check the physical color, glossy finish, legibility, and trimming before a larger order.
 
 The files are prepared for upload; Lulu's own processing and preview take place when you upload them.
 

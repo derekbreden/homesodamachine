@@ -291,7 +291,7 @@ leader('Small knob',x+143,625,projected(p,(0,27,-47),*gas_pose),side='left')
 para('Open the <b>cylinder valve</b> and <b>small knob.</b> Use the <b>big knob</b> to set the upper needle in <b>green.</b> Listen at the nut, gray connector and red CO2 port <b>before power:</b> a hiss is a leak.',x,646,268,12.4,16,limit=64)
 x=starts[2]
 p=pic('insertion-actions/power-ready.png',x+5,558,258,78,crop=(0,160,1800,1140))
-arrow(*p(490.44,603.57),*p(1061.06,477.95),head=7)
+arrow(*p(491.16,602.56),*p(1089.73,470.79),head=7)
 para('Seat the cord in the <b>top-left rear socket.</b> Plug into grounded 120 V. <b>It chimes.</b>',x,646,268,12.4,16,limit=48)
 rect(36,688,416,26,'#FFF0E6',r=5)
 text('Leak or hiss? Close water and cylinder. See guide, p. 23.',46,697,11.3,'Semibold','#8B381B')

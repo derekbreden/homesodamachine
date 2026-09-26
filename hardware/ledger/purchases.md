@@ -716,7 +716,7 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Order date | Vendor / order # | Item | Qty | $ | Status |
 |---|---|---|---|---|---|
-| 2026-09-16 | [Lulu USD-C4432578](https://www.lulu.com/account/orders/22409450) | Install Guide — Comic Book, project 84q5zeq-1 | 3 | $75.26 | ON-ORDER (Processing Order; verified 2026-09-16) |
+| 2026-09-16 | [Lulu USD-C4432578](https://www.lulu.com/account/orders/22409450) | Install Guide — Comic Book, project 84q5zeq-1 | 3 | $75.26 | ACQUIRED (FedEx 877667456069, delivered 2026-09-25) |
 
 ---
 
