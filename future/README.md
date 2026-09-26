@@ -66,7 +66,7 @@ order". First-unit fabrication and performance qualification are part of that wo
 
 The procedures identify the remaining physical qualifications, including jet-cap fit
 and weld fusion, gas-check placement, and carbonation under actual refill conditions.
-The first unit retains its SeaFlo pump, IRM-90 supply and enclosure. The conditional
+The first unit uses the G Ganen pump, IRM-90 supply and enclosure. The conditional
 responses in [Carbonation Plan B](/future/carbonation-plan-b.md) apply only if the
 measurements identify a shortfall. The work and machine time are tracked in
 [`labor.md`](/hardware/ledger/labor.md) and

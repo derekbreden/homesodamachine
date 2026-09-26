@@ -8,6 +8,9 @@ The [physical acceptance record](physical-acceptance.json) binds the observation
 to the exact printed mesh and uniquely named job. Quantitative strength and
 endurance have not been measured.
 
+The printed lever replaces the donor Westbrass's own lever in the build and is printed in
+the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits it.
+
 ![Comparison lever](lever-replica-preview.png)
 
 ## Files

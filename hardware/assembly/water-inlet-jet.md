@@ -9,8 +9,8 @@ the PRV, and the bottom ports carry plain CO2 and soda-water elbows.
 **Status: fabrication trial, unqualified.** The cap dimensions below describe
 the first fit and welding trial. The actual elbow bore and tip, completed NPT
 engagement, weld root, hydraulic performance and carbonation performance have
-no measurements recorded here. The SeaFlo SFDP1-013-100-22, Mean Well supply
-and enclosure remain the baseline. The conditional pump arrangement is in
+no measurements recorded here. The G Ganen B07F35PTFR diaphragm pump, Mean Well
+supply and enclosure are the baseline. The conditional pump arrangement is in
 [`carbonation-plan-b.md`](/future/carbonation-plan-b.md).
 
 ## Parts and tools
@@ -222,7 +222,7 @@ not a measurement of refill into the pressurized carbonator. The integrated
 run records carbonator pressure and delivered refill volume/time, using the
 actual supply path, and evaluates the drink after refill and idle per
 [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
-The SeaFlo's shutoff number alone establishes neither that flow nor the
+The pump's advertised pressure alone establishes neither that flow nor the
 carbonation result. A plain jet is not a measured spray pattern.
 
 Install the accepted elbow at Port 2 after the bare carbonator passes hydro
@@ -242,7 +242,7 @@ the cold-core pour.
 | Small-weld recipe and sectioned root | Unqualified |
 | Root/oxide cleaning, residue removal and passivation acceptance | Unqualified |
 | Per-part inspection and flow acceptance band | Undefined pending qualification |
-| Integrated SeaFlo refill, idle behaviour and in-glass carbonation | Unmeasured |
+| Integrated G Ganen refill, idle behaviour and in-glass carbonation | Unmeasured |
 
 ## Sources
 [value](NAME) texts are updated by:

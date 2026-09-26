@@ -2,8 +2,8 @@
 
 [Faucet styles](../README.md) names the Sculpted and Industrial pieces.
 
-The PET-GF shell encloses the harvested Westbrass, retained donor lever,
-three LLDPE tubes and Waveshare display. Factory assembly supplies a complete
+The PET-GF shell encloses the harvested Westbrass, the
+[printed lever](../lever-replica/README.md), three LLDPE tubes and Waveshare display. Factory assembly supplies a complete
 faucet and umbilical. Customer installation uses the captive donor nut and the
 existing stainless under-counter plate.
 
@@ -39,10 +39,10 @@ heads on the completed faucet.
    of supports and stringing. Dry-fit the printed pieces before heat setting.
 2. Heat-set the three short M3 inserts into the shell's bottom-facing Ø4 mm
    pilots, with their mouths at Z = [3.2 mm](BASE_INSERT_Z). Let them cool without disturbing their alignment.
-3. With the lever detached, soda tube removed and base plate separate, seat
-   the donor from below with its lever interface facing the front opening.
+3. With the donor's own lever removed and set aside, soda tube removed and
+   base plate separate, seat the donor from below with its lever interface facing the front opening.
    Keep the shell tip separate for access to the soda tube's top-port entry.
-4. Position the retained lever aft of its working position, lower it onto
+4. Position the printed lever, in the faucet's finish, aft of its working position, lower it onto
    the valve, then slide it forward so it wraps and lightly snaps around the
    valve's metal cylinder. Keep the soda tube out throughout this motion.
 5. Fit the fresh TPU thimble cap-down into the donor's top water port. Feed
@@ -57,7 +57,7 @@ heads on the completed faucet.
    pass the shank through its centre hole. The three pedestals enter their
    sockets; the donor and shell foot seat on the plate.
 8. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
-   progressively so the plate closes evenly. Verify the donor lever through
+   progressively so the plate closes evenly. Verify the lever through
    its full travel and confirm the flavor tubes stay in position and pass flow
    before adding the gasket.
 
@@ -74,7 +74,7 @@ operating contact motion are not yet established in CAD.
 
 The central lever opening is open above the handle up to the rounded front
 of the neck cap. The arched clearance farther aft leaves room for the rear
-arm to rise when the front is pressed. Confirm this motion with the harvested lever before
+arm to rise when the front is pressed. Confirm this motion with the printed lever before
 closing the faucet base.
 
 The screw stations are (X,Y)=(±[20](BASE_X),[10](BASE_Y)) and (0,[-22.3](BASE_FRONT_Y)) mm. The head recesses
@@ -96,8 +96,9 @@ through normal lever operation and handling.
 ## Display
 
 Use the exact Waveshare ESP32-S3-Touch-LCD-1.47 housing and PCB envelope.
-Keep the original donor lever; the assembly model is a dimensioned clearance
-stand-in, not a scan suitable for manufacturing a replacement lever.
+The lever is the [printed replica](../lever-replica/README.md), rebuilt from a scan of the
+donor's own and printed in the faucet's finish. The assembly model's lever is a
+dimensioned clearance stand-in.
 
 1. Route SIG-6 from the neck into the open space below the PCB, toward its
    southwest corner as viewed from the glass. The cable lies freely between
