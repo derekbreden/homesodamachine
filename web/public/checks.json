@@ -62,7 +62,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "1 reference(s) name a path nothing holds.",
+      "note": "2 reference(s) name a path nothing holds.",
       "status": "red"
     },
     {
@@ -110,7 +110,8 @@
     ],
     "tools/check_paths.py": [
       "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/README.md:50 — hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/final-route-review/readiness-update-plan.md is held nowhere, and no tag is named for it",
-      "1 reference(s) name a path nothing holds."
+      "  updates/2026-09-25-off-the-printers-and-a-face.md:45 — 0001 is held nowhere, and no tag is named for it",
+      "2 reference(s) name a path nothing holds."
     ]
   },
   "green": false
