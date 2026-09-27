@@ -5,8 +5,8 @@
   "distance_tolerance_mm": 0.0001,
   "overlap_tolerance_mm3": 1e-05,
   "geometry_source_sha256": {
-    "hardware/scripts/check_faucet_geometry.py": "2bfbd3a0bcf9310b855c27968c78009943d179e7a25ac58050873622abdc2b12",
-    "hardware/faucet-layout/faucet_assembly.py": "12b3cd9cb40f8da507e13b1a0fa2dfcb6c0c4be7cdc91f4bd7ac94bb6aae01bb",
+    "hardware/scripts/check_faucet_geometry.py": "f8adc8eb72a6d7ff4e10ab6f141d57627964ce55b8b5cb4479f96bc28cf5984a",
+    "hardware/faucet-layout/faucet_assembly.py": "cce60992627f3678377acc932c3a0dacaa2fe06e7b5fae563c5afe4d2bc1d66a",
     "hardware/printed-parts/faucet/_faucet_interface.py": "c6b475227ac6f9815bd2ca0d93959c0125b21eafbd39516ab18e4fd22a6cbc2c",
     "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
     "hardware/printed-parts/faucet/refresh_print_project.py": "eae9d28e080e4552074f606d4360147128e2a8b4a3fa8da341bf129d8e8fa18b",
@@ -312,7 +312,7 @@
       "passed": true
     },
     "route:flavor-tube-radius": {
-      "method": "actual circular edges of the assembled flavor and tail-splay centerline paths",
+      "method": "actual circular edges of both assembled flavor centerlines, faucet to tail splay",
       "centerline_radii_mm": [
         30.0,
         40.0,

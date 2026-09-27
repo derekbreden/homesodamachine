@@ -217,7 +217,7 @@ counts and the order off the card files. Per-subsystem accent colors are the
 
 | Card | Operation |
 |---|---|
-| FU-01 | Cut the three LLDPE tubes |
+| FU-01 | Cut the LLDPE tubes |
 | FU-02 | Preload + route the factory assembly |
 | FU-03 | Insulate and sleeve, a segment at a time |
 | FU-04 | Bag with the under-counter plate |

@@ -65,6 +65,8 @@ export const ALIASES = {
   "endcap-top": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
   "faucet_display": "reference/waveshare-43b-display/waveshare-43b-display.step",
   "faucet_display_screen": "reference/waveshare-43b-display/waveshare-43b-display.step",
+  "flavor_union_neg_x": "reference/jg-pp0408w/jg-pp0408w.step",
+  "flavor_union_pos_x": "reference/jg-pp0408w/jg-pp0408w.step",
   "flow-regulator": "reference/neofit-flow-control/neofit-flow-control.step",
   "gasher-co2": "reference/gasher-check-valve/gasher-check-valve.step",
   "ground-stack": "reference/ground-ring-stack/ground-ring-stack.step",

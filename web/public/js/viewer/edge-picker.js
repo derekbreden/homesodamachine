@@ -59,6 +59,7 @@ import { Line2 } from "three/addons/lines/Line2.js";
 import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
@@ -98,6 +99,13 @@ export function setActiveEdges(result) {
   setHover(null);
   disposeAllEdgesLayer();
   ensureAllEdgesLayer(); // no-op unless the toggle is on
+}
+
+// A component out of the view: hidden by hand (component-picker.js), or a body the faucet's
+// finish leaves out — a Black faucet has no union, a White one no bridge.
+function offView(solid) {
+  return (state.hiddenComponents && state.hiddenComponents.has(solid))
+    || !showsInFaucetFinish(state.mountedDetail?.file, solid, state.faucetFinish);
 }
 
 function ensureEdges() {
@@ -486,7 +494,7 @@ function pickEdge(clientX, clientY) {
 
   let best = null;
   for (const edge of edges) {
-    if (state.hiddenComponents && state.hiddenComponents.has(edge.solid)) continue; // hidden component — not in view
+    if (offView(edge.solid)) continue; // hidden component — not in view
     const pts = edge.points;
     let prev = projectPixels(pts[0], rect, e);
     for (let i = 1; i < pts.length; i++) {
@@ -589,7 +597,7 @@ function ensureAllEdgesLayer() {
   if (!edges.length) return;
   const flat = [];
   for (const e of edges) {
-    if (state.hiddenComponents && state.hiddenComponents.has(e.solid)) continue; // hidden component — off the view
+    if (offView(e.solid)) continue; // hidden component — off the view
     const p = e.points;
     for (let i = 1; i < p.length; i++) {
       flat.push(p[i - 1].x, p[i - 1].y, p[i - 1].z, p[i].x, p[i].y, p[i].z);
