@@ -30,7 +30,7 @@ it drips — never plumbed into a drain. `port("vent-tip")` is the datum the pan
 catches, and the drip falls from there: the pan sits under the tip's column,
 wherever the pose leaves it pointing.
 
-The machine lays it fore and aft in the −X lane west of the SeaFlo, on the panel
+The machine lays it fore and aft in the −X lane west of the G Ganen, on the panel
 deck's own storey over the pump's casting
 ([`enclosure_assembly.build_asse`](/hardware/manifold-layout/enclosure_assembly.py),
 `ASSE1022_YAW`) — a yaw about Z and a translation, since this frame is already the

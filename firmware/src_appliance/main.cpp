@@ -33,11 +33,12 @@
 //      TBD62083. hardware/wiring/ac-wiring-schedule.md, "Solenoid COM
 //      current budget".
 //   2. Relay #2 (IO2) de-energized while a dispense is open. The main board
-//      peaks at 3.33 A and the SeaFlo at 5 A on one 6.7 A supply. The
-//      carbonator's low reed asserts mid-pour, so the refill it queues
-//      waits for the dispense window to close. machine_policy holds this as
-//      kRefillDuringDispense and machineDispenseWindowOpen() is what asks.
-//      A pour that begins mid-draw stops the draw before it opens its path.
+//      peaks at 3.33 A and the G Ganen is budgeted at 5 A, on one 6.7 A
+//      supply. The carbonator's low reed asserts mid-pour, so the refill it
+//      queues waits for the dispense window to close. machine_policy holds
+//      this as kRefillDuringDispense and machineDispenseWindowOpen() is what
+//      asks. A pour that begins mid-draw stops the draw before it opens its
+//      path.
 //   3. GPPU written on both MCP23017s. No loom carries a resistor and
 //      the main board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.

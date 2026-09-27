@@ -116,7 +116,7 @@ CROSS = [
     ("DS18B20 carbonator temp", r"\.IO26",       r"DS18B20"),
     ("DS18S20 coil temp",   r"\.IO26",           r"DS18S20"),
     ("compressor relay",    r"\.IO19",           r"[Tt]eyleten"),
-    ("diaphragm pump relay",r"\.IO2\b",          r"SEAFLO|diaphragm"),
+    ("diaphragm pump relay",r"\.IO2\b",          r"G Ganen|diaphragm"),
     ("pump driver",         r'label="PUMPS"',    r"Kamoer|DRV8870"),
     ("solenoid valves",     r"MANIFOLD",         r"Beduan|solenoid"),
     ("enclosure display",   r'label="DISPLAY"',  r"4\.3B|RS485|RS-485"),
