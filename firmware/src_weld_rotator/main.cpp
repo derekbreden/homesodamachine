@@ -24,7 +24,7 @@ constexpr uint8_t kPinDirection = 26;
 // input DISABLES the DM542T, so this pin high releases the motor and low
 // holds it.  Unwired, the driver holds as it always did.
 constexpr uint8_t kPinDriverHold = 32;
-// The fixture harness also fits an acquired 4.7 kOhm resistor from this input
+// The fixture harness also fits an acquired 3.3 kOhm resistor from this input
 // to 3V3.  INPUT_PULLUP remains enabled as a second released-state bias.
 constexpr uint8_t kPinPedal = 27;
 
