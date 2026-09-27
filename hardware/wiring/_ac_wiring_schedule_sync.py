@@ -75,6 +75,11 @@ board_peak_a = (
 )
 coincident_peak_a = board_peak_a + diaphragm_peak_a
 
+# What DC-4 leaves at the rail end: the + and GND WAGO 221-413 lever nuts. WAGO rates the
+# part 32 A at 450 V on its IEC (EN 60664) data and 20 A at 600 V under UL 486C; the board
+# tally above is read against the IEC figure the part's reference states.
+wago_221_413_rated_a = 32
+
 # ─── Logic rails ──────────────────────────────────────────────────────
 # Both logic rails are made on the main board off its J10 12 V inlet: 5 V from
 # the K7805 buck (U10), 3.3 V from the AMS1117 LDO (U9, off the 5 V
@@ -177,6 +182,7 @@ def main():
         "MAX_VALVES": f"{max_simultaneous_valves:d}",
         "BOARD_PEAK_A": f"{board_peak_a:.3g} A",
         "COINCIDENT_A": f"{coincident_peak_a:.3g} A",
+        "WAGO_RATED_A": f"{wago_221_413_rated_a:.4g} A",
         # Logic rails.
         "V_DC": f"{v_rail_dc:.4g} V",
         "V_LOGIC": f"{v_rail_logic:.4g} V",

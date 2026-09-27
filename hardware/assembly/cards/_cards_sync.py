@@ -53,7 +53,7 @@ for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
            "printed-parts/enclosure/pump-tray", "reference/compressor",
            "reference/jg-bulkhead-union", "reference/iec-c14-inlet",
            "printed-parts/zone-c/funnel", "reference/worm-clamp",
-           "reference/jg-pp0408w", "reference/funnel-drain-stub"):
+           "reference/jg-pp0408w", "reference/funnel-drain-stub", "wiring"):
     sys.path.insert(0, str(_hw / _p.replace("/", os.sep)))
 
 sys.path.insert(0, str(CARDS_DIR))
@@ -366,6 +366,7 @@ def enclosure(m: Machine):
 def electronics_bay(m: Machine):
     """`electronics-bay.md`: the five bodies of the electronics bay, and the +X wall
     bosses each one's own hole pattern stands there."""
+    import _ac_wiring_schedule_sync as _acw
     import ground_ring_stack as _gnd
     import meanwell_irm90 as _psu
     import pcba_tray as _pcba
@@ -385,6 +386,13 @@ def electronics_bay(m: Machine):
         f"stands {len(m.box.east_bosses)} bosses — EB-01's table is the wall's census, so "
         f"one of them has gained a station the other has not")
 
+    # EB-05 reads what the main board draws through DC-4 against the lever nuts that run
+    # leaves at the rail end — both the wiring schedule's figures, and the sentence is that
+    # the second clears the first.
+    assert _acw.board_peak_a < _acw.wago_221_413_rated_a, (
+        f"the main board peaks at {_acw.board_peak_a:.3g} A through DC-4 and the rail's lever "
+        f"nuts are rated {_acw.wago_221_413_rated_a:g} A — EB-05 stages DC-4 on their headroom")
+
     # The screw schedule falls out of the same patterns: one M3 in through each
     # body from the room. The ground stack's is the long one — it comes down
     # through a fan of ring terminals before it reaches its insert.
@@ -403,6 +411,9 @@ def electronics_bay(m: Machine):
         # on a +X wall boss, so there is no boss anywhere else for this bench to set.
         "COLUMN_INSERTS_HERE": "0",
         **{k: str(v) for k, v in column.items()},
+        # DC-4's peak and the rating it is read against, spelled as the schedule prints them.
+        "BOARD_PEAK_A": f"{_acw.board_peak_a:.3g} A",
+        "WAGO_RATED_A": f"{_acw.wago_221_413_rated_a:.4g} A",
     }
     # EN-07 is an enclosure card and its figures are the column's — it drives the
     # screws this bench stages for. A card is registered by whichever subsystem
@@ -414,6 +425,10 @@ def electronics_bay(m: Machine):
             "COLUMN_INSERTS_HERE"},
         "eb-03-stage-psu-relays-board": {
             "WALL_BOSSES", "MAIN_BOARD_BOSSES", "COLUMN_INSERTS_HERE", "MAIN_BOARD_SIZE"},
+        # The valve census is the commissioning bench's and the DC-3 pigtail's length the one
+        # WR-04 lands; EB-05 states both beside the DC-4 comparison this bench derives.
+        "eb-05-stage-dc-distribution": {
+            "BOARD_PEAK_A", "WAGO_RATED_A", "VALVE_COUNT", "LEN_PUMP"},
         "en-07-electronics-bay": {
             *column_names, "COLUMN_SCREWS_M3X8", "COLUMN_SCREWS_M3X10"},
     }
@@ -461,6 +476,24 @@ def sub_assemblies(m: Machine):
     cap_chains = under("foam-assembly", "cradle")
     cap_cradled = [n for n in cap_chains if n.startswith("valve-") or n == "vk-solenoid"]
     cap_chain_bodies = [n for n in cap_chains if n.endswith("-chain")]
+    # SA-04 TIES THE TWO CHAINS AND NO RUN. Every run the cap ribs is held back from that bench,
+    # so "no run" is the sentence and it has no number in it to drift: a run tied there is a line
+    # the card does not have.
+    assert not ribs_tied, (
+        f"the cap-lid bench ties {', '.join(ribs_tied)} into the lid's ribs — SA-04 zip-ties the "
+        f"two chains and no run; restate the card")
+    assert cap_chain_bodies == ["discharge-chain", "suction-chain"], (
+        f"the lid's ribs carry {cap_chain_bodies} — SA-04 names the suction and discharge chains")
+    # AND THE LID'S POSTS LEAVE THAT BENCH EMPTY TOO. A post grips a run sideways
+    # (`_cold_core_interface.cap_side_anchors`), no fastening table hands those runs to the cap,
+    # and each ends on a piece the bench has not got — so SA-04 names them, and its picture
+    # draws none of them.
+    cap_posts = sorted(_cci.cap_side_anchors)
+    cap_lid_posted = {f"tube-{n}" for n in cap_posts} & set(_scenes.named(cap_lid, m.a.runs))
+    assert cap_posts == ["fluid-18", "water-3"] and not cap_lid_posted, (
+        f"the lid stands posts for {cap_posts} and the cap-lid scene draws "
+        f"{sorted(cap_lid_posted)} — SA-04 sends water-3 and fluid-18 off that bench with both "
+        f"posts empty; restate the card")
 
     # The +Y wall's crossings: the bodies on that piece that no screw fastens
     # because each is drawn up by its own nut on its own thread. The split-and-
@@ -594,8 +627,8 @@ def sub_assemblies(m: Machine):
         "SA02_WELLS": f"{len(front_top_wells)}",
         "SA04_CRADLES": f"{len(cap_cradled)}",
         "SA04_CHAINS": f"{len(cap_chain_bodies)}",
-        "SA04_RIB_RUNS": f"{len(ribs_tied)}",
         "SA04_RIB_EMPTY": f"{len(ribs_empty)}",
+        "SA04_POSTS_EMPTY": f"{len(cap_posts)}",
         "SA08_LINES": f"{len(open_core)}",
         "SA05_HANGING": f"{len(_scenes.SCENE_BY_ID['back-half'].also)}",
         "SA07_HANGING": f"{len(core_loose)}",
@@ -635,7 +668,7 @@ def sub_assemblies(m: Machine):
         "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS", "CARRIER_TEES"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "PUMP_MOUNT_SCREW", "PUMP_MOUNT_WASHER",
-                          "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS", "SA04_RIB_EMPTY"},
+                          "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_EMPTY", "SA04_POSTS_EMPTY"},
         "sa-05-back-half": {"SA05_HANGING"},
         "sa-06-funnel-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},

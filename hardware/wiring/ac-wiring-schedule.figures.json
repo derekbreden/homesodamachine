@@ -49,6 +49,7 @@
     "V_DC": "12 V",
     "V_IO": "3.3 V",
     "V_LINE": "120 V",
-    "V_LOGIC": "5 V"
+    "V_LOGIC": "5 V",
+    "WAGO_RATED_A": "32 A"
   }
 }

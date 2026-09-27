@@ -261,8 +261,8 @@ SCENES = (
         later=("tube-fluid-14",),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "three valves pressed into their cradles, both chains and one run zip-tied into "
-             "printed ribs. It meets the rest of the core after all of it is on.",
+             "three valves pressed into their cradles, both chains zip-tied into printed ribs. "
+             "It meets the rest of the core after all of it is on.",
     ),
     Scene(
         "cold-core", "Cold core, plumbed",
