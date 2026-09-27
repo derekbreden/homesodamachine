@@ -68,10 +68,10 @@
         <line class="wire" x1="190" y1="145" x2="280" y2="145"/>
         <text class="runid" x="235" y="60" text-anchor="middle">DC-1</text>
         <text class="sub" x="235" y="196" text-anchor="middle">~100 mm</text>
-        <!-- DC block -->
+        <!-- DC block: one 221-413 per rail -->
         <rect class="blk" x="280" y="40" width="170" height="130" rx="10"/>
         <text class="lbl" x="365" y="84" text-anchor="middle">12 V RAILS</text>
-        <text class="sub" x="365" y="110" text-anchor="middle">221-413 &#215;2 &#183; + &#183; GND</text>
+        <text class="sub" x="365" y="110" text-anchor="middle">221-413 &#215; 2</text>
         <text class="pin" x="438" y="132" text-anchor="end">+</text>
         <!-- DC-2 into relay #2 COM -->
         <line class="wire" x1="450" y1="140" x2="540" y2="140"/>
@@ -96,7 +96,7 @@
         <line class="wire" x1="670" y1="255" x2="670" y2="268"/>
         <text class="pin" x="446" y="195">GND</text>
         <circle class="wire" cx="690" cy="298" r="30"/>
-        <text class="runid" x="740" y="372" text-anchor="end">DC-3 &#183; ~250 mm</text>
+        <text class="runid" x="740" y="372" text-anchor="end">DC-3 &#183; <tspan data-gen="LEN_PUMP">~250 mm</tspan></text>
         <text class="sub" x="740" y="400" text-anchor="end">coiled + flagged</text>
         <text class="sub" x="740" y="428" text-anchor="end">&#8594; G Ganen pump (WR-04)</text>
         <!-- DC-4 down to J10 -->
@@ -106,8 +106,8 @@
         <line class="wire" x1="390" y1="170" x2="390" y2="300"/>
         <line class="wire" x1="390" y1="300" x2="355" y2="300"/>
         <line class="wire" x1="355" y1="300" x2="355" y2="330"/>
-        <text class="pin" x="320" y="195" text-anchor="middle">GND</text>
-        <text class="pin" x="390" y="195" text-anchor="middle">V12</text>
+        <text class="pin" x="320" y="160" text-anchor="middle">GND</text>
+        <text class="pin" x="390" y="160" text-anchor="middle">V12</text>
         <text class="runid" x="300" y="250" text-anchor="end">DC-4</text>
         <text class="sub" x="300" y="278" text-anchor="end">+ and GND, ferruled</text>
         <!-- J10 screw block -->
@@ -127,7 +127,9 @@
     </div>
 
     <div class="note" style="margin-top:24px">
-      <b>~3.3 A peak against a 32 A-rated lever.</b> 10 valves, both
+      <b>About <span class="dim" data-gen="BOARD_PEAK_A">3.33 A</span> peak,
+      against a lever rated <span class="dim" data-gen="WAGO_RATED_A">32 A</span>.</b>
+      <span class="dim" data-gen="VALVE_COUNT">11</span>&nbsp;valves, both
       peristaltic pumps, the condenser fan, display 12 V, and both logic
       rails all draw through DC-4.
     </div>
@@ -136,7 +138,7 @@
 
 <footer>
   <div class="done"><span class="lbl">Done when</span>DC-1 landed, DC-2 terminated, DC-3 coiled + flagged, DC-4 under the J10 clamps — V12 screw traces to PSU +.</div>
-  <div class="src">electronics-bay.md &#167;5 &#183; ac-wiring-schedule.md<br>rev 2026-09-26</div>
+  <div class="src">electronics-bay.md &#167;5 &#183; ac-wiring-schedule.md<br>_cards_sync.py &#183; rev 2026-09-27</div>
 </footer>
 
 </div>

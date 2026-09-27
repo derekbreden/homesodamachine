@@ -25,6 +25,7 @@ def internal_plumbing(m):
     import _lines
     import _scorecard as _card
     import asse_drip_pan as _pan
+    import _ac_wiring_schedule_sync as _acw
     from _cold_core_interface import cap_conduit_bore_radius, cap_cradles
 
     a, pack, box = m.a, m.pack, m.box
@@ -43,6 +44,11 @@ def internal_plumbing(m):
 
     def mm(rid):
         return f"{runs[rid].length:.0f} mm"
+
+    def loom(length_mm):
+        """A loom's cut length as the wiring schedule prints it — `_run_lengths.py` measures it
+        off the placed machine and `_ac_wiring_schedule_sync` carries it."""
+        return f"~{length_mm:.4g} mm"
 
     DOWN = (0.0, 0.0, -1.0)
     UP = (0.0, 0.0, 1.0)
@@ -276,6 +282,11 @@ def internal_plumbing(m):
         f"barb, all the way through")
     aft_valves = sorted(_ml.CARRIER_TEES)
 
+    # WR-05's cold-core set is five looms at five lengths — J4's 1-wire and moisture legs, both
+    # reservoirs' reeds and the carbonator's pair — so the card quotes the span they cut to.
+    core_looms = (_acw.len_onewire_mm, _acw.len_moisture_mm, _acw.len_reeds_a_mm,
+                  _acw.len_reeds_b_mm, _acw.len_carb_reeds_mm)
+
     facts = {
         # CO2 — IP-01.
         "CO2_1_LEN": mm("co2-1"),
@@ -329,6 +340,20 @@ def internal_plumbing(m):
         # the side is read against the pump rather than against the machine's centreline.
         "VK_SIDE": "east" if vk_x > (pump.xmin + pump.xmax) / 2.0 else "west",
         "METER_BOSS": "east" if boss == EAST else "west",
+        # Every loom length WR-04 and WR-05 print. A single run goes under the name the schedule's
+        # table prints it by, so a card and the table cannot quote one run two ways; the
+        # cold-core set is the span of its five.
+        "LEN_PUMP": loom(_acw.len_pump_mm),
+        "LEN_PUMP_FIXED": loom(_acw.len_pump_fixed_mm),
+        "LEN_CARTRIDGE": loom(_acw.len_cartridge_mm),
+        "LEN_MAN_A": loom(_acw.len_man_a_mm),
+        "LEN_MAN_A_COM": loom(_acw.len_man_a_com_mm),
+        "LEN_MAN_B": loom(_acw.len_man_b_mm),
+        "LEN_MID": loom(_acw.len_mid_mm),
+        "LEN_FAN": loom(_acw.len_fan_mm),
+        "LEN_VK": loom(_acw.len_vk_mm),
+        "LEN_FRONT_FACE": loom(_acw.len_front_face_mm),
+        "COLD_CORE_LOOMS": f"~{min(core_looms):.4g}&ndash;{max(core_looms):.4g} mm",
     }
 
     cards = {
@@ -350,7 +375,9 @@ def internal_plumbing(m):
             "FLAVOR_A_STATION", "FLAVOR_B_END", "CARB_1_LEN", "CARB_1_CORNERS", "CARB_2_LEN",
             "FLUID_18_LEN", "FLUID_28_LEN", "CARB_FOAM_PIECES"},
         "ip-07-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
-        "wr-04-cabinet-12v-runs": {"VK_SIDE", "DIAPHRAGM_A"},
-        "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS"},
+        "wr-04-cabinet-12v-runs": {
+            "VK_SIDE", "DIAPHRAGM_A", "LEN_PUMP", "LEN_PUMP_FIXED", "LEN_CARTRIDGE",
+            "LEN_MAN_A", "LEN_MAN_A_COM", "LEN_MAN_B", "LEN_MID", "LEN_FAN", "LEN_VK"},
+        "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS", "LEN_FRONT_FACE", "COLD_CORE_LOOMS"},
     }
     return facts, cards
