@@ -47,6 +47,9 @@ from _ac_wiring_schedule_sync import (  # noqa: E402
     len_short_2_mm as _sched_len_short_2_mm,
     len_mid_mm as _sched_len_mid_mm,
     len_compressor_mm as _sched_len_compressor_mm,
+    len_fan_mm as _sched_len_fan_mm,
+    len_vk_mm as _sched_len_vk_mm,
+    len_front_face_mm as _sched_len_front_face_mm,
     len_onewire_mm as _sched_len_onewire_mm,
     len_reeds_a_mm as _sched_len_reeds_a_mm,
     len_umbilical_m as _sched_len_umbilical_m,
@@ -57,7 +60,6 @@ from _ac_wiring_schedule_sync import (  # noqa: E402
 # ─── Procedure-only constants ───────────────────────────────────────────
 
 cabinet_slack_mm = 200       # umbilical-end ground-bond slack at cabinet side
-vk_run_len_mm = 500          # DC-9, J2 trunk to V-K on the aft strip (schedule literal)
 
 # Donor-compressor nameplate readings: the winding-resistance reference range
 # for the dielectric / continuity check, and the power class the AC side is
@@ -88,15 +90,15 @@ def main():
         "SIG_ONEWIRE_LEN": f"~{_sched_len_onewire_mm:.4g} mm",
         "SIG_REEDS_A_LEN": f"~{_sched_len_reeds_a_mm:.4g} mm",
         "SIG_UMBILICAL_LEN": f"~{_sched_len_umbilical_m:.4g} m",
-        "SIG_DISPLAY_LEN": f"~{_sched_len_umbilical_m:.4g} m",
-        "FAN_RUN_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
+        "SIG_DISPLAY_LEN": f"~{_sched_len_front_face_mm:.4g} mm",
+        "FAN_RUN_LEN": f"~{_sched_len_fan_mm:.4g} mm",
+        "VK_RUN_LEN": f"~{_sched_len_vk_mm:.4g} mm",
         # Connector pitch.
         "JST_PITCH": f"{_sched_jst_pitch_mm:.4g} mm",
         # Electrical-component values.
         "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:.4g} kΩ",
         # Procedure-only (local).
         "CABINET_SLACK": f"{cabinet_slack_mm:.4g} mm",
-        "VK_RUN_LEN": f"~{vk_run_len_mm:.4g} mm",
         "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
         "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
         "COMP_CLASS_W": f"{compressor_class_w:.4g} W",
