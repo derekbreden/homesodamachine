@@ -9,7 +9,7 @@ Only the dispense-critical subset runs from the battery:
 - ESP32 (main) + DIGITEN flow sensor — continuous idle
 - Per pour: two solenoid valves held open + one Kamoer peristaltic pump, a few seconds
 
-Shed on battery (not carried): the 120 VAC compressor, the SeaFlo diaphragm pump, the condenser fan, and the enclosure display. Peak carried load ~2 A; idle ~1.5 W, target ~0.4 W with ESP32 deep-sleep (wake on the flow pin).
+Shed on battery (not carried): the 120 VAC compressor, the G Ganen diaphragm pump, the condenser fan, and the enclosure display. Peak carried load ~2 A; idle ~1.5 W, target ~0.4 W with ESP32 deep-sleep (wake on the flow pin).
 
 ## Architecture
 

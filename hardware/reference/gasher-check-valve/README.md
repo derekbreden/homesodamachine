@@ -4,7 +4,7 @@ Owned SKU B0FV2D2FFX has a female 1/4-inch NPT inlet and male 1/4-inch NPT
 outlet in the nominal dimensional drawing. Verify the supplied body's arrow
 runs female → male. The two roles are:
 
-- **gasher-water** — the SeaFlo discharge check in the MAACFLOW → GASHER →
+- **gasher-water** — the G Ganen discharge check in the MAACFLOW → GASHER →
   PP450822E chain.
 - **gasher-co2** — the check downstream of WR1110, before the cold core's
   plain bottom gas port. Its female inlet takes PI010822S; its male outlet

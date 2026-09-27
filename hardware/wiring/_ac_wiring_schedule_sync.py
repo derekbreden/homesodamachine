@@ -41,8 +41,11 @@ psu_full_load_w = 80    # nominal output
 psu_max_dc_a = 6.7      # rated output current
 
 # ─── Major 12 V loads ─────────────────────────────────────────────────
-# SeaFlo diaphragm pump peak current (refill pump for the carbonator
-# reservoir). Sets DC-3 gauge.
+# G Ganen diaphragm pump (the carbonator's refill pump) — a stated budget,
+# not a reading: 60 W at 12 V, the rating the IEIK sample advertises. The
+# G Ganen's own current is unmeasured, and its listing's 36 W / 3 A names no
+# operating point; `acceptance-and-burn-in.md` §3 logs it on the first fill.
+# Sets DC-3 gauge and the coincident load below.
 diaphragm_peak_a = 5
 
 # Kamoer KPHM600-SW3B17 published current per pump (two pumps on the main
@@ -66,7 +69,7 @@ max_simultaneous_valves = 3
 
 # DC-4's main-board tally and what parallels it on the rail. That figure
 # is both peristaltic pumps priming, `max_simultaneous_valves` coils and
-# the fan; the SeaFlo is DC-3, off relay #2 rather than through J10.
+# the fan; the diaphragm pump is DC-3, off relay #2 rather than through J10.
 board_peak_a = (
     2 * pump_peak_a + max_simultaneous_valves * solenoid_coil_a + fan_current_a
 )

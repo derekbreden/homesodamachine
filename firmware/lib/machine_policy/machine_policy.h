@@ -68,7 +68,7 @@ struct ActuatorPlan {
 };
 
 // Returns the documented actuator plan for an operation. CarbonatorRefill is
-// the separate V-K + SeaFlo path shown in fluid-topology-carbonator.mmd.
+// the separate V-K + G Ganen path shown in fluid-topology-carbonator.mmd.
 ActuatorPlan canonicalPlan(Operation operation);
 
 struct SafetyContext {

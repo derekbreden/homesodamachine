@@ -11,7 +11,7 @@
 // ── Outputs that reach an actuator ────────────────────────────────────────
 // machine.cpp is the only file that drives any of these.
 static const int PIN_RELAY_COMPRESSOR = 19;  // U15 interlock -> J5 relay #1
-static const int PIN_RELAY_REFILL     = 2;   // J5 relay #2 -> SeaFlo 12 V gate
+static const int PIN_RELAY_REFILL     = 2;   // J5 relay #2 -> G Ganen 12 V gate
 static const int PIN_PUMP_A           = 17;  // U11 DRV8870 IN1 -> J13.AM1/AM2
 static const int PIN_PUMP_B           = 4;   // U12 DRV8870 IN1 -> J13.BM1/BM2
 static const int PIN_BUZZ             = 13;  // R5 -> Q1 -> U8

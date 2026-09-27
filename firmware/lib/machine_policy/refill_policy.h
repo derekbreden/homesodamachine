@@ -9,8 +9,8 @@
 // draw. Between the two the donut is off both reeds, so a refill is a latch
 // from the one to the other and not a level a single reading answers.
 //
-// The SeaFlo draws 5 A and the main board peaks at 3.33 A against a 6.7 A
-// supply, so relay #2 is off while a dispense window is open. CLO closes
+// The G Ganen is budgeted at 5 A and the main board peaks at 3.33 A against a
+// 6.7 A supply, so relay #2 is off while a dispense window is open. CLO closes
 // mid-pour — the level falls past it while the glass is filling — so the ask
 // arrives inside exactly the window that refuses it, waits in Queued, and
 // runs when the pour ends. A dispense that opens mid-refill sends the draw

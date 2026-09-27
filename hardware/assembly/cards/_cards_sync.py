@@ -434,6 +434,7 @@ def sub_assemblies(m: Machine):
     import _scenes
     import _scorecard as _sc
     import _cold_core_interface as _cci
+    import g_ganen_installation as _water_pump   # on the path once `_cci` is imported
     import funnel_drain_stub as _stub
     import funnel as _funnel
 
@@ -604,6 +605,11 @@ def sub_assemblies(m: Machine):
         "SA06_UNION_INSERT": f"{_stub.UNION_INSERTION:g}",
         "SA06_SPOUT_WALL": f"{_funnel.spout_wall:g}",
         "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('g-ganen-pump'))}",
+        # And what goes down each one: the screw the station's column is bored for, and the
+        # washer that lies on the pad under its head.
+        "PUMP_MOUNT_SCREW": f"M{_water_pump.SCREW_D:g} {X} "
+                            f"{_cci.deck_mounts['g-ganen-pump'].screw:g}",
+        "PUMP_MOUNT_WASHER": f"{DIA}{_water_pump.WASHER_OD:g}",
         # A cap pours with one per station, clamped to the shell's face, and they come out
         # again after cure — the stack's other six belong to the other cap.
         "CAP_POUR_SCREWS": f"{len(_cci.attachment_xy_positions)}",
@@ -628,8 +634,8 @@ def sub_assemblies(m: Machine):
         # leaves the bench carrying, and `collect` merges one namespace across the deck.
         "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS", "CARRIER_TEES"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
-        "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
-                          "SA04_RIB_EMPTY"},
+        "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "PUMP_MOUNT_SCREW", "PUMP_MOUNT_WASHER",
+                          "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS", "SA04_RIB_EMPTY"},
         "sa-05-back-half": {"SA05_HANGING"},
         "sa-06-funnel-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},

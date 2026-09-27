@@ -350,7 +350,7 @@ def internal_plumbing(m):
             "FLAVOR_A_STATION", "FLAVOR_B_END", "CARB_1_LEN", "CARB_1_CORNERS", "CARB_2_LEN",
             "FLUID_18_LEN", "FLUID_28_LEN", "CARB_FOAM_PIECES"},
         "ip-07-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
-        "wr-04-cabinet-12v-runs": {"VK_SIDE"},
+        "wr-04-cabinet-12v-runs": {"VK_SIDE", "DIAPHRAGM_A"},
         "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS"},
     }
     return facts, cards
