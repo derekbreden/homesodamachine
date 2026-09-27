@@ -42,8 +42,9 @@
           <li>Find the <b>signal-voltage selector</b> and set it to <b>5&nbsp;V</b>. It is
             separate from the eight DIP switches. Get this wrong and the ULN2803A's sunk
             outputs will not register as pulses.</li>
-          <li>Leave <span class="mono">ENA+</span> and <span class="mono">ENA-</span>
-            unconnected. The driver is enabled by default.</li>
+          <li><span class="mono">ENA+</span> and <span class="mono">ENA&minus;</span> are
+            wired on the next page. Through them the ESP32 lets the motor go cold ten seconds
+            after each release.</li>
         </ul>
         <div class="mind">
           <span class="mind-label">3,200 is load-bearing</span>
