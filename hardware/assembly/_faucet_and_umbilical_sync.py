@@ -3,6 +3,7 @@
 Run: tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -108,6 +109,27 @@ def main():
         "FAUCET_PLATE_T": f"{faucet.above_counter_plate.plate_thickness:g}",
         "FLAVOR_NOMINAL": f"{1200 + faucet.countertop_thickness + plate_gasket + faucet.flavor_path_above_foot():.0f}",
         "BLUE_NOMINAL": f"{1200 + faucet.soda_umbilical_tube_z_top - faucet.countertop_bottom_z:.0f}",
+        # A White faucet's flavor pair, white through the faucet and black in the umbilical, and
+        # the 3/8" soda faucet tube either finish cuts from its own stock — §1.
+        "WHITE_A_CUT": f"{faucet.white_cut_length(+1):g}",
+        "WHITE_B_CUT": f"{faucet.white_cut_length(-1):g}",
+        "BLACK_A_CUT": f"{faucet.black_run_cut_length(+1):g}",
+        "BLACK_B_CUT": f"{faucet.black_run_cut_length(-1):g}",
+        "SODA_FAUCET_CUT": f"{faucet.soda_faucet_cut_length:g}",
+        # The two unions that join them, end to end at the braid's top — §2 and §3. Source:
+        # `reference/jg-pp0408w/jg_pp0408w.py` through the assembly that stands them.
+        "UNION_GAP": f"{faucet.union_gap:.4g} mm",
+        "UNION_INSERTION": f"{faucet.union.INSERTION:g} mm",
+        "UNION_B_BELOW_PLATE": f"{faucet.under_counter_plate_bottom_z - faucet.union_b_top_z:.0f} mm",
+        "STEP_X": f"{faucet.step_x:.4g} mm",
+        "UNION_RING_D": f"{faucet.union.RING_D:.3g}",
+        "UNION_BESIDE_FOAM": f"{faucet.foam_od + faucet.union.RING_D:.3g} mm",
+        # The foam's run from the pack's first plane, and the top braid segment carried on above
+        # it over the unions — §3.
+        "FOAM_LENGTH": f"{faucet.foam_length:.0f}",
+        "FOAM_BARE_TOP": f"{faucet.foam_bare_at_westbrass:.0f} mm",
+        "SLEEVE_ABOVE_FOAM": f"{faucet.sleeve_z_top - faucet.umbilical_z_bottom:.0f} mm",
+        "UNION_SLEEVE_BORE": f"{faucet.union_girth() / math.pi:.4g} mm",
     }
 
     substitute_md(

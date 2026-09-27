@@ -25,6 +25,7 @@ import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
+import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
 import { syncTubeVisibility } from "./tube-overlay-host.js";
@@ -68,8 +69,12 @@ function persistHidden() {
   } catch {}
 }
 
-// Set mesh.visible from state.hiddenComponents. Called after each STEP load
-// (step.js) and after every hide/show. Unnamed meshes stay visible.
+// A body the faucet's finish leaves out (a Black faucet has no union) is out of view whatever the
+// hidden set says, and the hidden set never names it: nobody hid it.
+const inFinish = (name) => showsInFaucetFinish(mountedFile(), name, state.faucetFinish);
+
+// Set mesh.visible from state.hiddenComponents and the faucet's finish. Called after each STEP
+// load (step.js), after every hide/show and after a finish change. Unnamed meshes stay visible.
 export function applyHiddenComponents() {
   if (state.currentGroup) {
     for (const m of state.currentGroup.children) {
@@ -81,9 +86,9 @@ export function applyHiddenComponents() {
         // Hide a hidden component's feature edges too, or its wireframe keeps
         // obstructing the interior.
         const nm = m.userData.xrayComponent;
-        m.visible = !(nm && standsHidden(nm));
+        m.visible = !(nm && standsHidden(nm)) && inFinish(nm);
       } else if (m.isMesh) {
-        m.visible = !(m.name && standsHidden(m.name));
+        m.visible = !(m.name && standsHidden(m.name)) && inFinish(m.name);
       }
     }
   }

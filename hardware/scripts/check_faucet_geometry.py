@@ -272,12 +272,12 @@ def tube_radius_reading(reading, f, assembly):
     from OCP.BRepAdaptor import BRepAdaptor_Curve, BRepAdaptor_Surface
     source = "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf"
     arcs = []
-    for path in (assembly._flavor_path(assembly.umbilical_z_bottom), assembly._splay_path(1)):
+    for path in (p for x_sign in assembly.flavor_sides for p in assembly.flavor_centerlines(x_sign)):
         for edge in path.wire().val().Edges():
             if edge.geomType() == "CIRCLE":
                 arcs.append(BRepAdaptor_Curve(edge.wrapped).Circle().Radius())
     reading.add("route:flavor-tube-radius", bool(arcs) and min(arcs) >= f.flavor_bend_min_radius - DISTANCE_TOLERANCE,
-                method="actual circular edges of the assembled flavor and tail-splay centerline paths",
+                method="actual circular edges of both assembled flavor centerlines, faucet to tail splay",
                 centerline_radii_mm=sorted({clean_number(r) for r in arcs}),
                 supplier_minimum_mm=f.flavor_bend_min_radius, supplier_source=source)
     for name, body, minimum in (("flavor-passage", f.build_flavor_transition_inner_cut(), f.flavor_bend_min_radius),

@@ -470,13 +470,21 @@ def s_plate_sideways():
         )
     )
     _add(a, slab, "countertop", STONE)
+    # A Black faucet's flavor tube runs on from the faucet through a bridge into its umbilical run,
+    # and each length is drawn where it reaches into the frame.
     for name, colour in (("westbrass", STEEL),
                          ("flavor_tube_pos_x", BLACK_PART),
                          ("flavor_tube_neg_x", BLACK_PART_LIT),
+                         ("flavor_tube_bridge_pos_x", BLACK_PART),
+                         ("flavor_tube_bridge_neg_x", BLACK_PART_LIT),
+                         ("flavor_umbilical_tube_pos_x", BLACK_PART),
+                         ("flavor_umbilical_tube_neg_x", BLACK_PART_LIT),
                          ("soda_umbilical_tube", BLUE_TUBE)):
         child = parts.get(name)
         if child is not None:
-            _add(a, _cad_art._clip_z(child.obj, -88.0, -30.0), name, colour)
+            clipped = _cad_art._clip_z(child.obj, -88.0, -30.0)
+            if clipped.solids().size():
+                _add(a, clipped, name, colour)
     washer_top = -fa.shank_length + NUT_H + WASHER_T
     _add(a, (cq.Workplane("XY").workplane(offset=washer_top - WASHER_T)
              .circle(12.0).circle(6.1).extrude(WASHER_T)), "retained-washer", STEEL)

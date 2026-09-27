@@ -17,7 +17,7 @@ import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
 import { onTubeModelLoaded } from "./tube-overlay-host.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
-import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody } from "/contracts/faucet-options.js";
+import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
@@ -271,6 +271,8 @@ function buildMesh(result, file = null, finishId = state.faucetFinish) {
     // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
     // the scorecard's clickable rows can find a solid by name (part-highlight.js).
     solid.name = name;
+    // A body only one faucet finish has (a White faucet's union) is out of the other's view.
+    solid.visible = showsInFaucetFinish(file, name, finish.id);
     group.add(solid);
   });
 
@@ -289,6 +291,8 @@ export function setFaucetFinish(finishId) {
         setMeshMaterial(group, mesh, materialFor(finish.rgb, finish));
       }
     }
+    // The bodies only one finish has come and go with it, alongside what the viewer hid by hand.
+    if (faucetStyleFor(file)) applyHiddenComponents();
   }
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
 }

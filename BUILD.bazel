@@ -556,6 +556,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -1585,14 +1586,19 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
@@ -1623,6 +1629,7 @@ genrule(
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
@@ -1640,6 +1647,7 @@ genrule(
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
         "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
@@ -1885,6 +1893,7 @@ genrule(
         "out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html",
         "out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html",
         "out/cards-build/hardware/assembly/cards/fu-01-cut-lldpe-tubes.html",
+        "out/cards-build/hardware/assembly/cards/fu-03-insulate-and-sleeve.html",
         "out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html",
         "out/cards-build/hardware/assembly/cards/ip-01-co2-path.html",
         "out/cards-build/hardware/assembly/cards/ip-02-water-path.html",
@@ -2136,38 +2145,39 @@ O211=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photogra
 O212=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
 O213=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
 O214=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-01-cut-lldpe-tubes.html)
-O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
-O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
-O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
-O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
-O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-seat-pump-cartridge.html)
-O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-risers.html)
-O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-witness-tidy.html)
-O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
-O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
-O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
-O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
-O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
-O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
-O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
-O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
-O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
-O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
-O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
-O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
-O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
-O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
-O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
-O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
-O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
-O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
-O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
-O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
-O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
-O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
-O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
-O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
+O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/fu-03-insulate-and-sleeve.html)
+O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
+O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
+O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
+O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
+O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
+O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-seat-pump-cartridge.html)
+O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-risers.html)
+O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-07-witness-tidy.html)
+O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
+O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
+O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
+O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
+O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
+O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
+O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
+O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
+O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
+O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
+O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
+O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
+O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
+O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
+O238=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
+O239=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
+O240=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
+O241=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
+O242=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
+O243=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
+O244=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
+O245=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
+O246=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
+O247=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -2400,38 +2410,39 @@ cp hardware/assembly/cards/fs-03-cap-photograph.html $$O211
 cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O212
 cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O213
 cp hardware/assembly/cards/fu-01-cut-lldpe-tubes.html $$O214
-cp hardware/assembly/cards/gt-02-push-to-connect.html $$O215
-cp hardware/assembly/cards/ip-01-co2-path.html $$O216
-cp hardware/assembly/cards/ip-02-water-path.html $$O217
-cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O218
-cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O219
-cp hardware/assembly/cards/ip-05-seat-pump-cartridge.html $$O220
-cp hardware/assembly/cards/ip-06-risers.html $$O221
-cp hardware/assembly/cards/ip-07-witness-tidy.html $$O222
-cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O223
-cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O224
-cp hardware/assembly/cards/pv-03-rod-register.html $$O225
-cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O226
-cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O227
-cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O228
-cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O229
-cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O230
-cp hardware/assembly/cards/pv-11-hydro-test.html $$O231
-cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O232
-cp hardware/assembly/cards/pv-14-port-fittings.html $$O233
-cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O234
-cp hardware/assembly/cards/rl-05-pinch-swage.html $$O235
-cp hardware/assembly/cards/sa-01-back-top.html $$O236
-cp hardware/assembly/cards/sa-02-front-top.html $$O237
-cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O238
-cp hardware/assembly/cards/sa-04-cap-lid.html $$O239
-cp hardware/assembly/cards/sa-05-back-half.html $$O240
-cp hardware/assembly/cards/sa-06-funnel-drain.html $$O241
-cp hardware/assembly/cards/sa-07-cold-core.html $$O242
-cp hardware/assembly/cards/sa-08-cold-core-open.html $$O243
-cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O244
-cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O245
-cp hardware/assembly/cards/wr-05-signal-looms.html $$O246
+cp hardware/assembly/cards/fu-03-insulate-and-sleeve.html $$O215
+cp hardware/assembly/cards/gt-02-push-to-connect.html $$O216
+cp hardware/assembly/cards/ip-01-co2-path.html $$O217
+cp hardware/assembly/cards/ip-02-water-path.html $$O218
+cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O219
+cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O220
+cp hardware/assembly/cards/ip-05-seat-pump-cartridge.html $$O221
+cp hardware/assembly/cards/ip-06-risers.html $$O222
+cp hardware/assembly/cards/ip-07-witness-tidy.html $$O223
+cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O224
+cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O225
+cp hardware/assembly/cards/pv-03-rod-register.html $$O226
+cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O227
+cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O228
+cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O229
+cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O230
+cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O231
+cp hardware/assembly/cards/pv-11-hydro-test.html $$O232
+cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O233
+cp hardware/assembly/cards/pv-14-port-fittings.html $$O234
+cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O235
+cp hardware/assembly/cards/rl-05-pinch-swage.html $$O236
+cp hardware/assembly/cards/sa-01-back-top.html $$O237
+cp hardware/assembly/cards/sa-02-front-top.html $$O238
+cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O239
+cp hardware/assembly/cards/sa-04-cap-lid.html $$O240
+cp hardware/assembly/cards/sa-05-back-half.html $$O241
+cp hardware/assembly/cards/sa-06-funnel-drain.html $$O242
+cp hardware/assembly/cards/sa-07-cold-core.html $$O243
+cp hardware/assembly/cards/sa-08-cold-core-open.html $$O244
+cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O245
+cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O246
+cp hardware/assembly/cards/wr-05-signal-looms.html $$O247
 """,
 )
 
@@ -3595,6 +3606,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
         "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.lint-answers",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
         "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json",
         ":out/under-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh",
@@ -3602,18 +3614,22 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
         "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.lint-answers",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/physical-acceptance.json",
         "hardware/printed-parts/faucet/faucet-shell/.gitignore",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
         "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.lint-answers",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.lint-answers",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
@@ -3630,6 +3646,8 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
@@ -3775,7 +3793,9 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
@@ -3792,8 +3812,10 @@ genrule(
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
+        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/reference/wellbom-regulator/wellbom_regulator.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -7545,6 +7567,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -8452,7 +8475,9 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
@@ -8468,7 +8493,10 @@ genrule(
         "pysrc/hardware/quickstart/_cad_art.py",
         "pysrc/hardware/quickstart/quickstart_art.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         ":out/westbrass-reference/hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -10334,6 +10362,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_water_inlet_jet.py",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "hardware/ledger/bom.md",
         "hardware/ledger/labor.md",
         "pysrc/hardware/manifold-layout/_gas_chain.py",
@@ -10410,11 +10439,15 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_display_snap.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
         ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
@@ -10445,6 +10478,8 @@ genrule(
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
@@ -10452,7 +10487,6 @@ genrule(
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
@@ -10460,6 +10494,7 @@ genrule(
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/water-split/water_split.py",
         "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
@@ -22827,7 +22862,11 @@ sh_test(
         "hardware/cold-core-layout/cold-core-assembly.step.mesh",
         "hardware/cold-core-layout/cold_core_assembly.py",
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
+        "hardware/faucet-layout/faucet-assembly.step",
+        "hardware/faucet-layout/faucet-assembly.step.mesh",
+        "hardware/faucet-layout/faucet_assembly.py",
         "hardware/ledger/bom.figures.json",
         "hardware/ledger/bom.md",
         "hardware/ledger/build-time.figures.json",
@@ -23070,6 +23109,10 @@ sh_test(
         "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "hardware/printed-parts/faucet/faucet-shell/geometry-check.json",
         "hardware/printed-parts/faucet/faucet-shell/print-log.md",
+        "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
+        "hardware/printed-parts/faucet/tpu-o-ring/README.md",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
@@ -23169,6 +23212,8 @@ sh_test(
         "hardware/reference/tee-connector/tee_connector.py",
         "hardware/reference/teyleten-relay/teyleten-relay.step",
         "hardware/reference/teyleten-relay/teyleten_relay.py",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "hardware/reference/wago-221/wago-221-413.step",
         "hardware/reference/wago-221/wago-221-415.step",
         "hardware/reference/wago-221/wago-221-420.step",

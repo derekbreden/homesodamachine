@@ -107,6 +107,7 @@ test("each assembly's 1/4-inch tube can open the supplied collet press", () => {
     "cold-core/line-carb-water-out",
     "cold-core/line-reservoir-b-fill",
     "flavor_tube_pos_x",
+    "flavor_umbilical_tube_neg_x",
     "soda_umbilical_tube",
   ];
   for (const tube of tubes) {
@@ -120,7 +121,7 @@ test("each assembly's 1/4-inch tube can open the supplied collet press", () => {
 
 test("the collet press is not offered from tubes it does not fit", () => {
   for (const tube of ["tube-refrig-1", "carbonator-tube", "soda_faucet_tube",
-                      "cold_line_foam", "cold-core/line-prv-vent"]) {
+                      "cold_line_foam", "cold-core/line-prv-vent", "flavor_tube_bridge_pos_x"]) {
     assert.deepEqual(relatedStepsForComponent(tube, ALL), [], tube);
   }
 });
