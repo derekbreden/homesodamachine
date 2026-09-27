@@ -13,15 +13,17 @@
   <main>
     <table>
       <tr><th>From</th><th>To</th></tr>
-      <tr><td class="k mono">ESP32 GPIO25</td><td class="mono">ULN IN1</td></tr>
-      <tr><td class="k mono">ULN OUT1</td><td class="mono">DM542T PUL&minus;</td></tr>
-      <tr><td class="k mono">ESP32 GPIO26</td><td class="mono">ULN IN2</td></tr>
-      <tr><td class="k mono">ULN OUT2</td><td class="mono">DM542T DIR&minus;</td></tr>
-      <tr><td class="k mono">ESP32 VIN / 5V</td><td class="mono">DM542T PUL+ <span class="dim">and</span> DIR+</td></tr>
+      <tr><td class="k mono">ESP32 GPIO25</td><td class="mono">ULN IN1 (1B)</td></tr>
+      <tr><td class="k mono">ULN OUT1 (1C)</td><td class="mono">DM542T PUL&minus;</td></tr>
+      <tr><td class="k mono">ESP32 GPIO26</td><td class="mono">ULN IN2 (2B)</td></tr>
+      <tr><td class="k mono">ULN OUT2 (2C)</td><td class="mono">DM542T DIR&minus;</td></tr>
+      <tr><td class="k mono">ESP32 GPIO32</td><td class="mono">ULN IN3 (3B)</td></tr>
+      <tr><td class="k mono">ULN OUT3 (3C)</td><td class="mono">DM542T ENA&minus;</td></tr>
+      <tr><td class="k mono">ESP32 VIN / 5V</td><td class="mono">DM542T PUL+<span class="dim">,</span> DIR+ <span class="dim">and</span> ENA+</td></tr>
       <tr><td class="k mono">ESP32 GND</td><td class="mono">ULN GND</td></tr>
       <tr><td class="k mono">Pedal COM</td><td class="mono">ESP32 GND</td></tr>
       <tr><td class="k mono">Pedal NO</td><td class="mono">ESP32 GPIO27</td></tr>
-      <tr><td class="k mono">ESP32 3V3</td><td class="mono">GPIO27, through 4.7 k&Omega;</td></tr>
+      <tr><td class="k mono">ESP32 3V3</td><td class="mono">GPIO27 <span class="dim">reads about</span> 3.3 k&Omega; <span class="dim">on the &Omega; range</span></td></tr>
       <tr><td class="k">Motor black / green</td><td class="mono">DM542T A+ / A&minus;</td></tr>
       <tr><td class="k">Motor red / blue</td><td class="mono">DM542T B+ / B&minus;</td></tr>
       <tr><td class="k">24 V barrel connector + / &minus;</td><td class="mono">DM542T VDC / GND</td></tr>
@@ -30,12 +32,13 @@
     <table>
       <tr><td class="k mono">DM542T VDC</td><td class="mono">DM542T GND</td></tr>
       <tr><td class="k mono">DM542T VDC</td><td class="mono">any ESP32 pin</td></tr>
-      <tr><td class="k mono">ESP32 3V3</td><td class="mono">ESP32 GND</td></tr>
+      <tr><td class="k mono">ESP32 3V3</td><td class="mono">ESP32 GND <span class="dim">&mdash; pedal up, then held down</span></td></tr>
       <tr><td class="k mono">Any motor phase</td><td class="mono">any other phase's pair</td></tr>
     </table>
     <div class="gate">
       <span class="gate-label">Gate &mdash; before a plug goes in a socket</span>
-      <p>Every row in the first table beeps and every row in the second does not.
+      <p>Every row in the first table beeps, or reads its 3.3&nbsp;k&Omega;, and every row in
+        the second does not.
         <span class="fail">The 24&nbsp;V rail must have no path to the ESP32 at all.</span>
         The isolation lives in the DM542T's input opto-couplers, and the only way it can be
         defeated is a wire in the wrong terminal.</p>
@@ -43,9 +46,8 @@
     <div class="mind">
       <span class="mind-label">Also check with your eyes</span>
       <p>The DM542T's <b>logic selector is on 5&nbsp;V</b>, its eight DIP switches read
-        ON&nbsp;OFF&nbsp;OFF&nbsp;OFF&nbsp;ON&nbsp;ON&nbsp;OFF&nbsp;ON, and
-        <span class="mono">ENA+</span>, <span class="mono">ENA&minus;</span> and the ULN's
-        <span class="mono">COM</span> are empty.</p>
+        ON&nbsp;OFF&nbsp;OFF&nbsp;OFF&nbsp;ON&nbsp;ON&nbsp;OFF&nbsp;ON, and the ULN's
+        <span class="mono">COM</span> is empty.</p>
     </div>
   </main>
   <footer><span>Weld rotator &middot; build guide</span><span class="folio">36</span></footer>

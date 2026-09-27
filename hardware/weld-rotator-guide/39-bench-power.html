@@ -19,14 +19,22 @@
       <li>Plug the 5&nbsp;V adapter into the wall. The board's power LED comes up.</li>
       <li>Confirm the pedal is <b>released</b> and that nothing &mdash; hand, cloth, cable
         &mdash; is inside the belt path or on the turntable.</li>
-      <li>Plug the 24&nbsp;V brick into the wall. The DM542T's LED comes up and the motor
-        becomes stiff to turn by hand: that is the standstill current, and it is correct.</li>
+      <li>Plug the 24&nbsp;V brick into the wall. The DM542T's LED comes up, and the table
+        still turns by hand: the driver stays released until the pedal asks for work.</li>
     </ol>
     <div class="gate">
       <span class="gate-label">Gate &mdash; nothing moves</span>
       <p>With both supplies live and the pedal released, the table stands still and stays
         still. <span class="fail">Any motion at all here means a pulse is being generated with
         no pedal</span> &mdash; pull the 24&nbsp;V and go back to page&nbsp;36.</p>
+    </div>
+    <div class="mind">
+      <span class="mind-label">Stiff before the first press is a fault</span>
+      <p>An <span class="mono">ENA</span> left unwired holds the motor whenever the driver has
+        power. Pull the 24&nbsp;V and meter the <span class="mono">GPIO32</span>,
+        <span class="mono">3C</span> and <span class="mono">ENA+</span> rows on page&nbsp;36
+        again. If all three beep, the driver reads <span class="mono">ENA</span> the other way
+        round from its manual, and that is a firmware change, not a wire.</p>
     </div>
     <div class="mind">
       <span class="mind-label">Order matters, both ways</span>
