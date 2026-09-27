@@ -290,6 +290,9 @@ def _figures():
         "RAIL_12V_TOL": f"&plusmn;{_fc.rail_12v_tol:.4g} V",
         "RAIL_5V_TOL": f"&plusmn;{_fc.rail_5v_tol:.4g} V",
         "RAIL_33V_TOL": f"&plusmn;{_fc.rail_33v_tol:.4g} V",
+        # The diaphragm pump's DC-3 budget (WR-04): the wiring schedule's figure, which `_fc`
+        # carries for its own page.
+        "DIAPHRAGM_A": f"{_fc.diaphragm_peak_a:.4g} A",
         "FREEZE_CUTOUT": f"&minus;{abs(_fc.freeze_cutoff_c):.4g} {DEG}C",
         "MIN_OFF": f"{_fc.min_off_time_min:.4g} min",
         "COMP_ON_OFF": f"{_fc.comp_on_temp_c:.4g} / {_fc.comp_off_temp_c:.4g} {DEG}C",

@@ -1280,14 +1280,14 @@ static void refillStart(uint32_t now) {
         soundPlay(SND_FAULT);
         return;
     }
-    // Relay after the valves: V-K stands open before the SeaFlo pushes at it.
+    // Relay after the valves: V-K stands open before the G Ganen pushes at it.
     refillRelay = true;
     relayDrive(PIN_RELAY_REFILL, true);
     state        = ST_REFILLING;
     refillReedMs = now;
     led(PIN_LED_ACT, true);
     char names[24];
-    Serial.printf("\n[machine] refill: %s open, relay #2 closed on the SeaFlo\n",
+    Serial.printf("\n[machine] refill: %s open, relay #2 closed on the G Ganen\n",
                   valveNames(plan.valves, names, sizeof(names)));
 }
 

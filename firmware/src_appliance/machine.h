@@ -27,7 +27,7 @@ enum MachineState : uint8_t {
     ST_AIRING,    // an air cycle: the funnel open to air, a pump carrying it along the path
     ST_SELFTEST,  // the commissioning walk: one load at a time, briefly
     ST_POURING,   // carbonated water is flowing: the selected channel's dispense path open, its pump on a duty cycle
-    ST_REFILLING, // the carbonator is drawing: V-K open, relay #2 closed on the SeaFlo
+    ST_REFILLING, // the carbonator is drawing: V-K open, relay #2 closed on the G Ganen
 };
 
 // Why the pump is turning, which is the same as what will stop it.
