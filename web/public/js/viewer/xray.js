@@ -164,7 +164,8 @@ export function applyXray(group, on = enabled) {
       // toggling x-ray on doesn't resurrect a hidden part's edges.
       line.userData.xrayComponent = mesh.name || "";
       line.userData.sourceMesh = mesh;
-      line.visible = !(mesh.name && state.hiddenComponents && state.hiddenComponents.has(mesh.name));
+      line.visible = mesh.visible !== false
+        && !(mesh.name && state.hiddenComponents && state.hiddenComponents.has(mesh.name));
       group.add(line);
       mesh.material = xrayVariant(base);
     }

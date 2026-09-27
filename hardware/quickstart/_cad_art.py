@@ -182,7 +182,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "above_counter_gasket",
         "shell_base",
         "shell_tip",
-        "faucet-display-cover",
+        "faucet-display-cover-seated",
         "faucet_display",
         "faucet_display_screen",
     )
@@ -233,17 +233,26 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "tpu_o_ring",
         "flavor_tube_pos_x",
         "flavor_tube_neg_x",
+        "flavor_tube_bridge_pos_x",
+        "flavor_tube_bridge_neg_x",
+        "flavor_umbilical_tube_pos_x",
+        "flavor_umbilical_tube_neg_x",
         "soda_umbilical_tube",
         "lever",
         "above_counter_plate",
         "above_counter_gasket",
         "shell_base",
         "shell_tip",
-        "faucet-display-cover",
+        "faucet-display-cover-seated",
         "faucet_display",
         "faucet_display_screen",
     )
-    mount_tails = {"flavor_tube_pos_x", "flavor_tube_neg_x", "soda_umbilical_tube"}
+    # A Black faucet's flavor tube runs on from the faucet through a bridge into its umbilical run,
+    # and each length is drawn where it reaches into the frame.
+    flavor_lengths = {f"{body}_{side}": side
+                      for body in ("flavor_tube", "flavor_tube_bridge", "flavor_umbilical_tube")
+                      for side in ("pos_x", "neg_x")}
+    mount_tails = {*flavor_lengths, "soda_umbilical_tube"}
     mount_clip = (-88.0, 380.0)
     washer_thickness = 1.5
     nut_height = 5.0
@@ -260,6 +269,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
     # different instruction-lighting tones keep all three countable where their silhouettes meet.
     flavor_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
     flavor_black_b = cq.Color(0.20, 0.205, 0.215, 1.0)
+    flavor_colors = {name: flavor_black_a if side == "pos_x" else flavor_black_b
+                     for name, side in flavor_lengths.items()}
     signal_black = cq.Color(0.035, 0.038, 0.043, 1.0)
     signal_stripe_black = cq.Color(0.16, 0.17, 0.19, 1.0)
     frame_anchor_color = cq.Color(0.95, 0.04, 0.82, 1.0)
@@ -389,11 +400,9 @@ def _build_steps(work: Path) -> dict[str, Path]:
             obj = _moved(obj, move)
             if part_name in mount_tails:
                 obj = _clip_z(obj, *mount_clip)
-            color = {
-                "flavor_tube_pos_x": flavor_black_a,
-                "flavor_tube_neg_x": flavor_black_b,
-            }.get(part_name)
-            _add_child(out, child, obj=obj, color=color)
+                if not obj.solids().size():
+                    continue
+            _add_child(out, child, obj=obj, color=flavor_colors.get(part_name))
         ribbon, ribbon_stripes = signal_ribbon(lift_z)
         out.add(ribbon, name="sig6-flat-ribbon", color=signal_black)
         out.add(ribbon_stripes, name="sig6-ribbon-face-stripes", color=signal_stripe_black)
@@ -413,23 +422,17 @@ def _build_steps(work: Path) -> dict[str, Path]:
     def add_under_mount_product(out: cq.Assembly, *, washer_top_z: float):
         """Show only the real shank, three attached tubes and captive donor pair below the slab."""
         under_clip = (-86.0, -2.0)
-        for part_name in (
-            "westbrass",
-            "flavor_tube_pos_x",
-            "flavor_tube_neg_x",
-            "soda_umbilical_tube",
-        ):
+        for part_name in ("westbrass", *flavor_lengths, "soda_umbilical_tube"):
             child = parts[part_name]
-            color = {
-                "flavor_tube_pos_x": flavor_black_a,
-                "flavor_tube_neg_x": flavor_black_b,
-            }.get(part_name)
+            obj = _clip_z(child.obj, *under_clip)
+            if not obj.solids().size():
+                continue
             _add_child(
                 out,
                 child,
                 name=f"under-{part_name}",
-                obj=_clip_z(child.obj, *under_clip),
-                color=color,
+                obj=obj,
+                color=flavor_colors.get(part_name),
             )
         ribbon, ribbon_stripes = signal_ribbon(0.0)
         out.add(_clip_z(ribbon, *under_clip), name="under-sig6-flat-ribbon", color=signal_black)

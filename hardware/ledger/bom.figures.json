@@ -21,6 +21,7 @@
     "DISPLAY_COVER_INSERTS": "0",
     "DISPLAY_COVER_SCREWS": "0",
     "END_CAPS": "2",
+    "FAUCET_UNIONS": "2",
     "FLOOR_INSERTS": "4",
     "FLOOR_SCREWS": "4",
     "FLOOR_WASHERS": "4",
@@ -66,6 +67,8 @@
     "SHELF_SCREWS_M3X10": "1",
     "SHELF_SCREWS_M3X8": "16",
     "SIX_INCH_TIES": "7",
+    "SODA_FAUCET_CUT": "330",
+    "SODA_FAUCET_FT": "1.08",
     "SOLENOIDS": "10",
     "SPLIT_LOOP": "65.2 mm",
     "STUB_INLET": "335.5 mm",
@@ -77,10 +80,13 @@
     "VENT_FILTERS": "2",
     "WASHER_MAX_OD": "29",
     "WATER_3_POST_LOOP": "48.8 mm",
+    "WHITE_A_CUT": "495",
+    "WHITE_B_CUT": "454",
+    "WHITE_FLAVOR_FT": "3.11",
     "WR1110_LOOP": "83.7 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,374.83",
+    "BOM_GRAND": "$1,378.35",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$36.47",
     "BOM_SEC12": "$37.50",
@@ -93,6 +99,6 @@
     "BOM_SEC6": "$15.62",
     "BOM_SEC7": "$157.81",
     "BOM_SEC8": "$225.90",
-    "BOM_SEC9": "$68.95"
+    "BOM_SEC9": "$72.47"
   }
 }

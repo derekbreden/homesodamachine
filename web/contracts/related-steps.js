@@ -88,7 +88,7 @@ const COLLET_PRESS_TUBES = [
   /^tube-(?:carb|co2|customer|fluid|water)-/,
   /^(?:turn|step)-fluid-/,
   /^line-(?:carb-water-out|co2-in|reservoir-[ab](?:-fill)?|water-in)$/,
-  /^flavor_tube_(?:neg|pos)_x$/,
+  /^flavor_(?:umbilical_)?tube_(?:neg|pos)_x$/,
   /^soda_umbilical_tube$/,
 ];
 

@@ -61,8 +61,8 @@ The 3-tube umbilical from the faucet down to this wall is bundled into a single 
 
 - **Foam:** CARGEN nitrile rubber pipe insulation, 1/4" ID × 3/8" wall (`B0D2XFK337`, `bom.md §9`). Sized to slip over 1/4" OD LLDPE with a snug interference fit.
 - **Foam ships as 1-ft segments.** Install procedure: slide five segments onto the soda umbilical tube and butt them together along the run, laying a braid segment over each as it seats.
-- **Tube cutting:** the three LLDPE tubes are cut once each, to length, using the kit's Mudder PEX/PE tube cutter (`bom.md §14`), then pushed into the wall's PP1208E bulkheads.
-- **Foam segment count and total length:** five 1-ft CARGEN segments, 1425 mm total, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1.
+- **Tube cutting:** the three LLDPE tubes are cut to length — a White faucet's flavor tubes as a white run and a black run each, joined by a union — using the kit's Mudder PEX/PE tube cutter (`bom.md §14`), then pushed into the wall's PP1208E bulkheads.
+- **Foam segment count and total length:** five 1-ft CARGEN segments, over the length [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3 gives, from below the flavor unions' stretch to the wall.
 
 ## AC inlet recess
 
