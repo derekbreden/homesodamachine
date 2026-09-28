@@ -1,0 +1,95 @@
+{
+  "pass": true,
+  "native_archive": ".cache/prints/2026-09-28-display-retention-mark2/ready/display-cover-retention-black-z004-mark2-v12.gcode.3mf",
+  "native_archive_sha256": "1216e7ec7502bdc50ca3117e9d239eb158e8a245d9abd7c57543acd9cb8d687e",
+  "gcode_sha256": "e5886686470a27ee6d7940e4bb13743261eb8028af665e3186138a224b331001",
+  "staged_input_sha256": "9bfd34eeff81a3d540274a20e4277122b5051abd5bd2f59062c79b3abb743b97",
+  "source_hashes_current": true,
+  "native_export_settings_normalizations": {
+    "filament_map_2": [
+      null,
+      [
+        "1"
+      ]
+    ],
+    "filament_prime_volume": [
+      [
+        "30"
+      ],
+      [
+        "45"
+      ]
+    ]
+  },
+  "all_other_native_settings_match_staged": true,
+  "model_layers": {
+    "display-cover-retention-v2": {
+      "wall_layer_count": 64,
+      "first": [
+        0.2,
+        0.2
+      ],
+      "last": [
+        15.32,
+        0.24
+      ],
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.2
+    }
+  },
+  "layer_count": 64,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "slicer_return_code": 0,
+  "slicer_warning_message": "",
+  "object_count": 1,
+  "triangles": 2608,
+  "estimated_seconds": 2091.452880859375,
+  "estimated_grams_saved_profile_density": 13.76988697052002,
+  "path_bounds": {
+    "display-cover-retention-v2": {
+      "bounds_xy_mm": [
+        [
+          90.06400000000001,
+          118.39999999999999
+        ],
+        [
+          234.948,
+          201.74099999999999
+        ]
+      ],
+      "minimum_plate_clearance_mm": 90.05199999999999,
+      "feature_segment_counts": {
+        "Support": 36380,
+        "Inner wall": 1140,
+        "Outer wall": 1563,
+        "Bottom surface": 1178,
+        "Internal solid infill": 7502,
+        "Sparse infill": 1069,
+        "Bridge": 1265,
+        "Top surface": 932,
+        "Gap infill": 108,
+        "Support interface": 408,
+        "Overhang wall": 12,
+        "Floating vertical shell": 86
+      }
+    }
+  },
+  "path_gaps": [],
+  "support_summaries": {
+    "display-cover-retention-v2": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 10.32,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 10.32
+    }
+  },
+  "support_only_on_declared_object": true,
+  "submitted": false
+}
